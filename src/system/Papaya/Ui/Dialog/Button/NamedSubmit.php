@@ -39,7 +39,7 @@ class NamedSubmit extends Submit {
   /**
    * Initialize object, set caption and alignment
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param int|float|boolean|string $value
    * @param int $align

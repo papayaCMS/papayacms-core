@@ -30,14 +30,14 @@ abstract class Field extends Element {
   /**
    * Field caption
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   private $_caption = '';
 
   /**
    * Field Hint
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   private $_hint = '';
 
@@ -108,19 +108,19 @@ abstract class Field extends Element {
    * Set caption for this field, this can be a label or a title or something different depending
    * on the field implementation
    *
-   * The caption value itself can be an string or a \PapayaUiString object. The getter will
+   * The caption value itself can be an string or a \Papaya\Ui\PapayaUiString object. The getter will
    * cast it to a string.
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @throws \UnexpectedValueException
    */
   public function setCaption($caption) {
-    if (is_string($caption) || $caption instanceof \PapayaUiString) {
+    if (is_string($caption) || $caption instanceof \Papaya\Ui\Text) {
       $this->_caption = $caption;
     } else {
       throw new \UnexpectedValueException(
         sprintf(
-          'Unexpected value type: Expected "string" or "PapayaUiString" but "%s" given.',
+          'Unexpected value type: Expected "string" or "Papaya\Ui\PapayaUiString" but "%s" given.',
           is_object($caption) ? get_class($caption) : gettype($caption)
         )
       );
@@ -140,19 +140,19 @@ abstract class Field extends Element {
    * A hint/short description for the field. This is shown to the user to help him input the
    * correct value.
    *
-   * The hint value can be an string or a \PapayaUiString object. The getter will
+   * The hint value can be an string or a \Papaya\Ui\PapayaUiString object. The getter will
    * cast it to a string.
    *
-   * @param string|\PapayaUiString $hint
+   * @param string|\Papaya\Ui\Text $hint
    * @throws \UnexpectedValueException
    */
   public function setHint($hint) {
-    if (is_string($hint) || $hint instanceof \PapayaUiString) {
+    if (is_string($hint) || $hint instanceof \Papaya\Ui\Text) {
       $this->_hint = $hint;
     } else {
       throw new \UnexpectedValueException(
         sprintf(
-          'Unexpected value type: Expected "string" or "PapayaUiString" but "%s" given.',
+          'Unexpected value type: Expected "string" or "Papaya\Ui\PapayaUiString" but "%s" given.',
           is_object($hint) ? get_class($hint) : gettype($hint)
         )
       );

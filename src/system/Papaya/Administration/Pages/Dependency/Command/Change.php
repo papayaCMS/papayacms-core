@@ -59,7 +59,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
     $dialog = new \Papaya\Ui\Dialog\Database\Save($record);
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new \PapayaUiStringTranslated('Page dependency');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Page dependency');
     $dialog->parameterGroup('pagedep');
     $dialog->hiddenFields->merge(
       array(
@@ -75,22 +75,22 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
       )
     );
     $dialog->fields[] = $originIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
-      new \PapayaUiStringTranslated('Origin page'), 'origin_id', NULL, TRUE
+      new \Papaya\Ui\Text\Translated('Origin page'), 'origin_id', NULL, TRUE
     );
     $originIdField->setHint(
-      new \PapayaUiStringTranslated(
+      new \Papaya\Ui\Text\Translated(
         'The origin id must be a valid page, that is not a dependency itself.'
       )
     );
     $dialog->fields[] = $synchronizationField = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
-      new \PapayaUiStringTranslated('Synchronization'),
+      new \Papaya\Ui\Text\Translated('Synchronization'),
       'synchronization',
       $synchronizations->getList()
     );
     $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Textarea(
-      new \PapayaUiStringTranslated('Note'), 'note', 8, ''
+      new \Papaya\Ui\Text\Translated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateOriginAndSynchronizations');
     $dialog->callbacks()->onBeforeSave->context->originIdField = $originIdField;
@@ -160,7 +160,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
           $this->papaya()->messages->dispatch(
             new \Papaya\Message\Display(
               \Papaya\Message::SEVERITY_WARNING,
-              new \PapayaUiStringTranslated(
+              new \Papaya\Ui\Text\Translated(
                 'Views with different modules found. Please change befor activating'.
                 ' synchronization or synchronize view and content.'
               )

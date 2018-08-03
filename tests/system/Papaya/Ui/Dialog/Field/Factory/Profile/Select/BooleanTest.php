@@ -31,6 +31,6 @@ class PapayaUiDialogFieldFactoryProfileSelectBooleanTest extends \PapayaTestCase
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectBoolean();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select\Radio::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\PapayaUiStringTranslatedList::class, '_values', $field);
+    $this->assertAttributeInstanceOf(\Papaya\Ui\Text\Translated\Collection::class, '_values', $field);
   }
 }

@@ -69,7 +69,7 @@ class SelectFile
     } else {
       $field = new \Papaya\Ui\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_ERROR,
-        new \PapayaUiStringTranslated(
+        new \Papaya\Ui\Text\Translated(
           'Can not open directory "%s"', array($path)
         )
       );

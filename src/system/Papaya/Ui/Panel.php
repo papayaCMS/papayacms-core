@@ -54,7 +54,7 @@ abstract class Panel extends Control {
   /**
    * Set a caption for the panel
    *
-   * @param \PapayaUiString|string $caption
+   * @param \Papaya\Ui\Text|string $caption
    */
   public function setCaption($caption) {
     $this->_caption = $caption;

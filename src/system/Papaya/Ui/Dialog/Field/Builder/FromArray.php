@@ -206,10 +206,10 @@ class FromArray {
    * If a phrase could need a translation, this method is used to wrap it into an object.
    *
    * @param string $string
-   * @return string|\PapayaUiStringTranslated
+   * @return string|\Papaya\Ui\Text\Translated
    */
   private function _createPhrase($string) {
-    return $this->_translatePhrases ? new \PapayaUiStringTranslated($string) : $string;
+    return $this->_translatePhrases ? new \Papaya\Ui\Text\Translated($string) : $string;
   }
 
   /**

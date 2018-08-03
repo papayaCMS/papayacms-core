@@ -20,7 +20,7 @@ namespace Papaya\Ui\Panel;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $name
  * @property string $height
  * @property \Papaya\Ui\Reference $reference
@@ -65,7 +65,7 @@ class Frame extends \Papaya\Ui\Panel {
   /**
    * Initialize object and store parameters.
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param string $height
    */

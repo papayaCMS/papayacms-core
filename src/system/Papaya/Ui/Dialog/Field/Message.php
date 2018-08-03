@@ -36,8 +36,8 @@ class Message extends Information {
   /**
    * Create object and assign needed values
    *
-   * @param \PapayaUiString|string $severity
-   * @param string|\PapayaUiString $message
+   * @param \Papaya\Ui\Text|string $severity
+   * @param string|\Papaya\Ui\Text $message
    * @internal param string $image
    */
   public function __construct($severity, $message) {

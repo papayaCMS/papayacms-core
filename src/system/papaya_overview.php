@@ -355,7 +355,7 @@ class papaya_overview extends base_db {
   function getTopicsList($title, $width = 490, $showDetails = FALSE) {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
       $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \PapayaUiStringTranslated($title);
+      $listview->caption = new \Papaya\Ui\Text\Translated($title);
       $listview->toolbars()->topLeft->elements[] = $paging = new \PapayaUiToolbarPaging(
         array($this->paramName, 'filter_offset'),
         (int)$this->_topicsAbsCount,
@@ -373,7 +373,7 @@ class papaya_overview extends base_db {
       foreach ($this->topics as $topic) {
         $title = '';
         if (empty($topic['topic_title'])) {
-          $pageTitle = new \PapayaUiStringTranslated('No Title');
+          $pageTitle = new \Papaya\Ui\Text\Translated('No Title');
         } else {
           $pageTitle = $topic['topic_title'];
         }
@@ -399,21 +399,21 @@ class papaya_overview extends base_db {
         if (isset($topic['topic_modified']) && $topic['topic_modified'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new \PapayaUiStringTranslated('Modified'),
-            new \PapayaUiStringDate($topic['topic_modified'])
+            new \Papaya\Ui\Text\Translated('Modified'),
+            new \Papaya\Ui\Text\Date($topic['topic_modified'])
           );
         } else {
           $text .= sprintf(
             ', %s: %s',
-            new \PapayaUiStringTranslated('Created'),
-            new \PapayaUiStringDate($topic['topic_created'])
+            new \Papaya\Ui\Text\Translated('Created'),
+            new \Papaya\Ui\Text\Date($topic['topic_created'])
           );
         }
         if (isset($topic['topic_published']) && $topic['topic_published'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new \PapayaUiStringTranslated('Published'),
-            new \PapayaUiStringDate($topic['topic_published'])
+            new \Papaya\Ui\Text\Translated('Published'),
+            new \Papaya\Ui\Text\Date($topic['topic_published'])
           );
         }
         $listview->items[] = $item = new \Papaya\Ui\Listview\Item($image, $title);
@@ -755,10 +755,10 @@ class papaya_overview extends base_db {
       );
       $data = array();
       if (empty($data['filter_date_from'])) {
-        $data['filter_date_from'] = new \PapayaUiStringDate(time() - (86400 * 7));
+        $data['filter_date_from'] = new \Papaya\Ui\Text\Date(time() - (86400 * 7));
       }
       if (empty($data['filter_date_to'])) {
-        $data['filter_date_to'] = new \PapayaUiStringDate(time() + 86400);
+        $data['filter_date_to'] = new \Papaya\Ui\Text\Date(time() + 86400);
       }
       $statusComboValue = array(
         'all' => $this->_gt('All'),
@@ -814,8 +814,8 @@ class papaya_overview extends base_db {
           FALSE,
           'checkgroup',
           array(
-            'meta' => new \PapayaUiStringTranslated('Meta Tags'),
-            'boxes' => new \PapayaUiStringTranslated('Boxes')
+            'meta' => new \Papaya\Ui\Text\Translated('Meta Tags'),
+            'boxes' => new \Papaya\Ui\Text\Translated('Boxes')
           )
         )
       );
@@ -827,7 +827,7 @@ class papaya_overview extends base_db {
       $this->dialogSearch->buttonTitle = 'Search';
       $this->dialogSearch->inputFieldSize = 'x-small';
       $this->dialogSearch->dialogDoubleButtons = FALSE;
-      $this->dialogSearch->addButton('search_clear', new \PapayaUiStringTranslated('Reset'));
+      $this->dialogSearch->addButton('search_clear', new \Papaya\Ui\Text\Translated('Reset'));
     }
   }
 

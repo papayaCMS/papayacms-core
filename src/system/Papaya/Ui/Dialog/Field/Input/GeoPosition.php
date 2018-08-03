@@ -17,9 +17,9 @@ namespace Papaya\Ui\Dialog\Field\Input;
 /**
  * A single line input for a geographic position
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $name
- * @property string|\PapayaUiString $hint
+ * @property string|\Papaya\Ui\Text $hint
  * @property string $defaultValue
  * @property boolean $mandatory
  *
@@ -51,7 +51,7 @@ class GeoPosition extends \Papaya\Ui\Dialog\Field\Input {
   /**
    * Create field, set caption, name, defaultvalue and mandatory status
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param integer|NULL $default
    * @param boolean $mandatory

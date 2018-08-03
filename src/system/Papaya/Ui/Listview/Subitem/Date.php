@@ -21,14 +21,14 @@ namespace Papaya\Ui\Listview\Subitem;
  * @subpackage Ui
  *
  * @property int $align
- * @property string|\PapayaUiString $text
+ * @property string|\Papaya\Ui\Text $text
  * @property int $timestamp
  */
 class Date extends \Papaya\Ui\Listview\Subitem {
 
-  const SHOW_DATE = \PapayaUiStringDate::SHOW_DATE;
-  const SHOW_TIME = \PapayaUiStringDate::SHOW_TIME;
-  const SHOW_SECONDS = \PapayaUiStringDate::SHOW_SECONDS;
+  const SHOW_DATE = \Papaya\Ui\Text\Date::SHOW_DATE;
+  const SHOW_TIME = \Papaya\Ui\Text\Date::SHOW_TIME;
+  const SHOW_SECONDS = \Papaya\Ui\Text\Date::SHOW_SECONDS;
 
   /**
    * @var int
@@ -77,7 +77,7 @@ class Date extends \Papaya\Ui\Listview\Subitem {
         'align' => \Papaya\Ui\Option\Align::getString($this->getAlign())
       ),
       (string)(
-      $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''
+      $this->_timestamp > 0 ? new \Papaya\Ui\Text\Date($this->_timestamp, $this->_options) : ''
       )
     );
   }

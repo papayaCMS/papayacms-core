@@ -21,9 +21,9 @@
 *
 * @property \Papaya\Ui\Reference $reference
 * @property string $parameterName
-* @property string|\PapayaUiString $caption
+* @property string|\Papaya\Ui\Text $caption
 * @property Traversable|array $options
-* @property string|\PapayaUiString $defaultOption
+* @property string|\Papaya\Ui\Text $defaultOption
 * @property string|integer|boolean $currentValue
 */
 class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {

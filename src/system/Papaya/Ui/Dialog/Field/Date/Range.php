@@ -41,7 +41,7 @@ class Range extends \Papaya\Ui\Dialog\Field {
   /**
    * Creates dialog field for date range, two inputs for a start and an end value
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param boolean $mandatory
    * @param int $includeTime
@@ -138,7 +138,7 @@ class Range extends \Papaya\Ui\Dialog\Field {
       $this->_labels = $labels;
     } elseif (NULL === $this->_labels) {
       if ($this->papaya()->request->isAdministration) {
-        $this->_labels = new \PapayaUiStringTranslatedList(
+        $this->_labels = new \Papaya\Ui\Text\Translated\Collection(
           [
             'page-in' => 'In (Year, Year-Month)',
             'page-fromto' => 'Date Between',

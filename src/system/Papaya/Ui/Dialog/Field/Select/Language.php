@@ -46,7 +46,7 @@ class Language extends \Papaya\Ui\Dialog\Field\Select {
     if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
       $values = new \Papaya\Iterator\Union(
         \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-        array($any => new \PapayaUiStringTranslated('Any')),
+        array($any => new \Papaya\Ui\Text\Translated('Any')),
         $items
       );
     } else {

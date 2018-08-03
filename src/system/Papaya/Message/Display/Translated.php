@@ -32,6 +32,6 @@ class Translated extends \Papaya\Message\Display {
    * @param array $parameters message parameters
    */
   public function __construct($type, $message, array $parameters = array()) {
-    parent::__construct($type, new \PapayaUiStringTranslated($message, $parameters));
+    parent::__construct($type, new \Papaya\Ui\Text\Translated($message, $parameters));
   }
 }

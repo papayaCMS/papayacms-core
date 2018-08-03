@@ -32,7 +32,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestC
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\PapayaUiStringTranslatedList::class, '_values', $field);
+    $this->assertAttributeInstanceOf(\Papaya\Ui\Text\Translated\Collection::class, '_values', $field);
   }
 
   /**

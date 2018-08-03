@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $name
  * @property string $hint
  * @property string|NULL $defaultValue

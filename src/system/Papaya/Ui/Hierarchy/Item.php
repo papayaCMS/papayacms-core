@@ -22,8 +22,8 @@ namespace Papaya\Ui\Hierarchy;
  * @subpackage Ui
  *
  * @property string $image
- * @property string|\PapayaUiString $caption
- * @property string|\PapayaUiString $hint
+ * @property string|\Papaya\Ui\Text $caption
+ * @property string|\Papaya\Ui\Text $hint
  * @property int $displayMode
  * @property \Papaya\Ui\Reference $reference
  */

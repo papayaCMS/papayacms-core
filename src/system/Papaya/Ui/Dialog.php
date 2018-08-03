@@ -20,7 +20,7 @@ namespace Papaya\Ui;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $image
  * @property \Papaya\Ui\Dialog\Element\Description $description
  * @property \Papaya\Ui\Dialog\Fields $fields
@@ -56,7 +56,7 @@ class Dialog extends Control\Interactive {
   /**
    * Dialog caption text  *
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   private $_caption = '';
 
@@ -501,11 +501,11 @@ class Dialog extends Control\Interactive {
   /**
    * Get/Set dialog title
    *
-   * For now this is only a string/\PapayaUiString but i can imagine that it will become
+   * For now this is only a string/\Papaya\Ui\PapayaUiString but i can imagine that it will become
    * a more complex subobject later allowing an icon and buttons.
    *
-   * @param string|\PapayaUiString $caption
-   * @return string|\PapayaUiString
+   * @param string|\Papaya\Ui\Text $caption
+   * @return string|\Papaya\Ui\Text
    */
   public function caption($caption = NULL) {
     if (NULL !== $caption) {
@@ -517,8 +517,8 @@ class Dialog extends Control\Interactive {
   /**
    * Deprecated alias for {@see self::caption()}.
    *
-   * @param string|\PapayaUiString $caption
-   * @return string|\PapayaUiString
+   * @param string|\Papaya\Ui\Text $caption
+   * @return string|\Papaya\Ui\Text
    */
   public function title($caption) {
     return $this->caption($caption);

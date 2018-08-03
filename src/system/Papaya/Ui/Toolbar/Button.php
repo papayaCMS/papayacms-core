@@ -20,8 +20,8 @@
 * @subpackage Ui
 *
 * @property \Papaya\Ui\Reference $reference
-* @property string|\PapayaUiString $caption
-* @property string|\PapayaUiString $hint
+* @property string|\Papaya\Ui\Text $caption
+* @property string|\Papaya\Ui\Text $hint
 * @property boolean $selected
 * @property string $accessKey
 * @property string $target
@@ -39,14 +39,14 @@ class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
   /**
   * Button caption. The button needs a caption or/and an image
   *
-  * @var string|\PapayaUiString
+  * @var string|\Papaya\Ui\Text
   */
   protected $_caption = '';
 
   /**
   * Button quickinfo
   *
-  * @var string|\PapayaUiString
+  * @var string|\Papaya\Ui\Text
   */
   protected $_hint = '';
 

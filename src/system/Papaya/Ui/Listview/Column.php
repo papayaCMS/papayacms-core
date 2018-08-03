@@ -21,14 +21,14 @@ namespace Papaya\Ui\Listview;
  * @subpackage Ui
  *
  * @property integer $align
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  */
 class Column extends \Papaya\Ui\Control\Collection\Item {
 
   /**
    * Current caption value
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_caption = '';
 
@@ -52,7 +52,7 @@ class Column extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Initialize object and set standard values.
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param integer $align
    */
   public function __construct($caption, $align = \Papaya\Ui\Option\Align::LEFT) {

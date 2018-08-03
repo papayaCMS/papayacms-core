@@ -23,7 +23,7 @@ namespace Papaya\Ui;
  * @property \Papaya\Ui\Listview\Columns $columns
  * @property \Papaya\Ui\Listview\Items $items
  * @property \PapayaUiToolbars $toolbars
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $mode
  * @property \Papaya\Ui\Reference $reference
  */

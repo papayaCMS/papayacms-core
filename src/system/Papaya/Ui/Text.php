@@ -13,40 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Papaya Interface String, an object representing a text for interface usage.
-*
-* It allows to create a string object later casted to string. The basic string can
-* be a pattern (using sprintf syntax).
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiString extends \Papaya\Application\BaseObject {
+ * Papaya Interface String, an object representing a text for interface usage.
+ *
+ * It allows to create a string object later casted to string. The basic string can
+ * be a pattern (using sprintf syntax).
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Text extends \Papaya\Application\BaseObject {
 
   /**
-  * String pattern
-  * @var string
-  */
+   * String pattern
+   *
+   * @var string
+   */
   protected $_pattern = '';
 
   /**
-  * Pattern values
-  * @var array
-  */
+   * Pattern values
+   *
+   * @var array
+   */
   protected $_values = array();
 
   /**
-  * Buffered/cached result string
-  * @var string
-  */
+   * Buffered/cached result string
+   *
+   * @var string
+   */
   protected $_string = NULL;
 
   /**
-  * Create object and store arguments into variables
-  *
-  * @param $pattern
-  * @param $values
+   * Create object and store arguments into variables
+   *
+   * @param $pattern
+   * @param $values
    */
   public function __construct($pattern, array $values = array()) {
     \Papaya\Utility\Constraints::assertString($pattern);
@@ -56,10 +60,10 @@ class PapayaUiString extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Allow to cast the object into a string, compiling the pattern and values into a result string.
-  *
-  * return string
-  */
+   * Allow to cast the object into a string, compiling the pattern and values into a result string.
+   *
+   * return string
+   */
   public function __toString() {
     if (is_null($this->_string)) {
       $this->_string = $this->compile($this->_pattern, $this->_values);

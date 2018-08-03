@@ -91,21 +91,21 @@ class Dialog extends \Papaya\Plugin\Editor {
 
     if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {
       $dialog->caption = new \Papaya\Administration\Languages\Caption(
-        new \PapayaUiStringTranslated('Edit content')
+        new \Papaya\Ui\Text\Translated('Edit content')
       );
       $dialog->image = new \Papaya\Administration\Languages\Image();
       $dialog->parameterGroup('content');
     } elseif ($this->getData() instanceof \Papaya\Plugin\Editable\Options) {
-      $dialog->caption = new \PapayaUiStringTranslated('Edit options');
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Edit options');
       $dialog->parameterGroup('options');
     } else {
-      $dialog->caption = new \PapayaUiStringTranslated('Edit properties');
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Edit properties');
       $dialog->parameterGroup('properties');
     }
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
 
     return $dialog;
   }

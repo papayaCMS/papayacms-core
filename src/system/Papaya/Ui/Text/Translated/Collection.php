@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Text\Translated;
 /**
-* A list of string (objects) that will be translated if cast to string.
-*
-* It takes an array or an traversable, cast each element (if read) to string and returns a
-* PapayaUiStringTranslated for it.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiStringTranslatedList
+ * A list of string (objects) that will be translated if cast to string.
+ *
+ * It takes an array or an traversable, cast each element (if read) to string and returns a
+ * Papaya\Ui\Text\PapayaUiStringTranslated for it.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Collection
   extends \IteratorIterator
   implements \Papaya\Application\Access {
 
@@ -37,9 +38,10 @@ class PapayaUiStringTranslatedList
   private $_phrasesGroupName = NULL;
 
   /**
-  * Application object
-  * @var string
-  */
+   * Application object
+   *
+   * @var string
+   */
   protected $_applicationObject = NULL;
 
   /**
@@ -62,7 +64,7 @@ class PapayaUiStringTranslatedList
    * @return string
    */
   public function current() {
-    $current = new \PapayaUiStringTranslated(
+    $current = new \Papaya\Ui\Text\Translated(
       (string)parent::current(),
       array(),
       $this->_phrases,

@@ -21,8 +21,8 @@ namespace Papaya\Ui\Listview;
  * @subpackage Ui
  *
  * @property string $image
- * @property string|\PapayaUiString $caption
- * @property string|\PapayaUiString $text
+ * @property string|\Papaya\Ui\Text $caption
+ * @property string|\Papaya\Ui\Text $text
  * @property NULL|array $actionParameters
  * @property integer $indentation
  * @property integer $columnSpan
@@ -133,7 +133,7 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
    *
    *
    * @param string $image
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param array $actionParameters
    * @param bool $selected
    */

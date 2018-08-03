@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|\PapayaUiString $caption
+* @property string|\Papaya\Ui\Text $caption
 * @property \PapayaUiToolbarElements $elements
 */
 class PapayaUiToolbarGroup
@@ -28,7 +28,7 @@ class PapayaUiToolbarGroup
   /**
   * A caption for the group
   *
-  * @var string|\PapayaUiString
+  * @var string|\Papaya\Ui\Text
   */
   protected $_caption = '';
 
@@ -45,7 +45,7 @@ class PapayaUiToolbarGroup
   /**
   * Create object and store group caption
   *
-  * @param string|\PapayaUiString $caption
+  * @param string|\Papaya\Ui\Text $caption
   */
   public function __construct($caption) {
     $this->_caption = $caption;

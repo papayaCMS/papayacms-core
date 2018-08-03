@@ -34,7 +34,7 @@ class SelectTranslated
     return new \Papaya\Ui\Dialog\Field\Select(
       $this->options()->caption,
       $this->options()->name,
-      new \PapayaUiStringTranslatedList($elements)
+      new \Papaya\Ui\Text\Translated\Collection($elements)
     );
   }
 }

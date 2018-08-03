@@ -38,7 +38,7 @@ class Remove
     }
     $dialog = new \Papaya\Ui\Dialog\Database\Delete($this->record());
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \PapayaUiStringTranslated('Delete theme set');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Delete theme set');
     if ($loaded) {
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -50,10 +50,10 @@ class Remove
         )
       );
       $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-        new \PapayaUiStringTranslated('Delete theme set'),
+        new \Papaya\Ui\Text\Translated('Delete theme set'),
         'places-trash'
       );
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Delete'));
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
       $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(

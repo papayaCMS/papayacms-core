@@ -63,7 +63,7 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   */
   public function testAppendToWithInterfaceStringObject() {
     $caption = $this
-      ->getMockBuilder(\PapayaUiString::class)
+      ->getMockBuilder(\Papaya\Ui\Text::class)
       ->setConstructorArgs(array('.'))
       ->getMock();
     $caption

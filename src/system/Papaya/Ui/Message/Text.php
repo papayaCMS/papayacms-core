@@ -70,7 +70,7 @@ class Text extends \Papaya\Ui\Message {
   /**
    * Set the content string. This can be an object, if it is castable.
    *
-   * @param string|\PapayaUiString $content
+   * @param string|\Papaya\Ui\Text $content
    */
   public function setContent($content) {
     $this->_content = $content;

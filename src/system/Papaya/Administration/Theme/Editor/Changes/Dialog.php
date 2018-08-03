@@ -55,7 +55,7 @@ class Dialog
     }
     $dialog = new \Papaya\Ui\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
-      $dialog->caption = new \PapayaUiStringTranslated('Dynamic Values: %s', array($page->title));
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Dynamic Values: %s', array($page->title));
       $dialog->options->topButtons = TRUE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -96,19 +96,19 @@ class Dialog
       if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
-          new \PapayaUiStringTranslated('Invalid value definition!')
+          new \Papaya\Ui\Text\Translated('Invalid value definition!')
         );
       } else {
-        $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
+        $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
         $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
         $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
       }
     } else {
-      $dialog->caption = new \PapayaUiStringTranslated('Error');
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Error');
       if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
-          new \PapayaUiStringTranslated('Theme page not found!')
+          new \Papaya\Ui\Text\Translated('Theme page not found!')
         );
       }
     }

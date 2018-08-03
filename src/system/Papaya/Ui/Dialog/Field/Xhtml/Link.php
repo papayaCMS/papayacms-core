@@ -39,8 +39,8 @@ class Link extends \Papaya\Ui\Dialog\Field {
   /**
    * Create object and assign needed values.
    *
-   * @param string|\PapayaUiString $url
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $url
+   * @param string|\Papaya\Ui\Text $caption
    */
   public function __construct($url, $caption = NULL) {
     $this->_url = $url;

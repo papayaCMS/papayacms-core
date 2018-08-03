@@ -29,7 +29,7 @@ namespace Papaya\Ui;
  *
  * @property integer $severity
  * @property boolean $occured
- * @property string|\PapayaUiString $event
+ * @property string|\Papaya\Ui\Text $event
  */
 abstract class Message
   extends Control {

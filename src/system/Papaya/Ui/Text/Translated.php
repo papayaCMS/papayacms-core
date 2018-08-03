@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Text;
 /**
-* Papaya Interface String Translated, a string object that will be translated before usage
-*
-* It allows to create a string object later casted to string. The basic string can
-* be a pattern (using sprintf syntax).
-*
-* Additionally the pattern will be translated into the current user language before the values are
-* inserted.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiStringTranslated extends \PapayaUiString {
+ * Papaya Interface String Translated, a string object that will be translated before usage
+ *
+ * It allows to create a string object later casted to string. The basic string can
+ * be a pattern (using sprintf syntax).
+ *
+ * Additionally the pattern will be translated into the current user language before the values are
+ * inserted.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Translated extends \Papaya\Ui\Text {
 
   /**
    * @var \Papaya\Phrases
@@ -46,10 +47,10 @@ class PapayaUiStringTranslated extends \PapayaUiString {
   }
 
   /**
-  * Allow to cast the object into a string, compiling the pattern and values into a result string.
-  *
-  * return string
-  */
+   * Allow to cast the object into a string, compiling the pattern and values into a result string.
+   *
+   * return string
+   */
   public function __toString() {
     if (is_null($this->_string)) {
       $this->_string = $this->compile(
@@ -60,10 +61,10 @@ class PapayaUiStringTranslated extends \PapayaUiString {
   }
 
   /**
-  * Translate a string using the phrase translations (only availiable in administration mode)
-  *
-  * return string
-  */
+   * Translate a string using the phrase translations (only availiable in administration mode)
+   *
+   * return string
+   */
   protected function translate($string) {
     \Papaya\Utility\Constraints::assertString($string);
     $application = $this->papaya();

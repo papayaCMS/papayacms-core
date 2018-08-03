@@ -65,23 +65,23 @@ class Dialog extends \Papaya\Ui\Dialog {
    * Set options and create dialog fields
    */
   public function prepare() {
-    $this->caption = new \PapayaUiStringTranslated('Users');
+    $this->caption = new \Papaya\Ui\Text\Translated('Users');
     $this->options->dialogWidth = \Papaya\Ui\Dialog\Options::SIZE_SMALL;
     $this->options->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
     $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
-      new \PapayaUiStringTranslated('Search'),
+      new \Papaya\Ui\Text\Translated('Search'),
       $this->_parameterNames['filter']
     );
     $this->fields[] = $buttons = new \Papaya\Ui\Dialog\Field\Buttons();
     $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \PapayaUiStringTranslated('Filter'),
+      new \Papaya\Ui\Text\Translated('Filter'),
       \Papaya\Ui\Dialog\Button::ALIGN_RIGHT
     );
     $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
-      new \PapayaUiStringTranslated('Reset'),
+      new \Papaya\Ui\Text\Translated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,
       \Papaya\Ui\Dialog\Button::ALIGN_LEFT

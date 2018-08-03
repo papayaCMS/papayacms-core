@@ -274,7 +274,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
       $current = $this->getCurrentPage();
       if ($current > 2) {
         $this->appendArrowButton(
-          $parent, 1, 'actions-go-first', new \PapayaUiStringTranslated('First page')
+          $parent, 1, 'actions-go-first', new \Papaya\Ui\Text\Translated('First page')
         );
       }
       if ($current > 1) {
@@ -282,7 +282,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
           $parent,
           $current - 1,
           'actions-go-previous',
-          new \PapayaUiStringTranslated('Previous page')
+          new \Papaya\Ui\Text\Translated('Previous page')
         );
       }
       for ($page = $this->_minimumPage; $page <= $this->_maximumPage; ++$page) {
@@ -304,12 +304,12 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
       }
       if ($current < $this->_lastPage) {
         $this->appendArrowButton(
-          $parent, $current + 1, 'actions-go-next', new \PapayaUiStringTranslated('Next page')
+          $parent, $current + 1, 'actions-go-next', new \Papaya\Ui\Text\Translated('Next page')
         );
       }
       if ($current < $this->_lastPage - 1) {
         $this->appendArrowButton(
-          $parent, $this->_lastPage, 'actions-go-last', new \PapayaUiStringTranslated('Last page')
+          $parent, $this->_lastPage, 'actions-go-last', new \Papaya\Ui\Text\Translated('Last page')
         );
       }
     }
@@ -337,7 +337,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   * @param \Papaya\Xml\Element $parent
   * @param integer $page
   * @param string $image
-  * @param string|\PapayaUiString $hint
+  * @param string|\Papaya\Ui\Text $hint
   */
   private function appendArrowButton(\Papaya\Xml\Element $parent, $page, $image, $hint) {
     $reference = clone $this->reference();

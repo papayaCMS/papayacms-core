@@ -140,7 +140,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   */
   public function testGetWithObjectDefaultValueExpectingParameterValue() {
     $defaultValue = $this
-      ->getMockBuilder(\PapayaUiString::class)
+      ->getMockBuilder(\Papaya\Ui\Text::class)
       ->disableOriginalConstructor()
       ->getMock();
     $parameters = new \Papaya\BaseObject\Parameters();
@@ -160,7 +160,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   */
   public function testGetWithObjectDefaultValueExpectingDefaultValue() {
     $defaultValue = $this
-      ->getMockBuilder(\PapayaUiString::class)
+      ->getMockBuilder(\Papaya\Ui\Text::class)
       ->setMethods(array('__toString'))
       ->setConstructorArgs(array(' '))
       ->getMock();

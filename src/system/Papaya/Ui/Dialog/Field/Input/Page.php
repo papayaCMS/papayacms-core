@@ -20,9 +20,9 @@ namespace Papaya\Ui\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $name
- * @property string|\PapayaUiString $hint
+ * @property string|\Papaya\Ui\Text $hint
  * @property integer|NULL $defaultValue
  * @property boolean $mandatory
  */
@@ -51,7 +51,7 @@ class Page extends \Papaya\Ui\Dialog\Field\Input {
   /**
    * Create field, set caption, name, defaultvalue and mandatory status
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param integer|NULL $default
    * @param boolean $mandatory

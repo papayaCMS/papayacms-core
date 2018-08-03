@@ -22,7 +22,7 @@ namespace Papaya\Ui\Listview\Subitem;
  *
  * @property integer $align
  * @property string $image
- * @property string|\PapayaUiString $hint
+ * @property string|\Papaya\Ui\Text $hint
  * @property array $actionParameters
  * @property \Papaya\Ui\Reference $reference
  */
@@ -37,7 +37,7 @@ class Image extends Text {
   /**
    * buffer for text variable
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_hint = '';
 
@@ -64,7 +64,7 @@ class Image extends Text {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param \PapayaUiString|string $image
+   * @param \Papaya\Ui\Text|string $image
    * @param string $hint
    * @param array $actionParameters
    */

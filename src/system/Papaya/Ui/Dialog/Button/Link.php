@@ -22,7 +22,7 @@ namespace Papaya\Ui\Dialog\Button;
  *
  *   $dialog->buttons()->add(
  *     new \Papaya\Ui\Dialog\Button\PapayaUiDialogButtonSubmit(
- *       new \PapayaUiStringTranslated('Save')
+ *       new \Papaya\Ui\Text\PapayaUiStringTranslated('Save')
  *     ),
  *     \Papaya\Ui\Dialog\PapayaUiDialogButton::ALIGN_LEFT
  *   );
@@ -35,7 +35,7 @@ class Link extends \Papaya\Ui\Dialog\Button {
   /**
    * Button caption
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_caption = 'Submit';
 
@@ -47,7 +47,7 @@ class Link extends \Papaya\Ui\Dialog\Button {
   /**
    * Initialize object, set caption and alignment
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param integer $align
    */
   public function __construct($caption, $align = \Papaya\Ui\Dialog\Button::ALIGN_RIGHT) {

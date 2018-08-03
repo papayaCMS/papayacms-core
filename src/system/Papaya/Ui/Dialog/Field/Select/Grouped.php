@@ -51,7 +51,7 @@ class Grouped extends \Papaya\Ui\Dialog\Field\Select {
    *   );
    *
    * In this case the group label can be an object that support string casting
-   * (@see \PapayaUiString).
+   * (@see \Papaya\Ui\PapayaUiString).
    *
    * @param array $values
    */

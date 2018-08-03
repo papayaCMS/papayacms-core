@@ -897,7 +897,7 @@ class papaya_options extends base_options {
     );
     $result .= sprintf(
       '<option value="">%s</option>'.LF,
-      new \PapayaUiStringTranslated('None')
+      new \Papaya\Ui\Text\Translated('None')
     );
     $current = $this->papaya()->options->get('PAPAYA_LAYOUT_THEME_SET', '');
     foreach ($themeSets as $themeSet) {

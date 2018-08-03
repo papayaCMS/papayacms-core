@@ -34,7 +34,7 @@ class Xhtml extends \Papaya\Ui\Dialog\Field {
   /**
    * Create object and assign needed values.
    *
-   * @param string|\PapayaUiString|\Papaya\Xml\Element $content
+   * @param string|\Papaya\Ui\Text|\Papaya\Xml\Element $content
    */
   public function __construct($content = NULL) {
     if (isset($content)) {
@@ -45,7 +45,7 @@ class Xhtml extends \Papaya\Ui\Dialog\Field {
   /**
    * Getter/Setter for xhtml content.
    *
-   * @param string|\PapayaUiString|\Papaya\Xml\Element $content
+   * @param string|\Papaya\Ui\Text|\Papaya\Xml\Element $content
    * @throws \InvalidArgumentException
    * @return \Papaya\Xml\Element
    */
@@ -53,7 +53,7 @@ class Xhtml extends \Papaya\Ui\Dialog\Field {
     if (isset($content)) {
       if ($content instanceof \Papaya\Xml\Element) {
         $this->_content = $content;
-      } elseif (is_string($content) || $content instanceof \PapayaUiString) {
+      } elseif (is_string($content) || $content instanceof \Papaya\Ui\Text) {
         $this->content()->appendXml((string)$content);
       } else {
         throw new \InvalidArgumentException('Content must be string or valid xml element object');

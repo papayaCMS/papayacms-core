@@ -31,7 +31,7 @@ class Richtext extends \Papaya\Ui\Dialog\Field\Textarea {
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param integer $lines
    * @param mixed $default

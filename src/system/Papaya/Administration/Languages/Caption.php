@@ -32,7 +32,7 @@ class Caption extends \Papaya\Application\BaseObject {
   /**
    * Create object and store arguments into variables
    *
-   * @param string|\PapayaUiString $string
+   * @param string|\Papaya\Ui\Text $string
    * @param string $separator
    */
   public function __construct($string = '', $separator = ' - ') {

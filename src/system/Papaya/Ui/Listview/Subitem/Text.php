@@ -21,7 +21,7 @@ namespace Papaya\Ui\Listview\Subitem;
  * @subpackage Ui
  *
  * @property integer $align
- * @property string|\PapayaUiString $text
+ * @property string|\Papaya\Ui\Text $text
  * @property array $actionParameters
  * @property \Papaya\Ui\Reference $reference
  */
@@ -30,7 +30,7 @@ class Text extends \Papaya\Ui\Listview\Subitem {
   /**
    * buffer for text variable
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_text = '';
 
@@ -61,7 +61,7 @@ class Text extends \Papaya\Ui\Listview\Subitem {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param string|\PapayaUiString $text
+   * @param string|\Papaya\Ui\Text $text
    * @param array $actionParameters
    */
   public function __construct($text, array $actionParameters = NULL) {

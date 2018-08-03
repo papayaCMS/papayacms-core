@@ -42,7 +42,7 @@ class Temporary extends \Papaya\Ui\Dialog\Field {
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    */
   public function __construct($caption, $name) {

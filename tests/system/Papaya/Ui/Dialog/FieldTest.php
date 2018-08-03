@@ -34,7 +34,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   */
   public function testGetCaption() {
     $string = $this
-      ->getMockBuilder(\PapayaUiString::class)
+      ->getMockBuilder(\Papaya\Ui\Text::class)
       ->setConstructorArgs(array('.'))
       ->getMock();
     $string
@@ -77,7 +77,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   */
   public function testGetHint() {
     $string = $this
-      ->getMockBuilder(\PapayaUiString::class)
+      ->getMockBuilder(\Papaya\Ui\Text::class)
       ->setConstructorArgs(array('.'))
       ->getMock();
     $string

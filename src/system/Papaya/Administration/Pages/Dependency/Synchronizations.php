@@ -106,8 +106,8 @@ class Synchronizations {
       foreach ($this->_definitions as $synchronization => $data) {
         $this->_icons[$synchronization] = new \PapayaUiIcon(
           $data['image'],
-          new \PapayaUiStringTranslated($data['caption']),
-          new \PapayaUiStringTranslated($data['hint'])
+          new \Papaya\Ui\Text\Translated($data['caption']),
+          new \Papaya\Ui\Text\Translated($data['hint'])
         );
       }
     }
@@ -123,7 +123,7 @@ class Synchronizations {
     if (is_null($this->_list)) {
       $this->_list = array();
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_list[$synchronization] = new \PapayaUiStringTranslated($data['caption']);
+        $this->_list[$synchronization] = new \Papaya\Ui\Text\Translated($data['caption']);
       }
     }
     return $this->_list;

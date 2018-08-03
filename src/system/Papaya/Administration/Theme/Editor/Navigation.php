@@ -39,7 +39,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);
       $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
-      $button->caption = new \PapayaUiStringTranslated('Add set');
+      $button->caption = new \Papaya\Ui\Text\Translated('Add set');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
         array(
@@ -51,7 +51,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
       );
       if (0 < $setId) {
         $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
-        $button->caption = new \PapayaUiStringTranslated('Delete set');
+        $button->caption = new \Papaya\Ui\Text\Translated('Delete set');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
           array(
@@ -63,7 +63,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
         );
       }
       $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
-      $button->caption = new \PapayaUiStringTranslated('Import');
+      $button->caption = new \Papaya\Ui\Text\Translated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
         array(
@@ -75,7 +75,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
       );
       if (0 < $setId) {
         $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
-        $button->caption = new \PapayaUiStringTranslated('Export');
+        $button->caption = new \Papaya\Ui\Text\Translated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(
           array(
@@ -103,7 +103,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
       $this->_listview = new \Papaya\Ui\Listview();
-      $this->_listview->caption = new \PapayaUiStringTranslated('Themes');
+      $this->_listview->caption = new \Papaya\Ui\Text\Translated('Themes');
       $this->_listview->builder(
         $builder = new \Papaya\Ui\Listview\Items\Builder(
           new \RecursiveIteratorIterator(

@@ -94,7 +94,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
       'name',
       array(
         array(
-          'caption' => new \PapayaUiString('Group Caption'),
+          'caption' => new \Papaya\Ui\Text('Group Caption'),
           'options' => array(21 => 'half', 42 => 'full')
         )
       )

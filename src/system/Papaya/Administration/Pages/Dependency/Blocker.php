@@ -104,7 +104,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
 
     $dialog = new \Papaya\Ui\Dialog();
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \PapayaUiStringTranslated('Page dependency');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Page dependency');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->options->useToken = FALSE;
     $dialog->hiddenFields->merge(
@@ -113,14 +113,14 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
       )
     );
     $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-      new \PapayaUiStringTranslated(
+      new \Papaya\Ui\Text\Translated(
         'This part of the page is synchronized with page "%s #%d".',
         array($pageTitle, $pageId)
       ),
       'status-system-locked'
     );
     $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \PapayaUiStringTranslated('GoTo Origin Page')
+      new \Papaya\Ui\Text\Translated('GoTo Origin Page')
     );
     $dialog->appendTo($parent);
     return $dialog;

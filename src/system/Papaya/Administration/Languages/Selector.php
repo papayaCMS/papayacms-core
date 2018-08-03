@@ -109,7 +109,7 @@ class Selector extends \Papaya\Ui\Control\Interactive {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
-      array('title' => new \PapayaUiStringTranslated('Content Language'))
+      array('title' => new \Papaya\Ui\Text\Translated('Content Language'))
     );
     foreach ($this->languages() as $id => $language) {
       $reference = new \Papaya\Ui\Reference();

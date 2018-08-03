@@ -21,9 +21,9 @@
 *
 * @property \Papaya\Ui\Reference $reference
 * @property string $parameterName
-* @property string|\PapayaUiString $caption
+* @property string|\Papaya\Ui\Text $caption
 * @property Traversable|array $options
-* @property string|\PapayaUiString $defaultOption
+* @property string|\Papaya\Ui\Text $defaultOption
 * @property string|integer|boolean $currentValue
 * @property mixed defaultValue
  * @property mixed defaultCaption
@@ -55,7 +55,7 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   * Caption for a default option, added as first element. The value of this option element will
   * be an empty string.
   *
-  * @var string|\PapayaUiString
+  * @var string|\Papaya\Ui\Text
   */
   protected $_defaultCaption = '';
 

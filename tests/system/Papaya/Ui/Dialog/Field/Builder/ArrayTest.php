@@ -201,7 +201,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertAttributeInstanceOf(
-      \PapayaUiStringTranslated::class, '_caption', $fields[0]
+      \Papaya\Ui\Text\Translated::class, '_caption', $fields[0]
     );
   }
 

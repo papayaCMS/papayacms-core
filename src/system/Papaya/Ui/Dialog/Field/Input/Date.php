@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property string $name
  * @property string $hint
  * @property string|NULL $defaultValue
@@ -70,7 +70,7 @@ class Date extends \Papaya\Ui\Dialog\Field\Input {
    * Creates dialog field for date input with caption, name, default value and
    * mandatory status
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param integer $default
    * @param boolean $mandatory

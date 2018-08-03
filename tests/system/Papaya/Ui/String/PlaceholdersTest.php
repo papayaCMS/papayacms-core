@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiStringPlaceholdersTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiStringPlaceholders
+   * @covers \Papaya\Ui\Text\Placeholders
    * @dataProvider providePlaceholderExamples
    * @param string $expected
    * @param string $string
    * @param array $values
    */
   public function testPlaceholdersToString($expected, $string, array $values = array()) {
-    $result = new \PapayaUiStringPlaceholders($string, $values);
+    $result = new \Papaya\Ui\Text\Placeholders($string, $values);
     $this->assertEquals($expected, (string)$result);
   }
 

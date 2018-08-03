@@ -35,7 +35,7 @@ class Delete
     $dialog = new \Papaya\Ui\Dialog\Database\Delete(
       $reference = $changer->reference()
     );
-    $dialog->caption = new \PapayaUiStringTranslated('Delete');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
       array(
@@ -46,10 +46,10 @@ class Delete
       )
     );
     $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-      new \PapayaUiStringTranslated('Delete reference?'),
+      new \Papaya\Ui\Text\Translated('Delete reference?'),
       'places-trash'
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'

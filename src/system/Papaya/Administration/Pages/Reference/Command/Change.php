@@ -45,7 +45,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
 
     $dialog = new \Papaya\Ui\Dialog\Database\Save($record);
 
-    $dialog->caption = new \PapayaUiStringTranslated('Page reference');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Page reference');
     $dialog->data->merge(
       array(
         'source_id' => $pageId,
@@ -70,12 +70,12 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
     );
 
     $dialog->fields[] = $targetIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
-      new \PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
+      new \Papaya\Ui\Text\Translated('Target page'), 'target_id', NULL, TRUE
     );
     $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Textarea(
-      new \PapayaUiStringTranslated('Note'), 'note', 8, ''
+      new \Papaya\Ui\Text\Translated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateTarget');
     $dialog->callbacks()->onBeforeSave->context->targetIdField = $targetIdField;

@@ -242,27 +242,27 @@ class papaya_topic_tree extends base_topic_tree {
           'tgt' => empty($this->params['tgt']) ? 0 : $this->params['tgt'],
         )
       );
-      $dialog->caption = new \PapayaUiStringTranslated('Copy pages');
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Copy pages');
       $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-        new \PapayaUiStringTranslated(
+        new \Papaya\Ui\Text\Translated(
           'Copy pages and create dependencies if necessary.'
         ),
         'actions-edit-copy'
       );
       $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Radio(
-        new \PapayaUiStringTranslated('Create dependencies'),
+        new \Papaya\Ui\Text\Translated('Create dependencies'),
         'confirm_create_dependencies',
         array(
-          1 => new \PapayaUiStringTranslated('Yes'),
-          0 => new \PapayaUiStringTranslated('No')
+          1 => new \Papaya\Ui\Text\Translated('Yes'),
+          0 => new \Papaya\Ui\Text\Translated('No')
         )
       );
       $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
-        new \PapayaUiStringTranslated('Synchronization'),
+        new \Papaya\Ui\Text\Translated('Synchronization'),
         'synchronization',
         $this->sychronizations()->getList()
       );
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Copy'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Copy'));
     }
     return $this->_dialogCopyPageConfirmation;
   }

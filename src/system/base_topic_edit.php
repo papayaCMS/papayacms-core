@@ -288,7 +288,7 @@ class base_topic_edit extends base_topic {
               new \Papaya\Message\Log(
                 \Papaya\Message\Logable::GROUP_CONTENT,
                 \Papaya\Message::SEVERITY_INFO,
-                new \PapayaUiString(
+                new \Papaya\Ui\Text(
                   '%s created a new translation "%s" for page "#%d"',
                   array(
                     $this->papaya()->administrationUser->getDisplayName(),
@@ -301,7 +301,7 @@ class base_topic_edit extends base_topic {
             $this->papaya()->messages->dispatch(
               new \Papaya\Message\Display(
                 \Papaya\Message::SEVERITY_INFO,
-                new \PapayaUiString(
+                new \Papaya\Ui\Text(
                   'New translation "%s" for page "#%d" added.',
                   array(
                     $this->papaya()->languages[(int)$this->params['lng_id']]['code'],
@@ -344,7 +344,7 @@ class base_topic_edit extends base_topic {
             new \Papaya\Message\Log(
               \Papaya\Message\Logable::GROUP_CONTENT,
               \Papaya\Message::SEVERITY_INFO,
-              new \PapayaUiString(
+              new \Papaya\Ui\Text(
                 '%s created the new page "#%d"',
                 array(
                   $this->papaya()->administrationUser->getDisplayName(),
@@ -3391,46 +3391,46 @@ class base_topic_edit extends base_topic {
     $this->loadTranslationsInfo();
     $boxesPageId = $this->getBoxesTopicID();
     $listview = new \Papaya\Ui\Listview();
-    $listview->caption = new \PapayaUiStringTranslated('Information');
+    $listview->caption = new \Papaya\Ui\Text\Translated('Information');
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      'categories-properties', new \PapayaUiStringTranslated('General')
+      'categories-properties', new \Papaya\Ui\Text\Translated('General')
     );
     $item->columnSpan = 2;
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      '', new \PapayaUiStringTranslated('Page title')
+      '', new \Papaya\Ui\Text\Translated('Page title')
     );
     $item->indentation = 1;
     $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text($metaData['meta_title']);
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      '', new \PapayaUiStringTranslated('Author')
+      '', new \Papaya\Ui\Text\Translated('Author')
     );
     $item->indentation = 1;
     $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
       $this->topic['author_givenname'].' '.$this->topic['author_surname']
     );
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      '', new \PapayaUiStringTranslated('Boxes')
+      '', new \Papaya\Ui\Text\Translated('Boxes')
     );
     $item->indentation = 1;
     $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
       ($boxesPageId == $this->topicId)
-        ? new \PapayaUiStringTranslated('own')
-        : new \PapayaUiStringTranslated('Page #%d', array($boxesPageId))
+        ? new \Papaya\Ui\Text\Translated('own')
+        : new \Papaya\Ui\Text\Translated('Page #%d', array($boxesPageId))
     );
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      '', new \PapayaUiStringTranslated('Created')
+      '', new \Papaya\Ui\Text\Translated('Created')
     );
     $item->indentation = 1;
     $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date((int)$this->topic['topic_created']);
     $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-      '', new \PapayaUiStringTranslated('Modified')
+      '', new \Papaya\Ui\Text\Translated('Modified')
     );
     $item->indentation = 1;
     $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date((int)$this->topic['topic_modified']);
 
     if ($this->topic['topic_published_created'] > 0) {
       $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-        '', new \PapayaUiStringTranslated('Prepared')
+        '', new \Papaya\Ui\Text\Translated('Prepared')
       );
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
@@ -3441,7 +3441,7 @@ class base_topic_edit extends base_topic {
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
       $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-        '', new \PapayaUiStringTranslated('Published from')
+        '', new \Papaya\Ui\Text\Translated('Published from')
       );
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
@@ -3452,7 +3452,7 @@ class base_topic_edit extends base_topic {
     if ($this->topic['published_to'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
       $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-        '', new \PapayaUiStringTranslated('Published to')
+        '', new \Papaya\Ui\Text\Translated('Published to')
       );
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
@@ -3462,11 +3462,11 @@ class base_topic_edit extends base_topic {
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] == $this->topic['published_to']) {
       $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-        '', new \PapayaUiStringTranslated('Published to')
+        '', new \Papaya\Ui\Text\Translated('Published to')
       );
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
-        new \PapayaUiStringTranslated('unlimited')
+        new \Papaya\Ui\Text\Translated('unlimited')
       );
     }
     foreach ($this->papaya()->languages as $languageId => $language) {
@@ -3479,14 +3479,14 @@ class base_topic_edit extends base_topic {
         if (isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
           $translation = $this->topic['TRANSLATIONINFOS'][$languageId];
           $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-            '', new \PapayaUiStringTranslated('Title')
+            '', new \Papaya\Ui\Text\Translated('Title')
           );
           $item->indentation = 1;
           $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
             $translation['topic_title']
           );
           $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-            '', new \PapayaUiStringTranslated('View')
+            '', new \Papaya\Ui\Text\Translated('View')
           );
           $item->indentation = 1;
           $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
@@ -3496,23 +3496,23 @@ class base_topic_edit extends base_topic {
             if ($translation['topic_trans_published'] <
                 $translation['topic_trans_modified']) {
               $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-                '', new \PapayaUiStringTranslated('Status')
+                '', new \Papaya\Ui\Text\Translated('Status')
               );
               $item->indentation = 1;
               $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
-                new \PapayaUiStringTranslated('modified')
+                new \Papaya\Ui\Text\Translated('modified')
               );
             } else {
               $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-                '', new \PapayaUiStringTranslated('Status')
+                '', new \Papaya\Ui\Text\Translated('Status')
               );
               $item->indentation = 1;
               $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
-                new \PapayaUiStringTranslated('published')
+                new \Papaya\Ui\Text\Translated('published')
               );
             }
             $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-              '', new \PapayaUiStringTranslated('Published')
+              '', new \Papaya\Ui\Text\Translated('Published')
             );
             $item->indentation = 1;
             $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
@@ -3520,15 +3520,15 @@ class base_topic_edit extends base_topic {
             );
           } else {
             $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-              '', new \PapayaUiStringTranslated('Status')
+              '', new \Papaya\Ui\Text\Translated('Status')
             );
             $item->indentation = 1;
             $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
-              new \PapayaUiStringTranslated('created')
+              new \Papaya\Ui\Text\Translated('created')
             );
           }
           $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-            '', new \PapayaUiStringTranslated('Modified')
+            '', new \Papaya\Ui\Text\Translated('Modified')
           );
           $item->indentation = 1;
           $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
@@ -3536,11 +3536,11 @@ class base_topic_edit extends base_topic {
           );
         } else {
           $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-            '', new \PapayaUiStringTranslated('Status')
+            '', new \Papaya\Ui\Text\Translated('Status')
           );
           $item->indentation = 1;
           $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
-            new \PapayaUiStringTranslated('no content')
+            new \Papaya\Ui\Text\Translated('no content')
           );
         }
       }
@@ -3551,7 +3551,7 @@ class base_topic_edit extends base_topic {
          )
        ) {
       $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-        '', new \PapayaUiStringTranslated('Marked As Cacheable')
+        '', new \Papaya\Ui\Text\Translated('Marked As Cacheable')
       );
       $item->columnSpan = 2;
       if (isset($this->topic['TRANSLATIONINFOS']) && is_array($this->topic['TRANSLATIONINFOS'])) {
@@ -3569,7 +3569,7 @@ class base_topic_edit extends base_topic {
               $cacheable = FALSE;
               $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
                 'categories-content',
-                new \PapayaUiStringTranslated('Content')
+                new \Papaya\Ui\Text\Translated('Content')
               );
               $item->indentation = 1;
               $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
@@ -3591,7 +3591,7 @@ class base_topic_edit extends base_topic {
             }
             $aggregation->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
               $cacheable ? 'status-sign-ok' : 'status-sign-problem',
-              new \PapayaUiStringTranslated($cacheable ? 'Yes' : 'No')
+              new \Papaya\Ui\Text\Translated($cacheable ? 'Yes' : 'No')
             );
           }
         }
@@ -3673,7 +3673,7 @@ class base_topic_edit extends base_topic {
   function getVersionsList() {
     if (isset($this->versions) && is_array($this->versions)) {
       $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \PapayaUiStringTranslated('Versions');
+      $listview->caption = new \Papaya\Ui\Text\Translated('Versions');
       $listview->parameterGroup($this->paramName);
 
       $paging = new \PapayaUiToolbarPaging(
@@ -3690,10 +3690,10 @@ class base_topic_edit extends base_topic {
       $listview->toolbars->topLeft->elements[] = $paging;
 
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Version time')
+        new \Papaya\Ui\Text\Translated('Version time')
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('User')
+        new \Papaya\Ui\Text\Translated('User')
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
         '', \Papaya\Ui\Option\Align::CENTER
@@ -3707,7 +3707,7 @@ class base_topic_edit extends base_topic {
       foreach ($this->versions as $id => $version) {
         $listitem = new \Papaya\Ui\Listview\Item(
           'items-page',
-          new \PapayaUiStringDate($version['version_time']),
+          new \Papaya\Ui\Text\Date($version['version_time']),
           array(
             'page_id' => $this->topicId,
             'version_id' => $id,
@@ -3721,7 +3721,7 @@ class base_topic_edit extends base_topic {
         $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text($version['fullname']);
         $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
           'actions-recycle',
-          new \PapayaUiStringTranslated('Recycle'),
+          new \Papaya\Ui\Text\Translated('Recycle'),
           array(
             'cmd' => 'restore_version',
             'page_id' => $this->topicId,
@@ -3731,7 +3731,7 @@ class base_topic_edit extends base_topic {
         );
         $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
           'categories-preview',
-          new \PapayaUiStringTranslated('Preview'),
+          new \Papaya\Ui\Text\Translated('Preview'),
           array(
             'cmd' => 'chg_mode',
             'mode' => 5,
@@ -3742,7 +3742,7 @@ class base_topic_edit extends base_topic {
         );
         $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
           'places-trash',
-          new \PapayaUiStringTranslated('Delete'),
+          new \Papaya\Ui\Text\Translated('Delete'),
           array(
             'cmd' => 'del_version',
             'version_id' => $version['version_id'],
@@ -4546,7 +4546,7 @@ class base_topic_edit extends base_topic {
     if (!(isset($this->dialogPublish) && is_object($this->dialogPublish)) &&
         isset($this->topic['TRANSLATION'])) {
       $this->dialogPublish = $dialog = new \Papaya\Ui\Dialog();
-      $dialog->caption = new \PapayaUiStringTranslated('Publish');
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Publish');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -4588,15 +4588,15 @@ class base_topic_edit extends base_topic {
       );
       $counter = $this->getDependencyBlocker()->counter();
       if ($counter->getDependencies() > 0 && $counter->getReferences() > 0) {
-        $message = new \PapayaUiStringTranslated(
+        $message = new \Papaya\Ui\Text\Translated(
           'Please be aware that this page has dependent and referenced pages.'
         );
       } elseif ($counter->getDependencies() > 0) {
-        $message = new \PapayaUiStringTranslated(
+        $message = new \Papaya\Ui\Text\Translated(
           'Please be aware that this page has dependent pages.'
         );
       } elseif ($counter->getReferences() > 0) {
-        $message = new \PapayaUiStringTranslated(
+        $message = new \Papaya\Ui\Text\Translated(
           'Please be aware that this page has referenced pages.'
         );
       } else {
@@ -4608,7 +4608,7 @@ class base_topic_edit extends base_topic {
         );
       }
       $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
-        new \PapayaUiStringTranslated('message'),
+        new \Papaya\Ui\Text\Translated('message'),
         'commit_message',
         200,
         '',
@@ -4617,40 +4617,40 @@ class base_topic_edit extends base_topic {
       $field->setMandatory(TRUE);
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_CHANGE_LEVEL', FALSE)) {
         $group->fields[] = new \Papaya\Ui\Dialog\Field\Select(
-          new \PapayaUiStringTranslated('Change level'),
+          new \Papaya\Ui\Text\Translated('Change level'),
           'change_level',
           base_statictables::getChangeLevels()
         );
       }
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
-        new \PapayaUiStringTranslated('Created'),
+        new \Papaya\Ui\Text\Translated('Created'),
         'topic_created',
         NULL,
         TRUE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group(
-        new \PapayaUiStringTranslated('Publication period')
+        new \Papaya\Ui\Text\Translated('Publication period')
       );
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
-        new \PapayaUiStringTranslated('Published from'),
+        new \Papaya\Ui\Text\Translated('Published from'),
         'published_from',
         time(),
         TRUE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
-        new \PapayaUiStringTranslated('Published to'),
+        new \Papaya\Ui\Text\Translated('Published to'),
         'published_to',
         0,
         FALSE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group(
-        new \PapayaUiStringTranslated('Languages')
+        new \Papaya\Ui\Text\Translated('Languages')
       );
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
-        new \PapayaUiStringTranslated('Languages'),
+        new \Papaya\Ui\Text\Translated('Languages'),
         'public_languages',
         \Papaya\Utility\ArrayMapper::byIndex(
           iterator_to_array($this->papaya()->administrationLanguage->languages()),
@@ -4660,11 +4660,11 @@ class base_topic_edit extends base_topic {
 
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_AUDITING', FALSE)) {
         $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
-          new \PapayaUiStringTranslated('Audited'), 'audit', 1, \Papaya\Ui\Dialog\Button::ALIGN_LEFT
+          new \Papaya\Ui\Text\Translated('Audited'), 'audit', 1, \Papaya\Ui\Dialog\Button::ALIGN_LEFT
         );
       }
       $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-        new \PapayaUiStringTranslated('Publish')
+        new \Papaya\Ui\Text\Translated('Publish')
       );
       return TRUE;
     }
@@ -4706,7 +4706,7 @@ class base_topic_edit extends base_topic {
     $connector = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
     if (is_object($connector)) {
       $this->dialogSocialMedia = new \Papaya\Ui\Dialog();
-      $this->dialogSocialMedia->caption = new \PapayaUiStringTranslated('Social media');
+      $this->dialogSocialMedia->caption = new \Papaya\Ui\Text\Translated('Social media');
       $this->dialogSocialMedia->parameterGroup($this->paramName);
       $this->dialogSocialMedia->hiddenFields()->merge(
         array(
@@ -4729,7 +4729,7 @@ class base_topic_edit extends base_topic {
           ->identifier;
         $this->dialogSocialMedia->fields[] =
           new \Papaya\Ui\Dialog\Field\Input\Checkbox(
-            new \PapayaUiStringTranslated(
+            new \Papaya\Ui\Text\Translated(
               'Send tweet (%s)',
               array($languageName)
             ),
@@ -4737,7 +4737,7 @@ class base_topic_edit extends base_topic {
           );
         $pageTitle = $this->getShortTitle($this->topicId, $languageId);
         if (!empty($pageTitle)) {
-          $message = new \PapayaUiStringTranslated(
+          $message = new \Papaya\Ui\Text\Translated(
             'New page "%s" out: %s',
             array(
               $pageTitle,
@@ -4745,7 +4745,7 @@ class base_topic_edit extends base_topic {
             )
           );
         } else {
-          $message = new \PapayaUiStringTranslated(
+          $message = new \Papaya\Ui\Text\Translated(
             'New page out: %s',
             array(
               $this->getShortWebLink($this->topicId, $languageIdentifier)
@@ -4761,7 +4761,7 @@ class base_topic_edit extends base_topic {
           );
       }
       $this->dialogSocialMedia->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-        new \PapayaUiStringTranslated('Send tweets')
+        new \Papaya\Ui\Text\Translated('Send tweets')
       );
     }
   }
@@ -5063,7 +5063,7 @@ class base_topic_edit extends base_topic {
   */
   function addTopicIdDialog() {
     $dialog = new \Papaya\Ui\Dialog($this);
-    $dialog->caption = new \PapayaUiStringTranslated('Go to page');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Go to page');
     $dialog->parameterGroup($this->paramName);
     $dialog->options()->useToken = FALSE;
     $dialog->options()->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
@@ -5072,7 +5072,7 @@ class base_topic_edit extends base_topic {
       ->fields()
       ->add(
         new \Papaya\Ui\Dialog\Field\Input\Page(
-          new \PapayaUiStringTranslated('Page Id'),
+          new \Papaya\Ui\Text\Translated('Page Id'),
           'page_id',
           $this->topicId,
           TRUE
@@ -5082,7 +5082,7 @@ class base_topic_edit extends base_topic {
       ->buttons()
       ->add(
         new \Papaya\Ui\Dialog\Button\Submit(
-          new \PapayaUiStringTranslated('GoTo')
+          new \Papaya\Ui\Text\Translated('GoTo')
         )
       );
     $this->layout->addLeft($dialog->getXml());

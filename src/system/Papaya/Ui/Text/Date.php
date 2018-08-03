@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Text;
 /**
-* Papaya Interface String Translated, a string object that will be translated before usage
-*
-* It allows to create a string object later casted to string. The basic string can
-* be a pattern (using sprintf syntax).
-*
-* Additionally the pattern will be translated into the current user language before the values are
-* inserted.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiStringDate extends \PapayaUiString {
+ * Papaya Interface String Translated, a string object that will be translated before usage
+ *
+ * It allows to create a string object later casted to string. The basic string can
+ * be a pattern (using sprintf syntax).
+ *
+ * Additionally the pattern will be translated into the current user language before the values are
+ * inserted.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Date extends \Papaya\Ui\Text {
 
   const SHOW_DATE = 0;
   const SHOW_TIME = 1;
   const SHOW_SECONDS = 2;
 
   /**
-  * Store timestamp
-  *
-  * @var integer
-  */
-  private $_timestamp = 0;
+   * Store timestamp
+   *
+   * @var integer
+   */
+  private $_timestamp;
 
-  private $_options = self::SHOW_TIME;
+  private $_options;
 
   /**
    * create object and store timestamp
@@ -52,10 +53,10 @@ class PapayaUiStringDate extends \PapayaUiString {
   }
 
   /**
-  * Allow to cast the object into a string, converting the timestamp into a string.
-  *
-  * return string
-  */
+   * Allow to cast the object into a string, converting the timestamp into a string.
+   *
+   * return string
+   */
   public function __toString() {
     $pattern = 'Y-m-d';
     if (\Papaya\Utility\Bitwise::inBitmask(self::SHOW_TIME, $this->_options)) {
@@ -64,9 +65,9 @@ class PapayaUiStringDate extends \PapayaUiString {
         $pattern .= ':s';
       }
     }
-    if (is_null($this->_string)) {
+    if (NULL === $this->_string) {
       $this->_string = date($pattern, $this->_timestamp);
     }
-    return $this->_string;
+    return (string)$this->_string;
   }
 }

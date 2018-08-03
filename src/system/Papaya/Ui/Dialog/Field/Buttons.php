@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property string|\PapayaUiString $caption
+ * @property string|\Papaya\Ui\Text $caption
  * @property \Papaya\Ui\Dialog\Buttons $buttons
  */
 class Buttons extends \Papaya\Ui\Dialog\Field {

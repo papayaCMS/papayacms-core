@@ -60,7 +60,7 @@ class Browser
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
       $this->_dialog = $dialog = new \Papaya\Ui\Dialog();
-      $dialog->caption = new \PapayaUiStringTranslated('Themes (%s)', [$this->_optionName]);
+      $dialog->caption = new \Papaya\Ui\Text\Translated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');
       $dialog->data()->merge(
@@ -91,7 +91,7 @@ class Browser
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
     }
     return $this->_dialog;
   }

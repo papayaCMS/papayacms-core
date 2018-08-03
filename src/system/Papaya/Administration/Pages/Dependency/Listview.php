@@ -87,32 +87,32 @@ class Listview extends \Papaya\Ui\Listview {
     $pages = $this->pages();
     $pageTitle = isset($pages[$this->_originPageId])
       ? $pages[$this->_originPageId]['title'] : '[...]';
-    $this->caption = new \PapayaUiStringTranslated(
+    $this->caption = new \Papaya\Ui\Text\Translated(
       'Dependent pages of page "%s #%d"', array($pageTitle, $this->_originPageId)
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
-      new \PapayaUiStringTranslated('Page')
+      new \Papaya\Ui\Text\Translated('Page')
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
-      new \PapayaUiStringTranslated('GoTo'),
+      new \Papaya\Ui\Text\Translated('GoTo'),
       \Papaya\Ui\Option\Align::CENTER
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
-      new \PapayaUiStringTranslated('Synchronization'),
+      new \Papaya\Ui\Text\Translated('Synchronization'),
       \Papaya\Ui\Option\Align::CENTER
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
-      new \PapayaUiStringTranslated('Modified'),
+      new \Papaya\Ui\Text\Translated('Modified'),
       \Papaya\Ui\Option\Align::CENTER
     );
     if (count($this->_dependencies) > 0) {
       $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
         'items-folder',
-        new \PapayaUiStringTranslated('Dependencies')
+        new \Papaya\Ui\Text\Translated('Dependencies')
       );
       $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
         'actions-go-superior',
-        new \PapayaUiStringTranslated('Go to origin page'),
+        new \Papaya\Ui\Text\Translated('Go to origin page'),
         array('page_id' => $this->_originPageId)
       );
       $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text('');
@@ -142,7 +142,7 @@ class Listview extends \Papaya\Ui\Listview {
     if (count($this->_references) > 0) {
       $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
         'items-folder',
-        new \PapayaUiStringTranslated('References')
+        new \Papaya\Ui\Text\Translated('References')
       );
       $listitem->columnSpan = -1;
       foreach ($this->_references as $reference) {
@@ -165,7 +165,7 @@ class Listview extends \Papaya\Ui\Listview {
         );
         $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
           'items-page',
-          new \PapayaUiStringTranslated(
+          new \Papaya\Ui\Text\Translated(
             'Go to page %s #%d', array($reference['title'], $reference['target_id'])
           ),
           array(

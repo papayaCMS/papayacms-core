@@ -30,7 +30,7 @@ class Radio extends \Papaya\Ui\Listview\Item {
 
   /**
    * @param string $image
-   * @param \PapayaUiString|string $caption
+   * @param \Papaya\Ui\Text|string $caption
    * @param \Papaya\Ui\Dialog $dialog
    * @param bool $fieldName
    * @param $value

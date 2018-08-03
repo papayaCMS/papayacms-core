@@ -25,7 +25,7 @@ class Readonly extends \Papaya\Ui\Dialog\Field\Input {
   /**
    * Initialize object, set caption and field name
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param mixed $default
    */

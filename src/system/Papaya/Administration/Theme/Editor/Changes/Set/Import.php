@@ -47,7 +47,7 @@ class Import
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
     $dialog = parent::createDialog();
-    $dialog->caption = new \PapayaUiStringTranslated('Import');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Import');
     $dialog->setEncoding('multipart/form-data');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
@@ -59,22 +59,22 @@ class Import
       )
     );
     $dialog->fields[] = $uploadField = new \Papaya\Ui\Dialog\Field\File\Temporary(
-      new \PapayaUiStringTranslated('File'), 'values/file'
+      new \Papaya\Ui\Text\Translated('File'), 'values/file'
     );
     $uploadField->setMandatory(TRUE);
     if ($setId > 0) {
       $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Select\Radio(
-        new \PapayaUiStringTranslated('Replace current set.'),
+        new \Papaya\Ui\Text\Translated('Replace current set.'),
         'values/confirm_replace',
         array(
-          TRUE => new \PapayaUiStringTranslated('Yes'),
-          FALSE => new \PapayaUiStringTranslated('No')
+          TRUE => new \Papaya\Ui\Text\Translated('Yes'),
+          FALSE => new \Papaya\Ui\Text\Translated('No')
         )
       );
       $field->setDefaultValue(FALSE);
     }
     $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \PapayaUiStringTranslated('Upload')
+      new \Papaya\Ui\Text\Translated('Upload')
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'onValidationSuccess');
     $this->callbacks()->onExecuteSuccessful->context = $uploadField;
@@ -109,7 +109,7 @@ class Import
           } else {
             $this->_themeSet->assign(
               array(
-                'title' => new \PapayaUiStringTranslated('* Imported Set'),
+                'title' => new \Papaya\Ui\Text\Translated('* Imported Set'),
                 'theme' => $theme
               )
             );

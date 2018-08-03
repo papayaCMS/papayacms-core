@@ -32,7 +32,7 @@ class Delete
     /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
     $dialog = new \Papaya\Ui\Dialog\Database\Delete($changer->dependency());
-    $dialog->caption = new \PapayaUiStringTranslated('Delete');
+    $dialog->caption = new \Papaya\Ui\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
       array(
@@ -41,10 +41,10 @@ class Delete
       )
     );
     $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-      new \PapayaUiStringTranslated('Delete dependency?'),
+      new \Papaya\Ui\Text\Translated('Delete dependency?'),
       'places-trash'
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'

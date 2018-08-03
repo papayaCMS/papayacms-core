@@ -34,14 +34,14 @@ class Confirmation extends \Papaya\Ui\Dialog {
   /**
    * Dialog message
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_message = 'Confirm action?';
 
   /**
    * Dialog button caption
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_button = 'Yes';
 
@@ -122,7 +122,7 @@ class Confirmation extends \Papaya\Ui\Dialog {
   /**
    * Set dialog message text
    *
-   * @param string|\PapayaUiString $text
+   * @param string|\Papaya\Ui\Text $text
    */
   public function setMessageText($text) {
     $this->_message = $text;
@@ -131,7 +131,7 @@ class Confirmation extends \Papaya\Ui\Dialog {
   /**
    * Set dialog button caption
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    */
   public function setButtonCaption($caption) {
     $this->_button = $caption;

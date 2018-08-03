@@ -267,7 +267,7 @@ class Changer extends \Papaya\Ui\Control\Interactive {
     if (in_array($this->parameters()->get('cmd'), array('reference_change', 'reference_delete'))) {
       $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'status-page-modified';
-      $button->caption = new \PapayaUiStringTranslated('Edit dependency');
+      $button->caption = new \Papaya\Ui\Text\Translated('Edit dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_change', 'page_id' => $this->_pageId),
         $this->parameterGroup()
@@ -276,7 +276,7 @@ class Changer extends \Papaya\Ui\Control\Interactive {
     if ($this->dependency()->id > 0) {
       $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'actions-page-delete';
-      $button->caption = new \PapayaUiStringTranslated('Delete dependency');
+      $button->caption = new \Papaya\Ui\Text\Translated('Delete dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_delete', 'page_id' => $this->_pageId),
         $this->parameterGroup()
@@ -285,7 +285,7 @@ class Changer extends \Papaya\Ui\Control\Interactive {
     $this->menu()->elements[] = new \PapayaUiToolbarSeparator();
     $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
     $button->image = 'actions-link-add';
-    $button->caption = new \PapayaUiStringTranslated('Add reference');
+    $button->caption = new \Papaya\Ui\Text\Translated('Add reference');
     $button->reference->setParameters(
       array('cmd' => 'reference_change', 'page_id' => $this->_pageId, 'target_id' => 0),
       $this->parameterGroup()
@@ -293,7 +293,7 @@ class Changer extends \Papaya\Ui\Control\Interactive {
     if ($this->reference()->sourceId > 0 && $this->reference()->targetId > 0) {
       $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'actions-link-delete';
-      $button->caption = new \PapayaUiStringTranslated('Delete reference');
+      $button->caption = new \Papaya\Ui\Text\Translated('Delete reference');
       $button->reference->setParameters(
         array(
           'cmd' => 'reference_delete',

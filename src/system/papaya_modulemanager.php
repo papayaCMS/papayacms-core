@@ -2113,7 +2113,7 @@ class papaya_modulemanager extends base_db {
   function getPackageListView() {
     if (isset($this->packages) && is_array($this->packages)) {
       $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \PapayaUiStringTranslated('Packages');
+      $listview->caption = new \Papaya\Ui\Text\Translated('Packages');
       $listview->parameterGroup($this->paramName);
       foreach ($this->packages as $package) {
 
@@ -2152,11 +2152,11 @@ class papaya_modulemanager extends base_db {
           break;
         case PAPAYA_MODULE_TABLE_MISSING :
           $statusImage = 'status-sign-warning';
-          $statusText = new \PapayaUiStringTranslated('Missing tables.');
+          $statusText = new \Papaya\Ui\Text\Translated('Missing tables.');
           break;
         case PAPAYA_MODULE_TABLE_ERROR :
           $statusImage = 'status-sign-problem';
-          $statusText = new \PapayaUiStringTranslated('Invalid table structures.');
+          $statusText = new \Papaya\Ui\Text\Translated('Invalid table structures.');
           break;
         default :
           $statusImage = FALSE;

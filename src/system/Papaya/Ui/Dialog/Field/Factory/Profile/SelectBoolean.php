@@ -34,7 +34,7 @@ class SelectBoolean
     return new \Papaya\Ui\Dialog\Field\Select\Radio(
       $this->options()->caption,
       $this->options()->name,
-      new \PapayaUiStringTranslatedList(array('no', 'yes'))
+      new \Papaya\Ui\Text\Translated\Collection(array('no', 'yes'))
     );
   }
 }

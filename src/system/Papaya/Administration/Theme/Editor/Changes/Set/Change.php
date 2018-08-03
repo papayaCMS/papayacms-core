@@ -52,13 +52,13 @@ class Change
         'set_id' => $setId
       )
     );
-    $dialog->caption = new \PapayaUiStringTranslated($dialogCaption);
+    $dialog->caption = new \Papaya\Ui\Text\Translated($dialogCaption);
     $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
-      new \PapayaUiStringTranslated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
+      new \Papaya\Ui\Text\Translated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
     );
     $field->setMandatory(TRUE);
     $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \PapayaUiStringTranslated($buttonCaption)
+      new \Papaya\Ui\Text\Translated($buttonCaption)
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
     $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');

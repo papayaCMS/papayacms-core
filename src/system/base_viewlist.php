@@ -1470,7 +1470,7 @@ class base_viewlist extends base_db {
     if (isset($this->view) && isset($this->modules[$this->view['module_guid']])) {
       $module = $this->modules[$this->view['module_guid']];
       $listview = new \Papaya\Ui\Listview($module);
-      $listview->caption = new \PapayaUiStringTranslated('Module');
+      $listview->caption = new \Papaya\Ui\Text\Translated('Module');
       $listview->items[] = $item =
         new \Papaya\Ui\Listview\Item(
           $module['module_type'] == 'page' ? 'items-page' : 'items-box',
@@ -1487,19 +1487,19 @@ class base_viewlist extends base_db {
       );
       $item->columnSpan = 2;
       $listview->items[] = $item =
-        new \Papaya\Ui\Listview\Item('', new \PapayaUiStringTranslated('Path'));
+        new \Papaya\Ui\Listview\Item('', new \Papaya\Ui\Text\Translated('Path'));
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text(
         \Papaya\Utility\Text::truncate($module['module_path'], 30, '...')
       );
       $listview->items[] = $item =
-        new \Papaya\Ui\Listview\Item('', new \PapayaUiStringTranslated('Class'));
+        new \Papaya\Ui\Listview\Item('', new \Papaya\Ui\Text\Translated('Class'));
       $item->indentation = 1;
       $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Text($module['module_class']);
       if ($plugin = $this->papaya()->plugins->get($module['module_guid'])) {
         if ($plugin instanceof \Papaya\Plugin\Cacheable) {
           $listview->items[] = $item =
-            new \Papaya\Ui\Listview\Item('', new \PapayaUiStringTranslated('Cacheable interface'));
+            new \Papaya\Ui\Listview\Item('', new \Papaya\Ui\Text\Translated('Cacheable interface'));
           $item->indentation = 1;
           $item->columnSpan = 2;
           $sources = new \Papaya\Cache\Identifier\Sources($plugin->cacheable()->getSources());
@@ -1785,7 +1785,7 @@ class base_viewlist extends base_db {
   public function getViewDuplicates() {
     if (($duplicates = $this->loadViewDuplicates()) && count($duplicates) > 1) {
       $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \PapayaUiStringTranslated('Duplicates');
+      $listview->caption = new \Papaya\Ui\Text\Translated('Duplicates');
       $listview->columns[] = new \Papaya\Ui\Listview\Column('');
       foreach ($duplicates as $view) {
         if ($view['id'] != $this->view['view_id']) {
@@ -1831,24 +1831,24 @@ class base_viewlist extends base_db {
     if (isset($this->view) && $this->view['view_id'] > 0) {
       $this->loadViewUsage();
       $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \PapayaUiStringTranslated('Usage overview');
+      $listview->caption = new \Papaya\Ui\Text\Translated('Usage overview');
       $listview->columns[] = new \Papaya\Ui\Listview\Column('');
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Current'),
+        new \Papaya\Ui\Text\Translated('Current'),
         \Papaya\Ui\Option\Align::CENTER
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Published'),
+        new \Papaya\Ui\Text\Translated('Published'),
         \Papaya\Ui\Option\Align::CENTER
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Versions'),
+        new \Papaya\Ui\Text\Translated('Versions'),
         \Papaya\Ui\Option\Align::CENTER
       );
       switch ($this->view['module_type']) {
       case 'box' :
         $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-          'items-box', new \PapayaUiStringTranslated('Boxes')
+          'items-box', new \Papaya\Ui\Text\Translated('Boxes')
         );
         $item->columnSpan = 4;
         foreach ($this->papaya()->languages as $lngId => $language) {
@@ -1875,7 +1875,7 @@ class base_viewlist extends base_db {
       case 'page':
       default:
         $listview->items[] = $item = new \Papaya\Ui\Listview\Item(
-          'items-page', new \PapayaUiStringTranslated('Pages')
+          'items-page', new \Papaya\Ui\Text\Translated('Pages')
         );
         $item->columnSpan = 4;
         foreach ($this->papaya()->languages as $lngId => $language) {

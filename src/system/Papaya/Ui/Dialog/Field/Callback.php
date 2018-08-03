@@ -38,7 +38,7 @@ class Callback extends \Papaya\Ui\Dialog\Field {
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param callback $callback
    * @param mixed $default
@@ -73,7 +73,7 @@ class Callback extends \Papaya\Ui\Dialog\Field {
         $target->append($content);
       } elseif ($content instanceof \DOMElement) {
         $target->appendChild($field->ownerDocument->importNode($content, TRUE));
-      } elseif (is_string($content) || $content instanceof \PapayaUiString) {
+      } elseif (is_string($content) || $content instanceof \Papaya\Ui\Text) {
         $target->appendXml((string)$content);
       }
     }

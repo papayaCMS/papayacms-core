@@ -25,7 +25,7 @@ class Information extends \Papaya\Ui\Dialog\Field {
   /**
    * Information text
    *
-   * @var string|\PapayaUiString
+   * @var string|\Papaya\Ui\Text
    */
   protected $_text = '';
 
@@ -39,7 +39,7 @@ class Information extends \Papaya\Ui\Dialog\Field {
   /**
    * Create object and assign needed values
    *
-   * @param string|\PapayaUiString $text
+   * @param string|\Papaya\Ui\Text $text
    * @param string $image
    */
   public function __construct($text, $image = NULL) {

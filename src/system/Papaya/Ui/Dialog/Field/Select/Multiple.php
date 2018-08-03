@@ -61,7 +61,7 @@ class Multiple extends \Papaya\Ui\Dialog\Field {
    * Initialize object ans set caption, name and value list.
    *
    *
-   * @param string|\PapayaUiString $caption
+   * @param string|\Papaya\Ui\Text $caption
    * @param string $name
    * @param array|\Traversable $values
    * @param int $size

@@ -247,7 +247,7 @@ class papaya_navigation extends base_object {
     $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
     foreach ($this->menuGroups as $groupId => $groupTitle) {
       if (isset($this->menu[$groupId])) {
-        $group = new \PapayaUiToolbarGroup(new \PapayaUiStringTranslated($groupTitle));
+        $group = new \PapayaUiToolbarGroup(new \Papaya\Ui\Text\Translated($groupTitle));
         foreach ($this->menu[$groupId] as  $buttonData) {
           if (empty($buttonData[3]) ||
               $this->papaya()->administrationUser->hasPerm($buttonData[3])) {
@@ -257,10 +257,10 @@ class papaya_navigation extends base_object {
               $button->caption = empty($buttonData[0]) ? '' : $buttonData[0];
               $button->hint = empty($buttonData[1]) ? '' : $buttonData[1];
             } else {
-              $button->caption = new \PapayaUiStringTranslated(
+              $button->caption = new \Papaya\Ui\Text\Translated(
                 empty($buttonData[0]) ? '' : $buttonData[0]
               );
-              $button->hint = new \PapayaUiStringTranslated(
+              $button->hint = new \Papaya\Ui\Text\Translated(
                 empty($buttonData[1]) ? '' : $buttonData[1]
               );
             }

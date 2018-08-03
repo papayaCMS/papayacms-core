@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiStringPlaceholders extends \PapayaUiString {
-
+namespace Papaya\Ui\Text;
+/**
+ * Class Papaya\Ui\Text\PapayaUiStringPlaceholders
+ */
+class Placeholders extends \Papaya\Ui\Text {
 
   /**
-  * Allow to cast the object into a string, replacing the {key} placeholders in the string.
-  *
-  * return string
-  */
+   * Allow to cast the object into a string, replacing the {key} placeholders in the string.
+   *
+   * return string
+   */
   public function __toString() {
-    if (is_null($this->_string)) {
+    if (NULL === $this->_string) {
       $this->_string = preg_replace_callback(
         '(\\{(?P<key>[^}\r\n ]+)\\})u',
-        array($this, 'replacePlaceholders'),
+        function ($match) {
+          if (isset($match['key'], $this->_values[$match['key']])) {
+            return $this->_values[$match['key']];
+          }
+          return '';
+        },
         $this->_pattern
       );
     }
-    return $this->_string;
-  }
-
-  public function replacePlaceholders($match) {
-    if (isset($match['key']) && isset($this->_values[$match['key']])) {
-      return $this->_values[$match['key']];
-    }
-    return '';
+    return (string)$this->_string;
   }
 }
