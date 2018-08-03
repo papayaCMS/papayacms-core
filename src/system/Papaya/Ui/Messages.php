@@ -13,30 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A list object that is used to output user messages into xml.
-*
-* This are visible messages for a user that is requesting a page. They can be occured messages
-* or messages that are used in javascript.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiMessages extends \Papaya\BaseObject\Collection implements \Papaya\Xml\Appendable {
+ * A list object that is used to output user messages into xml.
+ *
+ * This are visible messages for a user that is requesting a page. They can be occured messages
+ * or messages that are used in javascript.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Messages extends \Papaya\BaseObject\Collection implements \Papaya\Xml\Appendable {
 
   /**
-  * create list object and store child superclass limit
-  */
+   * create list object and store child superclass limit
+   */
   public function __construct() {
-    parent::__construct(\PapayaUiMessage::class);
+    parent::__construct(Message::class);
   }
 
   /**
-  * If the list contains items, append them and return the list xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
-  */
+   * If the list contains items, append them and return the list xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (!$this->isEmpty()) {
       $list = $parent->appendElement('messages');
@@ -49,11 +50,11 @@ class PapayaUiMessages extends \Papaya\BaseObject\Collection implements \Papaya\
   }
 
   /**
-  * Return object items as xml string
-  *
-  * @see appendTo
-  * @return string
-  */
+   * Return object items as xml string
+   *
+   * @see appendTo
+   * @return string
+   */
   public function getXml() {
     if (!$this->isEmpty()) {
       $dom = new \Papaya\Xml\Document();

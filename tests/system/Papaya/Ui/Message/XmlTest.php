@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiMessageXmlTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiMessageText::appendTo
+  * @covers \Papaya\Ui\Message\Text::appendTo
   */
   public function testAppendTo() {
-    $message = new \PapayaUiMessageXml(\PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \Papaya\Ui\Message\Xml(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertEquals(
       /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
     );
   }
 
   /**
-  * @covers \PapayaUiMessageXml::appendTo
+  * @covers \Papaya\Ui\Message\Xml::appendTo
   */
   public function testAppendToWithXmlElements() {
-    $message = new \PapayaUiMessageXml(
-      \PapayaUiMessage::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
+    $message = new \Papaya\Ui\Message\Xml(
+      \Papaya\Ui\Message::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
     );
     $this->assertEquals(
       /** @lang XML */'<error event="sample" occured="yes"><b>foo</b></error>', $message->getXml()

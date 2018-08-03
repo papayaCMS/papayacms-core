@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Message;
 /**
-* User message with an xml fragment as message text.
-*
-* The given string is appended as xml fragment, so it needs to be a valid xml fragment. This
-* means it does not need a root node, but it has to be possible to create text and element nodes
-* from it.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiMessageXml extends \PapayaUiMessageText {
+ * User message with an xml fragment as message text.
+ *
+ * The given string is appended as xml fragment, so it needs to be a valid xml fragment. This
+ * means it does not need a root node, but it has to be possible to create text and element nodes
+ * from it.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Xml extends Text {
 
   /**
    * Use the parent method to append the element and append the xml fragment to the new

@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
  * Abstract/Basic superclass for the user messages.
-*
-* This are messages diplayed to the user on a page. They can have differnt kind of severities
-* and always have a event. This is a string identifier for the event the message is for.
-*
-* Occured is an boolean attribute, that is true if the message actually occured in the current
-* request. It is sometimes needed to output a message to the xml even if the event did not happen.
-* A typical case for this is a javascript action/event.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $severity
-* @property boolean $occured
-* @property string|\PapayaUiString $event
-*/
-abstract class PapayaUiMessage
-  extends \Papaya\Ui\Control {
+ *
+ * This are messages diplayed to the user on a page. They can have differnt kind of severities
+ * and always have a event. This is a string identifier for the event the message is for.
+ *
+ * Occured is an boolean attribute, that is true if the message actually occured in the current
+ * request. It is sometimes needed to output a message to the xml even if the event did not happen.
+ * A typical case for this is a javascript action/event.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $severity
+ * @property boolean $occured
+ * @property string|\PapayaUiString $event
+ */
+abstract class Message
+  extends Control {
 
   const SEVERITY_INFORMATION = 0;
   const SEVERITY_WARNING = 1;
@@ -56,12 +57,12 @@ abstract class PapayaUiMessage
   );
 
   /**
-  * Create object and store basic properties
-  *
-  * @param integer $severity
-  * @param string $event
-  * @param boolean $occured
-  */
+   * Create object and store basic properties
+   *
+   * @param integer $severity
+   * @param string $event
+   * @param boolean $occured
+   */
   public function __construct($severity, $event, $occured = FALSE) {
     $this->setSeverity($severity);
     $this->setEvent($event);
@@ -69,11 +70,11 @@ abstract class PapayaUiMessage
   }
 
   /**
-  * Append message to parent xml element and return it.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element the appended message xml element
-  */
+   * Append message to parent xml element and return it.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element the appended message xml element
+   */
   protected function appendMessageElement(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
@@ -85,11 +86,11 @@ abstract class PapayaUiMessage
   }
 
   /**
-  * Validate and set the message severity.
-  *
-  * @throws \InvalidArgumentException
-  * @param integer $severity
-  */
+   * Validate and set the message severity.
+   *
+   * @throws \InvalidArgumentException
+   * @param integer $severity
+   */
   public function setSeverity($severity) {
     \Papaya\Utility\Constraints::assertInteger($severity);
     if (!array_key_exists($severity, $this->_tagNames)) {
@@ -99,10 +100,10 @@ abstract class PapayaUiMessage
   }
 
   /**
-  * Validate and set the message event identifier string.
-  *
-  * @param string $event
-  */
+   * Validate and set the message event identifier string.
+   *
+   * @param string $event
+   */
   public function setEvent($event) {
     $event = (string)$event;
     \Papaya\Utility\Constraints::assertNotEmpty($event);
@@ -110,20 +111,20 @@ abstract class PapayaUiMessage
   }
 
   /**
-  * Validate and set the message occured status.
-  *
-  * @param boolean $occured
-  */
+   * Validate and set the message occured status.
+   *
+   * @param boolean $occured
+   */
   public function setOccured($occured) {
     $this->_occured = (boolean)$occured;
   }
 
   /**
-  * Get the tag name. The xml element name depends on the severity.
-  *
-  * @param integer $severity
-  * @return string
-  */
+   * Get the tag name. The xml element name depends on the severity.
+   *
+   * @param integer $severity
+   * @return string
+   */
   protected function getTagName($severity) {
     return $this->_tagNames[$severity];
   }
