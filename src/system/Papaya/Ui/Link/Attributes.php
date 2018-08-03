@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Link;
 /**
  * An control part that append link attributes like class, target and a popup configuration to
-* an parent xml element.
-*
-* @property string $class
-* @property string $target
-* @property boolean $isPopup
-* @property string $popupWidth
-* @property string $popupHeight
-* @property string $popupTop
-* @property string $popupLeft
-* @property integer $popupOptions
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
+ * an parent xml element.
+ *
+ * @property string $class
+ * @property string $target
+ * @property boolean $isPopup
+ * @property string $popupWidth
+ * @property string $popupHeight
+ * @property string $popupTop
+ * @property string $popupLeft
+ * @property integer $popupOptions
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Attributes extends \Papaya\Ui\Control\Part {
 
   const OPTION_RESIZEABLE = 1;
   const OPTION_SCROLLBARS_AUTO = 2;
@@ -46,8 +47,8 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
   protected $_isPopup = FALSE;
   protected $_popupWidth = '50%';
   protected $_popupHeight = '50%';
-  protected $_popupTop = NULL;
-  protected $_popupLeft = NULL;
+  protected $_popupTop;
+  protected $_popupLeft;
   protected $_popupOptions = self::OPTION_SCROLLBARS_NEVER;
 
   private $_attributeNames = array(
@@ -68,17 +69,17 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
   );
 
   /**
-  * Return true if the attribute contain a popup configuration
-  *
-  * @return boolean
-  */
+   * Return true if the attribute contain a popup configuration
+   *
+   * @return boolean
+   */
   public function isPopup() {
     return $this->_isPopup;
   }
 
   /**
-  * Remove the popup configuration. Keep the class and reset the target to "_self".
-  */
+   * Remove the popup configuration. Keep the class and reset the target to "_self".
+   */
   public function removePopup() {
     $this->_isPopup = FALSE;
     $this->_popupOptions = self::OPTION_SCROLLBARS_NEVER;
@@ -86,15 +87,15 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
   }
 
   /**
-  * Set the basic data for a popup
-  *
-  * @param string $target
-  * @param string|integer $width
-  * @param string|integer $height
-  * @param string|integer $top
-  * @param string|integer $left
-  * @param integer $options
-  */
+   * Set the basic data for a popup
+   *
+   * @param string $target
+   * @param string|integer $width
+   * @param string|integer $height
+   * @param string|integer $top
+   * @param string|integer $left
+   * @param integer $options
+   */
   public function setPopup($target, $width, $height, $top = NULL, $left = NULL, $options = NULL) {
     $this->_isPopup = TRUE;
     $this->_target = $target;
@@ -102,7 +103,7 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
     $this->_popupHeight = $height;
     $this->_popupLeft = $left;
     $this->_popupTop = $top;
-    if (isset($options)) {
+    if (NULL !== $options) {
       $this->setPopupOptions($options);
     }
   }
@@ -128,20 +129,20 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
   }
 
   /**
-  * Return the popup options as an array. "appendTo()" will use this method to fetch the array and
-  * serialize it to json for a data-* attribute.
-  *
-  * @return array
-  */
+   * Return the popup options as an array. "appendTo()" will use this method to fetch the array and
+   * serialize it to json for a data-* attribute.
+   *
+   * @return array
+   */
   public function getPopupOptionsArray() {
     $data = array(
       'width' => $this->_popupWidth,
       'height' => $this->_popupHeight
     );
-    if (isset($this->_popupTop)) {
+    if (NULL !== $this->_popupTop) {
       $data['top'] = $this->_popupTop;
     }
-    if (isset($this->_popupLeft)) {
+    if (NULL !== $this->_popupLeft) {
       $data['left'] = $this->_popupLeft;
     }
     $popupOptions = $this->popupOptions;
@@ -161,18 +162,18 @@ class PapayaUiLinkAttributes extends \Papaya\Ui\Control\Part {
   }
 
   /**
-  * The object append the link attributes to a given element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * The object append the link attributes to a given element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $class = $this->class;
     if (!empty($class)) {
       $parent->setAttribute($this->_attributeNames['class'], $class);
     }
     $target = $this->target;
-    if (!empty($target) && $target != '_self') {
+    if (!empty($target) && '_self' !== $target) {
       $parent->setAttribute($this->_attributeNames['target'], $target);
     }
     if ($this->isPopup()) {

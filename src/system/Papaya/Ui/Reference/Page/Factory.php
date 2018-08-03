@@ -299,14 +299,14 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param integer $pageId
-   * @return NULL|\PapayaUiLinkAttributes
+   * @return NULL|\Papaya\Ui\Link\Attributes
    */
   public function getLinkAttributes($languageIdentifier, $pageId) {
     if ($pageData = $this->getPageData($languageIdentifier, $pageId)) {
       $linkTypes = $this->linkTypes();
       if (isset($linkTypes[$pageData['linktype_id']])) {
         $linkType = $linkTypes[$pageData['linktype_id']];
-        $attributes = new \PapayaUiLinkAttributes();
+        $attributes = new \Papaya\Ui\Link\Attributes();
         $attributes->class = $linkType['class'];
         if ($linkType['is_popup']) {
           $width = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_width', '80%');
@@ -316,38 +316,38 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
           $options = 0;
           $options = $this->setLinkPopupOption(
             $options,
-            \PapayaUiLinkAttributes::OPTION_RESIZEABLE,
+            \Papaya\Ui\Link\Attributes::OPTION_RESIZEABLE,
             $linkType['popup_options'],
             'popup_resizable'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \PapayaUiLinkAttributes::OPTION_TOOLBAR,
+            \Papaya\Ui\Link\Attributes::OPTION_TOOLBAR,
             $linkType['popup_options'],
             'popup_toolbar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \PapayaUiLinkAttributes::OPTION_MENUBAR,
+            \Papaya\Ui\Link\Attributes::OPTION_MENUBAR,
             $linkType['popup_options'],
             'popup_menubar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \PapayaUiLinkAttributes::OPTION_LOCATIONBAR,
+            \Papaya\Ui\Link\Attributes::OPTION_LOCATIONBAR,
             $linkType['popup_options'],
             'popup_location'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \PapayaUiLinkAttributes::OPTION_STATUSBAR,
+            \Papaya\Ui\Link\Attributes::OPTION_STATUSBAR,
             $linkType['popup_options'],
             'popup_status'
           );
           $scrollbarOptions = array(
-            0 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_NEVER,
-            1 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS,
-            2 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
+            0 => \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_NEVER,
+            1 => \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_ALWAYS,
+            2 => \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_AUTO
           );
           $scrollbarOptionIndex = \Papaya\Utility\Arrays::get(
             $linkType['popup_options'], 'popup_scrollbars', 2
