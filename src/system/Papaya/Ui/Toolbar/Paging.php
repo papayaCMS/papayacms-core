@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
-* Provides several buttons to navigate mutiple pages of a list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\Ui\Reference $reference
-* @property string|array $parameterName
-* @property integer $currentPage
-* @property integer $currentOffset
-* @property integer $lastPage
-* @property integer $itemsCount
-* @property integer $itemsPerPage
-* @property integer $buttonLimit
-*/
-class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
+ * Provides several buttons to navigate mutiple pages of a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\Ui\Reference $reference
+ * @property string|array $parameterName
+ * @property integer $currentPage
+ * @property integer $currentOffset
+ * @property integer $lastPage
+ * @property integer $itemsCount
+ * @property integer $itemsPerPage
+ * @property integer $buttonLimit
+ */
+class Paging extends Element {
 
   const MODE_PAGE = 0;
   const MODE_OFFSET = 1;
@@ -36,84 +37,84 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   protected $_mode = self::MODE_PAGE;
 
   /**
-  * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
-  * The minimum value is 3.
-  *
-  * @var integer
-  */
+   * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
+   * The minimum value is 3.
+   *
+   * @var integer
+   */
   protected $_buttonLimit = 11;
 
   /**
-  * The maximum items on one page. The last page can contain less items.
-  * The minimum value is 1.
-  *
-  * @var integer
-  */
+   * The maximum items on one page. The last page can contain less items.
+   * The minimum value is 1.
+   *
+   * @var integer
+   */
   protected $_itemsPerPage = 10;
 
   /**
-  * The actual item count. If the value is less than 1 the buttons are hidden.
-  *
-  * @var integer
-  */
+   * The actual item count. If the value is less than 1 the buttons are hidden.
+   *
+   * @var integer
+   */
   protected $_itemsCount = 0;
 
   /**
-  * The parameter name of the page parameter for the links
-  *
-  * @var string|array
-  */
+   * The parameter name of the page parameter for the links
+   *
+   * @var string|array
+   */
   protected $_parameterName = NULL;
 
   /**
-  * The current page number. Minimum and default value is 1.
-  *
-  * @var integer|NULL
-  */
+   * The current page number. Minimum and default value is 1.
+   *
+   * @var integer|NULL
+   */
   protected $_currentPage = NULL;
 
   /**
-  * The minimum page value. This is caluclated using the button limit.
-  * It changes with the current page.
-  *
-  * @var integer|NULL
-  */
+   * The minimum page value. This is caluclated using the button limit.
+   * It changes with the current page.
+   *
+   * @var integer|NULL
+   */
   private $_minimumPage = NULL;
 
   /**
-  * The maximum page value. This is caluclated using the button limit.
-  * It changes with the current page.
-  *
-  * @var integer|NULL
-  */
+   * The maximum page value. This is caluclated using the button limit.
+   * It changes with the current page.
+   *
+   * @var integer|NULL
+   */
   private $_maximumPage = NULL;
 
   /**
-  * Current page minus 1.
-  *
-  * @var integer|NULL
-  */
+   * Current page minus 1.
+   *
+   * @var integer|NULL
+   */
   private $_previousPage = NULL;
 
   /**
-  * Current page plus 1.
-  *
-  * @var integer|NULL
-  */
+   * Current page plus 1.
+   *
+   * @var integer|NULL
+   */
   private $_nextPage = NULL;
 
   /**
-  * Last possible page value.
-  *
-  * @var integer|NULL
-  */
+   * Last possible page value.
+   *
+   * @var integer|NULL
+   */
   private $_lastPage = NULL;
 
   /**
-  * Declare public properties
-  *
-  * @var array
-  */
+   * Declare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'reference' => array('reference', 'reference'),
     'parameterName' => array('_parameterName', 'parameterName'),
@@ -126,12 +127,12 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   );
 
   /**
-  * Create object and store parameter name and items count.
-  *
-  * @param string|array $parameterName
-  * @param integer $itemsCount
-  * @param integer $mode
-  */
+   * Create object and store parameter name and items count.
+   *
+   * @param string|array $parameterName
+   * @param integer $itemsCount
+   * @param integer $mode
+   */
   public function __construct($parameterName, $itemsCount, $mode = self::MODE_PAGE) {
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->setItemsCount($itemsCount);
@@ -192,11 +193,11 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Fetch the value from the request and trigger the calculation if needed. Return the current page.
-  * The page value is based one 1.
-  *
-  * @return integer
-  */
+   * Fetch the value from the request and trigger the calculation if needed. Return the current page.
+   * The page value is based one 1.
+   *
+   * @return integer
+   */
   public function getCurrentPage() {
     $this->getCurrentPageParameter(TRUE);
     if (is_null($this->_lastPage)) {
@@ -206,27 +207,27 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Fetch the current page parameter from request or property. This will not trigger the
-  * caluclation.
-  *
-  * @return integer
-  */
+   * Fetch the current page parameter from request or property. This will not trigger the
+   * caluclation.
+   *
+   * @return integer
+   */
   private function getCurrentPageParameter() {
     if (is_null($this->_currentPage)) {
       switch ($this->_mode) {
-      case self::MODE_OFFSET :
-        $this->setCurrentOffset(
-          $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 0, new \Papaya\Filter\IntegerValue(0)
-          )
-        );
+        case self::MODE_OFFSET :
+          $this->setCurrentOffset(
+            $this->papaya()->request->getParameter(
+              (string)$this->_parameterName, 0, new \Papaya\Filter\IntegerValue(0)
+            )
+          );
         break;
-      default :
-        $this->setCurrentPage(
-          $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 1, new \Papaya\Filter\IntegerValue(1)
-          )
-        );
+        default :
+          $this->setCurrentPage(
+            $this->papaya()->request->getParameter(
+              (string)$this->_parameterName, 1, new \Papaya\Filter\IntegerValue(1)
+            )
+          );
         break;
       }
     }
@@ -234,41 +235,41 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Change the current page. This will reset the current caclulation results.
-  *
-  * @param integer $page
-  */
+   * Change the current page. This will reset the current caclulation results.
+   *
+   * @param integer $page
+   */
   public function setCurrentPage($page) {
     $this->_currentPage = $page;
     $this->reset();
   }
 
   /**
-  * Return the current offset. This is an alternative represenation of the current page. It
-  * is the index (based on zero) of the first item on this page.
-  *
-  * @return integer
-  */
+   * Return the current offset. This is an alternative represenation of the current page. It
+   * is the index (based on zero) of the first item on this page.
+   *
+   * @return integer
+   */
   public function getCurrentOffset() {
     return ($this->getCurrentPage() - 1) * $this->_itemsPerPage;
   }
 
   /**
-  * Set the current page using an offset. The offset it the index of the first item (bases on zero)
-  * on a page.
-  *
-  * @param integer $offset
-  */
+   * Set the current page using an offset. The offset it the index of the first item (bases on zero)
+   * on a page.
+   *
+   * @param integer $offset
+   */
   public function setCurrentOffset($offset) {
     $this->setCurrentPage(floor($offset / $this->_itemsPerPage) + 1);
     $this->reset();
   }
 
   /**
-  * Append button xml to parent node. If the item count is zero no button are added.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append button xml to parent node. If the item count is zero no button are added.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $current = $this->getCurrentPage();
@@ -316,29 +317,29 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * If offset mode is used convert page to offset.
-  *
-  * @param integer $page
-  * @return integer
-  */
+   * If offset mode is used convert page to offset.
+   *
+   * @param integer $page
+   * @return integer
+   */
   private function preparePagingParameter($page) {
     switch ($this->_mode) {
-    case self::MODE_OFFSET :
-      return ($page - 1) * $this->_itemsPerPage;
-    default :
-      return $page;
+      case self::MODE_OFFSET :
+        return ($page - 1) * $this->_itemsPerPage;
+      default :
+        return $page;
     }
   }
 
   /**
-  * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
-  * page. The are only shown if needed.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @param integer $page
-  * @param string $image
-  * @param string|\Papaya\Ui\Text $hint
-  */
+   * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
+   * page. The are only shown if needed.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @param integer $page
+   * @param string $image
+   * @param string|\Papaya\Ui\Text $hint
+   */
   private function appendArrowButton(\Papaya\Xml\Element $parent, $page, $image, $hint) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
@@ -356,8 +357,8 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
-  */
+   * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
+   */
   private function reset() {
     $this->_minimumPage = NULL;
     $this->_maximumPage = NULL;
@@ -367,8 +368,8 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Calculate sevaral internal limits for the button output.
-  */
+   * Calculate sevaral internal limits for the button output.
+   */
   private function calculate() {
     $currentPage = $this->getCurrentPageParameter();
     if ($currentPage < 1) {
@@ -398,10 +399,10 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Get the last possible page number.
-  *
-  * @return integer
-  */
+   * Get the last possible page number.
+   *
+   * @return integer
+   */
   public function getLastPage() {
     return (int)ceil($this->_itemsCount / $this->_itemsPerPage);
   }

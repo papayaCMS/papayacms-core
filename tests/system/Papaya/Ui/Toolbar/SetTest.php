@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarSetTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbarSet::elements
+  * @covers \Papaya\Ui\Toolbar\Collection::elements
   */
   public function testElementsGetAfterSet() {
-    $group = new \PapayaUiToolbarSet();
+    $group = new \Papaya\Ui\Toolbar\Collection();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf(\PapayaUiToolbarSet::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Toolbar\Collection::class));
     $this->assertSame(
       $elements, $group->elements($elements)
     );
   }
 
   /**
-  * @covers \PapayaUiToolbarSet::elements
+  * @covers \Papaya\Ui\Toolbar\Collection::elements
   */
   public function testElementsImplicitCreate() {
-    $group = new \PapayaUiToolbarSet();
+    $group = new \Papaya\Ui\Toolbar\Collection();
     $this->assertInstanceOf(
-      \PapayaUiToolbarElements::class, $group->elements()
+      \Papaya\Ui\Toolbar\Elements::class, $group->elements()
     );
     $this->assertSame(
       $group, $group->elements()->owner()
@@ -49,12 +49,12 @@ class PapayaUiToolbarSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarSet::appendTo
+  * @covers \Papaya\Ui\Toolbar\Collection::appendTo
   */
   public function testAppendTo() {
-    $group = new \PapayaUiToolbarSet();
+    $group = new \Papaya\Ui\Toolbar\Collection();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements

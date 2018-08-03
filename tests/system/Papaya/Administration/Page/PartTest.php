@@ -60,7 +60,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testToolbarGetAfterSet() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $part->toolbar($toolbar = $this->createMock(\PapayaUiToolbarSet::class));
+    $part->toolbar($toolbar = $this->createMock(\Papaya\Ui\Toolbar\Collection::class));
     $this->assertSame($toolbar, $part->toolbar());
   }
 
@@ -69,7 +69,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(\PapayaUiToolbarSet::class, $part->toolbar());
+    $this->assertInstanceOf(\Papaya\Ui\Toolbar\Collection::class, $part->toolbar());
   }
 }
 

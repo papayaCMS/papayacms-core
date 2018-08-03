@@ -678,7 +678,7 @@ class base_topic_edit extends base_topic {
           $this->layout->add($dependencies->getXml());
           $this->menubar->addSeparator();
           foreach ($dependencies->menu()->elements as $button) {
-            if ($button instanceof \PapayaUiToolbarSeparator) {
+            if ($button instanceof \Papaya\Ui\Toolbar\Separator) {
               $this->menubar->addSeparator();
             } else {
               $this->menubar->addButton(
@@ -2388,7 +2388,7 @@ class base_topic_edit extends base_topic {
    */
   function getContentFrame($fileName, $caption, $views = NULL, $currentView = NULL) {
     $domains = $this->getVirtualDomains();
-    $select = new \PapayaUiToolbarSelect('tt/preview_domain', $domains);
+    $select = new \Papaya\Ui\Toolbar\Select('tt/preview_domain', $domains);
     $current = 'http://'.\Papaya\Utility\Server\Name::get();
     if (!in_array($current, $select->options)) {
       $select->defaultCaption = $current;
@@ -2398,7 +2398,7 @@ class base_topic_edit extends base_topic {
     } elseif (isset($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN'])) {
       $select->setCurrentValue($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN']);
     }
-    $buttons = new \PapayaUiToolbarSelectButtons('tt/viewmode', $views);
+    $buttons = new \Papaya\Ui\Toolbar\Select\Buttons('tt/viewmode', $views);
     $buttons->setCurrentValue($currentView);
 
     $frame = new \Papaya\Ui\Panel\Frame($caption, 'preview', '1400');
@@ -3676,10 +3676,10 @@ class base_topic_edit extends base_topic {
       $listview->caption = new \Papaya\Ui\Text\Translated('Versions');
       $listview->parameterGroup($this->paramName);
 
-      $paging = new \PapayaUiToolbarPaging(
+      $paging = new \Papaya\Ui\Toolbar\Paging(
         array($this->paramName, 'version_offset'),
         (int)$this->versionsCount,
-        \PapayaUiToolbarPaging::MODE_OFFSET
+        \Papaya\Ui\Toolbar\Paging::MODE_OFFSET
       );
       if (isset($this->params['version_offset']) && $this->params['version_offset'] > 0) {
         $paging->currentOffset = (int)$this->params['version_offset'];

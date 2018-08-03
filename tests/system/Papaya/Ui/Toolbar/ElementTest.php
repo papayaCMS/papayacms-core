@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarElementTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbarElement::reference
+  * @covers \Papaya\Ui\Toolbar\Element::reference
   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\Ui\Reference::class);
@@ -30,7 +30,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarElement::reference
+  * @covers \Papaya\Ui\Toolbar\Element::reference
   */
   public function testReferenceGetImplicitCreate() {
     $button = new \PapayaUiToolbarElement_TestProxy();
@@ -47,7 +47,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
 
 }
 
-class PapayaUiToolbarElement_TestProxy extends \PapayaUiToolbarElement {
+class PapayaUiToolbarElement_TestProxy extends \Papaya\Ui\Toolbar\Element {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
   }

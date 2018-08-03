@@ -13,32 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
-* Superclass for menu elements. All menu elements must be children of this class.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiToolbarElement extends \Papaya\Ui\Control\Collection\Item {
+ * Superclass for menu elements. All menu elements must be children of this class.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Element extends \Papaya\Ui\Control\Collection\Item {
 
   /**
-  * reference (link) object
-  *
-  * @var \Papaya\Ui\Reference
-  */
-  protected $_reference = NULL;
+   * reference (link) object
+   *
+   * @var \Papaya\Ui\Reference
+   */
+  protected $_reference;
 
   /**
-  * Getter/Setter for the reference object (the link url)
-  *
-  * @param \Papaya\Ui\Reference $reference
-  * @return \Papaya\Ui\Reference
-  */
+   * Getter/Setter for the reference object (the link url)
+   *
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
+   */
   public function reference(\Papaya\Ui\Reference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    }
-    if (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }

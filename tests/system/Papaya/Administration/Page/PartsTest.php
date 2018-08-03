@@ -141,7 +141,7 @@ class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
     $parts = new Parts($this->getPageFixture());
     $parts->toolbar(
       $toolbar = $this
-        ->getMockBuilder(\PapayaUiToolbarComposed::class)
+        ->getMockBuilder(\Papaya\Ui\Toolbar\Composed::class)
         ->disableOriginalConstructor()
         ->getMock()
     );
@@ -153,7 +153,7 @@ class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $parts = new Parts($this->getPageFixture());
-    $this->assertInstanceOf(\PapayaUiToolbarComposed::class, $parts->toolbar());
+    $this->assertInstanceOf(\Papaya\Ui\Toolbar\Composed::class, $parts->toolbar());
   }
 
   /**

@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
-* A menu/toolbar element separator.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiToolbarSeparator extends \PapayaUiToolbarElement {
+ * A menu/toolbar element separator.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Separator extends Element {
 
   /**
-  * Append the separator to the parent xml element
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append the separator to the parent xml element
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->isDisplayed()) {
       $parent->appendElement('separator');
@@ -33,15 +34,15 @@ class PapayaUiToolbarSeparator extends \PapayaUiToolbarElement {
   }
 
   /**
-  * A separator is not displayed to the xml if it is the first element, the last element or if the
-  * previous element is an separator, too.
-  */
+   * A separator is not displayed to the xml if it is the first element, the last element or if the
+   * previous element is an separator, too.
+   */
   public function isDisplayed() {
     $index = $this->index();
     $previous = $index - 1;
     $next = $index + 1;
     if ($previous >= 0 &&
-        $next < count($this->collection())) {
+      $next < count($this->collection())) {
       if (!$this->collection()->get($previous) instanceof self) {
         return TRUE;
       }

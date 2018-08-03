@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A listview can have up to four toolbars, at the different corners. This class provides
-* access to them. The toolbars can be access using dynamic properties e.g. "$toolbars->topLeft".
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiToolbar $topLeft
-* @property \PapayaUiToolbar $topRight
-* @property \PapayaUiToolbar $bottomLeft
-* @property \PapayaUiToolbar $bottomRight
-*/
-class PapayaUiToolbars extends \Papaya\Ui\Control {
+ * A listview can have up to four toolbars, at the different corners. This class provides
+ * access to them. The toolbars can be access using dynamic properties e.g. "$toolbars->topLeft".
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property Toolbar $topLeft
+ * @property Toolbar $topRight
+ * @property Toolbar $bottomLeft
+ * @property Toolbar $bottomRight
+ */
+class Toolbars extends Control {
 
   /**
-  * The internal toolbar list
-  *
-  * @var array(string=>\PapayaUiToolbar,...)
-  */
+   * The internal toolbar list
+   *
+   * @var array(string=>\Papaya\Ui\PapayaUiToolbar,...)
+   */
   private $_toolbars = array();
 
   /**
-  * String representation of the positions
-  *
-  * @var array(string=>string,...)
-  */
+   * String representation of the positions
+   *
+   * @var array(string=>string,...)
+   */
   protected $_positions = array(
     'topLeft' => 'top left',
     'topRight' => 'top right',
@@ -47,15 +48,15 @@ class PapayaUiToolbars extends \Papaya\Ui\Control {
   );
 
   /**
-  * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
-  * Toolbars without elements will not be added.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
+   * Toolbars without elements will not be added.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
-    /** @var \PapayaUiToolbar $toolbar */
+    /** @var Toolbar $toolbar */
     foreach ($this->_toolbars as $position => $toolbar) {
-      if (isset($toolbar)) {
+      if (NULL !== $toolbar) {
         $node = $toolbar->appendTo($parent);
         if ($node instanceof \Papaya\Xml\Element) {
           $node->setAttribute(
@@ -67,17 +68,17 @@ class PapayaUiToolbars extends \Papaya\Ui\Control {
   }
 
   /**
-  * Return the toolbar for the given position. If the position name is invalid an excpetion is
-  * thrown.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @return \PapayaUiToolbar
-  */
+   * Return the toolbar for the given position. If the position name is invalid an exception is
+   * thrown.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @return Toolbar
+   */
   public function __get($name) {
     if (array_key_exists($name, $this->_positions)) {
       if (!isset($this->_toolbars[$name])) {
-        $this->_toolbars[$name] = $toolbar = new \PapayaUiToolbar();
+        $this->_toolbars[$name] = $toolbar = new Toolbar();
         $toolbar->papaya($this->papaya());
       }
       return $this->_toolbars[$name];
@@ -87,16 +88,20 @@ class PapayaUiToolbars extends \Papaya\Ui\Control {
     );
   }
 
+  public function __isset($name) {
+    return array_key_exists($name, $this->_positions);
+  }
+
   /**
-  * Set the toolbar defined by the position name.  If the position name is invalid an excpetion is
-  * thrown.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @param \PapayaUiToolbar $value
-  */
+   * Set the toolbar defined by the position name.  If the position name is invalid an excpetion is
+   * thrown.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @param Toolbar $value
+   */
   public function __set($name, $value) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbar::class, $value);
+    \Papaya\Utility\Constraints::assertInstanceOf(Toolbar::class, $value);
     if (array_key_exists($name, $this->_positions)) {
       $this->_toolbars[$name] = $value;
     } else {

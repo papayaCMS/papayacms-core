@@ -13,49 +13,50 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
-* A menu element group. This is a sublist of menu elements like buttons with an group caption.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\Papaya\Ui\Text $caption
-* @property \PapayaUiToolbarElements $elements
-*/
-class PapayaUiToolbarGroup
-  extends \PapayaUiToolbarSet {
+ * A menu element group. This is a sublist of menu elements like buttons with an group caption.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\Papaya\Ui\Text $caption
+ * @property \Papaya\Ui\Toolbar\Elements $elements
+ */
+class Group
+  extends \Papaya\Ui\Toolbar\Collection {
 
   /**
-  * A caption for the group
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * A caption for the group
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_caption = '';
 
   /**
-  * Declare properties
-  *
-  * @var array
-  */
+   * Declare properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('_caption', '_caption'),
     'elements' => array('elements', 'elements')
   );
 
   /**
-  * Create object and store group caption
-  *
-  * @param string|\Papaya\Ui\Text $caption
-  */
+   * Create object and store group caption
+   *
+   * @param string|\Papaya\Ui\Text $caption
+   */
   public function __construct($caption) {
     $this->_caption = $caption;
   }
 
   /**
-  * Append group and elements to the output xml.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
+   * Append group and elements to the output xml.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
    */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {

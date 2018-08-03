@@ -24,7 +24,7 @@ namespace Papaya\Ui\Control\Command;
 abstract class Toolbar extends \Papaya\Ui\Control\Command {
 
   /**
-   * @var \PapayaUiToolbarElements
+   * @var \Papaya\Ui\Toolbar\Elements
    */
   private $_elements;
 
@@ -34,19 +34,19 @@ abstract class Toolbar extends \Papaya\Ui\Control\Command {
   abstract public function appendToolbarElements();
 
   /**
-   * @param \PapayaUiToolbarElements $elements
+   * @param \Papaya\Ui\Toolbar\Elements $elements
    */
-  public function __construct(\PapayaUiToolbarElements $elements) {
+  public function __construct(\Papaya\Ui\Toolbar\Elements $elements) {
     $this->elements($elements);
   }
 
   /**
    * Getter/Setter for the toolbar elements
    *
-   * @param \PapayaUiToolbarElements $elements
-   * @return \PapayaUiToolbarElements
+   * @param \Papaya\Ui\Toolbar\Elements $elements
+   * @return \Papaya\Ui\Toolbar\Elements
    */
-  public function elements(\PapayaUiToolbarElements $elements = NULL) {
+  public function elements(\Papaya\Ui\Toolbar\Elements $elements = NULL) {
     if (NULL !== $elements) {
       $this->_elements = $elements;
     }

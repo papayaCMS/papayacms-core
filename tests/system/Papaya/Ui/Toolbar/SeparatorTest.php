@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbarSeparator::appendTo
+  * @covers \Papaya\Ui\Toolbar\Separator::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
@@ -32,7 +32,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('get')
       ->with(41)
-      ->will($this->returnValue($this->createMock(\PapayaUiToolbarButton::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Toolbar\Button::class)));
     $separator = new \PapayaUiToolbarSeparator_TestProxy();
     $separator->collection($collection);
     $separator->appendTo($document->documentElement);
@@ -43,18 +43,18 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarSeparator::appendTo
+  * @covers \Papaya\Ui\Toolbar\Separator::appendTo
   */
   public function testAppendToSeparatorNotDisplayed() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $separator = new \PapayaUiToolbarSeparator();
+    $separator = new \Papaya\Ui\Toolbar\Separator();
     $separator->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(/** @lang XML */'<sample/>', $document->saveXML($document->documentElement));
   }
 
   /**
-  * @covers \PapayaUiToolbarSeparator::isDisplayed
+  * @covers \Papaya\Ui\Toolbar\Separator::isDisplayed
   */
   public function testIsDisplayedExpectingTrue() {
     $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
@@ -66,22 +66,22 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('get')
       ->with(41)
-      ->will($this->returnValue($this->createMock(\PapayaUiToolbarButton::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Toolbar\Button::class)));
     $separator = new \PapayaUiToolbarSeparator_TestProxy();
     $separator->collection($collection);
     $this->assertTrue($separator->isDisplayed());
   }
 
   /**
-  * @covers \PapayaUiToolbarSeparator::isDisplayed
+  * @covers \Papaya\Ui\Toolbar\Separator::isDisplayed
   */
   public function testIsDisplayedWhileFirstElementExpectingFalse() {
-    $separator = new \PapayaUiToolbarSeparator();
+    $separator = new \Papaya\Ui\Toolbar\Separator();
     $this->assertFalse($separator->isDisplayed());
   }
 
   /**
-  * @covers \PapayaUiToolbarSeparator::isDisplayed
+  * @covers \Papaya\Ui\Toolbar\Separator::isDisplayed
   */
   public function testIsDisplayedWhileLastElementExpectingFalse() {
     $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
@@ -95,7 +95,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarSeparator::isDisplayed
+  * @covers \Papaya\Ui\Toolbar\Separator::isDisplayed
   */
   public function testIsDisplayedPreviousElementIsSeparatorExpectingFalse() {
     $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
@@ -107,14 +107,14 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('get')
       ->with(41)
-      ->will($this->returnValue($this->createMock(\PapayaUiToolbarSeparator::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Toolbar\Separator::class)));
     $separator = new \PapayaUiToolbarSeparator_TestProxy();
     $separator->collection($collection);
     $this->assertFalse($separator->isDisplayed());
   }
 }
 
-class PapayaUiToolbarSeparator_TestProxy extends \PapayaUiToolbarSeparator {
+class PapayaUiToolbarSeparator_TestProxy extends \Papaya\Ui\Toolbar\Separator {
   public function index($index = NULL) {
     return 42;
   }

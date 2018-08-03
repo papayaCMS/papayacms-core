@@ -32,7 +32,7 @@ abstract class Panel extends Control {
   /**
    * Panel caption/title
    *
-   * @var \PapayaUiToolbars
+   * @var \Papaya\Ui\Toolbars
    */
   protected $_toolbars = NULL;
 
@@ -63,15 +63,15 @@ abstract class Panel extends Control {
   /**
    * Toolbars for the four corners of the panel
    *
-   * @param \PapayaUiToolbars $toolbars
-   * @return \PapayaUiToolbars
+   * @param \Papaya\Ui\Toolbars $toolbars
+   * @return \Papaya\Ui\Toolbars
    */
-  public function toolbars(\PapayaUiToolbars $toolbars = NULL) {
+  public function toolbars(\Papaya\Ui\Toolbars $toolbars = NULL) {
     if (NULL !== $toolbars) {
       $this->_toolbars = $toolbars;
     }
     if (NULL === $this->_toolbars) {
-      $this->_toolbars = new \PapayaUiToolbars();
+      $this->_toolbars = new \Papaya\Ui\Toolbars();
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;

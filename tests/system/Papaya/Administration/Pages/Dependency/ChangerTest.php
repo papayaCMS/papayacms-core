@@ -172,13 +172,13 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $changer->references($references);
 
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(3))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\Ui\Toolbar\Element::class));
     $commands = $this
       ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
       ->disableOriginalConstructor()
@@ -254,13 +254,13 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $changer->listview($listview);
 
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(4))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\Ui\Toolbar\Element::class));
     $commands = $this
       ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
       ->disableOriginalConstructor()
@@ -366,7 +366,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   * @covers Changer::menu
   */
   public function testMenuGetAfterSet() {
-    $menu = $this->createMock(\PapayaUiToolbar::class);
+    $menu = $this->createMock(\Papaya\Ui\Toolbar::class);
     $changer = new Changer();
     $this->assertSame(
       $menu, $changer->menu($menu)
@@ -379,7 +379,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   public function testMenuGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      \PapayaUiToolbar::class, $changer->menu()
+      \Papaya\Ui\Toolbar::class, $changer->menu()
     );
   }
 

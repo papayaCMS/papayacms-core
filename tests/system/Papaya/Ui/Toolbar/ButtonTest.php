@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarButtonTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbarButton::setAccessKey
+  * @covers \Papaya\Ui\Toolbar\Button::setAccessKey
   */
   public function testSetAccessKey() {
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->accessKey = '1';
     $this->assertEquals(
       '1', $button->accessKey
@@ -29,22 +29,22 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarButton::setAccessKey
+  * @covers \Papaya\Ui\Toolbar\Button::setAccessKey
   */
   public function testSetAccessKeyWithInvalidKeyExpectingException() {
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Access key must be an single character.');
     $button->accessKey = 'foo';
   }
 
   /**
-  * @covers \PapayaUiToolbarButton::appendTo
+  * @covers \Papaya\Ui\Toolbar\Button::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -62,12 +62,12 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarButton::appendTo
+  * @covers \Papaya\Ui\Toolbar\Button::appendTo
   */
   public function testAppendToWithAllProperties() {
     $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -89,12 +89,12 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarButton::appendTo
+  * @covers \Papaya\Ui\Toolbar\Button::appendTo
   */
   public function testAppendToWithoutProperties() {
     $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('' => '')))
     );

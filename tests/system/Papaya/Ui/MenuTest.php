@@ -25,7 +25,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -53,7 +53,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -82,7 +82,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements

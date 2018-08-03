@@ -13,59 +13,60 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
  * A list of menu elements, used for the $elements property of a {@see \PapayaUiMenu}
-*
-* @property boolean $allowGroups
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiToolbarElements extends \Papaya\Ui\Control\Collection {
+ *
+ * @property boolean $allowGroups
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Elements extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Only {@see \PapayaUiToolbarElement} objects are allowed in this list
-  *
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiToolbarElement::class;
+   * Only {@see \Papaya\Ui\Toolbar\PapayaUiToolbarElement} objects are allowed in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Element::class;
 
   /**
-  * Allow group elements
-  *
-  * @var boolean
-  */
+   * Allow group elements
+   *
+   * @var boolean
+   */
   protected $_allowGroups = TRUE;
 
   /**
-  * Declare public properties
-  *
-  * @var array
-  */
+   * Declare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'allowGroups' => array('_allowGroups', '_allowGroups')
   );
 
   /**
-  * Create object and set owner.
-  *
-  * @param \Papaya\Ui\Control $owner
-  */
+   * Create object and set owner.
+   *
+   * @param \Papaya\Ui\Control $owner
+   */
   public function __construct(\Papaya\Ui\Control $owner = NULL) {
     $this->owner($owner);
   }
 
   /**
-  * Additionally to the standard validation, we block the groups in groups to avoid recursion.
-  *
-  * @throws \InvalidArgumentException
-  * @param \Papaya\Ui\Control\Collection\Item|\PapayaUiToolbarElement $item
-  * @return bool
-  */
+   * Additionally to the standard validation, we block the groups in groups to avoid recursion.
+   *
+   * @throws \InvalidArgumentException
+   * @param \Papaya\Ui\Control\Collection\Item|Element $item
+   * @return bool
+   */
   protected function validateItemClass(\Papaya\Ui\Control\Collection\Item $item) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbarElement::class, $item);
+    \Papaya\Utility\Constraints::assertInstanceOf(Element::class, $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
-        $item instanceof \PapayaUiToolbarGroup) {
+      $item instanceof \Papaya\Ui\Toolbar\Group) {
       throw new \InvalidArgumentException(
         sprintf(
           'InvalidArgumentException: Invalid item class "%s".',

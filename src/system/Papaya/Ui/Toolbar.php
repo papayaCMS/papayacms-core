@@ -13,28 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A toolbar gui control. This is a list of elements like buttons, separators and selects.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiToolbarElements $elements
-*/
-class PapayaUiToolbar extends \Papaya\Ui\Control {
+ * A toolbar gui control. This is a list of elements like buttons, separators and selects.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property Toolbar\Elements $elements
+ */
+class Toolbar extends Control {
 
   /**
-  * menu elements collection
-  *
-  * @var NULL|\PapayaUiToolbarElements
-  */
-  protected $_elements = NULL;
+   * menu elements collection
+   *
+   * @var NULL|Toolbar\Elements
+   */
+  protected $_elements;
 
   /**
-  * Delcare public properties
-  *
-  * @var array
-  */
+   * Declare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'elements' => array('elements', 'elements')
   );
@@ -42,26 +43,25 @@ class PapayaUiToolbar extends \Papaya\Ui\Control {
   /**
    * Getter/setter for elements collection
    *
-   * @param \PapayaUiToolbarElements $elements
-   * @return \PapayaUiToolbarElements
+   * @param Toolbar\Elements $elements
+   * @return Toolbar\Elements
    */
-  public function elements(\PapayaUiToolbarElements $elements = NULL) {
-    if (isset($elements)) {
+  public function elements(Toolbar\Elements $elements = NULL) {
+    if (NULL !== $elements) {
       $this->_elements = $elements;
       $this->_elements->owner($this);
-    }
-    if (is_null($this->_elements)) {
-      $this->_elements = new \PapayaUiToolbarElements($this);
+    } elseif (NULL === $this->_elements) {
+      $this->_elements = new Toolbar\Elements($this);
     }
     return $this->_elements;
   }
 
   /**
-  * Append toolbar and elements and set identifier if available
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
-  */
+   * Append toolbar and elements and set identifier if available
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {
       $toolbar = $parent->appendElement('toolbar');

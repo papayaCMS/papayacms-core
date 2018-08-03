@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiToolbarTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbar::elements
+  * @covers \Papaya\Ui\Toolbar::elements
   */
   public function testElementsGetAfterSet() {
-    $menu = new \PapayaUiToolbar();
+    $menu = new \Papaya\Ui\Toolbar();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf(\PapayaUiToolbar::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Toolbar::class));
     $this->assertSame(
       $elements, $menu->elements($elements)
     );
   }
 
   /**
-  * @covers \PapayaUiToolbar::elements
+  * @covers \Papaya\Ui\Toolbar::elements
   */
   public function testElementsImplicitCreate() {
-    $menu = new \PapayaUiToolbar();
+    $menu = new \Papaya\Ui\Toolbar();
     $this->assertInstanceOf(
-      \PapayaUiToolbarElements::class, $menu->elements()
+      \Papaya\Ui\Toolbar\Elements::class, $menu->elements()
     );
     $this->assertSame(
       $menu, $menu->elements()->owner()
@@ -49,14 +49,14 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbar::appendTo
+  * @covers \Papaya\Ui\Toolbar::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('sample');
-    $menu = new \PapayaUiToolbar();
+    $menu = new \Papaya\Ui\Toolbar();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -77,14 +77,14 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbar::appendTo
+  * @covers \Papaya\Ui\Toolbar::appendTo
   */
   public function testAppendToWithoutElements() {
     $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('sample');
-    $menu = new \PapayaUiToolbar();
+    $menu = new \Papaya\Ui\Toolbar();
     $elements = $this
-      ->getMockBuilder(\PapayaUiToolbarElements::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements

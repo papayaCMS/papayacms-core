@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
-* A toolbar that consists of multiple sets of elements. The sets are not visisble in
-* the xml output.
-*
-* The main reson for this object is the possibility to provided an order of the elements sets
-* independent from the order the elements are added to the toolbar. Like adding
-* action buttons before navigation button but have the navigation first in the toolbar.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiToolbarComposed extends \Papaya\Ui\Control {
+ * A toolbar that consists of multiple sets of elements. The sets are not visisble in
+ * the xml output.
+ *
+ * The main reson for this object is the possibility to provided an order of the elements sets
+ * independent from the order the elements are added to the toolbar. Like adding
+ * action buttons before navigation button but have the navigation first in the toolbar.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Composed extends \Papaya\Ui\Control {
 
   /**
-  * The internal set list
-  *
-  * @var array(string=>NULL|\PapayaUiToolbarSet,...)
-  */
+   * The internal set list
+   *
+   * @var array(string=>NULL|\Papaya\Ui\Toolbar\PapayaUiToolbarSet,...)
+   */
   private $_sets = array();
 
   /**
-  * Internal member variable vor the toolbar subobject.
-  *
-  * @var \PapayaUiToolbar
-  */
+   * Internal member variable vor the toolbar subobject.
+   *
+   * @var \Papaya\Ui\Toolbar
+   */
   private $_toolbar = NULL;
 
   /**
-  * Create the control and sefine the available sets
-  *
-  * @param array $sets
-  */
+   * Create the control and sefine the available sets
+   *
+   * @param array $sets
+   */
   public function __construct(array $sets) {
     $this->setNames($sets);
   }
@@ -72,11 +73,11 @@ class PapayaUiToolbarComposed extends \Papaya\Ui\Control {
   }
 
   /**
-  * Append the existing toolbar to the parent xml element and set the position attribute.
-  * Sets without elements will not be added.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append the existing toolbar to the parent xml element and set the position attribute.
+   * Sets without elements will not be added.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $toolbar = $this->toolbar();
     $toolbar->elements->clear();
@@ -89,45 +90,45 @@ class PapayaUiToolbarComposed extends \Papaya\Ui\Control {
   }
 
   /**
-  * The toolbar to sets get appended to.
-  *
-  * @param \PapayaUiToolbar $toolbar
-  * @return \PapayaUiToolbar
-  */
-  public function toolbar(\PapayaUiToolbar $toolbar = NULL) {
+   * The toolbar to sets get appended to.
+   *
+   * @param \Papaya\Ui\Toolbar $toolbar
+   * @return \Papaya\Ui\Toolbar
+   */
+  public function toolbar(\Papaya\Ui\Toolbar $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = new \PapayaUiToolbar();
+      $this->_toolbar = new \Papaya\Ui\Toolbar();
       $this->_toolbar->papaya($this->papaya());
     }
     return $this->_toolbar;
   }
 
   /**
-  * Return the toolbar set name is defined. The toolbar set does not need to exists at this point.
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * Return the toolbar set name is defined. The toolbar set does not need to exists at this point.
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function __isset($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_sets);
   }
 
   /**
-  * Return the toolbar set with the given name. If the position name is invalid an excpetion is
-  * thrown.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @return \PapayaUiToolbarSet
-  */
+   * Return the toolbar set with the given name. If the position name is invalid an excpetion is
+   * thrown.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @return \Papaya\Ui\Toolbar\Collection
+   */
   public function __get($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       if (!isset($this->_sets[$name])) {
-        $this->_sets[$name] = $set = new \PapayaUiToolbarSet();
+        $this->_sets[$name] = $set = new \Papaya\Ui\Toolbar\Collection();
         $set->papaya($this->papaya());
       }
       return $this->_sets[$name];
@@ -138,15 +139,15 @@ class PapayaUiToolbarComposed extends \Papaya\Ui\Control {
   }
 
   /**
-  * Set the toolbar set defined by the name.
-  * If the position name is invalid an excpetion is thrown.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @param \PapayaUiToolbarSet $value
-  */
+   * Set the toolbar set defined by the name.
+   * If the position name is invalid an excpetion is thrown.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @param \Papaya\Ui\Toolbar\Collection $value
+   */
   public function __set($name, $value) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbarSet::class, $value);
+    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Ui\Toolbar\Collection::class, $value);
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;

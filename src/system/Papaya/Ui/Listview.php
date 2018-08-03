@@ -22,7 +22,7 @@ namespace Papaya\Ui;
  *
  * @property \Papaya\Ui\Listview\Columns $columns
  * @property \Papaya\Ui\Listview\Items $items
- * @property \PapayaUiToolbars $toolbars
+ * @property \Papaya\Ui\Toolbars $toolbars
  * @property string|\Papaya\Ui\Text $caption
  * @property string $mode
  * @property \Papaya\Ui\Reference $reference
@@ -66,7 +66,7 @@ class Listview extends Control\Interactive {
   /**
    * Helper object to manage the four toolbars for the different positions.
    *
-   * @var \PapayaUiToolbars
+   * @var \Papaya\Ui\Toolbars
    */
   private $_toolbars = NULL;
 
@@ -180,15 +180,15 @@ class Listview extends Control\Interactive {
   /**
    * The list of listview toolbars
    *
-   * @param \PapayaUiToolbars $toolbars
-   * @return \PapayaUiToolbars
+   * @param \Papaya\Ui\Toolbars $toolbars
+   * @return \Papaya\Ui\Toolbars
    */
-  public function toolbars(\PapayaUiToolbars $toolbars = NULL) {
+  public function toolbars(\Papaya\Ui\Toolbars $toolbars = NULL) {
     if (isset($toolbars)) {
       $this->_toolbars = $toolbars;
     }
     if (is_null($this->_toolbars)) {
-      $this->_toolbars = new \PapayaUiToolbars($this);
+      $this->_toolbars = new \Papaya\Ui\Toolbars($this);
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;

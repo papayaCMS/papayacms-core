@@ -374,7 +374,7 @@ class papaya_log extends base_db {
         $listview->parameterGroup($this->paramName)
       );
 
-      $paging = new \PapayaUiToolbarPaging(
+      $paging = new \Papaya\Ui\Toolbar\Paging(
         array($this->paramName, 'page'), (int)$this->messageAbsCount
       );
       if (isset($this->params['page']) && $this->params['page'] > 0) {
@@ -794,15 +794,15 @@ class papaya_log extends base_db {
     $menu = new \PapayaUiMenu();
     $menu->identifier = 'edit';
 
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->caption = new \Papaya\Ui\Text\Translated('Login try');
     $button->image = 'categories-log-access';
     $button->reference->setRelative('log_auth.php');
     $menu->elements[] = $button;
 
-    $menu->elements[] = new \PapayaUiToolbarSeparator();
+    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
 
-    $select = new \PapayaUiToolbarSelect(array($this->paramName, 'level'), $this->levels);
+    $select = new \Papaya\Ui\Toolbar\Select(array($this->paramName, 'level'), $this->levels);
     $select->caption = new \Papaya\Ui\Text\Translated('Priority');
     $select->defaultValue = $this->selLevel;
     $select->reference->setParameters(
@@ -812,7 +812,7 @@ class papaya_log extends base_db {
 
     $this->messageTypeList[0] = new \Papaya\Ui\Text\Translated('All');
     asort($this->messageTypeList);
-    $select = new \PapayaUiToolbarSelect(array($this->paramName, 'type'), $this->messageTypeList);
+    $select = new \Papaya\Ui\Toolbar\Select(array($this->paramName, 'type'), $this->messageTypeList);
     $select->caption = new \Papaya\Ui\Text\Translated('Type');
     $select->defaultValue = $this->selType;
     $select->reference->setParameters(
@@ -820,7 +820,7 @@ class papaya_log extends base_db {
     );
     $menu->elements[] = $select;
 
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     $button->caption = new \Papaya\Ui\Text\Translated('Refresh');
     $button->image = 'actions-refresh';
     $select->reference->setParameters(
@@ -829,10 +829,10 @@ class papaya_log extends base_db {
     );
     $menu->elements[] = $button;
 
-    $menu->elements[] = new \PapayaUiToolbarSeparator();
+    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
 
     if (isset($this->messageList[$this->selected])) {
-      $button = new \PapayaUiToolbarButton();
+      $button = new \Papaya\Ui\Toolbar\Button();
       $button->caption = new \Papaya\Ui\Text\Translated('Bug Report');
       $button->hint = new \Papaya\Ui\Text\Translated('Report this error message.');
       $button->image = 'items-bug';
@@ -841,9 +841,9 @@ class papaya_log extends base_db {
         array('ohmode' => 'bugreport', 'log_id' => $this->selected), 'help'
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new \PapayaUiToolbarSeparator();
+      $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
 
-      $button = new \PapayaUiToolbarButton();
+      $button = new \Papaya\Ui\Toolbar\Button();
       $button->caption = new \Papaya\Ui\Text\Translated('Delete old');
       $button->hint = new \Papaya\Ui\Text\Translated('Delete all events older like this.');
       $button->image = 'places-trash';
@@ -851,10 +851,10 @@ class papaya_log extends base_db {
         array('cmd' => 'del_old', 'id' => $this->selected), $this->paramName
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new \PapayaUiToolbarSeparator();
+      $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
     }
 
-    $button = new \PapayaUiToolbarButton();
+    $button = new \Papaya\Ui\Toolbar\Button();
     if (isset($this->params['type']) && $this->params['type'] > 0) {
       $button->caption = new \Papaya\Ui\Text\Translated('Delete');
       $button->hint = new \Papaya\Ui\Text\Translated('Delete all events of selected type.');
@@ -867,7 +867,7 @@ class papaya_log extends base_db {
       array('cmd' => 'clear'), $this->paramName
     );
     $menu->elements[] = $button;
-    $menu->elements[] = new \PapayaUiToolbarSeparator();
+    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
 
     return $menu->getXml();
   }

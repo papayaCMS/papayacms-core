@@ -16,7 +16,7 @@
 namespace Papaya\Administration\Page;
 use Papaya\Administration\PapayaAdministrationPage;
 use Papaya\Ui\Control\Command;
-use PapayaUiToolbarSet;
+use Papaya\Ui\Toolbar\Collection;
 
 /**
  * Administration page parts are interactive ui controls, with access to a toolbar.
@@ -32,7 +32,7 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
   private $_commands = NULL;
 
   /**
-   * @var \PapayaUiToolbarSet
+   * @var \Papaya\Ui\Toolbar\Collection
    */
   private $_toolbar = NULL;
 
@@ -96,17 +96,17 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
    * after all page parts are appened. The order of the sets is different from the page parts
    * (Navigation -> Content -> Information).
    *
-   * @param \PapayaUiToolbarSet $toolbar
-   * @return \PapayaUiToolbarSet
+   * @param \Papaya\Ui\Toolbar\Collection $toolbar
+   * @return \Papaya\Ui\Toolbar\Collection
    */
-  public function toolbar(\PapayaUiToolbarSet $toolbar = NULL) {
+  public function toolbar(\Papaya\Ui\Toolbar\Collection $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
       if (!$toolbar->elements || count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = $toolbar = new \PapayaUiToolbarSet();
+      $this->_toolbar = $toolbar = new \Papaya\Ui\Toolbar\Collection();
       $toolbar->papaya($this->papaya());
       $this->_initializeToolbar($toolbar);
     }
@@ -116,8 +116,8 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
   /**
    * Initialize the toolbar with buttons and other elements
    *
-   * @param \PapayaUiToolbarSet $toolbar
+   * @param \Papaya\Ui\Toolbar\Collection $toolbar
    */
-  protected function _initializeToolbar(\PapayaUiToolbarSet $toolbar) {
+  protected function _initializeToolbar(\Papaya\Ui\Toolbar\Collection $toolbar) {
   }
 }

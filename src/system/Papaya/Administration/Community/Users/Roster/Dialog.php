@@ -183,14 +183,14 @@ class Dialog extends \Papaya\Ui\Dialog {
   /**
    * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
    *
-   * @param \PapayaUiToolbarPaging $paging
-   * @return \PapayaUiToolbarPaging
+   * @param \Papaya\Ui\Toolbar\Paging $paging
+   * @return \Papaya\Ui\Toolbar\Paging
    */
-  public function paging(\PapayaUiToolbarPaging $paging = NULL) {
+  public function paging(\Papaya\Ui\Toolbar\Paging $paging = NULL) {
     if (NULL !== $paging) {
       $this->_paging = $paging;
     } elseif (NULL === $this->_paging) {
-      $this->_paging = new \PapayaUiToolbarPaging(
+      $this->_paging = new \Papaya\Ui\Toolbar\Paging(
         array($this->parameterGroup(), $this->_parameterNames['page']), 1
       );
       $this->_paging->papaya($this->papaya());

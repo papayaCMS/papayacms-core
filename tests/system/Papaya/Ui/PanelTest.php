@@ -52,7 +52,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   */
   public function testToolbarsGetAfterSet() {
     $panel = new \PapayaUiPanel_TestProxy();
-    $toolbars = $this->createMock(\PapayaUiToolbars::class);
+    $toolbars = $this->createMock(\Papaya\Ui\Toolbars::class);
     $this->assertSame($toolbars, $panel->toolbars($toolbars));
   }
 
@@ -62,7 +62,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   public function testToolbarsGetImplicitCreate() {
     $panel = new \PapayaUiPanel_TestProxy();
     $toolbars = $panel->toolbars();
-    $this->assertInstanceOf(\PapayaUiToolbars::class, $toolbars);
+    $this->assertInstanceOf(\Papaya\Ui\Toolbars::class, $toolbars);
   }
 }
 

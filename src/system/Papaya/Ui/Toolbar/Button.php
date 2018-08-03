@@ -13,70 +13,71 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
 /**
  * A menu/toolbar button with image and/or text.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\Ui\Reference $reference
-* @property string|\Papaya\Ui\Text $caption
-* @property string|\Papaya\Ui\Text $hint
-* @property boolean $selected
-* @property string $accessKey
-* @property string $target
-* @property string $image
-*/
-class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\Ui\Reference $reference
+ * @property string|\Papaya\Ui\Text $caption
+ * @property string|\Papaya\Ui\Text $hint
+ * @property boolean $selected
+ * @property string $accessKey
+ * @property string $target
+ * @property string $image
+ */
+class Button extends \Papaya\Ui\Toolbar\Element {
 
   /**
-  * Image or image index.  The button needs a cpation or/and an image.
-  *
-  * @var string
-  */
+   * Image or image index.  The button needs a cpation or/and an image.
+   *
+   * @var string
+   */
   protected $_image = '';
 
   /**
-  * Button caption. The button needs a caption or/and an image
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * Button caption. The button needs a caption or/and an image
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_caption = '';
 
   /**
-  * Button quickinfo
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * Button quickinfo
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_hint = '';
 
   /**
-  * The access key define the key for a browser shortcut. The real shortcut depends on
-  * the browser
-  *
-  * @var string
-  */
+   * The access key define the key for a browser shortcut. The real shortcut depends on
+   * the browser
+   *
+   * @var string
+   */
   protected $_accessKey = '';
 
   /**
-  * If the button is selected/down
-  *
-  * @var boolean
-  */
+   * If the button is selected/down
+   *
+   * @var boolean
+   */
   protected $_selected = FALSE;
 
   /**
-  * Link target
-  *
-  * @var string
-  */
+   * Link target
+   *
+   * @var string
+   */
   protected $_target = '_self';
 
   /**
-  * Define public properties.
-  *
-  * @var array
-  */
+   * Define public properties.
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'reference' => array('reference', 'reference'),
     'image' => array('_image', '_image'),
@@ -105,10 +106,10 @@ class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Append button xml to menu. The button needs at least a caption or image to be shown.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append button xml to menu. The button needs at least a caption or image to be shown.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $image = $this->papaya()->images[(string)$this->_image];
     $caption = (string)$this->_caption;

@@ -21,9 +21,9 @@
 * @subpackage Ui
 *
 * @property string $identifier
-* @property \PapayaUiToolbarElements $elements
+* @property \Papaya\Ui\Toolbar\Elements $elements
 */
-class PapayaUiMenu extends \PapayaUiToolbar {
+class PapayaUiMenu extends \Papaya\Ui\Toolbar {
 
   /**
   * An identifier/name for the menu

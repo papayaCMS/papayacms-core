@@ -193,7 +193,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testPagingGetAfterSet() {
     $paging = $this
-      ->getMockBuilder(\PapayaUiToolbarPaging::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Paging::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new Dialog();
@@ -206,7 +206,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testPagingImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(\PapayaUiToolbarPaging::class, $dialog->paging());
+    $this->assertInstanceOf(\Papaya\Ui\Toolbar\Paging::class, $dialog->paging());
   }
 
   /**

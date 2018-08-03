@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarElementsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiToolbarElements::__construct
-  * @covers \PapayaUiToolbarElements::owner
+  * @covers \Papaya\Ui\Toolbar\Elements::__construct
+  * @covers \Papaya\Ui\Toolbar\Elements::owner
   */
   public function testConstructor() {
     $menu = $this->createMock(\PapayaUiMenu::class);
-    $elements = new \PapayaUiToolbarElements($menu);
+    $elements = new \Papaya\Ui\Toolbar\Elements($menu);
     $this->assertSame(
       $menu, $elements->owner()
     );
   }
 
   /**
-  * @covers \PapayaUiToolbarElements::validateItemClass
+  * @covers \Papaya\Ui\Toolbar\Elements::validateItemClass
   */
   public function testAddElementWhileGroupsAllowed() {
-    $elements = new \PapayaUiToolbarElements($this->createMock(\PapayaUiMenu::class));
+    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\PapayaUiMenu::class));
     $elements->allowGroups = TRUE;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiToolbarGroup $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Toolbar\Group $group */
     $group = $this
-      ->getMockBuilder(\PapayaUiToolbarGroup::class)
+      ->getMockBuilder(\Papaya\Ui\Toolbar\Group::class)
       ->setConstructorArgs(array('caption'))
       ->getMock();
     $elements->add($group);
@@ -47,14 +47,14 @@ class PapayaUiToolbarElementsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiToolbarElements::validateItemClass
+  * @covers \Papaya\Ui\Toolbar\Elements::validateItemClass
   */
   public function testAddElementWhileGroupsNotAllowedExpectingException() {
-    $elements = new \PapayaUiToolbarElements($this->createMock(\PapayaUiMenu::class));
+    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\PapayaUiMenu::class));
     $elements->allowGroups = FALSE;
-    $group = new \PapayaUiToolbarGroup('caption');
+    $group = new \Papaya\Ui\Toolbar\Group('caption');
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "PapayaUiToolbarGroup".');
+    $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "Papaya\Ui\Toolbar\Group".');
     $elements->add($group);
   }
 }

@@ -114,7 +114,8 @@ class Autoloader {
     'PapayaUiDialogFieldInputGeoPosition' => Ui\Dialog\Field\Input\GeoPosition::class,
     'PapayaUiDialogFieldInputMediaImageResized' => Ui\Dialog\Field\Input\Media\ImageResized::class,
     'PapayaUiListviewSubitemImageList' => Ui\Listview\Subitem\Images::class,
-    'PapayaUiListviewSubitemImageSelect' => Ui\Listview\Subitem\Image\Toggle::class
+    'PapayaUiListviewSubitemImageSelect' => Ui\Listview\Subitem\Image\Toggle::class,
+    'PapayaUiToolbarSet' => Ui\Toolbar\Collection::class
   );
 
   private static $_mapParts = array(

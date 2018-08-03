@@ -13,71 +13,73 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar;
+
 /**
  * A menu/toolbar select box. This creates a seperate form (method get) with a <select>-field.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\Ui\Reference $reference
-* @property string $parameterName
-* @property string|\Papaya\Ui\Text $caption
-* @property Traversable|array $options
-* @property string|\Papaya\Ui\Text $defaultOption
-* @property string|integer|boolean $currentValue
-* @property mixed defaultValue
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\Ui\Reference $reference
+ * @property string $parameterName
+ * @property string|\Papaya\Ui\Text $caption
+ * @property \Traversable|array $options
+ * @property string|\Papaya\Ui\Text $defaultOption
+ * @property string|integer|boolean $currentValue
+ * @property mixed defaultValue
  * @property mixed defaultCaption
  */
-class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
+class Select extends Element {
 
   /**
-  * parameter name for the select box
-  *
-  * @var string
-  */
+   * parameter name for the select box
+   *
+   * @var string
+   */
   protected $_parameterName = '';
 
   /**
-  * select box caption
-  *
-  * @var string
-  */
+   * select box caption
+   *
+   * @var string
+   */
   protected $_caption = '';
 
   /**
-  * Options list. If this parameter is an object it needs to implement Traversable.
-  *
-  * @var array|Traversable
-  */
+   * Options list. If this parameter is an object it needs to implement Traversable.
+   *
+   * @var array|\Traversable
+   */
   protected $_options = NULL;
 
   /**
-  * Caption for a default option, added as first element. The value of this option element will
-  * be an empty string.
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * Caption for a default option, added as first element. The value of this option element will
+   * be an empty string.
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_defaultCaption = '';
 
   /**
-  * the default value is only used if a default caption is provided.
-  *
-  * @var string|integer|boolean
-  */
+   * the default value is only used if a default caption is provided.
+   *
+   * @var string|integer|boolean
+   */
   protected $_defaultValue = '';
 
   /**
-  * buffer variable for the current value, if it is null it will be fetched from the request.
-  *
-  * @var string|integer|boolean|NULL
-  */
+   * buffer variable for the current value, if it is null it will be fetched from the request.
+   *
+   * @var string|integer|boolean|NULL
+   */
   protected $_currentValue = NULL;
 
   /**
-  * Define public properties.
-  *
-  * @var array
-  */
+   * Define public properties.
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('_caption', '_caption'),
     'options' => array('options', 'options'),
@@ -89,11 +91,11 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   );
 
   /**
-  * Initialize object, store parameter name and options
-  *
-  * @param string|array $parameterName
-  * @param array|\Traversable $options
-  */
+   * Initialize object, store parameter name and options
+   *
+   * @param string|array $parameterName
+   * @param array|\Traversable $options
+   */
   public function __construct($parameterName, $options) {
     $this->_parameterName = $parameterName;
     $this->options($options);
@@ -109,7 +111,7 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   public function options($options = NULL) {
     if (isset($options)) {
       if (is_array($options) ||
-          ($options instanceof \Traversable)) {
+        ($options instanceof \Traversable)) {
         $this->_options = $options;
       } else {
         throw new \InvalidArgumentException(
@@ -121,10 +123,10 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Check if a current value is set. If not read the current value from the request and return it.
-  *
-  * @return string|integer|boolean
-  */
+   * Check if a current value is set. If not read the current value from the request and return it.
+   *
+   * @return string|integer|boolean
+   */
   public function getCurrentValue() {
     if (is_null($this->_currentValue)) {
       $name = new \Papaya\Request\Parameters\Name(
@@ -138,10 +140,10 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Simple setter for the current value
-  *
-  * @param string|integer|boolean $value
-  */
+   * Simple setter for the current value
+   *
+   * @param string|integer|boolean $value
+   */
   public function setCurrentValue($value) {
     $this->_currentValue = $this->validateCurrentValue($value);
   }
@@ -162,11 +164,11 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   }
 
   /**
-  * Append select xml elements to xml document
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append select xml elements to xml document
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $select = $parent->appendElement(
       'combo',

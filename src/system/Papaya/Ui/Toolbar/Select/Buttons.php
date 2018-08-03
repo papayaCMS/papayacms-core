@@ -13,20 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Toolbar\Select;
+
 /**
-* A menu/toolbar button list to select a single value out of a list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\Ui\Reference $reference
-* @property string $parameterName
-* @property string|\Papaya\Ui\Text $caption
-* @property Traversable|array $options
-* @property string|\Papaya\Ui\Text $defaultOption
-* @property string|integer|boolean $currentValue
-*/
-class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {
+ * A menu/toolbar button list to select a single value out of a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\Ui\Reference $reference
+ * @property string $parameterName
+ * @property string|\Papaya\Ui\Text $caption
+ * @property \Traversable|array $options
+ * @property string|\Papaya\Ui\Text $defaultOption
+ * @property string|integer|boolean $currentValue
+ */
+class Buttons extends \Papaya\Ui\Toolbar\Select {
 
   /**
    * Append button xml elemens to parent element.

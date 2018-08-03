@@ -38,7 +38,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);
-      $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+      $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
       $button->caption = new \Papaya\Ui\Text\Translated('Add set');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
@@ -50,7 +50,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+        $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
         $button->caption = new \Papaya\Ui\Text\Translated('Delete set');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
@@ -62,7 +62,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
           $this->parameterGroup()
         );
       }
-      $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+      $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
       $button->caption = new \Papaya\Ui\Text\Translated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
@@ -74,7 +74,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+        $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
         $button->caption = new \Papaya\Ui\Text\Translated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(

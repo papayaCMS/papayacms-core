@@ -356,10 +356,10 @@ class papaya_overview extends base_db {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
       $listview = new \Papaya\Ui\Listview();
       $listview->caption = new \Papaya\Ui\Text\Translated($title);
-      $listview->toolbars()->topLeft->elements[] = $paging = new \PapayaUiToolbarPaging(
+      $listview->toolbars()->topLeft->elements[] = $paging = new \Papaya\Ui\Toolbar\Paging(
         array($this->paramName, 'filter_offset'),
         (int)$this->_topicsAbsCount,
-        \PapayaUiToolbarPaging::MODE_OFFSET
+        \Papaya\Ui\Toolbar\Paging::MODE_OFFSET
       );
       $paging->reference()->setParameters(
         array(

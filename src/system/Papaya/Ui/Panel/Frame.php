@@ -24,7 +24,7 @@ namespace Papaya\Ui\Panel;
  * @property string $name
  * @property string $height
  * @property \Papaya\Ui\Reference $reference
- * @property \PapayaUiToolbars $toolbars
+ * @property \Papaya\Ui\Toolbars $toolbars
  */
 class Frame extends \Papaya\Ui\Panel {
 
