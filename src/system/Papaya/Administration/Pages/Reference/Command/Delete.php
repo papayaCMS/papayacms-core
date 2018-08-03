@@ -45,7 +45,7 @@ class Delete
           ? $reference->targetId : $reference->sourceId
       )
     );
-    $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
       new \PapayaUiStringTranslated('Delete reference?'),
       'places-trash'
     );

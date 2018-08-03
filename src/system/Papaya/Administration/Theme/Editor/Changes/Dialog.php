@@ -69,7 +69,7 @@ class Dialog
       );
       /** @var Structure\Group $group */
       foreach ($page->groups() as $group) {
-        $fieldset = new \PapayaUiDialogFieldGroup($group->title);
+        $fieldset = new \Papaya\Ui\Dialog\Field\Group($group->title);
         /** @var Structure\Value $value */
         foreach ($group->values() as $value) {
           try {
@@ -86,7 +86,7 @@ class Dialog
             );
             $field->setHint($value->hint);
           } catch (\Papaya\Ui\Dialog\Field\Factory\Exception $e) {
-            $fieldset->fields[] = new \PapayaUiDialogFieldMessage(
+            $fieldset->fields[] = new \Papaya\Ui\Dialog\Field\Message(
               \Papaya\Message::SEVERITY_ERROR, $e->getMessage()
             );
           }
@@ -94,7 +94,7 @@ class Dialog
         $dialog->fields[] = $fieldset;
       }
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \PapayaUiDialogFieldMessage(
+        $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Invalid value definition!')
         );
@@ -106,7 +106,7 @@ class Dialog
     } else {
       $dialog->caption = new \PapayaUiStringTranslated('Error');
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \PapayaUiDialogFieldMessage(
+        $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Theme page not found!')
         );

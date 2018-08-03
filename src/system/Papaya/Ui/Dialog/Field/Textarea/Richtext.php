@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Textarea;
 /**
-* A textarea (multiline input) field, that will be replaced with an RTE using JavaScript
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
+ * A textarea (multiline input) field, that will be replaced with an RTE using JavaScript
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Richtext extends \Papaya\Ui\Dialog\Field\Textarea {
 
   const RTE_DEFAULT = 'standard';
   const RTE_SIMPLE = 'simple';
@@ -50,10 +51,10 @@ class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
   }
 
   /**
-  * Append field and textarea output to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and textarea output to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

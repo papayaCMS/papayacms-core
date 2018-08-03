@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileMessageTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Message();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldMessage::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Message::class, $field = $profile->getField());
   }
 }

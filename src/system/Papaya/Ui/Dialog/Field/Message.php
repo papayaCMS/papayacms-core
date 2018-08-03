@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A field that output a message inside the dialog
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldMessage extends \PapayaUiDialogFieldInformation {
+ * A field that output a message inside the dialog
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Message extends Information {
 
   /**
-  * Message image
-  *
-  * @var string
-  */
-  private $_images = array(
+   * Message image
+   *
+   * @var string[]
+   */
+  private static $_images = array(
     \Papaya\Message::SEVERITY_INFO => 'status-dialog-information',
     \Papaya\Message::SEVERITY_WARNING => 'status-dialog-warning',
     \Papaya\Message::SEVERITY_ERROR => 'status-dialog-error'
@@ -40,7 +41,7 @@ class PapayaUiDialogFieldMessage extends \PapayaUiDialogFieldInformation {
    * @internal param string $image
    */
   public function __construct($severity, $message) {
-    $severity = isset($this->_images[$severity]) ? $severity : \Papaya\Message::SEVERITY_INFO;
-    parent::__construct($message, $this->_images[$severity]);
+    $severityKey = isset(self::$_images[$severity]) ? $severity : \Papaya\Message::SEVERITY_INFO;
+    parent::__construct($message, self::$_images[$severityKey]);
   }
 }

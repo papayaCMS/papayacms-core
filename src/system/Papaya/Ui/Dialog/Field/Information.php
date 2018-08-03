@@ -13,44 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A field that output a message inside the dialog
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInformation extends \PapayaUiDialogField {
+ * A field that output a message inside the dialog
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Information extends \PapayaUiDialogField {
 
   /**
-  * Information text
-  *
-  * @var string|\PapayaUiString
-  */
+   * Information text
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_text = '';
 
   /**
-  * Message image
-  *
-  * @var string
-  */
+   * Message image
+   *
+   * @var string
+   */
   protected $_image = '';
 
   /**
-  * Create object and assign needed values
-  *
-  * @param string|\PapayaUiString $text
-  * @param string $image
-  */
+   * Create object and assign needed values
+   *
+   * @param string|\PapayaUiString $text
+   * @param string $image
+   */
   public function __construct($text, $image = NULL) {
     $this->_text = $text;
     $this->_image = $image;
   }
 
   /**
-  * Append message field to dialog xml dom
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append message field to dialog xml dom
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(

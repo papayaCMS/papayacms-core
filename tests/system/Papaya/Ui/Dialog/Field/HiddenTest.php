@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldHidden::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Hidden::__construct
   */
   public function testConstructor() {
-    $input = new \PapayaUiDialogFieldHidden('name', 'default');
+    $input = new \Papaya\Ui\Dialog\Field\Hidden('name', 'default');
     $this->assertAttributeEquals(
       'name', '_name', $input
     );
@@ -31,24 +31,24 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldHidden::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Hidden::__construct
   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new \PapayaUiDialogFieldHidden('name', 'value', $filter);
+    $input = new \Papaya\Ui\Dialog\Field\Hidden('name', 'value', $filter);
     $this->assertAttributeSame(
       $filter, '_filter', $input
     );
   }
 
   /**
-  * @covers \PapayaUiDialogFieldHidden::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Hidden::appendTo
   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new \PapayaUiDialogFieldHidden('name', 'default');
+    $input = new \Papaya\Ui\Dialog\Field\Hidden('name', 'default');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
@@ -66,13 +66,13 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldHidden::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Hidden::appendTo
   */
   public function testAppendToWithId() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
 
-    $input = new \PapayaUiDialogFieldHidden('name', 'default');
+    $input = new \Papaya\Ui\Dialog\Field\Hidden('name', 'default');
     $input->setId('id');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));

@@ -75,10 +75,10 @@ class Browser
           'save' => 1
         ]
       );
-      $dialog->fields[] = new \PapayaUiDialogFieldCollector(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Collector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new \PapayaUiDialogFieldListview(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Listview(
         $listview = new \PapayaUiListview()
       );
       $listview->mode = \PapayaUiListview::MODE_TILES;

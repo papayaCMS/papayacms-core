@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldTextarea::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Textarea::__construct
   */
   public function testConstructor() {
-    $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name');
+    $textarea = new \Papaya\Ui\Dialog\Field\Textarea('Caption', 'name');
     $this->assertAttributeEquals(
       'Caption', '_caption', $textarea
     );
@@ -31,11 +31,11 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldTextarea::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Textarea::__construct
   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name', 42, '50670', $filter);
+    $textarea = new \Papaya\Ui\Dialog\Field\Textarea('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_lineCount', $textarea
     );
@@ -48,10 +48,10 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldTextarea::setLineCount
+  * @covers \Papaya\Ui\Dialog\Field\Textarea::setLineCount
   */
   public function testSetLineCount() {
-    $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name');
+    $textarea = new \Papaya\Ui\Dialog\Field\Textarea('Caption', 'name');
     $textarea->setLineCount(42);
     $this->assertAttributeEquals(
       42, '_lineCount', $textarea
@@ -59,13 +59,13 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldTextarea::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Textarea::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name');
+    $textarea = new \Papaya\Ui\Dialog\Field\Textarea('Caption', 'name');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
@@ -83,13 +83,13 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldTextarea::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Textarea::appendTo
   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name');
+    $textarea = new \Papaya\Ui\Dialog\Field\Textarea('Caption', 'name');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);

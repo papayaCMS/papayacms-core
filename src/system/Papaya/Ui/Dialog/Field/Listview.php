@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A field containing a listview control.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldListview extends \PapayaUiDialogField {
+ * A field containing a listview control.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Listview extends \PapayaUiDialogField {
 
   /**
-  * listview object buffer
-  *
-  * @var \PapayaUiListview
-  */
+   * listview object buffer
+   *
+   * @var \PapayaUiListview
+   */
   private $_listview = NULL;
 
   /**
-  * Create object and assign needed values.
-  *
-  * @param \PapayaUiListview $listview
-  */
+   * Create object and assign needed values.
+   *
+   * @param \PapayaUiListview $listview
+   */
   public function __construct(\PapayaUiListview $listview) {
     $this->listview($listview);
   }
 
   /**
-  * Getter/Setter for the listview, the listview is always set in the constructor and
-  * can never be NULL, so no implicit create is needed.
-  *
-  * @param \PapayaUiListview $listview
-  * @return \PapayaUiListview
-  */
+   * Getter/Setter for the listview, the listview is always set in the constructor and
+   * can never be NULL, so no implicit create is needed.
+   *
+   * @param \PapayaUiListview $listview
+   * @return \PapayaUiListview
+   */
   public function listview(\PapayaUiListview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldInformation::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Information::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaUiDialogFieldInformation('Information', 'image');
+    $message = new \Papaya\Ui\Dialog\Field\Information('Information', 'image');
     $this->assertAttributeEquals(
       'Information', '_text', $message
     );
@@ -31,12 +31,12 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInformation::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Information::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $message = new \PapayaUiDialogFieldInformation('Information', 'image');
+    $message = new \Papaya\Ui\Dialog\Field\Information('Information', 'image');
     $message->papaya(
       $this->mockPapaya()->application(
         array(
@@ -57,12 +57,12 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInformation::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Information::appendTo
   */
   public function testAppendToWithoutImage() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $message = new \PapayaUiDialogFieldInformation('Information');
+    $message = new \Papaya\Ui\Dialog\Field\Information('Information');
     $message->papaya(
       $this->mockPapaya()->application(
         array(

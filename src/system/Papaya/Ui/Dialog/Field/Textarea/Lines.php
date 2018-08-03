@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Textarea;
 /**
  * A textarea (multiline input) field, that will use the filter on each line
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldTextareaLines extends \PapayaUiDialogFieldTextarea {
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Lines extends \Papaya\Ui\Dialog\Field\Textarea {
 
   protected $_type = 'lines';
 
@@ -36,10 +37,10 @@ class PapayaUiDialogFieldTextareaLines extends \PapayaUiDialogFieldTextarea {
   }
 
   /**
-  * Append field and textarea output to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and textarea output to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

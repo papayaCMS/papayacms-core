@@ -4583,7 +4583,7 @@ class base_topic_edit extends base_topic {
         )
       );
 
-      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
+      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group(
         ''
       );
       $counter = $this->getDependencyBlocker()->counter();
@@ -4603,7 +4603,7 @@ class base_topic_edit extends base_topic {
         $message = NULL;
       }
       if ($message) {
-        $group->fields[] = new \PapayaUiDialogFieldInformation(
+        $group->fields[] = new \Papaya\Ui\Dialog\Field\Information(
           $message, 'items-publication'
         );
       }
@@ -4629,7 +4629,7 @@ class base_topic_edit extends base_topic {
         TRUE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
-      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
+      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group(
         new \PapayaUiStringTranslated('Publication period')
       );
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
@@ -4646,7 +4646,7 @@ class base_topic_edit extends base_topic {
         FALSE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
-      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
+      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group(
         new \PapayaUiStringTranslated('Languages')
       );
       $group->fields[] = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(

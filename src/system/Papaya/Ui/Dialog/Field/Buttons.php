@@ -13,28 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A dialog field with several buttons
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property \PapayaUiDialogButtons $buttons
-*/
-class PapayaUiDialogFieldButtons extends \PapayaUiDialogField {
+ * A dialog field with several buttons
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property \PapayaUiDialogButtons $buttons
+ */
+class Buttons extends \PapayaUiDialogField {
 
   /**
-  * Grouped input buttons
-  * @var \PapayaUiDialogButtons
-  */
+   * Grouped input buttons
+   *
+   * @var \PapayaUiDialogButtons
+   */
   protected $_buttons = NULL;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'buttons' => array('buttons', 'buttons')
   );
@@ -62,22 +64,22 @@ class PapayaUiDialogFieldButtons extends \PapayaUiDialogField {
   }
 
   /**
-  * Validate field group
-  *
-  * @return boolean
-  */
+   * Validate field group
+   *
+   * @return boolean
+   */
   public function validate() {
     return TRUE;
   }
 
   /**
-  * Collect field group data
-  *
-  * @return boolean
-  */
+   * Collect field group data
+   *
+   * @return boolean
+   */
   public function collect() {
     if (parent::collect() &&
-        isset($this->_buttons)) {
+      isset($this->_buttons)) {
       $this->_buttons->collect();
       return TRUE;
     }
@@ -85,10 +87,10 @@ class PapayaUiDialogFieldButtons extends \PapayaUiDialogField {
   }
 
   /**
-  * Append group and buttons in this group to the DOM.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append group and buttons in this group to the DOM.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (isset($this->_buttons) && count($this->_buttons) > 0) {
       $field = $this->_appendFieldTo($parent);

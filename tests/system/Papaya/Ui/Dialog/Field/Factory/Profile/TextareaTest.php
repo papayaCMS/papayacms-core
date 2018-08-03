@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileTextareaTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Textarea();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldTextarea::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Textarea::class, $field = $profile->getField());
   }
 
   /**

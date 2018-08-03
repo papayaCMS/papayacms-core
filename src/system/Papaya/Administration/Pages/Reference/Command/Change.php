@@ -72,7 +72,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
     $dialog->fields[] = $targetIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
       new \PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
     );
-    $dialog->fields[] = new \PapayaUiDialogFieldTextarea(
+    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Textarea(
       new \PapayaUiStringTranslated('Note'), 'note', 8, ''
     );
     $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));

@@ -13,38 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A simple single line input field with a caption.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property \PapayaUiDialogFields $fields
-*/
-class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
+ * A simple single line input field with a caption.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property \PapayaUiDialogFields $fields
+ */
+class Group extends \PapayaUiDialogField {
 
   /**
-  * Grouped input fields
-  * @var \PapayaUiDialogFields
-  */
+   * Grouped input fields
+   *
+   * @var \PapayaUiDialogFields
+   */
   protected $_fields = NULL;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'fields' => array('fields', 'fields')
   );
 
   /**
-  * Initialize object, set caption, field name and maximum length
-  *
-  * @param string|\PapayaUiString $caption
-  */
+   * Initialize object, set caption, field name and maximum length
+   *
+   * @param string|\PapayaUiString $caption
+   */
   public function __construct($caption) {
     $this->setCaption($caption);
   }
@@ -71,10 +73,10 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
   }
 
   /**
-  * Validate field group
-  *
-  * @return boolean
-  */
+   * Validate field group
+   *
+   * @return boolean
+   */
   public function validate() {
     if (isset($this->_validationResult)) {
       return $this->_validationResult;
@@ -84,7 +86,7 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
     } else {
       $this->_validationResult = TRUE;
     }
-    return  $this->_validationResult;
+    return $this->_validationResult;
   }
 
   /**
@@ -94,7 +96,7 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
    */
   public function collect() {
     if (parent::collect() &&
-        isset($this->_fields)) {
+      isset($this->_fields)) {
       $this->_fields->collect();
       return TRUE;
     }
@@ -102,10 +104,10 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
   }
 
   /**
-  * Append group and fields in this group to the DOM.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append group and fields in this group to the DOM.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (isset($this->_fields) && count($this->_fields) > 0) {
       $group = $parent->appendElement(
@@ -123,11 +125,11 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
   }
 
   /**
-  * Return the owner collection of the item.
-  *
-  * @param \Papaya\Ui\Control\Collection $collection
-  * @return \Papaya\Ui\Control\Collection
-  */
+   * Return the owner collection of the item.
+   *
+   * @param \Papaya\Ui\Control\Collection $collection
+   * @return \Papaya\Ui\Control\Collection
+   */
   public function collection(\Papaya\Ui\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
     if ($collection != NULL && $collection->hasOwner()) {

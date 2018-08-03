@@ -112,7 +112,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
         'page_id' => $pageId
       )
     );
-    $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
       new \PapayaUiStringTranslated(
         'This part of the page is synchronized with page "%s #%d".',
         array($pageTitle, $pageId)

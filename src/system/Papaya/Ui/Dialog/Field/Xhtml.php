@@ -13,28 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A field that outputs xhtml inside the dialog.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldXhtml extends \PapayaUiDialogField {
+ * A field that outputs xhtml inside the dialog.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Xhtml extends \PapayaUiDialogField {
 
   /**
-  * Xhtml content
-  *
-  * @var string
-  */
+   * Xhtml content
+   *
+   * @var string
+   */
   private $_content = NULL;
 
   private $_dom = NULL;
 
   /**
-  * Create object and assign needed values.
-  *
-  * @param string|\PapayaUiString|\Papaya\Xml\Element $content
-  */
+   * Create object and assign needed values.
+   *
+   * @param string|\PapayaUiString|\Papaya\Xml\Element $content
+   */
   public function __construct($content = NULL) {
     if (isset($content)) {
       $this->content($content);
@@ -65,10 +66,10 @@ class PapayaUiDialogFieldXhtml extends \PapayaUiDialogField {
   }
 
   /**
-  * Append xhtml field to dialog xml dom.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append xhtml field to dialog xml dom.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     if ($this->content()->hasChildNodes()) {

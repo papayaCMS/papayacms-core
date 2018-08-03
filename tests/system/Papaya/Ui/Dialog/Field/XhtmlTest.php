@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldXhtml::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Xhtml::__construct
   */
   public function testConstructor() {
-    $xhtml = new \PapayaUiDialogFieldXhtml('<strong>Test</strong>');
+    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml('<strong>Test</strong>');
     $this->assertEquals(
       /** @lang XML */'<xhtml><strong>Test</strong></xhtml>',
       $xhtml->content()->saveXml()
@@ -29,37 +29,37 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldXhtml::content
+  * @covers \Papaya\Ui\Dialog\Field\Xhtml::content
   */
   public function testContentGetAfterSet() {
     $document = new \Papaya\Xml\Document();
     $content = $document->appendElement('html');
-    $xhtml = new \PapayaUiDialogFieldXhtml();
+    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml();
     $this->assertSame($content, $xhtml->content($content));
   }
 
   /**
-  * @covers \PapayaUiDialogFieldXhtml::content
+  * @covers \Papaya\Ui\Dialog\Field\Xhtml::content
   */
   public function testContentGetImplicitCreate() {
-    $xhtml = new \PapayaUiDialogFieldXhtml();
+    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml();
     $this->assertInstanceOf(\Papaya\Xml\Element::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**
-  * @covers \PapayaUiDialogFieldXhtml::content
+  * @covers \Papaya\Ui\Dialog\Field\Xhtml::content
   */
   public function testContentGetExpectingInvalidArgumentException() {
-    $xhtml = new \PapayaUiDialogFieldXhtml();
+    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml();
     $this->expectException(InvalidArgumentException::class);
     $xhtml->content(new stdClass());
   }
 
   /**
-  * @covers \PapayaUiDialogFieldXhtml::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Xhtml::appendTo
   */
   public function testAppendTo() {
-    $xhtml = new \PapayaUiDialogFieldXhtml('<strong>Test</strong>');
+    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml('<strong>Test</strong>');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field class="DialogFieldXhtml" error="no">

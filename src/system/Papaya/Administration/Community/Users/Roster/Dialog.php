@@ -75,7 +75,7 @@ class Dialog extends \PapayaUiDialog {
       new \PapayaUiStringTranslated('Search'),
       $this->_parameterNames['filter']
     );
-    $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons();
+    $this->fields[] = $buttons = new \Papaya\Ui\Dialog\Field\Buttons();
     $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('Filter'),
       \PapayaUiDialogButton::ALIGN_RIGHT
@@ -86,7 +86,7 @@ class Dialog extends \PapayaUiDialog {
       TRUE,
       \PapayaUiDialogButton::ALIGN_LEFT
     );
-    $this->fields[] = $field = new \PapayaUiDialogFieldListview($listview = $this->listview());
+    $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Listview($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();
   }
 

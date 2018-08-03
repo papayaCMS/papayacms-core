@@ -24,11 +24,11 @@ class Message extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldMessage
+   * @return \Papaya\Ui\Dialog\Field\Message
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldMessage(
+    $field = new \Papaya\Ui\Dialog\Field\Message(
       (int)$this->options()->parameters,
       $this->options()->default
     );

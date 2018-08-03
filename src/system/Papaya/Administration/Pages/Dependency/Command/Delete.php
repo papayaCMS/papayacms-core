@@ -40,7 +40,7 @@ class Delete
         'page_id' => $changer->getPageId()
       )
     );
-    $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
       new \PapayaUiStringTranslated('Delete dependency?'),
       'places-trash'
     );

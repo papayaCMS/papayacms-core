@@ -153,10 +153,10 @@ class FromArray {
    * Add a field group object, group definitions hav only a caption
    *
    * @param string $caption
-   * @return \PapayaUiDialogFieldGroup
+   * @return \Papaya\Ui\Dialog\Field\Group
    */
   private function _addGroup($caption) {
-    $group = new \PapayaUiDialogFieldGroup(
+    $group = new \Papaya\Ui\Dialog\Field\Group(
       $this->_createPhrase($caption)
     );
     return $group;

@@ -13,29 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A simple textarea (multiline input) field
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
+ * A simple textarea (multiline input) field
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Textarea extends \PapayaUiDialogField {
 
   /**
-  * Field lines
-  * @var integer
-  */
+   * Field lines
+   *
+   * @var integer
+   */
   protected $_lineCount = 0;
 
   /**
-  * Initialize object, set caption, field name and maximum length
-  *
-  * @param string|\PapayaUiString $caption
-  * @param string $name
-  * @param integer $lines
-  * @param mixed $default
-  * @param \Papaya\Filter|NULL $filter
-  */
+   * Initialize object, set caption, field name and maximum length
+   *
+   * @param string|\PapayaUiString $caption
+   * @param string $name
+   * @param integer $lines
+   * @param mixed $default
+   * @param \Papaya\Filter|NULL $filter
+   */
   public function __construct(
     $caption, $name, $lines = 10, $default = NULL, \Papaya\Filter $filter = NULL
   ) {
@@ -49,21 +51,21 @@ class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
   }
 
   /**
-  * Set the line count of this element.
-  *
-  * @param integer $lineCount
-  * @return \Papaya\Ui\Dialog\Field\Input
-  */
+   * Set the line count of this element.
+   *
+   * @param integer $lineCount
+   * @return \Papaya\Ui\Dialog\Field\Input
+   */
   public function setLineCount($lineCount) {
     \Papaya\Utility\Constraints::assertInteger($lineCount);
     $this->_lineCount = $lineCount;
   }
 
   /**
-  * Append field and textarea output to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and textarea output to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

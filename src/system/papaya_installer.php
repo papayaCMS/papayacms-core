@@ -1551,7 +1551,7 @@ class papaya_installer extends base_db {
         new \Papaya\Filter\File\Path()
       );
       $field->setMandatory(TRUE);
-      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Administrator');
+      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group('Administrator');
       $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
         'Givenname', 'givenname', -1, '', new \Papaya\Filter\NotEmpty()
       );
@@ -1563,7 +1563,7 @@ class papaya_installer extends base_db {
       $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input\Email(
         'Email', 'email', '', TRUE
       );
-      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Login');
+      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group('Login');
       $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
         'Login Name', 'login', -1, '', new \Papaya\Filter\Text()
       );

@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A hidden dialog field, this will be part of the dialog but not visible. The main
-* difference to the hiddenFields property of the dialog object is that this field changes the data
-* property.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldHidden extends \PapayaUiDialogField {
+ * A hidden dialog field, this will be part of the dialog but not visible. The main
+ * difference to the hiddenFields property of the dialog object is that this field changes the data
+ * property.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Hidden extends \PapayaUiDialogField {
 
   /**
-  * Initialize object, field name, default value and filter
-  *
-  * @param string $name
-  * @param integer $default
-  * @param \Papaya\Filter|NULL $filter
-  */
+   * Initialize object, field name, default value and filter
+   *
+   * @param string $name
+   * @param integer $default
+   * @param \Papaya\Filter|NULL $filter
+   */
   public function __construct($name, $default, \Papaya\Filter $filter = NULL) {
     $this->setName($name);
     $this->setDefaultValue($default);
@@ -39,10 +40,10 @@ class PapayaUiDialogFieldHidden extends \PapayaUiDialogField {
   }
 
   /**
-  * Append field and input ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and input ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $parent->appendElement(
       'field',

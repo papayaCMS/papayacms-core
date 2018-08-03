@@ -243,7 +243,7 @@ class papaya_topic_tree extends base_topic_tree {
         )
       );
       $dialog->caption = new \PapayaUiStringTranslated('Copy pages');
-      $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
         new \PapayaUiStringTranslated(
           'Copy pages and create dependencies if necessary.'
         ),

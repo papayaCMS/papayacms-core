@@ -24,11 +24,11 @@ class Textarea extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldTextarea
+   * @return \Papaya\Ui\Dialog\Field\Textarea
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldTextarea(
+    $field = new \Papaya\Ui\Dialog\Field\Textarea(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

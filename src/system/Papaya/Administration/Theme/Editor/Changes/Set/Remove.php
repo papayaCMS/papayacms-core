@@ -49,14 +49,14 @@ class Remove
           'set_id' => $setId
         )
       );
-      $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
         new \PapayaUiStringTranslated('Delete theme set'),
         'places-trash'
       );
       $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
-      $dialog->fields[] = new \PapayaUiDialogFieldMessage(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_INFO, 'Theme set not found.'
       );
     }

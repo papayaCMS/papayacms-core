@@ -25,12 +25,12 @@ class RichtextIndividual
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldTextareaRichtext
+   * @return \Papaya\Ui\Dialog\Field\Textarea\Richtext
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = parent::getField();
-    $field->setRteMode(\PapayaUiDialogFieldTextareaRichtext::RTE_INDIVIDUAL);
+    $field->setRteMode(\Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_INDIVIDUAL);
     return $field;
   }
 }

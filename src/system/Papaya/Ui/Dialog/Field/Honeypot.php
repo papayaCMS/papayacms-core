@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A single line input for that needs to be send in the request always an empty string.
-*
-* If an robot/script fills the field the dialog will not validate and so the action not executed.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-*/
-class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
+ * A single line input for that needs to be send in the request always an empty string.
+ *
+ * If an robot/script fills the field the dialog will not validate and so the action not executed.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ */
+class Honeypot extends \PapayaUiDialogField {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'text';
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -46,12 +47,12 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
   );
 
   /**
-  * Creates dialog field for url input with caption, name, default value and
-  * mandatory status
-  *
-  * @param string $caption
-  * @param string $name
-  */
+   * Creates dialog field for url input with caption, name, default value and
+   * mandatory status
+   *
+   * @param string $caption
+   * @param string $name
+   */
   public function __construct($caption, $name) {
     parent::setMandatory(TRUE);
     parent::setFilter(new \Papaya\Filter\LogicalAnd(new \Papaya\Filter\NotNull(), new \Papaya\Filter\EmptyValue()));
@@ -68,20 +69,20 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
-  * dialog is checked and used.
-  *
-  * If neither dialog parameter or data is available, the default value is returned.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
+   * dialog is checked and used.
+   *
+   * If neither dialog parameter or data is available, the default value is returned.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner() &&
-        !empty($name)) {
+      $this->collection()->hasOwner() &&
+      !empty($name)) {
       if (!$this->getDisabled() && $this->collection()->owner()->parameters()->has($name)) {
         return $this->collection()->owner()->parameters()->get($name);
       } else {
@@ -92,10 +93,10 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
   }
 
   /**
-  * Append field and input ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and input ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

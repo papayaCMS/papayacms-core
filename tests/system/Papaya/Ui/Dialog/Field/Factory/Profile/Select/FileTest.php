@@ -98,7 +98,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectFile();
     $profile->fileSystem($this->getFileSystemFixture());
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldMessage::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Message::class, $field = $profile->getField());
   }
 
   /**

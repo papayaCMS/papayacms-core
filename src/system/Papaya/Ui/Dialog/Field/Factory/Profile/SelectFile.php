@@ -67,7 +67,7 @@ class SelectFile
       $field->setDefaultValue($this->options()->default);
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
-      $field = new \PapayaUiDialogFieldMessage(
+      $field = new \Papaya\Ui\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_ERROR,
         new \PapayaUiStringTranslated(
           'Can not open directory "%s"', array($path)

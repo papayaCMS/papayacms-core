@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Xhtml;
 /**
-* A field that outputs a link inside the dialog.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldXhtmlLink extends \PapayaUiDialogField {
+ * A field that outputs a link inside the dialog.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Link extends \PapayaUiDialogField {
 
   /**
-  * Link url
-  *
-  * @var string
-  */
+   * Link url
+   *
+   * @var string
+   */
   protected $_url = '';
 
   /**
-  * Link caption
-  *
-  * @var string
-  */
+   * Link caption
+   *
+   * @var string
+   */
   protected $_urlCaption = '';
 
   /**
-  * Create object and assign needed values.
-  *
-  * @param string|\PapayaUiString $url
-  * @param string|\PapayaUiString $caption
-  */
+   * Create object and assign needed values.
+   *
+   * @param string|\PapayaUiString $url
+   * @param string|\PapayaUiString $caption
+   */
   public function __construct($url, $caption = NULL) {
     $this->_url = $url;
     if (!empty($caption)) {
@@ -49,10 +50,10 @@ class PapayaUiDialogFieldXhtmlLink extends \PapayaUiDialogField {
   }
 
   /**
-  * Append xhtml field to dialog xml dom.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append xhtml field to dialog xml dom.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field

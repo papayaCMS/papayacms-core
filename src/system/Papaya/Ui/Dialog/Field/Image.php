@@ -13,7 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
+namespace Papaya\Ui\Dialog\Field;
+use base_thumbnail;
+
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class Image extends \PapayaUiDialogField {
 
   /**
    * Message image
@@ -24,18 +40,21 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
 
   /**
    * Image width
+   *
    * @var int
    */
   protected $_width = 100;
 
   /**
    * Image height
+   *
    * @var int
    */
   protected $_height = 100;
 
   /**
    * Resize mode
+   *
    * @var string
    */
   protected $_mode = 'max';
@@ -80,11 +99,11 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
     $field = $this->_appendFieldTo($parent);
 
     $thumbnail = $this->thumbnail()->getThumbnail(
-        $this->_fileId,
-        NULL,
-        $this->_width,
-        $this->_height,
-        $this->_mode
+      $this->_fileId,
+      NULL,
+      $this->_width,
+      $this->_height,
+      $this->_mode
     );
 
 
@@ -93,10 +112,10 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
     $this->referenceThumbnail()->setMediaUri($thumbnail);
 
     $image = $field->appendElement(
-        'image', array(
-            'src' => $this->referenceThumbnail()->get(),
-            'mode' => $this->_mode
-        )
+      'image', array(
+        'src' => $this->referenceThumbnail()->get(),
+        'mode' => $this->_mode
+      )
     );
   }
 
@@ -107,8 +126,10 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
   public function thumbnail(base_thumbnail $object = NULL) {
     if (isset($object)) {
       $this->_thumbnail = $object;
-    } else if (is_null($this->_thumbnail)) {
-      $this->_thumbnail = new \base_thumbnail;
+    } else {
+      if (is_null($this->_thumbnail)) {
+        $this->_thumbnail = new \base_thumbnail;
+      }
     }
     return $this->_thumbnail;
   }
@@ -120,17 +141,19 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
   public function referenceThumbnail(\PapayaUiReferenceThumbnail $object = NULL) {
     if (isset($object)) {
       $this->_referenceThumbnail = $object;
-    } else if (is_null($this->_referenceThumbnail)) {
+    } else {
+      if (is_null($this->_referenceThumbnail)) {
 
-      $this->_referenceThumbnail = new \PapayaUiReferenceThumbnail();
-      $this->_referenceThumbnail->setThumbnailMode($this->_mode);
-      $this->_referenceThumbnail->setThumbnailSize($this->_width.'x'.$this->_height);
-      $this->_referenceThumbnail->setExtension('png');
-      $this->_referenceThumbnail->setPreview(
+        $this->_referenceThumbnail = new \PapayaUiReferenceThumbnail();
+        $this->_referenceThumbnail->setThumbnailMode($this->_mode);
+        $this->_referenceThumbnail->setThumbnailSize($this->_width.'x'.$this->_height);
+        $this->_referenceThumbnail->setExtension('png');
+        $this->_referenceThumbnail->setPreview(
           !(isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public)
-      );
+        );
 
-      $this->_referenceThumbnail->load($this->papaya()->request);
+        $this->_referenceThumbnail->load($this->papaya()->request);
+      }
     }
     return $this->_referenceThumbnail;
   }
