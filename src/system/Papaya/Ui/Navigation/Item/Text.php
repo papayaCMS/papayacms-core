@@ -13,20 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Navigation\Item;
 /**
-* An navigation item with a caption text.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiNavigationItemText extends \PapayaUiNavigationItem {
+ * An navigation item with a caption text.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Text extends \Papaya\Ui\Navigation\Item {
 
   /**
-  * Use the parent method to create and append to xml element not. Set the text content
-  * for the create xml element using the source member variable.
-  *
-  * @see papaya-lib/system/Papaya/Ui/Navigation/PapayaUiNavigationItem#appendTo($parent)
-  */
+   * Use the parent method to create and append to xml element not. Set the text content
+   * for the create xml element using the source member variable.
+   *
+   * @see papaya-lib/system/Papaya/Ui/Navigation/Papaya\Ui\Navigation\PapayaUiNavigationItem#appendTo($parent)
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $result = parent::appendTo($parent);
     $result->appendText(

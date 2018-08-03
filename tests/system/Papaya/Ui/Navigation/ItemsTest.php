@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiNavigationItemsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiNavigationItems::reference
+  * @covers \Papaya\Ui\Navigation\Items::reference
   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\PapayaUiReference::class);
-    $items = new \PapayaUiNavigationItems();
+    $items = new \Papaya\Ui\Navigation\Items();
     $this->assertSame(
       $reference, $items->reference($reference)
     );
   }
 
   /**
-  * @covers \PapayaUiNavigationItems::reference
+  * @covers \Papaya\Ui\Navigation\Items::reference
   */
   public function testReferenceImpliciteCreate() {
-    $items = new \PapayaUiNavigationItems();
+    $items = new \Papaya\Ui\Navigation\Items();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       \PapayaUiReference::class, $reference = $items->reference()

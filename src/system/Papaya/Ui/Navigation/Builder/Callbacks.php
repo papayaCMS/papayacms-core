@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Navigation\Builder;
 /**
-* Callbacks that are used by the navigation builder object
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\BaseObject\Callback $onBeforeAppend
-* @property \Papaya\BaseObject\Callback $onAfterAppend
-* @property \Papaya\BaseObject\Callback $onCreateItem
-* @property \Papaya\BaseObject\Callback $onAfterAppendItem
-* @method void onBeforeAppend(\PapayaUiNavigationItems $items)
-* @method void onAfterAppend(\PapayaUiNavigationItems $items)
-* @method NULL|\PapayaUiNavigationItem onCreateItem($element, $index)
-* @method void onAfterAppendItem(\PapayaUiNavigationItem $item, $element, $index)
-*/
-class PapayaUiNavigationBuilderCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Callbacks that are used by the navigation builder object
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\BaseObject\Callback $onBeforeAppend
+ * @property \Papaya\BaseObject\Callback $onAfterAppend
+ * @property \Papaya\BaseObject\Callback $onCreateItem
+ * @property \Papaya\BaseObject\Callback $onAfterAppendItem
+ * @method void onBeforeAppend(\Papaya\Ui\Navigation\Items $items)
+ * @method void onAfterAppend(\Papaya\Ui\Navigation\Items $items)
+ * @method NULL|\Papaya\Ui\Navigation\Item onCreateItem($element, $index)
+ * @method void onAfterAppendItem(\Papaya\Ui\Navigation\Item $item, $element, $index)
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

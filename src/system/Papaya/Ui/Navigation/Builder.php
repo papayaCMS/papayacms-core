@@ -13,36 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Navigation;
+
 /**
-* An navigation builder class, creates a link navigation from an Transversable or array.
-*
-* Different callbacks allow to modify the navigation links.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
+ * An navigation builder class, creates a link navigation from an Transversable or array.
+ *
+ * Different callbacks allow to modify the navigation links.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Builder extends \Papaya\Ui\Control {
 
   /**
-  * member vaiable for the source
-  * @var array|Traversable
-  */
+   * member variable for the source
+   *
+   * @var array|\Traversable
+   */
   private $_elements = array();
   /**
-  * member vaiable for the links
-  * @var \PapayaUiNavigationItems
-  */
-  private $_items = NULL;
+   * member variable for the links
+   *
+   * @var \Papaya\Ui\Navigation\Items
+   */
+  private $_items;
   /**
-  * member vaiable for the callbacks
-  * @var \PapayaUiNavigationBuilderCallbacks
-  */
-  private $_callbacks = NULL;
+   * member variable for the callbacks
+   *
+   * @var Builder\Callbacks
+   */
+  private $_callbacks;
   /**
-  * member vaiable for the navigation item class while using defalt creation
-  * @var \PapayaUiNavigationBuilderCallbacks
-  */
-  private $_itemClass = '';
+   * member variable for the navigation item class while using default creation
+   *
+   * @var Builder\Callbacks
+   */
+  private $_itemClass;
 
   /**
    * Create object, store source elements and default item class
@@ -51,14 +57,14 @@ class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
    * @param string $itemClass
    * @throws \InvalidArgumentException
    */
-  public function __construct($elements, $itemClass = \PapayaUiNavigationItemText::class) {
+  public function __construct($elements, $itemClass = Item\Text::class) {
     $this->elements($elements);
-    if (!is_subclass_of($itemClass, \PapayaUiNavigationItem::class)) {
+    if (!is_subclass_of($itemClass, \Papaya\Ui\Navigation\Item::class)) {
       throw new \InvalidArgumentException(
         sprintf(
           'Class "%s" is not an subclass of "%s".',
           $itemClass,
-          \PapayaUiNavigationItem::class
+          \Papaya\Ui\Navigation\Item::class
         )
       );
     }
@@ -66,10 +72,10 @@ class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
   }
 
   /**
-  * Create items for each source element and append them to the parent xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Create items for each source element and append them to the parent xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $this->items()->clear();
     $this->callbacks()->onBeforeAppend($this->items());
@@ -80,7 +86,7 @@ class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
         $itemClass = $this->_itemClass;
         $item = new $itemClass($element, $index);
       }
-      if ($item instanceof \PapayaUiNavigationItem) {
+      if ($item instanceof \Papaya\Ui\Navigation\Item) {
         $this->items()->add($item);
         $this->callbacks()->onAfterAppendItem($item, $element, $index);
       }
@@ -90,13 +96,13 @@ class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
   }
 
   /**
-  * Getter/Setter for the source elements
-  *
-  * @param array|\Traversable $elements
-  * @return array|\Traversable
-  */
+   * Getter/Setter for the source elements
+   *
+   * @param array|\Traversable $elements
+   * @return array|\Traversable
+   */
   public function elements($elements = NULL) {
-    if (isset($elements)) {
+    if (NULL !== $elements) {
       \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
       $this->_elements = $elements;
     }
@@ -104,32 +110,32 @@ class PapayaUiNavigationBuilder extends \Papaya\Ui\Control {
   }
 
   /**
-  * Getter/Setter for the navigation items
-  *
-  * @param \PapayaUiNavigationItems $items
-  * @return \PapayaUiNavigationItems
-  */
-  public function items(\PapayaUiNavigationItems $items = NULL) {
-    if (isset($items)) {
+   * Getter/Setter for the navigation items
+   *
+   * @param \Papaya\Ui\Navigation\Items $items
+   * @return \Papaya\Ui\Navigation\Items
+   */
+  public function items(\Papaya\Ui\Navigation\Items $items = NULL) {
+    if (NULL !== $items) {
       $this->_items = $items;
-    } elseif (is_null($this->_items)) {
-      $this->_items = new \PapayaUiNavigationItems();
+    } elseif (NULL === $this->_items) {
+      $this->_items = new \Papaya\Ui\Navigation\Items();
       $this->_items->papaya($this->papaya());
     }
     return $this->_items;
   }
 
   /**
-  * Getter/Setter for the callbacks
-  *
-  * @param \PapayaUiNavigationBuilderCallbacks $callbacks
-  * @return \PapayaUiNavigationBuilderCallbacks
-  */
-  public function callbacks(\PapayaUiNavigationBuilderCallbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+   * Getter/Setter for the callbacks
+   *
+   * @param Builder\Callbacks $callbacks
+   * @return Builder\Callbacks
+   */
+  public function callbacks(Builder\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiNavigationBuilderCallbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Builder\Callbacks();
     }
     return $this->_callbacks;
   }

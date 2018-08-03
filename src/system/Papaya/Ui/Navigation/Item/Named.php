@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Navigation\Item;
 /**
-* An navigation item with a name attribute. Used for specific navigation items, that need
-* individual handling in the template.
-*
-* The given name is converted to an identifer using lowercase letters and underscore separators.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiNavigationItemNamed extends \PapayaUiNavigationItem {
+ * An navigation item with a name attribute. Used for specific navigation items, that need
+ * individual handling in the template.
+ *
+ * The given name is converted to an identifer using lowercase letters and underscore separators.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Named extends \Papaya\Ui\Navigation\Item {
 
   /**
-  * Use the parent method to create and append to xml element not. Set an attribute name
-  * for the create xml element using the member variable.
-  *
-  * @see papaya-lib/system/Papaya/Ui/Navigation/PapayaUiNavigationItem#appendTo($parent)
-  */
+   * Use the parent method to create and append to xml element not. Set an attribute name
+   * for the create xml element using the member variable.
+   *
+   * @see papaya-lib/system/Papaya/Ui/Navigation/Papaya\Ui\Navigation\PapayaUiNavigationItem#appendTo($parent)
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $result = parent::appendTo($parent);
     $result->setAttribute(

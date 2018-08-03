@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiNavigationItemTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiNavigationItemText::__construct
+  * @covers \Papaya\Ui\Navigation\Item\Text::__construct
   */
   public function testConstructor() {
-    $item = new \PapayaUiNavigationItemText('success', 42);
+    $item = new \Papaya\Ui\Navigation\Item\Text('success', 42);
     $this->assertAttributeEquals(
       'success', '_sourceValue', $item
     );
@@ -31,7 +31,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::appendTo
+  * @covers \Papaya\Ui\Navigation\Item::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
@@ -54,7 +54,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::appendTo
+  * @covers \Papaya\Ui\Navigation\Item::appendTo
   */
   public function testAppendToWithSelectedItem() {
     $document = new \Papaya\Xml\Document();
@@ -78,7 +78,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::selected
+  * @covers \Papaya\Ui\Navigation\Item::selected
   */
   public function testSelectedSetToTrue() {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
@@ -87,7 +87,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::selected
+  * @covers \Papaya\Ui\Navigation\Item::selected
   */
   public function testSelectedSetToFalse() {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
@@ -96,7 +96,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::reference
+  * @covers \Papaya\Ui\Navigation\Item::reference
   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\PapayaUiReference::class);
@@ -107,11 +107,11 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::reference
+  * @covers \Papaya\Ui\Navigation\Item::reference
   */
   public function testReferenceGetFromCollection() {
     $reference = $this->createMock(\PapayaUiReference::class);
-    $collection = $this->createMock(\PapayaUiNavigationItems::class);
+    $collection = $this->createMock(\Papaya\Ui\Navigation\Items::class);
     $collection
       ->expects($this->once())
       ->method('reference')
@@ -123,7 +123,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiNavigationItem::reference
+  * @covers \Papaya\Ui\Navigation\Item::reference
   */
   public function testReferenceImpliciteCreate() {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
@@ -138,6 +138,6 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
 
 }
 
-class PapayaUiNavigationItem_TestProxy extends \PapayaUiNavigationItem {
+class PapayaUiNavigationItem_TestProxy extends \Papaya\Ui\Navigation\Item {
 
 }

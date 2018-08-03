@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiNavigationItemNamedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiNavigationItemNamed::appendTo
+  * @covers \Papaya\Ui\Navigation\Item\Named::appendTo
   */
   public function testAppendTo() {
-    $item = new \PapayaUiNavigationItemNamed('sample');
+    $item = new \Papaya\Ui\Navigation\Item\Named('sample');
     $item->papaya(
       $this->mockPapaya()->application()
     );

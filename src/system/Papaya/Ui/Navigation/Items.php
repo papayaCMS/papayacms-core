@@ -13,34 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Navigation;
 /**
-* An navigation items list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiNavigationItems extends \Papaya\Ui\Control\Collection {
+ * An navigation items list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Items extends \Papaya\Ui\Control\Collection {
 
-  private $_reference = NULL;
+  private $_reference;
 
   /**
-  * Only \Papaya\Ui\Dialog\PapayaUiDialogElement objects are allows in this list
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiNavigationItem::class;
+   * Only \Papaya\Ui\Dialog\PapayaUiDialogElement objects are allows in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Item::class;
 
   protected $_tagName = 'links';
 
   /**
-  * Getter/Setter for a reference subobject to create detail page links
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for a reference subobject to create detail page links
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \PapayaUiReferencePage();
       $this->_reference->papaya($this->papaya());
     }
