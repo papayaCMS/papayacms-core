@@ -642,7 +642,7 @@ class papaya_page extends base_object {
         $query->setString($alias['url_params'])->values()
       );
     }
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     if (isset($alias['topic_id'])) {
       $reference->setPageId($alias['topic_id']);
     }

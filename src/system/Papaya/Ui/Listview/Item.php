@@ -29,7 +29,7 @@ namespace Papaya\Ui\Listview;
  * @property boolean $selected
  * @property boolean $emphased
  * @property \Papaya\Ui\Listview\Subitems $subitems
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  * @property \Papaya\Ui\Listview\Item\Node $node
  */
 class Item extends \Papaya\Ui\Control\Collection\Item {
@@ -84,7 +84,7 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Reference object
    *
-   * @var NULL|\PapayaUiReference
+   * @var NULL|\Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 
@@ -227,10 +227,10 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
    * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
    * is cloned or a new one is created (if no collection is available).
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
@@ -240,7 +240,7 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
           $this->_actionParameters, $this->getListview()->parameterGroup()
         );
       } else {
-        $this->_reference = new \PapayaUiReference();
+        $this->_reference = new \Papaya\Ui\Reference();
         $this->_reference->papaya($this->papaya());
         $this->_reference->setParameters(
           $this->_actionParameters

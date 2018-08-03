@@ -170,7 +170,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   */
   public function testReferenceGetAfterSet() {
     $item = new \Papaya\Ui\Listview\Item('', '');
-    $item->reference($reference = $this->createMock(\PapayaUiReference::class));
+    $item->reference($reference = $this->createMock(\Papaya\Ui\Reference::class));
     $this->assertSame($reference, $item->reference());
   }
 
@@ -190,7 +190,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Listview\Item::reference
   */
   public function testReferenceGetFromCollection() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $collection = $this
       ->getMockBuilder(\Papaya\Ui\Listview\Items::class)
@@ -206,7 +206,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->will($this->returnValue($listview));
     $item = new \Papaya\Ui\Listview\Item('', '');
     $item->collection($collection);
-    $this->assertInstanceOf(\PapayaUiReference::class, $item->reference());
+    $this->assertInstanceOf(\Papaya\Ui\Reference::class, $item->reference());
     $this->assertNotSame($reference, $item->reference());
   }
 
@@ -276,7 +276,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('parameterGroup')
       ->will($this->returnValue('group'));
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')

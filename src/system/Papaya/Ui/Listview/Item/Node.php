@@ -30,7 +30,7 @@ namespace Papaya\Ui\Listview\Item;
  * @subpackage Ui
  *
  * @property integer $status
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  * @property-read \Papaya\Ui\Listview\Item $item
  */
 class Node extends \Papaya\Ui\Control {
@@ -52,7 +52,7 @@ class Node extends \Papaya\Ui\Control {
   protected $_item = NULL;
 
   /**
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 
@@ -123,10 +123,10 @@ class Node extends \Papaya\Ui\Control {
    * Getter/Setter for the node reference, if no reference is provided it is cloned
    * from the item.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {

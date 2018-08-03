@@ -40,7 +40,7 @@ class Link extends \Papaya\Ui\Dialog\Button {
   protected $_caption = 'Submit';
 
   /**
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   private $_reference;
 
@@ -73,14 +73,14 @@ class Link extends \Papaya\Ui\Dialog\Button {
   }
 
   /**
-   * @param \PapayaUiReference|NULL $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference|NULL $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

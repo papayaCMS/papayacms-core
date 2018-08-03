@@ -32,8 +32,8 @@ namespace Papaya\Application;
  * @property \base_surfer $surfer
  * @property \base_auth $administrationUser
  * @property \Papaya\Administration\Languages\Selector $administrationLanguage
- * @property \PapayaUiReferenceFactory $references
- * @property \PapayaUiReferencePageFactory $pageReferences
+ * @property \Papaya\Ui\Reference\Factory $references
+ * @property \Papaya\Ui\Reference\Page\Factory $pageReferences
  * @property \Papaya\Phrases $phrases
  */
 abstract class Cms extends \Papaya\Application {

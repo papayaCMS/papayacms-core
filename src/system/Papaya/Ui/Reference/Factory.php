@@ -13,7 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiReferenceFactory extends \Papaya\Application\BaseObject {
+namespace Papaya\Ui\Reference;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class Factory extends \Papaya\Application\BaseObject {
 
   private $_patterns = array(
     'page' => '(
@@ -44,29 +58,29 @@ class PapayaUiReferenceFactory extends \Papaya\Application\BaseObject {
     foreach ($this->_patterns as $type => $pattern) {
       if (preg_match($pattern, $string, $matches)) {
         switch ($type) {
-        case 'page' :
-          $reference = $this->createPageReference($matches);
+          case 'page' :
+            $reference = $this->createPageReference($matches);
           break;
-        case 'absolute_url' :
-          $reference = new \PapayaUiReference(new \Papaya\Url($string));
+          case 'absolute_url' :
+            $reference = new \Papaya\Ui\Reference(new \Papaya\Url($string));
           break;
-        case 'relative_url' :
-        default :
-          $reference = new \PapayaUiReference(
-            clone $this->papaya()->request->getUrl()
-          );
-          $reference->setRelative($string);
+          case 'relative_url' :
+          default :
+            $reference = new \Papaya\Ui\Reference(
+              clone $this->papaya()->request->getUrl()
+            );
+            $reference->setRelative($string);
         }
         return $reference;
       }
     }
-    return new \PapayaUiReference(
+    return new \Papaya\Ui\Reference(
       clone $this->papaya()->request->getUrl()
     );
   }
 
   private function createPageReference($options) {
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya($this->papaya());
     if (!empty($options['page_id'])) {
       $reference->setPageId($options['page_id']);

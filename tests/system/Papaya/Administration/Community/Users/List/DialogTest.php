@@ -213,7 +213,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   * @covers Dialog::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $dialog = new Dialog();
     $dialog->reference($reference);
     $this->assertSame($reference, $dialog->reference());
@@ -224,7 +224,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testReferenceImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(\PapayaUiReference::class, $dialog->reference());
+    $this->assertInstanceOf(\Papaya\Ui\Reference::class, $dialog->reference());
   }
 
   /**

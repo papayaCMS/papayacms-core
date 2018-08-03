@@ -25,7 +25,7 @@ namespace Papaya\Ui\Hierarchy;
  * @property string|\PapayaUiString $caption
  * @property string|\PapayaUiString $hint
  * @property int $displayMode
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  */
 class Item extends \Papaya\Ui\Control\Collection\Item {
 
@@ -69,7 +69,7 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Reference object
    *
-   * @var NULL|\PapayaUiReference
+   * @var NULL|\Papaya\Ui\Reference
    */
   protected $_reference;
 
@@ -127,14 +127,14 @@ class Item extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Getter/Setter for the reference subobject
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

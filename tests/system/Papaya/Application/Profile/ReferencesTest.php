@@ -33,7 +33,7 @@ class PapayaApplicationProfileReferenceTest extends \PapayaTestCase {
     $profile = new References();
     $reference = $profile->createObject($application);
     $this->assertInstanceOf(
-      \PapayaUiReferenceFactory::class,
+      \Papaya\Ui\Reference\Factory::class,
       $reference
     );
   }

@@ -24,22 +24,22 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiReferencePageFactory::create
+  * @covers \Papaya\Ui\Reference\Page\Factory::create
   */
   public function testCreate() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertInstanceOf(
-      \PapayaUiReferencePage::class,
+      \Papaya\Ui\Reference\Page::class,
       $factory->create()
     );
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::get
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::get
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testGet() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -54,12 +54,12 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::get
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::get
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testGetExpectingHttps() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -85,11 +85,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::get
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::get
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testGetWithPreviewPage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -105,11 +105,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::get
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::get
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testGetWithInvalidPage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -122,11 +122,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigure() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -134,7 +134,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->domains($this->getDomainsFixture());
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -152,11 +152,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureWithPreviewPage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -165,7 +165,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->domains($this->getDomainsFixture());
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -183,8 +183,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureWithTargetDomain() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -220,7 +220,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -228,7 +228,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->domains($domains);
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -246,8 +246,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureWithTargetDomainWithoutProtocol() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -283,7 +283,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -291,7 +291,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->domains($domains);
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -310,11 +310,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureInPreviewWithTargetDomainIgnored() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -322,7 +322,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -340,18 +340,18 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureWithInvalidPage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -368,8 +368,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::configure
-  * @covers \PapayaUiReferencePageFactory::prepareTitle
+  * @covers \Papaya\Ui\Reference\Page\Factory::configure
+  * @covers \Papaya\Ui\Reference\Page\Factory::prepareTitle
   */
   public function testConfigureWithInvalidDomain() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -393,7 +393,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application()
     );
@@ -401,7 +401,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $factory->domains($domains);
     $factory->languages($this->getLanguagesFixture());
 
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->papaya(
       $this->mockPapaya()->application(
         array(
@@ -418,12 +418,12 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getPageData
-  * @covers \PapayaUiReferencePageFactory::isPageLoaded
-  * @covers \PapayaUiReferencePageFactory::lazyLoadPage
+  * @covers \Papaya\Ui\Reference\Page\Factory::getPageData
+  * @covers \Papaya\Ui\Reference\Page\Factory::isPageLoaded
+  * @covers \Papaya\Ui\Reference\Page\Factory::lazyLoadPage
   */
   public function testGetPageData() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -441,12 +441,12 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getPageData
-  * @covers \PapayaUiReferencePageFactory::isPageLoaded
-  * @covers \PapayaUiReferencePageFactory::lazyLoadPage
+  * @covers \Papaya\Ui\Reference\Page\Factory::getPageData
+  * @covers \Papaya\Ui\Reference\Page\Factory::isPageLoaded
+  * @covers \Papaya\Ui\Reference\Page\Factory::lazyLoadPage
   */
   public function testGetPageDataExpectingFalse() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -456,38 +456,38 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::isPreview
+  * @covers \Papaya\Ui\Reference\Page\Factory::isPreview
   */
   public function testIsPreviewExpectingFalse() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertFalse($factory->isPreview());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::isPreview
-  * @covers \PapayaUiReferencePageFactory::setPreview
+  * @covers \Papaya\Ui\Reference\Page\Factory::isPreview
+  * @covers \Papaya\Ui\Reference\Page\Factory::setPreview
   */
   public function testIsPreviewAfterSetPreviewExpectingTrue() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $this->assertTrue($factory->isPreview());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::setPreview
+  * @covers \Papaya\Ui\Reference\Page\Factory::setPreview
   */
   public function testSetPreviewToTrueResetsPagesObject() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertInstanceOf(Publications::class, $pages = $factory->pages());
     $factory->setPreview(TRUE);
     $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::setPreview
+  * @covers \Papaya\Ui\Reference\Page\Factory::setPreview
   */
   public function testSetPreviewToFalseResetsPagesObject() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
     $factory->setPreview(FALSE);
@@ -495,7 +495,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getDomainData
+  * @covers \Papaya\Ui\Reference\Page\Factory::getDomainData
   */
   public function testGetDomainDataExpectingSameDomainReturnTrue() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -531,7 +531,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -542,7 +542,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getDomainData
+  * @covers \Papaya\Ui\Reference\Page\Factory::getDomainData
   */
   public function testGetDomainDataExpectingNoDomainReturnFalse() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -566,7 +566,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -577,7 +577,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getDomainData
+  * @covers \Papaya\Ui\Reference\Page\Factory::getDomainData
   */
   public function testGetDomainDataExpectingUnrestrictedCurrentDomainReturnTrue() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -591,7 +591,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       ->method('getCurrent')
       ->will($this->returnValue(FALSE));
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -602,7 +602,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getDomainData
+  * @covers \Papaya\Ui\Reference\Page\Factory::getDomainData
   */
   public function testGetDomainDataRepeatCallExpectingCached() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -616,7 +616,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       ->method('getCurrent')
       ->will($this->returnValue(FALSE));
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -628,7 +628,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getDomainData
+  * @covers \Papaya\Ui\Reference\Page\Factory::getDomainData
   */
   public function testGetDomainDataExpectingTargetDomain() {
     $domains = $this->createMock(\Papaya\Domains::class);
@@ -664,7 +664,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
@@ -682,30 +682,30 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::isDomainWithoutWildcards
+  * @covers \Papaya\Ui\Reference\Page\Factory::isDomainWithoutWildcards
   */
   public function testIsDomainWithoutWildcardsExpectingTrue() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertTrue(
       $factory->isDomainWithoutWildcards(array('host' => 'www.test.tld'))
     );
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::isDomainWithoutWildcards
+  * @covers \Papaya\Ui\Reference\Page\Factory::isDomainWithoutWildcards
   */
   public function testIsDomainWithoutWildcardsExpectingFalse() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertFalse(
       $factory->isDomainWithoutWildcards(array('host' => '*.test.tld'))
     );
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getLinkAttributes
+  * @covers \Papaya\Ui\Reference\Page\Factory::getLinkAttributes
   */
   public function testGetLinkAttributesWithInvalidPageExpectingNull() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
     $this->assertNull(
@@ -714,10 +714,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getLinkAttributes
+  * @covers \Papaya\Ui\Reference\Page\Factory::getLinkAttributes
   */
   public function testGetLinkAttributesWithInvalidLinkTypeExpectingSimpleLink() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
     $factory->linkTypes(
@@ -731,10 +731,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getLinkAttributes
+  * @covers \Papaya\Ui\Reference\Page\Factory::getLinkAttributes
   */
   public function testGetLinkAttributesExpectingSimpleLink() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
     $factory->linkTypes(
@@ -760,11 +760,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getLinkAttributes
-  * @covers \PapayaUiReferencePageFactory::setLinkPopupOption
+  * @covers \Papaya\Ui\Reference\Page\Factory::getLinkAttributes
+  * @covers \Papaya\Ui\Reference\Page\Factory::setLinkPopupOption
   */
   public function testGetLinkAttributesExpectingPopupLink() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
     $factory->linkTypes(
@@ -808,11 +808,11 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::getLinkAttributes
-  * @covers \PapayaUiReferencePageFactory::setLinkPopupOption
+  * @covers \Papaya\Ui\Reference\Page\Factory::getLinkAttributes
+  * @covers \Papaya\Ui\Reference\Page\Factory::setLinkPopupOption
   */
   public function testGetLinkAttributesExpectingPopupLinkWithoutBars() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($this->getPagesFixture());
     $factory->languages($this->getLanguagesFixture());
     $factory->linkTypes(
@@ -856,84 +856,84 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::pages
+  * @covers \Papaya\Ui\Reference\Page\Factory::pages
   */
   public function testPagesGetAfterSet() {
     $pages = $this->createMock(Pages::class);
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($pages);
     $this->assertSame($pages, $factory->pages());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::pages
+  * @covers \Papaya\Ui\Reference\Page\Factory::pages
   */
   public function testPagesGetImplicitCreatePagesPublications() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::pages
+  * @covers \Papaya\Ui\Reference\Page\Factory::pages
   */
   public function testPagesGetImplicitCreatePagesInPreviewMode() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::linkTypes
+  * @covers \Papaya\Ui\Reference\Page\Factory::linkTypes
   */
   public function testLinkTypesGetAfterSet() {
     $linkTypes = $this->createMock(Types::class);
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->linkTypes($linkTypes);
     $this->assertSame($linkTypes, $factory->linkTypes());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::linkTypes
+  * @covers \Papaya\Ui\Reference\Page\Factory::linkTypes
   */
   public function testLinkTypesGetImplicitCreatePagesPublications() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertInstanceOf(Types::class, $linkTypes = $factory->linkTypes());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::domains
+  * @covers \Papaya\Ui\Reference\Page\Factory::domains
   */
   public function testDomainsGetAfterSet() {
     $domains = $this->createMock(\Papaya\Domains::class);
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->domains($domains);
     $this->assertSame($domains, $factory->domains());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::domains
+  * @covers \Papaya\Ui\Reference\Page\Factory::domains
   */
   public function testDomainsGetImplicitCreatePagesPublications() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $this->assertInstanceOf(\Papaya\Domains::class, $domains = $factory->domains());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::languages
+  * @covers \Papaya\Ui\Reference\Page\Factory::languages
   */
   public function testLanguagesGetAfterSet() {
     $languages = $this->createMock(Languages::class);
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->languages($languages);
     $this->assertSame($languages, $factory->languages());
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::languages
+  * @covers \Papaya\Ui\Reference\Page\Factory::languages
   */
   public function testLanguagesGetImplicitFromApplicationRegistry() {
     $languages = $this->createMock(Languages::class);
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array('languages' => $languages)
@@ -943,10 +943,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::validateLanguageIdentifier
+  * @covers \Papaya\Ui\Reference\Page\Factory::validateLanguageIdentifier
   */
   public function testValidateLanguageIdentifierWithExistingLanguage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->languages($this->getLanguagesFixture());
     $this->assertEquals(
       'de', $factory->validateLanguageIdentifier('de')
@@ -954,10 +954,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::validateLanguageIdentifier
+  * @covers \Papaya\Ui\Reference\Page\Factory::validateLanguageIdentifier
   */
   public function testValidateLanguageIdentifierFromRequestParameters() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
@@ -976,10 +976,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::validateLanguageIdentifier
+  * @covers \Papaya\Ui\Reference\Page\Factory::validateLanguageIdentifier
   */
   public function testValidateLanguageIdentifierFromOptions() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
@@ -996,10 +996,10 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::validateLanguageIdentifier
+  * @covers \Papaya\Ui\Reference\Page\Factory::validateLanguageIdentifier
   */
   public function testValidateLanguageIdentifierFromInternalStorage() {
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
@@ -1017,8 +1017,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::preload
-  * @covers \PapayaUiReferencePageFactory::getFilter
+  * @covers \Papaya\Ui\Reference\Page\Factory::preload
+  * @covers \Papaya\Ui\Reference\Page\Factory::getFilter
   */
   public function testPreload() {
     $pages = $this->createMock(Pages::class);
@@ -1052,7 +1052,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array('title' => 'Sample')
         )
       );
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($pages);
     $factory->languages($this->getLanguagesFixture());
@@ -1060,8 +1060,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::preload
-  * @covers \PapayaUiReferencePageFactory::getFilter
+  * @covers \Papaya\Ui\Reference\Page\Factory::preload
+  * @covers \Papaya\Ui\Reference\Page\Factory::getFilter
   */
   public function testPreloadOptimizesLoading() {
     $pages = $this->createMock(Pages::class);
@@ -1096,7 +1096,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array('title' => 'Sample')
         )
       );
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($pages);
     $factory->languages($this->getLanguagesFixture());
@@ -1105,8 +1105,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::preload
-  * @covers \PapayaUiReferencePageFactory::getFilter
+  * @covers \Papaya\Ui\Reference\Page\Factory::preload
+  * @covers \Papaya\Ui\Reference\Page\Factory::getFilter
   */
   public function testPreloadWithLanguageIdentifier() {
 
@@ -1121,7 +1121,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         )
       )
       ->will($this->returnValue(FALSE));
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->setPreview(TRUE);
     $factory->pages($pages);
     $factory->languages($this->getLanguagesFixture());
@@ -1129,8 +1129,8 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReferencePageFactory::preload
-  * @covers \PapayaUiReferencePageFactory::getFilter
+  * @covers \Papaya\Ui\Reference\Page\Factory::preload
+  * @covers \Papaya\Ui\Reference\Page\Factory::getFilter
   */
   public function testPreloadWithPublicDataExpectingTimeInFilter() {
     $pages = $this->createMock(Pages::class);
@@ -1141,7 +1141,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->arrayHasKey('time')
       )
       ->will($this->returnValue(FALSE));
-    $factory = new \PapayaUiReferencePageFactory();
+    $factory = new \Papaya\Ui\Reference\Page\Factory();
     $factory->pages($pages);
     $factory->languages($this->getLanguagesFixture());
     $factory->preload('de', array(23));

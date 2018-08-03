@@ -24,7 +24,7 @@ namespace Papaya\Ui\Listview\Subitem;
  * @property string $image
  * @property string|\PapayaUiString $hint
  * @property array $actionParameters
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  */
 class Image extends Text {
 
@@ -44,7 +44,7 @@ class Image extends Text {
   /**
    * Basic reference/link
    *
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 

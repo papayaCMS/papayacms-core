@@ -21,7 +21,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarElement::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $button = new \PapayaUiToolbarElement_TestProxy();
     $button->reference($reference);
     $this->assertSame(
@@ -38,7 +38,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
       $application = $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $button->reference()
+      \Papaya\Ui\Reference::class, $button->reference()
     );
     $this->assertSame(
       $application, $button->reference()->papaya()

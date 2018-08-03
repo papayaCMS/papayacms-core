@@ -42,7 +42,7 @@ class Items
    * A basic reference (link object) for the listview items. The reference object is cloned and
    * modified by the item using it's $actionParameters.
    *
-   * @var NULL|\PapayaUiReference
+   * @var NULL|\Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 
@@ -70,10 +70,10 @@ class Items
    * Getter/Setter for the basic reference used by the list items. This will be the link on the
    * caption/image.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }

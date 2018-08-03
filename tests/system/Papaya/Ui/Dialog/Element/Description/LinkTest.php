@@ -21,7 +21,7 @@ class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Element\Description\Link::appendTo
   */
   public function testAppendTo() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -39,7 +39,7 @@ class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Element\Description\Link::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $description = new \Papaya\Ui\Dialog\Element\Description\Link();
     $this->assertSame(
       $reference, $description->reference($reference)
@@ -52,7 +52,7 @@ class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $description = new \Papaya\Ui\Dialog\Element\Description\Link();
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $description->reference()
+      \Papaya\Ui\Reference::class, $description->reference()
     );
   }
 }

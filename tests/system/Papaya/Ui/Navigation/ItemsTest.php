@@ -21,7 +21,7 @@ class PapayaUiNavigationItemsTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Navigation\Items::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $items = new \Papaya\Ui\Navigation\Items();
     $this->assertSame(
       $reference, $items->reference($reference)
@@ -35,7 +35,7 @@ class PapayaUiNavigationItemsTest extends \PapayaTestCase {
     $items = new \Papaya\Ui\Navigation\Items();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $reference = $items->reference()
+      \Papaya\Ui\Reference::class, $reference = $items->reference()
     );
     $this->assertSame(
       $papaya, $reference->papaya()

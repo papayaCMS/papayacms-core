@@ -173,7 +173,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Listview::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $listview = new \Papaya\Ui\Listview();
     $this->assertSame(
       $reference, $listview->reference($reference)
@@ -186,7 +186,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $listview = new \Papaya\Ui\Listview();
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $listview->reference()
+      \Papaya\Ui\Reference::class, $listview->reference()
     );
   }
 

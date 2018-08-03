@@ -34,7 +34,7 @@ class PapayaUiListviewItemsTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Listview\Items::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
     $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $items = new \Papaya\Ui\Listview\Items($listview);
@@ -52,10 +52,10 @@ class PapayaUiListviewItemsTest extends \PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->createMock(\PapayaUiReference::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Reference::class)));
     $items = new \Papaya\Ui\Listview\Items($listview);
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $items->reference()
+      \Papaya\Ui\Reference::class, $items->reference()
     );
   }
 }

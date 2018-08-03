@@ -24,14 +24,14 @@
 * @property string|\PapayaUiString $hint
 * @property bool $visible
 * @property array $actionParameters
-* @property \PapayaUiReference $reference
+* @property \Papaya\Ui\Reference $reference
 */
 class PapayaUiIcon extends \Papaya\Ui\Control {
 
   /**
   * internal reference object buffer
   *
-  * @var \PapayaUiReference|NULL
+  * @var \Papaya\Ui\Reference|NULL
   */
   protected $_reference = NULL;
 
@@ -151,7 +151,7 @@ class PapayaUiIcon extends \Papaya\Ui\Control {
   * If action parameters were provided, return the reference for a link containing these
   * parameters in the query string
   *
-  * @return \PapayaUiReference|NULL
+  * @return \Papaya\Ui\Reference|NULL
   */
   public function getUrl() {
     if (empty($this->_actionParameters)) {
@@ -166,15 +166,15 @@ class PapayaUiIcon extends \Papaya\Ui\Control {
   /**
    * Getter/Setter for a reference subobject used to create hyperlinks.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
     if (is_null($this->_reference)) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

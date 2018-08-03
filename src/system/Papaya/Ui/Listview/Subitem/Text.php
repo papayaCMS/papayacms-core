@@ -23,7 +23,7 @@ namespace Papaya\Ui\Listview\Subitem;
  * @property integer $align
  * @property string|\PapayaUiString $text
  * @property array $actionParameters
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  */
 class Text extends \Papaya\Ui\Listview\Subitem {
 
@@ -37,7 +37,7 @@ class Text extends \Papaya\Ui\Listview\Subitem {
   /**
    * Basic reference/link
    *
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 
@@ -73,10 +73,10 @@ class Text extends \Papaya\Ui\Listview\Subitem {
    * Getter/Setter for the reference subobject, this will be initalized from the listview
    * if not set.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }

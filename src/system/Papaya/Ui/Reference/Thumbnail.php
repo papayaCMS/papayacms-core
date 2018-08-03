@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Reference;
 /**
-* Papaya Interface Thumbnail Reference (Hyperlink Reference)
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiReferenceThumbnail extends \PapayaUiReference {
+ * Papaya Interface Thumbnail Reference (Hyperlink Reference)
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Thumbnail extends \Papaya\Ui\Reference {
 
   /**
-  * Page identification data
-  * @var array
-  */
+   * Page identification data
+   *
+   * @var array
+   */
   protected $_pageData = array(
     'title' => 'index',
     'media_id' => NULL,
@@ -37,17 +39,17 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   );
 
   /**
-  * Static create function to allow fluent calls.
-  *
-  * @param \Papaya\Url $url
-  * @return \PapayaUiReference
-  */
+   * Static create function to allow fluent calls.
+   *
+   * @param \Papaya\Url $url
+   * @return \Papaya\Ui\Reference
+   */
   public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
   /**
-   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
+   * @see papaya-lib/system/Papaya/Interface/Papaya\Ui\PapayaUiReference#get()
    * @param bool $forPublic
    * @return null|string
    */
@@ -83,9 +85,9 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
+   * @see papaya-lib/system/Papaya/Interface/Papaya\Ui\PapayaUiReference#load($request)
    * @param \Papaya\Request $request
-   * @return \PapayaUiReference|$this
+   * @return \Papaya\Ui\Reference|$this
    */
   public function load(\Papaya\Request $request) {
     parent::load($request);
@@ -96,11 +98,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set media id
-  *
-  * @param string $mediaId
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set media id
+   *
+   * @param string $mediaId
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setMediaId($mediaId) {
     $this->prepare();
     if (!empty($mediaId) && preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
@@ -110,11 +112,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set media version
-  *
-  * @param integer $version
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set media version
+   *
+   * @param integer $version
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setMediaVersion($version) {
     $this->prepare();
     if ($version > 0) {
@@ -124,11 +126,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set file title (normalized string)
-  *
-  * @param string $title
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set file title (normalized string)
+   *
+   * @param string $title
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setTitle($title) {
     $this->prepare();
     if (preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
@@ -138,11 +140,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set thumbnail resize mode
-  *
-  * @param string $mode
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set thumbnail resize mode
+   *
+   * @param string $mode
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setThumbnailMode($mode) {
     $this->prepare();
     if (preg_match('(^[a-zA-Z]+$)D', $mode)) {
@@ -152,11 +154,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set thumbnail size
-  *
-  * @param string $size
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set thumbnail size
+   *
+   * @param string $size
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setThumbnailSize($size) {
     $this->prepare();
     if (preg_match('(^\d+x\d+$)D', $size)) {
@@ -184,11 +186,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set extension (normalized string)
-  *
-  * @param string $extension
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set extension (normalized string)
+   *
+   * @param string $extension
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setExtension($extension) {
     $this->prepare();
     if (preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
@@ -198,11 +200,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set media data from "uri" [id]v[version].[extension]
-  *
-  * @param string $mediaUri
-  * @return \PapayaUiReferenceThumbnail
-  */
+   * Set media data from "uri" [id]v[version].[extension]
+   *
+   * @param string $mediaUri
+   * @return \PapayaUiReferenceThumbnail
+   */
   public function setMediaUri($mediaUri) {
     $this->prepare();
     $pattern = '(^
@@ -235,11 +237,11 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
   }
 
   /**
-  * Set preview mode
-  *
-  * @param boolean $isPreview
-  * @return \PapayaUiReferencePage
-  */
+   * Set preview mode
+   *
+   * @param boolean $isPreview
+   * @return \Papaya\Ui\Reference\Page
+   */
   public function setPreview($isPreview) {
     $this->prepare();
     $this->_pageData['preview'] = (bool)$isPreview;

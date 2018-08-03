@@ -141,7 +141,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithActionParameters() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->any())
       ->method('getParameterGroupSeparator')

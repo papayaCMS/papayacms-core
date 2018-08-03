@@ -42,7 +42,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
    */
   public function testReferenceGetAfterSet() {
     $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
-    $teasers->reference($reference = $this->createMock(\PapayaUiReferencePage::class));
+    $teasers->reference($reference = $this->createMock(\Papaya\Ui\Reference\Page::class));
     $this->assertSame($reference, $teasers->reference());
   }
 
@@ -51,7 +51,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
    */
   public function testReferenceGetImplicitCreate() {
     $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
-    $this->assertInstanceOf(\PapayaUiReferencePage::class, $teasers->reference());
+    $this->assertInstanceOf(\Papaya\Ui\Reference\Page::class, $teasers->reference());
   }
 
   /**

@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Reference;
 /**
-* Papaya Interface Media Reference (Hyperlink Reference)
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiReferenceMedia extends \PapayaUiReference {
+ * Papaya Interface Media Reference (Hyperlink Reference)
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Media extends \Papaya\Ui\Reference {
 
   /**
-  * Page identification data
-  * @var array
-  */
+   * Page identification data
+   *
+   * @var array
+   */
   protected $_pageData = array(
     'title' => 'index',
     'mode' => 'media',
@@ -35,21 +37,21 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   );
 
   /**
-  * Static create function to allow fluent calls.
-  *
-  * @param \Papaya\Url $url
-  * @return \PapayaUiReference
-  */
+   * Static create function to allow fluent calls.
+   *
+   * @param \Papaya\Url $url
+   * @return \Papaya\Ui\Reference
+   */
   public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
   /**
-   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
+   * @see papaya-lib/system/Papaya/Interface/Papaya\Ui\PapayaUiReference#get()
    * @param bool $forPublic
    * @return null|string
    */
-  public function get($forPublic = false) {
+  public function get($forPublic = FALSE) {
     if (!empty($this->_pageData['media_id'])) {
       $result = $this->url()->getHostUrl().$this->_basePath;
       $result .= $this->_pageData['title'];
@@ -70,9 +72,9 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
+   * @see papaya-lib/system/Papaya/Interface/Papaya\Ui\PapayaUiReference#load($request)
    * @param \Papaya\Request $request
-   * @return $this|\PapayaUiReference
+   * @return $this|\Papaya\Ui\Reference
    */
   public function load(\Papaya\Request $request) {
     parent::load($request);
@@ -83,11 +85,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set media id
-  *
-  * @param string $mediaId
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set media id
+   *
+   * @param string $mediaId
+   * @return \PapayaUiReferenceMedia
+   */
   public function setMediaId($mediaId) {
     $this->prepare();
     if (!empty($mediaId) && preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
@@ -97,11 +99,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set media version
-  *
-  * @param integer $version
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set media version
+   *
+   * @param integer $version
+   * @return \PapayaUiReferenceMedia
+   */
   public function setMediaVersion($version) {
     $this->prepare();
     if ($version > 0) {
@@ -111,11 +113,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set file title (normalized string)
-  *
-  * @param string $title
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set file title (normalized string)
+   *
+   * @param string $title
+   * @return \PapayaUiReferenceMedia
+   */
   public function setTitle($title) {
     $this->prepare();
     if (preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
@@ -125,11 +127,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set mode
-  *
-  * @param string $mode
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set mode
+   *
+   * @param string $mode
+   * @return \PapayaUiReferenceMedia
+   */
   public function setMode($mode) {
     $this->prepare();
     if (in_array($mode, array('media', 'download'))) {
@@ -141,11 +143,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set extension (normalized string)
-  *
-  * @param string $extension
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set extension (normalized string)
+   *
+   * @param string $extension
+   * @return \PapayaUiReferenceMedia
+   */
   public function setExtension($extension) {
     $this->prepare();
     if (preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
@@ -155,10 +157,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set media data from "uri" [id]v[version].[extension]
-  * @param string $mediaUri
-  * @return \PapayaUiReferenceMedia
-  */
+   * Set media data from "uri" [id]v[version].[extension]
+   *
+   * @param string $mediaUri
+   * @return \PapayaUiReferenceMedia
+   */
   public function setMediaUri($mediaUri) {
     $this->prepare();
     $pattern = '(^
@@ -179,11 +182,11 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   }
 
   /**
-  * Set preview mode
-  *
-  * @param boolean $isPreview
-  * @return \PapayaUiReferencePage
-  */
+   * Set preview mode
+   *
+   * @param boolean $isPreview
+   * @return \Papaya\Ui\Reference\Page
+   */
   public function setPreview($isPreview) {
     $this->prepare();
     $this->_pageData['preview'] = (bool)$isPreview;

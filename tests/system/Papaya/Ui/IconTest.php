@@ -152,7 +152,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
   * @covers \PapayaUiIcon::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $icon = new \PapayaUiIcon('sample');
     $this->assertSame(
       $reference, $icon->reference($reference)
@@ -168,7 +168,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
       $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $icon->reference()
+      \Papaya\Ui\Reference::class, $icon->reference()
     );
   }
 }

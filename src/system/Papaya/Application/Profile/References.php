@@ -26,10 +26,10 @@ class References implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \PapayaUiReferenceFactory
+   * @return \Papaya\Ui\Reference\Factory
    */
   public function createObject($application) {
-    $references = new \PapayaUiReferenceFactory();
+    $references = new \Papaya\Ui\Reference\Factory();
     $references->papaya($application);
     return $references;
   }

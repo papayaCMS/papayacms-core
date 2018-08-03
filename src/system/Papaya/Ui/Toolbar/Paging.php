@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaUiReference $reference
+* @property \Papaya\Ui\Reference $reference
 * @property string|array $parameterName
 * @property integer $currentPage
 * @property integer $currentOffset

@@ -24,22 +24,22 @@ abstract class PapayaUiToolbarElement extends \Papaya\Ui\Control\Collection\Item
   /**
   * reference (link) object
   *
-  * @var \PapayaUiReference
+  * @var \Papaya\Ui\Reference
   */
   protected $_reference = NULL;
 
   /**
   * Getter/Setter for the reference object (the link url)
   *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
+  * @param \Papaya\Ui\Reference $reference
+  * @return \Papaya\Ui\Reference
   */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
     if (is_null($this->_reference)) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

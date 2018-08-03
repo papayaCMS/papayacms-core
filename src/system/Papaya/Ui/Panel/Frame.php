@@ -23,7 +23,7 @@ namespace Papaya\Ui\Panel;
  * @property string|\PapayaUiString $caption
  * @property string $name
  * @property string $height
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  * @property \PapayaUiToolbars $toolbars
  */
 class Frame extends \Papaya\Ui\Panel {
@@ -31,7 +31,7 @@ class Frame extends \Papaya\Ui\Panel {
   /**
    * The url reference object.
    *
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   protected $_reference = NULL;
 
@@ -96,14 +96,14 @@ class Frame extends \Papaya\Ui\Panel {
   /**
    * Getter/Setter for the reference object.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

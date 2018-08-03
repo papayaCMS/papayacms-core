@@ -790,7 +790,7 @@ class base_topic_edit extends base_topic {
   }
 
   public function getPreviewUrl($mode = NULL, $time = 0) {
-    $reference = new \PapayaUiReferencePage();
+    $reference = new \Papaya\Ui\Reference\Page();
     $reference->setPreview(TRUE, $time);
     $reference->setOutputMode($mode);
     $reference->setPageLanguage(

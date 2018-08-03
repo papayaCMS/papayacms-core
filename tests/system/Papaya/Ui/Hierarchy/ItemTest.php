@@ -74,7 +74,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Hierarchy\Item::appendTo
   */
   public function testAppendToWithReference() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -104,7 +104,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $item = new \Papaya\Ui\Hierarchy\Item('sample');
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $this->assertSame(
       $reference, $item->reference($reference)
     );
@@ -117,7 +117,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
     $item = new \Papaya\Ui\Hierarchy\Item('sample');
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $item->reference()
+      \Papaya\Ui\Reference::class, $item->reference()
     );
     $this->assertSame(
       $papaya, $item->papaya()

@@ -79,14 +79,14 @@ class Teasers extends \Papaya\Ui\Control {
   /**
    * Getter/Setter for the template reference subobject used to generate links to the subpages
    *
-   * @param \PapayaUiReferencePage $reference
-   * @return \PapayaUiReferencePage
+   * @param \Papaya\Ui\Reference\Page $reference
+   * @return \Papaya\Ui\Reference\Page
    */
-  public function reference(\PapayaUiReferencePage $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference\Page $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL == $this->_reference) {
-      $this->_reference = new \PapayaUiReferencePage();
+      $this->_reference = new \Papaya\Ui\Reference\Page();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

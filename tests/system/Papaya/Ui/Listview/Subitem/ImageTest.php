@@ -45,7 +45,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   */
   public function testReferenceGetAfterSet() {
     $subitem = new \Papaya\Ui\Listview\Subitem\Image('sample.png', 'quickinfo', array('foo' => 'bar'));
-    $subitem->reference($reference = $this->createMock(\PapayaUiReference::class));
+    $subitem->reference($reference = $this->createMock(\Papaya\Ui\Reference::class));
     $this->assertSame(
       $reference, $subitem->reference()
     );
@@ -55,7 +55,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Listview\Subitem\Image::reference
   */
   public function testReferenceGetFromListview() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $listview
       ->expects($this->once())
@@ -122,7 +122,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   public function testAppendToWithReference() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -152,7 +152,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   public function testAppendToWithReferenceFromListview() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')

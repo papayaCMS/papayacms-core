@@ -21,7 +21,7 @@ namespace Papaya\Ui\Paging;
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  * @property string|array $parameterName
  * @property integer $currentStepSize
  * @property array|\Traversable $stepSizes
@@ -164,14 +164,14 @@ class Steps extends \Papaya\Ui\Control {
   /**
    * Getter/Setter for the reference subobject.
    *
-   * @param \PapayaUiReference $reference
-   * @return null|\PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return null|\Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

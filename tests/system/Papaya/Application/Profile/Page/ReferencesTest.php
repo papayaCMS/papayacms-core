@@ -27,7 +27,7 @@ class PapayaApplicationProfilePageReferencesTest extends \PapayaTestCase {
     $profile = new References();
     $options = $profile->createObject($application);
     $this->assertInstanceOf(
-      \PapayaUiReferencePageFactory::class,
+      \Papaya\Ui\Reference\Page\Factory::class,
       $options
     );
   }

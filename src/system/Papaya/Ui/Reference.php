@@ -13,51 +13,55 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Papaya Interface Reference (Hyperlink Reference)
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiReference extends \Papaya\Application\BaseObject {
+ * Papaya Interface Reference (Hyperlink Reference)
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Reference extends \Papaya\Application\BaseObject {
 
   /**
-  * Url group separator
-  * @var string
-  */
+   * Url group separator
+   *
+   * @var string
+   */
   private $_parameterGroupSeparator = NULL;
 
   /**
-  * parameters list
-  *
-  * @var \Papaya\Request\Parameters
-  */
+   * parameters list
+   *
+   * @var \Papaya\Request\Parameters
+   */
   private $_parametersObject = NULL;
 
   /**
-  * Internal url object
-  *
-  * @var \Papaya\Url
-  */
+   * Internal url object
+   *
+   * @var \Papaya\Url
+   */
   private $_url = NULL;
 
   /**
-  * Base web path
-  * @var string
-  */
+   * Base web path
+   *
+   * @var string
+   */
   protected $_basePath = '/';
 
   /**
-  * Reference status
-  * @var string
-  */
+   * Reference status
+   *
+   * @var string
+   */
   private $_valid = TRUE;
 
   /**
-  * create object and load url if provided.
-  *
-  * @param \Papaya\Url $url
-  */
+   * create object and load url if provided.
+   *
+   * @param \Papaya\Url $url
+   */
   public function __construct(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->url($url);
@@ -65,12 +69,12 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Other object can mark an reference as valid or invalid after testing it. An invalid reference
-  * will return an empty string as url (get() and getRelative()).
-  *
-  * @param boolean $isValid
-  * @return boolean
-  */
+   * Other object can mark an reference as valid or invalid after testing it. An invalid reference
+   * will return an empty string as url (get() and getRelative()).
+   *
+   * @param boolean $isValid
+   * @return boolean
+   */
   public function valid($isValid = NULL) {
     if (isset($isValid)) {
       $this->_valid = $isValid;
@@ -79,26 +83,26 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Static create function to allow fluent calls.
-  *
-  * @param \Papaya\Url $url
-  * @return \PapayaUiReference
-  */
+   * Static create function to allow fluent calls.
+   *
+   * @param \Papaya\Url $url
+   * @return \PapayaUiReference
+   */
   public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
   /**
-  * Get relative reference (url) as string
-  */
+   * Get relative reference (url) as string
+   */
   public function __toString() {
     return $this->getRelative();
   }
 
   /**
-  * Prepare the object before changing it. This will load the url data from the request if
-  * no other url was set before.
-  */
+   * Prepare the object before changing it. This will load the url data from the request if
+   * no other url was set before.
+   */
   protected function prepare() {
     if (!isset($this->_url)) {
       /** @noinspection PhpParamsInspection */
@@ -132,10 +136,10 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Use an relative url string to change the reference
-  *
-  * @param string $relativeUrl
-  */
+   * Use an relative url string to change the reference
+   *
+   * @param string $relativeUrl
+   */
   public function setRelative($relativeUrl) {
     $transformer = new \Papaya\Url\Transformer\Absolute();
     $absoluteUrl = $transformer->transform($this->url(), $relativeUrl);
@@ -145,6 +149,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
    * Get reference string
+   *
    * @param bool $forPublic URL is for public use (do not include the session id)
    * @return string
    */
@@ -152,7 +157,8 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
     if (!$this->valid()) {
       return '';
     }
-    return $this->cleanupPath($this->url()->getPathUrl(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
+    return $this->cleanupPath($this->url()
+        ->getPathUrl(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
   }
 
   /**
@@ -183,11 +189,11 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * load request data to reference
-  *
-  * @param \Papaya\Request $request
-  * @return \PapayaUiReference
-  */
+   * load request data to reference
+   *
+   * @param \Papaya\Request $request
+   * @return \PapayaUiReference
+   */
   public function load(\Papaya\Request $request) {
     $url = $request->getUrl();
     $this->_url = clone (($url instanceof \Papaya\Url) ? $url : new \Papaya\Url);
@@ -200,6 +206,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
    * Specifiy a custom parameter group separator
+   *
    * @param string $separator Allowed values: '[]', ',', ':', '/', '*', '!'
    * @throws \InvalidArgumentException
    * @return \PapayaUiReference
@@ -218,10 +225,10 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Return the current group separator
-  *
-  * @return string
-  */
+   * Return the current group separator
+   *
+   * @return string
+   */
   public function getParameterGroupSeparator() {
     if (is_null($this->_parameterGroupSeparator)) {
       $this->url();
@@ -230,12 +237,12 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set several parameters at once
-  *
-  * @param array|\Papaya\Request\Parameters $parameters
-  * @param string|NULL $parameterGroup
-  * @return \PapayaUiReference
-  */
+   * Set several parameters at once
+   *
+   * @param array|\Papaya\Request\Parameters $parameters
+   * @param string|NULL $parameterGroup
+   * @return \PapayaUiReference
+   */
   public function setParameters($parameters, $parameterGroup = NULL) {
     if (NULL === $this->_parametersObject) {
       $this->_parametersObject = new \Papaya\Request\Parameters();
@@ -259,10 +266,10 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Provides access to the parameters object of the reference
-  *
-  * @return \Papaya\Request\Parameters $parameters
-  */
+   * Provides access to the parameters object of the reference
+   *
+   * @return \Papaya\Request\Parameters $parameters
+   */
   public function getParameters() {
     if (!isset($this->_parametersObject)) {
       $this->_parametersObject = new \Papaya\Request\Parameters();
@@ -272,6 +279,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
    * Get reference query string prefixed by "?"
+   *
    * @param bool $forPublic remove session id parameter for public urls
    * @return string
    */
@@ -293,11 +301,11 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set fragment
-  *
-  * @param string $fragment
-  * @return \PapayaUiReferencePage
-  */
+   * Set fragment
+   *
+   * @param string $fragment
+   * @return \Papaya\Ui\Reference\Page
+   */
   public function setFragment($fragment) {
     if (substr($fragment, 0, 1) == '#') {
       $fragment = substr($fragment, 1);
@@ -307,19 +315,20 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get reference fragment string prefixed by "#"
-  * @return string
-  */
+   * Get reference fragment string prefixed by "#"
+   *
+   * @return string
+   */
   public function getFragment() {
     $fragment = $this->url()->getFragment();
     return empty($fragment) ? '' : '#'.$fragment;
   }
 
   /**
-  * Get Reference parameters as a plain/flat array (name => value)
-  *
-  * @return array
-  */
+   * Get Reference parameters as a plain/flat array (name => value)
+   *
+   * @return array
+   */
   public function getParametersList() {
     if (isset($this->_parametersObject)) {
       return $this->_parametersObject->getList($this->_parameterGroupSeparator);
@@ -328,12 +337,12 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set web base path
-  *
-  * @param string $path
-  * @access public
-  * @return \PapayaUiReference
-  */
+   * Set web base path
+   *
+   * @param string $path
+   * @access public
+   * @return \PapayaUiReference
+   */
   public function setBasePath($path) {
     if (substr($path, 0, 1) != '/') {
       $path = '/'.$path;
@@ -346,8 +355,8 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * If subobjects were created, clone then, too.
-  */
+   * If subobjects were created, clone then, too.
+   */
   public function __clone() {
     if (isset($this->_url)) {
       $this->_url = clone $this->_url;

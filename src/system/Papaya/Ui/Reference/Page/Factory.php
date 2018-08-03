@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Link\Types;
+namespace Papaya\Ui\Reference\Page;
 
 /**
  * A application width object that provides data for references
@@ -21,7 +21,7 @@ use Papaya\Content\Link\Types;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
+class Factory extends \Papaya\Application\BaseObject {
 
   /**
    * @var array
@@ -54,17 +54,17 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
   private $_domains = NULL;
 
   /**
-   * @var Types
+   * @var \Papaya\Content\Link\Types
    */
   private $_linkTypes = NULL;
 
   /**
    * Create a page reference
    *
-   * @return \PapayaUiReferencePage
+   * @return \Papaya\Ui\Reference\Page
    */
   public function create() {
-    return new \PapayaUiReferencePage();
+    return new \Papaya\Ui\Reference\Page();
   }
 
   /**
@@ -72,7 +72,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param integer $pageId
-   * @return \PapayaUiReferencePage
+   * @return \Papaya\Ui\Reference\Page
    */
   public function get($languageIdentifier, $pageId) {
     $languageIdentifier = $this->validateLanguageIdentifier($languageIdentifier);
@@ -87,10 +87,10 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
   /**
    * Configure a given page reference
    *
-   * @param \PapayaUiReferencePage $reference
-   * @return \PapayaUiReferencePage
+   * @param \Papaya\Ui\Reference\Page $reference
+   * @return \Papaya\Ui\Reference\Page
    */
-  public function configure(\PapayaUiReferencePage $reference) {
+  public function configure(\Papaya\Ui\Reference\Page $reference) {
     $languageIdentifier = $this->validateLanguageIdentifier($reference->getPageLanguage());
     $pageId = $reference->getPageId();
     $reference->setPreview($this->isPreview());
@@ -528,10 +528,11 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
 
   /**
    * Set start page reference
-   * @param \PapayaUiReferencePage $page
+   *
+   * @param \Papaya\Ui\Reference\Page $page
    * @return boolean
    */
-  public function isStartPage(\PapayaUiReferencePage $page) {
+  public function isStartPage(\Papaya\Ui\Reference\Page $page) {
     return $this->domains()->isStartPage($page);
   }
 }

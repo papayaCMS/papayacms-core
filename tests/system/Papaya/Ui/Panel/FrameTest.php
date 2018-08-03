@@ -61,7 +61,7 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Panel\Frame::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\PapayaUiReference::class);
+    $reference = $this->createMock(\Papaya\Ui\Reference::class);
     $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
     $this->assertSame(
       $reference, $frame->reference($reference)
@@ -74,7 +74,7 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
     $this->assertInstanceOf(
-      \PapayaUiReference::class, $frame->reference
+      \Papaya\Ui\Reference::class, $frame->reference
     );
   }
 }

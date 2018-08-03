@@ -20,55 +20,55 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiReferenceTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiReference::__construct
+  * @covers \Papaya\Ui\Reference::__construct
   */
   public function testConstructorWithUrl() {
     $url = $this->createMock(Url::class);
-    $reference = new \PapayaUiReference($url);
+    $reference = new \Papaya\Ui\Reference($url);
     $this->assertSame($url, $reference->url());
   }
 
   /**
-  * @covers \PapayaUiReference::create
+  * @covers \Papaya\Ui\Reference::create
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      \PapayaUiReference::class,
-      \PapayaUiReference::create()
+      \Papaya\Ui\Reference::class,
+      \Papaya\Ui\Reference::create()
     );
   }
 
   /**
-  * @covers \PapayaUiReference::create
+  * @covers \Papaya\Ui\Reference::create
   */
   public function testStaticFunctionCreateWithUrl() {
     $url = $this->createMock(Url::class);
-    $reference = \PapayaUiReference::create($url);
+    $reference = \Papaya\Ui\Reference::create($url);
     $this->assertSame($url, $reference->url());
   }
 
   /**
-  * @covers \PapayaUiReference::valid
+  * @covers \Papaya\Ui\Reference::valid
   */
   public function testValidGetAfterSetExpectingFalse() {
     $url = $this->createMock(Url::class);
-    $reference = \PapayaUiReference::create($url);
+    $reference = \Papaya\Ui\Reference::create($url);
     $reference->valid(FALSE);
     $this->assertFalse($reference->valid());
   }
 
   /**
-  * @covers \PapayaUiReference::valid
+  * @covers \Papaya\Ui\Reference::valid
   */
   public function testValidGetAfterSetExpectingTrue() {
     $url = $this->createMock(Url::class);
-    $reference = \PapayaUiReference::create($url);
+    $reference = \Papaya\Ui\Reference::create($url);
     $reference->valid(TRUE);
     $this->assertTrue($reference->valid());
   }
 
   /**
-  * @covers \PapayaUiReference::load
+  * @covers \Papaya\Ui\Reference::load
   */
   public function testLoadRequest() {
     $url = $this->createMock(Url::class);
@@ -82,7 +82,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameterGroupSeparator')
       ->will($this->returnValue('/'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->load($request);
     $this->assertNotSame(
       $url, $reference->url()
@@ -94,7 +94,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::prepare
+  * @covers \Papaya\Ui\Reference::prepare
   */
   public function testPrepare() {
     $url = $this->createMock(Url::class);
@@ -107,7 +107,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameterGroupSeparator')
       ->will($this->returnValue('/'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->papaya(
       $this->mockPapaya()->application(
         array('Request' => $request)
@@ -119,12 +119,12 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::__toString
-  * @covers \PapayaUiReference::getRelative
+  * @covers \Papaya\Ui\Reference::__toString
+  * @covers \Papaya\Ui\Reference::getRelative
   */
   public function testMagicMethodToString() {
     $url = new Url('http://www.sample.tld/target/file.html');
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $this->assertEquals(
       'http://www.sample.tld/target/file.html', (string)$reference
@@ -132,12 +132,12 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getRelative
+  * @covers \Papaya\Ui\Reference::getRelative
   */
   public function testGetRelative() {
     $url = new Url('http://www.sample.tld/target/file.html');
     $currentUrl = new Url('http://www.sample.tld/source/file.html');
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $this->assertEquals(
       '../target/file.html', $reference->getRelative($currentUrl)
@@ -145,10 +145,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getRelative
+  * @covers \Papaya\Ui\Reference::getRelative
   */
   public function testGetRelativeWithInvalidReference() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->valid(FALSE);
     $this->assertEquals(
       '', $reference->getRelative()
@@ -156,12 +156,12 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getRelative
+  * @covers \Papaya\Ui\Reference::getRelative
   */
   public function testGetRelativeAfterSettingParameters() {
     $url = new Url('http://www.sample.tld/target/file.html');
     $currentUrl = new Url('http://www.sample.tld/source/file.html');
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $reference->setParameters(array('foo' => 'bar'));
     $this->assertEquals(
@@ -170,12 +170,12 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getRelative
+  * @covers \Papaya\Ui\Reference::getRelative
   */
   public function testGetRelativeWithoutQueryString() {
     $url = new Url('http://www.sample.tld/target/file.html');
     $currentUrl = new Url('http://www.sample.tld/source/file.html');
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $reference->setParameters(array('foo' => 'bar'));
     $this->assertEquals(
@@ -184,14 +184,14 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::get
+  * @covers \Papaya\Ui\Reference::get
   */
   public function testGet() {
     $url = $this->createMock(Url::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $this->assertEquals(
       'http://www.sample.tld/path/file.html',
@@ -200,14 +200,14 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiReference::get
+   * @covers \Papaya\Ui\Reference::get
    */
   public function testGetRemoveSessionIdFromPath() {
     $url = $this->createMock(Url::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $this->assertEquals(
       'http://www.sample.tld/path/file.html',
@@ -216,14 +216,14 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::get
+  * @covers \Papaya\Ui\Reference::get
   */
   public function testGetWithQueryString() {
     $url = $this->createMock(Url::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $reference->setParameters(array('arg' => 1));
     $this->assertEquals(
@@ -233,14 +233,14 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiReference::get
+   * @covers \Papaya\Ui\Reference::get
    */
   public function testGetWithQueryStringRemoveSessionIdFromParameters() {
     $url = $this->createMock(Url::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $reference->setParameters(array('arg' => 1, 'sid' => '1234'));
     $this->assertEquals(
@@ -250,9 +250,9 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::get
-  * @covers \PapayaUiReference::setFragment
-  * @covers \PapayaUiReference::getFragment
+  * @covers \Papaya\Ui\Reference::get
+  * @covers \Papaya\Ui\Reference::setFragment
+  * @covers \Papaya\Ui\Reference::getFragment
   */
   public function testGetWithFragment() {
     $url = $this->createMock(Url::class);
@@ -266,7 +266,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
         ->method('__call')
         ->with('getFragment')
         ->will($this->returnValue('anchor'));
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($url);
     $reference->setFragment('#anchor');
     $this->assertEquals(
@@ -276,10 +276,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::get
+  * @covers \Papaya\Ui\Reference::get
   */
   public function testGetWithInvalidReference() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->valid(FALSE);
     $this->assertEquals(
       '', $reference->get()
@@ -287,10 +287,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::url
+  * @covers \Papaya\Ui\Reference::url
   */
   public function testUrlGetAfterSet() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $url = $this->createMock(Url::class);
     $this->assertSame(
       $url,
@@ -299,10 +299,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::url
+  * @covers \Papaya\Ui\Reference::url
   */
   public function testUrlImplicitCreate() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
       Url::class,
@@ -311,10 +311,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getParameterGroupSeparator
+  * @covers \Papaya\Ui\Reference::getParameterGroupSeparator
   */
   public function testGetParameterGroupSeparator() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       '[]',
@@ -323,13 +323,13 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiReference::setParameterGroupSeparator
+   * @covers \Papaya\Ui\Reference::setParameterGroupSeparator
    * @dataProvider setParameterLevelSeparatorDataProvider
    * @param string $separator
    * @param string $expected
    */
   public function testSetParameterGroupSeparator($separator, $expected) {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       $reference,
       $reference->setParameterGroupSeparator($separator)
@@ -341,29 +341,29 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::setParameterGroupSeparator
+  * @covers \Papaya\Ui\Reference::setParameterGroupSeparator
   */
   public function testSetParameterGroupSeparatorWithInvalidSeparator() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid parameter level separator: X');
     $reference->setParameterGroupSeparator('X');
   }
 
   /**
-  * @covers \PapayaUiReference::getParameters
+  * @covers \Papaya\Ui\Reference::getParameters
   */
   public function testGetParamtersWithImplizitCreate() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $parameters = $reference->getParameters();
     $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
   }
 
   /**
-  * @covers \PapayaUiReference::setParameters
+  * @covers \Papaya\Ui\Reference::setParameters
   */
   public function testSetParametersWithGroup() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       $reference,
       $reference->setParameters(
@@ -387,10 +387,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::setParameters
+  * @covers \Papaya\Ui\Reference::setParameters
   */
   public function testSetParametersTwoTimes() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->setParameters(
       array(
         'test' => array('mode' => 'sample')
@@ -417,10 +417,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::setParameters
+  * @covers \Papaya\Ui\Reference::setParameters
   */
   public function testSetParametersWithParametersObjectAndGroup() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->setParameters(
       new \Papaya\Request\Parameters(array('mode' => 'sample')),
       'test'
@@ -437,10 +437,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::setParameters
+  * @covers \Papaya\Ui\Reference::setParameters
   */
   public function testSetParametersWithInvalidData() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       $reference,
       $reference->setParameters(
@@ -456,10 +456,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::setParameters
+  * @covers \Papaya\Ui\Reference::setParameters
   */
   public function testSetParametersWithoutGroup() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       $reference,
       $reference->setParameters(
@@ -480,10 +480,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getParameters
+  * @covers \Papaya\Ui\Reference::getParameters
   */
   public function testGetParameters() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->setParameters(
       array(
         'cmd' => 'show',
@@ -502,7 +502,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiReference::getQueryString
+   * @covers \Papaya\Ui\Reference::getQueryString
    * @dataProvider getQueryStringDataProvider
    * @param string $separator
    * @param string|NULL $parameterGroup
@@ -510,7 +510,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
    * @param string $expected
    */
   public function testGetQueryString($separator, $parameterGroup, array $parameters, $expected) {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference
       ->setParameterGroupSeparator($separator)
       ->setParameters($parameters, $parameterGroup);
@@ -521,10 +521,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getQueryString
+  * @covers \Papaya\Ui\Reference::getQueryString
   */
   public function testGetQueryStringEmpty() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertEquals(
       '',
       $reference->getQueryString()
@@ -532,10 +532,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getParametersList
+  * @covers \Papaya\Ui\Reference::getParametersList
   */
   public function testGetParametersList() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference
       ->setParameterGroupSeparator('/')
       ->setParameters(array('foo' => 'bar'), 'foobar');
@@ -546,23 +546,23 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::getParametersList
+  * @covers \Papaya\Ui\Reference::getParametersList
   */
   public function testGetParametersListWhileEmpty() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       array(), $reference->getParametersList()
     );
   }
 
   /**
-   * @covers \PapayaUiReference::setBasePath
+   * @covers \Papaya\Ui\Reference::setBasePath
    * @dataProvider setBasePathDataProvider
    * @param string $path
    * @param string $expected
    */
   public function testSetBasePath($path, $expected) {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $this->assertSame(
       $reference,
       $reference->setBasePath($path)
@@ -574,13 +574,13 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiReference::setRelative
+   * @covers \Papaya\Ui\Reference::setRelative
    * @dataProvider setRelativeUrlDataProvider
    * @param string $expected
    * @param string $relativeUrl
    */
   public function testSetRelative($expected, $relativeUrl) {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url(new Url('http://www.sample.tld/path/file.html?foo=bar'));
     $reference->setRelative($relativeUrl);
     $this->assertEquals(
@@ -590,10 +590,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiReference::__clone
+  * @covers \Papaya\Ui\Reference::__clone
   */
   public function testMagicMethodClone() {
-    $reference = new \PapayaUiReference();
+    $reference = new \Papaya\Ui\Reference();
     $reference->url($this->createMock(Url::class));
     $reference->setParameters(array('foo' => 'bar'));
     $clone = clone $reference;

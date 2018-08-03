@@ -65,7 +65,7 @@ class Image extends \Papaya\Ui\Dialog\Field {
   protected $_thumbnail = NULL;
 
   /**
-   * @var \PapayaUiReferenceThumbnail
+   * @var \Papaya\Ui\Reference\Thumbnail
    */
   protected $_referenceThumbnail = NULL;
 
@@ -135,16 +135,16 @@ class Image extends \Papaya\Ui\Dialog\Field {
   }
 
   /**
-   * @param \PapayaUiReferenceThumbnail $object
-   * @return \PapayaUiReferenceThumbnail
+   * @param \Papaya\Ui\Reference\Thumbnail $object
+   * @return \Papaya\Ui\Reference\Thumbnail
    */
-  public function referenceThumbnail(\PapayaUiReferenceThumbnail $object = NULL) {
+  public function referenceThumbnail(\Papaya\Ui\Reference\Thumbnail $object = NULL) {
     if (isset($object)) {
       $this->_referenceThumbnail = $object;
     } else {
       if (is_null($this->_referenceThumbnail)) {
 
-        $this->_referenceThumbnail = new \PapayaUiReferenceThumbnail();
+        $this->_referenceThumbnail = new \Papaya\Ui\Reference\Thumbnail();
         $this->_referenceThumbnail->setThumbnailMode($this->_mode);
         $this->_referenceThumbnail->setThumbnailSize($this->_width.'x'.$this->_height);
         $this->_referenceThumbnail->setExtension('png');

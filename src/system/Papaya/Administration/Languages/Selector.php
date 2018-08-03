@@ -112,7 +112,7 @@ class Selector extends \Papaya\Ui\Control\Interactive {
       array('title' => new \PapayaUiStringTranslated('Content Language'))
     );
     foreach ($this->languages() as $id => $language) {
-      $reference = new \PapayaUiReference();
+      $reference = new \Papaya\Ui\Reference();
       $reference->papaya($this->papaya());
       $reference->setParameters(array('language_select' => $id), 'lngsel');
       $link = $links->appendElement(

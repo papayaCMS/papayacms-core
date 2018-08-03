@@ -177,7 +177,7 @@ class Domains extends Application\BaseObject {
     return $this->_domains;
   }
 
-  public function isStartPage(\PapayaUiReferencePage $page) {
+  public function isStartPage(Ui\Reference\Page $page) {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
       $page->url()->getScheme() == 'https'

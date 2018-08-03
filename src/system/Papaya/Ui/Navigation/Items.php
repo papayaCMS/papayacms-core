@@ -36,14 +36,14 @@ class Items extends \Papaya\Ui\Control\Collection {
   /**
    * Getter/Setter for a reference subobject to create detail page links
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \PapayaUiReferencePage();
+      $this->_reference = new \Papaya\Ui\Reference\Page();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

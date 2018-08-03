@@ -79,10 +79,10 @@ abstract class Item extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Getter/Setter for a reference subobject to create detail page links
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
@@ -91,7 +91,7 @@ abstract class Item extends \Papaya\Ui\Control\Collection\Item {
         $collection = $this->collection();
         $this->_reference = clone $collection->reference();
       } else {
-        $this->_reference = new \PapayaUiReferencePage();
+        $this->_reference = new \Papaya\Ui\Reference\Page();
         $this->_reference->papaya($this->papaya());
       }
     }

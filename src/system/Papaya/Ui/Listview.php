@@ -25,7 +25,7 @@ namespace Papaya\Ui;
  * @property \PapayaUiToolbars $toolbars
  * @property string|\PapayaUiString $caption
  * @property string $mode
- * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Reference $reference
  */
 class Listview extends Control\Interactive {
 
@@ -87,7 +87,7 @@ class Listview extends Control\Interactive {
   /**
    * Listview reference object for links
    *
-   * @var \PapayaUiReference
+   * @var \Papaya\Ui\Reference
    */
   private $_reference = NULL;
 
@@ -200,15 +200,15 @@ class Listview extends Control\Interactive {
    * It is possible to assign individual reference objects to the subobjects, but if you do not they
    * will use this one.
    *
-   * @param \PapayaUiReference $reference
-   * @return \PapayaUiReference
+   * @param \Papaya\Ui\Reference $reference
+   * @return \Papaya\Ui\Reference
    */
-  public function reference(\PapayaUiReference $reference = NULL) {
+  public function reference(\Papaya\Ui\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
     if (is_null($this->_reference)) {
-      $this->_reference = new \PapayaUiReference();
+      $this->_reference = new \Papaya\Ui\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
