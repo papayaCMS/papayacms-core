@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Subitem\Image;
 /**
-* A listview subitem displaying an icon from a given list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $align
-* @property \Papaya\Ui\Icon\Collection $icons
-* @property string $selection
-* @property array $actionParameters
-*/
-class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
+ * A listview subitem displaying an icon from a given list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $align
+ * @property \Papaya\Ui\Icon\Collection $icons
+ * @property string $selection
+ * @property array $actionParameters
+ */
+class Toggle extends \Papaya\Ui\Listview\Subitem {
 
   /**
-  * A list of icons
-  *
-  * @var \Papaya\Ui\Icon\Collection
-  */
+   * A list of icons
+   *
+   * @var \Papaya\Ui\Icon\Collection
+   */
   protected $_icons = NULL;
 
   /**
-  * index of the selected icon in the list
-  *
-  * @var mixed
-  */
+   * index of the selected icon in the list
+   *
+   * @var mixed
+   */
   protected $_selection = NULL;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'align' => array('getAlign', 'setAlign'),
     'icons' => array('_icons', 'setIcons'),
@@ -66,12 +67,12 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
   }
 
   /**
-  * Append the subitem to the listitem xml element. If the selected icon is not found
-  * the subitem will be empty.
-  *
-  * @param \Papaya\Xml\Element
-  * @return \Papaya\Xml\Element
-  */
+   * Append the subitem to the listitem xml element. If the selected icon is not found
+   * the subitem will be empty.
+   *
+   * @param \Papaya\Xml\Element
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
@@ -81,18 +82,18 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
     );
     $iconIndex = (string)$this->_selection;
     if (isset($this->_icons[$iconIndex]) &&
-        ($icon = $this->_icons[$iconIndex]) &&
-         $icon instanceof \PapayaUiIcon) {
+      ($icon = $this->_icons[$iconIndex]) &&
+      $icon instanceof \PapayaUiIcon) {
       $icon->appendTo($subitem);
     }
     return $subitem;
   }
 
   /**
-  * Set icons list, the typehint ensures that a valid icon list is set.
-  *
-  * @param \Papaya\Ui\Icon\Collection $icons
-  */
+   * Set icons list, the typehint ensures that a valid icon list is set.
+   *
+   * @param \Papaya\Ui\Icon\Collection $icons
+   */
   public function setIcons(\Papaya\Ui\Icon\Collection $icons) {
     $this->_icons = $icons;
   }

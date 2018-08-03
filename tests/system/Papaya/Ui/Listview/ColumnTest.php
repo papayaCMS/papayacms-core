@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewColumnTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiListviewColumn::__construct
+  * @covers \Papaya\Ui\Listview\Column::__construct
   */
   public function testConstructor() {
-    $column = new \PapayaUiListviewColumn('test title');
+    $column = new \Papaya\Ui\Listview\Column('test title');
     $this->assertAttributeEquals(
       'test title', '_caption', $column
     );
   }
 
   /**
-  * @covers \PapayaUiListviewColumn::__construct
-  * @covers \PapayaUiListviewColumn::setAlign
+  * @covers \Papaya\Ui\Listview\Column::__construct
+  * @covers \Papaya\Ui\Listview\Column::setAlign
   */
   public function testConstructorWithAllParameters() {
-    $column = new \PapayaUiListviewColumn(
+    $column = new \Papaya\Ui\Listview\Column(
       'test title', \PapayaUiOptionAlign::CENTER
     );
     $this->assertAttributeEquals(
@@ -41,11 +41,11 @@ class PapayaUiListviewColumnTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiListviewColumn::getAlign
-  * @covers \PapayaUiListviewColumn::setAlign
+  * @covers \Papaya\Ui\Listview\Column::getAlign
+  * @covers \Papaya\Ui\Listview\Column::setAlign
   */
   public function testGetAlignAfterSetAlign() {
-    $column = new \PapayaUiListviewColumn('test title');
+    $column = new \Papaya\Ui\Listview\Column('test title');
     $column->setAlign(\PapayaUiOptionAlign::RIGHT);
     $this->assertEquals(
       \PapayaUiOptionAlign::RIGHT, $column->getAlign()
@@ -53,12 +53,12 @@ class PapayaUiListviewColumnTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiListviewColumn::appendTo
+  * @covers \Papaya\Ui\Listview\Column::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendChild($document->createElement('sample'));
-    $column = new \PapayaUiListviewColumn('test title');
+    $column = new \Papaya\Ui\Listview\Column('test title');
     $column->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

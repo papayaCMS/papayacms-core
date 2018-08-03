@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Item\Paging;
 /**
-* Provides several links to navigate to the next pages of a list in a listview. This
-* output links to pages with a higher number.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewItemPagingUp extends \PapayaUiListviewItemPaging {
+ * Provides several links to navigate to the next pages of a list in a listview. This
+ * output links to pages with a higher number.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Up extends \Papaya\Ui\Listview\Item\Paging {
 
   protected $_image = 'actions-go-next';
 
   /**
-  * Provide pages with a higher page number than the current page
-  *
-  * @return array
-  */
+   * Provide pages with a higher page number than the current page
+   *
+   * @return array
+   */
   public function getPages() {
     $minimum = $this->getCurrentPage() + 1;
     $maximum = $this->getCurrentPage() + $this->_pageLimit;
@@ -44,10 +45,10 @@ class PapayaUiListviewItemPagingUp extends \PapayaUiListviewItemPaging {
   }
 
   /**
-  * Return the page that will be used for the image link
-  *
-  * @return integer
-  */
+   * Return the page that will be used for the image link
+   *
+   * @return integer
+   */
   public function getImagePage() {
     $next = $this->getCurrentPage() + 1;
     $lastPage = $this->getLastPage();

@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiListviewSubitemImageList::__construct
+  * @covers \Papaya\Ui\Listview\Subitem\Images::__construct
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
     $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
-    $subitem = new \PapayaUiListviewSubitemImageList(
-      $icons, 'foo', \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
+      $icons, 'foo', \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK
     );
     $this->assertEquals(
-      \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK, $subitem->selectionMode
+      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK, $subitem->selectionMode
     );
   }
 
   /**
-  * @covers \PapayaUiListviewSubitemImageList::appendTo
-  * @covers \PapayaUiListviewSubitemImageList::validateSelection
+  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseValues() {
     $iconValid = $this
@@ -73,7 +73,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \PapayaUiListviewSubitemImageList($icons, 'foo');
+    $subitem = new \Papaya\Ui\Listview\Subitem\Images($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
@@ -84,8 +84,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiListviewSubitemImageList::appendTo
-  * @covers \PapayaUiListviewSubitemImageList::validateSelection
+  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseKeys() {
     $iconValid = $this
@@ -125,10 +125,10 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \PapayaUiListviewSubitemImageList(
+    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
       $icons,
       array('foo' => TRUE),
-      \PapayaUiListviewSubitemImageList::VALIDATE_KEYS
+      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_KEYS
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -140,8 +140,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiListviewSubitemImageList::appendTo
-  * @covers \PapayaUiListviewSubitemImageList::validateSelection
+  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseBitmask() {
     $iconValid = $this
@@ -181,10 +181,10 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \PapayaUiListviewSubitemImageList(
+    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
       $icons,
       5,
-      \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));

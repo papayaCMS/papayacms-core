@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Item;
 /**
-* Provides several links to navigate mutiple pages of a list in a listview.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiReference $reference
-* @property string|array $parameterName
-* @property integer $currentPage
-* @property integer $currentOffset
-* @property integer $lastPage
-* @property integer $itemsCount
-* @property integer $itemsPerPage
-* @property integer $pageLimit
-* @property string $separator
-* @property string $image
-* @property integer $indentation
-* @property integer $columnSpan
-* @property boolean $selected
-*/
-abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
+ * Provides several links to navigate mutiple pages of a list in a listview.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \PapayaUiReference $reference
+ * @property string|array $parameterName
+ * @property integer $currentPage
+ * @property integer $currentOffset
+ * @property integer $lastPage
+ * @property integer $itemsCount
+ * @property integer $itemsPerPage
+ * @property integer $pageLimit
+ * @property string $separator
+ * @property string $image
+ * @property integer $indentation
+ * @property integer $columnSpan
+ * @property boolean $selected
+ */
+abstract class Paging extends \Papaya\Ui\Listview\Item {
 
   const MODE_PAGE = 1;
   const MODE_OFFSET = 2;
@@ -50,10 +51,10 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   protected $_separator = '';
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'subitems' => array('subitems', 'subitems'),
     'image' => array('_image', '_image'),
@@ -72,13 +73,13 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   );
 
   /**
-  * Create object and store properties
-  *
-  * @param string|array $parameterName
-  * @param integer $currentValue
-  * @param integer $itemsCount
-  * @param integer $mode
-  */
+   * Create object and store properties
+   *
+   * @param string|array $parameterName
+   * @param integer $currentValue
+   * @param integer $itemsCount
+   * @param integer $mode
+   */
   public function __construct($parameterName, $currentValue, $itemsCount, $mode = self::MODE_PAGE) {
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->_mode = $mode;
@@ -87,26 +88,26 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   }
 
   /**
-  * This method calculates and returns and array of page numbers.
-  *
-  * @return array
-  */
+   * This method calculates and returns and array of page numbers.
+   *
+   * @return array
+   */
   abstract function getPages();
 
   /**
-  * Return the page that will be used for the image link
-  *
-  * @return integer
-  */
+   * Return the page that will be used for the image link
+   *
+   * @return integer
+   */
   abstract function getImagePage();
 
   /**
-  * Append the listitem to the listview. The list item will only be added, if it contains page
-  * links.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return NULL|\Papaya\Xml\Element
-  */
+   * Append the listitem to the listview. The list item will only be added, if it contains page
+   * links.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return NULL|\Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $pages = $this->getPages();
     if (count($pages) > 0) {
@@ -137,11 +138,11 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   }
 
   /**
-  * The item needs an complex caption containing mutiple links, instead of the usual title
-  * attribute and caption element is added.
-  *
-  * @param \Papaya\Xml\Element $item
-  */
+   * The item needs an complex caption containing mutiple links, instead of the usual title
+   * attribute and caption element is added.
+   *
+   * @param \Papaya\Xml\Element $item
+   */
   public function appendCaption(\Papaya\Xml\Element $item) {
     $caption = $item->appendElement(
       'caption'
@@ -157,11 +158,11 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   }
 
   /**
-  * Append a single page link to the caption xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @param integer $page
-  */
+   * Append a single page link to the caption xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @param integer $page
+   */
   public function appendPageLink(\Papaya\Xml\Element $parent, $page) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
@@ -231,21 +232,21 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
    */
   public function setCurrentValue($currentValue) {
     switch ($this->_mode) {
-    case self::MODE_OFFSET :
-      $this->setCurrentOffset($currentValue);
+      case self::MODE_OFFSET :
+        $this->setCurrentOffset($currentValue);
       break;
-    default :
-      $this->setCurrentPage($currentValue);
+      default :
+        $this->setCurrentPage($currentValue);
       break;
     }
   }
 
   /**
-  * Set the current page value, fix it if it is outside the possible values.
-  * The page value is based one 1.
-  *
-  * @return integer
-  */
+   * Set the current page value, fix it if it is outside the possible values.
+   * The page value is based one 1.
+   *
+   * @return integer
+   */
   public function getCurrentPage() {
     $lastPage = $this->getLastPage();
     if ($this->_currentPage > $lastPage) {
@@ -258,39 +259,39 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   }
 
   /**
-  * Change the current page. This will reset the current caclulation results.
-  *
-  * @param int $page
-  */
+   * Change the current page. This will reset the current caclulation results.
+   *
+   * @param int $page
+   */
   public function setCurrentPage($page) {
     $this->_currentPage = $page;
   }
 
   /**
-  * Return the current offset. This is an alternative represenation of the current page. It
-  * is the index (based on zero) of the first item on this page.
-  *
-  * @return integer
-  */
+   * Return the current offset. This is an alternative represenation of the current page. It
+   * is the index (based on zero) of the first item on this page.
+   *
+   * @return integer
+   */
   public function getCurrentOffset() {
     return ($this->getCurrentPage() - 1) * $this->_itemsPerPage;
   }
 
   /**
-  * Set the current page using an offset. The offset it the index of the first item (bases on zero)
-  * on a page.
-  *
-  * @param integer $offset
-  */
+   * Set the current page using an offset. The offset it the index of the first item (bases on zero)
+   * on a page.
+   *
+   * @param integer $offset
+   */
   public function setCurrentOffset($offset) {
     $this->setCurrentPage(floor($offset / $this->_itemsPerPage) + 1);
   }
 
   /**
-  * Return the last possible page depending on the item count.
-  *
-  * @return integer
-  */
+   * Return the last possible page depending on the item count.
+   *
+   * @return integer
+   */
   public function getLastPage() {
     return (int)ceil($this->_itemsCount / $this->_itemsPerPage);
   }

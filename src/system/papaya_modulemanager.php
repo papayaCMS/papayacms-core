@@ -2112,7 +2112,7 @@ class papaya_modulemanager extends base_db {
    */
   function getPackageListView() {
     if (isset($this->packages) && is_array($this->packages)) {
-      $listview = new \PapayaUiListview();
+      $listview = new \Papaya\Ui\Listview();
       $listview->caption = new \PapayaUiStringTranslated('Packages');
       $listview->parameterGroup($this->paramName);
       foreach ($this->packages as $package) {
@@ -2164,7 +2164,7 @@ class papaya_modulemanager extends base_db {
           break;
         }
 
-        $item = new \PapayaUiListviewItem(
+        $item = new \Papaya\Ui\Listview\Item(
           $itemImage,
           $package['modulegroup_title'].' ('.$moduleStatus.')',
           array(
@@ -2174,7 +2174,7 @@ class papaya_modulemanager extends base_db {
           ),
           $selected
         );
-        $item->subitems[] = new \PapayaUiListviewSubitemImage($statusImage, $statusText);
+        $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Image($statusImage, $statusText);
         $listview->items[] = $item;
       }
       $this->layout->addLeft($listview->getXml());

@@ -13,45 +13,46 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Subitem;
 /**
-* A simple listview subitem displaying an image.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $align
-* @property string $image
-* @property string|\PapayaUiString $hint
-* @property array $actionParameters
-* @property \PapayaUiReference $reference
-*/
-class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
+ * A simple listview subitem displaying an image.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $align
+ * @property string $image
+ * @property string|\PapayaUiString $hint
+ * @property array $actionParameters
+ * @property \PapayaUiReference $reference
+ */
+class Image extends Text {
 
   /**
-  * buffer for image index or filename
-  *
-  * @var string
-  */
+   * buffer for image index or filename
+   *
+   * @var string
+   */
   protected $_image = '';
   /**
-  * buffer for text variable
-  *
-  * @var string|\PapayaUiString
-  */
+   * buffer for text variable
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_hint = '';
 
   /**
-  * Basic reference/link
-  *
-  * @var \PapayaUiReference
-  */
+   * Basic reference/link
+   *
+   * @var \PapayaUiReference
+   */
   protected $_reference = NULL;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'align' => array('getAlign', 'setAlign'),
     'image' => array('_image', '_image'),
@@ -74,10 +75,10 @@ class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
   }
 
   /**
-  * Append subitem xml data to parent node.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append subitem xml data to parent node.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',

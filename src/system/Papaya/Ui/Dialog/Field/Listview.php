@@ -25,16 +25,16 @@ class Listview extends \Papaya\Ui\Dialog\Field {
   /**
    * listview object buffer
    *
-   * @var \PapayaUiListview
+   * @var \Papaya\Ui\Listview
    */
   private $_listview = NULL;
 
   /**
    * Create object and assign needed values.
    *
-   * @param \PapayaUiListview $listview
+   * @param \Papaya\Ui\Listview $listview
    */
-  public function __construct(\PapayaUiListview $listview) {
+  public function __construct(\Papaya\Ui\Listview $listview) {
     $this->listview($listview);
   }
 
@@ -42,10 +42,10 @@ class Listview extends \Papaya\Ui\Dialog\Field {
    * Getter/Setter for the listview, the listview is always set in the constructor and
    * can never be NULL, so no implicit create is needed.
    *
-   * @param \PapayaUiListview $listview
-   * @return \PapayaUiListview
+   * @param \Papaya\Ui\Listview $listview
+   * @return \Papaya\Ui\Listview
    */
-  public function listview(\PapayaUiListview $listview = NULL) {
+  public function listview(\Papaya\Ui\Listview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     }

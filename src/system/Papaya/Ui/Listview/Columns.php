@@ -13,46 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview;
 /**
-* A list of listview columns, used for the $columns property of a {@see \PapayaUiListview}
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewColumns
+ * A list of listview columns, used for the $columns property of a {@see \Papaya\Ui\PapayaUiListview}
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Columns
   extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Only {@see \PapayaUiListviewColumn} objects are allowed in this list
-  *
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiListviewColumn::class;
+   * Only {@see \Papaya\Ui\Listview\PapayaUiListviewColumn} objects are allowed in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Column::class;
 
   /**
-  * If a tag name is provided, an additional element will be added in
-  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
-  * @var string
-  */
+   * If a tag name is provided, an additional element will be added in
+   * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
+   *
+   * @var string
+   */
   protected $_tagName = 'cols';
 
   /**
-  * Create object an set owner listview object.
-  *
-  * @param \PapayaUiListview $listview
-  */
-  public function __construct(\PapayaUiListview $listview) {
+   * Create object an set owner listview object.
+   *
+   * @param \Papaya\Ui\Listview $listview
+   */
+  public function __construct(\Papaya\Ui\Listview $listview) {
     $this->owner($listview);
   }
 
   /**
    * Return the listview of this list
    *
-   * @param \PapayaUiListview $listview
-   * @return \PapayaUiListview
+   * @param \Papaya\Ui\Listview $listview
+   * @return \Papaya\Ui\Listview
    */
   public function owner($listview = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListview::class, $listview);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\Ui\Listview::class, $listview);
     return parent::owner($listview);
   }
 }

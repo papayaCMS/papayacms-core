@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Subitem;
 /**
-* An empty listview subitem.
-*
-* Empty subitems are needed to avoid broken output.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewSubitemEmpty extends \PapayaUiListviewSubitem {
+ * An empty listview subitem.
+ *
+ * Empty subitems are needed to avoid broken output.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class EmptyValue extends \Papaya\Ui\Listview\Subitem {
 
   /**
-  * Append subitem xml data to parent node. In this case just an <subitem/> element
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append subitem xml data to parent node. In this case just an <subitem/> element
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement('subitem');
   }

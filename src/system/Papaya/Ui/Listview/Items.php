@@ -13,65 +13,66 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview;
 /**
-* A list of listview items, used for the $items property of a {@see \PapayaUiListview}
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewItems
+ * A list of listview items, used for the $items property of a {@see \Papaya\Ui\PapayaUiListview}
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Items
   extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Only {@see \PapayaUiListviewItem} objects are allowed in this list
-  *
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiListviewItem::class;
+   * Only {@see \Papaya\Ui\Listview\PapayaUiListviewItem} objects are allowed in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Item::class;
 
   /**
-  * If a tag name is provided, an additional element will be added in
-  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
-  * @var string
-  */
+   * If a tag name is provided, an additional element will be added in
+   * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
+   *
+   * @var string
+   */
   protected $_tagName = 'items';
 
   /**
-  * A basic reference (link object) for the listview items. The reference object is cloned and
-  * modified by the item using it's $actionParameters.
-  *
-  * @var NULL|\PapayaUiReference
-  */
+   * A basic reference (link object) for the listview items. The reference object is cloned and
+   * modified by the item using it's $actionParameters.
+   *
+   * @var NULL|\PapayaUiReference
+   */
   protected $_reference = NULL;
 
   /**
    * Create object an set owner listview object.
    *
-   * @param \PapayaUiListview $listview
-   * @return \PapayaUiListviewItems
+   * @param \Papaya\Ui\Listview $listview
    */
-  public function __construct(\PapayaUiListview $listview) {
+  public function __construct(\Papaya\Ui\Listview $listview) {
     $this->owner($listview);
   }
 
   /**
    * Return the listview of this list
    *
-   * @param \PapayaUiListview $listview
-   * @return \PapayaUiListview
+   * @param \Papaya\Ui\Listview $listview
+   * @return \Papaya\Ui\Listview
    */
   public function owner($listview = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListview::class, $listview);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\Ui\Listview::class, $listview);
     return parent::owner($listview);
   }
 
   /**
-  * Getter/Setter for the basic reference used by the list items. This will be the link on the
-  * caption/image.
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for the basic reference used by the list items. This will be the link on the
+   * caption/image.
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;

@@ -21,7 +21,7 @@ namespace Papaya\Administration\Pages\Dependency;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Listview extends \PapayaUiListview {
+class Listview extends \Papaya\Ui\Listview {
   /**
    * Origin page id, this will be different from the current page id, if the current page id
    * is a dependency of this page id
@@ -90,35 +90,35 @@ class Listview extends \PapayaUiListview {
     $this->caption = new \PapayaUiStringTranslated(
       'Dependent pages of page "%s #%d"', array($pageTitle, $this->_originPageId)
     );
-    $this->columns[] = new \PapayaUiListviewColumn(
+    $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('Page')
     );
-    $this->columns[] = new \PapayaUiListviewColumn(
+    $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('GoTo'),
       \PapayaUiOptionAlign::CENTER
     );
-    $this->columns[] = new \PapayaUiListviewColumn(
+    $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('Synchronization'),
       \PapayaUiOptionAlign::CENTER
     );
-    $this->columns[] = new \PapayaUiListviewColumn(
+    $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('Modified'),
       \PapayaUiOptionAlign::CENTER
     );
     if (count($this->_dependencies) > 0) {
-      $this->items[] = $listitem = new \PapayaUiListviewItem(
+      $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
         'items-folder',
         new \PapayaUiStringTranslated('Dependencies')
       );
-      $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
+      $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
         'actions-go-superior',
         new \PapayaUiStringTranslated('Go to origin page'),
         array('page_id' => $this->_originPageId)
       );
-      $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
-      $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
+      $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text('');
+      $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text('');
       foreach ($this->_dependencies as $dependency) {
-        $this->items[] = $listitem = new \PapayaUiListviewItem(
+        $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
           'items-page',
           $dependency['title'].' #'.$dependency['id'],
           array('page_id' => $dependency['id'])
@@ -128,25 +128,25 @@ class Listview extends \PapayaUiListview {
           $listitem->text = \Papaya\Utility\Text::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = $dependency['id'] == $this->_currentPageId;
-        $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
-        $listitem->subitems[] = new \PapayaUiListviewSubitemImageList(
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text('');
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Images(
           $this->_synchronizations->getIcons(),
           $dependency['synchronization'],
-          \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+          \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK
         );
-        $listitem->subitems[] = new \PapayaUiListviewSubitemDate(
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
           (int)$dependency['modified']
         );
       }
     }
     if (count($this->_references) > 0) {
-      $this->items[] = $listitem = new \PapayaUiListviewItem(
+      $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
         'items-folder',
         new \PapayaUiStringTranslated('References')
       );
       $listitem->columnSpan = -1;
       foreach ($this->_references as $reference) {
-        $this->items[] = $listitem = new \PapayaUiListviewItem(
+        $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(
           'items-link',
           $reference['title'].' #'.$reference['target_id'],
           array(
@@ -163,7 +163,7 @@ class Listview extends \PapayaUiListview {
           $this->parameters()->get('target_id'),
           array($reference['source_id'], $reference['target_id'])
         );
-        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Image(
           'items-page',
           new \PapayaUiStringTranslated(
             'Go to page %s #%d', array($reference['title'], $reference['target_id'])
@@ -174,8 +174,8 @@ class Listview extends \PapayaUiListview {
             'cmd' => 'reference_change'
           )
         );
-        $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
-        $listitem->subitems[] = new \PapayaUiListviewSubitemDate(
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text('');
+        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Date(
           (int)$reference['modified']
         );
       }

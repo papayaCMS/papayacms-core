@@ -140,20 +140,20 @@ class Dialog extends \Papaya\Ui\Dialog {
   /**
    * Getter/Setter for the listview subobject, it displays a chunk of the users list
    *
-   * @param \PapayaUiListview $listview
-   * @return \PapayaUiListview
+   * @param \Papaya\Ui\Listview $listview
+   * @return \Papaya\Ui\Listview
    */
-  public function listview(\PapayaUiListview $listview = NULL) {
+  public function listview(\Papaya\Ui\Listview $listview = NULL) {
     if (NULL !== $listview) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \PapayaUiListview();
+      $this->_listview = new \Papaya\Ui\Listview();
       $this->_listview->papaya($this->papaya());
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
       $this->_listview->reference(clone $this->reference());
       $this->_listview->builder(
-        $builder = new \PapayaUiListviewItemsBuilder($this->users())
+        $builder = new \Papaya\Ui\Listview\Items\Builder($this->users())
       );
       $builder->callbacks()->onCreateItem = array($this, 'createUserItem');
     }
@@ -164,11 +164,11 @@ class Dialog extends \Papaya\Ui\Dialog {
    * Create a listview item for a community user record.
    *
    * @param object $context
-   * @param \PapayaUiListviewItems $items
+   * @param \Papaya\Ui\Listview\Items $items
    * @param array $user
    */
   public function createUserItem($context, $items, $user) {
-    $items[] = new \PapayaUiListviewItem(
+    $items[] = new \Papaya\Ui\Listview\Item(
       'items-user',
       empty($user['caption']) ? $user['email'] : $user['caption'],
       array(

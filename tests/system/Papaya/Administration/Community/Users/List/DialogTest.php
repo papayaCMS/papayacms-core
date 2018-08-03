@@ -158,7 +158,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   * @covers Dialog::listview
   */
   public function testListviewGetAfterSet() {
-    $listview = $this->createMock(\PapayaUiListview::class);
+    $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $dialog = new Dialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
@@ -170,7 +170,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   public function testListviewImplicitCreate() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(\PapayaUiListview::class, $dialog->listview());
+    $this->assertInstanceOf(\Papaya\Ui\Listview::class, $dialog->listview());
   }
 
   /**

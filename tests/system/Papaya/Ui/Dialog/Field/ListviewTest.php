@@ -22,8 +22,8 @@ class PapayaUiDialogFieldListviewTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Listview::listview
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(\PapayaUiListview::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
+    $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $field = new \Papaya\Ui\Dialog\Field\Listview($listview);
     $this->assertSame(
       $listview, $field->listview()
@@ -34,8 +34,8 @@ class PapayaUiDialogFieldListviewTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Listview::appendTo
   */
   public function testAppendTo() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(\PapayaUiListview::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
+    $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $listview
       ->expects($this->once())
       ->method('appendTo')

@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Items\Builder;
 /**
-* Callbacks that are used by the listview items builder
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\BaseObject\Callback $onBeforeFill
-* @property \Papaya\BaseObject\Callback $onAfterFill
-* @property \Papaya\BaseObject\Callback $onCreateItem
-* @method boolean onBeforeFill(\PapayaUiListviewItems $items) if the callback returns FALSE, the items will be cleared.
-* @method boolean onAfterFill(\PapayaUiListviewItems $items)
-* @method boolean onCreateItem(\PapayaUiListviewItems $items, mixed $element, int $index)
-*/
-class PapayaUiListviewItemsBuilderCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Callbacks that are used by the listview items builder
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\BaseObject\Callback $onBeforeFill
+ * @property \Papaya\BaseObject\Callback $onAfterFill
+ * @property \Papaya\BaseObject\Callback $onCreateItem
+ * @method boolean onBeforeFill(\Papaya\Ui\Listview\Items $items) if the callback returns FALSE, the items will be cleared.
+ * @method boolean onAfterFill(\Papaya\Ui\Listview\Items $items)
+ * @method boolean onCreateItem(\Papaya\Ui\Listview\Items $items, mixed $element, int $index)
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
-  * Initialize object and set callback definition
-  */
+   * Initialize object and set callback definition
+   */
   public function __construct() {
     parent::__construct(
       array(

@@ -13,42 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Items;
 /**
-* Create listview items from an Traversable or Iterator
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewItemsBuilder {
+ * Create listview items from an Traversable or Iterator
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Builder {
 
   private $_dataSource = NULL;
   private $_callbacks = NULL;
 
   /**
-  * Create object and store the data source
-  *
-  * @param \Traversable|\Array $dataSource
-  */
+   * Create object and store the data source
+   *
+   * @param \Traversable|\Array $dataSource
+   */
   public function __construct($dataSource) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($dataSource);
     $this->_dataSource = $dataSource;
   }
 
   /**
-  * Getter for the datasource member variable
-  *
-  * @return \Traversable|array
-  */
+   * Getter for the datasource member variable
+   *
+   * @return \Traversable|array
+   */
   public function getDataSource() {
     return $this->_dataSource;
   }
 
   /**
-  * Build the items
-  *
-  * @param \PapayaUiListviewItems $items
-  */
-  public function fill(\PapayaUiListviewItems $items) {
+   * Build the items
+   *
+   * @param \Papaya\Ui\Listview\Items $items
+   */
+  public function fill(\Papaya\Ui\Listview\Items $items) {
     if (!$this->callbacks()->onBeforeFill($items)) {
       $items->clear();
     }
@@ -65,27 +66,27 @@ class PapayaUiListviewItemsBuilder {
    * Getter/Setter for the callbacks list.
    *
    *
-   * @param \PapayaUiListviewItemsBuilderCallbacks $callbacks
-   * @return null|\PapayaUiListviewItemsBuilderCallbacks
+   * @param \Papaya\Ui\Listview\Items\Builder\Callbacks $callbacks
+   * @return null|\Papaya\Ui\Listview\Items\Builder\Callbacks
    */
-  public function callbacks(\PapayaUiListviewItemsBuilderCallbacks $callbacks = NULL) {
+  public function callbacks(Builder\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiListviewItemsBuilderCallbacks();
+      $this->_callbacks = new Builder\Callbacks();
     }
     return $this->_callbacks;
   }
 
   /**
-  * Create a single item from a data source element and add it to the items. This method
-  * will be used if no callback for onCreateItem is defined.
-  *
-  * @param object $context
-  * @param \PapayaUiListviewItems $items
-  * @param mixed $element
-  */
-  public function createItem($context, \PapayaUiListviewItems $items, $element) {
-    $items[] = new \PapayaUiListviewItem('', (string)$element);
+   * Create a single item from a data source element and add it to the items. This method
+   * will be used if no callback for onCreateItem is defined.
+   *
+   * @param object $context
+   * @param \Papaya\Ui\Listview\Items $items
+   * @param mixed $element
+   */
+  public function createItem($context, \Papaya\Ui\Listview\Items $items, $element) {
+    $items[] = new \Papaya\Ui\Listview\Item('', (string)$element);
   }
 }

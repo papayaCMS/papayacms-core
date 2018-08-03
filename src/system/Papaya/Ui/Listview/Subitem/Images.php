@@ -13,54 +13,55 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Subitem;
 /**
-* A listview subitem displaying multiple icons from a given list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $align
-* @property \Papaya\Ui\Icon\Collection $icons
-* @property string $selection
-* @property integer $selectionMode
-* @property array $actionParameters
-*/
-class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSelect {
+ * A listview subitem displaying multiple icons from a given list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $align
+ * @property \Papaya\Ui\Icon\Collection $icons
+ * @property string $selection
+ * @property integer $selectionMode
+ * @property array $actionParameters
+ */
+class Images extends Image\Toggle {
 
   /**
-  * Validate the icon indizes using the values of the selection array
-  *
-  * @var integer
-  */
+   * Validate the icon indizes using the values of the selection array
+   *
+   * @var integer
+   */
   const VALIDATE_VALUES = 1;
 
   /**
-  * Validate the icon indizes using the keys of the selection array
-  *
-  * @var integer
-  */
+   * Validate the icon indizes using the keys of the selection array
+   *
+   * @var integer
+   */
   const VALIDATE_KEYS = 2;
 
   /**
-  * Validate the icon indizes using the selection value as an bitmask. The icon indizes need to be
-  * integers for that.
-  *
-  * @var integer
-  */
+   * Validate the icon indizes using the selection value as an bitmask. The icon indizes need to be
+   * integers for that.
+   *
+   * @var integer
+   */
   const VALIDATE_BITMASK = 3;
 
   /**
-  * how to validate if an icon should be displayed
-  *
-  * @var integer
-  */
+   * how to validate if an icon should be displayed
+   *
+   * @var integer
+   */
   protected $_selectionMode = self::VALIDATE_VALUES;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'align' => array('getAlign', 'setAlign'),
     'icons' => array('_icons', 'setIcons'),
@@ -88,12 +89,12 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
   }
 
   /**
-  * Append the subitem to the listitem xml element. If the selected icon is not found
-  * the subitem will be empty.
-  *
-  * @param \Papaya\Xml\Element
-  * @return \Papaya\Xml\Element
-  */
+   * Append the subitem to the listitem xml element. If the selected icon is not found
+   * the subitem will be empty.
+   *
+   * @param \Papaya\Xml\Element
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
@@ -114,22 +115,22 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
   }
 
   /**
-  * Validate the icon index against the selection depending on the mode.
-  *
-  * @param mixed $index
-  * @return boolean
-  */
+   * Validate the icon index against the selection depending on the mode.
+   *
+   * @param mixed $index
+   * @return boolean
+   */
   protected function validateSelection($index) {
     switch ($this->selectionMode) {
-    case self::VALIDATE_BITMASK :
-      $result = (int)$this->_selection & (int)$index;
+      case self::VALIDATE_BITMASK :
+        $result = (int)$this->_selection & (int)$index;
       break;
-    case self::VALIDATE_KEYS :
-      $result = array_key_exists($index, (array)$this->_selection);
+      case self::VALIDATE_KEYS :
+        $result = array_key_exists($index, (array)$this->_selection);
       break;
-    case self::VALIDATE_VALUES :
-    default :
-      $result = in_array($index, (array)$this->_selection, FALSE);
+      case self::VALIDATE_VALUES :
+      default :
+        $result = in_array($index, (array)$this->_selection, FALSE);
       break;
     }
     return $result;

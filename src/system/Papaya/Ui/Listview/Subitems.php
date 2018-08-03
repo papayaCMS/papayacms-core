@@ -13,56 +13,57 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview;
 /**
-* Subitems are additional data, attached to an listview item. They are displayed as additional
-* columns in the most cases.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiListviewSubitems
+ * Subitems are additional data, attached to an listview item. They are displayed as additional
+ * columns in the most cases.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Subitems
   extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Only {@see \PapayaUiListviewSubItem} objects are allowed in this list
-  *
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiListviewSubitem::class;
+   * Only {@see \PapayaUiListviewSubItem} objects are allowed in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Subitem::class;
 
   /**
-  * Provide no tag name, so no additional element will be added in
-  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that whould wrap the items.
-  *
-  * @var string
-  */
+   * Provide no tag name, so no additional element will be added in
+   * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that whould wrap the items.
+   *
+   * @var string
+   */
   protected $_tagName = '';
 
   /**
    * Create object an set owner listview object.
    *
-   * @param \PapayaUiListviewItem $item
+   * @param Item $item
    */
-  public function __construct(\PapayaUiListviewItem $item) {
+  public function __construct(Item $item) {
     $this->owner($item);
   }
 
   /**
    * Return the listview item for this list of subitems
    *
-   * @param \PapayaUiListviewItem $item
-   * @return \PapayaUiListviewItem
+   * @param Item $item
+   * @return Item
    */
   public function owner($item = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListviewItem::class, $item);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(Item::class, $item);
     return parent::owner($item);
   }
 
   /**
-  * Return the listview the owner item is part of.
-  *
-  * @return \PapayaUiListview
-  */
+   * Return the listview the owner item is part of.
+   *
+   * @return \Papaya\Ui\Listview
+   */
   public function getListview() {
     return $this->owner()->collection()->owner();
   }

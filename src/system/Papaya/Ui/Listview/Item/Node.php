@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Item;
 /**
-* Provides a node marker for a listview item
-*
-* The marker can have 3 status: hidden, empty, open, close.
-*
-* "hidden" will disable the node output - even in the xml.
-* "empty" defines a node element without children and without a link
-* "open" the node is open, children are shown link closes the node
-* "closed" the node is closed, children are hidden link opens the node*
-*
-* The reference defines the link for the node
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $status
-* @property \PapayaUiReference $reference
-* @property-read \PapayaUiListviewItem $item
-*/
-class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
+ * Provides a node marker for a listview item
+ *
+ * The marker can have 3 status: hidden, empty, open, close.
+ *
+ * "hidden" will disable the node output - even in the xml.
+ * "empty" defines a node element without children and without a link
+ * "open" the node is open, children are shown link closes the node
+ * "closed" the node is closed, children are hidden link opens the node*
+ *
+ * The reference defines the link for the node
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $status
+ * @property \PapayaUiReference $reference
+ * @property-read \Papaya\Ui\Listview\Item $item
+ */
+class Node extends \Papaya\Ui\Control {
 
   const NODE_HIDDEN = 0;
   const NODE_EMPTY = 1;
@@ -46,7 +47,7 @@ class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
   );
 
   /**
-   * @var \PapayaUiListviewItem
+   * @var \Papaya\Ui\Listview\Item
    */
   protected $_item = NULL;
 
@@ -61,10 +62,10 @@ class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
   protected $_status = self::NODE_EMPTY;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'status' => array('_status', 'setStatus'),
     'reference' => array('reference', 'reference'),
@@ -74,10 +75,10 @@ class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
   /**
    * Store the owner item and set an status
    *
-   * @param \PapayaUiListviewItem $item
+   * @param \Papaya\Ui\Listview\Item $item
    * @param integer $status
    */
-  public function __construct(\PapayaUiListviewItem $item, $status = self::NODE_HIDDEN) {
+  public function __construct(\Papaya\Ui\Listview\Item $item, $status = self::NODE_HIDDEN) {
     $this->_item = $item;
     $this->setStatus($status);
   }
@@ -107,6 +108,7 @@ class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
 
   /**
    * Sett for the status
+   *
    * @param integer $status
    */
   public function setStatus($status) {

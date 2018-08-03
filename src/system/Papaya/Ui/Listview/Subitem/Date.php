@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview\Subitem;
 /**
  * A simple listview subitem displaying date time.
  *
@@ -23,27 +24,27 @@
  * @property string|\PapayaUiString $text
  * @property int $timestamp
  */
-class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {
+class Date extends \Papaya\Ui\Listview\Subitem {
 
   const SHOW_DATE = \PapayaUiStringDate::SHOW_DATE;
   const SHOW_TIME = \PapayaUiStringDate::SHOW_TIME;
   const SHOW_SECONDS = \PapayaUiStringDate::SHOW_SECONDS;
 
   /**
-  * @var int
-  */
+   * @var int
+   */
   protected $_timestamp = '';
 
   /**
-  * @var int
-  */
+   * @var int
+   */
   protected $_options = '';
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'align' => array('getAlign', 'setAlign'),
     'timestamp' => array('_timestamp', '_timestamp'),
@@ -65,10 +66,10 @@ class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {
   }
 
   /**
-  * Append subitem xml data to parent node.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append subitem xml data to parent node.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'subitem',
@@ -76,7 +77,7 @@ class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {
         'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       ),
       (string)(
-        $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''
+      $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''
       )
     );
   }

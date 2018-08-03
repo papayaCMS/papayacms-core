@@ -13,103 +13,107 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Listview;
 /**
-* A listview item represent one data line of the {@see \PapayaUiListview}.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string $image
-* @property string|\PapayaUiString $caption
-* @property string|\PapayaUiString $text
-* @property NULL|array $actionParameters
-* @property integer $indentation
-* @property integer $columnSpan
-* @property boolean $selected
-* @property boolean $emphased
-* @property \PapayaUiListviewSubitems $subitems
-* @property \PapayaUiReference $reference
-* @property \PapayaUiListviewItemNode $node
-*/
-class PapayaUiListviewItem extends \Papaya\Ui\Control\Collection\Item {
+ * A listview item represent one data line of the {@see \Papaya\Ui\PapayaUiListview}.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string $image
+ * @property string|\PapayaUiString $caption
+ * @property string|\PapayaUiString $text
+ * @property NULL|array $actionParameters
+ * @property integer $indentation
+ * @property integer $columnSpan
+ * @property boolean $selected
+ * @property boolean $emphased
+ * @property \Papaya\Ui\Listview\Subitems $subitems
+ * @property \PapayaUiReference $reference
+ * @property \Papaya\Ui\Listview\Item\Node $node
+ */
+class Item extends \Papaya\Ui\Control\Collection\Item {
 
   /**
-  * Subitems collection
-  *
-  * @var \PapayaUiListviewSubitems
-  */
+   * Subitems collection
+   *
+   * @var \Papaya\Ui\Listview\Subitems
+   */
   protected $_subitems = NULL;
 
   /**
-   * @var \PapayaUiListviewItemNode
+   * @var \Papaya\Ui\Listview\Item\Node
    */
   private $_node = NULL;
 
   /**
-  * Image index or url
-  *
-  * @var string
-  */
+   * Image index or url
+   *
+   * @var string
+   */
   protected $_image = '';
 
   /**
-  * Listitem caption/title
-  *
-  * @var string
-  */
+   * Listitem caption/title
+   *
+   * @var string
+   */
   protected $_caption = '';
 
   /**
-  * Listitem text/subtitle
-  *
-  * @var string
-  */
+   * Listitem text/subtitle
+   *
+   * @var string
+   */
   protected $_text = '';
 
   /**
-  * Listitem caption/title
-  *
-  * @var string
-  */
+   * Listitem caption/title
+   *
+   * @var string
+   */
   protected $_selected = '';
 
   /**
-  * Parameters for the standard link (on caption and image)
-  *
-  * @var NULL|array
-  */
+   * Parameters for the standard link (on caption and image)
+   *
+   * @var NULL|array
+   */
   protected $_actionParameters = NULL;
 
   /**
-  * Reference object
-  *
-  * @var NULL|\PapayaUiReference
-  */
+   * Reference object
+   *
+   * @var NULL|\PapayaUiReference
+   */
   protected $_reference = NULL;
 
   /**
-  * listview items can be indented, the property stpres the level of indentation
-  * @var integer indentation
-  */
+   * listview items can be indented, the property stpres the level of indentation
+   *
+   * @var integer indentation
+   */
   protected $_indentation = 0;
 
   /**
-  * listview items can be emphased, meaning the title will have a different formatting
-  * @var integer indentation
-  */
+   * listview items can be emphased, meaning the title will have a different formatting
+   *
+   * @var integer indentation
+   */
   protected $_emphased = FALSE;
 
   /**
-  * Listitems can span subitem columns, -1 means that is will span all columns
-  * @var integer
-  */
+   * Listitems can span subitem columns, -1 means that is will span all columns
+   *
+   * @var integer
+   */
   protected $_columnSpan = 0;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'subitems' => array('subitems', 'subitems'),
     'node' => array('node', 'node'),
@@ -141,11 +145,11 @@ class PapayaUiListviewItem extends \Papaya\Ui\Control\Collection\Item {
   }
 
   /**
-  * Set the action parameters for the item link. The values will be merge with the listview default
-  * link and used the validate if the item ist selected.
-  *
-  * @param array|NULL $actionParameters
-  */
+   * Set the action parameters for the item link. The values will be merge with the listview default
+   * link and used the validate if the item ist selected.
+   *
+   * @param array|NULL $actionParameters
+   */
   protected function setActionParameters(array $actionParameters = NULL) {
     $this->_actionParameters = $actionParameters;
   }
@@ -170,62 +174,62 @@ class PapayaUiListviewItem extends \Papaya\Ui\Control\Collection\Item {
   /**
    * Getter/Setter for the owner listview
    *
-   * @return \PapayaUiListview
+   * @return \Papaya\Ui\Listview
    */
   public function getListview() {
     return $this->collection()->owner();
   }
 
   /**
-  * Return the collection for the item, overload for code completion and type check
-  *
-  * @param \PapayaUiListviewItems|\Papaya\Ui\Control\Collection $items
-  * @return \PapayaUiListviewItems|\Papaya\Ui\Control\Collection
-  */
+   * Return the collection for the item, overload for code completion and type check
+   *
+   * @param \Papaya\Ui\Listview\Items|\Papaya\Ui\Control\Collection $items
+   * @return \Papaya\Ui\Listview\Items|\Papaya\Ui\Control\Collection
+   */
   public function collection(\Papaya\Ui\Control\Collection $items = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListviewItems::class, $items);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\Ui\Listview\Items::class, $items);
     return parent::collection($items);
   }
 
   /**
    * Getter/Setter for the node subobject
    *
-   * @param \PapayaUiListviewItemNode $node
-   * @return \PapayaUiListviewItemNode
+   * @param \Papaya\Ui\Listview\Item\Node $node
+   * @return \Papaya\Ui\Listview\Item\Node
    */
-  public function node(\PapayaUiListviewItemNode $node = NULL) {
+  public function node(\Papaya\Ui\Listview\Item\Node $node = NULL) {
     if (isset($node)) {
       $this->_node = $node;
     } elseif (NULL === $this->_node) {
-      $this->_node = new \PapayaUiListviewItemNode($this);
+      $this->_node = new \Papaya\Ui\Listview\Item\Node($this);
     }
     return $this->_node;
   }
 
   /**
-  * Getter/Setter for the item subitems. Subitems represent addiitonal data.
-  *
-  * @param \PapayaUiListviewSubitems $subitems
-  * @return \PapayaUiListviewSubitems
-  */
-  public function subitems(\PapayaUiListviewSubitems $subitems = NULL) {
+   * Getter/Setter for the item subitems. Subitems represent addiitonal data.
+   *
+   * @param \Papaya\Ui\Listview\Subitems $subitems
+   * @return \Papaya\Ui\Listview\Subitems
+   */
+  public function subitems(\Papaya\Ui\Listview\Subitems $subitems = NULL) {
     if (isset($subitems)) {
       $this->_subitems = $subitems;
       $this->_subitems->owner($this);
     }
     if (is_null($this->_subitems)) {
-      $this->_subitems = new \PapayaUiListviewSubitems($this);
+      $this->_subitems = new \Papaya\Ui\Listview\Subitems($this);
     }
     return $this->_subitems;
   }
 
   /**
-  * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
-  * is cloned or a new one is created (if no collection is available).
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
+   * is cloned or a new one is created (if no collection is available).
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
@@ -287,10 +291,10 @@ class PapayaUiListviewItem extends \Papaya\Ui\Control\Collection\Item {
   }
 
   /**
-  * Read column count from listview or object member
-  *
-  * @return integer
-  */
+   * Read column count from listview or object member
+   *
+   * @return integer
+   */
   protected function getColumnSpan() {
     if ($this->_columnSpan < 0) {
       return count($this->getListview()->columns());
