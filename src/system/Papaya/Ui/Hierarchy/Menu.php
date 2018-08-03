@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Hierarchy;
 /**
-* A hierarchy menu is used to show a line of links representing the current hierarchy of data.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiHierarchyItems $items
-*/
-class PapayaUiHierarchyMenu extends \Papaya\Ui\Control {
+ * A hierarchy menu is used to show a line of links representing the current hierarchy of data.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property Items $items
+ */
+class Menu extends \Papaya\Ui\Control {
 
   /**
-  * Items buffer variable
-  *
-  * @var \PapayaUiHierarchyItems
-  */
-  private $_items = NULL;
+   * Items buffer variable
+   *
+   * @var Items
+   */
+  private $_items;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'items' => array('items', 'items')
   );
 
   /**
-  * Append menu to parent xml element
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
-  */
+   * Append menu to parent xml element
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->items()) > 0) {
       $menu = $parent->appendElement('hierarchy-menu');
@@ -56,16 +57,16 @@ class PapayaUiHierarchyMenu extends \Papaya\Ui\Control {
   }
 
   /**
-  * Getter/Setter for the hierarchy items collection
-  *
-  * @param \PapayaUiHierarchyItems $items
-  * @return \PapayaUiHierarchyItems
-  */
-  public function items(\PapayaUiHierarchyItems $items = NULL) {
-    if (isset($items)) {
+   * Getter/Setter for the hierarchy items collection
+   *
+   * @param Items $items
+   * @return Items
+   */
+  public function items(Items $items = NULL) {
+    if (NULL !== $items) {
       $this->_items = $items;
-    } elseif (is_null($this->_items)) {
-      $this->_items = new \PapayaUiHierarchyItems();
+    } elseif (NULL === $this->_items) {
+      $this->_items = new Items();
       $this->_items->owner($this);
     }
     return $this->_items;

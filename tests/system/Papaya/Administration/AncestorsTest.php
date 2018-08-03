@@ -28,7 +28,7 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
 
-    $menu = $this->createMock(\PapayaUiHierarchyMenu::class);
+    $menu = $this->createMock(\Papaya\Ui\Hierarchy\Menu::class);
     $menu
       ->expects($this->once())
       ->method('appendTo')
@@ -118,7 +118,7 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $ancestors = new Ancestors();
-    $menu = $this->createMock(\PapayaUiHierarchyMenu::class);
+    $menu = $this->createMock(\Papaya\Ui\Hierarchy\Menu::class);
     $this->assertSame(
       $menu, $ancestors->menu($menu)
     );
@@ -131,7 +131,7 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
     $ancestors = new Ancestors();
     $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiHierarchyMenu::class, $ancestors->menu()
+      \Papaya\Ui\Hierarchy\Menu::class, $ancestors->menu()
     );
     $this->assertSame(
       $papaya, $ancestors->papaya()

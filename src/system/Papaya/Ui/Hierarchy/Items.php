@@ -13,63 +13,66 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Hierarchy;
 /**
-* A collection of items representaiton the hierarchy of the current data element.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $limit limit the create links
-* @property \PapayaUiHierarchyItem $spacer a spacer replacing the items not shown
-*/
-class PapayaUiHierarchyItems extends \Papaya\Ui\Control\Collection {
+ * A collection of items representaiton the hierarchy of the current data element.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property integer $limit limit the create links
+ * @property Item $spacer a spacer replacing the items not shown
+ */
+class Items extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Superclass for validation, only items of this class may be added.
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiHierarchyItem::class;
+   * Superclass for validation, only items of this class may be added.
+   *
+   * @var string
+   */
+  protected $_itemClass = Item::class;
 
   /**
-  * If a tag name is provided, an additional element will be added in
-  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
-  * @var string
-  */
+   * If a tag name is provided, an additional element will be added in
+   * {@see \Papaya\Ui\Control\Collection::appendTo()) that will wrapp the items.
+   *
+   * @var string
+   */
   protected $_tagName = 'items';
 
   /**
-  * Allow to limit the items append to the parent xml. Zero means all items are shown. Half
-  * of the limit is shown from index 0 the other half from the end. If the limit is
-  * odd the greater part is shown from the end.
-  *
-  * @var integer
-  */
+   * Allow to limit the items append to the parent xml. Zero means all items are shown. Half
+   * of the limit is shown from index 0 the other half from the end. If the limit is
+   * odd the greater part is shown from the end.
+   *
+   * @var integer
+   */
   protected $_limit = 6;
 
   /**
-  * PapayaUiHierarchyItem
-  *
-  * @var \PapayaUiHierarchyItem|NULL
-  */
+   * Papaya\Ui\Hierarchy\PapayaUiHierarchyItem
+   *
+   * @var Item|NULL
+   */
   protected $_spacer = NULL;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'limit' => array('_limit', '_limit'),
     'spacer' => array('_spacer', '_spacer')
   );
 
   /**
-  * Append item output to parent element. If a tag name was provided, the items will be wrapped
-  * in an additional element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
-  */
+   * Append item output to parent element. If a tag name was provided, the items will be wrapped
+   * in an additional element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $count = count($this->_items);
     if ($this->_limit > 0 && $count > $this->_limit) {
@@ -77,13 +80,13 @@ class PapayaUiHierarchyItems extends \Papaya\Ui\Control\Collection {
       $limitStart = floor($this->_limit / 2);
       $limitEnd = $count - ceil($this->_limit / 2);
       for ($i = 0; $i < $limitStart; $i++) {
-        /** @var \PapayaUiHierarchyItem $item */
+        /** @var Item $item */
         $item = $this->_items[$i];
         $item->appendTo($parent);
       }
       $this->spacer()->appendTo($parent);
       for ($i = $limitEnd; $i < $count; $i++) {
-        /** @var \PapayaUiHierarchyItem $item */
+        /** @var Item $item */
         $item = $this->_items[$i];
         $item->appendTo($parent);
       }
@@ -96,14 +99,14 @@ class PapayaUiHierarchyItems extends \Papaya\Ui\Control\Collection {
   /**
    * Getter/Setter for a spacer item that replaces the items not appended because of the limit.
    *
-   * @param \PapayaUiHierarchyItem $spacer
-   * @return \PapayaUiHierarchyItem
+   * @param Item $spacer
+   * @return Item
    */
-  public function spacer(\PapayaUiHierarchyItem $spacer = NULL) {
+  public function spacer(Item $spacer = NULL) {
     if (isset($spacer)) {
       $this->_spacer = $spacer;
     } elseif (is_null($this->_spacer)) {
-      $this->_spacer = new \PapayaUiHierarchyItem('...');
+      $this->_spacer = new Item('...');
       $this->_spacer->papaya($this->papaya());
     }
     return $this->_spacer;

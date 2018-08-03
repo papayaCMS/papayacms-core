@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiHierarchyItems::appendTo
+  * @covers \Papaya\Ui\Hierarchy\Items::appendTo
   */
   public function testAppendToInheritance() {
-    $items = new \PapayaUiHierarchyItems();
+    $items = new \Papaya\Ui\Hierarchy\Items();
     $this->assertSame('', $items->getXml());
   }
 
   /**
-  * @covers \PapayaUiHierarchyItems::appendTo
+  * @covers \Papaya\Ui\Hierarchy\Items::appendTo
   */
   public function testAppendToWithLimit3() {
-    $items = new \PapayaUiHierarchyItems();
+    $items = new \Papaya\Ui\Hierarchy\Items();
     $items->limit = 3;
     $items->spacer = $this->getItemFixture(TRUE);
     $items[] = $this->getItemFixture(TRUE);
@@ -42,12 +42,12 @@ class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiHierarchyItems::spacer
+  * @covers \Papaya\Ui\Hierarchy\Items::spacer
   */
   public function testSpacerGetAfterSet() {
-    $items = new \PapayaUiHierarchyItems();
+    $items = new \Papaya\Ui\Hierarchy\Items();
     $spacer = $this
-      ->getMockBuilder(\PapayaUiHierarchyItem::class)
+      ->getMockBuilder(\Papaya\Ui\Hierarchy\Item::class)
       ->setConstructorArgs(array('...'))
       ->getMock();
     $this->assertSame(
@@ -56,13 +56,13 @@ class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiHierarchyItems::spacer
+  * @covers \Papaya\Ui\Hierarchy\Items::spacer
   */
   public function testSpacerGetWithImplicitCreate() {
-    $items = new \PapayaUiHierarchyItems();
+    $items = new \Papaya\Ui\Hierarchy\Items();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiHierarchyItem::class, $spacer = $items->spacer()
+      \Papaya\Ui\Hierarchy\Item::class, $spacer = $items->spacer()
     );
     $this->assertSame(
       $papaya, $spacer->papaya()
@@ -71,7 +71,7 @@ class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
 
   public function getItemFixture($expectAppend) {
     $item = $this
-      ->getMockBuilder(\PapayaUiHierarchyItem::class)
+      ->getMockBuilder(\Papaya\Ui\Hierarchy\Item::class)
       ->setConstructorArgs(array('item'))
       ->getMock();
     $item

@@ -13,8 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Hierarchy;
 /**
- * A hierarchy item represent one element in {@see \PapayaUiHierarchyItems}.
+ * A hierarchy item represent one element in {@see \Papaya\Ui\Hierarchy\PapayaUiHierarchyItems}.
  *
  * @package Papaya-Library
  * @subpackage Ui
@@ -26,18 +27,18 @@
  * @property int $displayMode
  * @property \PapayaUiReference $reference
  */
-class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
+class Item extends \Papaya\Ui\Control\Collection\Item {
 
   const DISPLAY_BOTH = 1;
   const DISPLAY_IMAGE_ONLY = 2;
   const DISPLAY_TEXT_ONLY = 3;
 
   /**
-  * String representations for all available display modes. The list is used for
-  * validation and xml generation.
-  *
-  * @var array(integer => string)
-  */
+   * String representations for all available display modes. The list is used for
+   * validation and xml generation.
+   *
+   * @var array(integer => string)
+   */
   protected static $_displayModes = array(
     self::DISPLAY_BOTH => 'both',
     self::DISPLAY_IMAGE_ONLY => 'image',
@@ -45,10 +46,10 @@ class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
   );
 
   /**
-  * Image index or url
-  *
-  * @var string
-  */
+   * Image index or url
+   *
+   * @var string
+   */
   protected $_image = '';
 
   /**
@@ -66,24 +67,24 @@ class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
   protected $_hint = '';
 
   /**
-  * Reference object
-  *
-  * @var NULL|\PapayaUiReference
-  */
+   * Reference object
+   *
+   * @var NULL|\PapayaUiReference
+   */
   protected $_reference;
 
   /**
-  * display mode - (both, image only, text only)
-  *
-  * @var int
-  */
+   * display mode - (both, image only, text only)
+   *
+   * @var int
+   */
   protected $_displayMode = self::DISPLAY_BOTH;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('_caption', '_caption'),
     'hint' => array('_hint', '_hint'),
@@ -93,20 +94,20 @@ class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
   );
 
   /**
-  * Create object and set caption text
-  *
-  * @param string $caption
-  */
+   * Create object and set caption text
+   *
+   * @param string $caption
+   */
   public function __construct($caption) {
     $this->_caption = $caption;
   }
 
   /**
-  * Append item xml to parent xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append item xml to parent xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $itemNode = $parent->appendElement(
       'item',
@@ -124,11 +125,11 @@ class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
   }
 
   /**
-  * Getter/Setter for the reference subobject
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for the reference subobject
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
