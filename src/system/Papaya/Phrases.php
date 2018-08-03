@@ -164,7 +164,7 @@ class Phrases extends Application\BaseObject {
   }
 
   /**
-   * Get a \Papaya\Ui\Text\PapayaUiStringTranslated instance for a phrase. This object encaspulates
+   * Get a \Papaya\UI\Text\Translated instance for a phrase. This object encaspulates
    * a string that will be translated. If the $arguments are provided it the translated
    * string can contain placeholders usable with sprintf().
    *
@@ -173,18 +173,18 @@ class Phrases extends Application\BaseObject {
    * @param string $phrase
    * @param array $arguments
    * @param string|NULL $groupName
-   * @return \Papaya\Ui\Text\Translated
+   * @return \Papaya\UI\Text\Translated
    */
   public function get($phrase, array $arguments = array(), $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->get($phrase, $arguments);
   }
 
   /**
-   * Get a \Papaya\Ui\Text\Translated\PapayaUiStringTranslatedList instance for a list of phrases.
+   * Get a \Papaya\UI\Text\Translated\Collection instance for a list of phrases.
    *
    * @param array|\Traversable $phrases
    * @param array $groupName
-   * @return \Papaya\Ui\Text\Translated\Collection
+   * @return \Papaya\UI\Text\Translated\Collection
    */
   public function getList($phrases, $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->getList($phrases);
@@ -213,7 +213,7 @@ class Phrases extends Application\BaseObject {
    * @return string
    */
   public function getTextFmt($phrase, array $values = array(), $groupName = NULL) {
-    $result = new Ui\Text(
+    $result = new UI\Text(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );
     return (string)$result;

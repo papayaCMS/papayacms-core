@@ -19,10 +19,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::__construct
+  * @covers \Papaya\UI\Dialog\Database\Record::__construct
   */
   public function testConstructor() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record(
+    $dialog = new \Papaya\UI\Dialog\Database\Record(
       'tablename', 'indexfield', array('datafield' => NULL)
     );
     $this->assertAttributeEquals(
@@ -37,8 +37,8 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_getIdentifierValue
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_getIdentifierValue
   */
   public function testExecuteWithoutIdentifier() {
     $dialog = $this->getDialogFixture(
@@ -49,19 +49,19 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       NULL, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, '_databaseActionNext', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_INSERT, '_databaseActionNext', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_getIdentifierValue
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_getIdentifierValue
   */
   public function testExecuteWithoutIdentifierAndColumnCheck() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record(
+    $dialog = new \Papaya\UI\Dialog\Database\Record(
       'tablename',
       'indexfield',
       array(
@@ -79,9 +79,9 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_load
-  * @covers \Papaya\Ui\Dialog\Database\Record::_getIdentifierValue
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_load
+  * @covers \Papaya\UI\Dialog\Database\Record::_getIdentifierValue
   */
   public function testExecuteWithIdentifierLoadsRecord() {
     $dialog = $this->getDialogFixture(
@@ -110,17 +110,17 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       42, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_insert
-  * @covers \Papaya\Ui\Dialog\Database\Record::_compileRecord
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_insert
+  * @covers \Papaya\UI\Dialog\Database\Record::_compileRecord
   */
   public function testExecuteInsertsRecord() {
     $dialog = $this->getDialogFixture(
@@ -142,17 +142,17 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       'success', $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, '_databaseAction', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_INSERT, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_insert
-  * @covers \Papaya\Ui\Dialog\Database\Record::_compileRecord
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_insert
+  * @covers \Papaya\UI\Dialog\Database\Record::_compileRecord
   */
   public function testExecuteInsertFailed() {
     $dialog = $this->getDialogFixture(
@@ -171,17 +171,17 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dialog->execute());
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, '_databaseActionNext', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_INSERT, '_databaseActionNext', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseAction
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseActionNext
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseAction
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseActionNext
   */
   public function testExecuteNoPermissionForInsert() {
     $dialog = $this->getDialogFixture(
@@ -190,17 +190,17 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertFalse($dialog->execute());
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_NONE, $dialog->getDatabaseAction()
+      \Papaya\UI\Dialog\Database\Record::ACTION_NONE, $dialog->getDatabaseAction()
     );
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, $dialog->getDatabaseActionNext()
+      \Papaya\UI\Dialog\Database\Record::ACTION_INSERT, $dialog->getDatabaseActionNext()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::_update
-  * @covers \Papaya\Ui\Dialog\Database\Record::_compileRecord
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::_update
+  * @covers \Papaya\UI\Dialog\Database\Record::_compileRecord
   */
   public function testExecuteUpdatesRecord() {
     $dialog = $this->getDialogFixture(
@@ -222,17 +222,17 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       42, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_UPDATE, '_databaseAction', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_UPDATE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \Papaya\UI\Dialog\Database\Record::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::execute
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseAction
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseActionNext
+  * @covers \Papaya\UI\Dialog\Database\Record::execute
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseAction
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseActionNext
   */
   public function testExecuteNoPermissionForUpdate() {
     $dialog = $this->getDialogFixture(
@@ -241,18 +241,18 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertFalse($dialog->execute());
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_NONE, $dialog->getDatabaseAction()
+      \Papaya\UI\Dialog\Database\Record::ACTION_NONE, $dialog->getDatabaseAction()
     );
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Database\Record::ACTION_UPDATE, $dialog->getDatabaseActionNext()
+      \Papaya\UI\Dialog\Database\Record::ACTION_UPDATE, $dialog->getDatabaseActionNext()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::setPermissionCallback
+  * @covers \Papaya\UI\Dialog\Database\Record::setPermissionCallback
   */
   public function testSetPermissionCallback() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertAttributeEquals(
       array($this, 'callbackPermissionFailed'), '_callbackPermissions', $dialog
@@ -260,7 +260,7 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::checkRecordPermission
+  * @covers \Papaya\UI\Dialog\Database\Record::checkRecordPermission
   */
   public function testCheckRecordPermissionExpectingTrue() {
     $arguments = [];
@@ -268,19 +268,19 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       $arguments = func_get_args();
       return TRUE;
     };
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $dialog->setPermissionCallback($callback);
     $this->assertTrue(
-      $dialog->checkRecordPermission(\Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\Papaya\UI\Dialog\Database\Record::ACTION_INSERT, array())
     );
     $this->assertEquals(
-      array(\Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, 'tablename', array()),
+      array(\Papaya\UI\Dialog\Database\Record::ACTION_INSERT, 'tablename', array()),
       $arguments
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::checkRecordPermission
+  * @covers \Papaya\UI\Dialog\Database\Record::checkRecordPermission
   */
   public function testCheckRecordPermissionExpectingFalse() {
     $arguments = [];
@@ -288,28 +288,28 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       $arguments = func_get_args();
       return FALSE;
     };
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $dialog->setPermissionCallback($callback);
     $this->assertFalse(
-      $dialog->checkRecordPermission(\Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\Papaya\UI\Dialog\Database\Record::ACTION_INSERT, array())
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::checkRecordPermission
+  * @covers \Papaya\UI\Dialog\Database\Record::checkRecordPermission
   */
   public function testCheckRecordPermissionWithoutCallbackExpectingTrue() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $this->assertTrue(
-      $dialog->checkRecordPermission(\Papaya\Ui\Dialog\Database\Record::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\Papaya\UI\Dialog\Database\Record::ACTION_INSERT, array())
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::setDatabaseAccess
+  * @covers \Papaya\UI\Dialog\Database\Record::setDatabaseAccess
   */
   public function testSetDatabaseAccess() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertAttributeSame(
@@ -320,10 +320,10 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseAccess
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseAccess
   */
   public function testGetDatabaseAccess() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertSame(
@@ -333,10 +333,10 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Database\Record::getDatabaseAccess
+  * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseAccess
   */
   public function testGetDatabaseAccessImplizitCreate() {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record('tablename', 'indexfield', array());
+    $dialog = new \Papaya\UI\Dialog\Database\Record('tablename', 'indexfield', array());
     $databaseAccess = $dialog->getDatabaseAccess();
     $this->assertInstanceOf(
       \Papaya\Database\Access::class, $databaseAccess
@@ -350,10 +350,10 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
   /**
    * @param array $parameters
    * @param bool $submitted
-   * @return \Papaya\Ui\Dialog\Database\Record
+   * @return \Papaya\UI\Dialog\Database\Record
    */
   public function getDialogFixture(array $parameters = array(), $submitted = TRUE) {
-    $dialog = new \Papaya\Ui\Dialog\Database\Record(
+    $dialog = new \Papaya\UI\Dialog\Database\Record(
       'tablename',
       'indexfield',
       array(

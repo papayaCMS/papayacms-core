@@ -172,15 +172,15 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $changer->references($references);
 
     $elements = $this
-      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
+      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(3))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\Ui\Toolbar\Element::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Toolbar\Element::class));
     $commands = $this
-      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
+      ->getMockBuilder(\Papaya\UI\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
@@ -254,15 +254,15 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $changer->listview($listview);
 
     $elements = $this
-      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
+      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(4))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\Ui\Toolbar\Element::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Toolbar\Element::class));
     $commands = $this
-      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
+      ->getMockBuilder(\Papaya\UI\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
@@ -366,7 +366,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   * @covers Changer::menu
   */
   public function testMenuGetAfterSet() {
-    $menu = $this->createMock(\Papaya\Ui\Toolbar::class);
+    $menu = $this->createMock(\Papaya\UI\Toolbar::class);
     $changer = new Changer();
     $this->assertSame(
       $menu, $changer->menu($menu)
@@ -379,7 +379,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   public function testMenuGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      \Papaya\Ui\Toolbar::class, $changer->menu()
+      \Papaya\UI\Toolbar::class, $changer->menu()
     );
   }
 
@@ -388,7 +388,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   */
   public function testCommandsGetAfterSet() {
     $commands = $this
-      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
+      ->getMockBuilder(\Papaya\UI\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changer = new Changer();
@@ -403,7 +403,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   public function testCommandsGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      \Papaya\Ui\Control\Command\Controller::class, $commands = $changer->commands()
+      \Papaya\UI\Control\Command\Controller::class, $commands = $changer->commands()
     );
     $this->assertNotNull($commands['dependency_show']);
     $this->assertNotNull($commands['dependency_delete']);

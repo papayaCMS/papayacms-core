@@ -354,12 +354,12 @@ class papaya_overview extends base_db {
    */
   function getTopicsList($title, $width = 490, $showDetails = FALSE) {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
-      $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \Papaya\Ui\Text\Translated($title);
-      $listview->toolbars()->topLeft->elements[] = $paging = new \Papaya\Ui\Toolbar\Paging(
+      $listview = new \Papaya\UI\Listview();
+      $listview->caption = new \Papaya\UI\Text\Translated($title);
+      $listview->toolbars()->topLeft->elements[] = $paging = new \Papaya\UI\Toolbar\Paging(
         array($this->paramName, 'filter_offset'),
         (int)$this->_topicsAbsCount,
-        \Papaya\Ui\Toolbar\Paging::MODE_OFFSET
+        \Papaya\UI\Toolbar\Paging::MODE_OFFSET
       );
       $paging->reference()->setParameters(
         array(
@@ -373,7 +373,7 @@ class papaya_overview extends base_db {
       foreach ($this->topics as $topic) {
         $title = '';
         if (empty($topic['topic_title'])) {
-          $pageTitle = new \Papaya\Ui\Text\Translated('No Title');
+          $pageTitle = new \Papaya\UI\Text\Translated('No Title');
         } else {
           $pageTitle = $topic['topic_title'];
         }
@@ -399,24 +399,24 @@ class papaya_overview extends base_db {
         if (isset($topic['topic_modified']) && $topic['topic_modified'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new \Papaya\Ui\Text\Translated('Modified'),
-            new \Papaya\Ui\Text\Date($topic['topic_modified'])
+            new \Papaya\UI\Text\Translated('Modified'),
+            new \Papaya\UI\Text\Date($topic['topic_modified'])
           );
         } else {
           $text .= sprintf(
             ', %s: %s',
-            new \Papaya\Ui\Text\Translated('Created'),
-            new \Papaya\Ui\Text\Date($topic['topic_created'])
+            new \Papaya\UI\Text\Translated('Created'),
+            new \Papaya\UI\Text\Date($topic['topic_created'])
           );
         }
         if (isset($topic['topic_published']) && $topic['topic_published'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new \Papaya\Ui\Text\Translated('Published'),
-            new \Papaya\Ui\Text\Date($topic['topic_published'])
+            new \Papaya\UI\Text\Translated('Published'),
+            new \Papaya\UI\Text\Date($topic['topic_published'])
           );
         }
-        $listview->items[] = $item = new \Papaya\Ui\Listview\Item($image, $title);
+        $listview->items[] = $item = new \Papaya\UI\Listview\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
         $item->reference()->setRelative('topic.php');
@@ -427,7 +427,7 @@ class papaya_overview extends base_db {
           if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
-          $item->subitems[] = $subitem = new \Papaya\Ui\Listview\Subitem\Text($text);
+          $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text($text);
         }
       }
       return $listview->getXml();
@@ -755,10 +755,10 @@ class papaya_overview extends base_db {
       );
       $data = array();
       if (empty($data['filter_date_from'])) {
-        $data['filter_date_from'] = new \Papaya\Ui\Text\Date(time() - (86400 * 7));
+        $data['filter_date_from'] = new \Papaya\UI\Text\Date(time() - (86400 * 7));
       }
       if (empty($data['filter_date_to'])) {
-        $data['filter_date_to'] = new \Papaya\Ui\Text\Date(time() + 86400);
+        $data['filter_date_to'] = new \Papaya\UI\Text\Date(time() + 86400);
       }
       $statusComboValue = array(
         'all' => $this->_gt('All'),
@@ -814,8 +814,8 @@ class papaya_overview extends base_db {
           FALSE,
           'checkgroup',
           array(
-            'meta' => new \Papaya\Ui\Text\Translated('Meta Tags'),
-            'boxes' => new \Papaya\Ui\Text\Translated('Boxes')
+            'meta' => new \Papaya\UI\Text\Translated('Meta Tags'),
+            'boxes' => new \Papaya\UI\Text\Translated('Boxes')
           )
         )
       );
@@ -827,7 +827,7 @@ class papaya_overview extends base_db {
       $this->dialogSearch->buttonTitle = 'Search';
       $this->dialogSearch->inputFieldSize = 'x-small';
       $this->dialogSearch->dialogDoubleButtons = FALSE;
-      $this->dialogSearch->addButton('search_clear', new \Papaya\Ui\Text\Translated('Reset'));
+      $this->dialogSearch->addButton('search_clear', new \Papaya\UI\Text\Translated('Reset'));
     }
   }
 

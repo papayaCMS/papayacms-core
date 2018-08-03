@@ -23,12 +23,12 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Change extends \Papaya\Ui\Control\Command\Dialog {
+class Change extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * Create the add/edit dialog and assign callbacks.
    *
-   * @return \Papaya\Ui\Dialog\Database\Save
+   * @return \Papaya\UI\Dialog\Database\Save
    */
   public function createDialog() {
     /** @var Changer $changer */
@@ -43,9 +43,9 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
       $targetId = $record->sourceId;
     }
 
-    $dialog = new \Papaya\Ui\Dialog\Database\Save($record);
+    $dialog = new \Papaya\UI\Dialog\Database\Save($record);
 
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Page reference');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Page reference');
     $dialog->data->merge(
       array(
         'source_id' => $pageId,
@@ -69,13 +69,13 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
       )
     );
 
-    $dialog->fields[] = $targetIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
-      new \Papaya\Ui\Text\Translated('Target page'), 'target_id', NULL, TRUE
+    $dialog->fields[] = $targetIdField = new \Papaya\UI\Dialog\Field\Input\Page(
+      new \Papaya\UI\Text\Translated('Target page'), 'target_id', NULL, TRUE
     );
-    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Textarea(
-      new \Papaya\Ui\Text\Translated('Note'), 'note', 8, ''
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Textarea(
+      new \Papaya\UI\Text\Translated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateTarget');
     $dialog->callbacks()->onBeforeSave->context->targetIdField = $targetIdField;
@@ -138,7 +138,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Callback to dispatch a message to the user that here was an input error.
    */
-  public function dispatchErrorMessage($context, \Papaya\Ui\Dialog $dialog) {
+  public function dispatchErrorMessage($context, \Papaya\UI\Dialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,

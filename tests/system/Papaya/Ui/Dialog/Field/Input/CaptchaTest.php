@@ -18,28 +18,28 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::__construct
    */
   public function testConstructor() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Captcha('Caption', 'name');
+    $field = new \Papaya\UI\Dialog\Field\Input\Captcha('Caption', 'name');
     $this->assertEquals('Caption', $field->getCaption());
     $this->assertEquals('name', $field->getName());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::__construct
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCaptchaImage
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCaptchaImage
    */
   public function testConstructorWithAllParameters() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Captcha('Caption', 'name', 'captchaname');
+    $field = new \Papaya\UI\Dialog\Field\Input\Captcha('Caption', 'name', 'captchaname');
     $this->assertEquals('captchaname', $field->getCaptchaImage());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::appendTo
    */
   public function testAppendTo() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -53,26 +53,26 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCurrentValue
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::validateCaptcha
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::validateCaptcha
    */
   public function testGetCurrentValueForUnattachedFieldExpectingTrue() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
     $this->assertTrue($field->getCurrentValue());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCurrentValue
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::validateCaptcha
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldNoTokenExpectingFalse() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters()));
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -86,12 +86,12 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCurrentValue
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::validateCaptcha
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldInvalidTokenExpectingFalse() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -100,7 +100,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
           new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -122,12 +122,12 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCurrentValue
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::validateCaptcha
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::validateCaptcha
    */
   public function testGetCurrentValueTwoTimeExpectingOnlyOnFetch() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -136,7 +136,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
           new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     $collection
       ->expects($this->any())
       ->method('hasOwner')
@@ -159,12 +159,12 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::getCurrentValue
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::validateCaptcha
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldValidTokenExpectingTrue() {
-    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $field = new \PapayaUIDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -173,7 +173,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
           new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -199,15 +199,15 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Captcha::createCaptchaIdentifier
+   * @covers \Papaya\UI\Dialog\Field\Input\Captcha::createCaptchaIdentifier
    */
   public function testCreateCaptchaIdentifier() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Captcha('Caption', 'name');
+    $field = new \Papaya\UI\Dialog\Field\Input\Captcha('Caption', 'name');
     $this->assertRegExp('(^[a-z\d]{32}$)D', $field->createCaptchaIdentifier());
   }
 }
 
-class PapayaUiDialogFieldInputCaptcha_TestProxy extends \Papaya\Ui\Dialog\Field\Input\Captcha {
+class PapayaUIDialogFieldInputCaptcha_TestProxy extends \Papaya\UI\Dialog\Field\Input\Captcha {
 
   public function createCaptchaIdentifier() {
     return 'foo';

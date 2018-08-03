@@ -20,17 +20,17 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::create
+  * @covers \Papaya\UI\Reference\Thumbnail::create
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference\Thumbnail::class,
-      \Papaya\Ui\Reference\Thumbnail::create()
+      \Papaya\UI\Reference\Thumbnail::class,
+      \Papaya\UI\Reference\Thumbnail::create()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::load
+  * @covers \Papaya\UI\Reference\Thumbnail::load
   */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request $request */
@@ -55,7 +55,7 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
       ->will(
         $this->returnValue(TRUE)
       );
-    $reference = new \Papaya\Ui\Reference\Thumbnail();
+    $reference = new \Papaya\UI\Reference\Thumbnail();
     $reference->load($request);
     $this->assertEquals(
       array(
@@ -73,21 +73,21 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::get
+  * @covers \Papaya\UI\Reference\Thumbnail::get
   */
   public function testGetDefaultExpectingNull() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail();
+    $reference = new \Papaya\UI\Reference\Thumbnail();
     $this->assertNull(
       $reference->get()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setMediaId
-  * @covers \Papaya\Ui\Reference\Thumbnail::get
+  * @covers \Papaya\UI\Reference\Thumbnail::setMediaId
+  * @covers \Papaya\UI\Reference\Thumbnail::get
   */
   public function testSetMediaId() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaId('012345678901234567890123456789ab')
@@ -112,10 +112,10 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setMediaVersion
+  * @covers \Papaya\UI\Reference\Thumbnail::setMediaVersion
   */
   public function testSetMediaVersion() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaVersion(23)
@@ -136,10 +136,10 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setTitle
+  * @covers \Papaya\UI\Reference\Thumbnail::setTitle
   */
   public function testSetTitle() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setTitle('sample')
@@ -160,10 +160,10 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setThumbnailMode
+  * @covers \Papaya\UI\Reference\Thumbnail::setThumbnailMode
   */
   public function testSetThumbnailMode() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setThumbnailMode('min')
@@ -184,10 +184,10 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setThumbnailSize
+  * @covers \Papaya\UI\Reference\Thumbnail::setThumbnailSize
   */
   public function testSetThumbnailSize() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setThumbnailSize('1x1')
@@ -208,13 +208,13 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Reference\Thumbnail::setThumbnailParameters
+   * @covers \Papaya\UI\Reference\Thumbnail::setThumbnailParameters
    * @dataProvider setThumbnailParametersDataProvider
    * @param array|string $parameters
    * @param string $expected
    */
   public function testSetThumbnailParameters($parameters, $expected) {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setThumbnailParameters($parameters)
@@ -235,10 +235,10 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setExtension
+  * @covers \Papaya\UI\Reference\Thumbnail::setExtension
   */
   public function testSetExtension() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setExtension('JPG')
@@ -259,11 +259,11 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setMediaUri
-  * @covers \Papaya\Ui\Reference\Thumbnail::get
+  * @covers \Papaya\UI\Reference\Thumbnail::setMediaUri
+  * @covers \Papaya\UI\Reference\Thumbnail::get
   */
   public function testSetMediaUri() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaUri(
@@ -292,11 +292,11 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setMediaUri
-  * @covers \Papaya\Ui\Reference\Thumbnail::get
+  * @covers \Papaya\UI\Reference\Thumbnail::setMediaUri
+  * @covers \Papaya\UI\Reference\Thumbnail::get
   */
   public function testSetMediaUriSimple() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaUri(
@@ -323,11 +323,11 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Reference\Thumbnail::setPreview
-  * @covers \Papaya\Ui\Reference\Thumbnail::get
+  * @covers \Papaya\UI\Reference\Thumbnail::setPreview
+  * @covers \Papaya\UI\Reference\Thumbnail::get
   */
   public function testSetPreview() {
-    $reference = new \Papaya\Ui\Reference\Thumbnail($this->getUrlObjectMockFixture());
+    $reference = new \Papaya\UI\Reference\Thumbnail($this->getUrlObjectMockFixture());
     $reference->setMediaUri('012345678901234567890123456789abv23_max_20x20.png');
     $this->assertSame(
       $reference,

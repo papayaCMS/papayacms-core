@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition::command
+  * @covers \Papaya\UI\Control\Command\Condition::command
   */
   public function testCommandGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('papaya')
@@ -34,7 +34,7 @@ class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition::command
+  * @covers \Papaya\UI\Control\Command\Condition::command
   */
   public function testCommandGetExpectingException() {
     $condition = new \PapayaUiControlCommandCondition_TestProxy();
@@ -46,17 +46,17 @@ class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition::hasCommand
+  * @covers \Papaya\UI\Control\Command\Condition::hasCommand
   */
   public function testHascommandExpectingTrue() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $condition = new \PapayaUiControlCommandCondition_TestProxy();
     $condition->command($command);
     $this->assertTrue($condition->hasCommand());
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition::hasCommand
+  * @covers \Papaya\UI\Control\Command\Condition::hasCommand
   */
   public function testHasCommandExpectingFalse() {
     $condition = new \PapayaUiControlCommandCondition_TestProxy();
@@ -64,7 +64,7 @@ class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiControlCommandCondition_TestProxy extends \Papaya\Ui\Control\Command\Condition {
+class PapayaUiControlCommandCondition_TestProxy extends \Papaya\UI\Control\Command\Condition {
 
   public function validate() {
 

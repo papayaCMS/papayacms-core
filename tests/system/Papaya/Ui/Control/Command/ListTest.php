@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandListTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::__construct
+  * @covers \Papaya\UI\Control\Command\Collection::__construct
   */
   public function testConstructor() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $this->assertSame(
       $command, $list[0]
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::appendTo
+  * @covers \Papaya\UI\Control\Command\Collection::appendTo
   */
   public function testAppendToWithOneValidCommand() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -44,15 +44,15 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo');
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $list->getXml();
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::appendTo
+  * @covers \Papaya\UI\Control\Command\Collection::appendTo
   */
   public function testAppendToWithOneCommandInvalidPermission() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -64,15 +64,15 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $command
       ->expects($this->never())
       ->method('appendTo');
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $list->getXml();
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::appendTo
+  * @covers \Papaya\UI\Control\Command\Collection::appendTo
   */
   public function testAppendToWithOneCommandInvalidCondition() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -83,15 +83,15 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $command
       ->expects($this->never())
       ->method('appendTo');
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $list->getXml();
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::appendTo
+  * @covers \Papaya\UI\Control\Command\Collection::appendTo
   */
   public function testAppendToWithTwoCommandsFirstCommandBlocked() {
-    $commandBlocked = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $commandBlocked = $this->createMock(\Papaya\UI\Control\Command::class);
     $commandBlocked
       ->expects($this->once())
       ->method('validateCondition')
@@ -102,7 +102,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $commandBlocked
       ->expects($this->never())
       ->method('appendTo');
-    $commandOk = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $commandOk = $this->createMock(\Papaya\UI\Control\Command::class);
     $commandOk
       ->expects($this->once())
       ->method('validateCondition')
@@ -114,15 +114,15 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $commandOk
       ->expects($this->once())
       ->method('appendTo');
-    $list = new \Papaya\Ui\Control\Command\Collection($commandBlocked, $commandOk);
+    $list = new \Papaya\UI\Control\Command\Collection($commandBlocked, $commandOk);
     $list->getXml();
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::appendTo
+  * @covers \Papaya\UI\Control\Command\Collection::appendTo
   */
   public function testAppendToWithTwoCommandsSecondCommandBlocked() {
-    $commandBlocked = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $commandBlocked = $this->createMock(\Papaya\UI\Control\Command::class);
     $commandBlocked
       ->expects($this->once())
       ->method('validateCondition')
@@ -133,7 +133,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $commandBlocked
       ->expects($this->never())
       ->method('appendTo');
-    $commandOk = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $commandOk = $this->createMock(\Papaya\UI\Control\Command::class);
     $commandOk
       ->expects($this->once())
       ->method('validateCondition')
@@ -145,49 +145,49 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
     $commandOk
       ->expects($this->once())
       ->method('appendTo');
-    $list = new \Papaya\Ui\Control\Command\Collection($commandOk, $commandBlocked);
+    $list = new \Papaya\UI\Control\Command\Collection($commandOk, $commandBlocked);
     $list->getXml();
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::owner
+  * @covers \Papaya\UI\Control\Command\Collection::owner
   */
   public function testOwner() {
-    $owner = $this->createMock(\Papaya\Ui\Control\Interactive::class);
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $owner = $this->createMock(\Papaya\UI\Control\Interactive::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('owner')
       ->with($owner);
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $list->owner($owner);
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetExists
+  * @covers \Papaya\UI\Control\Command\Collection::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $this->assertTrue(isset($list[0]));
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetExists
+  * @covers \Papaya\UI\Control\Command\Collection::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     $this->assertFalse(isset($list[99]));
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetGet
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetSet
+  * @covers \Papaya\UI\Control\Command\Collection::offsetGet
+  * @covers \Papaya\UI\Control\Command\Collection::offsetSet
   */
   public function testOffsetGetAfterSet() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
-    $list = new \Papaya\Ui\Control\Command\Collection();
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
+    $list = new \Papaya\UI\Control\Command\Collection();
     $list[] = $command;
     $this->assertSame(
       $command, $list[0]
@@ -195,51 +195,51 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetSet
+  * @covers \Papaya\UI\Control\Command\Collection::offsetSet
   */
   public function testOffsetSetWithInvalidCommandExpectingException() {
-    $list = new \Papaya\Ui\Control\Command\Collection();
+    $list = new \Papaya\UI\Control\Command\Collection();
     $this->expectException(UnexpectedValueException::class);
-    $this->expectExceptionMessage('Expected instance of "Papaya\Ui\Control\PapayaUiControlCommand" but "string" was given.');
+    $this->expectExceptionMessage('Expected instance of "Papaya\UI\Control\Command" but "string" was given.');
     $list[] = 'INVALID';
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::offsetUnset
+  * @covers \Papaya\UI\Control\Command\Collection::offsetUnset
   */
   public function testOffsetUnset() {
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
-    $list = new \Papaya\Ui\Control\Command\Collection($command);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
+    $list = new \Papaya\UI\Control\Command\Collection($command);
     unset($list[0]);
     $this->assertFalse(isset($list[0]));
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::count
+  * @covers \Papaya\UI\Control\Command\Collection::count
   */
   public function testCountExpectingZero() {
-    $list = new \Papaya\Ui\Control\Command\Collection();
+    $list = new \Papaya\UI\Control\Command\Collection();
     $this->assertCount(0, $list);
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::count
+  * @covers \Papaya\UI\Control\Command\Collection::count
   */
   public function testCountExpectingTwo() {
-    $list = new \Papaya\Ui\Control\Command\Collection(
-      $this->createMock(\Papaya\Ui\Control\Command::class),
-      $this->createMock(\Papaya\Ui\Control\Command::class)
+    $list = new \Papaya\UI\Control\Command\Collection(
+      $this->createMock(\Papaya\UI\Control\Command::class),
+      $this->createMock(\Papaya\UI\Control\Command::class)
     );
     $this->assertCount(2, $list);
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Collection::getIterator
+  * @covers \Papaya\UI\Control\Command\Collection::getIterator
   */
   public function testGetIterator() {
-    $list = new \Papaya\Ui\Control\Command\Collection(
-      $one = $this->createMock(\Papaya\Ui\Control\Command::class),
-      $two = $this->createMock(\Papaya\Ui\Control\Command::class)
+    $list = new \Papaya\UI\Control\Command\Collection(
+      $one = $this->createMock(\Papaya\UI\Control\Command::class),
+      $two = $this->createMock(\Papaya\UI\Control\Command::class)
     );
     $iterator = $list->getIterator();
     $this->assertSame(

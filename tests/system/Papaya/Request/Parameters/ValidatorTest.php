@@ -224,7 +224,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
       array('array', array()),
       array('nodefault'),
       array('withfilter', 0, new \Papaya\Filter\IntegerValue(0, 21)),
-      array('stringobject', new \Papaya\Ui\Text('ok'))
+      array('stringobject', new \Papaya\UI\Text('ok'))
     );
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
     $validator[$name] = $value;

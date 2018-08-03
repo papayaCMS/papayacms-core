@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiToolbarsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Toolbars::appendTo
+  * @covers \Papaya\UI\Toolbars::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $toolbars = new \Papaya\Ui\Toolbars();
+    $toolbars = new \Papaya\UI\Toolbars();
     $toolbars->topLeft = new \PapayaUiToolbarsToolbar_Mock();
     $toolbars->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -34,44 +34,44 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Toolbars::__set
-   * @covers \Papaya\Ui\Toolbars::__get
+   * @covers \Papaya\UI\Toolbars::__set
+   * @covers \Papaya\UI\Toolbars::__get
    * @dataProvider provideToolbarPositions
    * @param string $position
    */
   public function testGetAfterSet($position) {
-    $toolbars = new \Papaya\Ui\Toolbars();
-    $toolbars->$position = $toolbar = $this->createMock(\Papaya\Ui\Toolbar::class);
+    $toolbars = new \Papaya\UI\Toolbars();
+    $toolbars->$position = $toolbar = $this->createMock(\Papaya\UI\Toolbar::class);
     $this->assertSame(
       $toolbar, $toolbars->$position
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbars::__get
+  * @covers \Papaya\UI\Toolbars::__get
   */
   public function testGetWithImplicitCreate() {
-    $toolbars = new \Papaya\Ui\Toolbars();
-    $this->assertInstanceOf(\Papaya\Ui\Toolbar::class, $toolbar = $toolbars->topLeft);
+    $toolbars = new \Papaya\UI\Toolbars();
+    $this->assertInstanceOf(\Papaya\UI\Toolbar::class, $toolbar = $toolbars->topLeft);
     $this->assertSame($toolbar, $toolbars->topLeft);
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbars::__set
+  * @covers \Papaya\UI\Toolbars::__set
   */
   public function testSetWithInvalidPositionExpectionExcpetion() {
-    $toolbars = new \Papaya\Ui\Toolbars();
+    $toolbars = new \Papaya\UI\Toolbars();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Invalid toolbar position requested.');
     /** @noinspection PhpUndefinedFieldInspection */
-    $toolbars->invalidPosition = $this->createMock(\Papaya\Ui\Toolbar::class);
+    $toolbars->invalidPosition = $this->createMock(\Papaya\UI\Toolbar::class);
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbars::__get
+  * @covers \Papaya\UI\Toolbars::__get
   */
   public function testGetWithInvalidPositionExpectionExcpetion() {
-    $toolbars = new \Papaya\Ui\Toolbars();
+    $toolbars = new \Papaya\UI\Toolbars();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Invalid toolbar position requested.');
     /** @noinspection PhpUndefinedFieldInspection */
@@ -89,7 +89,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiToolbarsToolbar_Mock extends \Papaya\Ui\Toolbar {
+class PapayaUiToolbarsToolbar_Mock extends \Papaya\UI\Toolbar {
   public function appendTo(\Papaya\Xml\Element $parent) {
     return $parent->appendElement('toolbar');
   }

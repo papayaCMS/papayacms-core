@@ -247,7 +247,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject|Synchronizations
    */
   public function getSynchronizationsFixture() {
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->any())
       ->method('getIterator')

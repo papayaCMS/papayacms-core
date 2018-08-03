@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryExceptionInvalidProfileTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidProfile::__construct
+   * @covers \Papaya\UI\Dialog\Field\Factory\Exception\InvalidProfile::__construct
    */
   public function testConstructor() {
-    $exception = new \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidProfile('SampleProfileName');
+    $exception = new \Papaya\UI\Dialog\Field\Factory\Exception\InvalidProfile('SampleProfileName');
     $this->assertEquals(
       'Invalid field factory profile name "SampleProfileName".',
       $exception->getMessage()

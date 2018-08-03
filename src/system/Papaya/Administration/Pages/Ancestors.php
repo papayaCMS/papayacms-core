@@ -21,7 +21,7 @@ namespace Papaya\Administration\Pages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Ancestors extends \Papaya\Ui\Control {
+class Ancestors extends \Papaya\UI\Control {
 
   /**
    * Member variable for pages subobject
@@ -33,7 +33,7 @@ class Ancestors extends \Papaya\Ui\Control {
   /**
    * Member variable for hierarchy menu subobject
    *
-   * @var \Papaya\Ui\Hierarchy\Menu
+   * @var \Papaya\UI\Hierarchy\Menu
    */
   private $_menu = NULL;
 
@@ -64,7 +64,7 @@ class Ancestors extends \Papaya\Ui\Control {
     foreach ($pageIds as $id) {
       if ($this->pages()->offsetExists($id)) {
         $data = $this->pages()->offsetGet($id);
-        $this->menu()->items[] = $item = new \Papaya\Ui\Hierarchy\Item($data['title']);
+        $this->menu()->items[] = $item = new \Papaya\UI\Hierarchy\Item($data['title']);
         $item->reference->setParameters(array('page_id' => $id), 'tt');
       }
     }
@@ -89,14 +89,14 @@ class Ancestors extends \Papaya\Ui\Control {
   /**
    * Menu object used to generate xml with page items
    *
-   * @param \Papaya\Ui\Hierarchy\Menu $menu
-   * @return \Papaya\Ui\Hierarchy\Menu
+   * @param \Papaya\UI\Hierarchy\Menu $menu
+   * @return \Papaya\UI\Hierarchy\Menu
    */
-  public function menu(\Papaya\Ui\Hierarchy\Menu $menu = NULL) {
+  public function menu(\Papaya\UI\Hierarchy\Menu $menu = NULL) {
     if (isset($menu)) {
       $this->_menu = $menu;
     } elseif (is_null($this->_menu)) {
-      $this->_menu = new \Papaya\Ui\Hierarchy\Menu();
+      $this->_menu = new \Papaya\UI\Hierarchy\Menu();
       $this->_menu->papaya($this->papaya());
     }
     return $this->_menu;

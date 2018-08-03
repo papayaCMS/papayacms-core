@@ -123,7 +123,7 @@ class papaya_systemtest {
   var $resultTestMessages = array();
 
   /**
-   * @var \Papaya\Ui\Images|array
+   * @var \Papaya\UI\Images|array
    */
   public $images = array();
 

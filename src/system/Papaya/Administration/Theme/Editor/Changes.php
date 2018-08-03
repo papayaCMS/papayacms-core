@@ -46,14 +46,14 @@ class Changes extends \Papaya\Administration\Page\Part {
   /**
    * Commands, actual actions
    *
-   * @param \Papaya\Ui\Control\Command\Controller|\Papaya\Ui\Control\Command $commands
-   * @return \Papaya\Ui\Control\Command\Controller|\Papaya\Ui\Control\Command
+   * @param \Papaya\UI\Control\Command\Controller|\Papaya\UI\Control\Command $commands
+   * @return \Papaya\UI\Control\Command\Controller|\Papaya\UI\Control\Command
    */
-  public function commands(\Papaya\Ui\Control\Command $commands = NULL) {
+  public function commands(\Papaya\UI\Control\Command $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
-      $this->_commands = new \Papaya\Ui\Control\Command\Controller('cmd');
+      $this->_commands = new \Papaya\UI\Control\Command\Controller('cmd');
       $this->_commands->owner($this);
       $this->_commands['set_edit'] =
       $command = new Changes\Set\Change($this->themeSet());

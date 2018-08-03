@@ -18,99 +18,99 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfile
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfileClass
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfile
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfileClass
    */
   public function testGetProfile() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
     $factory->registerProfiles(
       array(
         'dummy' => \PapayaUiDialogFieldFactoryProfile_TestDummy::class
       )
     );
     $profile = $factory->getProfile('dummy');
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Profile::class, $profile);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory\Profile::class, $profile);
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfile
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfileClass
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfile
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfileClass
    */
   public function testGetProfileWihtEmptyNameReturingInputField() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
     $profile = $factory->getProfile('');
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Profile\Input::class, $profile);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory\Profile\Input::class, $profile);
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfile
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfileClass
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfile
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfileClass
    */
   public function testGetProfileAutomaticNameMapping() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
     $profile = $factory->getProfile('color');
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Profile::class, $profile);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory\Profile::class, $profile);
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfile
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getProfileClass
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfile
+   * @covers \Papaya\UI\Dialog\Field\Factory::getProfileClass
    */
   public function testGetProfileExpectingException() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
-    $this->expectException(\Papaya\Ui\Dialog\Field\Factory\Exception\InvalidProfile::class);
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
+    $this->expectException(\Papaya\UI\Dialog\Field\Factory\Exception\InvalidProfile::class);
     $factory->getProfile('INVALID_PROFILE_CLASS_NAME');
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory::getField
    */
   public function testGetFieldWithProfile() {
-    $profile = $this->createMock(\Papaya\Ui\Dialog\Field\Factory\Profile::class);
+    $profile = $this->createMock(\Papaya\UI\Dialog\Field\Factory\Profile::class);
     $profile
       ->expects($this->once())
       ->method('getField')
-      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field::class, $factory->getField($profile));
+      ->will($this->returnValue($this->createMock(\Papaya\UI\Dialog\Field::class)));
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field::class, $factory->getField($profile));
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory::getField
    */
   public function testGetFieldWithProfileAndOptions() {
-    $options = $this->createMock(\Papaya\Ui\Dialog\Field\Factory\Options::class);
-    $profile = $this->createMock(\Papaya\Ui\Dialog\Field\Factory\Profile::class);
+    $options = $this->createMock(\Papaya\UI\Dialog\Field\Factory\Options::class);
+    $profile = $this->createMock(\Papaya\UI\Dialog\Field\Factory\Profile::class);
     $profile
       ->expects($this->once())
       ->method('options')
-      ->with($this->isInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Options::class));
+      ->with($this->isInstanceOf(\Papaya\UI\Dialog\Field\Factory\Options::class));
     $profile
       ->expects($this->once())
       ->method('getField')
-      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field::class, $factory->getField($profile, $options));
+      ->will($this->returnValue($this->createMock(\Papaya\UI\Dialog\Field::class)));
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field::class, $factory->getField($profile, $options));
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory::getField
    */
   public function testGetFieldWithProfileName() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
     $factory->registerProfiles(
       array(
         'profileSample' => \PapayaUiDialogFieldFactoryProfile_TestDummy::class
       )
     );
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field::class, $factory->getField('profileSample'));
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field::class, $factory->getField('profileSample'));
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory::registerProfiles
+   * @covers \Papaya\UI\Dialog\Field\Factory::registerProfiles
    */
   public function testRegisterProfiles() {
-    $factory = new \Papaya\Ui\Dialog\Field\Factory();
+    $factory = new \Papaya\UI\Dialog\Field\Factory();
     $factory->registerProfiles(
       array(
         'foo' => 'SampleOne',
@@ -132,10 +132,10 @@ class PapayaUiDialogFieldFactoryTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogFieldFactoryProfile_TestDummy extends \Papaya\Ui\Dialog\Field\Factory\Profile {
+class PapayaUiDialogFieldFactoryProfile_TestDummy extends \Papaya\UI\Dialog\Field\Factory\Profile {
 
   public function getField() {
-    return new \Papaya\Ui\Dialog\Field\Input('Sample', 'sample');
+    return new \Papaya\UI\Dialog\Field\Input('Sample', 'sample');
   }
 }
 

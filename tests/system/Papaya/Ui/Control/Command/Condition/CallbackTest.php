@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition\Callback::__construct
+  * @covers \Papaya\UI\Control\Command\Condition\Callback::__construct
   */
   public function testConstructorExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: provided $callback is not callable.');
     /** @noinspection PhpParamsInspection */
-    new \Papaya\Ui\Control\Command\Condition\Callback(23);
+    new \Papaya\UI\Control\Command\Condition\Callback(23);
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition\Callback::__construct
-  * @covers \Papaya\Ui\Control\Command\Condition\Callback::validate
+  * @covers \Papaya\UI\Control\Command\Condition\Callback::__construct
+  * @covers \Papaya\UI\Control\Command\Condition\Callback::validate
   */
   public function testValidateExpectingTrue() {
-    $condition = new \Papaya\Ui\Control\Command\Condition\Callback(function() { return TRUE; });
+    $condition = new \Papaya\UI\Control\Command\Condition\Callback(function() { return TRUE; });
     $this->assertTrue($condition->validate());
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Condition\Callback::__construct
-  * @covers \Papaya\Ui\Control\Command\Condition\Callback::validate
+  * @covers \Papaya\UI\Control\Command\Condition\Callback::__construct
+  * @covers \Papaya\UI\Control\Command\Condition\Callback::validate
   */
   public function testValidateExpectingFalse() {
-    $condition = new \Papaya\Ui\Control\Command\Condition\Callback(function() { return FALSE; });
+    $condition = new \Papaya\UI\Control\Command\Condition\Callback(function() { return FALSE; });
     $this->assertFalse($condition->validate());
   }
 }

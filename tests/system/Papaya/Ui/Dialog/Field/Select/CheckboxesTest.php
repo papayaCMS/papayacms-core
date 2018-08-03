@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_isOptionSelected
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_createFilter
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_isOptionSelected
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_createFilter
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
+    $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->setMandatory(FALSE);
@@ -44,14 +44,14 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_isOptionSelected
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_createFilter
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_isOptionSelected
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_createFilter
   */
   public function testAppendToWithSelectedElements() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
+    $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->setDefaultValue(array(1, 2));
@@ -70,11 +70,11 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_isOptionSelected
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::_createFilter
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_isOptionSelected
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_createFilter
   */
   public function testAppendToWithIterator() {
-    $select = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
+    $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
       'Caption', 'name', new ArrayIterator(array(1 => 'One', 2 => 'Two'), TRUE)
     );
     $select->setDefaultValue(array(1, 2));
@@ -92,18 +92,18 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::getCurrentValue
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::getCurrentValue
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters(array('name' => array(1, 2)))));
-    $select = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
+    $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->collection($this->getCollectionMock($dialog));
@@ -111,11 +111,11 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Select\Checkboxes::getCurrentValue
+  * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::getCurrentValue
   */
   public function testGetCurrentValueFromSubmittedDialog() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -126,7 +126,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters()));
-    $select = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
+    $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->collection($this->getCollectionMock($dialog));
@@ -139,10 +139,10 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Fields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Fields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

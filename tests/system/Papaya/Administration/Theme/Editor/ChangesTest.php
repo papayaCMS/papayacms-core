@@ -25,7 +25,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testAppendTo() {
     $commands = $this
-      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
+      ->getMockBuilder(\Papaya\UI\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
@@ -42,7 +42,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testCommandsGetAfterSet() {
     $commands = $this
-      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
+      ->getMockBuilder(\Papaya\UI\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changes = new Changes();
@@ -56,7 +56,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
   public function testCommandGetImplicitCreate() {
     $changes = new Changes();
     $changes->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(\Papaya\Ui\Control\Command\Controller::class, $changes->commands());
+    $this->assertInstanceOf(\Papaya\UI\Control\Command\Controller::class, $changes->commands());
   }
 
 

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiPanelTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Panel::appendTo
+  * @covers \Papaya\UI\Panel::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
@@ -32,8 +32,8 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Panel::appendTo
-  * @covers \Papaya\Ui\Panel::setCaption
+  * @covers \Papaya\UI\Panel::appendTo
+  * @covers \Papaya\UI\Panel::setCaption
   */
   public function testAppendToWithCaption() {
     $document = new \Papaya\Xml\Document();
@@ -48,24 +48,24 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Panel::toolbars
+  * @covers \Papaya\UI\Panel::toolbars
   */
   public function testToolbarsGetAfterSet() {
     $panel = new \PapayaUiPanel_TestProxy();
-    $toolbars = $this->createMock(\Papaya\Ui\Toolbars::class);
+    $toolbars = $this->createMock(\Papaya\UI\Toolbars::class);
     $this->assertSame($toolbars, $panel->toolbars($toolbars));
   }
 
   /**
-  * @covers \Papaya\Ui\Panel::toolbars
+  * @covers \Papaya\UI\Panel::toolbars
   */
   public function testToolbarsGetImplicitCreate() {
     $panel = new \PapayaUiPanel_TestProxy();
     $toolbars = $panel->toolbars();
-    $this->assertInstanceOf(\Papaya\Ui\Toolbars::class, $toolbars);
+    $this->assertInstanceOf(\Papaya\UI\Toolbars::class, $toolbars);
   }
 }
 
-class PapayaUiPanel_TestProxy extends \Papaya\Ui\Panel {
+class PapayaUiPanel_TestProxy extends \Papaya\UI\Panel {
 
 }

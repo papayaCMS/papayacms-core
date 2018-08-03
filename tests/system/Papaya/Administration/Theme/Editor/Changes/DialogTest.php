@@ -40,7 +40,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
     $command->themePage($page);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $command->createDialog());
+    $this->assertInstanceOf(\Papaya\UI\Dialog::class, $command->createDialog());
   }
 
   /**
@@ -59,7 +59,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
     $command->themePage($page);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $command->createDialog());
+    $this->assertInstanceOf(\Papaya\UI\Dialog::class, $command->createDialog());
   }
 
   /**
@@ -78,13 +78,13 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $value->fieldType = 'UNKNOWN_FIELD_TYPE';
     $value->default = 'foo';
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Field\Factory\Exception $exception */
-    $exception = $this->createMock(\Papaya\Ui\Dialog\Field\Factory\Exception::class);
-    $factory = $this->createMock(\Papaya\Ui\Dialog\Field\Factory::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\Factory\Exception $exception */
+    $exception = $this->createMock(\Papaya\UI\Dialog\Field\Factory\Exception::class);
+    $factory = $this->createMock(\Papaya\UI\Dialog\Field\Factory::class);
     $factory
       ->expects($this->once())
       ->method('getField')
-      ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Options::class))
+      ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\UI\Dialog\Field\Factory\Options::class))
       ->will($this->throwException($exception));
 
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
@@ -93,7 +93,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $command->papaya($this->mockPapaya()->application());
     $command->themePage($page);
     $command->fieldFactory($factory);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $dialog = $command->createDialog());
+    $this->assertInstanceOf(\Papaya\UI\Dialog::class, $dialog = $command->createDialog());
     $this->assertCount(1, $dialog->fields[0]->fields);
   }
 
@@ -113,12 +113,12 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $value->fieldType = 'UNKNOWN_FIELD_TYPE';
     $value->default = 'foo';
 
-    $factory = $this->createMock(\Papaya\Ui\Dialog\Field\Factory::class);
+    $factory = $this->createMock(\Papaya\UI\Dialog\Field\Factory::class);
     $factory
       ->expects($this->once())
       ->method('getField')
-      ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\Ui\Dialog\Field\Factory\Options::class))
-      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
+      ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\UI\Dialog\Field\Factory\Options::class))
+      ->will($this->returnValue($this->createMock(\Papaya\UI\Dialog\Field::class)));
 
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
@@ -126,7 +126,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $command->papaya($this->mockPapaya()->application());
     $command->themePage($page);
     $command->fieldFactory($factory);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $dialog = $command->createDialog());
+    $this->assertInstanceOf(\Papaya\UI\Dialog::class, $dialog = $command->createDialog());
     $this->assertCount(1, $dialog->fields[0]->fields);
   }
 
@@ -163,7 +163,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $command = new Dialog($themeSet);
     $command->papaya($papaya);
     $command->themeHandler($themeHandler);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $command->createDialog());
+    $this->assertInstanceOf(\Papaya\UI\Dialog::class, $command->createDialog());
   }
 
   /**
@@ -236,7 +236,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
-    $command->fieldFactory($fieldFactory =  $this->createMock(\Papaya\Ui\Dialog\Field\Factory::class));
+    $command->fieldFactory($fieldFactory =  $this->createMock(\Papaya\UI\Dialog\Field\Factory::class));
     $this->assertSame($fieldFactory, $command->fieldFactory());
   }
 
@@ -247,7 +247,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Factory::class, $command->fieldFactory());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory::class, $command->fieldFactory());
   }
 
   /**
@@ -281,14 +281,14 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::callbackShowError
    */
   public function testCallbackShowError() {
-    $errors = $this->createMock(\Papaya\Ui\Dialog\Errors::class);
+    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog $dialog */
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')

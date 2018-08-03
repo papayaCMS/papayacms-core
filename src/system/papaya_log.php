@@ -363,8 +363,8 @@ class papaya_log extends base_db {
   */
   function getList() {
     if (isset($this->messageList) && is_array($this->messageList)) {
-      $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \Papaya\Ui\Text\Translated('Event protocol');
+      $listview = new \Papaya\UI\Listview();
+      $listview->caption = new \Papaya\UI\Text\Translated('Event protocol');
       $listview->parameterGroup($this->paramName);
       $listview->reference()->setParameters(
         array(
@@ -374,7 +374,7 @@ class papaya_log extends base_db {
         $listview->parameterGroup($this->paramName)
       );
 
-      $paging = new \Papaya\Ui\Toolbar\Paging(
+      $paging = new \Papaya\UI\Toolbar\Paging(
         array($this->paramName, 'page'), (int)$this->messageAbsCount
       );
       if (isset($this->params['page']) && $this->params['page'] > 0) {
@@ -392,14 +392,14 @@ class papaya_log extends base_db {
       );
       $listview->toolbars->topLeft->elements[] = $paging;
 
-      $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \Papaya\Ui\Text\Translated('Message'), \Papaya\Ui\Option\Align::LEFT
+      $listview->columns[] = new \Papaya\UI\Listview\Column(
+        new \Papaya\UI\Text\Translated('Message'), \Papaya\UI\Option\Align::LEFT
       );
-      $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \Papaya\Ui\Text\Translated('Group'), \Papaya\Ui\Option\Align::CENTER
+      $listview->columns[] = new \Papaya\UI\Listview\Column(
+        new \Papaya\UI\Text\Translated('Group'), \Papaya\UI\Option\Align::CENTER
       );
-      $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \Papaya\Ui\Text\Translated('Date'), \Papaya\Ui\Option\Align::CENTER
+      $listview->columns[] = new \Papaya\UI\Listview\Column(
+        new \Papaya\UI\Text\Translated('Date'), \Papaya\UI\Option\Align::CENTER
       );
 
       foreach ($this->messageList as $msgId => $msg) {
@@ -409,7 +409,7 @@ class papaya_log extends base_db {
           2 => 'status-dialog-error',
           3 => 'items-page',
         );
-        $listitem = new \Papaya\Ui\Listview\Item(
+        $listitem = new \Papaya\UI\Listview\Item(
           isset($itemImages[$msg['log_msgno']]) ? $itemImages[$msg['log_msgno']] : '',
           $msg['log_msg_short'],
           array(
@@ -422,10 +422,10 @@ class papaya_log extends base_db {
         if (isset($this->messageTypeList[$msg['log_msgtype']])) {
           $logType = $this->messageTypeList[$msg['log_msgtype']];
         } else {
-          $logType = new \Papaya\Ui\Text\Translated('Invalid logtype #%d', $msg['log_msgtype']);
+          $logType = new \Papaya\UI\Text\Translated('Invalid logtype #%d', $msg['log_msgtype']);
         }
-        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Text($logType);
-        $listitem->subitems[] = new \Papaya\Ui\Listview\Subitem\Date((int)$msg['log_time']);
+        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text($logType);
+        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Date((int)$msg['log_time']);
       }
       return $listview->getXml();
     }
@@ -791,37 +791,37 @@ class papaya_log extends base_db {
   * @return string XML
   */
   function getButtonsXML() {
-    $menu = new \Papaya\Ui\Menu();
+    $menu = new \Papaya\UI\Menu();
     $menu->identifier = 'edit';
 
-    $button = new \Papaya\Ui\Toolbar\Button();
-    $button->caption = new \Papaya\Ui\Text\Translated('Login try');
+    $button = new \Papaya\UI\Toolbar\Button();
+    $button->caption = new \Papaya\UI\Text\Translated('Login try');
     $button->image = 'categories-log-access';
     $button->reference->setRelative('log_auth.php');
     $menu->elements[] = $button;
 
-    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
+    $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
 
-    $select = new \Papaya\Ui\Toolbar\Select(array($this->paramName, 'level'), $this->levels);
-    $select->caption = new \Papaya\Ui\Text\Translated('Priority');
+    $select = new \Papaya\UI\Toolbar\Select(array($this->paramName, 'level'), $this->levels);
+    $select->caption = new \Papaya\UI\Text\Translated('Priority');
     $select->defaultValue = $this->selLevel;
     $select->reference->setParameters(
       array('cmd' => 'show', 'type' => $this->params['type']), $this->paramName
     );
     $menu->elements[] = $select;
 
-    $this->messageTypeList[0] = new \Papaya\Ui\Text\Translated('All');
+    $this->messageTypeList[0] = new \Papaya\UI\Text\Translated('All');
     asort($this->messageTypeList);
-    $select = new \Papaya\Ui\Toolbar\Select(array($this->paramName, 'type'), $this->messageTypeList);
-    $select->caption = new \Papaya\Ui\Text\Translated('Type');
+    $select = new \Papaya\UI\Toolbar\Select(array($this->paramName, 'type'), $this->messageTypeList);
+    $select->caption = new \Papaya\UI\Text\Translated('Type');
     $select->defaultValue = $this->selType;
     $select->reference->setParameters(
       array('cmd' => 'show', 'level' => $this->params['level']), $this->paramName
     );
     $menu->elements[] = $select;
 
-    $button = new \Papaya\Ui\Toolbar\Button();
-    $button->caption = new \Papaya\Ui\Text\Translated('Refresh');
+    $button = new \Papaya\UI\Toolbar\Button();
+    $button->caption = new \Papaya\UI\Text\Translated('Refresh');
     $button->image = 'actions-refresh';
     $select->reference->setParameters(
       array('cmd' => 'show', 'type' => $this->params['type'], 'level' => $this->params['level']),
@@ -829,45 +829,45 @@ class papaya_log extends base_db {
     );
     $menu->elements[] = $button;
 
-    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
+    $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
 
     if (isset($this->messageList[$this->selected])) {
-      $button = new \Papaya\Ui\Toolbar\Button();
-      $button->caption = new \Papaya\Ui\Text\Translated('Bug Report');
-      $button->hint = new \Papaya\Ui\Text\Translated('Report this error message.');
+      $button = new \Papaya\UI\Toolbar\Button();
+      $button->caption = new \Papaya\UI\Text\Translated('Bug Report');
+      $button->hint = new \Papaya\UI\Text\Translated('Report this error message.');
       $button->image = 'items-bug';
       $button->reference->setRelative('help.php');
       $button->reference->setParameters(
         array('ohmode' => 'bugreport', 'log_id' => $this->selected), 'help'
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
+      $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
 
-      $button = new \Papaya\Ui\Toolbar\Button();
-      $button->caption = new \Papaya\Ui\Text\Translated('Delete old');
-      $button->hint = new \Papaya\Ui\Text\Translated('Delete all events older like this.');
+      $button = new \Papaya\UI\Toolbar\Button();
+      $button->caption = new \Papaya\UI\Text\Translated('Delete old');
+      $button->hint = new \Papaya\UI\Text\Translated('Delete all events older like this.');
       $button->image = 'places-trash';
       $button->reference->setParameters(
         array('cmd' => 'del_old', 'id' => $this->selected), $this->paramName
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
+      $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
     }
 
-    $button = new \Papaya\Ui\Toolbar\Button();
+    $button = new \Papaya\UI\Toolbar\Button();
     if (isset($this->params['type']) && $this->params['type'] > 0) {
-      $button->caption = new \Papaya\Ui\Text\Translated('Delete');
-      $button->hint = new \Papaya\Ui\Text\Translated('Delete all events of selected type.');
+      $button->caption = new \Papaya\UI\Text\Translated('Delete');
+      $button->hint = new \Papaya\UI\Text\Translated('Delete all events of selected type.');
     } else {
-      $button->caption = new \Papaya\Ui\Text\Translated('Empty');
-      $button->hint = new \Papaya\Ui\Text\Translated('Delete all events.');
+      $button->caption = new \Papaya\UI\Text\Translated('Empty');
+      $button->hint = new \Papaya\UI\Text\Translated('Delete all events.');
     }
     $button->image = 'places-trash';
     $button->reference->setParameters(
       array('cmd' => 'clear'), $this->paramName
     );
     $menu->elements[] = $button;
-    $menu->elements[] = new \Papaya\Ui\Toolbar\Separator();
+    $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
 
     return $menu->getXml();
   }

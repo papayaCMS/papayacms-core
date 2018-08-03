@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputMediaImageTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputMediaImage::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImage::getField
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input'
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputMediaImage();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImage();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Media\Image::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\Image::class, $field = $profile->getField());
   }
 }

@@ -18,16 +18,16 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryExceptionTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Exception
+   * @covers \Papaya\UI\Dialog\Field\Factory\Exception
    */
   public function testThrowException() {
-    $this->expectException(\Papaya\Ui\Dialog\Field\Factory\Exception::class);
+    $this->expectException(\Papaya\UI\Dialog\Field\Factory\Exception::class);
     throw new \PapayaUiDialogFieldFactoryException_TestProxy('Test');
   }
 
 }
 
-class PapayaUiDialogFieldFactoryException_TestProxy extends \Papaya\Ui\Dialog\Field\Factory\Exception {
+class PapayaUiDialogFieldFactoryException_TestProxy extends \Papaya\UI\Dialog\Field\Factory\Exception {
 
   public function getFilter() {
   }

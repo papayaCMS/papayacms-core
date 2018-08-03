@@ -38,10 +38,10 @@ class Group {
    *
    * @param string $phrase
    * @param array $arguments
-   * @return \Papaya\Ui\Text\Translated
+   * @return \Papaya\UI\Text\Translated
    */
   public function get($phrase, array $arguments = array()) {
-    $result = new \Papaya\Ui\Text\Translated(
+    $result = new \Papaya\UI\Text\Translated(
       $phrase, $arguments, $this->_phrases, $this->_name
     );
     return $result;
@@ -51,10 +51,10 @@ class Group {
    * A string list object
    *
    * @param array|\Traversable $phrases
-   * @return \Papaya\Ui\Text\Translated\Collection
+   * @return \Papaya\UI\Text\Translated\Collection
    */
   public function getList($phrases) {
-    $result = new \Papaya\Ui\Text\Translated\Collection(
+    $result = new \Papaya\UI\Text\Translated\Collection(
       $phrases, $this->_phrases, $this->_name
     );
     return $result;

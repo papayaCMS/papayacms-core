@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot::__construct
+  * @covers \Papaya\UI\Dialog\Field\Honeypot::__construct
   */
   public function testConstructor() {
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $this->assertAttributeEquals(
       'Caption', '_caption', $input
     );
@@ -31,30 +31,30 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot::setFilter
+  * @covers \Papaya\UI\Dialog\Field\Honeypot::setFilter
   */
   public function testSetFilterExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
     $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $this->expectException(LogicException::class);
     $input->setFilter($filter);
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot::setMandatory
+  * @covers \Papaya\UI\Dialog\Field\Honeypot::setMandatory
   */
   public function testSetMandatoryExpectingException() {
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $this->expectException(LogicException::class);
     $input->setMandatory(FALSE);
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot
+  * @covers \Papaya\UI\Dialog\Field\Honeypot
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -74,7 +74,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog\Fields::class)
+      ->getMockBuilder(\Papaya\UI\Dialog\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -86,7 +86,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->method('owner')
       ->will($this->returnValue($dialog));
 
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $input->papaya($this->mockPapaya()->application());
     $input->collection($collection);
 
@@ -100,10 +100,10 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot
+  * @covers \Papaya\UI\Dialog\Field\Honeypot
   */
   public function testAppendToExpectingError() {
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -123,7 +123,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(NULL));
     $collection = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog\Fields::class)
+      ->getMockBuilder(\Papaya\UI\Dialog\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -135,7 +135,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->method('owner')
       ->will($this->returnValue($dialog));
 
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $input->papaya($this->mockPapaya()->application());
     $input->collection($collection);
 
@@ -150,10 +150,10 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Honeypot
+  * @covers \Papaya\UI\Dialog\Field\Honeypot
   */
   public function testAppendToWithoutCollection() {
-    $input = new \Papaya\Ui\Dialog\Field\Honeypot('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Honeypot('Caption', 'name');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">

@@ -18,15 +18,15 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element\Description\Link::appendTo
+  * @covers \Papaya\UI\Dialog\Element\Description\Link::appendTo
   */
   public function testAppendTo() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
       ->will($this->returnValue('./success.php'));
-    $description = new \Papaya\Ui\Dialog\Element\Description\Link();
+    $description = new \Papaya\UI\Dialog\Element\Description\Link();
     $description->reference($reference);
     $this->assertEquals(
       /** @lang XML */
@@ -36,23 +36,23 @@ class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element\Description\Link::reference
+  * @covers \Papaya\UI\Dialog\Element\Description\Link::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
-    $description = new \Papaya\Ui\Dialog\Element\Description\Link();
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
+    $description = new \Papaya\UI\Dialog\Element\Description\Link();
     $this->assertSame(
       $reference, $description->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element\Description\Link::reference
+  * @covers \Papaya\UI\Dialog\Element\Description\Link::reference
   */
   public function testReferenceGetImplicitCreate() {
-    $description = new \Papaya\Ui\Dialog\Element\Description\Link();
+    $description = new \Papaya\UI\Dialog\Element\Description\Link();
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference::class, $description->reference()
+      \Papaya\UI\Reference::class, $description->reference()
     );
   }
 }

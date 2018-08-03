@@ -18,48 +18,48 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Toolbar
+  * @covers \Papaya\UI\Control\Command\Toolbar
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\Ui\Toolbar\Elements::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
     $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
     $this->assertSame($elements, $command->elements());
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Toolbar
+  * @covers \Papaya\UI\Control\Command\Toolbar
   */
   public function testGetAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\Ui\Toolbar\Elements::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
     $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
-    $command->elements($newElements = $this->createMock(\Papaya\Ui\Toolbar\Elements::class));
+    $command->elements($newElements = $this->createMock(\Papaya\UI\Toolbar\Elements::class));
     $this->assertSame($newElements, $command->elements());
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Command\Toolbar
+  * @covers \Papaya\UI\Control\Command\Toolbar
   */
   public function testAppendTo() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\Ui\Toolbar\Elements::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
     $elements
       ->expects($this->once())
       ->method('add')
-      ->with($this->isInstanceOf(\Papaya\Ui\Toolbar\Element::class));
+      ->with($this->isInstanceOf(\Papaya\UI\Toolbar\Element::class));
 
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
-    $command->testElement = $this->createMock(\Papaya\Ui\Toolbar\Element::class);
+    $command->testElement = $this->createMock(\Papaya\UI\Toolbar\Element::class);
     $command->appendTo($document->documentElement);
     $this->assertEquals(/** @lang XML */'<test/>', $document->documentElement->saveXml());
   }
 
 }
 
-class PapayaUiControlCommandToolbar_TestProxy extends \Papaya\Ui\Control\Command\Toolbar {
+class PapayaUiControlCommandToolbar_TestProxy extends \Papaya\UI\Control\Command\Toolbar {
 
   public $testElement;
 

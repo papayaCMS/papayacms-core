@@ -18,29 +18,29 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiControlInteractiveTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameterMethod
+  * @covers \Papaya\UI\Control\Interactive::parameterMethod
   */
   public function testParameterMethodSet() {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->parameterMethod(\Papaya\Ui\Control\Interactive::METHOD_GET);
+    $dialog->parameterMethod(\Papaya\UI\Control\Interactive::METHOD_GET);
     $this->assertAttributeEquals(
-      \Papaya\Ui\Control\Interactive::METHOD_GET, '_parameterMethod', $dialog
+      \Papaya\UI\Control\Interactive::METHOD_GET, '_parameterMethod', $dialog
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameterMethod
+  * @covers \Papaya\UI\Control\Interactive::parameterMethod
   */
   public function testParameterMethodGet() {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $this->assertEquals(
-      \Papaya\Ui\Control\Interactive::METHOD_GET,
-      $dialog->parameterMethod(\Papaya\Ui\Control\Interactive::METHOD_GET)
+      \Papaya\UI\Control\Interactive::METHOD_GET,
+      $dialog->parameterMethod(\Papaya\UI\Control\Interactive::METHOD_GET)
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameterGroup
+  * @covers \Papaya\UI\Control\Interactive::parameterGroup
   */
   public function testParameterGroupSet() {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
@@ -51,7 +51,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameterGroup
+  * @covers \Papaya\UI\Control\Interactive::parameterGroup
   */
   public function testParameterGroupGet() {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
@@ -62,7 +62,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameters
+  * @covers \Papaya\UI\Control\Interactive::parameters
   */
   public function testParametersGetAfterSet() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
@@ -73,7 +73,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameters
+  * @covers \Papaya\UI\Control\Interactive::parameters
   */
   public function testParamtersGetImplicit() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -90,7 +90,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::parameters
+  * @covers \Papaya\UI\Control\Interactive::parameters
   */
   public function testParamtersGetImplicitWithGroup() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -108,7 +108,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::isPostRequest
+  * @covers \Papaya\UI\Control\Interactive::isPostRequest
   */
   public function testIsPostRequestExpectingTrue() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -122,7 +122,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Interactive::isPostRequest
+  * @covers \Papaya\UI\Control\Interactive::isPostRequest
   */
   public function testIsPostRequestExpectingFalse() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -136,7 +136,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiControlInteractive_TestProxy extends \Papaya\Ui\Control\Interactive {
+class PapayaUiControlInteractive_TestProxy extends \Papaya\UI\Control\Interactive {
 
   public function appendTo(\Papaya\Xml\Element $node) {
 

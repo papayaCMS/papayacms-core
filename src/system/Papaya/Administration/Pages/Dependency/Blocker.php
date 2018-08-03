@@ -23,7 +23,7 @@ namespace Papaya\Administration\Pages\Dependency;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Blocker extends \Papaya\Ui\Control\Interactive {
+class Blocker extends \Papaya\UI\Control\Interactive {
 
   /**
    * current page id
@@ -88,7 +88,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
    * Append the blocker message/goto dialog to the parent xml.
    *
    * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Ui\Dialog
+   * @return \Papaya\UI\Dialog
    */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $pageId = $this->dependency()->originId;
@@ -102,9 +102,9 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
     $pageTitle = isset($pages[$pageId])
       ? $pages[$pageId]['title'] : '[...]';
 
-    $dialog = new \Papaya\Ui\Dialog();
+    $dialog = new \Papaya\UI\Dialog();
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Page dependency');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Page dependency');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->options->useToken = FALSE;
     $dialog->hiddenFields->merge(
@@ -112,15 +112,15 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
         'page_id' => $pageId
       )
     );
-    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-      new \Papaya\Ui\Text\Translated(
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+      new \Papaya\UI\Text\Translated(
         'This part of the page is synchronized with page "%s #%d".',
         array($pageTitle, $pageId)
       ),
       'status-system-locked'
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \Papaya\Ui\Text\Translated('GoTo Origin Page')
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
+      new \Papaya\UI\Text\Translated('GoTo Origin Page')
     );
     $dialog->appendTo($parent);
     return $dialog;

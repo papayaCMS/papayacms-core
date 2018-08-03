@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Readonly::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::__construct
    */
   public function testConstructor() {
-    $input = new \Papaya\Ui\Dialog\Field\Input\Readonly('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Input\Readonly('Caption', 'name');
 
     $this->assertAttributeEquals(
       'Caption', '_caption', $input
@@ -32,10 +32,10 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Readonly::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::__construct
    */
   public function testConstructorWithAllParameters() {
-    $input = new \Papaya\Ui\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
+    $input = new \Papaya\UI\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
 
     $this->assertAttributeEquals(
       'default', '_defaultValue', $input
@@ -43,14 +43,14 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Readonly::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::appendTo
    */
   public function testStandardAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
 
-    $input = new \Papaya\Ui\Dialog\Field\Input\Readonly('Caption', 'name');
+    $input = new \Papaya\UI\Dialog\Field\Input\Readonly('Caption', 'name');
     $input->appendTo($node);
 
     $this->assertXmlStringEqualsXmlString(
@@ -65,14 +65,14 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Readonly::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::appendTo
    */
   public function testWithDefaultAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
 
-    $input = new \Papaya\Ui\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
+    $input = new \Papaya\UI\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
     $input->appendTo($node);
 
     $this->assertXmlStringEqualsXmlString(
@@ -87,10 +87,10 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Readonly::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::getCurrentValue
    */
   public function testGetCurrentValue() {
-    $input = new \Papaya\Ui\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
+    $input = new \Papaya\UI\Dialog\Field\Input\Readonly('Caption', 'name', 'default');
 
     $this->assertEquals(
       'default',

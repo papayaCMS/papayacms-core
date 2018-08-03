@@ -115,7 +115,7 @@ class PapayaAdministrationPageTest extends \PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $layout */
     $layout = $this->createMock(Template::class);
     $page = new \PapayaAdministrationPage_TestProxy($layout);
-    $page->toolbar($toolbar = $this->createMock(\Papaya\Ui\Toolbar::class));
+    $page->toolbar($toolbar = $this->createMock(\Papaya\UI\Toolbar::class));
     $this->assertSame($toolbar, $page->toolbar());
   }
 
@@ -126,7 +126,7 @@ class PapayaAdministrationPageTest extends \PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $layout */
     $layout = $this->createMock(Template::class);
     $page = new \PapayaAdministrationPage_TestProxy($layout);
-    $this->assertInstanceOf(\Papaya\Ui\Toolbar::class, $page->toolbar());
+    $this->assertInstanceOf(\Papaya\UI\Toolbar::class, $page->toolbar());
   }
 }
 

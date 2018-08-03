@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileCheckboxTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Checkbox
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Checkbox
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'chebkoxfield',
         'caption' => 'Label',
         'default' => TRUE
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Checkbox();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Checkbox();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Checkbox::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Checkbox::class, $field = $profile->getField());
   }
 }

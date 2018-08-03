@@ -30,7 +30,7 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new \Papaya\Phrases\Group($phrases, '#default');
     $phrase = $group->get('Test');
-    $this->assertInstanceOf(\Papaya\Ui\Text\Translated::class, $phrase);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
@@ -47,7 +47,7 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new \Papaya\Phrases\Group($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
-    $this->assertInstanceOf(\Papaya\Ui\Text\Translated\Collection::class, $phraseList);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated\Collection::class, $phraseList);
     $list = iterator_to_array($phraseList);
     $this->assertEquals('Success', (string)$list['One']);
   }

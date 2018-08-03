@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::getCurrentValue
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -33,7 +33,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
           new \Papaya\Request\Parameters(array('date' => '2011-01-01 18:00'))
         )
       );
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->collection($this->getCollectionMock($dialog));
@@ -41,10 +41,10 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::getCurrentValue
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
   */
   public function testGetCurrentValueFromDefaultValue() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->setDefaultValue(strtotime('2011-01-01 18:00'));
@@ -52,13 +52,13 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
@@ -67,13 +67,13 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
@@ -82,11 +82,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::formatDateTime
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
   */
   public function testAppendTo() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date',
       'date',
       strtotime('2011-01-01 18:00'),
@@ -104,11 +104,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::formatDateTime
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
   */
   public function testAppendToWithoutTime() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date',
       'date',
       strtotime('2011-01-01 18:00'),
@@ -126,11 +126,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\Ui\Dialog\Field\Input\Timestamp::formatDateTime
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
   */
   public function testAppendToWithEmptyTimestamp() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
+    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
       'Date',
       'date',
       0,
@@ -174,10 +174,10 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
 
   /**
    * @param object|null $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Fields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Fields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

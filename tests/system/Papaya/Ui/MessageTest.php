@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiMessageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Message::__construct
+  * @covers \Papaya\UI\Message::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample');
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
     $this->assertEquals(
-      \Papaya\Ui\Message::SEVERITY_ERROR, $message->severity
+      \Papaya\UI\Message::SEVERITY_ERROR, $message->severity
     );
     $this->assertEquals(
       'sample', $message->event
@@ -31,16 +31,16 @@ class PapayaUiMessageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Message::__construct
+  * @covers \Papaya\UI\Message::__construct
   */
   public function testConstructorWithOptionalParameters() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', TRUE);
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', TRUE);
     $this->assertTrue($message->occured);
   }
 
   /**
-   * @covers \Papaya\Ui\Message::appendMessageElement
-   * @covers \Papaya\Ui\Message::getTagName
+   * @covers \Papaya\UI\Message::appendMessageElement
+   * @covers \Papaya\UI\Message::getTagName
    * @dataProvider provideTestMessages
    * @param string $expectedXml
    * @param int $severity
@@ -56,31 +56,31 @@ class PapayaUiMessageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Message::setSeverity
+  * @covers \Papaya\UI\Message::setSeverity
   */
   public function testSeverityGetAfterSet() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample');
-    $message->severity = \Papaya\Ui\Message::SEVERITY_WARNING;
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
+    $message->severity = \Papaya\UI\Message::SEVERITY_WARNING;
     $this->assertEquals(
-      \Papaya\Ui\Message::SEVERITY_WARNING, $message->severity
+      \Papaya\UI\Message::SEVERITY_WARNING, $message->severity
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Message::setSeverity
+  * @covers \Papaya\UI\Message::setSeverity
   */
   public function testSeverityWithInvalidValueExpectingException() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample');
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid severity for message.');
     $message->severity = 99;
   }
 
   /**
-  * @covers \Papaya\Ui\Message::setEvent
+  * @covers \Papaya\UI\Message::setEvent
   */
   public function testEventGetAfterSet() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample');
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
     $message->event = 'success';
     $this->assertEquals(
       'success', $message->event
@@ -88,10 +88,10 @@ class PapayaUiMessageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Message::setOccured
+  * @covers \Papaya\UI\Message::setOccured
   */
   public function testOccurredGetAfterSet() {
-    $message = new \PapayaUiMessage_TestProxy(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample');
+    $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
     $message->occured = TRUE;
     $this->assertTrue(
       $message->occured
@@ -106,13 +106,13 @@ class PapayaUiMessageTest extends \PapayaTestCase {
     return array(
       'sample error, not occurred' => array(
         /** @lang XML */ '<error event="sample" occured="no"/>',
-        \Papaya\Ui\Message::SEVERITY_ERROR,
+        \Papaya\UI\Message::SEVERITY_ERROR,
         'sample',
         FALSE
       ),
       'test information, occurred' => array(
         /** @lang XML */ '<information event="test" occured="yes"/>',
-        \Papaya\Ui\Message::SEVERITY_INFORMATION,
+        \Papaya\UI\Message::SEVERITY_INFORMATION,
         'test',
         TRUE
       ),
@@ -123,7 +123,7 @@ class PapayaUiMessageTest extends \PapayaTestCase {
 /**
  * @property mixed severity
  */
-class PapayaUiMessage_TestProxy extends \Papaya\Ui\Message {
+class PapayaUiMessage_TestProxy extends \Papaya\UI\Message {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
     return parent::appendMessageElement($parent);

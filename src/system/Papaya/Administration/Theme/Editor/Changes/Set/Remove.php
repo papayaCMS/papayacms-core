@@ -21,13 +21,13 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
  * @subpackage Administration
  */
 class Remove
-  extends \Papaya\Ui\Control\Command\Dialog\Database\Record {
+  extends \Papaya\UI\Control\Command\Dialog\Database\Record {
 
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \Papaya\Ui\Dialog
+   * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -36,9 +36,9 @@ class Remove
     } else {
       $loaded = FALSE;
     }
-    $dialog = new \Papaya\Ui\Dialog\Database\Delete($this->record());
+    $dialog = new \Papaya\UI\Dialog\Database\Delete($this->record());
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Delete theme set');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Delete theme set');
     if ($loaded) {
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -49,14 +49,14 @@ class Remove
           'set_id' => $setId
         )
       );
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-        new \Papaya\Ui\Text\Translated('Delete theme set'),
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+        new \Papaya\UI\Text\Translated('Delete theme set'),
         'places-trash'
       );
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Delete'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_INFO, 'Theme set not found.'
       );
     }

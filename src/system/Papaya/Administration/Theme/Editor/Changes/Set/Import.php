@@ -22,7 +22,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
  * @subpackage Administration
  */
 class Import
-  extends \Papaya\Ui\Control\Command\Dialog {
+  extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * @var \Papaya\Content\Theme\Set
@@ -41,13 +41,13 @@ class Import
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \Papaya\Ui\Dialog
+   * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
     $dialog = parent::createDialog();
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Import');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Import');
     $dialog->setEncoding('multipart/form-data');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
@@ -58,23 +58,23 @@ class Import
         'set_id' => $setId
       )
     );
-    $dialog->fields[] = $uploadField = new \Papaya\Ui\Dialog\Field\File\Temporary(
-      new \Papaya\Ui\Text\Translated('File'), 'values/file'
+    $dialog->fields[] = $uploadField = new \Papaya\UI\Dialog\Field\File\Temporary(
+      new \Papaya\UI\Text\Translated('File'), 'values/file'
     );
     $uploadField->setMandatory(TRUE);
     if ($setId > 0) {
-      $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Select\Radio(
-        new \Papaya\Ui\Text\Translated('Replace current set.'),
+      $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Select\Radio(
+        new \Papaya\UI\Text\Translated('Replace current set.'),
         'values/confirm_replace',
         array(
-          TRUE => new \Papaya\Ui\Text\Translated('Yes'),
-          FALSE => new \Papaya\Ui\Text\Translated('No')
+          TRUE => new \Papaya\UI\Text\Translated('Yes'),
+          FALSE => new \Papaya\UI\Text\Translated('No')
         )
       );
       $field->setDefaultValue(FALSE);
     }
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \Papaya\Ui\Text\Translated('Upload')
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
+      new \Papaya\UI\Text\Translated('Upload')
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'onValidationSuccess');
     $this->callbacks()->onExecuteSuccessful->context = $uploadField;
@@ -82,11 +82,11 @@ class Import
   }
 
   /**
-   * @param \Papaya\Ui\Dialog\Field\File\Temporary $uploadField
+   * @param \Papaya\UI\Dialog\Field\File\Temporary $uploadField
    * @return bool
    * @throws \Papaya\Xml\Exception
    */
-  public function onValidationSuccess(\Papaya\Ui\Dialog\Field\File\Temporary $uploadField) {
+  public function onValidationSuccess(\Papaya\UI\Dialog\Field\File\Temporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
@@ -109,7 +109,7 @@ class Import
           } else {
             $this->_themeSet->assign(
               array(
-                'title' => new \Papaya\Ui\Text\Translated('* Imported Set'),
+                'title' => new \Papaya\UI\Text\Translated('* Imported Set'),
                 'theme' => $theme
               )
             );

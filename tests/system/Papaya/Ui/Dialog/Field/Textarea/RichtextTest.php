@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Textarea\Richtext::__construct
+   * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::__construct
    */
   public function testConstructorSettingRteMode() {
-    $richtext = new \Papaya\Ui\Dialog\Field\Textarea\Richtext(
-      'Caption', 'name', 12, NULL, NULL, \Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
+    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext(
+      'Caption', 'name', 12, NULL, NULL, \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
     );
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Textarea\Richtext::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::appendTo
    */
   public function testAppendTo() {
-    $richtext = new \Papaya\Ui\Dialog\Field\Textarea\Richtext('Caption', 'name');
+    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext('Caption', 'name');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
@@ -45,11 +45,11 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
 
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Textarea\Richtext::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::appendTo
    */
   public function testAppendToWithAllParameters() {
-    $richtext = new \Papaya\Ui\Dialog\Field\Textarea\Richtext(
-      'Caption', 'name', 12, NULL, NULL, \Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
+    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext(
+      'Caption', 'name', 12, NULL, NULL, \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -61,14 +61,14 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Textarea\Richtext::setRteMode
-   * @covers \Papaya\Ui\Dialog\Field\Textarea\Richtext::getRteMode
+   * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::setRteMode
+   * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::getRteMode
    */
   public function testGetRteModeAfterSetRteMode() {
-    $richtext = new \Papaya\Ui\Dialog\Field\Textarea\Richtext('Caption', 'name');
-    $richtext->setRteMode(\Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE);
+    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext('Caption', 'name');
+    $richtext->setRteMode(\Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE);
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 }

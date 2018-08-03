@@ -18,44 +18,44 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewSubitemsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitems::__construct
-  * @covers \Papaya\Ui\Listview\Subitems::owner
+  * @covers \Papaya\UI\Listview\Subitems::__construct
+  * @covers \Papaya\UI\Listview\Subitems::owner
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview\Item $item */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Item $item */
     $item = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Item::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $subitems = new \Papaya\Ui\Listview\Subitems($item);
+    $subitems = new \Papaya\UI\Listview\Subitems($item);
     $this->assertSame(
       $item, $subitems->owner()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitems::getListview
+  * @covers \Papaya\UI\Listview\Subitems::getListview
   */
   public function testGetListview() {
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
     $collection = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($listview));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview\Item $item */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Item $item */
     $item = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Item::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
     $item
       ->expects($this->once())
       ->method('collection')
       ->will($this->returnValue($collection));
-    $subitems = new \Papaya\Ui\Listview\Subitems($item);
+    $subitems = new \Papaya\UI\Listview\Subitems($item);
     $this->assertSame(
       $listview, $subitems->getListview()
     );

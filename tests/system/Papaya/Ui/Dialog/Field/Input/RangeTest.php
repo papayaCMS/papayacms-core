@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Range::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\Range::__construct
   */
   public function testConstructorWithDefaultArgumentValues() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Range('Range', 'range');
+    $field = new \Papaya\UI\Dialog\Field\Input\Range('Range', 'range');
     $this->assertEquals(
       'Range', $field->caption
     );
@@ -46,7 +46,7 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Range::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Range::__construct
    * @dataProvider provideArgumentsForConstructor
    * @param int $default
    * @param int $min
@@ -55,7 +55,7 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
    * @param bool $mandatory
    */
   public function testConstructorWithCustomArguments($default, $min, $max, $step, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Range('Range', 'range', $default, $min, $max, $step, $mandatory);
+    $field = new \Papaya\UI\Dialog\Field\Input\Range('Range', 'range', $default, $min, $max, $step, $mandatory);
     $this->assertEquals(
       'Range', $field->caption
     );
@@ -81,13 +81,13 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Range
+   * @covers \Papaya\UI\Dialog\Field\Input\Range
    * @dataProvider provideValidRangeInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Range('Range', 'range');
+    $field = new \Papaya\UI\Dialog\Field\Input\Range('Range', 'range');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -96,13 +96,13 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Range
+   * @covers \Papaya\UI\Dialog\Field\Input\Range
    * @dataProvider provideInvalidRangeInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Range('Range', 'range');
+    $field = new \Papaya\UI\Dialog\Field\Input\Range('Range', 'range');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -111,11 +111,11 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Range::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Range::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
-    $field = new \Papaya\Ui\Dialog\Field\Input\Range('Range', 'range');
+    $field = new \Papaya\UI\Dialog\Field\Input\Range('Range', 'range');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));
     $this->assertXmlStringEqualsXmlString(

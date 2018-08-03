@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputCountedTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputCounted::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputCounted::getField
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputCounted();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputCounted();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Counted::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Counted::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputCounted::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputCounted::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldFactoryProfileInputCountedTest extends \PapayaTestCase 
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputCounted();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputCounted();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::__construct
   */
   public function testConstructor() {
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
     $suggestionData = array(
       'url' => 'www.example.com',
       'limit' => 10
@@ -38,11 +38,11 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::__construct
   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest(
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest(
       'Caption', 'name', 'www.example.com', '50670', $filter
     );
     $this->assertAttributeEquals(
@@ -54,38 +54,38 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::setType
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::getType
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setType
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getType
   */
   public function testGetTypeAfterSetType() {
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
     $input->setType('suggest');
     $this->assertEquals('suggest', $input->getType());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::setSuggestionUrl
-   * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::getSuggestionUrl
+   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setSuggestionUrl
+   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getSuggestionUrl
    */
   public function testGetSuggestionUrlAfterSetSuggestionUrl() {
     $url = 'www.example.com';
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest('Caption', 'name', $url);
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', $url);
     $input->setSuggestionUrl($url);
     $this->assertEquals($url, $input->getSuggestionUrl());
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
+    $input->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -99,17 +99,17 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Suggest::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Suggest::appendTo
   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new \Papaya\Ui\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
+    $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
+    $input->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

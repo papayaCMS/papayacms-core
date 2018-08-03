@@ -18,41 +18,41 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiMessageTextTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Message\Text::__construct
+  * @covers \Papaya\UI\Message\Text::__construct
   */
   public function testConstructor() {
-    $message = new \Papaya\Ui\Message\Text(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', 'content');
+    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content');
     $this->assertEquals(
       'content', $message->content
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Message\Text::appendTo
+  * @covers \Papaya\UI\Message\Text::appendTo
   */
   public function testAppendTo() {
-    $message = new \Papaya\Ui\Message\Text(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Message\Text::appendTo
+  * @covers \Papaya\UI\Message\Text::appendTo
   */
   public function testAppendToWithSpecialChars() {
-    $message = new \Papaya\Ui\Message\Text(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
+    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXml()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Message\Text::getContent
-  * @covers \Papaya\Ui\Message\Text::setContent
+  * @covers \Papaya\UI\Message\Text::getContent
+  * @covers \Papaya\UI\Message\Text::setContent
   */
   public function testGetXmlAfterSetXml() {
-    $message = new \Papaya\Ui\Message\Text(\Papaya\Ui\Message::SEVERITY_ERROR, 'sample', '');
+    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '');
     $message->content = 'content';
     $this->assertEquals(
       'content', $message->content

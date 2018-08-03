@@ -107,15 +107,15 @@ class Autoloader {
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
     'PapayaUtilArray' => Utility\Arrays::class,
 
-    'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class,
-    'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class,
-    'PapayaUiDialogFieldFactoryExceptionInvalidOption' => Ui\Dialog\Field\Factory\Exception\InvalidOption::class,
-    'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => Ui\Dialog\Field\Factory\Exception\InvalidProfile::class,
-    'PapayaUiDialogFieldInputGeoPosition' => Ui\Dialog\Field\Input\GeoPosition::class,
-    'PapayaUiDialogFieldInputMediaImageResized' => Ui\Dialog\Field\Input\Media\ImageResized::class,
-    'PapayaUiListviewSubitemImageList' => Ui\Listview\Subitem\Images::class,
-    'PapayaUiListviewSubitemImageSelect' => Ui\Listview\Subitem\Image\Toggle::class,
-    'PapayaUiToolbarSet' => Ui\Toolbar\Collection::class
+    'PapayaUiDialogButtonSubmitNamed' => UI\Dialog\Button\NamedSubmit::class,
+    'PapayaUiDialogFieldBuilderArray' => UI\Dialog\Field\Builder\FromArray::class,
+    'PapayaUiDialogFieldFactoryExceptionInvalidOption' => UI\Dialog\Field\Factory\Exception\InvalidOption::class,
+    'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => UI\Dialog\Field\Factory\Exception\InvalidProfile::class,
+    'PapayaUiDialogFieldInputGeoPosition' => UI\Dialog\Field\Input\GeoPosition::class,
+    'PapayaUiDialogFieldInputMediaImageResized' => UI\Dialog\Field\Input\Media\ImageResized::class,
+    'PapayaUiListviewSubitemImageList' => UI\Listview\Subitem\Images::class,
+    'PapayaUiListviewSubitemImageSelect' => UI\Listview\Subitem\Image\Toggle::class,
+    'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   );
 
   private static $_mapParts = array(
@@ -134,6 +134,7 @@ class Autoloader {
     'Csv' => 'CSV',
     'Php' => 'PHP',
     'Regex' => 'RegEx',
+    'Ui' => 'UI',
     'Util' => 'Utility'
   );
 

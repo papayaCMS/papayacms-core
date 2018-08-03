@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldXhtmlCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Xhtml\Callback
-  * @covers \Papaya\Ui\Dialog\Field\Callback::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Xhtml\Callback
+  * @covers \Papaya\UI\Dialog\Field\Callback::appendTo
   */
   public function testAppendTo() {
-    $xhtml = new \Papaya\Ui\Dialog\Field\Xhtml\Callback(
+    $xhtml = new \Papaya\UI\Dialog\Field\Xhtml\Callback(
       'Caption', 'name', array($this, 'callbackGetFieldString')
     );
     $this->assertXmlStringEqualsXmlString(

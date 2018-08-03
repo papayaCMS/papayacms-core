@@ -109,7 +109,7 @@ class PapayaPhrasesTest extends \PapayaTestCase {
     $phrases->papaya($this->mockPapaya()->application());
     $phrases->defaultGroup('TestGroup');
     $phrase = $phrases->get('Some Phrase');
-    $this->assertInstanceOf(\Papaya\Ui\Text::class, $phrase);
+    $this->assertInstanceOf(\Papaya\UI\Text::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
@@ -135,7 +135,7 @@ class PapayaPhrasesTest extends \PapayaTestCase {
     $phrases->papaya($this->mockPapaya()->application());
     $phrases->defaultGroup('TestGroup');
     $list = iterator_to_array($phrases->getList(array('Some Phrase')));
-    $this->assertInstanceOf(\Papaya\Ui\Text::class, $list[0]);
+    $this->assertInstanceOf(\Papaya\UI\Text::class, $list[0]);
     $this->assertEquals('Success', (string)$list[0]);
   }
 

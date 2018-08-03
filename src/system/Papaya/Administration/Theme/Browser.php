@@ -30,7 +30,7 @@ namespace Papaya\Administration\Theme;
  */
 
 class Browser
-  extends \Papaya\Ui\Control {
+  extends \Papaya\UI\Control {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
@@ -43,7 +43,7 @@ class Browser
    */
   private $_themeHandler;
   /**
-   * @var \Papaya\Ui\Dialog
+   * @var \Papaya\UI\Dialog
    */
   private $_dialog;
 
@@ -52,15 +52,15 @@ class Browser
   }
 
   /**
-   * @param \Papaya\Ui\Dialog $dialog
-   * @return \Papaya\Ui\Dialog
+   * @param \Papaya\UI\Dialog $dialog
+   * @return \Papaya\UI\Dialog
    */
-  public function dialog(\Papaya\Ui\Dialog $dialog = NULL) {
+  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
-      $this->_dialog = $dialog = new \Papaya\Ui\Dialog();
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Themes (%s)', [$this->_optionName]);
+      $this->_dialog = $dialog = new \Papaya\UI\Dialog();
+      $dialog->caption = new \Papaya\UI\Text\Translated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');
       $dialog->data()->merge(
@@ -75,23 +75,23 @@ class Browser
           'save' => 1
         ]
       );
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Collector(
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Collector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Listview(
-        $listview = new \Papaya\Ui\Listview()
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Listview(
+        $listview = new \Papaya\UI\Listview()
       );
-      $listview->mode = \Papaya\Ui\Listview::MODE_TILES;
-      $listview->builder($builder = new \Papaya\Ui\Listview\Items\Builder($this->themes()));
+      $listview->mode = \Papaya\UI\Listview::MODE_TILES;
+      $listview->builder($builder = new \Papaya\UI\Listview\Items\Builder($this->themes()));
       $builder->callbacks()->onCreateItem = function (
-        $context, \Papaya\Ui\Listview\Items $items, \Papaya\Theme\Definition $theme
+        $context, \Papaya\UI\Listview\Items $items, \Papaya\Theme\Definition $theme
       ) use ($dialog) {
-        $items[] = $item = new \Papaya\Ui\Listview\Item\Radio(
+        $items[] = $item = new \Papaya\UI\Listview\Item\Radio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
     }
     return $this->_dialog;
   }

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogElementTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::collect
+  * @covers \Papaya\UI\Dialog\Element::collect
   */
   public function testCollectWithDialog() {
     $dialog = $this->getDialogMock();
@@ -28,7 +28,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::collect
+  * @covers \Papaya\UI\Dialog\Element::collect
   */
   public function testCollectWithoutDialog() {
     $element = new \PapayaUiDialogElement_TestProxy();
@@ -37,7 +37,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Element::_getParameterName
+   * @covers \Papaya\UI\Dialog\Element::_getParameterName
    * @dataProvider provideKeysForGetParameterName
    * @param string $expected
    * @param string|array $keys
@@ -54,7 +54,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::_getParameterName
+  * @covers \Papaya\UI\Dialog\Element::_getParameterName
   */
   public function testGetParameterNameWithDialog() {
     $dialog = $this->getDialogMock();
@@ -77,7 +77,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::hasDialog
+  * @covers \Papaya\UI\Dialog\Element::hasDialog
   */
   public function testHasDialogExpectingTrue() {
     $dialog = $this->getDialogMock();
@@ -87,7 +87,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::hasDialog
+  * @covers \Papaya\UI\Dialog\Element::hasDialog
   */
   public function testHasDialogWithoutAttachedCollectionExpectingFalse() {
     $element = new \PapayaUiDialogElement_TestProxy();
@@ -95,7 +95,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::hasDialog
+  * @covers \Papaya\UI\Dialog\Element::hasDialog
   */
   public function testHasDialogWithoutAttachedDialogExpectingFalse() {
     $element = new \PapayaUiDialogElement_TestProxy();
@@ -104,7 +104,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::getDialog
+  * @covers \Papaya\UI\Dialog\Element::getDialog
   */
   public function testGetDialog() {
     $dialog = $this->getDialogMock();
@@ -114,7 +114,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Element::getDialog
+  * @covers \Papaya\UI\Dialog\Element::getDialog
   */
   public function testGetDialogExpectingNull() {
     $element = new \PapayaUiDialogElement_TestProxy();
@@ -139,13 +139,13 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
 
   private function getDialogMock() {
     return $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
   }
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Elements::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Elements::class);
     if ($owner) {
       $collection
         ->expects($this->any())
@@ -165,7 +165,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogElement_TestProxy extends \Papaya\Ui\Dialog\Element {
+class PapayaUiDialogElement_TestProxy extends \Papaya\UI\Dialog\Element {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
   }

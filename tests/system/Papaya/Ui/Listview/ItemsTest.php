@@ -18,44 +18,44 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewItemsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Items::__construct
-  * @covers \Papaya\Ui\Listview\Items::owner
+  * @covers \Papaya\UI\Listview\Items::__construct
+  * @covers \Papaya\UI\Listview\Items::owner
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
-    $items = new \Papaya\Ui\Listview\Items($listview);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview $listview */
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
+    $items = new \Papaya\UI\Listview\Items($listview);
     $this->assertSame(
       $listview, $items->owner()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Items::reference
+  * @covers \Papaya\UI\Listview\Items::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
-    $items = new \Papaya\Ui\Listview\Items($listview);
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview $listview */
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
+    $items = new \Papaya\UI\Listview\Items($listview);
     $this->assertSame(
       $reference, $items->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Items::reference
+  * @covers \Papaya\UI\Listview\Items::reference
   */
   public function testReferenceGetImplicitCreate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview $listview */
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->createMock(\Papaya\Ui\Reference::class)));
-    $items = new \Papaya\Ui\Listview\Items($listview);
+      ->will($this->returnValue($this->createMock(\Papaya\UI\Reference::class)));
+    $items = new \Papaya\UI\Listview\Items($listview);
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference::class, $items->reference()
+      \Papaya\UI\Reference::class, $items->reference()
     );
   }
 }

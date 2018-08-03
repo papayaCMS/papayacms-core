@@ -25,7 +25,7 @@ namespace Papaya\Administration\Community\Users\Roster;
  * @property integer $usersPerPage
  * @property integer $pagingButtonsLimit
  */
-class Dialog extends \Papaya\Ui\Dialog {
+class Dialog extends \Papaya\UI\Dialog {
 
   private $_listview;
   private $_paging;
@@ -65,28 +65,28 @@ class Dialog extends \Papaya\Ui\Dialog {
    * Set options and create dialog fields
    */
   public function prepare() {
-    $this->caption = new \Papaya\Ui\Text\Translated('Users');
-    $this->options->dialogWidth = \Papaya\Ui\Dialog\Options::SIZE_SMALL;
-    $this->options->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
+    $this->caption = new \Papaya\UI\Text\Translated('Users');
+    $this->options->dialogWidth = \Papaya\UI\Dialog\Options::SIZE_SMALL;
+    $this->options->captionStyle = \Papaya\UI\Dialog\Options::CAPTION_NONE;
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
-    $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
-      new \Papaya\Ui\Text\Translated('Search'),
+    $this->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
+      new \Papaya\UI\Text\Translated('Search'),
       $this->_parameterNames['filter']
     );
-    $this->fields[] = $buttons = new \Papaya\Ui\Dialog\Field\Buttons();
-    $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
-      new \Papaya\Ui\Text\Translated('Filter'),
-      \Papaya\Ui\Dialog\Button::ALIGN_RIGHT
+    $this->fields[] = $buttons = new \Papaya\UI\Dialog\Field\Buttons();
+    $buttons->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
+      new \Papaya\UI\Text\Translated('Filter'),
+      \Papaya\UI\Dialog\Button::ALIGN_RIGHT
     );
-    $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
-      new \Papaya\Ui\Text\Translated('Reset'),
+    $buttons->buttons[] = new \Papaya\UI\Dialog\Button\NamedSubmit(
+      new \Papaya\UI\Text\Translated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,
-      \Papaya\Ui\Dialog\Button::ALIGN_LEFT
+      \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
-    $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Listview($listview = $this->listview());
+    $this->fields[] = $field = new \Papaya\UI\Dialog\Field\Listview($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();
   }
 
@@ -140,20 +140,20 @@ class Dialog extends \Papaya\Ui\Dialog {
   /**
    * Getter/Setter for the listview subobject, it displays a chunk of the users list
    *
-   * @param \Papaya\Ui\Listview $listview
-   * @return \Papaya\Ui\Listview
+   * @param \Papaya\UI\Listview $listview
+   * @return \Papaya\UI\Listview
    */
-  public function listview(\Papaya\Ui\Listview $listview = NULL) {
+  public function listview(\Papaya\UI\Listview $listview = NULL) {
     if (NULL !== $listview) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \Papaya\Ui\Listview();
+      $this->_listview = new \Papaya\UI\Listview();
       $this->_listview->papaya($this->papaya());
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
       $this->_listview->reference(clone $this->reference());
       $this->_listview->builder(
-        $builder = new \Papaya\Ui\Listview\Items\Builder($this->users())
+        $builder = new \Papaya\UI\Listview\Items\Builder($this->users())
       );
       $builder->callbacks()->onCreateItem = array($this, 'createUserItem');
     }
@@ -164,11 +164,11 @@ class Dialog extends \Papaya\Ui\Dialog {
    * Create a listview item for a community user record.
    *
    * @param object $context
-   * @param \Papaya\Ui\Listview\Items $items
+   * @param \Papaya\UI\Listview\Items $items
    * @param array $user
    */
   public function createUserItem($context, $items, $user) {
-    $items[] = new \Papaya\Ui\Listview\Item(
+    $items[] = new \Papaya\UI\Listview\Item(
       'items-user',
       empty($user['caption']) ? $user['email'] : $user['caption'],
       array(
@@ -183,14 +183,14 @@ class Dialog extends \Papaya\Ui\Dialog {
   /**
    * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
    *
-   * @param \Papaya\Ui\Toolbar\Paging $paging
-   * @return \Papaya\Ui\Toolbar\Paging
+   * @param \Papaya\UI\Toolbar\Paging $paging
+   * @return \Papaya\UI\Toolbar\Paging
    */
-  public function paging(\Papaya\Ui\Toolbar\Paging $paging = NULL) {
+  public function paging(\Papaya\UI\Toolbar\Paging $paging = NULL) {
     if (NULL !== $paging) {
       $this->_paging = $paging;
     } elseif (NULL === $this->_paging) {
-      $this->_paging = new \Papaya\Ui\Toolbar\Paging(
+      $this->_paging = new \Papaya\UI\Toolbar\Paging(
         array($this->parameterGroup(), $this->_parameterNames['page']), 1
       );
       $this->_paging->papaya($this->papaya());
@@ -204,14 +204,14 @@ class Dialog extends \Papaya\Ui\Dialog {
   /**
    * The basic reference object used by the subobjects to create urls.
    *
-   * @param \Papaya\Ui\Reference $reference
-   * @return \Papaya\Ui\Reference
+   * @param \Papaya\UI\Reference $reference
+   * @return \Papaya\UI\Reference
    */
-  public function reference(\Papaya\Ui\Reference $reference = NULL) {
+  public function reference(\Papaya\UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\Ui\Reference();
+      $this->_reference = new \Papaya\UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

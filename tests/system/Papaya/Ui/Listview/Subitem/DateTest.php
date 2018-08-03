@@ -18,24 +18,24 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Date::__construct
+  * @covers \Papaya\UI\Listview\Subitem\Date::__construct
   */
   public function testConstructor() {
     $now = time();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Date($now);
+    $subitem = new \Papaya\UI\Listview\Subitem\Date($now);
     $this->assertEquals(
       $now, $subitem->timestamp
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Date::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $subitem = new \Papaya\Ui\Listview\Subitem\Date(strtotime('2011-05-18 12:13:45'));
-    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
+    $subitem = new \Papaya\UI\Listview\Subitem\Date(strtotime('2011-05-18 12:13:45'));
+    $subitem->align = \Papaya\UI\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -45,16 +45,16 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Date::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
   */
   public function testAppendToDateOnly() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $subitem = new \Papaya\Ui\Listview\Subitem\Date(
+    $subitem = new \Papaya\UI\Listview\Subitem\Date(
       strtotime('2011-05-18 12:13:45'),
-      \Papaya\Ui\Listview\Subitem\Date::SHOW_DATE
+      \Papaya\UI\Listview\Subitem\Date::SHOW_DATE
     );
-    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
+    $subitem->align = \Papaya\UI\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -64,16 +64,16 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Date::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
   */
   public function testAppendToWithSeconds() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $subitem = new \Papaya\Ui\Listview\Subitem\Date(
+    $subitem = new \Papaya\UI\Listview\Subitem\Date(
       strtotime('2011-05-18 12:13:45'),
-      \Papaya\Ui\Listview\Subitem\Date::SHOW_TIME | \Papaya\Ui\Listview\Subitem\Date::SHOW_SECONDS
+      \Papaya\UI\Listview\Subitem\Date::SHOW_TIME | \Papaya\UI\Listview\Subitem\Date::SHOW_SECONDS
     );
-    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
+    $subitem->align = \Papaya\UI\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -83,12 +83,12 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Date::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
   */
   public function testAppendToHidesZero() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $subitem = new \Papaya\Ui\Listview\Subitem\Date(0);
+    $subitem = new \Papaya\UI\Listview\Subitem\Date(0);
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

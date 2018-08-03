@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Message::__construct
+  * @covers \Papaya\UI\Dialog\Field\Message::__construct
   */
   public function testConstructor() {
-    $message = new \Papaya\Ui\Dialog\Field\Message(\Papaya\Message::SEVERITY_WARNING, 'Message');
+    $message = new \Papaya\UI\Dialog\Field\Message(\Papaya\Message::SEVERITY_WARNING, 'Message');
     $this->assertAttributeEquals(
       'Message', '_text', $message
     );
@@ -31,12 +31,12 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Message::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Message::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $message = new \Papaya\Ui\Dialog\Field\Message(\Papaya\Message::SEVERITY_INFO, 'Message');
+    $message = new \Papaya\UI\Dialog\Field\Message(\Papaya\Message::SEVERITY_INFO, 'Message');
     $message->papaya(
       $this->mockPapaya()->application(
         array(

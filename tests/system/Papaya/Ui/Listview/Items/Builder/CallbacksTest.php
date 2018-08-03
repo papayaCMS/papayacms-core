@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewItemsBuilderCallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Items\Builder\Callbacks::__construct
+  * @covers \Papaya\UI\Listview\Items\Builder\Callbacks::__construct
   */
   public function testConstructor() {
-    $callbacks = new \Papaya\Ui\Listview\Items\Builder\Callbacks();
+    $callbacks = new \Papaya\UI\Listview\Items\Builder\Callbacks();
     $this->assertFalse($callbacks->onBeforeFill->defaultReturn);
     $this->assertNull($callbacks->onCreateItem->defaultReturn);
     $this->assertNull($callbacks->onAfterFill->defaultReturn);

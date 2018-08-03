@@ -94,7 +94,7 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Dialog to confirm and specifiy the copy page action
   *
-  * @var \Papaya\Ui\Dialog
+  * @var \Papaya\UI\Dialog
   */
   private $_dialogCopyPageConfirmation = NULL;
 
@@ -226,14 +226,14 @@ class papaya_topic_tree extends base_topic_tree {
   * If the user is allowed to manage dependencies, a confirmation dialog is needed to
   * specify the dependency creation for copied pages.
   *
-  * @param \Papaya\Ui\Dialog $dialog
-  * @return \Papaya\Ui\Dialog
+  * @param \Papaya\UI\Dialog $dialog
+  * @return \Papaya\UI\Dialog
   */
-  function dialogCopyPageConfirmation(\Papaya\Ui\Dialog $dialog = NULL) {
+  function dialogCopyPageConfirmation(\Papaya\UI\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialogCopyPageConfirmation = $dialog;
     } elseif (is_null($this->_dialogCopyPageConfirmation)) {
-      $this->_dialogCopyPageConfirmation = $dialog = new \Papaya\Ui\Dialog();
+      $this->_dialogCopyPageConfirmation = $dialog = new \Papaya\UI\Dialog();
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -242,27 +242,27 @@ class papaya_topic_tree extends base_topic_tree {
           'tgt' => empty($this->params['tgt']) ? 0 : $this->params['tgt'],
         )
       );
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Copy pages');
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-        new \Papaya\Ui\Text\Translated(
+      $dialog->caption = new \Papaya\UI\Text\Translated('Copy pages');
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+        new \Papaya\UI\Text\Translated(
           'Copy pages and create dependencies if necessary.'
         ),
         'actions-edit-copy'
       );
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Radio(
-        new \Papaya\Ui\Text\Translated('Create dependencies'),
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Select\Radio(
+        new \Papaya\UI\Text\Translated('Create dependencies'),
         'confirm_create_dependencies',
         array(
-          1 => new \Papaya\Ui\Text\Translated('Yes'),
-          0 => new \Papaya\Ui\Text\Translated('No')
+          1 => new \Papaya\UI\Text\Translated('Yes'),
+          0 => new \Papaya\UI\Text\Translated('No')
         )
       );
-      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
-        new \Papaya\Ui\Text\Translated('Synchronization'),
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Select\Bitmask(
+        new \Papaya\UI\Text\Translated('Synchronization'),
         'synchronization',
         $this->sychronizations()->getList()
       );
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Copy'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Copy'));
     }
     return $this->_dialogCopyPageConfirmation;
   }

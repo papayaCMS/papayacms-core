@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Button\Submit::__construct
+  * @covers \Papaya\UI\Dialog\Button\Submit::__construct
   */
   public function testConstructor() {
-    $button = new \Papaya\Ui\Dialog\Button\Submit('Test Caption');
+    $button = new \Papaya\UI\Dialog\Button\Submit('Test Caption');
     $this->assertAttributeEquals(
       'Test Caption',
       '_caption',
@@ -30,26 +30,26 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Button\Submit::__construct
+  * @covers \Papaya\UI\Dialog\Button\Submit::__construct
   */
   public function testConstructorWithAlignment() {
-    $button = new \Papaya\Ui\Dialog\Button\Submit(
-      'Test Caption', \Papaya\Ui\Dialog\Button::ALIGN_LEFT
+    $button = new \Papaya\UI\Dialog\Button\Submit(
+      'Test Caption', \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Dialog\Button::ALIGN_LEFT,
+      \Papaya\UI\Dialog\Button::ALIGN_LEFT,
       '_align',
       $button
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Button\Submit::appendTo
+  * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $button = new \Papaya\Ui\Dialog\Button\Submit('Test Caption');
+    $button = new \Papaya\UI\Dialog\Button\Submit('Test Caption');
     $button->appendTo($document->documentElement);
     $this->assertEquals(
       /** @lang XML */
@@ -59,11 +59,11 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Button\Submit::appendTo
+  * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
   */
   public function testAppendToWithInterfaceStringObject() {
     $caption = $this
-      ->getMockBuilder(\Papaya\Ui\Text::class)
+      ->getMockBuilder(\Papaya\UI\Text::class)
       ->setConstructorArgs(array('.'))
       ->getMock();
     $caption
@@ -72,8 +72,8 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
       ->will($this->returnValue('Test Caption'));
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $button = new \Papaya\Ui\Dialog\Button\Submit(
-      $caption, \Papaya\Ui\Dialog\Button::ALIGN_LEFT
+    $button = new \Papaya\UI\Dialog\Button\Submit(
+      $caption, \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
     $button->appendTo($document->documentElement);
     $this->assertEquals(

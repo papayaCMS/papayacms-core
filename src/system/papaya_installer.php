@@ -32,7 +32,7 @@ class papaya_installer extends base_db {
   public $layout;
 
   /**
-   * @var \Papaya\Ui\Dialog
+   * @var \Papaya\UI\Dialog
    */
   private $_optionsDialog = NULL;
 
@@ -1530,7 +1530,7 @@ class papaya_installer extends base_db {
 
   public function getOptionsDialog() {
     if (!isset($this->_optionsDialog)) {
-      $this->_optionsDialog = $dialog = new \Papaya\Ui\Dialog();
+      $this->_optionsDialog = $dialog = new \Papaya\UI\Dialog();
       $dialog->caption = 'Basic Configuration';
       $dialog->parameterGroup('installer/options');
       $dialog->hiddenValues->merge(
@@ -1543,7 +1543,7 @@ class papaya_installer extends base_db {
       $validator = $this->getOptionsValidator();
       $validator->validate();
       $dialog->data()->merge($validator);
-      $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
+      $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
         'Path data',
         'PAPAYA_PATH_DATA',
         -1,
@@ -1551,32 +1551,32 @@ class papaya_installer extends base_db {
         new \Papaya\Filter\File\Path()
       );
       $field->setMandatory(TRUE);
-      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group('Administrator');
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
+      $dialog->fields[] = $group = new \Papaya\UI\Dialog\Field\Group('Administrator');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
         'Givenname', 'givenname', -1, '', new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
         'Surname', 'surname', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input\Email(
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Email(
         'Email', 'email', '', TRUE
       );
-      $dialog->fields[] = $group = new \Papaya\Ui\Dialog\Field\Group('Login');
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
+      $dialog->fields[] = $group = new \Papaya\UI\Dialog\Field\Group('Login');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
         'Login Name', 'login', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input\Password('Password', 'password');
-      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input\Password(
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Password('Password', 'password');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Password(
         'Repetition',
         'password_repeat',
         -1,
         new \Papaya\Filter\Equals\Parameter($dialog->parameters(), 'password')
       );
       $field->setMandatory($dialog->parameters()->get('password') != '');
-      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit('Save');
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit('Save');
     }
     return $this->_optionsDialog;
   }

@@ -23,7 +23,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    * @covers Part::appendTo
    */
   public function testAppendTo() {
-    $commands = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $commands = $this->createMock(\Papaya\UI\Control\Command::class);
     $commands
       ->expects($this->once())
       ->method('appendTo')
@@ -42,7 +42,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testCommandsGetAfterSet() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $part->commands($commands = $this->createMock(\Papaya\Ui\Control\Command::class));
+    $part->commands($commands = $this->createMock(\Papaya\UI\Control\Command::class));
     $this->assertSame($commands, $part->commands());
   }
 
@@ -52,7 +52,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testCommandsGetImplicitCreate() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(\Papaya\Ui\Control\Command\Controller::class, $part->commands());
+    $this->assertInstanceOf(\Papaya\UI\Control\Command\Controller::class, $part->commands());
   }
 
   /**
@@ -60,7 +60,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testToolbarGetAfterSet() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $part->toolbar($toolbar = $this->createMock(\Papaya\Ui\Toolbar\Collection::class));
+    $part->toolbar($toolbar = $this->createMock(\Papaya\UI\Toolbar\Collection::class));
     $this->assertSame($toolbar, $part->toolbar());
   }
 
@@ -69,7 +69,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(\Papaya\Ui\Toolbar\Collection::class, $part->toolbar());
+    $this->assertInstanceOf(\Papaya\UI\Toolbar\Collection::class, $part->toolbar());
   }
 }
 

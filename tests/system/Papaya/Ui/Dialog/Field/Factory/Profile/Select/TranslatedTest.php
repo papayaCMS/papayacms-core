@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated::createField
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -29,17 +29,17 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestC
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\Papaya\Ui\Text\Translated\Collection::class, '_values', $field);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
+    $this->assertAttributeInstanceOf(\Papaya\UI\Text\Translated\Collection::class, '_values', $field);
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated::createField
    */
   public function testGetFieldEmptyElementsList() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -47,16 +47,16 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestC
         'parameters' => NULL
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated::createField
    */
   public function testGetFieldWithHint() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -65,7 +65,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestC
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectTranslated();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectTranslated();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

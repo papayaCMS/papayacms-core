@@ -33,7 +33,7 @@ class Display
   /**
    * Message text
    *
-   * @var string|\Papaya\Ui\Text
+   * @var string|\Papaya\UI\Text
    */
   protected $_message = '';
 
@@ -52,7 +52,7 @@ class Display
    * Papaya\Message\PapayaMessageDisplay constrcutor
    *
    * @param integer $type
-   * @param string|\Papaya\Ui\Text $message
+   * @param string|\Papaya\UI\Text $message
    */
   public function __construct($type, $message) {
     $this->_isValidType($type);

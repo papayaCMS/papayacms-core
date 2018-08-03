@@ -242,25 +242,25 @@ class papaya_navigation extends base_object {
   * @return string
   */
   function getMenuBar($fileName = '') {
-    $menu = new \Papaya\Ui\Menu();
+    $menu = new \Papaya\UI\Menu();
     $menu->identifier = 'main';
     $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
     foreach ($this->menuGroups as $groupId => $groupTitle) {
       if (isset($this->menu[$groupId])) {
-        $group = new \Papaya\Ui\Toolbar\Group(new \Papaya\Ui\Text\Translated($groupTitle));
+        $group = new \Papaya\UI\Toolbar\Group(new \Papaya\UI\Text\Translated($groupTitle));
         foreach ($this->menu[$groupId] as  $buttonData) {
           if (empty($buttonData[3]) ||
               $this->papaya()->administrationUser->hasPerm($buttonData[3])) {
-            $button = new \Papaya\Ui\Toolbar\Button();
+            $button = new \Papaya\UI\Toolbar\Button();
             $button->image = $buttonData[2];
             if (isset($buttonData[8]) && $buttonData[8]) {
               $button->caption = empty($buttonData[0]) ? '' : $buttonData[0];
               $button->hint = empty($buttonData[1]) ? '' : $buttonData[1];
             } else {
-              $button->caption = new \Papaya\Ui\Text\Translated(
+              $button->caption = new \Papaya\UI\Text\Translated(
                 empty($buttonData[0]) ? '' : $buttonData[0]
               );
-              $button->hint = new \Papaya\Ui\Text\Translated(
+              $button->hint = new \Papaya\UI\Text\Translated(
                 empty($buttonData[1]) ? '' : $buttonData[1]
               );
             }

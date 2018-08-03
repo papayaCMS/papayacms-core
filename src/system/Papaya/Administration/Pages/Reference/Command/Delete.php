@@ -24,7 +24,7 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @subpackage Administration
  */
 class Delete
-  extends \Papaya\Ui\Control\Command\Dialog {
+  extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * Create confirmation dialog and assign callback for confirmation message.
@@ -32,10 +32,10 @@ class Delete
   public function createDialog() {
     /** @var Changer $changer */
     $changer = $this->owner();
-    $dialog = new \Papaya\Ui\Dialog\Database\Delete(
+    $dialog = new \Papaya\UI\Dialog\Database\Delete(
       $reference = $changer->reference()
     );
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Delete');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
       array(
@@ -45,11 +45,11 @@ class Delete
           ? $reference->targetId : $reference->sourceId
       )
     );
-    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Information(
-      new \Papaya\Ui\Text\Translated('Delete reference?'),
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+      new \Papaya\UI\Text\Translated('Delete reference?'),
       'places-trash'
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Delete'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'

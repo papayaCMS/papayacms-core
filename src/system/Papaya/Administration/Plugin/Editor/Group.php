@@ -51,16 +51,16 @@ class Group extends \Papaya\Plugin\Editor {
   }
 
   /**
-   * @param \Papaya\Ui\Toolbar|NULL $toolbar
-   * @return \Papaya\Ui\Toolbar
+   * @param \Papaya\UI\Toolbar|NULL $toolbar
+   * @return \Papaya\UI\Toolbar
    */
-  public function toolbar(\Papaya\Ui\Toolbar $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = $toolbar = new \Papaya\Ui\Toolbar();
+      $this->_toolbar = $toolbar = new \Papaya\UI\Toolbar();
       $toolbar->papaya($this->papaya());
-      $toolbar->elements[] = $buttons = new \Papaya\Ui\Toolbar\Select\Buttons(
+      $toolbar->elements[] = $buttons = new \Papaya\UI\Toolbar\Select\Buttons(
         $this->_indexParameterName,
         new \Papaya\Iterator\Callback(
           $this->_editors,

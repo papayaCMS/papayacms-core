@@ -21,7 +21,7 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-abstract class Editor extends \Papaya\Ui\Control\Interactive {
+abstract class Editor extends \Papaya\UI\Control\Interactive {
 
   /**
    * @var Editable\Data

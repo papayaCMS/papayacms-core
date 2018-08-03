@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarElementTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Toolbar\Element::reference
+  * @covers \Papaya\UI\Toolbar\Element::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
     $button = new \PapayaUiToolbarElement_TestProxy();
     $button->reference($reference);
     $this->assertSame(
@@ -30,7 +30,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbar\Element::reference
+  * @covers \Papaya\UI\Toolbar\Element::reference
   */
   public function testReferenceGetImplicitCreate() {
     $button = new \PapayaUiToolbarElement_TestProxy();
@@ -38,7 +38,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
       $application = $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference::class, $button->reference()
+      \Papaya\UI\Reference::class, $button->reference()
     );
     $this->assertSame(
       $application, $button->reference()->papaya()
@@ -47,7 +47,7 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
 
 }
 
-class PapayaUiToolbarElement_TestProxy extends \Papaya\Ui\Toolbar\Element {
+class PapayaUiToolbarElement_TestProxy extends \Papaya\UI\Toolbar\Element {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
   }

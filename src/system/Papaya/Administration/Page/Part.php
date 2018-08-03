@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Page;
 use Papaya\Administration\PapayaAdministrationPage;
-use Papaya\Ui\Control\Command;
-use Papaya\Ui\Toolbar\Collection;
+use Papaya\UI\Control\Command;
+use Papaya\UI\Toolbar\Collection;
 
 /**
  * Administration page parts are interactive ui controls, with access to a toolbar.
@@ -24,15 +24,15 @@ use Papaya\Ui\Toolbar\Collection;
  * @package Papaya-Library
  * @subpackage Administration
  */
-abstract class Part extends \Papaya\Ui\Control\Interactive {
+abstract class Part extends \Papaya\UI\Control\Interactive {
 
   /**
-   * @var \Papaya\Ui\Control\Command
+   * @var \Papaya\UI\Control\Command
    */
   private $_commands = NULL;
 
   /**
-   * @var \Papaya\Ui\Toolbar\Collection
+   * @var \Papaya\UI\Toolbar\Collection
    */
   private $_toolbar = NULL;
 
@@ -66,10 +66,10 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
    * Getter/Setter for the commands subobject,
    * {@see \Papaya\Administration\Page\PapayaAdministrationPagePart::_createCommands89} is called for lazy init
    *
-   * @param \Papaya\Ui\Control\Command $commands
-   * @return \Papaya\Ui\Control\Command
+   * @param \Papaya\UI\Control\Command $commands
+   * @return \Papaya\UI\Control\Command
    */
-  public function commands(\Papaya\Ui\Control\Command $commands = NULL) {
+  public function commands(\Papaya\UI\Control\Command $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
@@ -83,10 +83,10 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
    *
    * @param string $name
    * @param string $default
-   * @return \Papaya\Ui\Control\Command\Controller
+   * @return \Papaya\UI\Control\Command\Controller
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
-    $commands = new \Papaya\Ui\Control\Command\Controller($name, $default);
+    $commands = new \Papaya\UI\Control\Command\Controller($name, $default);
     $commands->owner($this);
     return $commands;
   }
@@ -96,17 +96,17 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
    * after all page parts are appened. The order of the sets is different from the page parts
    * (Navigation -> Content -> Information).
    *
-   * @param \Papaya\Ui\Toolbar\Collection $toolbar
-   * @return \Papaya\Ui\Toolbar\Collection
+   * @param \Papaya\UI\Toolbar\Collection $toolbar
+   * @return \Papaya\UI\Toolbar\Collection
    */
-  public function toolbar(\Papaya\Ui\Toolbar\Collection $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar\Collection $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
       if (!$toolbar->elements || count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = $toolbar = new \Papaya\Ui\Toolbar\Collection();
+      $this->_toolbar = $toolbar = new \Papaya\UI\Toolbar\Collection();
       $toolbar->papaya($this->papaya());
       $this->_initializeToolbar($toolbar);
     }
@@ -116,8 +116,8 @@ abstract class Part extends \Papaya\Ui\Control\Interactive {
   /**
    * Initialize the toolbar with buttons and other elements
    *
-   * @param \Papaya\Ui\Toolbar\Collection $toolbar
+   * @param \Papaya\UI\Toolbar\Collection $toolbar
    */
-  protected function _initializeToolbar(\Papaya\Ui\Toolbar\Collection $toolbar) {
+  protected function _initializeToolbar(\Papaya\UI\Toolbar\Collection $toolbar) {
   }
 }

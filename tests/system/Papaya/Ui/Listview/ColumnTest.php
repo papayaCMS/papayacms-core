@@ -18,47 +18,47 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewColumnTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Column::__construct
+  * @covers \Papaya\UI\Listview\Column::__construct
   */
   public function testConstructor() {
-    $column = new \Papaya\Ui\Listview\Column('test title');
+    $column = new \Papaya\UI\Listview\Column('test title');
     $this->assertAttributeEquals(
       'test title', '_caption', $column
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Column::__construct
-  * @covers \Papaya\Ui\Listview\Column::setAlign
+  * @covers \Papaya\UI\Listview\Column::__construct
+  * @covers \Papaya\UI\Listview\Column::setAlign
   */
   public function testConstructorWithAllParameters() {
-    $column = new \Papaya\Ui\Listview\Column(
-      'test title', \Papaya\Ui\Option\Align::CENTER
+    $column = new \Papaya\UI\Listview\Column(
+      'test title', \Papaya\UI\Option\Align::CENTER
     );
     $this->assertAttributeEquals(
-      \Papaya\Ui\Option\Align::CENTER, '_align', $column
+      \Papaya\UI\Option\Align::CENTER, '_align', $column
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Column::getAlign
-  * @covers \Papaya\Ui\Listview\Column::setAlign
+  * @covers \Papaya\UI\Listview\Column::getAlign
+  * @covers \Papaya\UI\Listview\Column::setAlign
   */
   public function testGetAlignAfterSetAlign() {
-    $column = new \Papaya\Ui\Listview\Column('test title');
-    $column->setAlign(\Papaya\Ui\Option\Align::RIGHT);
+    $column = new \Papaya\UI\Listview\Column('test title');
+    $column->setAlign(\Papaya\UI\Option\Align::RIGHT);
     $this->assertEquals(
-      \Papaya\Ui\Option\Align::RIGHT, $column->getAlign()
+      \Papaya\UI\Option\Align::RIGHT, $column->getAlign()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Column::appendTo
+  * @covers \Papaya\UI\Listview\Column::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendChild($document->createElement('sample'));
-    $column = new \Papaya\Ui\Listview\Column('test title');
+    $column = new \Papaya\UI\Listview\Column('test title');
     $column->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

@@ -77,7 +77,7 @@ class Synchronizations {
   /**
    * Buffer variable for icon list
    *
-   * @var \Papaya\Ui\Icon\Collection
+   * @var \Papaya\UI\Icon\Collection
    */
   private $_icons = NULL;
 
@@ -96,18 +96,18 @@ class Synchronizations {
   private $_dependencies = NULL;
 
   /**
-   * Create {@see \Papaya\Ui\Icon\PapayaUiIconList} from definitions and return it.
+   * Create {@see \Papaya\UI\Icon\Collection} from definitions and return it.
    *
-   * @return \Papaya\Ui\Icon\Collection
+   * @return \Papaya\UI\Icon\Collection
    */
   public function getIcons() {
     if (is_null($this->_icons)) {
-      $this->_icons = new \Papaya\Ui\Icon\Collection;
+      $this->_icons = new \Papaya\UI\Icon\Collection;
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_icons[$synchronization] = new \Papaya\Ui\Icon(
+        $this->_icons[$synchronization] = new \Papaya\UI\Icon(
           $data['image'],
-          new \Papaya\Ui\Text\Translated($data['caption']),
-          new \Papaya\Ui\Text\Translated($data['hint'])
+          new \Papaya\UI\Text\Translated($data['caption']),
+          new \Papaya\UI\Text\Translated($data['hint'])
         );
       }
     }
@@ -123,7 +123,7 @@ class Synchronizations {
     if (is_null($this->_list)) {
       $this->_list = array();
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_list[$synchronization] = new \Papaya\Ui\Text\Translated($data['caption']);
+        $this->_list[$synchronization] = new \Papaya\UI\Text\Translated($data['caption']);
       }
     }
     return $this->_list;

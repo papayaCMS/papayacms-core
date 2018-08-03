@@ -18,31 +18,31 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Image\Toggle::__construct
-  * @covers \Papaya\Ui\Listview\Subitem\Image\Toggle::setIcons
+  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::__construct
+  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::setIcons
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
-    $subitem = new \Papaya\Ui\Listview\Subitem\Image\Toggle($icons, 'foo');
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
+    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Image\Toggle::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
   */
   public function testAppendToWithIcon() {
     $icon = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $icon
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')
@@ -55,7 +55,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->will($this->returnValue($icon));
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Image\Toggle($icons, 'foo');
+    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(
@@ -66,11 +66,11 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Image\Toggle::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
   */
   public function testAppendToWithoutIcon() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')
@@ -78,7 +78,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->will($this->returnValue(FALSE));
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Image\Toggle($icons, 'foo');
+    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(

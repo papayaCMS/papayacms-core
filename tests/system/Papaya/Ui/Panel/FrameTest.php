@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiPanelFrameTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Panel\Frame::__construct
+  * @covers \Papaya\UI\Panel\Frame::__construct
   */
   public function testConstructor() {
-    $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
+    $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame');
     $this->assertEquals(
       'Sample Caption', $frame->caption
     );
@@ -31,22 +31,22 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Panel\Frame::__construct
+  * @covers \Papaya\UI\Panel\Frame::__construct
   */
   public function testConstructorWithAllParameters() {
-    $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame', '100%');
+    $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame', '100%');
     $this->assertEquals(
       '100%', $frame->height
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Panel\Frame::appendTo
+  * @covers \Papaya\UI\Panel\Frame::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
+    $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame');
     $frame->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -58,23 +58,23 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Panel\Frame::reference
+  * @covers \Papaya\UI\Panel\Frame::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
-    $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
+    $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame');
     $this->assertSame(
       $reference, $frame->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Panel\Frame::reference
+  * @covers \Papaya\UI\Panel\Frame::reference
   */
   public function testReferenceGetImplicitCreate() {
-    $frame = new \Papaya\Ui\Panel\Frame('Sample Caption', 'sample_frame');
+    $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame');
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference::class, $frame->reference
+      \Papaya\UI\Reference::class, $frame->reference
     );
   }
 }

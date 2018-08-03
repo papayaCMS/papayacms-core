@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputPageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Page::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\Page::__construct
   */
   public function testConstructor() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Page('Page', 'page_id', 42, TRUE);
+    $field = new \Papaya\UI\Dialog\Field\Input\Page('Page', 'page_id', 42, TRUE);
     $this->assertEquals(
       'Page', $field->caption
     );
@@ -37,13 +37,13 @@ class PapayaUiDialogFieldInputPageTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideValidPageIdInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Page('Page', 'page_id');
+    $field = new \Papaya\UI\Dialog\Field\Input\Page('Page', 'page_id');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -52,13 +52,13 @@ class PapayaUiDialogFieldInputPageTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideInvalidPageIdInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Page('Page', 'page_id');
+    $field = new \Papaya\UI\Dialog\Field\Input\Page('Page', 'page_id');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -67,11 +67,11 @@ class PapayaUiDialogFieldInputPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Page::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Page::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
-    $field = new \Papaya\Ui\Dialog\Field\Input\Page('Page', 'page_id');
+    $field = new \Papaya\UI\Dialog\Field\Input\Page('Page', 'page_id');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(

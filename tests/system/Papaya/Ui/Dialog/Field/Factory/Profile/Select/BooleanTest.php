@@ -18,19 +18,19 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectBooleanTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectBoolean::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectBoolean::createField
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 0
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectBoolean();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectBoolean();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select\Radio::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\Papaya\Ui\Text\Translated\Collection::class, '_values', $field);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Radio::class, $field = $profile->getField());
+    $this->assertAttributeInstanceOf(\Papaya\UI\Text\Translated\Collection::class, '_values', $field);
   }
 }

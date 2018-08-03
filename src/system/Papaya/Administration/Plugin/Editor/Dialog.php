@@ -68,10 +68,10 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Getter/Setter for the dialog subobject.
    *
-   * @param \Papaya\Ui\Dialog $dialog
-   * @return \Papaya\Ui\Dialog
+   * @param \Papaya\UI\Dialog $dialog
+   * @return \Papaya\UI\Dialog
    */
-  public function dialog(\Papaya\Ui\Dialog $dialog = NULL) {
+  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -83,29 +83,29 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return \Papaya\Ui\Dialog
+   * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {
-    $dialog = new \Papaya\Ui\Dialog();
+    $dialog = new \Papaya\UI\Dialog();
     $dialog->papaya($this->papaya());
 
     if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {
       $dialog->caption = new \Papaya\Administration\Languages\Caption(
-        new \Papaya\Ui\Text\Translated('Edit content')
+        new \Papaya\UI\Text\Translated('Edit content')
       );
       $dialog->image = new \Papaya\Administration\Languages\Image();
       $dialog->parameterGroup('content');
     } elseif ($this->getData() instanceof \Papaya\Plugin\Editable\Options) {
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Edit options');
+      $dialog->caption = new \Papaya\UI\Text\Translated('Edit options');
       $dialog->parameterGroup('options');
     } else {
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Edit properties');
+      $dialog->caption = new \Papaya\UI\Text\Translated('Edit properties');
       $dialog->parameterGroup('properties');
     }
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
 
     return $dialog;
   }

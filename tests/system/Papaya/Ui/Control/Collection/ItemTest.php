@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::hasCollection
+  * @covers \Papaya\UI\Control\Collection\Item::hasCollection
   */
   public function testHasCollection() {
-    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
+    $collection = $this->createMock(\Papaya\UI\Control\Collection::class);
     $item = new \PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
     $this->assertTrue(
@@ -30,11 +30,11 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::collection
+  * @covers \Papaya\UI\Control\Collection\Item::collection
   */
   public function testCollectionGetAfterSet() {
     $papaya = $this->mockPapaya()->application();
-    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
+    $collection = $this->createMock(\Papaya\UI\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('papaya')
@@ -49,7 +49,7 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::collection
+  * @covers \Papaya\UI\Control\Collection\Item::collection
   */
   public function testCollectionWithoutSetExpectingExpcetion() {
     $item = new \PapayaUiControlCollectionItem_TestProxy();
@@ -59,7 +59,7 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::index
+  * @covers \Papaya\UI\Control\Collection\Item::index
   */
   public function testIndexGetWithoutSet() {
     $item = new \PapayaUiControlCollectionItem_TestProxy();
@@ -69,10 +69,10 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::index
+  * @covers \Papaya\UI\Control\Collection\Item::index
   */
   public function testIndexSetWithInvalidValue() {
-    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
+    $collection = $this->createMock(\Papaya\UI\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('get')
@@ -86,11 +86,11 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Collection\Item::index
+  * @covers \Papaya\UI\Control\Collection\Item::index
   */
   public function testIndex() {
     $item = new \PapayaUiControlCollectionItem_TestProxy();
-    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
+    $collection = $this->createMock(\Papaya\UI\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('get')
@@ -105,7 +105,7 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiControlCollectionItem_TestProxy extends \Papaya\Ui\Control\Collection\Item {
+class PapayaUiControlCollectionItem_TestProxy extends \Papaya\UI\Control\Collection\Item {
   public function appendTo(\Papaya\Xml\Element $parent) {
   }
 }

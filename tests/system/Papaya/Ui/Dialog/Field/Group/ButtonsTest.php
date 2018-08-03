@@ -18,34 +18,34 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::__construct
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::__construct
   */
   public function testConstructor() {
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $this->assertEquals(
       'Group Caption', $group->getCaption()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::buttons
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::buttons
   */
   public function testFieldsGetImplicitCreate() {
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $this->assertInstanceOf(
-      \Papaya\Ui\Dialog\Buttons::class, $group->buttons()
+      \Papaya\UI\Dialog\Buttons::class, $group->buttons()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::buttons
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::buttons
   */
   public function testFieldsGetImplicitCreateWithDialog() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
     $this->assertSame(
       $dialog, $group->buttons()->owner()
@@ -53,16 +53,16 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::buttons
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::buttons
   */
   public function testFieldsSet() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('owner')
@@ -74,16 +74,16 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::buttons
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::buttons
   */
   public function testFieldsGetAfterSet() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('owner')
@@ -94,54 +94,54 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::validate
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::validate
   */
   public function testValidateExpectingTrue() {
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $this->assertTrue($group->validate());
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::validate
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::validate
   */
   public function testValidateWithoutDialogExpectingFalse() {
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $this->assertTrue($group->validate());
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::collect
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::collect
   */
   public function testCollect() {
     $dialog = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog::class)
+      ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('collect')
       ->will($this->returnValue(TRUE));
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
     $group->buttons($buttons);
     $this->assertTrue($group->collect());
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::collect
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::collect
   */
   public function testCollectWithoutDialog() {
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
-    $group->collection($this->createMock(\Papaya\Ui\Dialog\Buttons::class));
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
+    $group->collection($this->createMock(\Papaya\UI\Dialog\Buttons::class));
     $this->assertFalse($group->collect());
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::appendTo
   */
   public function testAppendTo() {
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('appendTo')
@@ -150,8 +150,8 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(1));
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
-    $group->collection($this->createMock(\Papaya\Ui\Dialog\Buttons::class));
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
+    $group->collection($this->createMock(\Papaya\UI\Dialog\Buttons::class));
     $group->buttons($buttons);
     $this->assertEquals(
       /** @lang XML */
@@ -161,10 +161,10 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::appendTo
   */
   public function testAppendToWithId() {
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('appendTo')
@@ -173,9 +173,9 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(1));
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->setId('sampleId');
-    $group->collection($this->createMock(\Papaya\Ui\Dialog\Buttons::class));
+    $group->collection($this->createMock(\Papaya\UI\Dialog\Buttons::class));
     $group->buttons($buttons);
     $this->assertEquals(
       /** @lang XML */
@@ -185,13 +185,13 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::appendTo
   */
   public function testAppendToWithoutFields() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $group = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->appendTo($node);
     $this->assertEquals(
       /** @lang XML */
@@ -201,12 +201,12 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Group\Buttons::collection
+  * @covers \Papaya\UI\Dialog\Field\Group\Buttons::collection
   */
   public function testCollectionGetAfterSet() {
-    $owner = $this->createMock(\Papaya\Ui\Dialog::class);
+    $owner = $this->createMock(\Papaya\UI\Dialog::class);
     $papaya = $this->mockPapaya()->application();
-    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
+    $collection = $this->createMock(\Papaya\UI\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('papaya')
@@ -219,12 +219,12 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('owner')
       ->will($this->returnValue($owner));
-    $buttons = $this->createMock(\Papaya\Ui\Dialog\Buttons::class);
+    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('owner')
       ->with($owner);
-    $item = new \Papaya\Ui\Dialog\Field\Group\Buttons('Group Caption');
+    $item = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $item->buttons($buttons);
     $this->assertSame(
       $collection, $item->collection($collection)
@@ -240,10 +240,10 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Fields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Fields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
+    $collection = $this->createMock(\Papaya\UI\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

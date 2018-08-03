@@ -18,7 +18,7 @@ namespace Papaya\Response\Content\CSV;
  * Callbacks that are used by the csv response content
  *
  * @package Papaya-Library
- * @subpackage Ui
+ * @subpackage UI
  *
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapField

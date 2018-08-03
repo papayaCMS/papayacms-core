@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\GeoPosition::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\GeoPosition::__construct
   */
   public function testConstructor() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '21,42', TRUE);
+    $field = new \Papaya\UI\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '21,42', TRUE);
     $this->assertEquals(
       'Position', $field->caption
     );
@@ -37,13 +37,13 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\GeoPosition
+   * @covers \Papaya\UI\Dialog\Field\Input\GeoPosition
    * @dataProvider provideValidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition(
+    $field = new \Papaya\UI\Dialog\Field\Input\GeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertTrue(
@@ -52,13 +52,13 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideInvalidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition(
+    $field = new \Papaya\UI\Dialog\Field\Input\GeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertFalse(
@@ -67,11 +67,11 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Dialog\Field\Input\Page::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\Page::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
-    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '', FALSE);
+    $field = new \Papaya\UI\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '', FALSE);
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(

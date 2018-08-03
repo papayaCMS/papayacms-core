@@ -19,7 +19,7 @@ namespace Papaya\BaseObject;
  * callbacks for different events inside the object.
  *
  * @package Papaya-Library
- * @subpackage Ui
+ * @subpackage UI
  */
 class Callbacks implements \IteratorAggregate {
 

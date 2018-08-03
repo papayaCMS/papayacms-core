@@ -22,7 +22,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
  * @subpackage Administration
  */
 class Export
-  extends \Papaya\Ui\Control\Command {
+  extends \Papaya\UI\Control\Command {
 
   /**
    * @var \Papaya\Content\Theme\Set

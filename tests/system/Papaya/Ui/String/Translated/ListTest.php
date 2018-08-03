@@ -18,15 +18,15 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Text\Translated\Collection::__construct
+   * @covers \Papaya\UI\Text\Translated\Collection::__construct
    */
   public function testConstructorWithArray() {
-    $list = new \Papaya\Ui\Text\Translated\Collection(array('foo'));
+    $list = new \Papaya\UI\Text\Translated\Collection(array('foo'));
     $this->assertInstanceOf(\Papaya\Iterator\Traversable::class, $list->getInnerIterator());
   }
 
   /**
-   * @covers \Papaya\Ui\Text\Translated\Collection
+   * @covers \Papaya\UI\Text\Translated\Collection
    */
   public function testIterationCallsTranslation() {
     $phrases = $this
@@ -38,7 +38,7 @@ class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
       ->method('getText')
       ->with('foo')
       ->will($this->returnValue('bar'));
-    $list = new \Papaya\Ui\Text\Translated\Collection(array('foo'));
+    $list = new \Papaya\UI\Text\Translated\Collection(array('foo'));
     $list->papaya(
       $this->mockPapaya()->application(array('Phrases' => $phrases))
     );
@@ -49,20 +49,20 @@ class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Translated\Collection::papaya
+  * @covers \Papaya\UI\Text\Translated\Collection::papaya
   */
   public function testPapayaGetUsingSingleton() {
-    $list = new \Papaya\Ui\Text\Translated\Collection(array());
+    $list = new \Papaya\UI\Text\Translated\Collection(array());
     $this->assertInstanceOf(
       \PapayaApplication::class, $list->papaya()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Translated\Collection::papaya
+  * @covers \Papaya\UI\Text\Translated\Collection::papaya
   */
   public function testPapayaGetAfterSet() {
-    $list = new \Papaya\Ui\Text\Translated\Collection(array());
+    $list = new \Papaya\UI\Text\Translated\Collection(array());
     $application = $this->createMock(\PapayaApplication::class);
     $this->assertSame($application, $list->papaya($application));
   }

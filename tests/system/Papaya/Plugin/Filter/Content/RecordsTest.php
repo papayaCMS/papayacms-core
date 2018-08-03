@@ -44,7 +44,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
     $plugins
       ->expects($this->once())
       ->method('get')
-      ->with('guid', $this->isInstanceOf(\Papaya\Ui\Content\Page::class), 'options')
+      ->with('guid', $this->isInstanceOf(\Papaya\UI\Content\Page::class), 'options')
       ->will($this->returnValue($this->createMock(\Papaya\Plugin\Filter\Content::class)));
 
     $records = $this->createMock(Configurations::class);
@@ -73,7 +73,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
 
   public function getPageFixture($viewId = NULL) {
     $page = $this
-      ->getMockBuilder(\Papaya\Ui\Content\Page::class)
+      ->getMockBuilder(\Papaya\UI\Content\Page::class)
       ->disableOriginalConstructor()
       ->getMock();
     if (NULL !== $viewId) {

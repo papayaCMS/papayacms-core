@@ -22,13 +22,13 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Change extends \Papaya\Ui\Control\Command\Dialog {
+class Change extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * create a condition that is used to activate the command execution
    */
   public function createCondition() {
-    return new \Papaya\Ui\Control\Command\Condition\Callback(
+    return new \Papaya\UI\Control\Command\Condition\Callback(
       array($this, 'validatePageId')
     );
   }
@@ -47,7 +47,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Create the add/edit dialog and assign callbacks.
    *
-   * @return \Papaya\Ui\Dialog\Database\Save
+   * @return \Papaya\UI\Dialog\Database\Save
    */
   public function createDialog() {
     /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
@@ -56,10 +56,10 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
     $record = $changer->dependency();
     $synchronizations = $changer->synchronizations();
 
-    $dialog = new \Papaya\Ui\Dialog\Database\Save($record);
+    $dialog = new \Papaya\UI\Dialog\Database\Save($record);
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new \Papaya\Ui\Text\Translated('Page dependency');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Page dependency');
     $dialog->parameterGroup('pagedep');
     $dialog->hiddenFields->merge(
       array(
@@ -74,23 +74,23 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
         )
       )
     );
-    $dialog->fields[] = $originIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
-      new \Papaya\Ui\Text\Translated('Origin page'), 'origin_id', NULL, TRUE
+    $dialog->fields[] = $originIdField = new \Papaya\UI\Dialog\Field\Input\Page(
+      new \Papaya\UI\Text\Translated('Origin page'), 'origin_id', NULL, TRUE
     );
     $originIdField->setHint(
-      new \Papaya\Ui\Text\Translated(
+      new \Papaya\UI\Text\Translated(
         'The origin id must be a valid page, that is not a dependency itself.'
       )
     );
-    $dialog->fields[] = $synchronizationField = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
-      new \Papaya\Ui\Text\Translated('Synchronization'),
+    $dialog->fields[] = $synchronizationField = new \Papaya\UI\Dialog\Field\Select\Bitmask(
+      new \Papaya\UI\Text\Translated('Synchronization'),
       'synchronization',
       $synchronizations->getList()
     );
-    $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Textarea(
-      new \Papaya\Ui\Text\Translated('Note'), 'note', 8, ''
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Textarea(
+      new \Papaya\UI\Text\Translated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateOriginAndSynchronizations');
     $dialog->callbacks()->onBeforeSave->context->originIdField = $originIdField;
@@ -160,7 +160,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
           $this->papaya()->messages->dispatch(
             new \Papaya\Message\Display(
               \Papaya\Message::SEVERITY_WARNING,
-              new \Papaya\Ui\Text\Translated(
+              new \Papaya\UI\Text\Translated(
                 'Views with different modules found. Please change befor activating'.
                 ' synchronization or synchronize view and content.'
               )
@@ -188,7 +188,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Callback to dispatch a message to the user that here was an input error.
    */
-  public function dispatchErrorMessage($context, \Papaya\Ui\Dialog $dialog) {
+  public function dispatchErrorMessage($context, \Papaya\UI\Dialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,

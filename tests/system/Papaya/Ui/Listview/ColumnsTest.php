@@ -18,13 +18,13 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewColumnsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Columns::__construct
-  * @covers \Papaya\Ui\Listview\Columns::owner
+  * @covers \Papaya\UI\Listview\Columns::__construct
+  * @covers \Papaya\UI\Listview\Columns::owner
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Listview $listview */
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
-    $columns = new \Papaya\Ui\Listview\Columns($listview);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview $listview */
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
+    $columns = new \Papaya\UI\Listview\Columns($listview);
     $this->assertSame(
       $listview, $columns->owner()
     );

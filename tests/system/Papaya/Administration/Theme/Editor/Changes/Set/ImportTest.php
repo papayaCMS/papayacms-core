@@ -129,9 +129,9 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Field\File\Temporary $uploadField */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\File\Temporary $uploadField */
     $uploadField = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog\Field\File\Temporary::class)
+      ->getMockBuilder(\Papaya\UI\Dialog\Field\File\Temporary::class)
       ->disableOriginalConstructor()
       ->getMock();
     $import = new Import($themeSet, $themeHandler);
@@ -149,7 +149,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Field\File\Temporary $uploadField */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\File\Temporary $uploadField */
     $uploadField = $this->getUploadFieldFixture();
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
@@ -297,7 +297,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
 
   /**
    * @param string $data
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Field\File\Temporary
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\File\Temporary
    */
   public function getUploadFieldFixture($data = 'data://text/xml,') {
     $file = $this
@@ -310,7 +310,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
       ->with('temporary')
       ->will($this->returnValue($data));
     $uploadField = $this
-      ->getMockBuilder(\Papaya\Ui\Dialog\Field\File\Temporary::class)
+      ->getMockBuilder(\Papaya\UI\Dialog\Field\File\Temporary::class)
       ->disableOriginalConstructor()
       ->getMock();
     $uploadField

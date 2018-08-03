@@ -18,7 +18,7 @@ namespace Papaya\Application\Profile;
  * Application object profile for the images
  *
  * Looks fopr an array $GLOBALS['PAPAYA_IMAGES'] and creates an instance of
- * Papaya\Ui\PapayaUiImages with it.
+ * Papaya\UI\Images with it.
  *
  * @package Papaya-Library
  * @subpackage Application
@@ -29,10 +29,10 @@ class Images implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \Papaya\Ui\Images
+   * @return \Papaya\UI\Images
    */
   public function createObject($application) {
-    $images = new \Papaya\Ui\Images(
+    $images = new \Papaya\UI\Images(
       empty($GLOBALS['PAPAYA_IMAGES']) ? array() : $GLOBALS['PAPAYA_IMAGES']
     );
     return $images;

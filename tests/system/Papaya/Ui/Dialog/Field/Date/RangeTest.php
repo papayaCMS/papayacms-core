@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldDateRangeTest extends \PapayaTestCase {
 
   public function testAppendTo() {
-    $field = new \Papaya\Ui\Dialog\Field\Date\Range('Caption', 'name');
+    $field = new \Papaya\UI\Dialog\Field\Date\Range('Caption', 'name');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

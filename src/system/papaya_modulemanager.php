@@ -2112,8 +2112,8 @@ class papaya_modulemanager extends base_db {
    */
   function getPackageListView() {
     if (isset($this->packages) && is_array($this->packages)) {
-      $listview = new \Papaya\Ui\Listview();
-      $listview->caption = new \Papaya\Ui\Text\Translated('Packages');
+      $listview = new \Papaya\UI\Listview();
+      $listview->caption = new \Papaya\UI\Text\Translated('Packages');
       $listview->parameterGroup($this->paramName);
       foreach ($this->packages as $package) {
 
@@ -2152,11 +2152,11 @@ class papaya_modulemanager extends base_db {
           break;
         case PAPAYA_MODULE_TABLE_MISSING :
           $statusImage = 'status-sign-warning';
-          $statusText = new \Papaya\Ui\Text\Translated('Missing tables.');
+          $statusText = new \Papaya\UI\Text\Translated('Missing tables.');
           break;
         case PAPAYA_MODULE_TABLE_ERROR :
           $statusImage = 'status-sign-problem';
-          $statusText = new \Papaya\Ui\Text\Translated('Invalid table structures.');
+          $statusText = new \Papaya\UI\Text\Translated('Invalid table structures.');
           break;
         default :
           $statusImage = FALSE;
@@ -2164,7 +2164,7 @@ class papaya_modulemanager extends base_db {
           break;
         }
 
-        $item = new \Papaya\Ui\Listview\Item(
+        $item = new \Papaya\UI\Listview\Item(
           $itemImage,
           $package['modulegroup_title'].' ('.$moduleStatus.')',
           array(
@@ -2174,7 +2174,7 @@ class papaya_modulemanager extends base_db {
           ),
           $selected
         );
-        $item->subitems[] = new \Papaya\Ui\Listview\Subitem\Image($statusImage, $statusText);
+        $item->subitems[] = new \Papaya\UI\Listview\Subitem\Image($statusImage, $statusText);
         $listview->items[] = $item;
       }
       $this->layout->addLeft($listview->getXml());

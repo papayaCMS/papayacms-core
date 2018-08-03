@@ -18,24 +18,24 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarGroupTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Toolbar\Group::__construct
+  * @covers \Papaya\UI\Toolbar\Group::__construct
   */
   public function testConstructor() {
-    $group = new \Papaya\Ui\Toolbar\Group('group caption');
+    $group = new \Papaya\UI\Toolbar\Group('group caption');
     $this->assertEquals(
       'group caption', $group->caption
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbar\Group::appendTo
+  * @covers \Papaya\UI\Toolbar\Group::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $group = new \Papaya\Ui\Toolbar\Group('group caption');
+    $group = new \Papaya\UI\Toolbar\Group('group caption');
     $elements = $this
-      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
+      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
@@ -56,14 +56,14 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Toolbar\Group::appendTo
+  * @covers \Papaya\UI\Toolbar\Group::appendTo
   */
   public function testAppendToWithoutElements() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $group = new \Papaya\Ui\Toolbar\Group('group caption');
+    $group = new \Papaya\UI\Toolbar\Group('group caption');
     $elements = $this
-      ->getMockBuilder(\Papaya\Ui\Toolbar\Elements::class)
+      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements

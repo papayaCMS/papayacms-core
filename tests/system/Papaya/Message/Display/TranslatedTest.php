@@ -24,7 +24,7 @@ class PapayaMessageDisplayTranslatedTest extends \PapayaTestCase {
     $message = new \Papaya\Message\Display\Translated(\Papaya\Message::SEVERITY_INFO, 'Test');
     $string = $this->readAttribute($message, '_message');
     $this->assertInstanceOf(
-      \Papaya\Ui\Text\Translated::class, $string
+      \Papaya\UI\Text\Translated::class, $string
     );
     $this->assertAttributeEquals(
       'Test', '_pattern', $string

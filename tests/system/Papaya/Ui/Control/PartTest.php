@@ -19,8 +19,8 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__get
-  * @covers \Papaya\Ui\Control\Part::__set
+  * @covers \Papaya\UI\Control\Part::__get
+  * @covers \Papaya\UI\Control\Part::__set
   */
   public function testPropertyGetAfterSetByName() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -29,8 +29,8 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__get
-  * @covers \Papaya\Ui\Control\Part::__set
+  * @covers \Papaya\UI\Control\Part::__get
+  * @covers \Papaya\UI\Control\Part::__set
   */
   public function testPropertyGetAfterSetByMethods() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -39,7 +39,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__get
+  * @covers \Papaya\UI\Control\Part::__get
   */
   public function testPropertyGetUnknownExpectingException() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -50,7 +50,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__get
+  * @covers \Papaya\UI\Control\Part::__get
   */
   public function testPropertyGetInvalidExpectingException() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -60,7 +60,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__set
+  * @covers \Papaya\UI\Control\Part::__set
   */
   public function testPropertyReadOnlyExpectingException() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -73,7 +73,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__set
+  * @covers \Papaya\UI\Control\Part::__set
   */
   public function testPropertySetUnknownExpectingException() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -84,7 +84,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control\Part::__set
+  * @covers \Papaya\UI\Control\Part::__set
   */
   public function testPropertySetInvalidExpectingException() {
     $control = new \PapayaUiControlPart_TestProxy();
@@ -100,7 +100,7 @@ class PapayaUiControlPartTest extends \PapayaTestCase {
 * @property-read string $propertyThree
 * @property string $propertyFour
 */
-class PapayaUiControlPart_TestProxy extends \Papaya\Ui\Control\Part {
+class PapayaUiControlPart_TestProxy extends \Papaya\UI\Control\Part {
 
   protected $_property;
 

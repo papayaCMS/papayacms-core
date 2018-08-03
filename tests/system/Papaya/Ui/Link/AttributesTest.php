@@ -18,37 +18,37 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiLinkAttributesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::isPopup
+  * @covers \Papaya\UI\Link\Attributes::isPopup
   */
   public function testIsPopupExpectingFalse() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $this->assertFalse($attributes->isPopup);
   }
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::isPopup
+  * @covers \Papaya\UI\Link\Attributes::isPopup
   */
   public function testIsPopupExpectingTrue() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sample', '80%', '90%');
     $this->assertTrue($attributes->isPopup);
   }
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::removePopup
+  * @covers \Papaya\UI\Link\Attributes::removePopup
   */
   public function testRemovePopup() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sample', '80%', '90%');
     $attributes->removePopup();
     $this->assertFalse($attributes->isPopup);
   }
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::setPopup
+  * @covers \Papaya\UI\Link\Attributes::setPopup
   */
   public function testSetPopup() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sample', '80%', '90%');
     $this->assertEquals('sample', $attributes->target);
     $this->assertEquals('80%', $attributes->popupWidth);
@@ -56,36 +56,36 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::setPopup
-  * @covers \Papaya\Ui\Link\Attributes::setPopupOptions
+  * @covers \Papaya\UI\Link\Attributes::setPopup
+  * @covers \Papaya\UI\Link\Attributes::setPopupOptions
   */
   public function testSetPopupWithAllparameters() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup(
-      'sample', '80%', '90%', '50', '60', \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_AUTO
+      'sample', '80%', '90%', '50', '60', \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_AUTO
     );
     $this->assertEquals('50', $attributes->popupTop);
     $this->assertEquals('60', $attributes->popupLeft);
     $this->assertEquals(
-      \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_AUTO, $attributes->popupOptions
+      \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_AUTO, $attributes->popupOptions
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Link\Attributes::setPopupOptions
+  * @covers \Papaya\UI\Link\Attributes::setPopupOptions
   */
   public function testSetPopupOptionsInvalidExceptionException() {
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid options definition: only one scrollbars option can be set.');
     $attributes->popupOptions = (
-      \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
-      \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_NEVER
+      \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
+      \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_NEVER
     );
   }
 
   /**
-   * @covers \Papaya\Ui\Link\Attributes::getPopupOptionsArray
+   * @covers \Papaya\UI\Link\Attributes::getPopupOptionsArray
    * @dataProvider providePopupLinkOptions
    * @param array $expected
    * @param string|integer $top
@@ -95,7 +95,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   public function testGetPopupOptionsArray(array $expected, $top = NULL, $left = NULL, $options = NULL) {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $this->assertEquals(
       $expected, $attributes->getPopupOptionsArray()
@@ -103,7 +103,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Link\Attributes::appendTo
+   * @covers \Papaya\UI\Link\Attributes::appendTo
    * @dataProvider provideSimpleLinkData
    * @param string $expected
    * @param string $class
@@ -112,7 +112,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   public function testAppendTo($expected, $class, $target) {
     $document = new \Papaya\Xml\Document();
     $node = $document->appendElement('sample');
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->class = $class;
     $attributes->target = $target;
     $node->append($attributes);
@@ -122,7 +122,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Link\Attributes::appendTo
+   * @covers \Papaya\UI\Link\Attributes::appendTo
    * @dataProvider providePopupLinkData
    * @param string $expected
    * @param string|integer $top
@@ -132,7 +132,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   public function testAppendToForPopup($expected, $top = NULL, $left = NULL, $options = NULL) {
     $document = new \Papaya\Xml\Document();
     $node = $document->appendElement('sample');
-    $attributes = new \Papaya\Ui\Link\Attributes();
+    $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $node->append($attributes);
     $this->assertEquals(
@@ -181,12 +181,12 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;yes&quot;}"/>',
         NULL,
         NULL,
-        \Papaya\Ui\Link\Attributes::OPTION_RESIZEABLE |
-        \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
-        \Papaya\Ui\Link\Attributes::OPTION_TOOLBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_MENUBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_LOCATIONBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_STATUSBAR
+        \Papaya\UI\Link\Attributes::OPTION_RESIZEABLE |
+        \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
+        \Papaya\UI\Link\Attributes::OPTION_TOOLBAR |
+        \Papaya\UI\Link\Attributes::OPTION_MENUBAR |
+        \Papaya\UI\Link\Attributes::OPTION_LOCATIONBAR |
+        \Papaya\UI\Link\Attributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         '<sample target="sampleTarget"'.
@@ -196,7 +196,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;auto&quot;}"/>',
         NULL,
         NULL,
-        \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_AUTO
+        \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         '<sample target="sampleTarget"'.
@@ -238,12 +238,12 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
         ),
         NULL,
         NULL,
-        \Papaya\Ui\Link\Attributes::OPTION_RESIZEABLE |
-        \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
-        \Papaya\Ui\Link\Attributes::OPTION_TOOLBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_MENUBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_LOCATIONBAR |
-        \Papaya\Ui\Link\Attributes::OPTION_STATUSBAR
+        \Papaya\UI\Link\Attributes::OPTION_RESIZEABLE |
+        \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |
+        \Papaya\UI\Link\Attributes::OPTION_TOOLBAR |
+        \Papaya\UI\Link\Attributes::OPTION_MENUBAR |
+        \Papaya\UI\Link\Attributes::OPTION_LOCATIONBAR |
+        \Papaya\UI\Link\Attributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         array(
@@ -258,7 +258,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
         ),
         NULL,
         NULL,
-        \Papaya\Ui\Link\Attributes::OPTION_SCROLLBARS_AUTO
+        \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         array(

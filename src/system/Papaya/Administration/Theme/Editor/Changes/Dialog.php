@@ -23,7 +23,7 @@ use Papaya\Content\Structure;
  * @subpackage Administration
  */
 class Dialog
-  extends \Papaya\Ui\Control\Command\Dialog\Database\Record {
+  extends \Papaya\UI\Control\Command\Dialog\Database\Record {
 
   /**
    * @var \Papaya\Content\Structure\Page
@@ -34,7 +34,7 @@ class Dialog
    */
   private $_themeHandler;
   /**
-   * @var \Papaya\Ui\Dialog\Field\Factory
+   * @var \Papaya\UI\Dialog\Field\Factory
    */
   private $_fieldFactory;
   /**
@@ -45,17 +45,17 @@ class Dialog
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \Papaya\Ui\Dialog
+   * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
     if ($setId > 0) {
       $this->record()->load($setId);
     }
-    $dialog = new \Papaya\Ui\Dialog\Database\Save($this->record());
+    $dialog = new \Papaya\UI\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Dynamic Values: %s', array($page->title));
+      $dialog->caption = new \Papaya\UI\Text\Translated('Dynamic Values: %s', array($page->title));
       $dialog->options->topButtons = TRUE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -69,11 +69,11 @@ class Dialog
       );
       /** @var Structure\Group $group */
       foreach ($page->groups() as $group) {
-        $fieldset = new \Papaya\Ui\Dialog\Field\Group($group->title);
+        $fieldset = new \Papaya\UI\Dialog\Field\Group($group->title);
         /** @var Structure\Value $value */
         foreach ($group->values() as $value) {
           try {
-            $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+            $options = new \Papaya\UI\Dialog\Field\Factory\Options(
               array(
                 'name' => 'values/'.$value->getIdentifier(),
                 'caption' => $value->title,
@@ -85,8 +85,8 @@ class Dialog
               $value->fieldType, $options
             );
             $field->setHint($value->hint);
-          } catch (\Papaya\Ui\Dialog\Field\Factory\Exception $e) {
-            $fieldset->fields[] = new \Papaya\Ui\Dialog\Field\Message(
+          } catch (\Papaya\UI\Dialog\Field\Factory\Exception $e) {
+            $fieldset->fields[] = new \Papaya\UI\Dialog\Field\Message(
               \Papaya\Message::SEVERITY_ERROR, $e->getMessage()
             );
           }
@@ -94,21 +94,21 @@ class Dialog
         $dialog->fields[] = $fieldset;
       }
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
+        $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
-          new \Papaya\Ui\Text\Translated('Invalid value definition!')
+          new \Papaya\UI\Text\Translated('Invalid value definition!')
         );
       } else {
-        $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \Papaya\Ui\Text\Translated('Save'));
+        $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
         $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
         $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
       }
     } else {
-      $dialog->caption = new \Papaya\Ui\Text\Translated('Error');
+      $dialog->caption = new \Papaya\UI\Text\Translated('Error');
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Message(
+        $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
           \Papaya\Message::SEVERITY_ERROR,
-          new \Papaya\Ui\Text\Translated('Theme page not found!')
+          new \Papaya\UI\Text\Translated('Theme page not found!')
         );
       }
     }
@@ -134,7 +134,7 @@ class Dialog
    * Save data from dialog
    *
    * @param object $context
-   * @param \Papaya\Ui\Dialog $dialog
+   * @param \Papaya\UI\Dialog $dialog
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
@@ -185,14 +185,14 @@ class Dialog
    * The dialog field factory creates field for the given field types using profile classes/objects
    * defined by the field type name.
    *
-   * @param \Papaya\Ui\Dialog\Field\Factory $factory
-   * @return \Papaya\Ui\Dialog\Field\Factory
+   * @param \Papaya\UI\Dialog\Field\Factory $factory
+   * @return \Papaya\UI\Dialog\Field\Factory
    */
-  public function fieldFactory(\Papaya\Ui\Dialog\Field\Factory $factory = NULL) {
+  public function fieldFactory(\Papaya\UI\Dialog\Field\Factory $factory = NULL) {
     if (NULL !== $factory) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new \Papaya\Ui\Dialog\Field\Factory();
+      $this->_fieldFactory = new \Papaya\UI\Dialog\Field\Factory();
     }
     return $this->_fieldFactory;
   }

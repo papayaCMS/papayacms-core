@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Images::__construct
+  * @covers \Papaya\UI\Listview\Subitem\Images::__construct
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
-    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
-      $icons, 'foo', \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
+    $subitem = new \Papaya\UI\Listview\Subitem\Images(
+      $icons, 'foo', \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK
     );
     $this->assertEquals(
-      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK, $subitem->selectionMode
+      \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK, $subitem->selectionMode
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
+  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseValues() {
     $iconValid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -45,7 +45,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -56,8 +56,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -73,7 +73,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Images($icons, 'foo');
+    $subitem = new \Papaya\UI\Listview\Subitem\Images($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
@@ -84,12 +84,12 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
+  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseKeys() {
     $iconValid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -97,7 +97,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -108,8 +108,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -125,10 +125,10 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
+    $subitem = new \Papaya\UI\Listview\Subitem\Images(
       $icons,
       array('foo' => TRUE),
-      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_KEYS
+      \Papaya\UI\Listview\Subitem\Images::VALIDATE_KEYS
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -140,12 +140,12 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\Ui\Listview\Subitem\Images::validateSelection
+  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
   */
   public function testAppendToUseBitmask() {
     $iconValid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -153,7 +153,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\Papaya\Ui\Icon::class)
+      ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -164,8 +164,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
-    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -181,10 +181,10 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\Xml\Document();
-    $subitem = new \Papaya\Ui\Listview\Subitem\Images(
+    $subitem = new \Papaya\UI\Listview\Subitem\Images(
       $icons,
       5,
-      \Papaya\Ui\Listview\Subitem\Images::VALIDATE_BITMASK
+      \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));

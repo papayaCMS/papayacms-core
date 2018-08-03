@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputMediaFileTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Input\Media\File::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Media\File::__construct
    */
   public function testConstructor() {
-    $field = new \Papaya\Ui\Dialog\Field\Input\Media\File('caption', 'name', TRUE);
+    $field = new \Papaya\UI\Dialog\Field\Input\Media\File('caption', 'name', TRUE);
     $this->assertEquals(new \Papaya\Filter\Guid(), $field->getFilter());
   }
 }

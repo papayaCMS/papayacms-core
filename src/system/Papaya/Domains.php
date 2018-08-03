@@ -177,7 +177,7 @@ class Domains extends Application\BaseObject {
     return $this->_domains;
   }
 
-  public function isStartPage(Ui\Reference\Page $page) {
+  public function isStartPage(UI\Reference\Page $page) {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
       $page->url()->getScheme() == 'https'

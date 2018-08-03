@@ -20,54 +20,54 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::__construct
+   * @covers \Papaya\UI\Content\Teasers::__construct
    */
   public function testConstructor() {
     $pages = $this->getPagesFixture();
-    $teasers = new \Papaya\Ui\Content\Teasers($pages);
+    $teasers = new \Papaya\UI\Content\Teasers($pages);
     $this->assertSame($pages, $teasers->pages());
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::__construct
+   * @covers \Papaya\UI\Content\Teasers::__construct
    */
   public function testConstructorWithAllParameters() {
     $pages = $this->getPagesFixture();
-    $teasers = new \Papaya\Ui\Content\Teasers($pages, 200, 100, 'mincrop');
+    $teasers = new \Papaya\UI\Content\Teasers($pages, 200, 100, 'mincrop');
     $this->assertSame($pages, $teasers->pages());
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::reference
+   * @covers \Papaya\UI\Content\Teasers::reference
    */
   public function testReferenceGetAfterSet() {
-    $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
-    $teasers->reference($reference = $this->createMock(\Papaya\Ui\Reference\Page::class));
+    $teasers = new \Papaya\UI\Content\Teasers($this->getPagesFixture());
+    $teasers->reference($reference = $this->createMock(\Papaya\UI\Reference\Page::class));
     $this->assertSame($reference, $teasers->reference());
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::reference
+   * @covers \Papaya\UI\Content\Teasers::reference
    */
   public function testReferenceGetImplicitCreate() {
-    $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
-    $this->assertInstanceOf(\Papaya\Ui\Reference\Page::class, $teasers->reference());
+    $teasers = new \Papaya\UI\Content\Teasers($this->getPagesFixture());
+    $this->assertInstanceOf(\Papaya\UI\Reference\Page::class, $teasers->reference());
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::pages
+   * @covers \Papaya\UI\Content\Teasers::pages
    */
   public function testPagesGetAfterSet() {
-    $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
+    $teasers = new \Papaya\UI\Content\Teasers($this->getPagesFixture());
     $teasers->pages($pages = $this->getPagesFixture());
     $this->assertSame($pages, $teasers->pages());
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::appendTo
+   * @covers \Papaya\UI\Content\Teasers::appendTo
    */
   public function testAppendToWithEmptyList() {
-    $teasers = new \Papaya\Ui\Content\Teasers($this->getPagesFixture());
+    $teasers = new \Papaya\UI\Content\Teasers($this->getPagesFixture());
     $teasers->papaya($this->mockPapaya()->application());
 
     $this->assertXmlStringEqualsXmlString(
@@ -77,9 +77,9 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::appendTo
-   * @covers \Papaya\Ui\Content\Teasers::appendTeaser
-   * @covers \Papaya\Ui\Content\Teasers::appendThumbnails
+   * @covers \Papaya\UI\Content\Teasers::appendTo
+   * @covers \Papaya\UI\Content\Teasers::appendTeaser
+   * @covers \Papaya\UI\Content\Teasers::appendThumbnails
    */
   public function testAppendToWithPluginImplementingInterfaces() {
     $pages = $this->getPagesFixture(
@@ -107,7 +107,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->with('12345678901234567890123456789042')
       ->will($this->returnValue($plugin));
 
-    $teasers = new \Papaya\Ui\Content\Teasers($pages);
+    $teasers = new \Papaya\UI\Content\Teasers($pages);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -117,9 +117,9 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::appendTo
-   * @covers \Papaya\Ui\Content\Teasers::appendTeaser
-   * @covers \Papaya\Ui\Content\Teasers::appendThumbnails
+   * @covers \Papaya\UI\Content\Teasers::appendTo
+   * @covers \Papaya\UI\Content\Teasers::appendTeaser
+   * @covers \Papaya\UI\Content\Teasers::appendThumbnails
    */
   public function testAppendToWithPluginHavingGetParsedTeaser() {
     $pages = $this->getPagesFixture(
@@ -148,7 +148,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->with('12345678901234567890123456789021')
       ->will($this->returnValue($plugin));
 
-    $teasers = new \Papaya\Ui\Content\Teasers($pages);
+    $teasers = new \Papaya\UI\Content\Teasers($pages);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -158,9 +158,9 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::appendTo
-   * @covers \Papaya\Ui\Content\Teasers::appendTeaser
-   * @covers \Papaya\Ui\Content\Teasers::appendThumbnails
+   * @covers \Papaya\UI\Content\Teasers::appendTo
+   * @covers \Papaya\UI\Content\Teasers::appendTeaser
+   * @covers \Papaya\UI\Content\Teasers::appendThumbnails
    */
   public function testAppendToWithNonExistingPlugin() {
     $pages = $this->getPagesFixture(
@@ -184,7 +184,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->with(12345678901234567890123456789023)
       ->will($this->returnValue(NULL));
 
-    $teasers = new \Papaya\Ui\Content\Teasers($pages);
+    $teasers = new \Papaya\UI\Content\Teasers($pages);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -194,9 +194,9 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Content\Teasers::appendTo
-   * @covers \Papaya\Ui\Content\Teasers::appendTeaser
-   * @covers \Papaya\Ui\Content\Teasers::appendThumbnails
+   * @covers \Papaya\UI\Content\Teasers::appendTo
+   * @covers \Papaya\UI\Content\Teasers::appendTeaser
+   * @covers \Papaya\UI\Content\Teasers::appendThumbnails
    */
   public function testAppendToWithPluginAddingThumbnails() {
     $pages = $this->getPagesFixture(
@@ -220,7 +220,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->with('12345678901234567890123456789042')
       ->will($this->returnValue(new \PapayaUiContentTeasers_PagePluginMockClass()));
 
-    $teasers = new \Papaya\Ui\Content\Teasers($pages, 200, 100);
+    $teasers = new \Papaya\UI\Content\Teasers($pages, 200, 100);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $date = \Papaya\Utility\Date::timestampToString(strtotime('2017-01-16T12:21Z'));

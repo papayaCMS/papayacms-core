@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogButtonsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Dialog\Buttons::add
+  * @covers \Papaya\UI\Dialog\Buttons::add
   */
   public function testAdd() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Button $button */
-    $button = $this->createMock(\Papaya\Ui\Dialog\Button::class);
-    $buttons = new \Papaya\Ui\Dialog\Buttons();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Button $button */
+    $button = $this->createMock(\Papaya\UI\Dialog\Button::class);
+    $buttons = new \Papaya\UI\Dialog\Buttons();
     $buttons->add($button);
     $this->assertAttributeEquals(
       array($button), '_items', $buttons

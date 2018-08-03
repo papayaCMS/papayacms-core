@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Theme\Editor;
-use Papaya\Ui\Listview;
+use Papaya\UI\Listview;
 
 /**
  * Navigation part of the theme sets editor (dynamic values for a theme)
@@ -25,7 +25,7 @@ use Papaya\Ui\Listview;
 class Navigation extends \Papaya\Administration\Page\Part {
 
   /**
-   * @var \Papaya\Ui\Listview
+   * @var \Papaya\UI\Listview
    */
   private $_listview = NULL;
 
@@ -38,8 +38,8 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);
-      $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
-      $button->caption = new \Papaya\Ui\Text\Translated('Add set');
+      $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+      $button->caption = new \Papaya\UI\Text\Translated('Add set');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
         array(
@@ -50,8 +50,8 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
-        $button->caption = new \Papaya\Ui\Text\Translated('Delete set');
+        $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+        $button->caption = new \Papaya\UI\Text\Translated('Delete set');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
           array(
@@ -62,8 +62,8 @@ class Navigation extends \Papaya\Administration\Page\Part {
           $this->parameterGroup()
         );
       }
-      $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
-      $button->caption = new \Papaya\Ui\Text\Translated('Import');
+      $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+      $button->caption = new \Papaya\UI\Text\Translated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
         array(
@@ -74,8 +74,8 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \Papaya\Ui\Toolbar\Button();
-        $button->caption = new \Papaya\Ui\Text\Translated('Export');
+        $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+        $button->caption = new \Papaya\UI\Text\Translated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(
           array(
@@ -95,17 +95,17 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * It displays the list of Themes, the Sets of the selected theme and the pages of the
    * selected set.
    *
-   * @param \Papaya\Ui\Listview $listview
-   * @return \Papaya\Ui\Listview
+   * @param \Papaya\UI\Listview $listview
+   * @return \Papaya\UI\Listview
    */
-  public function listview(\Papaya\Ui\Listview $listview = NULL) {
+  public function listview(\Papaya\UI\Listview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \Papaya\Ui\Listview();
-      $this->_listview->caption = new \Papaya\Ui\Text\Translated('Themes');
+      $this->_listview = new \Papaya\UI\Listview();
+      $this->_listview->caption = new \Papaya\UI\Text\Translated('Themes');
       $this->_listview->builder(
-        $builder = new \Papaya\Ui\Listview\Items\Builder(
+        $builder = new \Papaya\UI\Listview\Items\Builder(
           new \RecursiveIteratorIterator(
             $this->createThemeList(), \RecursiveIteratorIterator::SELF_FIRST
           )
@@ -156,11 +156,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
   /**
    * Callback to create the items, depending on the depth here are the theme and set elements
    *
-   * @param \Papaya\Ui\Listview\Items\Builder $builder
-   * @param \Papaya\Ui\Listview\Items $items
+   * @param \Papaya\UI\Listview\Items\Builder $builder
+   * @param \Papaya\UI\Listview\Items $items
    * @param mixed $element
    * @param mixed $index
-   * @return null|\Papaya\Ui\Listview\Item
+   * @return null|\Papaya\UI\Listview\Item
    */
   public function callbackCreateItem($builder, $items, $element, $index) {
     /** @noinspection PhpUndefinedMethodInspection */
@@ -182,10 +182,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme
    *
    * @param string $element
-   * @return \Papaya\Ui\Listview\Item
+   * @return \Papaya\UI\Listview\Item
    */
   private function createThemeItem($element) {
-    $item = new \Papaya\Ui\Listview\Item('items-theme', (string)$element);
+    $item = new \Papaya\UI\Listview\Item('items-theme', (string)$element);
     $item->papaya($this->papaya());
     $item->reference->setParameters(
       array(
@@ -205,10 +205,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a set
    *
    * @param array $element
-   * @return \Papaya\Ui\Listview\Item
+   * @return \Papaya\UI\Listview\Item
    */
   private function createSetItem($element) {
-    $item = new \Papaya\Ui\Listview\Item('items-folder', (string)$element['title']);
+    $item = new \Papaya\UI\Listview\Item('items-folder', (string)$element['title']);
     $item->papaya($this->papaya());
     $item->indentation = 1;
     $item->reference->setParameters(
@@ -229,10 +229,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme values page
    *
    * @param \Papaya\Content\Structure\Page $element
-   * @return \Papaya\Ui\Listview\Item
+   * @return \Papaya\UI\Listview\Item
    */
   private function createPageItem(\Papaya\Content\Structure\Page $element) {
-    $item = new \Papaya\Ui\Listview\Item('items-folder', (string)$element->title);
+    $item = new \Papaya\UI\Listview\Item('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;
     $item->reference->setParameters(

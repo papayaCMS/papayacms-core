@@ -158,7 +158,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   * @covers Dialog::listview
   */
   public function testListviewGetAfterSet() {
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
     $dialog = new Dialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
@@ -170,7 +170,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   public function testListviewImplicitCreate() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(\Papaya\Ui\Listview::class, $dialog->listview());
+    $this->assertInstanceOf(\Papaya\UI\Listview::class, $dialog->listview());
   }
 
   /**
@@ -193,7 +193,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testPagingGetAfterSet() {
     $paging = $this
-      ->getMockBuilder(\Papaya\Ui\Toolbar\Paging::class)
+      ->getMockBuilder(\Papaya\UI\Toolbar\Paging::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new Dialog();
@@ -206,14 +206,14 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testPagingImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(\Papaya\Ui\Toolbar\Paging::class, $dialog->paging());
+    $this->assertInstanceOf(\Papaya\UI\Toolbar\Paging::class, $dialog->paging());
   }
 
   /**
   * @covers Dialog::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
     $dialog = new Dialog();
     $dialog->reference($reference);
     $this->assertSame($reference, $dialog->reference());
@@ -224,7 +224,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   */
   public function testReferenceImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(\Papaya\Ui\Reference::class, $dialog->reference());
+    $this->assertInstanceOf(\Papaya\UI\Reference::class, $dialog->reference());
   }
 
   /**

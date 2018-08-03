@@ -25,7 +25,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
       ->method('filter')
       ->with('value')
       ->will($this->returnArgument(0));
-    $condition = new \Papaya\Ui\Control\Command\Condition\Parameter('name', $filter);
+    $condition = new \Papaya\UI\Control\Command\Condition\Parameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertTrue($condition->validate());
   }
@@ -38,7 +38,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
       ->method('filter')
       ->with('value')
       ->will($this->returnValue(NULL));
-    $condition = new \Papaya\Ui\Control\Command\Condition\Parameter('name', $filter);
+    $condition = new \Papaya\UI\Control\Command\Condition\Parameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertFalse($condition->validate());
   }
@@ -50,12 +50,12 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
       ->method('get')
       ->with('name')
       ->will($this->returnValue('value'));
-    $owner = $this->createMock(\Papaya\Ui\Control\Interactive::class);
+    $owner = $this->createMock(\Papaya\UI\Control\Interactive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue($parameters));
-    $command = $this->createMock(\Papaya\Ui\Control\Command::class);
+    $command = $this->createMock(\Papaya\UI\Control\Command::class);
     $command
       ->expects($this->once())
       ->method('owner')

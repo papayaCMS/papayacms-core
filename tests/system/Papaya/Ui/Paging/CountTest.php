@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiPagingCountTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::__construct
+  * @covers \Papaya\UI\Paging\Count::__construct
   */
   public function testConstructor() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 2, 42);
+    $paging = new \Papaya\UI\Paging\Count('page', 2, 42);
     $this->assertAttributeEquals(
       'page', '_parameterName', $paging
     );
@@ -34,13 +34,13 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::appendTo
-  * @covers \Papaya\Ui\Paging\Count::appendListElement
-  * @covers \Papaya\Ui\Paging\Count::appendPageElement
-  * @covers \Papaya\Ui\Paging\Count::calculate
+  * @covers \Papaya\UI\Paging\Count::appendTo
+  * @covers \Papaya\UI\Paging\Count::appendListElement
+  * @covers \Papaya\UI\Paging\Count::appendPageElement
+  * @covers \Papaya\UI\Paging\Count::calculate
   */
   public function testAppendToWithAdditionalParameters() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     $paging->reference()->setParameters(array('foo' => array('size' => 10)));
     $this->assertXmlStringEqualsXmlString(
@@ -62,13 +62,13 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::appendTo
-  * @covers \Papaya\Ui\Paging\Count::appendListElement
-  * @covers \Papaya\Ui\Paging\Count::appendPageElement
-  * @covers \Papaya\Ui\Paging\Count::calculate
+  * @covers \Papaya\UI\Paging\Count::appendTo
+  * @covers \Papaya\UI\Paging\Count::appendListElement
+  * @covers \Papaya\UI\Paging\Count::appendPageElement
+  * @covers \Papaya\UI\Paging\Count::calculate
   */
   public function testAppendToWithCurrentPageEqualsTwo() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 2, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $paging->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -84,13 +84,13 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::appendTo
-  * @covers \Papaya\Ui\Paging\Count::appendListElement
-  * @covers \Papaya\Ui\Paging\Count::appendPageElement
-  * @covers \Papaya\Ui\Paging\Count::calculate
+  * @covers \Papaya\UI\Paging\Count::appendTo
+  * @covers \Papaya\UI\Paging\Count::appendListElement
+  * @covers \Papaya\UI\Paging\Count::appendPageElement
+  * @covers \Papaya\UI\Paging\Count::calculate
   */
   public function testAppendToWithCurrentPageGreaterLastPage() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 99, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 99, 30);
     $paging->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -106,13 +106,13 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::appendTo
-  * @covers \Papaya\Ui\Paging\Count::appendListElement
-  * @covers \Papaya\Ui\Paging\Count::appendPageElement
-  * @covers \Papaya\Ui\Paging\Count::calculate
+  * @covers \Papaya\UI\Paging\Count::appendTo
+  * @covers \Papaya\UI\Paging\Count::appendListElement
+  * @covers \Papaya\UI\Paging\Count::appendPageElement
+  * @covers \Papaya\UI\Paging\Count::calculate
   */
   public function testAppendToWithLimitedPages() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 2, 300);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 300);
     $paging->papaya($this->mockPapaya()->application());
     $paging->pageLimit = 3;
     $this->assertXmlStringEqualsXmlString(
@@ -130,12 +130,12 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setXmlNames
-  * @covers \Papaya\Ui\Paging\Count::appendListElement
-  * @covers \Papaya\Ui\Paging\Count::appendPageElement
+  * @covers \Papaya\UI\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::appendListElement
+  * @covers \Papaya\UI\Paging\Count::appendPageElement
   */
   public function testAppendToWithDifferentXml() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 2, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $paging->setXmlNames(
       array(
         'list' => 'PagingLinks',
@@ -157,10 +157,10 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::setXmlNames
   */
   public function testSetXmlWithInvalidElement() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 2, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
     $paging->setXmlNames(
@@ -171,10 +171,10 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::setXmlNames
   */
   public function testSetXmlWithInvalidElementName() {
-    $paging = new \Papaya\Ui\Paging\Count('foo/page', 2, 30);
+    $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
     $paging->setXmlNames(
@@ -185,11 +185,11 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setItemsCount
-  * @covers \Papaya\Ui\Paging\Count::reset
+  * @covers \Papaya\UI\Paging\Count::setItemsCount
+  * @covers \Papaya\UI\Paging\Count::reset
   */
   public function testSetItemsCountResetsCalculations() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -203,20 +203,20 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setItemsCount
+  * @covers \Papaya\UI\Paging\Count::setItemsCount
   */
   public function testSetItemsCountExpectingException() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $paging->itemsCount = -42;
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setItemsPerPage
+  * @covers \Papaya\UI\Paging\Count::setItemsPerPage
   */
   public function testSetItemsPerPageResetsCalculations() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -230,20 +230,20 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setItemsPerPage
+  * @covers \Papaya\UI\Paging\Count::setItemsPerPage
   */
   public function testSetItemsPerPageExpectingException() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $paging->itemsPerPage = 0;
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setPageLimit
+  * @covers \Papaya\UI\Paging\Count::setPageLimit
   */
   public function testSetPageLimitResetsCalculations() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -257,20 +257,20 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setPageLimit
+  * @covers \Papaya\UI\Paging\Count::setPageLimit
   */
   public function testSetPageLimitExpectingException() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Page limit can not be less than 3.');
     $paging->pageLimit = 2;
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::setCurrentPage
+  * @covers \Papaya\UI\Paging\Count::setCurrentPage
   */
   public function testSetCurrentPageResetsCalculations() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -284,10 +284,10 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::getCurrentPage
+  * @covers \Papaya\UI\Paging\Count::getCurrentPage
   */
   public function testGetCurrentPageTriggersCalculation() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 100, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 100, 30);
     $paging->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       3, $paging->currentPage
@@ -298,14 +298,14 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Ui\Paging\Count::getLastPage
+   * @covers \Papaya\UI\Paging\Count::getLastPage
    * @dataProvider provideLastPageCalculationData
    * @param int $itemsPerPage
    * @param int $itemsCount
    * @param int $expectedMaximum
    */
   public function testLastPageCalculation($itemsPerPage, $itemsCount, $expectedMaximum) {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, $itemsCount);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, $itemsCount);
     $paging->itemsPerPage = $itemsPerPage;
     $this->assertEquals(
       $expectedMaximum, $paging->lastPage
@@ -313,11 +313,11 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::reference
+  * @covers \Papaya\UI\Paging\Count::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\Ui\Reference::class);
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $reference = $this->createMock(\Papaya\UI\Reference::class);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->reference($reference);
     $this->assertSame(
       $reference, $paging->reference()
@@ -325,15 +325,15 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Paging\Count::reference
+  * @covers \Papaya\UI\Paging\Count::reference
   */
   public function testReferenceGetImplicitCreate() {
-    $paging = new \Papaya\Ui\Paging\Count('page', 0, 30);
+    $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
     $paging->papaya(
       $application = $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      \Papaya\Ui\Reference::class, $paging->reference()
+      \Papaya\UI\Reference::class, $paging->reference()
     );
     $this->assertSame(
       $application, $paging->reference()->papaya()

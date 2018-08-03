@@ -44,7 +44,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
   private $_parts = NULL;
 
   /**
-   * @var \Papaya\Ui\Toolbar
+   * @var \Papaya\UI\Toolbar
    */
   private $_toolbar = NULL;
 
@@ -176,14 +176,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param \Papaya\Ui\Toolbar $toolbar
-   * @return \Papaya\Ui\Toolbar
+   * @param \Papaya\UI\Toolbar $toolbar
+   * @return \Papaya\UI\Toolbar
    */
-  public function toolbar(\Papaya\Ui\Toolbar $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new \Papaya\Ui\Menu();
+      $this->_toolbar = new \Papaya\UI\Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }

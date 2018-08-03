@@ -18,23 +18,23 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileRichtextSimpleTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\RichtextSimple::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\RichtextSimple::getField
    */
   public function testGetField() {
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'rtefield',
         'caption' => 'Richtext',
         'default' => 'some value'
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\RichtextSimple();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\RichtextSimple();
     $profile->options($options);
     $this->assertInstanceOf(
-      \Papaya\Ui\Dialog\Field\Textarea\Richtext::class, $field = $profile->getField()
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::class, $field = $profile->getField()
     );
     $this->assertEquals(
-      \Papaya\Ui\Dialog\Field\Textarea\Richtext::RTE_SIMPLE,
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE,
       $field->getRteMode()
     );
   }

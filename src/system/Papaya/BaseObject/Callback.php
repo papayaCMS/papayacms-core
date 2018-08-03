@@ -19,7 +19,7 @@ namespace Papaya\BaseObject;
  * Encapsulate a php callback, to allow a default returnvalue and a context.
  *
  * @package Papaya-Library
- * @subpackage Ui
+ * @subpackage UI
  *
  * @property mixed $defaultReturn
  * @property object $context

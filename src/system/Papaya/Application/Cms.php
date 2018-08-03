@@ -20,7 +20,7 @@ namespace Papaya\Application;
  * allows to declare the profiles as properties
  *
  * @property \Papaya\Database\Manager $database
- * @property \Papaya\Ui\Images images
+ * @property \Papaya\UI\Images images
  * @property \Papaya\Content\Languages $languages
  * @property \Papaya\Message\Manager $messages
  * @property \Papaya\Configuration\Cms $options
@@ -32,8 +32,8 @@ namespace Papaya\Application;
  * @property \base_surfer $surfer
  * @property \base_auth $administrationUser
  * @property \Papaya\Administration\Languages\Selector $administrationLanguage
- * @property \Papaya\Ui\Reference\Factory $references
- * @property \Papaya\Ui\Reference\Page\Factory $pageReferences
+ * @property \Papaya\UI\Reference\Factory $references
+ * @property \Papaya\UI\Reference\Page\Factory $pageReferences
  * @property \Papaya\Phrases $phrases
  */
 abstract class Cms extends \Papaya\Application {

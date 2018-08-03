@@ -167,13 +167,13 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
    * @covers Change::callbackShowError
    */
   public function testCallbackShowError() {
-    $errors = $this->createMock(\Papaya\Ui\Dialog\Errors::class);
+    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog $dialog */
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')

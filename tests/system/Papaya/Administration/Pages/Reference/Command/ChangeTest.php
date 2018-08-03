@@ -116,7 +116,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
   * @covers Change::sortAsc
   */
   public function testValidateTargetExpectingFalse() {
-    $field = $this->createMock(\Papaya\Ui\Dialog\Field::class);
+    $field = $this->createMock(\Papaya\UI\Dialog\Field::class);
     $field
       ->expects($this->once())
       ->method('handleValidationFailure')
@@ -167,13 +167,13 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
   * @covers Change::dispatchErrorMessage
   */
   public function testDispatchErrorMessage() {
-    $errors = $this->createMock(\Papaya\Ui\Dialog\Errors::class);
+    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array('field')));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog $dialog */
-    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')

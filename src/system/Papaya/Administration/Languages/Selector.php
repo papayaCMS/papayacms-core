@@ -31,7 +31,7 @@ namespace Papaya\Administration\Languages;
  * @property-read string $image current language image including path
  * @property-read string $title current language title
  */
-class Selector extends \Papaya\Ui\Control\Interactive {
+class Selector extends \Papaya\UI\Control\Interactive {
 
   /**
    * Internal property for language list
@@ -109,10 +109,10 @@ class Selector extends \Papaya\Ui\Control\Interactive {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
-      array('title' => new \Papaya\Ui\Text\Translated('Content Language'))
+      array('title' => new \Papaya\UI\Text\Translated('Content Language'))
     );
     foreach ($this->languages() as $id => $language) {
-      $reference = new \Papaya\Ui\Reference();
+      $reference = new \Papaya\UI\Reference();
       $reference->papaya($this->papaya());
       $reference->setParameters(array('language_select' => $id), 'lngsel');
       $link = $links->appendElement(

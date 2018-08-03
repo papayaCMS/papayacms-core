@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiControlTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Control::getXml
+  * @covers \Papaya\UI\Control::getXml
   */
   public function testGetXml() {
     $control = new \PapayaUiControl_TestProxy();
@@ -32,7 +32,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control::getXml
+  * @covers \Papaya\UI\Control::getXml
   */
   public function testGetXmlWithTextNode() {
     $control = new \PapayaUiControl_TestProxy();
@@ -46,7 +46,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Control::getXml
+  * @covers \Papaya\UI\Control::getXml
   */
   public function testGetXmlWithSeveralNodes() {
     $control = new \PapayaUiControl_TestProxy();
@@ -63,7 +63,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiControl_TestProxy extends \Papaya\Ui\Control {
+class PapayaUiControl_TestProxy extends \Papaya\UI\Control {
 
   public $nodeStub = array();
 

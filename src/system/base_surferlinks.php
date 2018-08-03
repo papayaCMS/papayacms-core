@@ -89,7 +89,7 @@ class base_surferlinks extends base_db {
   public $modeList;
 
   /**
-   * @var array|\Papaya\Ui\Images
+   * @var array|\Papaya\UI\Images
    */
   public $images = array();
 

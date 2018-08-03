@@ -18,32 +18,32 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewSubitemTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem::getAlign
-  * @covers \Papaya\Ui\Listview\Subitem::setAlign
+  * @covers \Papaya\UI\Listview\Subitem::getAlign
+  * @covers \Papaya\UI\Listview\Subitem::setAlign
   */
   public function testGetAlignAfterSetAlign() {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->setAlign(\Papaya\Ui\Option\Align::RIGHT);
+    $subitem->setAlign(\Papaya\UI\Option\Align::RIGHT);
     $this->assertEquals(
-      \Papaya\Ui\Option\Align::RIGHT, $subitem->getAlign()
+      \Papaya\UI\Option\Align::RIGHT, $subitem->getAlign()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem::getAlign
+  * @covers \Papaya\UI\Listview\Subitem::getAlign
   */
   public function testGetAlignFetchFromColumn() {
     $column = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Column::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Column::class)
       ->setConstructorArgs(array(''))
       ->getMock();
     $column
       ->expects($this->once())
       ->method('getAlign')
-      ->will($this->returnValue(\Papaya\Ui\Option\Align::CENTER));
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
+      ->will($this->returnValue(\Papaya\UI\Option\Align::CENTER));
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
     $columns = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Columns::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $columns
@@ -61,11 +61,11 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $subitems = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Subitems::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
       ->setConstructorArgs(
         array(
           $this
-            ->getMockBuilder(\Papaya\Ui\Listview\Item::class)
+            ->getMockBuilder(\Papaya\UI\Listview\Item::class)
             ->setConstructorArgs(array('', ''))
             ->getMock()
         )
@@ -78,17 +78,17 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
-      \Papaya\Ui\Option\Align::CENTER, $subitem->getAlign()
+      \Papaya\UI\Option\Align::CENTER, $subitem->getAlign()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem::getAlign
+  * @covers \Papaya\UI\Listview\Subitem::getAlign
   */
   public function testGetAlignUseDefaultValue() {
-    $listview = $this->createMock(\Papaya\Ui\Listview::class);
+    $listview = $this->createMock(\Papaya\UI\Listview::class);
     $columns = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Columns::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $columns
@@ -101,11 +101,11 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $subitems = $this
-      ->getMockBuilder(\Papaya\Ui\Listview\Subitems::class)
+      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
       ->setConstructorArgs(
         array(
           $this
-            ->getMockBuilder(\Papaya\Ui\Listview\Item::class)
+            ->getMockBuilder(\Papaya\UI\Listview\Item::class)
             ->setConstructorArgs(array('', ''))
             ->getMock()
         )
@@ -118,12 +118,12 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
-      \Papaya\Ui\Option\Align::LEFT, $subitem->getAlign()
+      \Papaya\UI\Option\Align::LEFT, $subitem->getAlign()
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Listview\Subitem::setActionParameters
+  * @covers \Papaya\UI\Listview\Subitem::setActionParameters
   */
   public function testSetActionParameters() {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
@@ -134,7 +134,7 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiListviewSubitem_TestProxy extends \Papaya\Ui\Listview\Subitem {
+class PapayaUiListviewSubitem_TestProxy extends \Papaya\UI\Listview\Subitem {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
   }

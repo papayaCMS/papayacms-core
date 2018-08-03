@@ -148,14 +148,14 @@ class Parts
   /**
    * The toolbar is composed, so the navigation and the changes subobjects can add elements
    *
-   * @param \Papaya\Ui\Toolbar\Composed $toolbar
-   * @return null|\Papaya\Ui\Toolbar\Composed
+   * @param \Papaya\UI\Toolbar\Composed $toolbar
+   * @return null|\Papaya\UI\Toolbar\Composed
    */
-  public function toolbar(\Papaya\Ui\Toolbar\Composed $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar\Composed $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = new \Papaya\Ui\Toolbar\Composed(
+      $this->_toolbar = new \Papaya\UI\Toolbar\Composed(
         array_merge($this->_buttonOrder, array_keys($this->_parts))
       );
       $this->_toolbar->papaya($this->papaya());

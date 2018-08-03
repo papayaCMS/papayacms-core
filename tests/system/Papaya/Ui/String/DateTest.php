@@ -18,32 +18,32 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiStringDateTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Text\Date::__construct
+  * @covers \Papaya\UI\Text\Date::__construct
   */
   public function testConstructor() {
-    $string = new \Papaya\Ui\Text\Date(strtotime('2011-08-25 16:00:00'));
+    $string = new \Papaya\UI\Text\Date(strtotime('2011-08-25 16:00:00'));
     $this->assertAttributeEquals(
       strtotime('2011-08-25 16:00:00'), '_timestamp', $string
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Date::__toString
+  * @covers \Papaya\UI\Text\Date::__toString
   */
   public function testMagicMethodToString() {
-    $string = new \Papaya\Ui\Text\Date(strtotime('2011-08-25 16:00:00'));
+    $string = new \Papaya\UI\Text\Date(strtotime('2011-08-25 16:00:00'));
     $this->assertEquals(
       '2011-08-25 16:00', (string)$string
     );
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Date::__toString
+  * @covers \Papaya\UI\Text\Date::__toString
   */
   public function testMagicMethodToStringWithTime() {
-    $string = new \Papaya\Ui\Text\Date(
+    $string = new \Papaya\UI\Text\Date(
       strtotime('2011-08-25 16:00:00'),
-      \Papaya\Ui\Text\Date::SHOW_TIME
+      \Papaya\UI\Text\Date::SHOW_TIME
     );
     $this->assertEquals(
       '2011-08-25 16:00', (string)$string
@@ -51,12 +51,12 @@ class PapayaUiStringDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Date::__toString
+  * @covers \Papaya\UI\Text\Date::__toString
   */
   public function testMagicMethodToStringWithTimeAndSeconds() {
-    $string = new \Papaya\Ui\Text\Date(
+    $string = new \Papaya\UI\Text\Date(
       strtotime('2011-08-25 16:00:00'),
-      \Papaya\Ui\Text\Date::SHOW_TIME | \Papaya\Ui\Text\Date::SHOW_SECONDS
+      \Papaya\UI\Text\Date::SHOW_TIME | \Papaya\UI\Text\Date::SHOW_SECONDS
     );
     $this->assertEquals(
       '2011-08-25 16:00:00', (string)$string
@@ -64,12 +64,12 @@ class PapayaUiStringDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Ui\Text\Date::__toString
+  * @covers \Papaya\UI\Text\Date::__toString
   */
   public function testMagicMethodToStringWithSecondsExpectingDateOnly() {
-    $string = new \Papaya\Ui\Text\Date(
+    $string = new \Papaya\UI\Text\Date(
       strtotime('2011-08-25 16:00:00'),
-      \Papaya\Ui\Text\Date::SHOW_SECONDS
+      \Papaya\UI\Text\Date::SHOW_SECONDS
     );
     $this->assertEquals(
       '2011-08-25', (string)$string

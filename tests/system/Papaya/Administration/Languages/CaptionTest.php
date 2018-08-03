@@ -83,7 +83,7 @@ class PapayaAdministrationLanguagesCaptionTest extends \PapayaTestCase {
       array('', '', ' - '),
       array('Foo', 'Foo', ' - '),
       array('Foo', 'Foo', ' > '),
-      array('Foo', new \Papaya\Ui\Text('Foo'), ' '),
+      array('Foo', new \Papaya\UI\Text('Foo'), ' '),
     );
   }
 
@@ -92,11 +92,11 @@ class PapayaAdministrationLanguagesCaptionTest extends \PapayaTestCase {
       array('', NULL, '', ' - '),
       array('Foo', NULL, 'Foo', ' - '),
       array('Foo', NULL, 'Foo', ' > '),
-      array('Foo', NULL, new \Papaya\Ui\Text('Foo'), ''),
+      array('Foo', NULL, new \Papaya\UI\Text('Foo'), ''),
       array('English', array('title' => 'English'), '', ' - '),
       array('English - Foo', array('title' => 'English'), 'Foo', ' - '),
       array('English > Foo', array('title' => 'English'), 'Foo', ' > '),
-      array('English Foo', array('title' => 'English'), new \Papaya\Ui\Text('Foo'), ' '),
+      array('English Foo', array('title' => 'English'), new \Papaya\UI\Text('Foo'), ' '),
     );
   }
 }

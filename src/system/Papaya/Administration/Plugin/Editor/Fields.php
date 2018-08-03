@@ -42,7 +42,7 @@ class Fields extends Dialog {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return \Papaya\Ui\Dialog
+   * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {
     $dialog = parent::createDialog();
@@ -54,14 +54,14 @@ class Fields extends Dialog {
    * Getter/Setter for a dialog field builder. It maps the field definitions to profiles
    * and uses a factory to create the field instances.
    *
-   * @param \Papaya\Ui\Dialog\Field\Builder\FromArray $builder
-   * @return \Papaya\Ui\Dialog\Field\Builder\FromArray
+   * @param \Papaya\UI\Dialog\Field\Builder\FromArray $builder
+   * @return \Papaya\UI\Dialog\Field\Builder\FromArray
    */
-  public function builder(\Papaya\Ui\Dialog\Field\Builder\FromArray $builder = NULL) {
+  public function builder(\Papaya\UI\Dialog\Field\Builder\FromArray $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
-      $this->_builder = new \Papaya\Ui\Dialog\Field\Builder\FromArray($this, $this->_fields);
+      $this->_builder = new \Papaya\UI\Dialog\Field\Builder\FromArray($this, $this->_fields);
     }
     return $this->_builder;
   }

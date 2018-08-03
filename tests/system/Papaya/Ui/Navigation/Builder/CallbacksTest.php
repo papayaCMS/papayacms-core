@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiNavigationBuilderCallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Ui\Navigation\Builder\Callbacks::__construct
+  * @covers \Papaya\UI\Navigation\Builder\Callbacks::__construct
   */
   public function testConstructor() {
-    $callbacks = new \Papaya\Ui\Navigation\Builder\Callbacks();
+    $callbacks = new \Papaya\UI\Navigation\Builder\Callbacks();
     $this->assertNull($callbacks->onBeforeAppend->defaultReturn);
     $this->assertNull($callbacks->onAfterAppend->defaultReturn);
     $this->assertNull($callbacks->onCreateItem->defaultReturn);

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectDirectory
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectDirectory
    */
   public function testGetField() {
     $context = $this->createMock(\Papaya\Application\Access::class);
@@ -26,7 +26,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCa
       ->expects($this->once())
       ->method('papaya')
       ->will($this->returnValue($this->mockPapaya()->application()));
-    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
+    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -35,10 +35,10 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCa
         'context' => $context
       )
     );
-    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectDirectory();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectDirectory();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**

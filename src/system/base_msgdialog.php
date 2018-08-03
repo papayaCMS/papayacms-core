@@ -72,7 +72,7 @@ class base_msgdialog extends base_object {
   /**
   * CSRF tokens manager
   *
-  * @var \Papaya\Ui\Tokens
+  * @var \Papaya\UI\Tokens
   */
   protected $_tokens = NULL;
 
@@ -231,14 +231,14 @@ class base_msgdialog extends base_object {
   /**
   * Getter/Setter for csrf token manager including implizit create
   *
-  * @param \Papaya\Ui\Tokens $tokens
-  * @return \Papaya\Ui\Tokens
+  * @param \Papaya\UI\Tokens $tokens
+  * @return \Papaya\UI\Tokens
   */
-  protected function tokens(\Papaya\Ui\Tokens $tokens = NULL) {
+  protected function tokens(\Papaya\UI\Tokens $tokens = NULL) {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {
-      $this->_tokens = new \Papaya\Ui\Tokens();
+      $this->_tokens = new \Papaya\UI\Tokens();
     }
     return $this->_tokens;
   }

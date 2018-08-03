@@ -86,8 +86,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
 
   /**
   * Images -> use $this->papaya()->images
+  *
   * @deprecated
-  * @var array|\Papaya\Ui\Images $images
+  * @var array|\Papaya\UI\Images $images
   */
   var $images = NULL;
 
@@ -593,7 +594,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   ) {
     $application = $this->papaya();
     $request = $application->request;
-    $reference = new \Papaya\Ui\Reference\Page();
+    $reference = new \Papaya\UI\Reference\Page();
     $reference->load($request);
     if (isset($pageId)) {
       $reference->setPageId($pageId);
@@ -765,7 +766,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $request = $application->request;
     $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
-      $reference = new \Papaya\Ui\Reference\Thumbnail();
+      $reference = new \Papaya\UI\Reference\Thumbnail();
       $reference->papaya($this->papaya());
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
@@ -776,7 +777,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       );
       $ext = $extensions[$thumbsFileType];
     } else {
-      $reference = new \Papaya\Ui\Reference\Media();
+      $reference = new \Papaya\UI\Reference\Media();
       $reference->papaya($this->papaya());
       $reference->setMode($mode);
       $storageGroup = 'files';
