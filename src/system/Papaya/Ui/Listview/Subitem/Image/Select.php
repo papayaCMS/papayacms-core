@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property integer $align
-* @property \PapayaUiIconList $icons
+* @property \Papaya\Ui\Icon\Collection $icons
 * @property string $selection
 * @property array $actionParameters
 */
@@ -29,7 +29,7 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
   /**
   * A list of icons
   *
-  * @var \PapayaUiIconList
+  * @var \Papaya\Ui\Icon\Collection
   */
   protected $_icons = NULL;
 
@@ -55,11 +55,11 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
   /**
    * Create subitme and store icon list and selection index.
    *
-   * @param \PapayaUiIconList $icons
+   * @param \Papaya\Ui\Icon\Collection $icons
    * @param mixed $selection
    * @param array $actionParameters
    */
-  public function __construct(\PapayaUiIconList $icons, $selection, array $actionParameters = NULL) {
+  public function __construct(\Papaya\Ui\Icon\Collection $icons, $selection, array $actionParameters = NULL) {
     $this->setIcons($icons);
     $this->_selection = $selection;
     $this->_actionParameters = $actionParameters;
@@ -91,9 +91,9 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
   /**
   * Set icons list, the typehint ensures that a valid icon list is set.
   *
-  * @param \PapayaUiIconList $icons
+  * @param \Papaya\Ui\Icon\Collection $icons
   */
-  public function setIcons(\PapayaUiIconList $icons) {
+  public function setIcons(\Papaya\Ui\Icon\Collection $icons) {
     $this->_icons = $icons;
   }
 }

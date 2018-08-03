@@ -77,7 +77,7 @@ class Synchronizations {
   /**
    * Buffer variable for icon list
    *
-   * @var \PapayaUiIconList
+   * @var \Papaya\Ui\Icon\Collection
    */
   private $_icons = NULL;
 
@@ -96,13 +96,13 @@ class Synchronizations {
   private $_dependencies = NULL;
 
   /**
-   * Create {@see \PapayaUiIconList} from definitions and return it.
+   * Create {@see \Papaya\Ui\Icon\PapayaUiIconList} from definitions and return it.
    *
-   * @return \PapayaUiIconList
+   * @return \Papaya\Ui\Icon\Collection
    */
   public function getIcons() {
     if (is_null($this->_icons)) {
-      $this->_icons = new \PapayaUiIconList;
+      $this->_icons = new \Papaya\Ui\Icon\Collection;
       foreach ($this->_definitions as $synchronization => $data) {
         $this->_icons[$synchronization] = new \PapayaUiIcon(
           $data['image'],

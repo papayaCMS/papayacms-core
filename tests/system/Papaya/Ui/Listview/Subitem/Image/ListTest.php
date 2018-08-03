@@ -21,8 +21,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImageList::__construct
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $subitem = new \PapayaUiListviewSubitemImageList(
       $icons, 'foo', \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
     );
@@ -56,8 +56,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -108,8 +108,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -164,8 +164,8 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->withAnyParameters();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('getIterator')

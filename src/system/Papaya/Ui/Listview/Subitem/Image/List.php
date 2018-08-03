@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property integer $align
-* @property \PapayaUiIconList $icons
+* @property \Papaya\Ui\Icon\Collection $icons
 * @property string $selection
 * @property integer $selectionMode
 * @property array $actionParameters
@@ -72,13 +72,13 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
   /**
    * Create subitme and store icon list and selection index.
    *
-   * @param \PapayaUiIconList $icons
+   * @param \Papaya\Ui\Icon\Collection $icons
    * @param mixed $selection
    * @param int $selectionMode
    * @param array $actionParameters
    */
   public function __construct(
-    \PapayaUiIconList $icons,
+    \Papaya\Ui\Icon\Collection $icons,
     $selection,
     $selectionMode = self::VALIDATE_VALUES,
     array $actionParameters = NULL

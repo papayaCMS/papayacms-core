@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Icon;
 /**
-* A list of ui icons, generic handling to provide encapsulation.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiIconList implements \ArrayAccess, \Countable, \IteratorAggregate {
+ * A list of ui icons, generic handling to provide encapsulation.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
-  * The internal icon objects array
-  *
-  * @var array
-  */
+   * The internal icon objects array
+   *
+   * @var array
+   */
   private $_icons = array();
 
   /**
-  * ArrayAccess Interface: check if an icon is availiable
-  *
-  * @param string $offset
-  * @return boolean
-  */
+   * ArrayAccess Interface: check if an icon is availiable
+   *
+   * @param string $offset
+   * @return boolean
+   */
   public function offsetExists($offset) {
     return isset($this->_icons[$offset]);
   }
 
   /**
-  * ArrayAccess Interface: return an icon from the internal list
-  *
-  * @param string $offset
-  * @return \PapayaUiIcon
-  */
+   * ArrayAccess Interface: return an icon from the internal list
+   *
+   * @param string $offset
+   * @return \PapayaUiIcon
+   */
   public function offsetGet($offset) {
     return $this->_icons[$offset];
   }
@@ -72,29 +73,29 @@ class PapayaUiIconList implements \ArrayAccess, \Countable, \IteratorAggregate {
   }
 
   /**
-  * ArrayAccess Interface: remove an icon from the internal list
-  *
-  * @param string $offset
-  * @return \PapayaUiIcon
-  */
+   * ArrayAccess Interface: remove an icon from the internal list
+   *
+   * @param string $offset
+   * @return \PapayaUiIcon
+   */
   public function offsetUnset($offset) {
     unset($this->_icons[$offset]);
   }
 
   /**
-  * Countable Interface: return the icon count
-  *
-  * @return integer
-  */
+   * Countable Interface: return the icon count
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_icons);
   }
 
   /**
-  * IteratorAggregate Interface: get an iterator for the icons
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate Interface: get an iterator for the icons
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_icons);
   }

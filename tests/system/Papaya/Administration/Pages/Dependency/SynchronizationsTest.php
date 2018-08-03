@@ -28,7 +28,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   public function testGetIcons() {
     $synchronizations = new Synchronizations();
     $icons = $synchronizations->getIcons();
-    $this->assertInstanceOf(\PapayaUiIconList::class, $icons);
+    $this->assertInstanceOf(\Papaya\Ui\Icon\Collection::class, $icons);
     $this->assertSame($icons, $synchronizations->getIcons());
   }
 

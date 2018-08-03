@@ -22,8 +22,8 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImageSelect::setIcons
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $subitem = new \PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);
@@ -41,8 +41,8 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')
@@ -69,8 +69,8 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImageSelect::appendTo
   */
   public function testAppendToWithoutIcon() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(\PapayaUiIconList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Icon\Collection $icons */
+    $icons = $this->createMock(\Papaya\Ui\Icon\Collection::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')
