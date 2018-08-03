@@ -2401,7 +2401,7 @@ class base_topic_edit extends base_topic {
     $buttons = new \PapayaUiToolbarSelectButtons('tt/viewmode', $views);
     $buttons->setCurrentValue($currentView);
 
-    $frame = new \PapayaUiPanelFrame($caption, 'preview', '1400');
+    $frame = new \Papaya\Ui\Panel\Frame($caption, 'preview', '1400');
     $frame->toolbars->topLeft->elements[] = $select;
     $frame->toolbars->topRight->elements[] = $buttons;
     $frame->reference()->setRelative($fileName);

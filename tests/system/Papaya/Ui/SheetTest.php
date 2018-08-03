@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiSheetTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiPanel::appendTo
+  * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendTo() {
     $sheet = new \PapayaUiSheet();
@@ -29,7 +29,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::appendTo
+  * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithTitle() {
     $sheet = new \PapayaUiSheet();
@@ -48,7 +48,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::appendTo
+  * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithSubtitle() {
     $sheet = new \PapayaUiSheet();
@@ -67,7 +67,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::appendTo
+  * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithContent() {
     $sheet = new \PapayaUiSheet();

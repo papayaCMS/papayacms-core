@@ -13,46 +13,47 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Panel;
 /**
-* A panel containing an iframe showing an given reference.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $height
-* @property \PapayaUiReference $reference
-* @property \PapayaUiToolbars $toolbars
-*/
-class PapayaUiPanelFrame extends \PapayaUiPanel {
+ * A panel containing an iframe showing an given reference.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $height
+ * @property \PapayaUiReference $reference
+ * @property \PapayaUiToolbars $toolbars
+ */
+class Frame extends \Papaya\Ui\Panel {
 
   /**
-  * The url reference object.
-  *
-  * @var \PapayaUiReference
-  */
+   * The url reference object.
+   *
+   * @var \PapayaUiReference
+   */
   protected $_reference = NULL;
 
   /**
-  * A name/identifier for the frame, that can be used in link targets.
-  *
-  * @var string
-  */
+   * A name/identifier for the frame, that can be used in link targets.
+   *
+   * @var string
+   */
   protected $_name = '';
 
   /**
-  * The height of the iframe
-  *
-  * @var string
-  */
+   * The height of the iframe
+   *
+   * @var string
+   */
   protected $_height = '400';
 
   /**
-  * Declared public properties, see property annotaiton of the class for documentation.
-  *
-  * @var array
-  */
+   * Declared public properties, see property annotaiton of the class for documentation.
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('_caption', 'setCaption'),
     'name' => array('_name', '_name'),
@@ -62,12 +63,12 @@ class PapayaUiPanelFrame extends \PapayaUiPanel {
   );
 
   /**
-  * Initialize object and store parameters.
-  *
-  * @param string|\PapayaUiString $caption
-  * @param string $name
-  * @param string $height
-  */
+   * Initialize object and store parameters.
+   *
+   * @param string|\PapayaUiString $caption
+   * @param string $name
+   * @param string $height
+   */
   public function __construct($caption, $name, $height = '400') {
     $this->setCaption($caption);
     $this->_name = $name;
@@ -75,10 +76,10 @@ class PapayaUiPanelFrame extends \PapayaUiPanel {
   }
 
   /**
-  * Append iframe to panel xml element.
-  *
-  * @see papaya-lib/system/Papaya/Ui/PapayaUiPanel#appendTo($parent)
-  */
+   * Append iframe to panel xml element.
+   *
+   * @see papaya-lib/system/Papaya/Ui/Papaya\Ui\PapayaUiPanel#appendTo($parent)
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
@@ -93,11 +94,11 @@ class PapayaUiPanelFrame extends \PapayaUiPanel {
   }
 
   /**
-  * Getter/Setter for the reference object.
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for the reference object.
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;

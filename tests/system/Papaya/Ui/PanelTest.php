@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiPanelTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiPanel::appendTo
+  * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
@@ -32,8 +32,8 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::appendTo
-  * @covers \PapayaUiPanel::setCaption
+  * @covers \Papaya\Ui\Panel::appendTo
+  * @covers \Papaya\Ui\Panel::setCaption
   */
   public function testAppendToWithCaption() {
     $document = new \Papaya\Xml\Document();
@@ -48,7 +48,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::toolbars
+  * @covers \Papaya\Ui\Panel::toolbars
   */
   public function testToolbarsGetAfterSet() {
     $panel = new \PapayaUiPanel_TestProxy();
@@ -57,7 +57,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiPanel::toolbars
+  * @covers \Papaya\Ui\Panel::toolbars
   */
   public function testToolbarsGetImplicitCreate() {
     $panel = new \PapayaUiPanel_TestProxy();
@@ -66,6 +66,6 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiPanel_TestProxy extends \PapayaUiPanel {
+class PapayaUiPanel_TestProxy extends \Papaya\Ui\Panel {
 
 }

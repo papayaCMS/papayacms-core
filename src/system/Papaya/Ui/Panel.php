@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Abstract superclass for controls inside a panel.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiPanel extends \Papaya\Ui\Control {
+ * Abstract superclass for controls inside a panel.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Panel extends Control {
 
   /**
-  * Panel caption/title
-  *
-  * @var string
-  */
+   * Panel caption/title
+   *
+   * @var string
+   */
   protected $_caption = '';
 
   /**
-  * Panel caption/title
-  *
-  * @var \PapayaUiToolbars
-  */
+   * Panel caption/title
+   *
+   * @var \PapayaUiToolbars
+   */
   protected $_toolbars = NULL;
 
   /**
-  * Append panel to output xml
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element $panel
-  */
+   * Append panel to output xml
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element $panel
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $panel = $parent->appendElement('panel');
     if (!empty($this->_caption)) {
@@ -51,10 +52,10 @@ abstract class PapayaUiPanel extends \Papaya\Ui\Control {
   }
 
   /**
-  * Set a caption for the panel
-  *
-  * @param \PapayaUiString|string $caption
-  */
+   * Set a caption for the panel
+   *
+   * @param \PapayaUiString|string $caption
+   */
   public function setCaption($caption) {
     $this->_caption = $caption;
   }
@@ -66,11 +67,11 @@ abstract class PapayaUiPanel extends \Papaya\Ui\Control {
    * @return \PapayaUiToolbars
    */
   public function toolbars(\PapayaUiToolbars $toolbars = NULL) {
-    if (isset($toolbars)) {
+    if (NULL !== $toolbars) {
       $this->_toolbars = $toolbars;
     }
-    if (is_null($this->_toolbars)) {
-      $this->_toolbars = new \PapayaUiToolbars($this);
+    if (NULL === $this->_toolbars) {
+      $this->_toolbars = new \PapayaUiToolbars();
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;
