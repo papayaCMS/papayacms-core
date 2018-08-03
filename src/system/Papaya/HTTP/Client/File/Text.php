@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Http\Client\File;
+namespace Papaya\HTTP\Client\File;
 /**
  * Papaya HTTP Client File String - handle file upload resource using a data string
  *
  * @package Papaya-Library
  * @subpackage HTTP-Client
  */
-class Text extends \Papaya\Http\Client\File {
+class Text extends \Papaya\HTTP\Client\File {
 
   /**
    * data size
@@ -76,13 +76,13 @@ class Text extends \Papaya\Http\Client\File {
   /**
    * send file data
    *
-   * @param \Papaya\Http\Client\Socket $socket
+   * @param \Papaya\HTTP\Client\Socket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
    * @access public
    * @return void
    */
-  public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
     if (is_string($this->_data) && $this->getSize() > 0) {
       if ($socket->isActive()) {
         if ($chunked) {

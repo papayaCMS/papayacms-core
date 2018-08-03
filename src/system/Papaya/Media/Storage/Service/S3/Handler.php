@@ -25,7 +25,7 @@ class Handler {
   /**
    * http client object
    *
-   * @var \Papaya\Http\Client
+   * @var \Papaya\HTTP\Client
    */
   private $_client = NULL;
 
@@ -57,10 +57,10 @@ class Handler {
   /**
    * Set the used HTTP client object.
    *
-   * @param \Papaya\Http\Client $client
+   * @param \Papaya\HTTP\Client $client
    * @return void
    */
-  public function setHTTPClient(\Papaya\Http\Client $client) {
+  public function setHTTPClient(\Papaya\HTTP\Client $client) {
     $this->_client = $client;
   }
 
@@ -87,7 +87,7 @@ class Handler {
    */
   public function initHTTPClient() {
     if (!isset($this->_client)) {
-      $this->_client = new \Papaya\Http\Client();
+      $this->_client = new \Papaya\HTTP\Client();
     }
     $this->_client->reset();
   }
@@ -99,7 +99,7 @@ class Handler {
    * @param string $method
    * @param array $parameters
    * @param array $headers
-   * @return \Papaya\Http\Client
+   * @return \Papaya\HTTP\Client
    */
   public function setUpRequest(
     $url, $method = 'GET', $parameters = array(), $headers = array()

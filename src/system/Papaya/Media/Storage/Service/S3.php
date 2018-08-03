@@ -112,7 +112,7 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * Set the used HTTP client object.
    *
-   * @param \Papaya\Http\Client $client
+   * @param \Papaya\HTTP\Client $client
    * @return void
    */
   public function setHTTPClient($client) {
@@ -156,10 +156,10 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * Get response xml and create xpath object
    *
-   * @param \Papaya\Http\Client $client
+   * @param \Papaya\HTTP\Client $client
    * @return \DOMXPath
    */
-  private function _doXMLRequest(\Papaya\Http\Client $client) {
+  private function _doXMLRequest(\Papaya\HTTP\Client $client) {
     $client->send();
     $dom = new \DOMDocument('1.0', 'UTF-8');
     if (200 === $client->getResponseStatus()) {
@@ -308,7 +308,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @access private
    * @param string $storageGroup
    * @param string $storageId
-   * @param \Papaya\Http\Client\File $resource
+   * @param \Papaya\HTTP\Client\File $resource
    * @param string $mimeType
    * @param boolean $isPublic
    * @return boolean
@@ -350,9 +350,9 @@ class S3 extends \Papaya\Media\Storage\Service {
     $isPublic = FALSE
   ) {
     if (is_resource($content)) {
-      $resource = new \Papaya\Http\Client\File\Resource('filedata', 'file.dat', $content, $mimeType);
+      $resource = new \Papaya\HTTP\Client\File\Resource('filedata', 'file.dat', $content, $mimeType);
     } else {
-      $resource = new \Papaya\Http\Client\File\Text('filedata', 'file.dat', $content, $mimeType);
+      $resource = new \Papaya\HTTP\Client\File\Text('filedata', 'file.dat', $content, $mimeType);
     }
     return $this->_storeResource($storageGroup, $storageId, $resource, $mimeType, $isPublic);
   }
@@ -371,7 +371,7 @@ class S3 extends \Papaya\Media\Storage\Service {
   public function storeLocalFile(
     $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
-    $resource = new \Papaya\Http\Client\File\Name('filedata', $filename, $mimeType);
+    $resource = new \Papaya\HTTP\Client\File\Name('filedata', $filename, $mimeType);
     return $this->_storeResource($storageGroup, $storageId, $resource, $mimeType, $isPublic);
   }
 

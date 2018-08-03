@@ -47,7 +47,7 @@ interface Filter {
   const IS_TEXT_WITH_NUMBERS = 'isTextWithNumbers';
   const IS_URL = 'isUrl';
   const IS_URL_HOST = 'isUrlHost';
-  const IS_URL_HTTP = 'isUrlHttp';
+  const IS_URL_HTTP = 'isUrlWeb';
   const IS_XML = 'isXML';
 
   /**

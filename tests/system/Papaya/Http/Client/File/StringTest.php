@@ -24,7 +24,7 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
   }
 
   public function testConstructor() {
-    $file = new \Papaya\Http\Client\File\Text(
+    $file = new \Papaya\HTTP\Client\File\Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
@@ -35,11 +35,11 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
 
   public function testConstructorExpectingError() {
     $this->expectError(E_WARNING);
-    new \Papaya\Http\Client\File\Text('', '', '', '');
+    new \Papaya\HTTP\Client\File\Text('', '', '', '');
   }
 
   public function testGetSize() {
-    $file = new \Papaya\Http\Client\File\Text(
+    $file = new \Papaya\HTTP\Client\File\Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertEquals(6, $file->getSize());
@@ -47,8 +47,8 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
   }
 
   public function testSend() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket
       ->expects($this->at(0))
       ->method('isActive')
@@ -57,15 +57,15 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('write')
       ->with($this->equalTo('sample'));
-    $file = new \Papaya\Http\Client\File\Text(
+    $file = new \Papaya\HTTP\Client\File\Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket);
   }
 
   public function testSendChunked() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket
       ->expects($this->at(0))
       ->method('isActive')
@@ -78,7 +78,7 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
       ->expects($this->at(2))
       ->method('writeChunk')
       ->with($this->equalTo("\r\n"));
-    $file = new \Papaya\Http\Client\File\Text(
+    $file = new \Papaya\HTTP\Client\File\Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket, TRUE);

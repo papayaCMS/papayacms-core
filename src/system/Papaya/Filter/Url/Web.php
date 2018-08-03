@@ -13,19 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory\Profile;
+namespace Papaya\Filter\Url;
 /**
- * Profile creating a filter for a http url with or without the protocol
+ * Papaya filter class validating a url host name
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsUrlHttp extends \Papaya\Filter\Factory\Profile {
+class Web extends \Papaya\Filter\Url {
 
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @see \Papaya\Filter::validate()
    */
-  public function getFilter() {
-    return new \Papaya\Filter\Url\Http();
+  public function validate($value) {
+    return parent::validate($this->prepare($value));
+  }
+
+  /**
+   * @see \Papaya\Filter::filter()
+   */
+  public function filter($value) {
+    return parent::filter($this->prepare($value));
+  }
+
+  /**
+   * prefix the value if needed with http://
+   *
+   * @param string $value
+   * @return string
+   */
+  private function prepare($value) {
+    if (!empty($value) && !preg_match('(^https?://)', $value)) {
+      return 'http://'.$value;
+    }
+    return $value;
   }
 }

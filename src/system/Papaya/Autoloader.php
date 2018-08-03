@@ -132,6 +132,7 @@ class Autoloader {
     // Typos
     'Anchestors' => 'Ancestors',
     'Csv' => 'CSV',
+    'Http' => 'HTTP',
     'Php' => 'PHP',
     'Regex' => 'RegEx',
     'Ui' => 'UI',

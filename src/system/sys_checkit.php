@@ -337,21 +337,21 @@ class checkit {
    * Check web adress (http://* or www.*)
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isHttp()
+   * @see \Papaya\Filter\Factory::isHTTP()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
-  public static function isHTTP($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isUrlHttp($str, $mustContainValue);
+  public static function isHttp($str, $mustContainValue = FALSE) {
+    return \Papaya\Filter\Factory::isUrlWeb($str, $mustContainValue);
   }
 
   /**
    * Check http host name
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isHttp()
+   * @see \Papaya\Filter\Factory::isHTTP()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?

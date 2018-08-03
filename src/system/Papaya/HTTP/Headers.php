@@ -14,7 +14,7 @@
  */
 
 
-namespace Papaya\Http;
+namespace Papaya\HTTP;
 /**
  * Papaya HTTP Client Headers - handles a list of http headers.
  *

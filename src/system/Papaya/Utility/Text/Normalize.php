@@ -27,7 +27,7 @@ class Normalize {
    * @param string $string
    * @return string
    */
-  public static function toHttpHeaderName($string) {
+  public static function toHTTPHeaderName($string) {
     $parts = explode('-', strtolower($string));
     return implode('-', array_map('ucfirst', $parts));
   }

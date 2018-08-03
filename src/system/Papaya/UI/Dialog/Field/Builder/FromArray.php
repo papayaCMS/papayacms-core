@@ -100,7 +100,7 @@ class FromArray {
     'isSomeText' => 'isNotEmpty',
     'isHttpX' => 'isUrl',
     'isHttpHost' => 'isUrlHost',
-    'isHttp' => 'isUrlHttp',
+    'isHttp' => 'isUrlWeb',
     'isNoHtml' => 'isNotXML',
     'isGeoPos' => 'isGeoPosition',
     'isHTTPHostOrIPAddress' => 'isServerAddress',

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Http\Client;
+namespace Papaya\HTTP\Client;
 /**
  * Abstract class for file upload handling
  *
@@ -67,12 +67,12 @@ abstract class File {
   /**
    * abstract send function
    *
-   * @param \Papaya\Http\Client\Socket $socket
+   * @param \Papaya\HTTP\Client\Socket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
    * @return void
    */
-  abstract public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0);
+  abstract public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0);
 
   /**
    * get file size property value

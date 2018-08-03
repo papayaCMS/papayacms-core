@@ -30,10 +30,10 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::__construct
+  * @covers \Papaya\HTTP\Client\File\Resource::__construct
   */
   public function testConstructor() {
-    $file = new \Papaya\Http\Client\File\Resource(
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
@@ -43,18 +43,18 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::__construct
+  * @covers \Papaya\HTTP\Client\File\Resource::__construct
   */
   public function testConstructorExpectingError() {
     $this->expectException(InvalidArgumentException::class);
-    new \Papaya\Http\Client\File\Resource('', '', NULL, '');
+    new \Papaya\HTTP\Client\File\Resource('', '', NULL, '');
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::getSize
+  * @covers \Papaya\HTTP\Client\File\Resource::getSize
   */
   public function testGetSize() {
-    $file = new \Papaya\Http\Client\File\Resource(
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $this->assertEquals(6, $file->getSize());
@@ -62,29 +62,29 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::send
+  * @covers \Papaya\HTTP\Client\File\Resource::send
   */
   public function testSend() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
     $socket->expects($this->at(1))
            ->method('write')
            ->with($this->equalTo('sample'));
-    $file = new \Papaya\Http\Client\File\Resource(
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket);
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::send
+  * @covers \Papaya\HTTP\Client\File\Resource::send
   */
   public function testSendLimited() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -94,18 +94,18 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
     $socket->expects($this->at(2))
            ->method('write')
            ->with($this->equalTo('le'));
-    $file = new \Papaya\Http\Client\File\Resource(
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket, FALSE, 4);
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::send
+  * @covers \Papaya\HTTP\Client\File\Resource::send
   */
   public function testSendChunked() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -115,19 +115,19 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
     $socket->expects($this->at(2))
            ->method('writeChunk')
            ->with($this->equalTo("\r\n"));
-    $file = new \Papaya\Http\Client\File\Resource(
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket, TRUE);
   }
 
   /**
-  * @covers \Papaya\Http\Client\File\Resource::send
+  * @covers \Papaya\HTTP\Client\File\Resource::send
   */
   public function testSendInvalidResourceExpectingError() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
-    $file = new \Papaya\Http\Client\File\Resource(
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
+    $file = new \Papaya\HTTP\Client\File\Resource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     fclose($this->_fileResource);

@@ -12,7 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Http\Client;
+namespace Papaya\HTTP\Client;
 
 /**
 * Papaya HTTP Client Socket - Handles the connection resource
@@ -31,7 +31,7 @@ class Socket {
   /**
   * connection pool object
   *
-  * @var \Papaya\Http\Client\Socket\Pool
+  * @var \Papaya\HTTP\Client\Socket\Pool
   */
   private $_pool = NULL;
 
@@ -78,11 +78,11 @@ class Socket {
   /**
   * set the connection pool object
   *
-  * @param \Papaya\Http\Client\Socket\Pool $pool
+  * @param \Papaya\HTTP\Client\Socket\Pool $pool
   * @access public
   * @return void
   */
-  public function setPool(\Papaya\Http\Client\Socket\Pool $pool) {
+  public function setPool(\Papaya\HTTP\Client\Socket\Pool $pool) {
     $this->_pool = $pool;
   }
 
@@ -90,11 +90,11 @@ class Socket {
   * return the connection pool object
   *
   * @access public
-  * @return \Papaya\Http\Client\Socket\Pool
+  * @return \Papaya\HTTP\Client\Socket\Pool
   */
   public function getPool() {
     if (is_null($this->_pool)) {
-      $this->_pool = new \Papaya\Http\Client\Socket\Pool();
+      $this->_pool = new \Papaya\HTTP\Client\Socket\Pool();
     }
     return $this->_pool;
   }

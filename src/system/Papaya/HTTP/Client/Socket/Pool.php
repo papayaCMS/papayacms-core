@@ -14,7 +14,7 @@
  */
 
 
-namespace Papaya\Http\Client\Socket;
+namespace Papaya\HTTP\Client\Socket;
 /**
  * Papaya HTTP Client Socket Pool - Manages a pool of connections (resources)
  *

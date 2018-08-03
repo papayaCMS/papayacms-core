@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaHttpClientTest extends \PapayaTestCase {
 
   public function testConstructor() {
-    $client = new \Papaya\Http\Client('http://www.papaya-cms.com/');
+    $client = new \Papaya\HTTP\Client('http://www.papaya-cms.com/');
     $this->assertEquals(
       array(
         'scheme' => 'http',
@@ -30,7 +30,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetUrl() {
-    $client = new \Papaya\Http\Client();
+    $client = new \Papaya\HTTP\Client();
     $client->setUrl('http://www.papaya-cms.com:80/');
     $this->assertEquals(
       array(
@@ -44,10 +44,10 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client::setUrl
+  * @covers \Papaya\HTTP\Client::setUrl
   */
   public function testReplaceUrl() {
-    $client = new \Papaya\Http\Client();
+    $client = new \Papaya\HTTP\Client();
     $client->setUrl('http://www.papaya-cms.com:80/');
     $client->setUrl('http://www.example.com/');
     $this->assertEquals(
@@ -61,27 +61,27 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetURLWithEmptyParameter() {
-    $client = new \Papaya\Http\Client();
+    $client = new \Papaya\HTTP\Client();
     $this->expectException(InvalidArgumentException::class);
     $client->setUrl('');
   }
 
   public function testGetSocket() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
-    $this->assertInstanceOf(\Papaya\Http\Client\Socket::class, $client->getSocket());
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
+    $this->assertInstanceOf(\Papaya\HTTP\Client\Socket::class, $client->getSocket());
   }
 
   public function testSetSocket() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
-    $client->setSocket($socket = new \Papaya\Http\Client\Socket);
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
+    $client->setSocket($socket = new \Papaya\HTTP\Client\Socket);
     $this->assertAttributeSame($socket, '_socket', $client);
   }
 
   /**
-  * @covers \Papaya\Http\Client::setRedirectLimit
+  * @covers \Papaya\HTTP\Client::setRedirectLimit
   */
   public function testSetRedirectLimit() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setRedirectLimit(99);
     $this->assertAttributeSame(
       99,
@@ -91,10 +91,10 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client::getRedirectLimit
+  * @covers \Papaya\HTTP\Client::getRedirectLimit
   */
   public function testGetRedirectLimit() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setRedirectLimit(99);
     $this->assertSame(
       99,
@@ -103,34 +103,34 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testCloseOpenSocket() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('close')
            ->will($this->returnValue(TRUE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setSocket($socket);
     $this->assertTrue($client->close());
   }
 
   public function testCloseWithoutSocket() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->assertFalse($client->close());
   }
 
   public function testSetMethod() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setMethod('Post');
     $this->assertEquals('POST', $this->readAttribute($client, '_method'));
   }
 
   public function testGetMethod() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->assertEquals('GET', $client->getMethod());
   }
 
   public function testSetProxy() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setProxy('www.proxy.tld', 3128, 'username', 'password');
     $this->assertAttributeEquals(
       array(
@@ -151,7 +151,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetProxyHostOnly() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setProxy('www.proxy.tld');
     $this->assertAttributeEquals(
       array(
@@ -164,7 +164,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testInvalidSetProxy() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->expectException(InvalidArgumentException::class);
     $client->setProxy('');
   }
@@ -180,18 +180,18 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     /** @noinspection PhpUnusedParameterInspection */
     $header, $value, $expectedHeader, $expectedValue
   ) {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setHeader($header, $value);
     $this->assertSame($expectedValue, $client->getHeader($header));
   }
 
   public function testGetHeaderWithEmptyName() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->assertNull($client->getHeader(''));
   }
 
   public function testGetHeaderWithNonExistingName() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->assertNull($client->getHeader('NONEXISTING_HEADER_NAME'));
   }
 
@@ -203,7 +203,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
    * @param array|string|NULL $expectedValue
    */
   public function testSetHeader($header, $value, $expectedHeader, $expectedValue) {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setHeader($header, $value);
     $requestHeaders = $client->getRequestHeaders();
     $this->assertEquals($expectedValue, $requestHeaders[$expectedHeader]);
@@ -227,7 +227,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetHeaderDuplicates() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setHeader('X-Sample', 'Test1');
     $client->setHeader('X-Sample', 'Test2', TRUE);
     $requestHeaders = $this->readAttribute($client, '_requestHeaders')->toArray();
@@ -235,7 +235,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetHeaderEmpty() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setHeader('x-sample', 'Test');
     $requestHeaders = $this->readAttribute($client, '_requestHeaders')->toArray();
     $this->assertEquals('Test', $requestHeaders['X-Sample']);
@@ -245,24 +245,24 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testSetHeaderInvalid() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $this->assertFalse($client->setHeader(' ', 'Test'));
   }
 
   public function testSetHeaderEmptyNonExisting() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $this->assertFalse($client->setHeader('X-sample', ''));
   }
 
   public function testGetRequestHeaders() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $expected = "GET / HTTP/1.1\r\nHost: www.sample.tld\r\n".
       "Accept: */*\r\nAccept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
     $this->assertEquals($expected, $client->getRequestHeaderString());
   }
 
   public function testGetRequestHeadersWithDuplicates() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld');
     $client->setHeader('X-Sample', 'Test1');
     $client->setHeader('X-Sample', 'Test2', TRUE);
     $expected =
@@ -273,7 +273,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testGetRequestHeadersWithData() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->addRequestData('foo', 'bar');
     $expected = "GET /?foo=bar HTTP/1.1\r\nHost: www.sample.tld\r\n".
       "Accept: */*\r\nAccept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
@@ -281,7 +281,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testGetRequestHeadersWithQueryStringAndData() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/?bar=foo');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/?bar=foo');
     $client->addRequestData('foo', 'bar');
     $expected = "GET /?bar=foo&foo=bar HTTP/1.1\r\nHost: www.sample.tld\r\n".
       "Accept: */*\r\nAccept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
@@ -291,7 +291,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   public function testGetRequestHeadersWithQueryStringToLarge() {
     $largeString = str_repeat('T', 5000);
     $maxString = str_repeat('T', 4043);
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->addRequestData('foo', $largeString);
     $expected = 'GET /?foo='.$maxString." HTTP/1.1\r\nHost: www.sample.tld\r\n".
       "Accept: */*\r\nAccept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
@@ -299,7 +299,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testAddRequestData() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $data = array(
       'foo1' => 'bar1',
       'foo2' => 'bar2',
@@ -309,7 +309,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testAddRequestDataRecursive() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $data = array(
       'foo' => array(1, 2, 3),
       'bar' => array(
@@ -331,18 +331,18 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testAddRequestFile() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\File $file */
-    $file = $this->createMock(\Papaya\Http\Client\File::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\File $file */
+    $file = $this->createMock(\Papaya\HTTP\Client\File::class);
     $file->expects($this->once())
          ->method('getName')
          ->will($this->returnValue('test'));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $this->assertTrue($client->addRequestFile($file));
   }
 
   public function testReadResponseHeaders() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -366,7 +366,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->once())
            ->method('setContentLength')
            ->with($this->equalTo(-1));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->readResponseHeaders();
     $this->assertEquals(
@@ -379,8 +379,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testReadResponseHeadersWithConnectionClose() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -399,14 +399,14 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->once())
            ->method('setKeepAlive')
            ->with($this->equalTo(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->readResponseHeaders();
   }
 
   public function testReadResponseHeadersWithChunkedHeader() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -425,14 +425,14 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->once())
            ->method('setContentLength')
            ->with($this->equalTo(-2));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->readResponseHeaders();
   }
 
   public function testReadResponseHeadersWithContentLength() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -451,14 +451,14 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->once())
            ->method('setContentLength')
            ->with($this->equalTo(42));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->readResponseHeaders();
   }
 
   public function testReadResponseHeadersFromHeadWithContentLength() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -477,31 +477,31 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->once())
            ->method('setContentLength')
            ->with($this->equalTo(0));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('HEAD');
     $client->readResponseHeaders();
   }
 
   public function testGetResponseStatus() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $this->assertSame(0, $client->getResponseStatus());
   }
 
   public function testGetResponseHeader() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->getResponseHeaders()->set('Transfer-Encoding', 'chunked');
     $this->assertSame('chunked', $client->getResponseHeader('transfer-encoding'));
   }
 
   public function testGetResponseHeaderInvalid() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $this->assertNull($client->getResponseHeader('transfer-encoding'));
   }
 
   public function testGetResponseData() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->once())
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -513,19 +513,19 @@ class PapayaHttpClientTest extends \PapayaTestCase {
            ->will($this->returnValue('Hello World!'));
     $socket->expects($this->once())
            ->method('close');
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $this->assertEquals('Hello World!', $client->getResponseData());
   }
 
   public function testSendGetWithoutConnection() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $this->assertFalse($client->send());
   }
@@ -534,8 +534,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $genericHeaders =
       "GET / HTTP/1.1\r\nHost: www.sample.tld\r\nAccept: */*\r\n".
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -549,7 +549,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(3))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $this->assertTrue($client->send());
   }
@@ -558,8 +558,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $genericHeaders =
       "GET / HTTP/1.1\r\nHost: www.sample.tld\r\nAccept: */*\r\n".
       "Accept-Charset: utf-8,*\r\nConnection: close\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -576,7 +576,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(4))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setHeader('Connection', 'close');
     $this->assertTrue($client->send());
@@ -590,8 +590,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
       "Accept: */*\r\n".
       "Accept-Charset: utf-8,*\r\n".
       "Connection: keep-alive\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.proxy.tld'), $this->equalTo(3128))
@@ -605,7 +605,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(3))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld:8080/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld:8080/');
     $client->setProxy('www.proxy.tld', 3128, 'user', 'pass');
     $client->setSocket($socket);
     $this->assertTrue($client->send());
@@ -618,8 +618,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $postDataAndHeaders =
       "Content-Type: application/x-www-form-urlencoded\r\n".
       "Content-Length: 10\r\n\r\nfoo=%3Dbar";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -633,7 +633,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(3))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('POST');
     $client->addRequestData('foo', '=bar');
@@ -641,15 +641,15 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Http\Client::send
-  * @covers \Papaya\Http\Client::_sendRawPostData
+  * @covers \Papaya\HTTP\Client::send
+  * @covers \Papaya\HTTP\Client::_sendRawPostData
   */
   public function testSendPostRawData() {
     $genericHeaders =
       "POST / HTTP/1.1\r\nHost: www.sample.tld\r\nAccept: */*\r\n".
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\nContent-Type: text/xml\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -663,7 +663,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(3))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('POST');
     $client->setHeader('Content-Type', 'text/xml');
@@ -681,8 +681,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
       "(-+[a-fA-F\d]{32}\r\n\r\n)",
       "(-+[a-fA-F\d]{32}--\r\n)"
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -705,8 +705,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(6))
            ->method('write')
            ->with($this->matchesRegularExpression($data[5]));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\File $file */
-    $file = $this->createMock(\Papaya\Http\Client\File::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\File $file */
+    $file = $this->createMock(\Papaya\HTTP\Client\File::class);
     $file->expects($this->once())
          ->method('getName')
          ->will($this->returnValue('testfile'));
@@ -719,7 +719,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $file->expects($this->once())
          ->method('send')
          ->will($this->returnValue(''));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('POST');
     $client->addRequestData('foo', '=bar');
@@ -737,8 +737,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
       "(-+[a-fA-F\d]{32}\r\n\r\n)",
       "(-+[a-fA-F\d]{32}--\r\n)"
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -761,8 +761,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(6))
            ->method('writeChunk')
            ->with($this->matchesRegularExpression($data[5]));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\File $file */
-    $file = $this->createMock(\Papaya\Http\Client\File::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\File $file */
+    $file = $this->createMock(\Papaya\HTTP\Client\File::class);
     $file->expects($this->once())
          ->method('getName')
          ->will($this->returnValue('testfile'));
@@ -775,7 +775,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $file->expects($this->once())
          ->method('send')
          ->will($this->returnValue(''));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('POST');
     $client->setHeader('transfer-encoding', 'chunked');
@@ -790,8 +790,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\n",
       "Content-Length: 1\r\n\r\n",
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -802,8 +802,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(2))
            ->method('write')
            ->with($this->equalTo($data[1]));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\File $file */
-    $file = $this->createMock(\Papaya\Http\Client\File::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\File $file */
+    $file = $this->createMock(\Papaya\HTTP\Client\File::class);
     $file->expects($this->once())
          ->method('getName')
          ->will($this->returnValue('testfile'));
@@ -813,7 +813,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $file->expects($this->once())
          ->method('send')
          ->will($this->returnValue(''));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('PUT');
     $client->addRequestFile($file);
@@ -826,8 +826,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\n",
       "Content-Length: 0\r\n\r\n",
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -838,7 +838,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(2))
            ->method('write')
            ->with($this->equalTo($data[1]));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setMethod('PUT');
     $this->assertEquals(TRUE, $client->send());
@@ -848,8 +848,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $genericHeaders =
       "GET / HTTP/1.1\r\nHost: www.sample.tld\r\nAccept: */*\r\n".
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -883,7 +883,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
            ->method('open')
            ->with($this->equalTo('www.redirected.tld'), $this->equalTo(80))
            ->will($this->returnValue(TRUE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $this->assertTrue($client->send());
   }
@@ -892,8 +892,8 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $genericHeaders =
       "GET / HTTP/1.1\r\nHost: www.sample.tld\r\nAccept: */*\r\n".
       "Accept-Charset: utf-8,*\r\nConnection: keep-alive\r\n";
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Http\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('open')
            ->with($this->equalTo('www.sample.tld'), $this->equalTo(80))
@@ -923,7 +923,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
     $socket->expects($this->at(8))
            ->method('close')
            ->will($this->returnValue(TRUE));
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $client->setSocket($socket);
     $client->setRedirectLimit(0);
     $this->assertTrue($client->send());
@@ -936,7 +936,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   public function testReset() {
-    $client = new \Papaya\Http\Client('http://www.sample.tld/');
+    $client = new \Papaya\HTTP\Client('http://www.sample.tld/');
     $originalData = $this->readAttribute($client, '_requestData');
     $client->addRequestData('foo', 'bar');
     $client->setHeader('X-Foo', 'bar');

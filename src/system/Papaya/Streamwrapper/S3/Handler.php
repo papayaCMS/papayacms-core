@@ -25,7 +25,7 @@ class Handler {
   /**
    * HTTP client object
    *
-   * @var \Papaya\Http\Client
+   * @var \Papaya\HTTP\Client
    */
   private $_client = NULL;
 
@@ -39,21 +39,21 @@ class Handler {
   /**
    * Set HTTP client object
    *
-   * @param \Papaya\Http\Client $client
+   * @param \Papaya\HTTP\Client $client
    * @return void
    */
-  public function setHTTPClient(\Papaya\Http\Client $client) {
+  public function setHTTPClient(\Papaya\HTTP\Client $client) {
     $this->_client = $client;
   }
 
   /**
    * Get the HTTP client object, reset it if it already exists
    *
-   * @return \Papaya\Http\Client
+   * @return \Papaya\HTTP\Client
    */
   public function getHTTPClient() {
-    if (!($this->_client instanceof \Papaya\Http\Client)) {
-      $this->_client = new \Papaya\Http\Client();
+    if (!($this->_client instanceof \Papaya\HTTP\Client)) {
+      $this->_client = new \Papaya\HTTP\Client();
     }
     $this->_client->reset();
     return $this->_client;
@@ -67,7 +67,7 @@ class Handler {
    * @param array $headers
    * @param integer $options
    * @param array $arguments for the http request
-   * @return NULL|\Papaya\Http\Client
+   * @return NULL|\Papaya\HTTP\Client
    */
   private function _sendRequest($method, $url, $headers, $options, $arguments = array()) {
     $client = $this->getHTTPClient();
@@ -260,7 +260,7 @@ class Handler {
     $client = $this->_client;
     fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new \Papaya\Http\Client\File\Resource("file", "file", $this->_temporaryFile)
+      new \Papaya\HTTP\Client\File\Resource("file", "file", $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();

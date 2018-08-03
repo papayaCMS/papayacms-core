@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Http;
+namespace Papaya\HTTP;
 /**
  * Simple HTTP client object - makes it a little easier to make HTTP requests
  *
@@ -28,7 +28,7 @@ class Client {
   /**
    * internal socket object
    *
-   * @var \Papaya\Http\Client\Socket
+   * @var \Papaya\HTTP\Client\Socket
    */
   private $_socket = NULL;
 
@@ -91,7 +91,7 @@ class Client {
   /**
    * http request headers
    *
-   * @var \Papaya\Http\Headers
+   * @var \Papaya\HTTP\Headers
    */
   private $_requestHeaders = NULL;
   /**
@@ -115,14 +115,14 @@ class Client {
   /**
    * request files array
    *
-   * @var array(\Papaya\Http\Client\PapayaHttpClientFile)
+   * @var \Papaya\HTTP\Client\File[]
    */
   private $_requestFiles = array();
 
   /**
    * http response headers
    *
-   * @var \Papaya\Http\Headers
+   * @var \Papaya\HTTP\Headers
    */
   protected $_responseHeaders = NULL;
 
@@ -205,14 +205,14 @@ class Client {
 
   public function getRequestHeaders() {
     if (is_null($this->_requestHeaders)) {
-      $this->_requestHeaders = new \Papaya\Http\Headers($this->_defaultRequestHeaders);
+      $this->_requestHeaders = new \Papaya\HTTP\Headers($this->_defaultRequestHeaders);
     }
     return $this->_requestHeaders;
   }
 
   public function getResponseHeaders($reset = FALSE) {
     if ($reset || is_null($this->_responseHeaders)) {
-      $this->_responseHeaders = new \Papaya\Http\Headers();
+      $this->_responseHeaders = new \Papaya\HTTP\Headers();
     }
     return $this->_responseHeaders;
   }
@@ -224,7 +224,7 @@ class Client {
    * @access public
    * @return void
    */
-  public function setSocket(\Papaya\Http\Client\Socket $socket) {
+  public function setSocket(\Papaya\HTTP\Client\Socket $socket) {
     $this->_socket = $socket;
   }
 
@@ -236,7 +236,7 @@ class Client {
    */
   public function getSocket() {
     if (is_null($this->_socket)) {
-      $this->_socket = new \Papaya\Http\Client\Socket();
+      $this->_socket = new \Papaya\HTTP\Client\Socket();
     }
     return $this->_socket;
   }
@@ -379,7 +379,7 @@ class Client {
   /**
    * Open the connection and return the socket object
    *
-   * @return \Papaya\Http\Client\Socket
+   * @return \Papaya\HTTP\Client\Socket
    */
   public function open() {
     $socket = $this->getSocket();
@@ -437,7 +437,7 @@ class Client {
     if (isset($this->_requestFiles) &&
       is_array($this->_requestFiles) &&
       count($this->_requestFiles) > 0) {
-      /** @var \Papaya\Http\Client\File $file */
+      /** @var \Papaya\HTTP\Client\File $file */
       foreach ($this->_requestFiles as $name => $file) {
         $size = $file->getSize();
         if (!empty($name) && $size > 0) {
@@ -497,7 +497,7 @@ class Client {
     }
     $data = substr($data, 1);
     $requestHeaders = $this->getRequestHeaders();
-    $additionalRequestHeaders = new \Papaya\Http\Headers();
+    $additionalRequestHeaders = new \Papaya\HTTP\Headers();
     if (!isset($requestHeaders['Content-Type'])) {
       $additionalRequestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
@@ -671,10 +671,10 @@ class Client {
   /**
    * add files to request
    *
-   * @param \Papaya\Http\Client\File $file
+   * @param \Papaya\HTTP\Client\File $file
    * @return boolean
    */
-  public function addRequestFile(\Papaya\Http\Client\File $file) {
+  public function addRequestFile(\Papaya\HTTP\Client\File $file) {
     $this->_requestFiles[$file->getName()] = $file;
     return TRUE;
   }
@@ -740,7 +740,7 @@ class Client {
   /**
    * act on certain response headers
    *
-   * @param \Papaya\Http\Headers $responseHeaders
+   * @param \Papaya\HTTP\Headers $responseHeaders
    */
   private function _actOnResponseHeaders($responseHeaders) {
     if (isset($responseHeaders['Connection']) &&
