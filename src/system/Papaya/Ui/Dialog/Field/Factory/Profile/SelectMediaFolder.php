@@ -25,11 +25,11 @@ class SelectMediaFolder
 
   /**
    * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelectMediaFolder
+   * @return \Papaya\Ui\Dialog\Field\Select\Media\Folder
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectMediaFolder(
+    return new \Papaya\Ui\Dialog\Field\Select\Media\Folder(
       $this->options()->caption,
       $this->options()->name
     );

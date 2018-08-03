@@ -28,11 +28,11 @@ class SelectCheckboxes
    * Create a select field displayed as checkboxes
    *
    * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @return \Papaya\Ui\Dialog\Field\Select
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectCheckboxes(
+    return new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
       $this->options()->caption,
       $this->options()->name,
       $elements

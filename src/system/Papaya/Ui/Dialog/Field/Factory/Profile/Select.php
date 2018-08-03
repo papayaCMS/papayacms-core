@@ -27,7 +27,7 @@ class Select extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldSelect
+   * @return \Papaya\Ui\Dialog\Field\Select
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
@@ -49,11 +49,11 @@ class Select extends \Papaya\Ui\Dialog\Field\Factory\Profile {
    * Create field, own function so that child class can redefine the creation
    *
    * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @return \Papaya\Ui\Dialog\Field\Select
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelect(
+    return new \Papaya\Ui\Dialog\Field\Select(
       $this->options()->caption,
       $this->options()->name,
       $elements

@@ -14,13 +14,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
  * A select field (dropdown) based on a list of values, one or more values can be selected
  *
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
+class Multiple extends \PapayaUiDialogField {
 
   const VALUE_USE_KEY = 0;
   const VALUE_USE_CAPTION = 1;
@@ -29,12 +30,14 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
 
   /**
    * field name
+   *
    * @var string
    */
   protected $_name = '';
 
   /**
    * option values
+   *
    * @var array
    */
   protected $_values = array();
@@ -48,6 +51,7 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
 
   /**
    * callbacks
+   *
    * @var \Papaya\BaseObject\Callbacks
    */
   protected $_callbacks = NULL;
@@ -110,6 +114,7 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
 
   /**
    * Return the current value mode
+   *
    * @return integer
    */
   public function getValueMode() {
@@ -270,14 +275,14 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
    * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
    * needed definitions.
    *
-   * @param \PapayaUiDialogFieldSelectCallbacks $callbacks
-   * @return \PapayaUiDialogFieldSelectCallbacks
+   * @param \Papaya\Ui\Dialog\Field\Select\Callbacks $callbacks
+   * @return \Papaya\Ui\Dialog\Field\Select\Callbacks
    */
-  public function callbacks(\PapayaUiDialogFieldSelectCallbacks $callbacks = NULL) {
+  public function callbacks(\Papaya\Ui\Dialog\Field\Select\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiDialogFieldSelectCallbacks();
+      $this->_callbacks = new \Papaya\Ui\Dialog\Field\Select\Callbacks();
     }
     return $this->_callbacks;
   }

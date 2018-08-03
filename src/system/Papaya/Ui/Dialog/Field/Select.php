@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A select field (dropdown) based on a list of values, one value can be selected
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
+ * A select field (dropdown) based on a list of values, one value can be selected
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Select extends \PapayaUiDialogField {
 
   const VALUE_USE_KEY = 0;
   const VALUE_USE_CAPTION = 1;
@@ -27,29 +28,32 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   private $_valueMode = self::VALUE_USE_KEY;
 
   /**
-  * field name
-  * @var string
-  */
+   * field name
+   *
+   * @var string
+   */
   protected $_name = '';
 
   /**
-  * option values
-  * @var array
-  */
+   * option values
+   *
+   * @var array
+   */
   protected $_values = array();
 
   /**
-  * type of the select control, used in the xslt template
-  *
-  * @var string
-  */
+   * type of the select control, used in the xslt template
+   *
+   * @var string
+   */
   protected $_type = 'dropdown';
 
   /**
-  * callbacks
-  * @var \Papaya\BaseObject\Callbacks
-  */
-  protected $_callbacks = NULL;
+   * callbacks
+   *
+   * @var \Papaya\BaseObject\Callbacks
+   */
+  protected $_callbacks;
 
   /**
    * Initialize object ans set caption, name and value list.
@@ -78,12 +82,13 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
    */
   public function setValueMode($mode) {
     \Papaya\Utility\Constraints::assertInteger($mode);
-    $this->_valueMode = $mode;
+    $this->_valueMode = (int)$mode;
     $this->setFilter($this->_createFilter());
   }
 
   /**
    * Return the current value mode
+   *
    * @return integer
    */
   public function getValueMode() {
@@ -91,12 +96,12 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   }
 
   /**
-  * Select option values setter.
-  *
-  * array('value' => 'label', ...)
-  *
-  * @param array|\Traversable $values
-  */
+   * Select option values setter.
+   *
+   * array('value' => 'label', ...)
+   *
+   * @param array|\Traversable $values
+   */
   public function setValues($values) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
     $this->_values = $values;
@@ -111,18 +116,17 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   }
 
   /**
-  * If the values are set, it is nessessary to create a filter based on the values.
-  */
+   * If the values are set, it is necessary to create a filter based on the values.
+   */
   protected function _createFilter() {
     $values = $this->getValues();
     if ($values instanceof \RecursiveIterator) {
       $values = new \RecursiveIteratorIterator($values);
     }
-    if ($this->getValueMode() == self::VALUE_USE_KEY) {
+    if ($this->getValueMode() === self::VALUE_USE_KEY) {
       return new \Papaya\Filter\ArrayKey($values);
-    } else {
-      return new \Papaya\Filter\ArrayElement($values);
     }
+    return new \Papaya\Filter\ArrayElement($values);
   }
 
   /**
@@ -142,11 +146,11 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   }
 
   /**
-  * Append the select element itself to the DOM (the field element is the parent)
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append the select element itself to the DOM (the field element is the parent)
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   protected function _appendSelect(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       'select',
@@ -162,7 +166,6 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
    *
    * @param \Papaya\Xml\Element $parent
    * @param \RecursiveIterator|\Traversable|array $options
-   * @return \Papaya\Xml\Element
    */
   protected function _appendOptions(\Papaya\Xml\Element $parent, $options) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($options);
@@ -195,18 +198,18 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   }
 
   /**
-  * Append one option element to DOM. This calls callbacks to get the option caption
-  * and data attributes.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @param mixed $option
-  * @param mixed $index
-  * @return \Papaya\Xml\Element
-  */
+   * Append one option element to DOM. This calls callbacks to get the option caption
+   * and data attributes.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @param mixed $option
+   * @param mixed $index
+   * @return \Papaya\Xml\Element
+   */
   protected function _appendOption(\Papaya\Xml\Element $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
-    $value = ($this->getValueMode() == self::VALUE_USE_KEY) ? $index : $caption;
+    $value = ($this->getValueMode() === self::VALUE_USE_KEY) ? $index : $caption;
     $node = $parent->appendElement(
       'option',
       array(
@@ -236,21 +239,21 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
    * @return bool
    */
   protected function _isOptionSelected($currentValue, $optionValue) {
-    return $currentValue == $optionValue;
+    return (string)$currentValue === (string)$optionValue || (empty($currentValue) && empty($optionValue));
   }
 
   /**
-  * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
-  * needed definitions.
-  *
-  * @param \PapayaUiDialogFieldSelectCallbacks $callbacks
-  * @return \PapayaUiDialogFieldSelectCallbacks
-  */
-  public function callbacks(\PapayaUiDialogFieldSelectCallbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
+   * needed definitions.
+   *
+   * @param Select\Callbacks $callbacks
+   * @return Select\Callbacks
+   */
+  public function callbacks(Select\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiDialogFieldSelectCallbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Select\Callbacks();
     }
     return $this->_callbacks;
   }

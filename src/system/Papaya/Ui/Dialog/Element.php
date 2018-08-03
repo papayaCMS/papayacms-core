@@ -70,6 +70,7 @@ abstract class PapayaUiDialogElement extends \Papaya\Ui\Control\Collection\Item 
    */
   public function getDialog() {
     if ($this->hasDialog()) {
+      /** @noinspection PhpIncompatibleReturnTypeInspection */
       return $this->collection()->owner();
     }
     return NULL;

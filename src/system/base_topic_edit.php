@@ -4616,7 +4616,7 @@ class base_topic_edit extends base_topic {
       );
       $field->setMandatory(TRUE);
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_CHANGE_LEVEL', FALSE)) {
-        $group->fields[] = new \PapayaUiDialogFieldSelect(
+        $group->fields[] = new \Papaya\Ui\Dialog\Field\Select(
           new \PapayaUiStringTranslated('Change level'),
           'change_level',
           base_statictables::getChangeLevels()
@@ -4649,7 +4649,7 @@ class base_topic_edit extends base_topic {
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
         new \PapayaUiStringTranslated('Languages')
       );
-      $group->fields[] = new \PapayaUiDialogFieldSelectCheckboxes(
+      $group->fields[] = new \Papaya\Ui\Dialog\Field\Select\Checkboxes(
         new \PapayaUiStringTranslated('Languages'),
         'public_languages',
         \Papaya\Utility\ArrayMapper::byIndex(

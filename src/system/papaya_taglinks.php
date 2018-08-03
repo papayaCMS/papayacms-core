@@ -1243,7 +1243,7 @@ class papaya_taglinks extends base_tags {
           'tag_id' => $tagId
         )
       );
-      $dialog->fields[] = $field = new \PapayaUiDialogFieldSelect(
+      $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Select(
         new \PapayaUiStringTranslated('Priority'),
         'taglink_priority',
         new \Papaya\Iterator\Repeat\Decrement(100, 0, 10, \Papaya\Iterator\Repeat\Decrement::MODE_ASSOC)

@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
-* A selection field displayed as checkboxes, mutiple values can be selected.
-*
-* The actual value is a bitmask, each checkbox represents on possible bit of the bitmask.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectBitmask extends \PapayaUiDialogFieldSelect {
+ * A selection field displayed as checkboxes, mutiple values can be selected.
+ *
+ * The actual value is a bitmask, each checkbox represents on possible bit of the bitmask.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Bitmask extends \Papaya\Ui\Dialog\Field\Select {
 
   /**
-  * type of the select control, used in the xslt template
-  *
-  * @var string
-  */
+   * type of the select control, used in the xslt template
+   *
+   * @var string
+   */
   protected $_type = 'checkboxes';
 
   /**
@@ -42,8 +43,8 @@ class PapayaUiDialogFieldSelectBitmask extends \PapayaUiDialogFieldSelect {
   }
 
   /**
-  * If the values are set, it is nessessary to create a filter based on the values.
-  */
+   * If the values are set, it is nessessary to create a filter based on the values.
+   */
   protected function _createFilter() {
     $values = $this->getValues();
     if ($values instanceof \RecursiveIterator) {
@@ -64,20 +65,20 @@ class PapayaUiDialogFieldSelectBitmask extends \PapayaUiDialogFieldSelect {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
-  * dialog is checked and used.
-  *
-  * If neither dialog parameter or data is available, the default value is returned.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
+   * dialog is checked and used.
+   *
+   * If neither dialog parameter or data is available, the default value is returned.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner() &&
-        !empty($name)) {
+      $this->collection()->hasOwner() &&
+      !empty($name)) {
       if ($this->collection()->owner()->parameters()->has($name)) {
         $bits = $this->collection()->owner()->parameters()->get($name);
         $bitmask = 0;

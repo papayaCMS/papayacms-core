@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
-* A selection field displaing the available languages
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
+ * A selection field displaing the available languages
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Language extends \Papaya\Ui\Dialog\Field\Select {
 
   const OPTION_ALLOW_ANY = 1;
   const OPTION_USE_IDENTIFIER = 2;

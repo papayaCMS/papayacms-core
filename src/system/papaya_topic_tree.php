@@ -249,7 +249,7 @@ class papaya_topic_tree extends base_topic_tree {
         ),
         'actions-edit-copy'
       );
-      $dialog->fields[] = new \PapayaUiDialogFieldSelectRadio(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Radio(
         new \PapayaUiStringTranslated('Create dependencies'),
         'confirm_create_dependencies',
         array(
@@ -257,7 +257,7 @@ class papaya_topic_tree extends base_topic_tree {
           0 => new \PapayaUiStringTranslated('No')
         )
       );
-      $dialog->fields[] = new \PapayaUiDialogFieldSelectBitmask(
+      $dialog->fields[] = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
         new \PapayaUiStringTranslated('Synchronization'),
         'synchronization',
         $this->sychronizations()->getList()

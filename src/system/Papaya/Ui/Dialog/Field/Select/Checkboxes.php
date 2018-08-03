@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
-* A selection field displayed as checkboxes, multiple values can be selected.
-*
-* The actual value is a list of the selected keys.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectCheckboxes extends \PapayaUiDialogFieldSelect {
+ * A selection field displayed as checkboxes, multiple values can be selected.
+ *
+ * The actual value is a list of the selected keys.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Checkboxes extends \Papaya\Ui\Dialog\Field\Select {
 
   /**
-  * type of the select control, used in the xslt template
-  *
-  * @var string
-  */
+   * type of the select control, used in the xslt template
+   *
+   * @var string
+   */
   protected $_type = 'checkboxes';
 
   /**
@@ -42,8 +43,8 @@ class PapayaUiDialogFieldSelectCheckboxes extends \PapayaUiDialogFieldSelect {
   }
 
   /**
-  * If the values are set, it is nessessary to create a filter based on the values.
-  */
+   * If the values are set, it is nessessary to create a filter based on the values.
+   */
   protected function _createFilter() {
     return new \Papaya\Filter\ArrayOf(
       parent::_createFilter()
@@ -51,13 +52,13 @@ class PapayaUiDialogFieldSelectCheckboxes extends \PapayaUiDialogFieldSelect {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If none of the checkboxes was selected the browser will not submit any parameter. So
-  * we need to assume that no checkbox was selected if the dialog was submitted.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If none of the checkboxes was selected the browser will not submit any parameter. So
+   * we need to assume that no checkbox was selected if the dialog was submitted.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $dialog = $this->getDialog();
     if ($dialog && $dialog->isSubmitted()) {

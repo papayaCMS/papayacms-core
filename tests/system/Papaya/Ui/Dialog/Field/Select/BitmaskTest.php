@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::_createFilter
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::_createFilter
   */
   public function testConstructorInitializesFilter() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $this->assertEquals(
@@ -30,10 +30,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::_createFilter
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::_createFilter
   */
   public function testConstructorInitializesFilterFromIterator() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', new ArrayIterator(array(1 => 'One', 2 => 'Two'))
     );
     $this->assertEquals(
@@ -42,10 +42,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::_createFilter
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::_createFilter
   */
   public function testConstructorInitializesFilterFromRecursiveIterator() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption',
       'name',
       new RecursiveArrayIterator(array('group' => array(1 => 'One', 2 => 'Two')))
@@ -56,10 +56,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::getDefaultValue
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::getDefaultValue
   */
   public function testGetDefaultValue() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->setDefaultValue('1');
@@ -67,10 +67,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::_isOptionSelected
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::_isOptionSelected
   */
   public function testAppendTo() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->papaya($this->mockPapaya()->application());
@@ -87,10 +87,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::_isOptionSelected
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::_isOptionSelected
   */
   public function testAppendToWithSelectedElements() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->setDefaultValue(3);
@@ -108,7 +108,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::getCurrentValue
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::getCurrentValue
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
@@ -119,7 +119,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters(array('name' => array(1, 2)))));
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->collection($this->getCollectionMock($dialog));
@@ -127,7 +127,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::getCurrentValue
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::getCurrentValue
   */
   public function testGetCurrentValueWhileDialogWasSendButNoOptionSelected() {
     $dialog = $this
@@ -142,7 +142,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('isSubmitted')
       ->will($this->returnValue(TRUE));
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->collection($this->getCollectionMock($dialog));
@@ -150,7 +150,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::getCurrentValue
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::getCurrentValue
   */
   public function testGetCurrentValueWhileDialogWasNotSend() {
     $dialog = $this
@@ -169,7 +169,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('isSubmitted')
       ->will($this->returnValue(FALSE));
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->collection($this->getCollectionMock($dialog));
@@ -177,10 +177,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectBitmask::getCurrentValue
+  * @covers \Papaya\Ui\Dialog\Field\Select\Bitmask::getCurrentValue
   */
   public function testGetCurrentValueFromDefaultValue() {
-    $select = new \PapayaUiDialogFieldSelectBitmask(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->setDefaultValue(3);

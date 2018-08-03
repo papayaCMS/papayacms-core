@@ -31,6 +31,6 @@ class PapayaUiDialogFieldFactoryProfileSelectCheckboxesTest extends \PapayaTestC
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectCheckboxes();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelectCheckboxes::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select\Checkboxes::class, $field = $profile->getField());
   }
 }

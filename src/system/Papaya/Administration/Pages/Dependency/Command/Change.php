@@ -82,7 +82,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
         'The origin id must be a valid page, that is not a dependency itself.'
       )
     );
-    $dialog->fields[] = $synchronizationField = new \PapayaUiDialogFieldSelectBitmask(
+    $dialog->fields[] = $synchronizationField = new \Papaya\Ui\Dialog\Field\Select\Bitmask(
       new \PapayaUiStringTranslated('Synchronization'),
       'synchronization',
       $synchronizations->getList()

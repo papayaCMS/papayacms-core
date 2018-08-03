@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select\Media;
 /**
-* A selection field displayed as radio boxes, only a single value can be selected.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
+ * A selection field displayed as radio boxes, only a single value can be selected.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Folder extends \PapayaUiDialogField {
 
   private $_folders = NULL;
 
@@ -29,10 +30,10 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
   }
 
   /**
-  * Append select field to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append select field to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(

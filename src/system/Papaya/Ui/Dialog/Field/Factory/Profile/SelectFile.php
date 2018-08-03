@@ -33,7 +33,7 @@ class SelectFile
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldSelect
+   * @return \Papaya\Ui\Dialog\Field\Select
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
@@ -52,7 +52,7 @@ class SelectFile
           $elements
         );
       }
-      $field = new \PapayaUiDialogFieldSelect(
+      $field = new \Papaya\Ui\Dialog\Field\Select(
         $this->options()->caption,
         $this->options()->name,
         new \Papaya\Iterator\Tree\Groups\RegEx(

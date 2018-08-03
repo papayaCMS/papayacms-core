@@ -32,7 +32,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Select();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**
@@ -50,7 +50,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Select();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**

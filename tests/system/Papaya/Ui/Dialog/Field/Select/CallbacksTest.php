@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectCallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldSelectCallbacks::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Select\Callbacks::__construct
   */
   public function testConstructor() {
-    $callbacks = new \PapayaUiDialogFieldSelectCallbacks();
+    $callbacks = new \Papaya\Ui\Dialog\Field\Select\Callbacks();
     $this->assertNull($callbacks->getOptionCaption->defaultReturn);
   }
 }

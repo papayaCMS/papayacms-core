@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldSelectMediaFolder::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Select\Media\Folder::__construct
   */
   public function testConstructor() {
-    $select = new \PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Media\Folder(
       'Caption', 'name'
     );
     $this->assertEquals(
@@ -35,10 +35,10 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectMediaFolder::mediaFolders
+  * @covers \Papaya\Ui\Dialog\Field\Select\Media\Folder::mediaFolders
   */
   public function testMediaFoldersGetAfterSet() {
-    $select = new \PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Media\Folder(
       'Caption', 'name'
     );
     $select->mediaFolders(
@@ -48,20 +48,20 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectMediaFolder::mediaFolders
+  * @covers \Papaya\Ui\Dialog\Field\Select\Media\Folder::mediaFolders
   */
   public function testMediaFoldersGetImplicitCreate() {
-    $select = new \PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Media\Folder(
       'Caption', 'name'
     );
     $this->assertInstanceOf(Folders::class, $select->mediaFolders());
   }
 
   /**
-  * @covers \PapayaUiDialogFieldSelectMediaFolder::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Select\Media\Folder::appendTo
   */
   public function testAppendTo() {
-    $select = new \PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \Papaya\Ui\Dialog\Field\Select\Media\Folder(
       'Caption', 'name'
     );
     $select->mediaFolders($this->getMediaFoldersFixture());

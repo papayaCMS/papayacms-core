@@ -63,7 +63,7 @@ class Import
     );
     $uploadField->setMandatory(TRUE);
     if ($setId > 0) {
-      $dialog->fields[] = $field = new \PapayaUiDialogFieldSelectRadio(
+      $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Select\Radio(
         new \PapayaUiStringTranslated('Replace current set.'),
         'values/confirm_replace',
         array(

@@ -27,11 +27,11 @@ class SelectBoolean
    * Create a select field with two elements displayed as radio boxes
    *
    * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @return \Papaya\Ui\Dialog\Field\Select
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectRadio(
+    return new \Papaya\Ui\Dialog\Field\Select\Radio(
       $this->options()->caption,
       $this->options()->name,
       new \PapayaUiStringTranslatedList(array('no', 'yes'))

@@ -38,7 +38,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**
@@ -62,7 +62,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**
@@ -80,7 +80,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt'), '(pattern)'));
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Select::class, $field = $profile->getField());
   }
 
   /**

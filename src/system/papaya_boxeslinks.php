@@ -223,7 +223,7 @@ class papaya_boxeslinks extends base_boxeslinks {
       );
     }
 
-    $dialog->fields[] = $field = new \PapayaUiDialogFieldSelectRadio(
+    $dialog->fields[] = $field = new \Papaya\Ui\Dialog\Field\Select\Radio(
       new \PapayaUiStringTranslated(
         'Attach to page'
       ),

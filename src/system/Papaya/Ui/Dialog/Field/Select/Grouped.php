@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
-* A select field with grouped options.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
+ * A select field with grouped options.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Grouped extends \Papaya\Ui\Dialog\Field\Select {
 
   /**
-  * Set option groups and options.
-  *
-  * The array can have to different structures.
-  *
-  * A simple label => list of elements version:
-  *
-  *   array(
-  *     'group caption' => array(
-  *       'value' => 'option text',
-  *       ...
-  *     ),
-  *     ...
-  *   );
-  *
-  * To allow more komplex group labels an advanced structure is supported:
-  *
-  *   array(
-  *     array(
-  *       'caption' => 'Group Caption',
-  *       'options' => array(
-  *         'value' => 'option label',
-  *         ...
-  *       )
-  *     ),
-  *     ...
-  *   );
-  *
-  * In this case the group label can be an object that support string casting
-  * (@see \PapayaUiString).
-  *
-  * @param array $values
-  */
+   * Set option groups and options.
+   *
+   * The array can have to different structures.
+   *
+   * A simple label => list of elements version:
+   *
+   *   array(
+   *     'group caption' => array(
+   *       'value' => 'option text',
+   *       ...
+   *     ),
+   *     ...
+   *   );
+   *
+   * To allow more komplex group labels an advanced structure is supported:
+   *
+   *   array(
+   *     array(
+   *       'caption' => 'Group Caption',
+   *       'options' => array(
+   *         'value' => 'option label',
+   *         ...
+   *       )
+   *     ),
+   *     ...
+   *   );
+   *
+   * In this case the group label can be an object that support string casting
+   * (@see \PapayaUiString).
+   *
+   * @param array $values
+   */
   public function setValues($values) {
     \Papaya\Utility\Constraints::assertArray($values);
     $this->_values = $values;
@@ -82,17 +83,17 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
   }
 
   /**
-  * Append option groups to DOM.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @param array $groups
-  */
+   * Append option groups to DOM.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @param array $groups
+   */
   protected function _appendOptionGroups(\Papaya\Xml\Element $parent, array $groups) {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;
       if (is_array($options) &&
-          count($options) > 0) {
+        count($options) > 0) {
         $this->_appendOptions(
           $parent->appendElement(
             'group',

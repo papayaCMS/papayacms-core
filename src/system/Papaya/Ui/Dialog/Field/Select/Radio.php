@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Select;
 /**
-* A selection field displayed as radio boxes, only a single value can be selected.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldSelectRadio extends \PapayaUiDialogFieldSelect {
+ * A selection field displayed as radio boxes, only a single value can be selected.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Radio extends \Papaya\Ui\Dialog\Field\Select {
 
   /**
-  * type of the select control, used in the xslt template
-  *
-  * @var string
-  */
+   * type of the select control, used in the xslt template
+   *
+   * @var string
+   */
   protected $_type = 'radio';
 }
