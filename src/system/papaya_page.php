@@ -1276,7 +1276,7 @@ class papaya_page extends base_object {
       }
     }
     $this->sendHeader('Content-type: text/xml');
-    $result = new \Papaya\Xml\Document();
+    $result = new \Papaya\XML\Document();
     $cms = $result->appendElement('cms', array('status' => $allStatus ? 'OK' : 'ERROR'));
     foreach ($status as $option => $value) {
       $cms->appendElement(
@@ -1306,7 +1306,7 @@ class papaya_page extends base_object {
             if (call_user_func($sandbox)) {
               $this->sendHTTPStatus();
               $this->sendHeader('Content-type: text/xml; charset=utf-8');
-              return $this->layout->getXml();
+              return $this->layout->getXML();
             }
             $this->getError(500, 'Service Unavailable', PAPAYA_PAGE_ERROR_PAGE);
           } else {
@@ -1350,7 +1350,7 @@ class papaya_page extends base_object {
             if (call_user_func($sandbox)) {
               $this->sendHTTPStatus();
               $this->sendHeader('Content-type: text/xml; charset=utf-8');
-              return $this->layout->getXml();
+              return $this->layout->getXML();
             }
             $this->getError(500, 'Service Unavailable', PAPAYA_PAGE_ERROR_PAGE);
           } else {
@@ -1718,18 +1718,18 @@ class papaya_page extends base_object {
    */
   public function getPageDocument() {
     if (NULL === $this->_pageDocument) {
-      $this->_pageDocument = new \Papaya\Xml\Document();
-      $xml = \Papaya\Utility\Text\Xml::repairEntities(
+      $this->_pageDocument = new \Papaya\XML\Document();
+      $xml = \Papaya\Utility\Text\XML::repairEntities(
         $this->topic->parseContent(TRUE, $this->_filterOptions)
       );
       if (!empty($xml)) {
-        $errors = new \Papaya\Xml\Errors();
+        $errors = new \Papaya\XML\Errors();
         $errors->activate();
         try {
           $this->_pageDocument->loadXml($xml);
           $errors->emit();
           $errors->deactivate();
-        } catch (\Papaya\Xml\Exception $e) {
+        } catch (\Papaya\XML\Exception $e) {
           $message = new \Papaya\Message\Log(
             \Papaya\Message\Logable::GROUP_SYSTEM,
             \Papaya\Message::SEVERITY_ERROR,
@@ -1760,7 +1760,7 @@ class papaya_page extends base_object {
     $boxes = new papaya_boxes;
     if ($boxes->load($this->boxId, $this->topic->topic['TRANSLATION']['lng_id'])) {
       $result = $boxes->parsedBox($this->topic);
-      if (!\Papaya\Xml\Document::createFromXml($result, TRUE)) {
+      if (!\Papaya\XML\Document::createFromXML($result, TRUE)) {
         $result = '<box><![CDATA['.str_replace(']]>', ']]&gt;', $result).']]></box>';
       }
       return $result;

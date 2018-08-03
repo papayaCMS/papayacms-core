@@ -21,13 +21,13 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Panel::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $panel = new \PapayaUiPanel_TestProxy();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<panel/>',
-      $panel->getXml()
+      $panel->getXML()
     );
   }
 
@@ -36,14 +36,14 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Panel::setCaption
   */
   public function testAppendToWithCaption() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $panel = new \PapayaUiPanel_TestProxy();
     $panel->setCaption('sample caption');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<panel title="sample caption"/>',
-      $panel->getXml()
+      $panel->getXML()
     );
   }
 

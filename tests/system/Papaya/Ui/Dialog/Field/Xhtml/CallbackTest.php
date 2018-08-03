@@ -30,7 +30,7 @@ class PapayaUiDialogFieldXhtmlCallbackTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldXhtmlCallback" error="no">
         <xhtml><select/></xhtml>
       </field>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 

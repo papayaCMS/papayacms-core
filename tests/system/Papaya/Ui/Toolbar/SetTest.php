@@ -60,11 +60,11 @@ class PapayaUiToolbarSetTest extends \PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $group->elements($elements);
     $this->assertEquals(
       '',
-      $group->getXml()
+      $group->getXML()
     );
   }
 }

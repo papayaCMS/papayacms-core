@@ -57,7 +57,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
     $listview = new Listview(
       21, 42, $dependencies, $references, $synchronizations
     );
-    $this->assertEquals('', $listview->getXml());
+    $this->assertEquals('', $listview->getXML());
   }
 
   /**
@@ -170,7 +170,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
           </listitem>
         </items>
       </listview>',
-      $listview->getXml()
+      $listview->getXML()
     );
   }
 

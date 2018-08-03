@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
+namespace Papaya\XML;
 
 /**
  * A exception wrapper for libxml errors.
@@ -22,7 +22,7 @@ namespace Papaya\Xml;
  * addition information about the error.
  *
  * @package Papaya-Library
- * @subpackage Xml
+ * @subpackage XML
  */
 class Exception extends \Papaya\Exception {
 

@@ -86,11 +86,11 @@ class Node extends \Papaya\UI\Control {
   /**
    * Append the listview item node marker to the parent xml element
    *
-   * @param \Papaya\Xml\Element $parent
-   * @param \Papaya\Xml\Element|NULL
-   * @return null|\Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @param \Papaya\XML\Element|NULL
+   * @return null|\Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if ($this->status != self::NODE_HIDDEN) {
       $node = $parent->appendElement(
         'node',

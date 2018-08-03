@@ -101,7 +101,7 @@ class FromArray {
     'isHttpX' => 'isUrl',
     'isHttpHost' => 'isUrlHost',
     'isHttp' => 'isUrlHttp',
-    'isNoHtml' => 'isNotXml',
+    'isNoHtml' => 'isNotXML',
     'isGeoPos' => 'isGeoPosition',
     'isHTTPHostOrIPAddress' => 'isServerAddress',
     'isAlpha' => 'isText',

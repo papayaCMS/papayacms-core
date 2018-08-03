@@ -21,7 +21,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbars::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $toolbars = new \Papaya\UI\Toolbars();
     $toolbars->topLeft = new \PapayaUiToolbarsToolbar_Mock();
@@ -90,7 +90,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
 }
 
 class PapayaUiToolbarsToolbar_Mock extends \Papaya\UI\Toolbar {
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return $parent->appendElement('toolbar');
   }
 }

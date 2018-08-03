@@ -93,7 +93,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
    * @param integer $options
    */
   public function testGetPopupOptionsArray(array $expected, $top = NULL, $left = NULL, $options = NULL) {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
@@ -110,14 +110,14 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
    * @param string $target
    */
   public function testAppendTo($expected, $class, $target) {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('sample');
     $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->class = $class;
     $attributes->target = $target;
     $node->append($attributes);
     $this->assertEquals(
-      $expected, $node->saveXml()
+      $expected, $node->saveXML()
     );
   }
 
@@ -130,13 +130,13 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
    * @param integer $options
    */
   public function testAppendToForPopup($expected, $top = NULL, $left = NULL, $options = NULL) {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('sample');
     $attributes = new \Papaya\UI\Link\Attributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $node->append($attributes);
     $this->assertEquals(
-      $expected, $node->saveXml()
+      $expected, $node->saveXML()
     );
   }
 

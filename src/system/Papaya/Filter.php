@@ -39,7 +39,7 @@ interface Filter {
   const IS_ISO_DATE = 'isIsoDate';
   const IS_ISO_DATE_TIME = 'isIsoDateTime';
   const IS_NOT_EMPTY = 'isNotEmpty';
-  const IS_NOT_XML = 'isNotXml';
+  const IS_NOT_XML = 'isNotXML';
   const IS_PASSWORD = 'isPassword';
   const IS_PHONE = 'isPhone';
   const IS_TEXT = 'isText';
@@ -48,7 +48,7 @@ interface Filter {
   const IS_URL = 'isUrl';
   const IS_URL_HOST = 'isUrlHost';
   const IS_URL_HTTP = 'isUrlHttp';
-  const IS_XML = 'isXml';
+  const IS_XML = 'isXML';
 
   /**
    * The filter function returns the filtered version of an input value.

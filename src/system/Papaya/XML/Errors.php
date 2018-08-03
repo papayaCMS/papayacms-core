@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
+namespace Papaya\XML;
 
 /**
  * Encapsulation object for the libxml errors.
@@ -22,7 +22,7 @@ namespace Papaya\Xml;
  * into \Papaya\PapayaMessage objects and dispatches them into the MessageManager.
  *
  * @package Papaya-Library
- * @subpackage Xml
+ * @subpackage XML
  */
 class Errors extends \Papaya\Application\BaseObject {
 
@@ -61,7 +61,7 @@ class Errors extends \Papaya\Application\BaseObject {
 
   /**
    * Encapsulate a libxml method to capture errors into exceptions. Returns
-   * NULL if a \Papaya\Xml\PapayaXmlException was captured, the result of the callback
+   * NULL if a \Papaya\XML\Exception was captured, the result of the callback
    * otherwise.
    *
    * @param callable $callback
@@ -80,7 +80,7 @@ class Errors extends \Papaya\Application\BaseObject {
         $this->emit();
       }
       $this->deactivate();
-    } catch (\Papaya\Xml\Exception $e) {
+    } catch (\Papaya\XML\Exception $e) {
       if ($emitErrors) {
         $context = new \Papaya\Message\Context\Group();
         if ($e->getContextFile()) {
@@ -108,13 +108,13 @@ class Errors extends \Papaya\Application\BaseObject {
    * Dispatches messages for the libxml errors in the internal buffer.
    *
    * @param boolean $fatalOnly
-   * @throws \Papaya\Xml\Exception
+   * @throws \Papaya\XML\Exception
    */
   public function emit($fatalOnly = FALSE) {
     $errors = libxml_get_errors();
     foreach ($errors as $error) {
       if ($error->level == LIBXML_ERR_FATAL) {
-        throw new \Papaya\Xml\Exception($error);
+        throw new \Papaya\XML\Exception($error);
       } elseif (!$fatalOnly && 0 !== strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()

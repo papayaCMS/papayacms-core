@@ -25,9 +25,9 @@ class Separator extends Element {
   /**
    * Append the separator to the parent xml element
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if ($this->isDisplayed()) {
       $parent->appendElement('separator');
     }

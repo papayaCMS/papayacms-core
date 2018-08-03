@@ -72,7 +72,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<teasers/>',
-      $teasers->getXml()
+      $teasers->getXML()
     );
   }
 
@@ -112,7 +112,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<teasers/>',
-      $teasers->getXml()
+      $teasers->getXML()
     );
   }
 
@@ -153,7 +153,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<teasers/>',
-      $teasers->getXml()
+      $teasers->getXML()
     );
   }
 
@@ -189,7 +189,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<teasers/>',
-      $teasers->getXml()
+      $teasers->getXML()
     );
   }
 
@@ -251,11 +251,11 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
           </thumbnail>
         </teaser-thumbnails>
       </teasers>",
-      $teasers->getXml()
+      $teasers->getXML()
     );
   }
 
-  public function callbackAppendTeaser(\Papaya\Xml\Element $parent) {
+  public function callbackAppendTeaser(\Papaya\XML\Element $parent) {
     $parent->appendElement('title', array(), 'sample title');
     $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
     $parent->appendElement('text', array(), 'sample teaser');
@@ -282,7 +282,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 class PapayaUiContentTeasers_PagePluginMockClass
   implements \Papaya\Plugin\Quoteable {
 
-  public function appendQuoteTo(\Papaya\Xml\Element $parent) {
+  public function appendQuoteTo(\Papaya\XML\Element $parent) {
     $parent->appendElement('title', array(), 'sample title');
     $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
     $parent->appendElement('text', array(), 'sample teaser');

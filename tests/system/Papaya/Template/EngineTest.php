@@ -181,7 +181,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterWithPapayaXmlElement() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('test');
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($node);
@@ -194,7 +194,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterUsingLoaderMechanism() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $loaderFailure = $this->createMock(\PapayaTemplateEngineValuesLoadable::class);
     $loaderFailure
@@ -251,7 +251,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   * @covers \PapayaTemplateEngine::getContext
   */
   public function testGetContextExpectingXmlElement() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('test');
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($node);
@@ -331,7 +331,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForValues() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('node');
     $document->appendChild($node);
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -367,7 +367,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
 }
 
 /**
- * @property \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\Xml\Document dynamic_property
+ * @property \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\XML\Document dynamic_property
  */
 class PapayaTemplateEngine_TestProxy extends \PapayaTemplateEngine {
 

@@ -72,10 +72,10 @@ abstract class Message
   /**
    * Append message to parent xml element and return it.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element the appended message xml element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element the appended message xml element
    */
-  protected function appendMessageElement(\Papaya\Xml\Element $parent) {
+  protected function appendMessageElement(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
       array(

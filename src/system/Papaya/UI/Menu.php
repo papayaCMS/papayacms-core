@@ -46,10 +46,10 @@ class Menu extends Toolbar {
   /**
    * Append menu and elements and set identifier if available
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (count($this->elements()) > 0) {
       $menu = $parent->appendElement('menu');
       if (!empty($this->_identifier)) {

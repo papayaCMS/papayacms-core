@@ -99,7 +99,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="datetime" name="date" maxlength="19">2011-01-01 18:00:00</input>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 
@@ -121,7 +121,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="date" name="date" maxlength="19">2011-01-01</input>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 
@@ -143,7 +143,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="date" name="date" maxlength="19"/>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 

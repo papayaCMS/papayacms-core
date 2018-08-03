@@ -86,7 +86,7 @@ class PapayaUiDialogFieldInputDateTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Date::getXml
+  * @covers \Papaya\UI\Dialog\Field\Input\Date::getXML
   */
   public function testGetXml() {
     $input = new \Papaya\UI\Dialog\Field\Input\Date('Date', 'date');
@@ -96,7 +96,7 @@ class PapayaUiDialogFieldInputDateTest extends \PapayaTestCase {
         '<field caption="Date" class="DialogFieldInputDate" error="no">
           <input type="date" name="date" maxlength="19"/>
         </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 

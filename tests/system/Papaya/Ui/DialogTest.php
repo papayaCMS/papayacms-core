@@ -183,7 +183,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $dialog->papaya($application);
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $dialog->appendHidden($document->documentElement, new \Papaya\Request\Parameters($values), $group);
     $this->assertXmlStringEqualsXmlString(
@@ -302,12 +302,12 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $fields
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $dialog = new \Papaya\UI\Dialog($owner);
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->tokens($tokens);
@@ -320,7 +320,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
         <input type="hidden" name="confirmation" value="true"/>
         <input type="hidden" name="token" value="TOKEN_STRING"/>
         </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -342,7 +342,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->options($options);
     $this->assertEquals(
     /** @lang XML */'<dialog-box action="http://www.test.tld/test.html" method="post"/>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -368,7 +368,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $this->assertEquals(
       '<dialog-box'.
       ' action="http://www.test.tld/test.html" method="post" enctype="multipart/form-data"/>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -393,7 +393,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <input type="hidden" name="confirmation" value="true"/>
         </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -420,7 +420,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
         <input type="hidden" name="foo" value="bar"/>
         <input type="hidden" name="confirmation" value="49a3696adf0fbfacc12383a2d7400d51"/>
         </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -446,7 +446,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Test"/>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -468,7 +468,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $description
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
     $dialog = new \Papaya\UI\Dialog(new stdClass());
     $dialog->papaya($this->mockPapaya()->application());
@@ -477,7 +477,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post"/>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -1044,7 +1044,7 @@ class PapayaUiDialog_TestProxy extends \Papaya\UI\Dialog {
     return parent::getMethodString();
   }
 
-  public function appendHidden(\Papaya\Xml\Element $parent,
+  public function appendHidden(\Papaya\XML\Element $parent,
                                \Papaya\Request\Parameters $values,
                                $path = NULL) {
     return parent::appendHidden($parent, $values, $path);

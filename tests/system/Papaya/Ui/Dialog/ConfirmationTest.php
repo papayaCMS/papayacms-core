@@ -191,7 +191,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
       <message>Confirm action?</message>
       <dialog-button type="submit" caption="Yes"/>
       </confirmation-dialog>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 }

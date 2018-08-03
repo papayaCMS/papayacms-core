@@ -29,10 +29,10 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $command = new \Papaya\UI\Control\Command\Dialog();
     $command->dialog($dialog);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -47,7 +47,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $callbacks = $this
       ->getMockBuilder(\Papaya\UI\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
@@ -60,7 +60,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $command = new \Papaya\UI\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->callbacks($callbacks);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -88,7 +88,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $command->dialog($dialog);
     $command->hideAfterSuccess(TRUE);
     $command->callbacks($callbacks);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -119,7 +119,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $command->dialog($dialogOne);
     $command->resetAfterSuccess(TRUE);
     $command->callbacks($callbacks);
-    $command->getXml();
+    $command->getXML();
   }
 
 
@@ -139,7 +139,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $callbacks = $this
       ->getMockBuilder(\Papaya\UI\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
@@ -152,7 +152,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $command = new \Papaya\UI\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->callbacks($callbacks);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**

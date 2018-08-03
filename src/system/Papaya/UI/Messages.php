@@ -23,7 +23,7 @@ namespace Papaya\UI;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Messages extends \Papaya\BaseObject\Collection implements \Papaya\Xml\Appendable {
+class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appendable {
 
   /**
    * create list object and store child superclass limit
@@ -35,10 +35,10 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\Xml\Appe
   /**
    * If the list contains items, append them and return the list xml element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (!$this->isEmpty()) {
       $list = $parent->appendElement('messages');
       foreach ($this as $item) {
@@ -55,13 +55,13 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\Xml\Appe
    * @see appendTo
    * @return string
    */
-  public function getXml() {
+  public function getXML() {
     if (!$this->isEmpty()) {
-      $dom = new \Papaya\Xml\Document();
+      $dom = new \Papaya\XML\Document();
       $root = $dom->appendElement('root');
       $this->appendTo($root);
       /** @noinspection PhpUndefinedMethodInspection */
-      return $root->firstChild->saveXml();
+      return $root->firstChild->saveXML();
     }
     return '';
   }

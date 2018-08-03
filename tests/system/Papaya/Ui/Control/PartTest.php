@@ -121,6 +121,6 @@ class PapayaUiControlPart_TestProxy extends \Papaya\UI\Control\Part {
     $this->_property = $value;
   }
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

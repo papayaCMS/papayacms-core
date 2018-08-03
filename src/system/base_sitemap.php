@@ -1076,7 +1076,7 @@ class base_sitemap extends base_db {
         $cfgData = $this->linkTypes[$row['linktype_id']]['popup_config'];
         $target = sprintf(
           ' target="%s"',
-          \Papaya\Utility\Text\Xml::escapeAttribute(
+          \Papaya\Utility\Text\XML::escapeAttribute(
             $this->linkTypes[$row['linktype_id']]['linktype_name']
           )
         );

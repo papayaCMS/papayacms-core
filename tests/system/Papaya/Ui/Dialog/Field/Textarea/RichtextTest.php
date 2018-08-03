@@ -39,7 +39,7 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
         <textarea type="text" name="name" lines="10" data-rte="standard"/>
       </field>',
-      $richtext->getXml()
+      $richtext->getXML()
     );
   }
 
@@ -56,7 +56,7 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
         <textarea type="text" name="name" lines="12" data-rte="simple"/>
       </field>',
-      $richtext->getXml()
+      $richtext->getXML()
     );
   }
 

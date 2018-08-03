@@ -222,7 +222,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $node
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $subitems = $this
       ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
       ->setConstructorArgs(array($item))
@@ -230,7 +230,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $item->node($node);
     $item->subitems($subitems);
     $item->papaya(
@@ -239,7 +239,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -255,7 +255,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $item->subitems($subitems);
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => '')))
@@ -263,7 +263,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -306,7 +306,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" href="#success"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -322,7 +322,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" indent="3"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -339,7 +339,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" span="3"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -355,7 +355,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" selected="selected"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -371,7 +371,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" emphased="emphased"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -410,7 +410,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" span="42"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -426,7 +426,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<listitem title="caption" image="test.gif" subtitle="sample text"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 }

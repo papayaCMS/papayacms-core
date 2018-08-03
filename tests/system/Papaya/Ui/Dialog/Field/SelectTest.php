@@ -98,7 +98,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="42">full</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -124,7 +124,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="some">filled</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -155,7 +155,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="full">full</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -181,7 +181,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="42">full</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -218,7 +218,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="bar">bar</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -243,7 +243,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
       ->method('getParameterName')
       ->with('truth')
       ->willReturnArgument(0);
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \Papaya\UI\Dialog\Field\Select(
@@ -285,7 +285,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="42">mapped: full</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -315,7 +315,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="42" data-title="full" data-index="42" data-json="[21,42]">full</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -355,7 +355,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
           <option value="bar">bar</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 

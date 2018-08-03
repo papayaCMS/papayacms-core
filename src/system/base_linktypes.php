@@ -117,7 +117,7 @@ class base_linktypes extends base_db {
       if (isset($this->linkTypes[$linkTypeId])) {
         if (isset($this->linkTypes[$linkTypeId]['linktype_popup_config']) &&
             !isset($this->linkTypes[$linkTypeId]['popup_config'])) {
-          $popupConfig = \Papaya\Utility\Text\Xml::unserializeArray(
+          $popupConfig = \Papaya\Utility\Text\XML::unserializeArray(
             $this->linkTypes[$linkTypeId]['linktype_popup_config']
           );
           $this->linkTypes[$linkTypeId]['popup_config'] = $popupConfig;

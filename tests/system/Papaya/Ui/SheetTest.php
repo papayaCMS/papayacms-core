@@ -24,7 +24,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
     $sheet = new \Papaya\UI\Sheet();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<sheet><text/></sheet>',
-      $sheet->getXml()
+      $sheet->getXML()
     );
   }
 
@@ -43,7 +43,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
          </header>
          <text/>
        </sheet>',
-      $sheet->getXml()
+      $sheet->getXML()
     );
   }
 
@@ -62,7 +62,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
          </header>
          <text/>
        </sheet>',
-      $sheet->getXml()
+      $sheet->getXML()
     );
   }
 
@@ -82,7 +82,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
            <div class="simple">Content</div>
          </text>
        </sheet>',
-      $sheet->getXml()
+      $sheet->getXML()
     );
   }
 }

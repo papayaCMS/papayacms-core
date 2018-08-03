@@ -53,7 +53,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \Papaya\UI\Listview\Item\Node($item);
-    $this->assertEquals('', $node->getXml());
+    $this->assertEquals('', $node->getXML());
   }
 
   /**
@@ -68,7 +68,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
     $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_EMPTY);
     $this->assertEquals(
       /** @lang XML */'<node status="empty"/>',
-      $node->getXml()
+      $node->getXML()
     );
   }
 
@@ -90,7 +90,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
     $node->reference($reference);
     $this->assertEquals(
     /** @lang XML */'<node status="closed" href="sample.html"/>',
-      $node->getXml()
+      $node->getXML()
     );
   }
 
@@ -112,7 +112,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
     $node->reference($reference);
     $this->assertEquals(
       /** @lang XML */'<node status="open" href="sample.html"/>',
-      $node->getXml()
+      $node->getXML()
     );
   }
 

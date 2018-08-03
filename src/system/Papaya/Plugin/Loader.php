@@ -347,12 +347,12 @@ class Loader extends \Papaya\Application\BaseObject {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
       } elseif (is_string($data)) {
-        $plugin->content()->setXml($data);
+        $plugin->content()->setXML($data);
       }
     } elseif (!empty($data) && method_exists($plugin, 'setData')) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
-          \Papaya\Utility\Text\Xml::serializeArray(
+          \Papaya\Utility\Text\XML::serializeArray(
             \Papaya\Utility\Arrays::ensure($data)
           )
         );

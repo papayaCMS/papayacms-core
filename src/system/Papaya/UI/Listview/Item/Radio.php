@@ -42,7 +42,7 @@ class Radio extends \Papaya\UI\Listview\Item {
     $this->_value = $value;
   }
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $node = parent::appendTo($parent);
     $input = $node->appendElement(
       'input',

@@ -34,7 +34,7 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Message::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $message = new \Papaya\UI\Dialog\Field\Message(\Papaya\Message::SEVERITY_INFO, 'Message');
     $message->papaya(
@@ -52,7 +52,7 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
           <message image="image.png">Message</message>
         </field>
       </sample>',
-      $document->documentElement->saveXml()
+      $document->documentElement->saveXML()
     );
   }
 }

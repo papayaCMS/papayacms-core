@@ -106,6 +106,6 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
 }
 
 class PapayaUiControlCollectionItem_TestProxy extends \Papaya\UI\Control\Collection\Item {
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

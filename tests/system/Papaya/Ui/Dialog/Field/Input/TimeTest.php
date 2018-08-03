@@ -64,7 +64,7 @@ class PapayaUiDialogFieldInputTimeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Time::getXml
+  * @covers \Papaya\UI\Dialog\Field\Input\Time::getXML
   */
   public function testGetXml() {
     $input = new \Papaya\UI\Dialog\Field\Input\Time('Time', 'time');
@@ -74,7 +74,7 @@ class PapayaUiDialogFieldInputTimeTest extends \PapayaTestCase {
       '<field caption="Time" class="DialogFieldInputTime" error="no">
         <input type="time" name="time" maxlength="9"/>
       </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 

@@ -280,6 +280,6 @@ class papaya_navigation extends base_object {
         $menu->elements[] = $group;
       }
     }
-    return $menu->getXml();
+    return $menu->getXML();
   }
 }

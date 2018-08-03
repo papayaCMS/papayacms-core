@@ -231,7 +231,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   * @covers Selector::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
     $switch->papaya(

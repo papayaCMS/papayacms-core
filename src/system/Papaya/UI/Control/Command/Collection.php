@@ -44,9 +44,9 @@ class Collection
   /**
    * Execute commands and append result to output xml
    *
-   * @param \Papaya\Xml\Element
+   * @param \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     /** @var \Papaya\UI\Control\Command $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&

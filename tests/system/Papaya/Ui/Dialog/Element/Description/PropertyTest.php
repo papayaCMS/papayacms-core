@@ -37,7 +37,7 @@ class PapayaUiDialogElementDescriptionPropertyTest extends \PapayaTestCase {
   public function testAppendTo() {
     $property = new \Papaya\UI\Dialog\Element\Description\Property('foo', 'bar');
     $this->assertEquals(
-      /** @lang XML */'<property name="foo" value="bar"/>', $property->getXml()
+      /** @lang XML */'<property name="foo" value="bar"/>', $property->getXML()
     );
   }
 }

@@ -53,7 +53,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Add</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -96,7 +96,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Save</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -139,7 +139,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Add</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 

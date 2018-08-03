@@ -24,19 +24,19 @@ namespace Papaya\UI\Message;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Xml extends Text {
+class XML extends Text {
 
   /**
    * Use the parent method to append the element and append the xml fragment to the new
    * message xml element node.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $message = parent::appendMessageElement($parent);
     if ($xmlFragment = $this->getContent()) {
-      $message->appendXml($xmlFragment);
+      $message->appendXML($xmlFragment);
     }
     return $message;
   }

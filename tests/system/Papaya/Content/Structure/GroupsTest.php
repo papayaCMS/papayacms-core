@@ -43,7 +43,7 @@ class PapayaContentStructureGroupsTest extends \PapayaTestCase {
       ->getMockBuilder(Page::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $groups = new Groups($page);
     $groups->load($document->xpath()->evaluate('//page[1]')->item(0));

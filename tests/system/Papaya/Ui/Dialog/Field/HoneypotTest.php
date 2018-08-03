@@ -95,7 +95,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">
         <input type="text" name="group[name]"/>
       </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 
@@ -144,7 +144,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldHoneypot" error="yes" mandatory="yes">
         <input type="text" name="name"/>
       </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 
@@ -159,7 +159,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">
         <input type="text" name="name"/>
       </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 }

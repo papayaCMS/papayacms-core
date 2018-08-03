@@ -22,7 +22,7 @@ namespace Papaya\UI\Control;
  */
 abstract class Part
   extends \Papaya\Application\BaseObject
-  implements \Papaya\Xml\Appendable {
+  implements \Papaya\XML\Appendable {
 
   /**
    * Allows to declare dynamic properties with optional getter/setter methods. The read and write

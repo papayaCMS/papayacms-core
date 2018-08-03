@@ -164,10 +164,10 @@ class Attributes extends \Papaya\UI\Control\Part {
   /**
    * The object append the link attributes to a given element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $class = $this->class;
     if (!empty($class)) {
       $parent->setAttribute($this->_attributeNames['class'], $class);

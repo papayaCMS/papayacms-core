@@ -73,7 +73,7 @@ class Autoloader {
     'PapayaFilterExceptionRangeMinimum' => Filter\Exception\OutOfRange\ToSmall::class,
     'PapayaFilterExceptionType' => Filter\Exception\UnexpectedType::class,
     'PapayaFilterExceptionUndefined' => Filter\Exception\IsUndefined::class,
-    'PapayaFilterExceptionXml' => Filter\Exception\InvalidXml::class,
+    'PapayaFilterExceptionXml' => Filter\Exception\InvalidXML::class,
     'PapayaFilterFactoryExceptionInvalidFilter' => Filter\Factory\Exception\InvalidFilter::class,
     'PapayaFilterFactoryExceptionInvalidOptions' => Filter\Factory\Exception\InvalidOptions::class,
     'PapayaFilterFactoryExceptionInvalidProfile' => Filter\Factory\Exception\InvalidProfile::class,
@@ -135,7 +135,8 @@ class Autoloader {
     'Php' => 'PHP',
     'Regex' => 'RegEx',
     'Ui' => 'UI',
-    'Util' => 'Utility'
+    'Util' => 'Utility',
+    'Xml' => 'XML'
   );
 
   /**

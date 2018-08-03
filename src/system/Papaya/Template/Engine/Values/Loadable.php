@@ -28,7 +28,7 @@ interface PapayaTemplateEngineValuesLoadable {
 
   /**
   * @param mixed $values
-  * @return FALSE|\Papaya\Xml\Element|\Papaya\Xml\Document
+  * @return FALSE|\Papaya\XML\Element|\Papaya\XML\Document
   */
   function load($values);
 

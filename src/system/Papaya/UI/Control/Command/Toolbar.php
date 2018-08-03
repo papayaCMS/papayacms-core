@@ -56,10 +56,10 @@ abstract class Toolbar extends \Papaya\UI\Control\Command {
   /**
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->appendToolbarElements();
     return $parent;
   }

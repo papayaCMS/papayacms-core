@@ -69,10 +69,10 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
   /**
    * Append field output to DOM
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->_appendOptionGroups(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -85,10 +85,10 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
   /**
    * Append option groups to DOM.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param array $groups
    */
-  protected function _appendOptionGroups(\Papaya\Xml\Element $parent, array $groups) {
+  protected function _appendOptionGroups(\Papaya\XML\Element $parent, array $groups) {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;

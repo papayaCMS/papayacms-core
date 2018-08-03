@@ -35,7 +35,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
           <option value="2">English (en-US)</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -56,7 +56,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
           <option value="2">English (en-US)</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -76,7 +76,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
           <option value="en">English (en-US)</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -101,7 +101,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
           <option value="en">English (en-US)</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 

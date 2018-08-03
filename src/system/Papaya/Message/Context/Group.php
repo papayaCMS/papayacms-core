@@ -76,13 +76,13 @@ class Group
     foreach ($this as $element) {
       $result .= '<div class="group">';
       if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
-        $result .= '<h3>'.\Papaya\Utility\Text\Xml::escape($element->getLabel()).'</h3>';
+        $result .= '<h3>'.\Papaya\Utility\Text\XML::escape($element->getLabel()).'</h3>';
       }
       if ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
         $result .= str_replace(
-          "\n", "\n<br />", \Papaya\Utility\Text\Xml::escape($element->asString())
+          "\n", "\n<br />", \Papaya\Utility\Text\XML::escape($element->asString())
         );
       }
       $result .= '</div>';

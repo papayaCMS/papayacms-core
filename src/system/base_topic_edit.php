@@ -506,7 +506,7 @@ class base_topic_edit extends base_topic {
       case 1: //edit content
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
         } elseif ($str = $this->getEditContent()) {
           $this->layout->add($str);
         }
@@ -514,12 +514,12 @@ class base_topic_edit extends base_topic {
       case 2:  //boxes
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_BOXES)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(Administration\Permissions::BOX_LINK)) {
           $boxLinks = new papaya_boxeslinks($this);
           $boxLinks->initialize();
           $dialog = $boxLinks->getModeDialog($this->topic['box_useparent']);
-          $this->layout->add($dialog->getXml());
+          $this->layout->add($dialog->getXML());
           if ($dialog->execute()) {
             $saved = $this->saveBoxUseParent(
               $dialog->data()->get('box_useparent', papaya_boxeslinks::INHERIT_ALL)
@@ -562,7 +562,7 @@ class base_topic_edit extends base_topic {
       case 4: // surfer permissions
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_ACCESS)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(2, '88236ef1454768e23787103f46d711c2')) {
           $sfl = new base_surferlinks($this->topicId);
           if ($sfl->execute()) {
@@ -584,7 +584,7 @@ class base_topic_edit extends base_topic {
       case 6 : //view and module
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_VIEW)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
           $this->layout->addRight($this->getInformation());
           break;
         } elseif (isset($this->params['cmd']) && $this->params['cmd'] === 'chg_view') {
@@ -651,7 +651,7 @@ class base_topic_edit extends base_topic {
       case 10: // tags
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_TAGS)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(Administration\Permissions::TAG_MANAGE)) {
           $tags = papaya_taglinks::getInstance($this);
           if (isset($tags) && $tags->prepare('topic', $this->topicId)) {
@@ -675,7 +675,7 @@ class base_topic_edit extends base_topic {
         if ($authUser->hasPerm(Administration\Permissions::PAGE_DEPENDENCY_MANAGE)) {
           $dependencies = new Administration\Pages\Dependency\Changer();
           $dependencies->parameterGroup($this->paramName);
-          $this->layout->add($dependencies->getXml());
+          $this->layout->add($dependencies->getXML());
           $this->menubar->addSeparator();
           foreach ($dependencies->menu()->elements as $button) {
             if ($button instanceof \Papaya\UI\Toolbar\Separator) {
@@ -701,7 +701,7 @@ class base_topic_edit extends base_topic {
         $this->setMenuBar(TRUE);
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
-          $this->layout->add($dependencyBlocker->getXml());
+          $this->layout->add($dependencyBlocker->getXML());
         } else {
           $this->layout->add($this->getPropertiesDialog());
         }
@@ -714,7 +714,7 @@ class base_topic_edit extends base_topic {
       $this->execPageActions();
       $dependencyBlocker = $this->getDependencyBlocker();
       if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
-        $this->layout->add($dependencyBlocker->getXml());
+        $this->layout->add($dependencyBlocker->getXML());
       } else {
         $this->layout->add($this->addTranslationDialog());
         $this->layout->add($this->getPropertiesDialog());
@@ -953,7 +953,7 @@ class base_topic_edit extends base_topic {
     $pageIds[] = $this->topicId;
     $hierarchy = new Administration\Pages\Ancestors();
     $hierarchy->setIds($pageIds);
-    $this->layout->add($hierarchy->getXml(), 'toolbars');
+    $this->layout->add($hierarchy->getXML(), 'toolbars');
   }
 
   /**
@@ -2405,7 +2405,7 @@ class base_topic_edit extends base_topic {
     $frame->toolbars->topLeft->elements[] = $select;
     $frame->toolbars->topRight->elements[] = $buttons;
     $frame->reference()->setRelative($fileName);
-    return $frame->getXml();
+    return $frame->getXML();
   }
 
   /**
@@ -2442,7 +2442,7 @@ class base_topic_edit extends base_topic {
     if (isset($moduleData['module_guid']) && $moduleData['module_guid'] != '') {
       $plugin = $this->papaya()->plugins->get($moduleData['module_guid'], $this);
       if ($plugin instanceof \Papaya\Plugin\Editable) {
-        $plugin->content()->setXml($moduleData['topic_content']);
+        $plugin->content()->setXML($moduleData['topic_content']);
         $pluginNode = $this->layout->values()->getValueByPath('/page/centercol');
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(
@@ -2456,7 +2456,7 @@ class base_topic_edit extends base_topic {
           );
           $pluginNode->append($plugin->content()->editor());
           if ($plugin->content()->modified()) {
-            if ($this->saveContent($moduleData['module_guid'], $plugin->content()->getXml())) {
+            if ($this->saveContent($moduleData['module_guid'], $plugin->content()->getXML())) {
               $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
             }
           }
@@ -3597,7 +3597,7 @@ class base_topic_edit extends base_topic {
         }
       }
     }
-    return $listview->getXml();
+    return $listview->getXML();
   }
 
   function loadBoxViewCacheStatus($boxesPageId) {
@@ -3752,7 +3752,7 @@ class base_topic_edit extends base_topic {
         );
         $listview->items[] = $listitem;
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }
@@ -4680,7 +4680,7 @@ class base_topic_edit extends base_topic {
   function getPublishForm() {
     $this->initializePublishDialog();
     if (isset($this->dialogPublish) && is_object($this->dialogPublish)) {
-      return $this->dialogPublish->getXml();
+      return $this->dialogPublish->getXML();
     }
     return '';
   }
@@ -5085,7 +5085,7 @@ class base_topic_edit extends base_topic {
           new \Papaya\UI\Text\Translated('GoTo')
         )
       );
-    $this->layout->addLeft($dialog->getXml());
+    $this->layout->addLeft($dialog->getXML());
   }
 
   /**

@@ -34,7 +34,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $message = new \Papaya\UI\Dialog\Field\Information('Information', 'image');
     $message->papaya(
@@ -52,7 +52,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
           <message image="image.png">Information</message>
         </field>
       </sample>',
-      $document->documentElement->saveXml()
+      $document->documentElement->saveXML()
     );
   }
 
@@ -60,7 +60,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
   */
   public function testAppendToWithoutImage() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $message = new \Papaya\UI\Dialog\Field\Information('Information');
     $message->papaya(
@@ -78,7 +78,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
           <message>Information</message>
         </field>
       </sample>',
-      $document->documentElement->saveXml()
+      $document->documentElement->saveXML()
     );
   }
 

@@ -349,7 +349,7 @@ class papaya_parser extends base_db {
           $this->topics[$row['topic_id']] = $row;
           if (!isset($this->topicLinkTypes[$row['linktype_id']]) && $row['linktype_is_popup']) {
             $this->topicLinkTypes[$row['linktype_id']] = array();
-            $xmlTree = \Papaya\Xml\Document::createFromXml($row['linktype_popup_config']);
+            $xmlTree = \Papaya\XML\Document::createFromXML($row['linktype_popup_config']);
             if (isset($xmlTree) && isset($xmlTree->documentElement) &&
                 $xmlTree->documentElement->hasChildNodes()) {
               for ($idx = 0; $idx < $xmlTree->documentElement->childNodes->length; $idx++) {

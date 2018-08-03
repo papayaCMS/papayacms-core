@@ -68,9 +68,9 @@ class Date extends \Papaya\UI\Listview\Subitem {
   /**
    * Append subitem xml data to parent node.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'subitem',
       array(

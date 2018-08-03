@@ -126,9 +126,9 @@ class Options
   /**
    * Append options to an xml element
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $options = $parent->appendElement('options');
     foreach ($this as $name => $value) {
       $options->appendElement(

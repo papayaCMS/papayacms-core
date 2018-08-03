@@ -159,7 +159,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param \Papaya\Http\Client $client
    * @return \DOMXPath
    */
-  private function _doXmlRequest(\Papaya\Http\Client $client) {
+  private function _doXMLRequest(\Papaya\Http\Client $client) {
     $client->send();
     $dom = new \DOMDocument('1.0', 'UTF-8');
     if (200 === $client->getResponseStatus()) {
@@ -187,7 +187,7 @@ class S3 extends \Papaya\Media\Storage\Service {
         'prefix' => $storageGroup.'/'.$startsWith
       )
     );
-    $response = $this->_doXmlRequest($client);
+    $response = $this->_doXMLRequest($client);
     $offset = strlen($storageGroup) + 1;
     /** @noinspection ForeachSourceInspection */
     foreach ($response->evaluate('//aws:Key') as $file) {
@@ -451,7 +451,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId).'?acl',
       'GET'
     );
-    $response = $this->_doXmlRequest($client);
+    $response = $this->_doXMLRequest($client);
     $userPattern = 'aws:Grantee/aws:URI/text() = "http://acs.amazonaws.com/groups/global/AllUsers"';
     $permissionPattern = 'string(//aws:Grant['.$userPattern.']/aws:Permission/text())';
     $permission = $response->evaluate($permissionPattern);

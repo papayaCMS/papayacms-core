@@ -233,7 +233,7 @@ class base_plugin extends base_object {
   * @access public
   */
   function setData($xmlData) {
-    $this->data = \Papaya\Utility\Text\Xml::unserializeArray($xmlData);
+    $this->data = \Papaya\Utility\Text\XML::unserializeArray($xmlData);
     $this->onLoad();
   }
 
@@ -283,7 +283,7 @@ class base_plugin extends base_object {
   * @return string $result XML-data string
   */
   function getData() {
-    return \Papaya\Utility\Text\Xml::serializeArray($this->data);
+    return \Papaya\Utility\Text\XML::serializeArray($this->data);
   }
 
   /**

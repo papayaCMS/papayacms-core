@@ -40,7 +40,7 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
         <step-size href="http://www.test.tld/test.html?steps=20" selected="selected">20</step-size>
         <step-size href="http://www.test.tld/test.html?steps=30">30</step-size>
       </paging-steps>',
-      $steps->getXml()
+      $steps->getXML()
     );
   }
 
@@ -55,7 +55,7 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
       '<paging-steps>
         <step-size href="http://www.test.tld/test.html?steps=10">10</step-size>
       </paging-steps>',
-      $steps->getXml()
+      $steps->getXML()
     );
   }
 
@@ -74,16 +74,16 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
          selected="selected">20</step-size>
         <step-size href="http://www.test.tld/test.html?foo[role]=42&amp;foo[steps]=30">30</step-size>
       </paging-steps>',
-      $steps->getXml()
+      $steps->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXmlNames
+  * @covers \Papaya\UI\Paging\Steps::setXMLNames
   */
   public function testAppendToWithDifferentXml() {
     $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
-    $steps->setXmlNames(
+    $steps->setXMLNames(
       array(
         'list' => 'sizes',
         'item' => 'size'
@@ -97,18 +97,18 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
         <size href="http://www.test.tld/test.html?foo[steps]=20" selected="selected">20</size>
         <size href="http://www.test.tld/test.html?foo[steps]=30">30</size>
       </sizes>',
-      $steps->getXml()
+      $steps->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXmlNames
+  * @covers \Papaya\UI\Paging\Steps::setXMLNames
   */
   public function testSetXmlWithInvalidElement() {
     $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
-    $steps->setXmlNames(
+    $steps->setXMLNames(
       array(
         'invalid' => 'PagingLinks'
       )
@@ -116,13 +116,13 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXmlNames
+  * @covers \Papaya\UI\Paging\Steps::setXMLNames
   */
   public function testSetXmlWithInvalidElementName() {
     $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
-    $steps->setXmlNames(
+    $steps->setXMLNames(
       array(
         'list' => '23Invalid'
       )

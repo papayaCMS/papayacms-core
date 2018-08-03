@@ -92,10 +92,10 @@ class Images extends Image\Toggle {
    * Append the subitem to the listitem xml element. If the selected icon is not found
    * the subitem will be empty.
    *
-   * @param \Papaya\Xml\Element
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(

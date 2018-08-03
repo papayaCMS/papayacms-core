@@ -36,7 +36,7 @@ class PapayaUiDialogFieldInputCountedTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldInputCounted" error="no">
         <input type="counted" name="fieldname" maxlength="1024"/>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 }

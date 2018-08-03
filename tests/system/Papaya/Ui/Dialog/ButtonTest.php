@@ -57,6 +57,6 @@ class PapayaUiDialogButtonTest extends \PapayaTestCase {
 
 class PapayaUiDialogButton_TestProxy extends \Papaya\UI\Dialog\Button {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

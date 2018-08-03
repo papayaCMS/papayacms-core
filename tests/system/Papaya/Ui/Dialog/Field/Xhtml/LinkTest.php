@@ -36,7 +36,7 @@ class PapayaUiDialogFieldXhtmlLinkTest extends \PapayaTestCase {
       '<field class="DialogFieldXhtmlLink" error="no">
         <xhtml><a href="http://www.papaya-cms.com">PapayaCMS</a></xhtml>
       </field>',
-      $link->getXml()
+      $link->getXML()
     );
   }
 

@@ -42,7 +42,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
       ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $controller = new \Papaya\UI\Control\Command\Controller('sample', 'default');
     $controller->owner($owner);
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**
@@ -67,13 +67,13 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class))
       ->will($this->returnValue(NULL));
 
     $controller = new \Papaya\UI\Control\Command\Controller('sample', 'default');
     $controller->owner($owner);
     $controller['command'] = $command;
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**
@@ -98,13 +98,13 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class))
       ->will($this->returnValue(NULL));
 
     $controller = new \Papaya\UI\Control\Command\Controller('sample', 'default');
     $controller->owner($owner);
     $controller['default'] = $command;
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**
@@ -133,7 +133,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $controller = new \Papaya\UI\Control\Command\Controller('sample', 'default');
     $controller->owner($owner);
     $controller['default'] = $command;
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**
@@ -161,7 +161,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $controller = new \Papaya\UI\Control\Command\Controller('sample', 'default');
     $controller->owner($owner);
     $controller['default'] = $command;
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**
@@ -193,7 +193,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $controller->owner($owner);
     $controller->condition($condition);
     $controller['default'] = $command;
-    $controller->getXml();
+    $controller->getXML();
   }
 
   /**

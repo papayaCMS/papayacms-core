@@ -185,10 +185,10 @@ class Listview extends \Papaya\UI\Listview {
   /**
    * Append listview to parent element if it has records.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return NULL|\Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return NULL|\Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (count($this->_dependencies) > 0 || count($this->_references) > 0) {
       $this->prepare();
       return parent::appendTo($parent);

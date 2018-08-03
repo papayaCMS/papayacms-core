@@ -25,7 +25,7 @@ class PapayaUiListviewSubitemEmptyTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<subitem/>',
-      $subitem->getXml()
+      $subitem->getXML()
     );
   }
 }

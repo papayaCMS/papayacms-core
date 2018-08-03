@@ -430,7 +430,7 @@ class papaya_overview extends base_db {
           $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text($text);
         }
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }

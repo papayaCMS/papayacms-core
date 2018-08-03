@@ -427,7 +427,7 @@ class papaya_log extends base_db {
         $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text($logType);
         $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Date((int)$msg['log_time']);
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }
@@ -583,19 +583,19 @@ class papaya_log extends base_db {
       $result .= '</items>';
       $result .= '</listview>';
       $this->layout->add($result);
-      $dom = new \Papaya\Xml\Document();
+      $dom = new \Papaya\XML\Document();
       $dom
         ->appendElement('sheet', array('width' => '100%', 'align' => 'center'))
         ->appendElement('text')
         ->appendElement('div', array('style' => 'padding: 10px;'))
-        ->appendXml(
-          $data = @\Papaya\Utility\Text\Xml::repairEntities(
+        ->appendXML(
+          $data = @\Papaya\Utility\Text\XML::repairEntities(
             $this->rewrapHTML(
               $this->messageList[$selected]['log_msg_long']
             )
           )
         );
-      $this->layout->add($dom->documentElement->saveXml());
+      $this->layout->add($dom->documentElement->saveXML());
     }
   }
 
@@ -869,6 +869,6 @@ class papaya_log extends base_db {
     $menu->elements[] = $button;
     $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
 
-    return $menu->getXml();
+    return $menu->getXML();
   }
 }

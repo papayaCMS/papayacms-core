@@ -29,7 +29,7 @@ class PapayaUiHierarchyMenuTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
     $menu = new \Papaya\UI\Hierarchy\Menu();
     $menu->items($items);

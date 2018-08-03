@@ -51,7 +51,7 @@ class PapayaUiMessageTest extends \PapayaTestCase {
     $message = new \PapayaUiMessage_TestProxy($severity, $event, $occurred);
     $this->assertEquals(
       $expectedXml,
-      $message->getXml()
+      $message->getXML()
     );
   }
 
@@ -125,7 +125,7 @@ class PapayaUiMessageTest extends \PapayaTestCase {
  */
 class PapayaUiMessage_TestProxy extends \Papaya\UI\Message {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return parent::appendMessageElement($parent);
   }
 }

@@ -22,7 +22,7 @@ class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
   */
   public function testAppendToInheritance() {
     $items = new \Papaya\UI\Hierarchy\Items();
-    $this->assertSame('', $items->getXml());
+    $this->assertSame('', $items->getXML());
   }
 
   /**
@@ -38,7 +38,7 @@ class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
     $items[] = $this->getItemFixture(TRUE);
     $items[] = $this->getItemFixture(TRUE);
 
-    $this->assertSame(/** @lang XML */'<items/>', $items->getXml());
+    $this->assertSame(/** @lang XML */'<items/>', $items->getXML());
   }
 
   /**

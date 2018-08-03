@@ -134,7 +134,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
           </group>
         </select>
       </field>',
-      $profile->getField()->getXml()
+      $profile->getField()->getXML()
     );
   }
 
@@ -172,7 +172,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
           </group>
         </select>
       </field>',
-      $profile->getField()->getXml()
+      $profile->getField()->getXML()
     );
   }
 

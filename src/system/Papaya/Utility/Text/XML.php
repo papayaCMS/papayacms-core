@@ -21,7 +21,7 @@ namespace Papaya\Utility\Text;
  * @package Papaya-Library
  * @subpackage Util
  */
-class Xml {
+class XML {
 
   /**
    * Escape XML meta chars in string
@@ -101,7 +101,7 @@ class Xml {
     if (is_array($array)) {
       self::_serializeSubArray($dom->documentElement, $tagName, $array);
     }
-    return $dom->saveXml($dom->documentElement);
+    return $dom->saveXML($dom->documentElement);
   }
 
   /**
@@ -150,7 +150,7 @@ class Xml {
             |
             (?:2(?:[01][0-9]|2[0-7]))
            );)x',
-          array('Papaya\Utility\Text\Xml', 'decodeOldEntitiesToUtf8'),
+          array('Papaya\Utility\Text\XML', 'decodeOldEntitiesToUtf8'),
           $xml
         )
       );
@@ -169,7 +169,7 @@ class Xml {
           $dom->documentElement,
           $result,
           function ($value) {
-            return \PapayaUtilStringXml::unescape($value);
+            return self::unescape($value);
           }
         );
       }

@@ -64,10 +64,10 @@ class Collection
   /**
    * Append group and elements to the output xml.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @return NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->elements()->appendTo($parent);
     return NULL;
   }

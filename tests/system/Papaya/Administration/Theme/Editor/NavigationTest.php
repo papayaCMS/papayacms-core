@@ -31,7 +31,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($listview);
-    $navigation->getXml();
+    $navigation->getXML();
   }
 
   /**
@@ -42,7 +42,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(\Papaya\UI\Listview::class));
     $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
-    $navigation->getXml();
+    $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
        /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
@@ -53,7 +53,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=0&amp;theme=default"
          target="_self"
          title="Import"/>',
-      $navigation->toolbar()->getXml()
+      $navigation->toolbar()->getXML()
     );
   }
 
@@ -67,7 +67,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->parameters(
       new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 42))
     );
-    $navigation->getXml();
+    $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
        /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
@@ -84,7 +84,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       <button href="http://www.test.tld/test.html?cmd=set_export&amp;set_id=42&amp;theme=default"
          target="_self"
          title="Export"/>',
-      $navigation->toolbar()->getXml()
+      $navigation->toolbar()->getXML()
     );
   }
 
@@ -178,7 +178,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          title="sample"
          image="theme.png"
          href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -212,7 +212,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          image="theme.png"
          href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"
          selected="selected"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -245,7 +245,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          title="sample"
          image="theme.png"
          href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -283,7 +283,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          image="folder.png"
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
          indent="1"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -323,7 +323,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
          indent="1"
          selected="selected"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -367,7 +367,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          image="folder.png"
          href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
          indent="2"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -414,7 +414,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
          href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
          indent="2"
          selected="selected"/>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 

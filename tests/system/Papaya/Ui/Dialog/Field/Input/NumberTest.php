@@ -69,7 +69,7 @@ class PapayaUiDialogFieldInputNumberTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Number::getXml
+  * @covers \Papaya\UI\Dialog\Field\Input\Number::getXML
   */
   public function testGetXml() {
     $input = new \Papaya\UI\Dialog\Field\Input\Number('Number', 'number', '123', FALSE, 2, 4);
@@ -78,7 +78,7 @@ class PapayaUiDialogFieldInputNumberTest extends \PapayaTestCase {
         '<field caption="Number" class="DialogFieldInputNumber" error="no">
           <input type="number" name="number" maxlength="4">123</input>
         </field>',
-      $input->getXml()
+      $input->getXML()
     );
   }
 

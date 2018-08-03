@@ -79,7 +79,7 @@ class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
       '<field caption="Color" class="DialogFieldInputColor" error="no">
         <input type="color" name="color" maxlength="7"/>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 

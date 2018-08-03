@@ -54,7 +54,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">1</input>
       </field>',
-      $checkbox->getXml()
+      $checkbox->getXML()
     );
   }
 
@@ -69,7 +69,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
       '<field caption="caption" class="DialogFieldInputCheckbox" error="yes" mandatory="yes">
         <input type="checkbox" name="name">1</input>
       </field>',
-      $checkbox->getXml()
+      $checkbox->getXML()
     );
   }
 
@@ -84,7 +84,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">1</input>
       </field>',
-      $checkbox->getXml()
+      $checkbox->getXML()
     );
   }
 
@@ -100,7 +100,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">yes</input>
       </field>',
-      $checkbox->getXml()
+      $checkbox->getXML()
     );
   }
 
@@ -116,7 +116,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">yes</input>
       </field>',
-      $checkbox->getXml()
+      $checkbox->getXML()
     );
   }
 

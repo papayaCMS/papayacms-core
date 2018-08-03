@@ -122,13 +122,13 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('test');
     $filterOne = $this->createMock(\Papaya\Plugin\Filter\Content::class);
     $filterOne
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
     $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
@@ -139,7 +139,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testAppendToBC() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->appendElement('test');
     $filterOne = $this
       ->getMockBuilder(stdClass::class)
@@ -154,7 +154,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
     $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->appendTo($node);
-    $this->assertEquals(/** @lang XML */'<test>success</test>', $node->saveXml());
+    $this->assertEquals(/** @lang XML */'<test>success</test>', $node->saveXML());
   }
 
   public function getPageFixture() {

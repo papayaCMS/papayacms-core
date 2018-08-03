@@ -44,7 +44,7 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Panel\Frame::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
     $frame = new \Papaya\UI\Panel\Frame('Sample Caption', 'sample_frame');
     $frame->papaya($this->mockPapaya()->application());
@@ -53,7 +53,7 @@ class PapayaUiPanelFrameTest extends \PapayaTestCase {
       '<panel title="Sample Caption">
         <iframe id="sample_frame" src="http://www.test.tld/test.html" height="400"/>
       </panel>',
-      $frame->getXml()
+      $frame->getXML()
     );
   }
 

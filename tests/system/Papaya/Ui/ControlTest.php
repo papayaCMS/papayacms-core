@@ -18,39 +18,39 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiControlTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Control::getXml
+  * @covers \Papaya\UI\Control::getXML
   */
   public function testGetXml() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
     $this->assertEquals(
-    /** @lang XML */'<sample/>', $control->getXml()
+    /** @lang XML */'<sample/>', $control->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Control::getXml
+  * @covers \Papaya\UI\Control::getXML
   */
   public function testGetXmlWithTextNode() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
     $this->assertEquals(
-      'sample', $control->getXml()
+      'sample', $control->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Control::getXml
+  * @covers \Papaya\UI\Control::getXML
   */
   public function testGetXmlWithSeveralNodes() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),
@@ -58,7 +58,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>
-      'sample<sample/><!--comment-->', $control->getXml()
+      'sample<sample/><!--comment-->', $control->getXML()
     );
   }
 }
@@ -67,7 +67,7 @@ class PapayaUiControl_TestProxy extends \Papaya\UI\Control {
 
   public $nodeStub = array();
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

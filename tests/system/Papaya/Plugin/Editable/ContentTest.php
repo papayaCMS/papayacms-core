@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaPluginEditableContentTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Plugin\Editable\Content::getXml
+   * @covers \Papaya\Plugin\Editable\Content::getXML
    */
   public function testGetXml() {
     $content = new \Papaya\Plugin\Editable\Content(array('foo' => 'bar', 'bar' => 'foo'));
@@ -28,16 +28,16 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
       </data>',
-      $content->getXml()
+      $content->getXML()
     );
   }
 
   /**
-   * @covers \Papaya\Plugin\Editable\Content::setXml
+   * @covers \Papaya\Plugin\Editable\Content::setXML
    */
   public function testSetXml() {
     $content = new \Papaya\Plugin\Editable\Content();
-    $content->setXml(
+    $content->setXML(
       /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
@@ -51,11 +51,11 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Plugin\Editable\Content::setXml
+   * @covers \Papaya\Plugin\Editable\Content::setXML
    */
   public function testSetXmlReplacesAllData() {
     $content = new \Papaya\Plugin\Editable\Content(array('foo' => 'bar'));
-    $content->setXml(
+    $content->setXML(
       /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
@@ -79,7 +79,7 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
    */
   public function testModifiedIsFalseAfterSetXml() {
     $content = new \Papaya\Plugin\Editable\Content();
-    $content->setXml('');
+    $content->setXML('');
     $this->assertFalse($content->modified());
   }
 
@@ -88,7 +88,7 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
    */
   public function testModifiedIsTrueAfterChange() {
     $content = new \Papaya\Plugin\Editable\Content();
-    $content->setXml(
+    $content->setXML(
       /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
@@ -103,7 +103,7 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
    */
   public function testModfiedIsFalseForEqualData() {
     $content = new \Papaya\Plugin\Editable\Content();
-    $content->setXml(
+    $content->setXML(
       /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>

@@ -537,7 +537,7 @@ class papaya_boxeslinks extends base_boxeslinks {
         }
       }
     }
-    return $listview->getXml();
+    return $listview->getXML();
   }
 
   public function getBoxStatusImage($box) {

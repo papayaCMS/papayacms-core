@@ -53,9 +53,9 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
   /**
    * Append field and textarea output to DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',

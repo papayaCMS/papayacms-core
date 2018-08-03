@@ -40,7 +40,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
     $icon
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
     $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
@@ -54,7 +54,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->with('foo')
       ->will($this->returnValue($icon));
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -77,7 +77,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->with('foo')
       ->will($this->returnValue(FALSE));
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));

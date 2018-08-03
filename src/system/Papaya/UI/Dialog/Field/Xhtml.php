@@ -34,7 +34,7 @@ class Xhtml extends \Papaya\UI\Dialog\Field {
   /**
    * Create object and assign needed values.
    *
-   * @param string|\Papaya\UI\Text|\Papaya\Xml\Element $content
+   * @param string|\Papaya\UI\Text|\Papaya\XML\Element $content
    */
   public function __construct($content = NULL) {
     if (isset($content)) {
@@ -45,21 +45,21 @@ class Xhtml extends \Papaya\UI\Dialog\Field {
   /**
    * Getter/Setter for xhtml content.
    *
-   * @param string|\Papaya\UI\Text|\Papaya\Xml\Element $content
+   * @param string|\Papaya\UI\Text|\Papaya\XML\Element $content
    * @throws \InvalidArgumentException
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
   public function content($content = NULL) {
     if (isset($content)) {
-      if ($content instanceof \Papaya\Xml\Element) {
+      if ($content instanceof \Papaya\XML\Element) {
         $this->_content = $content;
       } elseif (is_string($content) || $content instanceof \Papaya\UI\Text) {
-        $this->content()->appendXml((string)$content);
+        $this->content()->appendXML((string)$content);
       } else {
         throw new \InvalidArgumentException('Content must be string or valid xml element object');
       }
     } elseif (is_null($this->_content)) {
-      $this->_dom = new \Papaya\Xml\Document();
+      $this->_dom = new \Papaya\XML\Document();
       $this->_content = $this->_dom->appendElement('xhtml');
     }
     return $this->_content;
@@ -68,9 +68,9 @@ class Xhtml extends \Papaya\UI\Dialog\Field {
   /**
    * Append xhtml field to dialog xml dom.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     if ($this->content()->hasChildNodes()) {
       $field->appendChild(

@@ -20,7 +20,7 @@ namespace Papaya\Plugin\Filter;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface Content extends \Papaya\Xml\Appendable {
+interface Content extends \Papaya\XML\Appendable {
 
   /**
    * @param string $content

@@ -75,12 +75,12 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
     $builder = new \Papaya\UI\Navigation\Builder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $builder->items($items);
-    $builder->getXml();
+    $builder->getXML();
   }
 
   /**
@@ -128,13 +128,13 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
     $builder = new \Papaya\UI\Navigation\Builder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $builder->items($items);
     $builder->callbacks($callbacks);
-    $builder->getXml();
+    $builder->getXML();
   }
 
   /**
@@ -145,7 +145,7 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
     $builder->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       /** @lang XML */'<links><link href="http://www.test.tld/index.html">Item One</link></links>',
-      $builder->getXml()
+      $builder->getXML()
     );
   }
 

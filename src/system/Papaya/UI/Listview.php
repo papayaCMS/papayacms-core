@@ -108,10 +108,10 @@ class Listview extends Control\Interactive {
   /**
    * Append listview output to parent element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return NULL|\Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return NULL|\Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $listview = $parent->appendElement('listview');
     if (!empty($this->_caption)) {
       $listview->setAttribute('title', (string)$this->_caption);

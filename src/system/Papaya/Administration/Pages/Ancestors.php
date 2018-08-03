@@ -40,10 +40,10 @@ class Ancestors extends \Papaya\UI\Control {
   /**
    * Append ancestor menu xml to parent element, this will do nothing until ids are set.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return NULL|\Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return NULL|\Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return $this->menu()->appendTo($parent);
   }
 

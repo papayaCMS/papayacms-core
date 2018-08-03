@@ -27,20 +27,20 @@ namespace Papaya\Parser;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-abstract class Tag implements \Papaya\Xml\Appendable {
+abstract class Tag implements \Papaya\XML\Appendable {
 
   /**
    * Compile output xml for the user interface element.
    *
    * @return string
    */
-  public function getXml() {
-    $dom = new \Papaya\Xml\Document();
+  public function getXML() {
+    $dom = new \Papaya\XML\Document();
     $control = $dom->appendElement('tag');
     $this->appendTo($control);
     $xml = '';
     foreach ($dom->documentElement->childNodes as $node) {
-      $xml .= $node->ownerDocument->saveXml($node);
+      $xml .= $node->ownerDocument->saveXML($node);
     }
     return $xml;
   }

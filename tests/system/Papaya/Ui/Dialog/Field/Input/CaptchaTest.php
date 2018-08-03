@@ -48,7 +48,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
         <input type="captcha" name="name[foo]"/>
         <image src="http://www.test.tld/somecaptcha.image.jpg?img[identifier]=foo"/>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 

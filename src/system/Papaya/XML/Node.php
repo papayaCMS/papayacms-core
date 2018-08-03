@@ -13,20 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory\Profile;
+namespace Papaya\XML;
 /**
- * Profile creating a filter for string that contains an char that triggers a
- * status change in xml (<, > ") and whould need escaping
+ * Define a interface of additional functions implemented in \Papaya\XML\Document and \Papaya\XML\Element.
+ *
+ * The interface allows to use type hints for appendTo() methods.
  *
  * @package Papaya-Library
- * @subpackage Filter
+ * @subpackage XML
  */
-class IsNotXml extends \Papaya\Filter\Factory\Profile {
+interface Node {
+  public function appendElement($name, array $attributes = array(), $content = NULL);
 
-  /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
-   */
-  public function getFilter() {
-    return new \Papaya\Filter\Pcre('(^[^<>&]+$)Du');
-  }
+  public function appendXML($content);
 }

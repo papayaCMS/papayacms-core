@@ -25,18 +25,18 @@ class PapayaTemplateValues {
   /**
   * The Dom Document containg the actual values
   *
-  * @var \Papaya\Xml\Document
+  * @var \Papaya\XML\Document
   */
   private $_document = NULL;
 
   /**
    * Construct object and initalize internal dom document.
    *
-   * @param \Papaya\Xml\Document $document
+   * @param \Papaya\XML\Document $document
    * @return \PapayaTemplateValues
    */
-  public function __construct(\Papaya\Xml\Document $document = NULL) {
-    $this->document(isset($document) ? $document : new \Papaya\Xml\Document());
+  public function __construct(\Papaya\XML\Document $document = NULL) {
+    $this->document(isset($document) ? $document : new \Papaya\XML\Document());
   }
 
   /**
@@ -110,7 +110,7 @@ class PapayaTemplateValues {
       }
       $context = $node;
     }
-    return ($node instanceof \Papaya\Xml\Element)
+    return ($node instanceof \Papaya\XML\Element)
       ? new \PapayaTemplateValue($node) : FALSE;
   }
 
@@ -134,7 +134,7 @@ class PapayaTemplateValues {
       return $this->getValueByPath($selector);
     } elseif (is_null($selector)) {
       return new \PapayaTemplateValue($this->_document);
-    } elseif ($selector instanceof \Papaya\Xml\Element) {
+    } elseif ($selector instanceof \Papaya\XML\Element) {
       return new \PapayaTemplateValue($selector);
     }
     throw new \InvalidArgumentException('Can not find specified template value');
@@ -160,7 +160,7 @@ class PapayaTemplateValues {
    * @param string $xml
    * @return \PapayaTemplateValue
    */
-  public function appendXml($parent, $xml) {
-    return $this->getValue($parent)->appendXml(\Papaya\Utility\Text\Utf8::ensure($xml));
+  public function appendXML($parent, $xml) {
+    return $this->getValue($parent)->appendXML(\Papaya\Utility\Text\Utf8::ensure($xml));
   }
 }

@@ -166,10 +166,10 @@ class Select extends Element {
   /**
    * Append select xml elements to xml document
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $select = $parent->appendElement(
       'combo',
       array(

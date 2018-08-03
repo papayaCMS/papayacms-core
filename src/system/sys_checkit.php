@@ -221,14 +221,14 @@ class checkit {
    * Check string is no HTML
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isNotXml()
+   * @see \Papaya\Filter\Factory::isNotXML()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isNoHTML($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isNotXml($str, $mustContainValue);
+    return \Papaya\Filter\Factory::isNotXML($str, $mustContainValue);
   }
 
   /**
@@ -555,14 +555,14 @@ class checkit {
    * Check string is xhtml
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isXml()
+   * @see \Papaya\Filter\Factory::isXML()
    *
    * @param $str
    * @param boolean $mustContainValue string may be empty?
    * @return bool $result
    */
   public static function isXhtml($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isXml($str, $mustContainValue);
+    return \Papaya\Filter\Factory::isXML($str, $mustContainValue);
   }
 
   /**

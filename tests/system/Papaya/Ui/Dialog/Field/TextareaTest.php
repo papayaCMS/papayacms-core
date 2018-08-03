@@ -62,7 +62,7 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Textarea::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $textarea = new \Papaya\UI\Dialog\Field\Textarea('Caption', 'name');
@@ -86,7 +86,7 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Textarea::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $textarea = new \Papaya\UI\Dialog\Field\Textarea('Caption', 'name');

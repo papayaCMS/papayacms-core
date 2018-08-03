@@ -33,7 +33,7 @@ class PapayaUiMessageTextTest extends \PapayaTestCase {
   public function testAppendTo() {
     $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
+      /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXML()
     );
   }
 
@@ -43,7 +43,7 @@ class PapayaUiMessageTextTest extends \PapayaTestCase {
   public function testAppendToWithSpecialChars() {
     $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */'<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXml()
+      /** @lang XML */'<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXML()
     );
   }
 

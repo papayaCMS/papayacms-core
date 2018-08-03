@@ -20,7 +20,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Xml implements \Papaya\Filter {
+class XML implements \Papaya\Filter {
 
   /**
    * @var bool
@@ -39,7 +39,7 @@ class Xml implements \Papaya\Filter {
    *
    *
    * @param string $value
-   * @throws \Papaya\Filter\Exception\InvalidXml
+   * @throws \Papaya\Filter\Exception\InvalidXML
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @return TRUE
    */
@@ -48,19 +48,19 @@ class Xml implements \Papaya\Filter {
     if (empty($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     }
-    $errors = new \Papaya\Xml\Errors();
+    $errors = new \Papaya\XML\Errors();
     $errors->activate();
-    $dom = new \Papaya\Xml\Document();
+    $dom = new \Papaya\XML\Document();
     try {
       if ($this->_allowFragments) {
         $root = $dom->appendElement('root');
-        $root->appendXml($value);
+        $root->appendXML($value);
       } else {
         $dom->loadXML($value);
       }
       $errors->emit(TRUE);
-    } catch (\Papaya\Xml\Exception $e) {
-      throw new \Papaya\Filter\Exception\InvalidXml($e);
+    } catch (\Papaya\XML\Exception $e) {
+      throw new \Papaya\Filter\Exception\InvalidXML($e);
     }
     return TRUE;
   }

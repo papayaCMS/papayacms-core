@@ -47,7 +47,7 @@ class PapayaAdministrationPluginEditorGroupTest extends \PapayaTestCase {
       '<toolbar>
           <button down="down" href="http://www.test.tld/test.html?editor_index=0" title="TEST CAPTION"/>
         </toolbar>',
-        $editorGroup->getXml()
+        $editorGroup->getXML()
     );
   }
 
@@ -77,7 +77,7 @@ class PapayaAdministrationPluginEditorGroupTest extends \PapayaTestCase {
       '<toolbar>
           <button down="down" href="http://www.test.tld/test.html?editor_index=0&amp;foo=bar" title="TEST CAPTION"/>
         </toolbar>',
-      $editorGroup->getXml()
+      $editorGroup->getXML()
     );
   }
 
@@ -124,7 +124,7 @@ class PapayaAdministrationPluginEditorGroupTest extends \PapayaTestCase {
         <button href="http://www.test.tld/test.html?dialog-index=0" title="ONE"/>
         <button down="down" href="http://www.test.tld/test.html?dialog-index=1" title="TWO"/>
       </toolbar>',
-      $editorGroup->getXml()
+      $editorGroup->getXML()
     );
   }
 
@@ -138,6 +138,6 @@ class PapayaAdministrationPluginEditorGroupTest extends \PapayaTestCase {
     $editorGroup->papaya($this->mockPapaya()->application());
 
     $this->expectException(\LogicException::class);
-    $editorGroup->getXml();
+    $editorGroup->getXML();
   }
 }

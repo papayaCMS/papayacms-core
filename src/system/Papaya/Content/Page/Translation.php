@@ -103,7 +103,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
       case 'content' :
-        return \Papaya\Utility\Text\Xml::unserializeArray($value);
+        return \Papaya\Utility\Text\XML::unserializeArray($value);
     }
     return $value;
   }
@@ -120,7 +120,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
       case 'content' :
-        return \Papaya\Utility\Text\Xml::serializeArray(empty($value) ? array() : $value);
+        return \Papaya\Utility\Text\XML::serializeArray(empty($value) ? array() : $value);
     }
     return $value;
   }

@@ -93,9 +93,9 @@ class Image extends \Papaya\UI\Dialog\Field {
   /**
    * Append image field to dialog xml dom
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
 
     $thumbnail = $this->thumbnail()->getThumbnail(

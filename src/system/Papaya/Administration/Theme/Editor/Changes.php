@@ -37,9 +37,9 @@ class Changes extends \Papaya\Administration\Page\Part {
   /**
    * Append changes commands to parent xml element
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->append($this->commands());
   }
 

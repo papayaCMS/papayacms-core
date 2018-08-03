@@ -59,10 +59,10 @@ class Toolbar extends Control {
   /**
    * Append toolbar and elements and set identifier if available
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (count($this->elements()) > 0) {
       $toolbar = $parent->appendElement('toolbar');
       $this->elements()->appendTo($toolbar);

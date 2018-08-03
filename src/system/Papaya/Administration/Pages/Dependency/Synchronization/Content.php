@@ -167,7 +167,7 @@ class Content
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         array(
-          'topic_content' => \Papaya\Utility\Text\Xml::serializeArray($origin->content),
+          'topic_content' => \Papaya\Utility\Text\XML::serializeArray($origin->content),
           'topic_trans_modified' => $origin->modified
         ),
         array(

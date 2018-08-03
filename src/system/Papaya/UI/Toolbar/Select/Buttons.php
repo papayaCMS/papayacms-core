@@ -33,10 +33,10 @@ class Buttons extends \Papaya\UI\Toolbar\Select {
   /**
    * Append button xml elemens to parent element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $currentValue = $this->getCurrentValue();
     $parameterName = new \Papaya\Request\Parameters\Name($this->_parameterName);
     foreach ($this->_options as $value => $data) {

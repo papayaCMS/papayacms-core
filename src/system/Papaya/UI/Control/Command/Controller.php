@@ -63,10 +63,10 @@ class Controller
   /**
    * Execute command and append output after validating the user permission
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (
       $this->validateCondition() &&
       $this->validatePermission() &&

@@ -13,21 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
+namespace Papaya\XML;
 /**
  * Replacement for the DOMElement adding some shortcuts for easier use
  *
  * @package Papaya-Library
- * @subpackage Xml
+ * @subpackage XML
  *
- * @property \Papaya\Xml\Document $ownerDocument
+ * @property \Papaya\XML\Document $ownerDocument
  */
 class Element
   extends \DOMElement
   implements Node {
 
   /**
-   * Append a object (with interface Papaya\Xml\PapayaXmlAppendable) to the element
+   * Append a object (with interface Papaya\XML\Appendable) to the element
    *
    * @param Appendable $object
    * @return self|NULL
@@ -69,9 +69,9 @@ class Element
    * @param string $content
    * @return self $this
    */
-  public function appendXml($content) {
+  public function appendXML($content) {
     /** @noinspection PhpUndefinedMethodInspection */
-    return $this->ownerDocument->appendXml($content, $this);
+    return $this->ownerDocument->appendXML($content, $this);
   }
 
   /**
@@ -105,8 +105,8 @@ class Element
    *
    * @return string
    */
-  public function saveXml() {
-    return $this->ownerDocument->saveXml($this);
+  public function saveXML() {
+    return $this->ownerDocument->saveXML($this);
   }
 
   /**
@@ -117,7 +117,7 @@ class Element
   public function saveFragment() {
     $result = '';
     foreach ($this->childNodes as $childNode) {
-      $result .= $childNode->ownerDocument->saveXml($childNode);
+      $result .= $childNode->ownerDocument->saveXML($childNode);
     }
     return $result;
   }

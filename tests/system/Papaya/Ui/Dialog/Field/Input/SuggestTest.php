@@ -78,7 +78,7 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');
@@ -102,7 +102,7 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', 'www.example.com');

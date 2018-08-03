@@ -74,9 +74,9 @@ class Builder extends \Papaya\UI\Control {
   /**
    * Create items for each source element and append them to the parent xml element.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->items()->clear();
     $this->callbacks()->onBeforeAppend($this->items());
     foreach ($this->elements() as $index => $element) {

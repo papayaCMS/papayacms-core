@@ -21,7 +21,7 @@ class PapayaParserTagImageTest extends \PapayaTestCase {
    */
   public function testAppendTo() {
     $image = new \Papaya\Parser\Tag\Image('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $container = $document->appendElement('container');
     $image->appendTo($container);
     $this->assertXmlStringEqualsXmlString(

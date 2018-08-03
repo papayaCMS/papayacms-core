@@ -13,15 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
-
-interface Appendable {
+namespace Papaya\Filter\Factory\Profile;
+/**
+ * Profile creating an xml string filter
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class IsXML extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * Create dom node structure of the given object and append it to the given xml
-   * element node.
-   *
-   * @param \Papaya\Xml\Element $parent
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
-  public function appendTo(\Papaya\Xml\Element $parent);
+  public function getFilter() {
+    return new \Papaya\Filter\XML();
+  }
 }

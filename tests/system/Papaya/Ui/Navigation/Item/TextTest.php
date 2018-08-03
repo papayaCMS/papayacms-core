@@ -28,7 +28,7 @@ class PapayaUiNavigationItemTextTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<link href="http://www.test.tld/index.html">sample</link>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 }

@@ -50,9 +50,9 @@ class Information extends \Papaya\UI\Dialog\Field {
   /**
    * Append message field to dialog xml dom
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(
       'message', array(), (string)$this->_text

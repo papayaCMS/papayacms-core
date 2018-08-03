@@ -33,7 +33,7 @@ class PapayaUiDialogFieldSelectRadioTest extends \PapayaTestCase {
           <option value="2">Two</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 }

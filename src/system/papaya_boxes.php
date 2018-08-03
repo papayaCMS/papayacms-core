@@ -1818,7 +1818,7 @@ class papaya_boxes extends base_boxes {
       $moduleData = $this->box['TRANSLATION'];
       $plugin = $this->papaya()->plugins->get($moduleData['module_guid'], $this);
       if ($plugin instanceof \Papaya\Plugin\Editable) {
-        $plugin->content()->setXml($moduleData['box_data']);
+        $plugin->content()->setXML($moduleData['box_data']);
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(
             array(
@@ -1829,9 +1829,9 @@ class papaya_boxes extends base_boxes {
               )
             )
           );
-          $result = $plugin->content()->editor()->getXml();
+          $result = $plugin->content()->editor()->getXML();
           if ($plugin->content()->modified()) {
-            if ($this->saveData($plugin->content()->getXml())) {
+            if ($this->saveData($plugin->content()->getXML())) {
               $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
               $this->loadList();
             }
@@ -1966,7 +1966,7 @@ class papaya_boxes extends base_boxes {
     $fileName = $templateHandler->getLocalPath().'/info.xml';
     if (file_exists($fileName) && is_readable($fileName)) {
       $this->templateGroups = array();
-      $xmlTree = \Papaya\Xml\Document::createFromXML(file_get_contents($fileName));
+      $xmlTree = \Papaya\XML\Document::createFromXML(file_get_contents($fileName));
       for ($idx1 = 0; $idx1 < $xmlTree->documentElement->childNodes->length; $idx1++) {
         $node = $xmlTree->documentElement->childNodes->item($idx1);
         if ($node instanceof DOMElement &&
@@ -2148,7 +2148,7 @@ class papaya_boxes extends base_boxes {
       }
     }
 
-    return $listview->getXml();
+    return $listview->getXML();
   }
 
   public function compareBoxesByName($boxOne, $boxTwo) {
@@ -2238,7 +2238,7 @@ class papaya_boxes extends base_boxes {
         );
         $listview->items[] = $listitem;
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return $result;
   }
@@ -2933,7 +2933,7 @@ class papaya_boxes extends base_boxes {
           }
         }
       }
-      $result .= $listview->getXml();
+      $result .= $listview->getXML();
     }
     return $result;
   }

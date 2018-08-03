@@ -45,9 +45,9 @@ class Checkbox extends \Papaya\UI\Listview\Subitem {
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $item = $parent->appendElement('subitem');
     $parameterName = clone $this->_parameterName;
     if ($group = $this->_dialog->parameterGroup()) {

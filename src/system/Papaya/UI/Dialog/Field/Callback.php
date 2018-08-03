@@ -59,22 +59,22 @@ class Callback extends \Papaya\UI\Dialog\Field {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     if (is_callable($this->_callback)) {
       $target = $this->_isXhtml ? $field->appendElement('xhtml') : $field;
       $content = call_user_func(
         $this->_callback, $this->getName(), $this, $this->getCurrentValue()
       );
-      if ($content instanceof \Papaya\Xml\Appendable) {
+      if ($content instanceof \Papaya\XML\Appendable) {
         $target->append($content);
       } elseif ($content instanceof \DOMElement) {
         $target->appendChild($field->ownerDocument->importNode($content, TRUE));
       } elseif (is_string($content) || $content instanceof \Papaya\UI\Text) {
-        $target->appendXml((string)$content);
+        $target->appendXML((string)$content);
       }
     }
     return $field;

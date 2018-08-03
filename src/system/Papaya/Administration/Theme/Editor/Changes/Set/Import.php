@@ -84,24 +84,24 @@ class Import
   /**
    * @param \Papaya\UI\Dialog\Field\File\Temporary $uploadField
    * @return bool
-   * @throws \Papaya\Xml\Exception
+   * @throws \Papaya\XML\Exception
    */
   public function onValidationSuccess(\Papaya\UI\Dialog\Field\File\Temporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
-      $errors = new \Papaya\Xml\Errors();
+      $errors = new \Papaya\XML\Errors();
       try {
         $errors->activate();
-        $dom = new \Papaya\Xml\Document();
+        $dom = new \Papaya\XML\Document();
         $dom->load($file['temporary']);
         if ($dom->documentElement) {
-          /** @var \Papaya\Xml\Element $documentElement */
+          /** @var \Papaya\XML\Element $documentElement */
           $documentElement = $dom->documentElement;
           $setId = $this->parameters()->get('set_id', 0);
           if ($setId > 0 && $this->parameters()->get('values/confirm_replace')) {
             if ($this->_themeSet->load($setId)) {
-              $this->_themeSet->setValuesXml(
+              $this->_themeSet->setValuesXML(
                 $this->_themeHandler->getDefinition($theme),
                 $documentElement
               );
@@ -113,7 +113,7 @@ class Import
                 'theme' => $theme
               )
             );
-            $this->_themeSet->setValuesXml(
+            $this->_themeSet->setValuesXML(
               $this->_themeHandler->getDefinition($theme),
               $documentElement
             );
@@ -129,7 +129,7 @@ class Import
           }
         }
         //@codeCoverageIgnoreStart
-      } catch (\Papaya\Xml\Exception $e) {
+      } catch (\Papaya\XML\Exception $e) {
         $errors->emit();
       }
       //@codeCoverageIgnoreEnd

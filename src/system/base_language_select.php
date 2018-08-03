@@ -216,7 +216,7 @@ class base_language_select extends base_db {
    * @return string
    */
   public function getContentLanguageLinksXML() {
-    return $this->getSwitch()->getXml();
+    return $this->getSwitch()->getXML();
   }
 
   /**

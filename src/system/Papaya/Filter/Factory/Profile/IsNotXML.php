@@ -15,17 +15,18 @@
 
 namespace Papaya\Filter\Factory\Profile;
 /**
- * Profile creating an xml string filter
+ * Profile creating a filter for string that contains an char that triggers a
+ * status change in xml (<, > ") and whould need escaping
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsXml extends \Papaya\Filter\Factory\Profile {
+class IsNotXML extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\Xml();
+    return new \Papaya\Filter\Pcre('(^[^<>&]+$)Du');
   }
 }

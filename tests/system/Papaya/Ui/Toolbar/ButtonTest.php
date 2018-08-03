@@ -42,7 +42,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Button::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
     $button = new \Papaya\UI\Toolbar\Button();
     $button->papaya(
@@ -65,7 +65,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Button::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
     $button = new \Papaya\UI\Toolbar\Button();
     $button->papaya(
@@ -92,7 +92,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Button::appendTo
   */
   public function testAppendToWithoutProperties() {
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
     $button = new \Papaya\UI\Toolbar\Button();
     $button->papaya(

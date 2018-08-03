@@ -82,7 +82,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
           <option value="2">Two</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 
@@ -103,7 +103,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
           <option value="2" selected="selected">Two</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 

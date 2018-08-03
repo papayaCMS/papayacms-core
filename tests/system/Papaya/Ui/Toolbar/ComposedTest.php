@@ -68,12 +68,12 @@ class PapayaUiToolbarComposedTest extends \PapayaTestCase {
     $toolbar
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $composed = new \Papaya\UI\Toolbar\Composed(array('first', 'second'));
     $composed->toolbar($toolbar);
     /** @noinspection PhpUndefinedFieldInspection */
     $composed->first = $set;
-    $composed->getXml();
+    $composed->getXML();
   }
 
   /**

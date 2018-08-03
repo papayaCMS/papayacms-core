@@ -47,7 +47,7 @@ class Browser
    */
   private $_dialog;
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->append($this->dialog());
   }
 

@@ -115,7 +115,7 @@ class base_module_options extends base_db {
             $this->_options[$moduleGuid][$row['moduleoption_name']] = array();
           } elseif (substr($row['moduleoption_value'], 0, 1) == '<') {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
-              \Papaya\Utility\Text\Xml::unserializeArray($row['moduleoption_value']);
+              \Papaya\Utility\Text\XML::unserializeArray($row['moduleoption_value']);
           } else {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
               @unserialize($row['moduleoption_value']);
@@ -151,7 +151,7 @@ class base_module_options extends base_db {
                  AND moduleoption_name = '%s'";
       $params = array($this->tableModuleOptions, $moduleGuid, $optionName);
       if (isset($value) && is_array($value)) {
-        $value = \Papaya\Utility\Text\Xml::serializeArray($value);
+        $value = \Papaya\Utility\Text\XML::serializeArray($value);
         $type = 'array';
       } else {
         $value = (string)$value;

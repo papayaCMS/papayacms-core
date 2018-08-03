@@ -58,9 +58,9 @@ class Link extends \Papaya\UI\Dialog\Button {
   /**
    * Append button output to DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'button',
       array(

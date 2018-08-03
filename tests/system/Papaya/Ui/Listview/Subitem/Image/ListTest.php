@@ -43,7 +43,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
@@ -72,7 +72,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $subitem = new \Papaya\UI\Listview\Subitem\Images($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -95,7 +95,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
@@ -124,7 +124,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $subitem = new \Papaya\UI\Listview\Subitem\Images(
       $icons,
       array('foo' => TRUE),
@@ -151,7 +151,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
       ->disableOriginalConstructor()
@@ -180,7 +180,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $subitem = new \Papaya\UI\Listview\Subitem\Images(
       $icons,
       5,

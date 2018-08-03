@@ -17,39 +17,39 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaParserTagTest extends \PapayaTestCase {
   /**
-   * @covers \Papaya\Parser\Tag::getXml
+   * @covers \Papaya\Parser\Tag::getXML
    */
   public function testGetXml() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
     $this->assertEquals(
-      /** @lang XML */'<sample/>', $control->getXml()
+      /** @lang XML */'<sample/>', $control->getXML()
     );
   }
 
   /**
-   * @covers \Papaya\Parser\Tag::getXml
+   * @covers \Papaya\Parser\Tag::getXML
    */
   public function testGetXmlWithTextNode() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
     $this->assertEquals(
-      'sample', $control->getXml()
+      'sample', $control->getXML()
     );
   }
 
   /**
-   * @covers \Papaya\Parser\Tag::getXml
+   * @covers \Papaya\Parser\Tag::getXML
    */
   public function testGetXmlWithSeveralNodes() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),
@@ -58,7 +58,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>
       'sample<sample/><!--comment-->',
-      $control->getXml()
+      $control->getXML()
     );
   }
 }
@@ -66,7 +66,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
 class PapayaParserTag_TestProxy extends \Papaya\Parser\Tag {
   public $nodeStub = array();
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

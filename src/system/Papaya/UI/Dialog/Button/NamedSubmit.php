@@ -58,9 +58,9 @@ class NamedSubmit extends Submit {
   /**
    * Append button ouptut to DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'button',
       array(

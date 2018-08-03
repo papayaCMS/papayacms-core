@@ -105,10 +105,10 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append item xml to parent xml element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $itemNode = $parent->appendElement(
       'item',
       array(

@@ -45,10 +45,10 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append a item to the xml and return it for further modifications in child classes.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $link = $parent->appendElement(
       'link',
       array(

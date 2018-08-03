@@ -375,7 +375,7 @@ class base_cronjobs extends base_db {
   function check() {
     $result = TRUE;
     if (empty($this->params['cronjob_title']) ||
-        !\Papaya\Filter\Factory::isNotXml($this->params['cronjob_title'], TRUE)) {
+        !\Papaya\Filter\Factory::isNotXML($this->params['cronjob_title'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -383,7 +383,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['cronjob_description']) ||
-        !\Papaya\Filter\Factory::isNotXml($this->params['cronjob_description'], TRUE)) {
+        !\Papaya\Filter\Factory::isNotXML($this->params['cronjob_description'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,

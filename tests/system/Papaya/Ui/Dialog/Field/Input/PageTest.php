@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInputPageTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Page::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $field = new \Papaya\UI\Dialog\Field\Input\Page('Page', 'page_id');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));

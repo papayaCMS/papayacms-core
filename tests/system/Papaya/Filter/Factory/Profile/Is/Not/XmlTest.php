@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsNotXmlTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\IsNotXml::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
    * @dataProvider provideNotXmlStrings
    * @param string $string
    */
   public function testGetFilterExpectTrue($string) {
-    $profile = new \Papaya\Filter\Factory\Profile\IsNotXml();
+    $profile = new \Papaya\Filter\Factory\Profile\IsNotXML();
     $this->assertTrue($profile->getFilter()->validate($string));
   }
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\IsNotXml::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
    * @dataProvider provideXmlStrings
    * @param string $string
    */
   public function testGetFilterExpectException($string) {
-    $profile = new \Papaya\Filter\Factory\Profile\IsNotXml();
+    $profile = new \Papaya\Filter\Factory\Profile\IsNotXML();
     $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate($string);
   }

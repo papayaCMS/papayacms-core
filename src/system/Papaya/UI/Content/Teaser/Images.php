@@ -47,7 +47,7 @@ class Images extends \Papaya\UI\Control {
   /**
    * teasers parent element node
    *
-   * @var \Papaya\Xml\Element
+   * @var \Papaya\XML\Element
    */
   private $_teasers = NULL;
 
@@ -65,12 +65,12 @@ class Images extends \Papaya\UI\Control {
   /**
    * Create object and store given parameters
    *
-   * @param \Papaya\Xml\Element $teasers
+   * @param \Papaya\XML\Element $teasers
    * @param integer $width
    * @param integer $height
    * @param string $resizeMode
    */
-  public function __construct(\Papaya\Xml\Element $teasers, $width, $height, $resizeMode = 'max') {
+  public function __construct(\Papaya\XML\Element $teasers, $width, $height, $resizeMode = 'max') {
     $this->_teasers = $teasers;
     $this->_width = $width;
     $this->_height = $height;
@@ -80,18 +80,18 @@ class Images extends \Papaya\UI\Control {
   /**
    * Append teaser thumbnail tags to given parent element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
-    /** @var \Papaya\Xml\Document $targetDocument */
+  public function appendTo(\Papaya\XML\Element $parent) {
+    /** @var \Papaya\XML\Document $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
       array(
         'papaya' => 'http://www.papaya-cms.com/ns/papayacms'
       )
     );
-    /** @var \Papaya\Xml\Document $dom */
+    /** @var \Papaya\XML\Document $dom */
     $dom = $this->_teasers->ownerDocument;
     $images = $dom->xpath()->evaluate($this->_pattern['teaser_images'], $this->_teasers);
     $names = array(
@@ -109,7 +109,7 @@ class Images extends \Papaya\UI\Control {
     }
     if ($images->length > 0) {
       $thumbs = $parent->appendElement($names['list']);
-      /** @var \Papaya\Xml\Element $imageNode */
+      /** @var \Papaya\XML\Element $imageNode */
       foreach ($images as $imageNode) {
         $thumbNode = $thumbs
           ->appendElement(

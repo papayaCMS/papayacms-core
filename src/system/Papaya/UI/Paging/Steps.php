@@ -94,10 +94,10 @@ class Steps extends \Papaya\UI\Control {
   /**
    * Append stepSize elements top parent xml element
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
       $parameterValue = $this->_mode == self::USE_KEYS ? $key : (string)$stepSize;
@@ -125,7 +125,7 @@ class Steps extends \Papaya\UI\Control {
    * @param array $names
    * @throws \UnexpectedValueException
    */
-  public function setXmlNames(array $names) {
+  public function setXMLNames(array $names) {
     foreach ($names as $element => $name) {
       if (array_key_exists($element, $this->_xmlNames) &&
         preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {

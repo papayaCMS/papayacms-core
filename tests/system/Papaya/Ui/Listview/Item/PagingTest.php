@@ -44,7 +44,7 @@ class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       '',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -71,7 +71,7 @@ class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
           <a href="http://www.test.tld/test.html?page=42">42</a>
         </caption>
       </listitem>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -98,7 +98,7 @@ class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
         href="http://www.test.tld/test.html?page=21">21</a> | <a 
         href="http://www.test.tld/test.html?page=42">42</a></caption>
       </listitem>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -124,7 +124,7 @@ class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
           <a href="http://www.test.tld/test.html?page=42">42</a>
         </caption>
       </listitem>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 
@@ -151,7 +151,7 @@ class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
           <a href="http://www.test.tld/test.html?page=42">42</a>
         </caption>
       </listitem>',
-      $item->getXml()
+      $item->getXML()
     );
   }
 

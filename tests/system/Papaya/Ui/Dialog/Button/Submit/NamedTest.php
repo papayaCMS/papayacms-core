@@ -46,7 +46,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname');
     $request = $this->mockPapaya()->request();
@@ -78,7 +78,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->method('getParameterName')
       ->with(array('buttonname', 1))
       ->will($this->returnValue(new \Papaya\Request\Parameters\Name('buttonname[1]')));
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname');
     $request = $this->mockPapaya()->request();
@@ -175,7 +175,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
     $this->assertEquals(
       /** @lang XML */
       '<button type="submit" align="right" name="group[buttonname][42]">Test Caption</button>',
-      $button->getXml()
+      $button->getXML()
     );
   }
 

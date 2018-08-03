@@ -46,10 +46,10 @@ class Delete extends \Papaya\UI\Dialog\Database {
   /**
    * If the dialog was executed, block the dialog output.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (!$this->_executionResult) {
       return parent::appendTo($parent);
     }

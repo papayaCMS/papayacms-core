@@ -323,7 +323,7 @@ class base_topic extends base_db {
     );
     if (isset($this->moduleObj) && is_object($this->moduleObj)) {
       if ($this->moduleObj instanceof \Papaya\Plugin\Editable) {
-        $this->moduleObj->content()->setXml($this->topic['TRANSLATION']['topic_content']);
+        $this->moduleObj->content()->setXML($this->topic['TRANSLATION']['topic_content']);
       }
       $cacheId = $this->getContentCacheId($this->moduleObj, $pageContent);
       if ($cacheId && $result = $this->getContentCache($cacheId)) {
@@ -335,7 +335,7 @@ class base_topic extends base_db {
         if (!$pageContent) {
           $teaser = FALSE;
           if ($this->moduleObj instanceof \Papaya\Plugin\Quoteable) {
-            $dom = new \Papaya\Xml\Document();
+            $dom = new \Papaya\XML\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendQuoteTo($node);
             $teaser = $node->saveFragment();
@@ -354,7 +354,7 @@ class base_topic extends base_db {
         } else {
           $str = FALSE;
           if ($this->moduleObj instanceof \Papaya\Plugin\Appendable) {
-            $dom = new \Papaya\Xml\Document();
+            $dom = new \Papaya\XML\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendTo($node);
             $str = $node->saveFragment();

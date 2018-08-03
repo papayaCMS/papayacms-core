@@ -1372,7 +1372,7 @@ class papaya_modulemanager extends base_db {
    * @return array|FALSE array $packageData or boolean FALSE
    */
   function loadPackageFile($packageFileName) {
-    $dom = new \Papaya\Xml\Document();
+    $dom = new \Papaya\XML\Document();
     if (file_exists($packageFileName) && $dom->load($packageFileName)) {
       $packageData = array(
         'modulegroup_title' => '',
@@ -1397,7 +1397,7 @@ class papaya_modulemanager extends base_db {
       foreach ($xpath->evaluate('/*/author') as $node) {
         $packageData['modulegroup_authors'][] = $node->nodeValue;
       }
-      /** @var \Papaya\Xml\Element $moduleNode */
+      /** @var \Papaya\XML\Element $moduleNode */
       foreach ($xpath->evaluate('/*/modules/module') as $moduleNode) {
         $moduleData = array(
           'type' => '',
@@ -1755,7 +1755,7 @@ class papaya_modulemanager extends base_db {
         'fields' => array(),
         'keys' => array(),
       );
-      $xmlTree = \Papaya\Xml\Document::createFromXml(file_get_contents($xmlFileName), TRUE);
+      $xmlTree = \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName), TRUE);
       if (
         isset($xmlTree) &&
         isset($xmlTree->documentElement) &&
@@ -2177,7 +2177,7 @@ class papaya_modulemanager extends base_db {
         $item->subitems[] = new \Papaya\UI\Listview\Subitem\Image($statusImage, $statusText);
         $listview->items[] = $item;
       }
-      $this->layout->addLeft($listview->getXml());
+      $this->layout->addLeft($listview->getXML());
     }
   }
 

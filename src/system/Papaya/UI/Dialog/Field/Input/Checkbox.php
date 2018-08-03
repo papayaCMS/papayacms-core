@@ -79,10 +79,10 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
   /**
    * Append the field to the xml output
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $currentValue = $this->getCurrentValue();
     $input = $field->appendElement(

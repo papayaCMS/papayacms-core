@@ -342,7 +342,7 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
 
 class PapayaUiControlCommand_TestProxy extends \Papaya\UI\Control\Command {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return NULL;
   }
 }

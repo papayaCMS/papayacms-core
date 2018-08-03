@@ -21,21 +21,21 @@ class PapayaUiMessageXmlTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Message\Text::appendTo
   */
   public function testAppendTo() {
-    $message = new \Papaya\UI\Message\Xml(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \Papaya\UI\Message\XML(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertEquals(
-      /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
+      /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Message\Xml::appendTo
+  * @covers \Papaya\UI\Message\XML::appendTo
   */
   public function testAppendToWithXmlElements() {
-    $message = new \Papaya\UI\Message\Xml(
+    $message = new \Papaya\UI\Message\XML(
       \Papaya\UI\Message::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
     );
     $this->assertEquals(
-      /** @lang XML */'<error event="sample" occured="yes"><b>foo</b></error>', $message->getXml()
+      /** @lang XML */'<error event="sample" occured="yes"><b>foo</b></error>', $message->getXML()
     );
   }
 }

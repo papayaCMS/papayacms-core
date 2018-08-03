@@ -127,7 +127,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -138,7 +138,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $this->assertEquals(
       /** @lang XML */
       '<field class="DialogFieldButtons" error="no"><buttons/></field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 
@@ -150,7 +150,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -162,7 +162,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $this->assertEquals(
       /** @lang XML */
       '<field class="DialogFieldButtons" error="no" id="sampleId"><buttons/></field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 
@@ -173,7 +173,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $field = new \Papaya\UI\Dialog\Field\Buttons();
     $this->assertEquals(
       '',
-      $field->getXml()
+      $field->getXML()
     );
   }
 

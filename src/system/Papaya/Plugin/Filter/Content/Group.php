@@ -74,18 +74,18 @@ class Group
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
       } elseif (method_exists($filter, 'applyFilterData')) {
-        $result = \Papaya\Utility\Text\Xml::repairEntities($filter->applyFilterData($result));
+        $result = \Papaya\Utility\Text\XML::repairEntities($filter->applyFilterData($result));
       }
     }
     return $result;
   }
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     foreach ($this as $filter) {
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
-        $parent->appendXml(
+        $parent->appendXML(
           $filter->getFilterData(\Papaya\Utility\Arrays::ensure(iterator_to_array($this->_options)))
         );
       }

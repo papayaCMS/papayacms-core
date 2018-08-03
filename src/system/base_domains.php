@@ -299,7 +299,7 @@ class base_domains extends base_db {
         //load domain options
         if (isset($domainData['domain_options']) && trim($domainData['domain_options']) != '') {
           $this->papaya()->options->assign(
-            \Papaya\Utility\Text\Xml::unserializeArray($domainData['domain_options'])
+            \Papaya\Utility\Text\XML::unserializeArray($domainData['domain_options'])
           );
         }
         break;

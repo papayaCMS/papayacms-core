@@ -56,10 +56,10 @@ class Text extends \Papaya\UI\Message {
    * Use the parent method to append the element and append the text content to the new
    * message xml element node.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $message = parent::appendMessageElement($parent);
     if ($content = $this->getContent()) {
       $message->appendText($content);

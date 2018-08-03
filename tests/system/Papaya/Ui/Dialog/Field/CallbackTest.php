@@ -29,7 +29,7 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 
@@ -61,7 +61,7 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 
@@ -75,7 +75,7 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldCallback" error="no"/>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 
@@ -89,11 +89,11 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   }
 
   public function callbackGetFieldPapayaXmlAppendable() {
-    $result = $this->createMock(\Papaya\Xml\Appendable::class);
+    $result = $this->createMock(\Papaya\XML\Appendable::class);
     $result
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     return $result;
   }
 }

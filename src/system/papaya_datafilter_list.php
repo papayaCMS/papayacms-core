@@ -230,7 +230,7 @@ class papaya_datafilter_list extends base_datafilter_list {
           $pluginNode->append($plugin->content()->editor());
           if ($plugin->content()->modified()) {
             $saved = $this->saveFilterLinkContent(
-              $this->filterLink['view_id'], $this->filterLink['datafilter_id'], $plugin->content()->getXml()
+              $this->filterLink['view_id'], $this->filterLink['datafilter_id'], $plugin->content()->getXML()
             );
             if ($saved) {
               $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));

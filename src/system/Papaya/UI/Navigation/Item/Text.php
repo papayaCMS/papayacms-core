@@ -27,10 +27,10 @@ class Text extends \Papaya\UI\Navigation\Item {
    * for the create xml element using the source member variable.
    *
    * @see \Papaya\UI\Navigation\Item#appendTo($parent)
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $result = parent::appendTo($parent);
     $result->appendText(
       (string)$this->_sourceValue

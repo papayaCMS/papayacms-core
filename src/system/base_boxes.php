@@ -203,7 +203,7 @@ class base_boxes extends base_db {
           $this->box['TRANSLATION']['box_data']
         );
         if ($plugin instanceof \Papaya\Plugin\Appendable) {
-          $dom = new \Papaya\Xml\Document();
+          $dom = new \Papaya\XML\Document();
           $boxNode = $dom->appendElement('box');
           $boxNode->append($plugin);
           $output = $boxNode->saveFragment();

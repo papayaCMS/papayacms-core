@@ -41,7 +41,7 @@ class PapayaUiListviewSubitemTextTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Listview\Subitem\Text::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $subitem = new \Papaya\UI\Listview\Subitem\Text('Sample text');
     $subitem->align = \Papaya\UI\Option\Align::RIGHT;
@@ -60,7 +60,7 @@ class PapayaUiListviewSubitemTextTest extends \PapayaTestCase {
   public function testAppendToWithActionParameters() {
     $reference = $this->mockPapaya()->reference('http://www.example.html');
     $reference->expects($this->once())->method('setParameters')->with(array('foo' => 'bar'));
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $subitem = new \Papaya\UI\Listview\Subitem\Text('Sample text');
     $subitem->reference($reference);

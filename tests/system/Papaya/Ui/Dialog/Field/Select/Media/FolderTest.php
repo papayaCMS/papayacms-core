@@ -76,7 +76,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
           <option value="84">  -&gt;Folder 84</option>
         </select>
       </field>',
-      $select->getXml()
+      $select->getXML()
     );
   }
 

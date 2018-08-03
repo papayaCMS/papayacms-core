@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
-/**
- * Define a interface of additional functions implemented in \Papaya\Xml\PapayaXmlDocument and \Papaya\Xml\PapayaXmlElement.
- *
- * The interface allows to use type hints for appendTo() methods.
- *
- * @package Papaya-Library
- * @subpackage Xml
- */
-interface Node {
-  public function appendElement($name, array $attributes = array(), $content = NULL);
+namespace Papaya\XML;
 
-  public function appendXml($content);
+interface Appendable {
+
+  /**
+   * Create dom node structure of the given object and append it to the given xml
+   * element node.
+   *
+   * @param \Papaya\XML\Element $parent
+   */
+  public function appendTo(\Papaya\XML\Element $parent);
 }

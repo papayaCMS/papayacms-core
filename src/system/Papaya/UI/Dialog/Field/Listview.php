@@ -55,10 +55,10 @@ class Listview extends \Papaya\UI\Dialog\Field {
   /**
    * Append field to dialog xml element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->append($this->listview());
     return $field;

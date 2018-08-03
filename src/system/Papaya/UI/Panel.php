@@ -39,10 +39,10 @@ abstract class Panel extends Control {
   /**
    * Append panel to output xml
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element $panel
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element $panel
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $panel = $parent->appendElement('panel');
     if (!empty($this->_caption)) {
       $panel->setAttribute('title', (string)$this->_caption);

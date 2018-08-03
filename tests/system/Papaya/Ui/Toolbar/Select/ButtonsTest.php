@@ -21,7 +21,7 @@ class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
   */
   public function testAppendToWithCurrentValue() {
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
     $select = new \Papaya\UI\Toolbar\Select\Buttons('foo', array(10 => '10', 20 => '20', 50 => '50'));
     $select->papaya($this->mockPapaya()->application());
@@ -42,7 +42,7 @@ class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
   */
   public function testAppendToWithAdditionalParameters() {
-    $document = new \Papaya\Xml\Document;
+    $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
     $select = new \Papaya\UI\Toolbar\Select\Buttons(
       'foo/size', array(10 => '10', 20 => '20', 50 => '50')

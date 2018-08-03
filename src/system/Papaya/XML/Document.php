@@ -13,22 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
+namespace Papaya\XML;
 
 /**
  * Replacement for the DOMDocument adding some shortcuts for easier use
  *
  * @package Papaya-Library
- * @subpackage Xml
+ * @subpackage XML
  *
- * @property \Papaya\Xml\Element $documentElement
+ * @property \Papaya\XML\Element $documentElement
  */
 class Document
   extends \DOMDocument
   implements Node {
 
   /**
-   * @var \Papaya\Xml\Xpath
+   * @var \Papaya\XML\Xpath
    */
   private $_xpath = NULL;
 
@@ -67,7 +67,7 @@ class Document
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
-    $this->registerNodeClass(\DOMElement::class, \Papaya\Xml\Element::class);
+    $this->registerNodeClass(\DOMElement::class, \Papaya\XML\Element::class);
     $this->_canDisableEntityLoader = function_exists('libxml_disable_entity_loader');
   }
 
@@ -79,7 +79,7 @@ class Document
    */
   public function xpath() {
     if (is_null($this->_xpath) || $this->_xpath->document != $this) {
-      $this->_xpath = new \Papaya\Xml\Xpath($this);
+      $this->_xpath = new \Papaya\XML\Xpath($this);
       foreach ($this->_namespaces as $prefix => $namespace) {
         $this->_xpath->registerNamespace($prefix, $namespace);
       }
@@ -114,7 +114,7 @@ class Document
       !$this->_reservedNamespaces[$prefix] == $namespace) {
       throw new \InvalidArgumentException(
         sprintf(
-          'Xml prefix "%s" is reserved for the namespace "%s".',
+          'XML prefix "%s" is reserved for the namespace "%s".',
           $prefix,
           $this->_reservedNamespaces[$prefix]
         )
@@ -153,7 +153,7 @@ class Document
    * @param string $name
    * @param array $attributes
    * @param string $content
-   * @return \Papaya\Xml\Element new element
+   * @return \Papaya\XML\Element new element
    */
   public function appendElement($name, array $attributes = array(), $content = NULL) {
     return $this->appendChild($this->createElement($name, $content, $attributes));
@@ -168,17 +168,17 @@ class Document
    * If a target is provided, it will append the xml to the target node.
    *
    * @param string $content
-   * @param \Papaya\Xml\Element $target
-   * @return \Papaya\Xml\Element|self $target
+   * @param \Papaya\XML\Element $target
+   * @return \Papaya\XML\Element|self $target
    */
-  public function appendXml($content, \Papaya\Xml\Element $target = NULL) {
+  public function appendXML($content, \Papaya\XML\Element $target = NULL) {
     if (NULL === $target) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      \Papaya\Utility\Text\Xml::removeControlCharacters(\Papaya\Utility\Text\Utf8::ensure($content))
+      \Papaya\Utility\Text\XML::removeControlCharacters(\Papaya\Utility\Text\Utf8::ensure($content))
     );
     $fragment->appendXML($content);
     if ($fragment->firstChild) {
@@ -206,7 +206,7 @@ class Document
    * @param string $name
    * @param string|NULL $value
    * @param array|NULL $attributes
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
   public function createElement($name, $value = NULL, array $attributes = NULL) {
     if (FALSE !== strpos($name, ':')) {
@@ -256,7 +256,7 @@ class Document
    * @param array $attributes
    * @param string $content
    * @deprecated
-   * @return \Papaya\Xml\Element new node
+   * @return \Papaya\XML\Element new node
    */
   public static function createElementNode(
     self $document, $name, array $attributes = array(), $content = NULL
@@ -282,7 +282,7 @@ class Document
    *
    * @see \DOMDocument::load()
    */
-  public function loadXml($source, $options = 0) {
+  public function loadXML($source, $options = 0) {
     $status = ($this->_canDisableEntityLoader)
       ? libxml_disable_entity_loader(!$this->_activateEntityLoader) : FALSE;
     $result = parent::loadXML($source, $options);
@@ -295,18 +295,18 @@ class Document
   /**
    * create a DOM from an xml document, capture errors
    */
-  public static function createFromXml($xmlString, $silent = FALSE) {
-    $errors = new \Papaya\Xml\Errors();
+  public static function createFromXML($xmlString, $silent = FALSE) {
+    $errors = new \Papaya\XML\Errors();
     $dom = new self();
     $success = $errors->encapsulate(
-      array($dom, 'loadXml'), array($xmlString), !$silent
+      array($dom, 'loadXML'), array($xmlString), !$silent
     );
     return ($success) ? $dom : NULL;
   }
 
   public function createTextNode($content) {
     return parent::createTextNode(
-      \Papaya\Utility\Text\Xml::removeControlCharacters($content) ?: ''
+      \Papaya\Utility\Text\XML::removeControlCharacters($content) ?: ''
     );
   }
 }

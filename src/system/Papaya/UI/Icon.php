@@ -107,10 +107,10 @@ class Icon extends Control {
   /**
    * append icon to output using a <glyph> element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
         'glyph',

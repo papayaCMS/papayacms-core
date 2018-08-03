@@ -52,7 +52,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
           <listview><toolbar position="bottom right"/></listview>
         </field>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 

@@ -434,10 +434,10 @@ abstract class Field extends Element {
   /**
    * Append field outer elements to DOM
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  protected function _appendFieldTo(\Papaya\Xml\Element $parent) {
+  protected function _appendFieldTo(\Papaya\XML\Element $parent) {
     if ($this->hasCollection() &&
       $this->collection()->hasOwner() &&
       !$this->collection()->owner()->isSubmitted()) {

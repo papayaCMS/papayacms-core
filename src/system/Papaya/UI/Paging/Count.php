@@ -173,7 +173,7 @@ class Count extends \Papaya\UI\Control {
    * @param array $names
    * @throws \UnexpectedValueException
    */
-  public function setXmlNames(array $names) {
+  public function setXMLNames(array $names) {
     foreach ($names as $element => $name) {
       if (array_key_exists($element, $this->_xmlNames) &&
         preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
@@ -193,9 +193,9 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append a list of paging links to the parent.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $list = $this->appendListElement($parent, $this->_itemsCount);
@@ -221,10 +221,10 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append the list element to the xml
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  protected function appendListElement(\Papaya\Xml\Element $parent) {
+  protected function appendListElement(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       $this->_xmlNames['list'], array($this->_xmlNames['attr-count'] => $this->getLastPage())
     );
@@ -233,12 +233,12 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append one paging link xml element to the list
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param integer $page
    * @param string|NULL $type
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
-  protected function appendPageElement(\Papaya\Xml\Element $parent, $page, $type = NULL) {
+  protected function appendPageElement(\Papaya\XML\Element $parent, $page, $type = NULL) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

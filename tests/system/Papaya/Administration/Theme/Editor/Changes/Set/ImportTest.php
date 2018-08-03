@@ -64,7 +64,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Upload</button>
       </dialog-box>',
-      $import->dialog()->getXml()
+      $import->dialog()->getXML()
     );
   }
 
@@ -117,7 +117,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Upload</button>
       </dialog-box>',
-      $import->dialog()->getXml()
+      $import->dialog()->getXML()
     );
   }
 

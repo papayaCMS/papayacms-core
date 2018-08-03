@@ -27,13 +27,13 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $part = new \PapayaAdministrationPagePart_TestProxy();
     $part->commands($commands);
 
     $this->assertEquals(
       '',
-      $part->getXml()
+      $part->getXML()
     );
   }
 

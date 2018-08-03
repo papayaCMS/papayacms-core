@@ -210,7 +210,7 @@ class Table
       if (isset($this->_captions)) {
         $result .= '<thead><tr>';
         foreach ($this->_captions as $caption) {
-          $result .= '<th>'.\Papaya\Utility\Text\Xml::escape($caption).'</th>';
+          $result .= '<th>'.\Papaya\Utility\Text\XML::escape($caption).'</th>';
         }
         $result .= '</tr></thead>';
       }
@@ -219,7 +219,7 @@ class Table
         foreach (array_keys($this->_rows) as $rowIndex) {
           $result .= '<tr>';
           foreach ($this->getRow($rowIndex) as $content) {
-            $result .= '<td>'.\Papaya\Utility\Text\Xml::escape($content).'</td>';
+            $result .= '<td>'.\Papaya\Utility\Text\XML::escape($content).'</td>';
           }
           $result .= '</tr>';
         }

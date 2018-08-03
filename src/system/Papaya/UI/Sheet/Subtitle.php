@@ -31,7 +31,7 @@ class Subtitle extends \Papaya\UI\Control\Collection\Item {
     $this->_text = $text;
   }
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return $parent->appendElement('subtitle', array(), (string)$this->_text);
   }
 }

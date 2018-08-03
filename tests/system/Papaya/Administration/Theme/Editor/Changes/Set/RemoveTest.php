@@ -49,7 +49,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
           <message>Theme set not found.</message>
         </field>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -92,7 +92,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
         </field>
         <button type="submit" align="right">Delete</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 

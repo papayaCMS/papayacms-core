@@ -86,7 +86,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
     $dialog->_isSubmittedResult = FALSE;
     $this->assertNotEquals(
       '',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
@@ -98,7 +98,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
     $dialog->_executionResult = TRUE;
     $this->assertEquals(
       '',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 

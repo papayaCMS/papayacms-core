@@ -159,10 +159,10 @@ class Multiple extends \Papaya\UI\Dialog\Field {
   /**
    * Append select field to DOM
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->_appendOptions(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -175,10 +175,10 @@ class Multiple extends \Papaya\UI\Dialog\Field {
   /**
    * Append the select element itself to the DOM (the field element is the parent)
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  protected function _appendSelect(\Papaya\Xml\Element $parent) {
+  protected function _appendSelect(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       'select',
       array(
@@ -192,11 +192,11 @@ class Multiple extends \Papaya\UI\Dialog\Field {
   /**
    * Append select field option elements to DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param \RecursiveIterator|\Traversable|array $options
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
-  protected function _appendOptions(\Papaya\Xml\Element $parent, $options) {
+  protected function _appendOptions(\Papaya\XML\Element $parent, $options) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($options);
     $isRecursiveIterator = ($options instanceof \RecursiveIterator);
     foreach ($options as $index => $option) {
@@ -212,12 +212,12 @@ class Multiple extends \Papaya\UI\Dialog\Field {
   /**
    * Append an option group element to the DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param mixed $option
    * @param mixed $index
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
-  protected function _appendOptionGroup(\Papaya\Xml\Element $parent, $option, $index) {
+  protected function _appendOptionGroup(\Papaya\XML\Element $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionGroupCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
     return $parent->appendElement(
@@ -230,12 +230,12 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * Append one option element to DOM. This calls callbacks to get the option caption
    * and data attributes.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param mixed $option
    * @param mixed $index
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    */
-  protected function _appendOption(\Papaya\Xml\Element $parent, $option, $index) {
+  protected function _appendOption(\Papaya\XML\Element $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
     $value = ($this->getValueMode() == self::VALUE_USE_KEY) ? $index : $caption;

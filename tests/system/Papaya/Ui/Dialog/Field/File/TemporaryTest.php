@@ -37,7 +37,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
       '<field caption="Caption" class="DialogFieldFileTemporary" error="no">
         <input type="file" name="name"/>
       </field>',
-      $field->getXml()
+      $field->getXML()
     );
   }
 

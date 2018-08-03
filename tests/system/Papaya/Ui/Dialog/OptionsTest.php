@@ -22,7 +22,7 @@ class PapayaUiDialogOptionsTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Options::_valueToString
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('sample'));
     $options = new \Papaya\UI\Dialog\Options();
     $options->appendTo($document->documentElement);

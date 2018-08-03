@@ -44,7 +44,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
 
     $editor = new Dialog($pluginContent);
     $editor->dialog($dialog);
-    $editor->getXml();
+    $editor->getXML();
   }
 
   /**
@@ -68,7 +68,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
 
     $editor = new Dialog($pluginContent);
     $editor->dialog($dialog);
-    $editor->getXml();
+    $editor->getXML();
   }
 
   /**
@@ -98,7 +98,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
       }
     );
     $editor->dialog($dialog);
-    $editor->getXml();
+    $editor->getXML();
     $this->assertTrue($called);
   }
 
@@ -148,7 +148,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
       )
     );
     $editor->dialog($dialog);
-    $editor->getXml();
+    $editor->getXML();
   }
 
   /**
@@ -195,7 +195,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
          <input type="hidden" name="content[token]"/>
          <button type="submit" align="right">Save</button>
        </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 }

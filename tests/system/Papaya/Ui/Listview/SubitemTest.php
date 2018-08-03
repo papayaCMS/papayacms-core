@@ -136,6 +136,6 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
 
 class PapayaUiListviewSubitem_TestProxy extends \Papaya\UI\Listview\Subitem {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

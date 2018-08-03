@@ -21,7 +21,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Control\Collection::appendTo
   */
   public function testAppendToCallsItems() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $parentNode = $document->appendElement('sample');
     $itemOne = $this->getMockItemFixture();
     $itemOne
@@ -38,32 +38,32 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->add($itemOne)
       ->add($itemTwo);
     $this->assertSame($parentNode, $collection->appendTo($parentNode));
-    $this->assertEquals(/** @lang XML */'<sample/>', $parentNode->saveXml());
+    $this->assertEquals(/** @lang XML */'<sample/>', $parentNode->saveXML());
   }
 
   /**
   * @covers \Papaya\UI\Control\Collection::appendTo
   */
   public function testAppendToWithTagName() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $parentNode = $document->appendElement('sample');
     $item = $this->getMockItemFixture();
     $item
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_tagName = 'items';
     $collection->add($item);
     $this->assertNotSame($parentNode, $resultNode = $collection->appendTo($parentNode));
-    $this->assertEquals(/** @lang XML */'<items/>', $resultNode->saveXml());
+    $this->assertEquals(/** @lang XML */'<items/>', $resultNode->saveXML());
   }
 
   /**
   * @covers \Papaya\UI\Control\Collection::appendTo
   */
   public function testAppendToWithoutItems() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $parentNode = $document->appendElement('sample');
     $collection = new \Papaya\UI\Control\Collection();
     $this->assertNull($collection->appendTo($parentNode));

@@ -55,12 +55,12 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $command = new \Papaya\UI\Control\Command\Dialog\Plugin\Content($content);
     $command->dialog($dialog);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -79,12 +79,12 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $command = new \Papaya\UI\Control\Command\Dialog\Plugin\Content($content);
     $command->dialog($dialog);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -102,7 +102,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $content
@@ -110,7 +110,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
       ->method('assign');
     $command = new \Papaya\UI\Control\Command\Dialog\Plugin\Content($content);
     $command->dialog($dialog);
-    $command->getXml();
+    $command->getXML();
   }
 
   /**
@@ -136,6 +136,6 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
     $command = new \Papaya\UI\Control\Command\Dialog\Plugin\Content($content);
     $command->hideAfterSuccess(TRUE);
     $command->dialog($dialog);
-    $command->getXml();
+    $command->getXML();
   }
 }

@@ -238,7 +238,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
       $this->themeSet()->load($themeSetId)) {
       $engine->setTemplateString($result);
       $engine->values(
-        $this->themeSet()->getValuesXml($this->handler()->getDefinition($theme))
+        $this->themeSet()->getValuesXML($this->handler()->getDefinition($theme))
       );
       $engine->prepare();
       $engine->run();

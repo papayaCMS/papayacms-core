@@ -29,10 +29,10 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
-   * @see \Papaya\Xml\Appendable::appendTo()
-   * @param \Papaya\Xml\Element $parent
+   * @see \Papaya\XML\Appendable::appendTo()
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $context = $this->context();
     if (!$context->isEmpty()) {
       $this->dialog()->hiddenValues()->merge($context);

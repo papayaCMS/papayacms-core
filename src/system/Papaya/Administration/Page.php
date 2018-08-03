@@ -120,7 +120,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
     }
     foreach ($parts as $name => $part) {
       if ($part instanceof \Papaya\Administration\Page\Part) {
-        if ($xml = $part->getXml()) {
+        if ($xml = $part->getXML()) {
           $this->_layout->add($xml, $this->parts()->getTarget($name));
         }
       }
@@ -129,7 +129,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
       $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
     }
     $this->parts()->toolbar()->toolbar($this->toolbar());
-    $this->_layout->addMenu($this->parts()->toolbar()->getXml());
+    $this->_layout->addMenu($this->parts()->toolbar()->getXML());
   }
 
   /**

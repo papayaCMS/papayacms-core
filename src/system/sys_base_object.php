@@ -1062,7 +1062,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
               $errorOutput .= sprintf(
                 '<li>%d: %s in line %d at char %d</li>'.LF,
                 (int)$error->code,
-                \Papaya\Utility\Text\Xml::escape($error->message),
+                \Papaya\Utility\Text\XML::escape($error->message),
                 (int)$error->line,
                 (int)$error->column
               );
@@ -1072,13 +1072,13 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
           $errorOutput .= '<ol class="xmlBrokenFragment">'.LF;
           $lines = preg_split("(\r\n|\n\r|[\r\n])", $iStr);
           foreach ($lines as $line) {
-            $errorOutput .= sprintf('<li>%s</li>'.LF, \Papaya\Utility\Text\Xml::escape($line));
+            $errorOutput .= sprintf('<li>%s</li>'.LF, \Papaya\Utility\Text\XML::escape($line));
           }
           $errorOutput .= '</ol>'.LF;
           $errorOutput .= '</div>'.LF;
           $iStr = $errorOutput;
         } else {
-          $iStr = \Papaya\Utility\Text\Xml::escape($iStr);
+          $iStr = \Papaya\Utility\Text\XML::escape($iStr);
         }
       }
       libxml_clear_errors();

@@ -45,7 +45,7 @@ class Papaya {
     if (preg_match(self::PAPAYA_TAG_PATTERN, $str, $regs)) {
       return $regs[0];
     } elseif (preg_match(self::PAPAYA_INPUT_PATTERN, $str, $regs)) {
-      $result = '<papaya:media src="'.\Papaya\Utility\Text\Xml::escape($regs[1]).'"';
+      $result = '<papaya:media src="'.\Papaya\Utility\Text\XML::escape($regs[1]).'"';
       if ($width > 0) {
         $result .= ' width="'.(int)$width.'"';
       } elseif (isset($regs[4])) {
@@ -57,15 +57,15 @@ class Papaya {
         $result .= ' height="'.(int)$regs[6].'"';
       }
       if (isset($resize)) {
-        $result .= ' resize="'.\Papaya\Utility\Text\Xml::escape($resize).'"';
+        $result .= ' resize="'.\Papaya\Utility\Text\XML::escape($resize).'"';
       } elseif (isset($regs[8])) {
-        $result .= ' resize="'.\Papaya\Utility\Text\Xml::escape($regs[8]).'"';
+        $result .= ' resize="'.\Papaya\Utility\Text\XML::escape($regs[8]).'"';
       }
       if (isset($alt) && trim($alt) != '') {
-        $result .= ' alt="'.\Papaya\Utility\Text\Xml::escape($alt).'"';
+        $result .= ' alt="'.\Papaya\Utility\Text\XML::escape($alt).'"';
       }
       if (!empty($subTitle)) {
-        $result .= ' subtitle="'.\Papaya\Utility\Text\Xml::escape($subTitle).'"';
+        $result .= ' subtitle="'.\Papaya\Utility\Text\XML::escape($subTitle).'"';
       }
       return $result.'/>';
     }

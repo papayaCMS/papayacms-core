@@ -679,7 +679,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->will($this->returnValue(FALSE));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $field->appendTo($node);
@@ -700,7 +700,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $description
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
@@ -715,7 +715,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $field->setCaption('sample_caption');
     $field->setHint('sample_hint');
     $field->setId('sample_id');
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $field->appendTo($node);
@@ -735,7 +735,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testAppendFieldToWithDisabledStatus() {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->setDisabled(TRUE);
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $field->appendTo($node);
@@ -755,7 +755,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testAppendFieldToWithMandatoryStatus() {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->setMandatory(TRUE);
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $field->appendTo($node);
@@ -847,7 +847,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
 
 class PapayaUiDialogField_TestProxy extends \Papaya\UI\Dialog\Field {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->_appendFieldTo($parent);
   }
   public function _getFieldClass($prefix = 'PapayaUi') {

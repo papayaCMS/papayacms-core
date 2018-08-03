@@ -25,7 +25,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   public function testTemplateEngineRun() {
     $engine = new \PapayaTemplateEngineSimple();
     $engine->setTemplateString('Hello /*$foo*/ World!');
-    $values = new \Papaya\Xml\Document();
+    $values = new \Papaya\XML\Document();
     $values->appendElement('values')->appendElement('foo', array(), 'Universe');
     $engine->values($values->documentElement);
     $engine->prepare();
@@ -83,7 +83,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
    * @covers \PapayaTemplateEngineSimple::callbackGetValue
    */
   public function testCallbackGetValueWithName() {
-    $values = new \Papaya\Xml\Document();
+    $values = new \Papaya\XML\Document();
     $values
       ->appendElement('values')
       ->appendElement('page')
@@ -100,7 +100,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
    * @covers \PapayaTemplateEngineSimple::callbackGetValue
    */
   public function testCallbackGetValueWithXpath() {
-    $values = new \Papaya\Xml\Document();
+    $values = new \Papaya\XML\Document();
     $values
       ->appendElement('values')
       ->appendElement('page')

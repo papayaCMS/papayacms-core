@@ -88,7 +88,7 @@ abstract class Node extends \Papaya\Application\BaseObject {
   }
 
   public function setName($name) {
-    \Papaya\Utility\Text\Xml::isQName($name);
+    \Papaya\Utility\Text\XML::isQName($name);
     $this->_properties['name'] = $name;
   }
 

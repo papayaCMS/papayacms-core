@@ -117,7 +117,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::getValuesXml
+  * @covers Set::getValuesXML
   */
   public function testGetValuesXml() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
@@ -126,26 +126,26 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getXmlDocument')
       ->with(array())
-      ->will($this->returnValue(new \Papaya\Xml\Document));
+      ->will($this->returnValue(new \Papaya\XML\Document));
     $themeSet = new Set();
-    $this->assertInstanceOf(\Papaya\Xml\Document::class, $themeSet->getValuesXml($definition));
+    $this->assertInstanceOf(\Papaya\XML\Document::class, $themeSet->getValuesXML($definition));
   }
 
   /**
-  * @covers Set::setValuesXml
+  * @covers Set::setValuesXML
   */
   public function testSetValuesXml() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $element = $document->appendElement('set');
     /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
     $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getArray')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class))
       ->will($this->returnValue(array('foo' => 'bar')));
     $themeSet = new Set();
-    $themeSet->setValuesXml($definition, $element);
+    $themeSet->setValuesXML($definition, $element);
     $this->assertEquals(array('foo' => 'bar'), $themeSet->values);
   }
 }

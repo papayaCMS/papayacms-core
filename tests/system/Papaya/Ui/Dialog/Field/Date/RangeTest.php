@@ -29,7 +29,7 @@ class PapayaUiDialogFieldDateRangeTest extends \PapayaTestCase {
             <input name = "name[end]" type = "date" />
         </group> 
       </field> ',
-      $field->getXml()
+      $field->getXML()
     );
   }
 }

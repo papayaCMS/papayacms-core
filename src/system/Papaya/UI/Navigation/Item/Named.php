@@ -30,10 +30,10 @@ class Named extends \Papaya\UI\Navigation\Item {
    * for the create xml element using the member variable.
    *
    * @see \Papaya\UI\Navigation\Item#appendTo($parent)
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $result = parent::appendTo($parent);
     $result->setAttribute(
       'name', \Papaya\Utility\Text\Identifier::toUnderscoreLower((string)$this->_sourceValue)

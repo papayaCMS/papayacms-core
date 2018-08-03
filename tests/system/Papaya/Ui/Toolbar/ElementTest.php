@@ -49,6 +49,6 @@ class PapayaUiToolbarElementTest extends \PapayaTestCase {
 
 class PapayaUiToolbarElement_TestProxy extends \Papaya\UI\Toolbar\Element {
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

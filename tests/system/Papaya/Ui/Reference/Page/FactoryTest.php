@@ -749,13 +749,13 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
     $this->assertEquals(
     /** @lang XML */'<sample class="sampleClass" target="sampleTarget"/>',
-      $node->saveXml()
+      $node->saveXML()
     );
   }
 
@@ -790,7 +790,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
@@ -803,7 +803,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           '&quot;menuBar&quot;:true,&quot;locationBar&quot;:true,'.
           '&quot;statusBar&quot;:true,'.
           '&quot;scrollBars&quot;:&quot;auto&quot;}"/>',
-      $node->saveXml()
+      $node->saveXML()
     );
   }
 
@@ -838,7 +838,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
@@ -851,7 +851,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           '&quot;menuBar&quot;:false,&quot;locationBar&quot;:false,'.
           '&quot;statusBar&quot;:false,'.
           '&quot;scrollBars&quot;:&quot;no&quot;}"/>',
-      $node->saveXml()
+      $node->saveXML()
     );
   }
 

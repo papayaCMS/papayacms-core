@@ -149,7 +149,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
         </field>
         <button type="submit" align="right">GoTo Origin Page</button>
       </dialog-box>',
-      $blocker->getXml()
+      $blocker->getXML()
     );
   }
 

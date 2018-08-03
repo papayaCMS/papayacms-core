@@ -39,9 +39,9 @@ class Structure implements \IteratorAggregate {
       if (empty($data)) {
         return;
       }
-      $dom = new \Papaya\Xml\Document();
+      $dom = new \Papaya\XML\Document();
       if (0 === strpos($data, '<')) {
-        $dom->loadXml($data);
+        $dom->loadXML($data);
       } else {
         $dom->load($data);
       }
@@ -49,7 +49,7 @@ class Structure implements \IteratorAggregate {
         /** @noinspection PhpParamsInspection */
         $this->pages()->load($dom->documentElement);
       }
-    } elseif ($data instanceof \Papaya\Xml\Element) {
+    } elseif ($data instanceof \Papaya\XML\Element) {
       $this->pages()->load($data);
     }
   }
@@ -99,10 +99,10 @@ class Structure implements \IteratorAggregate {
    * a valid QName, the element will be ignored.
    *
    * @param array $currentValues
-   * @return \Papaya\Xml\Document
+   * @return \Papaya\XML\Document
    */
-  public function getXmlDocument(array $currentValues) {
-    $document = new \Papaya\Xml\Document();
+  public function getXMLDocument(array $currentValues) {
+    $document = new \Papaya\XML\Document();
     $rootNode = $document->appendElement('values');
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -123,7 +123,7 @@ class Structure implements \IteratorAggregate {
             $type = empty($value->type) ? 'text' : $value->type;
             if ('xhtml' === $type) {
               $groupNode
-                ->appendElement($value->name, array('type' => 'xhtml'))->appendXml($current);
+                ->appendElement($value->name, array('type' => 'xhtml'))->appendXML($current);
             } else {
               $groupNode
                 ->appendElement($value->name, array('type' => $type), $current);
@@ -138,12 +138,12 @@ class Structure implements \IteratorAggregate {
   /**
    * Read the data from an xml document into an recursive array.
    *
-   * @param \Papaya\Xml\Element $dataNode
+   * @param \Papaya\XML\Element $dataNode
    * @return array
    */
-  public function getArray(\Papaya\Xml\Element $dataNode) {
+  public function getArray(\Papaya\XML\Element $dataNode) {
     $result = array();
-    /** @var \Papaya\Xml\Document $document */
+    /** @var \Papaya\XML\Document $document */
     $document = $dataNode->ownerDocument;
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -156,7 +156,7 @@ class Structure implements \IteratorAggregate {
             /** @var Structure\Value $value */
             foreach ($group->values() as $value) {
               if ($document->xpath()->evaluate('count('.$value->name.')', $groupNode)) {
-                /** @var \Papaya\Xml\Element $valueNode */
+                /** @var \Papaya\XML\Element $valueNode */
                 $valueNode = $document->xpath()->evaluate($value->name, $groupNode)->item(0);
                 $type = empty($value->type) ? 'text' : $value->type;
                 if ('xhtml' === $type) {

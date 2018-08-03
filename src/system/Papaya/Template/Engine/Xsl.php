@@ -59,7 +59,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   /**
   * Error handling wrapper for lixml/libxslt errors
   *
-  * @var \Papaya\Xml\Errors
+  * @var \Papaya\XML\Errors
   */
   private $_errorHandler = NULL;
 
@@ -149,21 +149,20 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   /**
   * Set libxml errors handler
   *
-  * @param \Papaya\Xml\Errors $errorHandler
+  * @param \Papaya\XML\Errors $errorHandler
   */
-  public function setErrorHandler(\Papaya\Xml\Errors $errorHandler) {
+  public function setErrorHandler(\Papaya\XML\Errors $errorHandler) {
     $this->_errorHandler = $errorHandler;
   }
 
   /**
    * Set libxml errors handler
    *
-   * @return \Papaya\Xml\Errors
-   * @internal param \Papaya\Xml\PapayaXmlErrors $errorHandler
+   * @return \Papaya\XML\Errors
    */
   public function getErrorHandler() {
-    if (is_null($this->_errorHandler)) {
-      $this->_errorHandler = new \Papaya\Xml\Errors();
+    if (NULL === $this->_errorHandler) {
+      $this->_errorHandler = new \Papaya\XML\Errors();
     }
     return $this->_errorHandler;
   }
@@ -171,7 +170,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   /**
   * Load xsl file into processor
   *
-  * @throws \Papaya\Xml\Exception
+  * @throws \Papaya\XML\Exception
   * @return TRUE
   */
   public function prepare() {
@@ -190,7 +189,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
       unset($xslDom);
     } else {
       $xslDom = new \DOMDocument('1.0', 'UTF-8');
-      $xslDom->loadXml($this->_template);
+      $xslDom->loadXML($this->_template);
       $processor->importStylesheet($xslDom);
       unset($xslDom);
     }

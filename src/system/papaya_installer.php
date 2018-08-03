@@ -1588,7 +1588,7 @@ class papaya_installer extends base_db {
   * @return string
   */
   function getXMLDefaults() {
-    return $this->getOptionsDialog()->getXml();
+    return $this->getOptionsDialog()->getXML();
   }
 
   /**

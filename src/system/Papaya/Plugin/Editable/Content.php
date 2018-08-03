@@ -35,9 +35,9 @@ class Content extends Data {
    *
    * @param string $xml
    */
-  public function setXml($xml) {
+  public function setXML($xml) {
     $this->clear();
-    $this->merge(\Papaya\Utility\Text\Xml::unserializeArray($xml));
+    $this->merge(\Papaya\Utility\Text\XML::unserializeArray($xml));
     $this->_checksum = $this->getChecksum();
   }
 
@@ -46,13 +46,13 @@ class Content extends Data {
    *
    * @return string
    */
-  public function getXml() {
-    return \Papaya\Utility\Text\Xml::serializeArray((array)$this);
+  public function getXML() {
+    return \Papaya\Utility\Text\XML::serializeArray((array)$this);
   }
 
   /**
    * Check if the contained data was modified. The data is considered modified if it was not
-   * set using {@see \Papaya\Plugin\Editable\PapayaPluginEditableContent::setXml()} or the generated checksum is
+   * set using {@see \Papaya\Plugin\Editable\Content::setXML()} or the generated checksum is
    * different.
    *
    * @return boolean

@@ -71,10 +71,10 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
   /**
    * Append the captcha field xml to the dom
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $identifier = $this->createCaptchaIdentifier();
     $field->appendElement(

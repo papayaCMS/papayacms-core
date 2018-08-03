@@ -106,9 +106,9 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Append group and fields in this group to the DOM.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (isset($this->_fields) && count($this->_fields) > 0) {
       $group = $parent->appendElement(
         'field-group',

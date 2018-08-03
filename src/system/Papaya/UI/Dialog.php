@@ -251,13 +251,13 @@ class Dialog extends Control\Interactive {
   /**
    * Append the dialog output to a DOM
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \InvalidArgumentException
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $dialog = $parent->appendElement(
       'dialog-box',
       array(
@@ -411,14 +411,14 @@ class Dialog extends Control\Interactive {
   /**
    * Append a group hidden elements to the output (recursive function)
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param \Papaya\Request\Parameters $values
    * @param string|NULL $path
-   * @return \Papaya\Xml\Element
+   * @return \Papaya\XML\Element
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    \Papaya\Xml\Element $parent, \Papaya\Request\Parameters $values, $path = NULL
+    \Papaya\XML\Element $parent, \Papaya\Request\Parameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);

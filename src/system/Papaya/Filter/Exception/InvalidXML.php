@@ -20,12 +20,12 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidXml extends \Papaya\Filter\Exception {
+class InvalidXML extends \Papaya\Filter\Exception {
 
   /**
-   * @param \Papaya\Xml\Exception $e
+   * @param \Papaya\XML\Exception $e
    */
-  public function __construct(\Papaya\Xml\Exception $e) {
+  public function __construct(\Papaya\XML\Exception $e) {
     parent::__construct($e->getMessage());
   }
 

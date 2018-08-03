@@ -51,14 +51,14 @@ class Toolbars extends Control {
    * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
    * Toolbars without elements will not be added.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     /** @var Toolbar $toolbar */
     foreach ($this->_toolbars as $position => $toolbar) {
       if (NULL !== $toolbar) {
         $node = $toolbar->appendTo($parent);
-        if ($node instanceof \Papaya\Xml\Element) {
+        if ($node instanceof \Papaya\XML\Element) {
           $node->setAttribute(
             'position', $this->_positions[$position]
           );

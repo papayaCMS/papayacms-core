@@ -157,10 +157,10 @@ class Page extends \Papaya\Application\BaseObject {
   /**
    * Append the page teaser
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param array|\Papaya\BaseObject\Parameters $configuration
    */
-  public function appendQuoteTo(\Papaya\Xml\Element $parent, $configuration = []) {
+  public function appendQuoteTo(\Papaya\XML\Element $parent, $configuration = []) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
@@ -191,9 +191,9 @@ class Page extends \Papaya\Application\BaseObject {
           $plugin->appendQuoteTo($teaser);
         } elseif ($plugin instanceof \base_content &&
           method_exists($plugin, 'getParsedTeaser')) {
-          $teaser->appendXml((string)$plugin->getParsedTeaser((array)$configuration));
+          $teaser->appendXML((string)$plugin->getParsedTeaser((array)$configuration));
         }
-        /** @var \Papaya\Xml\Document $document */
+        /** @var \Papaya\XML\Document $document */
         $document = $teaser->ownerDocument;
         if (0 === (int)$document->xpath()->evaluate('count(node())', $teaser)) {
           $teaser->parentNode->removeChild($teaser);

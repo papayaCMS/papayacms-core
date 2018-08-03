@@ -55,10 +55,10 @@ class Group
   /**
    * Append group and elements to the output xml.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (count($this->elements()) > 0) {
       $group = $parent->appendElement(
         'group',

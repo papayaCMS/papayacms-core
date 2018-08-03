@@ -80,7 +80,7 @@ class Frame extends \Papaya\UI\Panel {
    *
    * @see \Papaya\UI\Panel#appendTo($parent)
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',

@@ -47,7 +47,7 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $button = new \Papaya\UI\Dialog\Button\Submit('Test Caption');
     $button->appendTo($document->documentElement);
@@ -70,7 +70,7 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('Test Caption'));
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendElement('test');
     $button = new \Papaya\UI\Dialog\Button\Submit(
       $caption, \Papaya\UI\Dialog\Button::ALIGN_LEFT

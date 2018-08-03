@@ -57,7 +57,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
         <page href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"
          number="3" type="last"/>
       </paging>',
-      $paging->getXml()
+      $paging->getXML()
     );
   }
 
@@ -79,7 +79,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
         <page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>
         <page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
       </paging>',
-      $paging->getXml()
+      $paging->getXML()
     );
   }
 
@@ -101,7 +101,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
         <page href="http://www.test.tld/test.html?foo[page]=2" number="2"/>
         <page href="http://www.test.tld/test.html?foo[page]=3" number="3" selected="selected"/>
       </paging>',
-      $paging->getXml()
+      $paging->getXML()
     );
   }
 
@@ -125,18 +125,18 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
         <page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
         <page href="http://www.test.tld/test.html?foo[page]=30" number="30" type="last"/>
       </paging>',
-      $paging->getXml()
+      $paging->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::setXMLNames
   * @covers \Papaya\UI\Paging\Count::appendListElement
   * @covers \Papaya\UI\Paging\Count::appendPageElement
   */
   public function testAppendToWithDifferentXml() {
     $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
-    $paging->setXmlNames(
+    $paging->setXMLNames(
       array(
         'list' => 'PagingLinks',
         'item' => 'Page'
@@ -152,18 +152,18 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
         <Page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>
         <Page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
       </PagingLinks>',
-      $paging->getXml()
+      $paging->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::setXMLNames
   */
   public function testSetXmlWithInvalidElement() {
     $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
-    $paging->setXmlNames(
+    $paging->setXMLNames(
       array(
         'invalid' => 'PagingLinks'
       )
@@ -171,13 +171,13 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Count::setXmlNames
+  * @covers \Papaya\UI\Paging\Count::setXMLNames
   */
   public function testSetXmlWithInvalidElementName() {
     $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
-    $paging->setXmlNames(
+    $paging->setXMLNames(
       array(
         'list' => '23Invalid'
       )

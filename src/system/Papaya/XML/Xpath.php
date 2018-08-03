@@ -13,12 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Xml;
+namespace Papaya\XML;
 /**
  * Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
  *
  * @package Papaya-Library
- * @subpackage Xml
+ * @subpackage XML
  */
 class Xpath extends \DOMXpath {
 

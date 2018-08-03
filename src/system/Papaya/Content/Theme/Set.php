@@ -77,7 +77,7 @@ class Set extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \Papaya\Utility\Text\Xml::unserializeArray((string)$value);
+      return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -96,7 +96,7 @@ class Set extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \Papaya\Utility\Text\Xml::serializeArray((array)$value);
+      return \Papaya\Utility\Text\XML::serializeArray((array)$value);
     }
     return $value;
   }
@@ -105,19 +105,19 @@ class Set extends \Papaya\Database\Record {
    * Return the values as a xml document
    *
    * @param \Papaya\Content\Structure $definition
-   * @return \Papaya\Xml\Document
+   * @return \Papaya\XML\Document
    */
-  public function getValuesXml(\Papaya\Content\Structure $definition) {
-    return $definition->getXmlDocument(isset($this->values) ? $this->values : array());
+  public function getValuesXML(\Papaya\Content\Structure $definition) {
+    return $definition->getXMLDocument(isset($this->values) ? $this->values : array());
   }
 
   /**
    * Loads the values from a xml document
    *
    * @param \Papaya\Content\Structure $definition
-   * @param \Papaya\Xml\Element $values
+   * @param \Papaya\XML\Element $values
    */
-  public function setValuesXml(\Papaya\Content\Structure $definition, \Papaya\Xml\Element $values) {
+  public function setValuesXML(\Papaya\Content\Structure $definition, \Papaya\XML\Element $values) {
     $this['values'] = $definition->getArray($values);
   }
 }

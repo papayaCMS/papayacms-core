@@ -367,7 +367,7 @@ class papaya_taglinks extends base_tags {
         isset($this->params['cmd']) &&
         $this->params['cmd'] == 'prioritize_tag' &&
         !empty($this->linkId)) {
-      $result .= $this->getLinkPriorityDialog()->getXml();
+      $result .= $this->getLinkPriorityDialog()->getXML();
     }
     $result .= $this->getLinkedTagsListXML();
     $result .= '</cell>'.LF;

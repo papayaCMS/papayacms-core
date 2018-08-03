@@ -30,7 +30,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           </image>
         </subtopic>
       </subtopics>';
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->loadXml($xml);
     $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 21, 42, 'min');
     $this->assertAttributeSame(
@@ -60,7 +60,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           </image>
         </teaser>
       </teasers>';
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->loadXml($xml);
 
     $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
@@ -72,7 +72,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
            src="test.png" resize="max" width="100" height="100"/>
         </thumbnail>
       </teaser-thumbnails>',
-      $images->getXml()
+      $images->getXML()
     );
   }
 
@@ -89,7 +89,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           '</image>'.
         '</subtopic>'.
       '</subtopics>';
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->loadXml($xml);
 
     $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
@@ -101,7 +101,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
            src="test.png" resize="max" width="100" height="100"/>
         </thumb>
       </subtopicthumbs>',
-      $images->getXml()
+      $images->getXML()
     );
   }
 
@@ -114,12 +114,12 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
       '<teasers>
         <teaser page-id="42"/>
       </teasers>';
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->loadXml($xml);
 
     $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
     $this->assertEquals(
-      '', $images->getXml()
+      '', $images->getXML()
     );
   }
 }

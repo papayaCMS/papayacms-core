@@ -60,7 +60,7 @@ abstract class Template extends Application\BaseObject {
   private $_parameters = NULL;
 
   /**
-   * @var \Papaya\Xml\Errors
+   * @var \Papaya\XML\Errors
    */
   private $_errors = NULL;
 
@@ -100,9 +100,9 @@ abstract class Template extends Application\BaseObject {
    * @param string $xml
    * @return boolean
    */
-  public function setXml($xml) {
+  public function setXML($xml) {
     return $this->errors()->encapsulate(
-      array($this->values()->document(), 'loadXml'),
+      array($this->values()->document(), 'loadXML'),
       array($xml)
     );
   }
@@ -113,8 +113,8 @@ abstract class Template extends Application\BaseObject {
    * @access public
    * @return string
    */
-  function getXml() {
-    return $this->values()->document()->saveXml();
+  function getXML() {
+    return $this->values()->document()->saveXML();
   }
 
   /**
@@ -137,14 +137,14 @@ abstract class Template extends Application\BaseObject {
   /**
    * Combined getter/setter for the libxml errors
    *
-   * @param \Papaya\Xml\Errors $errors
-   * @return \Papaya\Xml\Errors
+   * @param \Papaya\XML\Errors $errors
+   * @return \Papaya\XML\Errors
    */
-  public function errors(Xml\Errors $errors = NULL) {
+  public function errors(XML\Errors $errors = NULL) {
     if (isset($errors)) {
       $this->_errors = $errors;
     } elseif (is_null($this->_errors)) {
-      $this->_errors = new Xml\Errors();
+      $this->_errors = new XML\Errors();
       $this->_errors->papaya($this->papaya());
     }
     return $this->_errors;
@@ -182,12 +182,12 @@ abstract class Template extends Application\BaseObject {
 
 
   /**
-   * Add content to the Xml document. The content will be added to the 'page' root
+   * Add content to the XML document. The content will be added to the 'page' root
    * element. If you do not provide an path 'centercol' will be used. A path
    * can be a simple element name or a sequence of element names separated by '/'.
    * If an element in the path does not exists, it will be created.
    *
-   * @param string|\Papaya\Xml\Appendable|\DOMNode $xml data
+   * @param string|\Papaya\XML\Appendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encodeInvalidEntities encode invalid entities like &
    * @return mixed
@@ -198,7 +198,7 @@ abstract class Template extends Application\BaseObject {
     } else {
       $path = '/page/'.$path;
     }
-    if ($xml instanceof Xml\Appendable || $xml instanceof \DOMNode) {
+    if ($xml instanceof XML\Appendable || $xml instanceof \DOMNode) {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),
@@ -210,7 +210,7 @@ abstract class Template extends Application\BaseObject {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),
-          'appendXml'
+          'appendXML'
         ),
         array(
           $encodeInvalidEntities ? $this->encodeInvalidEntities($xml) : $xml
@@ -290,16 +290,16 @@ abstract class Template extends Application\BaseObject {
    * @return string
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
-    $debugXml = $this->papaya()->request->getParameter(
+    $debugXML = $this->papaya()->request->getParameter(
       'XML', FALSE, NULL, \Papaya\Request::SOURCE_QUERY
     );
-    if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
+    if ($debugXML && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
        * @var \Papaya\Response $response
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');
-      $response->content(new Response\Content\Text($this->getXml()));
+      $response->content(new Response\Content\Text($this->getXML()));
       $response->send(TRUE);
     } elseif ($result = $this->parse($options)) {
       return $result;
@@ -377,12 +377,12 @@ abstract class Template extends Application\BaseObject {
   }
 
   /**
-   * Alias for getXml()
+   * Alias for getXML()
    *
    * @deprecated
    * @return string
    */
   public function xml() {
-    return $this->getXml();
+    return $this->getXML();
   }
 }

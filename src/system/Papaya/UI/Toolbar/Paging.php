@@ -268,9 +268,9 @@ class Paging extends Element {
   /**
    * Append button xml to parent node. If the item count is zero no button are added.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $current = $this->getCurrentPage();
       if ($current > 2) {
@@ -335,12 +335,12 @@ class Paging extends Element {
    * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
    * page. The are only shown if needed.
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    * @param integer $page
    * @param string $image
    * @param string|\Papaya\UI\Text $hint
    */
-  private function appendArrowButton(\Papaya\Xml\Element $parent, $page, $image, $hint) {
+  private function appendArrowButton(\Papaya\XML\Element $parent, $page, $image, $hint) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

@@ -202,7 +202,7 @@ class papaya_topic_tree extends base_topic_tree {
               $this->copyPage($topic, $targetId, $errorString);
               $this->papaya()->getObject('Surfer')->loadTopicIdList(FALSE, TRUE);
             } else {
-              $this->layout->add($this->dialogCopyPageConfirmation()->getXml());
+              $this->layout->add($this->dialogCopyPageConfirmation()->getXML());
             }
           } else {
             $this->addMsg(

@@ -31,10 +31,10 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $changes = new Changes();
     $changes->commands($commands);
-    $this->assertEmpty($changes->getXml());
+    $this->assertEmpty($changes->getXML());
   }
 
   /**

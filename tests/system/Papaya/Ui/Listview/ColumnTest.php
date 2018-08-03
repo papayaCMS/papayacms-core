@@ -56,7 +56,7 @@ class PapayaUiListviewColumnTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Listview\Column::appendTo
   */
   public function testAppendTo() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('sample'));
     $column = new \Papaya\UI\Listview\Column('test title');
     $column->appendTo($document->documentElement);

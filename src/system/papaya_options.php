@@ -286,7 +286,7 @@ class papaya_options extends base_options {
     $this->getSearchForm();
     $this->getList();
     if (isset($this->params['id']) && $this->params['id'] == 'PAPAYA_LAYOUT_THEME') {
-      $this->layout->addRight($this->themeBrowser()->getXml());
+      $this->layout->addRight($this->themeBrowser()->getXML());
       $this->layout->addRight($this->getOptionHelp($this->params['id']));
     } else {
       $this->getForm();
@@ -1170,7 +1170,7 @@ class papaya_options extends base_options {
       return;
     }
     // Try to create an XML tree and check whether it's valid
-    $xml = \Papaya\Xml\Document::createFromXML(file_get_contents($tempFileName), TRUE);
+    $xml = \Papaya\XML\Document::createFromXML(file_get_contents($tempFileName), TRUE);
     if (!($xml && isset($xml->documentElement))) {
       $this->addMsg(MSG_ERROR, $this->_gt('This is not a valid XML file.'));
       return;

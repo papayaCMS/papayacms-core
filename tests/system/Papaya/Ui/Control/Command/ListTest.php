@@ -45,7 +45,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
     $list = new \Papaya\UI\Control\Command\Collection($command);
-    $list->getXml();
+    $list->getXML();
   }
 
   /**
@@ -65,7 +65,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
       ->expects($this->never())
       ->method('appendTo');
     $list = new \Papaya\UI\Control\Command\Collection($command);
-    $list->getXml();
+    $list->getXML();
   }
 
   /**
@@ -84,7 +84,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
       ->expects($this->never())
       ->method('appendTo');
     $list = new \Papaya\UI\Control\Command\Collection($command);
-    $list->getXml();
+    $list->getXML();
   }
 
   /**
@@ -115,7 +115,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
     $list = new \Papaya\UI\Control\Command\Collection($commandBlocked, $commandOk);
-    $list->getXml();
+    $list->getXML();
   }
 
   /**
@@ -146,7 +146,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
     $list = new \Papaya\UI\Control\Command\Collection($commandOk, $commandBlocked);
-    $list->getXml();
+    $list->getXML();
   }
 
   /**

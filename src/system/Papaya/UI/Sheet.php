@@ -30,21 +30,21 @@ class Sheet extends Control {
   private $_subtitles = NULL;
 
   /**
-   * @var \Papaya\Xml\Document
+   * @var \Papaya\XML\Document
    */
   private $_document = NULL;
 
   /**
-   * @var \Papaya\Xml\Element|\Papaya\Xml\Appendable
+   * @var \Papaya\XML\Element|\Papaya\XML\Appendable
    */
   private $_content = NULL;
 
   public function __construct() {
-    $this->_document = new \Papaya\Xml\Document();
+    $this->_document = new \Papaya\XML\Document();
     $this->_content = $this->_document->appendElement('text');
   }
 
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $sheet = $parent->appendElement('sheet');
     $title = (string)$this->_title;
     if (!(empty($title) && count($this->subtitles()) == 0)) {
@@ -54,7 +54,7 @@ class Sheet extends Control {
       }
       $header->append($this->subtitles());
     }
-    if ($this->_content instanceof \Papaya\Xml\Element) {
+    if ($this->_content instanceof \Papaya\XML\Element) {
       $sheet->appendChild(
         $parent->ownerDocument->importNode($this->_content, TRUE)
       );
@@ -90,19 +90,19 @@ class Sheet extends Control {
   }
 
   /**
-   * @param \Papaya\Xml\Appendable $content
-   * @return \Papaya\Xml\Element|\Papaya\Xml\Appendable $content
+   * @param \Papaya\XML\Appendable $content
+   * @return \Papaya\XML\Element|\Papaya\XML\Appendable $content
    */
   public function content($content = NULL) {
     if (isset($content)) {
-      if ($content instanceof \Papaya\Xml\Element) {
+      if ($content instanceof \Papaya\XML\Element) {
         $this->_document->replaceChild(
           $this->_document->importNode($content, TRUE),
           $this->_document->documentElement
         );
         $this->_content = $this->_document->documentElement;
       } else {
-        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Xml\Appendable::class, $content);
+        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\XML\Appendable::class, $content);
         $this->_content = $content;
       }
     }

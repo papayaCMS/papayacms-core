@@ -1541,7 +1541,7 @@ class base_viewlist extends base_db {
           }
         }
       }
-      $this->layout->addRight($listview->getXml());
+      $this->layout->addRight($listview->getXML());
     }
   }
 
@@ -1802,7 +1802,7 @@ class base_viewlist extends base_db {
           );
         }
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }
@@ -1900,7 +1900,7 @@ class base_viewlist extends base_db {
         }
         break;
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }
@@ -2248,7 +2248,7 @@ class base_viewlist extends base_db {
     $modes = array();
     if (is_array($this->view['MODES'])) {
       foreach ($this->view['MODES'] as $mode) {
-        $options = \Papaya\Utility\Text\Xml::unserializeArray($mode['viewlink_data']);
+        $options = \Papaya\Utility\Text\XML::unserializeArray($mode['viewlink_data']);
         ksort($options);
         $modes[$mode['viewmode_id']] = $options;
       }

@@ -46,10 +46,10 @@ class Content extends \Papaya\UI\Control\Command\Dialog {
   /**
    * Execute command and append result to output xml
    *
-   * @param \Papaya\Xml\Element
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog->execute()) {

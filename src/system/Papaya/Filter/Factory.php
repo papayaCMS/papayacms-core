@@ -38,7 +38,7 @@ namespace Papaya\Filter;
  * @method static bool isIsoDate($value, $mandatory = TRUE)
  * @method static bool isIsoDateTime($value, $mandatory = TRUE)
  * @method static bool isNotEmpty($value, $mandatory = TRUE)
- * @method static bool isNotXml($value, $mandatory = TRUE)
+ * @method static bool isNotXML($value, $mandatory = TRUE)
  * @method static bool isPassword($value, $mandatory = TRUE)
  * @method static bool isPhone($value, $mandatory = TRUE)
  * @method static bool isText($value, $mandatory = TRUE)
@@ -47,7 +47,7 @@ namespace Papaya\Filter;
  * @method static bool isUrl($value, $mandatory = TRUE)
  * @method static bool isUrlHost($value, $mandatory = TRUE)
  * @method static bool isUrlHttp($value, $mandatory = TRUE)
- * @method static bool isXml($value, $mandatory = TRUE)
+ * @method static bool isXML($value, $mandatory = TRUE)
  */
 class Factory implements \IteratorAggregate {
 

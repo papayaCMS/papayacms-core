@@ -24,7 +24,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
     $xhtml = new \Papaya\UI\Dialog\Field\Xhtml('<strong>Test</strong>');
     $this->assertEquals(
       /** @lang XML */'<xhtml><strong>Test</strong></xhtml>',
-      $xhtml->content()->saveXml()
+      $xhtml->content()->saveXML()
     );
   }
 
@@ -32,7 +32,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Xhtml::content
   */
   public function testContentGetAfterSet() {
-    $document = new \Papaya\Xml\Document();
+    $document = new \Papaya\XML\Document();
     $content = $document->appendElement('html');
     $xhtml = new \Papaya\UI\Dialog\Field\Xhtml();
     $this->assertSame($content, $xhtml->content($content));
@@ -43,7 +43,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   */
   public function testContentGetImplicitCreate() {
     $xhtml = new \Papaya\UI\Dialog\Field\Xhtml();
-    $this->assertInstanceOf(\Papaya\Xml\Element::class, $xhtml->content('<strong>Test</strong>'));
+    $this->assertInstanceOf(\Papaya\XML\Element::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**
@@ -65,7 +65,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
       '<field class="DialogFieldXhtml" error="no">
         <xhtml><strong>Test</strong></xhtml>
       </field>',
-      $xhtml->getXml()
+      $xhtml->getXML()
     );
   }
 

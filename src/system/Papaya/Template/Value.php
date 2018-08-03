@@ -25,14 +25,14 @@ class PapayaTemplateValue {
   /**
   * Wrapped DOM element
   *
-  * @var \Papaya\Xml\Element
+  * @var \Papaya\XML\Element
   */
   private $_node = NULL;
 
   /**
   * Construct object from DOMNode
   *
-  * @param \Papaya\Xml\Document|\Papaya\Xml\Element $node
+  * @param \Papaya\XML\Document|\Papaya\XML\Element $node
   */
   public function __construct($node) {
     $this->node($node);
@@ -44,7 +44,7 @@ class PapayaTemplateValue {
   * @return \DOMDocument
   */
   private function _getDocument() {
-    if ($this->_node instanceof \Papaya\Xml\Document) {
+    if ($this->_node instanceof \Papaya\XML\Document) {
       return $this->_node;
     } else {
       return $this->_node->ownerDocument;
@@ -54,21 +54,21 @@ class PapayaTemplateValue {
   /**
    * Get/Set node property
    *
-   * @param \Papaya\Xml\Document|\Papaya\Xml\Element $node
+   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
    * @throws \InvalidArgumentException
-   * @return \Papaya\Xml\Element|null
+   * @return \Papaya\XML\Element|null
    */
   public function node($node = NULL) {
     if (isset($node)) {
-      if ($node instanceof \Papaya\Xml\Document ||
-          $node instanceof \Papaya\Xml\Element) {
+      if ($node instanceof \Papaya\XML\Document ||
+          $node instanceof \Papaya\XML\Element) {
         $this->_node = $node;
       } else {
         throw new \InvalidArgumentException(
           sprintf(
             '%1$s or %2$s expected, got %3$s',
-            \Papaya\Xml\Document::class,
-            \Papaya\Xml\Element::class,
+            \Papaya\XML\Document::class,
+            \Papaya\XML\Element::class,
             is_object($node) ? get_class($node) : gettype($node)
           )
         );
@@ -80,10 +80,10 @@ class PapayaTemplateValue {
   /**
   * Append the node represented by this value to a parent node.
   *
-  * @param \Papaya\Xml\Element $parentNode
+  * @param \Papaya\XML\Element $parentNode
   * @return \PapayaTemplateValue
   */
-  public function appendTo(\Papaya\Xml\Element $parentNode) {
+  public function appendTo(\Papaya\XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
   }
@@ -107,7 +107,7 @@ class PapayaTemplateValue {
   public function append($element, array $attributes = array(), $textContent = '') {
     if (is_string($element)) {
       $element = $this->_getDocument()->createElement($element);
-    } elseif ($element instanceof \Papaya\Xml\Appendable) {
+    } elseif ($element instanceof \Papaya\XML\Appendable) {
       $element->appendTo($this->_node);
       return NULL;
     } elseif ($element instanceof \DOMDocument) {
@@ -149,10 +149,10 @@ class PapayaTemplateValue {
   * @param string $xml
   * @return \PapayaTemplateValue
   */
-  public function appendXml($xml) {
-    $errors = new \Papaya\Xml\Errors();
+  public function appendXML($xml) {
+    $errors = new \Papaya\XML\Errors();
     $errors->activate();
-    $this->node()->appendXml($xml);
+    $this->node()->appendXML($xml);
     $errors->emit();
     $errors->deactivate();
     return $this;
@@ -177,7 +177,7 @@ class PapayaTemplateValue {
         $this->_node->removeChild($this->_node->childNodes->item($i));
       }
       if (is_string($xml)) {
-        $this->appendXml($xml);
+        $this->appendXML($xml);
       } elseif ($xml instanceof \DOMNode) {
         $this->_node->appendChild($xml);
       } elseif (is_array($xml)) {
@@ -207,7 +207,7 @@ class PapayaTemplateValue {
     }
     $result = '';
     foreach ($this->_node->childNodes as $node) {
-      $result .= $this->_getDocument()->saveXml($node);
+      $result .= $this->_getDocument()->saveXML($node);
     }
     return $result;
   }

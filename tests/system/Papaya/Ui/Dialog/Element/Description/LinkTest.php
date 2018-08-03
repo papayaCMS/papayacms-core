@@ -31,7 +31,7 @@ class PapayaUiDialogElementDescriptionLinkTest extends \PapayaTestCase {
     $this->assertEquals(
       /** @lang XML */
       '<link href="./success.php"/>',
-      $description->getXml()
+      $description->getXML()
     );
   }
 

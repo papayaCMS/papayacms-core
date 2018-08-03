@@ -436,7 +436,7 @@ class papaya_linktypes extends base_linktypes {
           'width' => $this->params['popup_width'],
         );
         $data = array(
-          'linktype_popup_config' => \Papaya\Utility\Text\Xml::serializeArray($popupConfig)
+          'linktype_popup_config' => \Papaya\Utility\Text\XML::serializeArray($popupConfig)
         );
       } else {
         $data = array(

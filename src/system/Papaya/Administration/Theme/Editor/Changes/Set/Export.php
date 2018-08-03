@@ -44,9 +44,9 @@ class Export
   }
 
   /**
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->_themeSet->load($this->parameters()->get('set_id', 0));
     $themeName = $this->_themeSet['theme'];
     $response = $this->papaya()->response;
@@ -66,10 +66,10 @@ class Export
       new \Papaya\Response\Content\Text(
         $this
           ->_themeSet
-          ->getValuesXml(
+          ->getValuesXML(
             $this->_themeHandler->getDefinition($themeName)
           )
-          ->saveXml()
+          ->saveXML()
       )
     );
     $response->send();

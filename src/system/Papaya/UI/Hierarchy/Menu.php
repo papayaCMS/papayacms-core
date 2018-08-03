@@ -43,10 +43,10 @@ class Menu extends \Papaya\UI\Control {
   /**
    * Append menu to parent xml element
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element|NULL
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element|NULL
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     if (count($this->items()) > 0) {
       $menu = $parent->appendElement('hierarchy-menu');
       $this->items()->appendTo($menu);

@@ -83,9 +83,9 @@ class Image extends \Papaya\Parser\Tag {
   /**
    * Append the generated papaya:media element to a parent node
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->parseImageData();
     $attributes = [];
     if (!empty($this->_source)) {

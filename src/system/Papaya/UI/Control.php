@@ -27,13 +27,13 @@ abstract class Control extends Control\Part {
    *
    * @return string
    */
-  public function getXml() {
-    $dom = new \Papaya\Xml\Document();
+  public function getXML() {
+    $dom = new \Papaya\XML\Document();
     $control = $dom->appendElement('control');
     $this->appendTo($control);
     $xml = '';
     foreach ($dom->documentElement->childNodes as $node) {
-      $xml .= $node->ownerDocument->saveXml($node);
+      $xml .= $node->ownerDocument->saveXML($node);
     }
     return $xml;
   }

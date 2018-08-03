@@ -41,8 +41,8 @@ class Collector extends \Papaya\UI\Dialog\Field {
   /**
    * Empty, this field does not append anything to the DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
   }
 }

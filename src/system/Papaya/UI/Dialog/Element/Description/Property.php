@@ -57,10 +57,10 @@ class Property extends Item {
   /**
    * Append description element with href attribute to parent xml element.
    *
-   * @param \Papaya\Xml\Element $parent
-   * @return \Papaya\Xml\Element
+   * @param \Papaya\XML\Element $parent
+   * @return \Papaya\XML\Element
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       'property',
       array(

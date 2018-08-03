@@ -32,9 +32,9 @@ class Folder extends \Papaya\UI\Dialog\Field {
   /**
    * Append select field to DOM
    *
-   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(
       'select',

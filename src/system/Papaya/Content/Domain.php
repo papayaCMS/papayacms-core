@@ -103,9 +103,9 @@ class Domain extends \Papaya\Database\Record {
   public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
     if ($property == 'options') {
       if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
-        return \Papaya\Utility\Text\Xml::serializeArray($value);
+        return \Papaya\Utility\Text\XML::serializeArray($value);
       } else {
-        return \Papaya\Utility\Text\Xml::unserializeArray($value);
+        return \Papaya\Utility\Text\XML::unserializeArray($value);
       }
     }
     return $value;
