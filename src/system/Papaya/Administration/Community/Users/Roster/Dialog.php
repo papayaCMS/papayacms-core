@@ -25,7 +25,7 @@ namespace Papaya\Administration\Community\Users\Roster;
  * @property integer $usersPerPage
  * @property integer $pagingButtonsLimit
  */
-class Dialog extends \PapayaUiDialog {
+class Dialog extends \Papaya\Ui\Dialog {
 
   private $_listview;
   private $_paging;
@@ -66,8 +66,8 @@ class Dialog extends \PapayaUiDialog {
    */
   public function prepare() {
     $this->caption = new \PapayaUiStringTranslated('Users');
-    $this->options->dialogWidth = \PapayaUiDialogOptions::SIZE_SMALL;
-    $this->options->captionStyle = \PapayaUiDialogOptions::CAPTION_NONE;
+    $this->options->dialogWidth = \Papaya\Ui\Dialog\Options::SIZE_SMALL;
+    $this->options->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
@@ -78,13 +78,13 @@ class Dialog extends \PapayaUiDialog {
     $this->fields[] = $buttons = new \Papaya\Ui\Dialog\Field\Buttons();
     $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('Filter'),
-      \PapayaUiDialogButton::ALIGN_RIGHT
+      \Papaya\Ui\Dialog\Button::ALIGN_RIGHT
     );
     $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
       new \PapayaUiStringTranslated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,
-      \PapayaUiDialogButton::ALIGN_LEFT
+      \Papaya\Ui\Dialog\Button::ALIGN_LEFT
     );
     $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Listview($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();

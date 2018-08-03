@@ -147,7 +147,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
   public function testValidateOriginAndSynchronizationsEqualsPageIdExpectingFalse() {
     $context = new stdClass();
     $context->originIdField = $this
-      ->getMockBuilder(\PapayaUiDialogField::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Field::class)
       ->disableOriginalConstructor()
       ->getMock();
     $context
@@ -172,7 +172,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
   public function testValidateOriginAndSynchronizationsIsDependencyExpectingFalse() {
     $context = new stdClass();
     $context->originIdField = $this
-      ->getMockBuilder(\PapayaUiDialogField::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Field::class)
       ->disableOriginalConstructor()
       ->getMock();
     $context
@@ -232,7 +232,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->will($this->returnValue($databaseAccess));
     $context = new stdClass();
     $context->synchronizationField = $this
-      ->getMockBuilder(\PapayaUiDialogField::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Field::class)
       ->disableOriginalConstructor()
       ->getMock();
     $context
@@ -323,14 +323,14 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
   * @covers Change::dispatchErrorMessage
   */
   public function testDispatchErrorMessage() {
-    $errors = $this->createMock(\PapayaUiDialogErrors::class);
+    $errors = $this->createMock(\Papaya\Ui\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array('field')));
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialog $dialog */
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')

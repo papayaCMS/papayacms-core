@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Information extends \PapayaUiDialogField {
+class Information extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Information text

@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* A dialog superclass for dialogs that execute database actions on {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
-* instances
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
+ * A dialog superclass for dialogs that execute database actions on
+ * {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord} instances
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Database extends \Papaya\Ui\Dialog {
 
   /**
-  * Attached database callbacks object
-  *
-  * @var \Papaya\Database\BaseObject\Record
-  */
+   * Attached database callbacks object
+   *
+   * @var \Papaya\Database\BaseObject\Record
+   */
   private $_callbacks = NULL;
 
   /**
-  * Attached database record object
-  *
-  * @var \Papaya\Database\Interfaces\Record
-  */
+   * Attached database record object
+   *
+   * @var \Papaya\Database\Interfaces\Record
+   */
   private $_record = NULL;
 
   /**
-  * Create dialog and attach a record to it.
-  *
-  * @param \Papaya\Database\Interfaces\Record $record
-  */
+   * Create dialog and attach a record to it.
+   *
+   * @param \Papaya\Database\Interfaces\Record $record
+   */
   public function __construct(\Papaya\Database\Interfaces\Record $record) {
     $this->record($record);
   }
 
   /**
-  * Getter/Setter for the database record object. The record is set in the constructor always.
-  * But it can be changed or accessed using this method.
-  *
-  * The values of the record are merged into the data property.
-  *
-  * @param \Papaya\Database\Interfaces\Record $record
-  * @return \Papaya\Database\Interfaces\Record
-  */
+   * Getter/Setter for the database record object. The record is set in the constructor always.
+   * But it can be changed or accessed using this method.
+   *
+   * The values of the record are merged into the data property.
+   *
+   * @param \Papaya\Database\Interfaces\Record $record
+   * @return \Papaya\Database\Interfaces\Record
+   */
   public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
     if (isset($record)) {
       $this->_record = $record;
@@ -63,12 +64,12 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   }
 
   /**
-  * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
-  * needed definitions.
-  *
-  * @param \Papaya\Ui\Dialog\Database\Callbacks $callbacks
-  * @return \Papaya\Ui\Dialog\Database\Callbacks
-  */
+   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
+   * needed definitions.
+   *
+   * @param \Papaya\Ui\Dialog\Database\Callbacks $callbacks
+   * @return \Papaya\Ui\Dialog\Database\Callbacks
+   */
   public function callbacks(\Papaya\Ui\Dialog\Database\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;

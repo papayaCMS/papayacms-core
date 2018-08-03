@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Xhtml;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Link extends \PapayaUiDialogField {
+class Link extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Link url

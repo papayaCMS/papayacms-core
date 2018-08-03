@@ -168,7 +168,7 @@ class Checkbox extends \Papaya\Ui\Dialog\Field\Input {
    * The filter is only active if the field is mandatory. Otherwise it will just set the
    * "inactive" value if it is not valid
    *
-   * @see \PapayaUiDialogField::getFilter()
+   * @see \Papaya\Ui\Dialog\Field::getFilter()
    */
   public function getFilter() {
     if ($this->getMandatory()) {

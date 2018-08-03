@@ -21,7 +21,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Collector extends \PapayaUiDialogField {
+class Collector extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Initialize object, field name, default value and filter

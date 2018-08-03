@@ -13,28 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* Simple error collector for dialogs.
-*
-* Holds a list of errors and allows to iterate them.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogErrors implements \IteratorAggregate, \Countable {
+ * Simple error collector for dialogs.
+ *
+ * Holds a list of errors and allows to iterate them.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Errors implements \IteratorAggregate, \Countable {
 
   /**
-  * Error list
-  * @var array
-  */
+   * Error list
+   *
+   * @var array
+   */
   protected $_errors = array();
 
   /**
-  * add a new error to the list.
-  *
-  * @param \Exception $exception
-  * @param object $source
-  */
+   * add a new error to the list.
+   *
+   * @param \Exception $exception
+   * @param object $source
+   */
   public function add(\Exception $exception, $source = NULL) {
     $this->_errors[] = array(
       'exception' => $exception,
@@ -43,26 +45,26 @@ class PapayaUiDialogErrors implements \IteratorAggregate, \Countable {
   }
 
   /**
-  * clear internal error list.
-  */
+   * clear internal error list.
+   */
   public function clear() {
     $this->_errors = array();
   }
 
   /**
-  * Countable interface, return element count.
-  *
-  * @return integer
-  */
+   * Countable interface, return element count.
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_errors);
   }
 
   /**
-  * IteratorAggregate interface, return ArrayIterator for internal array.
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate interface, return ArrayIterator for internal array.
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_errors);
   }
@@ -71,8 +73,8 @@ class PapayaUiDialogErrors implements \IteratorAggregate, \Countable {
     $result = array();
     foreach ($this->_errors as $error) {
       if (isset($error['source']) &&
-          ($source = $error['source']) &&
-          $source instanceof \PapayaUiDialogField) {
+        ($source = $error['source']) &&
+        $source instanceof \Papaya\Ui\Dialog\Field) {
         $caption = $source->getCaption();
         if (!empty($caption)) {
           $result[] = $caption;

@@ -13,31 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* A list of dialog fields
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFields extends \PapayaUiDialogElements {
+ * A list of dialog fields
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Fields extends Elements {
 
   /**
-  * Only \PapayaUiDialogField objects are allows in this list
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiDialogField::class;
+   * Only \Papaya\Ui\Dialog\PapayaUiDialogField objects are allows in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Field::class;
 
   /**
-  * Validate all dialog fields (check user inputs)
-  *
-  * If one of the fields returns FALSE, this will be the return value of the method. But still
-  * all other fields will be checked.
-  *
-  * @return boolean
-  */
+   * Validate all dialog fields (check user inputs)
+   *
+   * If one of the fields returns FALSE, this will be the return value of the method. But still
+   * all other fields will be checked.
+   *
+   * @return boolean
+   */
   public function validate() {
     $result = TRUE;
-    /** @var \PapayaUiDialogField $field */
+    /** @var Field $field */
     foreach ($this->_items as $field) {
       if (!$field->validate()) {
         $result = FALSE;

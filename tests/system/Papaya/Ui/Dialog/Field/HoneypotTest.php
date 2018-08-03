@@ -54,7 +54,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Honeypot
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -74,7 +74,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder(\PapayaUiDialogFields::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -103,7 +103,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Honeypot
   */
   public function testAppendToExpectingError() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -123,7 +123,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(NULL));
     $collection = $this
-      ->getMockBuilder(\PapayaUiDialogFields::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

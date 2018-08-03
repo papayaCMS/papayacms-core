@@ -43,7 +43,7 @@ class Browser
    */
   private $_themeHandler;
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_dialog;
 
@@ -52,14 +52,14 @@ class Browser
   }
 
   /**
-   * @param \PapayaUiDialog $dialog
-   * @return \PapayaUiDialog
+   * @param \Papaya\Ui\Dialog $dialog
+   * @return \Papaya\Ui\Dialog
    */
-  public function dialog(\PapayaUiDialog $dialog = NULL) {
+  public function dialog(\Papaya\Ui\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
-      $this->_dialog = $dialog = new \PapayaUiDialog();
+      $this->_dialog = $dialog = new \Papaya\Ui\Dialog();
       $dialog->caption = new \PapayaUiStringTranslated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');

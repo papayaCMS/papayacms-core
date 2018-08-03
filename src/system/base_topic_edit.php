@@ -104,7 +104,7 @@ class base_topic_edit extends base_topic {
   private $_synchronizations = NULL;
 
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   public $dialogPublish = NULL;
 
@@ -4545,7 +4545,7 @@ class base_topic_edit extends base_topic {
   function initializePublishDialog() {
     if (!(isset($this->dialogPublish) && is_object($this->dialogPublish)) &&
         isset($this->topic['TRANSLATION'])) {
-      $this->dialogPublish = $dialog = new \PapayaUiDialog();
+      $this->dialogPublish = $dialog = new \Papaya\Ui\Dialog();
       $dialog->caption = new \PapayaUiStringTranslated('Publish');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
@@ -4660,7 +4660,7 @@ class base_topic_edit extends base_topic {
 
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_AUDITING', FALSE)) {
         $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
-          new \PapayaUiStringTranslated('Audited'), 'audit', 1, \PapayaUiDialogButton::ALIGN_LEFT
+          new \PapayaUiStringTranslated('Audited'), 'audit', 1, \Papaya\Ui\Dialog\Button::ALIGN_LEFT
         );
       }
       $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
@@ -4705,7 +4705,7 @@ class base_topic_edit extends base_topic {
     $languages = $this->dialogPublish->data()->get('public_languages', array());
     $connector = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
     if (is_object($connector)) {
-      $this->dialogSocialMedia = new \PapayaUiDialog();
+      $this->dialogSocialMedia = new \Papaya\Ui\Dialog();
       $this->dialogSocialMedia->caption = new \PapayaUiStringTranslated('Social media');
       $this->dialogSocialMedia->parameterGroup($this->paramName);
       $this->dialogSocialMedia->hiddenFields()->merge(
@@ -5062,11 +5062,11 @@ class base_topic_edit extends base_topic {
   * @access public
   */
   function addTopicIdDialog() {
-    $dialog = new \PapayaUiDialog($this);
+    $dialog = new \Papaya\Ui\Dialog($this);
     $dialog->caption = new \PapayaUiStringTranslated('Go to page');
     $dialog->parameterGroup($this->paramName);
     $dialog->options()->useToken = FALSE;
-    $dialog->options()->captionStyle = \PapayaUiDialogOptions::CAPTION_NONE;
+    $dialog->options()->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
     $dialog->options()->protectChanges = FALSE;
     $dialog
       ->fields()

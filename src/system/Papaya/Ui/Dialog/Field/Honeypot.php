@@ -26,7 +26,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @property string $name
  * @property string $hint
  */
-class Honeypot extends \PapayaUiDialogField {
+class Honeypot extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Field type, used in template

@@ -26,7 +26,7 @@ class Dialog extends \Papaya\Ui\Control\Command {
   /**
    * Dialog object
    *
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_dialog;
 
@@ -102,10 +102,10 @@ class Dialog extends \Papaya\Ui\Control\Command {
   /**
    * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
    *
-   * @param \PapayaUiDialog $dialog
-   * @return \PapayaUiDialog
+   * @param \Papaya\Ui\Dialog $dialog
+   * @return \Papaya\Ui\Dialog
    */
-  public function dialog(\PapayaUiDialog $dialog = NULL) {
+  public function dialog(\Papaya\Ui\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -137,10 +137,10 @@ class Dialog extends \Papaya\Ui\Control\Command {
    * Create and return a dialog object, can be overloaded by child classes to create specific
    * dialogs.
    *
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   protected function createDialog() {
-    $dialog = new \PapayaUiDialog();
+    $dialog = new \Papaya\Ui\Dialog();
     $dialog->papaya($this->papaya());
     return $dialog;
   }

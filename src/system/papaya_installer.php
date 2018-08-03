@@ -32,7 +32,7 @@ class papaya_installer extends base_db {
   public $layout;
 
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_optionsDialog = NULL;
 
@@ -1530,7 +1530,7 @@ class papaya_installer extends base_db {
 
   public function getOptionsDialog() {
     if (!isset($this->_optionsDialog)) {
-      $this->_optionsDialog = $dialog = new \PapayaUiDialog();
+      $this->_optionsDialog = $dialog = new \Papaya\Ui\Dialog();
       $dialog->caption = 'Basic Configuration';
       $dialog->parameterGroup('installer/options');
       $dialog->hiddenValues->merge(

@@ -96,7 +96,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -115,7 +115,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   */
   public function testGetCurrentValueFromSubmittedDialog() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -139,10 +139,10 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Fields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\PapayaUiDialogFields::class);
+    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

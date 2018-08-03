@@ -32,13 +32,13 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   */
   public function testConstructorWithAllParameters() {
     $button = new \Papaya\Ui\Dialog\Button\NamedSubmit(
-      'Test', 'name', 'value', \PapayaUiDialogButton::ALIGN_LEFT
+      'Test', 'name', 'value', \Papaya\Ui\Dialog\Button::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
       'value', '_value', $button
     );
     $this->assertAttributeEquals(
-      \PapayaUiDialogButton::ALIGN_LEFT, '_align', $button
+      \Papaya\Ui\Dialog\Button::ALIGN_LEFT, '_align', $button
     );
   }
 
@@ -66,7 +66,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   */
   public function testAppendToWithDialogParameterGroup() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -111,7 +111,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->method('set')
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -146,7 +146,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->method('set')
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -190,7 +190,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(FALSE));
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -214,10 +214,10 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElements
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Elements
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\PapayaUiDialogElements::class);
+    $collection = $this->createMock(\Papaya\Ui\Dialog\Elements::class);
     if ($owner) {
       $collection
         ->expects($this->any())

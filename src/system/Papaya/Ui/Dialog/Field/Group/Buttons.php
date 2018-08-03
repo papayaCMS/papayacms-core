@@ -21,14 +21,14 @@ namespace Papaya\Ui\Dialog\Field\Group;
  * @subpackage Ui
  *
  * @property string|\PapayaUiString $caption
- * @property \PapayaUiDialogButtons $buttons
+ * @property \Papaya\Ui\Dialog\Buttons $buttons
  */
-class Buttons extends \PapayaUiDialogField {
+class Buttons extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Grouped input buttons
    *
-   * @var \PapayaUiDialogButtons
+   * @var \Papaya\Ui\Dialog\Buttons
    */
   protected $_buttons = NULL;
 
@@ -54,10 +54,10 @@ class Buttons extends \PapayaUiDialogField {
   /**
    * Group buttons getter/setter
    *
-   * @param \PapayaUiDialogButtons $buttons
-   * @return \PapayaUiDialogButtons
+   * @param \Papaya\Ui\Dialog\Buttons $buttons
+   * @return \Papaya\Ui\Dialog\Buttons
    */
-  public function buttons(\PapayaUiDialogButtons $buttons = NULL) {
+  public function buttons(\Papaya\Ui\Dialog\Buttons $buttons = NULL) {
     if (isset($buttons)) {
       $this->_buttons = $buttons;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
@@ -65,7 +65,7 @@ class Buttons extends \PapayaUiDialogField {
       }
     }
     if (is_null($this->_buttons)) {
-      $this->_buttons = new \PapayaUiDialogButtons(
+      $this->_buttons = new \Papaya\Ui\Dialog\Buttons(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
     }

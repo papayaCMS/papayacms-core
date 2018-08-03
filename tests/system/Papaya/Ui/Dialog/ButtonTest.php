@@ -18,44 +18,44 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogButtonTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogButton::__construct
+  * @covers \Papaya\Ui\Dialog\Button::__construct
   */
   public function testConstructor() {
     $button = new \PapayaUiDialogButton_TestProxy();
     $this->assertAttributeEquals(
-      \PapayaUiDialogButton::ALIGN_RIGHT,
+      \Papaya\Ui\Dialog\Button::ALIGN_RIGHT,
       '_align',
       $button
     );
   }
 
   /**
-  * @covers \PapayaUiDialogButton::__construct
+  * @covers \Papaya\Ui\Dialog\Button::__construct
   */
   public function testConstructorWithAlign() {
-    $button = new \PapayaUiDialogButton_TestProxy(\PapayaUiDialogButton::ALIGN_LEFT);
+    $button = new \PapayaUiDialogButton_TestProxy(\Papaya\Ui\Dialog\Button::ALIGN_LEFT);
     $this->assertAttributeEquals(
-      \PapayaUiDialogButton::ALIGN_LEFT,
+      \Papaya\Ui\Dialog\Button::ALIGN_LEFT,
       '_align',
       $button
     );
   }
 
   /**
-  * @covers \PapayaUiDialogButton::setAlign
+  * @covers \Papaya\Ui\Dialog\Button::setAlign
   */
   public function testSetAlign() {
     $button = new \PapayaUiDialogButton_TestProxy();
-    $button->setAlign(\PapayaUiDialogButton::ALIGN_LEFT);
+    $button->setAlign(\Papaya\Ui\Dialog\Button::ALIGN_LEFT);
     $this->assertAttributeEquals(
-      \PapayaUiDialogButton::ALIGN_LEFT,
+      \Papaya\Ui\Dialog\Button::ALIGN_LEFT,
       '_align',
       $button
     );
   }
 }
 
-class PapayaUiDialogButton_TestProxy extends \PapayaUiDialogButton {
+class PapayaUiDialogButton_TestProxy extends \Papaya\Ui\Dialog\Button {
 
   public function appendTo(\Papaya\Xml\Element $parent) {
   }

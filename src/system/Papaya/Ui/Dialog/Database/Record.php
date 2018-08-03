@@ -22,7 +22,7 @@ namespace Papaya\Ui\Dialog\Database;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Record extends \PapayaUiDialog {
+class Record extends \Papaya\Ui\Dialog {
 
   /**
    * @var integer
@@ -43,7 +43,7 @@ class Record extends \PapayaUiDialog {
    *
    * @var NULL|integer
    */
-  protected $_method = \PapayaUiDialog::METHOD_MIXED;
+  protected $_method = \Papaya\Ui\Dialog::METHOD_MIXED;
 
   /**
    * Internal database access object variable
@@ -100,7 +100,7 @@ class Record extends \PapayaUiDialog {
   /**
    * Initalize dialog object and define database table mapping.
    *
-   * You still need to use {@see \PapayaUiDialog::fields} to define the dialog interface.
+   * You still need to use {@see \Papaya\Ui\PapayaUiDialog::fields} to define the dialog interface.
    *
    * @param string $table
    * @param string $identifierColumn

@@ -24,13 +24,13 @@ namespace Papaya\Ui\Dialog\Button;
  *     new \Papaya\Ui\Dialog\Button\PapayaUiDialogButtonSubmit(
  *       new \PapayaUiStringTranslated('Save')
  *     ),
- *     \PapayaUiDialogButton::ALIGN_LEFT
+ *     \Papaya\Ui\Dialog\PapayaUiDialogButton::ALIGN_LEFT
  *   );
  *
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Link extends \PapayaUiDialogButton {
+class Link extends \Papaya\Ui\Dialog\Button {
 
   /**
    * Button caption
@@ -50,7 +50,7 @@ class Link extends \PapayaUiDialogButton {
    * @param string|\PapayaUiString $caption
    * @param integer $align
    */
-  public function __construct($caption, $align = \PapayaUiDialogButton::ALIGN_RIGHT) {
+  public function __construct($caption, $align = \Papaya\Ui\Dialog\Button::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
@@ -65,7 +65,7 @@ class Link extends \PapayaUiDialogButton {
       'button',
       array(
         'type' => 'link',
-        'align' => ($this->_align == \PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => ($this->_align == \Papaya\Ui\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right',
         'href' => $this->reference()
       ),
       (string)$this->_caption

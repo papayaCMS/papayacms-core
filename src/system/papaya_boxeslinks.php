@@ -206,9 +206,9 @@ class papaya_boxeslinks extends base_boxeslinks {
   }
 
   public function getModeDialog($mode) {
-    $dialog = new \PapayaUiDialog();
+    $dialog = new \Papaya\Ui\Dialog();
     $dialog->caption = new \PapayaUiStringTranslated('Link Mode');
-    $dialog->options->captionStyle = \PapayaUiDialogOptions::CAPTION_NONE;
+    $dialog->options->captionStyle = \Papaya\Ui\Dialog\Options::CAPTION_NONE;
     if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', FALSE)) {
       $modes = array(
         self::INHERIT_ALL => new \PapayaUiStringTranslated('None'),

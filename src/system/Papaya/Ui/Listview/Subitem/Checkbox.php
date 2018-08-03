@@ -26,7 +26,7 @@ class PapayaUiListviewSubitemCheckbox extends \PapayaUiListviewSubitem {
    */
   private $_parameterName;
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_dialog;
 
@@ -35,7 +35,7 @@ class PapayaUiListviewSubitemCheckbox extends \PapayaUiListviewSubitem {
    */
   private $_value;
 
-  public function __construct(\PapayaUiDialog $dialog, $parameterName, $value) {
+  public function __construct(\Papaya\Ui\Dialog $dialog, $parameterName, $value) {
     $this->_dialog = $dialog;
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->_value = $value;

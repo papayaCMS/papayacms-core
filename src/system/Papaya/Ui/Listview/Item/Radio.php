@@ -18,7 +18,7 @@ class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
   private $_fieldName = '';
 
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_dialog;
 
@@ -29,11 +29,11 @@ class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
   /**
    * @param string $image
    * @param \PapayaUiString|string $caption
-   * @param \PapayaUiDialog $dialog
+   * @param \Papaya\Ui\Dialog $dialog
    * @param bool $fieldName
    * @param $value
    */
-  public function __construct($image, $caption, \PapayaUiDialog $dialog, $fieldName, $value) {
+  public function __construct($image, $caption, \Papaya\Ui\Dialog $dialog, $fieldName, $value) {
     parent::__construct($image, $caption);
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;

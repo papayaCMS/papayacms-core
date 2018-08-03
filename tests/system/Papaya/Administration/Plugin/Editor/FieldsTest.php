@@ -70,7 +70,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
     $editor->builder($builder);
     $editor->context(new \Papaya\Request\Parameters(array('context' => 'sample')));
 
-    $this->assertInstanceOf(\PapayaUiDialog::class, $dialog = $editor->dialog());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $dialog = $editor->dialog());
   }
 
   /**

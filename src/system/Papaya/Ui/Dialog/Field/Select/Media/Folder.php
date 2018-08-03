@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Select\Media;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Folder extends \PapayaUiDialogField {
+class Folder extends \Papaya\Ui\Dialog\Field {
 
   private $_folders = NULL;
 

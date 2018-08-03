@@ -85,7 +85,7 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(\PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -109,7 +109,7 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(\PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

@@ -32,9 +32,9 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testFieldsGetImplicitCreate() {
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
-    $group->collection($this->createMock(\PapayaUiDialogFields::class));
+    $group->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $this->assertInstanceOf(
-      \PapayaUiDialogFields::class, $group->fields()
+      \Papaya\Ui\Dialog\Fields::class, $group->fields()
     );
   }
 
@@ -43,7 +43,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testFieldsGetImplicitCreateWithDialog() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
@@ -58,12 +58,12 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testFieldsSet() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('owner')
@@ -79,12 +79,12 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testFieldsGetAfterSet() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('owner')
@@ -99,10 +99,10 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testValidateExpectingTrue() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('validate')
@@ -118,10 +118,10 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testValidateUsingCachedResultExpectingTrue() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('validate')
@@ -138,7 +138,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testValidateWithoutFieldsExpectingTrue() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
@@ -151,10 +151,10 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testValidateExpectingFalse() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('validate')
@@ -178,10 +178,10 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testCollect() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('collect')
@@ -197,7 +197,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   */
   public function testCollectWithoutDialog() {
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
-    $group->collection($this->createMock(\PapayaUiDialogFields::class));
+    $group->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $this->assertFalse($group->collect());
   }
 
@@ -205,7 +205,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Group::appendTo
   */
   public function testAppendTo() {
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('appendTo')
@@ -215,7 +215,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
       ->method('count')
       ->will($this->returnValue(1));
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
-    $group->collection($this->createMock(\PapayaUiDialogFields::class));
+    $group->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $group->fields($fields);
     $this->assertEquals(
       /** @lang XML */
@@ -228,7 +228,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Group::appendTo
   */
   public function testAppendToWithId() {
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('appendTo')
@@ -239,7 +239,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
       ->will($this->returnValue(1));
     $group = new \Papaya\Ui\Dialog\Field\Group('Group Caption');
     $group->setId('sampleId');
-    $group->collection($this->createMock(\PapayaUiDialogFields::class));
+    $group->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $group->fields($fields);
     $this->assertEquals(
       /** @lang XML */
@@ -268,7 +268,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog\Field\Group::collection
   */
   public function testCollectionGetAfterSet() {
-    $owner = $this->createMock(\PapayaUiDialog::class);
+    $owner = $this->createMock(\Papaya\Ui\Dialog::class);
     $papaya = $this->mockPapaya()->application();
     $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
@@ -283,7 +283,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('owner')
       ->will($this->returnValue($owner));
-    $fields = $this->createMock(\PapayaUiDialogFields::class);
+    $fields = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     $fields
       ->expects($this->once())
       ->method('owner')
@@ -304,10 +304,10 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Fields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\PapayaUiDialogFields::class);
+    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

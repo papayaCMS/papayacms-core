@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Textarea extends \PapayaUiDialogField {
+class Textarea extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Field lines

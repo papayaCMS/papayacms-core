@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Select extends \PapayaUiDialogField {
+class Select extends \Papaya\Ui\Dialog\Field {
 
   const VALUE_USE_KEY = 0;
   const VALUE_USE_CAPTION = 1;

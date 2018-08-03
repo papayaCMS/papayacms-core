@@ -18,27 +18,27 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogSessionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogSession::__construct
+  * @covers \Papaya\Ui\Dialog\Session::__construct
   */
   public function testConstructor() {
-    $dialog = new \PapayaUiDialogSession();
+    $dialog = new \Papaya\Ui\Dialog\Session();
     $this->assertAttributeSame(
       $dialog, '_sessionIdentifier', $dialog
     );
   }
 
   /**
-  * @covers \PapayaUiDialogSession::__construct
+  * @covers \Papaya\Ui\Dialog\Session::__construct
   */
   public function testConstructorWithSessionIdentifier() {
-    $dialog = new \PapayaUiDialogSession('sample_name');
+    $dialog = new \Papaya\Ui\Dialog\Session('sample_name');
     $this->assertAttributeSame(
       'sample_name', '_sessionIdentifier', $dialog
     );
   }
 
   /**
-  * @covers \PapayaUiDialogSession::execute
+  * @covers \Papaya\Ui\Dialog\Session::execute
   */
   public function testExecuteSetSessionVariableExpectingTrue() {
     $session = $this->createMock(\Papaya\Session::class);
@@ -62,7 +62,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogSession::execute
+  * @covers \Papaya\Ui\Dialog\Session::execute
   */
   public function testExecuteSetSessionVariableExpectingFalseWithoutData() {
     $session = $this->createMock(\Papaya\Session::class);
@@ -86,7 +86,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogSession::reset
+  * @covers \Papaya\Ui\Dialog\Session::reset
   */
   public function testReset() {
     $session = $this->createMock(\Papaya\Session::class);
@@ -95,7 +95,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
       ->method('setValue')
       ->with('session_identifier', NULL);
 
-    $dialog = new \PapayaUiDialogSession('session_identifier');
+    $dialog = new \Papaya\Ui\Dialog\Session('session_identifier');
     $dialog->papaya(
       $this->mockPapaya()->application(
         array('session' => $session)
@@ -105,6 +105,6 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogSession_TestProxy extends \PapayaUiDialogSession {
+class PapayaUiDialogSession_TestProxy extends \Papaya\Ui\Dialog\Session {
   public $_isSubmittedResult = TRUE;
 }

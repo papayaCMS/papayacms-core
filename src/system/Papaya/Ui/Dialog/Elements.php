@@ -13,36 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* A list of dialog elements
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogElements extends \Papaya\Ui\Control\Collection {
+ * A list of dialog elements
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Elements extends \Papaya\Ui\Control\Collection {
 
   /**
-  * Only \PapayaUiDialogElement objects are allows in this list
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiDialogElement::class;
+   * Only \Papaya\Ui\Dialog\PapayaUiDialogElement objects are allows in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Element::class;
 
   /**
-  * Initialize object an set owner dialog if available.
-  *
-  * @param \PapayaUiDialog $dialog
-  */
-  public function __construct(\PapayaUiDialog $dialog = NULL) {
-    if (isset($dialog)) {
+   * Initialize object an set owner dialog if available.
+   *
+   * @param \Papaya\Ui\Dialog $dialog
+   */
+  public function __construct(\Papaya\Ui\Dialog $dialog = NULL) {
+    if (NULL !== $dialog) {
       $this->owner($dialog);
     }
   }
 
   /**
-  * Collect data from elements (buttons/fields)
-  */
+   * Collect data from elements (buttons/fields)
+   */
   public function collect() {
-    /** @var \PapayaUiDialogElement $item */
+    /** @var Element $item */
     foreach ($this->_items as $item) {
       $item->collect();
     }

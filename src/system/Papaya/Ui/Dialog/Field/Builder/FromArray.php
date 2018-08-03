@@ -169,7 +169,7 @@ class FromArray {
    *
    * @param string $name
    * @param array $data
-   * @return \PapayaUiDialogField|NULL
+   * @return \Papaya\Ui\Dialog\Field|NULL
    */
   private function _addField($name, array $data) {
     $type = (string)\Papaya\Utility\Arrays::get($data, array('type', 3), 'input');

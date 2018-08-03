@@ -23,9 +23,9 @@ namespace Papaya\Ui\Control\Command\Dialog;
  * @property \Papaya\BaseObject\Callback onCreateDialog
  * @property \Papaya\BaseObject\Callback onExecuteSuccessful
  * @property \Papaya\BaseObject\Callback onExecuteFailed
- * @method boolean onCreateDialog(\PapayaUiDialog $dialog)
- * @method boolean onExecuteSuccessful(\PapayaUiDialog $dialog, \Papaya\Xml\Element $parent)
- * @method boolean onExecuteFailed(\PapayaUiDialog $dialog, \Papaya\Xml\Element $parent)
+ * @method boolean onCreateDialog(\Papaya\Ui\Dialog $dialog)
+ * @method boolean onExecuteSuccessful(\Papaya\Ui\Dialog $dialog, \Papaya\Xml\Element $parent)
+ * @method boolean onExecuteFailed(\Papaya\Ui\Dialog $dialog, \Papaya\Xml\Element $parent)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
 

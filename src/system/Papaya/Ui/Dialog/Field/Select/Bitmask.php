@@ -58,7 +58,7 @@ class Bitmask extends \Papaya\Ui\Dialog\Field\Select {
   /**
    * Always onvert the default value to integer
    *
-   * @see \PapayaUiDialogField::getDefaultValue()
+   * @see \Papaya\Ui\Dialog\Field::getDefaultValue()
    */
   public function getDefaultValue() {
     return (int)parent::getDefaultValue();

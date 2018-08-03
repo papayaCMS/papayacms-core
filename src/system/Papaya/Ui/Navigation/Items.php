@@ -24,7 +24,7 @@ class PapayaUiNavigationItems extends \Papaya\Ui\Control\Collection {
   private $_reference = NULL;
 
   /**
-  * Only \PapayaUiDialogElement objects are allows in this list
+  * Only \Papaya\Ui\Dialog\PapayaUiDialogElement objects are allows in this list
   * @var string
   */
   protected $_itemClass = \PapayaUiNavigationItem::class;

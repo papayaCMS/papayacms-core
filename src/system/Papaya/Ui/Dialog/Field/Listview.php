@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Listview extends \PapayaUiDialogField {
+class Listview extends \Papaya\Ui\Dialog\Field {
 
   /**
    * listview object buffer

@@ -188,7 +188,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Callback to dispatch a message to the user that here was an input error.
    */
-  public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
+  public function dispatchErrorMessage($context, \Papaya\Ui\Dialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,

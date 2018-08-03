@@ -17,7 +17,7 @@ namespace Papaya\Ui\Dialog\Field\Factory;
 /**
  * Abstract superclass for field factory profiles.
  *
- * Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
+ * Each profile defines how a field {@see \Papaya\Ui\Dialog\PapayaUiDialogField} is created for a specified
  * type. Here is an options subobject to provide data for the field configuration.
  *
  * @package Papaya-Library
@@ -33,7 +33,7 @@ abstract class Profile {
   /**
    * Create the field and return it. Throw an exception if something goes wrong
    *
-   * @return \PapayaUiDialogField
+   * @return \Papaya\Ui\Dialog\Field
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception
    */
   abstract public function getField();

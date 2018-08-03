@@ -49,7 +49,7 @@ class Factory {
    *
    * @param string|Factory\Profile $profile
    * @param Factory\Options $options
-   * @return \PapayaUiDialogField
+   * @return \Papaya\Ui\Dialog\Field
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception
    */
   public function getField($profile, Factory\Options $options = NULL) {

@@ -25,7 +25,7 @@ class Action extends \Papaya\Ui\Control\Command {
   /**
    * Dialog object
    *
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_data;
 
@@ -55,7 +55,7 @@ class Action extends \Papaya\Ui\Control\Command {
    * Getter/Setter to the validated parameters data subobject.
    *
    * @param \Papaya\Request\Parameters\Validator $data
-   * @return \Papaya\Request\Parameters\Validator|\PapayaUiDialog
+   * @return \Papaya\Request\Parameters\Validator|\Papaya\Ui\Dialog
    */
   public function data(\Papaya\Request\Parameters\Validator $data = NULL) {
     if (NULL !== $data) {

@@ -69,7 +69,7 @@ class Content extends \Papaya\Ui\Control\Command\Dialog {
    * Create the dialog object and assign the content data to it.
    *
    * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   protected function createDialog() {
     $dialog = parent::createDialog();

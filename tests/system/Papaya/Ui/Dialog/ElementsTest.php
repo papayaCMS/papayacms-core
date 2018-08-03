@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogElementsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogElements::__construct
+  * @covers \Papaya\Ui\Dialog\Elements::__construct
   */
   public function testConstructorWithOwner() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $elements = new \PapayaUiDialogElements_TestProxy($dialog);
@@ -32,13 +32,13 @@ class PapayaUiDialogElementsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogElements::appendTo
+  * @covers \Papaya\Ui\Dialog\Elements::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $node = $document->createElement('dummy');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
-    $element = $this->createMock(\PapayaUiDialogElement::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Element $element */
+    $element = $this->createMock(\Papaya\Ui\Dialog\Element::class);
     $element
       ->expects($this->once())
       ->method('appendTo')
@@ -49,11 +49,11 @@ class PapayaUiDialogElementsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogElements::collect
+  * @covers \Papaya\Ui\Dialog\Elements::collect
   */
   public function testCollect() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
-    $element = $this->createMock(\PapayaUiDialogElement::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Dialog\Element $element */
+    $element = $this->createMock(\Papaya\Ui\Dialog\Element::class);
     $element
       ->expects($this->once())
       ->method('collect');
@@ -63,5 +63,5 @@ class PapayaUiDialogElementsTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogElements_TestProxy extends \PapayaUiDialogElements {
+class PapayaUiDialogElements_TestProxy extends \Papaya\Ui\Dialog\Elements {
 }

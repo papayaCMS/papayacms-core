@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Xhtml extends \PapayaUiDialogField {
+class Xhtml extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Xhtml content

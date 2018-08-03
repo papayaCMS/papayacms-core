@@ -27,7 +27,7 @@ class Change
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
    * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -81,7 +81,7 @@ class Change
    * Save data from dialog
    *
    * @param object $context
-   * @param \PapayaUiDialog $dialog
+   * @param \Papaya\Ui\Dialog $dialog
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(

@@ -21,7 +21,7 @@ namespace Papaya\Ui\Dialog\Database;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Save extends \PapayaUiDialogDatabase {
+class Save extends \Papaya\Ui\Dialog\Database {
 
   /**
    * If the dialog is successfully executed the records is saved.

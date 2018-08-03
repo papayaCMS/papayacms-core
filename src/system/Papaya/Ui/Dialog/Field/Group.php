@@ -21,14 +21,14 @@ namespace Papaya\Ui\Dialog\Field;
  * @subpackage Ui
  *
  * @property string|\PapayaUiString $caption
- * @property \PapayaUiDialogFields $fields
+ * @property \Papaya\Ui\Dialog\Fields $fields
  */
-class Group extends \PapayaUiDialogField {
+class Group extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Grouped input fields
    *
-   * @var \PapayaUiDialogFields
+   * @var \Papaya\Ui\Dialog\Fields
    */
   protected $_fields = NULL;
 
@@ -54,10 +54,10 @@ class Group extends \PapayaUiDialogField {
   /**
    * Group fields getter/setter
    *
-   * @param \PapayaUiDialogFields $fields
-   * @return \PapayaUiDialogFields
+   * @param \Papaya\Ui\Dialog\Fields $fields
+   * @return \Papaya\Ui\Dialog\Fields
    */
-  public function fields(\PapayaUiDialogFields $fields = NULL) {
+  public function fields(\Papaya\Ui\Dialog\Fields $fields = NULL) {
     if (isset($fields)) {
       $this->_fields = $fields;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
@@ -65,7 +65,7 @@ class Group extends \PapayaUiDialogField {
       }
     }
     if (is_null($this->_fields)) {
-      $this->_fields = new \PapayaUiDialogFields(
+      $this->_fields = new \Papaya\Ui\Dialog\Fields(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
     }

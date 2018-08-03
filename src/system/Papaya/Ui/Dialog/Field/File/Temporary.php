@@ -21,7 +21,7 @@ namespace Papaya\Ui\Dialog\Field\File;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Temporary extends \PapayaUiDialogField {
+class Temporary extends \Papaya\Ui\Dialog\Field {
 
   /**
    * An input field is always an single line text input field.

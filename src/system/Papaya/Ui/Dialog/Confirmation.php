@@ -13,42 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* Confirmation dialog control
-*
-* A interface control displaying a confirmation dialog and handle it.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogConfirmation extends \PapayaUiDialog {
+ * Confirmation dialog control
+ *
+ * A interface control displaying a confirmation dialog and handle it.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Confirmation extends \Papaya\Ui\Dialog {
 
   /**
-  * Dialog form method - should always be post for confirmation dialogs
-  * @var NULL|integer
-  */
+   * Dialog form method - should always be post for confirmation dialogs
+   *
+   * @var NULL|integer
+   */
   protected $_method = self::METHOD_POST;
 
   /**
-  * Dialog message
-  *
-  * @var string|\PapayaUiString
-  */
+   * Dialog message
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_message = 'Confirm action?';
 
   /**
-  * Dialog button caption
-  *
-  * @var string|\PapayaUiString
-  */
+   * Dialog button caption
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_button = 'Yes';
 
   /**
-  * Initialize object, set owner, field data and parameters group
-  *
-  * @param object $owner
-  * @param \Papaya\Request\Parameters|array $hiddenFields
-  * @param string $parameterGroup
+   * Initialize object, set owner, field data and parameters group
+   *
+   * @param object $owner
+   * @param \Papaya\Request\Parameters|array $hiddenFields
+   * @param string $parameterGroup
    */
   public function __construct($owner, $hiddenFields, $parameterGroup = NULL) {
     parent::__construct($owner);
@@ -59,10 +61,10 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   }
 
   /**
-  * Check if this dialog was submitted
-  *
-  * @return boolean
-  */
+   * Check if this dialog was submitted
+   *
+   * @return boolean
+   */
   public function isSubmitted() {
     if ($this->isPostRequest()) {
       return $this->parameters()->get('confirmation') == $this->hiddenFields()->getChecksum();
@@ -71,10 +73,10 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   }
 
   /**
-  * Validate dialog (check the dialog token)
-  *
-  * @return boolean
-  */
+   * Validate dialog (check the dialog token)
+   *
+   * @return boolean
+   */
   public function execute() {
     if (is_null($this->_executionResult)) {
       if ($this->isSubmitted()) {
@@ -118,19 +120,19 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   }
 
   /**
-  * Set dialog message text
-  *
-  * @param string|\PapayaUiString $text
-  */
+   * Set dialog message text
+   *
+   * @param string|\PapayaUiString $text
+   */
   public function setMessageText($text) {
     $this->_message = $text;
   }
 
   /**
-  * Set dialog button caption
-  *
-  * @param string|\PapayaUiString $caption
-  */
+   * Set dialog button caption
+   *
+   * @param string|\PapayaUiString $caption
+   */
   public function setButtonCaption($caption) {
     $this->_button = $caption;
   }

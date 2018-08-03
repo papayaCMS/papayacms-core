@@ -21,7 +21,7 @@ namespace Papaya\Ui\Dialog\Database;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Delete extends \PapayaUiDialogDatabase {
+class Delete extends \Papaya\Ui\Dialog\Database {
 
   /**
    * If the dialog is successfully executed the records is deleted.

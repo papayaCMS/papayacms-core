@@ -50,7 +50,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
    */
   public function testGetCurrentValueIgnoreData() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
    */
   public function testGetCurrentValueReadParameter() {
     $dialog = $this
-      ->getMockBuilder(\PapayaUiDialog::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -83,7 +83,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
   }
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\PapayaUiDialogFields::class);
+    $collection = $this->createMock(\Papaya\Ui\Dialog\Fields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

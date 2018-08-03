@@ -30,7 +30,7 @@ namespace Papaya\Ui\Dialog\Field\Parameter;
 class Name {
 
   /**
-   * @var \PapayaUiDialog|NULL
+   * @var \Papaya\Ui\Dialog|NULL
    */
   private $_dialog;
   /**
@@ -42,9 +42,9 @@ class Name {
    * Papaya\Ui\Dialog\Field\Parameter\PapayaUiDialogFieldParameterName constructor.
    *
    * @param $fieldName
-   * @param \PapayaUiDialog|NULL $dialog
+   * @param \Papaya\Ui\Dialog|NULL $dialog
    */
-  public function __construct($fieldName, \PapayaUiDialog $dialog = NULL) {
+  public function __construct($fieldName, \Papaya\Ui\Dialog $dialog = NULL) {
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;
   }
@@ -54,7 +54,7 @@ class Name {
    * @return string
    */
   public function get($withGroup = TRUE) {
-    if ($withGroup && $this->_dialog instanceof \PapayaUiDialog) {
+    if ($withGroup && $this->_dialog instanceof \Papaya\Ui\Dialog) {
       $name = $this->_dialog->getParameterName($this->_fieldName);
       $prefix = $this->_dialog->parameterGroup();
       if (NULL !== $prefix) {

@@ -13,86 +13,95 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* Superclass for dialog fields
-*
-* A field can not only be a simple input, but a group of inputs that contains other fields.
-*
-* In Addition to the collect() method, wich collects the user inputs, fields have a validate()
-* method which is executed before.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
+ * Superclass for dialog fields
+ *
+ * A field can not only be a simple input, but a group of inputs that contains other fields.
+ *
+ * In Addition to the collect() method, wich collects the user inputs, fields have a validate()
+ * method which is executed before.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Field extends Element {
 
   /**
-  * Field caption
-  * @var string|\PapayaUiString
-  */
+   * Field caption
+   *
+   * @var string|\PapayaUiString
+   */
   private $_caption = '';
 
   /**
-  * Field Hint
-  * @var string|\PapayaUiString
-  */
+   * Field Hint
+   *
+   * @var string|\PapayaUiString
+   */
   private $_hint = '';
 
   /**
-  * Field description
-  *
-  * @var NULL|\Papaya\Ui\Dialog\Element\Description
-  */
+   * Field description
+   *
+   * @var NULL|\Papaya\Ui\Dialog\Element\Description
+   */
   private $_description = NULL;
 
   /**
-  * Field name
-  * @var string
-  */
+   * Field name
+   *
+   * @var string
+   */
   private $_name = '';
 
   /**
-  * Field identifier
-  * @var string
-  */
+   * Field identifier
+   *
+   * @var string
+   */
   private $_id = '';
 
   /**
-  * field default value
-  * @var mixed
-  */
+   * field default value
+   *
+   * @var mixed
+   */
   private $_defaultValue = NULL;
 
   /**
-  * field disabled status
-  * @var boolean
-  */
+   * field disabled status
+   *
+   * @var boolean
+   */
   private $_disabled = FALSE;
 
   /**
-  * field mandatory status
-  * @var boolean
-  */
+   * field mandatory status
+   *
+   * @var boolean
+   */
   private $_mandatory = FALSE;
 
   /**
-  * Filter used to check/filter the input
-  *
-  * @var \Papaya\Filter
-  */
+   * Filter used to check/filter the input
+   *
+   * @var \Papaya\Filter
+   */
   private $_filter = NULL;
 
   /**
-  * Cached validation result
-  * @var NULL|Boolean
-  */
+   * Cached validation result
+   *
+   * @var NULL|Boolean
+   */
   protected $_validationResult = NULL;
 
   /**
-  * Validation execption
-  *
-  * @var NULL|\Papaya\Filter\Exception
-  */
+   * Validation execption
+   *
+   * @var NULL|\Papaya\Filter\Exception
+   */
   protected $_exception = NULL;
 
   /**
@@ -119,10 +128,10 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Casts the caption value to a string and returns it.
-  *
-  * @return string
-  */
+   * Casts the caption value to a string and returns it.
+   *
+   * @return string
+   */
   public function getCaption() {
     return (string)$this->_caption;
   }
@@ -151,19 +160,19 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Casts the hint value to a string and returns it.
-  *
-  * @return string
-  */
+   * Casts the hint value to a string and returns it.
+   *
+   * @return string
+   */
   public function getHint() {
     return (string)$this->_hint;
   }
 
   /**
-  * Sets an id for the field.
-  *
-  * @param string $id
-  */
+   * Sets an id for the field.
+   *
+   * @param string $id
+   */
   public function setId($id) {
     \Papaya\Utility\Constraints::assertString($id);
     \Papaya\Utility\Constraints::assertNotEmpty($id);
@@ -171,25 +180,25 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Return the id set for the field
-  *
-  * @return string
-  */
+   * Return the id set for the field
+   *
+   * @return string
+   */
   public function getId() {
     return $this->_id;
   }
 
   /**
-  * Sets an name for the field.
-  *
-  * This will be uses for the parameter name and defines which value is read from the dialog
-  * parameters and which value are set into the dialog data.
-  *
-  * A field without a name can not set a dialog data value. At lease not with the default
-  * implementation of collect().
-  *
-  * @param string $name
-  */
+   * Sets an name for the field.
+   *
+   * This will be uses for the parameter name and defines which value is read from the dialog
+   * parameters and which value are set into the dialog data.
+   *
+   * A field without a name can not set a dialog data value. At lease not with the default
+   * implementation of collect().
+   *
+   * @param string $name
+   */
   public function setName($name) {
     \Papaya\Utility\Constraints::assertString($name);
     \Papaya\Utility\Constraints::assertNotEmpty($name);
@@ -206,24 +215,24 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Sets a default value for the field.
-  *
-  * If a parameter/data value for the field is provided, the default value is ignored.
-  *
-  * But if no filter object was provided, the current value is casted to the same variable type
-  * like the default value.
-  *
-  * @param mixed $defaultValue
-  */
+   * Sets a default value for the field.
+   *
+   * If a parameter/data value for the field is provided, the default value is ignored.
+   *
+   * But if no filter object was provided, the current value is casted to the same variable type
+   * like the default value.
+   *
+   * @param mixed $defaultValue
+   */
   public function setDefaultValue($defaultValue) {
     $this->_defaultValue = $defaultValue;
   }
 
   /**
-  * Get the default value for the field.
-  *
-  * @return mixed
-  */
+   * Get the default value for the field.
+   *
+   * @return mixed
+   */
   public function getDefaultValue() {
     return $this->_defaultValue;
   }
@@ -280,13 +289,13 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Gets a filter object for the field. If the field is not mandatory the filter will be prefixed
-  * with \Papaya\Filter\PapayaFilterEmpty
-  *
-  * Filter objects are used to check and filter user inputs
-  *
-  * @return NULL|\Papaya\Filter
-  */
+   * Gets a filter object for the field. If the field is not mandatory the filter will be prefixed
+   * with \Papaya\Filter\PapayaFilterEmpty
+   *
+   * Filter objects are used to check and filter user inputs
+   *
+   * @return NULL|\Papaya\Filter
+   */
   public function getFilter() {
     if ($this->_mandatory && isset($this->_filter)) {
       return $this->_filter;
@@ -314,10 +323,10 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Validate dialog input for this field
-  *
-  * @return boolean
-  */
+   * Validate dialog input for this field
+   *
+   * @return boolean
+   */
   public function validate() {
     if (isset($this->_validationResult)) {
       return $this->_validationResult;
@@ -344,35 +353,35 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Handle a field validation failure.
-  *
-  * This will set the exception property and call a handle function on the dialog object.
-  *
-  * @param \Exception $e
-  */
+   * Handle a field validation failure.
+   *
+   * This will set the exception property and call a handle function on the dialog object.
+   *
+   * @param \Exception $e
+   */
   public function handleValidationFailure(\Exception $e) {
     $this->_validationResult = FALSE;
     $this->_exception = $e;
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner()) {
+      $this->collection()->hasOwner()) {
       $this->collection()->owner()->handleValidationFailure($e, $this);
     }
   }
 
   /**
-  * Collect input values in the data property of the dialog object.
-  *
-  * Puts the current value into the dialog data object using the field name property.
-  *
-  * If a filter object was provided it will be used to filter the current value.
-  *
-  * If a default value was provided (but no filter object) the current value will be casted to the
-  * variable type of the default value.
-  *
-  * If neither filter object or default value was provided the original current value will be used.
-  *
-  * @return boolean;
-  */
+   * Collect input values in the data property of the dialog object.
+   *
+   * Puts the current value into the dialog data object using the field name property.
+   *
+   * If a filter object was provided it will be used to filter the current value.
+   *
+   * If a default value was provided (but no filter object) the current value will be casted to the
+   * variable type of the default value.
+   *
+   * If neither filter object or default value was provided the original current value will be used.
+   *
+   * @return boolean;
+   */
   public function collect() {
     $name = $this->getName();
     if (parent::collect() && !empty($name)) {
@@ -399,15 +408,15 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
-  * dialog is checked and used.
-  *
-  * If neither dialog parameter or data is available, the default value is returned.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
+   * dialog is checked and used.
+   *
+   * If neither dialog parameter or data is available, the default value is returned.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if (!empty($name) && ($dialog = $this->getDialog())) {
@@ -430,8 +439,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    */
   protected function _appendFieldTo(\Papaya\Xml\Element $parent) {
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner() &&
-        !$this->collection()->owner()->isSubmitted()) {
+      $this->collection()->hasOwner() &&
+      !$this->collection()->owner()->isSubmitted()) {
       $isValid = TRUE;
     } else {
       $isValid = $this->validate();

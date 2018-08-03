@@ -42,7 +42,7 @@ class Fields extends Dialog {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   protected function createDialog() {
     $dialog = parent::createDialog();

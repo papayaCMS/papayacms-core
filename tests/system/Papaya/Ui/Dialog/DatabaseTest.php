@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogDatabase::__construct
-  * @covers \PapayaUiDialogDatabase::record
+  * @covers \Papaya\Ui\Dialog\Database::__construct
+  * @covers \Papaya\Ui\Dialog\Database::record
   */
   public function testConstructorAndRecord() {
     $record = $this->getRecordFixture(array('foo' => 'bar'));
@@ -35,7 +35,7 @@ class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabase::callbacks
+  * @covers \Papaya\Ui\Dialog\Database::callbacks
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
@@ -49,7 +49,7 @@ class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabase::callbacks
+  * @covers \Papaya\Ui\Dialog\Database::callbacks
   */
   public function testCallbacksGetImpliciteCreate() {
     $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
@@ -79,6 +79,6 @@ class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabase_TestProxy extends \PapayaUiDialogDatabase {
+class PapayaUiDialogDatabase_TestProxy extends \Papaya\Ui\Dialog\Database {
 
 }

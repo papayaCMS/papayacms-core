@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Callback extends \PapayaUiDialogField {
+class Callback extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Field xml generation callback

@@ -45,7 +45,7 @@ class NamedSubmit extends Submit {
    * @param int $align
    */
   public function __construct(
-    $caption, $name, $value = '1', $align = \PapayaUiDialogButton::ALIGN_RIGHT
+    $caption, $name, $value = '1', $align = \Papaya\Ui\Dialog\Button::ALIGN_RIGHT
   ) {
     parent::__construct($caption, $align);
     \Papaya\Utility\Constraints::assertString($name);
@@ -65,7 +65,7 @@ class NamedSubmit extends Submit {
       'button',
       array(
         'type' => 'submit',
-        'align' => ($this->_align == \PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => ($this->_align == \Papaya\Ui\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right',
         'name' => $this->_getParameterName(array($this->_name, $this->_value))
       ),
       (string)$this->_caption

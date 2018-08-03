@@ -29,7 +29,7 @@ use base_thumbnail;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-class Image extends \PapayaUiDialogField {
+class Image extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Message image

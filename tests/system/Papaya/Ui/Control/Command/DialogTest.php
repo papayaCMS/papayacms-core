@@ -21,7 +21,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -39,7 +39,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteSuccessful() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -67,7 +67,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteSuccessfulWhileHideAfterSuccessIsTrue() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -96,7 +96,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::reset
   */
   public function testAppendToExecuteSuccessfulWhileResetAfterSuccessIsTrue() {
-    $dialogOne = $this->createMock(\PapayaUiDialog::class);
+    $dialogOne = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialogOne
       ->expects($this->once())
       ->method('execute')
@@ -113,7 +113,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onCreateDialog')
-      ->with($this->isInstanceOf(\PapayaUiDialog::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Dialog::class));
     $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->papaya($this->mockPapaya()->application());
     $command->dialog($dialogOne);
@@ -127,7 +127,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteFailed() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -159,7 +159,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog::dialog
   */
   public function testDialogGetAfterSet() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $command = new \Papaya\Ui\Control\Command\Dialog();
     $this->assertSame($dialog, $command->dialog($dialog));
   }
@@ -170,7 +170,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   */
   public function testDialogGetImplicitCreate() {
     $command = new \Papaya\Ui\Control\Command\Dialog();
-    $this->assertInstanceOf(\PapayaUiDialog::class, $command->dialog());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog::class, $command->dialog());
   }
 
   /**

@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* Superclass for dialog elements
-*
-* An dialog element can be a simple input field, a button or a complex element with several
-* child elements.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogElement extends \Papaya\Ui\Control\Collection\Item {
+ * Superclass for dialog elements
+ *
+ * An dialog element can be a simple input field, a button or a complex element with several
+ * child elements.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Element extends \Papaya\Ui\Control\Collection\Item {
 
   /**
-  * Collect filtered dialog input data into $this->_dialog->data()
-  */
+   * Collect filtered dialog input data into $this->_dialog->data()
+   */
   public function collect() {
     return $this->collection()->hasOwner();
   }
 
   /**
-  * Get the parameter name
-  *
-  * If the dialog has a parameter group this will generate an additional parameter array level.
-  *
-  * If the key is an array is will be converted to a string
-  * compatible to PHPs parameter array syntax.
-  *
-  * @param string|array $key
-  * @param boolean $withGroup
-  * @return string
-  */
+   * Get the parameter name
+   *
+   * If the dialog has a parameter group this will generate an additional parameter array level.
+   *
+   * If the key is an array is will be converted to a string
+   * compatible to PHPs parameter array syntax.
+   *
+   * @param string|array $key
+   * @param boolean $withGroup
+   * @return string
+   */
   protected function _getParameterName($key, $withGroup = TRUE) {
     $name = new \Papaya\Ui\Dialog\Field\Parameter\Name(
       $key, $this->hasDialog() ? $this->getDialog() : NULL
@@ -57,8 +58,8 @@ abstract class PapayaUiDialogElement extends \Papaya\Ui\Control\Collection\Item 
    */
   public function hasDialog() {
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner()) {
-      return ($this->collection()->owner() instanceof \PapayaUiDialog);
+      $this->collection()->hasOwner()) {
+      return ($this->collection()->owner() instanceof \Papaya\Ui\Dialog);
     }
     return FALSE;
   }
@@ -66,7 +67,7 @@ abstract class PapayaUiDialogElement extends \Papaya\Ui\Control\Collection\Item 
   /**
    * Return the dialog the elements collection is attached to.
    *
-   * @return null|\PapayaUiDialog
+   * @return null|\Papaya\Ui\Dialog
    */
   public function getDialog() {
     if ($this->hasDialog()) {

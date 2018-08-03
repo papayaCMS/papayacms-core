@@ -21,7 +21,7 @@ namespace Papaya\Ui\Dialog\Field\Select;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Multiple extends \PapayaUiDialogField {
+class Multiple extends \Papaya\Ui\Dialog\Field {
 
   const VALUE_USE_KEY = 0;
   const VALUE_USE_CAPTION = 1;

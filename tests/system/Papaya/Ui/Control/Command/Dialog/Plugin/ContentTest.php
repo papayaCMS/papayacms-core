@@ -43,7 +43,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog\Plugin\Content
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -67,7 +67,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog\Plugin\Content
   */
   public function testAppendToWithSubmittedDialog() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -91,7 +91,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog\Plugin\Content
   */
   public function testAppendToWithExecutedDialog() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -117,7 +117,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Control\Command\Dialog\Plugin\Content
   */
   public function testAppendToWithHideExecutedDialog() {
-    $dialog = $this->createMock(\PapayaUiDialog::class);
+    $dialog = $this->createMock(\Papaya\Ui\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')

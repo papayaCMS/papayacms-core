@@ -94,7 +94,7 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Dialog to confirm and specifiy the copy page action
   *
-  * @var \PapayaUiDialog
+  * @var \Papaya\Ui\Dialog
   */
   private $_dialogCopyPageConfirmation = NULL;
 
@@ -226,14 +226,14 @@ class papaya_topic_tree extends base_topic_tree {
   * If the user is allowed to manage dependencies, a confirmation dialog is needed to
   * specify the dependency creation for copied pages.
   *
-  * @param \PapayaUiDialog $dialog
-  * @return \PapayaUiDialog
+  * @param \Papaya\Ui\Dialog $dialog
+  * @return \Papaya\Ui\Dialog
   */
-  function dialogCopyPageConfirmation(\PapayaUiDialog $dialog = NULL) {
+  function dialogCopyPageConfirmation(\Papaya\Ui\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialogCopyPageConfirmation = $dialog;
     } elseif (is_null($this->_dialogCopyPageConfirmation)) {
-      $this->_dialogCopyPageConfirmation = $dialog = new \PapayaUiDialog();
+      $this->_dialogCopyPageConfirmation = $dialog = new \Papaya\Ui\Dialog();
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(

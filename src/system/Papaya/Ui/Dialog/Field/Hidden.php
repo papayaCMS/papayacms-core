@@ -22,7 +22,7 @@ namespace Papaya\Ui\Dialog\Field;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Hidden extends \PapayaUiDialogField {
+class Hidden extends \Papaya\Ui\Dialog\Field {
 
   /**
    * Initialize object, field name, default value and filter

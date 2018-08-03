@@ -88,7 +88,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
    * Append the blocker message/goto dialog to the parent xml.
    *
    * @param \Papaya\Xml\Element $parent
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $pageId = $this->dependency()->originId;
@@ -102,7 +102,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
     $pageTitle = isset($pages[$pageId])
       ? $pages[$pageId]['title'] : '[...]';
 
-    $dialog = new \PapayaUiDialog();
+    $dialog = new \Papaya\Ui\Dialog();
     $dialog->papaya($this->papaya());
     $dialog->caption = new \PapayaUiStringTranslated('Page dependency');
     $dialog->parameterGroup($this->parameterGroup());

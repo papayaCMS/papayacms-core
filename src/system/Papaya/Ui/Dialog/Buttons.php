@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* A list of dialog buttons
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogButtons extends \PapayaUiDialogElements {
+ * A list of dialog buttons
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Buttons extends Elements {
 
   /**
-  * Only \PapayaUiDialogButton objects are allows in this list
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiDialogButton::class;
+   * Only \Papaya\Ui\Dialog\PapayaUiDialogButton objects are allows in this list
+   *
+   * @var string
+   */
+  protected $_itemClass = Button::class;
 }

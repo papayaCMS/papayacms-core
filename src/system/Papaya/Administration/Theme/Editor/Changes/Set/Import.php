@@ -42,7 +42,7 @@ class Import
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
    * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);

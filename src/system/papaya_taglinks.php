@@ -108,7 +108,7 @@ class papaya_taglinks extends base_tags {
   public $linkedTagsMulti;
 
   /**
-   * @var \PapayaUiDialog
+   * @var \Papaya\Ui\Dialog
    */
   private $_dialogLinkPriority = NULL;
 
@@ -1232,9 +1232,9 @@ class papaya_taglinks extends base_tags {
   }
 
   public function getLinkPriorityDialog() {
-    if (!($this->_dialogLinkPriority instanceof \PapayaUiDialog)) {
+    if (!($this->_dialogLinkPriority instanceof \Papaya\Ui\Dialog)) {
       $tagId = empty($this->params['tag_id']) ? 0 : $this->params['tag_id'];
-      $this->_dialogLinkPriority = $dialog = new \PapayaUiDialog();
+      $this->_dialogLinkPriority = $dialog = new \Papaya\Ui\Dialog();
       $dialog->caption = new \PapayaUiStringTranslated('Edit priority');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(

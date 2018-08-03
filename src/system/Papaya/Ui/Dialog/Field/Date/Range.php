@@ -29,7 +29,7 @@ use Traversable;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-class Range extends \PapayaUiDialogField {
+class Range extends \Papaya\Ui\Dialog\Field {
 
   private $_includeTime = FALSE;
 

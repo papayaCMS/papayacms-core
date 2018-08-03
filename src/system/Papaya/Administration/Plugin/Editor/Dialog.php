@@ -68,10 +68,10 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Getter/Setter for the dialog subobject.
    *
-   * @param \PapayaUiDialog $dialog
-   * @return \PapayaUiDialog
+   * @param \Papaya\Ui\Dialog $dialog
+   * @return \Papaya\Ui\Dialog
    */
-  public function dialog(\PapayaUiDialog $dialog = NULL) {
+  public function dialog(\Papaya\Ui\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -83,10 +83,10 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return \PapayaUiDialog
+   * @return \Papaya\Ui\Dialog
    */
   protected function createDialog() {
-    $dialog = new \PapayaUiDialog();
+    $dialog = new \Papaya\Ui\Dialog();
     $dialog->papaya($this->papaya());
 
     if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {

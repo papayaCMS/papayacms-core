@@ -13,31 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog;
 /**
-* A dialog that stores its data into the session.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogSession extends \PapayaUiDialog {
+ * A dialog that stores its data into the session.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Session extends \Papaya\Ui\Dialog {
 
   private $_sessionIdentifier = NULL;
 
   /**
-  * The session identifier does not need to be a string,
-  * read {@see \Papaya\Session\Values::_compileIdentifer()} for more information.
-  *
-  * @param mixed $sessionIdentifier
-  */
-  public function __construct($sessionIdentifier = NULL) {
+   * The session identifier does not need to be a string,
+   * read {@see \Papaya\Session\Values::_compileIdentifer()} for more information.
+   *
+   * @param mixed $sessionIdentifier
+   * @param object|NULL $owner
+   */
+  public function __construct($sessionIdentifier = NULL, $owner = NULL) {
+    parent::__construct($owner);
     $this->_sessionIdentifier = empty($sessionIdentifier) ? $this : $sessionIdentifier;
   }
 
   /**
-  * Execute the dialog, load and save the session value.
-  *
-  * @return boolean
-  */
+   * Execute the dialog, load and save the session value.
+   *
+   * @return boolean
+   */
   public function execute() {
     $data = $this->papaya()->session->getValue($this->_sessionIdentifier);
     if (is_array($data) && !empty($data)) {
@@ -51,8 +54,8 @@ class PapayaUiDialogSession extends \PapayaUiDialog {
   }
 
   /**
-  * Reset the session variable.
-  */
+   * Reset the session variable.
+   */
   public function reset() {
     $this->papaya()->session->setValue($this->_sessionIdentifier, NULL);
   }

@@ -69,7 +69,7 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->createMock(\PapayaUiDialogFields::class));
+    $textarea->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $textarea->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -93,7 +93,7 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->createMock(\PapayaUiDialogFields::class));
+    $textarea->collection($this->createMock(\Papaya\Ui\Dialog\Fields::class));
     $textarea->setDefaultValue(50670);
     $textarea->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

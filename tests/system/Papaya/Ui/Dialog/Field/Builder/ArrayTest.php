@@ -54,7 +54,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
     $editFields = array(
       'field' => array('Field caption', '', TRUE, 'input', 42)
     );
@@ -63,7 +63,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertInstanceOf(
-      \PapayaUiDialogField::class, $fields[0]
+      \Papaya\Ui\Dialog\Field::class, $fields[0]
     );
   }
 
@@ -90,7 +90,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
     $editFields = array(
       'field' => array('Field caption', 'isHtmlColor', TRUE, 'input', 42)
     );
@@ -122,7 +122,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
     $editFields = array(
       'field' => array('Field caption', '', FALSE, 'disabled_input', 42)
     );
@@ -130,7 +130,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
-    $this->assertInstanceOf(\PapayaUiDialogField::class, $fields[0]);
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field::class, $fields[0]);
   }
 
   /**
@@ -157,7 +157,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Ui\Dialog\Field::class)));
     $editFields = array(
       'Group caption',
       'field' => array('Field caption', '', FALSE, 'input', 42)
