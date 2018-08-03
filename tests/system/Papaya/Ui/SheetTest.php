@@ -21,7 +21,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendTo() {
-    $sheet = new \PapayaUiSheet();
+    $sheet = new \Papaya\Ui\Sheet();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<sheet><text/></sheet>',
       $sheet->getXml()
@@ -32,7 +32,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithTitle() {
-    $sheet = new \PapayaUiSheet();
+    $sheet = new \Papaya\Ui\Sheet();
     $sheet->title('Sample Title');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -51,8 +51,8 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithSubtitle() {
-    $sheet = new \PapayaUiSheet();
-    $sheet->subtitles()->add(new \PapayaUiSheetSubtitle('Sample Title'));
+    $sheet = new \Papaya\Ui\Sheet();
+    $sheet->subtitles()->add(new \Papaya\Ui\Sheet\Subtitle('Sample Title'));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<?xml version="1.0"?>
@@ -70,7 +70,7 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Panel::appendTo
   */
   public function testAppendToWithContent() {
-    $sheet = new \PapayaUiSheet();
+    $sheet = new \Papaya\Ui\Sheet();
     $sheet
       ->content()
       ->appendElement('div', array('class' => 'simple'), 'Content');

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Sheet;
 /**
-* A single subtitle element for a sheet
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiSheetSubtitle extends \Papaya\Ui\Control\Collection\Item {
+ * A single subtitle element for a sheet
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Subtitle extends \Papaya\Ui\Control\Collection\Item {
 
   private $_text = '';
 

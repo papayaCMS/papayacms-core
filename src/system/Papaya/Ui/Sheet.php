@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A sheet is a larger area to display richtext, like an email message or help texts
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiSheet extends \Papaya\Ui\Control {
+ * A sheet is a larger area to display richtext, like an email message or help texts
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Sheet extends Control {
 
   private $_title = '';
 
   /**
-   * @var \PapayaUiSheetSubtitles
+   * @var \Papaya\Ui\Sheet\Subtitles
    */
   private $_subtitles = NULL;
 
@@ -71,19 +72,19 @@ class PapayaUiSheet extends \Papaya\Ui\Control {
   }
 
   /**
-   * @param \PapayaUiSheetSubtitles|array $subtitles
-   * @return \PapayaUiSheetSubtitles
+   * @param \Papaya\Ui\Sheet\Subtitles|array $subtitles
+   * @return \Papaya\Ui\Sheet\Subtitles
    */
   public function subtitles($subtitles = NULL) {
     if (isset($subtitles)) {
       if (is_array($subtitles)) {
-        $this->_subtitles = new \PapayaUiSheetSubtitles($subtitles);
+        $this->_subtitles = new \Papaya\Ui\Sheet\Subtitles($subtitles);
       } else {
-        \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiSheetSubtitles::class, $subtitles);
+        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Ui\Sheet\Subtitles::class, $subtitles);
         $this->_subtitles = $subtitles;
       }
     } elseif (NULL === $this->_subtitles) {
-      $this->_subtitles = new \PapayaUiSheetSubtitles();
+      $this->_subtitles = new \Papaya\Ui\Sheet\Subtitles();
     }
     return $this->_subtitles;
   }

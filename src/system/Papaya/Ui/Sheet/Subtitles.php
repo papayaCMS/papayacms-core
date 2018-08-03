@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Sheet;
 /**
-* A list of subtitle elements for a sheet
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiSheetSubtitles extends \Papaya\Ui\Control\Collection {
+ * A list of subtitle elements for a sheet
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Subtitles extends \Papaya\Ui\Control\Collection {
 
-  protected $_itemClass = \PapayaUiSheetSubtitle::class;
+  protected $_itemClass = Subtitle::class;
 
   /**
-   * PapayaUiSheetSubtitles constructor.
+   * Papaya\Ui\Sheet\PapayaUiSheetSubtitles constructor.
    *
    * @param array|\Traversable|NULL $subtitles
    */
@@ -43,6 +44,6 @@ class PapayaUiSheetSubtitles extends \Papaya\Ui\Control\Collection {
   }
 
   public function addString($string) {
-    return $this->add(new \PapayaUiSheetSubtitle($string));
+    return $this->add(new Subtitle($string));
   }
 }
