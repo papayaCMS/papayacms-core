@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Paging;
 /**
-* Output paging links based on a item count.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiReference $reference
-* @property string|array $parameterName
-* @property integer $currentPage
-* @property integer $lastPage
-* @property integer $itemsCount
-* @property integer $itemsPerPage
-* @property integer $pageLimit
-*/
-class PapayaUiPagingCount extends \Papaya\Ui\Control {
+ * Output paging links based on a item count.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \PapayaUiReference $reference
+ * @property string|array $parameterName
+ * @property integer $currentPage
+ * @property integer $lastPage
+ * @property integer $itemsCount
+ * @property integer $itemsPerPage
+ * @property integer $pageLimit
+ */
+class Count extends \Papaya\Ui\Control {
 
   const LINK_FIRST = 'first';
   const LINK_PREVIOUS = 'previous';
@@ -36,98 +37,98 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   const LINK_SELECTED = 'selected';
 
   /**
-  * reference (link) object
-  *
-  * @var \PapayaUiReference
-  */
+   * reference (link) object
+   *
+   * @var \PapayaUiReference
+   */
   protected $_reference = NULL;
 
   /**
-  * The parameter name of the page parameter for the links
-  *
-  * @var string|array
-  */
+   * The parameter name of the page parameter for the links
+   *
+   * @var string|array
+   */
   protected $_parameterName = 'page';
 
   /**
-  * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
-  * The minimum value is 3.
-  *
-  * @var integer
-  */
+   * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
+   * The minimum value is 3.
+   *
+   * @var integer
+   */
   protected $_pageLimit = 11;
 
   /**
-  * The maximum items on one page. The last page can contain less items.
-  * The minimum value is 1.
-  *
-  * @var integer
-  */
+   * The maximum items on one page. The last page can contain less items.
+   * The minimum value is 1.
+   *
+   * @var integer
+   */
   protected $_itemsPerPage = 10;
 
   /**
-  * The actual item count. If the value is less than 1 the buttons are hidden.
-  *
-  * @var integer
-  */
+   * The actual item count. If the value is less than 1 the buttons are hidden.
+   *
+   * @var integer
+   */
   protected $_itemsCount = 0;
 
   /**
-  * The current page number. Minimum and default value is 1.
-  *
-  * @var integer|NULL
-  */
+   * The current page number. Minimum and default value is 1.
+   *
+   * @var integer|NULL
+   */
   protected $_currentPage = NULL;
 
   /**
-  * The minimum page value. This is caluclated using the button limit.
-  * It changes with the current page.
-  *
-  * @var integer|NULL
-  */
+   * The minimum page value. This is caluclated using the button limit.
+   * It changes with the current page.
+   *
+   * @var integer|NULL
+   */
   private $_minimumPage = NULL;
 
   /**
-  * The maximum page value. This is caluclated using the button limit.
-  * It changes with the current page.
-  *
-  * @var integer|NULL
-  */
+   * The maximum page value. This is caluclated using the button limit.
+   * It changes with the current page.
+   *
+   * @var integer|NULL
+   */
   private $_maximumPage = NULL;
 
   /**
-  * Current page minus 1.
-  *
-  * @var integer|NULL
-  */
+   * Current page minus 1.
+   *
+   * @var integer|NULL
+   */
   private $_previousPage = NULL;
 
   /**
-  * Current page plus 1.
-  *
-  * @var integer|NULL
-  */
+   * Current page plus 1.
+   *
+   * @var integer|NULL
+   */
   private $_nextPage = NULL;
 
   /**
-  * Last possible page value.
-  *
-  * @var integer|NULL
-  */
+   * Last possible page value.
+   *
+   * @var integer|NULL
+   */
   private $_lastPage = NULL;
 
   /**
-  * Calculation status, allows to recalculated only if needed
-  *
-  * @var boolean
-  */
+   * Calculation status, allows to recalculated only if needed
+   *
+   * @var boolean
+   */
   private $_calculated = FALSE;
 
   /**
-  * Declare public properties
-  *
-  * @var array
-  */
+   * Declare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'reference' => array('reference', 'reference'),
     'parameterName' => array('_parameterName', '_parameterName'),
@@ -139,10 +140,10 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   );
 
   /**
-  * The xml names allow to define the element and attribute names of the generated xml
-  *
-  * @var array
-  */
+   * The xml names allow to define the element and attribute names of the generated xml
+   *
+   * @var array
+   */
   protected $_xmlNames = array(
     'list' => 'paging',
     'attr-count' => 'count',
@@ -154,12 +155,12 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   );
 
   /**
-  * Create object and store needed data.
-  *
-  * @param string|array|\Papaya\Request\Parameters\Name $parameterName
-  * @param integer $currentPage
-  * @param integer $itemsCount
-  */
+   * Create object and store needed data.
+   *
+   * @param string|array|\Papaya\Request\Parameters\Name $parameterName
+   * @param integer $currentPage
+   * @param integer $itemsCount
+   */
   public function __construct($parameterName, $currentPage, $itemsCount) {
     $this->_parameterName = $parameterName;
     $this->_currentPage = $currentPage;
@@ -175,7 +176,7 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   public function setXmlNames(array $names) {
     foreach ($names as $element => $name) {
       if (array_key_exists($element, $this->_xmlNames) &&
-          preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
+        preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
         $this->_xmlNames[$element] = $name;
       } else {
         throw new \UnexpectedValueException(
@@ -190,10 +191,10 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   }
 
   /**
-  * Append a list of paging links to the parent.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append a list of paging links to the parent.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
@@ -259,11 +260,11 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   }
 
   /**
-  * Getter/Setter for the reference object (the link url)
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * Getter/Setter for the reference object (the link url)
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
@@ -329,36 +330,36 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   }
 
   /**
-  * Change the current page. This will reset the current caclulation results.
-  *
-  * @param int $page
-  */
+   * Change the current page. This will reset the current caclulation results.
+   *
+   * @param int $page
+   */
   public function setCurrentPage($page) {
     $this->_currentPage = $page;
     $this->reset();
   }
 
   /**
-  * Fetch the value from the request and trigger the calculation if needed. Return the current page.
-  * The page value is based one 1.
-  *
-  * @return integer
-  */
+   * Fetch the value from the request and trigger the calculation if needed. Return the current page.
+   * The page value is based one 1.
+   *
+   * @return integer
+   */
   public function getCurrentPage() {
     $this->calculate();
     return $this->_currentPage;
   }
 
   /**
-  * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
-  */
+   * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
+   */
   private function reset() {
     $this->_calculated = FALSE;
   }
 
   /**
-  * Calculate sevaral internal limits for the button output.
-  */
+   * Calculate sevaral internal limits for the button output.
+   */
   private function calculate() {
     if ($this->_calculated) {
       return;
@@ -392,10 +393,10 @@ class PapayaUiPagingCount extends \Papaya\Ui\Control {
   }
 
   /**
-  * Get the last possible page number.
-  *
-  * @return integer
-  */
+   * Get the last possible page number.
+   *
+   * @return integer
+   */
   public function getLastPage() {
     return (int)ceil($this->_itemsCount / $this->_itemsPerPage);
   }

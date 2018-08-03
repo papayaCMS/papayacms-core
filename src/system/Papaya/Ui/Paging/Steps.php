@@ -13,21 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Paging;
+
 /**
-* Output paging steps size links based on a list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \PapayaUiReference $reference
-* @property string|array $parameterName
-* @property integer $currentStepSize
-* @property array|Traversable $stepSizes
-* @property integer $itemsCount
-* @property integer $itemsPerPage
-* @property integer $pageLimit
-*/
-class PapayaUiPagingSteps extends \Papaya\Ui\Control {
+ * Output paging steps size links based on a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \PapayaUiReference $reference
+ * @property string|array $parameterName
+ * @property integer $currentStepSize
+ * @property array|\Traversable $stepSizes
+ * @property integer $itemsCount
+ * @property integer $itemsPerPage
+ * @property integer $pageLimit
+ */
+class Steps extends \Papaya\Ui\Control {
 
   const USE_KEYS = 0;
   const USE_VALUES = 1;
@@ -37,24 +39,24 @@ class PapayaUiPagingSteps extends \Papaya\Ui\Control {
   private $_mode = self::USE_VALUES;
 
   /**
-  * The parameter name of the step size parameter for the links
-  *
-  * @var string|array
-  */
+   * The parameter name of the step size parameter for the links
+   *
+   * @var string|array
+   */
   protected $_parameterName = 'page';
 
   /**
-  * The current step size
-  *
-  * @var string|integer
-  */
+   * The current step size
+   *
+   * @var string|integer
+   */
   protected $_currentStepSize = 0;
 
   /**
-  * The xml names allow to define the element and attribute names of the generated xml
-  *
-  * @var array
-  */
+   * The xml names allow to define the element and attribute names of the generated xml
+   *
+   * @var array
+   */
   protected $_xmlNames = array(
     'list' => 'paging-steps',
     'item' => 'step-size',
@@ -63,10 +65,10 @@ class PapayaUiPagingSteps extends \Papaya\Ui\Control {
   );
 
   /**
-  * Declare public properties
-  *
-  * @var array
-  */
+   * Declare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'reference' => array('reference', 'reference'),
     'parameterName' => array('_parameterName', '_parameterName'),
@@ -90,11 +92,11 @@ class PapayaUiPagingSteps extends \Papaya\Ui\Control {
   }
 
   /**
-  * Append stepSize elements top parent xml element
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append stepSize elements top parent xml element
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
@@ -126,7 +128,7 @@ class PapayaUiPagingSteps extends \Papaya\Ui\Control {
   public function setXmlNames(array $names) {
     foreach ($names as $element => $name) {
       if (array_key_exists($element, $this->_xmlNames) &&
-          preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
+        preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
         $this->_xmlNames[$element] = $name;
       } else {
         throw new \UnexpectedValueException(
@@ -141,20 +143,20 @@ class PapayaUiPagingSteps extends \Papaya\Ui\Control {
   }
 
   /**
-  * Store the stepSizes list
-  *
-  * @param \Traversable|array $stepSizes
-  */
+   * Store the stepSizes list
+   *
+   * @param \Traversable|array $stepSizes
+   */
   public function setStepSizes($stepSizes) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($stepSizes);
     $this->_stepSizes = $stepSizes;
   }
 
   /**
-  * Return the stepSizes list
-  *
-  * @return \Traversable|array
-  */
+   * Return the stepSizes list
+   *
+   * @return \Traversable|array
+   */
   public function getStepSizes() {
     return $this->_stepSizes;
   }
