@@ -28,29 +28,29 @@ class Handler extends \Papaya\Application\BaseObject {
    * @param string $themeName
    * @return string
    */
-  public function getUrl($themeName = NULL) {
+  public function getURL($themeName = NULL) {
     $options = $this->papaya()->options;
-    $baseUrl = '';
+    $baseURL = '';
     if (\Papaya\Utility\Server\Protocol::isSecure()) {
-      $baseUrl = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
+      $baseURL = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
     }
-    if (empty($baseUrl)) {
-      $baseUrl = $options->get('PAPAYA_CDN_THEMES', '');
+    if (empty($baseURL)) {
+      $baseURL = $options->get('PAPAYA_CDN_THEMES', '');
     }
-    if (empty($baseUrl)) {
-      $baseUrl = $this
+    if (empty($baseURL)) {
+      $baseURL = $this
         ->papaya()
         ->request
-        ->getUrl()
-        ->getHostUrl();
-      $baseUrl .= \Papaya\Utility\File\Path::cleanup(
+        ->getURL()
+        ->getHostURL();
+      $baseURL .= \Papaya\Utility\File\Path::cleanup(
         $options->get('PAPAYA_PATH_WEB').$options->get('PAPAYA_PATH_THEMES')
       );
     }
     if (empty($themeName)) {
-      return $baseUrl.$this->getTheme().'/';
+      return $baseURL.$this->getTheme().'/';
     } else {
-      return $baseUrl.$themeName.'/';
+      return $baseURL.$themeName.'/';
     }
   }
 

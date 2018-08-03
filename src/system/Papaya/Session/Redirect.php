@@ -51,7 +51,7 @@ class Redirect extends \Papaya\Response {
   /**
    * url handling object
    *
-   * @var \Papaya\Url
+   * @var \Papaya\URL
    */
   private $_url = NULL;
 
@@ -73,15 +73,15 @@ class Redirect extends \Papaya\Response {
   /**
    * Getter/Setter for the redirect target url object
    *
-   * @param \Papaya\Url $url
-   * @return \Papaya\Url
+   * @param \Papaya\URL $url
+   * @return \Papaya\URL
    */
-  public function url(\Papaya\Url $url = NULL) {
+  public function url(\Papaya\URL $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
     if (is_null($this->_url)) {
-      $this->_url = clone $this->papaya()->request->getUrl();
+      $this->_url = clone $this->papaya()->request->getURL();
     }
     return $this->_url;
   }
@@ -99,7 +99,7 @@ class Redirect extends \Papaya\Response {
     $this->setStatus(302);
     $this->setCache('none');
     $this->headers()->set('X-Papaya-Redirect', $this->_reason);
-    $this->headers()->set('Location', $this->url()->getUrl());
+    $this->headers()->set('Location', $this->url()->getURL());
   }
 
   /**

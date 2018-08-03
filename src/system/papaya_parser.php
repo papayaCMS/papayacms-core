@@ -776,7 +776,7 @@ class papaya_parser extends base_db {
             $imageData['storage_group'], $imageData['storage_id'], TRUE, $imageData['mimetype']
           )
         ) {
-          $imageData['src'] = $storage->getUrl(
+          $imageData['src'] = $storage->getURL(
             $imageData['storage_group'],
             $imageData['storage_id'],
             $imageData['mimetype']
@@ -820,7 +820,7 @@ class papaya_parser extends base_db {
         'title' => isset($params['title']) ? $params['title'] : ''
       );
     } elseif (isset($params['href']) &&
-              \Papaya\Filter\Factory::isUrl($params['href'], TRUE) && $this->isSessionInUri()) {
+              \Papaya\Filter\Factory::isURL($params['href'], TRUE) && $this->isSessionInUri()) {
       $hrefData = array(
         'href' => $this->getWebLink(0, '', 'page', array('exit' => $params['href'])),
         'target' => isset($params['target']) ? $params['target'] : '_self',
@@ -1075,11 +1075,11 @@ class papaya_parser extends base_db {
         $source = '';
       }
       if (!empty($params['source_url'])) {
-        $sourceUrl = $params['source_url'];
+        $sourceURL = $params['source_url'];
       } elseif (!empty($data['source_url'])) {
-        $sourceUrl = $data['source_url'];
+        $sourceURL = $data['source_url'];
       } else {
-        $sourceUrl = '';
+        $sourceURL = '';
       }
       $subTitle = papaya_strings::escapeHTMLChars($title);
       if (!empty($source) &&
@@ -1089,7 +1089,7 @@ class papaya_parser extends base_db {
         } else {
           $subTitle .= sprintf(
             ' (<a href="%s" class="%s" target="%s">%s</a>)',
-            papaya_strings::escapeHTMLChars($sourceUrl),
+            papaya_strings::escapeHTMLChars($sourceURL),
             papaya_strings::escapeHTMLChars(
               defined('PAPAYA_MEDIA_CUTLINE_LINK_CLASS')
                 ? PAPAYA_MEDIA_CUTLINE_LINK_CLASS : 'source'

@@ -511,7 +511,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       if (is_object($url)) {
         $request->load($url);
       } else {
-        $request->load(new \Papaya\Url($url));
+        $request->load(new \Papaya\URL($url));
       }
     }
     $fileTitle = 'index';
@@ -648,11 +648,11 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $reference->setOutputMode($this->_getWebLinkPageModeExtension($mode));
     $reference->setParameters($params, $paramName);
 
-    $transformer = new \Papaya\Url\Transformer\Relative();
+    $transformer = new \Papaya\URL\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer->transform(
-      $request->getUrl(),
-      new \Papaya\Url($absolute)
+      $request->getURL(),
+      new \Papaya\URL($absolute)
     );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -815,10 +815,10 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
           $options
         );
         if ($storage->isPublic($storageGroup, $mid, $mimeType)) {
-          return $storage->getUrl($storageGroup, $mid, $mimeType);
+          return $storage->getURL($storageGroup, $mid, $mimeType);
         } elseif (!empty($versionSuffix) &&
                   $storage->isPublic($storageGroup, $mid.$versionSuffix, $mimeType)) {
-          return $storage->getUrl($storageGroup, $mid.$versionSuffix, $mimeType);
+          return $storage->getURL($storageGroup, $mid.$versionSuffix, $mimeType);
         }
       }
     }
@@ -834,12 +834,12 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         'index'
       )
     );
-    $transformer = new \Papaya\Url\Transformer\Relative();
+    $transformer = new \Papaya\URL\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer
       ->transform(
-        $request->getUrl(),
-        new \Papaya\Url($absolute)
+        $request->getURL(),
+        new \Papaya\URL($absolute)
       );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -855,7 +855,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
    * @return string URL
    */
   function getAbsoluteURL($url, $text = '', $sid = TRUE, $protocol = NULL) {
-    $urlObject = $this->papaya()->request->getUrl();
+    $urlObject = $this->papaya()->request->getURL();
     if (empty($protocol)) {
       if (!($protocol = $urlObject->getScheme())) {
         $protocol = 'http';
@@ -907,26 +907,26 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       if (!preg_match('(^\w+://)', $href)) {
         $href = $baseHref.$sidStr.$pathWeb.$href;
       }
-    } elseif (\Papaya\Filter\Factory::isUrl($url)) {
+    } elseif (\Papaya\Filter\Factory::isURL($url)) {
       $href = $url;
     } elseif (preg_match("#^/#", $url)) {
       $href = $baseHref.$sidStr.$url;
     } else {
-      $iUrl = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
-      if (FALSE === ($pos = strpos($iUrl, '?'))) {
-        $pos = strpos($iUrl, '#');
+      $iURL = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+      if (FALSE === ($pos = strpos($iURL, '?'))) {
+        $pos = strpos($iURL, '#');
       }
       if (FALSE !== $pos) {
-        $iUrl = substr($iUrl, 0, $pos);
+        $iURL = substr($iURL, 0, $pos);
       }
-      $iUrl = preg_replace('([^/]+$)', '', $iUrl);
-      $href = $baseHref.$iUrl.$url;
+      $iURL = preg_replace('([^/]+$)', '', $iURL);
+      $href = $baseHref.$iURL.$url;
     }
     $pathAdmin = $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/');
     $href = preg_replace(
       '('.preg_quote($pathAdmin).'/../)', '/', $href
     );
-    $transformer = new \Papaya\Url\Transformer\Cleanup();
+    $transformer = new \Papaya\URL\Transformer\Cleanup();
     return $transformer->transform($href.$urlAppend);
   }
 

@@ -136,6 +136,7 @@ class Autoloader {
     'Php' => 'PHP',
     'Regex' => 'RegEx',
     'Ui' => 'UI',
+    'Url' => 'URL',
     'Util' => 'Utility',
     'Xml' => 'XML'
   );

@@ -112,7 +112,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getImageUrl
+  * @covers \Papaya\UI\Icon::getImageURL
   */
   public function testGetImageUrl() {
     $icon = new \Papaya\UI\Icon('sample');
@@ -120,23 +120,23 @@ class PapayaUiIconTest extends \PapayaTestCase {
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
     $this->assertEquals(
-      'sample.png', $icon->getImageUrl()
+      'sample.png', $icon->getImageURL()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getUrl
+  * @covers \Papaya\UI\Icon::getURL
   */
   public function testGetUrl() {
     $icon = new \Papaya\UI\Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application()
     );
-    $this->assertNull($icon->getUrl());
+    $this->assertNull($icon->getURL());
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getUrl
+  * @covers \Papaya\UI\Icon::getURL
   */
   public function testGetUrlWithActionParameters() {
     $icon = new \Papaya\UI\Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
@@ -144,7 +144,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
       $this->mockPapaya()->application()
     );
     $this->assertEquals(
-      'http://www.test.tld/test.html?foo=bar', $icon->getUrl()
+      'http://www.test.tld/test.html?foo=bar', $icon->getURL()
     );
   }
 

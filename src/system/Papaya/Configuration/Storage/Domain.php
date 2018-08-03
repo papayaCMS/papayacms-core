@@ -48,15 +48,15 @@ class Domain extends \Papaya\Application\BaseObject
   /**
    * Create storage object and store host name
    *
-   * @param string $hostUrl
+   * @param string $hostURL
    */
-  public function __construct($hostUrl) {
-    if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostUrl, $match)) {
+  public function __construct($hostURL) {
+    if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostURL, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ('https' === $match['scheme'])
         ? \Papaya\Utility\Server\Protocol::HTTPS : \Papaya\Utility\Server\Protocol::HTTP;
     } else {
-      $this->_host = $hostUrl;
+      $this->_host = $hostURL;
     }
   }
 

@@ -39,7 +39,7 @@ namespace Papaya;
  * @method string getQuery()
  * @method string getFragment()
  */
-class Url {
+class URL {
 
   /**
    * Parsed url elements
@@ -56,11 +56,11 @@ class Url {
    * Constructor
    *
    * @param string $url
-   * @return \PapayaUrl
+   * @return self
    */
   public function __construct($url = '') {
     if (!empty($url)) {
-      $this->setUrl($url);
+      $this->setURLString($url);
     }
   }
 
@@ -71,7 +71,7 @@ class Url {
    */
   public function __toString() {
     try {
-      return $this->getUrl();
+      return $this->getURL();
     } catch (\BadMethodCallException $e) {
     } catch (\InvalidArgumentException $e) {
     }
@@ -83,8 +83,8 @@ class Url {
    *
    * @return string
    */
-  public function getUrl() {
-    $result = $this->getPathUrl();
+  public function getURL() {
+    $result = $this->getPathURL();
     if (!is_null($query = $this->getQuery())) {
       $result .= '?'.$query;
     }
@@ -99,8 +99,8 @@ class Url {
    *
    * @return string
    */
-  public function getPathUrl() {
-    return $this->getHostUrl().$this->getPath();
+  public function getPathURL() {
+    return $this->getHostURL().$this->getPath();
   }
 
   /**
@@ -108,7 +108,7 @@ class Url {
    *
    * @return string
    */
-  public function getHostUrl() {
+  public function getHostURL() {
     $scheme = $this->getScheme();
     $host = $this->getHost();
     if (!empty($scheme) &&
@@ -135,7 +135,7 @@ class Url {
    * @param string $url
    * @return void
    */
-  public function setUrl($url) {
+  public function setURLString($url) {
     if (!empty($url)) {
       $this->_elements = @parse_url($url);
     }

@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Url;
+namespace Papaya\URL;
 /**
  * Papaya URL representation, representing the current url
  *
  * @package Papaya-Library
  * @subpackage URL
  */
-class Current extends \Papaya\Url {
+class Current extends \Papaya\URL {
 
   /**
    * If no $url is provided, the object will compile it from server environment
@@ -29,7 +29,7 @@ class Current extends \Papaya\Url {
    */
   public function __construct($url = NULL) {
     parent::__construct(
-      empty($url) ? $this->getUrlFromEnvironment() : $url
+      empty($url) ? $this->getURLFromEnvironment() : $url
     );
   }
 
@@ -38,7 +38,7 @@ class Current extends \Papaya\Url {
    *
    * @return string|NULL
    */
-  public function getUrlFromEnvironment() {
+  public function getURLFromEnvironment() {
     $scheme = \Papaya\Utility\Server\Protocol::get();
     $port = $this->_getServerValue(
       'SERVER_PORT', ':', \Papaya\Utility\Server\Protocol::getDefaultPort()

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -23,7 +23,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::__construct
   */
   public function testConstructorWithUrl() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $reference = new \Papaya\UI\Reference($url);
     $this->assertSame($url, $reference->url());
   }
@@ -42,7 +42,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::create
   */
   public function testStaticFunctionCreateWithUrl() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $reference = \Papaya\UI\Reference::create($url);
     $this->assertSame($url, $reference->url());
   }
@@ -51,7 +51,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::valid
   */
   public function testValidGetAfterSetExpectingFalse() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $reference = \Papaya\UI\Reference::create($url);
     $reference->valid(FALSE);
     $this->assertFalse($reference->valid());
@@ -61,7 +61,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::valid
   */
   public function testValidGetAfterSetExpectingTrue() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $reference = \Papaya\UI\Reference::create($url);
     $reference->valid(TRUE);
     $this->assertTrue($reference->valid());
@@ -71,7 +71,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::load
   */
   public function testLoadRequest() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request $request */
     $request = $this->createMock(\Papaya\Request::class);
     $request
@@ -97,7 +97,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::prepare
   */
   public function testPrepare() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
@@ -123,7 +123,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::getRelative
   */
   public function testMagicMethodToString() {
-    $url = new Url('http://www.sample.tld/target/file.html');
+    $url = new URL('http://www.sample.tld/target/file.html');
     $reference = new \Papaya\UI\Reference();
     $reference->url($url);
     $this->assertEquals(
@@ -135,8 +135,8 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::getRelative
   */
   public function testGetRelative() {
-    $url = new Url('http://www.sample.tld/target/file.html');
-    $currentUrl = new Url('http://www.sample.tld/source/file.html');
+    $url = new URL('http://www.sample.tld/target/file.html');
+    $currentUrl = new URL('http://www.sample.tld/source/file.html');
     $reference = new \Papaya\UI\Reference();
     $reference->url($url);
     $this->assertEquals(
@@ -159,8 +159,8 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::getRelative
   */
   public function testGetRelativeAfterSettingParameters() {
-    $url = new Url('http://www.sample.tld/target/file.html');
-    $currentUrl = new Url('http://www.sample.tld/source/file.html');
+    $url = new URL('http://www.sample.tld/target/file.html');
+    $currentUrl = new URL('http://www.sample.tld/source/file.html');
     $reference = new \Papaya\UI\Reference();
     $reference->url($url);
     $reference->setParameters(array('foo' => 'bar'));
@@ -173,8 +173,8 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::getRelative
   */
   public function testGetRelativeWithoutQueryString() {
-    $url = new Url('http://www.sample.tld/target/file.html');
-    $currentUrl = new Url('http://www.sample.tld/source/file.html');
+    $url = new URL('http://www.sample.tld/target/file.html');
+    $currentUrl = new URL('http://www.sample.tld/source/file.html');
     $reference = new \Papaya\UI\Reference();
     $reference->url($url);
     $reference->setParameters(array('foo' => 'bar'));
@@ -187,7 +187,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::get
   */
   public function testGet() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -203,7 +203,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Reference::get
    */
   public function testGetRemoveSessionIdFromPath() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
@@ -219,7 +219,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::get
   */
   public function testGetWithQueryString() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -236,7 +236,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Reference::get
    */
   public function testGetWithQueryStringRemoveSessionIdFromParameters() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
@@ -255,7 +255,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Reference::getFragment
   */
   public function testGetWithFragment() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url->expects($this->atLeastOnce())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -291,7 +291,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   */
   public function testUrlGetAfterSet() {
     $reference = new \Papaya\UI\Reference();
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $this->assertSame(
       $url,
       $reference->url($url)
@@ -305,7 +305,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
     $reference = new \Papaya\UI\Reference();
     $reference->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      Url::class,
+      URL::class,
       $reference->url()
     );
   }
@@ -581,7 +581,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
    */
   public function testSetRelative($expected, $relativeUrl) {
     $reference = new \Papaya\UI\Reference();
-    $reference->url(new Url('http://www.sample.tld/path/file.html?foo=bar'));
+    $reference->url(new URL('http://www.sample.tld/path/file.html?foo=bar'));
     $reference->setRelative($relativeUrl);
     $this->assertEquals(
       $expected,
@@ -594,10 +594,10 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   */
   public function testMagicMethodClone() {
     $reference = new \Papaya\UI\Reference();
-    $reference->url($this->createMock(Url::class));
+    $reference->url($this->createMock(URL::class));
     $reference->setParameters(array('foo' => 'bar'));
     $clone = clone $reference;
-    $this->assertInstanceOf(Url::class, $clone->url());
+    $this->assertInstanceOf(URL::class, $clone->url());
     $this->assertNotSame($reference->url(), $clone->url());
     $this->assertNotSame($reference->getParameters(), $clone->getParameters());
   }

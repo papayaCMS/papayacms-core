@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory\Profile;
+namespace Papaya\Filter\URL;
 /**
- * Profile creating a filter for a http url with or without the protocol
+ * Papaya filter class validating a url host name
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsUrlWeb extends \Papaya\Filter\Factory\Profile {
+class Host extends \Papaya\Filter\Pcre {
 
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * set pattern in superclass constructor
    */
-  public function getFilter() {
-    return new \Papaya\Filter\Url\Web();
+  public function __construct() {
+    parent::__construct('(^([\pL\d_-]+\.)*([\pL\d-]{2,})(\.[a-z]{2,6})?(:\d{1,5})?$)Du');
   }
 }

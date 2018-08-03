@@ -41,10 +41,10 @@ class Thumbnail extends \Papaya\UI\Reference {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    * @return \Papaya\UI\Reference
    */
-  public static function create(\Papaya\Url $url = NULL) {
+  public static function create(\Papaya\URL $url = NULL) {
     return new self($url);
   }
 
@@ -55,7 +55,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function get($forPublic = FALSE) {
     if (!empty($this->_pageData['media_id'])) {
-      $result = $this->url()->getHostUrl().$this->_basePath;
+      $result = $this->url()->getHostURL().$this->_basePath;
       $result .= $this->_pageData['title'];
       if (!empty($this->_pageData['thumbnail_size'])) {
         $result .= '.thumb';

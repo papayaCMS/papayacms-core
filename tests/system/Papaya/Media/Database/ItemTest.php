@@ -283,7 +283,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Media\Database\Item::getUrl
+  * @covers \Papaya\Media\Database\Item::getURL
   */
   public function testGetUrl() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $storage */
@@ -305,7 +305,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     $item->versionId = 1;
     $this->assertEquals(
       'http://cdn.sample.tld/files/123456789012345678901234567890abv1',
-      $item->getUrl()
+      $item->getURL()
     );
   }
 

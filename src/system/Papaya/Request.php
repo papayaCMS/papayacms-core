@@ -23,7 +23,7 @@ namespace Papaya;
  *
  * @property \Papaya\Content\Language $language
  * @property \Papaya\Content\View\Mode $mode
- * @property-read Url $url
+ * @property-read URL $url
  * @property-read string $method
  * @property-read boolean $allowCompression
  * @property-read integer $pageId
@@ -100,13 +100,13 @@ class Request
   /**
    * Request url object
    *
-   * @var Url
+   * @var URL
    */
   private $_url = NULL;
   /**
    * Request url object
    *
-   * @var Url
+   * @var URL
    */
   private $_language = NULL;
 
@@ -161,7 +161,7 @@ class Request
     $name = Utility\Text\Identifier::toCamelCase($name);
     switch ($name) {
       case 'url' :
-        return $this->getUrl();
+        return $this->getURL();
       case 'language' :
         return $this->language();
       case 'method' :
@@ -238,11 +238,11 @@ class Request
   /**
    * get the attached url object
    *
-   * @return Url|NULL
+   * @return URL|NULL
    */
-  public function getUrl() {
+  public function getURL() {
     if (NULL === $this->_url) {
-      $this->load(new Url\Current());
+      $this->load(new URL\Current());
     }
     return $this->_url;
   }
@@ -386,10 +386,10 @@ class Request
   /**
    * Load and parse request
    *
-   * @param Url $url
+   * @param URL $url
    * @return boolean
    */
-  public function load(Url $url) {
+  public function load(URL $url) {
     $this->_url = $url;
     $this->_initParsers();
     $this->_pathData = array();

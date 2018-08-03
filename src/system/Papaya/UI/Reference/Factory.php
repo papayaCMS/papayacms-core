@@ -62,12 +62,12 @@ class Factory extends \Papaya\Application\BaseObject {
             $reference = $this->createPageReference($matches);
           break;
           case 'absolute_url' :
-            $reference = new \Papaya\UI\Reference(new \Papaya\Url($string));
+            $reference = new \Papaya\UI\Reference(new \Papaya\URL($string));
           break;
           case 'relative_url' :
           default :
             $reference = new \Papaya\UI\Reference(
-              clone $this->papaya()->request->getUrl()
+              clone $this->papaya()->request->getURL()
             );
             $reference->setRelative($string);
         }
@@ -75,7 +75,7 @@ class Factory extends \Papaya\Application\BaseObject {
       }
     }
     return new \Papaya\UI\Reference(
-      clone $this->papaya()->request->getUrl()
+      clone $this->papaya()->request->getURL()
     );
   }
 

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -26,9 +26,9 @@ class PapayaRequestParserFileTest extends \PapayaTestCase {
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Url $url */
+    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this
-      ->getMockBuilder(Url::class)
+      ->getMockBuilder(URL::class)
       ->setMethods(array('getPath'))
       ->getMock();
     $url

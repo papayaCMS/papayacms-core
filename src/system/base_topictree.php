@@ -154,18 +154,18 @@ class base_topic_tree extends base_db {
         $protocol = \Papaya\Utility\Server\Protocol::get();
         // Set the current user's personal allowed start page
         if ($administrationUser->user['start_node'] > 0) {
-          $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
+          $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
             $this->getLink(array('page_id' => $administrationUser->user['start_node']));
           $this->sessionParams['page_id'] = $administrationUser->user['start_node'];
         } else {
-          $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().$this->baseLink;
+          $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().$this->baseLink;
           $this->sessionParams['page_id'] = 0;
         }
         $this->setSessionValue($this->sessionParamName, $this->sessionParams);
         if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
           header('X-Papaya-Status: redirecting to allowed subtree');
         }
-        header("Location: $toUrl");
+        header("Location: $toURL");
         exit;
       }
     }

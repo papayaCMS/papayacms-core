@@ -296,11 +296,11 @@ class papaya_page extends base_object {
       define('PAPAYA_SESSION_DOMAIN', $baseSessionDomain);
       if (
         $options->get('PAPAYA_UI_SECURE', FALSE) &&
-        'https' !== $application->request->getUrl()->scheme
+        'https' !== $application->request->getURL()->scheme
       ) {
-        $url = $application->request->getUrl();
+        $url = $application->request->getURL();
         $url->scheme = 'https';
-        $this->doRedirect(301, $url->getUrl(), 'Secure administration');
+        $this->doRedirect(301, $url->getURL(), 'Secure administration');
       }
     } else {
       define('PAPAYA_ADMIN_SESSION', FALSE);
@@ -326,9 +326,9 @@ class papaya_page extends base_object {
           'External Link, Remove SID'
         );
       } else {
-        $targetUrl = $_GET['exit'];
-        $this->logRequestExitPage($targetUrl);
-        $this->protectedRedirect(301, $targetUrl);
+        $targetURL = $_GET['exit'];
+        $this->logRequestExitPage($targetURL);
+        $this->protectedRedirect(301, $targetURL);
       }
     } else {
       $this->startSession();
@@ -347,18 +347,18 @@ class papaya_page extends base_object {
     $options->defineConstants();
     /* redirect script handling */
     if (!empty($_GET['redirect'])) {
-      $targetUrl = base_object::getAbsoluteURL(
+      $targetURL = base_object::getAbsoluteURL(
         (string)$_GET['redirect'],
         empty($_GET['title']) ? '' : (string)$_GET['title']
       );
-      $this->protectedRedirect(302, $targetUrl);
+      $this->protectedRedirect(302, $targetURL);
       exit;
     } elseif (!empty($_POST['redirect'])) {
-      $targetUrl = base_object::getAbsoluteURL(
+      $targetURL = base_object::getAbsoluteURL(
         (string)$_POST['redirect'],
         empty($_POST['title']) ? '' : (string)$_POST['title']
       );
-      $this->protectedRedirect(302, $targetUrl);
+      $this->protectedRedirect(302, $targetURL);
       exit;
     }
     if ($options->get('PAPAYA_DEFAULT_HOST', '') != '' &&
@@ -381,38 +381,38 @@ class papaya_page extends base_object {
    *    about a possibly spoofed redirect
    *
    * @param integer $code the redirection status code to use
-   * @param string $targetUrl the target url to redirect to
+   * @param string $targetURL the target url to redirect to
    */
-  function protectedRedirect($code, $targetUrl) {
+  function protectedRedirect($code, $targetURL) {
     if ($this->papaya()->options->get('PAPAYA_REDIRECT_PROTECTION', FALSE)) {
       $protocol = \Papaya\Utility\Server\Protocol::get();
-      $systemUrl = $protocol.'://'.strtolower(
+      $systemURL = $protocol.'://'.strtolower(
         $this->papaya()->options->get(
           'PAPAYA_DEFAULT_HOST',
           empty($_SERVER['HTTP_HOST']) ? 'localhost' : ''
         )
       );
-      if (FALSE !== strpos($targetUrl, "\n") &&
-          FALSE !== strpos($targetUrl, "\r")) {
+      if (FALSE !== strpos($targetURL, "\n") &&
+          FALSE !== strpos($targetURL, "\r")) {
         //don't redirect to prevent header injection
         $this->sendHeader('X-Papaya-Status: redirect link contains newline');
-      } elseif (0 === strpos($targetUrl, $systemUrl)) {
+      } elseif (0 === strpos($targetURL, $systemURL)) {
         //own hostname - just redirect
-        $this->doRedirect($code, $targetUrl, 'Absolute Link (same domain)');
+        $this->doRedirect($code, $targetURL, 'Absolute Link (same domain)');
       } elseif (isset($_SERVER['HTTP_REFERER']) &&
-                0 === strpos($_SERVER['HTTP_REFERER'], $systemUrl)) {
+                0 === strpos($_SERVER['HTTP_REFERER'], $systemURL)) {
         //from own hostname - just redirect
-        $this->doRedirect($code, $targetUrl, 'External Link (referer checked)');
+        $this->doRedirect($code, $targetURL, 'External Link (referer checked)');
       } else {
-        $urlData = base_url_analyze::parseURL($targetUrl);
+        $urlData = base_url_analyze::parseURL($targetURL);
         if ($this->domains->load($urlData['host'], 0)) {
-          $this->doRedirect($code, $targetUrl, 'External Link (domain checked)');
+          $this->doRedirect($code, $targetURL, 'External Link (domain checked)');
         } else {
-          $this->getRedirect($code, $targetUrl);
+          $this->getRedirect($code, $targetURL);
         }
       }
     } else {
-      $this->doRedirect($code, $targetUrl, 'Redirect Link');
+      $this->doRedirect($code, $targetURL, 'Redirect Link');
     }
   }
 
@@ -433,19 +433,20 @@ class papaya_page extends base_object {
       $host = $_SERVER['HTTP_HOST'];
     }
     $protocol = \Papaya\Utility\Server\Protocol::get();
-    $targetUrl = $protocol.'://'.strtolower($host).$path;
-    $this->doRedirect($code, $targetUrl, $reason);
+    $targetURL = $protocol.'://'.strtolower($host).$path;
+    $this->doRedirect($code, $targetURL, $reason);
   }
 
   /**
   * Send a http redirect
+  *
   * @param integer $code
-  * @param string $targetUrl
+  * @param string $targetURL
   * @param string $reason
   */
-  function doRedirect($code, $targetUrl, $reason = NULL) {
+  function doRedirect($code, $targetURL, $reason = NULL) {
     $response = new \Papaya\Response\Redirect(
-      $targetUrl,
+      $targetURL,
       ($code == 301) ? $code : 302,
       $reason
     );
@@ -569,13 +570,13 @@ class papaya_page extends base_object {
         case 2 :
           if ($url = $urlMounter->executeAliasPlugin($alias[2])) {
             if (is_string($url)) {
-              $url = $this->getAbsoluteUrl($url);
-              if ($aliasUrl = $urlMounter->getAliasURL($url)) {
-                $this->doRedirect(302, $aliasUrl, 'Alias Plugin Redirect');
+              $url = $this->getAbsoluteURL($url);
+              if ($aliasURL = $urlMounter->getAliasURL($url)) {
+                $this->doRedirect(302, $aliasURL, 'Alias Plugin Redirect');
               } else {
-                $requestUrl = new \Papaya\Url($url);
+                $requestURL = new \Papaya\URL($url);
                 $request = new \Papaya\Request($this->papaya()->options);
-                $request->load($requestUrl);
+                $request->load($requestURL);
                 $urlData = array(
                   'topic_id' => $request->getParameter(
                     'page_id', NULL, NULL, \Papaya\Request::SOURCE_PATH
@@ -586,7 +587,7 @@ class papaya_page extends base_object {
                   'viewmode_ext' => $request->getParameter(
                     'output_mode', NULL, NULL, \Papaya\Request::SOURCE_PATH
                   ),
-                  'url_params' => $requestUrl->getQuery(),
+                  'url_params' => $requestURL->getQuery(),
                 );
                 return $this->setRequestFromAlias($urlData);
               }
@@ -604,8 +605,8 @@ class papaya_page extends base_object {
           echo $urlMounter->getOutput($alias[0], $alias[2]);
           exit;
         default :
-          if ($aliasUrl = $urlMounter->getAliasURL($alias[0])) {
-            $this->doRedirect(302, $aliasUrl, 'Alias Redirect');
+          if ($aliasURL = $urlMounter->getAliasURL($alias[0])) {
+            $this->doRedirect(302, $aliasURL, 'Alias Redirect');
           } else {
             //no redirect needed - put data into variables
             return $this->setRequestFromAlias($alias[2]);
@@ -656,7 +657,7 @@ class papaya_page extends base_object {
     $reference->setParameters($parameters);
     //exchange request object
     $request = new \Papaya\Request($application->options);
-    $request->load(new \Papaya\Url($reference->get()));
+    $request->load(new \Papaya\URL($reference->get()));
     $request->setParameters(Request::SOURCE_QUERY, $parameters);
     $application->setObject(
       'Request', $request, \PapayaApplication::DUPLICATE_OVERWRITE
@@ -806,18 +807,18 @@ class papaya_page extends base_object {
     if ($result && $this->topic->topic['topic_protocol'] > 0) {
       $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != $this->topic->topic['topic_protocol']) {
-        $targetUrl = $this->topic->topic['topic_protocol'] == 2 ? 'https://' : 'http://';
-        $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
-        $targetUrl .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
-        $this->protectedRedirect('302', $targetUrl);
+        $targetURL = $this->topic->topic['topic_protocol'] == 2 ? 'https://' : 'http://';
+        $targetURL .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
+        $targetURL .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+        $this->protectedRedirect('302', $targetURL);
       }
     } elseif ($result && defined('PAPAYA_DEFAULT_PROTOCOL') && PAPAYA_DEFAULT_PROTOCOL > 0) {
       $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != PAPAYA_DEFAULT_PROTOCOL) {
-        $targetUrl = PAPAYA_DEFAULT_PROTOCOL == 2 ? 'https://' : 'http://';
-        $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
-        $targetUrl .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
-        $this->protectedRedirect('302', $targetUrl);
+        $targetURL = PAPAYA_DEFAULT_PROTOCOL == 2 ? 'https://' : 'http://';
+        $targetURL .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
+        $targetURL .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+        $this->protectedRedirect('302', $targetURL);
       }
     }
     return $result;
@@ -902,7 +903,7 @@ class papaya_page extends base_object {
       }
       $definition = new Cache\Identifier\Definition\Group(
         new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
-        new Cache\Identifier\Definition\Url(),
+        new Cache\Identifier\Definition\URL(),
         new Cache\Identifier\Definition\Surfer(),
         new Cache\Identifier\Definition\Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
         $definition,
@@ -1173,7 +1174,7 @@ class papaya_page extends base_object {
       $controllers->add(new Controller\Image());
       break;
     case 'urls':
-      $controllers->add(new Controller\Callback(array($this, 'getUrls')));
+      $controllers->add(new Controller\Callback(array($this, 'getURLs')));
       break;
     case 'status':
       $controllers->add(new Controller\Callback(array($this, 'getStatus')));
@@ -1208,11 +1209,11 @@ class papaya_page extends base_object {
   }
 
   public function getThemeFile() {
-    $themeWrapperUrl = new \Papaya\Theme\Wrapper\Url();
-    switch ($themeWrapperUrl->getMimetype()) {
+    $themeWrapperURL = new \Papaya\Theme\Wrapper\URL();
+    switch ($themeWrapperURL->getMimetype()) {
     case 'text/javascript' :
     case 'text/css' :
-      $themeWrapper = new \Papaya\Theme\Wrapper($themeWrapperUrl);
+      $themeWrapper = new \Papaya\Theme\Wrapper($themeWrapperURL);
       $response = $themeWrapper->getResponse();
       $response->send(TRUE);
       return TRUE;
@@ -1225,14 +1226,14 @@ class papaya_page extends base_object {
   *
   * @access public
   */
-  function getUrls() {
+  function getURLs() {
     $this->topic = $this->createPage();
     $map = new base_sitemap(
       $this->topic,
       array('root' => 0, 'format' => 'static', 'forstart' => 0, 'forend' => 999)
     );
     $this->sendHeader('Content-type: text/html');
-    echo $map->getUrls();
+    echo $map->getURLs();
   }
 
   /**
@@ -1540,9 +1541,9 @@ class papaya_page extends base_object {
   * @return string|FALSE return root url if it is different
   */
   function checkURLPathLevel() {
-    $pageUrl = $this->getWebLink();
-    if (FALSE !== strpos($pageUrl, '/')) {
-      return $this->getAbsoluteUrl($pageUrl);
+    $pageURL = $this->getWebLink();
+    if (FALSE !== strpos($pageURL, '/')) {
+      return $this->getAbsoluteURL($pageURL);
     }
     return FALSE;
   }
@@ -1604,9 +1605,9 @@ class papaya_page extends base_object {
     );
     $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
-      $serverUrl = \Papaya\Utility\Server\Protocol::get().'://'.\Papaya\Utility\Server\Name::get();
+      $serverURL = \Papaya\Utility\Server\Protocol::get().'://'.\Papaya\Utility\Server\Name::get();
       $url = strtr(
-        $serverUrl.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
+        $serverURL.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
         '\\',
         '/'
       );
@@ -1637,7 +1638,7 @@ class papaya_page extends base_object {
       $themeHandler = new \Papaya\Theme\Handler();
       $this->layout->parameters()->set('PAGE_THEME', $themeHandler->getTheme());
       $this->layout->parameters()->set('PAGE_THEME_SET', $themeHandler->getThemeSet());
-      $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getUrl());
+      $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getURL());
       $this->layout->parameters()->set('PAGE_THEME_PATH_LOCAL', $themeHandler->getLocalThemePath());
       $this->layout->parameters()->set(
         'PAGE_WEB_PATH', $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')
@@ -2075,7 +2076,7 @@ class papaya_page extends base_object {
         return '';
       }
     }
-    return $storage->getUrl($storageGroup, $storageId, $mimeType);
+    return $storage->getURL($storageGroup, $storageId, $mimeType);
   }
 
   /**
@@ -2494,20 +2495,20 @@ class papaya_page extends base_object {
       );
       if ((empty($_GET['redirect']) || $_GET['redirect'] != $errorStatus) &&
           $this->topic->topicId) {
-        $targetUrl = $this->getAbsoluteURL(
+        $targetURL = $this->getAbsoluteURL(
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
           $this->getBaseLink()
         );
-        $targetUrl .=
+        $targetURL .=
           '?redirect='.$errorStatus.
           '&msg='.urlencode($errorString).
           '&code='.(int)$errorCode;
 
         $protocol = \Papaya\Utility\Server\Protocol::get();
-        $currentUrl = $protocol.'://'.\Papaya\Utility\Server\Name::get().$_SERVER['REQUEST_URI'];
+        $currentURL = $protocol.'://'.\Papaya\Utility\Server\Name::get().$_SERVER['REQUEST_URI'];
 
-        if (base_url_analyze::comparePathDepth($targetUrl, $currentUrl) !== 0) {
-          $this->doRedirect(302, $targetUrl, 'Error Redirect');
+        if (base_url_analyze::comparePathDepth($targetURL, $currentURL) !== 0) {
+          $this->doRedirect(302, $targetURL, 'Error Redirect');
         } else {
           $this->sendHTTPStatus($errorStatus);
         }

@@ -458,7 +458,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
     $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       'http://www.sample.tld/papaya-files/media/0/012345678901234567890123456789012_v1.gif',
-      $service->getUrl(
+      $service->getURL(
         'media',
         '012345678901234567890123456789012_v1',
         'image/gif'
@@ -472,7 +472,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
     $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       'http://www.sample.tld/papaya-files/media/0/012345678901234567890123456789012_v1.gif',
-      $service->getUrl(
+      $service->getURL(
         'media',
         '012345678901234567890123456789012_v1.gif',
         'image/gif'
@@ -485,7 +485,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
-      $service->getUrl('INVALID_GROUP', 'INVALID_STORAGE_ID', 'image/gif')
+      $service->getURL('INVALID_GROUP', 'INVALID_STORAGE_ID', 'image/gif')
     );
   }
 
@@ -500,7 +500,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
     );
     $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
-      $service->getUrl(
+      $service->getURL(
         'media',
         '012345678901234567890123456789012_v1',
         'image/gif'

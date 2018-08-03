@@ -30,12 +30,12 @@ namespace Papaya\Theme\Wrapper;
  * @package Papaya-Library
  * @subpackage Theme
  */
-class Url {
+class URL {
 
   /**
-   * @var \Papaya\Url
+   * @var \Papaya\URL
    */
-  private $_requestUrl = NULL;
+  private $_requestURL = NULL;
 
   private $_mimetypeIdentification = array(
     'text/javascript' => '((/[^/]+)/js(\\.php)?$)',
@@ -51,13 +51,13 @@ class Url {
   /**
    * Initialize using an url object.
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    */
-  public function __construct(\Papaya\Url $url = NULL) {
+  public function __construct(\Papaya\URL $url = NULL) {
     if (isset($url)) {
-      $this->_requestUrl = $url;
+      $this->_requestURL = $url;
     } else {
-      $this->_requestUrl = new \Papaya\Url\Current();
+      $this->_requestURL = new \Papaya\URL\Current();
     }
   }
 
@@ -67,7 +67,7 @@ class Url {
    * @return string|NULL
    */
   public function getMimetype() {
-    $path = $this->_requestUrl->getPath();
+    $path = $this->_requestURL->getPath();
     foreach ($this->_mimetypeIdentification as $type => $pattern) {
       if (preg_match($pattern, $path)) {
         return $type;
@@ -80,18 +80,17 @@ class Url {
    * Getter/Setter for url parameters.
    *
    * If the $_parameters property is not set it will be initialized using the query string of the
-   * $_requestUrl property.
+   * $_requestURL property.
    *
    * @param \Papaya\Request\Parameters $parameters
    * @return \Papaya\Request\Parameters
    */
   public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
-    if (isset($parameters)) {
+    if (NULL !== $parameters) {
       $this->_parameters = $parameters;
-    }
-    if (is_null($parameters)) {
+    } elseif (NULL === $parameters) {
       $query = new \Papaya\Request\Parameters\QueryString();
-      $query->setString($this->_requestUrl->getQuery());
+      $query->setString($this->_requestURL->getQuery());
       $this->_parameters = $query->values();
     }
     return $this->_parameters;
@@ -136,7 +135,7 @@ class Url {
    * @return string
    */
   public function getTheme() {
-    $path = strrchr(dirname($this->_requestUrl->getPath()), '/');
+    $path = strrchr(dirname($this->_requestURL->getPath()), '/');
     return substr($path, 1);
   }
 

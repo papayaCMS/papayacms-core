@@ -101,7 +101,7 @@ class Text extends \Papaya\UI\Listview\Subitem {
       )
     );
     if (!empty($this->_actionParameters)) {
-      $subitem->appendElement('a', array('href' => $this->getUrl()), (string)$this->_text);
+      $subitem->appendElement('a', array('href' => $this->getURL()), (string)$this->_text);
     } else {
       $subitem->appendText((string)$this->_text);
     }
@@ -116,7 +116,7 @@ class Text extends \Papaya\UI\Listview\Subitem {
    *
    * @return string
    */
-  protected function getUrl() {
+  protected function getURL() {
     $reference = clone $this->reference();
     if (isset($this->_reference)) {
       $reference->setParameters($this->_actionParameters);

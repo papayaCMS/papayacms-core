@@ -106,7 +106,7 @@ class Handler {
   ) {
     $this->initHTTPClient();
     $this->_client->setMethod($method);
-    $this->_client->setUrl($url);
+    $this->_client->setURL($url);
     if (!empty($parameters)) {
       $this->_client->addRequestData($parameters);
     }

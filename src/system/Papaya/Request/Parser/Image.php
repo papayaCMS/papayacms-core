@@ -40,7 +40,7 @@ class Image extends \Papaya\Request\Parser {
   /**
    * Parse url and return data
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    * @return FALSE|array
    */
   public function parse($url) {

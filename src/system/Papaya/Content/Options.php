@@ -61,19 +61,19 @@ interface Options {
   const CACHE_NONE = 0;
 
   /**
-   * Url scheme, use system option PAPAYA_DEFAULT_PROTOCOL
+   * URL scheme, use system option PAPAYA_DEFAULT_PROTOCOL
    *
    * @var integer
    */
   const SCHEME_SYSTEM = 0;
   /**
-   * Url scheme, allow only http
+   * URL scheme, allow only http
    *
    * @var integer
    */
   const SCHEME_HTTP = 1;
   /**
-   * Url scheme, allow only https
+   * URL scheme, allow only https
    *
    * @var integer
    */

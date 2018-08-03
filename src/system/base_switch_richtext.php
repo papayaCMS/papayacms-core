@@ -113,11 +113,11 @@ class base_switch_richtext extends base_object {
 
     if ($reloadPage) {
       $protocol = \Papaya\Utility\Server\Protocol::get();
-      $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+      $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
       if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
         header('X-Papaya-Status: switching richtext editor');
       }
-      header('Location: '.str_replace(array('\r', '\n'), '', $toUrl));
+      header('Location: '.str_replace(array('\r', '\n'), '', $toURL));
       exit;
     }
   }

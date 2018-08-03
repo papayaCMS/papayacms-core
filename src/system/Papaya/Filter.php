@@ -45,9 +45,9 @@ interface Filter {
   const IS_TEXT = 'isText';
   const IS_TIME = 'isTime';
   const IS_TEXT_WITH_NUMBERS = 'isTextWithNumbers';
-  const IS_URL = 'isUrl';
-  const IS_URL_HOST = 'isUrlHost';
-  const IS_URL_HTTP = 'isUrlWeb';
+  const IS_URL = 'isURL';
+  const IS_URL_HOST = 'isURLHost';
+  const IS_URL_HTTP = 'isURLWeb';
   const IS_XML = 'isXML';
 
   /**

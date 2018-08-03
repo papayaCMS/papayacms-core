@@ -13,36 +13,46 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Url\Transformer;
+namespace Papaya\URL\Transformer;
 /**
- * Papaya URL Transformer, calculates new absolute url from an absolute url and a relative url
+ * Papaya URL Transformer Cleanup, parses a url, removes "./", "../" and "//" from it.
  *
  * @package Papaya-Library
  * @subpackage URL
  */
-class Absolute {
+class Cleanup {
 
   /**
-   * Calculates an absolute url from a url and a (possibly relative) path
+   * Remove relative paths from the url
    *
-   * @param \Papaya\Url $currentUrl current url
    * @param string $target url to transform
    * @return string
    */
-  public function transform(\Papaya\Url $currentUrl, $target) {
-    $result = NULL;
-    if (($url = parse_url($target)) && isset($url['host'])) {
-      return $target;
-    } elseif (substr($target, 0, 1) == '/') {
-      $newPath = $target;
-    } else {
-      $currentPath = $currentUrl->getPath();
-      // remove any potential trailing file name from the path
-      $basePath = substr($currentPath, 0, strrpos($currentPath, '/'));
-      $newPath = $basePath.'/'.$target;
-    }
-    if (!empty($newPath)) {
-      $result = $currentUrl->getHostUrl().$this->_calculateRealPath($newPath);
+  public function transform($target) {
+    $result = '';
+    if ($url = parse_url($target)) {
+      $url['path'] = empty($url['path']) ? '/' : $this->_calculateRealPath($url['path']);
+      if (isset($url['host'])) {
+        $result .= empty($url['scheme']) ? 'http://' : $url['scheme'].'://';
+        if (isset($url['user'])) {
+          $result .= $url['user'];
+          if (isset($url['pass'])) {
+            $result .= ':'.$url['pass'];
+          }
+          $result .= '@';
+        }
+        $result .= $url['host'];
+        if (isset($url['port'])) {
+          $result .= ':'.$url['port'];
+        }
+      }
+      $result .= \Papaya\Utility\Arrays::get($url, 'path', '');
+      if (isset($url['query'])) {
+        $result .= '?'.$url['query'];
+      }
+      if (isset($url['fragment'])) {
+        $result .= '#'.$url['fragment'];
+      }
     }
     return $result;
   }
@@ -55,30 +65,29 @@ class Absolute {
    */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
-    $leadingSlash = ($path{0} == '/');
-    $trailingSlash = (substr($path, -1) == '/');
+    $leadingSlash = (0 === strpos($path, '/'));
+    $trailingSlash = ('/' === substr($path, -1));
 
     $pathElements = explode('/', $path);
     $outputElements = array();
     foreach ($pathElements as $element) {
-      if ($element == '..') {
+      if ('..' === $element) {
         if (count($outputElements) > 0) {
           // going one level up, we drop the last valid folder element
           array_pop($outputElements);
         }
-      } elseif ($element != '.' && $element != '') {
+      } elseif ('.' !== $element && '' !== $element) {
         // ignoring same folder and empty elements, adding valid folders to output
         $outputElements[] = $element;
       }
     }
 
-    $result = ($leadingSlash) ? '/' : '';
+    $result = $leadingSlash ? '/' : '';
     $result .= implode('/', $outputElements);
-    if ($result != '/' && $trailingSlash) {
+    if ('/' !== $result && $trailingSlash) {
       $result .= '/';
     }
 
     return $result;
   }
-
 }

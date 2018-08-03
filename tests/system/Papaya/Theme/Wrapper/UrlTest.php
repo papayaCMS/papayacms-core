@@ -13,80 +13,80 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::__construct
+  * @covers \Papaya\Theme\Wrapper\URL::__construct
   */
   public function testConstructorWithUrl() {
-    $requestUrl = $this->createMock(Url::class);
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url($requestUrl);
+    $requestUrl = $this->createMock(URL::class);
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL($requestUrl);
     $this->assertAttributeSame(
-      $requestUrl, '_requestUrl', $wrapperUrl
+      $requestUrl, '_requestURL', $wrapperUrl
     );
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::__construct
+  * @covers \Papaya\Theme\Wrapper\URL::__construct
   */
   public function testConstructorWithoutUrl() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url();
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL();
     $this->assertAttributeInstanceOf(
-      Url\Current::class, '_requestUrl', $wrapperUrl
+      URL\Current::class, '_requestURL', $wrapperUrl
     );
   }
 
   /**
-   * @covers \Papaya\Theme\Wrapper\Url::getMimetype
+   * @covers \Papaya\Theme\Wrapper\URL::getMimetype
    * @dataProvider provideValidWrapperUrls
    * @param string $mimetype
    * @param string $url
    */
   public function testGetMimetypeExpectingMimeType($mimetype, $url) {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(new Url($url));
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(new URL($url));
     $this->assertEquals($mimetype, $wrapperUrl->getMimetype());
   }
 
   /**
-   * @covers \Papaya\Theme\Wrapper\Url::getMimetype
+   * @covers \Papaya\Theme\Wrapper\URL::getMimetype
    * @dataProvider provideInvalidWrapperUrls
    * @param string $url
    */
   public function testGetMimetypeExpectingFalse($url) {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(new Url($url));
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(new URL($url));
     $this->assertFalse($wrapperUrl->getMimetype());
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::getThemeSet
+  * @covers \Papaya\Theme\Wrapper\URL::getThemeSet
   */
   public function testGetThemeSet() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/js?set=42')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/js?set=42')
     );
     $this->assertEquals(42, $wrapperUrl->getThemeSet());
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::getMimetype
+  * @covers \Papaya\Theme\Wrapper\URL::getMimetype
   */
   public function testGetThemeSetExpectingZero() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/js')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/js')
     );
     $this->assertEquals(0, $wrapperUrl->getThemeSet());
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::parameters
+  * @covers \Papaya\Theme\Wrapper\URL::parameters
   */
   public function testParametersSetParameters() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $wrapper = new \Papaya\Theme\Wrapper\Url(new Url('http://www.sample.tld'));
+    $wrapper = new \Papaya\Theme\Wrapper\URL(new URL('http://www.sample.tld'));
     $wrapper->parameters($parameters);
     $this->assertAttributeSame(
       $parameters, '_parameters', $wrapper
@@ -94,32 +94,32 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::parameters
+  * @covers \Papaya\Theme\Wrapper\URL::parameters
   */
   public function testParametersGetParametersAfterSet() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $wrapper = new \Papaya\Theme\Wrapper\Url(new Url('http://www.sample.tld'));
+    $wrapper = new \Papaya\Theme\Wrapper\URL(new URL('http://www.sample.tld'));
     $this->assertSame(
       $parameters, $wrapper->parameters($parameters)
     );
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::parameters
+  * @covers \Papaya\Theme\Wrapper\URL::parameters
   */
   public function testParametersGetParametersImplicitCreate() {
-    $wrapper = new \Papaya\Theme\Wrapper\Url(new Url('http://www.sample.tld?foo=bar'));
+    $wrapper = new \Papaya\Theme\Wrapper\URL(new URL('http://www.sample.tld?foo=bar'));
     $parameters = $wrapper->parameters();
     $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
     $this->assertEquals(array('foo' => 'bar'), $parameters->toArray());
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::getFiles
+  * @covers \Papaya\Theme\Wrapper\URL::getFiles
   */
   public function testGetFiles() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/js?files=foo,bar&rev=42')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/js?files=foo,bar&rev=42')
     );
     $this->assertEquals(
       array('foo', 'bar'), $wrapperUrl->getFiles()
@@ -127,11 +127,11 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::getGroup
+  * @covers \Papaya\Theme\Wrapper\URL::getGroup
   */
   public function testGetGroup() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/js?group=foo&rev=42')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/js?group=foo&rev=42')
     );
     $this->assertEquals(
       'foo', $wrapperUrl->getGroup()
@@ -139,14 +139,14 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Theme\Wrapper\Url::getTheme
+   * @covers \Papaya\Theme\Wrapper\URL::getTheme
    * @dataProvider provideThemesFromUrl
    * @param string $theme
    * @param string $url
    */
   public function testGetTheme($theme, $url) {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url($url)
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL($url)
     );
     $this->assertEquals(
       $theme, $wrapperUrl->getTheme()
@@ -154,21 +154,21 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::allowDirectories
+  * @covers \Papaya\Theme\Wrapper\URL::allowDirectories
   */
   public function testAllowDirectoriesExpectingTrue() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/css?rec=yes')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/css?rec=yes')
     );
     $this->assertTrue($wrapperUrl->allowDirectories());
   }
 
   /**
-  * @covers \Papaya\Theme\Wrapper\Url::allowDirectories
+  * @covers \Papaya\Theme\Wrapper\URL::allowDirectories
   */
   public function testAllowDirectoriesExpectingFalse() {
-    $wrapperUrl = new \Papaya\Theme\Wrapper\Url(
-      new Url('http://www.sample.tld/papaya-themes/theme/css')
+    $wrapperUrl = new \Papaya\Theme\Wrapper\URL(
+      new URL('http://www.sample.tld/papaya-themes/theme/css')
     );
     $this->assertFalse($wrapperUrl->allowDirectories());
   }

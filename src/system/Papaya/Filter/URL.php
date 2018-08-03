@@ -20,7 +20,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Url implements \Papaya\Filter {
+class URL implements \Papaya\Filter {
 
   /**
    * Pattern to check for a linebreak

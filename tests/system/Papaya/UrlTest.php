@@ -13,25 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaUrlTest extends \PapayaTestCase {
 
   /**
-  * @covers Url::__construct
+  * @covers URL::__construct
   */
   public function testConstructor() {
-    $urlObject = new Url();
+    $urlObject = new URL();
     $this->assertNull($this->readAttribute($urlObject, '_elements'));
   }
 
   /**
-  * @covers Url::__construct
+  * @covers URL::__construct
   */
   public function testConstructorWithUrl() {
-    $urlObject = new Url(
+    $urlObject = new URL(
       'http://www.domain.tld'
     );
     $this->assertEquals(
@@ -44,32 +44,32 @@ class PapayaUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Url::setUrl
+   * @covers URL::setURLString
    * @dataProvider setUrlDataProvider
    * @param string $url
    * @param array $expected
    */
   public function testSetUrl($url, array $expected) {
-    $urlObject = new Url();
-    $urlObject->setUrl($url);
+    $urlObject = new URL();
+    $urlObject->setURLString($url);
     $this->assertAttributeEquals(
       $expected, '_elements', $urlObject
     );
   }
 
   /**
-  * @covers Url::__toString
+  * @covers URL::__toString
   */
   public function testToString() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $this->assertEquals(
       'http://www.domain.tld', (string)$urlObject
     );
   }
 
   /**
-  * @covers Url::__toString
+  * @covers URL::__toString
   */
   public function testToStringCapturesInvalidArgumentException() {
     $urlObject = new \PapayaUrl_TestProxy_ForToString();
@@ -78,7 +78,7 @@ class PapayaUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Url::__toString
+  * @covers URL::__toString
   */
   public function testToStringCapturesBadMethodCallException() {
     $urlObject = new \PapayaUrl_TestProxy_ForToString();
@@ -88,53 +88,53 @@ class PapayaUrlTest extends \PapayaTestCase {
 
 
   /**
-   * @covers Url::getUrl
+   * @covers URL::getURL
    * @dataProvider getUrlDataProvider
    * @param string $url
    */
   public function testGetUrl($url) {
-    $urlObject = new Url();
-    $urlObject->setUrl($url);
+    $urlObject = new URL();
+    $urlObject->setURLString($url);
     $this->assertEquals(
       $url,
-      $urlObject->getUrl()
+      $urlObject->getURL()
     );
   }
 
   /**
-  * @covers Url::getPathUrl
+  * @covers URL::getPathURL
   * @dataProvider getUrlDataProvider
   */
   public function testGetPathUrl() {
-    $urlObject = new Url();
-    $urlObject->setUrl('https://username:password@www.domain.tld:8080/path?arg=value#anchor');
+    $urlObject = new URL();
+    $urlObject->setURLString('https://username:password@www.domain.tld:8080/path?arg=value#anchor');
     $this->assertEquals(
       'https://username:password@www.domain.tld:8080/path',
-      $urlObject->getPathUrl()
+      $urlObject->getPathURL()
     );
   }
 
   /**
-   * @covers Url::getHostUrl
+   * @covers URL::getHostURL
    * @dataProvider getHostUrlDataProvider
    * @param string $url
    * @param string $hostUrl
    */
   public function testGetHostUrl($url, $hostUrl) {
-    $urlObject = new Url();
-    $urlObject->setUrl($url);
+    $urlObject = new URL();
+    $urlObject->setURLString($url);
     $this->assertEquals(
       $hostUrl,
-      $urlObject->getHostUrl()
+      $urlObject->getHostURL()
     );
   }
 
   /**
-  * @covers Url::setScheme
+  * @covers URL::setScheme
   */
   public function testSetScheme() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $urlObject->setScheme('ftp');
     $this->assertAttributeEquals(
       array(
@@ -145,22 +145,22 @@ class PapayaUrlTest extends \PapayaTestCase {
       $urlObject
     );
     $this->assertEquals(
-      'ftp://www.domain.tld', $urlObject->getUrl()
+      'ftp://www.domain.tld', $urlObject->getURL()
     );
   }
 
   /**
-  * @covers Url::setScheme
+  * @covers URL::setScheme
   */
   public function testSetSchemeExpectingException() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $this->expectException(InvalidArgumentException::class);
     $urlObject->setScheme('http://');
   }
 
   /**
-   * @covers Url::setHost
+   * @covers URL::setHost
    * @dataProvider setHostDataProvider
    * @param string $url
    * @param string $host
@@ -168,35 +168,35 @@ class PapayaUrlTest extends \PapayaTestCase {
    * @param string $expected
    */
   public function testSetHost($url, $host, $elements, $expected) {
-    $urlObject = new Url();
-    $urlObject->setUrl($url);
+    $urlObject = new URL();
+    $urlObject->setURLString($url);
     $urlObject->setHost($host);
     $this->assertAttributeEquals(
       $elements,
       '_elements',
       $urlObject
     );
-    $this->assertEquals($expected, $urlObject->getUrl());
+    $this->assertEquals($expected, $urlObject->getURL());
   }
 
   /**
-   * @covers Url::setHost
+   * @covers URL::setHost
    * @expectedException InvalidArgumentException
    * @dataProvider setHostDataProviderExceptions
    * @param string $host
    */
   public function testSetHostExpectingException($host) {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $urlObject->setHost($host);
   }
 
   /**
-  * @covers Url::setPort
+  * @covers URL::setPort
   */
   public function testSetPort() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld:80');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld:80');
     $urlObject->setPort('8080');
     $this->assertAttributeEquals(
       array(
@@ -208,26 +208,26 @@ class PapayaUrlTest extends \PapayaTestCase {
       $urlObject
     );
     $this->assertEquals(
-      'http://www.domain.tld:8080', $urlObject->getUrl()
+      'http://www.domain.tld:8080', $urlObject->getURL()
     );
   }
 
   /**
-  * @covers Url::setPort
+  * @covers URL::setPort
   * @expectedException InvalidArgumentException
   */
   public function testSetPortExpectingException() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $urlObject->setPort('not-a-number-123');
   }
 
   /**
-  * @covers Url::setPath
+  * @covers URL::setPath
   */
   public function testSetPath() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld/foo');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld/foo');
     $urlObject->setPath('/bar');
     $this->assertAttributeEquals(
       array(
@@ -239,26 +239,26 @@ class PapayaUrlTest extends \PapayaTestCase {
       $urlObject
     );
     $this->assertEquals(
-      'http://www.domain.tld/bar', $urlObject->getUrl()
+      'http://www.domain.tld/bar', $urlObject->getURL()
     );
   }
 
   /**
-  * @covers Url::setPath
+  * @covers URL::setPath
   */
   public function testSetPathExpectingException() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $this->expectException(InvalidArgumentException::class);
     $urlObject->setPath('bar');
   }
 
   /**
-  * @covers Url::setQuery
+  * @covers URL::setQuery
   */
   public function testSetQuery() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $urlObject->setQuery('foo=bar');
     $this->assertAttributeEquals(
       array(
@@ -270,74 +270,74 @@ class PapayaUrlTest extends \PapayaTestCase {
       $urlObject
     );
     $this->assertEquals(
-      'http://www.domain.tld?foo=bar', $urlObject->getUrl()
+      'http://www.domain.tld?foo=bar', $urlObject->getURL()
     );
   }
 
   /**
-  * @covers Url::setQuery
+  * @covers URL::setQuery
   */
   public function testSetQueryExpectingException() {
-    $urlObject = new Url();
-    $urlObject->setUrl('http://www.domain.tld');
+    $urlObject = new URL();
+    $urlObject->setURLString('http://www.domain.tld');
     $this->expectException(InvalidArgumentException::class);
     $urlObject->setQuery('?bar');
   }
 
   /**
-   * @covers Url::__call
+   * @covers URL::__call
    * @dataProvider provideValidDataForMagicMethodCall
    * @param mixed $expected
    * @param string $method
    */
   public function testMagicMethodCall($expected, $method) {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->assertEquals(
       $expected, $urlObject->$method()
     );
   }
 
   /**
-  * @covers Url::__call
+  * @covers URL::__call
   */
   public function testMagicMethodCallExpectingException() {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $urlObject->invalidMethod();
   }
 
   /**
-   * @covers Url::__get
+   * @covers URL::__get
    * @dataProvider provideValidDataForMagicMethodGet
    * @param mixed $expected
    * @param string $property
    */
   public function testMagicMethodGet($expected, $property) {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->assertEquals(
       $expected, $urlObject->$property
     );
   }
 
   /**
-  * @covers Url::__get
+  * @covers URL::__get
   */
   public function testMagicMethodGetExpectingException() {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $urlObject->invalidProperty;
   }
 
   /**
-   * @covers       Url
+   * @covers       URL
    * @dataProvider provideValidDataForMagicMethodSet
    * @param mixed $expected
    * @param string $property
    */
   public function testMagicMethodSet($expected, $property) {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $urlObject->$property = $expected;
     $this->assertEquals(
       $expected, $urlObject->$property
@@ -345,31 +345,31 @@ class PapayaUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers       Url
+   * @covers       URL
    * @dataProvider provideInvalidDataForMagicMethodSet
    * @param string $property
    * @param mixed $value
    */
   public function testMagicMethodSetWithInvalidValueExpectionException($property, $value) {
-    $urlObject = new Url('http://test.tld');
+    $urlObject = new URL('http://test.tld');
     $this->expectException(InvalidArgumentException::class);
     $urlObject->$property = $value;
   }
 
   /**
-  * @covers Url::__set
+  * @covers URL::__set
   */
   public function testMagicMethodSetReadonlyExpectingException() {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->expectException(BadMethodCallException::class);
     $urlObject->user = 'readonly';
   }
 
   /**
-  * @covers Url::__set
+  * @covers URL::__set
   */
   public function testMagicMethodSetInvalidExpectingException() {
-    $urlObject = new Url('http://username:password@hostname:8080/path?arg=value#anchor');
+    $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $urlObject->invalidProperty = 'non existing';
@@ -530,14 +530,14 @@ class PapayaUrlTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUrl_TestProxy_ForToString extends Url {
+class PapayaUrl_TestProxy_ForToString extends URL {
 
   /**
    * @var Exception
    */
   public $exception;
 
-  public function getUrl() {
+  public function getURL() {
     throw $this->exception;
   }
 }

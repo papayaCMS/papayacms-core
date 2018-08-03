@@ -80,7 +80,7 @@ class PapayaMediaStorageService_TestProxy extends \Papaya\Media\Storage\Service 
   public function get($storageGroup, $storageId) {
   }
 
-  public function getUrl($storageGroup, $storageId, $mimeType) {
+  public function getURL($storageGroup, $storageId, $mimeType) {
   }
 
   public function getLocalFile($storageGroup, $storageId) {

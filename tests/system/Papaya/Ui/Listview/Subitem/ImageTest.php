@@ -117,7 +117,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
-  * @covers \Papaya\UI\Listview\Subitem\Image::getUrl
+  * @covers \Papaya\UI\Listview\Subitem\Image::getURL
   */
   public function testAppendToWithReference() {
     $document = new \Papaya\XML\Document();
@@ -147,7 +147,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
-  * @covers \Papaya\UI\Listview\Subitem\Image::getUrl
+  * @covers \Papaya\UI\Listview\Subitem\Image::getURL
   */
   public function testAppendToWithReferenceFromListview() {
     $document = new \Papaya\XML\Document();

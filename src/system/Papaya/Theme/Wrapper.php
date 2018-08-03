@@ -24,9 +24,9 @@ namespace Papaya\Theme;
 class Wrapper extends \Papaya\Application\BaseObject {
 
   /**
-   * @var \Papaya\Theme\Wrapper\Url
+   * @var Wrapper\URL
    */
-  private $_wrapperUrl = NULL;
+  private $_wrapperURL = NULL;
 
   /**
    * Theme handler object, provides current theme and local path
@@ -43,7 +43,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
   /**
    * Theme group object, allows to read files from a group specified in theme.xml.
    *
-   * @var \Papaya\Theme\Wrapper\Group
+   * @var Wrapper\Group
    */
   private $_group = NULL;
 
@@ -62,28 +62,27 @@ class Wrapper extends \Papaya\Application\BaseObject {
    *
    * If no object if provided, a default object with access to the current request url is created.
    *
-   * @param \Papaya\Theme\Wrapper\Url $wrapperUrl
+   * @param Wrapper\URL $wrapperURL
    */
-  public function __construct(\Papaya\Theme\Wrapper\Url $wrapperUrl = NULL) {
-    if (isset($wrapperUrl)) {
-      $this->_wrapperUrl = $wrapperUrl;
+  public function __construct(Wrapper\URL $wrapperURL = NULL) {
+    if (NULL !== $wrapperURL) {
+      $this->_wrapperURL = $wrapperURL;
     } else {
-      $this->_wrapperUrl = new \Papaya\Theme\Wrapper\Url();
+      $this->_wrapperURL = new Wrapper\URL();
     }
   }
 
   /**
    * Get/Set the theme wrapper group object.
    *
-   * @param \Papaya\Theme\Wrapper\Group $group
-   * @return \Papaya\Theme\Wrapper\Group
+   * @param Wrapper\Group $group
+   * @return Wrapper\Group
    */
-  public function group(\Papaya\Theme\Wrapper\Group $group = NULL) {
-    if (isset($group)) {
+  public function group(Wrapper\Group $group = NULL) {
+    if (NULL !== $group) {
       $this->_group = $group;
-    }
-    if (is_null($this->_group)) {
-      $this->_group = new \Papaya\Theme\Wrapper\Group(
+    } elseif (NULL === $this->_group) {
+      $this->_group = new Wrapper\Group(
         $this->handler()->getLocalThemePath().'theme.xml'
       );
     }
@@ -104,9 +103,9 @@ class Wrapper extends \Papaya\Application\BaseObject {
    */
   public function getResponse() {
     $application = $this->papaya();
-    $mimetype = $this->_wrapperUrl->getMimetype();
-    $theme = $this->_wrapperUrl->getTheme();
-    $themeSetId = $this->_wrapperUrl->getThemeSet();
+    $mimetype = $this->_wrapperURL->getMimetype();
+    $theme = $this->_wrapperURL->getTheme();
+    $themeSetId = $this->_wrapperURL->getThemeSet();
     $compress = (
       $application->request->allowCompression() &&
       $application->options->get('PAPAYA_COMPRESS_CACHE_THEMES', TRUE)
@@ -274,7 +273,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @return array
    */
   public function getFiles() {
-    $mimetype = $this->_wrapperUrl->getMimetype();
+    $mimetype = $this->_wrapperURL->getMimetype();
     if ($mimetype) {
       switch ($mimetype) {
         case 'text/javascript' :
@@ -284,16 +283,16 @@ class Wrapper extends \Papaya\Application\BaseObject {
         case 'text/css' :
         default :
           $extension = 'css';
-          $allowDirectories = $this->_wrapperUrl->allowDirectories();
+          $allowDirectories = $this->_wrapperURL->allowDirectories();
           $this->templateEngine(new \PapayaTemplateEngineSimple());
       }
-      if ($group = $this->_wrapperUrl->getGroup()) {
+      if ($group = $this->_wrapperURL->getGroup()) {
         $files = $this->group()->getFiles($group, $extension);
         if (!$allowDirectories) {
           $allowDirectories = $this->group()->allowDirectories($group, $extension);
         }
       } else {
-        $files = $this->_wrapperUrl->getFiles();
+        $files = $this->_wrapperURL->getFiles();
       }
       if ($allowDirectories) {
         $pattern = '(^([a-z\d_-]+/)*[a-z\d._-]+\\.'.preg_quote($extension).'$)iS';

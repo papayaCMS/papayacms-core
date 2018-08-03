@@ -1285,14 +1285,14 @@ class base_auth extends base_db {
       );
       if (!\Papaya\Utility\Server\Protocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
-        $url = new \Papaya\Url\Current();
+        $url = new \Papaya\URL\Current();
         $url->setScheme('https');
         $result .= sprintf(
           '<hint><p>%s</p><a href="%s">%s</a></hint>'.LF,
           papaya_strings::escapeHTMLChars(
             $this->_gt('If possible, please use https to access the administration interface.')
           ),
-          papaya_strings::escapeHTMLChars($url->getUrl()),
+          papaya_strings::escapeHTMLChars($url->getURL()),
           papaya_strings::escapeHTMLChars($this->_gt('Switch to Https!'))
         );
       }

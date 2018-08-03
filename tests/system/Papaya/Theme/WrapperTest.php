@@ -15,7 +15,7 @@
 
 use Papaya\Cache\Service;
 use Papaya\Content\Theme\Set;
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -25,10 +25,10 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::__construct
   */
   public function testConstructorWithUrl() {
-    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\Url::class);
+    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\URL::class);
     $wrapper = new \Papaya\Theme\Wrapper($wrapperUrl);
     $this->assertAttributeSame(
-      $wrapperUrl, '_wrapperUrl', $wrapper
+      $wrapperUrl, '_wrapperURL', $wrapper
     );
   }
 
@@ -38,7 +38,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   public function testConstructorWithoutUrl() {
     $wrapper = new \Papaya\Theme\Wrapper();
     $this->assertAttributeInstanceOf(
-      \Papaya\Theme\Wrapper\Url::class, '_wrapperUrl', $wrapper
+      \Papaya\Theme\Wrapper\URL::class, '_wrapperURL', $wrapper
     );
   }
 
@@ -276,8 +276,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
    * @param $allowDirectories
    */
   public function testGetFiles($validated, $files, $mimetype, $allowDirectories) {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Wrapper\Url $wrapperUrl */
-    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\Url::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Wrapper\URL $wrapperUrl */
+    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\URL::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -304,7 +304,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::getFiles
   */
   public function testGetFilesUsingGroup() {
-    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\Url::class);
+    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\URL::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -342,7 +342,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::getFiles
   */
   public function testGetFilesUsingGroupRecursionByUrl() {
-    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\Url::class);
+    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\URL::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -375,7 +375,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::getFiles
   */
   public function testGetFilesWithEmptyMimeType() {
-    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\Url::class);
+    $wrapperUrl = $this->createMock(\Papaya\Theme\Wrapper\URL::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -408,8 +408,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   */
   public function testGetResponse() {
     $wrapper = new \Papaya\Theme\Wrapper(
-      new \Papaya\Theme\Wrapper\Url(
-        new Url('http://www.sample.tld/theme/css?files=wrapperTest')
+      new \Papaya\Theme\Wrapper\URL(
+        new URL('http://www.sample.tld/theme/css?files=wrapperTest')
       )
     );
     $wrapper->papaya($this->getResponseApplicationFixture(array(), FALSE));
@@ -440,8 +440,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   */
   public function testGetResponseCompressed() {
     $wrapper = new \Papaya\Theme\Wrapper(
-      new \Papaya\Theme\Wrapper\Url(
-        new Url('http://www.sample.tld/theme/css?files=wrapperTest')
+      new \Papaya\Theme\Wrapper\URL(
+        new URL('http://www.sample.tld/theme/css?files=wrapperTest')
       )
     );
     $wrapper->papaya($this->getResponseApplicationFixture(array(), TRUE));
@@ -496,8 +496,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
         $this->greaterThan(0)
       );
     $wrapper = new \Papaya\Theme\Wrapper(
-      new \Papaya\Theme\Wrapper\Url(
-        new Url('http://www.sample.tld/test/css?files=wrapperTest')
+      new \Papaya\Theme\Wrapper\URL(
+        new URL('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(
@@ -546,8 +546,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
       )
       ->will($this->returnValue('CACHED CSS'));
     $wrapper = new \Papaya\Theme\Wrapper(
-      new \Papaya\Theme\Wrapper\Url(
-        new Url('http://www.sample.tld/test/css?files=wrapperTest')
+      new \Papaya\Theme\Wrapper\URL(
+        new URL('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(
@@ -586,8 +586,8 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
       )
       ->will($this->returnValue(time() - 900));
     $wrapper = new \Papaya\Theme\Wrapper(
-      new \Papaya\Theme\Wrapper\Url(
-        new Url('http://www.sample.tld/test/css?files=wrapperTest')
+      new \Papaya\Theme\Wrapper\URL(
+        new URL('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(

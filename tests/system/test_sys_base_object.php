@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../bootstrap.php';
 \PapayaTestCase::defineConstantDefaults('PAPAYA_URL_EXTENSION');
@@ -33,7 +33,7 @@ class PapayaLibSystemBaseObjectTest extends \PapayaTestCase {
         array('PAPAYA_URL_LEVEL_SEPARATOR' => ':')
       )
     );
-    $request->load(new Url('http://www.blah.tld/index.3.7.html'));
+    $request->load(new URL('http://www.blah.tld/index.3.7.html'));
 
     $obj = new base_object;
     $obj->papaya($this->mockPapaya()->application(array('Request' => $request)));

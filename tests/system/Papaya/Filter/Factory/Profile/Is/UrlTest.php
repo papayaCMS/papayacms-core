@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsUrlTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\IsUrl::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsURL::getFilter
    */
   public function testGetFilterExpectTrue() {
-    $profile = new \Papaya\Filter\Factory\Profile\IsUrl();
+    $profile = new \Papaya\Filter\Factory\Profile\IsURL();
     $this->assertTrue($profile->getFilter()->validate('http://sample.tld/path/file.html?foo=bar'));
   }
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\IsUrl::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsURL::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \Papaya\Filter\Factory\Profile\IsUrl();
+    $profile = new \Papaya\Filter\Factory\Profile\IsURL();
     $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate('foo');
   }

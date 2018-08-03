@@ -140,7 +140,7 @@ class papaya_swfobject extends base_object {
         $this->_expressInstall = 'script/swfobject/expressInstall.swf';
       } else {
         $themeHandler = new \Papaya\Theme\Handler();
-        $this->_expressInstall = $themeHandler->getUrl().'/papaya/swfobject/expressInstall.swf';
+        $this->_expressInstall = $themeHandler->getURL().'/papaya/swfobject/expressInstall.swf';
       }
     }
     $result .= sprintf(

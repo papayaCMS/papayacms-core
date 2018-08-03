@@ -18,52 +18,52 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterUrlHttpTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Url\Web::validate
-   * @covers \Papaya\Filter\Url\Web::prepare
+   * @covers \Papaya\Filter\URL\Web::validate
+   * @covers \Papaya\Filter\URL\Web::prepare
    * @dataProvider provideValidUrls
    * @param mixed $value
    */
   public function testValidate($value) {
-    $filter = new \Papaya\Filter\Url\Web();
+    $filter = new \Papaya\Filter\URL\Web();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\Url\Web::validate
-   * @covers \Papaya\Filter\Url\Web::prepare
+   * @covers \Papaya\Filter\URL\Web::validate
+   * @covers \Papaya\Filter\URL\Web::prepare
    * @dataProvider provideInvalidValues
    * @param mixed $value
    */
   public function testValidateExpectingException($value) {
-    $filter = new \Papaya\Filter\Url\Web();
+    $filter = new \Papaya\Filter\URL\Web();
     $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \Papaya\Filter\Url\Web::filter
-  * @covers \Papaya\Filter\Url\Web::prepare
+  * @covers \Papaya\Filter\URL\Web::filter
+  * @covers \Papaya\Filter\URL\Web::prepare
   */
   public function testFilterExpectingNull() {
-    $filter = new \Papaya\Filter\Url\Web();
+    $filter = new \Papaya\Filter\URL\Web();
     $this->assertNull($filter->filter(''));
   }
 
   /**
-  * @covers \Papaya\Filter\Url\Web::filter
-  * @covers \Papaya\Filter\Url\Web::prepare
+  * @covers \Papaya\Filter\URL\Web::filter
+  * @covers \Papaya\Filter\URL\Web::prepare
   */
   public function testFilterExpectingValue() {
-    $filter = new \Papaya\Filter\Url\Web();
+    $filter = new \Papaya\Filter\URL\Web();
     $this->assertEquals('http://www.sample.tld', $filter->filter('http://www.sample.tld'));
   }
 
   /**
-  * @covers \Papaya\Filter\Url\Web::filter
-  * @covers \Papaya\Filter\Url\Web::prepare
+  * @covers \Papaya\Filter\URL\Web::filter
+  * @covers \Papaya\Filter\URL\Web::prepare
   */
   public function testFilterExpectingExtendedValue() {
-    $filter = new \Papaya\Filter\Url\Web();
+    $filter = new \Papaya\Filter\URL\Web();
     $this->assertEquals('http://localhost', $filter->filter('localhost'));
   }
 

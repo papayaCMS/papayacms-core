@@ -25,7 +25,7 @@ abstract class Parser extends \Papaya\Application\BaseObject {
   /**
    * parse request
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    * @return FALSE|array
    */
   abstract public function parse($url);

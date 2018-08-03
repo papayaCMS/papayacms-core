@@ -445,7 +445,7 @@ class base_topic_edit extends base_topic {
       if ($this->params['page_id'] != $authUser->user['start_node'] &&
           !empty($this->params['redirected'])) {
         $protocol = \Papaya\Utility\Server\Protocol::get();
-        $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
+        $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
           $this->getLink(
             array(
               'redirected' => 1,
@@ -455,7 +455,7 @@ class base_topic_edit extends base_topic {
         if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
           header('X-Papaya-Status: redirecting to allowed subtree');
         }
-        header('Location: '.str_replace(array("\r", "\n"), '', $toUrl));
+        header('Location: '.str_replace(array("\r", "\n"), '', $toURL));
         exit;
       }
       $this->addMsg(MSG_INFO, $this->_gt('Please select a page.'));
@@ -767,7 +767,7 @@ class base_topic_edit extends base_topic {
         $this->_gt('This page has currently no formatted output - showing XML.')
       );
     }
-    $link = $this->getPreviewUrl(
+    $link = $this->getPreviewURL(
       $viewMode,
       empty($this->params['version_datetime']) ? 0 : (int)$this->params['version_datetime']
     );
@@ -789,7 +789,7 @@ class base_topic_edit extends base_topic {
     );
   }
 
-  public function getPreviewUrl($mode = NULL, $time = 0) {
+  public function getPreviewURL($mode = NULL, $time = 0) {
     $reference = new \Papaya\UI\Reference\Page();
     $reference->setPreview(TRUE, $time);
     $reference->setOutputMode($mode);

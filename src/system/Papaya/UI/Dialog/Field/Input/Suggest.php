@@ -56,7 +56,7 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
     'name' => array('getName', 'setName'),
     'hint' => array('getHint', 'setHint'),
     'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'suggestionUrl' => array('getSuggestionUrl', 'setSuggestionUrl'),
+    'suggestionURL' => array('getSuggestionURL', 'setSuggestionURL'),
     'mandatory' => array('getMandatory', 'setMandatory')
   );
 
@@ -66,22 +66,22 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
    *
    * @param string $caption
    * @param string $name
-   * @param string $suggestionUrl
+   * @param string $suggestionURL
    * @param mixed $default optional, default NULL
    * @param \Papaya\Filter|NULL $filter
    */
   public function __construct(
-    $caption, $name, $suggestionUrl, $default = NULL, \Papaya\Filter $filter = NULL
+    $caption, $name, $suggestionURL, $default = NULL, \Papaya\Filter $filter = NULL
   ) {
     parent::__construct($caption, $name, 1024, $default, $filter);
-    $this->setSuggestionUrl($suggestionUrl);
+    $this->setSuggestionURL($suggestionURL);
   }
 
   /**
    * Set the suggestion url of this input field
    */
 
-  public function setSuggestionUrl($url) {
+  public function setSuggestionURL($url) {
     \Papaya\Utility\Constraints::assertNotEmpty($url);
     $this->_suggestionData['url'] = $url;
   }
@@ -90,7 +90,7 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
    * Read the suggestion url of this input field
    */
 
-  public function getSuggestionUrl() {
+  public function getSuggestionURL() {
     return $this->_suggestionData['url'];
   }
 

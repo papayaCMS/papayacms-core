@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Url\Transformer;
+namespace Papaya\URL\Transformer;
 /**
  * Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
  *
@@ -25,30 +25,30 @@ class Relative {
   /**
    * Transforms a absolute url to a relative url.
    *
-   * @param \Papaya\Url $currentUrl current url
-   * @param \Papaya\Url $targetUrl url to transform
+   * @param \Papaya\URL $currentURL current url
+   * @param \Papaya\URL $targetURL url to transform
    * @return string
    */
-  public function transform($currentUrl, $targetUrl) {
+  public function transform($currentURL, $targetURL) {
     if (
-      '' !== (string)$targetUrl->getHost() &&
-      $targetUrl->getScheme() === (string)$currentUrl->getScheme() &&
-      $targetUrl->getHost() === (string)$currentUrl->getHost() &&
-      $this->_comparePorts($targetUrl->getPort(), $currentUrl->getPort())
+      '' !== (string)$targetURL->getHost() &&
+      $targetURL->getScheme() === (string)$currentURL->getScheme() &&
+      $targetURL->getHost() === (string)$currentURL->getHost() &&
+      $this->_comparePorts($targetURL->getPort(), $currentURL->getPort())
     ) {
       if (
-        '' === (string)$targetUrl->getUser() ||
-        (string)$targetUrl->getUser() === (string)$currentUrl->getUser()
+        '' === (string)$targetURL->getUser() ||
+        (string)$targetURL->getUser() === (string)$currentURL->getUser()
       ) {
         $path = $this->getRelativePath(
-          $currentUrl->getPath(),
-          $targetUrl->getPath()
+          $currentURL->getPath(),
+          $targetURL->getPath()
         );
-        if ('' !== (string)$targetUrl->getQuery()) {
-          $path .= '?'.$targetUrl->getQuery();
+        if ('' !== (string)$targetURL->getQuery()) {
+          $path .= '?'.$targetURL->getQuery();
         }
-        if ('' !== (string)$targetUrl->getFragment()) {
-          $path .= '#'.$targetUrl->getFragment();
+        if ('' !== (string)$targetURL->getFragment()) {
+          $path .= '#'.$targetURL->getFragment();
         }
         return $path;
       }

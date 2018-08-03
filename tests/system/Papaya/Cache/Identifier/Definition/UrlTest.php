@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Url;
+use Papaya\Cache\Identifier\Definition\URL;
 use Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
@@ -21,7 +21,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaCacheIdentifierDefinitionUrlTest extends \PapayaTestCase {
 
   /**
-   * @covers Url
+   * @covers URL
    */
   public function testGetStatus() {
     $environment = $_SERVER;
@@ -30,10 +30,10 @@ class PapayaCacheIdentifierDefinitionUrlTest extends \PapayaTestCase {
       'HTTP_HOST' => 'www.sample.tld',
       'SERVER_PORT' => 443
     );
-    $definition = new Url();
+    $definition = new URL();
     $this->assertEquals(
       array(
-        Url::class => 'https://www.sample.tld/'
+        URL::class => 'https://www.sample.tld/'
       ),
       $definition->getStatus()
     );
@@ -41,10 +41,10 @@ class PapayaCacheIdentifierDefinitionUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Url
+   * @covers URL
    */
   public function testGetSources() {
-    $definition = new Url();
+    $definition = new URL();
     $this->assertEquals(
       Definition::SOURCE_URL,
       $definition->getSources()

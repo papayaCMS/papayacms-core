@@ -136,8 +136,8 @@ class Phrases extends Application\BaseObject {
     if (NULL === $this->_defaultGroup) {
       $fileNamePattern = '#^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?#i';
       $pathNamePattern = '#^(([^\?]*)/)?([^?]+)(\?.*)?#';
-      /** @var \Papaya\Url $url */
-      $url = $this->papaya()->request->getUrl();
+      /** @var \Papaya\URL $url */
+      $url = $this->papaya()->request->getURL();
       $requestUri = $url->getPath();
       $result = '';
       if (preg_match($fileNamePattern, $requestUri, $regs)) {

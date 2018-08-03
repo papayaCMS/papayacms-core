@@ -46,9 +46,9 @@ class File extends \Papaya\Media\Storage\Service {
   /**
    * base public directory url - absolute urls to public linked files
    *
-   * @var string $_publicUrl
+   * @var string $_publicURL
    */
-  private $_publicUrl = '';
+  private $_publicURL = '';
 
   /**
    * Maps mime-types that are acceptable for use with setPublic
@@ -86,8 +86,8 @@ class File extends \Papaya\Media\Storage\Service {
       !is_dir($this->_publicDirectory)) {
       $this->_publicDirectory = '';
     }
-    $this->_publicUrl = $configuration->get(
-      'PAPAYA_MEDIA_PUBLIC_URL', $this->_publicUrl
+    $this->_publicURL = $configuration->get(
+      'PAPAYA_MEDIA_PUBLIC_URL', $this->_publicURL
     );
     if (substr($this->_publicDirectory, -1) == '/') {
       $this->_publicDirectory = substr($this->_publicDirectory, 0, -1);
@@ -544,13 +544,13 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $mimeType
    * @return string|NULL
    */
-  public function getUrl($storageGroup, $storageId, $mimeType) {
+  public function getURL($storageGroup, $storageId, $mimeType) {
     if (strlen($storageId) > $this->_storageDirectoryDepth) {
       $publicFilename = $this->_getPublicFilename(
         $storageGroup, $storageId, $mimeType, FALSE
       );
       if ($this->_existLocalFile($publicFilename)) {
-        $result = $this->_publicUrl.$storageGroup;
+        $result = $this->_publicURL.$storageGroup;
         for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
           $result .= '/'.substr($storageId, $offset, 1);
         }

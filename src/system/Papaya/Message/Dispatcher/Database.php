@@ -82,7 +82,7 @@ class Database
    * @return bool
    */
   protected function save(\Papaya\Message\Logable $message) {
-    $url = new \Papaya\Url\Current();
+    $url = new \Papaya\URL\Current();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
     if ($message->context() instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
@@ -96,7 +96,7 @@ class Database
       'log_msgno' => $message->getType(),
       'log_msg_short' => $message->getMessage(),
       'log_msg_long' => $details,
-      'log_msg_uri' => $url->getUrl(),
+      'log_msg_uri' => $url->getURL(),
       'log_msg_referer' => empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'],
       'log_msg_cookies' => $cookies,
       'log_msg_script' => empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'],

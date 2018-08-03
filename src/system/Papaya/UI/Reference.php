@@ -23,7 +23,7 @@ namespace Papaya\UI;
 class Reference extends \Papaya\Application\BaseObject {
 
   /**
-   * Url group separator
+   * URL group separator
    *
    * @var string
    */
@@ -39,7 +39,7 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Internal url object
    *
-   * @var \Papaya\Url
+   * @var \Papaya\URL
    */
   private $_url = NULL;
 
@@ -60,9 +60,9 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * create object and load url if provided.
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    */
-  public function __construct(\Papaya\Url $url = NULL) {
+  public function __construct(\Papaya\URL $url = NULL) {
     if (isset($url)) {
       $this->url($url);
     }
@@ -85,10 +85,10 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    * @return self
    */
-  public static function create(\Papaya\Url $url = NULL) {
+  public static function create(\Papaya\URL $url = NULL) {
     return new self($url);
   }
 
@@ -115,21 +115,21 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Get the reference string relative to the current request url
    *
-   * @param \Papaya\Url|NULL $currentUrl
+   * @param \Papaya\URL|NULL $currentURL
    * @param bool $includeQueryString
    * @return string
    */
-  public function getRelative($currentUrl = NULL, $includeQueryString = TRUE) {
+  public function getRelative($currentURL = NULL, $includeQueryString = TRUE) {
     if (!$this->valid()) {
       return '';
     }
-    $this->url()->setUrl($this->get());
-    $transformer = new \Papaya\Url\Transformer\Relative();
+    $this->url()->setURLString($this->get());
+    $transformer = new \Papaya\URL\Transformer\Relative();
     if (!$includeQueryString) {
       $this->url()->setQuery('');
     }
     $relative = $transformer->transform(
-      isset($currentUrl) ? $currentUrl : new \Papaya\Url\Current(),
+      isset($currentURL) ? $currentURL : new \Papaya\URL\Current(),
       $this->url()
     );
     return is_null($relative) ? $this->get() : $relative;
@@ -138,12 +138,12 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Use an relative url string to change the reference
    *
-   * @param string $relativeUrl
+   * @param string $relativeURL
    */
-  public function setRelative($relativeUrl) {
-    $transformer = new \Papaya\Url\Transformer\Absolute();
-    $absoluteUrl = $transformer->transform($this->url(), $relativeUrl);
-    $this->url()->setUrl($absoluteUrl);
+  public function setRelative($relativeURL) {
+    $transformer = new \Papaya\URL\Transformer\Absolute();
+    $absoluteURL = $transformer->transform($this->url(), $relativeURL);
+    $this->url()->setURLString($absoluteURL);
     $this->getParameters()->setQueryString($this->url()->getQuery());
   }
 
@@ -158,7 +158,7 @@ class Reference extends \Papaya\Application\BaseObject {
       return '';
     }
     return $this->cleanupPath($this->url()
-        ->getPathUrl(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
+        ->getPathURL(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
   }
 
   /**
@@ -177,10 +177,10 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Set/Get attached url object or use the request to load one.
    *
-   * @param \Papaya\Url $url
-   * @return \Papaya\Url
+   * @param \Papaya\URL $url
+   * @return \Papaya\URL
    */
-  public function url(\Papaya\Url $url = NULL) {
+  public function url(\Papaya\URL $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
@@ -195,8 +195,8 @@ class Reference extends \Papaya\Application\BaseObject {
    * @return self
    */
   public function load(\Papaya\Request $request) {
-    $url = $request->getUrl();
-    $this->_url = clone (($url instanceof \Papaya\Url) ? $url : new \Papaya\Url);
+    $url = $request->getURL();
+    $this->_url = clone (($url instanceof \Papaya\URL) ? $url : new \Papaya\URL);
     if (is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }

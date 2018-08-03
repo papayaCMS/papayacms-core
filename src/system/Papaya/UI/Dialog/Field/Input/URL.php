@@ -26,7 +26,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|NULL $defaultValue
  * @property boolean $mandatory
  */
-class Url extends \Papaya\UI\Dialog\Field\Input {
+class URL extends \Papaya\UI\Dialog\Field\Input {
 
   /**
    * Field type, used in template
@@ -61,7 +61,7 @@ class Url extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 1024, $default);
     $this->setmandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Url()
+      new \Papaya\Filter\URL()
     );
   }
 }

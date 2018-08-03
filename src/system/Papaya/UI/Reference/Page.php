@@ -42,10 +42,10 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\Url $url
+   * @param \Papaya\URL $url
    * @return self
    */
-  public static function create(\Papaya\Url $url = NULL) {
+  public static function create(\Papaya\URL $url = NULL) {
     return new self($url);
   }
 
@@ -55,7 +55,7 @@ class Page extends \Papaya\UI\Reference {
    * @return string
    */
   public function get($forPublic = FALSE) {
-    $result = $this->cleanupPath($this->url()->getHostUrl().$this->_basePath, $forPublic);
+    $result = $this->cleanupPath($this->url()->getHostURL().$this->_basePath, $forPublic);
     if (!$this->isStartPage()) {
       $result .= $this->_pageData['title'];
       if ($this->_pageData['category_id'] > 0) {

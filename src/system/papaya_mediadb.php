@@ -4161,7 +4161,7 @@ class papaya_mediadb extends base_mediadb_edit {
         'file_sort' => array('Sorting', 'isNoHTML', TRUE, 'input', 100),
         'Source',
         'file_source' => array('Text', 'isNoHTML', FALSE, 'input', 400),
-        'file_source_url' => array('Url', 'isHttpX', FALSE, 'input', 1000),
+        'file_source_url' => array('URL', 'isHttpX', FALSE, 'input', 1000),
         'Properties',
         'file_title' => array($captionFileTitle, 'isNoHTML', FALSE, 'input', 255),
         'file_description' => array(

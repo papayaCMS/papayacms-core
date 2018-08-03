@@ -59,9 +59,10 @@ class papaya_alias_tree extends base_db {
   var $tableViews = PAPAYA_DB_TBL_VIEWS;
   /**
   * Papaya database table urls
-  * @var string $tableUrls
+  *
+  * @var string $tableURLs
   */
-  var $tableUrls = PAPAYA_DB_TBL_URLS;
+  var $tableURLs = PAPAYA_DB_TBL_URLS;
   /**
   * Papaya database table output filter / view modes
   * @var string $tableViewModes
@@ -271,7 +272,7 @@ class papaya_alias_tree extends base_db {
               LEFT OUTER JOIN %s m ON (m.module_guid = a.module_guid)
              ORDER BY a.path\r\n";
     $params = array(
-      $this->tableUrls,
+      $this->tableURLs,
       $this->tableTopics, $this->tableTopicsTrans,
       $this->papaya()->administrationLanguage->id,
       $this->tableTopicsPublic, $this->tableViews, $this->tableViewModes,
@@ -302,7 +303,7 @@ class papaya_alias_tree extends base_db {
              WHERE id = %d";
     if (
       $res = $this->databaseQueryFmt(
-        $sql, array($this->tableUrls, $aliasId)
+        $sql, array($this->tableURLs, $aliasId)
       )
     ) {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -395,7 +396,7 @@ class papaya_alias_tree extends base_db {
           if ($val['url_redirectmode'] == 3) {
             $result .= sprintf(
               '<subitem align="center">%s</subitem>'.LF,
-              papaya_strings::escapeHTMLChars($this->_gt('Url'))
+              papaya_strings::escapeHTMLChars($this->_gt('URL'))
             );
             $result .= '</listitem>'.LF;
             if (isset($val['target_url']) && !empty($val['target_url'])) {
@@ -586,7 +587,7 @@ class papaya_alias_tree extends base_db {
       $data['module_params'] = $this->aliasPlugin->getData();
     }
     return FALSE !== $this->databaseUpdateRecord(
-      $this->tableUrls, $data, 'id', (int)$this->params['alias_id']
+      $this->tableURLs, $data, 'id', (int)$this->params['alias_id']
     );
   }
 
@@ -607,7 +608,7 @@ class papaya_alias_tree extends base_db {
       'url_params' => $this->params['url_params'],
       'url_redirectmode' => $this->params['url_redirectmode']
     );
-    return ($this->databaseInsertRecord($this->tableUrls, 'id', $values));
+    return ($this->databaseInsertRecord($this->tableURLs, 'id', $values));
   }
 
   /**
@@ -618,7 +619,7 @@ class papaya_alias_tree extends base_db {
   * @return boolean
   */
   function deleteAlias($id) {
-    return (FALSE !== $this->databaseDeleteRecord($this->tableUrls, 'id', $id));
+    return (FALSE !== $this->databaseDeleteRecord($this->tableURLs, 'id', $id));
   }
 
 
@@ -681,7 +682,7 @@ class papaya_alias_tree extends base_db {
       $redirectModes = array(
         0 => $this->_gt('Page Redirect'),
         1 => $this->_gt('Page Frameset'),
-        3 => $this->_gt('Url Redirect'),
+        3 => $this->_gt('URL Redirect'),
         2 => $this->_gt('Module')
       );
       $fields = array(
@@ -739,7 +740,7 @@ class papaya_alias_tree extends base_db {
           $fields = array_merge($fields, $this->aliasPlugin->editFields);
         }
       } elseif ($data['url_redirectmode'] == 3) {
-        $fields['target_url'] = array ('Url', 'isHttpX', TRUE, 'input', 400, '', '');
+        $fields['target_url'] = array ('URL', 'isHttpX', TRUE, 'input', 400, '', '');
       }
       $this->dialogAlias = new base_dialog(
         $this, $this->paramName, $fields, $data, $hidden

@@ -303,7 +303,7 @@ class base_sitemap extends base_db {
   * @access public
   * @return string
   */
-  function getUrls() {
+  function getURLs() {
     $sql = "SELECT tt.topic_id,
                    l.lng_id, l.lng_ident, vm.viewmode_ext
               FROM %s tt, %s l, %s vl, %s vm

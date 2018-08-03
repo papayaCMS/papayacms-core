@@ -80,7 +80,7 @@ class Notifier {
    */
   public function setTarget($target) {
     if (preg_match('(^https?://)', $target)) {
-      $this->_action = new \Papaya\File\System\Action\Url($target);
+      $this->_action = new \Papaya\File\System\Action\URL($target);
     } elseif (!empty($target)) {
       $this->_action = new \Papaya\File\System\Action\Script($target);
     } else {

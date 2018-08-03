@@ -31,7 +31,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
 
   public function testSetUrl() {
     $client = new \Papaya\HTTP\Client();
-    $client->setUrl('http://www.papaya-cms.com:80/');
+    $client->setURL('http://www.papaya-cms.com:80/');
     $this->assertEquals(
       array(
         'scheme' => 'http',
@@ -44,12 +44,12 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\HTTP\Client::setUrl
+  * @covers \Papaya\HTTP\Client::setURL
   */
   public function testReplaceUrl() {
     $client = new \Papaya\HTTP\Client();
-    $client->setUrl('http://www.papaya-cms.com:80/');
-    $client->setUrl('http://www.example.com/');
+    $client->setURL('http://www.papaya-cms.com:80/');
+    $client->setURL('http://www.example.com/');
     $this->assertEquals(
       array(
         'scheme' => 'http',
@@ -63,7 +63,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
   public function testSetURLWithEmptyParameter() {
     $client = new \Papaya\HTTP\Client();
     $this->expectException(InvalidArgumentException::class);
-    $client->setUrl('');
+    $client->setURL('');
   }
 
   public function testGetSocket() {

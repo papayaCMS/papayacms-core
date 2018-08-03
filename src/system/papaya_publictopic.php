@@ -212,7 +212,7 @@ class papaya_publictopic extends base_topic {
       $definition = new Cache\Identifier\Definition\Callback(array($pagePlugin, 'getCacheId'));
     } else {
       $definition = new Cache\Identifier\Definition\Group(
-        new Cache\Identifier\Definition\Url(),
+        new Cache\Identifier\Definition\URL(),
         new Cache\Identifier\Definition\Values($pageOptions)
       );
     }

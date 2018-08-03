@@ -23,7 +23,7 @@ namespace Papaya\Cache\Identifier;
 class Sources implements \IteratorAggregate {
 
   private $_names = array(
-    Definition::SOURCE_URL => 'Url',
+    Definition::SOURCE_URL => 'URL',
     Definition::SOURCE_REQUEST => 'Request',
     Definition::SOURCE_SESSION => 'Session',
     Definition::SOURCE_DATABASE => 'Database',

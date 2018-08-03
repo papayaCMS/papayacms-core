@@ -17,12 +17,12 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Url::__construct
+  * @covers \Papaya\UI\Dialog\Field\Input\URL::__construct
   */
   public function testConstrutor() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Url('Url', 'url', 'http://www.default.com', TRUE);
+    $field = new \Papaya\UI\Dialog\Field\Input\URL('URL', 'url', 'http://www.default.com', TRUE);
     $this->assertEquals(
-      'Url',
+      'URL',
       $field->caption
     );
     $this->assertEquals(
@@ -39,13 +39,13 @@ class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Url
+   * @covers \Papaya\UI\Dialog\Field\Input\URL
    * @dataProvider provideValidUrlInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Url('Url', 'url');
+    $field = new \Papaya\UI\Dialog\Field\Input\URL('URL', 'url');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -54,13 +54,13 @@ class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Url
+   * @covers \Papaya\UI\Dialog\Field\Input\URL
    * @dataProvider provideInvalidUrlInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Url('Url', 'url');
+    $field = new \Papaya\UI\Dialog\Field\Input\URL('URL', 'url');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -69,17 +69,17 @@ class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Url::appendTo
+  * @covers \Papaya\UI\Dialog\Field\Input\URL::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
-    $field = new \Papaya\UI\Dialog\Field\Input\Url('Url', 'url');
+    $field = new \Papaya\UI\Dialog\Field\Input\URL('URL', 'url');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<test>
-        <field caption="Url" class="DialogFieldInputUrl" error="no">
+        <field caption="URL" class="DialogFieldInputURL" error="no">
           <input type="url" name="url" maxlength="1024"/>
         </field>
       </test>',

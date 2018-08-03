@@ -724,9 +724,9 @@ class base_surfer extends base_db {
   /**
    * Redirect on successful login
    *
-   * @param string $redirectionUrl
+   * @param string $redirectionURL
    */
-  function redirectOnLogin($redirectionUrl) {
+  function redirectOnLogin($redirectionURL) {
     $application = $this->papaya();
     $request = $application->getObject('Request');
     $queryString = $request->getParameter(
@@ -741,34 +741,34 @@ class base_surfer extends base_db {
       \Papaya\Request::SOURCE_BODY
     );
     $defaultHost = strtolower(PAPAYA_DEFAULT_HOST);
-    if (!$redirectionUrl) {
+    if (!$redirectionURL) {
       if ($this->surfer['surfergroup_redirect_page'] > 0) {
-        $redirectionUrl = $this->getAbsoluteUrl(
+        $redirectionURL = $this->getAbsoluteURL(
           $this->getWebLink($this->surfer['surfergroup_redirect_page'])
         );
       } elseif (defined('PAPAYA_COMMUNITY_REDIRECT_PAGE') &&
                 PAPAYA_COMMUNITY_REDIRECT_PAGE > 0) {
-        $redirectionUrl = $this->getAbsoluteUrl(
+        $redirectionURL = $this->getAbsoluteURL(
           $this->getWebLink(PAPAYA_COMMUNITY_REDIRECT_PAGE)
         );
       } else {
-        $redirectionUrl = $this->papaya()->request->getUrl()->getPathUrl();
+        $redirectionURL = $this->papaya()->request->getURL()->getPathURL();
       }
     }
     $newQueryString = $this->recodeQueryString($queryString);
     if (!preg_match('(^\?)', $newQueryString)) {
-      $redirectionUrl .= '?';
+      $redirectionURL .= '?';
     }
-    $redirectionUrl .= $newQueryString;
-    $targetUrl = NULL;
-    if ($this->validateRedirectHost($redirectionUrl, $defaultHost)) {
-      $targetUrl = $redirectionUrl;
+    $redirectionURL .= $newQueryString;
+    $targetURL = NULL;
+    if ($this->validateRedirectHost($redirectionURL, $defaultHost)) {
+      $targetURL = $redirectionURL;
     }
     /**
      * @var \Papaya\Session $session
      */
     $session = $this->papaya()->session;
-    if ($redirect = $session->regenerateId($targetUrl)) {
+    if ($redirect = $session->regenerateId($targetURL)) {
       $redirect->send();
       $redirect->end();
     }
@@ -779,12 +779,12 @@ class base_surfer extends base_db {
   *
   * Hostname can be the default host or one of the configured domains
   *
-  * @param string $redirectionUrl
+  * @param string $redirectionURL
   * @param string $defaultHost
   * @return boolean
   */
-  public function validateRedirectHost($redirectionUrl, $defaultHost) {
-    $redirectionString = strtolower($redirectionUrl);
+  public function validateRedirectHost($redirectionURL, $defaultHost) {
+    $redirectionString = strtolower($redirectionURL);
     if (FALSE !== strpos($redirectionString, "\n") &&
         FALSE !== strpos($redirectionString, "\r")) {
       return FALSE;
@@ -794,7 +794,7 @@ class base_surfer extends base_db {
       return TRUE;
     }
     $domains = new base_domains();
-    $url = new \Papaya\Url($redirectionUrl);
+    $url = new \Papaya\URL($redirectionURL);
     if ($domains->load($url->host, 0)) {
       return TRUE;
     }

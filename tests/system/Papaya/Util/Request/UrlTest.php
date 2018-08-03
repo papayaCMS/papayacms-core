@@ -28,17 +28,17 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Url::get
+  * @covers \Papaya\Utility\Request\URL::get
   */
   public function testGetOnEmptyRequestEnvironmentExpectingEmptyString() {
     $_SERVER = array();
     $this->assertEquals(
-      '', \Papaya\Utility\Request\Url::get()
+      '', \Papaya\Utility\Request\URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Url::get
+  * @covers \Papaya\Utility\Request\URL::get
   */
   public function testGet() {
     $_SERVER = array(
@@ -47,12 +47,12 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld/', \Papaya\Utility\Request\Url::get()
+      'http://www.sample.tld/', \Papaya\Utility\Request\URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Url::get
+  * @covers \Papaya\Utility\Request\URL::get
   */
   public function testGetWithNonDefaultPort() {
     $_SERVER = array(
@@ -61,12 +61,12 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld:8080/', \Papaya\Utility\Request\Url::get()
+      'http://www.sample.tld:8080/', \Papaya\Utility\Request\URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Url::get
+  * @covers \Papaya\Utility\Request\URL::get
   */
   public function testGetWithHttps() {
     $_SERVER = array(
@@ -76,12 +76,12 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\Url::get()
+      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Url::get
+  * @covers \Papaya\Utility\Request\URL::get
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -95,7 +95,7 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\Url::get()
+      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\URL::get()
     );
   }
 }

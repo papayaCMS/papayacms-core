@@ -155,7 +155,7 @@ class Client {
   public function __construct($url = '') {
     $this->reset();
     if (!empty($url)) {
-      $this->setUrl($url);
+      $this->setURL($url);
     }
   }
 
@@ -165,9 +165,9 @@ class Client {
    * @param string $url
    * @throws \InvalidArgumentException
    */
-  public function setUrl($url) {
+  public function setURL($url) {
     if (!empty($url)) {
-      $urlObject = new \Papaya\Url();
+      $urlObject = new \Papaya\URL();
       if (isset($this->_url['scheme'])) {
         $urlObject->scheme = $this->_url['scheme'];
       }
@@ -180,9 +180,9 @@ class Client {
       if (isset($this->_url['path'])) {
         $urlObject->path = $this->_url['path'];
       }
-      $transformer = new \Papaya\Url\Transformer\Absolute;
-      $newUrl = $transformer->transform($urlObject, $url);
-      $url = $newUrl;
+      $transformer = new \Papaya\URL\Transformer\Absolute;
+      $newURL = $transformer->transform($urlObject, $url);
+      $url = $newURL;
       $this->_url = parse_url($url);
     } else {
       throw new \InvalidArgumentException('Invalid url');
@@ -353,7 +353,7 @@ class Client {
             break;
             case 'application/x-www-form-urlencoded':
             default:
-              $this->_sendUrlencodedFormData();
+              $this->_sendURLEncodedFormData();
           }
         break;
         case 'PUT' :
@@ -490,7 +490,7 @@ class Client {
    *
    * @return void
    */
-  private function _sendUrlencodedFormData() {
+  private function _sendURLEncodedFormData() {
     $data = '';
     foreach ($this->_requestData as $name => $value) {
       $data .= '&'.rawurlencode($name).'='.rawurlencode($value);
@@ -770,7 +770,7 @@ class Client {
    */
   private function _handleRedirect($targetLocation) {
     $this->_socket->close();
-    $this->setUrl($targetLocation);
+    $this->setURL($targetLocation);
     $this->send();
   }
 

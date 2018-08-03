@@ -27,7 +27,7 @@ class IsServerAddress extends \Papaya\Filter\Factory\Profile {
    */
   public function getFilter() {
     return new \Papaya\Filter\LogicalOr(
-      new \Papaya\Filter\Url\Host(),
+      new \Papaya\Filter\URL\Host(),
       new \Papaya\Filter\Ip\V4(),
       new \Papaya\Filter\Ip\V6()
     );

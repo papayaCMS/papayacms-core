@@ -26,7 +26,7 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
     $tags = new \PapayaSvnTags($expectedUri);
     $this->assertAttributeSame(
       $expectedUri,
-      '_tagDirectoryUrl',
+      '_tagDirectoryURL',
       $tags
     );
     $this->assertAttributeSame(

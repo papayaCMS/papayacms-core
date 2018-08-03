@@ -13,19 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory\Profile;
+namespace Papaya\Utility\Request;
 /**
- * Profile creating an url string filter
+ * Static utility class to fetch the absolute request url.
  *
  * @package Papaya-Library
- * @subpackage Filter
+ * @subpackage Util
  */
-class IsUrl extends \Papaya\Filter\Factory\Profile {
+class URL {
 
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * fetch the current request url from environment
+   *
+   * @return string
    */
-  public function getFilter() {
-    return new \Papaya\Filter\Url();
+  public static function get() {
+    $host = \Papaya\Utility\Server\Name::get();
+    $port = \Papaya\Utility\Server\Port::get();
+    if (empty($host)) {
+      return '';
+    } else {
+      return sprintf(
+        '%s://%s%s%s',
+        \Papaya\Utility\Server\Protocol::get(),
+        $host,
+        $port != \Papaya\Utility\Server\Protocol::getDefaultPort() ? ':'.$port : '',
+        empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI']
+      );
+    }
   }
 }

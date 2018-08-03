@@ -72,7 +72,7 @@ class Xhgui
       'url' => $url = $this->removeSid(
         isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF']
       ),
-      'c_url' => $this->normalizeUrl($url), // normalized url to group requests
+      'c_url' => $this->normalizeURL($url), // normalized url to group requests
       'server name' => isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '', // server name
       'perfdata' => gzcompress(serialize($data), 2), // profiling data
       'type' => $type, //profiling data type (group/application)
@@ -107,7 +107,7 @@ class Xhgui
    * @param string $url
    * @return string
    */
-  private function normalizeUrl($url) {
+  private function normalizeURL($url) {
     $url = preg_replace('([?#].*$)', '', $url);
     return $url;
   }

@@ -368,10 +368,10 @@ class Cms extends GlobalValues {
               $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
             )
           );
-          $url = new \Papaya\Url\Current();
+          $url = new \Papaya\URL\Current();
           $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
           $this->set(
-            'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathUrl()
+            'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathURL()
           );
         }
       break;

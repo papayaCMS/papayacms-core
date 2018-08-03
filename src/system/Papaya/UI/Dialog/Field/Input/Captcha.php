@@ -84,7 +84,7 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
         'name' => $this->_getParameterName($this->getName().'['.$identifier.']', TRUE),
       )
     );
-    $reference = new \Papaya\UI\Reference(clone $this->papaya()->request->getUrl());
+    $reference = new \Papaya\UI\Reference(clone $this->papaya()->request->getURL());
     $reference->setRelative($this->_captchaImage.'.image.jpg');
     $reference->setParameters(array('img' => array('identifier' => $identifier)));
     $field->appendElement('image', array('src' => $reference->getRelative()));

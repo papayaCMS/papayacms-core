@@ -14,17 +14,17 @@
  */
 
 use Papaya\Content\Structure;
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaThemeHandlerTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Theme\Handler::getUrl
+  * @covers \Papaya\Theme\Handler::getURL
   */
   public function testGetUrl() {
-    $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
+    $url = $this->getMockBuilder(URL::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')
@@ -55,15 +55,15 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       'http://test.tld/themes/theme/',
-      $handler->getUrl()
+      $handler->getURL()
     );
   }
 
   /**
-  * @covers \Papaya\Theme\Handler::getUrl
+  * @covers \Papaya\Theme\Handler::getURL
   */
   public function testGetUrlWithThemeNameParameter() {
-    $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
+    $url = $this->getMockBuilder(URL::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')
@@ -90,12 +90,12 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       'http://test.tld/themes/sample/',
-      $handler->getUrl('sample')
+      $handler->getURL('sample')
     );
   }
 
   /**
-  * @covers \Papaya\Theme\Handler::getUrl
+  * @covers \Papaya\Theme\Handler::getURL
   */
   public function testGetUrlWithCdn() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -119,12 +119,12 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       'http://test.tld/theme/',
-      $handler->getUrl()
+      $handler->getURL()
     );
   }
 
   /**
-  * @covers \Papaya\Theme\Handler::getUrl
+  * @covers \Papaya\Theme\Handler::getURL
   * @backupGlobals enabled
   */
   public function testGetUrlWithSecureCdn() {
@@ -150,7 +150,7 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       'https://secure.test.tld/theme/',
-      $handler->getUrl()
+      $handler->getURL()
     );
   }
 

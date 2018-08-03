@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -23,7 +23,7 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   * get mock for \Papaya\PapayaUrl from url string
   *
   * @param string $url
-  * @return PHPUnit_Framework_MockObject_MockObject|Url
+  * @return PHPUnit_Framework_MockObject_MockObject|URL
   */
   public function getPapayaUrlMockFixture($url) {
     $mapping = array(
@@ -37,7 +37,7 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
       'getFragment' => 'fragment',
     );
     $urlObject = $this
-      ->getMockBuilder(Url::class)
+      ->getMockBuilder(URL::class)
       ->setMethods(array_merge(array('getHostUrl'), array_keys($mapping)))
       ->getMock();
     if (empty($url)) {
@@ -63,15 +63,15 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Url\Transformer\Absolute::transform
-   * @covers \Papaya\Url\Transformer\Absolute::_calculateRealPath
+   * @covers \Papaya\URL\Transformer\Absolute::transform
+   * @covers \Papaya\URL\Transformer\Absolute::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetPath
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetPath, $expected) {
-    $transformer = new Url\Transformer\Absolute();
+    $transformer = new URL\Transformer\Absolute();
     $this->assertSame(
       $expected,
       $transformer->transform(

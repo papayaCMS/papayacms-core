@@ -40,7 +40,7 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
   /**
   * @var string
   */
-  private $_tagDirectoryUrl;
+  private $_tagDirectoryURL;
   /**
   * @var integer
   */
@@ -55,16 +55,16 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
   private $_newTags = NULL;
 
   /**
-  * Find the tags in the $tagDirectoryUrl that are newer than
+  * Find the tags in the $tagDirectoryURL that are newer than
   * $newerThanRevision . The SVN repository is not accessed until
   * the resulting object is accessed.
   *
-  * @param string $tagDirectoryUrl
+  * @param string $tagDirectoryURL
   * @param integer $newerThanRevision
   */
-  public function __construct($tagDirectoryUrl, $newerThanRevision = 0) {
-    \Papaya\Utility\Constraints::assertString($tagDirectoryUrl);
-    $this->_tagDirectoryUrl = $tagDirectoryUrl;
+  public function __construct($tagDirectoryURL, $newerThanRevision = 0) {
+    \Papaya\Utility\Constraints::assertString($tagDirectoryURL);
+    $this->_tagDirectoryURL = $tagDirectoryURL;
     \Papaya\Utility\Constraints::assertInteger($newerThanRevision);
     $this->_newerThanRevision = $newerThanRevision;
     $this->_highestRevisionSeen = $newerThanRevision;
@@ -87,9 +87,9 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
       return;
     }
     $this->_newTags = array();
-    $this->_tagDirectoryUrl =
-      \Papaya\Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryUrl);
-    $tagList = $this->svnClient()->ls($this->_tagDirectoryUrl);
+    $this->_tagDirectoryURL =
+      \Papaya\Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryURL);
+    $tagList = $this->svnClient()->ls($this->_tagDirectoryURL);
     foreach ($tagList as $tag) {
       $revision = (int)$tag['created_rev'];
       if ($revision <= $this->_newerThanRevision) {
@@ -99,8 +99,8 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
         $this->_highestRevisionSeen = $revision;
       }
       if ($tag['type'] === 'dir') {
-        $tagUrl = $this->_tagDirectoryUrl.$tag['name'];
-        $this->_newTags[] = $tagUrl;
+        $tagURL = $this->_tagDirectoryURL.$tag['name'];
+        $this->_newTags[] = $tagURL;
       }
     }
   }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsUrlHostTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\IsUrlHost::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsURLHost::getFilter
    */
   public function testGetFilter() {
-    $profile = new \Papaya\Filter\Factory\Profile\IsUrlHost();
-    $this->assertInstanceOf(\Papaya\Filter\Url\Host::class, $profile->getFilter());
+    $profile = new \Papaya\Filter\Factory\Profile\IsURLHost();
+    $this->assertInstanceOf(\Papaya\Filter\URL\Host::class, $profile->getFilter());
   }
 }

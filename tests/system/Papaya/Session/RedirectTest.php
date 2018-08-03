@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -50,7 +50,7 @@ class PapayaSessionRedirectTest extends \PapayaTestCase {
   */
   public function testUrlSet() {
     $redirect = new \Papaya\Session\Redirect('sid', '42', \Papaya\Session\Id::SOURCE_PATH, 'test');
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $redirect->url($url);
     $this->assertAttributeSame(
       $url, '_url', $redirect
@@ -62,7 +62,7 @@ class PapayaSessionRedirectTest extends \PapayaTestCase {
   */
   public function testUrlGetAfterSet() {
     $redirect = new \Papaya\Session\Redirect('sid', '42', \Papaya\Session\Id::SOURCE_PATH, 'test');
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $redirect->url($url);
     $this->assertSame(
       $url, $redirect->url()
@@ -78,7 +78,7 @@ class PapayaSessionRedirectTest extends \PapayaTestCase {
       $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      Url::class, $redirect->url()
+      URL::class, $redirect->url()
     );
   }
 

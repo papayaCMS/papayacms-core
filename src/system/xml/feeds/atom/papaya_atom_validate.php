@@ -313,7 +313,7 @@ class papaya_atom_validate {
       );
       $result = FALSE;
     }
-    if (!\Papaya\Filter\Factory::isUrl($person->uri, FALSE)) {
+    if (!\Papaya\Filter\Factory::isURL($person->uri, FALSE)) {
       $this->_addError(
         PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_FORMAT, $elementType, $idx, 'uri'
       );

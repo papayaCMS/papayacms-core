@@ -13,19 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Url;
+namespace Papaya\Filter\URL;
 /**
  * Papaya filter class validating a url host name
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Host extends \Papaya\Filter\Pcre {
+class Web extends \Papaya\Filter\URL {
 
   /**
-   * set pattern in superclass constructor
+   * @see \Papaya\Filter::validate()
    */
-  public function __construct() {
-    parent::__construct('(^([\pL\d_-]+\.)*([\pL\d-]{2,})(\.[a-z]{2,6})?(:\d{1,5})?$)Du');
+  public function validate($value) {
+    return parent::validate($this->prepare($value));
+  }
+
+  /**
+   * @see \Papaya\Filter::filter()
+   */
+  public function filter($value) {
+    return parent::filter($this->prepare($value));
+  }
+
+  /**
+   * prefix the value if needed with http://
+   *
+   * @param string $value
+   * @return string
+   */
+  private function prepare($value) {
+    if (!empty($value) && !preg_match('(^https?://)', $value)) {
+      return 'http://'.$value;
+    }
+    return $value;
   }
 }

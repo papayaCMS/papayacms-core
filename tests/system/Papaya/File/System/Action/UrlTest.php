@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFileSystemActionUrlTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\File\System\Action\Url::__construct
+   * @covers \Papaya\File\System\Action\URL::__construct
    */
   public function testConstructor() {
-    $action = new \Papaya\File\System\Action\Url('http://www.sample.tld/success');
+    $action = new \Papaya\File\System\Action\URL('http://www.sample.tld/success');
     $this->assertAttributeEquals(
       'http://www.sample.tld/success', '_url', $action
     );
   }
 
   /**
-   * @covers \Papaya\File\System\Action\Url::execute
+   * @covers \Papaya\File\System\Action\URL::execute
    */
   public function testExecute() {
     $action = new \PapayaFileSystemActionUrl_TestProxy('http://test.tld/remote.php');
@@ -42,7 +42,7 @@ class PapayaFileSystemActionUrlTest extends \PapayaTestCase {
   }
 }
 
-class PapayaFileSystemActionUrl_TestProxy extends \Papaya\File\System\Action\Url {
+class PapayaFileSystemActionUrl_TestProxy extends \Papaya\File\System\Action\URL {
 
   public $fetchCall = array();
 

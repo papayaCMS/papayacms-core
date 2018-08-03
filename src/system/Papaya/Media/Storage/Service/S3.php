@@ -124,7 +124,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @return string
    */
-  private function _getBucketUrl() {
+  private function _getBucketURL() {
     return 'http://'.$this->_storageBucket.'.s3.amazonaws.com';
   }
 
@@ -181,7 +181,7 @@ class S3 extends \Papaya\Media\Storage\Service {
   public function browse($storageGroup, $startsWith = '') {
     $result = array();
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl(),
+      $this->_getBucketURL(),
       'GET',
       array(
         'prefix' => $storageGroup.'/'.$startsWith
@@ -205,7 +205,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    */
   public function get($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId)
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId)
     );
     $client->send();
     if (200 === $client->getResponseStatus()) {
@@ -224,7 +224,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    */
   public function getURL($storageGroup, $storageId, $mimeType) {
     if ($this->isPublic($storageGroup, $storageId, $mimeType)) {
-      return $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId);
+      return $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId);
     }
     return NULL;
   }
@@ -244,7 +244,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     $localFile = tempnam($tempDirectory, 'papayaMedia');
     if ($fh = fopen($localFile, 'wb')) {
       $client = $this->_handler->setUpRequest(
-        $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId)
+        $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId)
       );
       $client->send();
       if (200 === $client->getResponseStatus()) {
@@ -287,7 +287,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       $headers = array();
     }
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'GET',
       array(),
       $headers
@@ -321,7 +321,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       'x-amz-acl' => $isPublic ? 'public-read' : 'private'
     );
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'PUT',
       array(),
       $headers
@@ -384,7 +384,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    */
   public function remove($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'DELETE'
     );
     $client->send();
@@ -400,7 +400,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    */
   public function exists($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'HEAD'
     );
     $client->send();
@@ -437,7 +437,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       return 'public' === $status;
     }
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'HEAD'
     );
     $client->send();
@@ -448,7 +448,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       return FALSE;
     }
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId).'?acl',
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId).'?acl',
       'GET'
     );
     $response = $this->_doXMLRequest($client);
@@ -479,7 +479,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
     $client = $this->_handler->setUpRequest(
-      $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
+      $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'PUT',
       array(),
       array(

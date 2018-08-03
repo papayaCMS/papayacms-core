@@ -72,7 +72,7 @@ class Handler {
   private function _sendRequest($method, $url, $headers, $options, $arguments = array()) {
     $client = $this->getHTTPClient();
     $client->setMethod($method);
-    $client->setUrl($url);
+    $client->setURL($url);
     foreach ($headers as $key => $value) {
       $client->setHeader($key, $value);
     }
@@ -222,7 +222,7 @@ class Handler {
     $client->setMethod($method);
     $url = 'http://'.$location['bucket'].'.s3.amazonaws.com/'.
       $location['object'];
-    $client->setUrl($url);
+    $client->setURL($url);
     foreach ($headers as $key => $value) {
       $client->setHeader($key, $value);
     }

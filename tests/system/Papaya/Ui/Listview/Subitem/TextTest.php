@@ -55,7 +55,7 @@ class PapayaUiListviewSubitemTextTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Subitem\Text::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Text::getUrl
+   * @covers \Papaya\UI\Listview\Subitem\Text::getURL
    */
   public function testAppendToWithActionParameters() {
     $reference = $this->mockPapaya()->reference('http://www.example.html');

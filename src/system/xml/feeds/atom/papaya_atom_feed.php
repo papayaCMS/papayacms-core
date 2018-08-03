@@ -174,14 +174,14 @@ class papaya_atom_feed {
   var $entries;
 
   /**
-   * @var \Papaya\Url\Transformer\Absolute
+   * @var \Papaya\URL\Transformer\Absolute
    */
   private $_urlTransformer = NULL;
 
   /**
-   * @var \Papaya\Url
+   * @var \Papaya\URL
    */
-  private $_baseUrl;
+  private $_baseURL;
 
   /**
   * constructor - initialize subobjects
@@ -237,13 +237,13 @@ class papaya_atom_feed {
   * load the feed from a DomDocument (or papaya expat document)
   *
   * @param DOMDocument $dom
-  * @param NULL|string|\Papaya\Url $baseUrl
+  * @param NULL|string|\Papaya\URL $baseURL
   * @access public
   * @return boolean
   */
-  function load($dom, $baseUrl = NULL) {
-    if (isset($baseUrl)) {
-      $this->setBaseUrl($baseUrl);
+  function load($dom, $baseURL = NULL) {
+    if (isset($baseURL)) {
+      $this->setBaseURL($baseURL);
     }
     $result = FALSE;
     if (isset($dom) && isset($dom->documentElement)) {
@@ -318,8 +318,8 @@ class papaya_atom_feed {
   * @return string
   */
   public function getAbsoluteHref($href) {
-    if (isset($this->_baseUrl)) {
-      $result = $this->urlTransformer()->transform($this->_baseUrl, $href);
+    if (isset($this->_baseURL)) {
+      $result = $this->urlTransformer()->transform($this->_baseURL, $href);
     } else {
       $result = $href;
     }
@@ -329,23 +329,23 @@ class papaya_atom_feed {
   /**
   * Set the base url (of the feed) - not used in the xml directly but to make links absolute
   *
-  * @param string|\Papaya\Url $url
+  * @param string|\Papaya\URL $url
   */
-  public function setBaseUrl($url) {
-    $this->_baseUrl = ($url instanceof \Papaya\Url) ? $url : new \Papaya\Url($url);
+  public function setBaseURL($url) {
+    $this->_baseURL = ($url instanceof \Papaya\URL) ? $url : new \Papaya\URL($url);
   }
 
   /**
   * Getter/Setter for the url transformer
   *
-  * @param \Papaya\Url\Transformer\Absolute $transformer
-  * @return \Papaya\Url\Transformer\Absolute
+  * @param \Papaya\URL\Transformer\Absolute $transformer
+  * @return \Papaya\URL\Transformer\Absolute
   */
-  public function urlTransformer(\Papaya\Url\Transformer\Absolute $transformer = NULL) {
+  public function urlTransformer(\Papaya\URL\Transformer\Absolute $transformer = NULL) {
     if (isset($transformer)) {
       $this->_urlTransformer = $transformer;
     } elseif (is_null($this->_urlTransformer)) {
-      $this->_urlTransformer = new \Papaya\Url\Transformer\Absolute();
+      $this->_urlTransformer = new \Papaya\URL\Transformer\Absolute();
     }
     return $this->_urlTransformer;
   }

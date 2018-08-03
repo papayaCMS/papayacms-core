@@ -141,7 +141,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string $mimeType
    * @return string|NULL
    */
-  abstract public function getUrl($storageGroup, $storageId, $mimeType);
+  abstract public function getURL($storageGroup, $storageId, $mimeType);
 
   /**
    * get local file for storage resource and temporary status.

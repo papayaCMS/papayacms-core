@@ -323,14 +323,14 @@ class checkit {
    * virtual directories http://www.blah.de/~user/index.html
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isUrl()
+   * @see \Papaya\Filter\Factory::isURL()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isHTTPX($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isUrl($str, $mustContainValue);
+    return \Papaya\Filter\Factory::isURL($str, $mustContainValue);
   }
 
   /**
@@ -344,7 +344,7 @@ class checkit {
    * @return boolean
    */
   public static function isHttp($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isUrlWeb($str, $mustContainValue);
+    return \Papaya\Filter\Factory::isURLWeb($str, $mustContainValue);
   }
 
   /**
@@ -358,7 +358,7 @@ class checkit {
    * @return boolean
    */
   public static function isHTTPHost($str, $mustContainValue = FALSE) {
-    return \Papaya\Filter\Factory::isUrlHost($str, $mustContainValue);
+    return \Papaya\Filter\Factory::isURLHost($str, $mustContainValue);
   }
 
   /**
@@ -407,7 +407,7 @@ class checkit {
    * Check host name or IP address
    *
    * @deprecated
-   * @see \Papaya\Filter\Factory::isUrlHost()
+   * @see \Papaya\Filter\Factory::isURLHost()
    * @see \Papaya\Filter\Factory::isIpAddress()
    *
    * @param string $str string to check
@@ -416,7 +416,7 @@ class checkit {
    */
   public static function isHTTPHostOrIPAddress($str, $mustContainValue = FALSE) {
     return (
-      \Papaya\Filter\Factory::isUrlHost($str, $mustContainValue) ||
+      \Papaya\Filter\Factory::isURLHost($str, $mustContainValue) ||
       \Papaya\Filter\Factory::isIpAddress($str, $mustContainValue)
     );
   }

@@ -1074,7 +1074,7 @@ class base_topic extends base_db {
       );
       $isValid = NULL;
       if ($this->moduleObj instanceof \Papaya\Plugin\Addressable) {
-        $url = $this->moduleObj->validateUrl($this->papaya()->request);
+        $url = $this->moduleObj->validateURL($this->papaya()->request);
         if ($url === TRUE) {
           $isValid = TRUE;
         } elseif (is_string($url) && !empty($url)) {

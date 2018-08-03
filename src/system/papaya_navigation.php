@@ -244,7 +244,7 @@ class papaya_navigation extends base_object {
   function getMenuBar($fileName = '') {
     $menu = new \Papaya\UI\Menu();
     $menu->identifier = 'main';
-    $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
+    $currentURL = $this->papaya()->request->getURL()->getPathURL();
     foreach ($this->menuGroups as $groupId => $groupTitle) {
       if (isset($this->menu[$groupId])) {
         $group = new \Papaya\UI\Toolbar\Group(new \Papaya\UI\Text\Translated($groupTitle));
@@ -271,7 +271,7 @@ class papaya_navigation extends base_object {
             $button->reference->setRelative(
               empty($buttonData[4]) ? '' : $buttonData[4]
             );
-            if ($button->reference->url()->getPathUrl() == $currentUrl) {
+            if ($button->reference->url()->getPathURL() == $currentURL) {
               $button->selected = TRUE;
             }
             $group->elements[] = $button;

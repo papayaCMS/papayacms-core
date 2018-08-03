@@ -621,7 +621,7 @@ class PapayaSessionTest extends \PapayaTestCase {
       \Papaya\Session\Redirect::class, $redirect
     );
     $this->assertEquals(
-      'http://www.sample.tld/foo?bar=123', $redirect->url()->getUrl()
+      'http://www.sample.tld/foo?bar=123', $redirect->url()->getURL()
     );
   }
 

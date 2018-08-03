@@ -20,7 +20,7 @@ namespace Papaya\Cache\Identifier\Definition;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Url
+class URL
   implements \Papaya\Cache\Identifier\Definition {
 
   /**
@@ -30,7 +30,7 @@ class Url
    * @return TRUE|array
    */
   public function getStatus() {
-    return array(get_class($this) => \Papaya\Utility\Request\Url::get());
+    return array(get_class($this) => \Papaya\Utility\Request\URL::get());
   }
 
   /**

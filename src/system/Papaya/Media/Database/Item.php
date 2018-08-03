@@ -191,9 +191,9 @@ class Item {
    *
    * @return NULL|string
    */
-  public function getUrl() {
+  public function getURL() {
     $identifier = $this->_mediaId.'v'.$this->versionId;
-    $url = $this->_storage->getUrl('files', $identifier, $this->mimeType);
+    $url = $this->_storage->getURL('files', $identifier, $this->mimeType);
     return $url;
   }
 

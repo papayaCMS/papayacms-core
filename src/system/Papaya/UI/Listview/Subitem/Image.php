@@ -95,7 +95,7 @@ class Image extends Text {
         )
       );
       if (!empty($this->_actionParameters)) {
-        $glyph->setAttribute('href', $this->getUrl());
+        $glyph->setAttribute('href', $this->getURL());
       }
     }
   }

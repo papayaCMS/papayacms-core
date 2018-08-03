@@ -101,7 +101,7 @@ class Icon extends Control {
    * @return string
    */
   public function __toString() {
-    return (string)$this->getImageUrl();
+    return (string)$this->getImageURL();
   }
 
   /**
@@ -115,7 +115,7 @@ class Icon extends Control {
       $glyph = $parent->appendElement(
         'glyph',
         array(
-          'src' => $this->getImageUrl(),
+          'src' => $this->getImageURL(),
           'caption' => (string)$this->_caption
         )
       );
@@ -123,7 +123,7 @@ class Icon extends Control {
       if (!empty($hint)) {
         $glyph->setAttribute('hint', $hint);
       }
-      $url = $this->getUrl();
+      $url = $this->getURL();
       if (!empty($url)) {
         $glyph->setAttribute('href', $url);
       }
@@ -144,7 +144,7 @@ class Icon extends Control {
    *
    * @return string
    */
-  public function getImageUrl() {
+  public function getImageURL() {
     return $this->papaya()->images[(string)$this->_image];
   }
 
@@ -154,7 +154,7 @@ class Icon extends Control {
    *
    * @return \Papaya\UI\Reference|NULL
    */
-  public function getUrl() {
+  public function getURL() {
     if (empty($this->_actionParameters)) {
       return NULL;
     } else {

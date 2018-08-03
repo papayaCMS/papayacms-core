@@ -30,5 +30,5 @@ interface Addressable {
    * @param \Papaya\Request $request
    * @return FALSE|string|TRUE
    */
-  function validateUrl(\Papaya\Request $request);
+  public function validateURL(\Papaya\Request $request);
 }

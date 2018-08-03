@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Url;
+use Papaya\URL;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -470,7 +470,7 @@ class PapayaUiReferencePageTest extends \PapayaTestCase {
   */
   public function testSetFragment() {
     $reference = new \Papaya\UI\Reference\Page();
-    $reference->url(new Url('http://www.sample.tld/index.html'));
+    $reference->url(new URL('http://www.sample.tld/index.html'));
     $this->assertSame(
       $reference,
       $reference->setFragment('sample')
@@ -582,7 +582,7 @@ class PapayaUiReferencePageTest extends \PapayaTestCase {
   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->createMock(Url::class);
+    $url = $this->createMock(URL::class);
     $url
       ->expects($this->once())
       ->method('getHostUrl')

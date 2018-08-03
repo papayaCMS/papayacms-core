@@ -402,8 +402,8 @@ class Dialog extends Control\Interactive {
     if (NULL !== $action) {
       $this->_action = NULL === $action ? NULL : (string)$action;
     }
-    if (NULL === $this->_action && ($url = $this->papaya()->request->getUrl())) {
-      $this->_action = $url->getPathUrl();
+    if (NULL === $this->_action && ($url = $this->papaya()->request->getURL())) {
+      $this->_action = $url->getPathURL();
     }
     return $this->_action;
   }

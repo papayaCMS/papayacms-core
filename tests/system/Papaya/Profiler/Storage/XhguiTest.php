@@ -36,7 +36,7 @@ class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
   /**
   * @covers \Papaya\Profiler\Storage\Xhgui::saveRun
   * @covers \Papaya\Profiler\Storage\Xhgui::getId
-  * @covers \Papaya\Profiler\Storage\Xhgui::normalizeUrl
+  * @covers \Papaya\Profiler\Storage\Xhgui::normalizeURL
   * @covers \Papaya\Profiler\Storage\Xhgui::removeSid
   */
   public function testSaveRun() {

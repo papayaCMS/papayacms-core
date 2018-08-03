@@ -32,7 +32,7 @@ class Request implements \Papaya\Application\Profile {
   public function createObject($application) {
     $request = new \Papaya\Request($application->options);
     $request->papaya($application);
-    $request->load(new \Papaya\Url\Current());
+    $request->load(new \Papaya\URL\Current());
     return $request;
   }
 }

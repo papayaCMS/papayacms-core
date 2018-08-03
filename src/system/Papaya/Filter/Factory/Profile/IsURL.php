@@ -15,17 +15,17 @@
 
 namespace Papaya\Filter\Factory\Profile;
 /**
- * Profile creating a filter for a server host name, optionally including a port
+ * Profile creating an url string filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsUrlHost extends \Papaya\Filter\Factory\Profile {
+class IsURL extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\Url\Host();
+    return new \Papaya\Filter\URL();
   }
 }

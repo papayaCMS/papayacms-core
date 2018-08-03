@@ -256,14 +256,14 @@ class base_domains extends base_db {
           $hostName = $this->getHostName();
           $protocol = $this->getHTTPProtocol();
           if (empty($domainData['domainProtocol'])) {
-            $targetUrl = $protocol.'://'.strtolower($domainData['domain_data']);
+            $targetURL = $protocol.'://'.strtolower($domainData['domain_data']);
           } else {
-            $targetUrl = strtolower($domainData['domain_data']);
+            $targetURL = strtolower($domainData['domain_data']);
           }
-          $checkDomain = 0 !== strpos($targetUrl, $protocol.'://'.$hostName);
-          if ($checkDomain && \Papaya\Filter\Factory::isUrl($targetUrl, TRUE)) {
+          $checkDomain = 0 !== strpos($targetURL, $protocol.'://'.$hostName);
+          if ($checkDomain && \Papaya\Filter\Factory::isURL($targetURL, TRUE)) {
             $response = new \Papaya\Response\Redirect(
-              $targetUrl, 301, 'domain page redirect'
+              $targetURL, 301, 'domain page redirect'
             );
             $response->send();
           }

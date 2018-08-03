@@ -64,14 +64,14 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setSuggestionUrl
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getSuggestionUrl
+   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setSuggestionURL
+   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getSuggestionURL
    */
   public function testGetSuggestionUrlAfterSetSuggestionUrl() {
     $url = 'www.example.com';
     $input = new \Papaya\UI\Dialog\Field\Input\Suggest('Caption', 'name', $url);
-    $input->setSuggestionUrl($url);
-    $this->assertEquals($url, $input->getSuggestionUrl());
+    $input->setSuggestionURL($url);
+    $this->assertEquals($url, $input->getSuggestionURL());
   }
 
   /**

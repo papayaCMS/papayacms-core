@@ -395,13 +395,13 @@ class Session extends Application\BaseObject {
   /**
    * Create a new session id, redirect if session id is in path
    *
-   * @param string $targetUrl
+   * @param string $targetURL
    * @return \Papaya\Session\Redirect|FALSE
    */
-  public function regenerateId($targetUrl = NULL) {
+  public function regenerateId($targetURL = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
-      if (isset($targetUrl) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
+      if (isset($targetURL) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
         $transports = array(
           Session\Id::SOURCE_COOKIE,
           Session\Id::SOURCE_PATH,
@@ -414,8 +414,8 @@ class Session extends Application\BaseObject {
           }
         }
         $redirect = $this->_createRedirect($transport, 'session id regeneration');
-        if (isset($targetUrl)) {
-          $redirect->url()->setUrl($targetUrl);
+        if (NULL !== $targetURL) {
+          $redirect->url()->setURLString($targetURL);
         }
         return $redirect;
       }

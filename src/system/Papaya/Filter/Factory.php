@@ -44,9 +44,9 @@ namespace Papaya\Filter;
  * @method static bool isText($value, $mandatory = TRUE)
  * @method static bool isTime($value, $mandatory = TRUE)
  * @method static bool isTextWithNumbers($value, $mandatory = TRUE)
- * @method static bool isUrl($value, $mandatory = TRUE)
- * @method static bool isUrlHost($value, $mandatory = TRUE)
- * @method static bool isUrlWeb($value, $mandatory = TRUE)
+ * @method static bool isURL($value, $mandatory = TRUE)
+ * @method static bool isURLHost($value, $mandatory = TRUE)
+ * @method static bool isURLWeb($value, $mandatory = TRUE)
  * @method static bool isXML($value, $mandatory = TRUE)
  */
 class Factory implements \IteratorAggregate {

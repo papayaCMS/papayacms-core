@@ -20,7 +20,7 @@ namespace Papaya\File\System\Action;
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class Url implements \Papaya\File\System\Action {
+class URL implements \Papaya\File\System\Action {
 
   private $_url;
 
