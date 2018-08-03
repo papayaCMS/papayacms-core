@@ -64,7 +64,7 @@ class papaya_imagegenerator extends base_imagegenerator {
   public $layout = NULL;
 
   /**
-   * @var array|\PapayaUiImages
+   * @var array|\Papaya\Ui\Images
    */
   public $images = NULL;
 

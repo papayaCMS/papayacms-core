@@ -13,49 +13,52 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Provides some function to get random values
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiTokens extends \Papaya\Application\BaseObject {
+ * Provides some function to get random values
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Tokens extends \Papaya\Application\BaseObject {
 
   /**
-  * Maximum of token in list until the GC is triggered.
-  * @var integer
-  */
+   * Maximum of token in list until the GC is triggered.
+   *
+   * @var integer
+   */
   private $_maximum = 0;
 
   /**
-  * Actual tokens
-  * @var array
-  */
+   * Actual tokens
+   *
+   * @var array
+   */
   protected $_tokens = NULL;
 
   /**
-  * Construct the object and initialize the maximum token count.
-  *
-  * The integrated GC will reduce the token list by half. So dont make the limit the small.
-  *
-  * @param integer $maximum
-  */
+   * Construct the object and initialize the maximum token count.
+   *
+   * The integrated GC will reduce the token list by half. So dont make the limit the small.
+   *
+   * @param integer $maximum
+   */
   public function __construct($maximum = 200) {
     \Papaya\Utility\Constraints::assertInteger($maximum);
     $this->_maximum = $maximum;
   }
 
   /**
-  * Create a new random token and append it to the list.
-  *
-  * @param mixed $for
-  * @param integer $expires Seconds until the token expires
-  * @return string|NULL $token New token
-  */
+   * Create a new random token and append it to the list.
+   *
+   * @param mixed $for
+   * @param integer $expires Seconds until the token expires
+   * @return string|NULL $token New token
+   */
   public function create($for = '', $expires = -1) {
     \Papaya\Utility\Constraints::assertInteger($expires);
     if (!isset($this->papaya()->session) ||
-        !$this->papaya()->session->isActive()) {
+      !$this->papaya()->session->isActive()) {
       return NULL;
     }
     $this->loadTokens();
@@ -74,17 +77,17 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Validate a token and remove it
-  *
-  * This check if a tokens exists, is not expired and is for the given action.
-  *
-  * If the function return TRUE, the token is removed from the list, a second call will always
-  * return FALSE.
-  *
-  * @param string $token
-  * @param mixed $for
-  * @return boolean
-  */
+   * Validate a token and remove it
+   *
+   * This check if a tokens exists, is not expired and is for the given action.
+   *
+   * If the function return TRUE, the token is removed from the list, a second call will always
+   * return FALSE.
+   *
+   * @param string $token
+   * @param mixed $for
+   * @return boolean
+   */
   public function validate($token, $for = '') {
     \Papaya\Utility\Constraints::assertString($token);
     if (!$this->papaya()->session->isActive()) {
@@ -105,11 +108,11 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Cleanup old tokens
-  *
-  * The function will first remove tokens which are already expired. After this it will reduce the
-  * list to half of the maximum property be removing tokens from the begin of the list.
-  */
+   * Cleanup old tokens
+   *
+   * The function will first remove tokens which are already expired. After this it will reduce the
+   * list to half of the maximum property be removing tokens from the begin of the list.
+   */
   protected function cleanup() {
     $now = time();
     foreach ($this->_tokens as $key => $value) {
@@ -126,21 +129,21 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get a random md5 hash
-  *
-  * @return string
-  */
+   * Get a random md5 hash
+   *
+   * @return string
+   */
   protected function getTokenHash() {
     return md5(\Papaya\Utility\Random::getId());
   }
 
   /**
-  * Load token list from session
-  *
-  * Initialize the token list from session if it is not already done or if it is forced.
-  *
-  * @param mixed $force
-  */
+   * Load token list from session
+   *
+   * Initialize the token list from session if it is not already done or if it is forced.
+   *
+   * @param mixed $force
+   */
   protected function loadTokens($force = FALSE) {
     if (is_null($this->_tokens) || $force) {
       $this->_tokens = $this->papaya()->session->values->get($this, array());
@@ -148,23 +151,23 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Store token into session
-  */
+   * Store token into session
+   */
   protected function storeTokens() {
     $this->papaya()->session->values->set($this, $this->_tokens);
   }
 
   /**
-  * Get a verification string from a given mixed value.
-  *
-  * If $for is an object the class is used. If it is an string it is used directly.
-  *
-  * If it is an array each element is used like given diretly but an array element will
-  * be serialized (to avoid recursion).
-  *
-  * @param mixed $for
-  * @return string md5 checksum
-  */
+   * Get a verification string from a given mixed value.
+   *
+   * If $for is an object the class is used. If it is an string it is used directly.
+   *
+   * If it is an array each element is used like given diretly but an array element will
+   * be serialized (to avoid recursion).
+   *
+   * @param mixed $for
+   * @return string md5 checksum
+   */
   protected function getVerification($for) {
     $result = '';
     if (is_array($for)) {

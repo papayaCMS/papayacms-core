@@ -142,7 +142,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog::tokens
   */
   public function testTokensSet() {
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $dialog = new \Papaya\Ui\Dialog(new stdClass());
     $dialog->tokens($tokens);
     $this->assertAttributeSame(
@@ -154,7 +154,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Dialog::tokens
   */
   public function testTokensGetAfterSet() {
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $dialog = new \Papaya\Ui\Dialog(new stdClass());
     $this->assertSame(
       $tokens, $dialog->tokens($tokens)
@@ -167,7 +167,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   public function testTokensGetImplicitCreate() {
     $dialog = new \Papaya\Ui\Dialog(new stdClass());
     $this->assertInstanceOf(
-      \PapayaUiTokens::class, $dialog->tokens()
+      \Papaya\Ui\Tokens::class, $dialog->tokens()
     );
   }
 
@@ -292,7 +292,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
     $owner = new stdClass();
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('create')
@@ -768,7 +768,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')
@@ -798,7 +798,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')
@@ -847,7 +847,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')

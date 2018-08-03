@@ -242,7 +242,7 @@ class papaya_navigation extends base_object {
   * @return string
   */
   function getMenuBar($fileName = '') {
-    $menu = new \PapayaUiMenu();
+    $menu = new \Papaya\Ui\Menu();
     $menu->identifier = 'main';
     $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
     foreach ($this->menuGroups as $groupId => $groupTitle) {

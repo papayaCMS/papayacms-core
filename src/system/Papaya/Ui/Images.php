@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Papaya Interface Images, and encapsulation for image lists (used in administration interfaces)
-*
-* An instance of this class is put in the application registry for administration interfaces.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiImages implements \ArrayAccess {
+ * Papaya Interface Images, and encapsulation for image lists (used in administration interfaces)
+ *
+ * An instance of this class is put in the application registry for administration interfaces.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Images implements \ArrayAccess {
 
   /**
-  * Ignore duplicates (keep exisiting)
-  *
-  * @var integer
-  */
+   * Ignore duplicates (keep existing)
+   *
+   * @var integer
+   */
   const DUPLICATES_IGNORE = 0;
   /**
-  * Overwrite duplicates (replace existing)
-  *
-  * @var integer
-  */
+   * Overwrite duplicates (replace existing)
+   *
+   * @var integer
+   */
   const DUPLICATES_OVERWRITE = 1;
 
   /**
-  * Internal image list
-  *
-  * @var array(string=>string)
-  */
+   * Internal image list
+   *
+   * @var array(string=>string)
+   */
   private $_images = array();
 
   /**
-  * Initialize object and add images if provided
-  *
-  * @param array $images
-  */
+   * Initialize object and add images if provided
+   *
+   * @param array $images
+   */
   public function __construct(array $images = NULL) {
     if (isset($images)) {
       $this->add($images);
@@ -55,11 +56,11 @@ class PapayaUiImages implements \ArrayAccess {
   }
 
   /**
-  * Add images to internal list
-  *
-  * @param array(string=>string) $images
-  * @param integer $mode
-  */
+   * Add images to internal list
+   *
+   * @param array(string=>string) $images
+   * @param integer $mode
+   */
   public function add(array $images, $mode = self::DUPLICATES_IGNORE) {
     foreach ($images as $id => $image) {
       if (!(isset($this->_images[$id]) && $mode == self::DUPLICATES_IGNORE)) {
@@ -69,10 +70,10 @@ class PapayaUiImages implements \ArrayAccess {
   }
 
   /**
-  * Remove images from internal list
-  *
-  * @param array(string) $images
-  */
+   * Remove images from internal list
+   *
+   * @param array(string) $images
+   */
   public function remove(array $images) {
     foreach ($images as $id) {
       if (isset($this->_images[$id])) {
@@ -112,10 +113,10 @@ class PapayaUiImages implements \ArrayAccess {
   }
 
   /**
-  * ArrayAccess: remove image from internal list
-  *
-  * @param string $offset
-  */
+   * ArrayAccess: remove image from internal list
+   *
+   * @param string $offset
+   */
   public function offsetUnset($offset) {
     $this->remove(array($offset));
   }

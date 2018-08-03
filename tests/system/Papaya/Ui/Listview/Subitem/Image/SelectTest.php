@@ -34,7 +34,7 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
   */
   public function testAppendToWithIcon() {
     $icon = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $icon

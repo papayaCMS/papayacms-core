@@ -83,7 +83,7 @@ class Toggle extends \Papaya\Ui\Listview\Subitem {
     $iconIndex = (string)$this->_selection;
     if (isset($this->_icons[$iconIndex]) &&
       ($icon = $this->_icons[$iconIndex]) &&
-      $icon instanceof \PapayaUiIcon) {
+      $icon instanceof \Papaya\Ui\Icon) {
       $icon->appendTo($subitem);
     }
     return $subitem;

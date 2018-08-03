@@ -183,7 +183,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new \PapayaUiMenu();
+      $this->_toolbar = new \Papaya\Ui\Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }

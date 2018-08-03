@@ -87,7 +87,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   /**
   * Images -> use $this->papaya()->images
   * @deprecated
-  * @var array|\PapayaUiImages $images
+  * @var array|\Papaya\Ui\Images $images
   */
   var $images = NULL;
 

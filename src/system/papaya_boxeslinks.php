@@ -240,7 +240,7 @@ class papaya_boxeslinks extends base_boxeslinks {
   /**
   * Get list
   *
-  * @param array|\PapayaUiImages $images
+  * @param array|\Papaya\Ui\Images $images
   * @param integer $mode
   * @param string $caption
   * @access public

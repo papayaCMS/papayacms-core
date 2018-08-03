@@ -791,7 +791,7 @@ class papaya_log extends base_db {
   * @return string XML
   */
   function getButtonsXML() {
-    $menu = new \PapayaUiMenu();
+    $menu = new \Papaya\Ui\Menu();
     $menu->identifier = 'edit';
 
     $button = new \Papaya\Ui\Toolbar\Button();

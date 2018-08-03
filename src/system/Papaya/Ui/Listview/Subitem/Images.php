@@ -103,7 +103,7 @@ class Images extends Image\Toggle {
       )
     );
     $list = $subitem->appendElement('glyphs');
-    /** @var \PapayaUiIcon $icon */
+    /** @var \Papaya\Ui\Icon $icon */
     foreach ($this->_icons as $index => $icon) {
       $icon = clone $icon;
       if (!$this->validateSelection($index)) {

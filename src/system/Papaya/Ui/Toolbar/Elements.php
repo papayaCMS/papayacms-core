@@ -15,7 +15,7 @@
 
 namespace Papaya\Ui\Toolbar;
 /**
- * A list of menu elements, used for the $elements property of a {@see \PapayaUiMenu}
+ * A list of menu elements, used for the $elements property of a {@see \Papaya\Ui\PapayaUiMenu}
  *
  * @property boolean $allowGroups
  * @package Papaya-Library

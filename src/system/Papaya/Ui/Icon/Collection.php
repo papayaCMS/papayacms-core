@@ -43,7 +43,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: return an icon from the internal list
    *
    * @param string $offset
-   * @return \PapayaUiIcon
+   * @return \Papaya\Ui\Icon
    */
   public function offsetGet($offset) {
     return $this->_icons[$offset];
@@ -54,7 +54,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * offset if it is there.
    *
    * @param string $offset
-   * @param \PapayaUiIcon $icon
+   * @param \Papaya\Ui\Icon $icon
    * @throws \InvalidArgumentException
    */
   public function offsetSet($offset, $icon) {
@@ -63,11 +63,11 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
         'InvalidArgumentException: Please provide a valid offset for the icon.'
       );
     }
-    if ($icon instanceof \PapayaUiIcon) {
+    if ($icon instanceof \Papaya\Ui\Icon) {
       $this->_icons[$offset] = $icon;
     } else {
       throw new \InvalidArgumentException(
-        'InvalidArgumentException: Please provide an instance of PapayaUiIcon.'
+        'InvalidArgumentException: Please provide an instance of Papaya\Ui\PapayaUiIcon.'
       );
     }
   }
@@ -76,7 +76,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: remove an icon from the internal list
    *
    * @param string $offset
-   * @return \PapayaUiIcon
+   * @return \Papaya\Ui\Icon
    */
   public function offsetUnset($offset) {
     unset($this->_icons[$offset]);

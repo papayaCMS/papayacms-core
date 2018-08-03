@@ -98,7 +98,7 @@ class Dialog extends Control\Interactive {
   /**
    * Token helper object
    *
-   * @var \PapayaUiTokens|NULL
+   * @var \Papaya\Ui\Tokens|NULL
    */
   private $_tokens;
 
@@ -376,14 +376,14 @@ class Dialog extends Control\Interactive {
   /**
    * Getter/Setter for csrf token manager including implizit create
    *
-   * @param \PapayaUiTokens $tokens
-   * @return \PapayaUiTokens
+   * @param \Papaya\Ui\Tokens $tokens
+   * @return \Papaya\Ui\Tokens
    */
-  public function tokens(\PapayaUiTokens $tokens = NULL) {
+  public function tokens(\Papaya\Ui\Tokens $tokens = NULL) {
     if (NULL !== $tokens) {
       $this->_tokens = $tokens;
     } elseif (NULL === $this->_tokens) {
-      $this->_tokens = new \PapayaUiTokens();
+      $this->_tokens = new \Papaya\Ui\Tokens();
       $this->_tokens->papaya($this->papaya());
     }
     return $this->_tokens;

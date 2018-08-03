@@ -113,7 +113,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')
@@ -169,7 +169,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   */
   public function testAppendTo() {
     $owner = new stdClass();
-    $tokens = $this->createMock(\PapayaUiTokens::class);
+    $tokens = $this->createMock(\Papaya\Ui\Tokens::class);
     $tokens
       ->expects($this->once())
       ->method('create')

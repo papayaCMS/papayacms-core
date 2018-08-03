@@ -104,7 +104,7 @@ class Synchronizations {
     if (is_null($this->_icons)) {
       $this->_icons = new \Papaya\Ui\Icon\Collection;
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_icons[$synchronization] = new \PapayaUiIcon(
+        $this->_icons[$synchronization] = new \Papaya\Ui\Icon(
           $data['image'],
           new \Papaya\Ui\Text\Translated($data['caption']),
           new \Papaya\Ui\Text\Translated($data['hint'])

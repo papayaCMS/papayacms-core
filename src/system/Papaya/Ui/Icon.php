@@ -13,68 +13,69 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A ui control for an icon, the icon can add itself to the output using a <glyph> element.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string $image
-* @property string|\Papaya\Ui\Text $title
-* @property string|\Papaya\Ui\Text $hint
-* @property bool $visible
-* @property array $actionParameters
-* @property \Papaya\Ui\Reference $reference
-*/
-class PapayaUiIcon extends \Papaya\Ui\Control {
+ * A ui control for an icon, the icon can add itself to the output using a <glyph> element.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string $image
+ * @property string|\Papaya\Ui\Text $title
+ * @property string|\Papaya\Ui\Text $hint
+ * @property bool $visible
+ * @property array $actionParameters
+ * @property \Papaya\Ui\Reference $reference
+ */
+class Icon extends Control {
 
   /**
-  * internal reference object buffer
-  *
-  * @var \Papaya\Ui\Reference|NULL
-  */
+   * internal reference object buffer
+   *
+   * @var \Papaya\Ui\Reference|NULL
+   */
   protected $_reference = NULL;
 
   /**
-  * image index or url
-  *
-  * @var string
-  */
+   * image index or url
+   *
+   * @var string
+   */
   protected $_image = '';
 
   /**
-  * caption/alternative text for image
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * caption/alternative text for image
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_caption = '';
 
   /**
-  * hint/quickinfo text for image
-  *
-  * @var string|\Papaya\Ui\Text
-  */
+   * hint/quickinfo text for image
+   *
+   * @var string|\Papaya\Ui\Text
+   */
   protected $_hint = '';
 
   /**
-  * hide the icon/replace with empty element
-  *
-  * @var boolean
-  */
+   * hide the icon/replace with empty element
+   *
+   * @var boolean
+   */
   protected $_visible = TRUE;
 
   /**
-  * action parameters list, if provided the icon will be linked
-  *
-  * @var array
-  */
+   * action parameters list, if provided the icon will be linked
+   *
+   * @var array
+   */
   protected $_actionParameters = NULL;
 
   /**
-  * Allow to assign the internal (protected) variables using a public property
-  *
-  * @var array
-  */
+   * Allow to assign the internal (protected) variables using a public property
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'image' => array('_image', '_image'),
     'caption' => array('_caption', '_caption'),
@@ -85,8 +86,8 @@ class PapayaUiIcon extends \Papaya\Ui\Control {
   );
 
   /**
-  * Create object and assign provided data
-  */
+   * Create object and assign provided data
+   */
   public function __construct($image, $caption = '', $hint = '', array $actionParameters = NULL) {
     $this->_image = $image;
     $this->_caption = $caption;
@@ -95,20 +96,20 @@ class PapayaUiIcon extends \Papaya\Ui\Control {
   }
 
   /**
-  * If the object is castet to stirng, return the image source url.
-  *
-  * @return string
-  */
+   * If the object is castet to stirng, return the image source url.
+   *
+   * @return string
+   */
   public function __toString() {
     return (string)$this->getImageUrl();
   }
 
   /**
-  * append icon to output using a <glyph> element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * append icon to output using a <glyph> element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
@@ -139,20 +140,20 @@ class PapayaUiIcon extends \Papaya\Ui\Control {
   }
 
   /**
-  * Use the global images object, to determine the image source
-  *
-  * @return string
-  */
+   * Use the global images object, to determine the image source
+   *
+   * @return string
+   */
   public function getImageUrl() {
     return $this->papaya()->images[(string)$this->_image];
   }
 
   /**
-  * If action parameters were provided, return the reference for a link containing these
-  * parameters in the query string
-  *
-  * @return \Papaya\Ui\Reference|NULL
-  */
+   * If action parameters were provided, return the reference for a link containing these
+   * parameters in the query string
+   *
+   * @return \Papaya\Ui\Reference|NULL
+   */
   public function getUrl() {
     if (empty($this->_actionParameters)) {
       return NULL;

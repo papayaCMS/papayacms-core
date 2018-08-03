@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* A menu gui control. This is a list of menu elements like buttons, separators and selects,
-* maybe grouped.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string $identifier
-* @property \Papaya\Ui\Toolbar\Elements $elements
-*/
-class PapayaUiMenu extends \Papaya\Ui\Toolbar {
+ * A menu gui control. This is a list of menu elements like buttons, separators and selects,
+ * maybe grouped.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string $identifier
+ * @property \Papaya\Ui\Toolbar\Elements $elements
+ */
+class Menu extends Toolbar {
 
   /**
-  * An identifier/name for the menu
-  *
-  * @var string
-  */
+   * An identifier/name for the menu
+   *
+   * @var string
+   */
   protected $_identifier = '';
 
   /**
-  * Delcare public properties
-  *
-  * @var array
-  */
+   * Delcare public properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'identifier' => array('_identifier', '_identifier'),
     'elements' => array('elements', 'elements')
   );
 
   /**
-  * Append menu and elements and set identifier if available
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL
-  */
+   * Append menu and elements and set identifier if available
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {
       $menu = $parent->appendElement('menu');

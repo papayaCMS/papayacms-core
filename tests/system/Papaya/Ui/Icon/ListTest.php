@@ -22,7 +22,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetExists() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['sample'] = new \PapayaUiIcon('sample.png');
+    $list['sample'] = new \Papaya\Ui\Icon('sample.png');
     $this->assertTrue(isset($list['sample']));
   }
 
@@ -31,7 +31,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetGet() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['sample'] = $icon = new \PapayaUiIcon('sample.png');
+    $list['sample'] = $icon = new \Papaya\Ui\Icon('sample.png');
     $this->assertSame($icon, $list['sample']);
   }
 
@@ -40,7 +40,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetSet() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['sample'] = $icon = new \PapayaUiIcon('sample.png');
+    $list['sample'] = $icon = new \Papaya\Ui\Icon('sample.png');
     $this->assertAttributeSame(array('sample' => $icon), '_icons', $list);
   }
 
@@ -51,7 +51,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
     $list = new \Papaya\Ui\Icon\Collection();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Please provide a valid offset for the icon.');
-    $list[] = new \PapayaUiIcon('sample.png');
+    $list[] = new \Papaya\Ui\Icon('sample.png');
   }
 
   /**
@@ -60,7 +60,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   public function testOffsetSetWithInvalidIconExpectingException() {
     $list = new \Papaya\Ui\Icon\Collection();
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('InvalidArgumentException: Please provide an instance of PapayaUiIcon.');
+    $this->expectExceptionMessage('InvalidArgumentException: Please provide an instance of Papaya\Ui\PapayaUiIcon.');
     $list['sample'] = 'X';
   }
 
@@ -69,7 +69,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetUnset() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['sample'] = new \PapayaUiIcon('sample.png');
+    $list['sample'] = new \Papaya\Ui\Icon('sample.png');
     unset($list['sample']);
     $this->assertFalse(isset($list['sample']));
   }
@@ -87,8 +87,8 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testCountExpectingTwo() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['one'] = $icon = new \PapayaUiIcon('one.png');
-    $list['two'] = $icon = new \PapayaUiIcon('two.png');
+    $list['one'] = $icon = new \Papaya\Ui\Icon('one.png');
+    $list['two'] = $icon = new \Papaya\Ui\Icon('two.png');
     $this->assertCount(2, $list);
   }
 
@@ -97,7 +97,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testGetIterator() {
     $list = new \Papaya\Ui\Icon\Collection();
-    $list['sample'] = $icon = new \PapayaUiIcon('sample.png');
+    $list['sample'] = $icon = new \Papaya\Ui\Icon('sample.png');
     $this->assertSame(array('sample' => $icon), $list->getIterator()->getArrayCopy());
   }
 }

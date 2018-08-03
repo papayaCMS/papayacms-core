@@ -22,7 +22,7 @@ class PapayaUiToolbarElementsTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Toolbar\Elements::owner
   */
   public function testConstructor() {
-    $menu = $this->createMock(\PapayaUiMenu::class);
+    $menu = $this->createMock(\Papaya\Ui\Menu::class);
     $elements = new \Papaya\Ui\Toolbar\Elements($menu);
     $this->assertSame(
       $menu, $elements->owner()
@@ -33,7 +33,7 @@ class PapayaUiToolbarElementsTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Toolbar\Elements::validateItemClass
   */
   public function testAddElementWhileGroupsAllowed() {
-    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\PapayaUiMenu::class));
+    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\Papaya\Ui\Menu::class));
     $elements->allowGroups = TRUE;
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Toolbar\Group $group */
     $group = $this
@@ -50,7 +50,7 @@ class PapayaUiToolbarElementsTest extends \PapayaTestCase {
   * @covers \Papaya\Ui\Toolbar\Elements::validateItemClass
   */
   public function testAddElementWhileGroupsNotAllowedExpectingException() {
-    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\PapayaUiMenu::class));
+    $elements = new \Papaya\Ui\Toolbar\Elements($this->createMock(\Papaya\Ui\Menu::class));
     $elements->allowGroups = FALSE;
     $group = new \Papaya\Ui\Toolbar\Group('caption');
     $this->expectException(InvalidArgumentException::class);

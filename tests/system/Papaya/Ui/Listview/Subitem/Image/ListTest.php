@@ -37,7 +37,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   */
   public function testAppendToUseValues() {
     $iconValid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -45,7 +45,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -89,7 +89,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   */
   public function testAppendToUseKeys() {
     $iconValid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -97,7 +97,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -145,7 +145,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
   */
   public function testAppendToUseBitmask() {
     $iconValid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
@@ -153,7 +153,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
-      ->getMockBuilder(\PapayaUiIcon::class)
+      ->getMockBuilder(\Papaya\Ui\Icon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
