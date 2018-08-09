@@ -1,24 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for the content page tag/label list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Tags.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the content page tag/label list.
@@ -50,7 +43,8 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
     'tag_title' => 'title',
     'tag_image' => 'image',
     'tag_description' => 'description',
-    'tag_char' => 'char'
+    'tag_char' => 'char',
+    'category_name' => 'category'
   );
 
   /**
@@ -58,20 +52,35 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
   *
   * @param integer $pageId
   * @param integer $languageId
+  * @param array $categoryIds
   * @return boolean
   */
-  public function load($pageId, $languageId = 0) {
+  public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
+    $categoryCondition = '';
+    if ($categoryIds) {
+      $categoryCondition = PapayaUtilString::escapeForPrintf(
+        ' AND '.$this->databaseGetSqlCondition(
+          array('t.category_id' => $categoryIds)
+        )
+      );
+    }
     $sql = "SELECT tl.link_id, tl.link_priority, tl.tag_id,
-                   tt.tag_title, tt.tag_image, tt.tag_description, tt.tag_char
+                   tt.tag_title, tt.tag_image, tt.tag_description, tt.tag_char,
+                   c.category_name
               FROM %s AS tl
               LEFT OUTER JOIN %s AS tt ON (tt.tag_id = tl.tag_id AND tt.lng_id = '%d')
+              LEFT OUTER JOIN %s AS t ON (t.tag_id = tl.tag_id)
+              LEFT OUTER JOIN %s AS c ON (c.category_id = t.category_id)
              WHERE tl.link_type = '%s'
                AND tl.link_id = '%d'
+                $categoryCondition
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = array(
       $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
       $this->databaseGetTableName(PapayaContentTables::TAG_TRANSLATIONS),
       $languageId,
+      $this->databaseGetTableName(PapayaContentTables::TAGS),
+      $this->databaseGetTableName(PapayaContentTables::TAG_CATEGORY),
       $this->_linkType,
       $pageId
     );
