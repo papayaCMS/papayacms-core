@@ -142,6 +142,9 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
       } else {
         $this->_processor = new XsltProcessor();
       }
+      $this->_processor->registerPHPFunctions(
+        array(__CLASS__.'::parseXML')
+      );
     }
     return $this->_processor;
   }
@@ -190,7 +193,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
       unset($xslDom);
     } else {
       $xslDom = new DOMDocument('1.0', 'UTF-8');
-      $xslDom->loadXml($this->_template);
+      $xslDom->loadXML($this->_template);
       $processor->importStylesheet($xslDom);
       unset($xslDom);
     }
@@ -200,10 +203,11 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   }
 
   /**
-  * Run template processing and set result.
-  *
-  * @return boolean
-  */
+   * Run template processing and set result.
+   *
+   * @return bool
+   * @throws \PapayaXmlException
+   */
   public function run() {
     $this->_result = '';
     $errors = $this->getErrorHandler();
@@ -236,5 +240,24 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   */
   public function getResult() {
     return $this->_result;
+  }
+
+  /**
+   * callback for templates to parse a generated XML string
+   *
+   * @param string $xmlString
+   * @return \PapayaXmlDocument
+   */
+  public static function parseXML($xmlString) {
+    $errors = new PapayaXmlErrors();
+    return $errors->encapsulate(
+      function($xmlString) {
+        $document = new PapayaXMLDocument();
+        $document->loadXml($xmlString);
+        return $document;
+      },
+      array($xmlString),
+      FALSE
+    );
   }
 }
