@@ -493,5 +493,7 @@ if (!class_exists('XsltCache', FALSE)) {
     }
     public function setParameter($namespace, $name, $value) {
     }
+    public function registerPHPFunctions(array $functions = NULL) {
+    }
   }
 }
