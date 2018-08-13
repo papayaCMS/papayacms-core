@@ -1278,32 +1278,25 @@ class papaya_taglinks extends base_tags {
 
   /**
    * Get link
+   *
    * @param array $params
    * @param string $paramName
-   *
+   * @param string $fileName
+   * @param null|int $pageId
    * @return string
    */
-  function getLink($params, $paramName = NULL) {
-    if (empty($paramName)) {
+  function getLink($params = NULL, $paramName = NULL, $fileName = '', $pageId = NULL) {
+    if (NULL === $paramName || '' === trim($paramName)) {
       $paramName = $this->paramName;
     }
     if (is_array($this->linkParams) && count($this->linkParams) > 0) {
       if (is_array($params) && count($params) > 0) {
-        $queryString = $this->encodeQueryString($params, $paramName);
-        if (empty($queryString)) {
-          $queryString = $this->encodeQueryString($this->linkParams);
-        } else {
-          $linkSeparator = $this->escapeLinkSeparator ? '&amp;' : '&';
-          $queryString .= $linkSeparator
-            .substr($this->encodeQueryString($this->linkParams), 1);
-        }
-        return $this->getBaseLink().$queryString;
+        $params = array_merge_recursive($this->linkParams, $params);
       } else {
-        return parent::getLink($this->linkParams);
+        $params = $this->linkParams;
       }
-    } else {
-      return parent::getLink($params, $paramName);
     }
+    return parent::getLink($params, $paramName, $fileName, $pageId);
   }
 }
 
