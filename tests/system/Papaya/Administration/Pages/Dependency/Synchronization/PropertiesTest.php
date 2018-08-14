@@ -242,7 +242,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends \
    * @param \Papaya\Database\Access|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
    * @param Translation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
-   * @return PHPUnit_Framework_MockObject_MockObject|Translations
+   * @return \PHPUnit_Framework_MockObject_MockObject|Translations
    */
   private function getTranslationsFixture(
     Access $databaseAccess,
@@ -289,7 +289,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends \
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Translation
+   * @return \PHPUnit_Framework_MockObject_MockObject|Translation
    */
   private function getTranslationFixture(array $data = array()) {
     $translation = $this->createMock(Translation::class);
@@ -307,7 +307,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends \
   /**
    * @param \Papaya\Database\Access $databaseAccess
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Work
+   * @return \PHPUnit_Framework_MockObject_MockObject|Work
    */
   private function getPageFixture(Access $databaseAccess, array $data = array()) {
     $page = $this->createMock(Work::class);

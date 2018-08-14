@@ -557,7 +557,7 @@ class PapayaPluginLoaderTest extends \PapayaTestCase {
 
   /**
    * @param mixed $record
-   * @return PHPUnit_Framework_MockObject_MockObject
+   * @return \PHPUnit_Framework_MockObject_MockObject
    */
   private function getPluginListFixture($record) {
     $plugins = $this->createMock(\Papaya\Plugin\Collection::class);

@@ -191,7 +191,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
+   * @return \PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   public function getRecordFixture(array $data = array()) {
     $record = $this->createMock(Dependency::class);

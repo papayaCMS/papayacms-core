@@ -85,7 +85,7 @@ class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Record
+   * @return \PHPUnit_Framework_MockObject_MockObject|Record
    */
   public function getRecordFixture(array $data = array()) {
     $record = $this->createMock(Record::class);

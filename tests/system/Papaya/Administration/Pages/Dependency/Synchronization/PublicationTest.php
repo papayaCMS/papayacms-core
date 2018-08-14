@@ -141,7 +141,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   /**
    * @param array $publicationData
    * @param array $latestVersionData
-   * @return PHPUnit_Framework_MockObject_MockObject|Page\Publication
+   * @return \PHPUnit_Framework_MockObject_MockObject|Page\Publication
    */
   private function getPublicationFixture($publicationData = NULL, $latestVersionData = NULL) {
     $publication = $this->createMock(Page\Publication::class);
@@ -184,7 +184,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|Page\Work
+   * @return \PHPUnit_Framework_MockObject_MockObject|Page\Work
    */
   private function getPageFixture() {
     $page = $this->createMock(Page\Work::class);
@@ -203,7 +203,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
 
   /**
    * @param $versionData
-   * @return PHPUnit_Framework_MockObject_MockObject|Page\Version
+   * @return \PHPUnit_Framework_MockObject_MockObject|Page\Version
    */
   private function getVersionFixture($versionData) {
     $version = $this->createMock(Page\Version::class);

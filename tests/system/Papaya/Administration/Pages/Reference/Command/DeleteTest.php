@@ -66,7 +66,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCas
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject
+   * @return \PHPUnit_Framework_MockObject_MockObject
    */
   public function getRecordFixture(array $data = array()) {
     $record = $this->createMock(Reference::class);

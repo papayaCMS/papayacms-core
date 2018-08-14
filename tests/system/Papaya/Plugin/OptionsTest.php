@@ -114,7 +114,7 @@ class PapayaPluginOptionsTest extends \PapayaTestCase {
   /**
    * @param array $data
    * @param bool $requireLoading
-   * @return PHPUnit_Framework_MockObject_MockObject|Storage
+   * @return \PHPUnit_Framework_MockObject_MockObject|Storage
    */
   public function getStorageFixture(array $data = array(), $requireLoading = FALSE) {
     $storage = $this->createMock(Storage::class);

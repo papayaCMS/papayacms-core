@@ -199,7 +199,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Reference
+   * @return \PHPUnit_Framework_MockObject_MockObject|Reference
    */
   public function getRecordFixture(array $data = array()) {
     $record = $this->createMock(Reference::class);

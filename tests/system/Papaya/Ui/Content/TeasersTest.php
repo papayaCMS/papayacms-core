@@ -267,7 +267,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 
   /**
    * @param array $pageRecords
-   * @return PHPUnit_Framework_MockObject_MockObject|Pages
+   * @return \PHPUnit_Framework_MockObject_MockObject|Pages
    */
   private function getPagesFixture(array $pageRecords = array()) {
     $pages = $this->createMock(Pages::class);

@@ -430,7 +430,7 @@ class PapayaTemplateEngineXslTest extends \PapayaTestCase {
 
   /**
    * @param string $class
-   * @return PHPUnit_Framework_MockObject_MockObject|XsltProcessor|XsltCache
+   * @return \PHPUnit_Framework_MockObject_MockObject|XsltProcessor|XsltCache
    */
   private function getProcessorMock($class = 'XsltProcessor') {
     $result = $this

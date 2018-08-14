@@ -255,7 +255,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
 
   /**
    * @param null $domains
-   * @return PHPUnit_Framework_MockObject_MockObject|Domains
+   * @return \PHPUnit_Framework_MockObject_MockObject|Domains
    */
   private function getDomainDataFixture($domains = NULL) {
     if (empty($domains)) {

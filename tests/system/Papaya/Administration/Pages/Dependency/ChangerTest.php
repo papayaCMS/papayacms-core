@@ -490,7 +490,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
+   * @return \PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   private function getDependencyFixture(array $data = array()) {
     $record = $this->createMock(Dependency::class);

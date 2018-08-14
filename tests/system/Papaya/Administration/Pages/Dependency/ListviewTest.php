@@ -211,7 +211,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Dependencies
+   * @return \PHPUnit_Framework_MockObject_MockObject|Dependencies
    */
   public function getDependenciesFixture(array $data = array()) {
     $dependencies = $this->createMock(Dependencies::class);
@@ -228,7 +228,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|References
+   * @return \PHPUnit_Framework_MockObject_MockObject|References
    */
   public function getReferencesFixture(array $data = array()) {
     $references = $this->createMock(References::class);
@@ -244,7 +244,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|Synchronizations
+   * @return \PHPUnit_Framework_MockObject_MockObject|Synchronizations
    */
   public function getSynchronizationsFixture() {
     $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);

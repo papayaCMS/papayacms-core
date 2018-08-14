@@ -249,7 +249,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
   /**
    * @param array $tokens
    * @param bool|NULL $isEndToken
-   * @return PHPUnit_Framework_MockObject_MockObject
+   * @return \PHPUnit_Framework_MockObject_MockObject
    */
   private function getStatusMockObjectFixture($tokens, $isEndToken = NULL) {
     $status = $this->createMock(\Papaya\Template\Simple\Scanner\Status::class);

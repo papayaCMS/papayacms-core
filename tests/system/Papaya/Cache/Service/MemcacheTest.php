@@ -641,7 +641,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   /**
    * @param bool $canConnected
    * @param string $memcacheClassName
-   * @return PHPUnit_Framework_MockObject_MockObject|Memcached
+   * @return \PHPUnit_Framework_MockObject_MockObject|Memcached
    */
   public function getMemcacheMockObjectFixture(
     $canConnected = FALSE,

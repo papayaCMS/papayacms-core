@@ -23,7 +23,7 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   * get mock for \Papaya\PapayaUrl from url string
   *
   * @param string $url
-  * @return PHPUnit_Framework_MockObject_MockObject|URL
+  * @return \PHPUnit_Framework_MockObject_MockObject|URL
   */
   public function getPapayaUrlMockFixture($url) {
     $mapping = array(

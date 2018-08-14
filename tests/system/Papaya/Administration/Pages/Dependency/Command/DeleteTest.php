@@ -13,21 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Command\Delete;
-use Papaya\Administration\Pages\Dependency\Changer;
-use Papaya\Content\Page\Dependency;
+namespace Papaya\Administration\Pages\Dependency\Command;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-/**
- * @property array _dependencyRecordData
- */
-class PapayaAdministrationPagesDependencyCommandDeleteTest extends \PapayaTestCase {
+class DeleteTest extends \PapayaTestCase {
+
+  private $_dependencyRecordData;
+
   /**
-  * @covers Delete::createDialog
-  */
+   * @covers Delete::createDialog
+   */
   public function testCreateDialog() {
-    $owner = $this->createMock(Changer::class);
+    $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -35,7 +33,7 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends \PapayaTestCa
     $owner
       ->expects($this->once())
       ->method('dependency')
-      ->will($this->returnValue($this->getRecordFixture(array('id' => 21,'originId' => 42))));
+      ->will($this->returnValue($this->getRecordFixture(array('id' => 21, 'originId' => 42))));
 
     $command = new Delete();
     $command->owner($owner);
@@ -45,8 +43,8 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends \PapayaTestCa
   }
 
   /**
-  * @covers Delete::dispatchDeleteMessage
-  */
+   * @covers Delete::dispatchDeleteMessage
+   */
   public function testDispatchDeleteMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
@@ -64,16 +62,16 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends \PapayaTestCa
   }
 
   /**************************
-  * Fixtures
-  **************************/
+   * Fixtures
+   **************************/
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\Dependency
    */
   public function getRecordFixture(array $data = array()) {
     $this->_dependencyRecordData = $data;
-    $record = $this->createMock(Dependency::class);
+    $record = $this->createMock(\Papaya\Content\Page\Dependency::class);
     $record
       ->expects($this->any())
       ->method('toArray')

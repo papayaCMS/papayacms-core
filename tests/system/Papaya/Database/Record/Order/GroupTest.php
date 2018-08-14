@@ -73,7 +73,7 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
 
   /**
    * @param array $fieldNames
-   * @return PHPUnit_Framework_MockObject_MockObject|Fields
+   * @return \PHPUnit_Framework_MockObject_MockObject|Fields
    */
   private function getListFixture(array $fieldNames = array()) {
     $fields = array();

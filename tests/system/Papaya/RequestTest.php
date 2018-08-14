@@ -979,7 +979,7 @@ class PapayaRequestTest extends \PapayaTestCase {
 
   /**
    * @param string $queryString
-   * @return PHPUnit_Framework_MockObject_MockObject|URL
+   * @return \PHPUnit_Framework_MockObject_MockObject|URL
    */
   public function getUrlMockFixture($queryString = '') {
     $url = $this
