@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleParserOutput::parse
+   * @covers \Papaya\Template\Simple\Parser\Output::parse
    */
   public function testWithText() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
+      new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::TEXT, 0, 'foo')
     );
-    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
     $this->assertEquals(
-      new \PapayaTemplateSimpleAstNodes(
+      new \Papaya\Template\Simple\AST\Nodes(
         array(
-          new \PapayaTemplateSimpleAstNodeOutput('foo')
+          new \Papaya\Template\Simple\AST\Node\Output('foo')
         )
       ),
       $parser->parse()
@@ -36,17 +36,17 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleParserOutput::parse
+   * @covers \Papaya\Template\Simple\Parser\Output::parse
    */
   public function testWithWhitespace() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::WHITESPACE, 0, "\n")
+      new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::WHITESPACE, 0, "\n")
     );
-    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
     $this->assertEquals(
-      new \PapayaTemplateSimpleAstNodes(
+      new \Papaya\Template\Simple\AST\Nodes(
         array(
-          new \PapayaTemplateSimpleAstNodeOutput("\n")
+          new \Papaya\Template\Simple\AST\Node\Output("\n")
         )
       ),
       $parser->parse()
@@ -54,19 +54,19 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleParserOutput::parse
+   * @covers \Papaya\Template\Simple\Parser\Output::parse
    */
   public function testWithSeveralOutputTokensOptimizesAst() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
-      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::WHITESPACE, 3, "\n"),
-      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 4, 'bar'),
+      new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::TEXT, 0, 'foo'),
+      new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::WHITESPACE, 3, "\n"),
+      new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::TEXT, 4, 'bar'),
     );
-    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
     $this->assertEquals(
-      new \PapayaTemplateSimpleAstNodes(
+      new \Papaya\Template\Simple\AST\Nodes(
         array(
-          new \PapayaTemplateSimpleAstNodeOutput("foo\nbar")
+          new \Papaya\Template\Simple\AST\Node\Output("foo\nbar")
         )
       ),
       $parser->parse()
@@ -74,25 +74,25 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleParserOutput::parse
+   * @covers \Papaya\Template\Simple\Parser\Output::parse
    */
   public function testWithValue() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(
-        \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$foo*/'
+      new \Papaya\Template\Simple\Scanner\Token(
+        \Papaya\Template\Simple\Scanner\Token::VALUE_NAME, 0, '/*$foo*/'
       ),
-      new \PapayaTemplateSimpleScannerToken(
-        \PapayaTemplateSimpleScannerToken::WHITESPACE, 6, ' '
+      new \Papaya\Template\Simple\Scanner\Token(
+        \Papaya\Template\Simple\Scanner\Token::WHITESPACE, 6, ' '
       ),
-      new \PapayaTemplateSimpleScannerToken(
-        \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 7, 'bar'
+      new \Papaya\Template\Simple\Scanner\Token(
+        \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT, 7, 'bar'
       )
     );
-    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
     $this->assertEquals(
-      new \PapayaTemplateSimpleAstNodes(
+      new \Papaya\Template\Simple\AST\Nodes(
         array(
-          new \PapayaTemplateSimpleAstNodeValue('foo', 'bar')
+          new \Papaya\Template\Simple\AST\Node\Value('foo', 'bar')
         )
       ),
       $parser->parse()

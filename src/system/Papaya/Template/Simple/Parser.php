@@ -13,46 +13,49 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple;
 /**
-* Abstract superclass for the template parser. The actual parsers for the different parsing states
-* extend this class.
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-abstract class PapayaTemplateSimpleParser {
+ * Abstract superclass for the template parser. The actual parsers for the different parsing states
+ * extend this class.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+abstract class Parser {
 
   /**
-  * List of tokens from scanner
-  *
-  * @var array(\PapayaTemplateSimpleScannerToken)
-  */
+   * List of tokens from scanner
+   *
+   * @var array(\Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken)
+   */
   protected $_tokens = array();
 
   /**
-  * Construct a parser object taking the token list to operate on as
-  * argument
-  */
+   * Construct a parser object taking the token list to operate on as
+   * argument
+   *
+   * @param array $tokens
+   */
   public function __construct(array &$tokens) {
     $this->_tokens = &$tokens;
   }
 
   /**
-  * Execute the parsing process on the provided tokenstream
-  *
-  * This method is supposed to handle all the steps needed to parse the
-  * current subsegment of the tokenstream. It is supposed to return a valid
-  * PapayaTemplateSimpleAst.
-  *
-  * If the parsing process can't be completed because of invalid input a
-  * PapayaTemplateSimpleParserException needs to be thrown.
-  *
-  * The methods protected methods read and lookahead should be used to
-  * operate on the tokenstream. They will throw \PapayaTemplateSimpleParserExceptions
-  * automatically in case they do not succeed.
-  *
-  * @return \PapayaTemplateSimpleAst
-  */
+   * Execute the parsing process on the provided tokenstream
+   *
+   * This method is supposed to handle all the steps needed to parse the
+   * current subsegment of the tokenstream. It is supposed to return a valid
+   * Papaya\Template\Simple\PapayaTemplateSimpleAst.
+   *
+   * If the parsing process can't be completed because of invalid input a
+   * PapayaTemplateSimpleParserException needs to be thrown.
+   *
+   * The methods protected methods read and lookahead should be used to
+   * operate on the tokenstream. They will throw \PapayaTemplateSimpleParserExceptions
+   * automatically in case they do not succeed.
+   *
+   * @return \Papaya\Template\Simple\AST
+   */
   abstract public function parse();
 
   /**
@@ -70,13 +73,13 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
    * @param array|int|string $expectedTokens
-   * @throws \PapayaTemplateSimpleException
-   * @return \PapayaTemplateSimpleScannerToken
+   * @throws \Papaya\Template\Simple\Exception
+   * @return \Papaya\Template\Simple\Scanner\Token
    */
   protected function read($expectedTokens) {
     // Allow scalar token values for better readability
@@ -109,7 +112,7 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
@@ -120,8 +123,8 @@ abstract class PapayaTemplateSimpleParser {
    * @param array|int|string $expectedTokens
    * @param int $position
    * @param bool $allowEndOfTokens
-   * @throws \PapayaTemplateSimpleException
-   * @return \PapayaTemplateSimpleScannerToken|NULL
+   * @throws \Papaya\Template\Simple\Exception
+   * @return \Papaya\Template\Simple\Scanner\Token|NULL
    */
   protected function lookahead($expectedTokens, $position = 0, $allowEndOfTokens = FALSE) {
     // Allow scalar token values for better readability
@@ -132,7 +135,7 @@ abstract class PapayaTemplateSimpleParser {
     // If the the requested characters is not available on the tokenstream
     // and this state is allowed return a special ANY token
     if ($allowEndOfTokens === TRUE && (!isset($this->_tokens[$position]))) {
-      return new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::ANY, 0, '');
+      return new Scanner\Token(Scanner\Token::ANY, 0, '');
     }
 
     foreach ($expectedTokens as $token) {
@@ -168,7 +171,7 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \PapayaTemplateSimpleScannerToken::ANY is not valid here.
+   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY is not valid here.
    *
    * The method return TRUE if tokens were removed, otherwise FALSE.
    *
@@ -220,11 +223,11 @@ abstract class PapayaTemplateSimpleParser {
    *
    * @param string $subparserClass
    * @throws \LogicException
-   * @return \PapayaTemplateSimpleAst
+   * @return \Papaya\Template\Simple\AST
    */
   protected function delegate($subparserClass) {
     $subparser = new $subparserClass($this->_tokens);
-    if ($subparser instanceof \PapayaTemplateSimpleParser) {
+    if ($subparser instanceof self) {
       return $subparser->parse();
     }
     throw new \LogicException('Invalid parser class: '.$subparserClass);
@@ -245,7 +248,7 @@ abstract class PapayaTemplateSimpleParser {
       return FALSE;
     }
 
-    if ($type === \PapayaTemplateSimpleScannerToken::ANY) {
+    if ($type === Scanner\Token::ANY) {
       // A token has been found. We do not care which one it was
       return TRUE;
     }
@@ -258,16 +261,16 @@ abstract class PapayaTemplateSimpleParser {
    *
    * @param array $expectedTokens
    * @param int $position
-   * @return \PapayaTemplateSimpleException
+   * @return \Papaya\Template\Simple\Exception
    */
   protected function createMismatchException($expectedTokens, $position = 0) {
     // If the tokenstream ended unexpectedly throw an appropriate exception
     if (!isset($this->_tokens[$position])) {
-      return new \PapayaTemplateSimpleExceptionUnexpectedEof($expectedTokens);
+      return new Exception\UnexpectedEOF($expectedTokens);
     }
 
     // We found a token but none of the expected ones.
-    return new \PapayaTemplateSimpleExceptionUnexpectedToken(
+    return new Exception\UnexpectedToken(
       $this->_tokens[$position], $expectedTokens
     );
   }

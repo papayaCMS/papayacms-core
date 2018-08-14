@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaTemplateSimpleExceptionUnexpectedEofTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaTemplateSimpleExceptionUnexpectedEof::__construct
+  * @covers \Papaya\Template\Simple\Exception\UnexpectedEOF::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaTemplateSimpleExceptionUnexpectedEof(
-      array(\PapayaTemplateSimpleScannerToken::TEXT)
+    $e = new \Papaya\Template\Simple\Exception\UnexpectedEOF(
+      array(\Papaya\Template\Simple\Scanner\Token::TEXT)
     );
     $this->assertAttributeEquals(
-      array(\PapayaTemplateSimpleScannerToken::TEXT), 'expectedTokens', $e
+      array(\Papaya\Template\Simple\Scanner\Token::TEXT), 'expectedTokens', $e
     );
     $this->assertEquals(
       'Parse error: Unexpected end of file was found while one of TEXT was expected.',

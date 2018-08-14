@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\AST\Node;
 /**
-* Ast node representing a node value placeholder with a default value
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-* @property-read string $name
-* @property-read string $default
-*/
-class PapayaTemplateSimpleAstNodeValue extends \PapayaTemplateSimpleAstNode {
+ * Ast node representing a node value placeholder with a default value
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ *
+ * @property-read string $name
+ * @property-read string $default
+ */
+class Value extends \Papaya\Template\Simple\AST\Node {
 
   protected $_name = '';
   protected $_default = '';

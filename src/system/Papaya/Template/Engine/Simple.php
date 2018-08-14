@@ -113,19 +113,19 @@ class Simple extends \Papaya\Template\Engine {
   /**
    * Getter/Setter for the ast. The default ast is created using scanner and parser objects.
    *
-   * @param \PapayaTemplateSimpleAst $ast
-   * @return \PapayaTemplateSimpleAst
+   * @param \Papaya\Template\Simple\AST $ast
+   * @return \Papaya\Template\Simple\AST
    */
-  public function ast(\PapayaTemplateSimpleAst $ast = NULL) {
+  public function ast(\Papaya\Template\Simple\AST $ast = NULL) {
     if (isset($ast)) {
       $this->_ast = $ast;
     } elseif (NULL === $this->_ast) {
       $tokens = array();
-      $scanner = new \PapayaTemplateSimpleScanner(
-        new \PapayaTemplateSimpleScannerStatusCss()
+      $scanner = new \Papaya\Template\Simple\Scanner(
+        new \Papaya\Template\Simple\Scanner\Status\CSS()
       );
       $scanner->scan($tokens, $this->_template);
-      $parser = new \PapayaTemplateSimpleParserOutput($tokens);
+      $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
       return $parser->parse();
     }
     return $this->_ast;
@@ -134,14 +134,14 @@ class Simple extends \Papaya\Template\Engine {
   /**
    * Getter/Setter for the ast visitor used to execute the template.
    *
-   * @param \PapayaTemplateSimpleVisitor $visitor
-   * @return \PapayaTemplateSimpleVisitor
+   * @param \Papaya\Template\Simple\Visitor $visitor
+   * @return \Papaya\Template\Simple\Visitor
    */
-  public function visitor(\PapayaTemplateSimpleVisitor $visitor = NULL) {
+  public function visitor(\Papaya\Template\Simple\Visitor $visitor = NULL) {
     if (isset($visitor)) {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {
-      $this->_visitor = new \PapayaTemplateSimpleVisitorOutput();
+      $this->_visitor = new \Papaya\Template\Simple\Visitor\Output();
       $this->_visitor->callbacks()->onGetValue = array($this, 'callbackGetValue');
     }
     return $this->_visitor;

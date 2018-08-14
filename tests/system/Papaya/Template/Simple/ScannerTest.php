@@ -18,24 +18,24 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaTemplateSimpleScanner::__construct
+  * @covers \Papaya\Template\Simple\Scanner::__construct
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
-    $status = $this->createMock(\PapayaTemplateSimpleScannerStatus::class);
-    $scanner = new \PapayaTemplateSimpleScanner($status);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
+    $status = $this->createMock(\Papaya\Template\Simple\Scanner\Status::class);
+    $scanner = new \Papaya\Template\Simple\Scanner($status);
     $this->assertAttributeSame(
       $status, '_status', $scanner
     );
   }
 
   /**
-  * @covers \PapayaTemplateSimpleScanner::scan
-  * @covers \PapayaTemplateSimpleScanner::_next
+  * @covers \Papaya\Template\Simple\Scanner::scan
+  * @covers \Papaya\Template\Simple\Scanner::_next
   */
   public function testScanWithSingleValidToken() {
     $token = $this->getTokenMockObjectFixture(6);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
     $status = $this->getStatusMockObjectFixture(
       // getToken() returns this elements
       array($token, NULL),
@@ -48,7 +48,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
       ->with($this->equalTo($token))
       ->will($this->returnValue(FALSE));
 
-    $scanner = new \PapayaTemplateSimpleScanner($status);
+    $scanner = new \Papaya\Template\Simple\Scanner($status);
     $tokens = array();
     $scanner->scan($tokens, 'SAMPLE');
     $this->assertEquals(
@@ -58,8 +58,8 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateSimpleScanner::scan
-  * @covers \PapayaTemplateSimpleScanner::_next
+  * @covers \Papaya\Template\Simple\Scanner::scan
+  * @covers \Papaya\Template\Simple\Scanner::_next
   */
   public function testScanWithEndToken() {
     $token = $this->getTokenMockObjectFixture(6);
@@ -70,8 +70,8 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
       TRUE
     );
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
-    $scanner = new \PapayaTemplateSimpleScanner($status);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
+    $scanner = new \Papaya\Template\Simple\Scanner($status);
     $tokens = array();
     $scanner->scan($tokens, 'SAMPLE');
     $this->assertEquals(
@@ -81,24 +81,24 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateSimpleScanner::scan
-  * @covers \PapayaTemplateSimpleScanner::_next
+  * @covers \Papaya\Template\Simple\Scanner::scan
+  * @covers \Papaya\Template\Simple\Scanner::_next
   */
   public function testScanWithInvalidToken() {
     $status = $this->getStatusMockObjectFixture(
       array(NULL) // getToken() returns this elements
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
-    $scanner = new \PapayaTemplateSimpleScanner($status);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
+    $scanner = new \Papaya\Template\Simple\Scanner($status);
     $tokens = array();
     $this->expectException(UnexpectedValueException::class);
     $scanner->scan($tokens, 'SAMPLE');
   }
 
   /**
-  * @covers \PapayaTemplateSimpleScanner::scan
-  * @covers \PapayaTemplateSimpleScanner::_next
-  * @covers \PapayaTemplateSimpleScanner::_delegate
+  * @covers \Papaya\Template\Simple\Scanner::scan
+  * @covers \Papaya\Template\Simple\Scanner::_next
+  * @covers \Papaya\Template\Simple\Scanner::_delegate
   */
   public function testScanWithSubStatus() {
     $tokenOne = $this->getTokenMockObjectFixture(6);
@@ -121,8 +121,8 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
       ->with($this->equalTo($tokenOne))
       ->will($this->returnValue($subStatus));
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
-    $scanner = new \PapayaTemplateSimpleScanner($status);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
+    $scanner = new \Papaya\Template\Simple\Scanner($status);
     $tokens = array();
     $scanner->scan($tokens, 'SAMPLETEST');
     $this->assertEquals(
@@ -138,7 +138,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
    * @param $string
    */
   public function testScannerWithCssExamples($expected, $string) {
-    $scanner = new \PapayaTemplateSimpleScanner(new \PapayaTemplateSimpleScannerStatusCss());
+    $scanner = new \Papaya\Template\Simple\Scanner(new \Papaya\Template\Simple\Scanner\Status\CSS());
     $tokens = array();
     $scanner->scan($tokens, $string);
     $this->assertTokenListEqualsStringList(
@@ -232,11 +232,11 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
 
   /**
    * @param $length
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerToken
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Token
    */
   private function getTokenMockObjectFixture($length) {
     $token = $this
-      ->getMockBuilder(\PapayaTemplateSimpleScannerToken::class)
+      ->getMockBuilder(\Papaya\Template\Simple\Scanner\Token::class)
       ->disableOriginalConstructor()
       ->getMock();
     $token
@@ -252,7 +252,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   private function getStatusMockObjectFixture($tokens, $isEndToken = NULL) {
-    $status = $this->createMock(\PapayaTemplateSimpleScannerStatus::class);
+    $status = $this->createMock(\Papaya\Template\Simple\Scanner\Status::class);
     if (count($tokens) > 0) {
       $status
         ->expects($this->exactly(count($tokens)))
@@ -272,7 +272,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
       $status
         ->expects($this->any())
         ->method('isEndToken')
-        ->with($this->isInstanceOf(\PapayaTemplateSimpleScannerToken::class))
+        ->with($this->isInstanceOf(\Papaya\Template\Simple\Scanner\Token::class))
         ->will($this->returnValue($isEndToken));
     }
     return $status;

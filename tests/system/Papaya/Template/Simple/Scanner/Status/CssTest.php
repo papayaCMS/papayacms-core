@@ -18,62 +18,62 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCss::getToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer
    * @param int $offset
    */
   public function testGetToken($expected, $buffer, $offset) {
-    $status = new \PapayaTemplateSimpleScannerStatusCss();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
     $token = $status->getToken($buffer, $offset);
     $this->assertEquals($expected, (string)$token);
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCss::getToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getToken
    */
   public function testGetTokenExpectingNull() {
-    $status = new \PapayaTemplateSimpleScannerStatusCss();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
     $this->assertNull($status->getToken('', 0));
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCss::getNewStatus
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getNewStatus
    */
   public function testGetNewStatusExpectingValueStatus() {
-    $token = new \PapayaTemplateSimpleScannerToken(
-      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
+    $token = new \Papaya\Template\Simple\Scanner\Token(
+      \Papaya\Template\Simple\Scanner\Token::VALUE_NAME, 0, ''
     );
-    $status = new \PapayaTemplateSimpleScannerStatusCss();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
     $this->assertInstanceOf(
-      \PapayaTemplateSimpleScannerStatusCssValue::class,
+      \Papaya\Template\Simple\Scanner\Status\CSS\Value::class,
       $status->getNewStatus($token)
     );
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCss::getNewStatus
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getNewStatus
    */
   public function testGetNewStatusExpectingCommentStatus() {
-    $token = new \PapayaTemplateSimpleScannerToken(
-      \PapayaTemplateSimpleScannerToken::COMMENT_START, 0, ''
+    $token = new \Papaya\Template\Simple\Scanner\Token(
+      \Papaya\Template\Simple\Scanner\Token::COMMENT_START, 0, ''
     );
-    $status = new \PapayaTemplateSimpleScannerStatusCss();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
     $this->assertInstanceOf(
-      \PapayaTemplateSimpleScannerStatusCssComment::class,
+      \Papaya\Template\Simple\Scanner\Status\CSS\Comment::class,
       $status->getNewStatus($token)
     );
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCss::getNewStatus
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getNewStatus
    */
   public function testGetNewStatusExpectingNull() {
-    $token = new \PapayaTemplateSimpleScannerToken(
-      \PapayaTemplateSimpleScannerToken::TEXT, 0, ''
+    $token = new \Papaya\Template\Simple\Scanner\Token(
+      \Papaya\Template\Simple\Scanner\Token::TEXT, 0, ''
     );
-    $status = new \PapayaTemplateSimpleScannerStatusCss();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
     $this->assertNull(
       $status->getNewStatus($token)
     );

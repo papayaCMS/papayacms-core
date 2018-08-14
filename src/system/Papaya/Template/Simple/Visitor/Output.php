@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleVisitorOutput extends \PapayaTemplateSimpleVisitor {
+namespace Papaya\Template\Simple\Visitor;
+
+class Output extends \Papaya\Template\Simple\Visitor {
 
   private $_buffer = '';
 
@@ -27,20 +29,20 @@ class PapayaTemplateSimpleVisitorOutput extends \PapayaTemplateSimpleVisitor {
     return $this->_buffer;
   }
 
-  public function callbacks(\PapayaTemplateSimpleVisitorOutputCallbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+  public function callbacks(Output\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (NULL == $this->_callbacks) {
-      $this->_callbacks = new \PapayaTemplateSimpleVisitorOutputCallbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Output\Callbacks();
     }
     return $this->_callbacks;
   }
 
-  public function visitNodeOutput(\PapayaTemplateSimpleAstNodeOutput $node) {
+  public function visitNodeOutput(\Papaya\Template\Simple\AST\Node\Output $node) {
     $this->_buffer .= $node->text;
   }
 
-  public function visitNodeValue(\PapayaTemplateSimpleAstNodeValue $node) {
+  public function visitNodeValue(\Papaya\Template\Simple\AST\Node\Value $node) {
     if ($value = $this->callbacks()->onGetValue($node->name)) {
       $this->_buffer .= (string)$value;
     } else {

@@ -13,49 +13,50 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple;
 /**
-* Abstract superclass for papaya template simple ast visitors. This maps the
-* node class names, to methods and calls them if the exists.
-*
-* @package PhpCss
-* @subpackage Ast
-*/
-abstract class PapayaTemplateSimpleVisitor {
+ * Abstract superclass for papaya template simple ast visitors. This maps the
+ * node class names, to methods and calls them if the exists.
+ *
+ * @package PhpCss
+ * @subpackage Ast
+ */
+abstract class Visitor {
 
   abstract public function clear();
 
   abstract public function __toString();
 
   /**
-  * Visit an ast object
-  *
-  * @param \PapayaTemplateSimpleAst $ast
-  */
-  public function visit(\PapayaTemplateSimpleAst $ast) {
+   * Visit an ast object
+   *
+   * @param AST $ast
+   */
+  public function visit(AST $ast) {
     if ($method = $this->getMethodName($ast, 'visit')) {
-      call_user_func(array($this, $method), $ast);
+      $this->$method($ast);
     }
   }
 
   /**
-  * Visit an ast object
-  *
-  * @param \PapayaTemplateSimpleAst $ast
-  */
-  public function enter(\PapayaTemplateSimpleAst $ast) {
+   * Visit an ast object
+   *
+   * @param AST $ast
+   */
+  public function enter(AST $ast) {
     if ($method = $this->getMethodName($ast, 'enter')) {
-      call_user_func(array($this, $method), $ast);
+      $this->$method($ast);
     }
   }
 
   /**
-  * Visit an ast object
-  *
-  * @param \PapayaTemplateSimpleAst $ast
-  */
-  public function leave(\PapayaTemplateSimpleAst $ast) {
+   * Visit an ast object
+   *
+   * @param AST $ast
+   */
+  public function leave(AST $ast) {
     if ($method = $this->getMethodName($ast, 'leave')) {
-      call_user_func(array($this, $method), $ast);
+      $this->$method($ast);
     }
   }
 
@@ -63,18 +64,19 @@ abstract class PapayaTemplateSimpleVisitor {
    * Map the ast node class to a method name. Validate if the method exists. Return the
    * method name if the method exists or FALSE if not.
    *
-   * @param \PapayaTemplateSimpleAst $ast
+   * @param AST $ast
    * @param string $prefix
    *
    * @return string|FALSE
    */
-  private function getMethodName(\PapayaTemplateSimpleAst $ast, $prefix = 'visit') {
+  private function getMethodName(AST $ast, $prefix = 'visit') {
     $class = get_class($ast);
-    if (0 === strpos($class, \PapayaTemplateSimpleAst::class)) {
-      $method = $prefix.substr($class, strlen(\PapayaTemplateSimpleAst::class));
+    if (0 === strpos($class, AST::class)) {
+      $method = $prefix.substr($class, strlen(AST::class));
     } else {
       $method = $prefix.$class;
     }
+    $method = str_replace('\\', '', $method);
     if (method_exists($this, $method)) {
       return $method;
     }

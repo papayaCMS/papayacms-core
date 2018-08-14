@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleAstNode::__get
+   * @covers \Papaya\Template\Simple\AST\Node::__get
    */
   public function testReadProperty() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
@@ -26,7 +26,7 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNode::__get
+   * @covers \Papaya\Template\Simple\AST\Node::__get
    */
   public function testPropertyReadUnknownPropertyExpectingException() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
@@ -37,7 +37,7 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNode::__set
+   * @covers \Papaya\Template\Simple\AST\Node::__set
    */
   public function testPropertyWriteThrowsException() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
@@ -46,13 +46,13 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNode::accept
+   * @covers \Papaya\Template\Simple\AST\Node::accept
    */
   public function testAccept() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Visitor $visitor */
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
     $visitor
       ->expects($this->once())
       ->method('visit')
@@ -65,7 +65,7 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
 /**
  * @property mixed foo
  */
-class PapayaTemplateSimpleAstNode_TestProxy extends \PapayaTemplateSimpleAstNode {
+class PapayaTemplateSimpleAstNode_TestProxy extends \Papaya\Template\Simple\AST\Node {
 
   protected $_foo = 'bar';
 }

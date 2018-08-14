@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleAstNodes
+namespace Papaya\Template\Simple\AST;
+
+class Nodes
   extends \Papaya\BaseObject\Collection
-  implements \PapayaTemplateSimpleAst {
+  implements \Papaya\Template\Simple\AST {
 
   public function __construct(array $nodes = array()) {
-    parent::__construct(\PapayaTemplateSimpleAstNode::class);
+    parent::__construct(Node::class);
     foreach ($nodes as $node) {
       $this[] = $node;
     }
@@ -27,10 +29,10 @@ class PapayaTemplateSimpleAstNodes
   /**
    * Tell the nodes about the visitor.
    *
-   * @param \PapayaTemplateSimpleVisitor $visitor
+   * @param \Papaya\Template\Simple\Visitor $visitor
    */
-  public function accept(\PapayaTemplateSimpleVisitor $visitor) {
-    /** @var \PapayaTemplateSimpleAst $node */
+  public function accept(\Papaya\Template\Simple\Visitor $visitor) {
+    /** @var \Papaya\Template\Simple\AST $node */
     foreach ($this as $node) {
       $node->accept($visitor);
     }

@@ -104,6 +104,9 @@ class Autoloader {
 
     'PapayaStringUtf8' => Text\UTF8String::class,
 
+    'PapayaTemplateSimpleExceptionUnexpectedEof' => Template\Simple\Exception\UnexpectedEOF::class,
+    'PapayaTemplateSimpleExceptionUnexpectedToken' => Template\Simple\Exception\UnexpectedToken::class,
+
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
     'PapayaUtilArray' => Utility\Arrays::class,
 
@@ -131,6 +134,8 @@ class Autoloader {
 
     // Typos
     'Anchestors' => 'Ancestors',
+    'Ast' => 'AST',
+    'Css' => 'CSS',
     'Csv' => 'CSV',
     'Http' => 'HTTP',
     'Php' => 'PHP',

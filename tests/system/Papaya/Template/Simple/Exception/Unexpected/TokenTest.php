@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaTemplateSimpleExceptionUnexpectedTokenTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaTemplateSimpleExceptionUnexpectedToken::__construct
+  * @covers \Papaya\Template\Simple\Exception\UnexpectedToken::__construct
   */
   public function testConstructor() {
-    $expectedToken = new \PapayaTemplateSimpleScannerToken(
-      \PapayaTemplateSimpleScannerToken::TEXT, 42, 'sample'
+    $expectedToken = new \Papaya\Template\Simple\Scanner\Token(
+      \Papaya\Template\Simple\Scanner\Token::TEXT, 42, 'sample'
     );
-    $e = new \PapayaTemplateSimpleExceptionUnexpectedToken(
-      $expectedToken, array(\PapayaTemplateSimpleScannerToken::VALUE_NAME)
+    $e = new \Papaya\Template\Simple\Exception\UnexpectedToken(
+      $expectedToken, array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME)
     );
     $this->assertAttributeEquals(
       $expectedToken, 'encounteredToken', $e
     );
     $this->assertAttributeEquals(
-      array(\PapayaTemplateSimpleScannerToken::VALUE_NAME), 'expectedTokens', $e
+      array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME), 'expectedTokens', $e
     );
     $this->assertEquals(
       'Parse error: Found TEXT@42: "sample" while one of VALUE_NAME was expected.',

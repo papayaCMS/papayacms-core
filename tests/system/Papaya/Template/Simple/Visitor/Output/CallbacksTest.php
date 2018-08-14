@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaTemplateSimpleVisitorOutputCallbacksTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleVisitorOutputCallbacks::__construct
+   * @covers \Papaya\Template\Simple\Visitor\Output\Callbacks::__construct
    */
   public function testConstructor() {
-    $callbacks = new \PapayaTemplateSimpleVisitorOutputCallbacks();
+    $callbacks = new \Papaya\Template\Simple\Visitor\Output\Callbacks();
     $this->assertNull($callbacks->onGetValue->defaultReturn);
   }
 }

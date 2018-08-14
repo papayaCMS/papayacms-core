@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::matchPattern
+   * @covers \Papaya\Template\Simple\Scanner\Status::matchPattern
    */
   public function testMatchPatternExpectingMatchedToken() {
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -27,7 +27,7 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::matchPattern
+   * @covers \Papaya\Template\Simple\Scanner\Status::matchPattern
    */
   public function testMatchPatternExpectingNull() {
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -36,7 +36,7 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::matchPatterns
+   * @covers \Papaya\Template\Simple\Scanner\Status::matchPatterns
    */
   public function testMatchPatternsExpectingSecondPatternMatches() {
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -44,13 +44,13 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
       'foobar',
       0,
       array(
-        '(bar)' => \PapayaTemplateSimpleScannerToken::TEXT,
-        '(foo)' => \PapayaTemplateSimpleScannerToken::VALUE_NAME
+        '(bar)' => \Papaya\Template\Simple\Scanner\Token::TEXT,
+        '(foo)' => \Papaya\Template\Simple\Scanner\Token::VALUE_NAME
       )
     );
     $this->assertEquals(
-      new \PapayaTemplateSimpleScannerToken(
-        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
+      new \Papaya\Template\Simple\Scanner\Token(
+        \Papaya\Template\Simple\Scanner\Token::VALUE_NAME,
         0,
         'foo'
       ),
@@ -59,7 +59,7 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::matchPatterns
+   * @covers \Papaya\Template\Simple\Scanner\Status::matchPatterns
    */
   public function testMatchPatternsExpectingNull() {
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -70,12 +70,12 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::isEndToken
+   * @covers \Papaya\Template\Simple\Scanner\Status::isEndToken
    */
   public function testIsEndTokenExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerToken $token */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Token $token */
     $token = $this
-      ->getMockBuilder(\PapayaTemplateSimpleScannerToken::class)
+      ->getMockBuilder(\Papaya\Template\Simple\Scanner\Token::class)
       ->disableOriginalConstructor()
       ->getMock();
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -83,12 +83,12 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatus::getNewStatus
+   * @covers \Papaya\Template\Simple\Scanner\Status::getNewStatus
    */
   public function testGetNewStatusExpectingNull() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerToken $token */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Token $token */
     $token = $this
-      ->getMockBuilder(\PapayaTemplateSimpleScannerToken::class)
+      ->getMockBuilder(\Papaya\Template\Simple\Scanner\Token::class)
       ->disableOriginalConstructor()
       ->getMock();
     $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -96,7 +96,7 @@ class PapayaTemplateSimpleScannerStatusTest extends \PapayaTestCase {
   }
 }
 
-class PapayaTemplateSimpleScannerStatus_TestProxy extends \PapayaTemplateSimpleScannerStatus {
+class PapayaTemplateSimpleScannerStatus_TestProxy extends \Papaya\Template\Simple\Scanner\Status {
 
   public function getToken($buffer, $offset) {
   }

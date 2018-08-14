@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Scanner;
 /**
-* Scanner token of papaya simple template sytem.
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-* @property-read integer $type
-* @property-read integer $offset
-* @property-read integer $length
-* @property-read string $content
-*/
-class PapayaTemplateSimpleScannerToken {
+ * Scanner token of papaya simple template sytem.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ *
+ * @property-read integer $type
+ * @property-read integer $offset
+ * @property-read integer $length
+ * @property-read string $content
+ */
+class Token {
 
   const ANY = -1;
 
@@ -114,14 +115,14 @@ class PapayaTemplateSimpleScannerToken {
    */
   public function __get($name) {
     switch ($name) {
-    case 'offset' :
-      return $this->_offset;
-    case 'type' :
-      return $this->_type;
-    case 'content' :
-      return $this->_content;
-    case 'length' :
-      return strlen($this->_content);
+      case 'offset' :
+        return $this->_offset;
+      case 'type' :
+        return $this->_type;
+      case 'content' :
+        return $this->_content;
+      case 'length' :
+        return strlen($this->_content);
     }
     throw new \LogicException(
       sprintf('Unknown property: %s::$%s', __CLASS__, $name)

@@ -13,33 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-/**
-* Ast node containing an output.
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-* @property-read string $text
-*/
-class PapayaTemplateSimpleAstNodeOutput extends \PapayaTemplateSimpleAstNode {
+namespace Papaya\Template\Simple;
 
-  protected $_text = '';
+interface AST {
 
-  /**
-   * Create node and store text content
-   *
-   * @param string $text
-   */
-  public function __construct($text) {
-    $this->_text = $text;
-  }
-
-  /**
-   * Append some text to the already stored output text.
-   *
-   * @param string $text
-   */
-  public function append($text) {
-    $this->_text .= $text;
-  }
+  public function accept(\Papaya\Template\Simple\Visitor $visitor);
 }

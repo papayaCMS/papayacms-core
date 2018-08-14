@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleExceptionUnexpectedToken extends \PapayaTemplateSimpleExceptionParser {
+namespace Papaya\Template\Simple\Exception;
+
+class UnexpectedToken extends \Papaya\Template\Simple\Exception\Parser {
 
 
   /**
-  * The token encountered during the scan.
-  *
-  * This is the token object which was not expected to be found at the given
-  * position.
-  *
-  * @var \PapayaTemplateSimpleScannerToken
-  */
+   * The token encountered during the scan.
+   *
+   * This is the token object which was not expected to be found at the given
+   * position.
+   *
+   * @var \Papaya\Template\Simple\Scanner\Token
+   */
   public $encounteredToken;
 
   public function __construct($encounteredToken, array $expectedTokens) {
@@ -32,7 +34,7 @@ class PapayaTemplateSimpleExceptionUnexpectedToken extends \PapayaTemplateSimple
 
     $expectedTokenStrings = array();
     foreach ($expectedTokens as $expectedToken) {
-      $expectedTokenStrings[] = \PapayaTemplateSimpleScannerToken::getTypeString($expectedToken);
+      $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(

@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerStatusCssCommentTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCssComment::getToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS\Comment::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer
    * @param int $offset
    */
   public function testGetToken($expected, $buffer, $offset) {
-    $status = new \PapayaTemplateSimpleScannerStatusCssComment();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS\Comment();
     $token = $status->getToken($buffer, $offset);
     $this->assertEquals($expected, (string)$token);
   }
 
   /**
-   * @covers \PapayaTemplateSimpleScannerStatusCssComment::isEndToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS\Comment::isEndToken
    */
   public function testIsEndTokenExpectingTrue() {
-    $token = new \PapayaTemplateSimpleScannerToken(
-      \PapayaTemplateSimpleScannerToken::COMMENT_END, 0, ''
+    $token = new \Papaya\Template\Simple\Scanner\Token(
+      \Papaya\Template\Simple\Scanner\Token::COMMENT_END, 0, ''
     );
-    $status = new \PapayaTemplateSimpleScannerStatusCssComment();
+    $status = new \Papaya\Template\Simple\Scanner\Status\CSS\Comment();
     $this->assertTrue($status->isEndToken($token));
   }
 

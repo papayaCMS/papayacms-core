@@ -18,53 +18,53 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleAstNodesTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleAstNodes::__construct
+   * @covers \Papaya\Template\Simple\AST\Nodes::__construct
    */
   public function testLimitIsInitializedAndAllowsAdd() {
-    $nodes = new \PapayaTemplateSimpleAstNodes();
-    $nodes[] = $node = $this->createMock(\PapayaTemplateSimpleAstNode::class);
+    $nodes = new \Papaya\Template\Simple\AST\Nodes();
+    $nodes[] = $node = $this->createMock(\Papaya\Template\Simple\AST\Node::class);
     $this->assertSame($node, $nodes[0]);
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNodes::__construct
+   * @covers \Papaya\Template\Simple\AST\Nodes::__construct
    */
   public function testLimitIsInitializedAndRestrictsAddExpectingException() {
-    $nodes = new \PapayaTemplateSimpleAstNodes();
+    $nodes = new \Papaya\Template\Simple\AST\Nodes();
     $this->expectException(InvalidArgumentException::class);
     $nodes[] = new stdClass;
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNodes::__construct
+   * @covers \Papaya\Template\Simple\AST\Nodes::__construct
    */
   public function testConstructorWithNodes() {
-    $nodes = new \PapayaTemplateSimpleAstNodes(
+    $nodes = new \Papaya\Template\Simple\AST\Nodes(
       array(
-        $this->createMock(\PapayaTemplateSimpleAstNode::class),
-        $this->createMock(\PapayaTemplateSimpleAstNode::class)
+        $this->createMock(\Papaya\Template\Simple\AST\Node::class),
+        $this->createMock(\Papaya\Template\Simple\AST\Node::class)
       )
     );
     $this->assertCount(2, $nodes);
   }
 
   /**
-   * @covers \PapayaTemplateSimpleAstNodes::accept
+   * @covers \Papaya\Template\Simple\AST\Nodes::accept
    */
   public function testVisitorIsSentToEachChild() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
-    $nodeOne = $this->createMock(\PapayaTemplateSimpleAstNode::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Visitor $visitor */
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
+    $nodeOne = $this->createMock(\Papaya\Template\Simple\AST\Node::class);
     $nodeOne
       ->expects($this->once())
       ->method('accept')
       ->with($visitor);
-    $nodeTwo = $this->createMock(\PapayaTemplateSimpleAstNode::class);
+    $nodeTwo = $this->createMock(\Papaya\Template\Simple\AST\Node::class);
     $nodeTwo
       ->expects($this->once())
       ->method('accept')
       ->with($visitor);
-    $nodes = new \PapayaTemplateSimpleAstNodes(array($nodeOne, $nodeTwo));
+    $nodes = new \Papaya\Template\Simple\AST\Nodes(array($nodeOne, $nodeTwo));
     $nodes->accept($visitor);
   }
 

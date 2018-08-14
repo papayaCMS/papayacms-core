@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaTemplateSimpleAstNodeValueTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateSimpleAstNodeValue::__construct
+   * @covers \Papaya\Template\Simple\AST\Node\Value::__construct
    */
   public function testConstructorAndPropertyAccess() {
-    $node = new \PapayaTemplateSimpleAstNodeValue('foo', 'bar');
+    $node = new \Papaya\Template\Simple\AST\Node\Value('foo', 'bar');
     $this->assertEquals('foo', $node->name);
     $this->assertEquals('bar', $node->default);
   }

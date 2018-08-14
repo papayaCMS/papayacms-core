@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Scanner\Status\CSS;
 /**
-* After a simple template value name comment, this status looks for the default value.
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateSimpleScannerStatusCssComment extends \PapayaTemplateSimpleScannerStatus {
+ * After a simple template value name comment, this status looks for the default value.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Value extends \Papaya\Template\Simple\Scanner\Status {
 
   private $_patterns = array(
-    '(\\*/)S' => \PapayaTemplateSimpleScannerToken::COMMENT_END,
-    '(([^*]+|[*][^/]|[*]$)+)S' => \PapayaTemplateSimpleScannerToken::TEXT
+    '(\\s+)S' => \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
+    '([^\\s;,!\\r\\n]+)S' => \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT
   );
 
   /**
@@ -32,19 +33,20 @@ class PapayaTemplateSimpleScannerStatusCssComment extends \PapayaTemplateSimpleS
    *
    * @param string $buffer
    * @param integer $offset
-   * @return NULL|\PapayaTemplateSimpleScannerToken
+   * @return NULL|\Papaya\Template\Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
   }
 
   /**
-   * Return TRUE if the token is a comment end
+   * Return TRUE if the token is a default value - which is the only possible token
+   * in this status for now.
    *
-   * @param \PapayaTemplateSimpleScannerToken $token
+   * @param \Papaya\Template\Simple\Scanner\Token $token
    * @return boolean
    */
   public function isEndToken($token) {
-    return ($token->type == \PapayaTemplateSimpleScannerToken::COMMENT_END);
+    return ($token->type == \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT);
   }
 }

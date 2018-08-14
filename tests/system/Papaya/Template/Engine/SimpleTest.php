@@ -37,7 +37,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   * @covers \Papaya\Template\Engine\Simple::prepare
    */
   public function testPrepare() {
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
     $visitor
       ->expects($this->once())
       ->method('clear');
@@ -51,8 +51,8 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   * @covers \Papaya\Template\Engine\Simple::run
    */
   public function testRun() {
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
-    $ast = $this->createMock(\PapayaTemplateSimpleAst::class);
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
+    $ast = $this->createMock(\Papaya\Template\Simple\AST::class);
     $ast
       ->expects($this->once())
       ->method('accept')
@@ -68,7 +68,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   * @covers \Papaya\Template\Engine\Simple::getResult
    */
   public function testGetResult() {
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
     $visitor
       ->expects($this->once())
       ->method('__toString')
@@ -161,7 +161,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   * @covers \Papaya\Template\Engine\Simple::ast
   */
   public function testAstGetAfterSet() {
-    $ast = $this->createMock(\PapayaTemplateSimpleAst::class);
+    $ast = $this->createMock(\Papaya\Template\Simple\AST::class);
     $engine = new \Papaya\Template\Engine\Simple();
     $engine->ast($ast);
     $this->assertSame($ast, $engine->ast());
@@ -172,14 +172,14 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   */
   public function testAstGetImplicitCreate() {
     $engine = new \Papaya\Template\Engine\Simple();
-    $this->assertInstanceOf(\PapayaTemplateSimpleAst::class, $engine->ast());
+    $this->assertInstanceOf(\Papaya\Template\Simple\AST::class, $engine->ast());
   }
 
   /**
   * @covers \Papaya\Template\Engine\Simple::visitor
   */
   public function testVisitorGetAfterSet() {
-    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
+    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
     $engine = new \Papaya\Template\Engine\Simple();
     $engine->visitor($visitor);
     $this->assertSame($visitor, $engine->visitor());
@@ -190,6 +190,6 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   */
   public function testVisitorGetImplicitCreate() {
     $engine = new \Papaya\Template\Engine\Simple();
-    $this->assertInstanceOf(\PapayaTemplateSimpleVisitor::class, $engine->visitor());
+    $this->assertInstanceOf(\Papaya\Template\Simple\Visitor::class, $engine->visitor());
   }
 }

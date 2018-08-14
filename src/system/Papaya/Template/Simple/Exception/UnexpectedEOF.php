@@ -13,14 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleExceptionUnexpectedEof extends \PapayaTemplateSimpleExceptionParser {
+namespace Papaya\Template\Simple\Exception;
+
+class UnexpectedEOF extends \Papaya\Template\Simple\Exception\Parser {
 
   public function __construct(array $expectedTokens) {
     $this->expectedTokens = $expectedTokens;
 
     $expectedTokenStrings = array();
     foreach ($expectedTokens as $expectedToken) {
-      $expectedTokenStrings[] = \PapayaTemplateSimpleScannerToken::getTypeString($expectedToken);
+      $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(

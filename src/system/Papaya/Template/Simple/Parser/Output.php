@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Parser;
 /**
-* Parser status "output" expects text (to output) and template element start tokens
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateSimpleParserOutput extends \PapayaTemplateSimpleParser {
+ * Parser status "output" expects text (to output) and template element start tokens
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Output extends \Papaya\Template\Simple\Parser {
 
   /**
    * Templates start in ouput mode.
@@ -29,39 +30,40 @@ class PapayaTemplateSimpleParserOutput extends \PapayaTemplateSimpleParser {
    * VALUE_NAME identifies a value node and an VALUE_DEFAULT ist expected next. WHITESPACE
    * between VALUE_NAME and VALUE_DEFAULT are ignored.
    *
-   * @return \PapayaTemplateSimpleAstNodes
+   * @return \Papaya\Template\Simple\AST\Nodes
+   * @throws \Papaya\Template\Simple\Exception
    */
   public function parse() {
-    $nodes = new \PapayaTemplateSimpleAstNodes();
+    $nodes = new \Papaya\Template\Simple\AST\Nodes();
     while (!$this->endOfTokens()) {
       $currentToken = $this->read(
         array(
-          \PapayaTemplateSimpleScannerToken::TEXT,
-          \PapayaTemplateSimpleScannerToken::WHITESPACE,
-          \PapayaTemplateSimpleScannerToken::VALUE_NAME,
-          \PapayaTemplateSimpleScannerToken::COMMENT_START,
-          \PapayaTemplateSimpleScannerToken::COMMENT_END
+          \Papaya\Template\Simple\Scanner\Token::TEXT,
+          \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
+          \Papaya\Template\Simple\Scanner\Token::VALUE_NAME,
+          \Papaya\Template\Simple\Scanner\Token::COMMENT_START,
+          \Papaya\Template\Simple\Scanner\Token::COMMENT_END
         )
       );
       switch ($currentToken->type) {
-      case \PapayaTemplateSimpleScannerToken::TEXT :
-      case \PapayaTemplateSimpleScannerToken::WHITESPACE :
-      case \PapayaTemplateSimpleScannerToken::COMMENT_START :
-      case \PapayaTemplateSimpleScannerToken::COMMENT_END :
-        if (($count = count($nodes)) > 0 &&
-            ($node = $nodes[$count - 1])  &&
-            $node instanceof \PapayaTemplateSimpleAstNodeOutput) {
-          $node->append($currentToken->content);
-        } else {
-          $nodes[] = new \PapayaTemplateSimpleAstNodeOutput($currentToken->content);
-        }
+        case \Papaya\Template\Simple\Scanner\Token::TEXT :
+        case \Papaya\Template\Simple\Scanner\Token::WHITESPACE :
+        case \Papaya\Template\Simple\Scanner\Token::COMMENT_START :
+        case \Papaya\Template\Simple\Scanner\Token::COMMENT_END :
+          if (($count = count($nodes)) > 0 &&
+            ($node = $nodes[$count - 1]) &&
+            $node instanceof \Papaya\Template\Simple\AST\Node\Output) {
+            $node->append($currentToken->content);
+          } else {
+            $nodes[] = new \Papaya\Template\Simple\AST\Node\Output($currentToken->content);
+          }
         break;
-      case \PapayaTemplateSimpleScannerToken::VALUE_NAME :
-        $valueName = preg_replace('(^/\\*\\$?|\\*/$)', '', $currentToken->content);
-        $this->ignore(\PapayaTemplateSimpleScannerToken::WHITESPACE);
-        $currentToken = $this->read(\PapayaTemplateSimpleScannerToken::VALUE_DEFAULT);
-        $defaultValue = $currentToken->content;
-        $nodes[] = new \PapayaTemplateSimpleAstNodeValue($valueName, $defaultValue);
+        case \Papaya\Template\Simple\Scanner\Token::VALUE_NAME :
+          $valueName = preg_replace('(^/\\*\\$?|\\*/$)', '', $currentToken->content);
+          $this->ignore(\Papaya\Template\Simple\Scanner\Token::WHITESPACE);
+          $currentToken = $this->read(\Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT);
+          $defaultValue = $currentToken->content;
+          $nodes[] = new \Papaya\Template\Simple\AST\Node\Value($valueName, $defaultValue);
         break;
       }
     }
