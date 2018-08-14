@@ -13,32 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Caption;
-use Papaya\Administration\Languages\Selector;
+namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaAdministrationLanguagesCaptionTest extends \PapayaTestCase {
 
   /**
-  * @covers Caption
-  */
+   * @covers Caption
+   */
   public function testConstructor() {
     $caption = new Caption();
     $this->assertEquals('', (string)$caption);
   }
 
   /**
-  * @covers Caption
-  */
+   * @covers Caption
+   */
   public function testConstructorWithString() {
     $caption = new Caption('Suffix string');
     $this->assertAttributeEquals('Suffix string', '_suffix', $caption);
   }
 
   /**
-  * @covers Caption
-  */
+   * @covers Caption
+   */
   public function testConstructorWithStringAndSeparator() {
     $caption = new Caption('Suffix string', '|');
     $this->assertAttributeEquals('|', '_separator', $caption);

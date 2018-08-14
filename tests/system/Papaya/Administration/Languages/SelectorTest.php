@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
-use Papaya\Content\Language;
-use Papaya\Content\Languages;
+namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
+class SelectorTest extends \PapayaTestCase {
 
   /**
-  * @covers Selector::languages
-  */
+   * @covers Selector::languages
+   */
   public function testLanguagesGetAfterSet() {
-    $languages = $this->createMock(Languages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $switch = new Selector();
     $this->assertSame(
       $languages, $switch->languages($languages)
@@ -33,17 +31,17 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::languages
-  */
+   * @covers Selector::languages
+   */
   public function testLanguagesGetImplicitCreate() {
     $switch = new Selector();
     $this->assertInstanceOf(
-      Languages::class, $switch->languages()
+      \Papaya\Content\Languages::class, $switch->languages()
     );
   }
 
   /**
-  * @covers Selector::__get
+   * @covers Selector::__get
    */
   public function testGetCurrentLanguageIdFromProperty() {
     $switch = new Selector();
@@ -59,7 +57,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::__get
+   * @covers Selector::__get
    */
   public function testGetCurrentLanguageTitleFromProperty() {
     $switch = new Selector();
@@ -75,7 +73,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::__get
+   * @covers Selector::__get
    */
   public function testGetCurrentLanguageImageFromProperty() {
     $switch = new Selector();
@@ -91,9 +89,9 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   */
   public function testLanguagesGetCurrentFromRequestParameters() {
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
@@ -112,9 +110,9 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   */
   public function testLanguagesGetCurrentFromSession() {
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
@@ -130,9 +128,9 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   */
   public function testLanguagesGetCurrentFromList() {
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture(array(21 => array('id' => 21))));
@@ -148,10 +146,10 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  * @covers Selector::getDefault
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   * @covers Selector::getDefault
+   */
   public function testLanguagesGetCurrentFromDefault() {
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
@@ -167,10 +165,10 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  * @covers Selector::getDefault
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   * @covers Selector::getDefault
+   */
   public function testLanguagesGetCurrentFromDefaultNoExistingLanguage() {
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture(array()));
@@ -207,11 +205,11 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::getCurrent
-  * @covers Selector::prepare
-  */
+   * @covers Selector::getCurrent
+   * @covers Selector::prepare
+   */
   public function testLanguagesGetCurrentFromUserOptionContent() {
-    $user = new \PapayaAdministrationUser_StubForLanguageSwitch();
+    $user = new StubForLanguageSwitch();
     $user->options = array('PAPAYA_CONTENT_LANGUAGE' => 21);
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
@@ -228,8 +226,8 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Selector::appendTo
-  */
+   * @covers Selector::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $switch = new Selector();
@@ -246,7 +244,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
     );
     $switch->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-       /** @lang XML */
+    /** @lang XML */
       '<sample>
         <links title="Content Language">
           <link 
@@ -262,8 +260,8 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideLanguageOptions() {
     return array(
@@ -276,14 +274,14 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   /*************************
    * Fixtures
    *************************
- *
-* /*
+   *
+   * /*
    *
    * @param array $languages
-   * @return PHPUnit_Framework_MockObject_MockObject|Languages
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Languages
    */
   public function getLanguagesFixture($languages = NULL) {
-    $language = $this->createMock(Language::class);
+    $language = $this->createMock(\Papaya\Content\Language::class);
     $language
       ->expects($this->any())
       ->method('__get')
@@ -301,16 +299,16 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
         'is_content' => 1,
         'is_interface' => 1
       );
-    $defaultLanguage = new Language();
+    $defaultLanguage = new \Papaya\Content\Language();
     if (is_array($defaultLanguageData)) {
       $defaultLanguage->assign($defaultLanguageData);
     }
 
-    $result = $this->createMock(Languages::class);
+    $result = $this->createMock(\Papaya\Content\Languages::class);
     $result
       ->expects($this->once())
       ->method('loadByUsage')
-      ->with($this->equalTo(Languages::FILTER_IS_CONTENT))
+      ->with($this->equalTo(\Papaya\Content\Languages::FILTER_IS_CONTENT))
       ->will($this->returnValue(TRUE));
     $result
       ->expects($this->any())
@@ -332,29 +330,29 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             NULL !== $languages
               ? $languages
               : array(
-                  21 => array(
-                    'id' => 21,
-                    'identifier' => 'en',
-                    'code' => 'en-US',
-                    'title' => 'English',
-                    'image' => 'us.gif',
-                    'is_content' => 1,
-                    'is_interface' => 1
-                  ),
-                  23 => array(
-                    'id' => 23,
-                    'identifier' => 'de',
-                    'code' => 'de-DE',
-                    'title' => 'German',
-                    'image' => 'de.gif',
-                    'is_content' => 1,
-                    'is_interface' => 1
-                  )
-                )
+              21 => array(
+                'id' => 21,
+                'identifier' => 'en',
+                'code' => 'en-US',
+                'title' => 'English',
+                'image' => 'us.gif',
+                'is_content' => 1,
+                'is_interface' => 1
+              ),
+              23 => array(
+                'id' => 23,
+                'identifier' => 'de',
+                'code' => 'de-DE',
+                'title' => 'German',
+                'image' => 'de.gif',
+                'is_content' => 1,
+                'is_interface' => 1
+              )
+            )
           )
         )
       );
@@ -408,8 +406,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
   }
 }
 
-
-class PapayaAdministrationUser_StubForLanguageSwitch {
+class StubForLanguageSwitch {
 
   public $options = array();
 }

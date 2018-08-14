@@ -13,41 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Image;
-use Papaya\Administration\Languages\Selector;
-use Papaya\Content\Languages;
+namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesImageTest extends \PapayaTestCase {
+class ImageTest extends \PapayaTestCase {
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testConstructor() {
     $image = new Image();
     $this->assertAttributeEquals(0, '_languageId', $image);
   }
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testConstructorWithLanguageId() {
     $image = new Image(21);
     $this->assertAttributeEquals(21, '_languageId', $image);
   }
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testToStringWithoutLanguageInformationExpectingEmptyString() {
     $image = new Image();
     $this->assertEquals('', (string)$image);
   }
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testToStringFetchingCurrentLanguage() {
     $switch = $this->createMock(Selector::class);
     $switch
@@ -62,10 +60,10 @@ class PapayaAdministrationLanguagesImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testToStringFetchingDefinedLanguage() {
-    $languages = $this->createMock(Languages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
@@ -85,10 +83,10 @@ class PapayaAdministrationLanguagesImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image
-  */
+   * @covers Image
+   */
   public function testToStringWithNonExistingLanguageExpectingEmptyString() {
-    $languages = $this->createMock(Languages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
