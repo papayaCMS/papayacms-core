@@ -88,6 +88,7 @@ class Tables extends \Papaya\Application\BaseObject {
   const TAG_TRANSLATIONS = 'tag_trans';
   const TAG_LINKS = 'tag_links';
   const TAG_CATEGORY = 'tag_category';
+  const TAG_CATEGORY_TRANSLATIONS = 'tag_category_trans';
 
   const THEME_SETS = 'theme_sets';
 

@@ -54,7 +54,10 @@ class PapayaContentPageTagsTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_tag_links', 'table_tag_trans', 0, 'topic', 23))
+      ->with(
+        $this->isType('string'),
+        array('table_tag_links', 'table_tag_trans', 0, 'table_tag', 'table_tag_category', 'topic', 23)
+      )
       ->will($this->returnValue($databaseResult));
     $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);
@@ -116,7 +119,10 @@ class PapayaContentPageTagsTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_tag_links', 'table_tag_trans', 2, 'topic', 23))
+      ->with(
+        $this->isType('string'),
+        array('table_tag_links', 'table_tag_trans', 2, 'table_tag', 'table_tag_category', 'topic', 23)
+      )
       ->will($this->returnValue($databaseResult));
     $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);

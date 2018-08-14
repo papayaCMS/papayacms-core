@@ -47,8 +47,13 @@ class Checkbox extends \Papaya\UI\Listview\Subitem {
    *
    * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $item = $parent->appendElement('subitem');
+  public function appendTo(Papaya\Xml\Element $parent) {
+    $item = $parent->appendElement(
+      'subitem',
+      array(
+        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
+      )
+    );
     $parameterName = clone $this->_parameterName;
     if ($group = $this->_dialog->parameterGroup()) {
       $parameterName->insertBefore(0, $this->_dialog->parameterGroup());

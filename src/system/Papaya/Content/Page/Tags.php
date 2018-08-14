@@ -44,28 +44,44 @@ class Tags extends \Papaya\Database\BaseObject\Records {
     'tag_title' => 'title',
     'tag_image' => 'image',
     'tag_description' => 'description',
-    'tag_char' => 'char'
+    'tag_char' => 'char',
+    'category_name' => 'category'
   );
 
   /**
-   * Load list of tags for a page, load titles, media ids and descriptions if language is provided
-   *
-   * @param integer $pageId
-   * @param integer $languageId
-   * @return boolean
-   */
-  public function load($pageId, $languageId = 0) {
+  * Load list of tags for a page, load titles, media ids and descriptions if language is provided
+  *
+  * @param integer $pageId
+  * @param integer $languageId
+  * @param array $categoryIds
+  * @return boolean
+  */
+  public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
+    $categoryCondition = '';
+    if ($categoryIds) {
+      $categoryCondition = PapayaUtilString::escapeForPrintf(
+        ' AND '.$this->databaseGetSqlCondition(
+          array('t.category_id' => $categoryIds)
+        )
+      );
+    }
     $sql = "SELECT tl.link_id, tl.link_priority, tl.tag_id,
-                   tt.tag_title, tt.tag_image, tt.tag_description, tt.tag_char
+                   tt.tag_title, tt.tag_image, tt.tag_description, tt.tag_char,
+                   c.category_name
               FROM %s AS tl
               LEFT OUTER JOIN %s AS tt ON (tt.tag_id = tl.tag_id AND tt.lng_id = '%d')
+              LEFT OUTER JOIN %s AS t ON (t.tag_id = tl.tag_id)
+              LEFT OUTER JOIN %s AS c ON (c.category_id = t.category_id)
              WHERE tl.link_type = '%s'
                AND tl.link_id = '%d'
+                $categoryCondition
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = array(
       $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
       $this->databaseGetTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
       $languageId,
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAGS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_CATEGORY),
       $this->_linkType,
       $pageId
     );
