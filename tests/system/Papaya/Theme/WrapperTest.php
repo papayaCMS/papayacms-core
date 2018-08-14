@@ -132,7 +132,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::templateEngine
   */
   public function testTemplateEngineGetAfterSet() {
-    $engine = $this->createMock(\PapayaTemplateEngine::class);
+    $engine = $this->createMock(\Papaya\Template\Engine::class);
     $wrapper = new \Papaya\Theme\Wrapper();
     $this->assertSame(
       $engine, $wrapper->templateEngine($engine)
@@ -225,7 +225,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   * @covers \Papaya\Theme\Wrapper::getCompiledContent
   */
   public function testGetCompiledContentUsingTemplates() {
-    $engine = $this->createMock(\PapayaTemplateEngine::class);
+    $engine = $this->createMock(\Papaya\Template\Engine::class);
     $engine
       ->expects($this->once())
       ->method('setTemplateString')

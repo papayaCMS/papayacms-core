@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Xslt;
 /**
-* Papaya Xslt template handler class
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
+ * Papaya Xslt template handler class
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Handler extends \Papaya\Application\BaseObject {
 
   /**
-  * Get absolute local file path to current template directory
-  *
-  * @return string
-  */
+   * Get absolute local file path to current template directory
+   *
+   * @return string
+   */
   public function getLocalPath() {
     $path = $this
       ->papaya()
@@ -35,10 +36,10 @@ class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get the currently active template name
-  *
-  * @return string
-  */
+   * Get the currently active template name
+   *
+   * @return string
+   */
   public function getTemplate() {
     $template = '';
     $isPreview = $this
@@ -62,11 +63,11 @@ class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set preview template (saved in session)
-  *
-  * @param string $templateName
-  * @return void
-  */
+   * Set preview template (saved in session)
+   *
+   * @param string $templateName
+   * @return void
+   */
   public function setTemplatePreview($templateName) {
     $this
       ->papaya()
@@ -76,10 +77,10 @@ class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Remove preview template (saved in session)
-  *
-  * @return void
-  */
+   * Remove preview template (saved in session)
+   *
+   * @return void
+   */
   public function removeTemplatePreview() {
     $this
       ->papaya()

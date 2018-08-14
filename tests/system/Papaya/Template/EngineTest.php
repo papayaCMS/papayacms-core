@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaTemplateEngineTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaTemplateEngine::parameters
+  * @covers \Papaya\Template\Engine::parameters
   */
   public function testParametersSetter() {
     $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
@@ -32,7 +32,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::parameters
+  * @covers \Papaya\Template\Engine::parameters
   */
   public function testParametersGetter() {
     $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
@@ -45,7 +45,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::parameters
+  * @covers \Papaya\Template\Engine::parameters
   */
   public function testParametesImplicitCreate() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -56,7 +56,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::parameters
+  * @covers \Papaya\Template\Engine::parameters
   */
   public function testParametesImplizitCreateWithArray() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -67,7 +67,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::parameters
+  * @covers \Papaya\Template\Engine::parameters
   */
   public function testParametesWithInvalidArgument() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -76,17 +76,17 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::loaders
+  * @covers \Papaya\Template\Engine::loaders
   */
   public function testLoadersSetter() {
     $loaders = $this
       ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
+      ->setConstructorArgs(array(\Papaya\Template\Engine\Values\Loadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\Papaya\Template\Engine\Values\Loadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders($loaders);
     $this->assertAttributeSame(
@@ -97,7 +97,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::loaders
+  * @covers \Papaya\Template\Engine::loaders
   */
   public function testLoadersSetterWithInvalidObjectList() {
     $loaders = $this
@@ -115,17 +115,17 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::loaders
+  * @covers \Papaya\Template\Engine::loaders
   */
   public function testLoadersGetter() {
     $loaders = $this
       ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
+      ->setConstructorArgs(array(\Papaya\Template\Engine\Values\Loadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\Papaya\Template\Engine\Values\Loadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertSame(
       $loaders,
@@ -134,7 +134,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::loaders
+  * @covers \Papaya\Template\Engine::loaders
   */
   public function testLoadersGetterWithImplicitCreate() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -143,13 +143,13 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
       $engine->loaders()
     );
     $this->assertEquals(
-      \PapayaTemplateEngineValuesLoadable::class,
+      \Papaya\Template\Engine\Values\Loadable::class,
       $engine->loaders()->getItemClass()
     );
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesSetterWithDomDocument() {
     $document = new DOMDocument;
@@ -163,7 +163,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesSetterWithDomElement() {
     $document = new DOMDocument;
@@ -178,7 +178,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesSetterWithPapayaXmlElement() {
     $document = new \Papaya\XML\Document();
@@ -191,18 +191,18 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesSetterUsingLoaderMechanism() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
-    $loaderFailure = $this->createMock(\PapayaTemplateEngineValuesLoadable::class);
+    $loaderFailure = $this->createMock(\Papaya\Template\Engine\Values\Loadable::class);
     $loaderFailure
       ->expects($this->once())
       ->method('load')
       ->with($this->equalTo('DATA'))
       ->will($this->returnValue(FALSE));
-    $loaderSuccess = $this->createMock(\PapayaTemplateEngineValuesLoadable::class);
+    $loaderSuccess = $this->createMock(\Papaya\Template\Engine\Values\Loadable::class);
     $loaderSuccess
       ->expects($this->once())
       ->method('load')
@@ -221,7 +221,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesSetterWithInvalidValue() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -230,7 +230,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::values
+  * @covers \Papaya\Template\Engine::values
   */
   public function testValuesGetterWithImplicitCreate() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -240,7 +240,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::getContext
+  * @covers \Papaya\Template\Engine::getContext
   */
   public function testGetContextExpectingNull() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -248,7 +248,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::getContext
+  * @covers \Papaya\Template\Engine::getContext
   */
   public function testGetContextExpectingXmlElement() {
     $document = new \Papaya\XML\Document();
@@ -259,7 +259,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__get
+  * @covers \Papaya\Template\Engine::__get
   */
   public function testMagicMethodGetForLoaders() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -269,23 +269,23 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
       $loaders
     );
     $this->assertEquals(
-      \PapayaTemplateEngineValuesLoadable::class,
+      \Papaya\Template\Engine\Values\Loadable::class,
       $loaders->getItemClass()
     );
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__set
+  * @covers \Papaya\Template\Engine::__set
   */
   public function testMagicMethodSetForLoaders() {
     $loaders = $this
       ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
+      ->setConstructorArgs(array(\Papaya\Template\Engine\Values\Loadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\Papaya\Template\Engine\Values\Loadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders = $loaders;
     $this->assertAttributeSame(
@@ -294,7 +294,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__get
+  * @covers \Papaya\Template\Engine::__get
   */
   public function testMagicMethodGetForParameters() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -305,7 +305,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__set
+  * @covers \Papaya\Template\Engine::__set
   */
   public function testMagicMethodSetForParameters() {
     $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
@@ -317,7 +317,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__get
+  * @covers \Papaya\Template\Engine::__get
   */
   public function testMagicMethodGetForValues() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -328,7 +328,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__set
+  * @covers \Papaya\Template\Engine::__set
   */
   public function testMagicMethodSetForValues() {
     $document = new \Papaya\XML\Document();
@@ -345,7 +345,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__get
+  * @covers \Papaya\Template\Engine::__get
   */
   public function testMagicMethodsGetForUndefinedProperty() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -354,7 +354,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateEngine::__set
+  * @covers \Papaya\Template\Engine::__set
   */
   public function testMagicMethodsSetForDynamicProperty() {
     $engine = new \PapayaTemplateEngine_TestProxy();
@@ -369,7 +369,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
 /**
  * @property \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\XML\Document dynamic_property
  */
-class PapayaTemplateEngine_TestProxy extends \PapayaTemplateEngine {
+class PapayaTemplateEngine_TestProxy extends \Papaya\Template\Engine {
 
   public function prepare() {
   }

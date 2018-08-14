@@ -53,7 +53,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
   private $_cacheService = NULL;
 
   /**
-   * @var \PapayaTemplateEngine
+   * @var \Papaya\Template\Engine
    */
   private $_templateEngine = NULL;
 
@@ -249,10 +249,10 @@ class Wrapper extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for the active template engine.
    *
-   * @param \PapayaTemplateEngine $engine
-   * @return \PapayaTemplateEngine|NULL
+   * @param \Papaya\Template\Engine $engine
+   * @return \Papaya\Template\Engine|NULL
    */
-  public function templateEngine(\PapayaTemplateEngine $engine = NULL) {
+  public function templateEngine(\Papaya\Template\Engine $engine = NULL) {
     if (isset($engine)) {
       $this->_templateEngine = $engine;
     }
@@ -284,7 +284,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
         default :
           $extension = 'css';
           $allowDirectories = $this->_wrapperURL->allowDirectories();
-          $this->templateEngine(new \PapayaTemplateEngineSimple());
+          $this->templateEngine(new \Papaya\Template\Engine\Simple());
       }
       if ($group = $this->_wrapperURL->getGroup()) {
         $files = $this->group()->getFiles($group, $extension);

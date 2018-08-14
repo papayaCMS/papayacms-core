@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaTemplateParametersTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaTemplateParameters
+   * @covers \Papaya\Template\Parameters
    */
   public function testConstructor() {
-    $parameters = new \PapayaTemplateParameters();
+    $parameters = new \Papaya\Template\Parameters();
     $this->assertCount(3, $parameters);
   }
 }

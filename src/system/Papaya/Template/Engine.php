@@ -13,66 +13,70 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template;
+
 /**
-* Abstract Superclas for template engines, implements \paramter handling and a loader concept for
-* Variables.
-*
-* The target of this class is to provide an identical interface for all kind of templates.
-*
-* The parameters are a key=>values list. The key will be converted to an uppercase string ([A-Z_]),
-* only skalar values are allowed for the parameters.
-*
-* The values are converted into a DOMDocument. The context is used for restriction in the real
-* implementation.
-*
-* @property \Papaya\BaseObject\Options\Collection $parameters
-* @property \Papaya\BaseObject\Collection $loaders
-* @property DOMDocument $values
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-abstract class PapayaTemplateEngine {
+ * Abstract Superclas for template engines, implements \paramter handling and a loader concept for
+ * Variables.
+ *
+ * The target of this class is to provide an identical interface for all kind of templates.
+ *
+ * The parameters are a key=>values list. The key will be converted to an uppercase string ([A-Z_]),
+ * only skalar values are allowed for the parameters.
+ *
+ * The values are converted into a DOMDocument. The context is used for restriction in the real
+ * implementation.
+ *
+ * @property \Papaya\BaseObject\Options\Collection $parameters
+ * @property \Papaya\BaseObject\Collection $loaders
+ * @property \DOMDocument $values
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+abstract class Engine {
 
   /**
-  * Parameter handling object
-  *
-  * @var \Papaya\BaseObject\Options\Collection
-  */
+   * Parameter handling object
+   *
+   * @var \Papaya\BaseObject\Options\Collection
+   */
   private $_parameters = NULL;
 
   /**
-  * Loaders list
-  *
-  * @var \Papaya\BaseObject\Collection
-  */
+   * Loaders list
+   *
+   * @var \Papaya\BaseObject\Collection
+   */
   private $_loaders = NULL;
 
   /**
-  * Values tree
-  * @var DOMDocument
-  */
+   * Values tree
+   *
+   * @var \DOMDocument
+   */
   private $_values = NULL;
 
   /**
-  * Values tree limitation context
-  * @var DOMElement
-  */
+   * Values tree limitation context
+   *
+   * @var \DOMElement
+   */
   private $_context = NULL;
 
   /**
-  * Prepare template engine if needed
-  */
+   * Prepare template engine if needed
+   */
   abstract function prepare();
 
   /**
-  * Execute/run template engine
-  */
+   * Execute/run template engine
+   */
   abstract function run();
 
   /**
-  * Get result of last run
-  */
+   * Get result of last run
+   */
   abstract function getResult();
 
 
@@ -114,20 +118,20 @@ abstract class PapayaTemplateEngine {
    */
   public function loaders(\Papaya\BaseObject\Collection $loaders = NULL) {
     if (isset($loaders)) {
-      if ($loaders->getItemClass() === \PapayaTemplateEngineValuesLoadable::class) {
+      if ($loaders->getItemClass() === \Papaya\Template\Engine\Values\Loadable::class) {
         $this->_loaders = $loaders;
       } else {
         throw new \InvalidArgumentException(
           sprintf(
             '%1$s with %2$s expected: "%3$s" given.',
             \Papaya\BaseObject\Collection::class,
-            \PapayaTemplateEngineValuesLoadable::class,
+            \Papaya\Template\Engine\Values\Loadable::class,
             $loaders->getItemClass()
           )
         );
       }
     } elseif (!isset($this->_loaders)) {
-      $this->_loaders = new \Papaya\BaseObject\Collection(\PapayaTemplateEngineValuesLoadable::class);
+      $this->_loaders = new \Papaya\BaseObject\Collection(\Papaya\Template\Engine\Values\Loadable::class);
     }
     return $this->_loaders;
   }
@@ -145,7 +149,7 @@ abstract class PapayaTemplateEngine {
       $this->_context = NULL;
       if (!($values instanceof \DOMElement || $values instanceof \DOMDocument)) {
         $loadedValues = NULL;
-        /** @var \PapayaTemplateEngineValuesLoadable $loader */
+        /** @var \Papaya\Template\Engine\Values\Loadable $loader */
         foreach ($this->loaders() as $loader) {
           $loadedValues = $loader->load($values);
           if (FALSE !== $loadedValues) {
@@ -199,32 +203,32 @@ abstract class PapayaTemplateEngine {
    */
   public function __get($name) {
     switch ($name) {
-    case 'loaders' :
-      return $this->loaders();
-    case 'parameters' :
-      return $this->parameters();
-    case 'values' :
-      return $this->values();
+      case 'loaders' :
+        return $this->loaders();
+      case 'parameters' :
+        return $this->parameters();
+      case 'values' :
+        return $this->values();
     }
     return $this->$name;
   }
 
   /**
-  * Magic Method, provides virtual properties
-  *
-  * @param string $name
-  * @param mixed $value
-  */
+   * Magic Method, provides virtual properties
+   *
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
     switch ($name) {
-    case 'loaders' :
-      $this->loaders($value);
+      case 'loaders' :
+        $this->loaders($value);
       break;
-    case 'parameters' :
-      $this->parameters($value);
+      case 'parameters' :
+        $this->parameters($value);
       break;
-    case 'values' :
-      $this->values($value);
+      case 'values' :
+        $this->values($value);
       break;
     }
     $this->$name = $value;

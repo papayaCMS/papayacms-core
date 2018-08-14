@@ -23,7 +23,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testValuesGetAfterSet() {
-    $values = $this->createMock(\PapayaTemplateValues::class);
+    $values = $this->createMock(Template\Values::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
     $template->values($values);
@@ -36,7 +36,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
   public function testValuesGetImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
-    $this->assertInstanceOf(\PapayaTemplateValues::class, $template->values());
+    $this->assertInstanceOf(Template\Values::class, $template->values());
   }
 
   /**
@@ -48,7 +48,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('loadXml')
       ->with(/** @lang XML */'<page/>');
-    $values = $this->createMock(\PapayaTemplateValues::class);
+    $values = $this->createMock(Template\Values::class);
     $values
       ->expects($this->once())
       ->method('document')
@@ -68,7 +68,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('saveXml')
       ->will($this->returnValue(/** @lang XML */'<page/>'));
-    $values = $this->createMock(\PapayaTemplateValues::class);
+    $values = $this->createMock(Template\Values::class);
     $values
       ->expects($this->once())
       ->method('document')
@@ -83,7 +83,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testParametersGetAfterSet() {
-    $parameters = $this->createMock(\PapayaTemplateParameters::class);
+    $parameters = $this->createMock(Template\Parameters::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
     $template->parameters($parameters);
@@ -96,7 +96,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
   public function testParametersGetImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
-    $this->assertInstanceOf(\PapayaTemplateParameters::class, $template->parameters());
+    $this->assertInstanceOf(Template\Parameters::class, $template->parameters());
   }
 
   /**
@@ -289,7 +289,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('saveXml')
       ->will($this->returnValue(/** @lang XML */'<page/>'));
-    $values = $this->createMock(\PapayaTemplateValues::class);
+    $values = $this->createMock(Template\Values::class);
     $values
       ->expects($this->once())
       ->method('document')

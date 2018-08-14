@@ -13,28 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Engine;
+
 /**
  * Xsl template engine, uses ext/xsl or ext/xslcache
  *
  * @property \Papaya\BaseObject\Options\Collection $parameters
  * @property \Papaya\BaseObject\Collection $loaders
- * @property DOMDocument $values
+ * @property \DOMDocument $values
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
+class Xsl extends \Papaya\Template\Engine {
 
   /**
-  * Transformation result buffer
-  * @var string
-  */
+   * Transformation result buffer
+   *
+   * @var string
+   */
   private $_result = '';
 
   /**
-  * Transformation xslt template file
-  * @var string
-  */
+   * Transformation xslt template file
+   *
+   * @var string
+   */
   private $_templateFile = '';
 
   /**
@@ -45,22 +49,24 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   private $_template = '';
 
   /**
-  * Allow to use ext/xslcache e.g. cached xslt bytecode
-  * @var boolean
-  */
+   * Allow to use ext/xslcache e.g. cached xslt bytecode
+   *
+   * @var boolean
+   */
   private $_useCache = TRUE;
 
   /**
-  * Xslt processor
-  * @var XsltCache|XsltProcessor
-  */
+   * Xslt processor
+   *
+   * @var \XsltCache|\XsltProcessor
+   */
   private $_processor = NULL;
 
   /**
-  * Error handling wrapper for lixml/libxslt errors
-  *
-  * @var \Papaya\XML\Errors
-  */
+   * Error handling wrapper for lixml/libxslt errors
+   *
+   * @var \Papaya\XML\Errors
+   */
   private $_errorHandler = NULL;
 
   /**
@@ -75,15 +81,15 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   }
 
   /**
-  * Set the xsl file for the transformation, throw an exception it it is not readable
-  *
-  * @throws \InvalidArgumentException
-  * @param string $fileName
-  */
+   * Set the xsl file for the transformation, throw an exception it it is not readable
+   *
+   * @throws \InvalidArgumentException
+   * @param string $fileName
+   */
   public function setTemplateFile($fileName) {
     if (file_exists($fileName) &&
-        is_file($fileName) &&
-        is_readable($fileName)) {
+      is_file($fileName) &&
+      is_readable($fileName)) {
       $this->_templateFile = $fileName;
     } else {
       throw new \InvalidArgumentException(
@@ -95,14 +101,14 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   }
 
   /**
-  * Use the xslcache extension if possible or
-  * enable/disable the caching if the processor is already created.
-  *
-  * The function will return TRUE if the cache will be used.
-  *
-  * @param boolean|NULL $use
-  * @return boolean
-  */
+   * Use the xslcache extension if possible or
+   * enable/disable the caching if the processor is already created.
+   *
+   * The function will return TRUE if the cache will be used.
+   *
+   * @param boolean|NULL $use
+   * @return boolean
+   */
   public function useCache($use = NULL) {
     if (!is_null($use)) {
       if ($use && class_exists('XsltCache', FALSE)) {
@@ -112,18 +118,18 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
       }
     }
     if (($this->_useCache && $this->_processor instanceof \XsltProcessor) ||
-        (!$this->_useCache && $this->_processor instanceof \XsltCache)) {
+      (!$this->_useCache && $this->_processor instanceof \XsltCache)) {
       $this->_processor = NULL;
     }
     return $this->_useCache;
   }
 
   /**
-  * Set the xslt processor object
-  *
-  * @throws \InvalidArgumentException
-  * @param \XsltCache|\XsltProcessor $processor
-  */
+   * Set the xslt processor object
+   *
+   * @throws \InvalidArgumentException
+   * @param \XsltCache|\XsltProcessor $processor
+   */
   public function setProcessor($processor) {
     \Papaya\Utility\Constraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
     $this->_processor = $processor;
@@ -137,7 +143,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   public function getProcessor() {
     if (is_null($this->_processor)) {
       if ($this->_useCache &&
-          class_exists('XsltCache', FALSE)) {
+        class_exists('XsltCache', FALSE)) {
         $this->_processor = new \XsltCache();
       } else {
         $this->_processor = new \XsltProcessor();
@@ -150,10 +156,10 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   }
 
   /**
-  * Set libxml errors handler
-  *
-  * @param \Papaya\XML\Errors $errorHandler
-  */
+   * Set libxml errors handler
+   *
+   * @param \Papaya\XML\Errors $errorHandler
+   */
   public function setErrorHandler(\Papaya\XML\Errors $errorHandler) {
     $this->_errorHandler = $errorHandler;
   }
@@ -171,11 +177,11 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   }
 
   /**
-  * Load xsl file into processor
-  *
-  * @throws \Papaya\XML\Exception
-  * @return TRUE
-  */
+   * Load xsl file into processor
+   *
+   * @throws \Papaya\XML\Exception
+   * @return TRUE
+   */
   public function prepare() {
     $errors = $this->getErrorHandler();
     $errors->activate();
@@ -205,7 +211,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
    * Run template processing and set result.
    *
    * @return bool
-   * @throws \PapayaXmlException
+   * @throws \Papaya\Xml\Exception
    */
   public function run() {
     $this->_result = '';
@@ -233,10 +239,10 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   }
 
   /**
-  * Get processing result
-  *
-  * @return string
-  */
+   * Get processing result
+   *
+   * @return string
+   */
   public function getResult() {
     return $this->_result;
   }
@@ -245,13 +251,13 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
    * callback for templates to parse a generated XML string
    *
    * @param string $xmlString
-   * @return \PapayaXmlDocument
+   * @return \Papaya\Xml\Document
    */
   public static function parseXML($xmlString) {
-    $errors = new PapayaXmlErrors();
+    $errors = new \Papaya\Xml\Errors();
     return $errors->encapsulate(
-      function($xmlString) {
-        $document = new PapayaXMLDocument();
+      function ($xmlString) {
+        $document = new \Papaya\XML\Document();
         $document->loadXml($xmlString);
         return $document;
       },

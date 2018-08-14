@@ -34,7 +34,7 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMessage')
       ->will($this->returnValue('Sample message'));
-    $values = $this->createMock(\PapayaTemplateValues::class);
+    $values = $this->createMock(Template\Values::class);
     $values
       ->expects($this->once())
       ->method('append')

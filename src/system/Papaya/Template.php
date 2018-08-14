@@ -50,12 +50,12 @@ abstract class Template extends Application\BaseObject {
   const STRIP_ALL = 7;
 
   /**
-   * @var \PapayaTemplateValues
+   * @var \Papaya\Template\Values
    */
   private $_values = NULL;
 
   /**
-   * @var \PapayaTemplateParameters
+   * @var \Papaya\Template\Parameters
    */
   private $_parameters = NULL;
 
@@ -82,14 +82,14 @@ abstract class Template extends Application\BaseObject {
   /**
    * Combined getter/setter for the template values object
    *
-   * @param \PapayaTemplateValues $values
-   * @return \PapayaTemplateValues
+   * @param \Papaya\Template\Values $values
+   * @return \Papaya\Template\Values
    */
-  public function values(\PapayaTemplateValues $values = NULL) {
+  public function values(Template\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {
-      $this->_values = new \PapayaTemplateValues();
+      $this->_values = new Template\Values();
     }
     return $this->_values;
   }
@@ -119,17 +119,17 @@ abstract class Template extends Application\BaseObject {
 
   /**
    * @param array|\Traversable $parameters
-   * @return \PapayaTemplateParameters
+   * @return \Papaya\Template\Parameters
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
-      if ($parameters instanceof \PapayaTemplateParameters) {
+      if ($parameters instanceof Template\Parameters) {
         $this->_parameters = $parameters;
       } else {
-        $this->_parameters = new \PapayaTemplateParameters($parameters);
+        $this->_parameters = new Template\Parameters($parameters);
       }
     } elseif (NULL === $this->_parameters) {
-      $this->_parameters = new \PapayaTemplateParameters();
+      $this->_parameters = new Template\Parameters();
     }
     return $this->_parameters;
   }

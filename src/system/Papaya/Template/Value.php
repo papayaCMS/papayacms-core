@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template;
 /**
-* Wrapper object for a DOMElement, defining a template value.
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-*/
-class PapayaTemplateValue {
+ * Wrapper object for a DOMElement, defining a template value.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ *
+ */
+class Value {
 
   /**
-  * Wrapped DOM element
-  *
-  * @var \Papaya\XML\Element
-  */
+   * Wrapped DOM element
+   *
+   * @var \Papaya\XML\Element
+   */
   private $_node = NULL;
 
   /**
-  * Construct object from DOMNode
-  *
-  * @param \Papaya\XML\Document|\Papaya\XML\Element $node
-  */
+   * Construct object from DOMNode
+   *
+   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   */
   public function __construct($node) {
     $this->node($node);
   }
 
   /**
-  * Get the document from the $node property
-  *
-  * @return \DOMDocument
-  */
+   * Get the document from the $node property
+   *
+   * @return \DOMDocument
+   */
   private function _getDocument() {
     if ($this->_node instanceof \Papaya\XML\Document) {
       return $this->_node;
@@ -61,7 +62,7 @@ class PapayaTemplateValue {
   public function node($node = NULL) {
     if (isset($node)) {
       if ($node instanceof \Papaya\XML\Document ||
-          $node instanceof \Papaya\XML\Element) {
+        $node instanceof \Papaya\XML\Element) {
         $this->_node = $node;
       } else {
         throw new \InvalidArgumentException(
@@ -78,11 +79,11 @@ class PapayaTemplateValue {
   }
 
   /**
-  * Append the node represented by this value to a parent node.
-  *
-  * @param \Papaya\XML\Element $parentNode
-  * @return \PapayaTemplateValue
-  */
+   * Append the node represented by this value to a parent node.
+   *
+   * @param \Papaya\XML\Element $parentNode
+   * @return \PapayaTemplateValue
+   */
   public function appendTo(\Papaya\XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
@@ -140,15 +141,15 @@ class PapayaTemplateValue {
   }
 
   /**
-  * Appends a xml fragement to the node and returns the new element.
-  *
-  * This function creates an xml fragment and appends the first element in it.
-  *
-  * An instance of this class containing the appended element is returned.
-  *
-  * @param string $xml
-  * @return \PapayaTemplateValue
-  */
+   * Appends a xml fragement to the node and returns the new element.
+   *
+   * This function creates an xml fragment and appends the first element in it.
+   *
+   * An instance of this class containing the appended element is returned.
+   *
+   * @param string $xml
+   * @return \PapayaTemplateValue
+   */
   public function appendXML($xml) {
     $errors = new \Papaya\XML\Errors();
     $errors->activate();

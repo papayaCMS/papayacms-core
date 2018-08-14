@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template;
 /**
-* Papaya Template, using the Xslt engine to genreate the output.
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateXslt extends \Papaya\Template {
+ * Papaya Template, using the Xslt engine to genreate the output.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Xslt extends \Papaya\Template {
 
   /**
    * @var string
@@ -27,7 +28,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
   private $_xslFile = '';
 
   /**
-   * @var \PapayaTemplateEngineXsl
+   * @var \Papaya\Template\Engine\Xsl
    */
   private $_engine = NULL;
 
@@ -39,6 +40,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
 
   /**
    * Set xsl using a filename
+   *
    * @param $fileName
    */
   public function setXsl($fileName) {
@@ -48,6 +50,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
 
   /**
    * Get xsl filename
+   *
    * @return string
    */
   public function getXslFile() {
@@ -57,15 +60,15 @@ class PapayaTemplateXslt extends \Papaya\Template {
   /**
    * Getter/Setter for the xslt template engine
    *
-   * @param \PapayaTemplateEngineXsl $engine
-   * @return \PapayaTemplateEngineXsl
+   * @param \Papaya\Template\Engine\Xsl $engine
+   * @return \Papaya\Template\Engine\Xsl
    */
-  public function engine(\PapayaTemplateEngineXsl $engine = NULL) {
+  public function engine(\Papaya\Template\Engine\Xsl $engine = NULL) {
     if (isset($engine)) {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
       $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
-      $this->_engine = $engine = new \PapayaTemplateEngineXsl();
+      $this->_engine = $engine = new \Papaya\Template\Engine\Xsl();
       $engine->useCache($preferred != 'xsl');
     }
     return $this->_engine;
@@ -94,7 +97,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
    * Start processing of the provided engine. This is a calback used
    * by parse() and should not be called directly.
    *
-   * @param \PapayaTemplateEngine $engine
+   * @param \Papaya\Template\Engine $engine
    * @return mixed
    */
   public function process($engine) {

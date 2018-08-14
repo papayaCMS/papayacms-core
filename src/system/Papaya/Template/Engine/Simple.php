@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Engine;
+
 /**
-* Papayas php implemented simple template engine.
-*
-* @property \Papaya\BaseObject\Options\Collection $parameters
-* @property \Papaya\BaseObject\Collection $loaders
-* @property DOMDocument $values
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
+ * Papayas php implemented simple template engine.
+ *
+ * @property \Papaya\BaseObject\Options\Collection $parameters
+ * @property \Papaya\BaseObject\Collection $loaders
+ * @property \DOMDocument $values
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Simple extends \Papaya\Template\Engine {
 
   private $_template = '';
   private $_templateFile = FALSE;
@@ -32,15 +34,15 @@ class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
   private $_visitor = NULL;
 
   /**
-  * Prepare template engine if needed
-  */
+   * Prepare template engine if needed
+   */
   public function prepare() {
     $this->visitor()->clear();
   }
 
   /**
-  * Execute/run template engine
-  */
+   * Execute/run template engine
+   */
   public function run() {
     $errors = new \Papaya\XML\Errors();
     $errors->activate();
@@ -52,8 +54,8 @@ class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
   }
 
   /**
-  * Get result of last run
-  */
+   * Get result of last run
+   */
   public function getResult() {
     return (string)$this->visitor();
   }
@@ -64,7 +66,7 @@ class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
    *
    * This allows to use simple names like "foo.bar" in the template but xpath expressions, too.
    *
-   * @param stdClass $context
+   * @param object $context
    * @param string $expression
    * @return mixed
    */
@@ -85,8 +87,8 @@ class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
    */
   public function setTemplateFile($fileName) {
     if (file_exists($fileName) &&
-        is_file($fileName) &&
-        is_readable($fileName)) {
+      is_file($fileName) &&
+      is_readable($fileName)) {
       $this->_template = file_get_contents($fileName);
       $this->_templateFile = $fileName;
       $this->_ast = NULL;

@@ -18,45 +18,45 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaTemplateValueTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaTemplateValue::__construct
+  * @covers \Papaya\Template\Value::__construct
   */
   public function testConstructorWithDocument() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $this->assertAttributeSame(
       $document, '_node', $value
     );
   }
 
   /**
-  * @covers \PapayaTemplateValue::__construct
+  * @covers \Papaya\Template\Value::__construct
   */
   public function testConstructorWithDomnode() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('node');
-    $value = new \PapayaTemplateValue($node);
+    $value = new \Papaya\Template\Value($node);
     $this->assertAttributeSame(
       $node, '_node', $value
     );
   }
 
   /**
-  * @covers \PapayaTemplateValue::node
+  * @covers \Papaya\Template\Value::node
   */
   public function testNode() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $this->assertSame(
       $document, $value->node()
     );
   }
 
   /**
-  * @covers \PapayaTemplateValue::node
+  * @covers \Papaya\Template\Value::node
   */
   public function testNodeWithArgument() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document->appendElement('dom'));
+    $value = new \Papaya\Template\Value($document->appendElement('dom'));
     $this->assertSame(
       $document,
       $value->node($document)
@@ -67,23 +67,23 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::node
+  * @covers \Papaya\Template\Value::node
   */
   public function testNodeWithInvalidArgumentExpectingException() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document->appendElement('dom'));
+    $value = new \Papaya\Template\Value($document->appendElement('dom'));
     $this->expectException(InvalidArgumentException::class);
     $value->node(new stdClass());
   }
 
   /**
-  * @covers \PapayaTemplateValue::appendTo
+  * @covers \Papaya\Template\Value::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('test'));
     $node = $document->createElement('node');
-    $value = new \PapayaTemplateValue($node);
+    $value = new \Papaya\Template\Value($node);
     $this->assertSame(
       $value,
       $value->appendTo($document->documentElement)
@@ -96,12 +96,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendWithString() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $newValue = $value->append('node', array('sample' => 'yes'), 'content');
     $this->assertEquals(
       /** @lang XML */'<node sample="yes">content</node>',
@@ -110,13 +110,13 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendWithDomElement() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('node');
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $newValue = $value->append($node, array('sample' => 'yes'), 'content');
     $this->assertEquals(
       /** @lang XML */'<node sample="yes">content</node>',
@@ -125,13 +125,13 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendWithDomDocument() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($node = $document->createElement('node'));
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $newValue = $value->append($document, array('sample' => 'yes'), 'content');
     $this->assertEquals(
       /** @lang XML */'<node sample="yes">content</node>',
@@ -140,13 +140,13 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendOnDOMElement() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($node = $document->createElement('node'));
-    $value = new \PapayaTemplateValue($node);
+    $value = new \Papaya\Template\Value($node);
     $newValue = $value->append('child');
     $this->assertEquals(
       /** @lang XML */'<node><child/></node>',
@@ -159,7 +159,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
+  * @covers \Papaya\Template\Value::append
   */
   public function testAppendWithPapayaXmlAppendable() {
     $appendable = $this->createMock(\Papaya\XML\Appendable::class);
@@ -170,38 +170,38 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
 
     $document = new \Papaya\XML\Document();
     $document->appendChild($node = $document->createElement('node'));
-    $value = new \PapayaTemplateValue($node);
+    $value = new \Papaya\Template\Value($node);
     $value->append($appendable);
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendWithInvalidElement() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $this->expectException(InvalidArgumentException::class);
     $value->append(5);
   }
 
   /**
-  * @covers \PapayaTemplateValue::append
-  * @covers \PapayaTemplateValue::_getDocument
+  * @covers \Papaya\Template\Value::append
+  * @covers \Papaya\Template\Value::_getDocument
   */
   public function testAppendWithEmptyDocument() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $this->expectException(InvalidArgumentException::class);
     $value->append($document);
   }
 
   /**
-  * @covers \PapayaTemplateValue::appendXML
+  * @covers \Papaya\Template\Value::appendXML
   */
   public function testAppendXml() {
     $document = new \Papaya\XML\Document();
-    $value = new \PapayaTemplateValue($document);
+    $value = new \Papaya\Template\Value($document);
     $newValue = $value->appendXML(/** @lang XML */'<child/>');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?><child/>',
@@ -210,12 +210,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithoutArgument() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample><child/>test</sample>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>
       '<child/>test',
@@ -224,12 +224,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithEmptyArgumentRemovingElements() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample><child/>test</sample>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->assertEquals(
       '',
       $value->xml('')
@@ -237,12 +237,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithXmlFragment() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>
       '<child/>test',
@@ -251,12 +251,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithDomnode() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->assertEquals(
       /** @lang XML */'<child/>',
       $value->xml($document->createElement('child'))
@@ -264,12 +264,12 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithArrayOfDomnodes() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>
     '<child/>text',
@@ -283,23 +283,23 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithInvalidArgumentExpectingException() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->expectException(InvalidArgumentException::class);
     $value->xml(1);
   }
 
   /**
-  * @covers \PapayaTemplateValue::xml
+  * @covers \Papaya\Template\Value::xml
   */
   public function testXmlWithInvalidArrayExpectingException() {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
-    $value = new \PapayaTemplateValue($document->documentElement);
+    $value = new \Papaya\Template\Value($document->documentElement);
     $this->expectException(InvalidArgumentException::class);
     $value->xml(array('child'));
   }
