@@ -60,6 +60,7 @@ class Range extends \Papaya\UI\Dialog\Field {
       throw new \InvalidArgumentException(
         sprintf(
           'Argument must be a %s::DATE_* constant.', \Papaya\Filter\Date::class
+        )
       );
     }
     $this->_includeTime = (int)$includeTime;
