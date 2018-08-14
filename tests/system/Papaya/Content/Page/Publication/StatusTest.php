@@ -139,7 +139,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
 
   /**
    * @param array $recordData
-   * @return \Papaya\Database\Access|PHPUnit_Framework_MockObject_MockObject
+   * @return \Papaya\Database\Access|\PHPUnit_Framework_MockObject_MockObject
    */
   public function getDatabaseAccessFixture(array $recordData) {
     $databaseResult = $this->createMock(Result::class);

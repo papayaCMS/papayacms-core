@@ -13,19 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Synchronization\Tags;
-use Papaya\Content\Page;
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \PapayaTestCase {
+class TagsTest extends \PapayaTestCase {
 
   /**
-  * @covers Tags::synchronize
-  * @covers Tags::synchronizeTags
-  */
+   * @covers Tags::synchronize
+   * @covers Tags::synchronizeTags
+   */
   public function testSynchronize() {
-    $tags = $this->createMock(Page\Tags::class);
+    $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -36,7 +35,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               1 => array(
                 'id' => 1,
@@ -68,11 +67,11 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
 
 
   /**
-  * @covers Tags::synchronize
-  * @covers Tags::synchronizeTags
-  */
+   * @covers Tags::synchronize
+   * @covers Tags::synchronizeTags
+   */
   public function testSynchronizeLoadFailed() {
-    $tags = $this->createMock(Page\Tags::class);
+    $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -85,11 +84,11 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
   }
 
   /**
-  * @covers Tags::synchronize
-  * @covers Tags::synchronizeTags
-  */
+   * @covers Tags::synchronize
+   * @covers Tags::synchronizeTags
+   */
   public function testSynchronizeClearOnly() {
-    $tags = $this->createMock(Page\Tags::class);
+    $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -99,7 +98,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
       ->expects($this->once())
       ->method('getIterator')
       ->will(
-        $this->returnValue(new ArrayIterator(array()))
+        $this->returnValue(new \ArrayIterator(array()))
       );
     $tags
       ->expects($this->exactly(2))
@@ -113,11 +112,11 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
   }
 
   /**
-  * @covers Tags::synchronize
-  * @covers Tags::synchronizeTags
-  */
+   * @covers Tags::synchronize
+   * @covers Tags::synchronizeTags
+   */
   public function testSynchronizeClearFailedExpectingFalse() {
-    $tags = $this->createMock(Page\Tags::class);
+    $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -127,7 +126,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
       ->expects($this->once())
       ->method('getIterator')
       ->will(
-        $this->returnValue(new ArrayIterator(array()))
+        $this->returnValue(new \ArrayIterator(array()))
       );
     $tags
       ->expects($this->once())
@@ -141,10 +140,10 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
   }
 
   /**
-  * @covers Tags::tags
-  */
+   * @covers Tags::tags
+   */
   public function testTagsGetAfterSet() {
-    $tags = $this->createMock(Page\Tags::class);
+    $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
     $action = new Tags();
     $this->assertSame(
       $tags, $action->tags($tags)
@@ -152,12 +151,12 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \Papaya
   }
 
   /**
-  * @covers Tags::tags
-  */
+   * @covers Tags::tags
+   */
   public function testTagsGetImplicitCreate() {
     $action = new Tags();
     $this->assertInstanceOf(
-      Page\Tags::class, $action->tags()
+      \Papaya\Content\Page\Tags::class, $action->tags()
     );
   }
 }

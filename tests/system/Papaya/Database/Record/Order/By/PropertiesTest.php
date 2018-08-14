@@ -110,7 +110,7 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
 
   /**
    * @param array $mappingData
-   * @return array|PHPUnit_Framework_MockObject_MockObject|Mapping
+   * @return array|\PHPUnit_Framework_MockObject_MockObject|Mapping
    */
   private function getMappingFixture(array $mappingData) {
     $valueMap = array();

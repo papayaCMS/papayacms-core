@@ -617,7 +617,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
    * @param array $options
    * @param bool $allowCompression
    * @param bool $browserCache
-   * @return \PapayaApplication|PHPUnit_Framework_MockObject_MockObject|\PapayaApplication
+   * @return \PapayaApplication|\PHPUnit_Framework_MockObject_MockObject|\PapayaApplication
    */
   public function getResponseApplicationFixture(
     array $options = array(), $allowCompression = FALSE, $browserCache = FALSE
