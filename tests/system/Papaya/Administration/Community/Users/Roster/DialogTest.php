@@ -13,22 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Community\Users\Roster\Dialog;
-use Papaya\Content\Community\Users;
+namespace Papaya\Administration\Community\Users\Roster;
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
-
-class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
+class DialogTest extends \PapayaTestCase {
 
   /**
-  * @covers Dialog::prepare
-  */
+   * @covers Dialog::prepare
+   */
   public function testPrepare() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->prepare();
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="get">
         <title caption="Users"/>
         <options>
@@ -57,10 +54,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::execute
-  */
+   * @covers Dialog::execute
+   */
   public function testExecute() {
-    $users = $this->createMock(Users::class);
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -77,10 +74,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::execute
-  */
+   * @covers Dialog::execute
+   */
   public function testExecuteWithFilter() {
-    $users = $this->createMock(Users::class);
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -110,10 +107,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::execute
-  */
+   * @covers Dialog::execute
+   */
   public function testExecuteWithFilterReset() {
-    $users = $this->createMock(Users::class);
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -137,26 +134,26 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::users
-  */
+   * @covers Dialog::users
+   */
   public function testUsersGetAfterset() {
-    $users = $this->createMock(Users::class);
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
     $dialog = new Dialog();
     $dialog->users($users);
     $this->assertSame($users, $dialog->users());
   }
 
   /**
-  * @covers Dialog::users
-  */
+   * @covers Dialog::users
+   */
   public function testUsersImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(Users::class, $dialog->users());
+    $this->assertInstanceOf(\Papaya\Content\Community\Users::class, $dialog->users());
   }
 
   /**
-  * @covers Dialog::listview
-  */
+   * @covers Dialog::listview
+   */
   public function testListviewGetAfterSet() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
     $dialog = new Dialog();
@@ -165,8 +162,8 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::listview
-  */
+   * @covers Dialog::listview
+   */
   public function testListviewImplicitCreate() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
@@ -174,23 +171,24 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::createUserItem
-  */
+   * @covers Dialog::createUserItem
+   */
   public function testCreateUserItem() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->createUserItem(
-      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
+      new \stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
     $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */'<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
+    /** @lang XML */
+      '<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
 
   /**
-  * @covers Dialog::paging
-  */
+   * @covers Dialog::paging
+   */
   public function testPagingGetAfterSet() {
     $paging = $this
       ->getMockBuilder(\Papaya\UI\Toolbar\Paging::class)
@@ -202,16 +200,16 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::paging
-  */
+   * @covers Dialog::paging
+   */
   public function testPagingImplicitCreate() {
     $dialog = new Dialog();
     $this->assertInstanceOf(\Papaya\UI\Toolbar\Paging::class, $dialog->paging());
   }
 
   /**
-  * @covers Dialog::reference
-  */
+   * @covers Dialog::reference
+   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
     $dialog = new Dialog();
@@ -220,34 +218,35 @@ class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Dialog::reference
-  */
+   * @covers Dialog::reference
+   */
   public function testReferenceImplicitCreate() {
     $dialog = new Dialog();
     $this->assertInstanceOf(\Papaya\UI\Reference::class, $dialog->reference());
   }
 
   /**
-  * @covers Dialog::setParameterNameMapping
-  */
-  public function testSetParamterNameMapping() {
+   * @covers Dialog::setParameterNameMapping
+   */
+  public function testSetParameterNameMapping() {
     $dialog = new Dialog();
     $dialog->setParameterNameMapping('user', 'surfer_id');
     $dialog->setParameterNameMapping('filter', 'search');
     $dialog->setParameterNameMapping('page', 'offset_page');
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->createUserItem(
-      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
+      new \stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
     $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */'<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
+    /** @lang XML */
+      '<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
 
   /**
-  * @covers Dialog::setParameterNameMapping
-  */
+   * @covers Dialog::setParameterNameMapping
+   */
   public function testSetParamterNameMappingExpectingException() {
     $dialog = new Dialog();
     $this->expectException(\InvalidArgumentException::class);
