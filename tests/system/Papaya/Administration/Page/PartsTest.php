@@ -13,13 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Page\Parts;
-use Papaya\Administration\Page\Part;
-use Papaya\Administration\Page;
+namespace Papaya\Administration\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
+class PartsTest extends \PapayaTestCase {
 
   /**
    * @covers Parts::__construct
@@ -107,7 +105,7 @@ class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Parts::getTarget
+   * @covers       Parts::getTarget
    * @dataProvider providePartsAndTargets
    * @param string $expected
    * @param string $partName
