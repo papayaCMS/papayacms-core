@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaSvnClient {
+namespace Papaya\SVN;
+
+interface Client {
 
   function ls($url);
 }

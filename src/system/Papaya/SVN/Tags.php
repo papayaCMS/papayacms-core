@@ -13,55 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaSvnTags implements \IteratorAggregate, \Countable {
+namespace Papaya\SVN;
+
+class Tags implements \IteratorAggregate, \Countable {
 
   /**
-  * SVN client
-  * @var \PapayaSvnClient|NULL
-  */
+   * SVN client
+   *
+   * @var \Papaya\SVN\Client|NULL
+   */
   private $_svnClient = NULL;
 
   /**
-  * Get/set the SVN client
-  *
-  * @param \PapayaSvnClient $client
-  * @return \PapayaSvnClient
-  */
-  public function svnClient(\PapayaSvnClient $client = NULL) {
+   * Get/set the SVN client
+   *
+   * @param \Papaya\SVN\Client $client
+   * @return \Papaya\SVN\Client
+   */
+  public function svnClient(\Papaya\SVN\Client $client = NULL) {
     if (isset($client)) {
       $this->_svnClient = $client;
     }
     if (is_null($this->_svnClient)) {
-      $this->_svnClient = new \PapayaSvnClientExtension();
+      $this->_svnClient = new \Papaya\SVN\Client\Extension();
     }
     return $this->_svnClient;
   }
 
   /**
-  * @var string
-  */
+   * @var string
+   */
   private $_tagDirectoryURL;
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   private $_newerThanRevision;
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   private $_highestRevisionSeen;
   /**
-  * @var array of tag urls
-  */
+   * @var array of tag urls
+   */
   private $_newTags = NULL;
 
   /**
-  * Find the tags in the $tagDirectoryURL that are newer than
-  * $newerThanRevision . The SVN repository is not accessed until
-  * the resulting object is accessed.
-  *
-  * @param string $tagDirectoryURL
-  * @param integer $newerThanRevision
-  */
+   * Find the tags in the $tagDirectoryURL that are newer than
+   * $newerThanRevision . The SVN repository is not accessed until
+   * the resulting object is accessed.
+   *
+   * @param string $tagDirectoryURL
+   * @param integer $newerThanRevision
+   */
   public function __construct($tagDirectoryURL, $newerThanRevision = 0) {
     \Papaya\Utility\Constraints::assertString($tagDirectoryURL);
     $this->_tagDirectoryURL = $tagDirectoryURL;
@@ -71,17 +74,18 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
   }
 
   /**
-  * Return the highest SVN revision seen while finding tags.
-  * @return integer
-  */
+   * Return the highest SVN revision seen while finding tags.
+   *
+   * @return integer
+   */
   public function highestRevisionSeen() {
     $this->find();
     return $this->_highestRevisionSeen;
   }
 
   /**
-  * Used to lazily do the actual work.
-  */
+   * Used to lazily do the actual work.
+   */
   private function find() {
     if (!is_null($this->_newTags)) {
       return;
@@ -106,18 +110,20 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
   }
 
   /**
-  * Return an iterator over the tags.
-  * @return \ArrayIterator
-  */
+   * Return an iterator over the tags.
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     $this->find();
     return new \ArrayIterator($this->_newTags);
   }
 
   /**
-  * Return the tag count.
-  * @return integer
-  */
+   * Return the tag count.
+   *
+   * @return integer
+   */
   public function count() {
     $this->find();
     return count($this->_newTags);

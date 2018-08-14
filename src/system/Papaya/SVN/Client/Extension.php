@@ -13,16 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaSvnClientExtension implements \PapayaSvnClient {
+namespace Papaya\SVN\Client;
+
+class Extension implements \Papaya\SVN\Client {
 
   /**
-  * Lists entries in an SVN repository at $url .
-  * @link http://php.net/manual/en/function.svn-ls.php
-  * @codeCoverageIgnore
-  * @param string $url
-  * @return array|FALSE name => array with keys created_rev, last_author,
-  *   size, time, time_t, name, type
-  */
+   * Lists entries in an SVN repository at $url .
+   *
+   * @link http://php.net/manual/en/function.svn-ls.php
+   * @codeCoverageIgnore
+   * @param string $url
+   * @return array|FALSE name => array with keys created_rev, last_author,
+   *   size, time, time_t, name, type
+   */
   public function ls($url) {
     return svn_ls($url);
   }

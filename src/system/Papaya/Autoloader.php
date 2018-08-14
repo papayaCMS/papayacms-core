@@ -135,6 +135,7 @@ class Autoloader {
     'Http' => 'HTTP',
     'Php' => 'PHP',
     'Regex' => 'RegEx',
+    'Svn' => 'SVN',
     'Ui' => 'UI',
     'Url' => 'URL',
     'Util' => 'Utility',

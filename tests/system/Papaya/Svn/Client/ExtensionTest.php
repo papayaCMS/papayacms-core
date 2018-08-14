@@ -26,10 +26,10 @@ class PapayaSvnClientExtensionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSvnClientExtension::ls
+  * @covers \Papaya\SVN\Client\Extension::ls
   */
   public function testLs() {
-    $svn = new \PapayaSvnClientExtension();
+    $svn = new \Papaya\SVN\Client\Extension();
     // TODO possibly test by extracting a local svn repo in $this->setUp()
     $this->assertFalse(
       @$svn->ls('file:///not-existing-svn-repo/')
