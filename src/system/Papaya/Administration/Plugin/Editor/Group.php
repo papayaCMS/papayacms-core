@@ -31,7 +31,7 @@ class Group extends \Papaya\Plugin\Editor {
   private $_indexParameterName;
 
   /**
-   * Papaya\Administration\Plugin\Editor\PapayaAdministrationPluginEditorGroup constructor.
+   * Papaya\Administration\Plugin\Editor\Group constructor.
    *
    * @param \Papaya\Plugin\Editable\Data $data
    * @param string $indexParameterName

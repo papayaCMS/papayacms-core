@@ -68,8 +68,8 @@ class Context {
   }
 
   /**
-   * Getter/Setter for the context data. If a \Papaya\Plugin\Editable\PapayaPluginEditableContent ist provided it will
-   * be set a new context data, if an array or Traversalbe ist provided a new editable content will be created an the
+   * Getter/Setter for the context data. If a \Papaya\Plugin\Editable\Content ist provided it will
+   * be set a new context data, if an array or \Traversable ist provided a new editable content will be created an the
    * data assigned.
    *
    * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data

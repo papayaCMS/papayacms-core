@@ -77,14 +77,14 @@ class Collection
   /**
    * An combined getter/setter for the Papaya Application object
    *
-   * @param \PapayaApplication $application
-   * @return \Papaya\Application\Cms
+   * @param \Papaya\Application $application
+   * @return \Papaya\Application\Cms|\Papaya\Application
    */
-  public function papaya(\PapayaApplication $application = NULL) {
-    if (isset($application)) {
+  public function papaya(\Papaya\Application $application = NULL) {
+    if (NULL !== $application) {
       $this->_applicationObject = $application;
     } elseif (NULL === $this->_applicationObject) {
-      $this->_applicationObject = \PapayaApplication::getInstance();
+      $this->_applicationObject = \Papaya\Application::getInstance();
     }
     return $this->_applicationObject;
   }

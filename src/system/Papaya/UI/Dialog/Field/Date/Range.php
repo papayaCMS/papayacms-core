@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Date;
-use Traversable;
 
 /**
  * papaya CMS
@@ -34,7 +33,7 @@ class Range extends \Papaya\UI\Dialog\Field {
   private $_includeTime = FALSE;
 
   /**
-   * @var Traversable additional labels for the field
+   * @var \Traversable additional labels for the field
    */
   private $_labels;
 
@@ -54,12 +53,13 @@ class Range extends \Papaya\UI\Dialog\Field {
     $includeTime = \Papaya\Filter\Date::DATE_NO_TIME
   ) {
     if (
-      $includeTime != \Papaya\Filter\Date::DATE_NO_TIME &&
-      $includeTime != \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
-      $includeTime != \Papaya\Filter\Date::DATE_MANDATORY_TIME
+      $includeTime !== \Papaya\Filter\Date::DATE_NO_TIME &&
+      $includeTime !== \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
+      $includeTime !== \Papaya\Filter\Date::DATE_MANDATORY_TIME
     ) {
       throw new \InvalidArgumentException(
-        'Argument must be \PapayaFilterDate::DATE_* constant.'
+        sprintf(
+          'Argument must be a %s::DATE_* constant.', \Papaya\Filter\Date::class
       );
     }
     $this->_includeTime = (int)$includeTime;
@@ -89,7 +89,8 @@ class Range extends \Papaya\UI\Dialog\Field {
   public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->setAttribute(
-      'data-include-time', ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'false' : 'true'
+      'data-include-time',
+      ($this->_includeTime === \Papaya\Filter\Date::DATE_NO_TIME) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
     $values = $this->getCurrentValue();

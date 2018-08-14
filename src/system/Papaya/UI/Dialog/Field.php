@@ -44,7 +44,7 @@ abstract class Field extends Element {
   /**
    * Field description
    *
-   * @var NULL|\Papaya\UI\Dialog\Element\Description
+   * @var NULL|Element\Description
    */
   private $_description = NULL;
 
@@ -290,33 +290,33 @@ abstract class Field extends Element {
 
   /**
    * Gets a filter object for the field. If the field is not mandatory the filter will be prefixed
-   * with \Papaya\Filter\PapayaFilterEmpty
+   * with \Papaya\Filter\EmptyValue
    *
    * Filter objects are used to check and filter user inputs
    *
    * @return NULL|\Papaya\Filter
    */
   public function getFilter() {
-    if ($this->_mandatory && isset($this->_filter)) {
+    if ($this->_mandatory && NULL !== $this->_filter) {
       return $this->_filter;
-    } elseif (isset($this->_filter)) {
-      return new \Papaya\Filter\LogicalOr($this->_filter, new \Papaya\Filter\EmptyValue());
-    } else {
-      return NULL;
     }
+    if (NULL !== $this->_filter) {
+      return new \Papaya\Filter\LogicalOr($this->_filter, new \Papaya\Filter\EmptyValue());
+    }
+    return NULL;
   }
 
   /**
    * Getter/Setter for the description subobject.
    *
-   * @param \Papaya\UI\Dialog\Element\Description $description
-   * @return \Papaya\UI\Dialog\Element\Description
+   * @param Element\Description $description
+   * @return Element\Description
    */
-  public function description(\Papaya\UI\Dialog\Element\Description $description = NULL) {
-    if (isset($description)) {
+  public function description(Element\Description $description = NULL) {
+    if (NULL !== $description) {
       $this->_description = $description;
-    } elseif (is_null($this->_description)) {
-      $this->_description = new \Papaya\UI\Dialog\Element\Description();
+    } elseif (NULL === $this->_description) {
+      $this->_description = new Element\Description();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;
@@ -328,7 +328,7 @@ abstract class Field extends Element {
    * @return boolean
    */
   public function validate() {
-    if (isset($this->_validationResult)) {
+    if (NULL !== $this->_validationResult) {
       return $this->_validationResult;
     }
     return $this->_validationResult = $this->_validateFilter($this->getFilter());

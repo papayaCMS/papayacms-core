@@ -49,8 +49,6 @@ class Display
   );
 
   /**
-   * Papaya\Message\PapayaMessageDisplay constrcutor
-   *
    * @param integer $type
    * @param string|\Papaya\UI\Text $message
    */
@@ -62,9 +60,12 @@ class Display
 
   /**
    * check if the given type is valid for this kind of messages
+   *
+   * @param int $type
+   * @return bool
    */
   protected function _isValidType($type) {
-    if (in_array($type, $this->_allowedTypes)) {
+    if (in_array($type, $this->_allowedTypes, FALSE)) {
       return TRUE;
     }
     throw new \InvalidArgumentException('Invalid message type.');

@@ -31,10 +31,9 @@ class Values {
   private $_document = NULL;
 
   /**
-   * Construct object and initalize internal dom document.
+   * Construct object and initialize internal dom document.
    *
    * @param \Papaya\XML\Document $document
-   * @return \PapayaTemplateValues
    */
   public function __construct(\Papaya\XML\Document $document = NULL) {
     $this->document(isset($document) ? $document : new \Papaya\XML\Document());
@@ -120,7 +119,7 @@ class Values {
    *
    * The functions tries to get a template value element defined by the selector.
    *
-   * If it is an string it {@see \Papaya\Template\PapayaTemplateValues::getPath()} will be used.
+   * If it is an string it {@see \Papaya\Template\Values::getPath()} will be used.
    *
    * If it is NULL, it will return a value containing the document itself.
    *

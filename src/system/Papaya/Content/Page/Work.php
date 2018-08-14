@@ -52,7 +52,7 @@ class Work extends \Papaya\Content\Page {
    * To create an child page for an existing page you call:
    *
    * <code>
-   * $parentPage = new \Papaya\Content\Page\PapayaContentPageWork();
+   * $parentPage = new \Papaya\Content\Page\Work();
    * $parentPage->load($parentId);
    * $childPage = $parentPage->createChild();
    * ...

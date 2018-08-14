@@ -19,7 +19,7 @@ namespace Papaya\Content\Page;
  * a page is published. They are not changeable.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see \Papaya\Content\Page\PapayaContentPageVersion}.
+ * use {@see \Papaya\Content\Page\Version}.
  *
  * @package Papaya-Library
  * @subpackage Content

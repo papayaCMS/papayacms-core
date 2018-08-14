@@ -660,7 +660,7 @@ class papaya_page extends base_object {
     $request->load(new \Papaya\URL($reference->get()));
     $request->setParameters(Request::SOURCE_QUERY, $parameters);
     $application->setObject(
-      'Request', $request, \PapayaApplication::DUPLICATE_OVERWRITE
+      'Request', $request, \Papaya\Application::DUPLICATE_OVERWRITE
     );
     // bc stuff
     $_GET = $request->getParameters(Request::SOURCE_QUERY)->toArray();
@@ -1975,7 +1975,7 @@ class papaya_page extends base_object {
   * @access public
   */
   function getMediaThumbFile($mediaId = NULL) {
-    if (empty($mediaId) || $mediaId instanceof \PapayaApplication) {
+    if (empty($mediaId) || $mediaId instanceof \Papaya\Application) {
       $mediaId = empty($this->requestData['media_id']) ? NULL : $this->requestData['media_id'];
     }
     if (!empty($mediaId)) {

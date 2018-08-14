@@ -10,6 +10,7 @@
   "require": {
     "php": ">=5.5.0",
     "ext-dom": "*",
+    "ext-libxml": "*",
     "ext-xsl": "*",
     "ext-json": "*"
   },

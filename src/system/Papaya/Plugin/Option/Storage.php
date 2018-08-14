@@ -16,7 +16,7 @@
 namespace Papaya\Plugin\Option;
 /**
  * This configuration storage load the module option records using
- * {@see \Papaya\Content\Module\PapayaContentModuleOptions} by the module guid and maps them into an associative array.
+ * {@see \Papaya\Content\Module\Options} by the module guid and maps them into an associative array.
  *
  * @package Papaya-Library
  * @subpackage Plugins
@@ -25,7 +25,7 @@ class Storage extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
 
   private $_guid;
-  private $_options = NULL;
+  private $_options;
 
   /**
    * Create storage object and store module guid

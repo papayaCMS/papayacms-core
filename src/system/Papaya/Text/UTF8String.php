@@ -163,7 +163,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    *
    * @param $start
    * @param null $length
-   * @return \PapayaStringUtf8
+   * @return self
    */
   public function substr($start, $length = NULL) {
     return new self($this->_getSubStr($start, $length));

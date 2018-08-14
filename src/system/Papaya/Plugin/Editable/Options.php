@@ -14,13 +14,11 @@
  */
 
 namespace Papaya\Plugin\Editable;
-/**
- * Class \Papaya\Plugin\Editable\PapayaPluginEditableOptions
- */
+
 class Options extends Data {
 
   /**
-   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\PapayaPluginEditableOptions::modified()}
+   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Options::modified()}
    *
    * @var string|NULL
    */

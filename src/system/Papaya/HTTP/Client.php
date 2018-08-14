@@ -28,7 +28,7 @@ class Client {
   /**
    * internal socket object
    *
-   * @var \Papaya\HTTP\Client\Socket
+   * @var Client\Socket
    */
   private $_socket = NULL;
 
@@ -224,7 +224,7 @@ class Client {
    * @access public
    * @return void
    */
-  public function setSocket(\Papaya\HTTP\Client\Socket $socket) {
+  public function setSocket(Client\Socket $socket) {
     $this->_socket = $socket;
   }
 
@@ -232,11 +232,11 @@ class Client {
    * return socket object
    *
    * @access public
-   * @return object \PapayaHTTPsocket
+   * @return Client\Socket
    */
   public function getSocket() {
     if (is_null($this->_socket)) {
-      $this->_socket = new \Papaya\HTTP\Client\Socket();
+      $this->_socket = new Client\Socket();
     }
     return $this->_socket;
   }
@@ -379,7 +379,7 @@ class Client {
   /**
    * Open the connection and return the socket object
    *
-   * @return \Papaya\HTTP\Client\Socket
+   * @return Client\Socket
    */
   public function open() {
     $socket = $this->getSocket();

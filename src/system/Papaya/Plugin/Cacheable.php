@@ -24,7 +24,7 @@ namespace Papaya\Plugin;
 interface Cacheable {
 
   /**
-   * An subobject implementing {@see \Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition} compiling the cache
+   * An subobject implementing {@see \Papaya\Cache\Identifier\Definition} compiling the cache
    * parameter status
    *
    * @param \Papaya\Cache\Identifier\Definition $definition

@@ -163,7 +163,6 @@ class Controller
    * Overload owner method to set owner on all commands, too.
    *
    * @param \Papaya\Request\Parameters\Access $owner
-   * @internal param $ NULL|\Papaya\Request\Parameters\PapayaRequestParametersInterface
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {

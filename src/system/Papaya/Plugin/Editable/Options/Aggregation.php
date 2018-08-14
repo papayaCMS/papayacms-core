@@ -15,11 +15,11 @@
 
 namespace Papaya\Plugin\Editable\Options;
 /**
- * This a standard implementation for editable plugin content. It
- * makes implements the \Papaya\Plugin\PapayaPluginEditable interface and
- * expects an implementation of the abstract method "createEditor".
+ * This a standard implementation for editable plugin options. It
+ * makes implements the \Papaya\Plugin\Editable interface and
+ * expects an implementation of the abstract method "createOptionsEditor".
  *
- * The method needs to return a \Papaya\Plugin\PapayaPluginEditor instance.
+ * The method needs to return a \Papaya\Plugin\Editor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins

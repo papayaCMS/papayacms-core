@@ -42,7 +42,7 @@ class Application implements \ArrayAccess {
 
   /**
   * Class variable for singleton instance
-  * @var \PapayaApplication
+  * @var \Papaya\Application
   */
   private static $instance = NULL;
 
@@ -63,11 +63,11 @@ class Application implements \ArrayAccess {
   * Create a new instance of this class or return existing one (singleton)
   *
   * @param boolean $reset
-  * @return \PapayaApplication Instance of Application Object
+  * @return \Papaya\Application Instance of Application Object
   */
   public static function getInstance($reset = FALSE) {
-    if ($reset || is_null(self::$instance)) {
-      self::$instance = new \PapayaApplication();
+    if ($reset || NULL === self::$instance) {
+      self::$instance = new self();
     }
     return self::$instance;
   }

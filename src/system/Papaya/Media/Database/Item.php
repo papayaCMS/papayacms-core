@@ -69,7 +69,6 @@ class Item {
    * Constructor - define id and storage service
    *
    * @param \Papaya\Media\Storage\Service $storage
-   * @return \PapayaMediaDatabaseItem
    */
   public function __construct(\Papaya\Media\Storage\Service $storage) {
     $this->_storage = $storage;

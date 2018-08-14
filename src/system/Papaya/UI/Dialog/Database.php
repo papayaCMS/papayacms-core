@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog;
 /**
  * A dialog superclass for dialogs that execute database actions on
- * {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord} instances
+ * {@see \Papaya\Database\BaseObject\Record} instances
  *
  * @package Papaya-Library
  * @subpackage UI

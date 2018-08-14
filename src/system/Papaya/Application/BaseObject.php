@@ -27,7 +27,7 @@ abstract class BaseObject implements Access {
   /**
    * Get application object
    *
-   * @deprecated {@see \Papaya\PapayaObject::papaya()}
+   * @deprecated {@see \Papaya\Application\Access\Aggregation::papaya()}
    * @return \Papaya\Application
    */
   public function getApplication() {
@@ -37,7 +37,7 @@ abstract class BaseObject implements Access {
   /**
    * Set application object
    *
-   * @deprecated {@see \Papaya\PapayaObject::papaya()}
+   * @deprecated {@see \Papaya\Application\Access\Aggregation::papaya()}
    * @param \Papaya\Application $application
    */
   public function setApplication($application) {

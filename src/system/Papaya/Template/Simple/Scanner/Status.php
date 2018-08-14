@@ -47,7 +47,7 @@ abstract class Status {
    * Get new (sub)status if needed.
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
-   * @return \PapayaTemplateSimpleScannerStatus|NULL
+   * @return self|NULL
    */
   public function getNewStatus(
     /** @noinspection PhpUnusedParameterInspection */

@@ -14,9 +14,6 @@
  */
 
 namespace Papaya\Administration\Page;
-use Papaya\Administration\PapayaAdministrationPage;
-use Papaya\UI\Control\Command;
-use Papaya\UI\Toolbar\Collection;
 
 /**
  * Administration page parts are interactive ui controls, with access to a toolbar.
@@ -37,16 +34,16 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
   private $_toolbar = NULL;
 
   /**
-   * @var \Papaya\Administration\PapayaAdministrationPage
+   * @var \Papaya\Administration\Page
    */
   private $_page = NULL;
 
-  public function __construct(\Papaya\Administration\PapayaAdministrationPage $page = NULL) {
+  public function __construct(\Papaya\Administration\Page $page = NULL) {
     $this->_page = $page;
   }
 
   /**
-   * @return \Papaya\Administration\PapayaAdministrationPage
+   * @return \Papaya\Administration\Page
    */
   public function getPage() {
     return $this->_page;
@@ -64,7 +61,7 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
 
   /**
    * Getter/Setter for the commands subobject,
-   * {@see \Papaya\Administration\Page\PapayaAdministrationPagePart::_createCommands89} is called for lazy init
+   * {@see \Papaya\Administration\Page\Part::_createCommands89} is called for lazy init
    *
    * @param \Papaya\UI\Control\Command $commands
    * @return \Papaya\UI\Control\Command

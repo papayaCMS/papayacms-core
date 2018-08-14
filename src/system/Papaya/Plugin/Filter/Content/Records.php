@@ -15,17 +15,17 @@
 
 namespace Papaya\Plugin\Filter\Content;
 /**
- * Class Papaya\Plugin\Filter\Content\PapayaPluginFilterContentRecords
+ * Class Papaya\Plugin\Filter\Content\Records
  */
 class Records extends Group {
 
-  private $_viewConfigurations = NULL;
+  private $_viewConfigurations;
   private $_loaded = FALSE;
 
   public function records(\Papaya\Content\View\Configurations $configurations = NULL) {
-    if (isset($configurations)) {
+    if (NULL !== $configurations) {
       $this->_viewConfigurations = $configurations;
-    } elseif (NULL == $this->_viewConfigurations) {
+    } elseif (NULL === $this->_viewConfigurations) {
       $this->_viewConfigurations = new \Papaya\Content\View\Configurations();
       $this->_viewConfigurations->activateLazyLoad(
         array(

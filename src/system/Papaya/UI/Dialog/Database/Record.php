@@ -69,7 +69,7 @@ class Record extends \Papaya\UI\Dialog {
   /**
    * Column definition.
    *
-   * The keys are the fields, the elements define the type. You can provide \Papaya\PapayaFilter objects
+   * The keys are the fields, the elements define the type. You can provide \Papaya\Filter objects
    * or types. Types are provided as strings like 'integer' {@link http://www.php.net/settype}.
    *
    * @var array

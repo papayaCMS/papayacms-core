@@ -82,7 +82,7 @@ class Value {
    * Append the node represented by this value to a parent node.
    *
    * @param \Papaya\XML\Element $parentNode
-   * @return \PapayaTemplateValue
+   * @return $this
    */
   public function appendTo(\Papaya\XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
@@ -92,7 +92,7 @@ class Value {
   /**
    * Append a new element to the value.
    *
-   * If the first argument is a string a new element is created. If it is alread an DOMElement the
+   * If the first argument is a string a new element is created. If it is already an DOMElement the
    * element is used directly.
    *
    * It sets all attributes defined by the second argument and the text content if not empty.
@@ -103,7 +103,7 @@ class Value {
    * @param array $attributes
    * @param string $textContent
    * @throws \InvalidArgumentException
-   * @return \PapayaTemplateValue|NULL
+   * @return self|NULL
    */
   public function append($element, array $attributes = array(), $textContent = '') {
     if (is_string($element)) {
@@ -141,14 +141,15 @@ class Value {
   }
 
   /**
-   * Appends a xml fragement to the node and returns the new element.
+   * Appends a xml fragment to the node and returns the new element.
    *
    * This function creates an xml fragment and appends the first element in it.
    *
    * An instance of this class containing the appended element is returned.
    *
    * @param string $xml
-   * @return \PapayaTemplateValue
+   * @return $this
+   * @throws \Papaya\XML\Exception
    */
   public function appendXML($xml) {
     $errors = new \Papaya\XML\Errors();
@@ -170,6 +171,7 @@ class Value {
    *
    * @param \DOMNode|array|string $xml
    * @throws \InvalidArgumentException
+   * @throws \Papaya\XML\Exception
    * @return string
    */
   public function xml($xml = NULL) {

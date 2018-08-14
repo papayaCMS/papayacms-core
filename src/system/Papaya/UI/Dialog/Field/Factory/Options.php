@@ -238,14 +238,14 @@ class Options implements \ArrayAccess {
   }
 
   /**
-   * The validation value is converted into an \Papaya\PapayaFilter object
+   * The validation value is converted into an \Papaya\Filter object
    *
    * If it is empty the filter depends only on the mandatory value.
    *
-   * If it is an array, the first element is considered a \Papaya\PapayaFilter class and all others
+   * If it is an array, the first element is considered a \Papaya\Filter class and all others
    * arguments for the constructor.
    *
-   * If it is an existing class, it is considered a \Papaya\PapayaFilter class.
+   * If it is an existing class, it is considered a \Papaya\Filter class.
    *
    * If it does start with an non word character it is considered a PCRE.
    *
@@ -253,6 +253,7 @@ class Options implements \ArrayAccess {
    *
    * @param mixed $validation
    * @return null|\Papaya\Filter|\Papaya\Filter\NotEmpty
+   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   private function getValidation($validation) {
     if ($validation instanceof \Papaya\Filter) {

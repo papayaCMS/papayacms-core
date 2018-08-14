@@ -25,8 +25,8 @@ namespace Papaya\Message\Context;
  */
 class Group
   implements
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\Xhtml,
+  Interfaces\Text,
+  Interfaces\Xhtml,
   \Iterator,
   \Countable {
 
@@ -40,10 +40,10 @@ class Group
   /**
    * Append a new context element to group
    *
-   * @param \Papaya\Message\Context\Data $context
-   * @return \PapayaMessageContextGroup $this
+   * @param Data $context
+   * @return \Papaya\Message\Context\Group $this
    */
-  public function append(\Papaya\Message\Context\Data $context) {
+  public function append(Data $context) {
     $this->_elements[] = $context;
     return $this;
   }
@@ -56,12 +56,12 @@ class Group
   public function asString() {
     $result = '';
     foreach ($this as $element) {
-      if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
+      if ($element instanceof Interfaces\Labeled) {
         $result .= "\n\n".$element->getLabel();
       }
-      if ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
+      if ($element instanceof Interfaces\Text) {
         $result .= "\n\n".$element->asString();
-      } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
+      } elseif ($element instanceof Interfaces\Xhtml) {
         $result .= "\n\n".\Papaya\Utility\Text\Html::stripTags($element->asXhtml());
       }
     }
@@ -75,12 +75,12 @@ class Group
     $result = '';
     foreach ($this as $element) {
       $result .= '<div class="group">';
-      if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
+      if ($element instanceof Interfaces\Labeled) {
         $result .= '<h3>'.\Papaya\Utility\Text\XML::escape($element->getLabel()).'</h3>';
       }
-      if ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
+      if ($element instanceof Interfaces\Xhtml) {
         $result .= $element->asXhtml();
-      } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
+      } elseif ($element instanceof Interfaces\Text) {
         $result .= str_replace(
           "\n", "\n<br />", \Papaya\Utility\Text\XML::escape($element->asString())
         );
@@ -102,7 +102,7 @@ class Group
   /**
    * Iterator: Get current element value
    *
-   * @return FALSE|\Papaya\Message\Context\Data
+   * @return FALSE|Data
    */
   public function current() {
     return current($this->_elements);
@@ -120,7 +120,7 @@ class Group
   /**
    * Iterator: Move position to next element
    *
-   * @return FALSE|\Papaya\Message\Context\Data
+   * @return FALSE|Data
    */
   public function next() {
     return next($this->_elements);
@@ -132,7 +132,7 @@ class Group
    * @return boolean
    */
   public function valid() {
-    return $this->current() !== FALSE;
+    return FALSE !== $this->current();
   }
 
   /**

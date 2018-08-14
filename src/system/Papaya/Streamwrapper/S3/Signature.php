@@ -47,7 +47,6 @@ class Signature {
    * @param array $resource
    * @param string $method
    * @param array $headers
-   * @return \PapayaStreamwrapperS3Signature
    */
   public function __construct($resource, $method, $headers) {
     $this->_resource = $resource;

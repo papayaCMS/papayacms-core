@@ -57,7 +57,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
   /**
    * Returns the (created if necessary) iterator instance for the provided traversable.
    * It it already was an iterator it is returned. It it is an Traversable or array the first
-   * call will created an {@see \Papaya\Iterator\PapayaIteratorTraversable} for it.
+   * call will created an {@see \Papaya\Iterator\Traversable} for it.
    *
    * return Iterator
    */

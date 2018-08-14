@@ -73,7 +73,7 @@ class Values implements \ArrayAccess {
   }
 
   /**
-   * Alias for {@see \Papaya\Session\PapayaSessionValues::offsetGet()}.
+   * Alias for {@see \Papaya\Session\Values::offsetGet()}.
    *
    * @param mixed $identifier
    * @return mixed
@@ -99,7 +99,7 @@ class Values implements \ArrayAccess {
   }
 
   /**
-   * Alias for {@see \Papaya\Session\PapayaSessionValues::offsetSet()}.
+   * Alias for {@see \Papaya\Session\Values::offsetSet()}.
    *
    * @param mixed $identifier
    * @param mixed $value

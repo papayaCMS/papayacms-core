@@ -227,7 +227,7 @@ class Date {
   /**
    * Generic formatting for a time period
    *
-   * @uses \PapayaUtilDate::periodToArray()
+   * @uses \Papaya\Utility\Date::periodToArray()
    *
    * @param integer $period
    * @param integer $precision elements to output (start with the first one greater zero)

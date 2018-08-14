@@ -44,7 +44,7 @@ class Memory
    */
   protected $_peakUsage = 0;
   /**
-   * Usage difference, calculate in @see \PapayaMessageContextMemory::_setMemoryUsage()
+   * Usage difference, calculate in @see \Papaya\Message\Context\Memory::_setMemoryUsage()
    *
    * @var integer
    */

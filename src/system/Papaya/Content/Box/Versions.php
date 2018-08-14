@@ -19,7 +19,7 @@ namespace Papaya\Content\Box;
  * a box is published. They are not changeable.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see \Papaya\Content\Box\PapayaContentBoxVersion}.
+ * use {@see \Papaya\Content\Box\Version}.
  *
  * @package Papaya-Library
  * @subpackage Content

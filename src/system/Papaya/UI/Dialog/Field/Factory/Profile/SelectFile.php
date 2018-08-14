@@ -90,7 +90,7 @@ class SelectFile
 
   /**
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
-   * a \Papaya\Configuration\PapayaConfigurationPath object.
+   * a \Papaya\Configuration\Path object.
    *
    * @return string|\Papaya\Configuration\Path
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption

@@ -20,7 +20,7 @@ namespace Papaya\Database;
  * To use this class you have to define a child that implements \the abstract createId() method.
  *
  * Usage:
- *   $sequence = new \PapayaDatabaseSequenceSample(
+ *   $sequence = new \Papaya\Database\Sequence\Sample(
  *     'tablename', 'fieldname'
  *   );
  *   $newId = $sequence->next();

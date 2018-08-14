@@ -52,13 +52,13 @@ namespace Papaya\Filter;
 class Factory implements \IteratorAggregate {
 
   /**
-   * @var array storage for field profiles, defined by constants in \Papaya\PapayaFilter
+   * @var array storage for field profiles, defined by constants in \Papaya\Filter
    */
   private static $_profiles;
 
   /**
    * Returns an ArrayIterator for the available profiles. The
-   * profiles need to be defined in the \Papaya\PapayaFilter interface.
+   * profiles need to be defined in the \Papaya\Filter interface.
    *
    * The key contains a lowercase version of the profile name, the value
    * the "real version"
@@ -72,7 +72,7 @@ class Factory implements \IteratorAggregate {
   }
 
   /**
-   * Fetch all constants from \Papaya\PapayaFilter and store them in an internal array.
+   * Fetch all constants from \Papaya\Filter and store them in an internal array.
    *
    * @codeCoverageIgnore
    * @return array
@@ -145,7 +145,7 @@ class Factory implements \IteratorAggregate {
   /**
    * Get the filter using the specified profile.
    *
-   * If mandatory is set to false, the actual filter will be prefixed with an \Papaya\Filter\PapayaFilterEmpty
+   * If mandatory is set to false, the actual filter will be prefixed with an \Papaya\Filter\Empty
    * allowing empty values.
    *
    * @param Factory\Profile|string $profile

@@ -101,7 +101,7 @@ class Children implements \RecursiveIterator {
   /**
    * Get an iterator for the children of the current element
    *
-   * @return \PapayaIteratorTreeChildren
+   * @return self
    */
   public function getChildren() {
     return new self($this->_elements, $this->_tree, $this->key());

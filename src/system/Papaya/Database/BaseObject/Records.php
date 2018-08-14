@@ -66,7 +66,7 @@ abstract class Records
   }
 
   /**
-   * Get count without limits, returns {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectList::count()} if
+   * Get count without limits, returns {@see \Papaya\Database\BaseObject\Collection::count()} if
    * this value is larger.
    *
    * @return integer

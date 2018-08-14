@@ -77,9 +77,10 @@ class Date implements \Papaya\Filter {
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
     if (!in_array($includeTime, self::$timeConstants)) {
       throw new \UnexpectedValueException(
-        'Argument must be \PapayaFilterDate::DATE_NO_TIME, '.
-        '\PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
-        '\PapayaFilterDate::DATE_MANDATORY_TIME.'
+        sprintf(
+          'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
+          __CLASS__
+        )
       );
     }
     if ($step <= 0) {

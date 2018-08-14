@@ -130,7 +130,7 @@ class papaya_taglinks extends base_tags {
    */
   public static function getInstance($parentObj = NULL, $paramName = NULL) {
     /** @var Cms $application */
-    $application = \PapayaApplication::getInstance();
+    $application = \Papaya\Application::getInstance();
     $validUser = $application->administrationUser->hasPerm(
       Permissions::TAG_MANAGE
     );

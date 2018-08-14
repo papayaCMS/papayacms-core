@@ -100,7 +100,10 @@ abstract class Engine {
         $this->_parameters = new \Papaya\BaseObject\Options\Collection($parameters);
       } else {
         throw new \InvalidArgumentException(
-          'Argument must be an array or a Papaya\BaseObject\Options\PapayaObjectOptionsList object.'
+          sprintf(
+            'Argument must be an array or a %s object.',
+            \Papaya\BaseObject\Options\Collection::class
+          )
         );
       }
     } elseif (!isset($this->_parameters)) {

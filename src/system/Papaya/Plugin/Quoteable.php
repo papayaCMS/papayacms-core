@@ -16,7 +16,7 @@
 namespace Papaya\Plugin;
 /**
  * An interface to define that an plugin with a teaser appendable to an DOM element. It
- * is provides an additional method to \Papaya\Plugin\PapayaPluginAppendable to append a "quote"/short version
+ * is provides an additional method to \Papaya\Plugin\Appendable to append a "quote"/short version
  * of the content to the DOM.
  *
  * @package Papaya-Library

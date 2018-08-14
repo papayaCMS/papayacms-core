@@ -162,7 +162,6 @@ class Access extends \Papaya\Application\BaseObject {
    * @param object $owner calling object
    * @param string|NULL $readUri
    * @param string|NULL $writeUri
-   * @return \PapayaDatabaseAccess
    */
   public function __construct($owner, $readUri = NULL, $writeUri = NULL) {
     $this->_owner = $owner;

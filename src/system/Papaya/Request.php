@@ -173,7 +173,7 @@ class Request
           'page_id',
           $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
           NULL,
-          \PapayaRequest::SOURCE_PATH
+          self::SOURCE_PATH
         );
       case 'languageId' :
         return (int)$this->language->id;
@@ -185,7 +185,7 @@ class Request
         return $this->mode()->id;
       case 'isPreview' :
         return $this->getParameter(
-          'preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH
+          'preview', FALSE, NULL, self::SOURCE_PATH
         );
       case 'isAdministration' :
         return defined('PAPAYA_ADMIN_PAGE') && constant('PAPAYA_ADMIN_PAGE');
@@ -285,7 +285,7 @@ class Request
       $this->_mode = new \Papaya\Content\View\Mode();
       $this->_mode->papaya($this->papaya());
       $extension = $this->getParameter(
-        'output_mode', 'html', NULL, \PapayaRequest::SOURCE_PATH
+        'output_mode', 'html', NULL, self::SOURCE_PATH
       );
       if ('xml' === $extension) {
         $this->_mode->assign(
@@ -430,12 +430,12 @@ class Request
     }
     $parameters = new Request\Parameters();
     switch ($source) {
-      case \PapayaRequest::SOURCE_PATH :
+      case self::SOURCE_PATH :
         $parameters->merge(
           $parameters->prepareParameter($this->_pathData)
         );
       break;
-      case \PapayaRequest::SOURCE_QUERY :
+      case self::SOURCE_QUERY :
         if (isset($this->_url)) {
           $query = new Request\Parameters\QueryString($this->_separator);
           $parameters->merge(
@@ -443,7 +443,7 @@ class Request
           );
         }
       break;
-      case \PapayaRequest::SOURCE_BODY :
+      case self::SOURCE_BODY :
         $parameters->merge(
           $parameters->prepareParameter(
             $_POST,
@@ -451,7 +451,7 @@ class Request
           )
         );
       break;
-      case \PapayaRequest::SOURCE_COOKIE :
+      case self::SOURCE_COOKIE :
         $parameters->merge(
           $parameters->prepareParameter(
             $_COOKIE,
@@ -465,7 +465,7 @@ class Request
   }
 
   /**
-   * Load parameters into \Papaya\Request\PapayaRequestParameters object and return it.
+   * Load parameters into \Papaya\Request\Parameters object and return it.
    *
    * Merges parameter data from different sources and uses an object cache
    *
@@ -507,7 +507,7 @@ class Request
    * @param integer $sources
    * @return \Papaya\Request\Parameters
    */
-  public function getParameters($sources = \PapayaRequest::SOURCE_ALL) {
+  public function getParameters($sources = self::SOURCE_ALL) {
     return $this->loadParameters($sources);
   }
 
@@ -521,7 +521,7 @@ class Request
    * @return mixed
    */
   public function getParameter(
-    $name, $defaultValue = NULL, $filter = NULL, $sources = \PapayaRequest::SOURCE_ALL
+    $name, $defaultValue = NULL, $filter = NULL, $sources = self::SOURCE_ALL
   ) {
     $parameters = $this->loadParameters($sources);
     return $parameters->get($name, $defaultValue, $filter);
@@ -534,7 +534,7 @@ class Request
    * @param integer $sources
    * @return \Papaya\Request\Parameters
    */
-  public function getParameterGroup($name, $sources = \PapayaRequest::SOURCE_ALL) {
+  public function getParameterGroup($name, $sources = self::SOURCE_ALL) {
     $parameters = $this->loadParameters($sources);
     return $parameters->getGroup($name);
   }

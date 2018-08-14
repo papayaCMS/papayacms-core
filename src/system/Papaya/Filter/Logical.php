@@ -28,7 +28,7 @@ abstract class Logical implements \Papaya\Filter {
   /**
    * Filter list
    *
-   * @var array(\Papaya\PapayaFilter)
+   * @var array(\Papaya\Filter)
    */
   protected $_filters = array();
 
@@ -37,8 +37,6 @@ abstract class Logical implements \Papaya\Filter {
    *
    * The constructor needs at least two filters
    *
-   * @internal param \Papaya\PapayaFilter $filterOne
-   * @internal param \Papaya\PapayaFilter $filterTwo
    * @throws \InvalidArgumentException
    */
   public function __construct() {
@@ -48,7 +46,7 @@ abstract class Logical implements \Papaya\Filter {
   /**
    * Check subfilters and save them in a protected property
    *
-   * @param array(\Papaya\PapayaFilter) $filters
+   * @param \Papaya\Filter[] $filters
    * @throws \InvalidArgumentException
    * @return void
    */
@@ -59,7 +57,7 @@ abstract class Logical implements \Papaya\Filter {
         if ($filter instanceof \Papaya\Filter) {
           $this->_filters[] = $filter;
         } elseif (is_scalar($filter)) {
-          $this->_filters[] = new \Papaya\Filter\Equals($filter);
+          $this->_filters[] = new Equals($filter);
         } else {
           throw new \InvalidArgumentException(
             sprintf(

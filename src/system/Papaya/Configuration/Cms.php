@@ -402,8 +402,8 @@ class Cms extends GlobalValues {
 
   /**
    * Define the database table name constants, these constants should be replaced by
-   * calls to {@see \PapayaDatabaseAcccess::getTableName()} using the class constants in
-   * {@see \Papaya\Content\PapayaContentTables}.
+   * calls to {@see \Papaya\Database\Acccess::getTableName()} using the class constants in
+   * {@see \Papaya\Content\Tables}.
    *
    * But for now the use of these constants is scattered all over the source in the
    * base system and modules, so we need to define them for compatibility.

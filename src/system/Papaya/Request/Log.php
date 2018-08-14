@@ -26,9 +26,9 @@ class Log extends \Papaya\Application\BaseObject {
   /**
    * Same instance to make it usable like a singleton
    *
-   * @var \PapayaRequestLog
+   * @var self
    */
-  private static $_instance = NULL;
+  private static $_instance;
 
   /**
    * Time the object instance was created.
@@ -68,10 +68,10 @@ class Log extends \Papaya\Application\BaseObject {
    * This object can be used like a singleton, or created normally.
    *
    * @param boolean $reset create new instance
-   * @return \PapayaRequestLog
+   * @return self
    */
   public static function getInstance($reset = FALSE) {
-    if (is_null(self::$_instance) || $reset) {
+    if (NULL === self::$_instance || $reset) {
       self::$_instance = new self();
     }
     return self::$_instance;

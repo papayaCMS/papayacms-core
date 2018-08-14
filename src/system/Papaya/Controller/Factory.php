@@ -25,7 +25,7 @@ class Factory {
   /**
    * Get error controller to return.
    *
-   * If a template file is provided a \Papaya\Controller\Error\PapayaControllerErrorFile is created.
+   * If a template file is provided a \Papaya\Controller\Error\File is created.
    *
    * @param integer $status
    * @param string $errorIdentifier

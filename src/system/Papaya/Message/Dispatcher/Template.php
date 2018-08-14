@@ -37,7 +37,7 @@ class Template
   /**
    * Add message to the output, for now uses the old error system.
    *
-   * Only messages that implements \Papaya\Message\PapayaMessageDisplay are used, \all other message are ignored.
+   * Only messages that implements \Papaya\Message\Display are used, \all other message are ignored.
    *
    * @param \Papaya\Message $message
    * @return boolean

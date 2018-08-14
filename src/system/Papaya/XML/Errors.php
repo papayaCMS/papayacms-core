@@ -19,7 +19,7 @@ namespace Papaya\XML;
  * Encapsulation object for the libxml errors.
  *
  * This is a wrapper for the libxml error handling function, it converts the warnings and errors
- * into \Papaya\PapayaMessage objects and dispatches them into the MessageManager.
+ * into \Papaya\Message objects and dispatches them into the MessageManager.
  *
  * @package Papaya-Library
  * @subpackage XML
@@ -130,13 +130,14 @@ class Errors extends \Papaya\Application\BaseObject {
   /**
    * @deprecated {@see self::emit()}
    * @param boolean $fatalOnly
+   * @throws \Papaya\XML\Exception
    */
   public function omit($fatalOnly = FALSE) {
     $this->emit($fatalOnly);
   }
 
   /**
-   * Converts a libxml error object into a \Papaya\PapayaMessage
+   * Converts a libxml error object into a \Papaya\Message
    *
    * @param \libXMLError $error
    * @return \Papaya\Message\Log

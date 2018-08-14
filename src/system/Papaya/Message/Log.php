@@ -50,8 +50,6 @@ class Log
   protected $_context = NULL;
 
   /**
-   * Papaya\Message\PapayaMessageLog constructor
-   *
    * @param integer $group
    * @param integer $type
    * @param string $message

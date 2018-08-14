@@ -92,7 +92,7 @@ class Collection
    * to add several items using a fluent interface.
    *
    * @param object $value
-   * @return \PapayaObjectList
+   * @return $this
    */
   public function add($value) {
     $this->offsetSet(NULL, $value);
@@ -110,8 +110,6 @@ class Collection
 
   /**
    * Remove a single item from the list.
-   *
-   * @see \PapayaObjectList::offsetGet
    *
    * @param integer $index
    */

@@ -15,7 +15,7 @@
 
 use Papaya\Administration\Page\Parts;
 use Papaya\Administration\Page\Part;
-use Papaya\Administration\PapayaAdministrationPage;
+use Papaya\Administration\Page;
 use Papaya\Template;
 
 require_once __DIR__.'/../../../bootstrap.php';

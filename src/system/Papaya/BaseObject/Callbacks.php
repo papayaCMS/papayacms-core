@@ -26,7 +26,7 @@ class Callbacks implements \IteratorAggregate {
   /**
    * List of callbacks
    *
-   * @var array(string=>\Papaya\BaseObject\PapayaObjectCallback)
+   * @var \Papaya\BaseObject\Callback[]
    */
   private $_callbacks = array();
 
@@ -54,7 +54,7 @@ class Callbacks implements \IteratorAggregate {
   }
 
   /**
-   * This check the list of given callback names. For each name a \Papaya\BaseObject\PapayaObjectCallback instance is
+   * This check the list of given callback names. For each name a \Papaya\BaseObject\Callback instance is
    * created.
    *
    * If of of the given names is an existing method in the current object ($this) an exception
@@ -93,10 +93,10 @@ class Callbacks implements \IteratorAggregate {
   }
 
   /**
-   * Returns the \Papaya\BaseObject\PapayaObjectCallback instance for the given name.
+   * Returns the \Papaya\BaseObject\Callback instance for the given name.
    *
    * @param string $name
-   * @return Callback
+   * @return \Papaya\BaseObject\Callback
    */
   public function __get($name) {
     $this->validateName($name);
@@ -104,8 +104,8 @@ class Callbacks implements \IteratorAggregate {
   }
 
   /**
-   * Change a callback. If the value is an instance of \Papaya\BaseObject\PapayaObjectCallback is will be assigned.
-   * If it is a PHP callback it will be assigned to the \Papaya\BaseObject\PapayaObjectCallback instance.
+   * Change a callback. If the value is an instance of \Papaya\BaseObject\Callback is will be assigned.
+   * If it is a PHP callback it will be assigned to the \Papaya\BaseObject\Callback instance.
    *
    * @param string $name
    * @param NULL|Callback|\Callback $callback
@@ -130,7 +130,7 @@ class Callbacks implements \IteratorAggregate {
   }
 
   /**
-   * Unset the PHP callback in the match \Papaya\BaseObject\PapayaObjectCallback
+   * Unset the PHP callback in the match \Papaya\BaseObject\Callback
    *
    * @param string $name
    */
@@ -139,7 +139,7 @@ class Callbacks implements \IteratorAggregate {
   }
 
   /**
-   * Execute the callback using {@see \Papaya\BaseObject\PapayaObjectCallback::execute()}.
+   * Execute the callback using {@see \Papaya\BaseObject\Callback::execute()}.
    *
    * @param string $name
    * @param $arguments

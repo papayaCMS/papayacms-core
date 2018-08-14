@@ -196,7 +196,7 @@ class Parts
    * This calls get() to fetch the part, so an implicit call to create is included.
    *
    * @see \Iterator::current()
-   * @see \PapayaAdministrationPageParts::get()
+   * @see \Papaya\Administration\Page\Parts::get()
    * @return FALSE|\Papaya\Administration\Page\Part
    */
   public function current() {

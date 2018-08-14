@@ -27,7 +27,7 @@ class Artwork {
    *
    * @var array $_blocks
    */
-  private $_blocks = array(
+  private static $_blocks = array(
     0 => array(
       ' _____ ',
       '|  _  |',
@@ -342,13 +342,12 @@ class Artwork {
    * @return string
    */
   public static function get($string) {
-    $instance = new \PapayaUtilStringAsciiArtwork();
     $string = strtoupper((string)$string);
     $max = strlen($string);
     $result = array();
     for ($i = 0; $i < $max; $i++) {
-      if (isset($instance->_blocks[$string[$i]])) {
-        $char = $instance->_blocks[$string[$i]];
+      if (isset(self::$_blocks[$string[$i]])) {
+        $char = self::$_blocks[$string[$i]];
         $length = 0;
         foreach ($char as $charStr) {
           if (strlen($charStr) > $length) {
@@ -358,9 +357,9 @@ class Artwork {
         if (count($char) > 0) {
           foreach ($char as $line => $charStr) {
             if (empty($result[$line])) {
-              $result[$line] = str_pad(chop($charStr), $length, ' ', STR_PAD_RIGHT);
+              $result[$line] = str_pad(rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
             } else {
-              $result[$line] .= ' '.str_pad(chop($charStr), $length, ' ', STR_PAD_RIGHT);
+              $result[$line] .= ' '.str_pad(rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
             }
           }
         }

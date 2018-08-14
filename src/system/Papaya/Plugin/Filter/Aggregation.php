@@ -18,11 +18,11 @@ namespace Papaya\Plugin\Filter;
 /**
  * This a standard implementation for content/data filters usage in a plugin.
  *
- * It provides access to a filters() methods that returns a \Papaya\Plugin\Filter\PapayaPluginFilterContent
+ * It provides access to a filters() methods that returns a \Papaya\Plugin\Filter\Content
  * instance.
  *
  * To use the filters call prepare()/applyTo()/appendTo() in the
- * your \Papaya\Plugin\PapayaPluginAppendable::appendTo() method.
+ * your \Papaya\Plugin\Appendable::appendTo() method.
  *
  * @package Papaya-Library
  * @subpackage Plugins
@@ -30,7 +30,7 @@ namespace Papaya\Plugin\Filter;
 trait Aggregation {
 
   /**
-   * @var \Papaya\Plugin\Filter\Content\Records
+   * @var Content\Records
    */
   private $_contentFilters;
 
@@ -41,15 +41,15 @@ trait Aggregation {
 
 
   /**
-   * @param \Papaya\Plugin\Filter\Content|NULL $filters
+   * @param Content|NULL $filters
    *
-   * @return \Papaya\Plugin\Filter\Content
+   * @return Content
    */
-  public function filters(\Papaya\Plugin\Filter\Content $filters = NULL) {
-    if ($filters !== NULL) {
+  public function filters(Content $filters = NULL) {
+    if (NULL !== $filters) {
       $this->_contentFilters = $filters;
     } elseif (NULL === $this->_contentFilters) {
-      $this->_contentFilters = new \Papaya\Plugin\Filter\Content\Records($this->getPage());
+      $this->_contentFilters = new Content\Records($this->getPage());
     }
     return $this->_contentFilters;
   }

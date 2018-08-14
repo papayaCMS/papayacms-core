@@ -25,7 +25,7 @@ class Manager extends \Papaya\Application\BaseObject {
   /**
    * Internal list of message dispatchers
    *
-   * @var array(\Papaya\Message\PapayaMessageDispatcher)
+   * @var array(\Papaya\Message\Dispatcher)
    */
   private $_dispatchers = array();
 
@@ -34,14 +34,14 @@ class Manager extends \Papaya\Application\BaseObject {
    *
    * @var array
    */
-  private $_hooks = NULL;
+  private $_hooks;
 
   /**
    * Add a dispatcher to the list
    *
-   * @param \Papaya\Message\Dispatcher $dispatcher
+   * @param Dispatcher $dispatcher
    */
-  public function addDispatcher(\Papaya\Message\Dispatcher $dispatcher) {
+  public function addDispatcher(Dispatcher $dispatcher) {
     $this->_dispatchers[] = $dispatcher;
   }
 
@@ -51,7 +51,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param \Papaya\Message $message
    */
   public function dispatch(\Papaya\Message $message) {
-    /** @var \Papaya\Message\Dispatcher $dispatcher */
+    /** @var Dispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
     }
@@ -64,12 +64,12 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param $text
    */
   public function display($severity, $text) {
-    $this->dispatch(new \Papaya\Message\Display($severity, $text));
+    $this->dispatch(new Display($severity, $text));
   }
 
   /**
-   * Log a message, if $context ist not an \Papaya\Message\Context\PapayaMessageContextInterface it will be encapsulated
-   * into a \Papaya\Message\Context\PapayaMessageContextVariable
+   * Log a message, if $context ist not an \Papaya\Message\Context\Data it will be encapsulated
+   * into a \Papaya\Message\Context\Variable
    *
    * @param integer $severity
    * @param integer $group
@@ -77,13 +77,13 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param mixed $context
    */
   public function log($severity, $group, $text, $context = NULL) {
-    $message = new \Papaya\Message\Log($severity, $group, $text);
-    if ($context instanceof \Papaya\Message\Context\Group) {
+    $message = new Log($severity, $group, $text);
+    if ($context instanceof Context\Group) {
       $message->setContext($context);
-    } elseif ($context instanceof \Papaya\Message\Context\Data) {
+    } elseif ($context instanceof Context\Data) {
       $message->context()->append($context);
-    } elseif (isset($context)) {
-      $message->context()->append(new \Papaya\Message\Context\Variable($context));
+    } elseif (NULL !== $context) {
+      $message->context()->append(new Context\Variable($context));
     }
     $this->dispatch($message);
   }
@@ -94,17 +94,17 @@ class Manager extends \Papaya\Application\BaseObject {
    * If arguments are provided, they are added to a variable context as an array.
    */
   public function debug() {
-    $message = new \Papaya\Message\Log(
-      \Papaya\Message\Logable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
+    $message = new Log(
+      Logable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
-      $message->context()->append(new \Papaya\Message\Context\Variable(func_get_args(), 5, 9999));
+      $message->context()->append(new Context\Variable(func_get_args(), 5, 9999));
     }
     $message
       ->context()
-      ->append(new \Papaya\Message\Context\Memory())
-      ->append(new \Papaya\Message\Context\Runtime())
-      ->append(new \Papaya\Message\Context\Backtrace(1));
+      ->append(new Context\Memory())
+      ->append(new Context\Runtime())
+      ->append(new Context\Backtrace(1));
     $this->dispatch($message);
   }
 
@@ -113,25 +113,28 @@ class Manager extends \Papaya\Application\BaseObject {
    * as logable error messages.
    *
    * @param \Callable $callback
-   * @return \Papaya\Message\Sandbox|callable
+   * @return Sandbox|callable
    */
   public function encapsulate($callback) {
     \Papaya\Utility\Constraints::assertCallable($callback);
-    $sandbox = new \Papaya\Message\Sandbox($callback);
+    $sandbox = new Sandbox($callback);
     $sandbox->papaya($this->papaya());
     return array($sandbox, '__invoke');
   }
 
   /**
    * Register error and exceptions hooks
+   *
+   * @param array|null $hooks
+   * @return array
    */
   public function hooks(array $hooks = NULL) {
-    if (isset($hooks)) {
+    if (NULL !== $hooks) {
       $this->_hooks = $hooks;
-    } elseif (is_null($this->_hooks)) {
+    } elseif (NULL === $this->_hooks) {
       $this->_hooks = array(
-        $exceptionsHook = new \Papaya\Message\Hook\Exceptions($this),
-        new \Papaya\Message\Hook\Errors($this, $exceptionsHook),
+        $exceptionsHook = new Hook\Exceptions($this),
+        new Hook\Errors($this, $exceptionsHook),
       );
     }
     return $this->_hooks;
@@ -146,7 +149,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param \Papaya\Configuration $options
    */
   public function setUp($options) {
-    \Papaya\Message\Context\Runtime::setStartTime(microtime(TRUE));
+    Context\Runtime::setStartTime(microtime(TRUE));
     error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
     /** @var \Papaya\Message\Hook $hook */
     foreach ($this->hooks() as $hook) {

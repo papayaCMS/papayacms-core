@@ -24,8 +24,8 @@ namespace Papaya\Message\Context;
  */
 class Variable
   implements
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\Xhtml {
+  Interfaces\Text,
+  Interfaces\Xhtml {
 
   /**
    * The depth defines the recursion depth for the variable output
@@ -111,7 +111,7 @@ class Variable
    * @return string
    */
   public function asString() {
-    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text($this->_depth, $this->_stringLength);
+    $visitor = new Variable\Visitor\Text($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }
@@ -122,7 +122,7 @@ class Variable
    * @return string
    */
   public function asXhtml() {
-    $visitor = new \Papaya\Message\Context\Variable\Visitor\Xhtml($this->_depth, $this->_stringLength);
+    $visitor = new Variable\Visitor\Xhtml($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }
@@ -130,12 +130,12 @@ class Variable
   /**
    * Visitor method
    *
-   * @see \PapayaMessageContextVariable::asString()
-   * @see \PapayaMessageContextVariable::asXhtml()
+   * @see \Papaya\Message\Context\Variable::asString()
+   * @see \Papaya\Message\Context\Variable::asXhtml()
    *
-   * @param \Papaya\Message\Context\Variable\Visitor $visitor
+   * @param Variable\Visitor $visitor
    */
-  public function acceptVisitor(\Papaya\Message\Context\Variable\Visitor $visitor) {
+  public function acceptVisitor(Variable\Visitor $visitor) {
     $visitor->visitVariable($this->_variable);
   }
 }

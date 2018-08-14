@@ -138,7 +138,7 @@ class Configuration
    * Get option is only here for compatiblity with the old base_options class. It
    * uses the get() method.
    *
-   * @deprecated {@see \Papaya\PapayaConfiguration::get()}
+   * @deprecated {@see \Papaya\Configuration::get()}
    * @param string $name
    * @param mixed $default
    * @return mixed

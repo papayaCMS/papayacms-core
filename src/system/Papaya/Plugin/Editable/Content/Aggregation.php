@@ -16,10 +16,10 @@
 namespace Papaya\Plugin\Editable\Content;
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the \Papaya\Plugin\PapayaPluginEditable interface and
+ * makes implements the \Papaya\Plugin\Editable interface and
  * expects an implementation of the abstract method "createEditor".
  *
- * The method needs to return a \Papaya\Plugin\PapayaPluginEditor instance.
+ * The method needs to return a \Papaya\Plugin\Editor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins

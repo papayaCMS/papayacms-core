@@ -76,7 +76,7 @@ class Runtime
    * Create object and set time property using start and stop time, setting no start value in
    * the constructor triggers the global mode.
    *
-   * @see \PapayaMessageContextRuntime::setTimeValues
+   * @see \Papaya\Message\Context\Runtime::setTimeValues()
    *
    * @param NULL|float|string $start
    * @param NULL|float|string $stop

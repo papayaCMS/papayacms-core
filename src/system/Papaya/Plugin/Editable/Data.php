@@ -23,7 +23,7 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
   private $_editor;
 
   /**
-   * @var \Papaya\Plugin\Editable\Callbacks
+   * @var Callbacks
    */
   private $_callbacks;
 
@@ -42,7 +42,10 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
         $this->_editor = $this->callbacks()->onCreateEditor($this);
         if (!($this->_editor instanceof \Papaya\Plugin\Editor)) {
           throw new \LogicException(
-            'Callback did not return a valid \PapayaPluginEditor instance.'
+            sprintf(
+              'Callback did not return a valid %s instance.',
+              \Papaya\Plugin\Editor::class
+            )
           );
         }
       } else {
@@ -55,14 +58,14 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
   /**
    * Getter/Setter for the callbacks subobject
    *
-   * @param \Papaya\Plugin\Editable\Callbacks $callbacks
-   * @return \Papaya\Plugin\Editable\Callbacks
+   * @param Callbacks $callbacks
+   * @return Callbacks
    */
-  public function callbacks(\Papaya\Plugin\Editable\Callbacks $callbacks = NULL) {
+  public function callbacks(Callbacks $callbacks = NULL) {
     if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
     } elseif (NULL === $this->_callbacks) {
-      $this->_callbacks = new \Papaya\Plugin\Editable\Callbacks();
+      $this->_callbacks = new Callbacks();
     }
     return $this->_callbacks;
   }

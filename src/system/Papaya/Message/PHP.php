@@ -23,7 +23,7 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 abstract class PHP
-  implements \Papaya\Message\Logable {
+  implements Logable {
 
   /**
    * Message type
@@ -42,9 +42,9 @@ abstract class PHP
   /**
    * Message context
    *
-   * @var NULL|\Papaya\Message\Context\Group
+   * @var NULL|Context\Group
    */
-  protected $_context = NULL;
+  protected $_context;
 
   /**
    * Mapping PHP error levels to message types
@@ -65,7 +65,7 @@ abstract class PHP
    * Create context subobject, too
    */
   public function __construct() {
-    $this->_context = new \Papaya\Message\Context\Group();
+    $this->_context = new Context\Group();
   }
 
   /**
@@ -85,7 +85,7 @@ abstract class PHP
    * @return integer
    */
   public function getGroup() {
-    return \Papaya\Message\Logable::GROUP_PHP;
+    return Logable::GROUP_PHP;
   }
 
   /**
@@ -109,7 +109,7 @@ abstract class PHP
   /**
    * Return a context object containing additional data about where and why the message happened.
    *
-   * @return \Papaya\Message\Context\Group
+   * @return Context\Group
    */
   public function context() {
     return $this->_context;
@@ -118,10 +118,9 @@ abstract class PHP
   /**
    * Set a context group object to the message.
    *
-   * @param \Papaya\Message\Context\Group $context
-   * @internal param $\PapayaMessageContext
+   * @param Context\Group $context
    */
-  public function setContext(\Papaya\Message\Context\Group $context) {
+  public function setContext(Context\Group $context) {
     $this->_context = $context;
   }
 }

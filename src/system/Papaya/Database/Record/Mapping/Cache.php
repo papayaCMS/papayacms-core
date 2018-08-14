@@ -28,9 +28,9 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
   /**
    * @var \Papaya\Database\Interfaces\Mapping
    */
-  private $_mapping = NULL;
+  private $_mapping;
   /**
-   * @var array(\Papaya\BaseObject\PapayaObjectCallback)
+   * @var \Papaya\BaseObject\Callback[]
    */
   private $_callbacks = array();
 
@@ -56,7 +56,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * @param array $record
    * @return array
    */
-  function mapFieldsToProperties(array $record) {
+  public function mapFieldsToProperties(array $record) {
     $callbacks = $this->_callbacks;
     $values = array();
     if (isset($callbacks['onBeforeMappingFieldsToProperties'])) {
@@ -110,7 +110,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * @param bool $withAlias
    * @return array
    */
-  function mapPropertiesToFields(array $values, $withAlias = TRUE) {
+  public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->_callbacks;
     $record = array();
     if (isset($callbacks['onBeforeMappingPropertiesToFields'])) {
@@ -162,7 +162,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    *
    * @return array
    */
-  function getProperties() {
+  public function getProperties() {
     if (!isset($this->_results['getProperties'])) {
       $this->_results['getProperties'] = $this->_mapping->getProperties();
     }
@@ -175,7 +175,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * @param bool $withAlias
    * @return array
    */
-  function getFields($withAlias = TRUE) {
+  public function getFields($withAlias = TRUE) {
     if (!isset($this->_results['getFields'][$withAlias])) {
       $this->_results['getFields'][$withAlias] = $this->_mapping->getFields($withAlias);
     }
@@ -188,7 +188,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * @param $field
    * @return string|FALSE
    */
-  function getProperty($field) {
+  public function getProperty($field) {
     if (!isset($this->_results['getProperty'][$field])) {
       $this->_results['getProperty'][$field] = $this->_mapping->getProperty($field);
     }
@@ -203,7 +203,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * @param bool $withAlias
    * @return string|FALSE
    */
-  function getField($property, $withAlias = TRUE) {
+  public function getField($property, $withAlias = TRUE) {
     if (!isset($this->_results['getField'][$property][$withAlias])) {
       $this->_results['getField'][$property][$withAlias] = $this->_mapping->getField(
         $property, $withAlias

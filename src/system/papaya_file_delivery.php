@@ -347,7 +347,7 @@ class papaya_file_delivery {
   */
   public static function _closeSession() {
     /** @var Cms $application */
-    $application = \PapayaApplication::getInstance();
+    $application = \Papaya\Application::getInstance();
     $application->session->close();
   }
 }

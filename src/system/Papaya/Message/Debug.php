@@ -15,21 +15,21 @@
 
 namespace Papaya\Message;
 /**
- * Papaya\Message\PapayaMessageDebug, standard debug message
+ * Standard debug message
  *
  * Contains an optional message, the relative runtime to the last debug,
- * informations memory about the memory consumption and a backtrace.
+ * information memory about the memory consumption and a backtrace.
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
 class Debug
-  implements \Papaya\Message\Logable {
+  implements Logable {
 
   /**
    * Message group
    */
-  protected $_group = \Papaya\Message\Logable::GROUP_DEBUG;
+  protected $_group = Logable::GROUP_DEBUG;
   /**
    * Message text
    *
@@ -40,25 +40,23 @@ class Debug
   /**
    * Message context
    *
-   * @var NULL|\Papaya\Message\Context\Group
+   * @var NULL|Context\Group
    */
   protected $_context = NULL;
 
   /**
-   * Papaya\Message\PapayaMessageDebug constructor
-   *
    * @param integer $group
    * @param string $message
    */
-  public function __construct($group = \Papaya\Message\Logable::GROUP_DEBUG, $message = '') {
+  public function __construct($group = Logable::GROUP_DEBUG, $message = '') {
     $this->_group = $group;
     $this->_message = $message;
-    $this->_context = new \Papaya\Message\Context\Group();
+    $this->_context = new Context\Group();
     $this
       ->_context
-      ->append(new \Papaya\Message\Context\Memory())
-      ->append(new \Papaya\Message\Context\Runtime())
-      ->append(new \Papaya\Message\Context\Backtrace(1));
+      ->append(new Context\Memory())
+      ->append(new Context\Runtime())
+      ->append(new Context\Backtrace(1));
   }
 
   /**
@@ -91,7 +89,7 @@ class Debug
   /**
    * Return the context object containing additional data about where and why the message happened.
    *
-   * @return \Papaya\Message\Context\Group
+   * @return Context\Group
    */
   public function context() {
     return $this->_context;

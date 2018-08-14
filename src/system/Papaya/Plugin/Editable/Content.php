@@ -24,7 +24,7 @@ namespace Papaya\Plugin\Editable;
 class Content extends Data {
 
   /**
-   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\PapayaPluginEditableContent::modified()}
+   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Content::modified()}
    *
    * @var string|NULL
    */

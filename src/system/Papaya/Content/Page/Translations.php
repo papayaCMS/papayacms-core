@@ -18,7 +18,7 @@ namespace Papaya\Content\Page;
  * Provide data encapsulation for the content page translations list.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see \Papaya\Content\Page\PapayaContentPageTranslation}.
+ * use {@see \Papaya\Content\Page\Translation}.
  *
  * @package Papaya-Library
  * @subpackage Content

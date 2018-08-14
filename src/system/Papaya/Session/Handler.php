@@ -18,7 +18,7 @@ namespace Papaya\Session;
  * An interface which defines the method needed for user defined session handlers.
  * {@see session_set_save_handler}
  *
- * \Papaya\Session\PapayaSessionWrapper::register() allows to register an object that implements \this interface
+ * \Papaya\Session\Wrapper::register() allows to register an object that implements this interface
  * for the session handling.
  *
  * @package Papaya-Library

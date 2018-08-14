@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
-use Papaya\Cache\Identifier\Definition;
 
 /**
  * Use the all values provided in the constructor as cache condition data
@@ -26,7 +25,7 @@ class Group
   implements \Papaya\Cache\Identifier\Definition {
 
   /**
-   * @var array(\Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition)
+   * @var array(\Papaya\Cache\Identifier\Definition)
    */
   private $_definitions = array();
 

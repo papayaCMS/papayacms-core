@@ -50,8 +50,6 @@ class Validator
   private $_validationResult;
 
   /**
-   * Papaya\Request\Parameters\PapayaRequestParametersValidator constructor.
-   *
    * @param array $definitions
    * @param array|\Papaya\Request\Parameters $parameters
    * @throws \UnexpectedValueException

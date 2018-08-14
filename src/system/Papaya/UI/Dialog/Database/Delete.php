@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Database;
 /**
  * A dialog that can delete a record from a database table using a
- * {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord} object.
+ * {@see \Papaya\Database\BaseObject\Record} object.
  *
  * @package Papaya-Library
  * @subpackage UI

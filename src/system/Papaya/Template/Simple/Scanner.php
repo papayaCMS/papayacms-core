@@ -112,7 +112,7 @@ class Scanner {
    *
    * @param array $target
    * @param \Papaya\Template\Simple\Scanner\Status $status
-   * @return \PapayaTemplateSimpleScanner
+   * @return int offset
    */
   private function _delegate(&$target, $status) {
     $scanner = new self($status);

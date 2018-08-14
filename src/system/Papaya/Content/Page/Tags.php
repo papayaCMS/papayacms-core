@@ -59,7 +59,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
   public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
     $categoryCondition = '';
     if ($categoryIds) {
-      $categoryCondition = PapayaUtilString::escapeForPrintf(
+      $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
         ' AND '.$this->databaseGetSqlCondition(
           array('t.category_id' => $categoryIds)
         )

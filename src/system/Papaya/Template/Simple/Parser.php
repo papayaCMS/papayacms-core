@@ -26,7 +26,7 @@ abstract class Parser {
   /**
    * List of tokens from scanner
    *
-   * @var array(\Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken)
+   * @var array(\Papaya\Template\Simple\Scanner\Token)
    */
   protected $_tokens = array();
 
@@ -41,17 +41,17 @@ abstract class Parser {
   }
 
   /**
-   * Execute the parsing process on the provided tokenstream
+   * Execute the parsing process on the provided token stream
    *
    * This method is supposed to handle all the steps needed to parse the
-   * current subsegment of the tokenstream. It is supposed to return a valid
-   * Papaya\Template\Simple\PapayaTemplateSimpleAst.
+   * current subsegment of the token stream. It is supposed to return a valid
+   * Papaya\Template\Simple\AST.
    *
    * If the parsing process can't be completed because of invalid input a
    * PapayaTemplateSimpleParserException needs to be thrown.
    *
    * The methods protected methods read and lookahead should be used to
-   * operate on the tokenstream. They will throw \PapayaTemplateSimpleParserExceptions
+   * operate on the token stream. They will throw \Papaya\Template\Simple\Parser\Exception
    * automatically in case they do not succeed.
    *
    * @return \Papaya\Template\Simple\AST
@@ -66,14 +66,14 @@ abstract class Parser {
    * provided tokens. If a match is found it is removed from the token list
    * and returned.
    *
-   * If no match can be found a \PapayaTemplateSimpleParserException will thrown indicating what
+   * If no match can be found a \Papaya\Template\Simple\Parser\Exception will thrown indicating what
    * has been expected and what was found.
    *
    * The $expectedTokens parameter may be an array of tokens or a scalar
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \Papaya\Template\Simple\Scanner\Token::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
@@ -98,26 +98,26 @@ abstract class Parser {
   }
 
   /**
-   * Try to match any of the $expectedTokens against the given tokenstream
+   * Try to match any of the $expectedTokens against the given token stream
    * position and return the matching one.
    *
-   * This method tries to match the current tokenstream at the provided
-   * lookahead posistion against all of the provided tokens. If a match is
-   * found it simply returned. The tokenstream remains unchanged.
+   * This method tries to match the current token stream at the provided
+   * lookahead position against all of the provided tokens. If a match is
+   * found it simply returned. The token stream remains unchanged.
    *
-   * If no match can be found a \PapayaTemplateSimpleParserException will thrown indicating what
+   * If no match can be found a \Papaya\Template\Simple\Parser\Exception will thrown indicating what
    * has been expected and what was found.
    *
    * The $expectedTokens parameter may be an array of tokens or a scalar
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \Papaya\Template\Simple\Scanner\Token::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
    * The position parameter may be provided to enforce a match on an
-   * arbitrary tokenstream position. Therefore unlimited lookahead is
+   * arbitrary token stream position. Therefore unlimited lookahead is
    * provided.
    *
    * @param array|int|string $expectedTokens
@@ -171,7 +171,7 @@ abstract class Parser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token \Papaya\Template\Simple\Scanner\PapayaTemplateSimpleScannerToken::ANY is not valid here.
+   * The special Token \Papaya\Template\Simple\Scanner\Token::ANY is not valid here.
    *
    * The method return TRUE if tokens were removed, otherwise FALSE.
    *
@@ -218,7 +218,7 @@ abstract class Parser {
    * The result of the subparser is returned
    *
    * Only the name of the subparser is expected here, the method takes care
-   * of providing the current tokenstream as well as instantiating the
+   * of providing the current token stream as well as instantiating the
    * subparser.
    *
    * @param string $subparserClass

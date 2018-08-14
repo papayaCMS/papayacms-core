@@ -127,9 +127,10 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
 
   /**
   * Application object
-  * @var \PapayaApplication
+  * @var \Papaya\Application
   */
   var $_applicationObject = NULL;
+
   public $baseLink;
 
   /**
@@ -243,7 +244,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * The strings $short and $long may not be translated and must be in english.
   *
   * @param integer $type message priority, {@see \Papaya\Message}
-  * @param integer $group message group (@see \Papaya\Message\PapayaMessageLogable)
+  * @param integer $group message group (@see \Papaya\Message\Logable)
   * @param string $short message short (for lists)
   * @param string $long message detailed
   * @param boolean $addBacktrace
@@ -1049,7 +1050,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
         /** @var \Papaya\Application\Cms $application */
-        $application = \PapayaApplication::getInstance();
+        $application = \Papaya\Application::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE
         );

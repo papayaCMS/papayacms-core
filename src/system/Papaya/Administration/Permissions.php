@@ -164,7 +164,7 @@ class Permissions
   /**
    * Validate if the given permission is in the given group.
    *
-   * @see \PapayaAdministrationPermissions::exists()
+   * @see \Papaya\Administration\Permissions::exists()
    * @param integer $permissionId
    * @param integer $groupId
    * @return boolean

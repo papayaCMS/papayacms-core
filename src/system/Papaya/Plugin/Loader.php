@@ -149,7 +149,7 @@ class Loader extends \Papaya\Application\BaseObject {
 
   /**
    * Create and get a plugin instance. If the plugin package defines an autoload prefix it will
-   * be registered in the \PapayaAutoloader
+   * be registered in the \Papaya\Autoloader
    *
    * @param string $guid
    * @param object $parent
@@ -171,7 +171,7 @@ class Loader extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Alias for {@see \Papaya\Plugin\PapayaPluginLoader::get()}. For backwards compatibility only.
+   * Alias for {@see \Papaya\Plugin\Loader::get()}. For backwards compatibility only.
    *
    * @deprecated
    * @param string $guid
@@ -205,7 +205,7 @@ class Loader extends \Papaya\Application\BaseObject {
     $plugins = $this->plugins();
     if ($pluginData = $plugins[$guid]) {
       $this->prepareAutoloader($pluginData);
-      if ($result = \PapayaAutoloader::getClassFile($pluginData['class'])) {
+      if ($result = \Papaya\Autoloader::getClassFile($pluginData['class'])) {
         return $result;
       }
       return $this->getPluginPath($pluginData['path']).$pluginData['file'];
@@ -220,18 +220,18 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param array $pluginData
    */
   private function prepareAutoloader(array $pluginData) {
-    if (!(empty($pluginData['prefix']) || \PapayaAutoloader::hasPrefix($pluginData['prefix']))) {
+    if (!(empty($pluginData['prefix']) || \Papaya\Autoloader::hasPrefix($pluginData['prefix']))) {
       $path = $this->getPluginPath($pluginData['path']);
-      \PapayaAutoloader::registerPath($pluginData['prefix'], $path);
+      \Papaya\Autoloader::registerPath($pluginData['prefix'], $path);
     }
     if (!empty($pluginData['classes'])) {
       $path = substr($this->getPluginPath($pluginData['path']), 0, -1);
       /** @noinspection PhpIncludeInspection */
       if (
-        !\PapayaAutoloader::hasClassMap($path) &&
+        !\Papaya\Autoloader::hasClassMap($path) &&
         ($classMap = include($path.'/'.$pluginData['classes']))
       ) {
-        \PapayaAutoloader::registerClassMap($path, $classMap);
+        \Papaya\Autoloader::registerClassMap($path, $classMap);
       }
     }
   }
