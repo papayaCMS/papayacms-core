@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Sequence\Md5;
+namespace Papaya\Database\Sequence;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceMd5Test extends \PapayaTestCase {
+class Md5Test extends \PapayaTestCase {
 
   /**
-  * @covers Md5::create
-  */
+   * @covers Md5::create
+   */
   public function testCreate7Bytes() {
     $sequence = new Md5('table', 'field');
     $this->assertRegExp(
@@ -30,8 +30,8 @@ class PapayaDatabaseSequenceMd5Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers Md5::create
-  */
+   * @covers Md5::create
+   */
   public function testCreateIsRandom() {
     $sequence = new Md5('table', 'field');
     $idOne = $sequence->create();

@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseManagerTest extends \PapayaTestCase {
+class ManagerTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Database\Manager::setConfiguration
-  */
+   * @covers \Papaya\Database\Manager::setConfiguration
+   */
   public function testSetConfiguration() {
-    $manager = new \Papaya\Database\Manager();
+    $manager = new Manager();
     $options = $this->mockPapaya()->options();
     $manager->setConfiguration($options);
     $this->assertAttributeSame(
@@ -30,10 +32,10 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::getConfiguration
-  */
+   * @covers \Papaya\Database\Manager::getConfiguration
+   */
   public function testGetConfigutation() {
-    $manager = new \Papaya\Database\Manager();
+    $manager = new Manager();
     $options = $this->mockPapaya()->options();
     $manager->setConfiguration($options);
     $this->assertSame(
@@ -42,12 +44,12 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::setConnector
-  * @covers \Papaya\Database\Manager::_getConnectorUris
-  */
+   * @covers \Papaya\Database\Manager::setConnector
+   * @covers \Papaya\Database\Manager::_getConnectorUris
+   */
   public function testSetConnector() {
-    $manager = new \Papaya\Database\Manager();
-    $connector = new db_simple();
+    $manager = new Manager();
+    $connector = new \db_simple();
     $manager->setConnector($connector, 'READ', 'WRITE');
     $this->assertAttributeSame(
       array("READ\nWRITE" => $connector),
@@ -57,12 +59,12 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::setConnector
-  * @covers \Papaya\Database\Manager::_getConnectorUris
-  */
+   * @covers \Papaya\Database\Manager::setConnector
+   * @covers \Papaya\Database\Manager::_getConnectorUris
+   */
   public function testSetConnectorWithoutWriteUri() {
-    $manager = new \Papaya\Database\Manager();
-    $connector = new db_simple();
+    $manager = new Manager();
+    $connector = new \db_simple();
     $manager->setConnector($connector, 'READ');
     $this->assertAttributeSame(
       array("READ\nREAD" => $connector),
@@ -72,12 +74,12 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::setConnector
-  * @covers \Papaya\Database\Manager::_getConnectorUris
-  */
+   * @covers \Papaya\Database\Manager::setConnector
+   * @covers \Papaya\Database\Manager::_getConnectorUris
+   */
   public function testSetConnectorWithoutReadUri() {
-    $manager = new \Papaya\Database\Manager();
-    $connector = new db_simple();
+    $manager = new Manager();
+    $connector = new \db_simple();
     $manager->setConfiguration(
       $this->mockPapaya()->options(
         array(
@@ -95,11 +97,11 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::getConnector
-  */
+   * @covers \Papaya\Database\Manager::getConnector
+   */
   public function testGetConnector() {
-    $manager = new \Papaya\Database\Manager();
-    $connector = new db_simple();
+    $manager = new Manager();
+    $connector = new \db_simple();
     $manager->setConnector($connector, 'READ');
     $this->assertSame(
       $connector,
@@ -108,23 +110,23 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::getConnector
-  */
+   * @covers \Papaya\Database\Manager::getConnector
+   */
   public function testGetConnectorImplicitCreate() {
-    $manager = new \Papaya\Database\Manager();
+    $manager = new Manager();
     $this->assertInstanceOf(
-      'db_simple',
+      \db_simple::class,
       $manager->getConnector('READ')
     );
   }
 
   /**
-  * @covers \Papaya\Database\Manager::close
-  */
+   * @covers \Papaya\Database\Manager::close
+   */
   public function testClose() {
-    $manager = new \Papaya\Database\Manager();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|db_simple $connector */
-    $connector = $this->createMock(db_simple::class);
+    $manager = new Manager();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
+    $connector = $this->createMock(\db_simple::class);
     $connector
       ->expects($this->once())
       ->method('close');
@@ -133,13 +135,13 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::createDatabaseAccess
-  */
+   * @covers \Papaya\Database\Manager::createDatabaseAccess
+   */
   public function testCreateDatabaseAccess() {
-    $manager = new \Papaya\Database\Manager();
+    $manager = new Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \Papaya\Database\Access::class, $databaseAccess = $manager->createDatabaseAccess(new \stdClass)
+      Access::class, $databaseAccess = $manager->createDatabaseAccess(new \stdClass)
     );
     $this->assertSame(
       $papaya, $databaseAccess->papaya()
@@ -147,10 +149,10 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Database\Manager::createDatabaseAccess
-  */
+   * @covers \Papaya\Database\Manager::createDatabaseAccess
+   */
   public function testCreateDatabaseAccessWithUris() {
-    $manager = new \Papaya\Database\Manager();
+    $manager = new Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $databaseAccess = $manager->createDatabaseAccess(new \stdClass, 'READ_SAMPLE', 'WRITE_SAMPLE');
     $this->assertAttributeEquals(

@@ -13,49 +13,51 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseExceptionTest extends \PapayaTestCase {
+class ExceptionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Database\Exception::__construct
-  */
+   * @covers \Papaya\Database\Exception::__construct
+   */
   public function testConstructorWithMessage() {
-    $exception = new \Papaya\Database\Exception('Sample');
+    $exception = new Exception('Sample');
     $this->assertEquals(
       'Sample', $exception->getMessage()
     );
   }
 
   /**
-  * @covers \Papaya\Database\Exception::__construct
-  */
+   * @covers \Papaya\Database\Exception::__construct
+   */
   public function testConstructorWithCode() {
-    $exception = new \Papaya\Database\Exception('Sample', 42);
+    $exception = new Exception('Sample', 42);
     $this->assertEquals(
       42, $exception->getCode()
     );
   }
 
   /**
-  * @covers \Papaya\Database\Exception::__construct
-  * @covers \Papaya\Database\Exception::getSeverity
-  */
+   * @covers \Papaya\Database\Exception::__construct
+   * @covers \Papaya\Database\Exception::getSeverity
+   */
   public function testConstructorWithSeverity() {
-    $exception = new \Papaya\Database\Exception('Sample', 42, \Papaya\Database\Exception::SEVERITY_INFO);
+    $exception = new Exception('Sample', 42, Exception::SEVERITY_INFO);
     $this->assertEquals(
-      \Papaya\Database\Exception::SEVERITY_INFO, $exception->getSeverity()
+      Exception::SEVERITY_INFO, $exception->getSeverity()
     );
   }
 
   /**
-  * @covers \Papaya\Database\Exception::__construct
-  * @covers \Papaya\Database\Exception::getSeverity
-  */
+   * @covers \Papaya\Database\Exception::__construct
+   * @covers \Papaya\Database\Exception::getSeverity
+   */
   public function testConstructorWithNullAsSeverity() {
-    $exception = new \Papaya\Database\Exception('Sample', 42, NULL);
+    $exception = new Exception('Sample', 42, NULL);
     $this->assertEquals(
-      \Papaya\Database\Exception::SEVERITY_ERROR, $exception->getSeverity()
+      Exception::SEVERITY_ERROR, $exception->getSeverity()
     );
   }
 }

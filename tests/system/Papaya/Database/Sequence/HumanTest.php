@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Sequence\Human;
+namespace Papaya\Database\Sequence;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
+class HumanTest extends \PapayaTestCase {
 
   /**
-  * @covers Human::__construct
-  */
+   * @covers Human::__construct
+   */
   public function testConstructor() {
     $sequence = new Human('table', 'field');
     $this->assertAttributeEquals(
@@ -30,8 +30,8 @@ class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Human::__construct
-  */
+   * @covers Human::__construct
+   */
   public function testConstructorWithByteLength() {
     $sequence = new Human('table', 'field', 42);
     $this->assertAttributeEquals(
@@ -40,9 +40,9 @@ class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Human::create
-  * @covers Human::getRandomCharacters
-  */
+   * @covers Human::create
+   * @covers Human::getRandomCharacters
+   */
   public function testCreate5Bytes() {
     $sequence = new Human('table', 'field', 5);
     $this->assertRegExp(
@@ -51,8 +51,8 @@ class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Human::create
-  */
+   * @covers Human::create
+   */
   public function testCreate7Bytes() {
     $sequence = new Human('table', 'field');
     $this->assertRegExp(
@@ -61,8 +61,8 @@ class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Human::create
-  */
+   * @covers Human::create
+   */
   public function testCreateIsRandom() {
     $sequence = new Human('table', 'field');
     $idOne = $sequence->create();

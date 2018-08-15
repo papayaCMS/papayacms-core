@@ -13,115 +13,116 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Sequence\Human\Cumulative;
+namespace Papaya\Database\Sequence\Human {
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceHumanCumulativeTest extends \PapayaTestCase {
+  class CumulativeTest extends \PapayaTestCase {
 
-  /**
-  * @covers Cumulative::__construct
-  */
-  public function testConstructor() {
-    $sequence = new Cumulative('table', 'field');
-    $this->assertAttributeEquals(2, '_minimumLength', $sequence);
-    $this->assertAttributeEquals(32, '_maximumLength', $sequence);
-    $this->assertAttributeEquals(32, '_cumulativeLength', $sequence);
-  }
+    /**
+     * @covers Cumulative::__construct
+     */
+    public function testConstructor() {
+      $sequence = new Cumulative('table', 'field');
+      $this->assertAttributeEquals(2, '_minimumLength', $sequence);
+      $this->assertAttributeEquals(32, '_maximumLength', $sequence);
+      $this->assertAttributeEquals(32, '_cumulativeLength', $sequence);
+    }
 
-  /**
-  * @covers Cumulative::__construct
-  */
-  public function testConstructorWithParameters() {
-    $sequence = new Cumulative('table', 'field', 21, 42);
-    $this->assertAttributeEquals(21, '_minimumLength', $sequence);
-    $this->assertAttributeEquals(42, '_maximumLength', $sequence);
-    $this->assertAttributeEquals(42, '_cumulativeLength', $sequence);
-  }
+    /**
+     * @covers Cumulative::__construct
+     */
+    public function testConstructorWithParameters() {
+      $sequence = new Cumulative('table', 'field', 21, 42);
+      $this->assertAttributeEquals(21, '_minimumLength', $sequence);
+      $this->assertAttributeEquals(42, '_maximumLength', $sequence);
+      $this->assertAttributeEquals(42, '_cumulativeLength', $sequence);
+    }
 
-  /**
-  * @covers Cumulative::__construct
-  */
-  public function testConstructorWithInvalidLengthLimits() {
-    $this->expectException(\InvalidArgumentException::class);
-    $this->expectExceptionMessage('Minimum length can not be greater then maximum length.');
-    new Cumulative('table', 'field', 42, 21);
-  }
+    /**
+     * @covers Cumulative::__construct
+     */
+    public function testConstructorWithInvalidLengthLimits() {
+      $this->expectException(\InvalidArgumentException::class);
+      $this->expectExceptionMessage('Minimum length can not be greater then maximum length.');
+      new Cumulative('table', 'field', 42, 21);
+    }
 
-  /**
-  * @covers Cumulative::create
-  */
-  public function testCreate() {
-    $sequence = new Cumulative('table', 'field', 4, 7);
-    $this->assertStringLength(7, $sequence->create());
-  }
+    /**
+     * @covers Cumulative::create
+     */
+    public function testCreate() {
+      $sequence = new Cumulative('table', 'field', 4, 7);
+      $this->assertStringLength(7, $sequence->create());
+    }
 
-  /**
-  * @covers Cumulative::create
-  * @covers Cumulative::createIdentifiers
-  */
-  public function testCreateIdentifiersHaveIncreasingLength() {
-    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 6);
-    $results = $sequence->createIdentifiers(6);
-    $this->assertStringLength(4, $results[0]);
-    $this->assertStringLength(4, $results[1]);
-    $this->assertStringLength(5, $results[2]);
-    $this->assertStringLength(5, $results[3]);
-    $this->assertStringLength(6, $results[4]);
-    $this->assertStringLength(6, $results[5]);
-  }
+    /**
+     * @covers Cumulative::create
+     * @covers Cumulative::createIdentifiers
+     */
+    public function testCreateIdentifiersHaveIncreasingLength() {
+      $sequence = new Cumulative_TestProxy('table', 'field', 4, 6);
+      $results = $sequence->createIdentifiers(6);
+      $this->assertStringLength(4, $results[0]);
+      $this->assertStringLength(4, $results[1]);
+      $this->assertStringLength(5, $results[2]);
+      $this->assertStringLength(5, $results[3]);
+      $this->assertStringLength(6, $results[4]);
+      $this->assertStringLength(6, $results[5]);
+    }
 
-  /**
-  * @covers Cumulative::create
-  * @covers Cumulative::createIdentifiers
-  */
-  public function testCreateIdentifiersHaveReachMaximumLength() {
-    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 32);
-    $results = $sequence->createIdentifiers(2);
-    $this->assertStringLength(4, $results[0]);
-    $this->assertStringLength(32, $results[1]);
-  }
+    /**
+     * @covers Cumulative::create
+     * @covers Cumulative::createIdentifiers
+     */
+    public function testCreateIdentifiersHaveReachMaximumLength() {
+      $sequence = new Cumulative_TestProxy('table', 'field', 4, 32);
+      $results = $sequence->createIdentifiers(2);
+      $this->assertStringLength(4, $results[0]);
+      $this->assertStringLength(32, $results[1]);
+    }
 
-  /**
-  * @covers Cumulative::create
-  * @covers Cumulative::createIdentifiers
-  */
-  public function testCreateIdentifiersWhileMinimumEqualsMaximum() {
-    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 10, 10);
-    $results = $sequence->createIdentifiers(2);
-    $this->assertStringLength(10, $results[0]);
-    $this->assertStringLength(10, $results[1]);
-  }
+    /**
+     * @covers Cumulative::create
+     * @covers Cumulative::createIdentifiers
+     */
+    public function testCreateIdentifiersWhileMinimumEqualsMaximum() {
+      $sequence = new Cumulative_TestProxy('table', 'field', 10, 10);
+      $results = $sequence->createIdentifiers(2);
+      $this->assertStringLength(10, $results[0]);
+      $this->assertStringLength(10, $results[1]);
+    }
 
-  /**
-  * @covers Cumulative::create
-  * @covers Cumulative::createIdentifiers
-  */
-  public function testCreateSingleIdentifierWhileMinimumDiffersMaximum() {
-    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 2, 10);
-    $results = $sequence->createIdentifiers(1);
-    $this->assertStringLength(10, $results[0]);
-  }
+    /**
+     * @covers Cumulative::create
+     * @covers Cumulative::createIdentifiers
+     */
+    public function testCreateSingleIdentifierWhileMinimumDiffersMaximum() {
+      $sequence = new Cumulative_TestProxy('table', 'field', 2, 10);
+      $results = $sequence->createIdentifiers(1);
+      $this->assertStringLength(10, $results[0]);
+    }
 
-  private function assertStringLength($expectedLength, $string) {
-    $actualLength = strlen($string);
-    $this->assertEquals(
-      $expectedLength,
-      $actualLength,
-      sprintf(
-        'Failed asserting that string length "%d" is equal to "%d"',
+    private function assertStringLength($expectedLength, $string) {
+      $actualLength = strlen($string);
+      $this->assertEquals(
+        $expectedLength,
         $actualLength,
-        $expectedLength
-      )
-    );
-  }
-}
-
-class PapayaDatabaseSequenceHumanCumulative_TestProxy
-  extends Cumulative {
-
-  public function createIdentifiers($count) {
-    return parent::createIdentifiers($count);
+        sprintf(
+          'Failed asserting that string length "%d" is equal to "%d"',
+          $actualLength,
+          $expectedLength
+        )
+      );
+    }
   }
 
+  class Cumulative_TestProxy
+    extends Cumulative {
+
+    public function createIdentifiers($count) {
+      return parent::createIdentifiers($count);
+    }
+
+  }
 }
