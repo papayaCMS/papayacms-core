@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Session;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileSessionTest extends \PapayaTestCase {
+class SessionTest extends \PapayaTestCase {
 
   /**
-  * @covers Session::createObject
-  */
+   * @covers Session::createObject
+   */
   public function testCreateObject() {
     $profile = new Session();
     $session = $profile->createObject($application = NULL);

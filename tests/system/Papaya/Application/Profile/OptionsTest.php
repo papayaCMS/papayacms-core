@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Options;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileOptionsTest extends \PapayaTestCase {
+class OptionsTest extends \PapayaTestCase {
 
   /**
-  * @covers Options::createObject
-  */
+   * @covers Options::createObject
+   */
   public function testCreateObject() {
     $profile = new Options();
     $options = $profile->createObject($this->mockPapaya()->application());

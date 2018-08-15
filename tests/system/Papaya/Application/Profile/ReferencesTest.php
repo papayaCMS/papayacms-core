@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\References;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileReferenceTest extends \PapayaTestCase {
+class ReferenceTest extends \PapayaTestCase {
 
   /**
-  * @covers References::createObject
-  */
+   * @covers References::createObject
+   */
   public function testCreateObject() {
     $options = $this->mockPapaya()->options(
       array(

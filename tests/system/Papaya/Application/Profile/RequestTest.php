@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Request;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileRequestTest extends \PapayaTestCase {
+class RequestTest extends \PapayaTestCase {
 
   /**
-  * @covers Request::createObject
-  */
+   * @covers Request::createObject
+   */
   public function testCreateObject() {
     $options = $this->mockPapaya()->options(
       array(

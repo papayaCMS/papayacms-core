@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Images;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileImagesTest extends \PapayaTestCase {
+class ImagesTest extends \PapayaTestCase {
 
   /**
-  * @covers Images::createObject
-  */
+   * @covers Images::createObject
+   */
   public function testCreateObject() {
     $profile = new Images();
     $images = $profile->createObject($this->mockPapaya()->application());

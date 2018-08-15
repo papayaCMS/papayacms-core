@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Surfer;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 \PapayaTestCase::defineConstantDefaults(
@@ -28,14 +28,14 @@ require_once __DIR__.'/../../../../bootstrap.php';
   )
 );
 
-class PapayaApplicationProfileSurferTest extends \PapayaTestCase {
+class SurferTest extends \PapayaTestCase {
 
   /**
-  * @covers Surfer::createObject
-  */
+   * @covers Surfer::createObject
+   */
   public function testCreateObject() {
     $profile = new Surfer();
-    $surferOne = base_surfer::getInstance(FALSE);
+    $surferOne = \base_surfer::getInstance(FALSE);
     $surferTwo = $profile->createObject($application = NULL);
     $this->assertSame(
       $surferOne,

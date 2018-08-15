@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Database;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileDatabaseTest extends \PapayaTestCase {
+class DatabaseTest extends \PapayaTestCase {
 
   /**
-  * @covers Database::createObject
-  */
+   * @covers Database::createObject
+   */
   public function testCreateObject() {
     $application = $this->mockPapaya()->application();
     $profile = new Database();

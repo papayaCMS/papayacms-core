@@ -13,18 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Plugins;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 \PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MODULES'
 );
 
-class PapayaApplicationProfilePluginsTest extends \PapayaTestCase {
+class PluginsTest extends \PapayaTestCase {
 
   /**
-  * @covers Plugins::createObject
-  */
+   * @covers Plugins::createObject
+   */
   public function testCreateObject() {
     $profile = new Plugins();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Application\Access $plugins */

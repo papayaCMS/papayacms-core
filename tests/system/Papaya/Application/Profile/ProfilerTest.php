@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Profiler;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
+class ProfilerTest extends \PapayaTestCase {
 
   /**
-  * @covers Profiler::createObject
-  */
+   * @covers Profiler::createObject
+   */
   public function testCreateObjectProfilerInactive() {
     $options = $this->mockPapaya()->options(
       array(
@@ -41,8 +41,8 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Profiler::createObject
-  */
+   * @covers Profiler::createObject
+   */
   public function testCreateObjectProfilerActive() {
     $options = $this->mockPapaya()->options(
       array(
@@ -63,8 +63,8 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Profiler::builder
-  */
+   * @covers Profiler::builder
+   */
   public function testBuilderGetAfterSet() {
     $builder = $this->createMock(\Papaya\Profiler\Builder::class);
     $profile = new Profiler();
@@ -73,8 +73,8 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Profiler::builder
-  */
+   * @covers Profiler::builder
+   */
   public function testBuilderGetImplicitCreate() {
     $profile = new Profiler();
     $this->assertInstanceOf(\Papaya\Profiler\Builder::class, $profile->builder());

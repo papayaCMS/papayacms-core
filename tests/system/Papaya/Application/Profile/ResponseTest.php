@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Response;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileResponseTest extends \PapayaTestCase {
+class ResponseTest extends \PapayaTestCase {
 
   /**
-  * @covers Response::createObject
-  */
+   * @covers Response::createObject
+   */
   public function testCreateObject() {
     $profile = new Response();
     $response = $profile->createObject($papaya = $this->mockPapaya()->application());

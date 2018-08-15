@@ -13,23 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Languages;
-use Papaya\Database\Manager;
+namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileLanguagesTest extends \PapayaTestCase {
+class LanguagesTest extends \PapayaTestCase {
 
   /**
-  * @covers Languages::createObject
-  */
+   * @covers Languages::createObject
+   */
   public function testCreateObject() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->will($this->returnValue(FALSE));
-    $databaseManager = $this->createMock(Manager::class);
+    $databaseManager = $this->createMock(\Papaya\Database\Manager::class);
     $databaseManager
       ->expects($this->once())
       ->method('createDatabaseAccess')
