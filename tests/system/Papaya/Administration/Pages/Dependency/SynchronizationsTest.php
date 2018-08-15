@@ -13,18 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Synchronizations;
-use Papaya\Administration\Pages\Dependency\Synchronization;
-use Papaya\Content\Page\Dependencies;
-use Papaya\Content\Page\Dependency;
+namespace Papaya\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTestCase {
+class SynchronizationsTest extends \PapayaTestCase {
 
   /**
-  * @covers Synchronizations::getIcons
-  */
+   * @covers Synchronizations::getIcons
+   */
   public function testGetIcons() {
     $synchronizations = new Synchronizations();
     $icons = $synchronizations->getIcons();
@@ -33,8 +30,8 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   }
 
   /**
-  * @covers Synchronizations::getList
-  */
+   * @covers Synchronizations::getList
+   */
   public function testGetList() {
     $synchronizations = new Synchronizations();
     $list = $synchronizations->getList();
@@ -43,28 +40,28 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   }
 
   /**
-  * @covers Synchronizations::dependencies
-  */
+   * @covers Synchronizations::dependencies
+   */
   public function testDependenciesGetAfterSet() {
     $synchronizations = new Synchronizations();
-    $dependencies = $this->createMock(Dependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $this->assertSame($dependencies, $synchronizations->dependencies($dependencies));
   }
 
   /**
-  * @covers Synchronizations::dependencies
-  */
+   * @covers Synchronizations::dependencies
+   */
   public function testDependenciesGetImplicitCreate() {
     $synchronizations = new Synchronizations();
-    $this->assertInstanceOf(Dependencies::class, $synchronizations->dependencies());
+    $this->assertInstanceOf(\Papaya\Content\Page\Dependencies::class, $synchronizations->dependencies());
   }
 
   /**
-  * @covers Synchronizations::getAction
-  */
+   * @covers Synchronizations::getAction
+   */
   public function testGetAction() {
     $synchronizations = new Synchronizations();
-    $action = $synchronizations->getAction(Dependency::SYNC_PROPERTIES);
+    $action = $synchronizations->getAction(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES);
     $this->assertInstanceOf(
       Synchronization::class,
       $action
@@ -72,8 +69,8 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   }
 
   /**
-  * @covers Synchronizations::getAction
-  */
+   * @covers Synchronizations::getAction
+   */
   public function testGetActionExpectingNull() {
     $synchronizations = new Synchronizations();
     $this->assertNull(
@@ -82,10 +79,10 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   }
 
   /**
-  * @covers Synchronizations::getTargets
-  */
+   * @covers Synchronizations::getTargets
+   */
   public function testGetTargets() {
-    $dependencies = $this->createMock(Dependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -96,11 +93,11 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               23 => array(
                 'id' => 23,
-                'synchronization' => Dependency::SYNC_PROPERTIES
+                'synchronization' => \Papaya\Content\Page\Dependency::SYNC_PROPERTIES
               ),
               46 => array(
                 'id' => 46,
@@ -114,15 +111,15 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
     $synchronizations->dependencies($dependencies);
     $this->assertEquals(
       array(23),
-      $synchronizations->getTargets(42, Dependency::SYNC_PROPERTIES)
+      $synchronizations->getTargets(42, \Papaya\Content\Page\Dependency::SYNC_PROPERTIES)
     );
   }
 
   /**
-  * @covers Synchronizations::getTargets
-  */
+   * @covers Synchronizations::getTargets
+   */
   public function testGetTargetsExpectingNull() {
-    $dependencies = $this->createMock(Dependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -133,7 +130,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array()
           )
         )
@@ -141,19 +138,19 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
     $synchronizations = new Synchronizations();
     $synchronizations->dependencies($dependencies);
     $this->assertNull(
-      $synchronizations->getTargets(42, Dependency::SYNC_PROPERTIES)
+      $synchronizations->getTargets(42, \Papaya\Content\Page\Dependency::SYNC_PROPERTIES)
     );
   }
 
   /**
-  * @covers Synchronizations::synchronizeDependency
-  */
+   * @covers Synchronizations::synchronizeDependency
+   */
   public function testSynchronizeDependency() {
     $dependency = $this->getRecordFixture(
       array(
         'id' => 21,
         'originId' => 42,
-        'synchronization' => Dependency::SYNC_PROPERTIES
+        'synchronization' => \Papaya\Content\Page\Dependency::SYNC_PROPERTIES
       )
     );
     $action = $this->createMock(Synchronization::class);
@@ -162,14 +159,14 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
       ->method('synchronize')
       ->with(array(21), 42, NULL);
     $synchronizations =
-      new \PapayaAdministrationPagesDependencySynchronizations_TestProxy();
+      new Synchronizations_TestProxy();
     $synchronizations->actionMock = $action;
     $synchronizations->synchronizeDependency($dependency);
   }
 
   /**
-  * @covers Synchronizations::synchronizeAction
-  */
+   * @covers Synchronizations::synchronizeAction
+   */
   public function testSynchronizeAction() {
     $action = $this->createMock(Synchronization::class);
     $action
@@ -177,36 +174,36 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
       ->method('synchronize')
       ->with(array(21), 42, array(3, 4));
     $synchronizations =
-      new \PapayaAdministrationPagesDependencySynchronizations_TestProxy();
+      new Synchronizations_TestProxy();
     $synchronizations->actionMock = $action;
     $synchronizations->targetsList = array(21);
     $synchronizations->synchronizeAction(
-      Dependency::SYNC_PROPERTIES, 42, array(3, 4)
+      \Papaya\Content\Page\Dependency::SYNC_PROPERTIES, 42, array(3, 4)
     );
   }
 
   /**************************
-  * Fixtures
-  **************************/
+   * Fixtures
+   **************************/
 
   /**
    * @param array $data
-   * @return \PHPUnit_Framework_MockObject_MockObject|Dependency
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\Dependency
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(Dependency::class);
+    $record = $this->createMock(\Papaya\Content\Page\Dependency::class);
     $record
       ->expects($this->any())
       ->method('getIterator')
       ->will(
-        $this->returnValue(new ArrayIterator($data))
+        $this->returnValue(new \ArrayIterator($data))
       );
     $record
       ->expects($this->any())
       ->method('__get')
       ->withAnyParameters()
       ->willReturnCallback(
-        function($name) use ($data) {
+        function ($name) use ($data) {
           return $data[$name];
         }
       );
@@ -214,7 +211,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTes
   }
 }
 
-class PapayaAdministrationPagesDependencySynchronizations_TestProxy
+class Synchronizations_TestProxy
   extends Synchronizations {
 
   public $actionMock;

@@ -13,21 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
-use Papaya\Administration\Pages\Dependency\Blocker;
-use Papaya\Administration\Pages\Dependency\Counter;
-use Papaya\Content\Page\Dependencies;
-use Papaya\Content\Page\Dependency;
-use Papaya\Content\Pages;
-use Papaya\Content\Views;
+namespace Papaya\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
+class BlockerTest extends \PapayaTestCase {
 
   /**
-  * @covers Blocker::__construct
-  */
+   * @covers Blocker::__construct
+   */
   public function testConstructor() {
     $blocker = new Blocker(42);
     $this->assertAttributeSame(
@@ -36,25 +30,25 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::dependency
-  */
+   * @covers Blocker::dependency
+   */
   public function testDependencyGetAfterSet() {
-    $dependency = $this->createMock(Dependency::class);
+    $dependency = $this->createMock(\Papaya\Content\Page\Dependency::class);
     $blocker = new Blocker(42);
     $this->assertSame($dependency, $blocker->dependency($dependency));
   }
 
   /**
-  * @covers Blocker::dependency
-  */
+   * @covers Blocker::dependency
+   */
   public function testDependencyImplicitCreate() {
     $blocker = new Blocker(42);
-    $this->assertInstanceOf(Dependency::class, $blocker->dependency());
+    $this->assertInstanceOf(\Papaya\Content\Page\Dependency::class, $blocker->dependency());
   }
 
   /**
-   * @covers Blocker::isSynchronized
-   * @covers Blocker::prepare
+   * @covers       Blocker::isSynchronized
+   * @covers       Blocker::prepare
    * @dataProvider provideSynchronizationData
    * @param bool $expected
    * @param int $checkFor
@@ -70,46 +64,48 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::isSynchronized
-  * @covers Blocker::prepare
-  */
+   * @covers Blocker::isSynchronized
+   * @covers Blocker::prepare
+   */
   public function testDependencyLoadsOnlyOnce() {
     $dependency = $this->getRecordFixture(
       array(
         'synchronization' =>
-           Dependency::SYNC_PROPERTIES | Dependency::SYNC_CONTENT
+          \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
+          \Papaya\Content\Page\Dependency::SYNC_CONTENT
       ),
       1
     );
     $blocker = new Blocker(42);
     $blocker->dependency($dependency);
-    $this->assertTrue($blocker->isSynchronized(Dependency::SYNC_PROPERTIES));
-    $this->assertTrue($blocker->isSynchronized(Dependency::SYNC_CONTENT));
+    $this->assertTrue($blocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES));
+    $this->assertTrue($blocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_CONTENT));
   }
 
   /**
-  * @covers Blocker::isSynchronized
-  * @covers Blocker::prepare
-  */
+   * @covers Blocker::isSynchronized
+   * @covers Blocker::prepare
+   */
   public function testDependencyLoadsAgainIfRequested() {
     $dependency = $this->getRecordFixture(
       array(
         'synchronization' =>
-           Dependency::SYNC_PROPERTIES | Dependency::SYNC_CONTENT
+          \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
+          \Papaya\Content\Page\Dependency::SYNC_CONTENT
       ),
       2
     );
     $blocker = new Blocker(42);
     $blocker->dependency($dependency);
-    $this->assertTrue($blocker->isSynchronized(Dependency::SYNC_PROPERTIES, TRUE));
-    $this->assertTrue($blocker->isSynchronized(Dependency::SYNC_CONTENT, TRUE));
+    $this->assertTrue($blocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES, TRUE));
+    $this->assertTrue($blocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_CONTENT, TRUE));
   }
 
   /**
-  * @covers Blocker::appendTo
-  */
+   * @covers Blocker::appendTo
+   */
   public function testAppendTo() {
-    $pages = $this->createMock(Pages::class);
+    $pages = $this->createMock(\Papaya\Content\Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -130,7 +126,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
     $blocker->pages($pages);
     $blocker->parameterGroup('tt');
     $this->assertXmlStringEqualsXmlString(
-       /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Page dependency"/>
         <options>
@@ -154,10 +150,10 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::dependencies
-  */
+   * @covers Blocker::dependencies
+   */
   public function testDependenciesGetAfterSet() {
-    $dependencies = $this->createMock(Dependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $blocker = new Blocker(42);
     $this->assertSame(
       $dependencies, $blocker->dependencies($dependencies)
@@ -165,21 +161,21 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::dependencies
-  */
+   * @covers Blocker::dependencies
+   */
   public function testDependenciesGetImplicitCreate() {
     $blocker = new Blocker(42);
     $this->assertInstanceOf(
-      Dependencies::class, $blocker->dependencies()
+      \Papaya\Content\Page\Dependencies::class, $blocker->dependencies()
     );
   }
 
 
   /**
-  * @covers Blocker::views
-  */
+   * @covers Blocker::views
+   */
   public function testViewsGetAfterSet() {
-    $views = $this->createMock(Views::class);
+    $views = $this->createMock(\Papaya\Content\Views::class);
     $blocker = new Blocker(42);
     $this->assertSame(
       $views, $blocker->views($views)
@@ -187,20 +183,20 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::views
-  */
+   * @covers Blocker::views
+   */
   public function testViewsGetImplicitCreate() {
     $blocker = new Blocker(42);
     $this->assertInstanceOf(
-      Views::class, $blocker->views()
+      \Papaya\Content\Views::class, $blocker->views()
     );
   }
 
   /**
-  * @covers Blocker::pages
-  */
+   * @covers Blocker::pages
+   */
   public function testPagesGetAfterSet() {
-    $pages = $this->createMock(Pages::class);
+    $pages = $this->createMock(\Papaya\Content\Pages::class);
     $blocker = new Blocker(42);
     $this->assertSame(
       $pages, $blocker->pages($pages)
@@ -208,18 +204,18 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::pages
-  */
+   * @covers Blocker::pages
+   */
   public function testPagesGetImplicitCreate() {
     $blocker = new Blocker(42);
     $this->assertInstanceOf(
-      Pages::class, $blocker->pages()
+      \Papaya\Content\Pages::class, $blocker->pages()
     );
   }
 
   /**
-  * @covers Blocker::counter
-  */
+   * @covers Blocker::counter
+   */
   public function testCounterGetAfterSet() {
     $counter = $this
       ->getMockBuilder(Counter::class)
@@ -232,8 +228,8 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::counter
-  */
+   * @covers Blocker::counter
+   */
   public function testCounterGetImplicitCreate() {
     $blocker = new Blocker(42);
     $this->assertInstanceOf(
@@ -242,8 +238,8 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Blocker::getSynchronizedViews
-  */
+   * @covers Blocker::getSynchronizedViews
+   */
   public function testGetSynchronizedViews() {
     $dependency = $this->getRecordFixture();
     $dependency
@@ -252,7 +248,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
       ->with(42)
       ->will($this->returnValue(TRUE));
 
-    $dependencies = $this->createMock(Dependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -263,31 +259,31 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               21 => array(
                 'id' => 21,
                 'view_id' => 30,
-                'synchronization' => Dependency::SYNC_VIEW
+                'synchronization' => \Papaya\Content\Page\Dependency::SYNC_VIEW
               ),
               42 => array(
                 'id' => 42,
                 'view_id' => 31,
-                'synchronization' => Dependency::SYNC_CONTENT
+                'synchronization' => \Papaya\Content\Page\Dependency::SYNC_CONTENT
               ),
               84 => array(
                 'id' => 84,
                 'view_id' => 32,
                 'synchronization' =>
-                  Dependency::SYNC_VIEW &
-                  Dependency::SYNC_CONTENT
+                  \Papaya\Content\Page\Dependency::SYNC_VIEW &
+                  \Papaya\Content\Page\Dependency::SYNC_CONTENT
               )
             )
           )
         )
       );
 
-    $views = $this->createMock(Views::class);
+    $views = $this->createMock(\Papaya\Content\Views::class);
     $views
       ->expects($this->once())
       ->method('load')
@@ -336,13 +332,13 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /************************************
-  * Fixtures
-  ************************************/
+   * Fixtures
+   ************************************/
 
   private function getLanguageSwitchFixture() {
-    $language = new stdClass();
+    $language = new \stdClass();
     $language->id = 1;
-    $switch = $this->createMock(Selector::class);
+    $switch = $this->createMock(\Papaya\Administration\Languages\Selector::class);
     $switch
       ->expects($this->any())
       ->method('getCurrent')
@@ -351,12 +347,12 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   public function getRecordFixture(array $data = array(), $loadCounter = 0) {
-    $record = $this->createMock(Dependency::class);
+    $record = $this->createMock(\Papaya\Content\Page\Dependency::class);
     $record
       ->expects($this->any())
       ->method('getIterator')
       ->will(
-        $this->returnValue(new ArrayIterator($data))
+        $this->returnValue(new \ArrayIterator($data))
       );
     $record
       ->expects($loadCounter ? $this->exactly($loadCounter) : $this->any())
@@ -377,30 +373,30 @@ class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
   }
 
   /************************************
-  * Data Provider
-  ************************************/
+   * Data Provider
+   ************************************/
 
   public static function provideSynchronizationData() {
     return array(
       'single value - TRUE' => array(
         TRUE,
-        Dependency::SYNC_PROPERTIES,
-        Dependency::SYNC_PROPERTIES
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES
       ),
       'single value - FALSE' => array(
         FALSE,
-        Dependency::SYNC_PROPERTIES,
-        Dependency::SYNC_CONTENT
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
+        \Papaya\Content\Page\Dependency::SYNC_CONTENT
       ),
       'multiple values - TRUE' => array(
         TRUE,
-        Dependency::SYNC_PROPERTIES,
-        Dependency::SYNC_PROPERTIES | Dependency::SYNC_CONTENT
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES | \Papaya\Content\Page\Dependency::SYNC_CONTENT
       ),
       'multiple values - FALSE' => array(
         FALSE,
-        Dependency::SYNC_PROPERTIES,
-        Dependency::SYNC_CONTENT | Dependency::SYNC_BOXES
+        \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
+        \Papaya\Content\Page\Dependency::SYNC_CONTENT | \Papaya\Content\Page\Dependency::SYNC_BOXES
       ),
     );
   }
