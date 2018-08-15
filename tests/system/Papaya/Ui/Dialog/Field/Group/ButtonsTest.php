@@ -43,7 +43,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   public function testFieldsGetImplicitCreateWithDialog() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
@@ -58,7 +58,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   public function testFieldsSet() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
@@ -79,7 +79,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   public function testFieldsGetAfterSet() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $group = new \Papaya\UI\Dialog\Field\Group\Buttons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
@@ -115,7 +115,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   public function testCollect() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
     $buttons

@@ -249,7 +249,7 @@ class PapayaDatabaseRecordMappingCacheTest extends \PapayaTestCase {
     $callbacks
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($events)));
+      ->will($this->returnValue(new \ArrayIterator($events)));
     return $callbacks;
   }
 }

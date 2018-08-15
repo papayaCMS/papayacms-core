@@ -24,7 +24,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
    * @covers Remove::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
@@ -57,7 +57,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
    * @covers Remove::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $record
       ->expects($this->once())
@@ -105,7 +105,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Remove($record);
     $command->papaya(

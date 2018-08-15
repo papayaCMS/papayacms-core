@@ -52,7 +52,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   */
   public function testAssertArrayOrTraversableWithTraversable() {
     $this->assertTrue(
-      \Papaya\Utility\Constraints::assertArrayOrTraversable(new ArrayIterator(array()))
+      \Papaya\Utility\Constraints::assertArrayOrTraversable(new \ArrayIterator(array()))
     );
   }
 
@@ -175,7 +175,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   */
   public function testAssertInstanceOf() {
     $this->assertTrue(
-      \Papaya\Utility\Constraints::assertInstanceOf(stdClass::class, new stdClass)
+      \Papaya\Utility\Constraints::assertInstanceOf(stdClass::class, new \stdClass)
     );
   }
 
@@ -296,7 +296,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   */
   public function testAssertObject() {
     $this->assertTrue(
-      \Papaya\Utility\Constraints::assertObject(new stdClass)
+      \Papaya\Utility\Constraints::assertObject(new \stdClass)
     );
   }
 
@@ -315,7 +315,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   */
   public function testAssertObjectOrNullWithObject() {
     $this->assertTrue(
-      \Papaya\Utility\Constraints::assertObjectOrNull(new stdClass)
+      \Papaya\Utility\Constraints::assertObjectOrNull(new \stdClass)
     );
   }
 
@@ -390,7 +390,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   public function testCreateExceptionWithObject() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Unexpected value type: Expected "integer, float" but "stdClass" given.');
-    throw \PapayaUtilConstraints_TestProxy::createException('integer, float', new stdClass, '');
+    throw \PapayaUtilConstraints_TestProxy::createException('integer, float', new \stdClass, '');
   }
 
   /**
@@ -399,7 +399,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   public function testCreateExceptionWithIndividualMessage() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('SAMPLE MESSAGE');
-    throw \PapayaUtilConstraints_TestProxy::createException('', new stdClass, 'SAMPLE MESSAGE');
+    throw \PapayaUtilConstraints_TestProxy::createException('', new \stdClass, 'SAMPLE MESSAGE');
   }
 
   /*************************************
@@ -411,7 +411,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'boolean' => array(TRUE),
       'float' => array(1.1),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -422,7 +422,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'boolean' => array(TRUE),
       'float' => array(1.1),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -433,7 +433,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'array' => array(array()),
       'float' => array(1.1),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -451,7 +451,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'array' => array(array()),
       'float' => array(1.1),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -462,7 +462,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'array' => array(array()),
       'boolean' => array(TRUE),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -473,7 +473,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'array' => array(array()),
       'boolean' => array(TRUE),
       'float' => array(1.1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -484,7 +484,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'array' => array(array(1)),
       'boolean' => array(TRUE),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array('foo'),
     );
   }
@@ -503,7 +503,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
     return array(
       'array' => array(array()),
       'boolean' => array(TRUE),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'string' => array(''),
       'NULL' => array(NULL)
     );
@@ -536,7 +536,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
       'boolean' => array(TRUE),
       'float' => array(1.1),
       'integer' => array(1),
-      'object' => array(new stdClass),
+      'object' => array(new \stdClass),
       'NULL' => array(NULL)
     );
   }

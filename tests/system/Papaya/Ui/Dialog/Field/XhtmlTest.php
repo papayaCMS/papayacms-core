@@ -52,7 +52,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   public function testContentGetExpectingInvalidArgumentException() {
     $xhtml = new \Papaya\UI\Dialog\Field\Xhtml();
     $this->expectException(InvalidArgumentException::class);
-    $xhtml->content(new stdClass());
+    $xhtml->content(new \stdClass());
   }
 
   /**

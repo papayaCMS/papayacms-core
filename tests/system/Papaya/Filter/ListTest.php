@@ -30,7 +30,7 @@ class PapayaFilterListTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\ArrayElement::__construct
   */
   public function testConstructorWithTraversable() {
-    $filter = new \Papaya\Filter\ArrayElement($iterator = new ArrayIterator(array(21, 42)));
+    $filter = new \Papaya\Filter\ArrayElement($iterator = new \ArrayIterator(array(21, 42)));
     $this->assertAttributeSame(
       $iterator, '_list', $filter
     );
@@ -92,14 +92,14 @@ class PapayaFilterListTest extends \PapayaTestCase {
     return array(
       array('21', array(21, 42)),
       array('21', array('21', '42')),
-      array('21', new ArrayIterator(array('21', '42'))),
+      array('21', new \ArrayIterator(array('21', '42'))),
     );
   }
 
   public static function provideInvalidValidateData() {
     return array(
       array('23', array(21, 42)),
-      array('23', new ArrayIterator(array('21', '42'))),
+      array('23', new \ArrayIterator(array('21', '42'))),
       array('', array(21, 42)),
     );
   }
@@ -108,7 +108,7 @@ class PapayaFilterListTest extends \PapayaTestCase {
     return array(
       array(21, '21', array(21, 42)),
       array('21', '21', array('21', '42')),
-      array(21, '21', new ArrayIterator(array(21, 42))),
+      array(21, '21', new \ArrayIterator(array(21, 42))),
     );
   }
 }

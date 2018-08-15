@@ -54,7 +54,7 @@ class PapayaPluginOptionStorageTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               array(
                 'name' => 'foo',

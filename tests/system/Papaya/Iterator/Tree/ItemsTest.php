@@ -29,7 +29,7 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
     $this->assertEquals(
       array('one' => '1', 'two' => '2', 'two_one' => '2.1', 'tree' => '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }
@@ -45,7 +45,7 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
     $this->assertEquals(
       array('1', '2', '2.1', '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -60,7 +60,7 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
     $this->assertEquals(
       array('1', '2', '2.1', '2.2', '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -70,12 +70,12 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Items
    */
   public function testIterationOnIterator() {
-    $iterator = new \Papaya\Iterator\Tree\Items(new ArrayIterator(array('1', '2', '3')));
-    $iterator->attachItemIterator(1, new ArrayIterator(array('2.1', '2.2')));
+    $iterator = new \Papaya\Iterator\Tree\Items(new \ArrayIterator(array('1', '2', '3')));
+    $iterator->attachItemIterator(1, new \ArrayIterator(array('2.1', '2.2')));
     $this->assertEquals(
       array('1', '2', '2.1', '2.2', '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -92,7 +92,7 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
     $this->assertEquals(
       array('1', '2', '2.1', array('2.1.1', '2.1.2'), '2.1.1', '2.1.2', '2.2', '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -111,7 +111,7 @@ class PapayaIteratorTreeItemsTest extends \PapayaTestCase {
     $this->assertEquals(
       array('one' => '1', 'two' => '2', 'tree' => '3'),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }

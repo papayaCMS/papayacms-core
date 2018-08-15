@@ -33,7 +33,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::setApcObject
   */
   public function testSetApcObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $service = new Apc();
     $service->setApcObject($apc);
@@ -52,7 +52,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::verify
   */
   public function testVerifyExpectingTrue() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -66,7 +66,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::verify
   */
   public function testVerifyExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -80,7 +80,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::verify
   */
   public function testVerifyExpectingError() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -96,7 +96,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::write
   */
   public function testWrite() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -121,7 +121,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::write
   */
   public function testWriteExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -146,7 +146,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::_read
   */
   public function testRead() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -172,7 +172,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::_read
   */
   public function testReadExpired() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -199,7 +199,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -223,7 +223,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::read
   */
   public function testReadExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -237,7 +237,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::exists
   */
   public function testExists() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -263,7 +263,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -287,7 +287,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::exists
   */
   public function testExistsUsingCachedResult() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -304,7 +304,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::exists
   */
   public function testExistsExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -319,7 +319,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   */
   public function testCreated() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -345,7 +345,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -370,7 +370,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->any())
         ->method('available')
@@ -396,7 +396,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::delete
   */
   public function testDelete() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
@@ -414,7 +414,7 @@ class PapayaCacheServiceApcTest extends \PapayaTestCase {
   * @covers Apc::delete
   */
   public function testDeleteExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
     $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')

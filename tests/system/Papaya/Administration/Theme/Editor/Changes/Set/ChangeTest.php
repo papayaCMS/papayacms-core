@@ -13,26 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Theme\Editor\Changes\Set\Change;
-use Papaya\Database\Interfaces\Record;
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCase {
+class ChangeTest extends \PapayaTestCase {
 
   /**
    * @covers Change::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>
@@ -61,8 +60,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
    * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -75,7 +74,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Change theme set"/>
         <options>
@@ -104,8 +103,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
    * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadRecordFailed() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -118,7 +117,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>
@@ -152,8 +151,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
@@ -184,14 +183,14 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
       )
     );
-    $command->callbackShowError(new stdClass, $dialog);
+    $command->callbackShowError(new \stdClass, $dialog);
   }
 }

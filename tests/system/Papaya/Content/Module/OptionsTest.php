@@ -25,7 +25,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $content = new Options();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $content->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
@@ -42,7 +42,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
     $this->assertEquals(
       $expected,
       $content->callbackConvertValueByType(
-        new stdClass(),
+        new \stdClass(),
         Mapping::PROPERTY_TO_FIELD,
         $properties,
         $fields
@@ -62,7 +62,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
     $this->assertEquals(
       $expected,
       $content->callbackConvertValueByType(
-        new stdClass(),
+        new \stdClass(),
         Mapping::FIELD_TO_PROPERTY,
         $properties,
         $fields

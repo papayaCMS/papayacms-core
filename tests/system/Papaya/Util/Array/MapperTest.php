@@ -53,7 +53,7 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
         'foo' => 'caption two'
       ),
       \Papaya\Utility\ArrayMapper::byIndex(
-        new ArrayIterator(
+        new \ArrayIterator(
           array(
             42 => array(
               'key' => 'caption one'

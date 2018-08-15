@@ -21,7 +21,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::__construct
   */
   public function testConstructor() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $dialog = new \Papaya\UI\Dialog\Confirmation($owner, array('sample' => 'foo'));
     $this->assertAttributeSame(
       $owner, '_owner', $dialog
@@ -35,7 +35,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::__construct
   */
   public function testConstructorWithParameterGroup() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $dialog = new \Papaya\UI\Dialog\Confirmation($owner, array('sample' => 'foo'), 'group');
     $this->assertAttributeSame(
       $owner, '_owner', $dialog
@@ -52,7 +52,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::setMessageText
   */
   public function testSetMessageText() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $dialog = new \Papaya\UI\Dialog\Confirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setMessageText('Message text');
     $this->assertAttributeEquals(
@@ -64,7 +64,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::setButtonCaption
   */
   public function testSetButtonCaption() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $dialog = new \Papaya\UI\Dialog\Confirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setButtonCaption('Button caption');
     $this->assertAttributeEquals(
@@ -81,7 +81,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $dialog = new \Papaya\UI\Dialog\Confirmation(new stdClass(), array('sample' => 'foo'));
+    $dialog = new \Papaya\UI\Dialog\Confirmation(new \stdClass(), array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
       new \Papaya\Request\Parameters(array('confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47'))
@@ -98,7 +98,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('get'));
-    $dialog = new \Papaya\UI\Dialog\Confirmation(new stdClass(), array('sample' => 'foo'));
+    $dialog = new \Papaya\UI\Dialog\Confirmation(new \stdClass(), array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $this->assertFalse($dialog->isSubmitted());
   }
@@ -107,7 +107,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::execute
   */
   public function testExecuteExpectingTrue() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
@@ -137,7 +137,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::execute
   */
   public function testExecuteExpectingFalse() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
@@ -152,7 +152,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::execute
   */
   public function testExecuteCachesResultExpectingFalse() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
@@ -168,7 +168,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Confirmation::appendTo
   */
   public function testAppendTo() {
-    $owner = new stdClass();
+    $owner = new \stdClass();
     $tokens = $this->createMock(\Papaya\UI\Tokens::class);
     $tokens
       ->expects($this->once())

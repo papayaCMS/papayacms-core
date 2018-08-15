@@ -61,7 +61,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends \PapayaTestCas
       ->method('saveXml')
       ->will($this->returnValue(/** @lang XML */'<theme/>'));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())

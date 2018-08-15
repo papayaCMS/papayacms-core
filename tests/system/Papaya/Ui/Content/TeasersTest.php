@@ -274,7 +274,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
     $pages
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($pageRecords)));
+      ->will($this->returnValue(new \ArrayIterator($pageRecords)));
     return $pages;
   }
 }

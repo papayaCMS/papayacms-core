@@ -344,7 +344,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    */
   public function testOffsetSetWithTraversableAsValue() {
     $parameters = new \Papaya\BaseObject\Parameters();
-    $parameters[] = new ArrayIterator(array(21, 42));
+    $parameters[] = new \ArrayIterator(array(21, 42));
     $this->assertEquals(
       array(0 => array(21, 42)),
       iterator_to_array($parameters)

@@ -25,7 +25,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    * @covers Group::__construct
    */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page =$this->createMock(Page::class);
     $group = new Group($page);
     $this->assertAttributeSame($page, '_page', $group);
@@ -35,7 +35,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    * @covers Group::values
    */
   public function testGroupsGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page =$this->createMock(Page::class);
     $group = new Group($page);
     $values = $this
@@ -50,7 +50,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    * @covers Group::values
    */
   public function testGroupsGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page =$this->createMock(Page::class);
     $group = new Group($page);
     $this->assertInstanceOf(Values::class, $group->values());
@@ -60,7 +60,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    * @covers Group::getIdentifier
    */
   public function testGetIdentifier() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page =$this->createMock(Page::class);
     $page
       ->expects($this->once())

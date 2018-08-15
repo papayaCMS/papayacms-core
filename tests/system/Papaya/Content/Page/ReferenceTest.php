@@ -38,7 +38,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $reference = new Reference();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $reference->mapping();
     $this->assertInstanceOf(Mapping::class, $mapping);
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
@@ -56,7 +56,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
     $reference = new Reference();
     $this->assertEquals(
       $expected,
-      $reference->callbackSortPageIds(new stdClass, $mode, $values, $record)
+      $reference->callbackSortPageIds(new \stdClass, $mode, $values, $record)
     );
   }
 

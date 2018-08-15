@@ -38,7 +38,7 @@ class PapayaUiReferencePageTest extends \PapayaTestCase {
     $request
       ->expects($this->once())
       ->method('getUrl')
-      ->will($this->returnValue(new stdClass));
+      ->will($this->returnValue(new \stdClass));
     $request
       ->expects($this->once())
       ->method('getParameterGroupSeparator')

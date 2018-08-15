@@ -23,7 +23,7 @@ class PapayaUiDialogElementsTest extends \PapayaTestCase {
   public function testConstructorWithOwner() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $elements = new \PapayaUiDialogElements_TestProxy($dialog);
     $this->assertSame(

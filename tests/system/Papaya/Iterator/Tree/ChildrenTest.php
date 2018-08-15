@@ -34,7 +34,7 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Tree\Children
   */
   public function testIterateLeafs() {
-    $iterator = new RecursiveIteratorIterator($this->getIteratorFixture());
+    $iterator = new \RecursiveIteratorIterator($this->getIteratorFixture());
     $this->assertEquals(
       array(
         3 => 'three', 2 => 'two'
@@ -47,7 +47,7 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Tree\Children
   */
   public function testIterateAll() {
-    $iterator = new RecursiveIteratorIterator(
+    $iterator = new \RecursiveIteratorIterator(
       $this->getIteratorFixture(), RecursiveIteratorIterator::SELF_FIRST
     );
     $this->assertEquals(

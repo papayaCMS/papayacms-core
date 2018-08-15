@@ -117,7 +117,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   public function testOwnerSetInvalidClassExpectingException() {
     $collection = new \PapayaUiControlCollection_TestProxy();
     $this->expectException(UnexpectedValueException::class);
-    $collection->owner(new stdClass());
+    $collection->owner(new \stdClass());
   }
 
   /**

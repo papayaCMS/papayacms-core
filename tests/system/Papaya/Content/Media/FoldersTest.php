@@ -40,7 +40,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
     $this->assertEquals(
       23,
       $records->callbackMapValueFromFieldToProperty(
-        new stdClass(), 'id', 'folder', '23'
+        new \stdClass(), 'id', 'folder', '23'
       )
     );
   }
@@ -53,7 +53,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
     $this->assertEquals(
       array(21, 42),
       $records->callbackMapValueFromFieldToProperty(
-        new stdClass(), 'ancestors', 'parent_path', ';21;42;'
+        new \stdClass(), 'ancestors', 'parent_path', ';21;42;'
       )
     );
   }
@@ -65,7 +65,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
     $records = new Folders();
     $this->assertNull(
       $records->callbackGetFieldForProperty(
-        new stdClass(), 'unknown_property_name'
+        new \stdClass(), 'unknown_property_name'
       )
     );
   }
@@ -79,7 +79,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
   public function testCallbackGetFieldForProperty($expected, $property) {
     $records = new Folders();
     $this->assertEquals(
-      $expected, $records->callbackGetFieldForProperty(new stdClass, $property)
+      $expected, $records->callbackGetFieldForProperty(new \stdClass, $property)
     );
   }
 
@@ -165,7 +165,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
         )
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }
@@ -215,7 +215,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
         )
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }

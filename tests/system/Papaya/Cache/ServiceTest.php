@@ -146,7 +146,7 @@ class PapayaCacheServiceTest extends \PapayaTestCase {
       array(
         'GROUP',
         'ELEMENT',
-        new stdClass(),
+        new \stdClass(),
         'GROUP/ELEMENT/f7827bf44040a444ac855cd67adfb502'
       )
     );
@@ -192,7 +192,7 @@ class PapayaCacheServiceTest extends \PapayaTestCase {
       array(TRUE, '1'),
       array(FALSE, ''),
       array(array('PARAMETER_1', 'PARAMETER_2'), '91dc48c3332977db0b09e40ef18a9246'),
-      array(new stdClass(), 'f7827bf44040a444ac855cd67adfb502'),
+      array(new \stdClass(), 'f7827bf44040a444ac855cd67adfb502'),
     );
   }
 
@@ -221,7 +221,7 @@ class PapayaCacheServiceTest extends \PapayaTestCase {
       array(
         'GROUP',
         'ELEMENT',
-        new stdClass(),
+        new \stdClass(),
         array(
           'group' => 'GROUP',
           'element' => 'ELEMENT',

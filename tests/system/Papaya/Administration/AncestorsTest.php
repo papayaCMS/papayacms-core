@@ -143,7 +143,7 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   ************************************/
 
   private function getLanguageSwitchFixture() {
-    $language = new stdClass();
+    $language = new \stdClass();
     $language->id = 1;
     $switch = $this->createMock(Selector::class);
     $switch

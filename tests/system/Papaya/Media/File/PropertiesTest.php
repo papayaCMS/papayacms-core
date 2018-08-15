@@ -26,7 +26,7 @@ class PapayaMediaFilePropertiesTest extends \PapayaTestCase {
     $infoMock
       ->expects($this->once())
       ->method('getIterator')
-      ->willReturn(new ArrayIterator(array('foo' => 'bar')));
+      ->willReturn(new \ArrayIterator(array('foo' => 'bar')));
     $info = new \Papaya\Media\File\Properties(__FILE__);
     $info->fetchers($infoMock);
 

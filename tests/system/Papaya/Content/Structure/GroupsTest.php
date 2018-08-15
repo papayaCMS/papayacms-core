@@ -25,7 +25,7 @@ class PapayaContentStructureGroupsTest extends \PapayaTestCase {
    * @covers Groups::__construct
    */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page = $this
       ->getMockBuilder(Page::class)
       ->disableOriginalConstructor()
@@ -38,7 +38,7 @@ class PapayaContentStructureGroupsTest extends \PapayaTestCase {
    * @covers Groups::load
    */
   public function testLoad() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Page $page */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page = $this
       ->getMockBuilder(Page::class)
       ->disableOriginalConstructor()

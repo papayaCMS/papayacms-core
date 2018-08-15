@@ -282,7 +282,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $data
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($domains)));
+      ->will($this->returnValue(new \ArrayIterator($domains)));
     return $data;
   }
 }

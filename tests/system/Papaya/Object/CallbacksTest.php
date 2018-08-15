@@ -109,7 +109,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Argument $callback must be a callable or an instance of Papaya\BaseObject\Callback.');
-    $list->sample = new stdClass;
+    $list->sample = new \stdClass;
   }
 
   /**

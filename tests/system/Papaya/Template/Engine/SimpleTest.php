@@ -92,7 +92,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
     $engine = new \Papaya\Template\Engine\Simple();
     $engine->values($values->documentElement);
     $this->assertEquals(
-      'success', $engine->callbackGetValue(new stdClass, 'page.group.value')
+      'success', $engine->callbackGetValue(new \stdClass, 'page.group.value')
     );
   }
 
@@ -109,7 +109,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
     $engine = new \Papaya\Template\Engine\Simple();
     $engine->values($values->documentElement);
     $this->assertEquals(
-      'success', $engine->callbackGetValue(new stdClass, 'xpath(page/group/value)')
+      'success', $engine->callbackGetValue(new \stdClass, 'xpath(page/group/value)')
     );
   }
 

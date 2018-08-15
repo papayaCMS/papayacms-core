@@ -21,7 +21,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   * @covers \Papaya\Plugin\Factory::__construct
   */
   public function testConstrcutor() {
-    $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
+    $factory = new \PapayaPluginFactory_TestProxy($owner = new \stdClass);
     $this->assertAttributeSame(
       $owner, '_owner', $factory
     );
@@ -77,7 +77,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
       ->expects($this->once())#
       ->method('get')
       ->with('123456789012345678901234567890ab', NULL, NULL, FALSE)
-      ->will($this->returnValue(new stdClass));
+      ->will($this->returnValue(new \stdClass));
     $factory->loader($loader);
     $this->assertInstanceOf(stdClass::class, $factory->get('samplePlugin'));
   }
@@ -86,13 +86,13 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   * @covers \Papaya\Plugin\Factory::get
   */
   public function testGetWithAllParameters() {
-    $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
+    $factory = new \PapayaPluginFactory_TestProxy($owner = new \stdClass);
     $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
       ->with('123456789012345678901234567890ab', $owner, NULL, TRUE)
-      ->will($this->returnValue(new stdClass));
+      ->will($this->returnValue(new \stdClass));
     $factory->loader($loader);
     $this->assertInstanceOf(stdClass::class, $factory->get('samplePlugin', TRUE));
   }
@@ -136,7 +136,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('get')
       ->with('123456789012345678901234567890ab', NULL, NULL, FALSE)
-      ->will($this->returnValue(new stdClass));
+      ->will($this->returnValue(new \stdClass));
     $factory->loader($loader);
     $this->assertInstanceOf(stdClass::class, $factory->samplePlugin);
   }

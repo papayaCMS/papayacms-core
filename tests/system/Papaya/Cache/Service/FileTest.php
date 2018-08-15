@@ -473,7 +473,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
       array(
         'GROUP',
         'ELEMENT',
-        new stdClass(),
+        new \stdClass(),
         array(
           'group' => '/GROUP',
           'element' => '/GROUP/ELEMENT',

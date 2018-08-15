@@ -247,7 +247,7 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
       'false' => array('', FALSE),
       'array' => array(array('42', 'hello', '1', ''), array(42, 'hello', TRUE, FALSE)),
       'array of array' => array(array(array('foo' => '42')), array(array('foo' => 42))),
-      'object' => array(stdClass::class, new stdClass()),
+      'object' => array(stdClass::class, new \stdClass()),
       'object with __toString' => array('sample', new \Papaya\UI\Text('sample'))
     );
   }
@@ -339,7 +339,7 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
         'foo',
       ),
       'object (without Traversable)' => array(
-        array($object = new stdClass),
+        array($object = new \stdClass),
         $object,
       )
     );
@@ -356,7 +356,7 @@ class PapayaUtilArray_TestProxyArrayIterator implements IteratorAggregate {
   }
 
   public function getIterator() {
-    return new ArrayIterator($this->_array);
+    return new \ArrayIterator($this->_array);
   }
 }
 

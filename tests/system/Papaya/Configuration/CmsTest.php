@@ -73,7 +73,7 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
     $storage
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator(array())));
+      ->will($this->returnValue(new \ArrayIterator(array())));
     $configuration = new Cms();
     $configuration->storage($storage);
     $this->assertTrue($configuration->loadAndDefine());

@@ -22,7 +22,7 @@ class PapayaIteratorCallbackTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Callback::getInnerIterator
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Iterator $innerIterator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Iterator $innerIterator */
     $innerIterator = $this->createMock(Iterator::class);
     $iterator = new \Papaya\Iterator\Callback(
       $innerIterator,
@@ -38,7 +38,7 @@ class PapayaIteratorCallbackTest extends \PapayaTestCase {
   */
   public function testIteration() {
     $iterator = new \Papaya\Iterator\Callback(
-      new ArrayIterator(array(21, 42)),
+      new \ArrayIterator(array(21, 42)),
       array($this, 'callbackChangeValue')
     );
     $this->assertEquals(
@@ -55,7 +55,7 @@ class PapayaIteratorCallbackTest extends \PapayaTestCase {
   */
   public function testIterationWithKeys() {
     $iterator = new \Papaya\Iterator\Callback(
-      new ArrayIterator(array(21 => '50%', 42 => '100%')),
+      new \ArrayIterator(array(21 => '50%', 42 => '100%')),
       array($this, 'callbackChangeValue')
     );
     $this->assertEquals(
@@ -72,7 +72,7 @@ class PapayaIteratorCallbackTest extends \PapayaTestCase {
   */
   public function testIterationModifyKeys() {
     $iterator = new \Papaya\Iterator\Callback(
-      new ArrayIterator(array(21 => '50%', 42 => '100%')),
+      new \ArrayIterator(array(21 => '50%', 42 => '100%')),
       array($this, 'callbackFlip'),
       \Papaya\Iterator\Callback::MODIFY_KEYS
     );
@@ -90,7 +90,7 @@ class PapayaIteratorCallbackTest extends \PapayaTestCase {
   */
   public function testIterationModifyKeysAndValues() {
     $iterator = new \Papaya\Iterator\Callback(
-      new ArrayIterator(array(21 => '50%', 42 => '100%')),
+      new \ArrayIterator(array(21 => '50%', 42 => '100%')),
       array($this, 'callbackFlip'),
       \Papaya\Iterator\Callback::MODIFY_BOTH
     );

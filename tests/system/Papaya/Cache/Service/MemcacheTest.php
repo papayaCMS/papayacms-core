@@ -23,7 +23,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   * @covers Memcache::setMemcacheObject
   */
   public function testSetMemcacheObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Memcached $memcache */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Memcached $memcache */
     $memcache = $this->createMock(Memcached::class);
     $service = new \Papaya\Cache\Service\Memcache();
     $service->setMemcacheObject($memcache);
@@ -36,7 +36,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   * @covers Memcache::getMemcacheObject
   */
   public function testGetMemcacheObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Memcached $memcache */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Memcached $memcache */
     $memcache = $this->createMock(Memcached::class);
     $service = new \Papaya\Cache\Service\Memcache();
     $service->setMemcacheObject($memcache);
@@ -196,7 +196,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
     $configuration = new Configuration();
     $configuration['MEMCACHE_SERVERS'] =
       'tcp://host1:11211?persistent=1&weight=2&timeout=3&retry_interval=15';
-    /** @var PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
     $memcache = $this->createMock(Memcache::class);
     $memcache
       ->expects($this->once())
@@ -222,7 +222,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   public function testSetUpWithTwoServers() {
     $configuration = new Configuration();
     $configuration['MEMCACHE_SERVERS'] = 'tcp://host1:11211;tcp://host2:11211;';
-    /** @var PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
     $memcache = $this->createMock(Memcache::class);
     $memcache
       ->expects($this->exactly(2))
@@ -245,7 +245,7 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
     $configuration = new Configuration();
     $configuration['MEMCACHE_SERVERS'] =
       'tcp://host1:11211?persistent=1&weight=2&timeout=3&retry_interval=15';
-    /** @var PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Memcache $memcache */
     $memcache = $this->createMock(Memcache::class);
     $memcache
       ->expects($this->once())

@@ -72,7 +72,7 @@ class PapayaDatabaseRecordsTreeTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }
@@ -99,7 +99,7 @@ class PapayaDatabaseRecordsTreeTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records)
+        new \RecursiveIteratorIterator($records)
       )
     );
   }

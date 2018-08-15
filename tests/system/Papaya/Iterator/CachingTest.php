@@ -25,7 +25,7 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Caching::setCallback
   */
   public function testConstructor() {
-    $iterator = new \Papaya\Iterator\Caching($innerIterator = new EmptyIterator());
+    $iterator = new \Papaya\Iterator\Caching($innerIterator = new \EmptyIterator());
     $this->assertSame($innerIterator, $iterator->getInnerIterator());
   }
 
@@ -36,7 +36,7 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
   */
   public function testConstructorWithCallback() {
     $iterator = new \Papaya\Iterator\Caching(
-      $innerIterator = new EmptyIterator(),
+      $innerIterator = new \EmptyIterator(),
       array($this, 'callbackThrowException')
     );
     $this->assertEquals(
@@ -49,7 +49,7 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Caching::__construct
   */
   public function testConstructorWithTraversable() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Traversable $traversable */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Traversable $traversable */
     $traversable = $this->createMock(IteratorAggregate::class);
     $iterator = new \Papaya\Iterator\Caching(
       $traversable,
@@ -68,8 +68,8 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Provided callback parameter is not valid.');
     new \Papaya\Iterator\Caching(
-      $innerIterator = new EmptyIterator(),
-      new stdClass()
+      $innerIterator = new \EmptyIterator(),
+      new \stdClass()
     );
   }
 

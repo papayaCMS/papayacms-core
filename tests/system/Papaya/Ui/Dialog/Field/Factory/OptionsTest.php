@@ -285,7 +285,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends \PapayaTestCase {
   }
 
   public static function provideOptionData() {
-    $sampleObject = new stdClass();
+    $sampleObject = new \stdClass();
     return array(
       array('value', 'name', 'value'),
       array('value', 'caption', 'value'),

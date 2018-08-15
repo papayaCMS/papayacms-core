@@ -31,7 +31,7 @@ class PapayaFilterListKeysTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\ArrayKey::__construct
    */
   public function testConstructorWithTraversable() {
-    $filter = new \Papaya\Filter\ArrayKey($iterator = new ArrayIterator(array()));
+    $filter = new \Papaya\Filter\ArrayKey($iterator = new \ArrayIterator(array()));
     $this->assertAttributeSame(
       $iterator, '_list', $filter
     );
@@ -93,7 +93,7 @@ class PapayaFilterListKeysTest extends \PapayaTestCase {
     return array(
       array('21', array(21 => 'half', 42 => 'truth')),
       array('21', array('21' => 'half', '42' => 'truth')),
-      array('21', new ArrayIterator(array('21' => 'half', '42' => 'truth'))),
+      array('21', new \ArrayIterator(array('21' => 'half', '42' => 'truth'))),
       array('21', new Iterator_TestStubForFilterListKeys(array('21' => 'half', '42' => 'truth'))),
     );
   }
@@ -103,7 +103,7 @@ class PapayaFilterListKeysTest extends \PapayaTestCase {
       array('', array(21 => 'half', 42 => 'truth')),
       array(array(), array(21 => 'half', 42 => 'truth')),
       array('23', array(21 => 'half', 42 => 'truth')),
-      array('23', new ArrayIterator(array('21' => 'half', '42' => 'truth'))),
+      array('23', new \ArrayIterator(array('21' => 'half', '42' => 'truth'))),
       array('23', new Iterator_TestStubForFilterListKeys(array('21' => 'half', '42' => 'truth'))),
     );
   }
@@ -112,7 +112,7 @@ class PapayaFilterListKeysTest extends \PapayaTestCase {
     return array(
       array(21, '21', array(21 => 'half', 42 => 'truth')),
       array('#21', '#21', array('#21' => 'half', '#42' => 'truth')),
-      array(21, '21', new ArrayIterator(array(21 => 'half', 42 => 'truth'))),
+      array(21, '21', new \ArrayIterator(array(21 => 'half', 42 => 'truth'))),
       array(21, '21', new Iterator_TestStubForFilterListKeys(array(21 => 'half', 42 => 'truth'))),
     );
   }

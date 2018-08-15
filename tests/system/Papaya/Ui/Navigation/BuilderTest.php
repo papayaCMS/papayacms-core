@@ -33,7 +33,7 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Navigation\Builder::elements
   */
   public function testConstructorWithIterator() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
     $iterator = $this->createMock(Iterator::class);
     $builder = new \Papaya\UI\Navigation\Builder($iterator);
     $this->assertSame(

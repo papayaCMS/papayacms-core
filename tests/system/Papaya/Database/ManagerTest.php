@@ -123,7 +123,7 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   */
   public function testClose() {
     $manager = new \Papaya\Database\Manager();
-    /** @var PHPUnit_Framework_MockObject_MockObject|db_simple $connector */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|db_simple $connector */
     $connector = $this->createMock(db_simple::class);
     $connector
       ->expects($this->once())
@@ -139,7 +139,7 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
     $manager = new \Papaya\Database\Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \Papaya\Database\Access::class, $databaseAccess = $manager->createDatabaseAccess(new stdClass)
+      \Papaya\Database\Access::class, $databaseAccess = $manager->createDatabaseAccess(new \stdClass)
     );
     $this->assertSame(
       $papaya, $databaseAccess->papaya()
@@ -152,7 +152,7 @@ class PapayaDatabaseManagerTest extends \PapayaTestCase {
   public function testCreateDatabaseAccessWithUris() {
     $manager = new \Papaya\Database\Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
-    $databaseAccess = $manager->createDatabaseAccess(new stdClass, 'READ_SAMPLE', 'WRITE_SAMPLE');
+    $databaseAccess = $manager->createDatabaseAccess(new \stdClass, 'READ_SAMPLE', 'WRITE_SAMPLE');
     $this->assertAttributeEquals(
       'READ_SAMPLE', '_uriRead', $databaseAccess
     );

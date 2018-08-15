@@ -331,7 +331,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new Pages();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $pages->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
@@ -344,7 +344,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
     $this->assertEquals(
       'success',
       $pages->mapValue(
-        new stdClass,
+        new \stdClass,
         Mapping::FIELD_TO_PROPERTY,
         'id',
         'topic_id',
@@ -361,7 +361,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
     $this->assertEquals(
       array(21, 42),
       $pages->mapValue(
-        new stdClass,
+        new \stdClass,
         Mapping::FIELD_TO_PROPERTY,
         'path',
         'prev_path',
@@ -378,7 +378,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
     $this->assertEquals(
       ';21;42;',
       $pages->mapValue(
-        new stdClass,
+        new \stdClass,
         Mapping::PROPERTY_TO_FIELD,
         'path',
         'prev_path',

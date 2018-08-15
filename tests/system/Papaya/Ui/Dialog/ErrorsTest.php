@@ -22,8 +22,8 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   */
   public function testIterator() {
     $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add(new Exception(), new stdClass());
-    $errors->add(new Exception(), new stdClass());
+    $errors->add(new Exception(), new \stdClass());
+    $errors->add(new Exception(), new \stdClass());
     $result = array();
     foreach ($errors as $index => $error) {
       $result[$index] = get_class($error['exception']).','.get_class($error['source']);
@@ -39,7 +39,7 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   */
   public function testCountable() {
     $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add(new Exception(), new stdClass());
+    $errors->add(new Exception(), new \stdClass());
     $this->assertCount(1, $errors);
   }
 
@@ -66,7 +66,7 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   */
   public function testAddWithSource() {
     $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add($e = new Exception(), $source = new stdClass());
+    $errors->add($e = new Exception(), $source = new \stdClass());
     $this->assertAttributeEquals(
       array(
         array(

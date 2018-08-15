@@ -153,7 +153,7 @@ class PapayaObjectCallbackTest extends \PapayaTestCase {
   */
   public function testPropertyContextGetAfterSet() {
     $callback = new \Papaya\BaseObject\Callback(NULL);
-    $callback->context = $context = new stdClass;
+    $callback->context = $context = new \stdClass;
     $this->assertSame($context, $callback->context);
   }
 
@@ -164,7 +164,7 @@ class PapayaObjectCallbackTest extends \PapayaTestCase {
     $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->context->foo = 'bar';
     unset($callback->context);
-    $this->assertEquals(new stdClass, $callback->context);
+    $this->assertEquals(new \stdClass, $callback->context);
   }
 
   /**

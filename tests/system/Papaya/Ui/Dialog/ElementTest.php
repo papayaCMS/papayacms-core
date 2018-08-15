@@ -140,7 +140,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
   private function getDialogMock() {
     return $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
   }
 

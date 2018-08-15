@@ -34,8 +34,8 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $page
       ->expects($this->once())
       ->method('groups')
-      ->will($this->returnValue(new EmptyIterator()));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+      ->will($this->returnValue(new \EmptyIterator()));
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
@@ -54,7 +54,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
     $group->name = 'SAMPLE_GROUP';
     $group->title = 'group title';
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
@@ -87,7 +87,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\UI\Dialog\Field\Factory\Options::class))
       ->will($this->throwException($exception));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
@@ -120,7 +120,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->with('UNKNOWN_FIELD_TYPE', $this->isInstanceOf(\Papaya\UI\Dialog\Field\Factory\Options::class))
       ->will($this->returnValue($this->createMock(\Papaya\UI\Dialog\Field::class)));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
@@ -153,7 +153,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->method('getDefinition')
       ->with('sample')
       ->will($this->returnValue($definition));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
@@ -170,7 +170,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::themePage
    */
   public function testThemePageGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->themePage($themePage =  $this->createMock(Page::class));
@@ -200,7 +200,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->method('getDefinition')
       ->with('sample')
       ->will($this->returnValue($definition));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($papaya);
@@ -212,7 +212,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->themeHandler($themeHandler =  $this->createMock(\Papaya\Theme\Handler::class));
@@ -223,7 +223,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $this->assertInstanceOf(\Papaya\Theme\Handler::class, $command->themeHandler());
@@ -233,7 +233,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::fieldFactory
    */
   public function testFieldFactoryGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->fieldFactory($fieldFactory =  $this->createMock(\Papaya\UI\Dialog\Field\Factory::class));
@@ -244,7 +244,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::fieldFactory
    */
   public function testFieldFactoryGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory::class, $command->fieldFactory());
@@ -265,7 +265,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->method('delete')
       ->with('theme', '');
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya(
@@ -299,7 +299,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya(
@@ -307,14 +307,14 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
         array('messages' => $messages)
       )
     );
-    $command->callbackShowError(new stdClass, $dialog);
+    $command->callbackShowError(new \stdClass, $dialog);
   }
 
   /**
    * @covers Dialog::cache
    */
   public function testCacheGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->cache($cache =  $this->createMock(Service::class));
@@ -325,7 +325,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends \PapayaTestCase {
    * @covers Dialog::cache
    */
   public function testCacheGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());

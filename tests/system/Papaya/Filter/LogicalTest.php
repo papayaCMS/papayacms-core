@@ -80,7 +80,7 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   public function testContructorWithInvalidObjectsExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     new \PapayaFilterLogical_TestProxy(
-      new stdClass(), new stdClass()
+      new \stdClass(), new \stdClass()
     );
   }
 }

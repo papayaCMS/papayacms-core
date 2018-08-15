@@ -25,7 +25,7 @@ class PapayaAdministrationThemeEditorTest extends \PapayaTestCase {
    * @covers Editor::createContent
    */
   public function testCreateContent() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->createMock(Template::class);
     $page = new \PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(
@@ -37,7 +37,7 @@ class PapayaAdministrationThemeEditorTest extends \PapayaTestCase {
    * @covers Editor::createNavigation
    */
   public function testCreateNavigation() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->createMock(Template::class);
     $page = new \PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(

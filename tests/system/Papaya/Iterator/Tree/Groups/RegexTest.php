@@ -38,7 +38,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          7 => 'Iterator'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -60,7 +60,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          'app' => 'Application'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }
@@ -79,7 +79,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          1 => 'Application'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -99,7 +99,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          'some' => 'Filled'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         TRUE
       )
     );
@@ -121,7 +121,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          3 => '# no group'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -144,7 +144,7 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
          'app' => 'Application'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }

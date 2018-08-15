@@ -125,7 +125,7 @@ class PapayaPluginOptionsTest extends \PapayaTestCase {
     $storage
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($data)));
+      ->will($this->returnValue(new \ArrayIterator($data)));
     return $storage;
   }
 }

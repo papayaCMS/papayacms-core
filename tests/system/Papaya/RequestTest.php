@@ -94,7 +94,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testGetBasePath() {
     $request = new \Papaya\Request();
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $parser = $this->createMock(\Papaya\Request\Parser::class);
     $parser
@@ -121,7 +121,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   public function testGetUrl() {
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request->load($url);
     $this->assertSame(
@@ -440,7 +440,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   public function testLazyParserInitialization() {
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request->load($url);
     $this->assertGreaterThan(
@@ -454,7 +454,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   * @covers \Papaya\Request::_initParsers
   */
   public function testLoad() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $parserOne = $this->createMock(\Papaya\Request\Parser::class);
     $parserOne
@@ -502,7 +502,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   * @covers \Papaya\Request::load
   */
   public function testLoadExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
@@ -527,7 +527,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   * @covers \Papaya\Request::getParameter
   */
   public function testGetParameter() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
@@ -546,7 +546,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   * @covers \Papaya\Request::_loadParametersForSource
   */
   public function testLoadParametersPath() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
@@ -566,7 +566,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   * @covers \Papaya\Request::_loadParametersForSource
   */
   public function testLoadParametersPathCached() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this->createMock(URL::class);
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());

@@ -235,7 +235,7 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   * @covers Writer::writeList
   */
   public function testWriteListWithTraversable() {
-    $list = new ArrayIterator(
+    $list = new \ArrayIterator(
       array(
         array('one', 'two', 'three'),
         array('four', 'five', 'six')

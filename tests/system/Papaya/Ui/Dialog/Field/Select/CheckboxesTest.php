@@ -75,7 +75,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   */
   public function testAppendToWithIterator() {
     $select = new \Papaya\UI\Dialog\Field\Select\Checkboxes(
-      'Caption', 'name', new ArrayIterator(array(1 => 'One', 2 => 'Two'), TRUE)
+      'Caption', 'name', new \ArrayIterator(array(1 => 'One', 2 => 'Two'), TRUE)
     );
     $select->setDefaultValue(array(1, 2));
     $select->papaya($this->mockPapaya()->application());
@@ -97,7 +97,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -116,7 +116,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   public function testGetCurrentValueFromSubmittedDialog() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())

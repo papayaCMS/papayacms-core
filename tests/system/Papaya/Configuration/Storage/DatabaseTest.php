@@ -131,7 +131,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               'SAMPLE_NAME' => array(
                 'name' => 'SAMPLE_NAME',

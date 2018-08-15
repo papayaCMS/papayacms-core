@@ -57,7 +57,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -67,14 +67,14 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Details
    */
   public function testIterationWithIterators() {
-    $main = new ArrayIterator(
+    $main = new \ArrayIterator(
       array(
         1 => array('title' => 'CategoryOne'),
         2 => array('title' => 'CategoryTwo'),
         3 => array('title' => 'CategoryThree')
       )
     );
-    $details = new ArrayIterator(
+    $details = new \ArrayIterator(
       array(
         1 => array('title' => '1.1', 'category_id' => 1),
         2 => array('title' => '1.2', 'category_id' => 1),
@@ -107,7 +107,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -117,14 +117,14 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Details
    */
   public function testIterationGroupedByKey() {
-    $main = new ArrayIterator(
+    $main = new \ArrayIterator(
       array(
         1 => 'CategoryOne',
         2 => 'CategoryTwo',
         3 => 'CategoryThree'
       )
     );
-    $details = new ArrayIterator(
+    $details = new \ArrayIterator(
       array(
         1 => array('1.1', '1.2'),
         2 => array('2.1')
@@ -145,7 +145,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         4 => 'CategoryThree'
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );

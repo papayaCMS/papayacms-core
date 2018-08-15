@@ -53,7 +53,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               array(
                 'module_guid' => 'guid',

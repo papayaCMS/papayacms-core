@@ -24,7 +24,7 @@ class PapayaCacheIdentifierDefinitionSurferTest extends \PapayaTestCase {
    * @covers Surfer
    */
   public function testGetStatus() {
-    $surfer = new stdClass();
+    $surfer = new \stdClass();
     $surfer->isValid = TRUE;
     $surfer->id = '012345678901234567890123456789ab';
     $definition = new Surfer();
@@ -45,7 +45,7 @@ class PapayaCacheIdentifierDefinitionSurferTest extends \PapayaTestCase {
    * @covers Surfer
    */
   public function testGetStatusForPreviewExpectingFalse() {
-    $surfer = new stdClass();
+    $surfer = new \stdClass();
     $surfer->isValid = FALSE;
     $definition = new Surfer();
     $definition->papaya(

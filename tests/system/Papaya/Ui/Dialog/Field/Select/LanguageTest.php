@@ -115,7 +115,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               1 => array(
                 'identifier' => 'de',

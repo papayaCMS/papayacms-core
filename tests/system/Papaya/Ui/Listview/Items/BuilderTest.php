@@ -22,7 +22,7 @@ class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Listview\Items\Builder::getDataSource
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
     $iterator = $this->createMock(Iterator::class);
     $builder = new \Papaya\UI\Listview\Items\Builder($iterator);
     $this->assertSame($iterator, $builder->getDataSource());

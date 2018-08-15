@@ -66,7 +66,7 @@ class PapayaContentCommunityUsersTest extends \PapayaTestCase {
   public function testCallbackAfterMappingFieldsToProperties(array $expected, array $values) {
     $users = new Users();
     $this->assertEquals(
-      $expected, $users->callbackAfterMappingFieldsToProperties(new stdClass, $values)
+      $expected, $users->callbackAfterMappingFieldsToProperties(new \stdClass, $values)
     );
   }
 

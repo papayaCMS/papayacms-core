@@ -26,7 +26,7 @@ class PapayaRequestParserThumbnailTest extends \PapayaTestCase {
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
     $url = $this
       ->getMockBuilder(URL::class)
       ->setMethods(array('getPath'))

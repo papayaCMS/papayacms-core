@@ -48,7 +48,7 @@ class PapayaDatabaseConditionGroupTest extends \PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Access $parent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Access $parent */
     $parent = $this->createMock(Access::class);
     $parent
       ->expects($this->once())
@@ -64,7 +64,7 @@ class PapayaDatabaseConditionGroupTest extends \PapayaTestCase {
    */
   public function testConstructorWithGroup() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $parent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $parent */
     $parent = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
@@ -84,14 +84,14 @@ class PapayaDatabaseConditionGroupTest extends \PapayaTestCase {
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
-    new \PapayaDatabaseConditionGroup_TestProxy(new stdClass());
+    new \PapayaDatabaseConditionGroup_TestProxy(new \stdClass());
   }
 
   /**
    * @covers Group
    */
   public function testEnd() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $parent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $parent */
     $parent = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()

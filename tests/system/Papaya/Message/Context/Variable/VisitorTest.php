@@ -68,7 +68,7 @@ class PapayaMessageContextVariableVisitorTest extends \PapayaTestCase {
       array('integer', 42),
       array('float', 42.21),
       array('null', NULL),
-      array('object', new stdClass()),
+      array('object', new \stdClass()),
       array('resource', fopen('php://memory', 'rwb')),
       array('string', ''),
     );

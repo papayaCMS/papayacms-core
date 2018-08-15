@@ -40,7 +40,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   public function testConstructorDefinesInvalidOptionExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     new \Papaya\Configuration(
-      array('sample' => new stdClass)
+      array('sample' => new \stdClass)
     );
   }
 
@@ -198,7 +198,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
     $storage
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator(array('SAMPLE_INT' => 23))));
+      ->will($this->returnValue(new \ArrayIterator(array('SAMPLE_INT' => 23))));
     $config = new \PapayaConfiguration_TestProxy();
     $config->storage($storage);
     $config->load();
@@ -219,7 +219,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
     $storage
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator(array('SAMPLE_INT_UNKNOWN' => 23))));
+      ->will($this->returnValue(new \ArrayIterator(array('SAMPLE_INT_UNKNOWN' => 23))));
     $config = new \PapayaConfiguration_TestProxy();
     $config->storage($storage);
     $config->load();

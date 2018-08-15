@@ -25,7 +25,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
    * @covers Values::__construct
    */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
@@ -38,7 +38,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
    * @covers Values::load
    */
   public function testLoad() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
@@ -60,7 +60,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
    * @covers Values::load
    */
   public function testLoadValueWithMultipleParameters() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
@@ -85,7 +85,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
    * @covers Values::load
    */
   public function testLoadValueWithSimpleParameterAsAttribute() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
@@ -102,7 +102,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
    * @covers Values::load
    */
   public function testLoadValueWithParametersList() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()

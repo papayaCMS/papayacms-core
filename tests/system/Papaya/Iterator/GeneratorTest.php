@@ -39,7 +39,7 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
       array($this, 'callbackReturnArgument'), array(array('foo', 'bar'))
     );
     $this->assertEquals(
-      new ArrayIterator(array('foo', 'bar')), $iterator->getIterator()
+      new \ArrayIterator(array('foo', 'bar')), $iterator->getIterator()
     );
   }
 
@@ -50,7 +50,7 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
   */
   public function testGetIteratorWithIterator() {
     $iterator = new \Papaya\Iterator\Generator(
-      array($this, 'callbackReturnArgument'), array($innerIterator = new EmptyIterator)
+      array($this, 'callbackReturnArgument'), array($innerIterator = new \EmptyIterator)
     );
     $this->assertSame(
       $innerIterator, $iterator->getIterator()
@@ -67,7 +67,7 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
     $wrapper
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator(array('foo'))));
+      ->will($this->returnValue(new \ArrayIterator(array('foo'))));
 
     $iterator = new \Papaya\Iterator\Generator(
       array($this, 'callbackReturnArgument'),

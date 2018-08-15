@@ -64,7 +64,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -95,7 +95,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -113,7 +113,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
   * @covers Media::setMediaDatabase
   */
   public function testSetMediaDatabase() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $controller = new Media();
     $controller->setMediaDatabase($generator);
@@ -126,7 +126,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
   * @covers Media::getMediaDatabase
   */
   public function testGetMediaDatabase() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $controller = new Media();
     $controller->setMediaDatabase($generator);
@@ -159,7 +159,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
 
     $application = $this->mockPapaya()->application(array('Surfer' => $surfer));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -192,7 +192,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
 
     $application = $this->mockPapaya()->application(array('Surfer' => $surfer));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -217,7 +217,7 @@ class PapayaControllerMediaTest extends \PapayaTestCase {
   * @covers Media::_outputPublicFile
   */
   public function testOutputPublicFileWithoutFolderPermissions() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())

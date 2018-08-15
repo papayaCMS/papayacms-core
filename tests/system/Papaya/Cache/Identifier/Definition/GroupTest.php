@@ -104,13 +104,13 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
    * @covers Group
    */
   public function testAdd() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Definition $one */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Definition $one */
     $one = $this->createMock(Definition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(array('foo' => '21')));
-    /** @var PHPUnit_Framework_MockObject_MockObject|Definition $two */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Definition $two */
     $two = $this->createMock(Definition::class);
     $two
       ->expects($this->once())

@@ -94,7 +94,7 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
     $result
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($fields)));
+      ->will($this->returnValue(new \ArrayIterator($fields)));
     return $result;
   }
 }

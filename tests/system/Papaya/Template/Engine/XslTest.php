@@ -155,7 +155,7 @@ class PapayaTemplateEngineXslTest extends \PapayaTestCase {
     $engine = new \Papaya\Template\Engine\Xsl();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
-    $engine->setProcessor(new stdClass);
+    $engine->setProcessor(new \stdClass);
   }
 
   /**

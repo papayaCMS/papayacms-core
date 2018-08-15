@@ -29,7 +29,7 @@ class PapayaPluginHookableContextTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Hookable\Context::__construct
    */
   public function testConstructorWithAllArguments() {
-    $context = new \Papaya\Plugin\Hookable\Context($parent = new stdClass(), array('foo' => 'bar'));
+    $context = new \Papaya\Plugin\Hookable\Context($parent = new \stdClass(), array('foo' => 'bar'));
     $this->assertSame($parent, $context->getParent());
     $this->assertEquals(array('foo' => 'bar'), iterator_to_array($context->data()));
   }
@@ -38,7 +38,7 @@ class PapayaPluginHookableContextTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Hookable\Context::hasParent
    */
   public function testHasParentExpectingTrue() {
-    $context = new \Papaya\Plugin\Hookable\Context(new stdClass());
+    $context = new \Papaya\Plugin\Hookable\Context(new \stdClass());
     $this->assertTrue($context->hasParent());
   }
 
@@ -54,7 +54,7 @@ class PapayaPluginHookableContextTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Hookable\Context::getParent
    */
   public function testGetParent() {
-    $context = new \Papaya\Plugin\Hookable\Context($parent = new stdClass());
+    $context = new \Papaya\Plugin\Hookable\Context($parent = new \stdClass());
     $this->assertSame($parent, $context->getParent());
   }
 

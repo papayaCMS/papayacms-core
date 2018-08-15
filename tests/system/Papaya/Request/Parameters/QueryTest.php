@@ -295,7 +295,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
         'bar=1'
       ),
       array(
-        array('foo' => new stdClass, 'bar' => 1),
+        array('foo' => new \stdClass, 'bar' => 1),
         '[]',
         'bar=1'
       )

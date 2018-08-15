@@ -323,9 +323,9 @@ class PapayaUiTokensTest extends \PapayaTestCase {
     return array(
       'empty string' => array('d41d8cd98f00b204e9800998ecf8427e', ''),
       'string' => array('09a15e9660c1ebc6f429d818825ce0c6', stdClass::class),
-      'object' => array('09a15e9660c1ebc6f429d818825ce0c6', new stdClass()),
+      'object' => array('09a15e9660c1ebc6f429d818825ce0c6', new \stdClass()),
       'complex string' => array('e9a0aef46725a205149d6a0af38eeb3e', 'sample_stdClass'),
-      'array' => array('e9a0aef46725a205149d6a0af38eeb3e', array('sample', new stdClass)),
+      'array' => array('e9a0aef46725a205149d6a0af38eeb3e', array('sample', new \stdClass)),
       'array in array' => array('3ffefdbd45ffc7b445275f404f5e201e', array(array('sample'))),
     );
   }

@@ -25,7 +25,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $record = new Domain();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $record->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
@@ -40,7 +40,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       /** @lang XML */
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
       $record->callbackFieldSerialization(
-        new stdClass(),
+        new \stdClass(),
         Mapping::PROPERTY_TO_FIELD,
         'options',
         'domain_options',
@@ -57,7 +57,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
     $this->assertEquals(
       array('SAMPLE_OPTION' => 'sample data'),
       $record->callbackFieldSerialization(
-        new stdClass(),
+        new \stdClass(),
         Mapping::FIELD_TO_PROPERTY,
         'options',
         'domain_options',
@@ -75,7 +75,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
     $this->assertEquals(
       'domain.tld',
       $record->callbackFieldSerialization(
-        new stdClass(),
+        new \stdClass(),
         Mapping::FIELD_TO_PROPERTY,
         'host',
         'domain_hostname',
@@ -102,7 +102,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
           '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
       ),
       $record->callbackUpdateHostLength(
-        new stdClass(),
+        new \stdClass(),
         Mapping::PROPERTY_TO_FIELD,
         array(
           'id' => 42,
@@ -144,7 +144,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
         'options' => array('SAMPLE_OPTION' => 'sample data')
       ),
       $record->callbackUpdateHostLength(
-        new stdClass(),
+        new \stdClass(),
         Mapping::FIELD_TO_PROPERTY,
         array(
           'id' => 42,

@@ -43,8 +43,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   public function testConstructorWithFlagsAndIterators() {
     $iterator = new \Papaya\Iterator\Union(
       \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-      new ArrayIterator(),
-      new ArrayIterator()
+      new \ArrayIterator(),
+      new \ArrayIterator()
     );
     $this->assertEquals(\Papaya\Iterator\Union::MIT_KEYS_ASSOC, $iterator->getFlags());
     $this->assertEquals(2, $iterator->countIterators());
@@ -57,7 +57,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testConstructorWithOneIterator() {
     $iterator = new \Papaya\Iterator\Union(
-      new ArrayIterator()
+      new \ArrayIterator()
     );
     $this->assertEquals(1, $iterator->countIterators());
   }
@@ -68,8 +68,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   public function testAttachIterators() {
     $iterator = new \Papaya\Iterator\Union();
     $iterator->attachIterators(
-      new ArrayIterator(),
-      new ArrayIterator()
+      new \ArrayIterator(),
+      new \ArrayIterator()
     );
     $this->assertEquals(2, $iterator->countIterators());
   }
@@ -79,7 +79,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testAttachIterator() {
     $iterator = new \Papaya\Iterator\Union();
-    $iterator->attachIterator(new ArrayIterator());
+    $iterator->attachIterator(new \ArrayIterator());
     $this->assertEquals(1, $iterator->countIterators());
   }
 
@@ -88,7 +88,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::getIteratorIdentifier
   */
   public function testAttachIteratorWithIteratorAggregate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversable */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversable */
     $traversable = $this->createMock(IteratorAggregate::class);
     $iterator = new \Papaya\Iterator\Union();
     $iterator->attachIterator($traversable);
@@ -99,9 +99,9 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::attachIterators
   */
   public function testAttachIteratorsWithTwoIteratorAggregate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableOne */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableOne */
     $traversableOne = $this->createMock(IteratorAggregate::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableTwo */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableTwo */
     $traversableTwo = $this->createMock(IteratorAggregate::class);
     $iterator = new \Papaya\Iterator\Union();
     $iterator->attachIterators($traversableOne, $traversableTwo);
@@ -123,7 +123,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::containsIterator
   */
   public function testContainsIteratorExpectingTrue() {
-    $iterator = new \Papaya\Iterator\Union($innerIterator = new ArrayIterator());
+    $iterator = new \Papaya\Iterator\Union($innerIterator = new \ArrayIterator());
     $this->assertTrue($iterator->containsIterator($innerIterator));
   }
 
@@ -140,7 +140,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testContainsIteratorExpectingFalse() {
     $iterator = new \Papaya\Iterator\Union();
-    $innerIterator = new ArrayIterator();
+    $innerIterator = new \ArrayIterator();
     $this->assertFalse($iterator->containsIterator($innerIterator));
   }
 
@@ -156,7 +156,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::detachIterator
   */
   public function testDetachIterator() {
-    $iterator = new \Papaya\Iterator\Union($innerIterator = new ArrayIterator());
+    $iterator = new \Papaya\Iterator\Union($innerIterator = new \ArrayIterator());
     $iterator->detachIterator($innerIterator);
     $this->assertFalse($iterator->containsIterator($innerIterator));
   }
@@ -165,7 +165,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::getInnerIterator
   */
   public function testGetInnerIterator() {
-    $iterator = new \Papaya\Iterator\Union($innerIterator = new ArrayIterator());
+    $iterator = new \Papaya\Iterator\Union($innerIterator = new \ArrayIterator());
     $this->assertSame($innerIterator, $iterator->getInnerIterator());
   }
 
@@ -178,8 +178,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testIteration() {
     $iterator = new \Papaya\Iterator\Union(
-      new ArrayIterator(array(21 => 'One')),
-      new ArrayIterator(array(42 => 'Two', 84 => 'Three'))
+      new \ArrayIterator(array(21 => 'One')),
+      new \ArrayIterator(array(42 => 'Two', 84 => 'Three'))
     );
     $this->assertEquals(
       array('One', 'Two', 'Three'),
@@ -197,8 +197,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   public function testIterationWithKeys() {
     $iterator = new \Papaya\Iterator\Union(
       \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-      new ArrayIterator(array(21 => 'One')),
-      new ArrayIterator(array(42 => 'Two', 84 => 'Three'))
+      new \ArrayIterator(array(21 => 'One')),
+      new \ArrayIterator(array(42 => 'Two', 84 => 'Three'))
     );
     $this->assertEquals(
       array(21 => 'One', 42 => 'Two', 84 => 'Three'),
@@ -218,7 +218,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
     $traversable
       ->expects($this->once())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator(array(21 => 'One'))));
+      ->will($this->returnValue(new \ArrayIterator(array(21 => 'One'))));
 
     $iterator = new \Papaya\Iterator\Union(
       \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
@@ -239,8 +239,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testWithSecondIteratorIsEmpty() {
     $iterator = new \Papaya\Iterator\Union(
-      new ArrayIterator(array(21 => 'One')),
-      new ArrayIterator()
+      new \ArrayIterator(array(21 => 'One')),
+      new \ArrayIterator()
     );
     $this->assertEquals(
       array('One'),
@@ -257,8 +257,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   */
   public function testWithFirstIteratorIsEmpty() {
     $iterator = new \Papaya\Iterator\Union(
-      new ArrayIterator(),
-      new ArrayIterator(array(21 => 'One'))
+      new \ArrayIterator(),
+      new \ArrayIterator(array(21 => 'One'))
     );
     $this->assertEquals(
       array('One'),
@@ -270,7 +270,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::countIterators
   */
   public function testCountIterators() {
-    $iterator = new \Papaya\Iterator\Union(new ArrayIterator());
+    $iterator = new \Papaya\Iterator\Union(new \ArrayIterator());
     $this->assertEquals(1, $iterator->countIterators());
   }
 }

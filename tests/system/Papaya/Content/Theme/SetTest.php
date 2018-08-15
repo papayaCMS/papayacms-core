@@ -120,7 +120,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   * @covers Set::getValuesXML
   */
   public function testGetValuesXml() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Structure $definition */
     $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
@@ -137,7 +137,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   public function testSetValuesXml() {
     $document = new \Papaya\XML\Document();
     $element = $document->appendElement('set');
-    /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Structure $definition */
     $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())

@@ -38,7 +38,7 @@ class PapayaDatabaseConditionGeneratorTest extends \PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|Access $parent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Access $parent */
     $parent = $this->createMock(Access::class);
     $parent
       ->expects($this->once())
@@ -56,7 +56,7 @@ class PapayaDatabaseConditionGeneratorTest extends \PapayaTestCase {
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
-    new Generator(new stdClass());
+    new Generator(new \stdClass());
   }
 
   /**

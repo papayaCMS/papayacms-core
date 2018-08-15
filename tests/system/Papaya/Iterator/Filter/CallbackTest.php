@@ -24,7 +24,7 @@ class PapayaIteratorFilterCallbackTest extends \PapayaTestCase {
   */
   public function testConstructor() {
     $callback = function($element) { return is_int($element); };
-    $filter = new \Papaya\Iterator\Filter\Callback(new EmptyIterator(), $callback);
+    $filter = new \Papaya\Iterator\Filter\Callback(new \EmptyIterator(), $callback);
     $this->assertEquals($callback, $filter->getCallback());
   }
 
@@ -33,7 +33,7 @@ class PapayaIteratorFilterCallbackTest extends \PapayaTestCase {
   */
   public function testSetCallbackWithInvalidCallbackExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    new \Papaya\Iterator\Filter\Callback(new EmptyIterator(), NULL);
+    new \Papaya\Iterator\Filter\Callback(new \EmptyIterator(), NULL);
   }
 
   /**
@@ -45,7 +45,7 @@ class PapayaIteratorFilterCallbackTest extends \PapayaTestCase {
       'fail' => 'wrong'
     );
     $filter = new \Papaya\Iterator\Filter\Callback(
-      new ArrayIterator($data), function($element) { return is_int($element); }
+      new \ArrayIterator($data), function($element) { return is_int($element); }
     );
     $this->assertEquals(
       array('ok' => 42),

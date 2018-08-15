@@ -22,7 +22,7 @@ class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
   */
   public function testIteration() {
     $iterator = new \Papaya\Iterator\RegEx\Replace(
-      new ArrayIterator(array('21 42', '42 84')),
+      new \ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0'
     );
@@ -40,7 +40,7 @@ class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
   */
   public function testIterationLimitReplace() {
     $iterator = new \Papaya\Iterator\RegEx\Replace(
-      new ArrayIterator(array('21 42', '42 84')),
+      new \ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0',
       1

@@ -45,7 +45,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   */
   public function testConstructorWithTraversable() {
     $select = new \Papaya\UI\Dialog\Field\Select(
-      'Caption', 'name', $iterator = new ArrayIterator(array(21 => 'half', 42 => 'full'))
+      'Caption', 'name', $iterator = new \ArrayIterator(array(21 => 'half', 42 => 'full'))
     );
     $this->assertAttributeSame(
       $iterator, '_values', $select
@@ -167,7 +167,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   */
   public function testAppendToWithIterator() {
     $select = new \Papaya\UI\Dialog\Field\Select(
-      'Caption', 'name', new ArrayIterator(array(21 => 'half', 42 => 'full'))
+      'Caption', 'name', new \ArrayIterator(array(21 => 'half', 42 => 'full'))
     );
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
@@ -232,7 +232,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   public function testAppendToWithDefaultValue() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())

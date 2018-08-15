@@ -92,7 +92,7 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   public function testOffsetSetWithInvalidValue() {
     $options = new \Papaya\BaseObject\Options\Collection();
     $this->expectException(InvalidArgumentException::class);
-    $options['SAMPLE'] = new stdClass();
+    $options['SAMPLE'] = new \stdClass();
   }
 
   /**

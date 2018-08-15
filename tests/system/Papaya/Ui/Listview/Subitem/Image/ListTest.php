@@ -63,7 +63,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               'foo' => $iconValid,
               'bar' => $iconInvalid
@@ -115,7 +115,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               'foo' => $iconValid,
               'bar' => $iconInvalid
@@ -171,7 +171,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               1 => $iconValid,
               2 => $iconInvalid

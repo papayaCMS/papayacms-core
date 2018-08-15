@@ -48,7 +48,7 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Paging\Steps::appendTo
   */
   public function testAppendToWithTraversable() {
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, new ArrayIterator(array(10)));
+    $steps = new \Papaya\UI\Paging\Steps('steps', 20, new \ArrayIterator(array(10)));
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

@@ -23,7 +23,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))

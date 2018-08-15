@@ -315,7 +315,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testValidateExpectingError() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -344,7 +344,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testHandleValidationFailure() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -377,7 +377,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testCollectWithoutName() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
@@ -395,7 +395,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'), $this->identicalTo('42'));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -422,7 +422,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'), $this->identicalTo(42));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -451,7 +451,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'), $this->identicalTo('42'));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -464,7 +464,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');
-    $field->setDefaultValue(new stdClass());
+    $field->setDefaultValue(new \stdClass());
     $this->assertTrue($field->collect());
   }
 
@@ -486,7 +486,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'), $this->identicalTo(42));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -521,7 +521,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'), $this->identicalTo(21));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -564,7 +564,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testGetCurrentValueAfterCheckingDialog() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -587,7 +587,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -605,7 +605,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogData() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -627,7 +627,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogDataValueNotFound() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -649,7 +649,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogDataValueIsNull() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -671,7 +671,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testAppendFieldTo() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -703,7 +703,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())

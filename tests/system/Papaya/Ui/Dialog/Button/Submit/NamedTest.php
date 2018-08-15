@@ -67,7 +67,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   public function testAppendToWithDialogParameterGroup() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())
@@ -112,7 +112,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())
@@ -147,7 +147,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())
@@ -191,7 +191,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->will($this->returnValue(FALSE));
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())

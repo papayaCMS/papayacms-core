@@ -22,7 +22,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    * @covers \Papaya\Response\Content\CSV::length
    */
   public function testLength() {
-    $content = new \Papaya\Response\Content\CSV(new EmptyIterator(), []);
+    $content = new \Papaya\Response\Content\CSV(new \EmptyIterator(), []);
     $this->assertEquals(-1, $content->length());
   }
 
@@ -31,7 +31,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    */
   public function testOutputUsingNumericColumnIndex() {
     $content = new \Papaya\Response\Content\CSV(
-      new ArrayIterator(
+      new \ArrayIterator(
         [
           ['1', '2'],
           ['3', '4']
@@ -52,7 +52,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    */
   public function testOutputUsingNamedColumnIndex() {
     $content = new \Papaya\Response\Content\CSV(
-      new ArrayIterator(
+      new \ArrayIterator(
         [
           ['one' => 'first value', 'two' => 'second value'],
           ['two' => 4, 'one' => 3],
@@ -75,7 +75,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    */
   public function testOutputWithoutColumns() {
     $content = new \Papaya\Response\Content\CSV(
-      new ArrayIterator(
+      new \ArrayIterator(
         [
           ['1', '2'],
           ['3', '4']
@@ -95,7 +95,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    */
   public function testOutputMappingRowAndField() {
     $content = new \Papaya\Response\Content\CSV(
-      new ArrayIterator([1, 2])
+      new \ArrayIterator([1, 2])
     );
     $content->callbacks()->onMapRow = function($original) {
       $data = [

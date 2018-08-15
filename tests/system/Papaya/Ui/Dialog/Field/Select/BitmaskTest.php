@@ -34,7 +34,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   */
   public function testConstructorInitializesFilterFromIterator() {
     $select = new \Papaya\UI\Dialog\Field\Select\Bitmask(
-      'Caption', 'name', new ArrayIterator(array(1 => 'One', 2 => 'Two'))
+      'Caption', 'name', new \ArrayIterator(array(1 => 'One', 2 => 'Two'))
     );
     $this->assertEquals(
       new \Papaya\Filter\Bitmask(array(1, 2)), $select->getFilter()
@@ -113,7 +113,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->exactly(2))
@@ -132,7 +132,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   public function testGetCurrentValueWhileDialogWasSendButNoOptionSelected() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->once())
@@ -155,7 +155,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
   public function testGetCurrentValueWhileDialogWasNotSend() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new stdClass()))
+      ->setConstructorArgs(array(new \stdClass()))
       ->getMock();
     $dialog
       ->expects($this->any())

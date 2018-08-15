@@ -351,7 +351,7 @@ class PapayaResponseTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will(
         $this->returnValue(
-          new ArrayIterator(
+          new \ArrayIterator(
             array(
               'X-Simple' => '1',
               'X-Complex' => array('2_1', '2_2')

@@ -73,7 +73,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
     $document = new \Papaya\XML\Document();
     $value = new \Papaya\Template\Value($document->appendElement('dom'));
     $this->expectException(InvalidArgumentException::class);
-    $value->node(new stdClass());
+    $value->node(new \stdClass());
   }
 
   /**
