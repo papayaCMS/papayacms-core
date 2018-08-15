@@ -240,7 +240,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   */
   public function testPropertyValidationExpectingExceptionForUnknown() {
     $item = new \PapayaObjectItem_TestProxy(array());
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     $this->expectExceptionMessage('Property/Index "test" is not defined for item class "PapayaObjectItem_TestProxy".');
     /** @noinspection PhpUndefinedFieldInspection */
     $item->test = 'fail';

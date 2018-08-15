@@ -75,7 +75,7 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
    * @param string $encoded
    */
   public function testDecodeExpectingException($encoded) {
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     \Papaya\Utility\Text\Base32::decode($encoded);
   }
 

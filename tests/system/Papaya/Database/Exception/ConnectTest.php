@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Exception\Connect;
+namespace Papaya\Database\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseExceptionConnectTest extends \PapayaTestCase {
+class ConnectTest extends \PapayaTestCase {
 
   /**
-  * @covers Connect::__construct
-  */
+   * @covers Connect::__construct
+   */
   public function testConstructorWithMessage() {
     $exception = new Connect('Sample');
     $this->assertEquals(
@@ -33,8 +33,8 @@ class PapayaDatabaseExceptionConnectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Connect::__construct
-  */
+   * @covers Connect::__construct
+   */
   public function testConstructorWithCode() {
     $exception = new Connect('Sample', 42);
     $this->assertEquals(

@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Exception\Query;
+namespace Papaya\Database\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
+class QueryTest extends \PapayaTestCase {
 
   /**
-  * @covers Query::__construct
-  */
+   * @covers Query::__construct
+   */
   public function testConstructorWithMessage() {
     $exception = new Query('Sample');
     $this->assertEquals(
@@ -30,8 +30,8 @@ class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Query::__construct
-  */
+   * @covers Query::__construct
+   */
   public function testConstructorWithCode() {
     $exception = new Query('Sample', 42);
     $this->assertEquals(
@@ -40,9 +40,9 @@ class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Query::__construct
-  * @covers Query::getSeverity
-  */
+   * @covers Query::__construct
+   * @covers Query::getSeverity
+   */
   public function testConstructorWithSeverity() {
     $exception = new Query(
       'Sample', 42, \Papaya\Database\Exception::SEVERITY_INFO
@@ -53,9 +53,9 @@ class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Query::__construct
-  * @covers Query::getSeverity
-  */
+   * @covers Query::__construct
+   * @covers Query::getSeverity
+   */
   public function testConstructorWithNullAsSeverity() {
     $exception = new Query('Sample', 42, NULL);
     $this->assertEquals(
@@ -64,9 +64,9 @@ class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Query::__construct
-  * @covers Query::getStatement
-  */
+   * @covers Query::__construct
+   * @covers Query::getStatement
+   */
   public function testConstructorWithSql() {
     $exception = new Query(
       'Sample', 42, \Papaya\Database\Exception::SEVERITY_INFO, 'Select SQL'

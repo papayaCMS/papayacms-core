@@ -192,7 +192,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
 
   public function testGetWithoutItemExpectingException() {
     $collection = new \Papaya\UI\Control\Collection();
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "0".');
     $collection->get(0);
   }
@@ -364,7 +364,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $itemTwo = $this->getMockItemFixture();
     $collection = new \Papaya\UI\Control\Collection();
     $collection->add($itemOne);
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
     $collection->set(99, $itemTwo);
   }
@@ -431,7 +431,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $itemTwo = $this->getMockItemFixture();
     $collection = new \Papaya\UI\Control\Collection();
     $collection->add($itemOne);
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
     $collection->insertBefore(99, $itemTwo);
   }
@@ -458,7 +458,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $itemOne = $this->getMockItemFixture();
     $collection = new \Papaya\UI\Control\Collection();
     $collection->add($itemOne);
-    $this->expectException(OutOfBoundsException::class);
+    $this->expectException(\OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
     $collection->remove(99);
   }

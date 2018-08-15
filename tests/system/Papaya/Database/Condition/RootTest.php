@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Condition\Root;
+namespace Papaya\Database\Condition;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseConditionRootTest extends \PapayaTestCase {
+class RootTest extends \PapayaTestCase {
 
   /**
    * @covers Root
