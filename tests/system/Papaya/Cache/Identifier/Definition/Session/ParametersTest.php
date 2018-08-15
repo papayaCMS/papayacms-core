@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Session\Parameters;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition\Session;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCase {
+class ParametersTest extends \PapayaTestCase {
 
   /**
    * @covers Parameters
@@ -125,6 +124,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCa
       $definition->getStatus()
     );
   }
+
   /**
    * @covers Parameters
    */
@@ -186,7 +186,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCa
   public function testGetSources() {
     $definition = new Parameters('foo');
     $this->assertEquals(
-      Definition::SOURCE_SESSION,
+      \Papaya\Cache\Identifier\Definition::SOURCE_SESSION,
       $definition->getSources()
     );
   }

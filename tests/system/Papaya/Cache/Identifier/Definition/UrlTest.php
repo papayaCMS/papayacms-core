@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\URL;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionUrlTest extends \PapayaTestCase {
+class UrlTest extends \PapayaTestCase {
 
   /**
    * @covers URL
@@ -46,7 +45,7 @@ class PapayaCacheIdentifierDefinitionUrlTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new URL();
     $this->assertEquals(
-      Definition::SOURCE_URL,
+      \Papaya\Cache\Identifier\Definition::SOURCE_URL,
       $definition->getSources()
     );
   }

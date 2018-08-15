@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Page;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionPageTest extends \PapayaTestCase {
+class PageTest extends \PapayaTestCase {
 
   /**
    * @covers       Page
@@ -26,7 +25,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends \PapayaTestCase {
    * @param array $expected
    * @param array $parameters
    */
-  public function testGetStatus(array $expected, array  $parameters) {
+  public function testGetStatus(array $expected, array $parameters) {
     $definition = new Page();
     $definition->papaya(
       $this->mockPapaya()->application(
@@ -78,7 +77,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends \PapayaTestCase {
         )
       ),
       $definition->getStatus()
-     );
+    );
     $_SERVER = $environment;
   }
 
@@ -88,7 +87,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new Page();
     $this->assertEquals(
-      Definition::SOURCE_URL,
+      \Papaya\Cache\Identifier\Definition::SOURCE_URL,
       $definition->getSources()
     );
   }

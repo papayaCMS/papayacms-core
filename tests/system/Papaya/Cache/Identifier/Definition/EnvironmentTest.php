@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Environment;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionEnvironmentTest extends \PapayaTestCase {
+class EnvironmentTest extends \PapayaTestCase {
 
   /**
    * @covers Environment
@@ -49,7 +48,7 @@ class PapayaCacheIdentifierDefinitionEnvironmentTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new Environment('X');
     $this->assertEquals(
-      Definition::SOURCE_REQUEST,
+      \Papaya\Cache\Identifier\Definition::SOURCE_REQUEST,
       $definition->getSources()
     );
   }

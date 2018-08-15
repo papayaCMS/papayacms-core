@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\BooleanValue;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionBooleanTest extends \PapayaTestCase {
+class BooleanValueTest extends \PapayaTestCase {
 
   /**
    * @covers BooleanValue
@@ -40,7 +39,9 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends \PapayaTestCase {
    * @covers BooleanValue
    */
   public function testGetStatusForCallableReturningTrue() {
-    $definition = new BooleanValue(function() { return TRUE; });
+    $definition = new BooleanValue(function () {
+      return TRUE;
+    });
     $this->assertTrue($definition->getStatus());
   }
 
@@ -48,7 +49,9 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends \PapayaTestCase {
    * @covers BooleanValue
    */
   public function testGetStatusForCallableReturningFalse() {
-    $definition = new BooleanValue(function() { return FALSE; });
+    $definition = new BooleanValue(function () {
+      return FALSE;
+    });
     $this->assertFalse($definition->getStatus());
   }
 
@@ -58,7 +61,7 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new BooleanValue(TRUE);
     $this->assertEquals(
-      Definition::SOURCE_VARIABLES,
+      \Papaya\Cache\Identifier\Definition::SOURCE_VARIABLES,
       $definition->getSources()
     );
   }

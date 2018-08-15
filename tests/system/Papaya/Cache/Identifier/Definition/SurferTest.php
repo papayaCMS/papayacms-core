@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Surfer;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionSurferTest extends \PapayaTestCase {
+class SurferTest extends \PapayaTestCase {
 
   /**
    * @covers Surfer
@@ -64,7 +63,7 @@ class PapayaCacheIdentifierDefinitionSurferTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new Surfer();
     $this->assertEquals(
-      Definition::SOURCE_REQUEST,
+      \Papaya\Cache\Identifier\Definition::SOURCE_REQUEST,
       $definition->getSources()
     );
   }

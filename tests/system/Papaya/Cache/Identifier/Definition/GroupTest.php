@@ -13,18 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Group;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group
    */
   public function testGetStatusWithOneDefinitionReturingTrue() {
-    $mockDefinition = $this->createMock(Definition::class);
+    $mockDefinition = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $mockDefinition
       ->expects($this->once())
       ->method('getStatus')
@@ -37,12 +36,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
    * @covers Group
    */
   public function testGetStatusWithTwoDefinitionsReturingFalseSecondNeverCalled() {
-    $one = $this->createMock(Definition::class);
+    $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(FALSE));
-    $two = $this->createMock(Definition::class);
+    $two = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $two
       ->expects($this->never())
       ->method('getStatus');
@@ -54,12 +53,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
    * @covers Group
    */
   public function testGetStatusWithTwoDefinitionsMergingReturns() {
-    $one = $this->createMock(Definition::class);
+    $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(array('foo' => '21')));
-    $two = $this->createMock(Definition::class);
+    $two = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $two
       ->expects($this->once())
       ->method('getStatus')
@@ -68,7 +67,7 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         Group::class => array(
-           array('foo' => '21'), array('bar' => '48')
+          array('foo' => '21'), array('bar' => '48')
         )
       ),
       $definition->getStatus()
@@ -83,12 +82,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
    * @param int $sourceTwo
    */
   public function testGetSourcesFromTwoDefinitions($expected, $sourceOne, $sourceTwo) {
-    $one = $this->createMock(Definition::class);
+    $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $one
       ->expects($this->once())
       ->method('getSources')
       ->will($this->returnValue($sourceOne));
-    $two = $this->createMock(Definition::class);
+    $two = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $two
       ->expects($this->once())
       ->method('getSources')
@@ -104,14 +103,14 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
    * @covers Group
    */
   public function testAdd() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Definition $one */
-    $one = $this->createMock(Definition::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Cache\Identifier\Definition $one */
+    $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(array('foo' => '21')));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Definition $two */
-    $two = $this->createMock(Definition::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Cache\Identifier\Definition $two */
+    $two = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
     $two
       ->expects($this->once())
       ->method('getStatus')
@@ -122,7 +121,7 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         Group::class => array(
-           array('foo' => '21'), array('bar' => '48')
+          array('foo' => '21'), array('bar' => '48')
         )
       ),
       $definition->getStatus()
@@ -132,30 +131,30 @@ class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
   public static function provideSourceExamples() {
     return array(
       array(
-        Definition::SOURCE_URL,
-        Definition::SOURCE_URL,
-        Definition::SOURCE_URL
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL,
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL,
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL
       ),
       array(
-        Definition::SOURCE_URL |
-          Definition::SOURCE_SESSION,
-        Definition::SOURCE_URL,
-        Definition::SOURCE_SESSION
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL |
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION,
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL,
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION
       ),
       array(
-        Definition::SOURCE_URL |
-          Definition::SOURCE_SESSION,
-        Definition::SOURCE_URL |
-          Definition::SOURCE_SESSION,
-        Definition::SOURCE_SESSION
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL |
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION,
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL |
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION,
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION
       ),
       array(
-        Definition::SOURCE_URL |
-          Definition::SOURCE_SESSION |
-          Definition::SOURCE_VARIABLES,
-        Definition::SOURCE_URL |
-          Definition::SOURCE_SESSION,
-        Definition::SOURCE_VARIABLES
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL |
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION |
+        \Papaya\Cache\Identifier\Definition::SOURCE_VARIABLES,
+        \Papaya\Cache\Identifier\Definition::SOURCE_URL |
+        \Papaya\Cache\Identifier\Definition::SOURCE_SESSION,
+        \Papaya\Cache\Identifier\Definition::SOURCE_VARIABLES
       ),
     );
   }

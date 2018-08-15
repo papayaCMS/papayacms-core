@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Parameters;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionParametersTest extends \PapayaTestCase {
+class ParametersTest extends \PapayaTestCase {
 
   /**
    * @covers       Parameters
@@ -47,7 +46,7 @@ class PapayaCacheIdentifierDefinitionParametersTest extends \PapayaTestCase {
   public function testGetSourcesWithDefaultMethodGet() {
     $definition = new Parameters(array('foo'));
     $this->assertEquals(
-      Definition::SOURCE_URL,
+      \Papaya\Cache\Identifier\Definition::SOURCE_URL,
       $definition->getSources()
     );
   }
@@ -60,7 +59,7 @@ class PapayaCacheIdentifierDefinitionParametersTest extends \PapayaTestCase {
       array('foo'), NULL, \Papaya\Request\Parameters\Access::METHOD_POST
     );
     $this->assertEquals(
-      Definition::SOURCE_REQUEST,
+      \Papaya\Cache\Identifier\Definition::SOURCE_REQUEST,
       $definition->getSources()
     );
   }

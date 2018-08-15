@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Values;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionValuesTest extends \PapayaTestCase {
+class ValuesTest extends \PapayaTestCase {
 
   /**
    * @covers Values
@@ -48,7 +47,7 @@ class PapayaCacheIdentifierDefinitionValuesTest extends \PapayaTestCase {
   public function testGetSources() {
     $definition = new Values();
     $this->assertEquals(
-      Definition::SOURCE_VARIABLES,
+      \Papaya\Cache\Identifier\Definition::SOURCE_VARIABLES,
       $definition->getSources()
     );
   }

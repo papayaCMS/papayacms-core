@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Callback;
-use Papaya\Cache\Identifier\Definition;
+namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionCallbackTest extends \PapayaTestCase {
+class CallbackTest extends \PapayaTestCase {
 
   /**
    * @covers Callback
    */
   public function testGetStatus() {
-    $definition = new Callback(function() { return 'success'; });
+    $definition = new Callback(function () {
+      return 'success';
+    });
     $this->assertEquals(
       array(
         Callback::class => 'success'
@@ -37,7 +38,9 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends \PapayaTestCase {
    * @covers Callback
    */
   public function testGetStatusExpectingFalse() {
-    $definition = new Callback(function() { return FALSE; });
+    $definition = new Callback(function () {
+      return FALSE;
+    });
     $this->assertFalse($definition->getStatus());
   }
 
@@ -45,9 +48,11 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends \PapayaTestCase {
    * @covers Callback
    */
   public function testGetSources() {
-    $definition = new Callback(function() { return FALSE; });
+    $definition = new Callback(function () {
+      return FALSE;
+    });
     $this->assertEquals(
-      Definition::SOURCE_VARIABLES,
+      \Papaya\Cache\Identifier\Definition::SOURCE_VARIABLES,
       $definition->getSources()
     );
   }
