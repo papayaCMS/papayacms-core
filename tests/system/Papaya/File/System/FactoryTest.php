@@ -13,23 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFileSystemFactoryTest extends \PapayaTestCase {
+class FactoryTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\File\System\Factory::getFile
    */
   public function testGetFile() {
-    $factory = new \Papaya\File\System\Factory();
-    $this->assertInstanceOf(\Papaya\File\System\File::class, $factory->getFile('/path/file.txt'));
+    $factory = new Factory();
+    $this->assertInstanceOf(File::class, $factory->getFile('/path/file.txt'));
   }
 
   /**
    * @covers \Papaya\File\System\Factory::getDirectory
    */
   public function testGetDirectory() {
-    $factory = new \Papaya\File\System\Factory();
-    $this->assertInstanceOf(\Papaya\File\System\Directory::class, $factory->getDirectory('/path'));
+    $factory = new Factory();
+    $this->assertInstanceOf(Directory::class, $factory->getDirectory('/path'));
   }
 }

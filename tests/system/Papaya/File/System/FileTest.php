@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFileSystemFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();
@@ -26,7 +28,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\File::__toString
    */
   public function testConstructor() {
-    $file = new \Papaya\File\System\File('/path/file.txt');
+    $file = new File('/path/file.txt');
     $this->assertEquals(
       '/path/file.txt', (string)$file
     );
@@ -36,7 +38,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\File::exists
    */
   public function testExistsExpectingTrue() {
-    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
+    $file = new File(__DIR__.'/TestData/sample.txt');
     $this->assertTrue($file->exists());
   }
 
@@ -44,7 +46,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\File::exists
    */
   public function testExistsExpectingFalse() {
-    $file = new \Papaya\File\System\File(__DIR__.'/TestData/NON_EXISTING.txt');
+    $file = new File(__DIR__.'/TestData/NON_EXISTING.txt');
     $this->assertFalse($file->exists());
   }
 
@@ -52,7 +54,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\File::isReadable
    */
   public function testIsReadableExpectingTrue() {
-    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
+    $file = new File(__DIR__.'/TestData/sample.txt');
     $this->assertTrue($file->isReadable());
   }
 
@@ -62,7 +64,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
   public function testIsWriteableExpectingTrue() {
     $filename = $this->createTemporaryDirectory().'/sample.txt';
     touch($filename);
-    $file = new \Papaya\File\System\File($filename);
+    $file = new File($filename);
     $this->assertTrue($file->isWriteable());
   }
 
@@ -70,7 +72,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\File::getContents
    */
   public function testGetContents() {
-    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
+    $file = new File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals('success', $file->getContents());
   }
 
@@ -79,7 +81,7 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
    */
   public function testPutContents() {
     $filename = $this->createTemporaryDirectory().'/sample.txt';
-    $file = new \Papaya\File\System\File($filename);
+    $file = new File($filename);
     $file->putContents('success');
     $this->assertEquals('success', file_get_contents($filename));
   }

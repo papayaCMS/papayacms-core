@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
+class DirectoryTest extends \PapayaTestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();
@@ -26,7 +28,7 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::__toString
    */
   public function testConstructor() {
-    $directory = new \Papaya\File\System\Directory('/path/');
+    $directory = new Directory('/path/');
     $this->assertEquals(
       '/path', (string)$directory
     );
@@ -36,7 +38,7 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::exists
    */
   public function testExistsExpectingTrue() {
-    $directory = new \Papaya\File\System\Directory(__DIR__);
+    $directory = new Directory(__DIR__);
     $this->assertTrue($directory->exists());
   }
 
@@ -44,7 +46,7 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::exists
    */
   public function testExistsExpectingFalse() {
-    $directory = new \Papaya\File\System\Directory(__DIR__.'NON_EXISTING');
+    $directory = new Directory(__DIR__.'NON_EXISTING');
     $this->assertFalse($directory->exists());
   }
 
@@ -52,7 +54,7 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::isReadable
    */
   public function testIsReadableExpectingTrue() {
-    $directory = new \Papaya\File\System\Directory(__DIR__);
+    $directory = new Directory(__DIR__);
     $this->assertTrue($directory->isReadable());
   }
 
@@ -61,7 +63,7 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    */
   public function testIsWriteableExpectingTrue() {
     $path = $this->createTemporaryDirectory();
-    $directory = new \Papaya\File\System\Directory($path);
+    $directory = new Directory($path);
     $this->assertTrue($directory->isWriteable());
   }
 
@@ -70,14 +72,14 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::callbackFileInfoIsFile
    */
   public function testGetEntriesOnlyFiles() {
-    $directory = new \Papaya\File\System\Directory(__DIR__.'/TestData/Directory');
+    $directory = new Directory(__DIR__.'/TestData/Directory');
     $this->assertEmpty(
       array_diff(
         array(
           'sample-one.txt', 'sample-two.txt'
         ),
         array_keys(
-          iterator_to_array($directory->getEntries('', \Papaya\File\System\Directory::FETCH_FILES))
+          iterator_to_array($directory->getEntries('', Directory::FETCH_FILES))
         )
       )
     );
@@ -88,13 +90,13 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::callbackFileInfoIsFile
    */
   public function testGetEntriesWithFilter() {
-    $directory = new \Papaya\File\System\Directory(__DIR__.'/TestData/Directory');
+    $directory = new Directory(__DIR__.'/TestData/Directory');
     $this->assertEquals(
       array(
         'sample-one.txt'
       ),
       array_keys(
-        iterator_to_array($directory->getEntries('(one)', \Papaya\File\System\Directory::FETCH_FILES))
+        iterator_to_array($directory->getEntries('(one)', Directory::FETCH_FILES))
       )
     );
   }
@@ -104,10 +106,10 @@ class PapayaFileSystemDirectoryTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Directory::callbackFileInfoIsDirectory
    */
   public function testGetEntriesOnlyDirectories() {
-    $directory = new \Papaya\File\System\Directory(__DIR__.'/TestData');
+    $directory = new Directory(__DIR__.'/TestData');
     $this->assertArrayHasKey(
       'Directory',
-      iterator_to_array($directory->getEntries('', \Papaya\File\System\Directory::FETCH_DIRECTORIES))
+      iterator_to_array($directory->getEntries('', Directory::FETCH_DIRECTORIES))
     );
   }
 

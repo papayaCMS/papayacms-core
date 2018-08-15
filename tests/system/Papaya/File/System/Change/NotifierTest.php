@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System\Change;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
+class NotifierTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\File\System\Change\Notifier::__construct
@@ -23,7 +25,7 @@ class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Change\Notifier::action
    */
   public function testConstructorWithScript() {
-    $notifier = new \Papaya\File\System\Change\Notifier('/sample/script.php');
+    $notifier = new Notifier('/sample/script.php');
     $this->assertInstanceOf(
       \Papaya\File\System\Action\Script::class, $notifier->action()
     );
@@ -35,7 +37,7 @@ class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Change\Notifier::action
    */
   public function testConstructorWithUrl() {
-    $notifier = new \Papaya\File\System\Change\Notifier('http://example.tld/sample/script.php');
+    $notifier = new Notifier('http://example.tld/sample/script.php');
     $this->assertInstanceOf(
       \Papaya\File\System\Action\URL::class, $notifier->action()
     );
@@ -47,7 +49,7 @@ class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Change\Notifier::action
    */
   public function testConstructorWithEmptyString() {
-    $notifier = new \Papaya\File\System\Change\Notifier('');
+    $notifier = new Notifier('');
     $this->assertNull(
       $notifier->action()
     );
@@ -57,7 +59,7 @@ class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
    * @covers \Papaya\File\System\Change\Notifier::action
    */
   public function testActionGetAfterSet() {
-    $notifier = new \Papaya\File\System\Change\Notifier('');
+    $notifier = new Notifier('');
     $notifier->action($action = $this->createMock(\Papaya\File\System\Action::class));
     $this->assertSame($action, $notifier->action());
   }
@@ -68,8 +70,8 @@ class PapayaFileSystemChangeNotifierTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('execute')
       ->with(array('action' => 'A', 'file' => '/sample/file.png', 'path' => '/sample/'));
-    $notifier = new \Papaya\File\System\Change\Notifier('');
+    $notifier = new Notifier('');
     $notifier->action($action);
-    $notifier->notify(\Papaya\File\System\Change\Notifier::ACTION_ADD, '/sample/file.png', '/sample/');
+    $notifier->notify(Notifier::ACTION_ADD, '/sample/file.png', '/sample/');
   }
 }

@@ -17,40 +17,39 @@ namespace Papaya\File\System\Action {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ScriptTest extends \PapayaTestCase {
+  class URLTest extends \PapayaTestCase {
 
     /**
-     * @covers \Papaya\File\System\Action\Script::__construct
+     * @covers \Papaya\File\System\Action\URL::__construct
      */
     public function testConstructor() {
-      $action = new Script('/local/script');
+      $action = new URL('http://www.sample.tld/success');
       $this->assertAttributeEquals(
-        '/local/script', '_script', $action
+        'http://www.sample.tld/success', '_url', $action
       );
     }
 
     /**
-     * @covers \Papaya\File\System\Action\Script::execute
+     * @covers \Papaya\File\System\Action\URL::execute
      */
     public function testExecute() {
-      $action = new Script_TestProxy('/local/script');
+      $action = new URL_TestProxy('http://test.tld/remote.php');
       $action->execute(array('foo' => 'bar'));
       $this->assertEquals(
         array(
-          '/local/script',
-          array('--foo' => 'bar')
+          'http://test.tld/remote.php?foo=bar'
         ),
-        $action->commandCall
+        $action->fetchCall
       );
     }
   }
 
-  class Script_TestProxy extends Script {
+  class URL_TestProxy extends URL {
 
-    public $commandCall = array();
+    public $fetchCall = array();
 
-    protected function executeCommand($command, $arguments) {
-      $this->commandCall = func_get_args();
+    protected function fetch($url) {
+      $this->fetchCall = func_get_args();
     }
   }
 }
