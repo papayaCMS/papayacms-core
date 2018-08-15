@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
-use Papaya\Administration\Permission\Groups;
+namespace Papaya\Administration\Permission;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationPermissionGroupsTest extends \PapayaTestCase {
+class GroupsTest extends \PapayaTestCase {
 
   /**
    * @covers Groups::__construct
@@ -42,10 +41,10 @@ class PapayaAdministrationPermissionGroupsTest extends \PapayaTestCase {
    */
   public function testGetIteratorReturnsItems() {
     $permissions = new Groups();
-    $array = iterator_to_array(new RecursiveIteratorIterator($permissions));
+    $array = iterator_to_array(new \RecursiveIteratorIterator($permissions));
     $this->assertArrayHasKey(Groups::MISC, $array);
     $this->assertArrayHasKey(
-      Permissions::MESSAGES,
+      \Papaya\Administration\Permissions::MESSAGES,
       $array[Groups::MISC]
     );
   }
@@ -57,7 +56,7 @@ class PapayaAdministrationPermissionGroupsTest extends \PapayaTestCase {
     $permissions = new Groups();
     $this->assertEquals(
       Groups::MISC,
-      $permissions->getGroupId(Permissions::MESSAGES)
+      $permissions->getGroupId(\Papaya\Administration\Permissions::MESSAGES)
     );
   }
 

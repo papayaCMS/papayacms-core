@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Reference\Command;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCase {
+class DeleteTest extends \PapayaTestCase {
   /**
    * @covers Delete::createDialog
    */
