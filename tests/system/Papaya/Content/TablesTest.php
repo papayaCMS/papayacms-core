@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Tables;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentTablesTest extends \PapayaTestCase {
+class TablesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Content\Tables::get
-  */
+   * @covers \Papaya\Content\Tables::get
+   */
   public function testGetWithoutOptions() {
     $tables = new Tables();
     $this->assertEquals(
@@ -30,8 +30,8 @@ class PapayaContentTablesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Content\Tables::get
-  */
+   * @covers \Papaya\Content\Tables::get
+   */
   public function testGetWithOptionsButDefaultValue() {
     $tables = new Tables();
     $tables->papaya($this->mockPapaya()->application());
@@ -42,8 +42,8 @@ class PapayaContentTablesTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \Papaya\Content\Tables::get
-  */
+   * @covers \Papaya\Content\Tables::get
+   */
   public function testGetWithOptionsPrefixAlreadyAdded() {
     $tables = new Tables();
     $tables->papaya($this->mockPapaya()->application());
@@ -53,8 +53,8 @@ class PapayaContentTablesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Content\Tables::get
-  */
+   * @covers \Papaya\Content\Tables::get
+   */
   public function testGetWithOptions() {
     $tables = new Tables();
     $tables->papaya(
@@ -74,8 +74,8 @@ class PapayaContentTablesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Content\Tables::get
-  */
+   * @covers \Papaya\Content\Tables::get
+   */
   public function testGetWithOptionsIsEmptyString() {
     $tables = new Tables();
     $tables->papaya(
@@ -95,8 +95,8 @@ class PapayaContentTablesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Content\Tables::getTables
-  */
+   * @covers \Papaya\Content\Tables::getTables
+   */
   public function testGetTables() {
     $this->assertInternalType('array', \Papaya\Content\Tables::getTables());
   }

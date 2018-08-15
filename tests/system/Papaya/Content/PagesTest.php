@@ -13,18 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Pages;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
-use Papaya\Database\Interfaces\Mapping;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentPagesTest extends \PapayaTestCase {
+class PagesTest extends \PapayaTestCase {
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -80,8 +77,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testLoadWithEmptyFilter() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -137,8 +134,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testLoadWithId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -199,8 +196,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testLoadWithStatus() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -265,8 +262,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testLoadWithParentId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -327,8 +324,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new Pages();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -337,8 +334,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testMapValueReturnsValueByDefault() {
     $pages = new Pages();
     $this->assertEquals(
@@ -354,8 +351,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testMapValueDecodesPath() {
     $pages = new Pages();
     $this->assertEquals(
@@ -371,8 +368,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testMapValueEncodesPath() {
     $pages = new Pages();
     $this->assertEquals(
@@ -388,8 +385,8 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Pages
-  */
+   * @covers Pages
+   */
   public function testIsPublicExpectingFalse() {
     $pages = new Pages();
     $this->assertFalse($pages->isPublic());

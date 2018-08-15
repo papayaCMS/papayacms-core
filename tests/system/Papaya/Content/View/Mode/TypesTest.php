@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\View\Mode\Types;
+namespace Papaya\Content\View\Mode;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentViewModeTypesTest extends \PapayaTestCase {
+class TypesTest extends \PapayaTestCase {
 
   /**
    * @covers Types::exists

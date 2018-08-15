@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Domains;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentDomainsTest extends \PapayaTestCase {
+class DomainsTest extends \PapayaTestCase {
 
   /**
-  * @covers Domains::load
-  */
+   * @covers Domains::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -61,8 +59,8 @@ class PapayaContentDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domains::load
-  */
+   * @covers Domains::load
+   */
   public function testLoadWithFilter() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult

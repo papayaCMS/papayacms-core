@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Configuration;
-use Papaya\Database\Result;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentConfigurationTest extends \PapayaTestCase {
+class ConfigurationTest extends \PapayaTestCase {
 
   /**
-  * @covers Configuration::load
-  */
+   * @covers Configuration::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult

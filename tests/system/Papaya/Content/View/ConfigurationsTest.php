@@ -13,13 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Tables;
-use Papaya\Content\View\Configurations;
-use Papaya\Database\Result;
+namespace Papaya\Content\View;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentViewConfigurationsTest extends \PapayaTestCase {
+class ConfigurationsTest extends \PapayaTestCase {
 
   /**
    * @covers Configurations

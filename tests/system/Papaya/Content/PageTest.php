@@ -13,20 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Translations;
-use Papaya\Content\Page;
-use Papaya\Content\Options;
-use Papaya\Database\Result;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentPageTest extends \PapayaTestCase {
+class PageTest extends \PapayaTestCase {
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testLoad() {
-    $translations = $this->createMock(Translations::class);
+    $translations = $this->createMock(Page\Translations::class);
     $translations
       ->expects($this->once())
       ->method('load')
@@ -108,8 +105,8 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testLoadExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -131,10 +128,10 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testTranslationsSet() {
-    $translations = $this->createMock(Translations::class);
+    $translations = $this->createMock(Page\Translations::class);
     $page = new Page();
     $page->translations($translations);
     $this->assertAttributeSame(
@@ -143,10 +140,10 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(Translations::class);
+    $translations = $this->createMock(Page\Translations::class);
     $page = new Page();
     $page->translations($translations);
     $this->assertSame(
@@ -155,17 +152,17 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testTranslationsGetImplicitCreate() {
     $page = new Page();
     $this->assertInstanceOf(
-      Translations::class, $page->translations()
+      Page\Translations::class, $page->translations()
     );
   }
 
   /**
-  * @covers Page
+   * @covers Page
    */
   public function testMapPropertiesToFields() {
     $page = new Page();
@@ -228,8 +225,8 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testOnBeforeInsert() {
     $page = new Page();
     $page->callbacks()->onBeforeInsert($page);
@@ -238,8 +235,8 @@ class PapayaContentPageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Page
-  */
+   * @covers Page
+   */
   public function testOnBeforeUpdate() {
     $page = new Page();
     $page->callbacks()->onBeforeUpdate($page);

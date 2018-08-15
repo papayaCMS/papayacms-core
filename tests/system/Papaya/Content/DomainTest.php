@@ -13,31 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Domain;
-use Papaya\Database\Interfaces\Mapping;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentDomainTest extends \PapayaTestCase {
+class DomainTest extends \PapayaTestCase {
 
   /**
-  * @covers Domain::_createMapping
-  */
+   * @covers Domain::_createMapping
+   */
   public function testCreateMapping() {
     $record = new Domain();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $record->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
   /**
-  * @covers Domain::callbackFieldSerialization
-  */
+   * @covers Domain::callbackFieldSerialization
+   */
   public function testCallbackFieldSerializationSerializeOptions() {
     $record = new Domain();
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
       $record->callbackFieldSerialization(
         new \stdClass(),
@@ -50,8 +49,8 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::callbackFieldSerialization
-  */
+   * @covers Domain::callbackFieldSerialization
+   */
   public function testCallbackFieldSerializationUnserializeOptions() {
     $record = new Domain();
     $this->assertEquals(
@@ -68,8 +67,8 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::callbackFieldSerialization
-  */
+   * @covers Domain::callbackFieldSerialization
+   */
   public function testCallbackFieldSerializationPassthru() {
     $record = new Domain();
     $this->assertEquals(
@@ -85,8 +84,8 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::callbackUpdateHostLength
-  */
+   * @covers Domain::callbackUpdateHostLength
+   */
   public function testCallbackUpdateHostLength() {
     $record = new Domain();
     $this->assertEquals(
@@ -98,7 +97,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
         'domain_mode' => Domain::MODE_VIRTUAL_DOMAIN,
         'domain_data' => 'domain data',
         'domain_options' =>
-          /** @lang XML */
+        /** @lang XML */
           '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
       ),
       $record->callbackUpdateHostLength(
@@ -121,7 +120,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
           'domain_mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'domain_data' => 'domain data',
           'domain_options' =>
-            /** @lang XML */
+          /** @lang XML */
             '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
         )
       )
@@ -129,8 +128,8 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::callbackUpdateHostLength
-  */
+   * @covers Domain::callbackUpdateHostLength
+   */
   public function testCallbackUpdateHostLengthPassthru() {
     $record = new Domain();
     $this->assertEquals(
@@ -145,7 +144,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       ),
       $record->callbackUpdateHostLength(
         new \stdClass(),
-        Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         array(
           'id' => 42,
           'host' => 'domain.tld',
@@ -163,7 +162,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
           'domain_mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'domain_data' => 'domain data',
           'domain_options' =>
-            /** @lang XML */
+          /** @lang XML */
             '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
         )
       )

@@ -13,21 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure;
-use Papaya\Content\Theme\Set;
+namespace Papaya\Content\Theme;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentThemeSetTest extends \PapayaTestCase {
+class SetTest extends \PapayaTestCase {
 
   /**
-  * @covers Set::_createMapping
-  */
+   * @covers Set::_createMapping
+   */
   public function testCreateMapping() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
-      \Papaya\Database\Interfaces\Mapping::class,
+      \Papaya\Database\Record\Mapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
@@ -35,11 +34,11 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::mapFieldToProperty
-  */
+   * @covers Set::mapFieldToProperty
+   */
   public function testMapFieldToPropertyPassthru() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -50,11 +49,11 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::mapFieldToProperty
-  */
+   * @covers Set::mapFieldToProperty
+   */
   public function testMapFieldToPropertyUnserialize() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       array(
@@ -67,7 +66,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
       $mapping->callbacks()->onMapValueFromFieldToProperty(
         'values',
         'themeset_values',
-        /** @lang XML  */
+        /** @lang XML */
         '<data version="2">
           <data-list name="PAGE">
             <data-list name="GROUP">
@@ -80,11 +79,11 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::mapPropertyToField
-  */
+   * @covers Set::mapPropertyToField
+   */
   public function testMapPropertyToFieldPassthru() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -95,14 +94,14 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::mapPropertyToField
-  */
+   * @covers Set::mapPropertyToField
+   */
   public function testMapPropertyToFieldSerialize() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2">
         <data-list name="PAGE">
           <data-list name="GROUP">
@@ -117,11 +116,11 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::getValuesXML
-  */
+   * @covers Set::getValuesXML
+   */
   public function testGetValuesXml() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Structure $definition */
-    $definition = $this->createMock(Structure::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
+    $definition = $this->createMock(\Papaya\Content\Structure::class);
     $definition
       ->expects($this->once())
       ->method('getXmlDocument')
@@ -132,13 +131,13 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Set::setValuesXML
-  */
+   * @covers Set::setValuesXML
+   */
   public function testSetValuesXml() {
     $document = new \Papaya\XML\Document();
     $element = $document->appendElement('set');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Structure $definition */
-    $definition = $this->createMock(Structure::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
+    $definition = $this->createMock(\Papaya\Content\Structure::class);
     $definition
       ->expects($this->once())
       ->method('getArray')

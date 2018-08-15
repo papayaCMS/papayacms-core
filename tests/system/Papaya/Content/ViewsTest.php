@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Views;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentViewsTest extends \PapayaTestCase {
+class ViewsTest extends \PapayaTestCase {
 
   /**
-  * @covers Views::load
-  */
+   * @covers Views::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -46,7 +44,7 @@ class PapayaContentViewsTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.\Papaya\Content\Tables::VIEWS, 'table_'.\Papaya\Content\Tables::MODULES)
+        array('table_'.Tables::VIEWS, 'table_'.Tables::MODULES)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Views();
