@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profiles;
+
 use Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfilesCmsTest extends \PapayaTestCase {
+class CmsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Application\Profiles\Cms::getProfiles
-  */
+   * @covers \Papaya\Application\Profiles\Cms::getProfiles
+   */
   public function testGetProfiles() {
     /** @var \Papaya\Application $application */
     $application = $this->createMock(\Papaya\Application::class);
-    $profiles = new \Papaya\Application\Profiles\Cms();
+    $profiles = new Cms();
     $list = $profiles->getProfiles($application);
     $this->assertEquals(
       array(
