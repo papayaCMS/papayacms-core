@@ -78,7 +78,7 @@ class PapayaThemeDefinitionTest extends \PapayaTestCase {
    */
   public function testMagicMethodGetExpectingException() {
     $definition = new \Papaya\Theme\Definition();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $definition->invalidProperty;
   }

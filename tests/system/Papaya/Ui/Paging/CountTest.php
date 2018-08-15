@@ -161,7 +161,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   */
   public function testSetXmlWithInvalidElement() {
     $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
     $paging->setXMLNames(
       array(
@@ -175,7 +175,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   */
   public function testSetXmlWithInvalidElementName() {
     $paging = new \Papaya\UI\Paging\Count('foo/page', 2, 30);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
     $paging->setXMLNames(
       array(
@@ -207,7 +207,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   */
   public function testSetItemsCountExpectingException() {
     $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $paging->itemsCount = -42;
   }
@@ -234,7 +234,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   */
   public function testSetItemsPerPageExpectingException() {
     $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $paging->itemsPerPage = 0;
   }
@@ -261,7 +261,7 @@ class PapayaUiPagingCountTest extends \PapayaTestCase {
   */
   public function testSetPageLimitExpectingException() {
     $paging = new \Papaya\UI\Paging\Count('page', 0, 30);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Page limit can not be less than 3.');
     $paging->pageLimit = 2;
   }

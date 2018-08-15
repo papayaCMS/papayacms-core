@@ -225,7 +225,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   */
   public function testValuesSetterWithInvalidValue() {
     $engine = new \PapayaTemplateEngine_TestProxy();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $engine->values('load');
   }
 

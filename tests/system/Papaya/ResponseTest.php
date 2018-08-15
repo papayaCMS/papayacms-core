@@ -132,7 +132,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   */
   public function testSetStatusInvalidExpectingError() {
     $response = new \Papaya\Response();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Unknown response status code: 999');
     $response->setStatus(999);
   }

@@ -13,33 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\CSV\Writer;
-use Papaya\CSV\Writer\Callbacks;
+namespace Papaya\CSV;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaCsvWriterTest extends \PapayaTestCase {
 
   /**
-  * @covers Writer::__construct
-  */
+   * @covers Writer::__construct
+   */
   public function testConstructor() {
     $writer = new Writer();
     $this->assertNull($writer->stream);
   }
 
   /**
-  * @covers Writer::__construct
-  */
+   * @covers Writer::__construct
+   */
   public function testConstructorWithStream() {
     $writer = new Writer($ms = fopen('php://memory', 'rwb'));
     $this->assertSame($ms, $writer->stream);
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testStreamGetAfterSet() {
     $writer = new Writer();
     $writer->stream = $ms = fopen('php://memory', 'rwb');
@@ -47,9 +46,9 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testSeparatorGetAfterSet() {
     $writer = new Writer();
     $writer->separator = '; ';
@@ -58,21 +57,21 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testSeparatorLengthExpectingException() {
     $writer = new Writer();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not write read only property "separatorLength".');
     /** @noinspection Annotator */
     $writer->separatorLength = 23;
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testQuoteGetAfterSet() {
     $writer = new Writer();
     $writer->quote = "'";
@@ -80,9 +79,9 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testLinebreakGetAfterSet() {
     $writer = new Writer();
     $writer->linebreak = "\r\n";
@@ -90,9 +89,9 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::__get
-  * @covers Writer::__set
-  */
+   * @covers Writer::__get
+   * @covers Writer::__set
+   */
   public function testEncodedLinebreakGetAfterSet() {
     $writer = new Writer();
     $writer->encodedLinebreak = '\\r\\n';
@@ -100,30 +99,30 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::__set
-  */
+   * @covers Writer::__set
+   */
   public function testSetPropertyWithInvalidNameExpectingException() {
     $writer = new Writer();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not write undefined property "invalidPropertyName".');
     /** @noinspection PhpUndefinedFieldInspection */
     $writer->invalidPropertyName = ' ';
   }
 
   /**
-  * @covers Writer::__get
-  */
+   * @covers Writer::__get
+   */
   public function testGetPropertyWithInvalidNameExpectingException() {
     $writer = new Writer();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not read undefined property "invalidPropertyName".');
     /** @noinspection PhpUndefinedFieldInspection */
     $writer->invalidPropertyName;
   }
 
   /**
-  * @covers Writer::writeHeader
-  */
+   * @covers Writer::writeHeader
+   */
   public function testWriteHeader() {
     $writer = new Writer();
     ob_start();
@@ -135,11 +134,11 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::writeHeader
-  */
+   * @covers Writer::writeHeader
+   */
   public function testWriteHeaderCallsCallback() {
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Writer\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('__isset', 'onMapHeader'))
       ->getMock();
@@ -165,10 +164,10 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Writer::writeRow
-   * @covers Writer::quoteValue
-   * @covers Writer::write
-   * @covers Writer::writeString
+   * @covers       Writer::writeRow
+   * @covers       Writer::quoteValue
+   * @covers       Writer::write
+   * @covers       Writer::writeString
    * @dataProvider provideSampleRowsAndExpectedOutput
    * @param $expected
    * @param $row
@@ -184,11 +183,11 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::writeRow
-  */
+   * @covers Writer::writeRow
+   */
   public function testWriteRowCallsCallback() {
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Writer\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('__isset', 'onMapRow'))
       ->getMock();
@@ -214,9 +213,9 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::writeList
-  * @covers Writer::writeString
-  */
+   * @covers Writer::writeList
+   * @covers Writer::writeString
+   */
   public function testWriteList() {
     $list = array(
       array('one', 'two', 'three'),
@@ -232,8 +231,8 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::writeList
-  */
+   * @covers Writer::writeList
+   */
   public function testWriteListWithTraversable() {
     $list = new \ArrayIterator(
       array(
@@ -251,9 +250,9 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::writeList
-  * @covers Writer::writeString
-  */
+   * @covers Writer::writeList
+   * @covers Writer::writeString
+   */
   public function testWriteListToStream() {
     $list = array(
       array('one', 'two', 'three'),
@@ -270,20 +269,20 @@ class PapayaCsvWriterTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Writer::callbacks
-  */
+   * @covers Writer::callbacks
+   */
   public function testCallbacksGetAfterSet() {
     $writer = new Writer();
-    $writer->callbacks($callbacks = $this->createMock(Callbacks::class));
+    $writer->callbacks($callbacks = $this->createMock(Writer\Callbacks::class));
     $this->assertSame($callbacks, $writer->callbacks());
   }
 
   /**
-  * @covers Writer::callbacks
-  */
+   * @covers Writer::callbacks
+   */
   public function testCallbacksGetWithImplizitCreate() {
     $writer = new Writer();
-    $this->assertInstanceOf(Callbacks::class, $writer->callbacks());
+    $this->assertInstanceOf(Writer\Callbacks::class, $writer->callbacks());
   }
 
   public static function provideSampleRowsAndExpectedOutput() {

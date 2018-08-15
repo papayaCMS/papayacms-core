@@ -61,7 +61,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
   */
   public function testSetWithInvalidPositionExpectionExcpetion() {
     $toolbars = new \Papaya\UI\Toolbars();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Invalid toolbar position requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     $toolbars->invalidPosition = $this->createMock(\Papaya\UI\Toolbar::class);
@@ -72,7 +72,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
   */
   public function testGetWithInvalidPositionExpectionExcpetion() {
     $toolbars = new \Papaya\UI\Toolbars();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Invalid toolbar position requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     /** @noinspection PhpUnusedLocalVariableInspection */

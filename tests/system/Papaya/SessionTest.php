@@ -289,7 +289,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   */
   public function testPropertyGetExpectingException() {
     $session = new \Papaya\Session();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $session->INVALID_PROPERTY_NAME;
   }

@@ -76,7 +76,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\NumberWithUnit::__construct
   */
   public function testConstructExceptionMissingUnit() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Filter\NumberWithUnit('');
   }
 

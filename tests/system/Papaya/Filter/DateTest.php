@@ -29,7 +29,7 @@ class PapayaFilterDateTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Date::__construct
   */
   public function testConstructExpectsExceptionIncludeTime() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Filter\Date(1000);
   }
 
@@ -37,7 +37,7 @@ class PapayaFilterDateTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Date::__construct
   */
   public function testConstructExpectsExceptionStep() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Filter\Date(\Papaya\Filter\Date::DATE_OPTIONAL_TIME, -1);
   }
 

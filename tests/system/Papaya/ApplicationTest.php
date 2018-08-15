@@ -401,7 +401,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidValueExpectingException() {
     $app = new \PapayaApplication();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $app->propertyName = 'INVALID_VALUE';
   }

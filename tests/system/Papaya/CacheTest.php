@@ -44,7 +44,7 @@ class PapayaCacheTest extends \PapayaTestCase {
   public function testGetServiceInvalid() {
     $options = new Configuration();
     $options['SERVICE'] = 'InvalidName';
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     Cache::getService($options, FALSE);
   }
 
@@ -54,7 +54,7 @@ class PapayaCacheTest extends \PapayaTestCase {
   public function testGetServiceEmpty() {
     $options = new Configuration();
     $options['SERVICE'] = '';
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     Cache::getService($options, FALSE);
   }
 

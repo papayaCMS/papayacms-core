@@ -34,7 +34,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertArrayFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertArray($value);
   }
 
@@ -62,7 +62,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertArrayOrTraversableFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertArrayOrTraversable($value);
   }
 
@@ -90,7 +90,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertBooleanFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertBoolean($value);
   }
 
@@ -120,7 +120,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertCallableFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertCallable($value);
   }
 
@@ -137,7 +137,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::assertContains
   */
   public function testAssertContainsExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Array does not contains the given value.');
     \Papaya\Utility\Constraints::assertContains(array('yes', 'no'), 'maybe');
   }
@@ -146,7 +146,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::assertContains
   */
   public function testAssertContainsExpectingExceptionWithIndividualMessage() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('NOT IN LIST');
     \Papaya\Utility\Constraints::assertContains(array('yes', 'no'), 'maybe', 'NOT IN LIST');
   }
@@ -166,7 +166,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertFloatFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertFloat($value);
   }
 
@@ -201,7 +201,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfFailureExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertInstanceOf(\stdClass::class, $this);
   }
 
@@ -209,7 +209,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithTwoClassesFailureExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertInstanceOf(array(URL::class, \stdClass::class), $this);
   }
 
@@ -228,7 +228,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertIntegerFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertInteger($value);
   }
 
@@ -249,7 +249,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertNotEmptyWithInValidValuesExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertNotEmpty($value);
   }
 
@@ -259,7 +259,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertNotEmptyWithInValidValuesExpectingExceptionIndividualMessage($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertNotEmpty($value, 'SAMPLE MESSAGE');
   }
 
@@ -287,7 +287,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertNumberFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertNumber($value);
   }
 
@@ -306,7 +306,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertObjectFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertObject($value);
   }
 
@@ -334,7 +334,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertObjectOrNullFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertObjectOrNull($value);
   }
 
@@ -352,7 +352,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::assertResource
   */
   public function testAssertResourceFailureExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertResource('');
   }
 
@@ -371,7 +371,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testAssertStringFailureExpectingException($value) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Constraints::assertString($value);
   }
 
@@ -379,7 +379,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithScalar() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Unexpected value type: Expected "string" but "integer" given.');
     throw \PapayaUtilConstraints_TestProxy::createException('string', 42, '');
   }
@@ -388,7 +388,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithObject() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Unexpected value type: Expected "integer, float" but "stdClass" given.');
     throw \PapayaUtilConstraints_TestProxy::createException('integer, float', new \stdClass, '');
   }
@@ -397,7 +397,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithIndividualMessage() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('SAMPLE MESSAGE');
     throw \PapayaUtilConstraints_TestProxy::createException('', new \stdClass, 'SAMPLE MESSAGE');
   }

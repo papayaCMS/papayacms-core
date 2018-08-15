@@ -55,7 +55,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testSetCaptionExpectingException() {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock());
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $field->setCaption(array());
   }
@@ -98,7 +98,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   public function testSetHintExpectingException() {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock());
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $field->setHint(array());
   }

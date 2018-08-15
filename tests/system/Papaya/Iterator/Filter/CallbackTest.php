@@ -32,7 +32,7 @@ class PapayaIteratorFilterCallbackTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Filter\Callback::setCallback
   */
   public function testSetCallbackWithInvalidCallbackExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Iterator\Filter\Callback(new \EmptyIterator(), NULL);
   }
 

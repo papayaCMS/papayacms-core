@@ -113,7 +113,7 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
   public function testValidatePermissionWithInvalidPermissionExpectingException() {
     $command = new \PapayaUiControlCommand_TestProxy();
     $command->permission(new \stdClass());
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Invalid permission value.');
     $command->validatePermission();
   }

@@ -28,7 +28,7 @@ class PapayaFilterTimeTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Time::__construct
   */
   public function testConstructFailure() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Filter\Time(-1);
   }
 

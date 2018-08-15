@@ -38,7 +38,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   * @covers \Papaya\Configuration::defineOptions
   */
   public function testConstructorDefinesInvalidOptionExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Configuration(
       array('sample' => new \stdClass)
     );
@@ -160,7 +160,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   */
   public function testAssignWithInvalidArgumentExpectingException() {
     $config = new \PapayaConfiguration_TestProxy();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $config->assign('STRING');
   }

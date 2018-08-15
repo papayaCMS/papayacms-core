@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\CSV\Writer\Callbacks;
+namespace Papaya\CSV\Writer;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaCsvWriterCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers Callbacks::__construct
-  */
+   * @covers Callbacks::__construct
+   */
   public function testConstructor() {
     $callbacks = new Callbacks();
     $this->assertInternalType('array', $callbacks->onMapRow->defaultReturn);

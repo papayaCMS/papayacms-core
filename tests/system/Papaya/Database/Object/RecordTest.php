@@ -828,7 +828,7 @@ class PapayaDatabaseObjectRecordTest extends \PapayaTestCase {
   */
   public function testApplyCallbackWithoutCallbackExpectingException() {
     $item = new \PapayaDatabaseObjectRecord_TestProxy();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $item->_applyCallback(NULL, NULL, array());
   }
 

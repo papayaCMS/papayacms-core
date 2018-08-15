@@ -49,7 +49,7 @@ class PapayaProfilerStorageFileTest extends \PapayaTestCase {
   * @covers \Papaya\Profiler\Storage\File::prepareSuffix
   */
   public function testConstructorWithInvalidSuffixExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid profiling file suffix "-"');
     new \Papaya\Profiler\Storage\File(
       $this->createTemporaryDirectory(),
@@ -78,7 +78,7 @@ class PapayaProfilerStorageFileTest extends \PapayaTestCase {
   */
   public function testSaveRunWithEmptyDirectoryExpectingException() {
     $storage = new \Papaya\Profiler\Storage\File('', 'foo');
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('No profiling directory defined.');
     $storage->saveRun(array(), 'sample');
   }
@@ -88,7 +88,7 @@ class PapayaProfilerStorageFileTest extends \PapayaTestCase {
   */
   public function testSaveRunWithNonWriteableDirectoryExpectingException() {
     $storage = new \Papaya\Profiler\Storage\File('http://localhost/', 'foo');
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Profiling directory "/http:/localhost/" is not writeable.');
     $storage->saveRun(array(), 'sample');
   }

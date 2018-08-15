@@ -32,7 +32,7 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
    * @param int $maximumLength
    */
   public function testConstructFailure($minimumLength, $maximumLength) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\Filter\Number($minimumLength, $maximumLength);
   }
 

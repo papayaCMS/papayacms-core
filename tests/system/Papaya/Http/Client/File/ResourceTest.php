@@ -131,7 +131,7 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     fclose($this->_fileResource);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $file->send($socket, TRUE);
   }
 }

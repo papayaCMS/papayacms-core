@@ -199,7 +199,7 @@ class PapayaUiControlCommandListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithInvalidCommandExpectingException() {
     $list = new \Papaya\UI\Control\Command\Collection();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Expected instance of "Papaya\UI\Control\Command" but "string" was given.');
     $list[] = 'INVALID';
   }

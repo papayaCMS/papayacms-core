@@ -61,7 +61,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   */
   public function testMergeWithInvalidArgument() {
     $parameters = new \Papaya\BaseObject\Parameters();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $parameters->merge('foo');
   }

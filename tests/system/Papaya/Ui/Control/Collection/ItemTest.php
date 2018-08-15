@@ -80,7 +80,7 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
       ->will($this->returnValue(new \PapayaUiControlCollectionItem_TestProxy()));
     $item = new \PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Index "42" does not match the collection item.');
     $item->index(42);
   }

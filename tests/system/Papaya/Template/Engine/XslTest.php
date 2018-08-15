@@ -153,7 +153,7 @@ class PapayaTemplateEngineXslTest extends \PapayaTestCase {
   */
   public function testSetProcessorWithInvalidProcessorExpectingException() {
     $engine = new \Papaya\Template\Engine\Xsl();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $engine->setProcessor(new \stdClass);
   }

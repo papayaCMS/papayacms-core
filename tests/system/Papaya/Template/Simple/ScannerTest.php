@@ -91,7 +91,7 @@ class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Simple\Scanner\Status $status */
     $scanner = new \Papaya\Template\Simple\Scanner($status);
     $tokens = array();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $scanner->scan($tokens, 'SAMPLE');
   }
 

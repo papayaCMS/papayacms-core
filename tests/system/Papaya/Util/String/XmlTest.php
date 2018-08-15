@@ -203,7 +203,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    * @covers \Papaya\Utility\Text\XML::isQName
    */
   public function testIsQNameWithEmptyNameExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     \Papaya\Utility\Text\XML::isQName('');
   }
 
@@ -222,7 +222,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    * @covers \Papaya\Utility\Text\XML::isNcName
    */
   public function testIsNcNameWithEmptyTagnameExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:": Missing QName part.');
     \Papaya\Utility\Text\XML::isNcName('nc:', 3);
   }
@@ -231,7 +231,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    * @covers \Papaya\Utility\Text\XML::isNcName
    */
   public function testIsNcNameWithInvalidTagnameCharExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:ta<g>": Invalid character at index 5.');
     \Papaya\Utility\Text\XML::isNcName('nc:ta<g>', 3);
   }
@@ -240,7 +240,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    * @covers \Papaya\Utility\Text\XML::isNcName
    */
   public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:1tag": Invalid character at index 3.');
     \Papaya\Utility\Text\XML::isNcName('nc:1tag', 3);
   }

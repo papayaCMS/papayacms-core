@@ -214,7 +214,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   */
   public function testStreamGetWithInvalidStreamExpectingException() {
     $dispatcher = new \Papaya\Message\Dispatcher\Cli();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDOUT, 0);
   }
 

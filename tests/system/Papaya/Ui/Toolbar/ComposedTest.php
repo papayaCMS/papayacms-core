@@ -137,7 +137,7 @@ class PapayaUiToolbarComposedTest extends \PapayaTestCase {
   */
   public function testGetWithUndefinedNameExpectingException() {
     $composed = new \Papaya\UI\Toolbar\Composed(array('someSet'));
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid toolbar set requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     $composed->unknownSet;
@@ -148,7 +148,7 @@ class PapayaUiToolbarComposedTest extends \PapayaTestCase {
   */
   public function testSetWithUndefinedNameExpectingException() {
     $composed = new \Papaya\UI\Toolbar\Composed(array('someSet'));
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid toolbar set requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     $composed->unknownSet = $this->createMock(\Papaya\UI\Toolbar\Collection::class);

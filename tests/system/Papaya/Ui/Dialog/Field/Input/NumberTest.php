@@ -36,7 +36,7 @@ class PapayaUiDialogFieldInputNumberTest extends \PapayaTestCase {
    * @param mixed $maximumLength
    */
   public function testConstructFailure($minimumLength, $maximumLength) {
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new \Papaya\UI\Dialog\Field\Input\Number(
       'Number', 'number', '123', TRUE, $minimumLength, $maximumLength
     );
