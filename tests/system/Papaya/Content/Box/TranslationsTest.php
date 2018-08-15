@@ -13,23 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Box\Translation;
-use Papaya\Content\Box\Translations;
-use Papaya\Database\Result;
+namespace Papaya\Content\Box;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxTranslationsTest extends \PapayaTestCase {
+class TranslationsTest extends \PapayaTestCase {
 
   /**
-  * @covers Translations::load
-  */
+   * @covers Translations::load
+   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(Result::FETCH_ASSOC))
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -68,8 +66,8 @@ class PapayaContentBoxTranslationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translations::getTranslation
-  */
+   * @covers Translations::getTranslation
+   */
   public function testGetTranslation() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

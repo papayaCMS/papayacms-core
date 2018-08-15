@@ -25,11 +25,11 @@ class PapayaContentCommunityGroupsTest extends \PapayaTestCase {
   * @covers Groups::loadByPermission
   */
   public function testLoadByPermission() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -46,8 +46,8 @@ class PapayaContentCommunityGroupsTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::COMMUNITY_GROUPS,
-          'table_'.Tables::COMMUNITY_GROUP_PERMISSIONS,
+          'table_'.\Papaya\Content\Tables::COMMUNITY_GROUPS,
+          'table_'.\Papaya\Content\Tables::COMMUNITY_GROUP_PERMISSIONS,
           23
         )
       )

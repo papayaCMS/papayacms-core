@@ -38,17 +38,17 @@ class PapayaContentBoxTest extends \PapayaTestCase {
       'box_created' => 1,
       'box_modified' => 2,
       'box_deliverymode' => Box::DELIVERY_MODE_STATIC,
-      'box_cachemode' => Options::CACHE_SYSTEM,
+      'box_cachemode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'box_cachetime' => 0,
-      'box_expiresmode' => Options::CACHE_SYSTEM,
+      'box_expiresmode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'box_expirestime' => 0,
       'box_unpublished_languages' => 0
     );
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -70,9 +70,9 @@ class PapayaContentBoxTest extends \PapayaTestCase {
         'created' => 1,
         'modified' => 2,
         'delivery_mode' => Box::DELIVERY_MODE_STATIC,
-        'cache_mode' => Options::CACHE_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0,
-        'expires_mode' => Options::CACHE_SYSTEM,
+        'expires_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'expires_time' => 0,
         'unpublished_translations' => 0
       ),

@@ -25,7 +25,7 @@ class PapayaContentDomainsTest extends \PapayaTestCase {
   * @covers Domains::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -46,7 +46,7 @@ class PapayaContentDomainsTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.Tables::DOMAINS)
+        array('table_'.\Papaya\Content\Tables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Domains();
@@ -64,7 +64,7 @@ class PapayaContentDomainsTest extends \PapayaTestCase {
   * @covers Domains::load
   */
   public function testLoadWithFilter() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -90,7 +90,7 @@ class PapayaContentDomainsTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.Tables::DOMAINS)
+        array('table_'.\Papaya\Content\Tables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Domains();

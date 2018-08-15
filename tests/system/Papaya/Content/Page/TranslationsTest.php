@@ -36,11 +36,11 @@ class PapayaContentPageTranslationsTest extends \PapayaTestCase {
   * @covers Translations::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(Result::FETCH_ASSOC))
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(

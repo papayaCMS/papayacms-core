@@ -39,11 +39,11 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       'view_name' => 'view-example',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -52,8 +52,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGE_TRANSLATIONS,
-          'table_'.Tables::VIEWS
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -100,11 +100,11 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       'view_name' => 'view-example',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -113,8 +113,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGE_TRANSLATIONS,
-          'table_'.Tables::VIEWS
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -154,8 +154,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGE_TRANSLATIONS,
-          'table_'.Tables::VIEWS
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS
         )
       )
       ->will($this->returnValue(FALSE));
@@ -170,11 +170,11 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   * @covers Translation
   */
   public function testLoadNoRecordExpectingFalse() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -183,8 +183,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGE_TRANSLATIONS,
-          'table_'.Tables::VIEWS
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -199,7 +199,7 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   * @covers Translation
   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -258,7 +258,7 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   * @covers Translation
   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

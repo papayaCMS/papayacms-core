@@ -27,7 +27,7 @@ class PapayaContentPagesPublicationsTest extends \PapayaTestCase {
   * @covers Publications::_compileCondition
   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -45,14 +45,14 @@ class PapayaContentPagesPublicationsTest extends \PapayaTestCase {
           $this->stringContains('OR t.published_to <= t.published_from)')
         ),
         array(
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::PAGE_PUBLICATION_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS,
           1,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

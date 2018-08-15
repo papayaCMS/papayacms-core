@@ -24,7 +24,7 @@ class PapayaContentPageBoxesTest extends \PapayaTestCase {
   * @covers Boxes::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

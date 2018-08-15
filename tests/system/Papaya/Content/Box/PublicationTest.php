@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Box\Publication;
-use Papaya\Content\Options;
-use Papaya\Database\Result;
+namespace Papaya\Content\Box;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxPublicationTest extends \PapayaTestCase {
+class PublicationTest extends \PapayaTestCase {
 
   /**
-  * @covers Publication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -53,7 +51,7 @@ class PapayaContentBoxPublicationTest extends \PapayaTestCase {
         'group_id' => 21,
         'created' => 0,
         'modified' => 0,
-        'cache_mode' => Options::CACHE_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -67,16 +65,16 @@ class PapayaContentBoxPublicationTest extends \PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertGreaterThan(0, $data['box_created']);
     $this->assertGreaterThan(0, $data['box_modified']);
-    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(\Papaya\Content\Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     return TRUE;
   }
 
   /**
-  * @covers Publication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -104,7 +102,7 @@ class PapayaContentBoxPublicationTest extends \PapayaTestCase {
         'group_id' => 21,
         'created' => 123,
         'modified' => 0,
-        'cache_mode' => Options::CACHE_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -117,23 +115,23 @@ class PapayaContentBoxPublicationTest extends \PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(123, $data['box_created']);
     $this->assertGreaterThan(1, $data['box_modified']);
-    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(\Papaya\Content\Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(array('box_id' => 42), $filter);
     return 42;
   }
 
   /**
-  * @covers Publication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveWithoutIdExpectingFalse() {
     $box = new Publication();
     $this->assertFalse($box->save());
   }
 
   /**
-  * @covers Publication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveWithSqlErrorOnCheckExistingExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

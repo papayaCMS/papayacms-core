@@ -20,40 +20,40 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaContentTablesTest extends \PapayaTestCase {
 
   /**
-  * @covers Tables::get
+  * @covers \Papaya\Content\Tables::get
   */
   public function testGetWithoutOptions() {
     $tables = new Tables();
     $this->assertEquals(
-      'topic', $tables->get(Tables::PAGES)
+      'topic', $tables->get(\Papaya\Content\Tables::PAGES)
     );
   }
 
   /**
-  * @covers Tables::get
+  * @covers \Papaya\Content\Tables::get
   */
   public function testGetWithOptionsButDefaultValue() {
     $tables = new Tables();
     $tables->papaya($this->mockPapaya()->application());
     $this->assertEquals(
-      'papaya_topic', $tables->get(Tables::PAGES)
+      'papaya_topic', $tables->get(\Papaya\Content\Tables::PAGES)
     );
   }
 
 
   /**
-  * @covers Tables::get
+  * @covers \Papaya\Content\Tables::get
   */
   public function testGetWithOptionsPrefixAlreadyAdded() {
     $tables = new Tables();
     $tables->papaya($this->mockPapaya()->application());
     $this->assertEquals(
-      'papaya_topic', $tables->get('papaya_'.Tables::PAGES)
+      'papaya_topic', $tables->get('papaya_'.\Papaya\Content\Tables::PAGES)
     );
   }
 
   /**
-  * @covers Tables::get
+  * @covers \Papaya\Content\Tables::get
   */
   public function testGetWithOptions() {
     $tables = new Tables();
@@ -69,12 +69,12 @@ class PapayaContentTablesTest extends \PapayaTestCase {
       )
     );
     $this->assertEquals(
-      'foo_topic', $tables->get(Tables::PAGES)
+      'foo_topic', $tables->get(\Papaya\Content\Tables::PAGES)
     );
   }
 
   /**
-  * @covers Tables::get
+  * @covers \Papaya\Content\Tables::get
   */
   public function testGetWithOptionsIsEmptyString() {
     $tables = new Tables();
@@ -90,14 +90,14 @@ class PapayaContentTablesTest extends \PapayaTestCase {
       )
     );
     $this->assertEquals(
-      'topic', $tables->get(Tables::PAGES)
+      'topic', $tables->get(\Papaya\Content\Tables::PAGES)
     );
   }
 
   /**
-  * @covers Tables::getTables
+  * @covers \Papaya\Content\Tables::getTables
   */
   public function testGetTables() {
-    $this->assertInternalType('array', Tables::getTables());
+    $this->assertInternalType('array', \Papaya\Content\Tables::getTables());
   }
 }

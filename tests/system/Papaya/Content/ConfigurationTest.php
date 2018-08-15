@@ -24,7 +24,7 @@ class PapayaContentConfigurationTest extends \PapayaTestCase {
   * @covers Configuration::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

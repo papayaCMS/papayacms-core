@@ -97,7 +97,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
    * @covers Folders::load
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -175,7 +175,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
    * @covers Folders::load
    */
   public function testLoadwithoutLanguageIdExpectingNoTranslations() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

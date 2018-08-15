@@ -26,7 +26,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
   * @covers Languages::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -58,7 +58,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -145,7 +145,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
   * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -172,7 +172,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -197,7 +197,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
   * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoadExpectingNull() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -212,7 +212,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -300,7 +300,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
   * @covers Languages::getIdentiferById
   */
   public function testGetIdentifierByIdExpectingNull() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -315,7 +315,7 @@ class PapayaContentLanguagesTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);

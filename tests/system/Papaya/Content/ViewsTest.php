@@ -25,7 +25,7 @@ class PapayaContentViewsTest extends \PapayaTestCase {
   * @covers Views::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -46,7 +46,7 @@ class PapayaContentViewsTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.Tables::VIEWS, 'table_'.Tables::MODULES)
+        array('table_'.\Papaya\Content\Tables::VIEWS, 'table_'.\Papaya\Content\Tables::MODULES)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Views();

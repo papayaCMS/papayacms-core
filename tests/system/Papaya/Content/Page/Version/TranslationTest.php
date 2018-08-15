@@ -38,11 +38,11 @@ class PapayaContentPageVersionTranslationTest extends \PapayaTestCase {
       'view_name' => 'view-example',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

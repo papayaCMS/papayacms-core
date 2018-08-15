@@ -26,7 +26,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   * @covers Pages
   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -50,14 +50,14 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('INNER JOIN')),
         array(
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           23,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -83,7 +83,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   * @covers Pages
   */
   public function testLoadWithEmptyFilter() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -107,14 +107,14 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           0,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -140,7 +140,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   * @covers Pages
   */
   public function testLoadWithId() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -169,14 +169,14 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -202,7 +202,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   * @covers Pages
   */
   public function testLoadWithStatus() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -231,14 +231,14 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -268,7 +268,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
   * @covers Pages
   */
   public function testLoadWithParentId() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -297,14 +297,14 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.Tables::PAGE_PUBLICATIONS,
-          'table_'.Tables::VIEWS,
-          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.Tables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

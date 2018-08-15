@@ -28,7 +28,7 @@ class PapayaContentPageReferencesTest extends \PapayaTestCase {
   *
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -62,9 +62,9 @@ class PapayaContentPageReferencesTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::PAGE_REFERENCES,
-          'table_'.Tables::PAGES,
-          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_REFERENCES,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           42,
           1
         )

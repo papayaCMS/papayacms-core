@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Box\Version;
-use Papaya\Content\Box\Version\Translations;
+namespace Papaya\Content\Box;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxVersionTest extends \PapayaTestCase {
+class VersionTest extends \PapayaTestCase {
 
   /**
-  * @covers Version::save
-  */
+   * @covers Version::save
+   */
   public function testSaveBlockingUpdateExpectingException() {
     $version = new Version();
     /** @noinspection PhpUndefinedFieldInspection */
@@ -33,19 +32,19 @@ class PapayaContentBoxVersionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Version::save
-  */
+   * @covers Version::save
+   */
   public function testSaveInsertWhileMissingValuesExcpectingException() {
     $version = new Version();
-    $this->expectException(UnexpectedValueException::class);
+    $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: box id, owner or message are missing.');
     $version->save();
   }
 
   /**
-  * @covers Version::save
-  * @covers Version::create
-  */
+   * @covers Version::save
+   * @covers Version::create
+   */
   public function testSave() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -82,9 +81,9 @@ class PapayaContentBoxVersionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Version::save
-  * @covers Version::create
-  */
+   * @covers Version::save
+   * @covers Version::create
+   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -114,21 +113,21 @@ class PapayaContentBoxVersionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Version::translations
-  */
+   * @covers Version::translations
+   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(Translations::class);
+    $translations = $this->createMock(Version\Translations::class);
     $version = new Version();
     $this->assertSame($translations, $version->translations($translations));
   }
 
   /**
-  * @covers Version::translations
-  */
+   * @covers Version::translations
+   */
   public function testTranslationsGetWithImplicitCreate() {
     $version = new Version();
     $this->assertInstanceOf(
-      Translations::class,
+      Version\Translations::class,
       $version->translations()
     );
   }

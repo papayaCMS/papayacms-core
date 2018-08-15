@@ -142,11 +142,11 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
    * @return \Papaya\Database\Access|\PHPUnit_Framework_MockObject_MockObject
    */
   public function getDatabaseAccessFixture(array $recordData) {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           $recordData,

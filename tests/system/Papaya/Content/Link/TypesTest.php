@@ -24,7 +24,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   * @covers Types::getResultIterator
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

@@ -39,7 +39,7 @@ class PapayaContentPageTest extends \PapayaTestCase {
       'author_id' => '1234567890...',
       'author_group' => -1,
       'author_perm' => '777',
-      'surfer_useparent' => Options::INHERIT_PERMISSIONS_OWN,
+      'surfer_useparent' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
       'surfer_permids' => '1;2;',
       'topic_created' => 1,
       'topic_modified' => 2,
@@ -50,18 +50,18 @@ class PapayaContentPageTest extends \PapayaTestCase {
       'meta_useparent' => FALSE,
       'topic_changefreq' => 50,
       'topic_priority' => 1,
-      'topic_protocol' => Options::SCHEME_SYSTEM,
-      'topic_cachemode' => Options::CACHE_SYSTEM,
+      'topic_protocol' => \Papaya\Content\Options::SCHEME_SYSTEM,
+      'topic_cachemode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'topic_cachetime' => 0,
-      'topic_expiresmode' => Options::CACHE_SYSTEM,
+      'topic_expiresmode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'topic_expirestime' => 0,
       'topic_unpublished_languages' => 0
     );
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -83,7 +83,7 @@ class PapayaContentPageTest extends \PapayaTestCase {
         'owner' => '1234567890...',
         'group' => -1,
         'permissions' => 777,
-        'inherit_visitor_permissions' => Options::INHERIT_PERMISSIONS_OWN,
+        'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
         'created' => 1,
         'modified' => 2,
         'position' => 0,
@@ -93,10 +93,10 @@ class PapayaContentPageTest extends \PapayaTestCase {
         'inherit_meta_information' => FALSE,
         'change_frequency' => 50,
         'priority' => 1,
-        'scheme' => Options::SCHEME_SYSTEM,
-        'cache_mode' => Options::CACHE_SYSTEM,
+        'scheme' => \Papaya\Content\Options::SCHEME_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0,
-        'expires_mode' => Options::CACHE_SYSTEM,
+        'expires_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'expires_time' => 0,
         'unpublished_translations' => 0,
         'parent_path' => array(0, 11, 21),
@@ -111,11 +111,11 @@ class PapayaContentPageTest extends \PapayaTestCase {
   * @covers Page
   */
   public function testLoadExpectingFalse() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(Result::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -177,7 +177,7 @@ class PapayaContentPageTest extends \PapayaTestCase {
         'author_id' => '1234567890...',
         'author_group' => -1,
         'author_perm' => '777',
-        'surfer_useparent' => Options::INHERIT_PERMISSIONS_OWN,
+        'surfer_useparent' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
         'topic_created' => 1,
         'topic_modified' => 2,
         'topic_weight' => 0,
@@ -187,10 +187,10 @@ class PapayaContentPageTest extends \PapayaTestCase {
         'meta_useparent' => FALSE,
         'topic_changefreq' => 50,
         'topic_priority' => 1,
-        'topic_protocol' => Options::SCHEME_SYSTEM,
-        'topic_cachemode' => Options::CACHE_SYSTEM,
+        'topic_protocol' => \Papaya\Content\Options::SCHEME_SYSTEM,
+        'topic_cachemode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'topic_cachetime' => 0,
-        'topic_expiresmode' => Options::CACHE_SYSTEM,
+        'topic_expiresmode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'topic_expirestime' => 0,
         'topic_unpublished_languages' => 0,
         'prev_path' => ';0;11;21;',
@@ -204,7 +204,7 @@ class PapayaContentPageTest extends \PapayaTestCase {
           'owner' => '1234567890...',
           'group' => -1,
           'permissions' => 777,
-          'inherit_visitor_permissions' => Options::INHERIT_PERMISSIONS_OWN,
+          'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
           'created' => 1,
           'modified' => 2,
           'position' => 0,
@@ -214,10 +214,10 @@ class PapayaContentPageTest extends \PapayaTestCase {
           'inherit_meta_information' => FALSE,
           'change_frequency' => 50,
           'priority' => 1,
-          'scheme' => Options::SCHEME_SYSTEM,
-          'cache_mode' => Options::CACHE_SYSTEM,
+          'scheme' => \Papaya\Content\Options::SCHEME_SYSTEM,
+          'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
           'cache_time' => 0,
-          'expires_mode' => Options::CACHE_SYSTEM,
+          'expires_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
           'expires_time' => 0,
           'unpublished_translations' => 0,
           'parent_path' => array(0, 11, 21),

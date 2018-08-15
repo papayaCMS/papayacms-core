@@ -13,22 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Box\Version;
-use Papaya\Content\Box\Versions;
-use Papaya\Database\Result;
+namespace Papaya\Content\Box;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxVersionsTest extends \PapayaTestCase {
-/**
-  * @covers Versions::load
-  */
+class VersionsTest extends \PapayaTestCase {
+  /**
+   * @covers Versions::load
+   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(Result::FETCH_ASSOC))
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -66,8 +64,8 @@ class PapayaContentBoxVersionsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Versions::getVersion
-  */
+   * @covers Versions::getVersion
+   */
   public function testGetVersion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

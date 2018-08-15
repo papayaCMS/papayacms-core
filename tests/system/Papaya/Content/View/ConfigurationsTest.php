@@ -25,11 +25,11 @@ class PapayaContentViewConfigurationsTest extends \PapayaTestCase {
    * @covers Configurations
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(Result::FETCH_ASSOC))
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -49,12 +49,12 @@ class PapayaContentViewConfigurationsTest extends \PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.Tables::VIEW_CONFIGURATIONS,
-          'table_'.Tables::VIEW_MODES,
-          'table_'.Tables::MODULES,
-          'table_'.Tables::VIEW_DATAFILTER_CONFIGURATIONS,
-          'table_'.Tables::VIEW_DATAFILTERS,
-          'table_'.Tables::MODULES
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::VIEW_MODES,
+          'table_'.\Papaya\Content\Tables::MODULES,
+          'table_'.\Papaya\Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::VIEW_DATAFILTERS,
+          'table_'.\Papaya\Content\Tables::MODULES
         ),
         10,
         0

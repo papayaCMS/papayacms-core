@@ -64,7 +64,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   * @covers Reference::exists
   */
   public function testExistsExpectingTrue() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -73,7 +73,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -84,7 +84,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   * @covers Reference::exists
   */
   public function testExistsExpectingFalse() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -93,7 +93,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -108,7 +108,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.\Papaya\Content\Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue(FALSE));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
