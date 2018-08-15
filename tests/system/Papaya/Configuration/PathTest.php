@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Path;
+namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationPathTest extends \PapayaTestCase {
+class PathTest extends \PapayaTestCase {
 
   /**
    * @covers       Path

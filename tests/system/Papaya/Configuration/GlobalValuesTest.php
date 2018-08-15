@@ -13,37 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\GlobalValues;
+namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationGlobalTest extends \PapayaTestCase {
+class GlobalValuesTest extends \PapayaTestCase {
 
   /**
-  * @covers GlobalValues::get
-  */
+   * @covers GlobalValues::get
+   */
   public function testGetReadingConstant() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $this->assertNotEquals(
       'failed', $config->get('PAPAYA_INCLUDE_PATH')
     );
   }
 
   /**
-  * @covers GlobalValues::get
-  */
+   * @covers GlobalValues::get
+   */
   public function testGetCallingParentMethod() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $this->assertEquals(
       42, $config->get('SAMPLE_INT')
     );
   }
 
   /**
-  * @covers GlobalValues::get
-  */
+   * @covers GlobalValues::get
+   */
   public function testSetConstantShouldBeIgnored() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $config->set('PAPAYA_INCLUDE_PATH', 21);
     $this->assertNotEquals(
       21, $config->get('PAPAYA_INCLUDE_PATH')
@@ -51,35 +51,35 @@ class PapayaConfigurationGlobalTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers GlobalValues::has
-  */
+   * @covers GlobalValues::has
+   */
   public function testHasWithConstantExpectingTrue() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $this->assertTrue($config->has('PAPAYA_INCLUDE_PATH'));
   }
 
   /**
-  * @covers GlobalValues::has
-  */
+   * @covers GlobalValues::has
+   */
   public function testHasExpectingTrue() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $this->assertTrue($config->has('SAMPLE_INT'));
   }
 
   /**
-  * @covers GlobalValues::defineConstants
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers GlobalValues::defineConstants
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testDefineConstants() {
-    $config = new \PapayaConfigurationGlobal_TestProxy();
+    $config = new GlobalValues_TestProxy();
     $this->assertFalse(defined('SAMPLE_INT'));
     $config->defineConstants();
     $this->assertTrue(defined('SAMPLE_INT'));
   }
 }
 
-class PapayaConfigurationGlobal_TestProxy extends GlobalValues {
+class GlobalValues_TestProxy extends GlobalValues {
 
   public function __construct() {
     parent::__construct(

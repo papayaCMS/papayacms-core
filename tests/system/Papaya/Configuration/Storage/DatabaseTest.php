@@ -13,38 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Storage\Database;
-use Papaya\Content\Configuration;
-use Papaya\Database\Exception\Query;
-use Papaya\Database\Access;
+namespace Papaya\Configuration\Storage;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
+class DatabaseTest extends \PapayaTestCase {
 
   /**
-  * @covers Database::records
-  */
+   * @covers Database::records
+   */
   public function testRecordsGetAfterSet() {
-    $records = $this->createMock(Configuration::class);
+    $records = $this->createMock(\Papaya\Content\Configuration::class);
     $storage = new Database();
     $this->assertSame($records, $storage->records($records));
   }
 
   /**
-  * @covers Database::records
-  */
+   * @covers Database::records
+   */
   public function testRecordsGetImplicitCreate() {
     $storage = new Database();
-    $this->assertInstanceOf(Configuration::class, $storage->records());
+    $this->assertInstanceOf(\Papaya\Content\Configuration::class, $storage->records());
   }
 
   /**
-  * @covers Database::load
-  */
+   * @covers Database::load
+   */
   public function testLoad() {
     $databaseAccess = $this
-      ->getMockBuilder(Access::class)
+      ->getMockBuilder(\Papaya\Database\Access::class)
       ->disableOriginalConstructor()
       ->getMock();
     $databaseAccess
@@ -52,7 +49,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
       ->method('errorHandler')
       ->with($this->isType('array'));
 
-    $records = $this->createMock(Configuration::class);
+    $records = $this->createMock(\Papaya\Content\Configuration::class);
     $records
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -67,8 +64,8 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Database::handleError
-  */
+   * @covers Database::handleError
+   */
   public function testHandleErrorDevmode() {
     $options = $this->mockPapaya()->options(
       array(
@@ -91,15 +88,15 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
       )
     );
 
-    $exception = new Query(
+    $exception = new \Papaya\Database\Exception\Query(
       'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }
 
   /**
-  * @covers Database::handleError
-  */
+   * @covers Database::handleError
+   */
   public function testHandleErrorNoDevmodeSilent() {
     $response = $this->createMock(\Papaya\Response::class);
     $response
@@ -115,17 +112,17 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
       )
     );
 
-    $exception = new Query(
+    $exception = new \Papaya\Database\Exception\Query(
       'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }
 
   /**
-  * @covers Database::getIterator
-  */
+   * @covers Database::getIterator
+   */
   public function testGetIterator() {
-    $records = $this->createMock(Configuration::class);
+    $records = $this->createMock(\Papaya\Content\Configuration::class);
     $records
       ->expects($this->once())
       ->method('getIterator')

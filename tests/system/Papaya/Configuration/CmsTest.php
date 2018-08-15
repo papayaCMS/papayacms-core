@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Cms;
-use Papaya\Configuration\Storage;
+namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationCmsTest extends \PapayaTestCase {
+class CmsTest extends \PapayaTestCase {
 
   /**
-  * @covers Cms::__construct
-  */
+   * @covers Cms::__construct
+   */
   public function testConstructor() {
     $configuration = new Cms();
     $this->assertNotEmpty(
@@ -31,8 +30,8 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::getOptionsList
-  */
+   * @covers Cms::getOptionsList
+   */
   public function testGetOptionsList() {
     $configuration = new Cms();
     $this->assertNotEmpty(
@@ -41,10 +40,10 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::loadAndDefine
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers Cms::loadAndDefine
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testLoadAndDefineExpectingFalse() {
     $storage = $this->createMock(Storage::class);
     $storage
@@ -57,13 +56,13 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::loadAndDefine
-  * @covers Cms::defineConstants
-  * @covers Cms::setupPaths
-  * @covers Cms::defineDatabaseTables
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers Cms::loadAndDefine
+   * @covers Cms::defineConstants
+   * @covers Cms::setupPaths
+   * @covers Cms::defineDatabaseTables
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testLoadAndDefine() {
     $storage = $this->createMock(Storage::class);
     $storage
@@ -80,10 +79,10 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::setupPaths
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers Cms::setupPaths
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testSetupPathsDefaultLocal() {
     $configuration = new Cms();
     $configuration->setupPaths();
@@ -98,10 +97,10 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::setupPaths
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers Cms::setupPaths
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testSetupPathsLocal() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root/';
 
@@ -122,10 +121,10 @@ class PapayaConfigurationCmsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Cms::setupPaths
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers Cms::setupPaths
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testSetupPathsAwsS3() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root/';
 

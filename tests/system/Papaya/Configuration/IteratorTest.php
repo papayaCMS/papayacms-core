@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Iterator;
+namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationIteratorTest extends \PapayaTestCase {
+class IteratorTest extends \PapayaTestCase {
 
   public function testIterator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Configuration $configuration */

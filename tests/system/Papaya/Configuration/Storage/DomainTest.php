@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Storage\Domain;
+namespace Papaya\Configuration\Storage;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaConfigurationStorageDomainTest extends \PapayaTestCase {
+class DomainTest extends \PapayaTestCase {
 
   /**
-   * @covers Domain::__construct
+   * @covers       Domain::__construct
    * @dataProvider provideHostUrls
    * @param string $expectedScheme
    * @param string $expectedHost
@@ -37,8 +37,8 @@ class PapayaConfigurationStorageDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::domain
-  */
+   * @covers Domain::domain
+   */
   public function testDomainGetAfterSet() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);
     $storage = new Domain('sample.tld');
@@ -46,16 +46,16 @@ class PapayaConfigurationStorageDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::domain
-  */
+   * @covers Domain::domain
+   */
   public function testDomainGetImplicitCreate() {
     $storage = new Domain('sample.tld');
     $this->assertInstanceOf(\Papaya\Content\Domain::class, $storage->domain());
   }
 
   /**
-  * @covers Domain::load
-  */
+   * @covers Domain::load
+   */
   public function testLoad() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);
     $domain
@@ -70,8 +70,8 @@ class PapayaConfigurationStorageDomainTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Domain::getIterator
-  */
+   * @covers Domain::getIterator
+   */
   public function testGetIterator() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);
     $domain
