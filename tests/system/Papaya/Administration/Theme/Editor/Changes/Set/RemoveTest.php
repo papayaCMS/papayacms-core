@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Theme\Editor\Changes\Set\Remove;
-use Papaya\Database\Interfaces\Record;
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
@@ -24,15 +23,15 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
    * @covers Remove::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Delete theme set"/>
         <options>
@@ -57,8 +56,8 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
    * @covers Remove::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -71,7 +70,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Delete theme set"/>
         <options>
@@ -105,8 +104,8 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Remove($record);
     $command->papaya(
       $this->mockPapaya()->application(
