@@ -13,20 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Media\Folders;
-use Papaya\Database\Result;
-use Papaya\Database\Interfaces\Mapping;
+namespace Papaya\Content\Media;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentMediaFoldersTest extends \PapayaTestCase {
+class FoldersTest extends \PapayaTestCase {
 
   /**
    * @covers Folders::_createMapping
    */
   public function testCreateMapping() {
     $records = new Folders();
-    /** @var Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
     $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));
@@ -71,7 +69,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Folders::callbackGetFieldForProperty
+   * @covers       Folders::callbackGetFieldForProperty
    * @dataProvider providePropertyToFieldValues
    * @param string $expected
    * @param string $property
@@ -210,7 +208,7 @@ class PapayaContentMediaFoldersTest extends \PapayaTestCase {
           'id' => 1,
           'parent_id' => 0,
           'ancestors' => array(0),
-          'language_id' =>  NULL,
+          'language_id' => NULL,
           'title' => NULL
         )
       ),

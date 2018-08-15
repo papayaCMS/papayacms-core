@@ -38,7 +38,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $reference = new Reference();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $reference->mapping();
     $this->assertInstanceOf(\Papaya\Database\Interfaces\Mapping::class, $mapping);
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));

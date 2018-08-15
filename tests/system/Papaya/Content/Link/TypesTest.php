@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Link\Types;
-use Papaya\Database\Result;
+namespace Papaya\Content\Link;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentLinkTypesTest extends \PapayaTestCase {
+class TypesTest extends \PapayaTestCase {
 
   /**
-  * @covers Types::getResultIterator
-  */
+   * @covers Types::getResultIterator
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -86,8 +85,8 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Types::_createMapping
-  */
+   * @covers Types::_createMapping
+   */
   public function testCreateMapping() {
     $linkTypes = new Types();
     /** @var \Papaya\Database\Interfaces\Mapping $mapping */
@@ -100,8 +99,8 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Types::mapFieldToProperty
-  */
+   * @covers Types::mapFieldToProperty
+   */
   public function testMapFieldToPropertyPassthru() {
     $linkTypes = new Types();
     /** @var \Papaya\Database\Interfaces\Mapping $mapping */
@@ -115,8 +114,8 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Types::mapFieldToProperty
-  */
+   * @covers Types::mapFieldToProperty
+   */
   public function testMapFieldToPropertyUnserialize() {
     $linkTypes = new Types();
     /** @var \Papaya\Database\Interfaces\Mapping $mapping */
@@ -135,8 +134,8 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Types::mapPropertyToField
-  */
+   * @covers Types::mapPropertyToField
+   */
   public function testMapPropertyToFieldPassthru() {
     $linkTypes = new Types();
     /** @var \Papaya\Database\Interfaces\Mapping $mapping */
@@ -150,14 +149,14 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Types::mapPropertyToField
-  */
+   * @covers Types::mapPropertyToField
+   */
   public function testMapPropertyToFieldSerialize() {
     $linkTypes = new Types();
     /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $mapping->callbacks()->onMapValueFromPropertyToField(
         'popup_options', 'linktype_popup_config', array('foo' => 'bar')

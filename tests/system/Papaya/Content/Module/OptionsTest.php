@@ -13,25 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Module\Options;
-use Papaya\Database\Interfaces\Mapping;
+namespace Papaya\Content\Module;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentModuleOptionsTest extends \PapayaTestCase {
+class OptionsTest extends \PapayaTestCase {
 
   /**
-  * @covers Options::_createMapping
-  */
+   * @covers Options::_createMapping
+   */
   public function testCreateMapping() {
     $content = new Options();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $content->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
   /**
-   * @covers Options::callbackConvertValueByType
+   * @covers       Options::callbackConvertValueByType
    * @dataProvider providePropertiesToFieldsData
    * @param array $expected
    * @param array $properties
@@ -51,7 +50,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Options::callbackConvertValueByType
+   * @covers       Options::callbackConvertValueByType
    * @dataProvider provideFieldsToPropertiesData
    * @param array $expected
    * @param array $properties
@@ -108,7 +107,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
           'module_guid' => 'ab123456789012345678901234567890',
           'moduleoption_name' => 'SAMPLE_NAME',
           'moduleoption_value' =>
-            /** @lang XML */
+          /** @lang XML */
             '<data version="2"><data-element name="0">21</data-element><data-element name="1">42</data-element></data>',
           'moduleoption_type' => 'array'
         ),

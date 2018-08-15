@@ -25,7 +25,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $record = new Domain();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $record->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
