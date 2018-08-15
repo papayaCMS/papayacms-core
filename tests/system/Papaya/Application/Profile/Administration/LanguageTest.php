@@ -13,22 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
-use Papaya\Application\Profile\Administration\Language;
+namespace Papaya\Application\Profile\Administration;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaApplicationProfileAdministrationLanguageTest extends \PapayaTestCase {
+class LanguageTest extends \PapayaTestCase {
 
   /**
-  * @covers Language::createObject
-  */
+   * @covers \Papaya\Application\Profile\Administration\Language::createObject
+   */
   public function testCreateObject() {
     $application = $this->mockPapaya()->application();
     $profile = new Language();
     $switch = $profile->createObject($application);
     $this->assertInstanceOf(
-      Selector::class,
+      \Papaya\Administration\Languages\Selector::class,
       $switch
     );
   }

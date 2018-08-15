@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profile\Administration\User;
-use Papaya\Configuration\Cms;
+namespace Papaya\Application\Profile\Administration;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 \PapayaTestCase::defineConstantDefaults(
@@ -28,13 +27,13 @@ require_once __DIR__.'/../../../../../bootstrap.php';
   'PAPAYA_DB_TBL_SURFER'
 );
 
-class PapayaApplicationProfileAdministrationUserTest extends \PapayaTestCase {
+class UserTest extends \PapayaTestCase {
 
   /**
   * @covers User::createObject
   */
   public function testCreateObject() {
-    $options = $this->createMock(Cms::class);
+    $options = $this->createMock(\Papaya\Configuration\Cms::class);
     $options
       ->expects($this->once())
       ->method('defineDatabaseTables');
