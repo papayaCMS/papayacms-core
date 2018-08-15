@@ -13,40 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Order;
-use Papaya\Database\Record\Order\Collection;
+namespace Papaya\Database\Record\Order;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderListTest extends \PapayaTestCase {
+class CollectionTest extends \PapayaTestCase {
 
   /**
-  * @covers Collection::__construct
-  */
+   * @covers Collection::__construct
+   */
   public function testConstructorWithoutArguments() {
     $orderBy = new Collection();
     $this->assertEquals(0, $orderBy->count());
   }
 
   /**
-  * @covers Collection::__construct
-  */
+   * @covers Collection::__construct
+   */
   public function testConstructorWithArguments() {
-    $child = $this->createMock(Order::class);
+    $child = $this->createMock(\Papaya\Database\Interfaces\Order::class);
     $orderBy = new Collection($child);
     $this->assertEquals(1, $orderBy->count());
   }
 
   /**
-  * @covers Collection::__toString
-  */
+   * @covers Collection::__toString
+   */
   public function testToStringWithTwoItems() {
-    $one = $this->createMock(Order::class);
+    $one = $this->createMock(\Papaya\Database\Interfaces\Order::class);
     $one
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('field_one ASC'));
-    $two = $this->createMock(Order::class);
+    $two = $this->createMock(\Papaya\Database\Interfaces\Order::class);
     $two
       ->expects($this->once())
       ->method('__toString')
@@ -56,8 +55,8 @@ class PapayaDatabaseRecordOrderListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Collection::__toString
-  */
+   * @covers Collection::__toString
+   */
   public function testToStringWithoutItems() {
     $orderBy = new Collection();
     $this->assertEquals('', (string)$orderBy);

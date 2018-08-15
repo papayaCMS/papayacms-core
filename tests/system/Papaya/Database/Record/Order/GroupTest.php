@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Record\Order\By\Fields;
-use Papaya\Database\Record\Order\Field;
-use Papaya\Database\Record\Order\Group;
+namespace Papaya\Database\Record\Order;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
-  * @covers Group
-  */
+   * @covers Group
+   */
   public function testConstructorWithTwoLists() {
     $group = new Group(
       $this->getListFixture(array('one', 'two')),
@@ -33,8 +31,8 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Group
-  */
+   * @covers Group
+   */
   public function testAdd() {
     $group = new Group();
     $group->add(
@@ -44,8 +42,8 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Group
-  */
+   * @covers Group
+   */
   public function testAddMovesExistingToEnd() {
     $group = new Group(
       $list = $this->getListFixture(array('one', 'two')),
@@ -56,8 +54,8 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Group
-  */
+   * @covers Group
+   */
   public function testRemove() {
     $group = new Group(
       $this->getListFixture(array('one', 'two')),
@@ -73,7 +71,7 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
 
   /**
    * @param array $fieldNames
-   * @return \PHPUnit_Framework_MockObject_MockObject|Fields
+   * @return \PHPUnit_Framework_MockObject_MockObject|By\Fields
    */
   private function getListFixture(array $fieldNames = array()) {
     $fields = array();
@@ -88,7 +86,7 @@ class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
         ->will($this->returnValue($name));
     }
     $result = $this
-      ->getMockBuilder(Fields::class)
+      ->getMockBuilder(By\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $result

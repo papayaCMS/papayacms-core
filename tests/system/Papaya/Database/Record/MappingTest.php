@@ -13,18 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Record\Mapping\Callbacks;
-use Papaya\Database\Record\Mapping;
+namespace Papaya\Database\Record;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
+class MappingTest extends \PapayaTestCase {
 
   /**
-  * @covers Mapping::__construct
-  * @covers Mapping::setDefinition
-  * @covers Mapping::stripAliasFromField
-  */
+   * @covers Mapping::__construct
+   * @covers Mapping::setDefinition
+   * @covers Mapping::stripAliasFromField
+   */
   public function testConstructor() {
     $mapping = new Mapping(
       array(
@@ -61,9 +60,9 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::__construct
-  * @covers Mapping::setDefinition
-  */
+   * @covers Mapping::__construct
+   * @covers Mapping::setDefinition
+   */
   public function testConstructorWithInvalidDefinition() {
     $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Duplicate database field "field" in mapping definition.');
@@ -77,9 +76,9 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapFieldsToProperties
-  * @covers Mapping::getProperty
-  */
+   * @covers Mapping::mapFieldsToProperties
+   * @covers Mapping::getProperty
+   */
   public function testMapFieldsToProperties() {
     $mapping = new Mapping(
       array(
@@ -104,9 +103,9 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapPropertiesToFields
-  * @covers Mapping::getField
-  */
+   * @covers Mapping::mapPropertiesToFields
+   * @covers Mapping::getField
+   */
   public function testMapPropertiesToFields() {
     $mapping = new Mapping(
       array(
@@ -132,9 +131,9 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapPropertiesToFields
-  * @covers Mapping::getField
-  */
+   * @covers Mapping::mapPropertiesToFields
+   * @covers Mapping::getField
+   */
   public function testMapPropertiesToFieldsWithoutAlias() {
     $mapping = new Mapping(
       array(
@@ -161,8 +160,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::getProperties
-  */
+   * @covers Mapping::getProperties
+   */
   public function testGetProperties() {
     $mapping = new Mapping(
       array(
@@ -177,8 +176,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::getFields
-  */
+   * @covers Mapping::getFields
+   */
   public function testGetFields() {
     $mapping = new Mapping(
       array(
@@ -194,8 +193,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::getFields
-  */
+   * @covers Mapping::getFields
+   */
   public function testGetFieldsWithoutAlias() {
     $mapping = new Mapping(
       array(
@@ -211,8 +210,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::getFields
-  */
+   * @covers Mapping::getFields
+   */
   public function testGetFieldsLimitedByAlias() {
     $mapping = new Mapping(
       array(
@@ -229,26 +228,26 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::callbacks
-  */
+   * @covers Mapping::callbacks
+   */
   public function testCallbacksGetAfterSet() {
     $mapping = new Mapping(array());
-    $mapping->callbacks($callbacks = $this->createMock(Callbacks::class));
+    $mapping->callbacks($callbacks = $this->createMock(Mapping\Callbacks::class));
     $this->assertSame($callbacks, $mapping->callbacks());
   }
 
   /**
-  * @covers Mapping::callbacks
-  */
+   * @covers Mapping::callbacks
+   */
   public function testCallbacksGetImplicitCreate() {
     $mapping = new Mapping(array());
-    $this->assertInstanceOf(Callbacks::class, $mapping->callbacks());
+    $this->assertInstanceOf(Mapping\Callbacks::class, $mapping->callbacks());
   }
 
   /**
-  * @covers Mapping::getField
-  * @covers Mapping::mapPropertiesToFields
-  */
+   * @covers Mapping::getField
+   * @covers Mapping::mapPropertiesToFields
+   */
   public function testMapPropertiesToFieldsWithoutCallbacksLimitByAlias() {
     $values = array(
       'property_one' => 42
@@ -257,7 +256,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset')
@@ -299,8 +298,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapPropertiesToFields
-  */
+   * @covers Mapping::mapPropertiesToFields
+   */
   public function testMapPropertiesToFieldsGenericCallbacks() {
     $values = array(
       'property_one' => 42
@@ -309,7 +308,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', '__get', 'onBeforeMapping', 'onMapValue', 'onAfterMapping')
@@ -364,8 +363,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapPropertiesToFields
-  */
+   * @covers Mapping::mapPropertiesToFields
+   */
   public function testMapPropertiesToFieldsSpecificCallbacks() {
     $values = array(
       'property_one' => 42
@@ -374,7 +373,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array(
@@ -435,12 +434,12 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapPropertiesToFields
-  * @covers Mapping::getField
-  */
+   * @covers Mapping::mapPropertiesToFields
+   * @covers Mapping::getField
+   */
   public function testMapPropertiesToFieldsFieldNameCallback() {
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', 'onGetFieldForProperty')
@@ -480,8 +479,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapFieldsToProperties
-  */
+   * @covers Mapping::mapFieldsToProperties
+   */
   public function testMapFieldsToPropertiesGenericCallbacks() {
     $values = array(
       'property_one' => 42
@@ -490,7 +489,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', '__get', 'onBeforeMapping', 'onMapValue', 'onAfterMapping')
@@ -545,8 +544,8 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapFieldsToProperties
-  */
+   * @covers Mapping::mapFieldsToProperties
+   */
   public function testMapFieldsToPropertiesSpecificCallbacks() {
     $values = array(
       'property_one' => 42
@@ -555,7 +554,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array(
@@ -616,12 +615,12 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Mapping::mapFieldsToProperties
-  * @covers Mapping::getProperty
-  */
+   * @covers Mapping::mapFieldsToProperties
+   * @covers Mapping::getProperty
+   */
   public function testMapFieldsToPropertiesWithPropertyNameCallback() {
     $callbacks = $this
-      ->getMockBuilder(Callbacks::class)
+      ->getMockBuilder(Mapping\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', 'onGetPropertyForField')

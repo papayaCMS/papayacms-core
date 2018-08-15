@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Key;
-use Papaya\Database\Record\Key\Autoincrement;
+namespace Papaya\Database\Record\Key;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
+class AutoincrementTest extends \PapayaTestCase {
 
   /**
-  * @covers Autoincrement::__construct
-  */
+   * @covers Autoincrement::__construct
+   */
   public function testConstructor() {
     $key = new Autoincrement();
     $this->assertEquals(
@@ -31,9 +30,9 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::__construct
-  * @covers Autoincrement::getProperties
-  */
+   * @covers Autoincrement::__construct
+   * @covers Autoincrement::getProperties
+   */
   public function testConstructorWithPropertyParameter() {
     $key = new Autoincrement('other');
     $this->assertEquals(
@@ -42,9 +41,9 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * Papaya\Database\Record\Key\PapayaDatabaseRecordKeyAutoincrement::assign
-  * Papaya\Database\Record\Key\PapayaDatabaseRecordKeyAutoincrement::getFilter
-  */
+   * @covers \Papaya\Database\Record\Key\Autoincrement::assign
+   * @covers \Papaya\Database\Record\Key\Autoincrement::getFilter
+   */
   public function testAssignAndGetFilter() {
     $key = new Autoincrement();
     $this->assertTrue($key->assign(array('id' => 42)));
@@ -54,9 +53,9 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::assign
-  * @covers Autoincrement::getFilter
-  */
+   * @covers Autoincrement::assign
+   * @covers Autoincrement::getFilter
+   */
   public function testAssignWithInvalidData() {
     $key = new Autoincrement();
     $this->assertFalse($key->assign(array('other' => 42)));
@@ -66,8 +65,8 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::getFilter
-  */
+   * @covers Autoincrement::getFilter
+   */
   public function testGetFilterWithoutAssign() {
     $key = new Autoincrement();
     $this->assertEquals(
@@ -76,8 +75,8 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::exists
-  */
+   * @covers Autoincrement::exists
+   */
   public function testExistsExpectingTrue() {
     $key = new Autoincrement();
     $key->assign(array('id' => 42));
@@ -85,24 +84,24 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::exists
-  */
+   * @covers Autoincrement::exists
+   */
   public function testExistsExpectingFalse() {
     $key = new Autoincrement();
     $this->assertFalse($key->exists());
   }
 
   /**
-  * @covers Autoincrement::getQualities
-  */
+   * @covers Autoincrement::getQualities
+   */
   public function testGetQualities() {
     $key = new Autoincrement();
-    $this->assertEquals(Key::DATABASE_PROVIDED, $key->getQualities());
+    $this->assertEquals(\Papaya\Database\Interfaces\Key::DATABASE_PROVIDED, $key->getQualities());
   }
 
   /**
-  * @covers Autoincrement::__toString
-  */
+   * @covers Autoincrement::__toString
+   */
   public function testMagicToString() {
     $key = new Autoincrement();
     $key->assign(array('id' => 42));
@@ -110,8 +109,8 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Autoincrement::clear
-  */
+   * @covers Autoincrement::clear
+   */
   public function testClear() {
     $key = new Autoincrement();
     $key->assign(array('id' => 42));

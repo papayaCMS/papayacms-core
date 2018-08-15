@@ -13,57 +13,56 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Order;
-use Papaya\Database\Record\Order\By\Fields;
+namespace Papaya\Database\Record\Order\By;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderByFieldsTest extends \PapayaTestCase {
+class FieldsTest extends \PapayaTestCase {
 
   /**
-  * @covers Fields::__construct
-  * @covers Fields::__toString
-  */
+   * @covers Fields::__construct
+   * @covers Fields::__toString
+   */
   public function testWithSimpleField() {
     $orderBy = new Fields(array('field' => -1));
     $this->assertEquals('field ASC', (string)$orderBy);
   }
 
   /**
-  * @covers Fields::__construct
-  * @covers Fields::__toString
-  */
+   * @covers Fields::__construct
+   * @covers Fields::__toString
+   */
   public function testWithTwoFields() {
     $orderBy = new Fields(
       array(
-        'field_one' => Order::DESCENDING,
-        'field_two' => Order::ASCENDING
+        'field_one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'field_two' => \Papaya\Database\Interfaces\Order::ASCENDING
       )
     );
     $this->assertEquals('field_one DESC, field_two ASC', (string)$orderBy);
   }
 
   /**
-  * @covers Fields::setFields
-  */
+   * @covers Fields::setFields
+   */
   public function testSetFieldClearsExistingFields() {
     $orderBy = new Fields(array('field_one' => -1));
     $orderBy->setFields(
       array(
-        'field_two' => Order::DESCENDING
+        'field_two' => \Papaya\Database\Interfaces\Order::DESCENDING
       )
     );
     $this->assertEquals('field_two DESC', (string)$orderBy);
   }
 
   /**
-  * @covers Fields::getIterator
-  */
+   * @covers Fields::getIterator
+   */
   public function testIterator() {
     $orderBy = new Fields(
       array(
-        'field_one' => Order::DESCENDING,
-        'field_two' => Order::ASCENDING
+        'field_one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'field_two' => \Papaya\Database\Interfaces\Order::ASCENDING
       )
     );
     $this->assertCount(2, iterator_to_array($orderBy));

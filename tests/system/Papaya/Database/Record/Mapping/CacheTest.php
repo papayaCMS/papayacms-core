@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Record\Mapping\Cache;
-use Papaya\Database\Record\Mapping\Callbacks;
+namespace Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordMappingCacheTest extends \PapayaTestCase {
+class CacheTest extends \PapayaTestCase {
 
   /**
    * @covers Cache::__construct

@@ -13,26 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Record\Order\Field;
+namespace Papaya\Database\Record\Order;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderFieldTest extends \PapayaTestCase {
+class FieldTest extends \PapayaTestCase {
 
   /**
-  * @covers Field::__construct
-  * @covers Field::__toString
-  */
+   * @covers Field::__construct
+   * @covers Field::__toString
+   */
   public function testSimpleFieldName() {
     $orderBy = new Field('field');
     $this->assertEquals('field ASC', (string)$orderBy);
   }
 
   /**
-  * @covers Field::__construct
-  * @covers Field::__toString
-  * @covers Field::getDirectionString
-  */
+   * @covers Field::__construct
+   * @covers Field::__toString
+   * @covers Field::getDirectionString
+   */
   public function testFieldNameAndDirection() {
     $orderBy = new Field(
       'field', Field::DESCENDING
@@ -41,10 +41,10 @@ class PapayaDatabaseRecordOrderFieldTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Field::__construct
-  * @covers Field::__toString
-  * @covers Field::getDirectionString
-  */
+   * @covers Field::__construct
+   * @covers Field::__toString
+   * @covers Field::getDirectionString
+   */
   public function testWithInvalidDirectionExpectingAscending() {
     $orderBy = new Field(
       'field', -23

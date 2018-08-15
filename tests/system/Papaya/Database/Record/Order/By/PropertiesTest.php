@@ -13,18 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Mapping;
-use Papaya\Database\Interfaces\Order;
-use Papaya\Database\Record\Order\By\Properties;
+namespace Papaya\Database\Record\Order\By;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
+class PropertiesTest extends \PapayaTestCase {
 
   /**
-  * @covers Properties::__construct
-  * @covers Properties::__toString
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   */
   public function testWithSimpleField() {
     $orderBy = new Properties(
       array('property' => -1),
@@ -34,14 +32,14 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Properties::__construct
-  * @covers Properties::__toString
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   */
   public function testWithTwoProperties() {
     $orderBy = new Properties(
       array(
-        'one' => Order::DESCENDING,
-        'two' => Order::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -51,15 +49,15 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Properties::__construct
-  * @covers Properties::__toString
-  * @covers Properties::setProperties
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   * @covers Properties::setProperties
+   */
   public function testWithTwoPropertiesOneWithoutMapping() {
     $orderBy = new Properties(
       array(
-        'one' => Order::DESCENDING,
-        'two' => Order::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one')
@@ -69,12 +67,12 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Properties::setProperties
-  */
+   * @covers Properties::setProperties
+   */
   public function testSetFieldClearsExistingProperties() {
     $orderBy = new Properties(
       array(
-        'one' => Order::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -82,20 +80,20 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
     );
     $orderBy->setProperties(
       array(
-        'two' => Order::DESCENDING
+        'two' => \Papaya\Database\Interfaces\Order::DESCENDING
       )
     );
     $this->assertEquals('field_two DESC', (string)$orderBy);
   }
 
   /**
-  * @covers Properties::getIterator
-  */
+   * @covers Properties::getIterator
+   */
   public function testIterator() {
     $orderBy = new Properties(
       array(
-        'one' => Order::DESCENDING,
-        'two' => Order::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -110,14 +108,14 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
 
   /**
    * @param array $mappingData
-   * @return array|\PHPUnit_Framework_MockObject_MockObject|Mapping
+   * @return array|\PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping
    */
   private function getMappingFixture(array $mappingData) {
     $valueMap = array();
     foreach ($mappingData as $property => $field) {
       $valueMap[] = array($property, TRUE, $field);
     }
-    $mapping = $this->createMock(Mapping::class);
+    $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
     $mapping
       ->expects($this->any())
       ->method('getField')

@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Record\Mapping\Callbacks;
+namespace Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordMappingCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers Callbacks::__construct
-  */
+   * @covers Callbacks::__construct
+   */
   public function testConstructor() {
     $callbacks = new Callbacks();
     $this->assertNull($callbacks->onBeforeMapping->defaultReturn);
