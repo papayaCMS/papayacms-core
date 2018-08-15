@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Error\File;
+namespace Papaya\Controller\Error;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaControllerErrorFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   public function testSetTemplateFile() {
     $controller = new File();

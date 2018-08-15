@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Error\File;
-use Papaya\Controller\Error;
-use Papaya\Controller\Factory;
+namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerFactoryTest extends \PapayaTestCase {
+class FactoryTest extends \PapayaTestCase {
 
   /**
-  * @covers Factory::createError
-  */
+   * @covers Factory::createError
+   */
   public function testCreateError() {
     $error = Factory::createError(404, 'Test', 'TEST');
     $this->assertInstanceOf(Error::class, $error);
@@ -39,13 +37,13 @@ class PapayaControllerFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Factory::createError
-  */
+   * @covers Factory::createError
+   */
   public function testCreateErrorWithFile() {
     $error = Factory::createError(
       404, 'Test', 'TEST', __DIR__.'/Error/TestData/template.txt'
     );
-    $this->assertInstanceOf(File::class, $error);
+    $this->assertInstanceOf(Error\File::class, $error);
     $this->assertAttributeEquals(
       'SAMPLE', '_template', $error
     );

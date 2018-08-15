@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Error;
+namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerErrorTest extends \PapayaTestCase {
+class ErrorTest extends \PapayaTestCase {
 
   /**
-  * @covers Error::setStatus
-  */
+   * @covers Error::setStatus
+   */
   public function testSetStatus() {
     $controller = new Error();
     $controller->setStatus(403);
@@ -31,8 +31,8 @@ class PapayaControllerErrorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Error::setError
-  */
+   * @covers Error::setError
+   */
   public function testSetError() {
     $controller = new Error();
     $controller->setError('ERROR_IDENTIFIER', 'ERROR_MESSAGE');
@@ -45,9 +45,9 @@ class PapayaControllerErrorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Error::execute
-  * @covers Error::_getOutput
-  */
+   * @covers Error::execute
+   * @covers Error::_getOutput
+   */
   public function testControllerExecute() {
     $application = $this->mockPapaya()->application();
     $request = $this->mockPapaya()->request();

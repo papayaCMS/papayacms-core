@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Error;
-use Papaya\Controller\Image;
+namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 \PapayaTestCase::defineConstantDefaults(
@@ -23,14 +22,14 @@ require_once __DIR__.'/../../../bootstrap.php';
   'PAPAYA_DB_TBL_MODULEGROUPS'
 );
 
-class PapayaControllerImageTest extends \PapayaTestCase {
+class ImageTest extends \PapayaTestCase {
 
   /**
-  * @covers Image::setImageGenerator
-  */
+   * @covers Image::setImageGenerator
+   */
   public function testSetImageGenerator() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $controller = new Image();
     $controller->setImageGenerator($generator);
     $this->assertAttributeSame(
@@ -39,11 +38,11 @@ class PapayaControllerImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image::getImageGenerator
-  */
+   * @covers Image::getImageGenerator
+   */
   public function testGetImageGenerator() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $controller = new Image();
     $controller->setImageGenerator($generator);
     $this->assertSame(
@@ -53,19 +52,19 @@ class PapayaControllerImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image::getImageGenerator
-  */
+   * @covers Image::getImageGenerator
+   */
   public function testGetImageGeneratorImplicitCreate() {
     $controller = new Image();
     $this->assertInstanceOf(
-      base_imagegenerator::class,
+      \base_imagegenerator::class,
       $controller->getImageGenerator()
     );
   }
 
   /**
-  * @covers Image::execute
-  */
+   * @covers Image::execute
+   */
   public function testExecute() {
     $application = $this->mockPapaya()->application();
     $request = $this->mockPapaya()->request(
@@ -76,8 +75,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new Image();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $generator
       ->expects($this->once())
       ->method('loadByIdent')
@@ -93,8 +92,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image::execute
-  */
+   * @covers Image::execute
+   */
   public function testExecuteImageGenerateFailed() {
     $application = $this->mockPapaya()->application();
     $request = $this->mockPapaya()->request(
@@ -105,8 +104,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new Image();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $generator
       ->expects($this->once())
       ->method('loadByIdent')
@@ -123,8 +122,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image::execute
-  */
+   * @covers Image::execute
+   */
   public function testExecuteInvalidImageIdentifier() {
     $controller = new Image();
     $application = $this->mockPapaya()->application();
@@ -135,8 +134,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
       )
     );
     $response = $this->mockPapaya()->response();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
       Error::class,
@@ -145,8 +144,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Image::execute
-  */
+   * @covers Image::execute
+   */
   public function testExecuteInvalidPermission() {
     $application = $this->mockPapaya()->application(
       array(
@@ -161,8 +160,8 @@ class PapayaControllerImageTest extends \PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new Image();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
-    $generator = $this->createMock(base_imagegenerator::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
+    $generator = $this->createMock(\base_imagegenerator::class);
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
       Error::class,

@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Group;
+namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group
