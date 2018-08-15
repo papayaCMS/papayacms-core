@@ -13,29 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Reference;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
-use Papaya\Database\Record\Key\Fields;
-use Papaya\Database\Interfaces\Mapping;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageReferenceTest extends \PapayaTestCase {
+class ReferenceTest extends \PapayaTestCase {
 
   /**
-  * @covers Reference::_createKey
-  */
+   * @covers Reference::_createKey
+   */
   public function testCreateKey() {
     $reference = new Reference();
     $key = $reference->key();
-    $this->assertInstanceOf(Fields::class, $key);
+    $this->assertInstanceOf(\Papaya\Database\Record\Key\Fields::class, $key);
     $this->assertEquals(array('source_id', 'target_id'), $key->getProperties());
   }
 
   /**
-  * @covers Reference::_createMapping
-  */
+   * @covers Reference::_createMapping
+   */
   public function testCreateMapping() {
     $reference = new Reference();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -45,7 +41,7 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers Reference::callbackSortPageIds
+   * @covers       Reference::callbackSortPageIds
    * @dataProvider provideMappingData
    * @param array $expected
    * @param int $mode
@@ -61,8 +57,8 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Reference::exists
-  */
+   * @covers Reference::exists
+   */
   public function testExistsExpectingTrue() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -81,8 +77,8 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Reference::exists
-  */
+   * @covers Reference::exists
+   */
   public function testExistsExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -101,8 +97,8 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Reference::exists
-  */
+   * @covers Reference::exists
+   */
   public function testExistsWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -116,8 +112,8 @@ class PapayaContentPageReferenceTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Data Provider
-  *************************/
+   * Data Provider
+   *************************/
 
   public static function provideMappingData() {
     return array(

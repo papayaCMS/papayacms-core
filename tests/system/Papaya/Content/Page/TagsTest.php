@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Tags;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTagsTest extends \PapayaTestCase {
+class TagsTest extends \PapayaTestCase {
 
   /**
-  * @covers Tags::load
-  */
+   * @covers Tags::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -86,8 +85,8 @@ class PapayaContentPageTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Tags::load
-  */
+   * @covers Tags::load
+   */
   public function testLoadWithLanguageId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -151,8 +150,8 @@ class PapayaContentPageTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Tags::clear
-  */
+   * @covers Tags::clear
+   */
   public function testClear() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -172,8 +171,8 @@ class PapayaContentPageTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Tags::insert
-  */
+   * @covers Tags::insert
+   */
   public function testInsert() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

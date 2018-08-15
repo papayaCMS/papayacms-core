@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\References;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageReferencesTest extends \PapayaTestCase {
+class ReferencesTest extends \PapayaTestCase {
 
   /**
-  * @covers References::load
-  * @covers References::_fetchRecords
-  *
-  *
+   * @covers References::load
+   * @covers References::_fetchRecords
+   *
+   *
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);

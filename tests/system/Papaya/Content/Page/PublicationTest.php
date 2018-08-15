@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Publication;
-use Papaya\Content\Options;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPagePublicationTest extends \PapayaTestCase {
+class PublicationTest extends \PapayaTestCase {
 
   /**
-  * @covers Publication
-  */
+   * @covers Publication
+   */
   public function testSaveCreateNew() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -111,8 +109,8 @@ class PapayaContentPagePublicationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Publication
-  */
+   * @covers Publication
+   */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -200,8 +198,8 @@ class PapayaContentPagePublicationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Publication
-  */
+   * @covers Publication
+   */
   public function testSaveWithoutIdExpectingFalse() {
     $page = new Publication();
     $this->assertFalse($page->save());

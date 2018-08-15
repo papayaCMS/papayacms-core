@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Boxes;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageBoxesTest extends \PapayaTestCase {
+class BoxesTest extends \PapayaTestCase {
 
   /**
-  * @covers Boxes::load
-  */
+   * @covers Boxes::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -71,8 +70,8 @@ class PapayaContentPageBoxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Boxes::delete
-  */
+   * @covers Boxes::delete
+   */
   public function testDelete() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -86,8 +85,8 @@ class PapayaContentPageBoxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Boxes::copyTo
-  */
+   * @covers Boxes::copyTo
+   */
   public function testCopyTo() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -144,16 +143,16 @@ class PapayaContentPageBoxesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Boxes::copyTo
-  */
+   * @covers Boxes::copyTo
+   */
   public function testCopyToWithEmptySourceAndTargetExpectingTrue() {
     $boxes = new Boxes();
     $this->assertTrue($boxes->copyTo(array()));
   }
 
   /**
-  * @covers Boxes::copyTo
-  */
+   * @covers Boxes::copyTo
+   */
   public function testCopyToWhileDeleteFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

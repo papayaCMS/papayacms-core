@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Version\Translations;
-use Papaya\Content\Page\Version\Translation;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page\Version;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentPageVersionTranslationsTest extends \PapayaTestCase {
+class TranslationsTest extends \PapayaTestCase {
 
   /**
-  * @covers Translations::load
-  */
+   * @covers Translations::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -67,8 +65,8 @@ class PapayaContentPageVersionTranslationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translations::getTranslation
-  */
+   * @covers Translations::getTranslation
+   */
   public function testGetTranslation() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $list = new Translations();

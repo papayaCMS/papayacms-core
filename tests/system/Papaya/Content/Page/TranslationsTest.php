@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Translation;
-use Papaya\Content\Page\Translations;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTranslationsTest extends \PapayaTestCase {
+class TranslationsTest extends \PapayaTestCase {
 
   /**
-  * @covers Translations::setTranslationsTableName
-  */
+   * @covers Translations::setTranslationsTableName
+   */
   public function testSetTranslationsTable() {
     $list = new Translations();
     $list->setTranslationsTableName('success');
@@ -33,8 +31,8 @@ class PapayaContentPageTranslationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translations::load
-  */
+   * @covers Translations::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -80,8 +78,8 @@ class PapayaContentPageTranslationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translations::load
-  */
+   * @covers Translations::load
+   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -95,8 +93,8 @@ class PapayaContentPageTranslationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translations::getTranslation
-  */
+   * @covers Translations::getTranslation
+   */
   public function testGetTranslation() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $list = new Translations();

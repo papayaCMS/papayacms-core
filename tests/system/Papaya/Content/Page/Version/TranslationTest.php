@@ -13,16 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Version\Translation;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page\Version;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentPageVersionTranslationTest extends \PapayaTestCase {
+class TranslationTest extends \PapayaTestCase {
 
   /**
-  * @covers Translation::load
-  */
+   * @covers Translation::load
+   */
   public function testLoad() {
     $record = array(
       'topic_id' => '42',

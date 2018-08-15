@@ -13,16 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Version;
-use Papaya\Content\Page\Versions;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageVersionsTest extends \PapayaTestCase {
-/**
-  * @covers Versions::load
-  */
+class VersionsTest extends \PapayaTestCase {
+  /**
+   * @covers Versions::load
+   */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -68,8 +66,8 @@ class PapayaContentPageVersionsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Versions::getVersion
-  */
+   * @covers Versions::getVersion
+   */
   public function testGetVersion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

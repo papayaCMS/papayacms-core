@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Translation;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTranslationTest extends \PapayaTestCase {
+class TranslationTest extends \PapayaTestCase {
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testLoad() {
     $record = array(
       'topic_id' => '42',
@@ -83,8 +81,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testLoadWithId() {
     $record = array(
       'topic_id' => '42',
@@ -144,8 +142,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -167,8 +165,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testLoadNoRecordExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -196,8 +194,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testSaveCreateNew() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -243,7 +241,7 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
     $this->assertEquals(21, $data['lng_id']);
     $this->assertEquals('page title', $data['topic_title']);
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $data['topic_content']
     );
@@ -255,8 +253,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -312,8 +310,8 @@ class PapayaContentPageTranslationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Translation
-  */
+   * @covers Translation
+   */
   public function testSaveWithoutIndexDataExpectingFalse() {
     $translation = new Translation();
     $this->assertFalse($translation->save());

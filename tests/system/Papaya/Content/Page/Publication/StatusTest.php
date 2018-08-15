@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Service;
-use Papaya\Content\Page\Publication\Status;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page\Publication;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
+class StatusTest extends \PapayaTestCase {
 
   /**
-  * @covers Status::load
-  */
+   * @covers Status::load
+   */
   public function testLoadReadingFromCache() {
-    $cache = $this->createMock(Service::class);
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -56,10 +54,10 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Status::load
-  */
+   * @covers Status::load
+   */
   public function testLoadWritingCache() {
-    $cache = $this->createMock(Service::class);
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -105,18 +103,18 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Status::cache
-  */
+   * @covers Status::cache
+   */
   public function testCacheGetAfterSet() {
-    $cache = $this->createMock(Service::class);
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
     $status = new Status();
     $status->cache($cache);
     $this->assertSame($cache, $status->cache());
   }
 
   /**
-  * @covers Status::cache
-  */
+   * @covers Status::cache
+   */
   public function testCacheGetImplicitCreate() {
     $status = new Status();
     $status->papaya(
@@ -130,12 +128,12 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
         )
       )
     );
-    $this->assertInstanceOf(Service::class, $status->cache());
+    $this->assertInstanceOf(\Papaya\Cache\Service::class, $status->cache());
   }
 
   /****************
-  * Fixtures
-  ****************/
+   * Fixtures
+   ****************/
 
   /**
    * @param array $recordData
