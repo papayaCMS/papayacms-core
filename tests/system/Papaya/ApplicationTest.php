@@ -207,7 +207,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
     $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', array($this, 'callbackCreateObject'));
     $this->assertInstanceOf(
-      stdClass::class,
+      \stdClass::class,
       $app->getObject('SampleClass')
     );
   }
@@ -218,7 +218,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   public function testSetObject() {
     $object = new \stdClass();
     $app = new \PapayaApplication();
-    $app->setObject(stdClass::class, $object);
+    $app->setObject(\stdClass::class, $object);
     $this->assertSame(
       array('stdclass' => $object),
       $this->readAttribute($app, '_objects')

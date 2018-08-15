@@ -57,7 +57,7 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
   public function testConstructorWithInvalidItemClassExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Class "stdClass" is not an subclass of "Papaya\UI\Navigation\Item".');
-    new \Papaya\UI\Navigation\Builder(array(), stdClass::class);
+    new \Papaya\UI\Navigation\Builder(array(), \stdClass::class);
   }
 
   /**

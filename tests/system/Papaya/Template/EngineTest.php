@@ -102,12 +102,12 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   public function testLoadersSetterWithInvalidObjectList() {
     $loaders = $this
       ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-      ->setConstructorArgs(array(stdClass::class))
+      ->setConstructorArgs(array(\stdClass::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(stdClass::class));
+      ->will($this->returnValue(\stdClass::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
 
     $this->expectException(InvalidArgumentException::class);

@@ -62,13 +62,13 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    */
   public function testPrepareBC() {
     $filterOne = $this
-      ->getMockBuilder(stdClass::class)
+      ->getMockBuilder(\stdClass::class)
       ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
       ->getMock();
     $filterOne
       ->expects($this->once())
       ->method('initialize')
-      ->with($this->isInstanceOf(stdClass::class));
+      ->with($this->isInstanceOf(\stdClass::class));
     $filterOne
       ->expects($this->once())
       ->method('prepareFilterData')
@@ -104,7 +104,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    */
   public function testApplyToBC() {
     $filterOne = $this
-      ->getMockBuilder(stdClass::class)
+      ->getMockBuilder(\stdClass::class)
       ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
       ->getMock();
     $filterOne
@@ -142,7 +142,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
     $document = new \Papaya\XML\Document();
     $node = $document->appendElement('test');
     $filterOne = $this
-      ->getMockBuilder(stdClass::class)
+      ->getMockBuilder(\stdClass::class)
       ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
       ->getMock();
     $filterOne

@@ -212,7 +212,7 @@ class PapayaSessionValuesTest extends \PapayaTestCase {
     return array(
       'string' => array('sample', 'sample'),
       'number' => array('123', 123),
-      'object' => array(stdClass::class, new \stdClass()),
+      'object' => array(\stdClass::class, new \stdClass()),
       'array of strings' => array('foo_bar', array('foo', 'bar')),
       'array with object' => array('stdClass_bar', array(new \stdClass(), 'bar')),
       'array with array' => array('5b448a7bdbeea0be7d7f758f5f8ee90b_bar', array(array(''), 'bar'))

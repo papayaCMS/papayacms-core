@@ -49,8 +49,8 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   */
   public function testGetMemcacheObjectExistingClass() {
     $service = new \PapayaCacheServiceMemcache_TestProxy();
-    $service->_memcacheClasses = array(stdClass::class);
-    $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
+    $service->_memcacheClasses = array(\stdClass::class);
+    $this->assertInstanceOf(\stdClass::class, $service->getMemcacheObject());
   }
 
   /**
@@ -59,8 +59,8 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   */
   public function testGetMemcacheObjectExistingAndFallbackClass() {
     $service = new \PapayaCacheServiceMemcache_TestProxy();
-    $service->_memcacheClasses = array(stdClass::class, Memcache::class);
-    $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
+    $service->_memcacheClasses = array(\stdClass::class, Memcache::class);
+    $this->assertInstanceOf(\stdClass::class, $service->getMemcacheObject());
   }
 
   /**
@@ -79,8 +79,8 @@ class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
   */
   public function testGetMemcacheObjectNonexistingButFallbackClass() {
     $service = new \PapayaCacheServiceMemcache_TestProxy();
-    $service->_memcacheClasses = array('NOT_EXISTING_CLASSNAME', stdClass::class);
-    $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
+    $service->_memcacheClasses = array('NOT_EXISTING_CLASSNAME', \stdClass::class);
+    $this->assertInstanceOf(\stdClass::class, $service->getMemcacheObject());
   }
 
   /**

@@ -127,7 +127,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   */
   public function testGetStringWithObjectArgument() {
     $mock = $this
-      ->getMockBuilder(stdClass::class)
+      ->getMockBuilder(\stdClass::class)
       ->setMethods(array('__toString'))
       ->getMock();
     $mock

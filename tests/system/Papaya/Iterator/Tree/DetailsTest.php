@@ -57,7 +57,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -107,7 +107,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         ),
       ),
       iterator_to_array(
-        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );
@@ -145,7 +145,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         4 => 'CategoryThree'
       ),
       iterator_to_array(
-        new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST),
+        new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
         FALSE
       )
     );

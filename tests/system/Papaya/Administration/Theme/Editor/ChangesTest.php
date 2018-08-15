@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Theme\Editor\Changes;
-use Papaya\Content\Theme\Set;
+namespace Papaya\Administration\Theme\Editor;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
+class ChangesTest extends \PapayaTestCase {
 
   /**
    * @covers Changes::appendTo
@@ -65,7 +64,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testThemeSetGetAfterSet() {
     $command = new Changes();
-    $command->themeSet($themeSet =  $this->createMock(Set::class));
+    $command->themeSet($themeSet = $this->createMock(\Papaya\Content\Theme\Set::class));
     $this->assertSame($themeSet, $command->themeSet());
   }
 
@@ -74,7 +73,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testThemeSetGetImplicitCreate() {
     $command = new Changes();
-    $this->assertInstanceOf(Set::class, $command->themeSet());
+    $this->assertInstanceOf(\Papaya\Content\Theme\Set::class, $command->themeSet());
   }
 
   /**

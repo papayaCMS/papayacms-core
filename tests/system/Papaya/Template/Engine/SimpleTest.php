@@ -20,7 +20,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   /**
    * Integration test - block code coverage
    *
-   * @covers stdClass
+   * @covers \stdClass
    */
   public function testTemplateEngineRun() {
     $engine = new \Papaya\Template\Engine\Simple();

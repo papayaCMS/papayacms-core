@@ -74,7 +74,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   */
   public function testOwnerGetAfterSet() {
     $collection = new \Papaya\UI\Control\Collection();
-    $collection->owner($owner = $this->createMock(stdClass::class));
+    $collection->owner($owner = $this->createMock(\stdClass::class));
     $this->assertSame($owner, $collection->owner());
   }
 
@@ -89,7 +89,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->with($this->isInstanceOf(\Papaya\UI\Control\Collection::class));
     $collection = new \Papaya\UI\Control\Collection();
     $collection->add($item);
-    $collection->owner($this->createMock(stdClass::class));
+    $collection->owner($this->createMock(\stdClass::class));
   }
 
   /**
@@ -133,7 +133,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Control\Collection::hasOwner
   */
   public function testHasOwnerExpectingTrue() {
-    $owner = $this->createMock(stdClass::class);
+    $owner = $this->createMock(\stdClass::class);
     $collection = new \Papaya\UI\Control\Collection();
     $collection->owner($owner);
     $this->assertTrue($collection->hasOwner());

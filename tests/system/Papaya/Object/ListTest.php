@@ -34,7 +34,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   public function testConstructorWithoutClass() {
     $list = new \Papaya\BaseObject\Collection();
     $this->assertAttributeEquals(
-      stdClass::class,
+      \stdClass::class,
       '_itemClass',
       $list
     );
@@ -106,7 +106,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testAdd() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertSame(
       $list,
       $list->add($item)
@@ -122,7 +122,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::clear
   */
   public function testClear() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->clear();
     $this->assertAttributeSame(
@@ -136,7 +136,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::remove
   */
   public function testRemove() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->remove(0);
     $this->assertAttributeSame(
@@ -150,7 +150,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::isEmpty
   */
   public function testIsEmptyExpectingTrue() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertTrue($list->isEmpty());
   }
 
@@ -158,7 +158,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::isEmpty
   */
   public function testIsEmptyExpectingFalse() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $this->assertFalse($list->isEmpty());
   }
@@ -167,7 +167,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::count
   */
   public function testIsEmptyExpectingZero() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertSame(
       0,
       $list->count()
@@ -178,7 +178,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::count
   */
   public function testIsEmptyExpectingOne() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $this->assertSame(
       1,
@@ -191,7 +191,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testCurrentExpectingItem() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add($item);
     $this->assertSame(
       $item,
@@ -203,7 +203,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::current
   */
   public function testCurrentExpectingNull() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertFalse(
       $list->current()
     );
@@ -214,7 +214,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testKeyExpectingZero() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add($item);
     $this->assertSame(
       0,
@@ -226,7 +226,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::key
   */
   public function testKeyExpectingNull() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertNull(
       $list->key()
     );
@@ -236,7 +236,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::next
   */
   public function testNext() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->add(new \stdClass());
     $list->next();
@@ -250,7 +250,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::rewind
   */
   public function testRewind() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->add(new \stdClass());
     $list->next();
@@ -266,7 +266,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::valid
   */
   public function testValidExpectingTrue() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $this->assertTrue(
       $list->valid()
@@ -277,7 +277,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::valid
   */
   public function testValidExpectingFalse() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertFalse(
       $list->valid()
     );
@@ -287,7 +287,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add(new \stdClass());
     $this->assertTrue(
       $list->offsetExists(0)
@@ -298,7 +298,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->assertFalse(
       $list->offsetExists(99)
     );
@@ -309,7 +309,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testOffsetGet() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->add($item);
     $this->assertSame(
       $item,
@@ -323,7 +323,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testOffsetSet() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->offsetSet(NULL, $item);
     $this->assertAttributeSame(
       array($item),
@@ -337,7 +337,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithExistingIndex() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->offsetSet(NULL, new \stdClass());
     $list->offsetSet(0, $item);
     $this->assertAttributeSame(
@@ -351,7 +351,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::offsetSet
   */
   public function testOffsetSetWithInvalidIndexExpectingException() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->expectException(InvalidArgumentException::class);
     $list->offsetSet(99, new \stdClass);
   }
@@ -360,7 +360,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   * @covers \Papaya\BaseObject\Collection::offsetSet
   */
   public function testOffsetSetWithInvalidValueExpectingException() {
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $this->expectException(InvalidArgumentException::class);
     $list->offsetSet(99, 'A String');
   }
@@ -370,7 +370,7 @@ class PapayaObjectListTest extends \PapayaTestCase {
   */
   public function testOffsetUnset() {
     $item = new \stdClass();
-    $list = new \Papaya\BaseObject\Collection(stdClass::class);
+    $list = new \Papaya\BaseObject\Collection(\stdClass::class);
     $list->offsetSet(NULL, new \stdClass());
     $list->offsetSet(NULL, $item);
     $list->offsetUnset(0);

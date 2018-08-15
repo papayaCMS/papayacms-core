@@ -13,8 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor;
+
 use Papaya\Administration\Theme\Editor\Navigation;
 use Papaya\Content\Structure\Page;
+use RecursiveIterator;
+use RecursiveIteratorIterator;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -44,7 +48,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
     $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
-       /* language=xml prefix=<fragment> suffix=</fragment> */
+    /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
          target="_self"
@@ -69,7 +73,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     );
     $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
-       /* language=xml prefix=<fragment> suffix=</fragment> */
+    /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
          target="_self"
@@ -173,7 +177,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -206,7 +210,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -240,7 +244,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -277,7 +281,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="sample title"
          image="folder.png"
@@ -316,7 +320,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="sample title"
          image="folder.png"
@@ -361,7 +365,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="Page title"
          image="folder.png"
@@ -380,7 +384,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       array(
         'request' => $this->mockPapaya()->request(
           array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
-         ),
+        ),
         'images' => array('items-folder' => 'folder.png')
       )
     );
@@ -407,7 +411,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem
          title="Page title"
          image="folder.png"
@@ -424,8 +428,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
    */
   private function getBuilderFixture($depth = 0) {
     $iterator = $this
-      ->getMockBuilder(RecursiveIteratorIterator::class)
-      ->setConstructorArgs(array($this->createMock(RecursiveIterator::class)))
+      ->getMockBuilder(\RecursiveIteratorIterator::class)
+      ->setConstructorArgs(array($this->createMock(\RecursiveIterator::class)))
       ->getMock();
     $iterator
       ->expects($this->once())
@@ -436,9 +440,9 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $builder
-     ->expects($this->once())
-     ->method('getDataSource')
-     ->will($this->returnValue($iterator));
+      ->expects($this->once())
+      ->method('getDataSource')
+      ->will($this->returnValue($iterator));
     return $builder;
   }
 }

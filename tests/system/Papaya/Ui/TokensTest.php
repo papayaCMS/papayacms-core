@@ -322,7 +322,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
   public static function provideVerificationHashesAndData() {
     return array(
       'empty string' => array('d41d8cd98f00b204e9800998ecf8427e', ''),
-      'string' => array('09a15e9660c1ebc6f429d818825ce0c6', stdClass::class),
+      'string' => array('09a15e9660c1ebc6f429d818825ce0c6', \stdClass::class),
       'object' => array('09a15e9660c1ebc6f429d818825ce0c6', new \stdClass()),
       'complex string' => array('e9a0aef46725a205149d6a0af38eeb3e', 'sample_stdClass'),
       'array' => array('e9a0aef46725a205149d6a0af38eeb3e', array('sample', new \stdClass)),
