@@ -13,18 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Changer;
-use Papaya\Administration\Pages\Reference\Command\Delete;
-use Papaya\Content\Page\Reference;
+namespace Papaya\Administration\Pages\Reference\Command;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCase {
   /**
-  * @covers Delete::createDialog
-  */
+   * @covers Delete::createDialog
+   */
   public function testCreateDialog() {
-    $owner = $this->createMock(Changer::class);
+    $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
     $owner
       ->expects($this->atLeastOnce())
       ->method('getPageId')
@@ -32,7 +30,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCas
     $owner
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42))));
+      ->will($this->returnValue($this->getRecordFixture(array('sourceId' => 21, 'targetId' => 42))));
 
     $command = new Delete();
     $command->owner($owner);
@@ -42,8 +40,8 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCas
   }
 
   /**
-  * @covers Delete::dispatchDeleteMessage
-  */
+   * @covers Delete::dispatchDeleteMessage
+   */
   public function testDispatchDeleteMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
@@ -66,10 +64,10 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCas
 
   /**
    * @param array $data
-   * @return \PHPUnit_Framework_MockObject_MockObject
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\Reference
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(Reference::class);
+    $record = $this->createMock(\Papaya\Content\Page\Reference::class);
     $record
       ->expects($this->any())
       ->method('toArray')
