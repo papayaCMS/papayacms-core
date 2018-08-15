@@ -155,13 +155,13 @@ class Factory extends \Papaya\Application\BaseObject {
    * Create a pages database encapsulation object
    *
    * @param string|\Papaya\Database\Interfaces\Order $order
-   * @return \Papaya\Content\Pages|\Papaya\Content\Pages\Publications
+   * @return \Papaya\Content\Pages|\Papaya\Content\Page\Publications
    */
   private function createPages($order) {
     if ($this->papaya()->request->isPreview) {
       $pages = new \Papaya\Content\Pages();
     } else {
-      $pages = new \Papaya\Content\Pages\Publications();
+      $pages = new \Papaya\Content\Page\Publications();
     }
     if ($orderBy = $this->getOrderBy($order, $pages)) {
       $pages->orderBy($orderBy);

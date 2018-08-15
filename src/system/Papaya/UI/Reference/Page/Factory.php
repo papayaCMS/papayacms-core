@@ -393,7 +393,7 @@ class Factory extends \Papaya\Application\BaseObject {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
       $this->_pages = $this->isPreview()
-        ? new \Papaya\Content\Pages(TRUE) : new \Papaya\Content\Pages\Publications(TRUE);
+        ? new \Papaya\Content\Pages(TRUE) : new \Papaya\Content\Page\Publications(TRUE);
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

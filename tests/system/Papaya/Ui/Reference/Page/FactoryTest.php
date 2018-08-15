@@ -14,7 +14,7 @@
  */
 
 use Papaya\Content\Link\Types;
-use Papaya\Content\Pages\Publications;
+use Papaya\Content\Page\Publications;
 use Papaya\Content\Language;
 use Papaya\Content\Languages;
 use Papaya\Content\Pages;

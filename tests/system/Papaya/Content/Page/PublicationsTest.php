@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Pages\Publications;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPagesPublicationsTest extends \PapayaTestCase {
+class PublicationsTest extends \PapayaTestCase {
 
   /**
-  * @covers Publications::__construct
-  * @covers Publications::load
-  * @covers Publications::_compileCondition
-  */
+   * @covers Publications::__construct
+   * @covers Publications::load
+   * @covers Publications::_compileCondition
+   */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -62,8 +60,8 @@ class PapayaContentPagesPublicationsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Publications
-  */
+   * @covers Publications
+   */
   public function testIsPublicExpectingTrue() {
     $pages = new Publications();
     $this->assertTrue($pages->isPublic());

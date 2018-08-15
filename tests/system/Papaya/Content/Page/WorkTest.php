@@ -17,7 +17,7 @@ namespace Papaya\Content\Page {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class PapayaContentPageWorkTest extends \PapayaTestCase {
+  class WorkTest extends \PapayaTestCase {
 
     /**
      * @covers Work::save

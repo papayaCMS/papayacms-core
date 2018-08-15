@@ -4792,7 +4792,7 @@ class base_topic_edit extends base_topic {
   * @return string
   */
   function getShortTitle($topicId, $languageId) {
-    $pages = new \Papaya\Content\Pages\Publications();
+    $pages = new \Papaya\Content\Page\Publications();
     $pages->load(array('id' => array($topicId), 'language_id' => $languageId));
     $pageTitles = \Papaya\Utility\ArrayMapper::byIndex($pages, 'title');
     $pageTitle = isset($pageTitles[$topicId]) ? $pageTitles[$topicId] : '';

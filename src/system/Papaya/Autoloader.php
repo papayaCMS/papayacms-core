@@ -45,6 +45,8 @@ class Autoloader {
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
 
+    'PapayaContentPagesPublications' => Content\Page\Publications::class,
+
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
     'PapayaDatabaseRecordList' => Database\Record\Collection::class,
 

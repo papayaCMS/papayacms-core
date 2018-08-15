@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Content\Pages;
+namespace Papaya\Content\Page;
 /**
  * This object loads public page data by different conditions.
  *

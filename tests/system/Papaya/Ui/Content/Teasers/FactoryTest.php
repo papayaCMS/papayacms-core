@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Pages\Publications;
+use Papaya\Content\Page\Publications;
 use Papaya\Content\Pages;
 use Papaya\Database\Interfaces\Order;
 
