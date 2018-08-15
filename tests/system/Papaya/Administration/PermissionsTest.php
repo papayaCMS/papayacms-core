@@ -13,14 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
-use Papaya\Administration\Permission\Groups;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Administration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
+class PermissionsTest extends \PapayaTestCase {
 
   /**
    * @covers Permissions::__construct
@@ -56,7 +53,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
     $this->assertTrue(
       $permissions->exists(
         Permissions::USER_MANAGE,
-        Groups::SYSTEM
+        Permission\Groups::SYSTEM
       )
     );
   }
@@ -69,7 +66,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
     $this->assertFalse(
       $permissions->exists(
         Permissions::USER_MANAGE,
-        Groups::MISC
+        Permission\Groups::MISC
       )
     );
   }
@@ -82,7 +79,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
     $this->assertTrue(
       $permissions->inGroup(
         Permissions::USER_MANAGE,
-        Groups::SYSTEM
+        Permission\Groups::SYSTEM
       )
     );
   }
@@ -95,7 +92,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
     $this->assertFalse(
       $permissions->inGroup(
         Permissions::USER_MANAGE,
-        Groups::MISC
+        Permission\Groups::MISC
       )
     );
   }
@@ -121,7 +118,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
    * @covers Permissions::reset
    */
   public function testIsActiveAfterLoadingExpectingFalse() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -140,7 +137,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.Tables::AUTHENTICATION_PERMISSIONS)
+        array('table_'.\Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS)
       )
       ->will($this->returnValue($databaseResult));
     $permissions = new Permissions();
@@ -156,7 +153,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
    */
   public function testGroupsGetAfterSet() {
     $permissions = new Permissions();
-    $permissions->groups($groups = $this->createMock(Groups::class));
+    $permissions->groups($groups = $this->createMock(Permission\Groups::class));
     $this->assertSame($groups, $permissions->groups());
   }
 
@@ -165,7 +162,7 @@ class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
    */
   public function testGroupsGetImplicitCreate() {
     $permissions = new Permissions();
-    $this->assertInstanceOf(Groups::class, $permissions->groups());
+    $this->assertInstanceOf(Permission\Groups::class, $permissions->groups());
   }
 
 }

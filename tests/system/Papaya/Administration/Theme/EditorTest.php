@@ -13,46 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Page\Part;
-use Papaya\Administration\Theme\Editor;
-use Papaya\Template;
+namespace Papaya\Administration\Theme {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorTest extends \PapayaTestCase {
+  class EditorTest extends \PapayaTestCase {
 
-  /**
-   * @covers Editor::createContent
-   */
-  public function testCreateContent() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
-    $template = $this->createMock(Template::class);
-    $page = new \PapayaAdministrationThemeEditor_TestProxy($template);
-    $this->assertInstanceOf(
-      Part::class, $page->createContent()
-    );
+    /**
+     * @covers Editor::createContent
+     */
+    public function testCreateContent() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */
+      $template = $this->createMock(\Papaya\Template::class);
+      $page = new Editor_TestProxy($template);
+      $this->assertInstanceOf(
+        \Papaya\Administration\Page\Part::class, $page->createContent()
+      );
+    }
+
+    /**
+     * @covers Editor::createNavigation
+     */
+    public function testCreateNavigation() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */
+      $template = $this->createMock(\Papaya\Template::class);
+      $page = new Editor_TestProxy($template);
+      $this->assertInstanceOf(
+        \Papaya\Administration\Page\Part::class, $page->createNavigation()
+      );
+    }
   }
 
-  /**
-   * @covers Editor::createNavigation
-   */
-  public function testCreateNavigation() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
-    $template = $this->createMock(Template::class);
-    $page = new \PapayaAdministrationThemeEditor_TestProxy($template);
-    $this->assertInstanceOf(
-      Part::class, $page->createNavigation()
-    );
-  }
-}
+  class Editor_TestProxy extends Editor {
 
-class PapayaAdministrationThemeEditor_TestProxy extends Editor {
+    public function createContent() {
+      return parent::createContent();
+    }
 
-  public function createContent() {
-    return parent::createContent();
-  }
-
-  public function createNavigation() {
-    return parent::createNavigation();
+    public function createNavigation() {
+      return parent::createNavigation();
+    }
   }
 }

@@ -15,11 +15,6 @@
 
 namespace Papaya\Administration\Theme\Editor;
 
-use Papaya\Administration\Theme\Editor\Navigation;
-use Papaya\Content\Structure\Page;
-use RecursiveIterator;
-use RecursiveIteratorIterator;
-
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
@@ -352,7 +347,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
 
-    $page = new Page();
+    $page = new \Papaya\Content\Structure\Page();
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 
@@ -398,7 +393,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
 
-    $page = new Page();
+    $page = new \Papaya\Content\Structure\Page();
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 

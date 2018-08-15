@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
-use Papaya\Administration\Pages\Ancestors;
-use Papaya\Content\Pages;
+namespace Papaya\Administration\Pages;
 
-require_once __DIR__.'/../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
+class AncestorsTest extends \PapayaTestCase {
 
   /**
-  * @covers Ancestors::appendTo
-  */
+   * @covers Ancestors::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
@@ -41,10 +39,10 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Ancestors::setIds
-  */
+   * @covers Ancestors::setIds
+   */
   public function testSetIds() {
-    $pages = $this->createMock(Pages::class);
+    $pages = $this->createMock(\Papaya\Content\Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -77,7 +75,7 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
 
     $ancestors->setIds(array(42));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<hierarchy-menu>
         <items>
           <item caption="test" mode="both"
@@ -89,24 +87,24 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Ancestors::pages
-  */
+   * @covers Ancestors::pages
+   */
   public function testPagesGetAfterSet() {
     $ancestors = new Ancestors();
-    $pages = $this->createMock(Pages::class);
+    $pages = $this->createMock(\Papaya\Content\Pages::class);
     $this->assertSame(
       $pages, $ancestors->pages($pages)
     );
   }
 
   /**
-  * @covers Ancestors::pages
-  */
+   * @covers Ancestors::pages
+   */
   public function testPagesGetWithImpliciteCreate() {
     $ancestors = new Ancestors();
     $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      Pages::class, $ancestors->pages()
+      \Papaya\Content\Pages::class, $ancestors->pages()
     );
     $this->assertSame(
       $papaya, $ancestors->papaya()
@@ -114,8 +112,8 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Ancestors::menu
-  */
+   * @covers Ancestors::menu
+   */
   public function testItemsGetAfterSet() {
     $ancestors = new Ancestors();
     $menu = $this->createMock(\Papaya\UI\Hierarchy\Menu::class);
@@ -125,8 +123,8 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Ancestors::menu
-  */
+   * @covers Ancestors::menu
+   */
   public function testItemsGetWithImpliciteCreate() {
     $ancestors = new Ancestors();
     $ancestors->papaya($papaya = $this->mockPapaya()->application());
@@ -139,13 +137,13 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   }
 
   /************************************
-  * Fixtures
-  ************************************/
+   * Fixtures
+   ************************************/
 
   private function getLanguageSwitchFixture() {
     $language = new \stdClass();
     $language->id = 1;
-    $switch = $this->createMock(Selector::class);
+    $switch = $this->createMock(\Papaya\Administration\Languages\Selector::class);
     $switch
       ->expects($this->any())
       ->method('getCurrent')
