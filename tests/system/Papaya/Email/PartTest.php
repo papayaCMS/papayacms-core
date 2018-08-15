@@ -13,45 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Email\Content;
-use Papaya\Email\Headers;
+namespace Papaya\Email;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailPartTest extends \PapayaTestCase {
+class PartTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Email\Part::__construct
-  * @covers \Papaya\Email\Part::content
-  */
+   * @covers \Papaya\Email\Part::__construct
+   * @covers \Papaya\Email\Part::content
+   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->assertAttributeSame(
       $content, '_content', $part
     );
   }
 
   /**
-  * @covers \Papaya\Email\Part::content
-  */
+   * @covers \Papaya\Email\Part::content
+   */
   public function testContentGetter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->assertSame(
       $content, $part->content()
     );
   }
 
   /**
-  * @covers \Papaya\Email\Part::headers
-  */
+   * @covers \Papaya\Email\Part::headers
+   */
   public function testHeadersGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $headers = $this->createMock(Headers::class);
     $this->assertSame(
       $headers, $part->headers($headers)
@@ -59,48 +58,48 @@ class PapayaEmailPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Email\Part::headers
-  */
+   * @covers \Papaya\Email\Part::headers
+   */
   public function testHeadersGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->assertInstanceOf(
       \Papaya\Email\Headers::class, $part->headers()
     );
   }
 
   /**
-  * @covers \Papaya\Email\Part::__get
-  */
+   * @covers \Papaya\Email\Part::__get
+   */
   public function testMagicMethodGetForPropertyContent() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->assertSame(
       $content, $part->content
     );
   }
 
   /**
-  * @covers \Papaya\Email\Part::__get
-  */
+   * @covers \Papaya\Email\Part::__get
+   */
   public function testMagicMethodGetForPropertyHeaders() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->assertInstanceOf(
       \Papaya\Email\Headers::class, $part->headers
     );
   }
 
   /**
-  * @covers \Papaya\Email\Part::__get
-  */
+   * @covers \Papaya\Email\Part::__get
+   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Unknown property "Papaya\Email\Part::$invalidProperty".');
     /** @noinspection PhpUndefinedFieldInspection */
@@ -108,12 +107,12 @@ class PapayaEmailPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Email\Part::__set
-  */
+   * @covers \Papaya\Email\Part::__set
+   */
   public function testMagicMethodSetForPropertyContent() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $content = $this->createMock(Content::class);
     $part->content = $content;
     $this->assertAttributeSame(
@@ -122,12 +121,12 @@ class PapayaEmailPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Email\Part::__set
-  */
+   * @covers \Papaya\Email\Part::__set
+   */
   public function testMagicMethodSetForPropertyHeaders() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $headers = $this->createMock(Headers::class);
     $part->headers = $headers;
     $this->assertAttributeSame(
@@ -136,12 +135,12 @@ class PapayaEmailPartTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Email\Part::__set
-  */
+   * @covers \Papaya\Email\Part::__set
+   */
   public function testMagicMethodSetWithInvalidPropertyExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
-    $part = new \Papaya\Email\Part($content);
+    $part = new Part($content);
     $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Unknown property "Papaya\Email\Part::$invalidProperty".');
     /** @noinspection PhpUndefinedFieldInspection */

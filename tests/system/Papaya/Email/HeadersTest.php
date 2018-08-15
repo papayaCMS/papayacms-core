@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Email;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailHeadersTest extends \PapayaTestCase {
+class HeadersTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Email\Headers
-  */
+   * @covers \Papaya\Email\Headers
+   */
   public function testConstruct() {
-    $object = new \Papaya\Email\Headers();
+    $object = new Headers();
     $this->assertInstanceOf(\Papaya\HTTP\Headers::class, $object);
   }
 
