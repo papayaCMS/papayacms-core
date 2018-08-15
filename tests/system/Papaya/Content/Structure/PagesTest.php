@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure\Page;
-use Papaya\Content\Structure\Pages;
+namespace Papaya\Content\Structure;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructurePagesTest extends \PapayaTestCase {
+class PagesTest extends \PapayaTestCase {
 
   /**
    * @covers Pages::__construct

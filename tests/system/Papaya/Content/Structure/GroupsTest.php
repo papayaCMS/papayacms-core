@@ -13,13 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure\Group;
-use Papaya\Content\Structure\Groups;
-use Papaya\Content\Structure\Page;
+namespace Papaya\Content\Structure;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureGroupsTest extends \PapayaTestCase {
+class GroupsTest extends \PapayaTestCase {
 
   /**
    * @covers Groups::__construct

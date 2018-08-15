@@ -13,20 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure\Group;
-use Papaya\Content\Structure\Page;
-use Papaya\Content\Structure\Values;
+namespace Papaya\Content\Structure;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
-    $page =$this->createMock(Page::class);
+    $page = $this->createMock(Page::class);
     $group = new Group($page);
     $this->assertAttributeSame($page, '_page', $group);
   }
@@ -36,7 +34,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    */
   public function testGroupsGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
-    $page =$this->createMock(Page::class);
+    $page = $this->createMock(Page::class);
     $group = new Group($page);
     $values = $this
       ->getMockBuilder(Values::class)
@@ -51,7 +49,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    */
   public function testGroupsGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
-    $page =$this->createMock(Page::class);
+    $page = $this->createMock(Page::class);
     $group = new Group($page);
     $this->assertInstanceOf(Values::class, $group->values());
   }
@@ -61,7 +59,7 @@ class PapayaContentStructureGroupTest extends \PapayaTestCase {
    */
   public function testGetIdentifier() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
-    $page =$this->createMock(Page::class);
+    $page = $this->createMock(Page::class);
     $page
       ->expects($this->once())
       ->method('getIdentifier')

@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure\Group;
-use Papaya\Content\Structure\Value;
+namespace Papaya\Content\Structure;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureValueTest extends \PapayaTestCase {
+class ValueTest extends \PapayaTestCase {
 
   /**
    * @covers Value::__construct
