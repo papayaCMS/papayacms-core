@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
-use Papaya\Administration\Plugin\Editor\Fields;
+namespace Papaya\Administration\Plugin\Editor;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
+class FieldsTest extends \PapayaTestCase {
 
   /**
    * @covers Fields::__construct
@@ -35,7 +34,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
    * @covers Fields::createDialog
    */
   public function testDialogGetImplicitCreate() {
-    $languageSwitch = $this->createMock(Selector::class);
+    $languageSwitch = $this->createMock(\Papaya\Administration\Languages\Selector::class);
     $languageSwitch
       ->expects($this->any())
       ->method('getCurrent')
@@ -50,7 +49,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
     $pluginContent
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new EmptyIterator()));
+      ->will($this->returnValue(new \EmptyIterator()));
 
     $builder = $this
       ->getMockBuilder(\Papaya\UI\Dialog\Field\Builder\FromArray::class)

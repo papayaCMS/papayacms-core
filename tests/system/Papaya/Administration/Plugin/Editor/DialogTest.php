@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Plugin\Editor\Dialog;
+namespace Papaya\Administration\Plugin\Editor;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
+class DialogTest extends \PapayaTestCase {
 
   /**
    * @covers Dialog::appendTo
@@ -93,7 +93,7 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
     $called = FALSE;
     $editor = new Dialog($pluginContent);
     $editor->onExecute(
-      function() use (&$called) {
+      function () use (&$called) {
         $called = TRUE;
       }
     );
@@ -172,14 +172,14 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
     $pluginContent
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new EmptyIterator()));
+      ->will($this->returnValue(new \EmptyIterator()));
 
     $editor = new Dialog($pluginContent);
     $editor->papaya($this->mockPapaya()->application());
 
     $this->assertInstanceOf(\Papaya\UI\Dialog::class, $dialog = $editor->dialog());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
          <title caption="Edit content"/>
          <options>
