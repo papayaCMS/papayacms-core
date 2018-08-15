@@ -85,7 +85,7 @@ class PapayaEmailAddressTest extends \PapayaTestCase {
   */
   public function testSetUnknownPropertyExpectingException() {
     $address = new \Papaya\Email\Address();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     /** @noinspection PhpUndefinedFieldInspection */
     $address->unknown = 'test';
@@ -96,7 +96,7 @@ class PapayaEmailAddressTest extends \PapayaTestCase {
   */
   public function testGetUnknownPropertyExpectingException() {
     $address = new \Papaya\Email\Address();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     /** @noinspection PhpUndefinedFieldInspection */
     $address->unknown;

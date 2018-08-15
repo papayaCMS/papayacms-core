@@ -143,7 +143,7 @@ class PapayaPluginEditableContentTest extends \PapayaTestCase {
   public function testEditorImplicitCreateWithInvalidCallbackExpectingException() {
     $content = new \Papaya\Plugin\Editable\Content();
     $content->callbacks()->onCreateEditor = array($this, 'callbackOnCreateEditorReturnNull');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $content->editor();
   }
 

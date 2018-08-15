@@ -76,7 +76,7 @@ class PapayaUiLinkAttributesTest extends \PapayaTestCase {
   */
   public function testSetPopupOptionsInvalidExceptionException() {
     $attributes = new \Papaya\UI\Link\Attributes();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid options definition: only one scrollbars option can be set.');
     $attributes->popupOptions = (
       \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS |

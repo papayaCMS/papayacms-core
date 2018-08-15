@@ -331,7 +331,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testGetInvalidPropertyExpectingException() {
     $request = new \Papaya\Request();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $request->INVALID_PROPERTY;
   }
@@ -341,7 +341,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testSetInvalidPropertyExpectingException() {
     $request = new \Papaya\Request();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $request->INVALID_PROPERTY = 'fail';
   }
@@ -416,7 +416,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testSetParameterGroupSeparatorExpectingError() {
     $request = new \Papaya\Request();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid parameter level separator: X');
     $request->setParameterGroupSeparator('X');
   }
@@ -727,7 +727,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testSetParametersWithInvalidSource() {
     $request = new \Papaya\Request();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $request->setParameters(\Papaya\Request::SOURCE_ALL, new \Papaya\Request\Parameters());
   }
 
@@ -736,7 +736,7 @@ class PapayaRequestTest extends \PapayaTestCase {
   */
   public function testSetParametersWithInvalidParameters() {
     $request = new \Papaya\Request();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $request->setParameters(\Papaya\Request::SOURCE_QUERY, NULL);
   }
 

@@ -36,7 +36,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Select::options
   */
   public function testOptionsExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Argument $options must be an array or implement Traversable.');
     /** @noinspection PhpParamsInspection */
     new \Papaya\UI\Toolbar\Select('foo', 'failed');

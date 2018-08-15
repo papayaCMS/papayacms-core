@@ -46,7 +46,7 @@ class PapayaDatabaseConditionRootTest extends \PapayaTestCase {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $element = new Root($databaseAccess);
     $element->isEqual('foo', 'bar');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $element->isEqual('foo', 'bar');
   }
 

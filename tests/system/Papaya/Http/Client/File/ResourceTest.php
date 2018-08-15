@@ -46,7 +46,7 @@ class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
   * @covers \Papaya\HTTP\Client\File\Resource::__construct
   */
   public function testConstructorExpectingError() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \Papaya\HTTP\Client\File\Resource('', '', NULL, '');
   }
 

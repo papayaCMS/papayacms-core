@@ -32,7 +32,7 @@ class PapayaIteratorFileStreamTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\File\Stream::setStream
   */
   public function testConstructorWithInvaloidStreamExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Provided file stream is invalid');
     new \Papaya\Iterator\File\Stream(NULL);
   }

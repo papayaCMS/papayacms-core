@@ -37,7 +37,7 @@ class PapayaTemplateSimpleScannerTokenTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Simple\Scanner\Token::__construct
    */
   public function testConstructorWithInvalidTypeExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \Papaya\Template\Simple\Scanner\Token(-23, 0, '');
   }
 
@@ -108,7 +108,7 @@ class PapayaTemplateSimpleScannerTokenTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::VALUE_NAME, 0, 'foo'
     );
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Unknown property: Papaya\Template\Simple\Scanner\Token::$UNKNOWN');
     /** @noinspection PhpUndefinedFieldInspection */
     $token->UNKNOWN;
@@ -121,7 +121,7 @@ class PapayaTemplateSimpleScannerTokenTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::VALUE_NAME, 0, ''
     );
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     /** @noinspection Annotator */
     $token->offset = 23;
   }

@@ -31,7 +31,7 @@ class PapayaFilterCastTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Cast::__construct
   */
   public function testConstructorExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('"invalid_type_string" is not a valid type.');
     new \Papaya\Filter\Cast('invalid_type_string');
   }

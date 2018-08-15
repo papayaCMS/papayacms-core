@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Configuration;
-use Papaya\Cache\Service\File;
+namespace Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaCacheServiceFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();
@@ -26,7 +25,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
   public function getServiceObjectFixture($createSampleFile = FALSE) {
     $this->createTemporaryDirectory();
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = $this->_temporaryDirectory;
     if ($createSampleFile) {
       $oldMask = umask(0);
@@ -41,8 +40,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::setConfiguration
-  */
+   * @covers File::setConfiguration
+   */
   public function testSetConfiguration() {
     $service = $this->getServiceObjectFixture();
     $this->assertAttributeSame(
@@ -51,10 +50,10 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::setConfiguration
-  */
+   * @covers File::setConfiguration
+   */
   public function testSetConfigurationWithNotifier() {
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = '/tmp';
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
     $service = new File($configuration);
@@ -64,39 +63,39 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::verify
-  */
+   * @covers File::verify
+   */
   public function testVerifyExpectingTrue() {
     $service = $this->getServiceObjectFixture();
     $this->assertTrue($service->verify());
   }
 
   /**
-  * @covers File::verify
-  */
+   * @covers File::verify
+   */
   public function testVerifyExpectingFalse() {
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = '';
     $service = new File($configuration);
     $this->assertFalse($service->verify());
   }
 
   /**
-  * @covers File::verify
-  */
+   * @covers File::verify
+   */
   public function testVerifyExpectingError() {
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = '/foo';
     $service = new File($configuration);
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->assertFalse($service->verify(FALSE));
   }
 
   /**
-  * @covers File::write
-  * @covers File::notify
-  * @covers File::_ensureLocalDirectory
-  */
+   * @covers File::write
+   * @covers File::notify
+   * @covers File::_ensureLocalDirectory
+   */
   public function testWrite() {
     $service = $this->getServiceObjectFixture();
     $this->assertSame(
@@ -107,10 +106,10 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::write
-  * @covers File::notify
-  * @covers File::_ensureLocalDirectory
-  */
+   * @covers File::write
+   * @covers File::notify
+   * @covers File::_ensureLocalDirectory
+   */
   public function testWriteTriggersNotifier() {
     $service = $this->getServiceObjectFixture();
 
@@ -148,9 +147,9 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::write
-  * @covers File::_ensureLocalDirectory
-  */
+   * @covers File::write
+   * @covers File::_ensureLocalDirectory
+   */
   public function testWriteOverExistingFile() {
     $service = $this->getServiceObjectFixture(TRUE);
     $this->assertSame(
@@ -161,9 +160,9 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::write
-  * @covers File::_ensureLocalDirectory
-  */
+   * @covers File::write
+   * @covers File::_ensureLocalDirectory
+   */
   public function testWriteExpectingFailure() {
     $service = new File();
     $this->assertFalse(
@@ -172,9 +171,9 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::read
-  * @covers File::exists
-  */
+   * @covers File::read
+   * @covers File::exists
+   */
   public function testRead() {
     $service = $this->getServiceObjectFixture(TRUE);
     $this->assertSame(
@@ -184,9 +183,9 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::read
-  * @covers File::exists
-  */
+   * @covers File::read
+   * @covers File::exists
+   */
   public function testReadWithInvalidConfigurationExpectingFalse() {
     $service = new File();
     $this->assertFalse(
@@ -195,8 +194,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::exists
-  */
+   * @covers File::exists
+   */
   public function testExistsWithInvalidFile() {
     $service = $this->getServiceObjectFixture();
     $this->assertFalse(
@@ -205,8 +204,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::exists
-  */
+   * @covers File::exists
+   */
   public function testExistsWithExpiredFile() {
     $service = $this->getServiceObjectFixture(TRUE);
     $yesterday = time() - 86400;
@@ -220,8 +219,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::exists
-  */
+   * @covers File::exists
+   */
   public function testExistsWithDeprecatedFile() {
     $service = $this->getServiceObjectFixture(TRUE);
     $lastHour = time() - 3600;
@@ -236,8 +235,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::created
-  */
+   * @covers File::created
+   */
   public function testCreated() {
     $service = $this->getServiceObjectFixture(TRUE);
     $lastHour = time() - 3600;
@@ -252,8 +251,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::created
-  */
+   * @covers File::created
+   */
   public function testCreatedWithExpiredExpectingFalse() {
     $service = $this->getServiceObjectFixture(TRUE);
     $lastHour = time() - 3600;
@@ -269,7 +268,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
 
   /**
-   * @covers File::delete
+   * @covers       File::delete
    * @dataProvider deleteArgumentsDataProvider
    * @param NULL|string $group
    * @param NULL|string $element
@@ -281,8 +280,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::delete
-  */
+   * @covers File::delete
+   */
   public function testDeleteFileTriggersNotifier() {
     $service = $this->getServiceObjectFixture(TRUE);
 
@@ -304,8 +303,8 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::delete
-  */
+   * @covers File::delete
+   */
   public function testDeleteDirectoryTriggersNotifier() {
     $service = $this->getServiceObjectFixture(TRUE);
 
@@ -328,11 +327,11 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::delete
-  */
+   * @covers File::delete
+   */
   public function testInvalidateDirectoryTriggersNotifier() {
     $this->createTemporaryDirectory();
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = $this->_temporaryDirectory;
     $configuration['FILESYSTEM_DISABLE_CLEAR'] = TRUE;
     $oldMask = umask(0);
@@ -364,23 +363,23 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::delete
-  */
+   * @covers File::delete
+   */
   public function testDeleteNonexistingElement() {
     $service = $this->getServiceObjectFixture(TRUE);
     $this->assertTrue($service->delete('NONEXISTING_GROUP'));
   }
 
   /**
-  * @covers File::delete
-  */
+   * @covers File::delete
+   */
   public function testDeleteWithInvalidConfiguration() {
     $service = new File();
     $this->assertFalse($service->delete());
   }
 
   /**
-   * @covers File::_getCacheIdentification
+   * @covers       File::_getCacheIdentification
    * @dataProvider getCacheIdentificationDataProvider
    * @param string $group
    * @param string $identifier
@@ -388,7 +387,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
    * @param array $expected
    */
   public function testGetCacheIdentification($group, $identifier, $parameters, $expected) {
-    $service = new \PapayaCacheServiceFile_TestProxy();
+    $service = new PapayaCacheServiceFile_TestProxy();
     $this->assertSame(
       $expected,
       $service->_getCacheIdentification($group, $identifier, $parameters)
@@ -396,21 +395,21 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers File::_getCacheIdentification
+   * @covers       File::_getCacheIdentification
    * @dataProvider getInvalidCacheIdentificationDataProvider
    * @param string $group
    * @param string $identifier
    * @param mixed $parameters
    */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
-    $service = new \PapayaCacheServiceFile_TestProxy();
-    $this->expectException(InvalidArgumentException::class);
+    $service = new PapayaCacheServiceFile_TestProxy();
+    $this->expectException(\InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }
 
   /**
-  * @covers File::notifier
-  */
+   * @covers File::notifier
+   */
   public function testNotifierGetAfterSet() {
     $notifier = $this
       ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
@@ -423,10 +422,10 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::notifier
-  */
+   * @covers File::notifier
+   */
   public function testNofifierGetImplicitCreate() {
-    $configuration = new Configuration();
+    $configuration = new \Papaya\Cache\Configuration();
     $configuration['FILESYSTEM_PATH'] = '/tmp';
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
 
@@ -435,16 +434,16 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers File::notifier
-  */
+   * @covers File::notifier
+   */
   public function testNofifierGetImplicitCreateWithoutNotifierScriptExpectingFalse() {
     $service = new File();
     $this->assertFalse($service->notifier());
   }
 
   /**************************************
-  * Data Providers
-  **************************************/
+   * Data Providers
+   **************************************/
 
   public static function getCacheIdentificationDataProvider() {
     return array(

@@ -101,7 +101,7 @@ class PapayaEmailPartTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
     $part = new \Papaya\Email\Part($content);
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Unknown property "Papaya\Email\Part::$invalidProperty".');
     /** @noinspection PhpUndefinedFieldInspection */
     $part->invalidProperty;
@@ -142,7 +142,7 @@ class PapayaEmailPartTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
     $part = new \Papaya\Email\Part($content);
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Unknown property "Papaya\Email\Part::$invalidProperty".');
     /** @noinspection PhpUndefinedFieldInspection */
     $part->invalidProperty = 'test';

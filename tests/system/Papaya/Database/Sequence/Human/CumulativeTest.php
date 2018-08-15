@@ -43,7 +43,7 @@ class PapayaDatabaseSequenceHumanCumulativeTest extends \PapayaTestCase {
   * @covers Cumulative::__construct
   */
   public function testConstructorWithInvalidLengthLimits() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Minimum length can not be greater then maximum length.');
     new Cumulative('table', 'field', 42, 21);
   }

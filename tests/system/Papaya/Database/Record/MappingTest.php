@@ -65,7 +65,7 @@ class PapayaDatabaseRecordMappingTest extends \PapayaTestCase {
   * @covers Mapping::setDefinition
   */
   public function testConstructorWithInvalidDefinition() {
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Duplicate database field "field" in mapping definition.');
     new Mapping(
       array(

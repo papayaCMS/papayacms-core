@@ -88,6 +88,6 @@ class PapayaMessageSandboxTest extends \PapayaTestCase {
   }
 
   public function callbackThrowException() {
-    throw new LogicException('logic');
+    throw new \LogicException('logic');
   }
 }

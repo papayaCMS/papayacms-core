@@ -58,7 +58,7 @@ class PapayaTemplateEngineXslTest extends \PapayaTestCase {
   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
     $engine = new \Papaya\Template\Engine\Xsl();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.XSL');
   }
 

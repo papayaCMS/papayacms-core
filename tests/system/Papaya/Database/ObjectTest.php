@@ -85,7 +85,7 @@ class PapayaDatabaseObjectTest extends \PapayaTestCase {
   */
   public function testDelegationWithInvalidFunction() {
     $databaseObject = new BaseObject();
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $databaseObject->invalidFunctionName();
   }

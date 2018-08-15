@@ -32,7 +32,7 @@ class PapayaUiDialogFieldInputTimeTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Time::__construct
   */
   public function testConstructorWithInvalidStep() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must not be less than 0.');
     new \Papaya\UI\Dialog\Field\Input\Time('Time', 'time', '00:00:00', TRUE, -300.0);
   }

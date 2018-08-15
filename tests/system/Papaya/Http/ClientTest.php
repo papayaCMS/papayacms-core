@@ -62,7 +62,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
 
   public function testSetURLWithEmptyParameter() {
     $client = new \Papaya\HTTP\Client();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $client->setURL('');
   }
 
@@ -165,7 +165,7 @@ class PapayaHttpClientTest extends \PapayaTestCase {
 
   public function testInvalidSetProxy() {
     $client = new \Papaya\HTTP\Client('http://www.sample.tld');
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $client->setProxy('');
   }
 

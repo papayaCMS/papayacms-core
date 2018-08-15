@@ -33,7 +33,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   */
   public function testSetAccessKeyWithInvalidKeyExpectingException() {
     $button = new \Papaya\UI\Toolbar\Button();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Access key must be an single character.');
     $button->accessKey = 'foo';
   }

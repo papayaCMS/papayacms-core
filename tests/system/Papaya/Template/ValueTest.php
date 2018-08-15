@@ -72,7 +72,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   public function testNodeWithInvalidArgumentExpectingException() {
     $document = new \Papaya\XML\Document();
     $value = new \Papaya\Template\Value($document->appendElement('dom'));
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $value->node(new \stdClass());
   }
 
@@ -181,7 +181,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   public function testAppendWithInvalidElement() {
     $document = new \Papaya\XML\Document();
     $value = new \Papaya\Template\Value($document);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $value->append(5);
   }
 
@@ -192,7 +192,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
   public function testAppendWithEmptyDocument() {
     $document = new \Papaya\XML\Document();
     $value = new \Papaya\Template\Value($document);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $value->append($document);
   }
 
@@ -289,7 +289,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
     $value = new \Papaya\Template\Value($document->documentElement);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $value->xml(1);
   }
 
@@ -300,7 +300,7 @@ class PapayaTemplateValueTest extends \PapayaTestCase {
     $document = new \Papaya\XML\Document();
     $document->loadXml(/** @lang XML */'<sample/>');
     $value = new \Papaya\Template\Value($document->documentElement);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $value->xml(array('child'));
   }
 

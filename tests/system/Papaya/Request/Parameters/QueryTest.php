@@ -46,7 +46,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   */
   public function testSetSeparatorWithInvalidValueExpectingException() {
     $query = new \Papaya\Request\Parameters\QueryString();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $query->setSeparator('I');
   }
 

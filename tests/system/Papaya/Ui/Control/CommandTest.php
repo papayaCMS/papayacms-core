@@ -227,7 +227,7 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
   */
   public function testOwnerGetExpectingException() {
     $command = new \PapayaUiControlCommand_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Instance of "PapayaUiControlCommand_TestProxy" has no owner assigned.');
     $command->owner();
   }

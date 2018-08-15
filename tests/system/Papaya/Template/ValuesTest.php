@@ -126,7 +126,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   */
   public function testGetValueByPathWithInvalidPathExpectingException() {
     $values = new \Papaya\Template\Values();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $values->getValueByPath('');
   }
 
@@ -179,7 +179,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   */
   public function testGetValueWithInvalidElementExpectingException() {
     $values = new \Papaya\Template\Values();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $values->getValue(23);
   }
 

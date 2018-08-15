@@ -71,7 +71,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
   */
   public function testParametesWithInvalidArgument() {
     $engine = new \PapayaTemplateEngine_TestProxy();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $engine->parameters(23);
   }
 
@@ -110,7 +110,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
       ->will($this->returnValue(\stdClass::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
 
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $engine->loaders($loaders);
   }
 

@@ -34,7 +34,7 @@ class PapayaUiToolbarComposedTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Composed::setNames
   */
   public function testConstructorWithEmptySetList() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('No sets defined');
     new \Papaya\UI\Toolbar\Composed(array());
   }
@@ -44,7 +44,7 @@ class PapayaUiToolbarComposedTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Toolbar\Composed::setNames
   */
   public function testConstructorWithInvalidSetName() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid set name "" in index "0".');
     new \Papaya\UI\Toolbar\Composed(array(''));
   }

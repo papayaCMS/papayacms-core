@@ -105,7 +105,7 @@ class PapayaDatabaseRecordsGroupedTest extends \PapayaTestCase {
     $records = new \PapayaDatabaseRecordsGrouped_TestProxy();
     $records->_groupIdentifierProperties = array();
     $records->setDatabaseAccess($this->getDatabaseFixture());
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Properties needed to group records.');
     $records->load();
   }

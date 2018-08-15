@@ -35,7 +35,7 @@ class PapayaUiDialogFieldInputDateTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
   */
   public function testConstructorWithInvalidIncludeTimeOption() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage(
       'Argument must be Papaya\Filter\Date::DATE_NO_TIME, Papaya\Filter\Date::DATE_OPTIONAL_TIME,'.
       ' or Papaya\Filter\Date::DATE_MANDATORY_TIME.');
@@ -48,7 +48,7 @@ class PapayaUiDialogFieldInputDateTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
   */
   public function testConstructorWithInvalidStep() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must be greater than 0.');
     new \Papaya\UI\Dialog\Field\Input\Date(
       'Date', 'date', '2011-01-01 18:00', TRUE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME, -300.0

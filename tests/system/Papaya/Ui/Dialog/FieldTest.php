@@ -353,7 +353,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
         $this->isInstanceOf(Exception::class),
         $this->isInstanceOf(\Papaya\UI\Dialog\Field::class)
       );
-    $exception = new LogicException();
+    $exception = new \LogicException();
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->handleValidationFailure($exception);

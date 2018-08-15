@@ -104,7 +104,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   */
   public function testRegisterProfileWithInvalidProfileExpectingException() {
     $app = new \PapayaApplication();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     $app->registerProfile('SampleClass', new \stdClass());
   }
@@ -153,7 +153,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
     $profileTwo = $this->createMock(Profile::class);
     $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Duplicate application object profile:');
     $app->registerProfile('SampleClass', $profileTwo, \PapayaApplication::DUPLICATE_ERROR);
   }
@@ -176,7 +176,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   */
   public function testGetObjectWithoutSetExpectingError() {
     $app = new \PapayaApplication();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Unknown profile identifier:');
     $app->getObject('SAMPLE');
   }
@@ -231,7 +231,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   public function testSetObjectDuplicateError() {
     $app = new \PapayaApplication();
     $app->setObject('SampleClass', new \stdClass());
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Application object does already exists:');
     $app->setObject('SampleClass', new \stdClass());
   }
@@ -358,7 +358,7 @@ class PapayaApplicationTest extends \PapayaTestCase {
   */
   public function testRemoveObjectUnknownExpectingException() {
     $app = new \PapayaApplication();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $app->removeObject('SampleClass');
   }
 

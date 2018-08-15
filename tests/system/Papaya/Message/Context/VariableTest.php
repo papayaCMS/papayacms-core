@@ -58,7 +58,7 @@ class PapayaMessageContextVariableTest extends \PapayaTestCase {
   */
   public function testSetDepthWithInvalidDepthExpectingException() {
     $context = new \Papaya\Message\Context\Variable(NULL);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $context->setDepth(0);
   }
 
@@ -91,7 +91,7 @@ class PapayaMessageContextVariableTest extends \PapayaTestCase {
   */
   public function testSetStringLengthWithInvalidLengthExpectingException() {
     $context = new \Papaya\Message\Context\Variable(NULL);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $context->setStringLength(-1);
   }
 

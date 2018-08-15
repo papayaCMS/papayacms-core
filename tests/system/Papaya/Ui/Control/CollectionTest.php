@@ -97,7 +97,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   */
   public function testOwnerGetExpectingException() {
     $collection = new \Papaya\UI\Control\Collection();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Collection "Papaya\UI\Control\Collection" has no owner object.');
     $collection->owner();
   }
@@ -276,7 +276,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $item = $this->getMockItemFixture();
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_itemClass = \Papaya\UI\Control\Interactive::class;
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid item class');
     $collection->add($item);
   }
@@ -352,7 +352,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_itemClass = \PapayaUiControlCollection_TestItem::class;
     $collection->add($itemOne);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $collection->set(0, $itemTwo);
   }
 

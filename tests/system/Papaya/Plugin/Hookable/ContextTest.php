@@ -63,7 +63,7 @@ class PapayaPluginHookableContextTest extends \PapayaTestCase {
    */
   public function testGetParentWithoutParentExpectingException() {
     $context = new \Papaya\Plugin\Hookable\Context();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $context->getParent();
   }
 

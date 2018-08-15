@@ -71,7 +71,7 @@ class PapayaUiMessageTest extends \PapayaTestCase {
   */
   public function testSeverityWithInvalidValueExpectingException() {
     $message = new \PapayaUiMessage_TestProxy(\Papaya\UI\Message::SEVERITY_ERROR, 'sample');
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid severity for message.');
     $message->severity = 99;
   }

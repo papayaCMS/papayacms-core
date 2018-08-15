@@ -65,7 +65,7 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Caching::setCallback
   */
   public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Provided callback parameter is not valid.');
     new \Papaya\Iterator\Caching(
       $innerIterator = new \EmptyIterator(),
@@ -107,7 +107,7 @@ class PapayaIteratorCachingTest extends \PapayaTestCase {
   }
 
   public function callbackThrowException() {
-    throw new LogicException('Constructor should not execute getCache callback.');
+    throw new \LogicException('Constructor should not execute getCache callback.');
   }
 
   public function callbackFillCache() {

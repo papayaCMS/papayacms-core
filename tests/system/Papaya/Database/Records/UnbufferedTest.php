@@ -506,7 +506,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends \PapayaTestCase {
    */
   public function testGetItemExpectingException() {
     $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $records->getItem();
   }
 

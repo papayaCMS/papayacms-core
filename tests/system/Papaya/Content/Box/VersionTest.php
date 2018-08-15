@@ -27,7 +27,7 @@ class PapayaContentBoxVersionTest extends \PapayaTestCase {
     $version = new Version();
     /** @noinspection PhpUndefinedFieldInspection */
     $version->id = 42;
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Box versions can not be changed.');
     $version->save();
   }

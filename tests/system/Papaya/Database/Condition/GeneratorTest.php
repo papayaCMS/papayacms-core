@@ -54,7 +54,7 @@ class PapayaDatabaseConditionGeneratorTest extends \PapayaTestCase {
    * @covers Generator
    */
   public function testConstructorWithInvalidParent() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     new Generator(new \stdClass());
   }

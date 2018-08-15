@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Configuration;
+namespace Papaya\Cache;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCacheConfigurationTest extends \PapayaTestCase {
+class ConfigurationTest extends \PapayaTestCase {
 
   public function testConstructor() {
     $configuration = new Configuration();

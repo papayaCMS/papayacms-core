@@ -223,7 +223,7 @@ class PapayaFilterFactoryTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Factory
    */
   public function testValidateUsingCallStaticMagicMethodWithoutArguments() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     \Papaya\Filter\Factory::isEmail();
   }
@@ -232,7 +232,7 @@ class PapayaFilterFactoryTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Factory
    */
   public function testCallUnknownFunctionExpectingException() {
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     \Papaya\Filter\Factory::someUnknownFunction();
   }

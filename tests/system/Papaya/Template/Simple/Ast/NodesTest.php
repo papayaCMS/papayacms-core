@@ -31,7 +31,7 @@ class PapayaTemplateSimpleAstNodesTest extends \PapayaTestCase {
    */
   public function testLimitIsInitializedAndRestrictsAddExpectingException() {
     $nodes = new \Papaya\Template\Simple\AST\Nodes();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $nodes[] = new \stdClass;
   }
 

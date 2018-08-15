@@ -64,7 +64,7 @@ class PapayaCsvReaderTest extends \PapayaTestCase {
   */
   public function testIsValidDisallowLocalFilesExpectingException() {
     $reader = new Reader(__DIR__.'/TestData/sample.csv');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $reader->isValid(FALSE);
   }
 

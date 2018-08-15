@@ -80,7 +80,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   */
   public function testAssignExpectingInvalid() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Argument $data must be an array or instance of Traversable.');
     /** @noinspection PhpParamsInspection */
     $item->assign('INVALID');

@@ -53,7 +53,7 @@ class PapayaUiControlCollectionItemTest extends \PapayaTestCase {
   */
   public function testCollectionWithoutSetExpectingExpcetion() {
     $item = new \PapayaUiControlCollectionItem_TestProxy();
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     $this->expectExceptionMessage('BadMethodCallException: Item ist not part of a collection.');
     $item->collection();
   }

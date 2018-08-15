@@ -40,7 +40,7 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   * @covers \Papaya\Message\Display::_isValidType
   */
   public function testConstructorWithInvalidTypeExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \Papaya\Message\Display(\Papaya\Message::SEVERITY_DEBUG, 'Sample Message');
   }
 

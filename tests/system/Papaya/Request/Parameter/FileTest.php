@@ -199,7 +199,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetSetExpectingException() {
     $file = new \Papaya\Request\Parameter\File('foo');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $file['type'] = '';
   }
 
@@ -208,7 +208,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetUnsetExpectingException() {
     $file = new \Papaya\Request\Parameter\File('foo');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     unset($file['size']);
   }
 

@@ -136,7 +136,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   */
   public function testSetValuesWithEmptyActiveValueExpectingException() {
     $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('The active value can not be empty.');
     $checkbox->setValues('', 'false');
   }
@@ -146,7 +146,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   */
   public function testSetValuesWithEqualValuesExpectingException() {
     $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('The active value and the inactive value must be different.');
     $checkbox->setValues('yes', 'yes');
   }

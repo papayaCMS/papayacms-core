@@ -35,7 +35,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @covers \Papaya\Filter\Ip\V4::__construct
    */
   public function testConstructInvalidArgumentException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \Papaya\Filter\Ip\V4('InvalidConfiguration');
   }
 
@@ -139,7 +139,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    */
   public function testValidateInvalidArgumentException($ip, $configuration) {
     $filter = new \Papaya\Filter\Ip\V4($configuration);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $filter->validate($ip);
   }
 

@@ -49,7 +49,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithoutIndexExpectingException() {
     $list = new \Papaya\UI\Icon\Collection();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Please provide a valid offset for the icon.');
     $list[] = new \Papaya\UI\Icon('sample.png');
   }
@@ -59,7 +59,7 @@ class PapayaUiIconListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithInvalidIconExpectingException() {
     $list = new \Papaya\UI\Icon\Collection();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Please provide an instance of Papaya\UI\Icon.');
     $list['sample'] = 'X';
   }

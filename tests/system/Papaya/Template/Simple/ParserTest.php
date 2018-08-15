@@ -277,7 +277,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
   */
   public function testDelegateWithInvalidClassExpectingException() {
     $parser = $this->getParserFixture();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $parser->delegate(\stdClass::class);
   }
 

@@ -30,7 +30,7 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
    */
   public function testPropertyReadUnknownPropertyExpectingException() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Unknown property: PapayaTemplateSimpleAstNode_TestProxy::$UNKNOWN');
     /** @noinspection PhpUndefinedFieldInspection */
     $node->UNKNOWN;
@@ -41,7 +41,7 @@ class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
    */
   public function testPropertyWriteThrowsException() {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $node->foo = 23;
   }
 

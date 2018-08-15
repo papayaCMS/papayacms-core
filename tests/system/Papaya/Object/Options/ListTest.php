@@ -82,7 +82,7 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithInvalidName() {
     $options = new \Papaya\BaseObject\Options\Collection();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $options['INVALID OPTION WITH SPACE'] = '';
   }
 
@@ -91,7 +91,7 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   */
   public function testOffsetSetWithInvalidValue() {
     $options = new \Papaya\BaseObject\Options\Collection();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $options['SAMPLE'] = new \stdClass();
   }
 

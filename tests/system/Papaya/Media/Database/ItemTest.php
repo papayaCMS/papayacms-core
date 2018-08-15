@@ -36,7 +36,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $service */
     $service = $this->createMock(\Papaya\Media\Storage\Service::class);
     $item = new \Papaya\Media\Database\Item($service);
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $item->invalidPropertyName = '';
   }
@@ -66,7 +66,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $service */
     $service = $this->createMock(\Papaya\Media\Storage\Service::class);
     $item = new \Papaya\Media\Database\Item($service);
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     $item->name = '';
   }
 
@@ -92,7 +92,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $service */
     $service = $this->createMock(\Papaya\Media\Storage\Service::class);
     $item = new \Papaya\Media\Database\Item($service);
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     $item->mediaId = 'abc';
   }
 
@@ -118,7 +118,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $service */
     $service = $this->createMock(\Papaya\Media\Storage\Service::class);
     $item = new \Papaya\Media\Database\Item($service);
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     $item->versionId = 'a';
   }
 
@@ -156,7 +156,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Media\Storage\Service $service */
     $service = $this->createMock(\Papaya\Media\Storage\Service::class);
     $item = new \Papaya\Media\Database\Item($service);
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $item->invalidPropertyName;
   }
@@ -278,7 +278,7 @@ class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
       ->method('load')
       ->will($this->returnValue(FALSE));
     $item->setDatabaseAccessObject($record);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $item->load(NULL);
   }
 

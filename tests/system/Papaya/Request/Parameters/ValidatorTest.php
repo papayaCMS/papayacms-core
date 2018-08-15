@@ -248,7 +248,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
     $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array();
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $validator['foo'] = 'bar';
   }
 
@@ -266,7 +266,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 21));
     $definitions = array();
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     unset($validator['foo']);
   }
 

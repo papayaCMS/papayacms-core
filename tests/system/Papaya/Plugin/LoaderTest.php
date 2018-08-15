@@ -88,7 +88,7 @@ class PapayaPluginLoaderTest extends \PapayaTestCase {
   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
     $loader = new \Papaya\Plugin\Loader();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Can not read unknown property Papaya\Plugin\Loader::$unkownProperty');
     /** @noinspection PhpUndefinedFieldInspection */
     $loader->unkownProperty;
@@ -99,7 +99,7 @@ class PapayaPluginLoaderTest extends \PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidPropertyExpectingException() {
     $loader = new \Papaya\Plugin\Loader();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Can not write unknown property Papaya\Plugin\Loader::$unkownProperty');
     /** @noinspection PhpUndefinedFieldInspection */
     $loader->unkownProperty = 'dummy';

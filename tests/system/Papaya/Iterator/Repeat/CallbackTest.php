@@ -44,7 +44,7 @@ class PapayaIteratorRepeatCallbackTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Repeat\Callback
   */
   public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid callback provided.');
     new \Papaya\Iterator\Repeat\Callback(NULL);
   }

@@ -299,7 +299,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   */
   public function testPropertySetExpectingException() {
     $session = new \Papaya\Session();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     /** @noinspection Annotator */
     $session->values = 'foo';
   }

@@ -191,7 +191,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   */
   public function testMagicMethodCallExpectingException() {
     $share = new \PapayaSessionShare_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('LogicException: Unknown method "PapayaSessionShare_TestProxy::unknownMethodName".');
     /** @noinspection PhpUndefinedMethodInspection */
     $share->unknownMethodName();
@@ -213,7 +213,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   public function testPreparePropertyNameWithDisabledNormalization() {
     $share = new \PapayaSessionShare_TestProxy();
     $share->_normalizeNames = FALSE;
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid session share property name "SessionProperty".');
     $share->preparePropertyName('SessionProperty');
   }
@@ -223,7 +223,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   */
   public function testPreparePropertyNameExpectingException() {
     $share = new \PapayaSessionShare_TestProxy();
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid session share property name "invalid_property".');
     $share->preparePropertyName('invalidProperty');
   }

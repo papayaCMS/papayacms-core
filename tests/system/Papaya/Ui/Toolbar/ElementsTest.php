@@ -53,7 +53,7 @@ class PapayaUiToolbarElementsTest extends \PapayaTestCase {
     $elements = new \Papaya\UI\Toolbar\Elements($this->createMock(\Papaya\UI\Menu::class));
     $elements->allowGroups = FALSE;
     $group = new \Papaya\UI\Toolbar\Group('caption');
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "Papaya\UI\Toolbar\Group".');
     $elements->add($group);
   }

@@ -345,7 +345,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   */
   public function testSetParameterGroupSeparatorWithInvalidSeparator() {
     $reference = new \Papaya\UI\Reference();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid parameter level separator: X');
     $reference->setParameterGroupSeparator('X');
   }

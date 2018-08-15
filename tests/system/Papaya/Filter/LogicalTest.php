@@ -67,7 +67,7 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithOneFilterExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \PapayaFilterLogical_TestProxy(
       $this->createMock(\Papaya\Filter::class)
     );
@@ -78,7 +78,7 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testContructorWithInvalidObjectsExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     new \PapayaFilterLogical_TestProxy(
       new \stdClass(), new \stdClass()
     );

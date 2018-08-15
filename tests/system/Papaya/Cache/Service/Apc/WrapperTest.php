@@ -13,11 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Service\Apc\Wrapper;
+namespace Papaya\Cache\Service\Apc;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
+class WrapperTest extends \PapayaTestCase {
 
   public function skipIfApcIsAvailable() {
     if (extension_loaded('apc')) {
@@ -32,8 +32,8 @@ class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Wrapper::available
-  */
+   * @covers Wrapper::available
+   */
   public function testAvailableExpectingTrue() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();
@@ -41,8 +41,8 @@ class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Wrapper::available
-  */
+   * @covers Wrapper::available
+   */
   public function testAvailableExpectingFalse() {
     $this->skipIfApcIsAvailable();
     $apc = new Wrapper();
@@ -50,8 +50,8 @@ class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Wrapper::store
-  */
+   * @covers Wrapper::store
+   */
   public function testStore() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();
@@ -60,8 +60,8 @@ class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
 
 
   /**
-  * @covers Wrapper::fetch
-  */
+   * @covers Wrapper::fetch
+   */
   public function testFetch() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();
@@ -69,8 +69,8 @@ class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Wrapper::clearCache
-  */
+   * @covers Wrapper::clearCache
+   */
   public function testClearCache() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();

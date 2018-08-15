@@ -38,7 +38,7 @@ class PapayaSessionWrapperTest extends \PapayaTestCase {
   */
   public function testRegisterHandlerExpectingException() {
     $wrapper = new \Papaya\Session\Wrapper();
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $wrapper->registerHandler('INVALID_NON_EXISTING_CLASS');
   }
 

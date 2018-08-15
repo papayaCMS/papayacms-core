@@ -31,7 +31,7 @@ class PapayaHttpClientFileNameTest extends \PapayaTestCase {
   }
 
   public function testConstructorExpectingError() {
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     new \Papaya\HTTP\Client\File\Name('', '', '');
   }
 
@@ -91,7 +91,7 @@ class PapayaHttpClientFileNameTest extends \PapayaTestCase {
     $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
     $file = new \PapayaHttpClientFileName_TestProxy('test', $this->_sampleFile, 'text/plain');
     $file->_fileName = 'INVALID_FILE';
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $file->send($socket, TRUE);
   }
 }

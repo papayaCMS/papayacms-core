@@ -122,7 +122,7 @@ class PapayaDatabaseSourceNameTest extends \PapayaTestCase {
   * @covers \Papaya\Database\Source\Name::__set
   */
   public function testMagicMethodSetExpectingException() {
-    $this->expectException(BadMethodCallException::class);
+    $this->expectException(\BadMethodCallException::class);
     $dsn = new \Papaya\Database\Source\Name('mysqli(mysql)://user:pass@server:42/database');
     $dsn->api = 'FOO';
   }

@@ -50,7 +50,7 @@ class PapayaUiOptionAlignTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Option\Align::validate
   */
   public function testValidateWithInvalidValue() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid align value "-42".');
     \Papaya\UI\Option\Align::validate(-42);
   }
@@ -59,7 +59,7 @@ class PapayaUiOptionAlignTest extends \PapayaTestCase {
   * @covers \Papaya\UI\Option\Align::validate
   */
   public function testValidateWithInvalidValueAndIndividualMessage() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Failed.');
     \Papaya\UI\Option\Align::validate(-42, 'Failed.');
   }

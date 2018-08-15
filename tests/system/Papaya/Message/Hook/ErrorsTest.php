@@ -174,7 +174,7 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   ***********************/
 
   public function callbackThrowANotice() {
-    throw new LogicException('Test');
+    throw new \LogicException('Test');
   }
 
   public function callbackDummyErrorHandler() {
