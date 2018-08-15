@@ -14,7 +14,7 @@
  */
 
 use Papaya\Content\Module\Options;
-use Papaya\Database\Record\Mapping;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -43,7 +43,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
       $expected,
       $content->callbackConvertValueByType(
         new \stdClass(),
-        Mapping::PROPERTY_TO_FIELD,
+        \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         $properties,
         $fields
       )
@@ -63,7 +63,7 @@ class PapayaContentModuleOptionsTest extends \PapayaTestCase {
       $expected,
       $content->callbackConvertValueByType(
         new \stdClass(),
-        Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         $properties,
         $fields
       )

@@ -13,15 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Community\Users;
-use Papaya\Database\Record\Mapping;
+namespace Papaya\Content\Community;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentCommunityUsersTest extends \PapayaTestCase {
+class UsersTest extends \PapayaTestCase {
 
   /**
-   * @covers Users::_compileCondition
+   * @covers       Users::_compileCondition
    * @dataProvider provideFilterArrays
    * @param string $expected
    * @param array $filter
@@ -48,17 +47,17 @@ class PapayaContentCommunityUsersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers Users::_createMapping
-  */
+   * @covers Users::_createMapping
+   */
   public function testCreateMapping() {
     $users = new Users();
-    /** @var Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $users->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMappingFieldsToProperties));
   }
 
   /**
-   * @covers Users::callbackAfterMappingFieldsToProperties
+   * @covers       Users::callbackAfterMappingFieldsToProperties
    * @dataProvider provideRecordsForMapping
    * @param $expected
    * @param $values
@@ -71,14 +70,14 @@ class PapayaContentCommunityUsersTest extends \PapayaTestCase {
   }
 
   /**************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideFilterArrays() {
     return array(
       'filter text and id' => array(
         " WHERE (surfer_givenname LIKE '%test%' OR surfer_surname LIKE '%test%' OR".
-          " surfer_email LIKE '%test%') AND (>>CONDITION<<)",
+        " surfer_email LIKE '%test%') AND (>>CONDITION<<)",
         array('filter' => 'test', 'id' => 'sample_id')
       ),
       'id only' => array(

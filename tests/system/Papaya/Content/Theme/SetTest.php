@@ -25,7 +25,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $this->assertInstanceOf(
       \Papaya\Database\Interfaces\Mapping::class,
       $mapping = $themeSet->mapping()
@@ -39,7 +39,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   */
   public function testMapFieldToPropertyPassthru() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -54,7 +54,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   */
   public function testMapFieldToPropertyUnserialize() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       array(
@@ -84,7 +84,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   */
   public function testMapPropertyToFieldPassthru() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -99,7 +99,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
   */
   public function testMapPropertyToFieldSerialize() {
     $themeSet = new Set();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

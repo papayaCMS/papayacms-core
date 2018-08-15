@@ -15,7 +15,7 @@
 
 use Papaya\Content\Media\Folders;
 use Papaya\Database\Result;
-use Papaya\Database\Record\Mapping;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 

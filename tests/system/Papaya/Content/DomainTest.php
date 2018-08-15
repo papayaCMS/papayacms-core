@@ -14,7 +14,7 @@
  */
 
 use Papaya\Content\Domain;
-use Papaya\Database\Record\Mapping;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -41,7 +41,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
       $record->callbackFieldSerialization(
         new \stdClass(),
-        Mapping::PROPERTY_TO_FIELD,
+        \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         'options',
         'domain_options',
         array('SAMPLE_OPTION' => 'sample data')
@@ -58,7 +58,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       array('SAMPLE_OPTION' => 'sample data'),
       $record->callbackFieldSerialization(
         new \stdClass(),
-        Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'options',
         'domain_options',
         /** @lang XML */
@@ -76,7 +76,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       'domain.tld',
       $record->callbackFieldSerialization(
         new \stdClass(),
-        Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'host',
         'domain_hostname',
         'domain.tld'
@@ -103,7 +103,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       ),
       $record->callbackUpdateHostLength(
         new \stdClass(),
-        Mapping::PROPERTY_TO_FIELD,
+        \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         array(
           'id' => 42,
           'host' => 'domain.tld',
@@ -145,7 +145,7 @@ class PapayaContentDomainTest extends \PapayaTestCase {
       ),
       $record->callbackUpdateHostLength(
         new \stdClass(),
-        Mapping::FIELD_TO_PROPERTY,
+        Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         array(
           'id' => 42,
           'host' => 'domain.tld',

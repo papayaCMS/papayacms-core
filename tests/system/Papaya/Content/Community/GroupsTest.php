@@ -13,17 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Community\Groups;
-use Papaya\Content\Tables;
-use Papaya\Database\Result;
+namespace Papaya\Content\Community;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentCommunityGroupsTest extends \PapayaTestCase {
+class GroupsTest extends \PapayaTestCase {
 
   /**
-  * @covers Groups::loadByPermission
-  */
+   * @covers Groups::loadByPermission
+   */
   public function testLoadByPermission() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
@@ -59,8 +57,8 @@ class PapayaContentCommunityGroupsTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         42 => array(
-         'id' => 42,
-         'title' => 'surfer group'
+          'id' => 42,
+          'title' => 'surfer group'
         )
       ),
       iterator_to_array($groups)

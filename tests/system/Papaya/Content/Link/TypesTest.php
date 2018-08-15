@@ -90,7 +90,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   */
   public function testCreateMapping() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $this->assertInstanceOf(
       \Papaya\Database\Interfaces\Mapping::class,
       $mapping = $linkTypes->mapping()
@@ -104,7 +104,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   */
   public function testMapFieldToPropertyPassthru() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       'success',
@@ -119,7 +119,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   */
   public function testMapFieldToPropertyUnserialize() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       array(
@@ -139,7 +139,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   */
   public function testMapPropertyToFieldPassthru() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       'success',
@@ -154,7 +154,7 @@ class PapayaContentLinkTypesTest extends \PapayaTestCase {
   */
   public function testMapPropertyToFieldSerialize() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       /** @lang XML */

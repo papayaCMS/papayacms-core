@@ -16,7 +16,7 @@
 use Papaya\Content\Pages;
 use Papaya\Content\Tables;
 use Papaya\Database\Result;
-use Papaya\Database\Record\Mapping;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -345,7 +345,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       'success',
       $pages->mapValue(
         new \stdClass,
-        Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'id',
         'topic_id',
         'success'
@@ -362,7 +362,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       array(21, 42),
       $pages->mapValue(
         new \stdClass,
-        Mapping::FIELD_TO_PROPERTY,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'path',
         'prev_path',
         ';21;42;'
@@ -379,7 +379,7 @@ class PapayaContentPagesTest extends \PapayaTestCase {
       ';21;42;',
       $pages->mapValue(
         new \stdClass,
-        Mapping::PROPERTY_TO_FIELD,
+        \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         'path',
         'prev_path',
         array(21, 42)
