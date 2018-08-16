@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Parser\Search;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaParserSearchStringTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaParserSearchStringTest
+   * @covers       \Papaya\Parser\Search\Text
    * @param array $expected
    * @param string $searchFor
    * @dataProvider provideSearchStrings
    */
   public function testParse($expected, $searchFor) {
-    $tokens = new \Papaya\Parser\Search\Text($searchFor);
+    $tokens = new Text($searchFor);
     $this->assertEquals($expected, iterator_to_array($tokens));
   }
 
