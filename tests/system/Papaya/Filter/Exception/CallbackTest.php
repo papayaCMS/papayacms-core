@@ -13,70 +13,74 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Filter\Exception {
 
-class PapayaFilterExceptionCallbackTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\Filter\Exception\Callback::__construct
-  */
-  public function testConstructor() {
-    $e = new \PapayaFilterExceptionCallback_TestProxy('', 'function');
-    $this->assertAttributeEquals(
-      'function', '_callback', $e
-    );
+  class CallbackTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\Filter\Exception\Callback::__construct
+     */
+    public function testConstructor() {
+      $e = new Callback_TestProxy('', 'function');
+      $this->assertAttributeEquals(
+        'function', '_callback', $e
+      );
+    }
+
+    /**
+     * @covers \Papaya\Filter\Exception\Callback::getCallback
+     */
+    public function testGetCallback() {
+      $e = new Callback_TestProxy('', 'function');
+      $this->assertEquals(
+        'function', $e->getCallback()
+      );
+    }
+
+    /**
+     * @covers       \Papaya\Filter\Exception\Callback::callbackToString
+     * @dataProvider provideCallbacks
+     * @param string $expected
+     * @param callable $callback
+     */
+    public function testCallbackToString($expected, $callback) {
+      $e = new Callback_TestProxy('', $callback);
+      $this->assertEquals(
+        $expected, $e->callbackToString($callback)
+      );
+    }
+
+    /**************************
+     * Data Provider
+     **************************/
+
+    public static function provideCallbacks() {
+      return array(
+        array('strpos', 'strpos'),
+        array('function() {...}', function () {
+        }),
+        array(
+          'Papaya\Filter\Exception\SampleCallback->sample',
+          array(new SampleCallback(), 'sample')
+        ),
+        array(
+          'Papaya\Filter\Exception\SampleCallback::sample',
+          array(SampleCallback::class, 'sample')
+        )
+      );
+    }
   }
 
-  /**
-  * @covers \Papaya\Filter\Exception\Callback::getCallback
-  */
-  public function testGetCallback() {
-    $e = new \PapayaFilterExceptionCallback_TestProxy('', 'function');
-    $this->assertEquals(
-      'function', $e->getCallback()
-    );
+  class SampleCallback {
+    public function sample() {
+    }
   }
 
-  /**
-   * @covers \Papaya\Filter\Exception\Callback::callbackToString
-   * @dataProvider provideCallbacks
-   * @param string $expected
-   * @param callable $callback
-   */
-  public function testCallbackToString($expected, $callback) {
-    $e = new \PapayaFilterExceptionCallback_TestProxy('', $callback);
-    $this->assertEquals(
-      $expected, $e->callbackToString($callback)
-    );
-  }
-
-  /**************************
-  * Data Provider
-  **************************/
-
-  public static function provideCallbacks() {
-    return array(
-      array('strpos', 'strpos'),
-      array('function() {...}', function() {}),
-      array(
-        'PapayaFilterExceptionCallback_SampleCallback->sample',
-        array(new \PapayaFilterExceptionCallback_SampleCallback(), 'sample')
-      ),
-      array(
-        'PapayaFilterExceptionCallback_SampleCallback::sample',
-        array(\PapayaFilterExceptionCallback_SampleCallback::class, 'sample')
-      )
-    );
-  }
-}
-
-class PapayaFilterExceptionCallback_SampleCallback {
-  public function sample() {
-  }
-}
-
-class PapayaFilterExceptionCallback_TestProxy extends \Papaya\Filter\Exception\Callback {
-  public function callbackToString($callback) {
-    return parent::callbackToString($callback);
+  class Callback_TestProxy extends Callback {
+    public function callbackToString($callback) {
+      return parent::callbackToString($callback);
+    }
   }
 }

@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class InvalidCallbackTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\InvalidCallback::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new InvalidCallback('strpos');
     $this->assertEquals(
-      'Password is to weak.',
+      'Invalid callback specified: "strpos"',
       $e->getMessage()
     );
   }

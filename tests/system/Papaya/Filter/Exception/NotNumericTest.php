@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class NotNumericTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\NotNumeric::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new NotNumeric('abc');
     $this->assertEquals(
-      'Password is to weak.',
+      'Value is not numeric: abc',
       $e->getMessage()
     );
   }

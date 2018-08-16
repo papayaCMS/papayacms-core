@@ -13,20 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class InvalidPartTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\InvalidPart::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new InvalidPart(
+      3,
+      'type',
+      'Value is too large. Expecting a maximum of "21", got "42".'
+    );
     $this->assertEquals(
-      'Password is to weak.',
+      'Part number 3 of type "type" is invalid:'.
+      ' Value is too large. Expecting a maximum of "21", got "42".',
       $e->getMessage()
     );
   }
+
+  /**
+   * @covers \Papaya\Filter\Exception\InvalidPart::__construct
+   */
+  public function testConstructorNoMessage() {
+    $e = new InvalidPart(3, 'type');
+    $this->assertEquals(
+      'Part number 3 of type "type" is invalid.',
+      $e->getMessage()
+    );
+  }
+
 }

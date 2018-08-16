@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class NotEqualTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\NotEqual::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new NotEqual('42');
     $this->assertEquals(
-      'Password is to weak.',
+      'Value does not equal comparsion value. Expected "42".',
       $e->getMessage()
     );
   }

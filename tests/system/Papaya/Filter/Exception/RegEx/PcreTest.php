@@ -13,20 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception\RegEx;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class NoMatchTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\RegEx\NoMatch::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new NoMatch('(foo)');
     $this->assertEquals(
-      'Password is to weak.',
+      'Value does not match pattern "(foo)"',
       $e->getMessage()
+    );
+  }
+
+  /**
+   * @covers \Papaya\Filter\Exception\RegEx\NoMatch::getPattern
+   */
+  public function testGetPattern() {
+    $e = new NoMatch('(foo)');
+    $this->assertEquals(
+      '(foo)',
+      $e->getPattern()
     );
   }
 }

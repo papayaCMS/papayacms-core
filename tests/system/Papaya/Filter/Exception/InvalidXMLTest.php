@@ -13,20 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class InvalidXMLTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\InvalidXML
    */
   public function testConstructor() {
-    $e = new Weak();
-    $this->assertEquals(
-      'Password is to weak.',
-      $e->getMessage()
-    );
+    $error = new \libxmlError();
+    $error->code = 23;
+    $error->message = 'libxml fatal error sample';
+    $error->line = 42;
+    $error->column = 21;
+    $error->file = '';
+
+    $exception = new InvalidXML(new \Papaya\XML\Exception($error));
+    $this->assertNotEmpty($exception->getMessage());
   }
 }

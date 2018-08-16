@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Equals;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
+class ParameterTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\Equals\Parameter::__construct
-  */
+   * @covers \Papaya\Filter\Equals\Parameter::__construct
+   */
   public function testConstructor() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
-    $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
+    $filter = new Parameter($parameters, 'foo');
     $this->assertAttributeSame($parameters, '_parameters', $filter);
     $this->assertAttributeEquals(new \Papaya\Request\Parameters\Name('foo'), '_parameterName', $filter);
   }
@@ -32,7 +34,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
    */
   public function testValidateTrue() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
-    $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
+    $filter = new Parameter($parameters, 'foo');
     $this->assertTrue($filter->validate('bar'));
   }
 
@@ -41,7 +43,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
    */
   public function testValidateInvalidFilterException() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'booo'));
-    $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
+    $filter = new Parameter($parameters, 'foo');
     $this->expectException(\Papaya\Filter\Exception\InvalidValue::class);
     $this->expectExceptionMessage('Invalid value "bar"');
     $filter->validate('bar');
@@ -52,7 +54,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
    */
   public function testFilterIsNull() {
     $parameters = new \Papaya\Request\Parameters(array());
-    $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
+    $filter = new Parameter($parameters, 'foo');
     $this->assertNull($filter->filter('foo3'));
   }
 
@@ -61,7 +63,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
    */
   public function testFilterExpectingValue() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
-    $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
+    $filter = new Parameter($parameters, 'foo');
     $this->assertEquals('bar', $filter->filter('bar'));
   }
 }

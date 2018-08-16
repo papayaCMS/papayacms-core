@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class IsEmptyTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\IsEmpty::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new IsEmpty();
     $this->assertEquals(
-      'Password is to weak.',
+      'Value is empty.',
       $e->getMessage()
     );
   }

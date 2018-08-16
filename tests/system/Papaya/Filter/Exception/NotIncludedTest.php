@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class NotIncludedTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\NotIncluded::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new NotIncluded(42);
     $this->assertEquals(
-      'Password is to weak.',
+      'Value is to not enclosed in list of valid elements. Got "42".',
       $e->getMessage()
     );
   }

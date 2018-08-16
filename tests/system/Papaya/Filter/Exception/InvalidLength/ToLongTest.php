@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception\InvalidLength;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class ToLongTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\InvalidLength\ToLong::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new ToLong(21, 42);
     $this->assertEquals(
-      'Password is to weak.',
+      'Value is to long. Expecting a maximum of 21 bytes, got 42.',
       $e->getMessage()
     );
   }

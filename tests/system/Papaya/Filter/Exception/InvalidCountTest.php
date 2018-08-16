@@ -13,20 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception;
+require_once __DIR__.'/../../../../bootstrap.php';
 
-require_once __DIR__.'/../../../../../bootstrap.php';
-
-class WeakTest extends \PapayaTestCase {
+class InvalidCountTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\InvalidCount::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new InvalidCount(2, 1, 'type');
     $this->assertEquals(
-      'Password is to weak.',
+      '2 element(s) of type "type" expected, 1 found.',
       $e->getMessage()
     );
   }
+
 }

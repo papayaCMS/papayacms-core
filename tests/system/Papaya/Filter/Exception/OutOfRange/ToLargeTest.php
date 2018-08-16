@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Exception\Password;
+namespace Papaya\Filter\Exception\OutOfRange;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class ToLargeTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\Password\Weak::__construct
+   * @covers \Papaya\Filter\Exception\OutOfRange\ToLarge::__construct
    */
   public function testConstructor() {
-    $e = new Weak();
+    $e = new ToLarge(21, 42);
     $this->assertEquals(
-      'Password is to weak.',
+      'Value is to large. Expecting a maximum of "21", got "42".',
       $e->getMessage()
     );
   }
