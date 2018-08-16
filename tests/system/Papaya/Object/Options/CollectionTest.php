@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject\Options;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaObjectOptionsListTest extends \PapayaTestCase {
+class CollectionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::__construct
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::__construct
+   */
   public function testConstructor() {
-    $options = new \Papaya\BaseObject\Options\Collection(
+    $options = new Collection(
       array('Sample' => 'Hallo World')
     );
     $this->assertAttributeSame(
@@ -32,15 +33,15 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\BaseObject\Options\Collection::offsetSet
-   * @covers \Papaya\BaseObject\Options\Collection::_prepareName
+   * @covers       \Papaya\BaseObject\Options\Collection::offsetSet
+   * @covers       \Papaya\BaseObject\Options\Collection::_prepareName
    * @dataProvider offsetSetDataProvider
    * @param mixed $expected
    * @param string $name
    * @param mixed $value
    */
   public function testOffsetSet($expected, $name, $value) {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options[$name] = $value;
     $this->assertAttributeSame(
       $expected,
@@ -50,10 +51,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::set
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::set
+   */
   public function testSet() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options->set('foo', 'bar');
     $this->assertEquals(
       'bar',
@@ -62,10 +63,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetSet
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetSet
+   */
   public function testOffsetSetWithNullRemovesElement() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options['sample'] = 'failed';
     $this->assertEquals('failed', $options['sample']);
     $options['sample'] = NULL;
@@ -77,29 +78,29 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetSet
-  * @covers \Papaya\BaseObject\Options\Collection::_prepareName
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetSet
+   * @covers \Papaya\BaseObject\Options\Collection::_prepareName
+   */
   public function testOffsetSetWithInvalidName() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $this->expectException(\InvalidArgumentException::class);
     $options['INVALID OPTION WITH SPACE'] = '';
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetSet
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetSet
+   */
   public function testOffsetSetWithInvalidValue() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $this->expectException(\InvalidArgumentException::class);
     $options['SAMPLE'] = new \stdClass();
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetGet
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetGet
+   */
   public function testOffsetGet() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options['SAMPLE'] = 42;
     $this->assertEquals(
       42,
@@ -108,10 +109,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetExists
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetExists
+   */
   public function testOffsetExists() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options['SAMPLE'] = 42;
     $this->assertTrue(
       isset($options['sample'])
@@ -119,10 +120,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::offsetUnset
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::offsetUnset
+   */
   public function testOffsetUnset() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options['SAMPLE'] = 42;
     unset($options['sample']);
     $this->assertAttributeSame(
@@ -133,19 +134,19 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::count
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::count
+   */
   public function testCount() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $this->assertCount(0, $options);
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::__get
-  * @covers \Papaya\BaseObject\Options\Collection::_read
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::__get
+   * @covers \Papaya\BaseObject\Options\Collection::_read
+   */
   public function testMagicMethodGet() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options['SAMPLE'] = 'Hello World';
     /** @noinspection PhpUndefinedFieldInspection */
     $this->assertEquals(
@@ -154,11 +155,11 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::__set
-  * @covers \Papaya\BaseObject\Options\Collection::_write
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::__set
+   * @covers \Papaya\BaseObject\Options\Collection::_write
+   */
   public function testMagicMethodSet() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     /** @noinspection PhpUndefinedFieldInspection */
     $options->sample = 'Hello World';
     $this->assertEquals(
@@ -167,11 +168,11 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::__isset
-  * @covers \Papaya\BaseObject\Options\Collection::_exists
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::__isset
+   * @covers \Papaya\BaseObject\Options\Collection::_exists
+   */
   public function testMagicMethodIsset() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     /** @noinspection PhpUndefinedFieldInspection */
     $options->sample = 'Hello World';
     $this->assertTrue(
@@ -180,10 +181,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::__unset
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::__unset
+   */
   public function testMagicMethodUnset() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     /** @noinspection PhpUndefinedFieldInspection */
     $options->sample = 'Hello World';
     unset($options->sample);
@@ -193,10 +194,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::toArray
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::toArray
+   */
   public function testToArray() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     /** @noinspection PhpUndefinedFieldInspection */
     $options->sample = 'Hello World';
     $this->assertEquals(
@@ -206,10 +207,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::getIterator
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::getIterator
+   */
   public function testGetIterator() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     /** @noinspection PhpUndefinedFieldInspection */
     $options->sample = 'Hello World';
     $this->assertEquals(
@@ -219,10 +220,10 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Options\Collection::assign
-  */
+   * @covers \Papaya\BaseObject\Options\Collection::assign
+   */
   public function testAssign() {
-    $options = new \Papaya\BaseObject\Options\Collection();
+    $options = new Collection();
     $options->assign(
       array(
         'sample' => 'Hello World'
@@ -235,8 +236,8 @@ class PapayaObjectOptionsListTest extends \PapayaTestCase {
   }
 
   /******************************
-  * DataProvider
-  *******************************/
+   * DataProvider
+   *******************************/
 
   public static function offsetSetDataProvider() {
     return array(

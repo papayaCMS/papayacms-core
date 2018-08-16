@@ -13,103 +13,106 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\BaseObject {
 
-class PapayaObjectInteractiveTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../bootstrap.php';
 
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameterMethod
-   */
-  public function testParameterMethod() {
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $this->assertEquals(
-      \Papaya\Request\Parameters\Access::METHOD_MIXED_POST,
-      $parts->parameterMethod()
-    );
+  class InteractiveTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameterMethod
+     */
+    public function testParameterMethod() {
+      $parts = new Interactive_TestProxy();
+      $this->assertEquals(
+        \Papaya\Request\Parameters\Access::METHOD_MIXED_POST,
+        $parts->parameterMethod()
+      );
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameterMethod
+     */
+    public function testParameterMethodChange() {
+      $parts = new Interactive_TestProxy();
+      $this->assertEquals(
+        \Papaya\Request\Parameters\Access::METHOD_MIXED_GET,
+        $parts->parameterMethod(\Papaya\Request\Parameters\Access::METHOD_MIXED_GET)
+      );
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive_TestProxy::parameterGroup
+     */
+    public function testParameterGroupWithChange() {
+      $parts = new Interactive_TestProxy();
+      $this->assertEquals(
+        'sample', $parts->parameterGroup('sample')
+      );
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameterGroup
+     */
+    public function testParameterGroupWithoutChange() {
+      $parts = new Interactive_TestProxy();
+      $this->assertEquals(
+        '', $parts->parameterGroup()
+      );
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameters
+     */
+    public function testParametersGetAfterSet() {
+      $parts = new Interactive_TestProxy();
+      $parts->parameters($parameters = $this->createMock(\Papaya\Request\Parameters::class));
+      $this->assertEquals(
+        $parameters, $parts->parameters()
+      );
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameters
+     */
+    public function testParametersGetAllFromApplicationRequest() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getParameters')
+        ->with(\Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
+        ->will($this->returnValue($this->createMock(\Papaya\Request\Parameters::class)));
+      $parts = new Interactive_TestProxy();
+      $parts->papaya(
+        $this->mockPapaya()->application(
+          array('Request' => $request)
+        )
+      );
+      $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parts->parameters());
+    }
+
+    /**
+     * @covers \Papaya\BaseObject\Interactive::parameters
+     */
+    public function testParametersGetGroupFromApplicationRequest() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getParameterGroup')
+        ->with('group', \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
+        ->will($this->returnValue($this->createMock(\Papaya\Request\Parameters::class)));
+      $parts = new Interactive_TestProxy();
+      $parts->papaya(
+        $this->mockPapaya()->application(
+          array('Request' => $request)
+        )
+      );
+      $parts->parameterGroup('group');
+      $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parts->parameters());
+    }
   }
 
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameterMethod
-   */
-  public function testParameterMethodChange() {
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $this->assertEquals(
-      \Papaya\Request\Parameters\Access::METHOD_MIXED_GET,
-      $parts->parameterMethod(\Papaya\Request\Parameters\Access::METHOD_MIXED_GET)
-    );
+  class Interactive_TestProxy extends Interactive {
+
   }
-
-  /**
-   * @covers \PapayaObjectInteractive_TestProxy::parameterGroup
-   */
-  public function testParameterGroupWithChange() {
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $this->assertEquals(
-      'sample', $parts->parameterGroup('sample')
-    );
-  }
-
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameterGroup
-   */
-  public function testParameterGroupWithoutChange() {
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $this->assertEquals(
-      '', $parts->parameterGroup()
-    );
-  }
-
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameters
-   */
-  public function testParametersGetAfterSet() {
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $parts->parameters($parameters = $this->createMock(\Papaya\Request\Parameters::class));
-    $this->assertEquals(
-      $parameters, $parts->parameters()
-    );
-  }
-
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameters
-   */
-  public function testParametersGetAllFromApplicationRequest() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getParameters')
-      ->with(\Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue($this->createMock(\Papaya\Request\Parameters::class)));
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $parts->papaya(
-      $this->mockPapaya()->application(
-        array('Request' => $request)
-      )
-    );
-    $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parts->parameters());
-  }
-
-  /**
-   * @covers \Papaya\BaseObject\Interactive::parameters
-   */
-  public function testParametersGetGroupFromApplicationRequest() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getParameterGroup')
-      ->with('group', \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue($this->createMock(\Papaya\Request\Parameters::class)));
-    $parts = new \PapayaObjectInteractive_TestProxy();
-    $parts->papaya(
-      $this->mockPapaya()->application(
-        array('Request' => $request)
-      )
-    );
-    $parts->parameterGroup('group');
-    $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parts->parameters());
-  }
-}
-
-class PapayaObjectInteractive_TestProxy extends \Papaya\BaseObject\Interactive {
-
 }

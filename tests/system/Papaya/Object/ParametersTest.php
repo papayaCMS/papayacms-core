@@ -14,15 +14,16 @@
  */
 
 /** @noinspection PhpIllegalArrayKeyTypeInspection */
+namespace Papaya\BaseObject;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaObjectParametersTest extends \PapayaTestCase {
+class ParametersTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\BaseObject\Parameters::__construct
    */
   public function testConstructor() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertEquals(
       array('foo' => 'bar'),
       iterator_to_array($parameters)
@@ -33,7 +34,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::__construct
    */
   public function testConstructorWithRecursiveArray() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foobar' => array('foo' => 'bar')));
+    $parameters = new Parameters(array('foobar' => array('foo' => 'bar')));
     $this->assertEquals(
       array('foobar' => array('foo' => 'bar')),
       iterator_to_array($parameters)
@@ -41,10 +42,10 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::merge
-  */
+   * @covers \Papaya\BaseObject\Parameters::merge
+   */
   public function testMergeWithArray() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters->merge(array('foo' => 'bar'));
     $parameters->merge(array('bar' => 'foo'));
     $this->assertEquals(
@@ -57,21 +58,21 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::merge
-  */
+   * @covers \Papaya\BaseObject\Parameters::merge
+   */
   public function testMergeWithInvalidArgument() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $this->expectException(\UnexpectedValueException::class);
     /** @noinspection PhpParamsInspection */
     $parameters->merge('foo');
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::merge
-  */
+   * @covers \Papaya\BaseObject\Parameters::merge
+   */
   public function testMergeWithObject() {
-    $parametersFirst = new \Papaya\BaseObject\Parameters();
-    $parametersSecond = new \Papaya\BaseObject\Parameters();
+    $parametersFirst = new Parameters();
+    $parametersSecond = new Parameters();
     $parametersFirst->merge(array('foo' => 'bar'));
     $parametersSecond->merge(array('bar' => 'foo'));
     $parametersFirst->merge($parametersSecond);
@@ -85,10 +86,10 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::assign
-  */
+   * @covers \Papaya\BaseObject\Parameters::assign
+   */
   public function testAssignReplacesElements() {
-    $parameters = new \Papaya\BaseObject\Parameters(
+    $parameters = new Parameters(
       array(
         'foo' => array(21),
         'bar' => ''
@@ -105,30 +106,30 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::has
-  */
+   * @covers \Papaya\BaseObject\Parameters::has
+   */
   public function testHasExpectingTrue() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertTrue($parameters->has('foo'));
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::has
-  */
+   * @covers \Papaya\BaseObject\Parameters::has
+   */
   public function testHasExpectingFalse() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $this->assertFalse($parameters->has('foo'));
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::get
+   * @covers       \Papaya\BaseObject\Parameters::get
    * @dataProvider provideOffsetsAndDefaultValues
    * @param string $name
    * @param mixed $defaultValue
    * @param mixed $expected
    */
   public function testGet($name, $defaultValue, $expected) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     $this->assertSame(
       $expected,
       $parameters->get($name, $defaultValue)
@@ -136,14 +137,14 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::get
-  */
+   * @covers \Papaya\BaseObject\Parameters::get
+   */
   public function testGetWithObjectDefaultValueExpectingParameterValue() {
     $defaultValue = $this
       ->getMockBuilder(\Papaya\UI\Text::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array(
         'sample' => 'success'
@@ -156,8 +157,8 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::get
-  */
+   * @covers \Papaya\BaseObject\Parameters::get
+   */
   public function testGetWithObjectDefaultValueExpectingDefaultValue() {
     $defaultValue = $this
       ->getMockBuilder(\Papaya\UI\Text::class)
@@ -168,7 +169,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('success'));
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array(
         'sample' => array('failed')
@@ -181,8 +182,8 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::get
-  */
+   * @covers \Papaya\BaseObject\Parameters::get
+   */
   public function testGetWithFilter() {
     $filter = $this->createMock(\Papaya\Filter::class);
     $filter
@@ -190,7 +191,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
       ->method('filter')
       ->with($this->equalTo('42'))
       ->will($this->returnValue(42));
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array(
         'integer' => '42'
@@ -203,8 +204,8 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::get
-  */
+   * @covers \Papaya\BaseObject\Parameters::get
+   */
   public function testGetWithFilterExpectingDefaultValue() {
     $filter = $this->createMock(\Papaya\Filter::class);
     $filter
@@ -212,7 +213,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
       ->method('filter')
       ->with($this->equalTo('42'))
       ->will($this->returnValue(NULL));
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array(
         'integer' => '42'
@@ -225,19 +226,19 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::clear
-  */
+   * @covers \Papaya\BaseObject\Parameters::clear
+   */
   public function testClear() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $parameters->clear();
     $this->assertCount(0, $parameters);
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::offsetExists
-  */
+   * @covers \Papaya\BaseObject\Parameters::offsetExists
+   */
   public function testIssetWithNonExistingOffsetExpectingFalse() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $this->assertFalse(isset($parameters['foo']));
   }
 
@@ -246,7 +247,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetGet
    */
   public function testGetAfterSet() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters['foo'] = 'bar';
     $this->assertEquals('bar', $parameters['foo']);
   }
@@ -255,7 +256,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetGet
    */
   public function testGetNestedParameter() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => array('bar' => 42)));
+    $parameters = new Parameters(array('foo' => array('bar' => 42)));
     $this->assertEquals(42, $parameters['foo']['bar']);
   }
 
@@ -263,7 +264,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetGet
    */
   public function testOffsetGetNestedParameterUsingArrayOffset() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => array('bar' => 42)));
+    $parameters = new Parameters(array('foo' => array('bar' => 42)));
     $this->assertEquals(42, $parameters[array('foo', 'bar')]);
   }
 
@@ -271,7 +272,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterUsingArrayOffset() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters[array('foo', 'bar')] = 42;
     $this->assertEquals(
       array('foo' => array('bar' => 42)),
@@ -283,7 +284,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterUsingArrayOffsetWithSingleElement() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters[array('foo')] = 42;
     $this->assertEquals(
       array('foo' => 42),
@@ -295,7 +296,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterUsingEmptyKeys() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters[array('foo', 'bar', '', '')] = 42;
     $this->assertEquals(
       array('foo' => array('bar' => array(0 => array(0 => 42)))),
@@ -307,7 +308,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterOverridesExistingParameter() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foobar' => array('foo' => 'bar')));
+    $parameters = new Parameters(array('foobar' => array('foo' => 'bar')));
     $parameters[array('foobar', 'foo', 'bar')] = 42;
     $this->assertEquals(
       array('foobar' => array('foo' => array('bar' => 42))),
@@ -319,7 +320,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterOverridesExistingParameterWithNewArray() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foobar' => 'bar'));
+    $parameters = new Parameters(array('foobar' => 'bar'));
     $parameters[array('foobar', 'bar')] = 42;
     $this->assertEquals(
       array('foobar' => array('bar' => 42)),
@@ -331,7 +332,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetNestedParameterOverridesExistingParameterWithNewArrayAppend() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foobar' => 'bar'));
+    $parameters = new Parameters(array('foobar' => 'bar'));
     $parameters[array('foobar', '')] = 42;
     $this->assertEquals(
       array('foobar' => array(42)),
@@ -343,7 +344,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Parameters::offsetSet
    */
   public function testOffsetSetWithTraversableAsValue() {
-    $parameters = new \Papaya\BaseObject\Parameters();
+    $parameters = new Parameters();
     $parameters[] = new \ArrayIterator(array(21, 42));
     $this->assertEquals(
       array(0 => array(21, 42)),
@@ -352,13 +353,13 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::offsetGet
+   * @covers       \Papaya\BaseObject\Parameters::offsetGet
    * @dataProvider provideOffsetsAndValues
    * @param string $name
    * @param mixed $expected
    */
   public function testOffsetGet($name, $expected) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     $this->assertEquals(
       $expected,
       $parameters[$name]
@@ -366,62 +367,62 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::offsetExists
+   * @covers       \Papaya\BaseObject\Parameters::offsetExists
    * @dataProvider provideExistingOffsets
    * @param string $name
    */
   public function testOffsetExistsExpectingTrue($name) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     $this->assertTrue(isset($parameters[$name]));
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::offsetExists
+   * @covers       \Papaya\BaseObject\Parameters::offsetExists
    * @dataProvider provideNonExistingOffsets
    * @param string $name
    */
   public function testOffsetExistsExpectingFalse($name) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     $this->assertFalse(isset($parameters[$name]));
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::offsetUnset
+   * @covers       \Papaya\BaseObject\Parameters::offsetUnset
    * @dataProvider provideExistingOffsets
    * @param string $name
    */
   public function testOffsetUnset($name) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     unset($parameters[$name]);
     $this->assertFalse(isset($parameters[$name]));
   }
 
   /**
-   * @covers \Papaya\BaseObject\Parameters::offsetUnset
+   * @covers       \Papaya\BaseObject\Parameters::offsetUnset
    * @dataProvider provideNonExistingOffsets
    * @param string $name
    */
   public function testOffsetUnsetWithNonExistingParameters($name) {
-    $parameters = new \Papaya\BaseObject\Parameters($this->getSampleArray());
+    $parameters = new Parameters($this->getSampleArray());
     unset($parameters[$name]);
     $this->assertFalse(isset($parameters[$name]));
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::getChecksum
-  */
+   * @covers \Papaya\BaseObject\Parameters::getChecksum
+   */
   public function testGetChecksum() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertEquals(
       '49a3696adf0fbfacc12383a2d7400d51', $parameters->getChecksum()
     );
   }
 
   /**
-  * @covers \Papaya\BaseObject\Parameters::getChecksum
-  */
+   * @covers \Papaya\BaseObject\Parameters::getChecksum
+   */
   public function testGetChecksumNormalizesArray() {
-    $parameters = new \Papaya\BaseObject\Parameters(array('foo' => 'bar', 'bar' => 42));
+    $parameters = new Parameters(array('foo' => 'bar', 'bar' => 42));
     $this->assertEquals(
       'e486614c5fe79b1235ead81bd5fc7292', $parameters->getChecksum()
     );

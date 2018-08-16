@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaObjectStringValuesTest extends \PapayaTestCase {
+class ValuesTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testConstructor() {
-    $values = new \Papaya\BaseObject\Text\Values();
+    $values = new Values();
     $this->assertCount(0, $values);
   }
 
   public function testConstructorWithScalar() {
-    $values = new \Papaya\BaseObject\Text\Values(1);
+    $values = new Values(1);
     $this->assertCount(1, $values);
   }
 
@@ -34,7 +35,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testConstructorWithArray() {
-    $values = new \Papaya\BaseObject\Text\Values(array(1, 2));
+    $values = new Values(array(1, 2));
     $this->assertCount(2, $values);
   }
 
@@ -42,7 +43,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testConstructorWithScalarAndOffset() {
-    $values = new \Papaya\BaseObject\Text\Values(42, 'foo');
+    $values = new Values(42, 'foo');
     $this->assertEquals(42, $values['foo']);
   }
 
@@ -50,7 +51,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testToStringWithDefaultOffsetZero() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo', 'bar'));
+    $values = new Values(array('foo', 'bar'));
     $this->assertEquals('foo', (string)$values);
   }
 
@@ -58,7 +59,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testToStringWithDefaultOffsetOne() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo', 'bar'), 1);
+    $values = new Values(array('foo', 'bar'), 1);
     $this->assertEquals('bar', (string)$values);
   }
 
@@ -66,7 +67,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testToStringWithInvalidDefaultOffset() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo', 'bar'), 23);
+    $values = new Values(array('foo', 'bar'), 23);
     $this->assertEquals('', (string)$values);
   }
 
@@ -74,7 +75,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testOffsetExistsExpectingTrue() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo' => 21, 'bar' => 42));
+    $values = new Values(array('foo' => 21, 'bar' => 42));
     $this->assertTrue(isset($values['foo']));
   }
 
@@ -82,7 +83,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testOffsetExistsExpectingFalse() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo' => 21, 'bar' => 42));
+    $values = new Values(array('foo' => 21, 'bar' => 42));
     $this->assertFalse(isset($values['non-existing']));
   }
 
@@ -90,7 +91,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testOffsetGetAfterSet() {
-    $values = new \Papaya\BaseObject\Text\Values();
+    $values = new Values();
     $values[42] = 'success';
     $this->assertEquals('success', $values[42]);
   }
@@ -99,7 +100,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testOffsetGetAfterAppend() {
-    $values = new \Papaya\BaseObject\Text\Values(array());
+    $values = new Values(array());
     $values[] = 'success';
     $this->assertEquals('success', $values[0]);
   }
@@ -108,7 +109,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testOffsetUnset() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo' => 21, 'bar' => 42));
+    $values = new Values(array('foo' => 21, 'bar' => 42));
     unset($values['foo']);
     $this->assertFalse(isset($values['foo']));
   }
@@ -117,7 +118,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testGetIterator() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo', 'bar'));
+    $values = new Values(array('foo', 'bar'));
     $this->assertEquals(
       array('foo', 'bar'),
       iterator_to_array($values, TRUE)
@@ -128,7 +129,7 @@ class PapayaObjectStringValuesTest extends \PapayaTestCase {
    * @covers \Papaya\BaseObject\Text\Values
    */
   public function testGetIteratorWithAssociativeArray() {
-    $values = new \Papaya\BaseObject\Text\Values(array('foo' => 21, 'bar' => 42));
+    $values = new Values(array('foo' => 21, 'bar' => 42));
     $this->assertEquals(
       array('foo' => 21, 'bar' => 42),
       iterator_to_array($values, TRUE)
