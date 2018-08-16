@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextMemoryTest extends \PapayaTestCase {
+class MemoryTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Message\Context\Memory::__construct
-  */
+   * @covers \Papaya\Message\Context\Memory::__construct
+   */
   public function testContructor() {
-    $context = new \Papaya\Message\Context\Memory();
+    $context = new Memory();
     $this->assertAttributeGreaterThan(
       0,
       '_currentUsage',
@@ -35,23 +36,23 @@ class PapayaMessageContextMemoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Memory::rememberMemoryUsage
-  */
+   * @covers \Papaya\Message\Context\Memory::rememberMemoryUsage
+   */
   public function testRememberMemoryUsage() {
-    $context = new \Papaya\Message\Context\Memory();
+    $context = new Memory();
     $context->rememberMemoryUsage(42);
     $this->assertAttributeEquals(
       42,
       '_previousUsage',
-      \Papaya\Message\Context\Memory::class
+      Memory::class
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Memory::setMemoryUsage
-  */
+   * @covers \Papaya\Message\Context\Memory::setMemoryUsage
+   */
   public function testSetMemoryUsage() {
-    $context = new \Papaya\Message\Context\Memory();
+    $context = new Memory();
     $context->rememberMemoryUsage(2);
     $context->setMemoryUsage(23, 42);
     $this->assertAttributeEquals(
@@ -72,10 +73,10 @@ class PapayaMessageContextMemoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Memory::asString
-  */
+   * @covers \Papaya\Message\Context\Memory::asString
+   */
   public function testAsStringWithIncreasingUsage() {
-    $context = new \Papaya\Message\Context\Memory();
+    $context = new Memory();
     $context->rememberMemoryUsage(23);
     $context->setMemoryUsage(3117, 4221);
     $this->assertEquals(
@@ -85,10 +86,10 @@ class PapayaMessageContextMemoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Memory::asString
-  */
+   * @covers \Papaya\Message\Context\Memory::asString
+   */
   public function testAsStringWithDecreasingUsage() {
-    $context = new \Papaya\Message\Context\Memory();
+    $context = new Memory();
     $context->rememberMemoryUsage(3117);
     $context->setMemoryUsage(23, 4221);
     $this->assertEquals(

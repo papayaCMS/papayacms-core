@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Message\Context\Group::append
-  */
+   * @covers \Papaya\Message\Context\Group::append
+   */
   public function testAppend() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $element */
-    $element = $this->createMock(\Papaya\Message\Context\Data::class);
-    $group = new \Papaya\Message\Context\Group();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Data $element */
+    $element = $this->createMock(Data::class);
+    $group = new Group();
     $this->assertSame(
       $group,
       $group->append($element)
@@ -36,8 +37,8 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::current
-  */
+   * @covers \Papaya\Message\Context\Group::current
+   */
   public function testCurrent() {
     $group = $this->getContextGroupFixture();
     $elements = $this->readAttribute($group, '_elements');
@@ -48,8 +49,8 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::next
-  */
+   * @covers \Papaya\Message\Context\Group::next
+   */
   public function testNext() {
     $group = $this->getContextGroupFixture();
     $elements = $this->readAttribute($group, '_elements');
@@ -61,8 +62,8 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::key
-  */
+   * @covers \Papaya\Message\Context\Group::key
+   */
   public function testKey() {
     $group = $this->getContextGroupFixture();
     $group->next();
@@ -73,8 +74,8 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::rewind
-  */
+   * @covers \Papaya\Message\Context\Group::rewind
+   */
   public function testRewind() {
     $group = $this->getContextGroupFixture();
     $elements = $this->readAttribute($group, '_elements');
@@ -87,8 +88,8 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::rewind
-  */
+   * @covers \Papaya\Message\Context\Group::rewind
+   */
   public function testValidExpectingTrue() {
     $group = $this->getContextGroupFixture();
     $this->assertTrue(
@@ -97,18 +98,18 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::valid
-  */
+   * @covers \Papaya\Message\Context\Group::valid
+   */
   public function testValidExpectingFalse() {
-    $group = new \Papaya\Message\Context\Group();
+    $group = new Group();
     $this->assertFalse(
       $group->valid()
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::count
-  */
+   * @covers \Papaya\Message\Context\Group::count
+   */
   public function testCount() {
     $group = $this->getContextGroupFixture();
     $this->assertEquals(
@@ -118,23 +119,24 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::asString
-  */
+   * @covers \Papaya\Message\Context\Group::asString
+   */
   public function testAsString() {
     $group = $this->getContextGroupFixture();
     $this->assertEquals(
-      /** @lang Text */"Universe\n\nHello <World>\n\nHello World",
+    /** @lang Text */
+      "Universe\n\nHello <World>\n\nHello World",
       $group->asString()
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Group::asXhtml
-  */
+   * @covers \Papaya\Message\Context\Group::asXhtml
+   */
   public function testAsXhtml() {
     $group = $this->getContextGroupFixture();
     $this->assertXmlFragmentEqualsXmlFragment(
-      // language=XML prefix=<fragment> suffix=</fragment>
+    // language=XML prefix=<fragment> suffix=</fragment>
       '<div class="group"><h3>Universe</h3></div>
       <div class="group">Hello &lt;World&gt;</div>
       <div class="group">Hello <b>World</b></div>',
@@ -143,27 +145,28 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   public function getContextGroupFixture() {
-    $group = new \Papaya\Message\Context\Group();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementLabeled */
-    $elementLabeled = $this->createMock(\Papaya\Message\Context\Interfaces\Labeled::class);
+    $group = new Group();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Data $elementLabeled */
+    $elementLabeled = $this->createMock(Interfaces\Labeled::class);
     $elementLabeled
       ->expects($this->any())
       ->method('getLabel')
       ->will($this->returnValue('Universe'));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementString */
-    $elementString = $this->createMock(\Papaya\Message\Context\Interfaces\Text::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Data $elementString */
+    $elementString = $this->createMock(Interfaces\Text::class);
     $elementString
       ->expects($this->any())
       ->method('asString')
-      ->willReturn(/** @lang Text */'Hello <World>');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementXhtml */
-    $elementXhtml = $this->createMock(\Papaya\Message\Context\Interfaces\Xhtml::class);
+      ->willReturn(/** @lang Text */
+        'Hello <World>');
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Data $elementXhtml */
+    $elementXhtml = $this->createMock(Interfaces\Xhtml::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')
       ->willReturn(
       // language=XML prefix=<fragment> suffix=</fragment>
-      'Hello <b>World</b>'
+        'Hello <b>World</b>'
       );
     $group
       ->append($elementLabeled)

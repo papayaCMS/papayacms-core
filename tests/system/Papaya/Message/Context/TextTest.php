@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextTextTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Message\Context\Text::__construct
-  */
+   * @covers \Papaya\Message\Context\Text::__construct
+   */
   public function testConstructor() {
-    $context = new \Papaya\Message\Context\Text('Hello World');
+    $context = new Text('Hello World');
     $this->assertAttributeSame(
       'Hello World',
       '_text',
@@ -30,10 +31,10 @@ class PapayaMessageContextTextTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Text::asString
-  */
+   * @covers \Papaya\Message\Context\Text::asString
+   */
   public function testAsString() {
-    $context = new \Papaya\Message\Context\Text('Hello World');
+    $context = new Text('Hello World');
     $this->assertEquals(
       'Hello World',
       $context->asString()

@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextRuntimeTest extends \PapayaTestCase {
+class RuntimeTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::__construct
-  */
+   * @covers \Papaya\Message\Context\Runtime::__construct
+   */
   public function testConstructorWithoutParameters() {
-    \Papaya\Message\Context\Runtime::setStartTime(0);
-    $context = new \Papaya\Message\Context\Runtime();
+    Runtime::setStartTime(0);
+    $context = new Runtime();
     $this->assertAttributeGreaterThan(
       0,
       '_startTime',
-      \Papaya\Message\Context\Runtime::class
+      Runtime::class
     );
     $this->assertAttributeGreaterThan(
       0,
       '_previousTime',
-      \Papaya\Message\Context\Runtime::class
+      Runtime::class
     );
     $this->assertAttributeEquals(
-      \Papaya\Message\Context\Runtime::MODE_GLOBAL,
+      Runtime::MODE_GLOBAL,
       '_mode',
       $context
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::__construct
-  */
+   * @covers \Papaya\Message\Context\Runtime::__construct
+   */
   public function testConstructorWithParameters() {
-    $context = new \Papaya\Message\Context\Runtime(23, 42);
+    $context = new Runtime(23, 42);
     $this->assertAttributeEquals(
       19,
       '_neededTime',
@@ -56,24 +57,24 @@ class PapayaMessageContextRuntimeTest extends \PapayaTestCase {
       $context
     );
     $this->assertAttributeEquals(
-      \Papaya\Message\Context\Runtime::MODE_SINGLE,
+      Runtime::MODE_SINGLE,
       '_mode',
       $context
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::setTimeValues
-  * @covers \Papaya\Message\Context\Runtime::_prepareTimeValue
-  * @dataProvider setTimeValuesDataProvider
-  *
+   * @covers       \Papaya\Message\Context\Runtime::setTimeValues
+   * @covers       \Papaya\Message\Context\Runtime::_prepareTimeValue
+   * @dataProvider setTimeValuesDataProvider
+   *
    * @param float $expectedDiff
    * @param float $expectedStop
-  * @param float|integer|string $start
-  * @param float|integer|string $stop
-  */
+   * @param float|integer|string $start
+   * @param float|integer|string $stop
+   */
   public function testSetTimeValues($expectedDiff, $expectedStop, $start, $stop) {
-    $context = new \Papaya\Message\Context\Runtime();
+    $context = new Runtime();
     $context->setTimeValues($start, $stop);
     $this->assertAttributeEquals(
       $expectedDiff,
@@ -92,40 +93,40 @@ class PapayaMessageContextRuntimeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::setStartTime
-  */
+   * @covers \Papaya\Message\Context\Runtime::setStartTime
+   */
   public function testSetStartTime() {
-    \Papaya\Message\Context\Runtime::setStartTime(42);
+    Runtime::setStartTime(42);
     $this->assertAttributeEquals(
       42,
       '_startTime',
-      \Papaya\Message\Context\Runtime::class
+      Runtime::class
     );
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      \Papaya\Message\Context\Runtime::class
+      Runtime::class
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::rememberTime
-  */
+   * @covers \Papaya\Message\Context\Runtime::rememberTime
+   */
   public function testRememberTime() {
-    \Papaya\Message\Context\Runtime::rememberTime(42);
+    Runtime::rememberTime(42);
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      \Papaya\Message\Context\Runtime::class
+      Runtime::class
     );
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::asString
-  */
+   * @covers \Papaya\Message\Context\Runtime::asString
+   */
   public function testAsStringInGlobalMode() {
-    $context = new \Papaya\Message\Context\Runtime();
-    \Papaya\Message\Context\Runtime::setStartTime(23);
+    $context = new Runtime();
+    Runtime::setStartTime(23);
     $context->setTimeValues(42, 77);
     $this->assertEquals(
       'Time: 54s 0ms (+35s 0ms)',
@@ -134,10 +135,10 @@ class PapayaMessageContextRuntimeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Message\Context\Runtime::asString
-  */
+   * @covers \Papaya\Message\Context\Runtime::asString
+   */
   public function testAsStringInSingleMode() {
-    $context = new \Papaya\Message\Context\Runtime(42, 77);
+    $context = new Runtime(42, 77);
     $this->assertEquals(
       'Time needed: 35s 0ms',
       $context->asString()
@@ -145,8 +146,8 @@ class PapayaMessageContextRuntimeTest extends \PapayaTestCase {
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function setTimeValuesDataProvider() {
     return array(
