@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\File\Info;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMediaFileInfoImageTest extends \PapayaTestCase {
+class ImageTest extends \PapayaTestCase {
 
   public function testFetchInfoFromPng() {
-    $info = new \Papaya\Media\File\Info\Image(__DIR__.'/TestData/20x20.png');
+    $info = new Image(__DIR__.'/TestData/20x20.png');
     $this->assertEquals(
       [
         'is_valid' => TRUE,
