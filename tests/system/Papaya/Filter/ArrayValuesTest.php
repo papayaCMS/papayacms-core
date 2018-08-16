@@ -13,60 +13,62 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Filter;
 
-class PapayaFilterListMultipleTest extends \PapayaTestCase {
+require_once __DIR__.'/../../../bootstrap.php';
+
+class ArrayValuesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\ArrayValues::__construct
-  */
+   * @covers \Papaya\Filter\ArrayValues::__construct
+   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\ArrayValues(array(21, 42));
+    $filter = new ArrayValues(array(21, 42));
     $this->assertAttributeSame(
       array(21, 42), '_list', $filter
     );
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::validate
+   * @covers       \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
-   * @param array|Traversable $validValues
+   * @param array|\Traversable $validValues
    * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingTrue($value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayValues($validValues);
+    $filter = new ArrayValues($validValues);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::validate
+   * @covers       \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
-   * @param array|Traversable $validValues
+   * @param array|\Traversable $validValues
    * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingException($value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayValues($validValues);
+    $filter = new ArrayValues($validValues);
     $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::filter
+   * @covers       \Papaya\Filter\ArrayValues::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value
-   * @param array|Traversable $validValues
+   * @param array|\Traversable $validValues
    */
   public function testFilter($expected, $value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayValues($validValues);
+    $filter = new ArrayValues($validValues);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideValidValidateData() {
     return array(

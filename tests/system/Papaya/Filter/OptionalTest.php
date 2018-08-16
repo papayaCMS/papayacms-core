@@ -13,92 +13,93 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterOptionalTest extends \PapayaTestCase {
+class OptionalTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\Optional::__construct
-  * @covers \Papaya\Filter\Optional::getInnerFilter
-  */
+   * @covers \Papaya\Filter\Optional::__construct
+   * @covers \Papaya\Filter\Optional::getInnerFilter
+   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertSame(
-     $innerFilter, $filter->getInnerFilter()
+      $innerFilter, $filter->getInnerFilter()
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   */
   public function testGetFilterCachesCreatedFilter() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $actualFilter = $filter->getFilter();
     $this->assertSame($actualFilter, $filter->getFilter());
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::validate
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::validate
+   */
   public function testValidateWithEmptyValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertTrue(
       $filter->validate('')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::validate
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::validate
+   */
   public function testValidateWithValidValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertTrue(
       $filter->validate('42')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::validate
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::validate
+   */
   public function testValidateWithInvalidValueExpectingException() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
-    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
+    $this->expectException(Exception\OutOfRange\ToLarge::class);
     $this->assertTrue(
       $filter->validate('84')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::filter
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::filter
+   */
   public function testFilterWithEmptyValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertNull(
       $filter->filter('')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::validate
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::validate
+   */
   public function testFilterWithValidValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertSame(
       42, $filter->filter('42')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Optional::getFilter
-  * @covers \Papaya\Filter\Optional::filter
-  */
+   * @covers \Papaya\Filter\Optional::getFilter
+   * @covers \Papaya\Filter\Optional::filter
+   */
   public function testFilterWithInvalidValueExpectingNull() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
+    $filter = new Optional($innerFilter = new IntegerValue(21, 42));
     $this->assertNull(
       $filter->filter('84')
     );

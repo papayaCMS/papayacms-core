@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterIntegerTest extends \PapayaTestCase {
+class IntegerValueTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::__construct
-  */
+   * @covers \Papaya\Filter\IntegerValue::__construct
+   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\IntegerValue();
+    $filter = new IntegerValue();
     $this->assertAttributeSame(
       NULL, '_minimum', $filter
     );
@@ -31,10 +33,10 @@ class PapayaFilterIntegerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::__construct
-  */
+   * @covers \Papaya\Filter\IntegerValue::__construct
+   */
   public function testConstructorWithMinimumAndMaximum() {
-    $filter = new \Papaya\Filter\IntegerValue(21, 42);
+    $filter = new IntegerValue(21, 42);
     $this->assertAttributeSame(
       21, '_minimum', $filter
     );
@@ -44,111 +46,111 @@ class PapayaFilterIntegerTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::__construct
-  */
+   * @covers \Papaya\Filter\IntegerValue::__construct
+   */
   public function testConstructorWithMaximumOnlyExpectingException() {
-    $this->expectException(RangeException::class);
-    new \Papaya\Filter\IntegerValue(NULL, 4);
+    $this->expectException(\RangeException::class);
+    new IntegerValue(NULL, 4);
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::__construct
-  */
+   * @covers \Papaya\Filter\IntegerValue::__construct
+   */
   public function testConstructorWithMaximumToSmallExpectingException() {
-    $this->expectException(RangeException::class);
-    new \Papaya\Filter\IntegerValue(4, 2);
+    $this->expectException(\RangeException::class);
+    new IntegerValue(4, 2);
   }
 
   /**
-   * @covers \Papaya\Filter\IntegerValue::validate
+   * @covers       \Papaya\Filter\IntegerValue::validate
    * @dataProvider provideValidValidateData
    * @param int $value
    * @param int $minimum
    * @param int $maximum
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    */
   public function testValidateWithLimitsExpectingTrue($value, $minimum, $maximum) {
-    $filter = new \Papaya\Filter\IntegerValue($minimum, $maximum);
+    $filter = new IntegerValue($minimum, $maximum);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\IntegerValue::validate
+   * @covers       \Papaya\Filter\IntegerValue::validate
    * @dataProvider provideInvalidValidateData
    * @param int $value
    * @param int $minimum
    * @param int $maximum
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    */
   public function testValidateWithLimitsExpectingException($value, $minimum, $maximum) {
-    $filter = new \Papaya\Filter\IntegerValue($minimum, $maximum);
-    $this->expectException(\Papaya\Filter\Exception::class);
+    $filter = new IntegerValue($minimum, $maximum);
+    $this->expectException(Exception::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::validate
-  */
+   * @covers \Papaya\Filter\IntegerValue::validate
+   */
   public function testValidateWithoutRange() {
-    $filter = new \Papaya\Filter\IntegerValue();
+    $filter = new IntegerValue();
     $this->assertTrue($filter->validate(42));
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::validate
-  */
+   * @covers \Papaya\Filter\IntegerValue::validate
+   */
   public function testValidateWithStringExpectingException() {
-    $filter = new \Papaya\Filter\IntegerValue();
-    $this->expectException(\Papaya\Filter\Exception::class);
+    $filter = new IntegerValue();
+    $this->expectException(Exception::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::validate
-  */
+   * @covers \Papaya\Filter\IntegerValue::validate
+   */
   public function testValidateWithFloatExpectingException() {
-    $filter = new \Papaya\Filter\IntegerValue();
-    $this->expectException(\Papaya\Filter\Exception::class);
+    $filter = new IntegerValue();
+    $this->expectException(Exception::class);
     $filter->validate(42.21);
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::validate
-  */
+   * @covers \Papaya\Filter\IntegerValue::validate
+   */
   public function testValidateWithValueToSmallExpectingException() {
-    $filter = new \Papaya\Filter\IntegerValue(21, 42);
-    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToSmall::class);
+    $filter = new IntegerValue(21, 42);
+    $this->expectException(Exception\OutOfRange\ToSmall::class);
     $filter->validate(1);
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::validate
-  */
+   * @covers \Papaya\Filter\IntegerValue::validate
+   */
   public function testValidateWithValueToLargeExpectingException() {
-    $filter = new \Papaya\Filter\IntegerValue(0, 1);
-    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
+    $filter = new IntegerValue(0, 1);
+    $this->expectException(Exception\OutOfRange\ToLarge::class);
     $filter->validate(21);
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::filter
-  */
+   * @covers \Papaya\Filter\IntegerValue::filter
+   */
   public function testFilter() {
-    $filter = new \Papaya\Filter\IntegerValue(0, 1);
+    $filter = new IntegerValue(0, 1);
     $this->assertEquals(1, $filter->filter(1));
   }
 
   /**
-  * @covers \Papaya\Filter\IntegerValue::filter
-  */
+   * @covers \Papaya\Filter\IntegerValue::filter
+   */
   public function testFilterExpectingNull() {
-    $filter = new \Papaya\Filter\IntegerValue(1);
+    $filter = new IntegerValue(1);
     $this->assertNull($filter->filter('foo'));
   }
 
   /**************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideValidValidateData() {
     return array(

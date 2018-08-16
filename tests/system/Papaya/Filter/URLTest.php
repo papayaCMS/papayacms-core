@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterUrlTest extends \PapayaTestCase {
+class URLTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\URL::validate
-  */
+   * @covers \Papaya\Filter\URL::validate
+   */
   public function testValidateExpectingTrue() {
-    $filter = new \Papaya\Filter\URL();
+    $filter = new URL();
     $this->assertTrue($filter->validate('http://www.papaya-cms.com'));
   }
 
   /**
-  * @covers \Papaya\Filter\URL::validate
-  */
+   * @covers \Papaya\Filter\URL::validate
+   */
   public function testValidateExpectingException() {
-    $filter = new \Papaya\Filter\URL();
-    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
+    $filter = new URL();
+    $this->expectException(Exception\UnexpectedType::class);
     $filter->validate('invalid url');
   }
 
   /**
-   * @covers \Papaya\Filter\URL::filter
+   * @covers       \Papaya\Filter\URL::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \Papaya\Filter\URL();
+    $filter = new URL();
     $this->assertEquals($expected, $filter->filter($input));
   }
 
   /**********************
-  * Data Provider
-  **********************/
+   * Data Provider
+   **********************/
 
   public static function provideFilterData() {
     return array(
       'valid' => array('http://www.papaya-cms.com', 'http://www.papaya-cms.com'),
       'valid query string' => array(
-         'http://www.papaya-cms.com?foo=bar', 'http://www.papaya-cms.com?foo=bar'
+        'http://www.papaya-cms.com?foo=bar', 'http://www.papaya-cms.com?foo=bar'
       ),
       'invalid domain' => array(NULL, 'http://www.papaya cms.com'),
       'invalid prefix' => array(NULL, 'h t t p ://www.papaya-cms.com'),

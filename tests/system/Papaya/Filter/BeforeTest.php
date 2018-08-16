@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterBeforeTest extends \PapayaTestCase {
+class BeforeTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Before
@@ -37,7 +38,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->with('success')
       ->willReturn(TRUE);
 
-    $filter = new \Papaya\Filter\Before($before, $after);
+    $filter = new Before($before, $after);
     $this->assertTrue(
       $filter->validate('foo')
     );
@@ -63,7 +64,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->with('success')
       ->willReturn(42);
 
-    $filter = new \Papaya\Filter\Before($before, $after);
+    $filter = new Before($before, $after);
     $this->assertSame(
       42,
       $filter->filter('foo')

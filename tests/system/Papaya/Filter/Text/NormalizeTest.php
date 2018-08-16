@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
+class NormalizeTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Text\Normalize
    */
   public function testValidateExpectingTrue() {
-    $filter = new \Papaya\Filter\Text\Normalize();
+    $filter = new Normalize();
     $this->assertTrue(
       $filter->validate('foo')
     );
@@ -31,7 +32,7 @@ class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Normalize
    */
   public function testValidateWithEmptyValueExpectingException() {
-    $filter = new \Papaya\Filter\Text\Normalize();
+    $filter = new Normalize();
     $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
@@ -40,20 +41,20 @@ class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Normalize
    */
   public function testValidateWithArrayValueExpectingException() {
-    $filter = new \Papaya\Filter\Text\Normalize();
+    $filter = new Normalize();
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate(['foo']);
   }
 
   /**
-   * @covers \Papaya\Filter\Text\Normalize
+   * @covers       \Papaya\Filter\Text\Normalize
    * @dataProvider provideValuesToNormalize
    * @param string|NULL $expected
    * @param mixed $provided
    * @param int $options
    */
   public function testFilter($expected, $provided, $options = 0) {
-    $filter = new \Papaya\Filter\Text\Normalize($options);
+    $filter = new Normalize($options);
     $this->assertSame($expected, $filter->filter($provided));
   }
 
@@ -64,7 +65,7 @@ class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
       ['trim', ' trim '],
       ['123', ' 123 '],
       ['Keep UpperCase', ' Keep   UpperCase '],
-      ['to lowercase', ' To   LowerCase ', \Papaya\Filter\Text\Normalize::OPTION_LOWERCASE]
+      ['to lowercase', ' To   LowerCase ', Normalize::OPTION_LOWERCASE]
     ];
   }
 }

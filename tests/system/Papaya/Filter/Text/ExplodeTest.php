@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterStringExplodeTest extends \PapayaTestCase {
+class ExplodeTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithSingleTokenExpectingTrue() {
-    $filter = new \Papaya\Filter\Text\Explode();
+    $filter = new Explode();
     $this->assertTrue(
       $filter->validate('foo')
     );
@@ -31,7 +32,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithSeveralTokensExpectingTrue() {
-    $filter = new \Papaya\Filter\Text\Explode();
+    $filter = new Explode();
     $this->assertTrue(
       $filter->validate('foo, bar, 42')
     );
@@ -41,7 +42,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithIntegerFilterExpectingTrue() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
+    $filter = new Explode(',', new \Papaya\Filter\IntegerValue());
     $this->assertTrue(
       $filter->validate('42')
     );
@@ -51,7 +52,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithEmptyValueExpectingException() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
+    $filter = new Explode(',', new \Papaya\Filter\IntegerValue());
     $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
@@ -60,7 +61,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testFilterWithSingleToken() {
-    $filter = new \Papaya\Filter\Text\Explode();
+    $filter = new Explode();
     $this->assertEquals(
       ['foo'],
       $filter->filter('foo')
@@ -71,7 +72,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testFilterWithSeveralTokens() {
-    $filter = new \Papaya\Filter\Text\Explode();
+    $filter = new Explode();
     $this->assertSame(
       ['foo', 'bar', '42'],
       $filter->filter('foo, bar, 42')
@@ -82,7 +83,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testFilterWithIntegerElementFilter() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
+    $filter = new Explode(',', new \Papaya\Filter\IntegerValue());
     $this->assertSame(
       [42],
       $filter->filter('42')

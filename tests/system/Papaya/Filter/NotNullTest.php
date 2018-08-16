@@ -13,43 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterIssetTest extends \PapayaTestCase {
+class NotNullTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\NotNull::validate
+   * @covers       \Papaya\Filter\NotNull::validate
    * @dataProvider provideValues
    * @param mixed $value
-   * @throws \Papaya\Filter\Exception\IsUndefined
+   * @throws Exception\IsUndefined
    */
   public function testCheck($value) {
-    $filter = new \Papaya\Filter\NotNull();
+    $filter = new NotNull();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers \Papaya\Filter\NotNull::validate
-  */
+   * @covers \Papaya\Filter\NotNull::validate
+   */
   public function testCheckExpectingException() {
-    $filter = new \Papaya\Filter\NotNull();
-    $this->expectException(\Papaya\Filter\Exception\IsUndefined::class);
+    $filter = new NotNull();
+    $this->expectException(Exception\IsUndefined::class);
     $filter->validate(NULL);
   }
 
   /**
-   * @covers \Papaya\Filter\NotNull::filter
+   * @covers       \Papaya\Filter\NotNull::filter
    * @dataProvider provideValues
    * @param mixed $value
    */
   public function testFilter($value) {
-    $filter = new \Papaya\Filter\NotNull();
+    $filter = new NotNull();
     $this->assertSame($value, $filter->filter($value));
   }
 
   /************************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
   public static function provideValues() {
     return array(

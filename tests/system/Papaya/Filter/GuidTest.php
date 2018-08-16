@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterGuidTest extends \PapayaTestCase {
+class GuidTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\Guid
-  */
+   * @covers \Papaya\Filter\Guid
+   */
   public function testValidateExpectingTrue() {
-    $filter = new \Papaya\Filter\Guid();
+    $filter = new Guid();
     $this->assertTrue(
       $filter->validate('123456789012345678901234567890ab')
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Guid
-  */
+   * @covers \Papaya\Filter\Guid
+   */
   public function testValidateExpectingException() {
-    $filter = new \Papaya\Filter\Guid();
-    $this->expectException(\Papaya\Filter\Exception::class);
+    $filter = new Guid();
+    $this->expectException(Exception::class);
     $filter->validate('foo');
   }
 }

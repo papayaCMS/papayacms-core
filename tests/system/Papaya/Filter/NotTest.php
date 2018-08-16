@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterNotTest extends \PapayaTestCase {
+class NotTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\Not::__construct
-  */
+   * @covers \Papaya\Filter\Not::__construct
+   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
-    $filter = new \Papaya\Filter\Not($filterMock);
+    $filter = new Not($filterMock);
     $this->assertAttributeInstanceOf(
       \Papaya\Filter::class, '_filter', $filter
     );
   }
 
   /**
-  * @covers \Papaya\Filter\Not::validate
-  * @expectedException \Papaya\Filter\Exception
-  */
+   * @covers \Papaya\Filter\Not::validate
+   * @expectedException Exception
+   */
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
@@ -41,13 +42,13 @@ class PapayaFilterNotTest extends \PapayaTestCase {
       ->method('validate')
       ->with($this->equalTo(123))
       ->will($this->returnValue(TRUE));
-    $filter = new \Papaya\Filter\Not($filterMock);
+    $filter = new Not($filterMock);
     $filter->validate(123);
   }
 
   /**
-  * @covers \Papaya\Filter\Not::validate
-  */
+   * @covers \Papaya\Filter\Not::validate
+   */
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
@@ -56,7 +57,7 @@ class PapayaFilterNotTest extends \PapayaTestCase {
       ->method('validate')
       ->with($this->equalTo('abc'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
-    $filter = new \Papaya\Filter\Not($filterMock);
+    $filter = new Not($filterMock);
     $this->assertTrue($filter->validate('abc'));
   }
 
@@ -66,16 +67,16 @@ class PapayaFilterNotTest extends \PapayaTestCase {
   public function testFilter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
-    $filter = new \Papaya\Filter\Not($filterMock);
+    $filter = new Not($filterMock);
     $this->assertEquals('Test', $filter->filter('Test'));
   }
 
   /*************************************
-  * Callbacks
-  *************************************/
+   * Callbacks
+   *************************************/
 
   public function callbackThrowFilterException() {
-    throw $this->getMockForAbstractClass(\Papaya\Filter\Exception::class);
+    throw $this->getMockForAbstractClass(Exception::class);
   }
 
 }

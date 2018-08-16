@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEmptyTest extends \PapayaTestCase {
+class EmptyValueTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\EmptyValue::__construct
-  */
+   * @covers \Papaya\Filter\EmptyValue::__construct
+   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\EmptyValue();
+    $filter = new EmptyValue();
     $this->assertAttributeEquals(
       TRUE, '_ignoreZero', $filter
     );
@@ -31,10 +32,10 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Filter\EmptyValue::__construct
-  */
+   * @covers \Papaya\Filter\EmptyValue::__construct
+   */
   public function testConstructorWithArguments() {
-    $filter = new \Papaya\Filter\EmptyValue(FALSE, FALSE);
+    $filter = new EmptyValue(FALSE, FALSE);
     $this->assertAttributeEquals(
       FALSE, '_ignoreZero', $filter
     );
@@ -44,7 +45,7 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\EmptyValue::validate
+   * @covers       \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -52,12 +53,12 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\NotEmpty
    */
   public function testCheck($value, $ignoreZero, $ignoreSpaces) {
-    $filter = new \Papaya\Filter\EmptyValue($ignoreZero, $ignoreSpaces);
+    $filter = new EmptyValue($ignoreZero, $ignoreSpaces);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\EmptyValue::validate
+   * @covers       \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -65,22 +66,22 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\NotEmpty
    */
   public function testCheckExpectingException($value, $ignoreZero, $ignoreSpaces) {
-    $filter = new \Papaya\Filter\EmptyValue($ignoreZero, $ignoreSpaces);
+    $filter = new EmptyValue($ignoreZero, $ignoreSpaces);
     $this->expectException(\Papaya\Filter\Exception\NotEmpty::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \Papaya\Filter\EmptyValue::filter
-  */
+   * @covers \Papaya\Filter\EmptyValue::filter
+   */
   public function testFilter() {
-    $filter = new \Papaya\Filter\EmptyValue();
+    $filter = new EmptyValue();
     $this->assertNull($filter->filter(''));
   }
 
   /************************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
   public static function provideEmptyValues() {
     return array(

@@ -13,50 +13,51 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterTextTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Text::__construct
    */
   public function testConstructorWithOptionsParameter() {
-    $filter = new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_DIGITS);
+    $filter = new Text(Text::ALLOW_DIGITS);
     $this->assertAttributeEquals(
-      \Papaya\Filter\Text::ALLOW_DIGITS, '_options', $filter
+      Text::ALLOW_DIGITS, '_options', $filter
     );
   }
 
   /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
+   * @covers       \Papaya\Filter\Text::validate
+   * @covers       \Papaya\Filter\Text::getPattern
    * @dataProvider provideValidValues
    * @param mixed $value
    * @param int $options
-   * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @throws \Papaya\Filter\Exception\IsEmpty
+   * @throws Exception\InvalidCharacter
+   * @throws Exception\IsEmpty
    */
   public function testValidateWithValidValuesExpectingTrue(
-    $value, $options = \Papaya\Filter\Text::ALLOW_SPACES
+    $value, $options = Text::ALLOW_SPACES
   ) {
-    $filter = new \Papaya\Filter\Text($options);
+    $filter = new Text($options);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
+   * @covers       \Papaya\Filter\Text::validate
+   * @covers       \Papaya\Filter\Text::getPattern
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @param int $options
-   * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @throws \Papaya\Filter\Exception\IsEmpty
+   * @throws Exception\InvalidCharacter
+   * @throws Exception\IsEmpty
    */
   public function testValidateWithInvalidValuesExpectingException(
-    $value, $options = \Papaya\Filter\Text::ALLOW_SPACES
+    $value, $options = Text::ALLOW_SPACES
   ) {
-    $filter = new \Papaya\Filter\Text($options);
-    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
+    $filter = new Text($options);
+    $this->expectException(Exception\InvalidCharacter::class);
     $filter->validate($value);
   }
 
@@ -65,8 +66,8 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text::getPattern
    */
   public function testValidateWithEmptyValueExpectingException() {
-    $filter = new \Papaya\Filter\Text();
-    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
+    $filter = new Text();
+    $this->expectException(Exception\IsEmpty::class);
     $filter->validate('');
   }
 
@@ -75,8 +76,8 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text::getPattern
    */
   public function testValidateWithNullValueExpectingException() {
-    $filter = new \Papaya\Filter\Text();
-    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
+    $filter = new Text();
+    $this->expectException(Exception\IsEmpty::class);
     $filter->validate(NULL);
   }
 
@@ -85,23 +86,23 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text::getPattern
    */
   public function testValidateWithArrayValueExpectingException() {
-    $filter = new \Papaya\Filter\Text();
-    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
+    $filter = new Text();
+    $this->expectException(Exception\UnexpectedType::class);
     $filter->validate(array());
   }
 
   /**
-   * @covers \Papaya\Filter\Text::filter
-   * @covers \Papaya\Filter\Text::getPattern
+   * @covers       \Papaya\Filter\Text::filter
+   * @covers       \Papaya\Filter\Text::getPattern
    * @dataProvider provideFilterValues
    * @param string|NULL $expected
    * @param mixed $value
    * @param int $options
    */
   public function testFilterValues(
-    $expected, $value, $options = \Papaya\Filter\Text::ALLOW_SPACES
+    $expected, $value, $options = Text::ALLOW_SPACES
   ) {
-    $filter = new \Papaya\Filter\Text($options);
+    $filter = new Text($options);
     $this->assertEquals($expected, $filter->filter($value));
   }
 
@@ -115,8 +116,8 @@ class PapayaFilterTextTest extends \PapayaTestCase {
       array('Hello (first) World!'),
       array('Hello [first] World!'),
       array(',-_'),
-      array('Hello 2. World!', \Papaya\Filter\Text::ALLOW_SPACES | \Papaya\Filter\Text::ALLOW_DIGITS),
-      array("foo\nbar", \Papaya\Filter\Text::ALLOW_LINES)
+      array('Hello 2. World!', Text::ALLOW_SPACES | Text::ALLOW_DIGITS),
+      array("foo\nbar", Text::ALLOW_LINES)
     );
   }
 
@@ -137,10 +138,10 @@ class PapayaFilterTextTest extends \PapayaTestCase {
       array('HelloWorld', 'Hello World', 0),
       array(
         'Hello 2. World!', 'Hello 2. World!',
-        \Papaya\Filter\Text::ALLOW_SPACES | \Papaya\Filter\Text::ALLOW_DIGITS
+        Text::ALLOW_SPACES | Text::ALLOW_DIGITS
       ),
       array('Hello . World!', 'Hello 2. World!'),
-      array("foo\nbar", "foo\nbar", \Papaya\Filter\Text::ALLOW_LINES),
+      array("foo\nbar", "foo\nbar", Text::ALLOW_LINES),
       array('foobar', "foo\nbar")
     );
   }

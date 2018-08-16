@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterFilePathTest extends \PapayaTestCase {
+class PathTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\File\Path
    */
   public function testFilter() {
-    $filter = new \Papaya\Filter\File\Path();
+    $filter = new Path();
     $this->assertTrue($filter->validate('/foo/bar/'));
   }
 

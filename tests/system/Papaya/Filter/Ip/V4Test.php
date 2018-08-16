@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Ip;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterIpV4Test extends \PapayaTestCase {
+class V4Test extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Ip\V4::__construct
    */
   public function testConstructSuccess() {
-    $filter = new \Papaya\Filter\Ip\V4(
-      \Papaya\Filter\Ip\V4::ALLOW_LINK_LOCAL | \Papaya\Filter\Ip\V4::ALLOW_LOOPBACK
+    $filter = new V4(
+      V4::ALLOW_LINK_LOCAL | V4::ALLOW_LOOPBACK
     );
     $this->assertAttributeEquals(
-      \Papaya\Filter\Ip\V4::ALLOW_LINK_LOCAL | \Papaya\Filter\Ip\V4::ALLOW_LOOPBACK,
+      V4::ALLOW_LINK_LOCAL | V4::ALLOW_LOOPBACK,
       '_configuration',
       $filter
     );
@@ -36,17 +38,17 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    */
   public function testConstructInvalidArgumentException() {
     $this->expectException(\InvalidArgumentException::class);
-    new \Papaya\Filter\Ip\V4('InvalidConfiguration');
+    new V4('InvalidConfiguration');
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::__construct
+   * @covers       \Papaya\Filter\Ip\V4::__construct
    * @dataProvider getConfigurationOutOfRangeDataProvider
    * @param int $configuration
    */
   public function testConstructOutOfBoundsException($configuration) {
-    $this->expectException(OutOfRangeException::class);
-    new \Papaya\Filter\Ip\V4($configuration);
+    $this->expectException(\OutOfRangeException::class);
+    new V4($configuration);
   }
 
   public static function getConfigurationOutOfRangeDataProvider() {
@@ -57,7 +59,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::validate
+   * @covers       \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateDataProvider
    * @param string $ip
    * @param int $config
@@ -65,7 +67,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidate($ip, $config = 15) {
-    $filter = new \Papaya\Filter\Ip\V4($config);
+    $filter = new V4($config);
     $this->assertTrue($filter->validate($ip));
   }
 
@@ -83,14 +85,14 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::validate
+   * @covers       \Papaya\Filter\Ip\V4::validate
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\InvalidPart
    * @dataProvider getValidateExceptionCountMismatchDataProvider
    */
   public function testValidateExceptionCountMismatch($ip) {
-    $filter = new \Papaya\Filter\Ip\V4();
+    $filter = new V4();
     $this->expectException(\Papaya\Filter\Exception\InvalidCount::class);
     $filter->validate($ip);
   }
@@ -106,14 +108,14 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::validate
+   * @covers       \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateExceptionPartInvalidDataProvider
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidateExceptionPartInvalid($ip) {
-    $filter = new \Papaya\Filter\Ip\V4();
+    $filter = new V4();
     $this->expectException(\Papaya\Filter\Exception\InvalidPart::class);
     $filter->validate($ip);
   }
@@ -130,7 +132,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::validate
+   * @covers       \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateInvalidArgumentExceptionDataProvider
    * @param string $ip
    * @param int $configuration
@@ -138,7 +140,7 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidateInvalidArgumentException($ip, $configuration) {
-    $filter = new \Papaya\Filter\Ip\V4($configuration);
+    $filter = new V4($configuration);
     $this->expectException(\InvalidArgumentException::class);
     $filter->validate($ip);
   }
@@ -153,14 +155,14 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::filter
+   * @covers       \Papaya\Filter\Ip\V4::filter
    * @dataProvider getFilterDataProvider
    * @param string $expected
    * @param string $input
    * @param int $configuration
    */
   public function testFilter($expected, $input, $configuration = 15) {
-    $filter = new \Papaya\Filter\Ip\V4($configuration);
+    $filter = new V4($configuration);
     $this->assertEquals($expected, $filter->filter($input));
   }
 

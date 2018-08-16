@@ -13,43 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Filter;
+require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterNoLinebreakTest extends \PapayaTestCase {
+class NoLinebreakTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\NoLinebreak::validate
-  */
+   * @covers \Papaya\Filter\NoLinebreak::validate
+   */
   public function testValidateExpectingTrue() {
-    $filter = new \Papaya\Filter\NoLinebreak();
+    $filter = new NoLinebreak();
     $this->assertTrue($filter->validate('Some Text Without Linebreak'));
   }
 
   /**
-  * @covers \Papaya\Filter\NoLinebreak::validate
-  */
+   * @covers \Papaya\Filter\NoLinebreak::validate
+   */
   public function testValidateExpectingException() {
-    $filter = new \Papaya\Filter\NoLinebreak();
-    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
+    $filter = new NoLinebreak();
+    $this->expectException(Exception\InvalidCharacter::class);
     $filter->validate("Two\r\nLines");
   }
 
   /**
-   * @covers \Papaya\Filter\NoLinebreak::filter
+   * @covers       \Papaya\Filter\NoLinebreak::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \Papaya\Filter\NoLinebreak();
+    $filter = new NoLinebreak();
     $this->assertEquals(
       $expected, $filter->filter($input)
     );
   }
 
   /**********************
-  * Data Provider
-  **********************/
+   * Data Provider
+   **********************/
 
   public static function provideFilterData() {
     return array(

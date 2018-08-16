@@ -13,80 +13,83 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterListTest extends \PapayaTestCase {
+class ArrayElementTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Filter\ArrayElement::__construct
-  */
+   * @covers \Papaya\Filter\ArrayElement::__construct
+   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\ArrayElement(array(21, 42));
+    $filter = new ArrayElement(array(21, 42));
     $this->assertAttributeEquals(
       array(21, 42), '_list', $filter
     );
   }
+
   /**
-  * @covers \Papaya\Filter\ArrayElement::__construct
-  */
+   * @covers \Papaya\Filter\ArrayElement::__construct
+   */
   public function testConstructorWithTraversable() {
-    $filter = new \Papaya\Filter\ArrayElement($iterator = new \ArrayIterator(array(21, 42)));
+    $filter = new ArrayElement($iterator = new \ArrayIterator(array(21, 42)));
     $this->assertAttributeSame(
       $iterator, '_list', $filter
     );
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayElement::validate
+   * @covers       \Papaya\Filter\ArrayElement::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
-   * @param array|traversable $validValues
-   * @throws \Papaya\Filter\Exception
+   * @param array|\Traversable $validValues
+   * @throws Exception
    */
   public function testValidateExpectingTrue($value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayElement($validValues);
+    $filter = new ArrayElement($validValues);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayElement::validate
+   * @covers       \Papaya\Filter\ArrayElement::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
-   * @param array|traversable $validValues
-   * @throws \Papaya\Filter\Exception
+   * @param array|\Traversable $validValues
+   * @throws Exception
    */
   public function testValidateExpectingException($value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayElement($validValues);
-    $this->expectException(\Papaya\Filter\Exception::class);
+    $filter = new ArrayElement($validValues);
+    $this->expectException(Exception::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayElement::filter
+   * @covers       \Papaya\Filter\ArrayElement::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value
-   * @param array|traversable $validValues
+   * @param array|\Traversable $validValues
    */
   public function testFilter($expected, $value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayElement($validValues);
+    $filter = new ArrayElement($validValues);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayElement::filter
+   * @covers       \Papaya\Filter\ArrayElement::filter
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
-   * @param array|traversable $validValues
+   * @param array|\Traversable $validValues
    */
   public function testFilterExpectingNull($value, $validValues) {
-    $filter = new \Papaya\Filter\ArrayElement($validValues);
+    $filter = new ArrayElement($validValues);
     $this->assertNull($filter->filter($value));
   }
 
   /**************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideValidValidateData() {
     return array(

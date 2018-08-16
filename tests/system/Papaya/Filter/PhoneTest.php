@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterPhoneTest extends \PapayaTestCase {
+class PhoneTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Phone::validate
+   * @covers       \Papaya\Filter\Phone::validate
    * @dataProvider provideValidPhoneNumbers
    * @param string $phoneNumber
-   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws Exception\UnexpectedType
    */
   public function testValidateExpectingTrue($phoneNumber) {
-    $filter = new \Papaya\Filter\Phone();
+    $filter = new Phone();
     $this->assertTrue($filter->validate($phoneNumber));
   }
 
   /**
-   * @covers \Papaya\Filter\Phone::validate
+   * @covers       \Papaya\Filter\Phone::validate
    * @dataProvider provideInvalidData
    * @param mixed $value
-   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws Exception\UnexpectedType
    */
   public function testValidateExpectingException($value) {
-    $filter = new \Papaya\Filter\Phone();
-    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
+    $filter = new Phone();
+    $this->expectException(Exception\UnexpectedType::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \Papaya\Filter\Phone::filter
+   * @covers       \Papaya\Filter\Phone::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \Papaya\Filter\Phone();
+    $filter = new Phone();
     $this->assertEquals($expected, $filter->filter($input));
   }
 
   /**********************
-  * Data Provider
-  **********************/
+   * Data Provider
+   **********************/
 
   public static function provideValidPhoneNumbers() {
     return array(

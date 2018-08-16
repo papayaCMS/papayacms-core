@@ -13,71 +13,61 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\URL;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterUrlHttpTest extends \PapayaTestCase {
+class HostTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\URL\Web::validate
-   * @covers \Papaya\Filter\URL\Web::prepare
-   * @dataProvider provideValidUrls
+   * @covers       \Papaya\Filter\URL\Host
+   * @dataProvider provideHostNameValues
    * @param mixed $value
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidate($value) {
-    $filter = new \Papaya\Filter\URL\Web();
+    $filter = new Host();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \Papaya\Filter\URL\Web::validate
-   * @covers \Papaya\Filter\URL\Web::prepare
+   * @covers       \Papaya\Filter\URL\Host
    * @dataProvider provideInvalidValues
    * @param mixed $value
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingException($value) {
-    $filter = new \Papaya\Filter\URL\Web();
+    $filter = new Host();
     $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \Papaya\Filter\URL\Web::filter
-  * @covers \Papaya\Filter\URL\Web::prepare
-  */
+   * @covers \Papaya\Filter\URL\Host
+   */
   public function testFilterExpectingNull() {
-    $filter = new \Papaya\Filter\URL\Web();
+    $filter = new Host();
     $this->assertNull($filter->filter(''));
   }
 
   /**
-  * @covers \Papaya\Filter\URL\Web::filter
-  * @covers \Papaya\Filter\URL\Web::prepare
-  */
+   * @covers \Papaya\Filter\URL\Host
+   */
   public function testFilterExpectingValue() {
-    $filter = new \Papaya\Filter\URL\Web();
-    $this->assertEquals('http://www.sample.tld', $filter->filter('http://www.sample.tld'));
-  }
-
-  /**
-  * @covers \Papaya\Filter\URL\Web::filter
-  * @covers \Papaya\Filter\URL\Web::prepare
-  */
-  public function testFilterExpectingExtendedValue() {
-    $filter = new \Papaya\Filter\URL\Web();
-    $this->assertEquals('http://localhost', $filter->filter('localhost'));
+    $filter = new Host();
+    $this->assertEquals('localhost', $filter->filter('localhost'));
   }
 
   /************************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
-  public static function provideValidUrls() {
+  public static function provideHostNameValues() {
     return array(
       array('localhost'),
       array('example.tld'),
       array('www.example.tld'),
-      array('http://localhost'),
-      array('https://example.tld')
+      array('kölsch.köln.de'),
+      array('kölsch.köln.de:8080')
     );
   }
 

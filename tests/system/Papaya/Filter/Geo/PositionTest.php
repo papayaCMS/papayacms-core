@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Geo;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterGeoPositionTest extends \PapayaTestCase {
+class PositionTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Geo\Position
    */
   public function testFilter() {
-    $filter = new \Papaya\Filter\Geo\Position();
+    $filter = new Position();
     $this->assertTrue($filter->validate('50.94794501585774, 6.944365873932838'));
   }
 }
