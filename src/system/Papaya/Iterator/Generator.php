@@ -85,7 +85,7 @@ class Generator implements \IteratorAggregate {
       return $traversable->getIterator();
     } else {
       return ($traversable instanceof \Traversable)
-        ? new \Papaya\Iterator\Traversable($traversable)
+        ? new \Papaya\Iterator\TraversableIterator($traversable)
         : new \EmptyIterator();
     }
   }

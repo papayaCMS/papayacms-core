@@ -52,7 +52,7 @@ class Collection
    * @param NULL $groupName
    */
   public function __construct($traversable, \Papaya\Phrases $phrases = NULL, $groupName = NULL) {
-    parent::__construct(new \Papaya\Iterator\Traversable($traversable));
+    parent::__construct(new \Papaya\Iterator\TraversableIterator($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;
   }

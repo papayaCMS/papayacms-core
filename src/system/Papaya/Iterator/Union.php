@@ -101,7 +101,7 @@ class Union implements \OuterIterator {
    */
   public function attachIterator($iterator) {
     $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof \Iterator)
-      ? $iterator : new \Papaya\Iterator\Traversable($iterator);
+      ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
   }
 
   /**

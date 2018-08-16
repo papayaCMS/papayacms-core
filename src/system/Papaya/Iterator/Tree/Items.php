@@ -64,7 +64,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
       $this->_iterator = ($this->_traversable instanceof \Iterator)
-        ? $this->_traversable : new \Papaya\Iterator\Traversable($this->_traversable);
+        ? $this->_traversable : new \Papaya\Iterator\TraversableIterator($this->_traversable);
     }
     return $this->_iterator;
   }

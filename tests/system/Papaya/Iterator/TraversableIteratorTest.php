@@ -15,11 +15,11 @@
 
 namespace Papaya\Iterator {
 
-  class PapayaIteratorTraversableTest extends \PapayaTestCase {
+  class TraversableIteratorTest extends \PapayaTestCase {
 
     /**
-     * @covers \Papaya\Iterator\Traversable::__construct
-     * @covers \Papaya\Iterator\Traversable::getInnerIterator
+     * @covers \Papaya\Iterator\TraversableIterator::__construct
+     * @covers \Papaya\Iterator\TraversableIterator::getInnerIterator
      */
     public function testConstructor() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */
@@ -27,19 +27,19 @@ namespace Papaya\Iterator {
       $traversable
         ->expects($this->never())
         ->method('getIterator');
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       $this->assertSame(
         $traversable, $iterator->getInnerIterator()
       );
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
-     * @covers \Papaya\Iterator\Traversable::current
-     * @covers \Papaya\Iterator\Traversable::key
-     * @covers \Papaya\Iterator\Traversable::next
-     * @covers \Papaya\Iterator\Traversable::valid
-     * @covers \Papaya\Iterator\Traversable::rewind
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::current
+     * @covers \Papaya\Iterator\TraversableIterator::key
+     * @covers \Papaya\Iterator\TraversableIterator::next
+     * @covers \Papaya\Iterator\TraversableIterator::valid
+     * @covers \Papaya\Iterator\TraversableIterator::rewind
      */
     public function testIteration() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */
@@ -48,14 +48,14 @@ namespace Papaya\Iterator {
         ->expects($this->once())
         ->method('getIterator')
         ->will($this->returnValue(new \ArrayIterator(array('42'))));
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       $this->assertEquals(
         array('42'), iterator_to_array($iterator)
       );
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
      */
     public function testIterationIsCalledOnlyOnce() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */
@@ -64,7 +64,7 @@ namespace Papaya\Iterator {
         ->expects($this->once())
         ->method('getIterator')
         ->will($this->returnValue(new \ArrayIterator(array('42'))));
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       iterator_to_array($iterator);
       $this->assertEquals(
         array('42'), iterator_to_array($iterator)
@@ -72,7 +72,7 @@ namespace Papaya\Iterator {
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
      */
     public function testGetIteratorForTraversableUsingIteratorAggregate() {
       $innerIterator = new \ArrayIterator(array(42));
@@ -82,30 +82,30 @@ namespace Papaya\Iterator {
         ->expects($this->once())
         ->method('getIterator')
         ->will($this->returnValue($innerIterator));
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       $this->assertEquals(
         $innerIterator, $iterator->getIteratorForTraversable()
       );
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
      */
     public function testGetIteratorForTraversableUsingIterator() {
       $traversable = $this->createMock(\Iterator::class);
       /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       $this->assertEquals(
         $traversable, $iterator->getIteratorForTraversable()
       );
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
      */
     public function testGetIteratorForTraversableUsingArray() {
       $traversable = array('one', 'two');
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       $this->assertInstanceOf(
         'ArrayIterator', $innerIterator = $iterator->getIteratorForTraversable()
       );
@@ -115,7 +115,7 @@ namespace Papaya\Iterator {
     }
 
     /**
-     * @covers \Papaya\Iterator\Traversable::getIteratorForTraversable
+     * @covers \Papaya\Iterator\TraversableIterator::getIteratorForTraversable
      */
     public function testGetIteratorForTraversable() {
       $document = new \Papaya\XML\Document();
@@ -123,7 +123,7 @@ namespace Papaya\Iterator {
       if (!$document->appendElement('sample')->childNodes instanceof \Traversable) {
         $this->markTestSkipped('Old PHP - DOMNodelist does not implement Traversable (Bug)');
       }
-      $iterator = new Traversable($traversable);
+      $iterator = new TraversableIterator($traversable);
       /** @var \IteratorIterator $innerIterator */
       $innerIterator = $iterator->getIteratorForTraversable();
       $this->assertInstanceOf(\IteratorIterator::class, $innerIterator);

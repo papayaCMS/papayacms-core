@@ -93,6 +93,7 @@ class Autoloader {
 
     'PapayaIteratorArrayMapper' => Iterator\ArrayMapper::class,
     'PapayaIteratorMultiple' => Iterator\Union::class,
+    'PapayaIteratorTraversable' => Iterator\TraversableIterator::class,
 
     'PapayaMessageContextInterfaceList' => Message\Context\Interfaces\Items::class,
     'PapayaMessageContextInterface' => Message\Context\Data::class,

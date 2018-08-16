@@ -62,6 +62,6 @@ class Fields
    * @return \Iterator
    */
   public function getIterator() {
-    return new \Papaya\Iterator\Traversable($this->_list);
+    return new \Papaya\Iterator\TraversableIterator($this->_list);
   }
 }

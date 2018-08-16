@@ -59,7 +59,7 @@ class Callback implements \OuterIterator {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
     \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_iterator = ($iterator instanceof \Iterator)
-      ? $iterator : new \Papaya\Iterator\Traversable($iterator);
+      ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
     $this->_callback = $callback;
     $this->_target = in_array(
       $target,

@@ -24,10 +24,10 @@ namespace Papaya\Iterator;
  * @package Papaya-Library
  * @subpackage Iterator
  */
-class Traversable implements \OuterIterator {
+class TraversableIterator implements \OuterIterator {
 
-  private $_traversable = NULL;
-  private $_iterator = NULL;
+  private $_traversable;
+  private $_iterator;
 
   /**
    * Store the traversable to a member variable.
@@ -48,7 +48,7 @@ class Traversable implements \OuterIterator {
    * @return \Iterator
    */
   public function getIteratorForTraversable($useCached = FALSE) {
-    if (!$useCached || is_null($this->_iterator)) {
+    if (!$useCached || NULL === $this->_iterator) {
       if ($this->_traversable instanceof \Iterator) {
         $this->_iterator = $this->_traversable;
       } elseif ($this->_traversable instanceof \IteratorAggregate) {

@@ -33,7 +33,7 @@ class Caching extends \CachingIterator {
    */
   public function __construct(\Traversable $iterator, $callback = NULL) {
     parent::__construct(
-      $iterator instanceof \Iterator ? $iterator : new \Papaya\Iterator\Traversable($iterator),
+      $iterator instanceof \Iterator ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator),
       \CachingIterator::FULL_CACHE
     );
     $this->setCallback($callback);

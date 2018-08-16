@@ -62,7 +62,7 @@ class Details
    * @param string|array|NULL $identifier
    */
   public function __construct($main, $details, $identifier = NULL) {
-    parent::__construct(new \Papaya\Iterator\Traversable($main));
+    parent::__construct(new \Papaya\Iterator\TraversableIterator($main));
     $this->setDetails($details, $identifier);
   }
 

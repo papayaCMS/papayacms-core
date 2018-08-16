@@ -50,7 +50,7 @@ class Groups implements \RecursiveIterator {
    * @param callback $callback
    */
   public function __construct($traversable, $callback) {
-    $this->_iterator = new \Papaya\Iterator\Traversable($traversable);
+    $this->_iterator = new \Papaya\Iterator\TraversableIterator($traversable);
     \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
