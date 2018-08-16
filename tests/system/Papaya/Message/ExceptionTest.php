@@ -13,29 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\Message {
 
-class PapayaMessageExceptionTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\Message\Exception::__construct
-  */
-  public function testConstructor() {
-    $message = new \Papaya\Message\Exception(
-      new \PapayaMessageException_Exception('Sample Error')
-    );
-    $this->assertAttributeEquals(
-      \Papaya\Message::SEVERITY_ERROR,
-      '_type',
-      $message
-    );
-    $this->assertStringStartsWith(
-      "Uncaught exception 'PapayaMessageException_Exception' with message 'Sample Error' in '",
-      $this->readAttribute($message, '_message')
-    );
-    $this->assertCount(1, $message->context());
+  class PapayaMessageExceptionTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\Message\Exception::__construct
+     */
+    public function testConstructor() {
+      $message = new Exception(
+        new SampleException('Sample Error')
+      );
+      $this->assertAttributeEquals(
+        \Papaya\Message::SEVERITY_ERROR,
+        '_type',
+        $message
+      );
+      $this->assertStringStartsWith(
+        "Uncaught exception 'Papaya\Message\SampleException' with message 'Sample Error' in '",
+        $this->readAttribute($message, '_message')
+      );
+      $this->assertCount(1, $message->context());
+    }
   }
-}
 
-class PapayaMessageException_Exception extends Exception {
+  class SampleException extends \Exception {
+  }
 }
