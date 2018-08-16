@@ -13,90 +13,93 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\HTTP\Client\File {
 
-class PapayaHttpClientFileNameTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
-  private $_sampleFile;
+  class NameTest extends \PapayaTestCase {
 
-  public function setUp() {
-    $this->_sampleFile = __DIR__.'/DATA/sample.txt';
+    private $_sampleFile;
+
+    public function setUp() {
+      $this->_sampleFile = __DIR__.'/DATA/sample.txt';
+    }
+
+    public function testConstructor() {
+      $file = new Name('test', $this->_sampleFile, 'text/plain');
+      $this->assertAttributeEquals('test', '_name', $file);
+      $this->assertAttributeEquals($this->_sampleFile, '_fileName', $file);
+      $this->assertAttributeEquals('text/plain', '_mimeType', $file);
+    }
+
+    public function testConstructorExpectingError() {
+      $this->expectException(\LogicException::class);
+      new Name('', '', '');
+    }
+
+    public function testGetSize() {
+      $file = new Name('test', $this->_sampleFile, 'text/plain');
+      $this->assertEquals(6, $file->getSize());
+      $this->assertEquals(6, $file->getSize());
+    }
+
+    public function testSend() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+      $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
+      $socket->expects($this->at(0))
+        ->method('isActive')
+        ->will($this->returnValue(TRUE));
+      $socket->expects($this->at(1))
+        ->method('write')
+        ->with($this->equalTo('sample'));
+      $file = new Name('test', $this->_sampleFile, 'text/plain');
+      $file->send($socket);
+    }
+
+    public function testSendLimited() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+      $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
+      $socket->expects($this->at(0))
+        ->method('isActive')
+        ->will($this->returnValue(TRUE));
+      $socket->expects($this->at(1))
+        ->method('write')
+        ->with($this->equalTo('samp'));
+      $socket->expects($this->at(2))
+        ->method('write')
+        ->with($this->equalTo('le'));
+      $file = new Name('test', $this->_sampleFile, 'text/plain');
+      $file->send($socket, FALSE, 4);
+    }
+
+    public function testSendChunked() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+      $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
+      $socket->expects($this->at(0))
+        ->method('isActive')
+        ->will($this->returnValue(TRUE));
+      $socket->expects($this->at(1))
+        ->method('writeChunk')
+        ->with($this->equalTo('sample'));
+      $socket->expects($this->at(2))
+        ->method('writeChunk')
+        ->with($this->equalTo("\r\n"));
+      $file = new Name('test', $this->_sampleFile, 'text/plain');
+      $file->send($socket, TRUE);
+    }
+
+    public function testSendInvalidFileExpectingError() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
+      $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
+      $file = new FileName_TestProxy('test', $this->_sampleFile, 'text/plain');
+      $file->_fileName = 'INVALID_FILE';
+      $this->expectException(\LogicException::class);
+      $file->send($socket, TRUE);
+    }
   }
 
-  public function testConstructor() {
-    $file = new \Papaya\HTTP\Client\File\Name('test', $this->_sampleFile, 'text/plain');
-    $this->assertAttributeEquals('test', '_name', $file);
-    $this->assertAttributeEquals($this->_sampleFile, '_fileName', $file);
-    $this->assertAttributeEquals('text/plain', '_mimeType', $file);
+  class FileName_TestProxy extends Name {
+    public /** @noinspection PropertyInitializationFlawsInspection */
+      $_fileName = '';
   }
-
-  public function testConstructorExpectingError() {
-    $this->expectException(\LogicException::class);
-    new \Papaya\HTTP\Client\File\Name('', '', '');
-  }
-
-  public function testGetSize() {
-    $file = new \Papaya\HTTP\Client\File\Name('test', $this->_sampleFile, 'text/plain');
-    $this->assertEquals(6, $file->getSize());
-    $this->assertEquals(6, $file->getSize());
-  }
-
-  public function testSend() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
-    $socket->expects($this->at(0))
-           ->method('isActive')
-           ->will($this->returnValue(TRUE));
-    $socket->expects($this->at(1))
-           ->method('write')
-           ->with($this->equalTo('sample'));
-    $file = new \Papaya\HTTP\Client\File\Name('test', $this->_sampleFile, 'text/plain');
-    $file->send($socket);
-  }
-
-  public function testSendLimited() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
-    $socket->expects($this->at(0))
-           ->method('isActive')
-           ->will($this->returnValue(TRUE));
-    $socket->expects($this->at(1))
-           ->method('write')
-           ->with($this->equalTo('samp'));
-    $socket->expects($this->at(2))
-           ->method('write')
-           ->with($this->equalTo('le'));
-    $file = new \Papaya\HTTP\Client\File\Name('test', $this->_sampleFile, 'text/plain');
-    $file->send($socket, FALSE, 4);
-  }
-
-  public function testSendChunked() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
-    $socket->expects($this->at(0))
-           ->method('isActive')
-           ->will($this->returnValue(TRUE));
-    $socket->expects($this->at(1))
-           ->method('writeChunk')
-           ->with($this->equalTo('sample'));
-    $socket->expects($this->at(2))
-           ->method('writeChunk')
-           ->with($this->equalTo("\r\n"));
-    $file = new \Papaya\HTTP\Client\File\Name('test', $this->_sampleFile, 'text/plain');
-    $file->send($socket, TRUE);
-  }
-
-  public function testSendInvalidFileExpectingError() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
-    $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
-    $file = new \PapayaHttpClientFileName_TestProxy('test', $this->_sampleFile, 'text/plain');
-    $file->_fileName = 'INVALID_FILE';
-    $this->expectException(\LogicException::class);
-    $file->send($socket, TRUE);
-  }
-}
-
-class PapayaHttpClientFileName_TestProxy extends \Papaya\HTTP\Client\File\Name {
-  public /** @noinspection PropertyInitializationFlawsInspection */
-    $_fileName = '';
 }
