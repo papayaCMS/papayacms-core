@@ -25,7 +25,7 @@ namespace Papaya\Template\Engine;
  * @package Papaya-Library
  * @subpackage Template
  */
-class Xsl extends \Papaya\Template\Engine {
+class XSLT extends \Papaya\Template\Engine {
 
   /**
    * Transformation result buffer
@@ -58,16 +58,16 @@ class Xsl extends \Papaya\Template\Engine {
   /**
    * Xslt processor
    *
-   * @var \XsltCache|\XsltProcessor
+   * @var \XSLTCache|\XSLTProcessor
    */
-  private $_processor = NULL;
+  private $_processor;
 
   /**
-   * Error handling wrapper for lixml/libxslt errors
+   * Error handling wrapper for libxml/libxslt errors
    *
    * @var \Papaya\XML\Errors
    */
-  private $_errorHandler = NULL;
+  private $_errorHandler;
 
   /**
    * Set the template directly as string, not as file.
@@ -87,9 +87,11 @@ class Xsl extends \Papaya\Template\Engine {
    * @param string $fileName
    */
   public function setTemplateFile($fileName) {
-    if (file_exists($fileName) &&
+    if (
+      file_exists($fileName) &&
       is_file($fileName) &&
-      is_readable($fileName)) {
+      is_readable($fileName)
+    ) {
       $this->_templateFile = $fileName;
     } else {
       throw new \InvalidArgumentException(
@@ -110,7 +112,7 @@ class Xsl extends \Papaya\Template\Engine {
    * @return boolean
    */
   public function useCache($use = NULL) {
-    if (!is_null($use)) {
+    if (NULL !== $use) {
       if ($use && class_exists('XsltCache', FALSE)) {
         $this->_useCache = TRUE;
       } else {
@@ -141,7 +143,7 @@ class Xsl extends \Papaya\Template\Engine {
    * @return \XsltCache|\XsltProcessor
    */
   public function getProcessor() {
-    if (is_null($this->_processor)) {
+    if (NULL === $this->_processor) {
       if ($this->_useCache &&
         class_exists('XsltCache', FALSE)) {
         $this->_processor = new \XsltCache();
@@ -218,13 +220,16 @@ class Xsl extends \Papaya\Template\Engine {
     $errors = $this->getErrorHandler();
     $errors->activate();
     foreach ($this->parameters as $name => $value) {
-      if (FALSE !== strpos($value, '"') && FALSE !== strpos($value, "'")) {
+      if (
+        FALSE !== strpos($value, '"') &&
+        FALSE !== strpos($value, "'")
+      ) {
         $value = str_replace("'", "\xE2\x80\x99", $value);
       }
       $this->_processor->setParameter('', $name, $value);
     }
     try {
-      $result = $this->_processor->transformToXML(
+      $result = $this->_processor->transformToXml(
         ($context = $this->getContext()) ? $context : $this->values
       );
       $errors->emit();
@@ -258,7 +263,7 @@ class Xsl extends \Papaya\Template\Engine {
     return $errors->encapsulate(
       function ($xmlString) {
         $document = new \Papaya\XML\Document();
-        $document->loadXml($xmlString);
+        $document->loadXML($xmlString);
         return $document;
       },
       array($xmlString),

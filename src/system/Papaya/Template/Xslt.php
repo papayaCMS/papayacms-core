@@ -28,7 +28,7 @@ class Xslt extends \Papaya\Template {
   private $_xslFile = '';
 
   /**
-   * @var \Papaya\Template\Engine\Xsl
+   * @var \Papaya\Template\Engine\XSLT
    */
   private $_engine = NULL;
 
@@ -60,15 +60,15 @@ class Xslt extends \Papaya\Template {
   /**
    * Getter/Setter for the xslt template engine
    *
-   * @param \Papaya\Template\Engine\Xsl $engine
-   * @return \Papaya\Template\Engine\Xsl
+   * @param \Papaya\Template\Engine\XSLT $engine
+   * @return \Papaya\Template\Engine\XSLT
    */
-  public function engine(\Papaya\Template\Engine\Xsl $engine = NULL) {
+  public function engine(\Papaya\Template\Engine\XSLT $engine = NULL) {
     if (isset($engine)) {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
       $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
-      $this->_engine = $engine = new \Papaya\Template\Engine\Xsl();
+      $this->_engine = $engine = new \Papaya\Template\Engine\XSLT();
       $engine->useCache($preferred != 'xsl');
     }
     return $this->_engine;

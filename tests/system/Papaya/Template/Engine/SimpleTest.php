@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Engine;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
+class SimpleTest extends \PapayaTestCase {
 
   /**
    * Integration test - block code coverage
@@ -23,7 +24,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
    * @covers \stdClass
    */
   public function testTemplateEngineRun() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->setTemplateString('Hello /*$foo*/ World!');
     $values = new \Papaya\XML\Document();
     $values->appendElement('values')->appendElement('foo', array(), 'Universe');
@@ -34,7 +35,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::prepare
+   * @covers \Papaya\Template\Engine\Simple::prepare
    */
   public function testPrepare() {
     $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
@@ -42,13 +43,13 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('clear');
 
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->visitor($visitor);
     $engine->prepare();
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::run
+   * @covers \Papaya\Template\Engine\Simple::run
    */
   public function testRun() {
     $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
@@ -58,14 +59,14 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
       ->method('accept')
       ->with($visitor);
 
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->visitor($visitor);
     $engine->ast($ast);
     $engine->run();
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::getResult
+   * @covers \Papaya\Template\Engine\Simple::getResult
    */
   public function testGetResult() {
     $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
@@ -74,7 +75,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
       ->method('__toString')
       ->will($this->returnValue('success'));
 
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->visitor($visitor);
     $this->assertEquals('success', $engine->getResult());
   }
@@ -89,7 +90,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
       ->appendElement('page')
       ->appendElement('group')
       ->appendElement('value', array(), 'success');
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->values($values->documentElement);
     $this->assertEquals(
       'success', $engine->callbackGetValue(new \stdClass, 'page.group.value')
@@ -106,7 +107,7 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
       ->appendElement('page')
       ->appendElement('group')
       ->appendElement('value', array(), 'success');
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->values($values->documentElement);
     $this->assertEquals(
       'success', $engine->callbackGetValue(new \stdClass, 'xpath(page/group/value)')
@@ -114,10 +115,10 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::setTemplateString
-  */
+   * @covers \Papaya\Template\Engine\Simple::setTemplateString
+   */
   public function testSetTemplateString() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->setTemplateString('div { color: /*$FG_COLOR*/ #FFF; }');
     $this->assertAttributeEquals(
       'div { color: /*$FG_COLOR*/ #FFF; }',
@@ -132,10 +133,10 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::setTemplateFile
-  */
+   * @covers \Papaya\Template\Engine\Simple::setTemplateFile
+   */
   public function testSetTemplateFile() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
     $this->assertAttributeNotEmpty(
       '_template',
@@ -149,47 +150,47 @@ class PapayaTemplateEngineSimpleTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::setTemplateFile
-  */
+   * @covers \Papaya\Template\Engine\Simple::setTemplateFile
+   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $this->expectException(\InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.CSS');
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::ast
-  */
+   * @covers \Papaya\Template\Engine\Simple::ast
+   */
   public function testAstGetAfterSet() {
     $ast = $this->createMock(\Papaya\Template\Simple\AST::class);
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->ast($ast);
     $this->assertSame($ast, $engine->ast());
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::ast
-  */
+   * @covers \Papaya\Template\Engine\Simple::ast
+   */
   public function testAstGetImplicitCreate() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $this->assertInstanceOf(\Papaya\Template\Simple\AST::class, $engine->ast());
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::visitor
-  */
+   * @covers \Papaya\Template\Engine\Simple::visitor
+   */
   public function testVisitorGetAfterSet() {
     $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $engine->visitor($visitor);
     $this->assertSame($visitor, $engine->visitor());
   }
 
   /**
-  * @covers \Papaya\Template\Engine\Simple::visitor
-  */
+   * @covers \Papaya\Template\Engine\Simple::visitor
+   */
   public function testVisitorGetImplicitCreate() {
-    $engine = new \Papaya\Template\Engine\Simple();
+    $engine = new Simple();
     $this->assertInstanceOf(\Papaya\Template\Simple\Visitor::class, $engine->visitor());
   }
 }

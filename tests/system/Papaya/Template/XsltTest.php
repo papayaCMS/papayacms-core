@@ -40,7 +40,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Xslt
    */
   public function testEngineGetAfterSet() {
-    $engine = $this->createMock(\Papaya\Template\Engine\Xsl::class);
+    $engine = $this->createMock(\Papaya\Template\Engine\XSLT::class);
     $template = new \Papaya\Template\Xslt();
     $template->engine($engine);
     $this->assertSame($engine, $template->engine());
@@ -52,7 +52,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
   public function testEngineGetImplicitCreate() {
     $template = new \Papaya\Template\Xslt();
     $template->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(\Papaya\Template\Engine\Xsl::class, $template->engine());
+    $this->assertInstanceOf(\Papaya\Template\Engine\XSLT::class, $template->engine());
   }
 
   /**
@@ -218,7 +218,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
 
   /**
    * @param $result
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Engine\Xsl
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template\Engine\XSLT
    */
   public function getEngineFixture($result) {
     $parameters = $this->createMock(\Papaya\Template\Parameters::class);
@@ -226,7 +226,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('assign');
 
-    $engine = $this->createMock(\Papaya\Template\Engine\Xsl::class);
+    $engine = $this->createMock(\Papaya\Template\Engine\XSLT::class);
     $engine
       ->expects($this->once())
       ->method('setTemplateFile')

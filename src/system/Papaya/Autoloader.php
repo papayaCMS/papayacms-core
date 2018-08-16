@@ -111,6 +111,7 @@ class Autoloader {
 
     'PapayaStringUtf8' => Text\UTF8String::class,
 
+    'PapayaTemplateEngineXsl' => Template\Engine\XSLT::class,
     'PapayaTemplateSimpleExceptionUnexpectedEof' => Template\Simple\Exception\UnexpectedEOF::class,
     'PapayaTemplateSimpleExceptionUnexpectedToken' => Template\Simple\Exception\UnexpectedToken::class,
 
