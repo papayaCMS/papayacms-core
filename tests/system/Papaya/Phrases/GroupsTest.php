@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Phrases;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPhrasesGroupsTest extends \PapayaTestCase {
+class GroupsTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Phrases\Groups
@@ -23,7 +24,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetExistsExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $this->assertFalse(isset($groups['example']));
   }
 
@@ -33,7 +34,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetExistsAfterOffsetSetExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $groups['example'] = $this
       ->getMockBuilder(\Papaya\Phrases\Group::class)
       ->disableOriginalConstructor()
@@ -47,7 +48,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetExistsAfterOffsetGetExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $groups['example'];
     $this->assertTrue(isset($groups['example']));
   }
@@ -58,7 +59,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetGetAfterOffsetSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $groups['example'] = $group = $this
       ->getMockBuilder(\Papaya\Phrases\Group::class)
       ->disableOriginalConstructor()
@@ -72,7 +73,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testGetAfterOffsetSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $groups['example'] = $group = $this
       ->getMockBuilder(\Papaya\Phrases\Group::class)
       ->disableOriginalConstructor()
@@ -86,7 +87,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetGetLazyCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $this->assertInstanceOf(\Papaya\Phrases\Group::class, $group = $groups['example']);
     $this->assertSame($group, $groups['example']);
   }
@@ -97,7 +98,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetUnset() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     $groups['example'] = $this
       ->getMockBuilder(\Papaya\Phrases\Group::class)
       ->disableOriginalConstructor()
@@ -112,7 +113,7 @@ class PapayaPhrasesGroupsTest extends \PapayaTestCase {
   public function testOffsetUnsetOnNonExistingGroup() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
-    $groups = new \Papaya\Phrases\Groups($phrases);
+    $groups = new Groups($phrases);
     unset($groups['example']);
     $this->assertFalse(isset($groups['example']));
   }

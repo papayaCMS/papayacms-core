@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Phrases;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPhrasesGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Phrases\Group
@@ -28,7 +29,7 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new \Papaya\Phrases\Group($phrases, '#default');
+    $group = new Group($phrases, '#default');
     $phrase = $group->get('Test');
     $this->assertInstanceOf(\Papaya\UI\Text\Translated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
@@ -45,7 +46,7 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new \Papaya\Phrases\Group($phrases, '#default');
+    $group = new Group($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
     $this->assertInstanceOf(\Papaya\UI\Text\Translated\Collection::class, $phraseList);
     $list = iterator_to_array($phraseList);
