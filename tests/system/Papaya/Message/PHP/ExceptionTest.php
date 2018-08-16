@@ -13,25 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\PHP;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessagePhpErrorTest extends \PapayaTestCase {
+
+class ExceptionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Message\PHP\Error::__construct
-  */
+   * @covers \Papaya\Message\PHP\Exception::__construct
+   */
   public function testConstructor() {
-    $message = new \Papaya\Message\PHP\Error(E_USER_WARNING, 'Sample Warning', 'Sample Context');
+    $message = new Exception(
+      new \ErrorException('Sample Error', 0, E_USER_ERROR, 'sample.php', 42)
+    );
     $this->assertAttributeEquals(
-      \Papaya\Message::SEVERITY_WARNING,
+      \Papaya\Message::SEVERITY_ERROR,
       '_type',
       $message
     );
     $this->assertAttributeEquals(
-      'Sample Warning',
+      'Sample Error',
       '_message',
       $message
     );
-    $this->assertCount(2, $message->context());
+    $this->assertCount(1, $message->context());
   }
 }
