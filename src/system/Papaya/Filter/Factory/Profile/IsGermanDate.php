@@ -26,6 +26,6 @@ class IsGermanDate extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\Pcre('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');
+    return new \Papaya\Filter\RegEx('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');
   }
 }

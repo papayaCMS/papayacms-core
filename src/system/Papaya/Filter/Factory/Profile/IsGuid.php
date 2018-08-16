@@ -26,6 +26,6 @@ class IsGuid extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\Pcre('(^[a-fA-F\d]{32}$)Du');
+    return new \Papaya\Filter\RegEx('(^[a-fA-F\d]{32}$)Du');
   }
 }

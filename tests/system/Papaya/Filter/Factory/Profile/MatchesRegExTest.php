@@ -26,7 +26,7 @@ class MatchesRegExTest extends \PapayaTestCase {
     $profile = new MatchesRegEx();
     $profile->options('(^pattern$)D');
     $filter = $profile->getFilter();
-    $this->assertInstanceOf(\Papaya\Filter\Pcre::class, $filter);
+    $this->assertInstanceOf(\Papaya\Filter\RegEx::class, $filter);
     $this->assertTrue($filter->validate('pattern'));
   }
 }

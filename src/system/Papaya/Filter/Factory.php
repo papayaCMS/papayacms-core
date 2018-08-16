@@ -237,7 +237,7 @@ class Factory implements \IteratorAggregate {
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function matches($value, $pattern, $mandatory = TRUE) {
-    return self::validate($value, new \Papaya\Filter\Pcre($pattern), $mandatory);
+    return self::validate($value, new \Papaya\Filter\RegEx($pattern), $mandatory);
   }
 
   /**

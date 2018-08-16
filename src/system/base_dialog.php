@@ -1555,7 +1555,7 @@ class base_dialog extends base_object {
       } elseif (class_exists($check)) {
         return $this->createFilterObject($check);
       } else {
-        return new \Papaya\Filter\Pcre($check);
+        return new \Papaya\Filter\RegEx($check);
       }
     } elseif (is_array($check) && class_exists($check[0])) {
       $filterClass = $check[0];

@@ -89,6 +89,7 @@ class Autoloader {
     'PapayaFilterList' => Filter\ArrayElement::class,
     'PapayaFilterEmpty' => Filter\EmptyValue::class,
     'PapayaFilterIsset' => Filter\NotNull::class,
+    'PapayaFilterPcre' => Filter\RegEx::class,
 
     'PapayaIteratorArrayMapper' => Iterator\ArrayMapper::class,
     'PapayaIteratorMultiple' => Iterator\Union::class,

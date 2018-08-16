@@ -20,7 +20,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Guid extends \Papaya\Filter\Pcre {
+class Guid extends \Papaya\Filter\RegEx {
 
   public function __construct() {
     parent::__construct('(^[a-f-A-F\d]{32}$)D');

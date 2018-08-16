@@ -20,7 +20,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Pcre implements \Papaya\Filter {
+class RegEx implements \Papaya\Filter {
 
   /**
    * Minimum password length
@@ -57,7 +57,7 @@ class Pcre implements \Papaya\Filter {
    */
   public function validate($value) {
     if (!preg_match($this->_pattern, $value)) {
-      throw new \Papaya\Filter\Exception\RegEx\NoMatch($this->_pattern);
+      throw new Exception\RegEx\NoMatch($this->_pattern);
     }
     return TRUE;
   }
@@ -71,10 +71,8 @@ class Pcre implements \Papaya\Filter {
    * @return string|NULL
    */
   public function filter($value) {
-    if (preg_match($this->_pattern, $value, $matches)) {
-      if (isset($matches[$this->_subMatch])) {
-        return $matches[$this->_subMatch];
-      }
+    if (preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
+      return $matches[$this->_subMatch];
     }
     return NULL;
   }

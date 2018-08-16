@@ -26,7 +26,7 @@ class IsIsoDateTime extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\Pcre(
+    return new \Papaya\Filter\RegEx(
       '(
         ^
         ([12]\d{3})-(\d|(0\d)|(1[0-2]))-(([012]?\d)|(3[01]))
