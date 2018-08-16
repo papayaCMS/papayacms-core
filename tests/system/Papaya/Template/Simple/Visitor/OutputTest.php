@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Visitor;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
+class OutputTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Visitor\Output::clear
    */
   public function testClear() {
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
+    $visitor = new Output();
     $nodes = new \Papaya\Template\Simple\AST\Nodes(
       array(
         new \Papaya\Template\Simple\AST\Node\Output('Hello')
@@ -38,7 +39,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Simple\Visitor\Output::__toString
    */
   public function testVisitWithOutput() {
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
+    $visitor = new Output();
     $nodes = new \Papaya\Template\Simple\AST\Nodes(
       array(
         new \Papaya\Template\Simple\AST\Node\Output('Hello'),
@@ -56,7 +57,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
    */
   public function testVisitWithValue() {
     $callbacks = $this
-      ->getMockBuilder(\Papaya\Template\Simple\Visitor\Output\Callbacks::class)
+      ->getMockBuilder(Output\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -65,7 +66,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
       ->method('onGetValue')
       ->with('$FOO')
       ->will($this->returnValue('Universe'));
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
+    $visitor = new Output();
     $visitor->callbacks($callbacks);
 
     $nodes = new \Papaya\Template\Simple\AST\Nodes(
@@ -86,7 +87,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
    */
   public function testVisitWithValueMappingReturnsNull() {
     $callbacks = $this
-      ->getMockBuilder(\Papaya\Template\Simple\Visitor\Output\Callbacks::class)
+      ->getMockBuilder(Output\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -95,7 +96,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
       ->method('onGetValue')
       ->with('$FOO')
       ->will($this->returnValue(NULL));
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
+    $visitor = new Output();
     $visitor->callbacks($callbacks);
 
     $nodes = new \Papaya\Template\Simple\AST\Nodes(
@@ -114,8 +115,8 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Simple\Visitor\Output::callbacks
    */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(\Papaya\Template\Simple\Visitor\Output\Callbacks::class);
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
+    $callbacks = $this->createMock(Output\Callbacks::class);
+    $visitor = new Output();
     $visitor->callbacks($callbacks);
     $this->assertSame($callbacks, $visitor->callbacks());
   }
@@ -124,7 +125,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Simple\Visitor\Output::callbacks
    */
   public function testCallbacksGetImplicitCreate() {
-    $visitor = new \Papaya\Template\Simple\Visitor\Output();
-    $this->assertInstanceOf(\Papaya\Template\Simple\Visitor\Output\Callbacks::class, $visitor->callbacks());
+    $visitor = new Output();
+    $this->assertInstanceOf(Output\Callbacks::class, $visitor->callbacks());
   }
 }

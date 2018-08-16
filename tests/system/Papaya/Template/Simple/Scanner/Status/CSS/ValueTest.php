@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Scanner\Status\CSS;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleScannerStatusCssValueTest extends \PapayaTestCase {
+class ValueTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Template\Simple\Scanner\Status\CSS\Value::getToken
+   * @covers       \Papaya\Template\Simple\Scanner\Status\CSS\Value::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer
    * @param int $offset
    */
   public function testGetToken($expected, $buffer, $offset) {
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS\Value();
+    $status = new Value();
     $token = $status->getToken($buffer, $offset);
     $this->assertEquals($expected, (string)$token);
   }
@@ -37,7 +38,7 @@ class PapayaTemplateSimpleScannerStatusCssValueTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT, 0, ''
     );
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS\Value();
+    $status = new Value();
     $this->assertTrue($status->isEndToken($token));
   }
 

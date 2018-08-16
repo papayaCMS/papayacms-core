@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\Template\Simple\Exception;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleExceptionUnexpectedTokenTest extends \PapayaTestCase {
+class UnexpectedTokenTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Template\Simple\Exception\UnexpectedToken::__construct
-  */
+   * @covers \Papaya\Template\Simple\Exception\UnexpectedToken::__construct
+   */
   public function testConstructor() {
     $expectedToken = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::TEXT, 42, 'sample'
     );
-    $e = new \Papaya\Template\Simple\Exception\UnexpectedToken(
+    $e = new UnexpectedToken(
       $expectedToken, array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME)
     );
     $this->assertAttributeEquals(

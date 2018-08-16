@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Visitor\Output;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleVisitorOutputCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Visitor\Output\Callbacks::__construct
    */
   public function testConstructor() {
-    $callbacks = new \Papaya\Template\Simple\Visitor\Output\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertNull($callbacks->onGetValue->defaultReturn);
   }
 }

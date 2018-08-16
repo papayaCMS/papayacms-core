@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Scanner\Status;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
+class CSSTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getToken
+   * @covers       \Papaya\Template\Simple\Scanner\Status\CSS::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer
    * @param int $offset
    */
   public function testGetToken($expected, $buffer, $offset) {
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
+    $status = new CSS();
     $token = $status->getToken($buffer, $offset);
     $this->assertEquals($expected, (string)$token);
   }
@@ -34,7 +35,7 @@ class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
    * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getToken
    */
   public function testGetTokenExpectingNull() {
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
+    $status = new CSS();
     $this->assertNull($status->getToken('', 0));
   }
 
@@ -45,9 +46,9 @@ class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::VALUE_NAME, 0, ''
     );
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
+    $status = new CSS();
     $this->assertInstanceOf(
-      \Papaya\Template\Simple\Scanner\Status\CSS\Value::class,
+      CSS\Value::class,
       $status->getNewStatus($token)
     );
   }
@@ -59,9 +60,9 @@ class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::COMMENT_START, 0, ''
     );
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
+    $status = new CSS();
     $this->assertInstanceOf(
-      \Papaya\Template\Simple\Scanner\Status\CSS\Comment::class,
+      CSS\Comment::class,
       $status->getNewStatus($token)
     );
   }
@@ -73,7 +74,7 @@ class PapayaTemplateSimpleScannerStatusCssTest extends \PapayaTestCase {
     $token = new \Papaya\Template\Simple\Scanner\Token(
       \Papaya\Template\Simple\Scanner\Token::TEXT, 0, ''
     );
-    $status = new \Papaya\Template\Simple\Scanner\Status\CSS();
+    $status = new CSS();
     $this->assertNull(
       $status->getNewStatus($token)
     );

@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\Parser;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
+class OutputTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Parser\Output::parse
@@ -24,7 +25,7 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
     $tokens = array(
       new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::TEXT, 0, 'foo')
     );
-    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
+    $parser = new Output($tokens);
     $this->assertEquals(
       new \Papaya\Template\Simple\AST\Nodes(
         array(
@@ -42,7 +43,7 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
     $tokens = array(
       new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::WHITESPACE, 0, "\n")
     );
-    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
+    $parser = new Output($tokens);
     $this->assertEquals(
       new \Papaya\Template\Simple\AST\Nodes(
         array(
@@ -62,7 +63,7 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
       new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::WHITESPACE, 3, "\n"),
       new \Papaya\Template\Simple\Scanner\Token(\Papaya\Template\Simple\Scanner\Token::TEXT, 4, 'bar'),
     );
-    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
+    $parser = new Output($tokens);
     $this->assertEquals(
       new \Papaya\Template\Simple\AST\Nodes(
         array(
@@ -88,7 +89,7 @@ class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
         \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT, 7, 'bar'
       )
     );
-    $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
+    $parser = new Output($tokens);
     $this->assertEquals(
       new \Papaya\Template\Simple\AST\Nodes(
         array(

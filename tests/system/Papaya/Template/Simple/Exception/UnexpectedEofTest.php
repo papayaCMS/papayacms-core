@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\Template\Simple\Exception;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleExceptionUnexpectedEofTest extends \PapayaTestCase {
+class UnexpectedEofTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Template\Simple\Exception\UnexpectedEOF::__construct
-  */
+   * @covers \Papaya\Template\Simple\Exception\UnexpectedEOF::__construct
+   */
   public function testConstructor() {
-    $e = new \Papaya\Template\Simple\Exception\UnexpectedEOF(
+    $e = new UnexpectedEOF(
       array(\Papaya\Template\Simple\Scanner\Token::TEXT)
     );
     $this->assertAttributeEquals(

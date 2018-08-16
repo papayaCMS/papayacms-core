@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Simple\AST\Node;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleAstNodeValueTest extends \PapayaTestCase {
+class ValueTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Template\Simple\AST\Node\Value::__construct
    */
   public function testConstructorAndPropertyAccess() {
-    $node = new \Papaya\Template\Simple\AST\Node\Value('foo', 'bar');
+    $node = new Value('foo', 'bar');
     $this->assertEquals('foo', $node->name);
     $this->assertEquals('bar', $node->default);
   }
