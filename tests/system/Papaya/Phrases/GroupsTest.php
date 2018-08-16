@@ -36,7 +36,7 @@ class GroupsTest extends \PapayaTestCase {
     $phrases = $this->createMock(\Papaya\Phrases::class);
     $groups = new Groups($phrases);
     $groups['example'] = $this
-      ->getMockBuilder(\Papaya\Phrases\Group::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->assertTrue(isset($groups['example']));
@@ -61,7 +61,7 @@ class GroupsTest extends \PapayaTestCase {
     $phrases = $this->createMock(\Papaya\Phrases::class);
     $groups = new Groups($phrases);
     $groups['example'] = $group = $this
-      ->getMockBuilder(\Papaya\Phrases\Group::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->assertSame($group, $groups['example']);
@@ -75,7 +75,7 @@ class GroupsTest extends \PapayaTestCase {
     $phrases = $this->createMock(\Papaya\Phrases::class);
     $groups = new Groups($phrases);
     $groups['example'] = $group = $this
-      ->getMockBuilder(\Papaya\Phrases\Group::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->assertSame($group, $groups->get('example'));
@@ -88,7 +88,7 @@ class GroupsTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
     $phrases = $this->createMock(\Papaya\Phrases::class);
     $groups = new Groups($phrases);
-    $this->assertInstanceOf(\Papaya\Phrases\Group::class, $group = $groups['example']);
+    $this->assertInstanceOf(Group::class, $group = $groups['example']);
     $this->assertSame($group, $groups['example']);
   }
 
@@ -100,7 +100,7 @@ class GroupsTest extends \PapayaTestCase {
     $phrases = $this->createMock(\Papaya\Phrases::class);
     $groups = new Groups($phrases);
     $groups['example'] = $this
-      ->getMockBuilder(\Papaya\Phrases\Group::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     unset($groups['example']);
