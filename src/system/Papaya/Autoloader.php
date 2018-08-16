@@ -106,6 +106,8 @@ class Autoloader {
     'PapayaParserTag' => Template\Tag::class,
     'PapayaParserTagImage' => Template\Tag\Image::class,
 
+    'PapayaPluginAdaptable' => Plugin\Configurable\Options::class,
+
     'PapayaRequestParametersInterface' => Request\Parameters\Access::class,
     'PapayaRequestParametersQuery' => Request\Parameters\QueryString::class,
 

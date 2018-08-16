@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Plugin;
+namespace Papaya\Plugin\Configurable;
 /**
  * An interface to define that an object is a module with global options
  * (It can be adapted to the current environment).
@@ -21,7 +21,7 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface Adaptable {
+interface Options {
 
   /**
    * Getter/Setter for the editable options.

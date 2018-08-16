@@ -13,40 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition;
-use Papaya\Plugin\Cacheable\Aggregation;
+namespace Papaya\Plugin\Cacheable {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginCacheableAggregationTest extends \PapayaTestCase {
+  class AggregationTest extends \PapayaTestCase {
 
-  public function testContentGetAfterSet() {
-    $plugin = new \PapayaPluginCacheableAggregation_TestProxy();
-    $plugin->cacheable($content = $this->createMock(Definition::class));
-    $this->assertSame($content, $plugin->cacheable());
+    public function testContentGetAfterSet() {
+      $plugin = new CacheableAggregation_TestProxy();
+      $plugin->cacheable($content = $this->createMock(
+        \Papaya\Cache\Identifier\Definition::class)
+      );
+      $this->assertSame($content, $plugin->cacheable());
+    }
+
+    public function testContentGetWithImplicitCreate() {
+      $plugin = new CacheableAggregation_TestProxy();
+      $plugin->cacheDefinition = $this->createMock(
+        \Papaya\Cache\Identifier\Definition::class
+      );
+      $content = $plugin->cacheable();
+      $this->assertInstanceOf(\Papaya\Cache\Identifier\Definition::class, $content);
+      $this->assertSame($content, $plugin->cacheable());
+    }
+
   }
 
-  public function testContentGetWithImplicitCreate() {
-    $plugin = new \PapayaPluginCacheableAggregation_TestProxy();
-    $plugin->cacheDefinition = $this->createMock(Definition::class);
-    $content = $plugin->cacheable();
-    $this->assertInstanceOf(Definition::class, $content);
-    $this->assertSame($content, $plugin->cacheable());
-  }
+  class CacheableAggregation_TestProxy implements \Papaya\Plugin\Cacheable {
 
-}
+    use Aggregation;
 
-class PapayaPluginCacheableAggregation_TestProxy implements \Papaya\Plugin\Cacheable {
+    /**
+     * @var \Papaya\Cache\Identifier\Definition
+     */
+    public $cacheDefinition;
 
-  use Aggregation;
-
-  /**
-   * @var \PapayaTestCase
-   */
-  public $cacheDefinition;
-
-  public function createCacheDefinition() {
-    return $this->cacheDefinition;
+    public function createCacheDefinition() {
+      return $this->cacheDefinition;
+    }
   }
 }
 
