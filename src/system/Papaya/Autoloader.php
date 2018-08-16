@@ -291,13 +291,12 @@ class Autoloader {
   * @param string $modulePath
   */
   public static function registerPath($modulePrefix, $modulePath) {
-    self::$_paths[self::prepareFileName($modulePrefix).'/'] =
-      \Papaya\Utility\File\Path::cleanup($modulePath);
+    self::$_paths[self::prepareFileName($modulePrefix).'/'] = Utility\File\Path::cleanup($modulePath);
     uksort(self::$_paths, array('self', 'compareByCharacterLength'));
   }
 
   /**
-   * Check if a classname prefix is already registered.
+   * Check if a class name prefix is already registered.
    *
    * @param $modulePrefix
    * @return bool
@@ -307,7 +306,7 @@ class Autoloader {
   }
 
   /**
-   * Register an class map for a path. The map is an array of lowercase classnames (as keys)
+   * Register an class map for a path. The map is an array of lowercase class names (as keys)
    * and the class specific part of the path to the file containing the class.
    *
    * The $path argument is used as a prefix for the class file name.

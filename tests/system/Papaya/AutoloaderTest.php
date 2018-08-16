@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 require_once __DIR__.'/../../../vendor/papaya/test-framework/src/PapayaTestCase.php';
 
 require_once __DIR__.'/../../../src/system/Papaya/Autoloader.php';
 require_once __DIR__.'/../../../src/system/Papaya/Utility/File/Path.php';
 
-class PapayaAutoloaderTest extends \PapayaTestCase {
+class AutoloaderTest extends \PapayaTestCase {
 
   public function tearDown() {
-    \PapayaAutoloader::clear();
+    Autoloader::clear();
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testLoad() {
-    \PapayaAutoloader::load('Papaya\\Test\\Autoloader\\Test_class', __DIR__.'/TestData/class.php');
+    Autoloader::load('Papaya\\Test\\Autoloader\\Test_class', __DIR__.'/TestData/class.php');
     $this->assertTrue(class_exists('Papaya\\Test\\Autoloader\\Test_class', FALSE));
   }
 
   /**
-   * @covers \PapayaAutoloader
+   * @covers \Papaya\Autoloader
    */
   public function testLoadAddsAliasForNamespaceClass() {
-    \PapayaAutoloader::load('PapayaTestAutoloaderTest_class', __DIR__.'/TestData/class.php');
+    Autoloader::load('PapayaTestAutoloaderTest_class', __DIR__.'/TestData/class.php');
     $this->assertTrue(class_exists('PapayaTestAutoloaderTest_class', FALSE));
   }
 
   /**
-   * @covers \PapayaAutoloader
+   * @covers       \Papaya\Autoloader
    * @dataProvider getClassFileDataProvider
    * @param string $expected
    * @param string $className
@@ -49,37 +50,37 @@ class PapayaAutoloaderTest extends \PapayaTestCase {
   public function testGetClassFile($expected, $className) {
     $this->assertStringEndsWith(
       $expected,
-      \PapayaAutoloader::getClassFile($className)
+      Autoloader::getClassFile($className)
     );
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testGetClassFileForUnknownClass() {
     $this->assertNull(
-      \PapayaAutoloader::getClassFile('unknown_class_name')
+      Autoloader::getClassFile('unknown_class_name')
     );
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testRegisterPath() {
-    \PapayaAutoloader::clear();
-    \PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
+    Autoloader::clear();
+    Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
     $this->assertAttributeEquals(
-      array('/Papaya/Module/Sample/' => '/foo/bar/'), '_paths', \PapayaAutoloader::class
+      array('/Papaya/Module/Sample/' => '/foo/bar/'), '_paths', Autoloader::class
     );
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testRegisterPathSortsPaths() {
-    \PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
-    \PapayaAutoloader::registerPath('PapayaModule', '/bar/foo/foobar');
-    \PapayaAutoloader::registerPath('PapayaModuleSampleChild', '/foo/bar/child');
+    Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
+    Autoloader::registerPath('PapayaModule', '/bar/foo/foobar');
+    Autoloader::registerPath('PapayaModuleSampleChild', '/foo/bar/child');
     $this->assertAttributeEquals(
       array(
         '/Papaya/Module/Sample/Child/' => '/foo/bar/child/',
@@ -87,23 +88,23 @@ class PapayaAutoloaderTest extends \PapayaTestCase {
         '/Papaya/Module/' => '/bar/foo/foobar/'
       ),
       '_paths',
-      \PapayaAutoloader::class
+      Autoloader::class
     );
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testClearPaths() {
-    \PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
-    \PapayaAutoloader::clear();
+    Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
+    Autoloader::clear();
     $this->assertAttributeEquals(
-      array(), '_paths', \PapayaAutoloader::class
+      array(), '_paths', Autoloader::class
     );
   }
 
   /**
-   * @covers \PapayaAutoloader
+   * @covers       \Papaya\Autoloader
    * @dataProvider getModuleClassFileDataProvider
    * @param string $expected
    * @param string $moduleClass
@@ -113,46 +114,46 @@ class PapayaAutoloaderTest extends \PapayaTestCase {
   public function testGetClassFileAfterPathRegistration(
     $expected, $moduleClass, $modulePrefix, $modulePath
   ) {
-    \PapayaAutoloader::registerPath($modulePrefix, $modulePath);
+    Autoloader::registerPath($modulePrefix, $modulePath);
     $this->assertEquals(
       $expected,
-      \PapayaAutoloader::getClassFile($moduleClass)
+      Autoloader::getClassFile($moduleClass)
     );
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testHasPrefixExpectingTrue() {
-    \PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
-    $this->assertTrue(\PapayaAutoloader::hasPrefix('PapayaModuleSample'));
+    Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
+    $this->assertTrue(Autoloader::hasPrefix('PapayaModuleSample'));
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testHasPrefixExpectingFalse() {
-    $this->assertFalse(\PapayaAutoloader::hasPrefix('PapayaModuleSample'));
+    $this->assertFalse(Autoloader::hasPrefix('PapayaModuleSample'));
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testHasClassmapExpectingTrue() {
-    \PapayaAutoloader::registerClassMap('/foo/bar', array('Foo', '/Foo.php'));
-    $this->assertTrue(\PapayaAutoloader::hasClassMap('/foo/bar'));
+    Autoloader::registerClassMap('/foo/bar', array('Foo', '/Foo.php'));
+    $this->assertTrue(Autoloader::hasClassMap('/foo/bar'));
   }
 
   /**
-  * @covers \PapayaAutoloader
-  */
+   * @covers \Papaya\Autoloader
+   */
   public function testHasClassmapExpectingFalse() {
-    $this->assertFalse(\PapayaAutoloader::hasClassMap('/foo/bar'));
+    $this->assertFalse(Autoloader::hasClassMap('/foo/bar'));
   }
 
   /****************************
-  * Data Provider
-  ****************************/
+   * Data Provider
+   ****************************/
 
   public static function getClassFileDataProvider() {
     return array(
