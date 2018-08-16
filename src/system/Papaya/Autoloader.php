@@ -103,6 +103,9 @@ class Autoloader {
     'PapayaObjectInterface' => Application\Access::class,
     'PapayaObjectInterfacePropertiesWriteable' => BaseObject\Interfaces\Properties\Writable::class,
 
+    'PapayaParserTag' => Template\Tag::class,
+    'PapayaParserTagImage' => Template\Tag\Image::class,
+
     'PapayaRequestParametersInterface' => Request\Parameters\Access::class,
     'PapayaRequestParametersQuery' => Request\Parameters\QueryString::class,
 

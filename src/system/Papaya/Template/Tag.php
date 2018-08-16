@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Parser;
+namespace Papaya\Template;
 /**
  * papaya CMS
  *

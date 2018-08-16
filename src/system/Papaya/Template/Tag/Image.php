@@ -13,9 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Parser\Tag;
+namespace Papaya\Template\Tag;
 
-class Image extends \Papaya\Parser\Tag {
+class Image extends \Papaya\Template\Tag {
   /**
    * @var string
    */
@@ -139,7 +139,7 @@ class Image extends \Papaya\Parser\Tag {
     }
   }
 
-  private function parseMediaString() {
+  private function parseMediaTag($mediaTag) {
     // TO DO: parse an existing papaya:* tag
   }
 }

@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaTemplateParametersTest extends \PapayaTestCase {
+class ParametersTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Template\Parameters
    */
   public function testConstructor() {
-    $parameters = new \Papaya\Template\Parameters();
+    $parameters = new Parameters();
     $this->assertCount(3, $parameters);
   }
 }

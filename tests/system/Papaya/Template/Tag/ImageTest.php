@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Template\Tag;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaParserTagImageTest extends \PapayaTestCase {
+class ImageTest extends \PapayaTestCase {
   /**
-   * @covers \Papaya\Parser\Tag\Image::appendTo
+   * @covers \Papaya\Template\Tag\Image::appendTo
    */
   public function testAppendTo() {
-    $image = new \Papaya\Parser\Tag\Image('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
+    $image = new Image('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
     $document = new \Papaya\XML\Document();
     $container = $document->appendElement('container');
     $image->appendTo($container);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<container>
          <papaya:media 
            xmlns:papaya="http://www.papaya-cms.com/namespace/papaya" 
