@@ -63,7 +63,7 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Generator::createIterator
   */
   public function testGetIteratorWithIteratorAggregate() {
-    $wrapper = $this->createMock(IteratorAggregate::class);
+    $wrapper = $this->createMock(\IteratorAggregate::class);
     $wrapper
       ->expects($this->once())
       ->method('getIterator')

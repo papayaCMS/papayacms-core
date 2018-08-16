@@ -296,8 +296,8 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
         )
       ),
       array(
-        new ArrayObject(array('cmd' => 'show')),
-        new ArrayObject(array('id' => 1)),
+        new \ArrayObject(array('cmd' => 'show')),
+        new \ArrayObject(array('id' => 1)),
         array(
           'cmd' => 'show',
           'id' => 1
@@ -319,7 +319,7 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
       ),
       'ArrayObject' => array(
         array('foo' => 'bar'),
-        new ArrayObject(array('foo' => 'bar')),
+        new \ArrayObject(array('foo' => 'bar')),
       ),
       'IteratorAggregate' => array(
         array('foo' => 'bar'),
@@ -346,7 +346,7 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUtilArray_TestProxyArrayIterator implements IteratorAggregate {
+class PapayaUtilArray_TestProxyArrayIterator implements \IteratorAggregate {
 
   private /** @noinspection PropertyInitializationFlawsInspection */
     $_array = array();

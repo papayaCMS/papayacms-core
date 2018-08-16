@@ -142,7 +142,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
     $item = new \Papaya\UI\Hierarchy\Item('sample');
     try {
       $item->displayMode = -99;
-    } catch (OutOfBoundsException $e) {
+    } catch (\OutOfBoundsException $e) {
       $this->assertEquals(
         'Invalid display mode for "Papaya\UI\Hierarchy\Item".',
         $e->getMessage()

@@ -88,8 +88,8 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::getIteratorIdentifier
   */
   public function testAttachIteratorWithIteratorAggregate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversable */
-    $traversable = $this->createMock(IteratorAggregate::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */
+    $traversable = $this->createMock(\IteratorAggregate::class);
     $iterator = new \Papaya\Iterator\Union();
     $iterator->attachIterator($traversable);
     $this->assertTrue($iterator->containsIterator($traversable));
@@ -99,10 +99,10 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::attachIterators
   */
   public function testAttachIteratorsWithTwoIteratorAggregate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableOne */
-    $traversableOne = $this->createMock(IteratorAggregate::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableTwo */
-    $traversableTwo = $this->createMock(IteratorAggregate::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversableOne */
+    $traversableOne = $this->createMock(\IteratorAggregate::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversableTwo */
+    $traversableTwo = $this->createMock(\IteratorAggregate::class);
     $iterator = new \Papaya\Iterator\Union();
     $iterator->attachIterators($traversableOne, $traversableTwo);
     $this->assertEquals(2, $iterator->countIterators());
@@ -214,7 +214,7 @@ class PapayaIteratorMultipleTest extends \PapayaTestCase {
   * @covers \Papaya\Iterator\Union::valid
   */
   public function testIterationWithTraversable() {
-    $traversable = $this->createMock(IteratorAggregate::class);
+    $traversable = $this->createMock(\IteratorAggregate::class);
     $traversable
       ->expects($this->once())
       ->method('getIterator')

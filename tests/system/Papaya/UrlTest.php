@@ -73,7 +73,7 @@ class PapayaUrlTest extends \PapayaTestCase {
   */
   public function testToStringCapturesInvalidArgumentException() {
     $urlObject = new \PapayaUrl_TestProxy_ForToString();
-    $urlObject->exception = new InvalidArgumentException();
+    $urlObject->exception = new \InvalidArgumentException();
     $this->assertEquals('', (string)$urlObject);
   }
 
@@ -82,7 +82,7 @@ class PapayaUrlTest extends \PapayaTestCase {
   */
   public function testToStringCapturesBadMethodCallException() {
     $urlObject = new \PapayaUrl_TestProxy_ForToString();
-    $urlObject->exception = new BadMethodCallException();
+    $urlObject->exception = new \BadMethodCallException();
     $this->assertEquals('', (string)$urlObject);
   }
 
@@ -181,7 +181,7 @@ class PapayaUrlTest extends \PapayaTestCase {
 
   /**
    * @covers URL::setHost
-   * @expectedException InvalidArgumentException
+   * @expectedException \InvalidArgumentException
    * @dataProvider setHostDataProviderExceptions
    * @param string $host
    */
@@ -214,7 +214,7 @@ class PapayaUrlTest extends \PapayaTestCase {
 
   /**
   * @covers URL::setPort
-  * @expectedException InvalidArgumentException
+  * @expectedException \InvalidArgumentException
   */
   public function testSetPortExpectingException() {
     $urlObject = new URL();
