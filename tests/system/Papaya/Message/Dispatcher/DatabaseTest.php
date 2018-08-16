@@ -13,274 +13,277 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
-\PapayaTestCase::defineConstantDefaults(
-  array(
-    'PAPAYA_DB_TBL_AUTHOPTIONS',
-    'PAPAYA_DB_TBL_AUTHUSER',
-    'PAPAYA_DB_TBL_AUTHGROUPS',
-    'PAPAYA_DB_TBL_AUTHLINK',
-    'PAPAYA_DB_TBL_AUTHPERM',
-    'PAPAYA_DB_TBL_AUTHMODPERMS',
-    'PAPAYA_DB_TBL_AUTHMODPERMLINKS',
-    'PAPAYA_DB_TBL_SURFER'
-  )
-);
+namespace Papaya\Message\Dispatcher {
 
-class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
+  \PapayaTestCase::defineConstantDefaults(
+    array(
+      'PAPAYA_DB_TBL_AUTHOPTIONS',
+      'PAPAYA_DB_TBL_AUTHUSER',
+      'PAPAYA_DB_TBL_AUTHGROUPS',
+      'PAPAYA_DB_TBL_AUTHLINK',
+      'PAPAYA_DB_TBL_AUTHPERM',
+      'PAPAYA_DB_TBL_AUTHMODPERMS',
+      'PAPAYA_DB_TBL_AUTHMODPERMLINKS',
+      'PAPAYA_DB_TBL_SURFER'
+    )
+  );
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::dispatch
-  * @covers \Papaya\Message\Dispatcher\Database::save
-  */
-  public function testDispatchExpectingTrue() {
-    $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->once())
-      ->method('insertRecord')
-      ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
-      ->will($this->returnValue(TRUE));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message\Logable::class);
-    $message
-      ->expects($this->once())
-      ->method('getGroup')
-      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getType')
-      ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getMessage')
-      ->will($this->returnValue('Sample message'));
-    $message
-      ->expects($this->exactly(2))
-      ->method('context')
-      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $dispatcher->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'Options' => $this->mockPapaya()->options(
-            array(
-              'PAPAYA_PROTOCOL_DATABASE' => TRUE
+  class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::dispatch
+     * @covers \Papaya\Message\Dispatcher\Database::save
+     */
+    public function testDispatchExpectingTrue() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('insertRecord')
+        ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
+        ->will($this->returnValue(TRUE));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message\Logable::class);
+      $message
+        ->expects($this->once())
+        ->method('getGroup')
+        ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getType')
+        ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getMessage')
+        ->will($this->returnValue('Sample message'));
+      $message
+        ->expects($this->exactly(2))
+        ->method('context')
+        ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
+      $dispatcher = new Database();
+      $dispatcher->papaya(
+        $this->mockPapaya()->application(
+          array(
+            'Options' => $this->mockPapaya()->options(
+              array(
+                'PAPAYA_PROTOCOL_DATABASE' => TRUE
+              )
             )
           )
         )
-      )
-    );
-    $dispatcher->setDatabaseAccess($databaseAccess);
-    $this->assertTrue($dispatcher->dispatch($message));
-  }
+      );
+      $dispatcher->setDatabaseAccess($databaseAccess);
+      $this->assertTrue($dispatcher->dispatch($message));
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::dispatch
-  * @covers \Papaya\Message\Dispatcher\Database::save
-  */
-  public function testDispatchWithDebugMessageExpectingTrue() {
-    $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->once())
-      ->method('insertRecord')
-      ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
-      ->will($this->returnValue(TRUE));
-    $user = $this
-      ->getMockBuilder(base_auth::class)
-      ->setMethods(array('isLoggedIn', 'getUserId', 'getDisplayName'))
-      ->getMock();
-    $user
-      ->expects($this->once())
-      ->method('isLoggedIn')
-      ->will($this->returnValue(TRUE));
-    $user
-      ->expects($this->once())
-      ->method('getUserId')
-      ->will($this->returnValue('123'));
-    $user
-      ->expects($this->once())
-      ->method('getDisplayName')
-      ->will($this->returnValue('Sample User'));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message\Logable::class);
-    $message
-      ->expects($this->once())
-      ->method('getGroup')
-      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getType')
-      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getMessage')
-      ->will($this->returnValue('Sample message'));
-    $message
-      ->expects($this->exactly(2))
-      ->method('context')
-      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $dispatcher->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'AdministrationUser' => $user,
-          'Options' => $this->mockPapaya()->options(
-            array(
-              'PAPAYA_PROTOCOL_DATABASE' => TRUE,
-              'PAPAYA_PROTOCOL_DATABASE_DEBUG' => TRUE
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::dispatch
+     * @covers \Papaya\Message\Dispatcher\Database::save
+     */
+    public function testDispatchWithDebugMessageExpectingTrue() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('insertRecord')
+        ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
+        ->will($this->returnValue(TRUE));
+      $user = $this
+        ->getMockBuilder(\base_auth::class)
+        ->setMethods(array('isLoggedIn', 'getUserId', 'getDisplayName'))
+        ->getMock();
+      $user
+        ->expects($this->once())
+        ->method('isLoggedIn')
+        ->will($this->returnValue(TRUE));
+      $user
+        ->expects($this->once())
+        ->method('getUserId')
+        ->will($this->returnValue('123'));
+      $user
+        ->expects($this->once())
+        ->method('getDisplayName')
+        ->will($this->returnValue('Sample User'));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message\Logable::class);
+      $message
+        ->expects($this->once())
+        ->method('getGroup')
+        ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getType')
+        ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getMessage')
+        ->will($this->returnValue('Sample message'));
+      $message
+        ->expects($this->exactly(2))
+        ->method('context')
+        ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
+      $dispatcher = new Database();
+      $dispatcher->papaya(
+        $this->mockPapaya()->application(
+          array(
+            'AdministrationUser' => $user,
+            'Options' => $this->mockPapaya()->options(
+              array(
+                'PAPAYA_PROTOCOL_DATABASE' => TRUE,
+                'PAPAYA_PROTOCOL_DATABASE_DEBUG' => TRUE
+              )
             )
           )
         )
-      )
-    );
-    $dispatcher->setDatabaseAccess($databaseAccess);
-    $this->assertTrue($dispatcher->dispatch($message));
-  }
+      );
+      $dispatcher->setDatabaseAccess($databaseAccess);
+      $this->assertTrue($dispatcher->dispatch($message));
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::dispatch
-  */
-  public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message::class);
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $this->assertFalse($dispatcher->dispatch($message));
-  }
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::dispatch
+     */
+    public function testDispatchWithInvalidMessageExpectingFalse() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message::class);
+      $dispatcher = new Database();
+      $this->assertFalse($dispatcher->dispatch($message));
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::dispatch
-  */
-  public function testDispatchWithDebugMessageExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message\Logable::class);
-    $message
-      ->expects($this->once())
-      ->method('getType')
-      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $dispatcher->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'Options' => $this->mockPapaya()->options(
-            array(
-              'PAPAYA_PROTOCOL_DATABASE' => TRUE,
-              'PAPAYA_PROTOCOL_DATABASE_DEBUG' => FALSE
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::dispatch
+     */
+    public function testDispatchWithDebugMessageExpectingFalse() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message\Logable::class);
+      $message
+        ->expects($this->once())
+        ->method('getType')
+        ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
+      $dispatcher = new Database();
+      $dispatcher->papaya(
+        $this->mockPapaya()->application(
+          array(
+            'Options' => $this->mockPapaya()->options(
+              array(
+                'PAPAYA_PROTOCOL_DATABASE' => TRUE,
+                'PAPAYA_PROTOCOL_DATABASE_DEBUG' => FALSE
+              )
             )
           )
         )
-      )
-    );
-    $this->assertFalse($dispatcher->dispatch($message));
-  }
+      );
+      $this->assertFalse($dispatcher->dispatch($message));
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::save
-  */
-  public function testDispatchPreventMessageRecursionDefault() {
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $this->assertAttributeEquals(
-      FALSE,
-      '_preventMessageRecursion',
-      $dispatcher
-    );
-  }
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::save
+     */
+    public function testDispatchPreventMessageRecursionDefault() {
+      $dispatcher = new Database();
+      $this->assertAttributeEquals(
+        FALSE,
+        '_preventMessageRecursion',
+        $dispatcher
+      );
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::save
-  */
-  public function testDispatchWithRecursion() {
-    $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->never())
-      ->method('insertRecord');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message\Logable::class);
-    $message
-      ->expects($this->once())
-      ->method('getGroup')
-      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getType')
-      ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
-    $message
-      ->expects($this->exactly(2))
-      ->method('getMessage')
-      ->will($this->returnValue('Sample message'));
-    $message
-      ->expects($this->exactly(2))
-      ->method('context')
-      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
-    $dispatcher = new \PapayaMessageDispatcherDatabaseProxy();
-    $dispatcher->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'Options' => $this->mockPapaya()->options(
-            array(
-              'PAPAYA_PROTOCOL_DATABASE' => TRUE
+    /**
+     * @covers \Papaya\Message\Dispatcher\Database::save
+     */
+    public function testDispatchWithRecursion() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->never())
+        ->method('insertRecord');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message\Logable::class);
+      $message
+        ->expects($this->once())
+        ->method('getGroup')
+        ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getType')
+        ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
+      $message
+        ->expects($this->exactly(2))
+        ->method('getMessage')
+        ->will($this->returnValue('Sample message'));
+      $message
+        ->expects($this->exactly(2))
+        ->method('context')
+        ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
+      $dispatcher = new Dispatcher_DatabaseProxy();
+      $dispatcher->papaya(
+        $this->mockPapaya()->application(
+          array(
+            'Options' => $this->mockPapaya()->options(
+              array(
+                'PAPAYA_PROTOCOL_DATABASE' => TRUE
+              )
             )
           )
         )
-      )
-    );
-    $dispatcher->setDatabaseAccess($databaseAccess);
-    $this->assertFalse($dispatcher->dispatch($message));
-    $this->assertAttributeEquals(
-      TRUE,
-      '_preventMessageRecursion',
-      $dispatcher
-    );
-  }
+      );
+      $dispatcher->setDatabaseAccess($databaseAccess);
+      $this->assertFalse($dispatcher->dispatch($message));
+      $this->assertAttributeEquals(
+        TRUE,
+        '_preventMessageRecursion',
+        $dispatcher
+      );
+    }
 
-  /**
-  * @covers \Papaya\Message\Dispatcher\Database::allow
-  * @dataProvider allowDataProvider
-  *
-  * @param boolean $expected
-  * @param integer $type
-  * @param boolean $dispatcherActive
-  * @param boolean $dispatcherHandleDebug
-  */
-  public function testAllow($expected, $type, $dispatcherActive, $dispatcherHandleDebug) {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
-    $message = $this->createMock(\Papaya\Message\Logable::class);
-    $message
-      ->expects($this->any())
-      ->method('getType')
-      ->will($this->returnValue($type));
-    $dispatcher = new \Papaya\Message\Dispatcher\Database();
-    $dispatcher->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'Options' => $this->mockPapaya()->options(
-            array(
-              'PAPAYA_PROTOCOL_DATABASE' => $dispatcherActive,
-              'PAPAYA_PROTOCOL_DATABASE_DEBUG' => $dispatcherHandleDebug
+    /**
+     * @covers       \Papaya\Message\Dispatcher\Database::allow
+     * @dataProvider allowDataProvider
+     *
+     * @param boolean $expected
+     * @param integer $type
+     * @param boolean $dispatcherActive
+     * @param boolean $dispatcherHandleDebug
+     */
+    public function testAllow($expected, $type, $dispatcherActive, $dispatcherHandleDebug) {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+      $message = $this->createMock(\Papaya\Message\Logable::class);
+      $message
+        ->expects($this->any())
+        ->method('getType')
+        ->will($this->returnValue($type));
+      $dispatcher = new Database();
+      $dispatcher->papaya(
+        $this->mockPapaya()->application(
+          array(
+            'Options' => $this->mockPapaya()->options(
+              array(
+                'PAPAYA_PROTOCOL_DATABASE' => $dispatcherActive,
+                'PAPAYA_PROTOCOL_DATABASE_DEBUG' => $dispatcherHandleDebug
+              )
             )
           )
         )
-      )
-    );
-    $this->assertSame(
-      $expected,
-      $dispatcher->allow($message)
-    );
+      );
+      $this->assertSame(
+        $expected,
+        $dispatcher->allow($message)
+      );
+    }
+
+    public static function allowDataProvider() {
+      return array(
+        array(FALSE, \Papaya\Message::SEVERITY_INFO, FALSE, FALSE),
+        array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, FALSE),
+        array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE),
+        array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, TRUE),
+        array(TRUE, \Papaya\Message::SEVERITY_DEBUG, TRUE, TRUE),
+        array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE)
+      );
+    }
   }
 
-  public static function allowDataProvider() {
-    return array(
-      array(FALSE, \Papaya\Message::SEVERITY_INFO, FALSE, FALSE),
-      array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, FALSE),
-      array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE),
-      array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, TRUE),
-      array(TRUE, \Papaya\Message::SEVERITY_DEBUG, TRUE, TRUE),
-      array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE)
-    );
+  class Dispatcher_DatabaseProxy
+    extends Database {
+    /* change the default to what we want to test */
+    protected $_preventMessageRecursion = TRUE;
   }
-}
-
-class PapayaMessageDispatcherDatabaseProxy
-  extends \Papaya\Message\Dispatcher\Database {
-  /* change the default to what we want to test */
-  protected $_preventMessageRecursion = TRUE;
 }

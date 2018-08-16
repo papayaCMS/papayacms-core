@@ -43,11 +43,11 @@ class Cli
   );
 
   /**
-   * The php sapi name
+   * The PHP server API name
    *
    * @var string
    */
-  private $_phpSapiName = NULL;
+  private $_phpSAPIName;
 
   /**
    * Output streams
@@ -70,7 +70,9 @@ class Cli
       $this->allow()) {
       $options = $this->getOptionsFromType($message->getType());
       $isError = in_array(
-        $message->getType(), array(\Papaya\Message::SEVERITY_ERROR, \Papaya\Message::SEVERITY_WARNING)
+        $message->getType(),
+        array(\Papaya\Message::SEVERITY_ERROR, \Papaya\Message::SEVERITY_WARNING),
+        FALSE
       );
       fwrite(
         $this->stream($isError ? self::TARGET_STDERR : self::TARGET_STDOUT),
@@ -92,21 +94,21 @@ class Cli
    * @param string $name
    * @return string
    */
-  public function phpSapiName($name = NULL) {
-    if (isset($name)) {
-      $this->_phpSapiName = $name;
+  public function phpSAPIName($name = NULL) {
+    if (NULL !== $name) {
+      $this->_phpSAPIName = $name;
     }
-    if (is_null($this->_phpSapiName)) {
-      $this->_phpSapiName = strToLower(PHP_SAPI);
+    if (NULL === $this->_phpSAPIName) {
+      $this->_phpSAPIName = strtolower(PHP_SAPI);
     }
-    return $this->_phpSapiName;
+    return $this->_phpSAPIName;
   }
 
   /**
    * Check if it is allowed to use the dispatcher
    */
   public function allow() {
-    return ('cli' === $this->phpSapiName());
+    return ('cli' === $this->phpSAPIName());
   }
 
   /**
@@ -118,9 +120,8 @@ class Cli
   public function getOptionsFromType($type) {
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];
-    } else {
-      return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
     }
+    return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
   }
 
   /**
@@ -137,12 +138,12 @@ class Cli
         sprintf('Invalid output target "%s".', $target)
       );
     }
-    if (isset($stream)) {
+    if (NULL !== $stream) {
       \Papaya\Utility\Constraints::assertResource($stream);
       $this->_streams[$target] = $stream;
     } elseif (NULL === $this->_streams[$target]) {
       $name = 'php://'.$target;
-      $this->_streams[$target] = fopen($name, 'w');
+      $this->_streams[$target] = fopen($name, 'wb');
     }
     return $this->_streams[$target];
   }
