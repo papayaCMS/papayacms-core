@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\HTTP\Client\File;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaHttpClientFileStringTest extends \PapayaTestCase {
+class StringTest extends \PapayaTestCase {
 
   private $_fileContents;
 
@@ -24,7 +25,7 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
   }
 
   public function testConstructor() {
-    $file = new \Papaya\HTTP\Client\File\Text(
+    $file = new Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
@@ -35,11 +36,11 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
 
   public function testConstructorExpectingError() {
     $this->expectError(E_WARNING);
-    new \Papaya\HTTP\Client\File\Text('', '', '', '');
+    new Text('', '', '', '');
   }
 
   public function testGetSize() {
-    $file = new \Papaya\HTTP\Client\File\Text(
+    $file = new Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertEquals(6, $file->getSize());
@@ -57,7 +58,7 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('write')
       ->with($this->equalTo('sample'));
-    $file = new \Papaya\HTTP\Client\File\Text(
+    $file = new Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket);
@@ -78,7 +79,7 @@ class PapayaHttpClientFileStringTest extends \PapayaTestCase {
       ->expects($this->at(2))
       ->method('writeChunk')
       ->with($this->equalTo("\r\n"));
-    $file = new \Papaya\HTTP\Client\File\Text(
+    $file = new Text(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket, TRUE);

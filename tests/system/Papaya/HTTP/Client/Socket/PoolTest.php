@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\HTTP\Client\Socket;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaHttpClientSocketPoolTest extends \PapayaTestCase {
+class PoolTest extends \PapayaTestCase {
 
   public function testSetGetConnection() {
-    $pool = new \Papaya\HTTP\Client\Socket\Pool();
+    $pool = new Pool();
     $resource = fopen('data://text/plain,test', 'rb');
     $pool->putConnection($resource, 'example.com', 80);
     $this->assertSame($resource, $pool->getConnection('example.com', 80));
   }
 
   public function testGetConnectionWithEmptyPool() {
-    $pool = new \Papaya\HTTP\Client\Socket\Pool();
+    $pool = new Pool();
     $this->assertNull($pool->getConnection('example.com', 80));
   }
 
   public function testGetConnectionWithEmptiedPool() {
-    $pool = new \Papaya\HTTP\Client\Socket\Pool();
+    $pool = new Pool();
     $resource = fopen('data://text/plain,test', 'rb');
     $pool->putConnection($resource, 'example.com', 80);
     $pool->getConnection('example.com', 80);
@@ -38,14 +39,14 @@ class PapayaHttpClientSocketPoolTest extends \PapayaTestCase {
   }
 
   public function testGetConnectionWithDifferentPort() {
-    $pool = new \Papaya\HTTP\Client\Socket\Pool();
+    $pool = new Pool();
     $resource = fopen('data://text/plain,test', 'rb');
     $pool->putConnection($resource, 'example.com', 80);
     $this->assertNull($pool->getConnection('example.com', 8080));
   }
 
   public function testGetConnectionWithEof() {
-    $pool = new \Papaya\HTTP\Client\Socket\Pool();
+    $pool = new Pool();
     $resource = fopen('data://text/plain,test', 'rb');
     fread($resource, 4);
     if (!feof($resource)) {
