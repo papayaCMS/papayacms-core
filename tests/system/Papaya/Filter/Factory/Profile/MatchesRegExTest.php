@@ -13,25 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory {
+namespace Papaya\Filter\Factory\Profile;
 
-  require_once __DIR__.'/../../../../bootstrap.php';
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ExceptionTest extends \PapayaTestCase {
+class MatchesRegExTest extends \PapayaTestCase {
 
-    /**
-     * @covers \Papaya\Filter\Factory\Exception
-     */
-    public function testThrowException() {
-      $this->expectException(Exception::class);
-      throw new Exception_TestProxy('Test');
-    }
-
-  }
-
-  class Exception_TestProxy extends Exception {
-
-    public function getFilter() {
-    }
+  /**
+   * @covers \Papaya\Filter\Factory\Profile\MatchesRegEx::getFilter
+   */
+  public function testGetFilter() {
+    $profile = new MatchesRegEx();
+    $profile->options('(^pattern$)D');
+    $filter = $profile->getFilter();
+    $this->assertInstanceOf(\Papaya\Filter\Pcre::class, $filter);
+    $this->assertTrue($filter->validate('pattern'));
   }
 }

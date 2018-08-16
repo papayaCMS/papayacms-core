@@ -13,31 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Filter\Factory {
 
-class PapayaFilterFactoryProfileTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-   * @covers \Papaya\Filter\Factory\Profile::options
-   */
-  public function testOptionsGetAfterSet() {
-    $profile = new \PapayaFilterFactoryProfile_TestProxy();
-    $profile->options('example');
-    $this->assertEquals('example', $profile->options());
+  class ProfileTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\Filter\Factory\Profile::options
+     */
+    public function testOptionsGetAfterSet() {
+      $profile = new Profile_TestProxy();
+      $profile->options('example');
+      $this->assertEquals('example', $profile->options());
+    }
+
+    /**
+     * @covers \Papaya\Filter\Factory\Profile::options
+     */
+    public function testOptionGetWithoutSetExpectingFalse() {
+      $profile = new Profile_TestProxy();
+      $this->assertFalse($profile->options());
+    }
+
   }
 
-  /**
-   * @covers \Papaya\Filter\Factory\Profile::options
-   */
-  public function testOptionGetWithoutSetExpectingFalse() {
-    $profile = new \PapayaFilterFactoryProfile_TestProxy();
-    $this->assertFalse($profile->options());
-  }
+  class Profile_TestProxy extends Profile {
 
-}
-
-class PapayaFilterFactoryProfile_TestProxy extends \Papaya\Filter\Factory\Profile {
-
-  public function getFilter() {
+    public function getFilter() {
+    }
   }
 }

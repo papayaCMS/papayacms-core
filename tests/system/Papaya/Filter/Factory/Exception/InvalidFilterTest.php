@@ -13,25 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory {
+namespace Papaya\Filter\Factory\Exception;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-  require_once __DIR__.'/../../../../bootstrap.php';
+class InvalidFilterTest extends \PapayaTestCase {
 
-  class ExceptionTest extends \PapayaTestCase {
-
-    /**
-     * @covers \Papaya\Filter\Factory\Exception
-     */
-    public function testThrowException() {
-      $this->expectException(Exception::class);
-      throw new Exception_TestProxy('Test');
-    }
-
+  /**
+   * @covers \Papaya\Filter\Factory\Exception\InvalidFilter
+   */
+  public function testConstructor() {
+    $exception = new InvalidFilter('ExampleFilter');
+    $this->assertEquals(
+      'Can not use invalid filter class: "ExampleFilter".',
+      $exception->getMessage()
+    );
   }
 
-  class Exception_TestProxy extends Exception {
-
-    public function getFilter() {
-    }
-  }
 }

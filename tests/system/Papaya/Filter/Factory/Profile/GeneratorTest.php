@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileGeneratorTest extends \PapayaTestCase {
+class GeneratorTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\Generator::getFilter
    */
   public function testGetFilterWithIntegerMinAndMax() {
-    $profile = new \Papaya\Filter\Factory\Profile\Generator();
+    $profile = new Generator();
     $profile->options(array(\Papaya\Filter\IntegerValue::class, 1, 42));
     $filter = $profile->getFilter();
     $this->assertInstanceOf(\Papaya\Filter\IntegerValue::class, $filter);
@@ -32,7 +34,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Factory\Profile\Generator::getFilter
    */
   public function testGetFilterWithInvalidOptionsExpectingException() {
-    $profile = new \Papaya\Filter\Factory\Profile\Generator();
+    $profile = new Generator();
     $profile->options(NULL);
     $this->expectException(\Papaya\Filter\Factory\Exception\InvalidOptions::class);
     $profile->getFilter();
@@ -42,7 +44,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Factory\Profile\Generator::getFilter
    */
   public function testGetFilterWithInvalidFilterClass() {
-    $profile = new \Papaya\Filter\Factory\Profile\Generator();
+    $profile = new Generator();
     $profile->options(array(\stdClass::class));
     $this->expectException(\Papaya\Filter\Factory\Exception\InvalidFilter::class);
     $profile->getFilter();

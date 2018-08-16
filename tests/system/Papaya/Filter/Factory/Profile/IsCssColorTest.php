@@ -13,25 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory {
+namespace Papaya\Filter\Factory\Profile;
 
-  require_once __DIR__.'/../../../../bootstrap.php';
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ExceptionTest extends \PapayaTestCase {
+class IsCssColorTest extends \PapayaTestCase {
 
-    /**
-     * @covers \Papaya\Filter\Factory\Exception
-     */
-    public function testThrowException() {
-      $this->expectException(Exception::class);
-      throw new Exception_TestProxy('Test');
-    }
-
-  }
-
-  class Exception_TestProxy extends Exception {
-
-    public function getFilter() {
-    }
+  /**
+   * @covers \Papaya\Filter\Factory\Profile\IsCssColor::getFilter
+   */
+  public function testGetFilter() {
+    $profile = new IsCssColor();
+    $this->assertInstanceOf(\Papaya\Filter\Color::class, $profile->getFilter());
   }
 }

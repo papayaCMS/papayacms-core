@@ -13,25 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Factory {
+namespace Papaya\Filter\Factory\Profile;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-  require_once __DIR__.'/../../../../bootstrap.php';
+class IsURLHostTest extends \PapayaTestCase {
 
-  class ExceptionTest extends \PapayaTestCase {
-
-    /**
-     * @covers \Papaya\Filter\Factory\Exception
-     */
-    public function testThrowException() {
-      $this->expectException(Exception::class);
-      throw new Exception_TestProxy('Test');
-    }
-
-  }
-
-  class Exception_TestProxy extends Exception {
-
-    public function getFilter() {
-    }
+  /**
+   * @covers \Papaya\Filter\Factory\Profile\IsURLHost::getFilter
+   */
+  public function testGetFilter() {
+    $profile = new IsURLHost();
+    $this->assertInstanceOf(\Papaya\Filter\URL\Host::class, $profile->getFilter());
   }
 }
