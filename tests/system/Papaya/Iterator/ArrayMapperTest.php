@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Iterator;
+require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
+class ArrayMapperTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Iterator\ArrayMapper
-  */
+   * @covers \Papaya\Iterator\ArrayMapper
+   */
   public function testIteration() {
-    $iterator = new \Papaya\Iterator\ArrayMapper(
+    $iterator = new ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('title' => 'bar')
@@ -38,10 +39,10 @@ class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\ArrayMapper
-  */
+   * @covers \Papaya\Iterator\ArrayMapper
+   */
   public function testIterationWithMultipleNames() {
-    $iterator = new \Papaya\Iterator\ArrayMapper(
+    $iterator = new ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('caption' => 'bar')
@@ -58,10 +59,10 @@ class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\ArrayMapper
-  */
+   * @covers \Papaya\Iterator\ArrayMapper
+   */
   public function testIterationWithNonExistingNames() {
-    $iterator = new \Papaya\Iterator\ArrayMapper(
+    $iterator = new ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('caption' => 'bar')

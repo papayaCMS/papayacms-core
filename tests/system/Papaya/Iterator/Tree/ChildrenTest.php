@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
+class ChildrenTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Iterator\Tree\Children
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateRoot() {
     $iterator = $this->getIteratorFixture();
     $this->assertEquals(
@@ -31,8 +32,8 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Tree\Children
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateLeafs() {
     $iterator = new \RecursiveIteratorIterator($this->getIteratorFixture());
     $this->assertEquals(
@@ -44,8 +45,8 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Tree\Children
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateAll() {
     $iterator = new \RecursiveIteratorIterator(
       $this->getIteratorFixture(), \RecursiveIteratorIterator::SELF_FIRST
@@ -59,18 +60,18 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   }
 
   /**
-  * A simple test data tree
-  *
-  * 1 => 'one'
-  *   3 => 'tree'
-  * 2 => 'two'
-  *
-  * The element id 4 is included int the children ids to simulate a missing element.
-  *
-  * @return \Papaya\Iterator\Tree\Children
-  */
+   * A simple test data tree
+   *
+   * 1 => 'one'
+   *   3 => 'tree'
+   * 2 => 'two'
+   *
+   * The element id 4 is included int the children ids to simulate a missing element.
+   *
+   * @return Children
+   */
   public function getIteratorFixture() {
-    return new \Papaya\Iterator\Tree\Children(
+    return new Children(
       array(
         1 => 'one',
         2 => 'two',

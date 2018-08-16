@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorGeneratorTest extends \PapayaTestCase {
+class GeneratorTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Iterator\Generator::__construct
-  * @covers \Papaya\Iterator\Generator::getIterator
-  * @covers \Papaya\Iterator\Generator::createIterator
-  */
+   * @covers \Papaya\Iterator\Generator::__construct
+   * @covers \Papaya\Iterator\Generator::getIterator
+   * @covers \Papaya\Iterator\Generator::createIterator
+   */
   public function testGetIteratorWithoutData() {
-    $iterator = new \Papaya\Iterator\Generator(
+    $iterator = new Generator(
       array($this, 'callbackReturnArgument')
     );
     $this->assertInstanceOf('EmptyIterator', $iterator->getIterator());
   }
 
   /**
-  * @covers \Papaya\Iterator\Generator::__construct
-  * @covers \Papaya\Iterator\Generator::getIterator
-  * @covers \Papaya\Iterator\Generator::createIterator
-  */
+   * @covers \Papaya\Iterator\Generator::__construct
+   * @covers \Papaya\Iterator\Generator::getIterator
+   * @covers \Papaya\Iterator\Generator::createIterator
+   */
   public function testGetIteratorWithArray() {
-    $iterator = new \Papaya\Iterator\Generator(
+    $iterator = new Generator(
       array($this, 'callbackReturnArgument'), array(array('foo', 'bar'))
     );
     $this->assertEquals(
@@ -44,12 +45,12 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Generator::__construct
-  * @covers \Papaya\Iterator\Generator::getIterator
-  * @covers \Papaya\Iterator\Generator::createIterator
-  */
+   * @covers \Papaya\Iterator\Generator::__construct
+   * @covers \Papaya\Iterator\Generator::getIterator
+   * @covers \Papaya\Iterator\Generator::createIterator
+   */
   public function testGetIteratorWithIterator() {
-    $iterator = new \Papaya\Iterator\Generator(
+    $iterator = new Generator(
       array($this, 'callbackReturnArgument'), array($innerIterator = new \EmptyIterator)
     );
     $this->assertSame(
@@ -58,10 +59,10 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Generator::__construct
-  * @covers \Papaya\Iterator\Generator::getIterator
-  * @covers \Papaya\Iterator\Generator::createIterator
-  */
+   * @covers \Papaya\Iterator\Generator::__construct
+   * @covers \Papaya\Iterator\Generator::getIterator
+   * @covers \Papaya\Iterator\Generator::createIterator
+   */
   public function testGetIteratorWithIteratorAggregate() {
     $wrapper = $this->createMock(\IteratorAggregate::class);
     $wrapper
@@ -69,7 +70,7 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
       ->method('getIterator')
       ->will($this->returnValue(new \ArrayIterator(array('foo'))));
 
-    $iterator = new \Papaya\Iterator\Generator(
+    $iterator = new Generator(
       array($this, 'callbackReturnArgument'),
       array($wrapper)
     );
@@ -79,11 +80,11 @@ class PapayaIteratorGeneratorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Generator::__construct
-  * @covers \Papaya\Iterator\Generator::getIterator
-  */
+   * @covers \Papaya\Iterator\Generator::__construct
+   * @covers \Papaya\Iterator\Generator::getIterator
+   */
   public function testMultipleCallsCreateIteratorOnlyOnce() {
-    $iterator = new \Papaya\Iterator\Generator(
+    $iterator = new Generator(
       array($this, 'callbackReturnArgument')
     );
     $this->assertInstanceOf('EmptyIterator', $innerIterator = $iterator->getIterator());

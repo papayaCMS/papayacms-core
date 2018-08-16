@@ -13,29 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree\Groups;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
+class RegExTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIteration() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
-        /** @lang Text */'(^(?P<char>.))',
+      /** @lang Text */
+      '(^(?P<char>.))',
       'char'
     );
     $this->assertEquals(
       array(
-         0 => 'A',
-         1 => 'Administration',
-         2 => 'Application',
-         3 => 'C',
-         4 => 'Cache',
-         5 => 'Configuration',
-         6 => 'I',
-         7 => 'Iterator'
+        0 => 'A',
+        1 => 'Administration',
+        2 => 'Application',
+        3 => 'C',
+        4 => 'Cache',
+        5 => 'Configuration',
+        6 => 'I',
+        7 => 'Iterator'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
@@ -48,16 +50,17 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIterationKeepIndex() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('admin' => 'Administration', 'app' => 'Application'),
-      /** @lang Text */'(^(?P<char>.))',
+      /** @lang Text */
+      '(^(?P<char>.))',
       'char'
     );
     $this->assertEquals(
       array(
-         0 => 'A',
-         'admin' => 'Administration',
-         'app' => 'Application'
+        0 => 'A',
+        'admin' => 'Administration',
+        'app' => 'Application'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST)
@@ -69,14 +72,14 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIterationWithoutMatchExpectingElementAsGroup() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('Administration', 'Application'),
       '(^-$)'
     );
     $this->assertEquals(
       array(
-         0 => 'Administration',
-         1 => 'Application'
+        0 => 'Administration',
+        1 => 'Application'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
@@ -89,14 +92,14 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIterationWithoutMatchKeepingEmptyStringIndex() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('' => 'Empty', 'some' => 'Filled'),
       '(^-$)'
     );
     $this->assertEquals(
       array(
-         '' => 'Empty',
-         'some' => 'Filled'
+        '' => 'Empty',
+        'some' => 'Filled'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
@@ -109,16 +112,16 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIterationWithNotAllItemsMatchingToAGroup() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('Administration', '# no group', 'Application'),
       '(^\w)'
     );
     $this->assertEquals(
       array(
-         0 => 'A',
-         1 => 'Administration',
-         2 => 'Application',
-         3 => '# no group'
+        0 => 'A',
+        1 => 'Administration',
+        2 => 'Application',
+        3 => '# no group'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST),
@@ -131,17 +134,18 @@ class PapayaIteratorTreeGroupsRegexTest extends \PapayaTestCase {
    * @covers \Papaya\Iterator\Tree\Groups\RegEx
    */
   public function testIterationMatchingKeys() {
-    $iterator = new \Papaya\Iterator\Tree\Groups\RegEx(
+    $iterator = new RegEx(
       array('admin' => 'Administration', 'app' => 'Application'),
-      /** @lang Text */'(^(?P<char>.))',
+      /** @lang Text */
+      '(^(?P<char>.))',
       'char',
-      \Papaya\Iterator\Tree\Groups\RegEx::GROUP_KEYS
+      RegEx::GROUP_KEYS
     );
     $this->assertEquals(
       array(
-         0 => 'a',
-         'admin' => 'Administration',
-         'app' => 'Application'
+        0 => 'a',
+        'admin' => 'Administration',
+        'app' => 'Application'
       ),
       iterator_to_array(
         new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST)

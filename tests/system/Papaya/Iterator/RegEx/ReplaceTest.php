@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\RegEx;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
+class ReplaceTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Iterator\RegEx\Replace
-  */
+   * @covers \Papaya\Iterator\RegEx\Replace
+   */
   public function testIteration() {
-    $iterator = new \Papaya\Iterator\RegEx\Replace(
+    $iterator = new Replace(
       new \ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0'
@@ -36,10 +37,10 @@ class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\RegEx\Replace
-  */
+   * @covers \Papaya\Iterator\RegEx\Replace
+   */
   public function testIterationLimitReplace() {
-    $iterator = new \Papaya\Iterator\RegEx\Replace(
+    $iterator = new Replace(
       new \ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0',
