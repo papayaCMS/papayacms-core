@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\SVN;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSvnTagsTest extends \PapayaTestCase {
+class TagsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\SVN\Tags::__construct
-  */
+   * @covers \Papaya\SVN\Tags::__construct
+   */
   public function testConstructWithDefaults() {
     $expectedUri = 'testuri';
     $expectedRevision = 0;
-    $tags = new \Papaya\SVN\Tags($expectedUri);
+    $tags = new Tags($expectedUri);
     $this->assertAttributeSame(
       $expectedUri,
       '_tagDirectoryURL',
@@ -47,25 +48,25 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   public function testConstructWithRevision() {
     $expectedUri = 'testuri';
     $expectedRevision = 28;
-    $tags = new \Papaya\SVN\Tags($expectedUri, $expectedRevision);
+    $tags = new Tags($expectedUri, $expectedRevision);
     $this->assertAttributeSame(
-        $expectedRevision,
-        '_newerThanRevision',
-        $tags
+      $expectedRevision,
+      '_newerThanRevision',
+      $tags
     );
     $this->assertAttributeSame(
-        $expectedRevision,
-        '_highestRevisionSeen',
-        $tags
+      $expectedRevision,
+      '_highestRevisionSeen',
+      $tags
     );
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::svnClient
-  */
+   * @covers \Papaya\SVN\Tags::svnClient
+   */
   public function testSvnClientSet() {
-    $tags = new \Papaya\SVN\Tags('');
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $tags = new Tags('');
+    $client = $this->createMock(Client::class);
     $this->assertSame(
       $client,
       $tags->svnClient($client)
@@ -73,25 +74,25 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::svnClient
-  */
+   * @covers \Papaya\SVN\Tags::svnClient
+   */
   public function testSvnClientCreate() {
-    $tags = new \Papaya\SVN\Tags('');
+    $tags = new Tags('');
     $this->assertInstanceOf(
-      \Papaya\SVN\Client\Extension::class,
+      Client\Extension::class,
       $tags->svnClient()
     );
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::highestRevisionSeen
-  */
+   * @covers \Papaya\SVN\Tags::highestRevisionSeen
+   */
   public function testHighestRevisionSeen() {
     $expectedUri = 'testuri';
     $expectedRevision = 28;
-    $tags = new \Papaya\SVN\Tags($expectedUri, $expectedRevision);
+    $tags = new Tags($expectedUri, $expectedRevision);
 
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $client = $this->createMock(Client::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -105,13 +106,13 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::getIterator
-  */
+   * @covers \Papaya\SVN\Tags::getIterator
+   */
   public function testGetIterator() {
     $expectedUri = 'testuri';
-    $tags = new \Papaya\SVN\Tags($expectedUri);
+    $tags = new Tags($expectedUri);
 
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $client = $this->createMock(Client::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -125,13 +126,13 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::count
-  */
+   * @covers \Papaya\SVN\Tags::count
+   */
   public function testCount() {
     $expectedUri = 'testuri';
-    $tags = new \Papaya\SVN\Tags($expectedUri);
+    $tags = new Tags($expectedUri);
 
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $client = $this->createMock(Client::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -145,13 +146,13 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\SVN\Tags::find
-  */
+   * @covers \Papaya\SVN\Tags::find
+   */
   public function testFindWithoutRevision() {
     $url = 'http://example.com/foo/tags/foo/';
-    $tags = new \Papaya\SVN\Tags($url);
+    $tags = new Tags($url);
 
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $client = $this->createMock(Client::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -166,7 +167,7 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\SVN\Tags::find
+   * @covers       \Papaya\SVN\Tags::find
    * @dataProvider provideFindExamples
    * @param string $url
    * @param array|FALSE $lsResult
@@ -174,9 +175,9 @@ class PapayaSvnTagsTest extends \PapayaTestCase {
    * @param int $expectedRevision
    */
   public function testFind($url, $lsResult, $expected, $expectedRevision) {
-    $tags = new \Papaya\SVN\Tags($url, 28);
+    $tags = new Tags($url, 28);
 
-    $client = $this->createMock(\Papaya\SVN\Client::class);
+    $client = $this->createMock(Client::class);
     $client
       ->expects($this->once())
       ->method('ls')

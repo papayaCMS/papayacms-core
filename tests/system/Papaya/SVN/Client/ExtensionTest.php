@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\SVN\Client;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaSvnClientExtensionTest extends \PapayaTestCase {
+class ExtensionTest extends \PapayaTestCase {
 
   protected function setUp() {
     if (!extension_loaded('svn')) {
@@ -26,10 +27,10 @@ class PapayaSvnClientExtensionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\SVN\Client\Extension::ls
-  */
+   * @covers \Papaya\SVN\Client\Extension::ls
+   */
   public function testLs() {
-    $svn = new \Papaya\SVN\Client\Extension();
+    $svn = new Extension();
     // TODO possibly test by extracting a local svn repo in $this->setUp()
     $this->assertFalse(
       @$svn->ls('file:///not-existing-svn-repo/')
