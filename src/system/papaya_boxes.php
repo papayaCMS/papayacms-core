@@ -1962,7 +1962,7 @@ class papaya_boxes extends base_boxes {
   */
   function loadTemplateGroupsList() {
     $this->templateGroups = array();
-    $templateHandler = new \Papaya\Template\Xslt\Handler();
+    $templateHandler = new \Papaya\Template\XSLT\Handler();
     $fileName = $templateHandler->getLocalPath().'/info.xml';
     if (file_exists($fileName) && is_readable($fileName)) {
       $this->templateGroups = array();

@@ -113,7 +113,7 @@ class base_outputfilter extends base_plugin {
   * @return string
   */
   function getTemplatePath() {
-    $templateHandler = new \Papaya\Template\Xslt\Handler();
+    $templateHandler = new \Papaya\Template\XSLT\Handler();
     return $templateHandler->getLocalPath().$this->templatePath.'/';
   }
 }

@@ -16,7 +16,7 @@
 namespace Papaya\Template\Engine;
 
 /**
- * Xsl template engine, uses ext/xsl or ext/xslcache
+ * XSLT template engine, uses ext/xsl or ext/xslcache
  *
  * @property \Papaya\BaseObject\Options\Collection $parameters
  * @property \Papaya\BaseObject\Collection $loaders
