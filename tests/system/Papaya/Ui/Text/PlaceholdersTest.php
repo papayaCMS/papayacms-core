@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiStringPlaceholdersTest extends \PapayaTestCase {
+class PlaceholdersTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Text\Placeholders
+   * @covers       \Papaya\UI\Text\Placeholders
    * @dataProvider providePlaceholderExamples
    * @param string $expected
    * @param string $string
    * @param array $values
    */
   public function testPlaceholdersToString($expected, $string, array $values = array()) {
-    $result = new \Papaya\UI\Text\Placeholders($string, $values);
+    $result = new Placeholders($string, $values);
     $this->assertEquals($expected, (string)$result);
   }
 

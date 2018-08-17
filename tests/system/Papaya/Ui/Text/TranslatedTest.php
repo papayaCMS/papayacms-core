@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiStringTranslatedTest extends \PapayaTestCase {
+class TranslatedTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Text\Translated::__toString
-  * @covers \Papaya\UI\Text\Translated::translate
-  */
+   * @covers \Papaya\UI\Text\Translated::__toString
+   * @covers \Papaya\UI\Text\Translated::translate
+   */
   public function testMagicMethodToString() {
     $phrases = $this
       ->getMockBuilder(\Papaya\Phrases::class)
@@ -31,7 +32,7 @@ class PapayaUiStringTranslatedTest extends \PapayaTestCase {
       ->method('getText')
       ->with($this->equalTo('Hello %s!'))
       ->will($this->returnValue('Hi %s!'));
-    $string = new \Papaya\UI\Text\Translated('Hello %s!', array('World'));
+    $string = new Translated('Hello %s!', array('World'));
     $string->papaya(
       $this->mockPapaya()->application(array('Phrases' => $phrases))
     );
@@ -41,11 +42,11 @@ class PapayaUiStringTranslatedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Text\Translated::__toString
-  * @covers \Papaya\UI\Text\Translated::translate
-  */
+   * @covers \Papaya\UI\Text\Translated::__toString
+   * @covers \Papaya\UI\Text\Translated::translate
+   */
   public function testMagicMethodToStringWithoutTranslationEngine() {
-    $string = new \Papaya\UI\Text\Translated('Hello %s!', array('World'));
+    $string = new Translated('Hello %s!', array('World'));
     $string->papaya(
       $this->mockPapaya()->application()
     );
