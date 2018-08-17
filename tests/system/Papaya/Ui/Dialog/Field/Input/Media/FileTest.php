@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input\Media;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputMediaFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Media\File::__construct
    */
   public function testConstructor() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Media\File('caption', 'name', TRUE);
+    $field = new File('caption', 'name', TRUE);
     $this->assertEquals(new \Papaya\Filter\Guid(), $field->getFilter());
   }
 }

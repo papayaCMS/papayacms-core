@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\File;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
+class TemporaryTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\File\Temporary::__construct
    */
   public function testConstructor() {
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $this->assertEquals('Caption', $field->getCaption());
     $this->assertEquals('name', $field->getName());
   }
@@ -30,10 +31,10 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\File\Temporary::appendTo
    */
   public function testAppendTo() {
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldFileTemporary" error="no">
         <input type="file" name="name"/>
       </field>',
@@ -53,7 +54,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('isValid')
       ->will($this->returnValue(TRUE));
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $field->file($file);
     $this->assertTrue($field->validate());
     $this->assertTrue($field->validate());
@@ -71,7 +72,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('isValid')
       ->will($this->returnValue(FALSE));
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $field->file($file);
     $this->assertTrue($field->validate());
     $this->assertTrue($field->validate());
@@ -89,7 +90,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('isValid')
       ->will($this->returnValue(FALSE));
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $field->setMandatory(TRUE);
     $field->file($file);
     $this->assertFalse($field->validate());
@@ -100,7 +101,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\File\Temporary::collect
    */
   public function testCollectReturnsTrue() {
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $this->assertTrue($field->collect());
   }
 
@@ -112,7 +113,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $field->file($file);
     $this->assertSame($file, $field->file());
   }
@@ -121,7 +122,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\File\Temporary::file
    */
   public function testFileGetWithImplicitCreate() {
-    $field = new \Papaya\UI\Dialog\Field\File\Temporary('Caption', 'name');
+    $field = new Temporary('Caption', 'name');
     $this->assertInstanceOf(\Papaya\Request\Parameter\File::class, $field->file());
   }
 }

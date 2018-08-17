@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Input\Media;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputMediaImageResizedTest extends \PapayaTestCase {
+class ImageResizedTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
+   * @covers       \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
    * @dataProvider provideValuesForFilterValidation
    * @param string $value
    * @throws \Papaya\Filter\Exception
    */
   public function testConstructorInitializesFilter($value) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Media\ImageResized('caption', 'name', TRUE);
+    $field = new ImageResized('caption', 'name', TRUE);
     $this->assertTrue($field->getFilter()->validate($value));
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
+   * @covers       \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
    * @dataProvider provideInvalidValuesForFilterValidation
    * @param string $value
    * @throws \Papaya\Filter\Exception
    */
   public function testConstructorInitializesFilterExpectingExceptionForInvalidValues($value) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Media\ImageResized('caption', 'name', TRUE);
+    $field = new ImageResized('caption', 'name', TRUE);
     $this->expectException(\Papaya\Filter\Exception::class);
     $field->getFilter()->validate($value);
   }
