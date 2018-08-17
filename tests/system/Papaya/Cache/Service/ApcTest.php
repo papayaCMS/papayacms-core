@@ -20,34 +20,34 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ApcTest extends \Papaya\TestCase {
 
   /**
-   * @covers Apc::setConfiguration
+   * @covers APC::setConfiguration
    */
   public function testSetConfiguration() {
-    $service = new Apc();
+    $service = new APC();
     $this->assertTrue($service->setConfiguration(new \Papaya\Cache\Configuration));
   }
 
   /**
-   * @covers Apc::setApcObject
+   * @covers APC::setAPCObject
    */
   public function testSetApcObject() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
     $apc = $this->createMock(Apc\Wrapper::class);
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertSame($apc, $this->readAttribute($service, '_apcObject'));
   }
 
   /**
-   * @covers Apc::getApcObject
+   * @covers APC::getAPCObject
    */
   public function testGetApcObject() {
-    $service = new Apc();
-    $this->assertInstanceOf(Apc\Wrapper::class, $service->getApcObject());
+    $service = new APC();
+    $this->assertInstanceOf(Apc\Wrapper::class, $service->getAPCObject());
   }
 
   /**
-   * @covers Apc::verify
+   * @covers APC::verify
    */
   public function testVerifyExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -55,13 +55,13 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertTrue($service->verify());
   }
 
   /**
-   * @covers Apc::verify
+   * @covers APC::verify
    */
   public function testVerifyExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -69,13 +69,13 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse($service->verify());
   }
 
   /**
-   * @covers Apc::verify
+   * @covers APC::verify
    */
   public function testVerifyExpectingError() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -83,15 +83,15 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('APC is not available');
     $service->verify(FALSE);
   }
 
   /**
-   * @covers Apc::write
+   * @covers APC::write
    */
   public function testWrite() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -107,8 +107,8 @@ class ApcTest extends \Papaya\TestCase {
         $this->equalTo(30)
       )
       ->will($this->returnValue(TRUE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertSame(
       'GROUP/ELEMENT/PARAMETERS',
       $service->write('GROUP', 'ELEMENT', 'PARAMETERS', 'DATA', 30)
@@ -116,7 +116,7 @@ class ApcTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Apc::write
+   * @covers APC::write
    */
   public function testWriteExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -132,16 +132,16 @@ class ApcTest extends \Papaya\TestCase {
         $this->equalTo(30)
       )
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse(
       $service->write('GROUP', 'ELEMENT', 'PARAMETERS', 'DATA', 30)
     );
   }
 
   /**
-   * @covers Apc::read
-   * @covers Apc::_read
+   * @covers APC::read
+   * @covers APC::_read
    */
   public function testRead() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -157,8 +157,8 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array(time(), 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertSame(
       'DATA',
       $service->read('GROUP', 'ELEMENT', 'PARAMETERS', 86400)
@@ -166,8 +166,8 @@ class ApcTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Apc::read
-   * @covers Apc::_read
+   * @covers APC::read
+   * @covers APC::_read
    */
   public function testReadExpired() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -183,16 +183,16 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array(time() - 1800, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse(
       $service->read('GROUP', 'ELEMENT', 'PARAMETERS', 60)
     );
   }
 
   /**
-   * @covers Apc::read
-   * @covers Apc::_read
+   * @covers APC::read
+   * @covers APC::_read
    */
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
@@ -210,15 +210,15 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array($lastHour, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse(
       $service->read('GROUP', 'ELEMENT', 'PARAMETERS', 86400, $threeMinutesAgo)
     );
   }
 
   /**
-   * @covers Apc::read
+   * @covers APC::read
    */
   public function testReadExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -226,13 +226,13 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse($service->read('GROUP', 'ELEMENT', 'PARAMETERS', 1800));
   }
 
   /**
-   * @covers Apc::exists
+   * @covers APC::exists
    */
   public function testExists() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -248,15 +248,15 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array(time(), 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertTrue(
       $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 86400)
     );
   }
 
   /**
-   * @covers Apc::exists
+   * @covers APC::exists
    */
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
@@ -274,15 +274,15 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array($lastHour, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse(
       $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 86400, $threeMinutesAgo)
     );
   }
 
   /**
-   * @covers Apc::exists
+   * @covers APC::exists
    */
   public function testExistsUsingCachedResult() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -290,8 +290,8 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
-    $service = new Apc_TestProxy();
-    $service->setApcObject($apc);
+    $service = new APC_TestProxy();
+    $service->setAPCObject($apc);
     $service->_localCache['GROUP/ELEMENT/PARAMETERS'] = 'DATA';
     $this->assertTrue(
       $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 86400)
@@ -299,7 +299,7 @@ class ApcTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Apc::exists
+   * @covers APC::exists
    */
   public function testExistsExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -307,13 +307,13 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse($service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 1800));
   }
 
   /**
-   * @covers Apc::created
+   * @covers APC::created
    */
   public function testCreated() {
     $lastHour = time() - 3600;
@@ -330,8 +330,8 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array($lastHour, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertEquals(
       $lastHour,
       $service->created('GROUP', 'ELEMENT', 'PARAMETERS', 7200)
@@ -339,7 +339,7 @@ class ApcTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Apc::created
+   * @covers APC::created
    */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
@@ -356,15 +356,15 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array($lastHour, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertFalse(
       $service->created('GROUP', 'ELEMENT', 'PARAMETERS', 1800)
     );
   }
 
   /**
-   * @covers Apc::created
+   * @covers APC::created
    */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
@@ -381,8 +381,8 @@ class ApcTest extends \Papaya\TestCase {
       ->will(
         $this->returnValue(array($lastHour, 'DATA'))
       );
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 7200);
     $this->assertEquals(
       $lastHour,
@@ -391,7 +391,7 @@ class ApcTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Apc::delete
+   * @covers APC::delete
    */
   public function testDelete() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -403,13 +403,13 @@ class ApcTest extends \Papaya\TestCase {
       ->method('clearCache')
       ->with('user')
       ->will($this->returnValue(TRUE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertTrue($service->delete());
   }
 
   /**
-   * @covers Apc::delete
+   * @covers APC::delete
    */
   public function testDeleteExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
@@ -417,12 +417,12 @@ class ApcTest extends \Papaya\TestCase {
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
-    $service = new Apc();
-    $service->setApcObject($apc);
+    $service = new APC();
+    $service->setAPCObject($apc);
     $this->assertSame(0, $service->delete());
   }
 }
 
-class Apc_TestProxy extends Apc {
+class APC_TestProxy extends APC {
   public $_localCache;
 }

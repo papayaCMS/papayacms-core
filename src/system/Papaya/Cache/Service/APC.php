@@ -15,15 +15,13 @@
 
 namespace Papaya\Cache\Service;
 
-use Papaya\Cache\Service\Apc\Wrapper;
-
 /**
  * Papaya Cache Service for APC based cache
  *
  * @package Papaya-Library
  * @subpackage Cache
  */
-class Apc extends \Papaya\Cache\Service {
+class APC extends \Papaya\Cache\Service {
 
   /**
    * process cache - to avoid double requests
@@ -42,7 +40,7 @@ class Apc extends \Papaya\Cache\Service {
   /**
    * APC object
    *
-   * @var Wrapper
+   * @var Apc\Wrapper
    */
   private $_apcObject;
 
@@ -65,7 +63,7 @@ class Apc extends \Papaya\Cache\Service {
    * @return boolean
    */
   public function verify($silent = TRUE) {
-    $valid = $this->getApcObject()->available();
+    $valid = $this->getAPCObject()->available();
     if (!($silent || $valid)) {
       throw new \LogicException('APC is not available');
     }
@@ -75,11 +73,11 @@ class Apc extends \Papaya\Cache\Service {
   /**
    * Get APC mapper object instance
    *
-   * @return \Papaya\Cache\Service\Apc\Wrapper
+   * @return APC\Wrapper
    */
-  public function getApcObject() {
-    if (!isset($this->_apcObject)) {
-      $this->_apcObject = new \Papaya\Cache\Service\Apc\Wrapper();
+  public function getAPCObject() {
+    if (NULL === $this->_apcObject) {
+      $this->_apcObject = new APC\Wrapper();
     }
     return $this->_apcObject;
   }
@@ -87,9 +85,9 @@ class Apc extends \Papaya\Cache\Service {
   /**
    * Set APC mapper object instance
    *
-   * @param \Papaya\Cache\Service\Apc\Wrapper $apcObject
+   * @param APC\Wrapper $apcObject
    */
-  public function setApcObject(\Papaya\Cache\Service\Apc\Wrapper $apcObject) {
+  public function setAPCObject(APC\Wrapper $apcObject) {
     $this->_apcObject = $apcObject;
   }
 
@@ -104,10 +102,12 @@ class Apc extends \Papaya\Cache\Service {
    * @return boolean
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
-    if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
-      if ($this->getApcObject()->store($cacheId, array(time(), $data), $expires)) {
-        return $cacheId;
-      }
+    if (
+      $this->verify() &&
+      ($cacheId = $this->getCacheIdentifier($group, $element, $parameters)) &&
+      $this->getAPCObject()->store($cacheId, array(time(), $data), $expires)
+    ) {
+      return $cacheId;
     }
     return FALSE;
   }
@@ -147,9 +147,8 @@ class Apc extends \Papaya\Cache\Service {
     if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
       if (isset($this->_localCache[$cacheId])) {
         return !empty($this->_localCache[$cacheId]);
-      } else {
-        return (boolean)$this->_read($cacheId, $expires, $ifModifiedSince);
       }
+      return (boolean)$this->_read($cacheId, $expires, $ifModifiedSince);
     }
     return FALSE;
   }
@@ -168,7 +167,8 @@ class Apc extends \Papaya\Cache\Service {
     if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
       if (isset($this->_cacheCreated[$cacheId])) {
         return $this->_cacheCreated[$cacheId];
-      } elseif ($this->_read($cacheId, $expires, $ifModifiedSince)) {
+      }
+      if ($this->_read($cacheId, $expires, $ifModifiedSince)) {
         return $this->_cacheCreated[$cacheId];
       }
     }
@@ -185,7 +185,7 @@ class Apc extends \Papaya\Cache\Service {
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     if ($this->verify()) {
-      $this->getApcObject()->clearCache('user');
+      $this->getAPCObject()->clearCache('user');
       return TRUE;
     }
     return 0;
@@ -201,11 +201,11 @@ class Apc extends \Papaya\Cache\Service {
    * @return boolean
    */
   private function _read($cacheId, $expires, $ifModifiedSince) {
-    $cache = $this->getApcObject()->fetch($cacheId);
-    if (is_array($cache) && count($cache) == 2) {
+    $cache = $this->getAPCObject()->fetch($cacheId);
+    if (is_array($cache) && 2 === count($cache)) {
       $created = (int)$cache[0];
       if (($created + $expires) > time()) {
-        if (is_null($ifModifiedSince) || $ifModifiedSince < $created) {
+        if (NULL === $ifModifiedSince || $ifModifiedSince < $created) {
           $this->_cacheCreated[$cacheId] = $created;
           $this->_localCache[$cacheId] = $cache[1];
           return TRUE;

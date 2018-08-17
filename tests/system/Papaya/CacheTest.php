@@ -142,7 +142,7 @@ class CacheTest extends \Papaya\TestCase {
     );
     $service = Cache::get($for, $configuration);
     $this->assertInstanceOf(
-      Cache\Service\Apc::class, $service
+      Cache\Service\APC::class, $service
     );
   }
 
