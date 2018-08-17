@@ -62,14 +62,14 @@ class ASCII {
    * Mapping tables subobject, this is saved statically to improve performance and
    * memory consumption.
    *
-   * @param \Papaya\Text\Transliteration\Ascii\Mapping $mapping
-   * @return \Papaya\Text\Transliteration\Ascii\Mapping
+   * @param ASCII\Mapping $mapping
+   * @return ASCII\Mapping
    */
-  public function mapping(\Papaya\Text\Transliteration\Ascii\Mapping $mapping = NULL) {
+  public function mapping(ASCII\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       self::$_mapping = $mapping;
     } elseif (is_null(self::$_mapping)) {
-      self::$_mapping = new \Papaya\Text\Transliteration\Ascii\Mapping;
+      self::$_mapping = new ASCII\Mapping;
     }
     return self::$_mapping;
   }
