@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Utility\Text\Ascii;
+namespace Papaya\Utility\Text\ASCII;
 /**
  * Transform text to ASCII-graphic
  *
