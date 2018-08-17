@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\XML;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaXmlErrorsTest extends \PapayaTestCase {
+class ErrorsTest extends \PapayaTestCase {
 
   public function setUp() {
     if (!extension_loaded('dom')) {
@@ -30,11 +32,11 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::activate
-  */
+   * @covers \Papaya\XML\Errors::activate
+   */
   public function testActivate() {
     libxml_use_internal_errors(FALSE);
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->activate();
     $this->assertTrue(
       libxml_use_internal_errors()
@@ -42,11 +44,11 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::deactivate
-  */
+   * @covers \Papaya\XML\Errors::deactivate
+   */
   public function testDeactivate() {
     libxml_use_internal_errors(FALSE);
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->activate();
     $errors->deactivate();
     $this->assertFalse(
@@ -55,15 +57,15 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::emit
-  */
+   * @covers \Papaya\XML\Errors::emit
+   */
   public function testEmit() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Logable::class));
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -71,21 +73,22 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
         )
       )
     );
-    $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML(/** @lang XML */'<foo/>');
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $document->loadHTML(/** @lang XML */
+      '<foo/>');
     $errors->emit();
   }
 
   /**
-  * @covers \Papaya\XML\Errors::omit
-  */
+   * @covers \Papaya\XML\Errors::omit
+   */
   public function testOmit() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Logable::class));
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -93,21 +96,22 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
         )
       )
     );
-    $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML(/** @lang XML */'<foo/>');
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $document->loadHTML(/** @lang XML */
+      '<foo/>');
     /** @noinspection PhpDeprecationInspection */
     $errors->omit();
   }
 
   /**
-  * @covers \Papaya\XML\Errors::emit
-  */
+   * @covers \Papaya\XML\Errors::emit
+   */
   public function testEmitIgnoringNonFatal() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -115,34 +119,36 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
         )
       )
     );
-    $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML(/** @lang XML */'<foo/>');
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $document->loadHTML(/** @lang XML */
+      '<foo/>');
     $errors->emit(TRUE);
   }
 
   /**
-  * @covers \Papaya\XML\Errors::emit
-  */
+   * @covers \Papaya\XML\Errors::emit
+   */
   public function testEmitWithFatalError() {
-    $errors = new \Papaya\XML\Errors();
-    $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadXML(/** @lang Text */'<foo>');
-    $this->expectException(\Papaya\XML\Exception::class);
+    $errors = new Errors();
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $document->loadXML(/** @lang Text */
+      '<foo>');
+    $this->expectException(Exception::class);
     $errors->emit();
   }
 
   /**
-  * @covers \Papaya\XML\Errors::getMessageFromError
-  */
+   * @covers \Papaya\XML\Errors::getMessageFromError
+   */
   public function testGetMessageFromError() {
-    $error = new libXMLError();
+    $error = new \libXMLError();
     $error->level = LIBXML_ERR_WARNING;
     $error->code = 42;
     $error->message = 'Test';
     $error->file = '';
     $error->line = 23;
     $error->column = 21;
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $message = $errors->getMessageFromError($error);
     $this->assertEquals(
       \Papaya\Message\Logable::GROUP_SYSTEM, $message->getGroup()
@@ -156,17 +162,17 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::getMessageFromError
-  */
+   * @covers \Papaya\XML\Errors::getMessageFromError
+   */
   public function testGetMessageFromErrorWithFile() {
-    $error = new libXMLError();
+    $error = new \libXMLError();
     $error->level = LIBXML_ERR_WARNING;
     $error->code = 42;
     $error->message = 'Test';
     $error->file = __FILE__;
     $error->line = 23;
     $error->column = 21;
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
       \Papaya\Message\Context\File::class, $context->current()
@@ -174,10 +180,10 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::encapsulate
-  */
+   * @covers \Papaya\XML\Errors::encapsulate
+   */
   public function testEncapsulateWithoutError() {
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $this->assertTrue($errors->encapsulate(array($this, 'callbackReturnTrue')));
   }
 
@@ -186,14 +192,14 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::encapsulate
-  */
+   * @covers \Papaya\XML\Errors::encapsulate
+   */
   public function testEncapsulateWithError() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('log');
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -205,14 +211,14 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\XML\Errors::encapsulate
-  */
+   * @covers \Papaya\XML\Errors::encapsulate
+   */
   public function testEncapsulateWithErrorNotEmitted() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->never())
       ->method('log');
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -222,15 +228,16 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
       $errors->encapsulate(array($this, 'callbackThrowXmlError'), array(), FALSE)
     );
   }
+
   /**
-  * @covers \Papaya\XML\Errors::encapsulate
-  */
+   * @covers \Papaya\XML\Errors::encapsulate
+   */
   public function testEncapsulateWithNonFatalNotEmitted() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
-    $errors = new \Papaya\XML\Errors();
+    $errors = new Errors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -238,26 +245,27 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
         )
       )
     );
-    $document = new DOMDocument('1.0', 'UTF-8');
+    $document = new \DOMDocument('1.0', 'UTF-8');
     $this->assertTrue(
       $errors->encapsulate(
-        function($html) use ($document) {
+        function ($html) use ($document) {
           return $document->loadHTML($html);
         },
-        array(/** @lang XML */'<foo/>'),
+        array(/** @lang XML */
+          '<foo/>'),
         FALSE
       )
     );
   }
 
   public function callbackThrowXmlError() {
-    $error = new libXMLError();
+    $error = new \libXMLError();
     $error->level = LIBXML_ERR_ERROR;
     $error->code = 42;
     $error->message = 'Test';
     $error->file = __FILE__;
     $error->line = 23;
     $error->column = 21;
-    throw new \Papaya\XML\Exception($error);
+    throw new Exception($error);
   }
 }
