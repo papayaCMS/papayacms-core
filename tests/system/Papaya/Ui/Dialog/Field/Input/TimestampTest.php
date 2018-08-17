@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
+class TimestampTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
+   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
@@ -33,7 +34,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
           new \Papaya\Request\Parameters(array('date' => '2011-01-01 18:00'))
         )
       );
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->collection($this->getCollectionMock($dialog));
@@ -41,10 +42,10 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::getCurrentValue
+   */
   public function testGetCurrentValueFromDefaultValue() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->setDefaultValue(strtotime('2011-01-01 18:00'));
@@ -52,13 +53,13 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
+   * @covers       \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
@@ -67,13 +68,13 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
+   * @covers       \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
@@ -82,11 +83,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
+   */
   public function testAppendTo() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date',
       'date',
       strtotime('2011-01-01 18:00'),
@@ -95,7 +96,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       300.0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="datetime" name="date" maxlength="19">2011-01-01 18:00:00</input>
       </field>',
@@ -104,11 +105,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
+   */
   public function testAppendToWithoutTime() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date',
       'date',
       strtotime('2011-01-01 18:00'),
@@ -117,7 +118,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       300.0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="date" name="date" maxlength="19">2011-01-01</input>
       </field>',
@@ -126,11 +127,11 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp::formatDateTime
+   */
   public function testAppendToWithEmptyTimestamp() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Timestamp(
+    $field = new Timestamp(
       'Date',
       'date',
       0,
@@ -139,7 +140,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       300.0
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
         <input type="date" name="date" maxlength="19"/>
       </field>',
@@ -148,8 +149,8 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Data Provider
-  *************************/
+   * Data Provider
+   *************************/
 
   public static function filterExpectingTrueProvider() {
     return array(
@@ -169,8 +170,8 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Fixtures
-  *************************/
+   * Fixtures
+   *************************/
 
   /**
    * @param object|null $owner

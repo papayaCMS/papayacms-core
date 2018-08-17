@@ -13,44 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
+class CheckboxTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::__construct
+   */
   public function testConstructor() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE, TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
     $this->assertEquals(
       TRUE, $checkbox->getMandatory()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
+   */
   public function testGetFilterWithMandatoryTrue() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE, TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
     $this->assertInstanceOf(\Papaya\Filter::class, $checkbox->getFilter());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
+   */
   public function testGetFilterWithMandatoryFalse() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE, FALSE);
+    $checkbox = new Checkbox('caption', 'name', TRUE, FALSE);
     $this->assertNull($checkbox->getFilter());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
+   */
   public function testAppendToWithCheckedCheckbox() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE, TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
     $checkbox->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">1</input>
       </field>',
@@ -59,13 +60,13 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
+   */
   public function testAppendToWithUncheckedCheckbox() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', FALSE, TRUE);
+    $checkbox = new Checkbox('caption', 'name', FALSE, TRUE);
     $checkbox->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="caption" class="DialogFieldInputCheckbox" error="yes" mandatory="yes">
         <input type="checkbox" name="name">1</input>
       </field>',
@@ -74,13 +75,13 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
+   */
   public function testAppendToWithUncheckedCheckboxNotMandatory() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', FALSE, FALSE);
+    $checkbox = new Checkbox('caption', 'name', FALSE, FALSE);
     $checkbox->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">1</input>
       </field>',
@@ -89,14 +90,14 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
+   */
   public function testAppendToWithChangedValuesCheckbox() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', 'yes', TRUE);
+    $checkbox = new Checkbox('caption', 'name', 'yes', TRUE);
     $checkbox->setValues('yes', 'no');
     $checkbox->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">yes</input>
       </field>',
@@ -105,14 +106,14 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
+   */
   public function testAppendToWithChangedValuesAndUncheckedCheckbox() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', 'no', FALSE);
+    $checkbox = new Checkbox('caption', 'name', 'no', FALSE);
     $checkbox->setValues('yes', 'no');
     $checkbox->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">yes</input>
       </field>',
@@ -121,10 +122,10 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   */
   public function testSetValues() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE);
     $checkbox->setValues('yes', 'no');
     $this->assertAttributeEquals(
       array('active' => 'yes', 'inactive' => 'no'), '_values', $checkbox
@@ -132,33 +133,33 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   */
   public function testSetValuesWithEmptyActiveValueExpectingException() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE);
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('The active value can not be empty.');
     $checkbox->setValues('', 'false');
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   */
   public function testSetValuesWithEqualValuesExpectingException() {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', TRUE);
+    $checkbox = new Checkbox('caption', 'name', TRUE);
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('The active value and the inactive value must be different.');
     $checkbox->setValues('yes', 'yes');
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   * @covers       \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
    * @dataProvider provideValidCheckboxInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', $value, $mandatory);
+    $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
     $checkbox->setValues('yes', 'no');
     $this->assertTrue(
       $checkbox->validate()
@@ -166,13 +167,13 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   * @covers       \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
    * @dataProvider provideInvalidCheckboxInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', $value, $mandatory);
+    $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
     $checkbox->setValues('yes', 'no');
     $this->assertFalse(
       $checkbox->validate()
@@ -188,7 +189,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
    * @param mixed $inactive
    */
   public function testGetCurrentValue($expected, $default, $active, $inactive) {
-    $checkbox = new \Papaya\UI\Dialog\Field\Input\Checkbox('caption', 'name', $default);
+    $checkbox = new Checkbox('caption', 'name', $default);
     $checkbox->setValues($active, $inactive);
     $this->assertSame(
       $expected, $checkbox->getCurrentValue()
@@ -196,8 +197,8 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   }
 
   /***************************
-  * Data Provider
-  ***************************/
+   * Data Provider
+   ***************************/
 
   public static function provideValidCheckboxInputs() {
     return array(

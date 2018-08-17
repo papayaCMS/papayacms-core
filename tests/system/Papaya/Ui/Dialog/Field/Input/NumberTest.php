@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputNumberTest extends \PapayaTestCase {
+class NumberTest extends \PapayaTestCase {
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
+   */
   public function testConstructSuccess() {
-    $input = new \Papaya\UI\Dialog\Field\Input\Number('Number', 'number', '123', TRUE, 2, 4);
+    $input = new Number('Number', 'number', '123', TRUE, 2, 4);
     $this->assertEquals('Number', $input->caption);
     $this->assertEquals('number', $input->name);
     $this->assertEquals('123', $input->defaultValue);
@@ -30,52 +31,52 @@ class PapayaUiDialogFieldInputNumberTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
+   * @covers       \Papaya\UI\Dialog\Field\Input\Number::__construct
    * @dataProvider constructFailureProvider
    * @param mixed $minimumLength
    * @param mixed $maximumLength
    */
   public function testConstructFailure($minimumLength, $maximumLength) {
     $this->expectException(\UnexpectedValueException::class);
-    new \Papaya\UI\Dialog\Field\Input\Number(
+    new Number(
       'Number', 'number', '123', TRUE, $minimumLength, $maximumLength
     );
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number
+   * @covers       \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $input = new \Papaya\UI\Dialog\Field\Input\Number('Number', 'number', NULL, FALSE, 2, 4);
+    $input = new Number('Number', 'number', NULL, FALSE, 2, 4);
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;
     $this->assertTrue($input->validate());
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number
+   * @covers       \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $input = new \Papaya\UI\Dialog\Field\Input\Number('Number', 'number', NULL, FALSE, 2, 4);
+    $input = new Number('Number', 'number', NULL, FALSE, 2, 4);
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;
     $this->assertFalse($input->validate());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Number::getXML
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Number::getXML
+   */
   public function testGetXml() {
-    $input = new \Papaya\UI\Dialog\Field\Input\Number('Number', 'number', '123', FALSE, 2, 4);
+    $input = new Number('Number', 'number', '123', FALSE, 2, 4);
     $this->assertXmlStringEqualsXmlString(
-        /** @lang XML */
-        '<field caption="Number" class="DialogFieldInputNumber" error="no">
+    /** @lang XML */
+      '<field caption="Number" class="DialogFieldInputNumber" error="no">
           <input type="number" name="number" maxlength="4">123</input>
         </field>',
       $input->getXML()

@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
+class PasswordTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Password::__construct
    */
   public function testConstructorCreatesDefaultFilter() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Password('Caption', 'fieldname');
+    $field = new Password('Caption', 'fieldname');
     $field->setMandatory(TRUE);
     $this->assertInstanceOf(\Papaya\Filter\Password::class, $field->getFilter());
   }
@@ -31,7 +32,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
    */
   public function testConstructorAttachingFilter() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $field = new \Papaya\UI\Dialog\Field\Input\Password('Caption', 'fieldname', 42, $filter);
+    $field = new Password('Caption', 'fieldname', 42, $filter);
     $field->setMandatory(TRUE);
     $this->assertSame($filter, $field->getFilter());
   }
@@ -40,7 +41,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\Input\Password::getCurrentValue
    */
   public function testGetCurrentValueIgnoresDefaultValue() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Password('Caption', 'fieldname');
+    $field = new Password('Caption', 'fieldname');
     $field->setDefaultValue('not ok');
     $this->assertEmpty($field->getCurrentValue());
   }
@@ -60,7 +61,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
     $dialog
       ->expects($this->never())
       ->method('data');
-    $field = new \Papaya\UI\Dialog\Field\Input\Password('Caption', 'foo');
+    $field = new Password('Caption', 'foo');
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEmpty($field->getCurrentValue());
   }
@@ -77,7 +78,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'success'))));
-    $field = new \Papaya\UI\Dialog\Field\Input\Password('Caption', 'foo');
+    $field = new Password('Caption', 'foo');
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEquals('success', $field->getCurrentValue());
   }

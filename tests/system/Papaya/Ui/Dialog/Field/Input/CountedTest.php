@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputCountedTest extends \PapayaTestCase {
+class CountedTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Counted
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Counted
+   */
   public function testConstructor() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Counted('Caption', 'fieldname', 42, TRUE);
+    $field = new Counted('Caption', 'fieldname', 42, TRUE);
     $this->assertEquals('counted', $field->getType());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Input\Counted
-  */
+   * @covers \Papaya\UI\Dialog\Field\Input\Counted
+   */
   public function testAppendTo() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Counted('Caption', 'fieldname');
+    $field = new Counted('Caption', 'fieldname');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldInputCounted" error="no">
         <input type="counted" name="fieldname" maxlength="1024"/>
       </field>',
