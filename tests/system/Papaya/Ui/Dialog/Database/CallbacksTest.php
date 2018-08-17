@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Database;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Database\Callbacks::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Database\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\UI\Dialog\Database\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertTrue($callbacks->onBeforeDelete->defaultReturn);
     $this->assertTrue($callbacks->onBeforeSave->defaultReturn);
   }

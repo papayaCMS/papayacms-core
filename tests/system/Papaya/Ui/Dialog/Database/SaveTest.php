@@ -13,92 +13,93 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Record;
+namespace Papaya\UI\Dialog\Database {
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
+  class SaveTest extends \PapayaTestCase {
 
-  /**
-  * @covers \Papaya\UI\Dialog\Database\Save::execute
-  */
-  public function testExecuteExpectingTrue() {
-    $callbacks = $this
-      ->getMockBuilder(\Papaya\UI\Dialog\Database\Callbacks::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('onBeforeSave'))
-      ->getMock();
-    $callbacks
-      ->expects($this->once())
-      ->method('onBeforeSave')
-      ->with($this->isInstanceOf(Record::class))
-      ->will($this->returnValue(TRUE));
-    $record = $this->getRecordFixture();
-    $record
-      ->expects($this->atLeastOnce())
-      ->method('assign');
-    $record
-      ->expects($this->any())
-      ->method('save')
-      ->will($this->returnValue(TRUE));
-    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
-    $dialog->callbacks($callbacks);
-    $this->assertTrue($dialog->execute());
+    /**
+     * @covers \Papaya\UI\Dialog\Database\Save::execute
+     */
+    public function testExecuteExpectingTrue() {
+      $callbacks = $this
+        ->getMockBuilder(Callbacks::class)
+        ->disableOriginalConstructor()
+        ->setMethods(array('onBeforeSave'))
+        ->getMock();
+      $callbacks
+        ->expects($this->once())
+        ->method('onBeforeSave')
+        ->with($this->isInstanceOf(\Papaya\Database\Interfaces\Record::class))
+        ->will($this->returnValue(TRUE));
+      $record = $this->getRecordFixture();
+      $record
+        ->expects($this->atLeastOnce())
+        ->method('assign');
+      $record
+        ->expects($this->any())
+        ->method('save')
+        ->will($this->returnValue(TRUE));
+      $dialog = new Save_TestProxy($record);
+      $dialog->callbacks($callbacks);
+      $this->assertTrue($dialog->execute());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Database\Save::execute
+     */
+    public function testExecuteBlockedByCallbackExpectingFalse() {
+      $callbacks = $this
+        ->getMockBuilder(Callbacks::class)
+        ->disableOriginalConstructor()
+        ->setMethods(array('onBeforeSave'))
+        ->getMock();
+      $callbacks
+        ->expects($this->once())
+        ->method('onBeforeSave')
+        ->with($this->isInstanceOf(\Papaya\Database\Interfaces\Record::class))
+        ->will($this->returnValue(FALSE));
+      $record = $this->getRecordFixture();
+      $record
+        ->expects($this->atLeastOnce())
+        ->method('assign');
+      $dialog = new Save_TestProxy($record);
+      $dialog->callbacks($callbacks);
+      $this->assertFalse($dialog->execute());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Database\Save::execute
+     */
+    public function testExecuteNoSubmitExpectingFalse() {
+      $record = $this->getRecordFixture();
+      $dialog = new Save_TestProxy($record);
+      $dialog->_isSubmittedResult = FALSE;
+      $this->assertFalse($dialog->execute());
+    }
+
+    /**************************
+     * Fixtures
+     **************************/
+
+    /**
+     * @param array $data
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record
+     */
+    public function getRecordFixture(array $data = array()) {
+      $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+      $record
+        ->expects($this->any())
+        ->method('toArray')
+        ->will(
+          $this->returnValue($data)
+        );
+      return $record;
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Dialog\Database\Save::execute
-  */
-  public function testExecuteBlockedByCallbackExpectingFalse() {
-    $callbacks = $this
-      ->getMockBuilder(\Papaya\UI\Dialog\Database\Callbacks::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('onBeforeSave'))
-      ->getMock();
-    $callbacks
-      ->expects($this->once())
-      ->method('onBeforeSave')
-      ->with($this->isInstanceOf(Record::class))
-      ->will($this->returnValue(FALSE));
-    $record = $this->getRecordFixture();
-    $record
-      ->expects($this->atLeastOnce())
-      ->method('assign');
-    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
-    $dialog->callbacks($callbacks);
-    $this->assertFalse($dialog->execute());
+  class Save_TestProxy extends Save {
+    public $_isSubmittedResult = TRUE;
   }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Database\Save::execute
-  */
-  public function testExecuteNoSubmitExpectingFalse() {
-    $record = $this->getRecordFixture();
-    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
-    $dialog->_isSubmittedResult = FALSE;
-    $this->assertFalse($dialog->execute());
-  }
-
-  /**************************
-  * Fixtures
-  **************************/
-
-  /**
-   * @param array $data
-   * @return \PHPUnit_Framework_MockObject_MockObject|Record
-   */
-  public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(Record::class);
-    $record
-      ->expects($this->any())
-      ->method('toArray')
-      ->will(
-        $this->returnValue($data)
-      );
-    return $record;
-  }
-}
-
-class PapayaUiDialogDatabaseSave_TestProxy extends \Papaya\UI\Dialog\Database\Save {
-  public $_isSubmittedResult = TRUE;
 }
