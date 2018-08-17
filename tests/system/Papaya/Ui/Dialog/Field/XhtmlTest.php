@@ -19,10 +19,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class XhtmlTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml::__construct
+   * @covers \Papaya\UI\Dialog\Field\XHTML::__construct
    */
   public function testConstructor() {
-    $xhtml = new Xhtml('<strong>Test</strong>');
+    $xhtml = new XHTML('<strong>Test</strong>');
     $this->assertEquals(
     /** @lang XML */
       '<xhtml><strong>Test</strong></xhtml>',
@@ -31,37 +31,37 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml::content
+   * @covers \Papaya\UI\Dialog\Field\XHTML::content
    */
   public function testContentGetAfterSet() {
     $document = new \Papaya\XML\Document();
     $content = $document->appendElement('html');
-    $xhtml = new Xhtml();
+    $xhtml = new XHTML();
     $this->assertSame($content, $xhtml->content($content));
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml::content
+   * @covers \Papaya\UI\Dialog\Field\XHTML::content
    */
   public function testContentGetImplicitCreate() {
-    $xhtml = new Xhtml();
+    $xhtml = new XHTML();
     $this->assertInstanceOf(\Papaya\XML\Element::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml::content
+   * @covers \Papaya\UI\Dialog\Field\XHTML::content
    */
   public function testContentGetExpectingInvalidArgumentException() {
-    $xhtml = new Xhtml();
+    $xhtml = new XHTML();
     $this->expectException(\InvalidArgumentException::class);
     $xhtml->content(new \stdClass());
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml::appendTo
+   * @covers \Papaya\UI\Dialog\Field\XHTML::appendTo
    */
   public function testAppendTo() {
-    $xhtml = new Xhtml('<strong>Test</strong>');
+    $xhtml = new XHTML('<strong>Test</strong>');
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<field class="DialogFieldXhtml" error="no">
