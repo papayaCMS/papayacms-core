@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Builder;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
+class FromArrayTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::__construct
+   */
   public function testConstructor() {
     $editFields = array('Success');
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields, FALSE);
+    $builder = new FromArray(new \stdClass, $editFields, FALSE);
     $this->assertAttributeEquals(
       $editFields, '_editFields', $builder
     );
@@ -32,9 +33,9 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
+   */
   public function testGetFieldsCreateField() {
     $expectedOptions = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
@@ -58,7 +59,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $editFields = array(
       'field' => array('Field caption', '', TRUE, 'input', 42)
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields);
+    $builder = new FromArray(new \stdClass, $editFields);
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
@@ -68,9 +69,9 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
+   */
   public function testGetFieldsCreateFieldMappingFilter() {
     $expectedOptions = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
@@ -94,15 +95,15 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $editFields = array(
       'field' => array('Field caption', 'isHtmlColor', TRUE, 'input', 42)
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields);
+    $builder = new FromArray(new \stdClass, $editFields);
     $builder->fieldFactory($fieldFactory);
     $builder->getFields();
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
+   */
   public function testGetFieldsCreateFieldWithDisabledField() {
     $expectedOptions = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
@@ -126,7 +127,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
     $editFields = array(
       'field' => array('Field caption', '', FALSE, 'disabled_input', 42)
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray($owner, $editFields);
+    $builder = new FromArray($owner, $editFields);
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
@@ -134,10 +135,10 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addGroup
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addGroup
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_addField
+   */
   public function testGetFieldsCreatesGroupWithOneField() {
     $expectedOptions = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
@@ -162,7 +163,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
       'Group caption',
       'field' => array('Field caption', '', FALSE, 'input', 42)
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields);
+    $builder = new FromArray(new \stdClass, $editFields);
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertInstanceOf(
@@ -172,14 +173,14 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_createPhrase
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_createPhrase
+   */
   public function testCreatePhraseTroughAddGroupExpectingString() {
     $editFields = array(
       'Group caption',
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields);
+    $builder = new FromArray(new \stdClass, $editFields);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     /** @var \Papaya\UI\Dialog\Field\Group $field */
@@ -190,14 +191,14 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_createPhrase
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::getFields
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::_createPhrase
+   */
   public function testCreatePhraseTroughAddGroupExpectingObject() {
     $editFields = array(
       'Group caption',
     );
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, $editFields, TRUE);
+    $builder = new FromArray(new \stdClass, $editFields, TRUE);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertAttributeInstanceOf(
@@ -206,19 +207,19 @@ class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::fieldFactory
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::fieldFactory
+   */
   public function testFieldFactoryGetAfterSet() {
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, array(), TRUE);
+    $builder = new FromArray(new \stdClass, array(), TRUE);
     $builder->fieldFactory($factory = $this->createMock(\Papaya\UI\Dialog\Field\Factory::class));
     $this->assertSame($factory, $builder->fieldFactory());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::fieldFactory
-  */
+   * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::fieldFactory
+   */
   public function testFieldFactoryGetImplicitCreate() {
-    $builder = new \Papaya\UI\Dialog\Field\Builder\FromArray(new \stdClass, array(), TRUE);
+    $builder = new FromArray(new \stdClass, array(), TRUE);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory::class, $builder->fieldFactory());
   }
 }
