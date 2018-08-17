@@ -37,7 +37,7 @@ class AsciiTest extends \Papaya\TestCase {
    * @covers \Papaya\Text\Transliteration\ASCII::mapping
    */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(Ascii\Mapping::class);
+    $mapping = $this->createMock(ASCII\Mapping::class);
     $transliteratorOne = new ASCII();
     $transliteratorTwo = new ASCII();
     $transliteratorOne->mapping($mapping);
@@ -53,7 +53,7 @@ class AsciiTest extends \Papaya\TestCase {
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();
-    $this->assertInstanceOf(Ascii\Mapping::class, $mappingTwo);
+    $this->assertInstanceOf(ASCII\Mapping::class, $mappingTwo);
     $this->assertNotSame($mappingOne, $mappingTwo);
   }
 

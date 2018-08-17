@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Text\Transliteration\Ascii;
+namespace Papaya\Text\Transliteration\ASCII;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class MappingTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::__construct
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::__construct
    */
   public function testConstructor() {
     $mapping = new Mapping();
@@ -27,7 +27,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\Transliteration\Ascii\Mapping::get
+   * @covers       \Papaya\Text\Transliteration\ASCII\Mapping::get
    * @dataProvider getMappedCharacterDataProvider
    * @param string $expected
    * @param string $codePoint
@@ -42,7 +42,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::clear
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::clear
    */
   public function testClear() {
     $mapping = new Mapping();
@@ -52,7 +52,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::isLoaded
    */
   public function testIsLoadedBeforeLoading() {
     $mapping = new Mapping();
@@ -60,7 +60,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::isLoaded
    */
   public function testIsLoadedAfterLoading() {
     $mapping = new Mapping();
@@ -69,9 +69,9 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::add
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::link
    */
   public function testLazyLoadLanguageSpecificMapping() {
     $mapping = new Mapping();
@@ -81,9 +81,9 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::add
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::link
    */
   public function testLazyLoadFallbackToGeneric() {
     $mapping = new Mapping();
@@ -93,9 +93,9 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::add
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::link
    */
   public function testLazyLoadGeneric() {
     $mapping = new Mapping();
@@ -105,9 +105,9 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::add
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::link
    */
   public function testLazyLoadMultipleCall() {
     $mapping = new Mapping();
@@ -120,7 +120,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::getFile
    */
   public function testGetFileGeneric() {
     $mapping = new Mapping();
@@ -131,7 +131,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::getFile
    */
   public function testGetFileGerman() {
     $mapping = new Mapping();
