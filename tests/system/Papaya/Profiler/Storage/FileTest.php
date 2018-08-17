@@ -16,7 +16,7 @@
 namespace Papaya\Profiler\Storage;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FileTest extends \PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();

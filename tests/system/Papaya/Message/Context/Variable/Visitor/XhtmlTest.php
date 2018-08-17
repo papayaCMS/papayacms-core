@@ -15,7 +15,7 @@
 
 namespace Papaya\Message\Context\Variable\Visitor {
 
-  class XhtmlTest extends \PapayaTestCase {
+  class XhtmlTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::__construct

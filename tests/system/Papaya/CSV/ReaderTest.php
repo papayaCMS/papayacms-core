@@ -17,7 +17,7 @@ namespace Papaya\CSV {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ReaderTest extends \PapayaTestCase {
+  class ReaderTest extends \Papaya\TestCase {
 
     /**
      * @covers Reader::__construct

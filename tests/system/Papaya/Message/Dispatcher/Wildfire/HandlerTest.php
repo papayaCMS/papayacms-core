@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher\Wildfire;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class HandlerTest extends \PapayaTestCase {
+class HandlerTest extends \Papaya\TestCase {
 
   private $_collectedHeaders = array();
 

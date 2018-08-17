@@ -16,7 +16,7 @@
 namespace Papaya\XML;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class XpathTest extends \PapayaTestCase {
+class XpathTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\XML\Xpath::__construct

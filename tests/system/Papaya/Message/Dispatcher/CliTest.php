@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CliTest extends \PapayaTestCase {
+class CliTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\Cli::phpSAPIName

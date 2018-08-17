@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Request;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class URLTest extends \PapayaTestCase {
+class URLTest extends \Papaya\TestCase {
 
   private $_server;
 

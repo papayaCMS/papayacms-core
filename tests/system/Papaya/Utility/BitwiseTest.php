@@ -17,7 +17,7 @@ namespace Papaya\Utility;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BitwiseTest extends \PapayaTestCase {
+class BitwiseTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Bitwise::inBitmask

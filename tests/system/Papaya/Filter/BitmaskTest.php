@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BitmaskTest extends \PapayaTestCase {
+class BitmaskTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Bitmask::__construct

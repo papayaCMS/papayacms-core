@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Scanner\Status;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class CSSTest extends \PapayaTestCase {
+class CSSTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Template\Simple\Scanner\Status\CSS::getToken

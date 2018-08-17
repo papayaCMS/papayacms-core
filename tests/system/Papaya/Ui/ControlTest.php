@@ -17,7 +17,7 @@ namespace Papaya\UI {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ControlTest extends \PapayaTestCase {
+  class ControlTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Control::getXML

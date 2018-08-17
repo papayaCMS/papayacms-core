@@ -17,7 +17,7 @@ namespace Papaya\Filter {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class PapayaFilterLogicalTest extends \PapayaTestCase {
+  class PapayaFilterLogicalTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Filter\Logical::__construct

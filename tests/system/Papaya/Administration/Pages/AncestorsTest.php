@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class AncestorsTest extends \PapayaTestCase {
+class AncestorsTest extends \Papaya\TestCase {
 
   /**
    * @covers Ancestors::appendTo

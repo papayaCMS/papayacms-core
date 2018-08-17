@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ButtonsTest extends \PapayaTestCase {
+class ButtonsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Buttons::add

@@ -17,7 +17,7 @@ namespace Papaya\Template\Simple {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class ParserTest extends \PapayaTestCase {
+  class ParserTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Template\Simple\Parser::__construct

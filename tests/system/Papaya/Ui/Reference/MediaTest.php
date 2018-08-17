@@ -17,7 +17,7 @@ namespace Papaya\UI\Reference;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class MediaTest extends \PapayaTestCase {
+class MediaTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Reference\Media::create

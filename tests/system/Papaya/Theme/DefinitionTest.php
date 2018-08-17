@@ -19,7 +19,7 @@ use Papaya\Content\Structure\Pages;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class DefinitionTest extends \PapayaTestCase {
+class DefinitionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Definition::load

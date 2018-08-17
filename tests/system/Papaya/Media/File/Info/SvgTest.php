@@ -16,7 +16,7 @@
 namespace Papaya\Media\File\Info;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class SvgTest extends \PapayaTestCase {
+class SvgTest extends \Papaya\TestCase {
 
   public function testReadUsingXMLReader() {
     if (!extension_loaded('xmlreader')) {

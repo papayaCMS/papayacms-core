@@ -17,7 +17,7 @@ namespace Papaya\Content\View\Mode;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class TypesTest extends \PapayaTestCase {
+class TypesTest extends \Papaya\TestCase {
 
   /**
    * @covers Types::exists

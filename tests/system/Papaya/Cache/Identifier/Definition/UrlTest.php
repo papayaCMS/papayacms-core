@@ -17,7 +17,7 @@ namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class UrlTest extends \PapayaTestCase {
+class UrlTest extends \Papaya\TestCase {
 
   /**
    * @covers URL

@@ -17,7 +17,7 @@ namespace Papaya\File\System;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FactoryTest extends \PapayaTestCase {
+class FactoryTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\File\System\Factory::getFile

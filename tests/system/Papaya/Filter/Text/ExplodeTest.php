@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ExplodeTest extends \PapayaTestCase {
+class ExplodeTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Text\Explode

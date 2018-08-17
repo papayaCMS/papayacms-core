@@ -17,7 +17,7 @@ namespace Papaya\Message\Dispatcher;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TemplateTest extends \PapayaTestCase {
+class TemplateTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\Template::dispatch

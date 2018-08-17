@@ -17,7 +17,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
 
   require_once __DIR__.'/../../../../../../bootstrap.php';
 
-  class VisitorTest extends \PapayaTestCase {
+  class VisitorTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::get

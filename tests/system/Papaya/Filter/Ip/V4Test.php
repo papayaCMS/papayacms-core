@@ -17,7 +17,7 @@ namespace Papaya\Filter\Ip;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class V4Test extends \PapayaTestCase {
+class V4Test extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Ip\V4::__construct

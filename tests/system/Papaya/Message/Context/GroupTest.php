@@ -16,7 +16,7 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class GroupTest extends \PapayaTestCase {
+class GroupTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Context\Group::append

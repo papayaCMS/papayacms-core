@@ -16,7 +16,7 @@
 namespace Papaya\Filter\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PathTest extends \PapayaTestCase {
+class PathTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\File\Path

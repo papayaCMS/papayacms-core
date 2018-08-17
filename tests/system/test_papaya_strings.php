@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../bootstrap.php';
 
-class PapayaLibSystemPapayaStringsTest extends \PapayaTestCase {
+class PapayaLibSystemPapayaStringsTest extends \Papaya\TestCase {
 
   public function testSplitLines() {
     $sample = "Line1\rLine2\n\rLine3\r\nLine4\nLine5";

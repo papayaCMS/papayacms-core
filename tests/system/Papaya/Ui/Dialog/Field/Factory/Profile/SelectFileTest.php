@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile {
 
   require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-  class SelectFileTest extends \PapayaTestCase {
+  class SelectFileTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectFile

@@ -17,7 +17,7 @@ namespace Papaya\Administration\Permission;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class GroupsTest extends \PapayaTestCase {
+class GroupsTest extends \Papaya\TestCase {
 
   /**
    * @covers Groups::__construct

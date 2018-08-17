@@ -17,7 +17,7 @@ namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class RequestTest extends \PapayaTestCase {
+class RequestTest extends \Papaya\TestCase {
 
   /**
    * @covers Request::createObject

@@ -16,7 +16,7 @@
 namespace Papaya\Template\Engine;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class SimpleTest extends \PapayaTestCase {
+class SimpleTest extends \Papaya\TestCase {
 
   /**
    * Integration test - block code coverage

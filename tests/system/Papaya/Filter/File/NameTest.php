@@ -16,7 +16,7 @@
 namespace Papaya\Filter\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class NameTest extends \PapayaTestCase {
+class NameTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\File\Name

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class LanguageTest extends \PapayaTestCase {
+class LanguageTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select\Language

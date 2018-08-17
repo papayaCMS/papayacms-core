@@ -17,7 +17,7 @@ namespace Papaya\Filter\Factory\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsFileNameTest extends \PapayaTestCase {
+class IsFileNameTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsFileName::getFilter

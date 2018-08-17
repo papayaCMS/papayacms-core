@@ -17,7 +17,7 @@ namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class SelectorTest extends \PapayaTestCase {
+class SelectorTest extends \Papaya\TestCase {
 
   /**
    * @covers Selector::languages

@@ -17,7 +17,7 @@ namespace Papaya\Database\Condition {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class GroupTest extends \PapayaTestCase {
+  class GroupTest extends \Papaya\TestCase {
 
     /**
      * @covers Group

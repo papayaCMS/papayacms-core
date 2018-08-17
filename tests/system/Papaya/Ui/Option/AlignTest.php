@@ -16,7 +16,7 @@
 namespace Papaya\UI\Option;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class AlignTest extends \PapayaTestCase {
+class AlignTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Option\Align::getString

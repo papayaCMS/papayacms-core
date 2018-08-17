@@ -16,7 +16,7 @@
 namespace Papaya\SVN;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class TagsTest extends \PapayaTestCase {
+class TagsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\SVN\Tags::__construct

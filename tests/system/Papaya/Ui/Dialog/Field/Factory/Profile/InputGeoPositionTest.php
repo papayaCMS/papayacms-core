@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class InputGeoPositionTest extends \PapayaTestCase {
+class InputGeoPositionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputGeoPosition::getField

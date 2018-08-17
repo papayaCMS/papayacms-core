@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class HoneypotTest extends \PapayaTestCase {
+class HoneypotTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Honeypot::__construct

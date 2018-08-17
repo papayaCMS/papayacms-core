@@ -16,7 +16,7 @@
 namespace Papaya\Streamwrapper;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class S3Test extends \PapayaTestCase {
+class S3Test extends \Papaya\TestCase {
 
   const TEST_FILE =
     's3:KEYID123456789012345:1234567890123456789012345678901234567890@bucketname/objectkey';

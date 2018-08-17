@@ -17,7 +17,7 @@ namespace Papaya\Request\Parser;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ThumbnailTest extends \PapayaTestCase {
+class ThumbnailTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Request\Parser\Thumbnail::parse

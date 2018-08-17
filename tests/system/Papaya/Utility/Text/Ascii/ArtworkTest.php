@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text\Ascii;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ArtworkTest extends \PapayaTestCase {
+class ArtworkTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Text\Ascii\Artwork::get

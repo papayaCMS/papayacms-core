@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HtmlTest extends \PapayaTestCase {
+class HtmlTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Text\Html::escapeStripped

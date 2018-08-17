@@ -16,7 +16,7 @@
 namespace Papaya\Text;
 include_once __DIR__.'/../../../bootstrap.php';
 
-class UTF8StringTest extends \PapayaTestCase {
+class UTF8StringTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Text\UTF8String

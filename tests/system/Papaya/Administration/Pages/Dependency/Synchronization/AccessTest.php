@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class AccessTest extends \PapayaTestCase {
+class AccessTest extends \Papaya\TestCase {
 
   /**
    * @covers Access::page

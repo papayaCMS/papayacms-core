@@ -17,7 +17,7 @@ namespace Papaya\Controller\Error;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FileTest extends \PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   public function testSetTemplateFile() {
     $controller = new File();

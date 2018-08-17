@@ -17,7 +17,7 @@ namespace Papaya\Content\Box\Version;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class TranslationTest extends \PapayaTestCase {
+class TranslationTest extends \Papaya\TestCase {
 
   /**
    * @covers Translation::load

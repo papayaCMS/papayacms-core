@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Filter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class RegExTest extends \PapayaTestCase {
+class RegExTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Filter\RegEx::__construct

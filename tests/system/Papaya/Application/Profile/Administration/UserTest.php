@@ -16,7 +16,7 @@
 namespace Papaya\Application\Profile\Administration;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
-\PapayaTestCase::defineConstantDefaults(
+\Papaya\TestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_AUTHOPTIONS',
   'PAPAYA_DB_TBL_AUTHUSER',
   'PAPAYA_DB_TBL_AUTHGROUPS',
@@ -27,7 +27,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
   'PAPAYA_DB_TBL_SURFER'
 );
 
-class UserTest extends \PapayaTestCase {
+class UserTest extends \Papaya\TestCase {
 
   /**
   * @covers User::createObject

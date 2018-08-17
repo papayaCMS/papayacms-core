@@ -17,7 +17,7 @@ namespace Papaya\Plugin\Filter\Content;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class RecordsTest extends \PapayaTestCase {
+class RecordsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Filter\Content\Records

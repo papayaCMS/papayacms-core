@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Exception;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class IsUndefinedTest extends \PapayaTestCase {
+class IsUndefinedTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\IsUndefined::__construct

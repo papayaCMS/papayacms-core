@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class TextareaTest extends \PapayaTestCase {
+class TextareaTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Textarea::getField

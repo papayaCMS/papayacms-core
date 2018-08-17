@@ -17,7 +17,7 @@ namespace Papaya\UI\Reference;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ThumbnailTest extends \PapayaTestCase {
+class ThumbnailTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Reference\Thumbnail::create

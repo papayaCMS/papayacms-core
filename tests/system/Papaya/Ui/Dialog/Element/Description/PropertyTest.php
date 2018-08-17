@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Element\Description;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PropertyTest extends \PapayaTestCase {
+class PropertyTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Element\Description\Property::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview\Subitem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ImagesTest extends \PapayaTestCase {
+class ImagesTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Subitem\Images::__construct

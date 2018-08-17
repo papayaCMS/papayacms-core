@@ -16,7 +16,7 @@
 namespace Papaya\Parser\Search;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TextTest extends \PapayaTestCase {
+class TextTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Parser\Search\Text

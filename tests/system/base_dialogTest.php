@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../bootstrap.php';
 
-class base_dialogTest extends \PapayaTestCase {
+class base_dialogTest extends \Papaya\TestCase {
 
   /**
    * @covers base_dialog::checkDialogInput

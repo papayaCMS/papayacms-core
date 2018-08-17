@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class URLTest extends \PapayaTestCase {
+class URLTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\URL::validate

@@ -17,7 +17,7 @@ namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class GlobalValuesTest extends \PapayaTestCase {
+class GlobalValuesTest extends \Papaya\TestCase {
 
   /**
    * @covers GlobalValues::get

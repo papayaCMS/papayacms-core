@@ -17,7 +17,7 @@ namespace Papaya\Cache\Service {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class MemcacheTest extends \PapayaTestCase {
+  class MemcacheTest extends \Papaya\TestCase {
 
     /**
      * @covers Memcache::setMemcacheObject

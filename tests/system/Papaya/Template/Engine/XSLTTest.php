@@ -17,7 +17,7 @@ namespace Papaya\Template\Engine {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class XSLTTest extends \PapayaTestCase {
+  class XSLTTest extends \Papaya\TestCase {
 
     private $_internalErrors;
 

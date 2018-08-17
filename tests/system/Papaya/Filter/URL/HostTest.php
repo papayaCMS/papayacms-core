@@ -16,7 +16,7 @@
 namespace Papaya\Filter\URL;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HostTest extends \PapayaTestCase {
+class HostTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Filter\URL\Host

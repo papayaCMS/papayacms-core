@@ -17,7 +17,7 @@ namespace Papaya\Database\Sequence\Human {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class CumulativeTest extends \PapayaTestCase {
+  class CumulativeTest extends \Papaya\TestCase {
 
     /**
      * @covers Cumulative::__construct

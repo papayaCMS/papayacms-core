@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class ReadonlyTest extends \PapayaTestCase {
+class ReadonlyTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Readonly::__construct

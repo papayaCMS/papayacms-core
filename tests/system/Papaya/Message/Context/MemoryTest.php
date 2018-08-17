@@ -16,7 +16,7 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class MemoryTest extends \PapayaTestCase {
+class MemoryTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Context\Memory::__construct

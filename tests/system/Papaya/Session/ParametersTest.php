@@ -16,7 +16,7 @@
 namespace Papaya\Session;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ParametersTest extends \PapayaTestCase {
+class ParametersTest extends \Papaya\TestCase {
 
   private $_sessionData = array();
 

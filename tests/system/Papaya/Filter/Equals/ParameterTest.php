@@ -17,7 +17,7 @@ namespace Papaya\Filter\Equals;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ParameterTest extends \PapayaTestCase {
+class ParameterTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Equals\Parameter::__construct

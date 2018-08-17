@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ListviewTest extends \PapayaTestCase {
+class ListviewTest extends \Papaya\TestCase {
 
   /**
    * @covers Listview::__construct

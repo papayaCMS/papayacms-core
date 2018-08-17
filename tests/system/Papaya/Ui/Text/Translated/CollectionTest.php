@@ -16,7 +16,7 @@
 namespace Papaya\UI\Text\Translated;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class CollectionTest extends \PapayaTestCase {
+class CollectionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Text\Translated\Collection::__construct

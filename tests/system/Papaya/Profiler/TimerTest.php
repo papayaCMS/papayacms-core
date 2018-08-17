@@ -16,7 +16,7 @@
 namespace Papaya\Profiler;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class TimerTest extends \PapayaTestCase {
+class TimerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Profiler\Timer

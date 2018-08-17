@@ -17,7 +17,7 @@ namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ProfilerTest extends \PapayaTestCase {
+class ProfilerTest extends \Papaya\TestCase {
 
   /**
    * @covers Profiler::createObject

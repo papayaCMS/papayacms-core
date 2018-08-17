@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class NotIncludedTest extends \PapayaTestCase {
+class NotIncludedTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\NotIncluded::__construct

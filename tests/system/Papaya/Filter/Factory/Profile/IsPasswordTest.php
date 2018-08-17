@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Profile;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsPasswordTest extends \PapayaTestCase {
+class IsPasswordTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsPassword::getFilter

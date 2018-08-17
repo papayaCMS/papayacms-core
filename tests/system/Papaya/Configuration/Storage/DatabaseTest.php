@@ -17,7 +17,7 @@ namespace Papaya\Configuration\Storage;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class DatabaseTest extends \PapayaTestCase {
+class DatabaseTest extends \Papaya\TestCase {
 
   /**
    * @covers Database::records

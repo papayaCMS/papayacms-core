@@ -17,9 +17,9 @@ namespace Papaya\Media\Database\Item;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-\PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
+\Papaya\TestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
-class RecordTest extends \PapayaTestCase {
+class RecordTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Media\Database\Item\Record::load

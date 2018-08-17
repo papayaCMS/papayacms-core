@@ -19,7 +19,7 @@ use Papaya\Content\Media\Folders;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class FolderTest extends \PapayaTestCase {
+class FolderTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::__construct

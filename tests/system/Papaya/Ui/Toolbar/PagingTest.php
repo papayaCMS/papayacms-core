@@ -16,7 +16,7 @@
 namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PagingTest extends \PapayaTestCase {
+class PagingTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Toolbar\Paging::__construct

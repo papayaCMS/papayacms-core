@@ -16,11 +16,11 @@
 namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
-\PapayaTestCase::defineConstantDefaults(
+\Papaya\TestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MODULES'
 );
 
-class PluginsTest extends \PapayaTestCase {
+class PluginsTest extends \Papaya\TestCase {
 
   /**
    * @covers Plugins::createObject

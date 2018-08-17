@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class XMLTest extends \PapayaTestCase {
+class XMLTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\XML::__construct

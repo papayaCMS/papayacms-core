@@ -17,7 +17,7 @@ namespace Papaya\UI;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ReferenceTest extends \PapayaTestCase {
+class ReferenceTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Reference::__construct

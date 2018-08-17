@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ScannerTest extends \PapayaTestCase {
+class ScannerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Scanner::__construct

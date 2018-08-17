@@ -16,7 +16,7 @@
 namespace Papaya\Theme;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class WrapperTest extends \PapayaTestCase {
+class WrapperTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Wrapper::__construct

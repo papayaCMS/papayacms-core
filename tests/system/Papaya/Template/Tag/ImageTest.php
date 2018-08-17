@@ -16,7 +16,7 @@
 namespace Papaya\Template\Tag;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ImageTest extends \PapayaTestCase {
+class ImageTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Template\Tag\Image::appendTo
    */

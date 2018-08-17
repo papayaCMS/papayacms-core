@@ -16,7 +16,7 @@
 namespace Papaya\Response\Content;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CSVTest extends \PapayaTestCase {
+class CSVTest extends \Papaya\TestCase {
 
 
   /**

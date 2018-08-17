@@ -15,7 +15,7 @@
 
 namespace Papaya\UI {
 
-  class ToolbarsTest extends \PapayaTestCase {
+  class ToolbarsTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Toolbars::appendTo

@@ -17,7 +17,7 @@ namespace Papaya\File\System;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class DirectoryTest extends \PapayaTestCase {
+class DirectoryTest extends \Papaya\TestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();

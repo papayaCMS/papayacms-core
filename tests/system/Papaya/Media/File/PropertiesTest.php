@@ -16,7 +16,7 @@
 namespace Papaya\Media\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PropertiesTest extends \PapayaTestCase {
+class PropertiesTest extends \Papaya\TestCase {
 
   public function testFetchPropertiesFromInfoImplementation() {
     $infoMock = $this->createMock(\Papaya\Media\File\Info::class);

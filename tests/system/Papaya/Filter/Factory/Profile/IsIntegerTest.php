@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Profile;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsIntegerTest extends \PapayaTestCase {
+class IsIntegerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsInteger::getFilter

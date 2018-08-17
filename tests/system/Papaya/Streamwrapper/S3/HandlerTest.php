@@ -16,7 +16,7 @@
 namespace Papaya\Streamwrapper\S3;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HandlerTest extends \PapayaTestCase {
+class HandlerTest extends \Papaya\TestCase {
 
   private static $_testFile = array(
     'bucket' => 'bucketname',

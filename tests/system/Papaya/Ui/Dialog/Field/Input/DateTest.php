@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class DateTest extends \PapayaTestCase {
+class DateTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
    */

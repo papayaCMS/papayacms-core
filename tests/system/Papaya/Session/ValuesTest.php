@@ -16,7 +16,7 @@
 namespace Papaya\Session;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ValuesTest extends \PapayaTestCase {
+class ValuesTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Session\Values::__construct

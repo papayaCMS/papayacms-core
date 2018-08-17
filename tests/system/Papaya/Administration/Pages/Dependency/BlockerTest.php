@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class BlockerTest extends \PapayaTestCase {
+class BlockerTest extends \Papaya\TestCase {
 
   /**
    * @covers Blocker::__construct

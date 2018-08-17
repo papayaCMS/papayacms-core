@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\AST;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class NodesTest extends \PapayaTestCase {
+class NodesTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\AST\Nodes::__construct

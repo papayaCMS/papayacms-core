@@ -17,7 +17,7 @@ namespace Papaya\Message;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class SandboxTest extends \PapayaTestCase {
+class SandboxTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Sandbox::__construct

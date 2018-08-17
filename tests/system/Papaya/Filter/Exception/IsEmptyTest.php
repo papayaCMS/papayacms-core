@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class IsEmptyTest extends \PapayaTestCase {
+class IsEmptyTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\IsEmpty::__construct

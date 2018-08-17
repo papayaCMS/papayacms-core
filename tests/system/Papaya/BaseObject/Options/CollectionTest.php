@@ -16,7 +16,7 @@
 namespace Papaya\BaseObject\Options;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CollectionTest extends \PapayaTestCase {
+class CollectionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\BaseObject\Options\Collection::__construct

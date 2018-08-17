@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class NumberWithUnitTest extends \PapayaTestCase {
+class NumberWithUnitTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Filter\NumberWithUnit::__construct

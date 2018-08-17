@@ -17,7 +17,7 @@ namespace Papaya\Database\Record\Key;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class AutoincrementTest extends \PapayaTestCase {
+class AutoincrementTest extends \Papaya\TestCase {
 
   /**
    * @covers Autoincrement::__construct

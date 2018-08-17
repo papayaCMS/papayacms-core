@@ -17,7 +17,7 @@ namespace Papaya\Message\Context\Variable {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class VisitorTest extends \PapayaTestCase {
+  class VisitorTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Context\Variable\Visitor::__construct

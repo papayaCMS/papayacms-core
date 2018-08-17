@@ -17,7 +17,7 @@ namespace Papaya\Request\Parser;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class WrapperTest extends \PapayaTestCase {
+class WrapperTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Request\Parser\Wrapper::parse

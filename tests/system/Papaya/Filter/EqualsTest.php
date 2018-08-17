@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class EqualsTest extends \PapayaTestCase {
+class EqualsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Equals::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class NormalizeTest extends \PapayaTestCase {
+class NormalizeTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Text\Normalize

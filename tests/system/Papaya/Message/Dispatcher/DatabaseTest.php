@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher {
 
   require_once __DIR__.'/../../../../bootstrap.php';
-  \PapayaTestCase::defineConstantDefaults(
+  \Papaya\TestCase::defineConstantDefaults(
     array(
       'PAPAYA_DB_TBL_AUTHOPTIONS',
       'PAPAYA_DB_TBL_AUTHUSER',
@@ -29,7 +29,7 @@ namespace Papaya\Message\Dispatcher {
     )
   );
 
-  class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
+  class PapayaMessageDispatcherDatabaseTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Dispatcher\Database::dispatch

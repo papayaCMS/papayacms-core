@@ -17,7 +17,7 @@ namespace Papaya\Content\View;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ConfigurationsTest extends \PapayaTestCase {
+class ConfigurationsTest extends \Papaya\TestCase {
 
   /**
    * @covers Configurations

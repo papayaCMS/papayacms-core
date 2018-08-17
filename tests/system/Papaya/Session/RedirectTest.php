@@ -17,7 +17,7 @@ namespace Papaya\Session;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class RedirectTest extends \PapayaTestCase {
+class RedirectTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Session\Redirect::__construct

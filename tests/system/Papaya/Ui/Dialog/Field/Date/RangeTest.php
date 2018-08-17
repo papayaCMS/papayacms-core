@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Date;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class RangeTest extends \PapayaTestCase {
+class RangeTest extends \Papaya\TestCase {
 
   public function testAppendTo() {
     $field = new Range('Caption', 'name');

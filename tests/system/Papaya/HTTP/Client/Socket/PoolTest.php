@@ -16,7 +16,7 @@
 namespace Papaya\HTTP\Client\Socket;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PoolTest extends \PapayaTestCase {
+class PoolTest extends \Papaya\TestCase {
 
   public function testSetGetConnection() {
     $pool = new Pool();

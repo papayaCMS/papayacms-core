@@ -16,7 +16,7 @@
 namespace Papaya\Controller {
 
   require_once __DIR__.'/../../../bootstrap.php';
-  \PapayaTestCase::defineConstantDefaults(
+  \Papaya\TestCase::defineConstantDefaults(
     'PAPAYA_DB_TBL_MEDIADB_FILES',
     'PAPAYA_DB_TBL_MEDIADB_FILES_DERIVATIONS',
     'PAPAYA_DB_TBL_MEDIADB_FILES_TRANS',
@@ -35,7 +35,7 @@ namespace Papaya\Controller {
     'PAPAYA_MEDIADB_SUBDIRECTORIES'
   );
 
-  class PapayaControllerMediaTest extends \PapayaTestCase {
+  class PapayaControllerMediaTest extends \Papaya\TestCase {
 
     /**
      * @covers Media::execute

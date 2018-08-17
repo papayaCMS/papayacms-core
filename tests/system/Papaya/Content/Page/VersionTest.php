@@ -17,7 +17,7 @@ namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class VersionTest extends \PapayaTestCase {
+class VersionTest extends \Papaya\TestCase {
 
   /**
    * @covers Version::save

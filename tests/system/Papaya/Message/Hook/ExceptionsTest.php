@@ -17,7 +17,7 @@ namespace Papaya\Message\Hook;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ExceptionsTest extends \PapayaTestCase {
+class ExceptionsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Hook\Exceptions::__construct

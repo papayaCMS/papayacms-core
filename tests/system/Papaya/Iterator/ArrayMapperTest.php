@@ -16,7 +16,7 @@
 namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ArrayMapperTest extends \PapayaTestCase {
+class ArrayMapperTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\ArrayMapper

@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Scanner\Status\CSS;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class CommentTest extends \PapayaTestCase {
+class CommentTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Template\Simple\Scanner\Status\CSS\Comment::getToken

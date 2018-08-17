@@ -16,7 +16,7 @@
 namespace Papaya\SVN\Client;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ExtensionTest extends \PapayaTestCase {
+class ExtensionTest extends \Papaya\TestCase {
 
   protected function setUp() {
     if (!extension_loaded('svn')) {

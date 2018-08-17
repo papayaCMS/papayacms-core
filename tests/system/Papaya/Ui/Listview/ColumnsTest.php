@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ColumnsTest extends \PapayaTestCase {
+class ColumnsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Columns::__construct

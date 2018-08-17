@@ -16,7 +16,7 @@
 namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ElementsTest extends \PapayaTestCase {
+class ElementsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Toolbar\Elements::__construct

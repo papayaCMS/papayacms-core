@@ -17,7 +17,7 @@ namespace Papaya\BaseObject {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ItemTest extends \PapayaTestCase {
+  class ItemTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\BaseObject\Item::__construct

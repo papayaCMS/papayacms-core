@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview\Item\Paging;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class DownTest extends \PapayaTestCase {
+class DownTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\UI\Listview\Item\Paging\Down::getPages

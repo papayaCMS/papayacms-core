@@ -18,7 +18,7 @@ namespace Papaya\Database\Records {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class TreeTest extends \PapayaTestCase {
+  class TreeTest extends \Papaya\TestCase {
 
     /**
      * @covers Tree::_loadRecords

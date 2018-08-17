@@ -17,7 +17,7 @@ namespace Papaya\Template\Simple\Scanner {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class StatusTest extends \PapayaTestCase {
+  class StatusTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Template\Simple\Scanner\Status::matchPattern

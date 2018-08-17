@@ -17,7 +17,7 @@ namespace Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class IteratorTest extends \PapayaTestCase {
+class IteratorTest extends \Papaya\TestCase {
 
   /**
    * @covers Iterator::__construct

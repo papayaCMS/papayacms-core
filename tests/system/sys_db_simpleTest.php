@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../bootstrap.php';
 
-class db_simpleTest extends \PapayaTestCase {
+class db_simpleTest extends \Papaya\TestCase {
 
   /**
    * @dataProvider getConditionData

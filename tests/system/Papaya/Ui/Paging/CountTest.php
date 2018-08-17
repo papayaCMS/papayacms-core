@@ -16,7 +16,7 @@
 namespace Papaya\UI\Paging;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CountTest extends \PapayaTestCase {
+class CountTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Paging\Count::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview\Subitem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class DateTest extends \PapayaTestCase {
+class DateTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Subitem\Date::__construct

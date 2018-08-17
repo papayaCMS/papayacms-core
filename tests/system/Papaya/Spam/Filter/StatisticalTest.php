@@ -17,7 +17,7 @@ namespace Papaya\Spam\Filter;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class StatisticalTest extends \PapayaTestCase {
+class StatisticalTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Spam\Filter\Statistical::setReference

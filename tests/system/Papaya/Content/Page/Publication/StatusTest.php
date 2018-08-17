@@ -17,7 +17,7 @@ namespace Papaya\Content\Page\Publication;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class StatusTest extends \PapayaTestCase {
+class StatusTest extends \Papaya\TestCase {
 
   /**
    * @covers Status::load

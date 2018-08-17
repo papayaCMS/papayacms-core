@@ -16,7 +16,7 @@
 namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class DateTest extends \PapayaTestCase {
+class DateTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Utility\Date::stringToTimestamp

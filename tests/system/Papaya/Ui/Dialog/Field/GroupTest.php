@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class GroupTest extends \PapayaTestCase {
+class GroupTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Group::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class WildfireTest extends \PapayaTestCase {
+class WildfireTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\Wildfire::allow

@@ -16,7 +16,7 @@
 namespace Papaya\Session;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class IdTest extends \PapayaTestCase {
+class IdTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Session\Id::__construct

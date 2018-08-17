@@ -16,7 +16,7 @@
 namespace Papaya\Message\PHP;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ErrorTest extends \PapayaTestCase {
+class ErrorTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\PHP\Error::__construct

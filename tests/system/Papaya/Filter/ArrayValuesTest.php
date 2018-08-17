@@ -17,7 +17,7 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ArrayValuesTest extends \PapayaTestCase {
+class ArrayValuesTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\ArrayValues::__construct

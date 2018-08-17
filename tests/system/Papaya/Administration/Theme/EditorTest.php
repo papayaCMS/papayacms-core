@@ -17,7 +17,7 @@ namespace Papaya\Administration\Theme {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class EditorTest extends \PapayaTestCase {
+  class EditorTest extends \Papaya\TestCase {
 
     /**
      * @covers Editor::createContent

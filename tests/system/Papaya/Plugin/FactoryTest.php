@@ -17,7 +17,7 @@ namespace Papaya\Plugin {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class FactoryTest extends \PapayaTestCase {
+  class FactoryTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Plugin\Factory::__construct

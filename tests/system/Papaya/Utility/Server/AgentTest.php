@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class AgentTest extends \PapayaTestCase {
+class AgentTest extends \Papaya\TestCase {
 
   /**
    * @backupGlobals enabled

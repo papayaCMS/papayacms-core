@@ -15,7 +15,7 @@
 
 namespace Papaya\UI {
 
-  class TokensTest extends \PapayaTestCase {
+  class TokensTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Tokens::__construct

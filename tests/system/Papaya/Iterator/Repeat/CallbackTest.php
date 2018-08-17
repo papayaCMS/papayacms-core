@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Repeat;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CallbackTest extends \PapayaTestCase {
+class CallbackTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Repeat\Callback

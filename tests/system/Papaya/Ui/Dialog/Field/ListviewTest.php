@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ListviewTest extends \PapayaTestCase {
+class ListviewTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Listview::__construct

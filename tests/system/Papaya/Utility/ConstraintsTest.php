@@ -15,7 +15,7 @@
 
 namespace Papaya\Utility {
 
-  class ConstraintsTest extends \PapayaTestCase {
+  class ConstraintsTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Utility\Constraints::assertArray
@@ -182,7 +182,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfWithSuperclass() {
       $this->assertTrue(
-        Constraints::assertInstanceOf(\PapayaTestCase::class, $this)
+        Constraints::assertInstanceOf(\Papaya\TestCase::class, $this)
       );
     }
 
@@ -191,7 +191,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfWithTwoClasses() {
       $this->assertTrue(
-        Constraints::assertInstanceOf(array(\stdClass::class, \PapayaTestCase::class), $this)
+        Constraints::assertInstanceOf(array(\stdClass::class, \Papaya\TestCase::class), $this)
       );
     }
 

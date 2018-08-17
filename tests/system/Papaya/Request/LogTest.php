@@ -16,7 +16,7 @@
 namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class LogTest extends \PapayaTestCase {
+class LogTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Request\Log::__construct

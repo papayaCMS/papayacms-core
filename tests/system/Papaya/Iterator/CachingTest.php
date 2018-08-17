@@ -17,7 +17,7 @@ namespace Papaya\Iterator;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CachingTest extends \PapayaTestCase {
+class CachingTest extends \Papaya\TestCase {
 
   /** @var \ArrayObject */
   private $_arrayObject;

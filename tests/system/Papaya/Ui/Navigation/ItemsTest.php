@@ -16,7 +16,7 @@
 namespace Papaya\UI\Navigation;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ItemsTest extends \PapayaTestCase {
+class ItemsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Navigation\Items::reference

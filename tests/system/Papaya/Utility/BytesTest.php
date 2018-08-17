@@ -16,7 +16,7 @@
 namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BytesTest extends \PapayaTestCase {
+class BytesTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Bytes::toString

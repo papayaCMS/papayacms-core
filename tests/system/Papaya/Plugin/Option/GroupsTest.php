@@ -16,7 +16,7 @@
 namespace Papaya\Plugin\Option;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class GroupsTest extends \PapayaTestCase {
+class GroupsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Option\Groups::offsetExists

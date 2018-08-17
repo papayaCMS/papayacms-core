@@ -15,7 +15,7 @@
 
 namespace Papaya\Iterator {
 
-  class TraversableIteratorTest extends \PapayaTestCase {
+  class TraversableIteratorTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Iterator\TraversableIterator::__construct

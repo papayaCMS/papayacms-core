@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Exception;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class UnexpectedEofTest extends \PapayaTestCase {
+class UnexpectedEofTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Exception\UnexpectedEOF::__construct

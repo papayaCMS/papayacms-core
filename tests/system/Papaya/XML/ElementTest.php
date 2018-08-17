@@ -16,7 +16,7 @@
 namespace Papaya\XML {
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ElementTest extends \PapayaTestCase {
+  class ElementTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\XML\Element::append

@@ -17,7 +17,7 @@ namespace Papaya\Plugin;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class LoaderTest extends \PapayaTestCase {
+class LoaderTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Loader

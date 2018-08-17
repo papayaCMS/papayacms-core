@@ -16,7 +16,7 @@
 namespace Papaya\URL\Transformer;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CleanupTest extends \PapayaTestCase {
+class CleanupTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\URL\Transformer\Cleanup::transform

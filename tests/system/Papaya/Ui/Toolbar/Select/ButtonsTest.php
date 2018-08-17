@@ -16,7 +16,7 @@
 namespace Papaya\UI\Toolbar\Select;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ButtonsTest extends \PapayaTestCase {
+class ButtonsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo

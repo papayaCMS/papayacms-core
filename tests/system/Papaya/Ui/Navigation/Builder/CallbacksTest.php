@@ -16,7 +16,7 @@
 namespace Papaya\UI\Navigation\Builder;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class CallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Navigation\Builder\Callbacks::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control\Command\Dialog\Plugin;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ContentTest extends \PapayaTestCase {
+class ContentTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Control\Command\Dialog\Plugin\Content

@@ -16,7 +16,7 @@
 namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ContentTest extends \PapayaTestCase {
+class ContentTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Request\Content

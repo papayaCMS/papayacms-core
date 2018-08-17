@@ -17,7 +17,7 @@ namespace Papaya\Cache {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ServiceTest extends \PapayaTestCase {
+  class ServiceTest extends \Papaya\TestCase {
 
     /**
      * @covers Service::__construct

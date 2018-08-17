@@ -16,7 +16,7 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TableTest extends \PapayaTestCase {
+class TableTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Context\Table::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\Response\Content;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TextTest extends \PapayaTestCase {
+class TextTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Response\Content\Text::__construct

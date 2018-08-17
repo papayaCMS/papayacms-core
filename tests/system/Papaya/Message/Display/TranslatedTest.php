@@ -16,7 +16,7 @@
 namespace Papaya\Message\Display;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TranslatedTest extends \PapayaTestCase {
+class TranslatedTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Display\Translated::__construct

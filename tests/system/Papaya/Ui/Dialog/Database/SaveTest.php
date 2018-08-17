@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Database {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class SaveTest extends \PapayaTestCase {
+  class SaveTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Database\Save::execute

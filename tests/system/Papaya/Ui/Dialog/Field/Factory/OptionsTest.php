@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Factory;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class OptionsTest extends \PapayaTestCase {
+class OptionsTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Options::__construct

@@ -17,7 +17,7 @@ namespace Papaya\Content\Page {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class DependencyTest extends \PapayaTestCase {
+  class DependencyTest extends \Papaya\TestCase {
 
     /**
      * @covers Dependency::_createKey

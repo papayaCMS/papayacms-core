@@ -17,7 +17,7 @@ namespace Papaya\Database\Record;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class MappingTest extends \PapayaTestCase {
+class MappingTest extends \Papaya\TestCase {
 
   /**
    * @covers Mapping::__construct

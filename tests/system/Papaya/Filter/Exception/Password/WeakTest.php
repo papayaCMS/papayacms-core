@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception\Password;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class WeakTest extends \PapayaTestCase {
+class WeakTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\Password\Weak::__construct

@@ -17,7 +17,7 @@ namespace Papaya\Database;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ManagerTest extends \PapayaTestCase {
+class ManagerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\Manager::setConfiguration

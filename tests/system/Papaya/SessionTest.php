@@ -16,7 +16,7 @@
 namespace Papaya;
 require_once __DIR__.'/../../bootstrap.php';
 
-class SessionTest extends \PapayaTestCase {
+class SessionTest extends \Papaya\TestCase {
 
   private $_idSources = array();
 

@@ -16,7 +16,7 @@
 namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class GeneratorTest extends \PapayaTestCase {
+class GeneratorTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Generator::__construct

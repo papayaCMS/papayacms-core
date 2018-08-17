@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\RegEx;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ReplaceTest extends \PapayaTestCase {
+class ReplaceTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\RegEx\Replace

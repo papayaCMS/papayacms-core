@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class OptionalTest extends \PapayaTestCase {
+class OptionalTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Optional::__construct

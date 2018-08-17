@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PortTest extends \PapayaTestCase {
+class PortTest extends \Papaya\TestCase {
 
   private $_server;
 

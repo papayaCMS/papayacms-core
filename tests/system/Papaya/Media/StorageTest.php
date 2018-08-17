@@ -16,7 +16,7 @@
 namespace Papaya\Media;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class StorageTest extends \PapayaTestCase {
+class StorageTest extends \Papaya\TestCase {
 
   public function testGetServiceDefault() {
     $service = Storage::getService();

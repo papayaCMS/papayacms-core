@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ChangerTest extends \PapayaTestCase {
+class ChangerTest extends \Papaya\TestCase {
 
   /**
    * @covers Changer::getPageId

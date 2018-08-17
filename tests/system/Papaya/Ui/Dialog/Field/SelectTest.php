@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class SelectTest extends \PapayaTestCase {
+class SelectTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select::__construct

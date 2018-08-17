@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class IdentifierTest extends \PapayaTestCase {
+class IdentifierTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\Identifier::toUnderscoreUpper

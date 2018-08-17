@@ -17,7 +17,7 @@ namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class SessionTest extends \PapayaTestCase {
+class SessionTest extends \Papaya\TestCase {
 
   /**
    * @covers Session::createObject

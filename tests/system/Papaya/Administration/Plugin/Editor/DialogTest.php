@@ -17,7 +17,7 @@ namespace Papaya\Administration\Plugin\Editor;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class DialogTest extends \PapayaTestCase {
+class DialogTest extends \Papaya\TestCase {
 
   /**
    * @covers Dialog::appendTo

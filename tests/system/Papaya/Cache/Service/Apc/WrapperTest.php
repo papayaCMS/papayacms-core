@@ -17,7 +17,7 @@ namespace Papaya\Cache\Service\Apc;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class WrapperTest extends \PapayaTestCase {
+class WrapperTest extends \Papaya\TestCase {
 
   public function skipIfApcIsAvailable() {
     if (extension_loaded('apc')) {

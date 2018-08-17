@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control {
 
   require_once __DIR__.'/../../../../bootstrap.php';
-  \PapayaTestCase::defineConstantDefaults(
+  \Papaya\TestCase::defineConstantDefaults(
     'PAPAYA_DB_TBL_AUTHOPTIONS',
     'PAPAYA_DB_TBL_AUTHUSER',
     'PAPAYA_DB_TBL_AUTHGROUPS',
@@ -27,7 +27,7 @@ namespace Papaya\UI\Control {
     'PAPAYA_DB_TBL_SURFER'
   );
 
-  class CommandTest extends \PapayaTestCase {
+  class CommandTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Control\Command::condition

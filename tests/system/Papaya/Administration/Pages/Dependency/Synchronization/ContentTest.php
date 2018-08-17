@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class ContentTest extends \PapayaTestCase {
+class ContentTest extends \Papaya\TestCase {
 
   /**
    * @covers Content::translations

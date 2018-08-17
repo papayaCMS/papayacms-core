@@ -18,7 +18,7 @@ use Iterator;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class BuilderTest extends \PapayaTestCase {
+class BuilderTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Navigation\Builder::__construct

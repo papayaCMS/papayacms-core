@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Geo;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PositionTest extends \PapayaTestCase {
+class PositionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Geo\Position

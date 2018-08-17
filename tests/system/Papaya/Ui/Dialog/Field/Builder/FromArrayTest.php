@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Builder;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class FromArrayTest extends \PapayaTestCase {
+class FromArrayTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Builder\FromArray::__construct

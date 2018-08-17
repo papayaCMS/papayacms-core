@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Profile;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsNotXmlTest extends \PapayaTestCase {
+class IsNotXmlTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Filter\Factory\Profile\IsNotXML::getFilter

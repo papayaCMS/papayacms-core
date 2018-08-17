@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Element\Description;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class LinkTest extends \PapayaTestCase {
+class LinkTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Element\Description\Link::appendTo

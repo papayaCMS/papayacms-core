@@ -17,7 +17,7 @@ namespace Papaya\Database\Records {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class UnbufferedTest extends \PapayaTestCase {
+  class UnbufferedTest extends \Papaya\TestCase {
 
     /**
      * @covers Unbuffered::load

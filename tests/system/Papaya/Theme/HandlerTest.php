@@ -17,7 +17,7 @@ namespace Papaya\Theme;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class HandlerTest extends \PapayaTestCase {
+class HandlerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Handler::getURL

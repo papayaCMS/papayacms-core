@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception\RegEx;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class NoMatchTest extends \PapayaTestCase {
+class NoMatchTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\RegEx\NoMatch::__construct

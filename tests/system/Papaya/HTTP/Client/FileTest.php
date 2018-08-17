@@ -17,7 +17,7 @@ namespace Papaya\HTTP\Client {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class FileTest extends \PapayaTestCase {
+  class FileTest extends \Papaya\TestCase {
 
     public function testGetName() {
       $file = new File_TestProxy();

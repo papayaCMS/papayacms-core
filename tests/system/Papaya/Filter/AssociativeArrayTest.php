@@ -17,7 +17,7 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class AssociativeArrayTest extends \PapayaTestCase {
+class AssociativeArrayTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\AssociativeArray

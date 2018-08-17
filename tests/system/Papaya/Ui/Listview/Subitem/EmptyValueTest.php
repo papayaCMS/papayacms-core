@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview\Subitem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class EmptyValueTest extends \PapayaTestCase {
+class EmptyValueTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Subitem\EmptyValue::appendTo

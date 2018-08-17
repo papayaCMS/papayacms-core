@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PasswordTest extends \PapayaTestCase {
+class PasswordTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Password::__construct

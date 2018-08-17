@@ -16,7 +16,7 @@
 namespace Papaya\Streamwrapper\S3;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class SignatureTest extends \PapayaTestCase {
+class SignatureTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Streamwrapper\S3\Signature::__construct

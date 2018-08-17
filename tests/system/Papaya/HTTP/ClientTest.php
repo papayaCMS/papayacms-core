@@ -16,7 +16,7 @@
 namespace Papaya\HTTP;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ClientTest extends \PapayaTestCase {
+class ClientTest extends \Papaya\TestCase {
 
   public function testConstructor() {
     $client = new Client('http://www.papaya-cms.com/');

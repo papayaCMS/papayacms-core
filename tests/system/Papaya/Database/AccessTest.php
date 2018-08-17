@@ -17,7 +17,7 @@ namespace Papaya\Database;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class AccessTest extends \PapayaTestCase {
+class AccessTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\Access::__construct

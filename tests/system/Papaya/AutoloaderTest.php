@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../vendor/papaya/test-framework/src/PapayaTestCase.
 require_once __DIR__.'/../../../src/system/Papaya/Autoloader.php';
 require_once __DIR__.'/../../../src/system/Papaya/Utility/File/Path.php';
 
-class AutoloaderTest extends \PapayaTestCase {
+class AutoloaderTest extends \Papaya\TestCase {
 
   public function tearDown() {
     Autoloader::clear();

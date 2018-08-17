@@ -17,7 +17,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ExportTest extends \PapayaTestCase {
+class ExportTest extends \Papaya\TestCase {
 
   /**
    * @covers Export

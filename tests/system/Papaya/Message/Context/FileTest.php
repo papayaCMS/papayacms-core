@@ -16,7 +16,7 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FileTest extends \PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Context\File::__construct

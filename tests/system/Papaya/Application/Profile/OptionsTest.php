@@ -17,7 +17,7 @@ namespace Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class OptionsTest extends \PapayaTestCase {
+class OptionsTest extends \Papaya\TestCase {
 
   /**
    * @covers Options::createObject

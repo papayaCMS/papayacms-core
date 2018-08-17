@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class GuidTest extends \PapayaTestCase {
+class GuidTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Guid

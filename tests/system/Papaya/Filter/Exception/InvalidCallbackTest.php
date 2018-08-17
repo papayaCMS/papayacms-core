@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class InvalidCallbackTest extends \PapayaTestCase {
+class InvalidCallbackTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\InvalidCallback::__construct

@@ -16,7 +16,7 @@
 namespace Papaya\HTTP;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class HeadersTest extends \PapayaTestCase {
+class HeadersTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\HTTP\Headers::__construct

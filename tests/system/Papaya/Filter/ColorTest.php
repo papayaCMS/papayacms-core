@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ColorTest extends \PapayaTestCase {
+class ColorTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Color::validate

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Icon;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CollectionTest extends \PapayaTestCase {
+class CollectionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Icon\Collection::offsetExists

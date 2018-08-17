@@ -17,7 +17,7 @@ namespace Papaya\Database\Record\Key;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class SequenceTest extends \PapayaTestCase {
+class SequenceTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\Record\Key\Sequence::__construct

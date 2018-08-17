@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Repeat;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class IncrementTest extends \PapayaTestCase {
+class IncrementTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Iterator\Repeat\Increment::__construct

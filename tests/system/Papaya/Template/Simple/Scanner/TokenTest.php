@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Scanner;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class TokenTest extends \PapayaTestCase {
+class TokenTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Scanner\Token::__construct

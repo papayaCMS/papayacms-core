@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control\Command\Action;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class CallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Control\Command\Action\Callbacks::__construct

@@ -17,7 +17,7 @@ namespace Papaya\Filter\Factory\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsGeoPositionTest extends \PapayaTestCase {
+class IsGeoPositionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsGeoPosition::getFilter

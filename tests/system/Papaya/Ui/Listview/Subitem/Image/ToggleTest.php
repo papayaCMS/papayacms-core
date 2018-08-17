@@ -16,7 +16,7 @@
 namespace Papaya\UI\Listview\Subitem\Image;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class ToggleTest extends \PapayaTestCase {
+class ToggleTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::__construct

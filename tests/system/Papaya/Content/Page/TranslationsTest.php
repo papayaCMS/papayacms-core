@@ -17,7 +17,7 @@ namespace Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class TranslationsTest extends \PapayaTestCase {
+class TranslationsTest extends \Papaya\TestCase {
 
   /**
    * @covers Translations::setTranslationsTableName

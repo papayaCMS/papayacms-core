@@ -16,7 +16,7 @@
 namespace Papaya\Response;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class HeadersTest extends \PapayaTestCase {
+class HeadersTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Response\Headers::getIterator

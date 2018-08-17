@@ -17,7 +17,7 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class LengthTest extends \PapayaTestCase {
+class LengthTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Length::__construct

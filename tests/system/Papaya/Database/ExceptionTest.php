@@ -17,7 +17,7 @@ namespace Papaya\Database;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ExceptionTest extends \PapayaTestCase {
+class ExceptionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\Exception::__construct

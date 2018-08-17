@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Community\Users\Roster;
 
-class DialogTest extends \PapayaTestCase {
+class DialogTest extends \Papaya\TestCase {
 
   /**
    * @covers Dialog::prepare

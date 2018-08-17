@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Button;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class NamedSubmitTest extends \PapayaTestCase {
+class NamedSubmitTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct

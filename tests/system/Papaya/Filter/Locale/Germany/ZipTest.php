@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Locale\Germany;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ZipTest extends \PapayaTestCase {
+class ZipTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Filter\Locale\Germany\Zip::__construct

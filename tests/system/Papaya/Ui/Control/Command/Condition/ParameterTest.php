@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control\Command\Condition;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class ParameterTest extends \PapayaTestCase {
+class ParameterTest extends \Papaya\TestCase {
 
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */

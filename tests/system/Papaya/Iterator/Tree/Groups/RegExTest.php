@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Tree\Groups;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class RegExTest extends \PapayaTestCase {
+class RegExTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Tree\Groups\RegEx

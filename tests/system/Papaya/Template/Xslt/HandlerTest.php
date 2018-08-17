@@ -16,7 +16,7 @@
 namespace Papaya\Template\Xslt;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HandlerTest extends \PapayaTestCase {
+class HandlerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Template\Xslt\Handler::getLocalPath

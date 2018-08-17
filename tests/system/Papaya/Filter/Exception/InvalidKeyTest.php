@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class InvalidKeyTest extends \PapayaTestCase {
+class InvalidKeyTest extends \Papaya\TestCase {
 
   public function testConstructor() {
     $exception = new InvalidKey('foo');

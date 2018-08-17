@@ -17,7 +17,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ChangeTest extends \PapayaTestCase {
+class ChangeTest extends \Papaya\TestCase {
 
   /**
    * @covers Change::createDialog

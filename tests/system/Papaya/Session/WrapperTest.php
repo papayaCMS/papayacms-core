@@ -20,7 +20,7 @@ namespace Papaya\Session {
   /**
    * @runTestsInSeparateProcesses
    */
-  class WrapperTest extends \PapayaTestCase {
+  class WrapperTest extends \Papaya\TestCase {
 
     public function setUp() {
       ini_set('session.use_cookies', FALSE);

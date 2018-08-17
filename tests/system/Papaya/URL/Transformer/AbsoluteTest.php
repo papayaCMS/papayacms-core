@@ -17,7 +17,7 @@
 namespace Papaya\URL\Transformer;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class AbsoluteTest extends \PapayaTestCase {
+class AbsoluteTest extends \Papaya\TestCase {
 
   /**
    * get mock for \Papaya\PapayaUrl from url string

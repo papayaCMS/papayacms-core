@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class ElementTest extends \PapayaTestCase {
+  class ElementTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Element::collect

@@ -17,7 +17,7 @@ namespace Papaya\Utility\Text;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class XMLTest extends \PapayaTestCase {
+class XMLTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Text\XML::escape

@@ -15,7 +15,7 @@
 
 namespace Papaya\Message\Context\Variable\Visitor {
 
-  class TextTest extends \PapayaTestCase {
+  class TextTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Context\Variable\Visitor\Text::get

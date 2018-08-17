@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CastTest extends \PapayaTestCase {
+class CastTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Cast::__construct

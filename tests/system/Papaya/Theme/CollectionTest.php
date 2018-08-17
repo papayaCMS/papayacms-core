@@ -16,7 +16,7 @@
 namespace Papaya\Theme;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CollectionTest extends \PapayaTestCase {
+class CollectionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Collection::getIterator

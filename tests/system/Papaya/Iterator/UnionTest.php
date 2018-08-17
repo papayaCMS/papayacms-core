@@ -16,7 +16,7 @@
 namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class UnionTest extends \PapayaTestCase {
+class UnionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Union::__construct

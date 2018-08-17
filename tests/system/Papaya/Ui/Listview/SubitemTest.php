@@ -17,7 +17,7 @@ namespace Papaya\UI\Listview {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class SubitemTest extends \PapayaTestCase {
+  class SubitemTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Listview\Subitem::getAlign

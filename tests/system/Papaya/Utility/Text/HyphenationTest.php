@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HyphenationTest extends \PapayaTestCase {
+class HyphenationTest extends \Papaya\TestCase {
 
   /**
    * @covers       \Papaya\Utility\Text\Hyphenation::german

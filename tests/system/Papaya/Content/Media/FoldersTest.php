@@ -17,7 +17,7 @@ namespace Papaya\Content\Media;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FoldersTest extends \PapayaTestCase {
+class FoldersTest extends \Papaya\TestCase {
 
   /**
    * @covers Folders::_createMapping

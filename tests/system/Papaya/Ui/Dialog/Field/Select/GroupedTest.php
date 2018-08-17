@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class GroupedTest extends \PapayaTestCase {
+class GroupedTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select\Grouped::setValues

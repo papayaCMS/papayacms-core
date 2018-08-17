@@ -17,7 +17,7 @@ namespace Papaya\UI\Control\Collection {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ItemTest extends \PapayaTestCase {
+  class ItemTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Control\Collection\Item::hasCollection

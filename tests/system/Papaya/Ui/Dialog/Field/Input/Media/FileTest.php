@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input\Media;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class FileTest extends \PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Media\File::__construct

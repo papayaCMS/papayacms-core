@@ -17,7 +17,7 @@ namespace Papaya\BaseObject\Options {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class DefinedTest extends \PapayaTestCase {
+  class DefinedTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\BaseObject\Options\Defined::toArray
