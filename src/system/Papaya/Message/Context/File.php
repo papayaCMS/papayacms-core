@@ -26,7 +26,7 @@ class File
   implements
   \Papaya\Message\Context\Interfaces\Items,
   \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\Xhtml {
+  \Papaya\Message\Context\Interfaces\XHTML {
 
   protected $_fileName = '';
   protected $_line = 0;

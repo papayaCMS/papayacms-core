@@ -85,7 +85,7 @@ class Database
     $url = new \Papaya\URL\Current();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
-    if ($message->context() instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
+    if ($message->context() instanceof \Papaya\Message\Context\Interfaces\XHTML) {
       $details .= $message->context()->asXhtml();
     }
     $cookies = ($message instanceof \Papaya\Message\PHP\Error && !empty($_SERVER['HTTP_COOKIE']))

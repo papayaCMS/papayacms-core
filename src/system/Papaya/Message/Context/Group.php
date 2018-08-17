@@ -26,7 +26,7 @@ namespace Papaya\Message\Context;
 class Group
   implements
   Interfaces\Text,
-  Interfaces\Xhtml,
+  Interfaces\XHTML,
   \Iterator,
   \Countable {
 
@@ -61,7 +61,7 @@ class Group
       }
       if ($element instanceof Interfaces\Text) {
         $result .= "\n\n".$element->asString();
-      } elseif ($element instanceof Interfaces\Xhtml) {
+      } elseif ($element instanceof Interfaces\XHTML) {
         $result .= "\n\n".\Papaya\Utility\Text\HTML::stripTags($element->asXhtml());
       }
     }
@@ -78,7 +78,7 @@ class Group
       if ($element instanceof Interfaces\Labeled) {
         $result .= '<h3>'.\Papaya\Utility\Text\XML::escape($element->getLabel()).'</h3>';
       }
-      if ($element instanceof Interfaces\Xhtml) {
+      if ($element instanceof Interfaces\XHTML) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof Interfaces\Text) {
         $result .= str_replace(

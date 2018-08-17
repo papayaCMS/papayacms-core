@@ -160,7 +160,7 @@ class GroupTest extends \Papaya\TestCase {
       ->willReturn(/** @lang Text */
         'Hello <World>');
     /** @var \PHPUnit_Framework_MockObject_MockObject|Data $elementXhtml */
-    $elementXhtml = $this->createMock(Interfaces\Xhtml::class);
+    $elementXhtml = $this->createMock(Interfaces\XHTML::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')

@@ -22,7 +22,7 @@ namespace Papaya\Message\Context\Interfaces;
  * @package Papaya-Library
  * @subpackage Messages
  */
-interface Xhtml
+interface XHTML
   extends \Papaya\Message\Context\Data {
 
   /**

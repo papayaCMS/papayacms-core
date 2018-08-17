@@ -23,7 +23,7 @@ namespace Papaya\Message\Context;
 class Items
   implements
   \Papaya\Message\Context\Interfaces\Items,
-  \Papaya\Message\Context\Interfaces\Xhtml,
+  \Papaya\Message\Context\Interfaces\XHTML,
   \Papaya\Message\Context\Interfaces\Text {
 
   /**

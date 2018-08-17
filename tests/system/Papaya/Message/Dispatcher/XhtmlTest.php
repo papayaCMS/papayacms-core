@@ -34,7 +34,7 @@ class XhtmlTest extends \Papaya\TestCase {
    * @covers \Papaya\Message\Dispatcher\XHTML::dispatch
    */
   public function testDispatch() {
-    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Xhtml::class);
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\XHTML::class);
     $context
       ->expects($this->any())
       ->method('asXhtml')

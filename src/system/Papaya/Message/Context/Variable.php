@@ -25,7 +25,7 @@ namespace Papaya\Message\Context;
 class Variable
   implements
   Interfaces\Text,
-  Interfaces\Xhtml {
+  Interfaces\XHTML {
 
   /**
    * The depth defines the recursion depth for the variable output

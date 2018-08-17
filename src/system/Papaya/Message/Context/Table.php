@@ -24,7 +24,7 @@ class Table
   implements
   \Papaya\Message\Context\Interfaces\Table,
   \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\Xhtml {
+  \Papaya\Message\Context\Interfaces\XHTML {
 
   /**
    * Field/column identifiers
