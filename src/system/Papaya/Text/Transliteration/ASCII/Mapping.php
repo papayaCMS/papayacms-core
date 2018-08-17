@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Text\Transliteration\Ascii;
+namespace Papaya\Text\Transliteration\ASCII;
 /**
  * Map unicode codepoints to ascii characters.
  *
