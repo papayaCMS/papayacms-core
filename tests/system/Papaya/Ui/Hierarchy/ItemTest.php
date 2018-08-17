@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Hierarchy;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiHierarchyItemTest extends \PapayaTestCase {
+class ItemTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::__construct
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::__construct
+   */
   public function testConstructor() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $this->assertEquals('sample', $item->caption);
   }
 
@@ -29,7 +30,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Hierarchy\Item::appendTo
    */
   public function testAppendTo() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $item->image = 'items-page';
     $item->papaya(
       $this->mockPapaya()->application(
@@ -41,7 +42,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
       )
     );
     $this->assertAppendedXmlEqualsXmlFragment(
-      /** @lang XML */
+    /** @lang XML */
       '<item caption="sample" image="page.png" mode="both"/>',
       $item
     );
@@ -51,7 +52,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Hierarchy\Item::appendTo
    */
   public function testAppendToWithHint() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $item->image = 'items-page';
     $item->hint = 'Quick Info';
     $item->papaya(
@@ -64,15 +65,15 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
       )
     );
     $this->assertAppendedXmlEqualsXmlFragment(
-      /** @lang XML */
+    /** @lang XML */
       '<item caption="sample" hint="Quick Info" image="page.png" mode="both"/>',
       $item
     );
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::appendTo
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::appendTo
+   */
   public function testAppendToWithReference() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
     $reference
@@ -80,7 +81,7 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
       ->method('getRelative')
       ->will($this->returnValue('link.html'));
 
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $item->image = 'items-page';
     $item->reference($reference);
     $item->papaya(
@@ -93,17 +94,17 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
       )
     );
     $this->assertAppendedXmlEqualsXmlFragment(
-      /** @lang XML */
+    /** @lang XML */
       '<item caption="sample" image="page.png" mode="both" href="link.html"/>',
       $item
     );
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::reference
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::reference
+   */
   public function testItemsGetAfterSet() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $reference = $this->createMock(\Papaya\UI\Reference::class);
     $this->assertSame(
       $reference, $item->reference($reference)
@@ -111,10 +112,10 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::reference
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::reference
+   */
   public function testItemsGetWithImplicitCreate() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       \Papaya\UI\Reference::class, $item->reference()
@@ -125,21 +126,21 @@ class PapayaUiHierarchyItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::setDisplayMode
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::setDisplayMode
+   */
   public function testSetDisplayMode() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
-    $item->displayMode = \Papaya\UI\Hierarchy\Item::DISPLAY_TEXT_ONLY;
+    $item = new Item('sample');
+    $item->displayMode = Item::DISPLAY_TEXT_ONLY;
     $this->assertEquals(
-      \Papaya\UI\Hierarchy\Item::DISPLAY_TEXT_ONLY, $item->displayMode
+      Item::DISPLAY_TEXT_ONLY, $item->displayMode
     );
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Item::setDisplayMode
-  */
+   * @covers \Papaya\UI\Hierarchy\Item::setDisplayMode
+   */
   public function testSetDisplayModeExpectingException() {
-    $item = new \Papaya\UI\Hierarchy\Item('sample');
+    $item = new Item('sample');
     try {
       $item->displayMode = -99;
     } catch (\OutOfBoundsException $e) {

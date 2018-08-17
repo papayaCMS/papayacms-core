@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Hierarchy;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiHierarchyMenuTest extends \PapayaTestCase {
+class MenuTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Menu::appendTo
-  */
+   * @covers \Papaya\UI\Hierarchy\Menu::appendTo
+   */
   public function testAppendTo() {
-    $items = $this->createMock(\Papaya\UI\Hierarchy\Items::class);
+    $items = $this->createMock(Items::class);
     $items
       ->expects($this->once())
       ->method('count')
@@ -31,24 +32,25 @@ class PapayaUiHierarchyMenuTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
-    $menu = new \Papaya\UI\Hierarchy\Menu();
+    $menu = new Menu();
     $menu->items($items);
 
     $this->assertAppendedXmlEqualsXmlFragment(
-    /** @lang XML */'<hierarchy-menu/>', $menu
+    /** @lang XML */
+      '<hierarchy-menu/>', $menu
     );
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Menu::appendTo
-  */
+   * @covers \Papaya\UI\Hierarchy\Menu::appendTo
+   */
   public function testAppendToWithoutItemsExpectingEmptyString() {
-    $items = $this->createMock(\Papaya\UI\Hierarchy\Items::class);
+    $items = $this->createMock(Items::class);
     $items
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(0));
-    $menu = new \Papaya\UI\Hierarchy\Menu();
+    $menu = new Menu();
     $menu->items($items);
 
     $this->assertAppendedXmlEqualsXmlFragment(
@@ -57,24 +59,24 @@ class PapayaUiHierarchyMenuTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Menu::items
-  */
+   * @covers \Papaya\UI\Hierarchy\Menu::items
+   */
   public function testItemsGetAfterSet() {
-    $menu = new \Papaya\UI\Hierarchy\Menu();
-    $items = $this->createMock(\Papaya\UI\Hierarchy\Items::class);
+    $menu = new Menu();
+    $items = $this->createMock(Items::class);
     $this->assertSame(
       $items, $menu->items($items)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Hierarchy\Menu::items
-  */
+   * @covers \Papaya\UI\Hierarchy\Menu::items
+   */
   public function testItemsGetWithImpliciteCreate() {
-    $menu = new \Papaya\UI\Hierarchy\Menu();
+    $menu = new Menu();
     $menu->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \Papaya\UI\Hierarchy\Items::class, $menu->items()
+      Items::class, $menu->items()
     );
     $this->assertSame(
       $papaya, $menu->papaya()
