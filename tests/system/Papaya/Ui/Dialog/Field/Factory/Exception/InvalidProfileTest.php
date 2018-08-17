@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Exception;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryExceptionInvalidProfileTest extends \PapayaTestCase {
+class InvalidProfileTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Exception\InvalidProfile::__construct
    */
   public function testConstructor() {
-    $exception = new \Papaya\UI\Dialog\Field\Factory\Exception\InvalidProfile('SampleProfileName');
+    $exception = new InvalidProfile('SampleProfileName');
     $this->assertEquals(
       'Invalid field factory profile name "SampleProfileName".',
       $exception->getMessage()

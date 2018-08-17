@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Exception;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryExceptionInvalidOptionTest extends \PapayaTestCase {
+class InvalidOptionTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption::__construct
    */
   public function testConstructor() {
-    $exception = new \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption('OptionName');
+    $exception = new InvalidOption('OptionName');
     $this->assertEquals(
       'Invalid field factory option name "OptionName".',
       $exception->getMessage()
