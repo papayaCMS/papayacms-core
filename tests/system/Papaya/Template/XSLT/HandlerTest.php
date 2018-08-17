@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Template\Xslt;
+namespace Papaya\Template\XSLT;
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class HandlerTest extends \Papaya\TestCase {
