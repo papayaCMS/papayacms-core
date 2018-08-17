@@ -13,164 +13,167 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Dialog {
 
-class PapayaUiDialogElementTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Dialog\Element::collect
-  */
-  public function testCollectWithDialog() {
-    $dialog = $this->getDialogMock();
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $element->collection($this->getCollectionMock($dialog));
-    $this->assertTrue($element->collect());
-  }
+  class ElementTest extends \PapayaTestCase {
 
-  /**
-  * @covers \Papaya\UI\Dialog\Element::collect
-  */
-  public function testCollectWithoutDialog() {
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $element->collection($this->getCollectionMock());
-    $this->assertFalse($element->collect());
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Element::_getParameterName
-   * @dataProvider provideKeysForGetParameterName
-   * @param string $expected
-   * @param string|array $keys
-   */
-  public function testGetParameterName($expected, $keys) {
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $request = $this->mockPapaya()->request();
-    $application = $this->mockPapaya()->application(array('request' => $request));
-    $element->papaya($application);
-    $element->collection($this->getCollectionMock());
-    $this->assertEquals(
-      $expected, $element->_getParameterName($keys)
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::_getParameterName
-  */
-  public function testGetParameterNameWithDialog() {
-    $dialog = $this->getDialogMock();
-    $dialog
-      ->expects($this->once())
-      ->method('parameterGroup')
-      ->will($this->returnValue('group'));
-    $dialog
-      ->expects($this->once())
-      ->method('getParameterName')
-      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('param')));
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $request = $this->mockPapaya()->request();
-    $application = $this->mockPapaya()->application(array('request' => $request));
-    $element->papaya($application);
-    $element->collection($this->getCollectionMock($dialog));
-    $this->assertEquals(
-      'group[param]', $element->_getParameterName('param')
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::hasDialog
-  */
-  public function testHasDialogExpectingTrue() {
-    $dialog = $this->getDialogMock();
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $element->collection($this->getCollectionMock($dialog));
-    $this->assertTrue($element->hasDialog());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::hasDialog
-  */
-  public function testHasDialogWithoutAttachedCollectionExpectingFalse() {
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $this->assertFalse($element->hasDialog());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::hasDialog
-  */
-  public function testHasDialogWithoutAttachedDialogExpectingFalse() {
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $element->collection($this->getCollectionMock());
-    $this->assertFalse($element->hasDialog());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::getDialog
-  */
-  public function testGetDialog() {
-    $dialog = $this->getDialogMock();
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $element->collection($this->getCollectionMock($dialog));
-    $this->assertSame($dialog, $element->getDialog());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Element::getDialog
-  */
-  public function testGetDialogExpectingNull() {
-    $element = new \PapayaUiDialogElement_TestProxy();
-    $this->assertNull($element->getDialog());
-  }
-
-  /*****************************
-  * Data Provider
-  *****************************/
-
-  public static function provideKeysForGetParameterName() {
-    return array(
-      array('test', 'test'),
-      array('group[test]', array('group', 'test')),
-      array('group[subgroup][test]', array('group', 'subgroup', 'test'))
-    );
-  }
-
-  /*****************************
-  * Mocks
-  *****************************/
-
-  private function getDialogMock() {
-    return $this
-      ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new \stdClass()))
-      ->getMock();
-  }
-
-  public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(\Papaya\UI\Dialog\Elements::class);
-    if ($owner) {
-      $collection
-        ->expects($this->any())
-        ->method('hasOwner')
-        ->will($this->returnValue(TRUE));
-      $collection
-        ->expects($this->any())
-        ->method('owner')
-        ->will($this->returnValue($owner));
-    } else {
-      $collection
-        ->expects($this->any())
-        ->method('hasOwner')
-        ->will($this->returnValue(FALSE));
+    /**
+     * @covers \Papaya\UI\Dialog\Element::collect
+     */
+    public function testCollectWithDialog() {
+      $dialog = $this->getDialogMock();
+      $element = new Element_TestProxy();
+      $element->collection($this->getCollectionMock($dialog));
+      $this->assertTrue($element->collect());
     }
-    return $collection;
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::collect
+     */
+    public function testCollectWithoutDialog() {
+      $element = new Element_TestProxy();
+      $element->collection($this->getCollectionMock());
+      $this->assertFalse($element->collect());
+    }
+
+    /**
+     * @covers       \Papaya\UI\Dialog\Element::_getParameterName
+     * @dataProvider provideKeysForGetParameterName
+     * @param string $expected
+     * @param string|array $keys
+     */
+    public function testGetParameterName($expected, $keys) {
+      $element = new Element_TestProxy();
+      $request = $this->mockPapaya()->request();
+      $application = $this->mockPapaya()->application(array('request' => $request));
+      $element->papaya($application);
+      $element->collection($this->getCollectionMock());
+      $this->assertEquals(
+        $expected, $element->_getParameterName($keys)
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::_getParameterName
+     */
+    public function testGetParameterNameWithDialog() {
+      $dialog = $this->getDialogMock();
+      $dialog
+        ->expects($this->once())
+        ->method('parameterGroup')
+        ->will($this->returnValue('group'));
+      $dialog
+        ->expects($this->once())
+        ->method('getParameterName')
+        ->will($this->returnValue(new \Papaya\Request\Parameters\Name('param')));
+      $element = new Element_TestProxy();
+      $request = $this->mockPapaya()->request();
+      $application = $this->mockPapaya()->application(array('request' => $request));
+      $element->papaya($application);
+      $element->collection($this->getCollectionMock($dialog));
+      $this->assertEquals(
+        'group[param]', $element->_getParameterName('param')
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::hasDialog
+     */
+    public function testHasDialogExpectingTrue() {
+      $dialog = $this->getDialogMock();
+      $element = new Element_TestProxy();
+      $element->collection($this->getCollectionMock($dialog));
+      $this->assertTrue($element->hasDialog());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::hasDialog
+     */
+    public function testHasDialogWithoutAttachedCollectionExpectingFalse() {
+      $element = new Element_TestProxy();
+      $this->assertFalse($element->hasDialog());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::hasDialog
+     */
+    public function testHasDialogWithoutAttachedDialogExpectingFalse() {
+      $element = new Element_TestProxy();
+      $element->collection($this->getCollectionMock());
+      $this->assertFalse($element->hasDialog());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::getDialog
+     */
+    public function testGetDialog() {
+      $dialog = $this->getDialogMock();
+      $element = new Element_TestProxy();
+      $element->collection($this->getCollectionMock($dialog));
+      $this->assertSame($dialog, $element->getDialog());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Element::getDialog
+     */
+    public function testGetDialogExpectingNull() {
+      $element = new Element_TestProxy();
+      $this->assertNull($element->getDialog());
+    }
+
+    /*****************************
+     * Data Provider
+     *****************************/
+
+    public static function provideKeysForGetParameterName() {
+      return array(
+        array('test', 'test'),
+        array('group[test]', array('group', 'test')),
+        array('group[subgroup][test]', array('group', 'subgroup', 'test'))
+      );
+    }
+
+    /*****************************
+     * Mocks
+     *****************************/
+
+    private function getDialogMock() {
+      return $this
+        ->getMockBuilder(\Papaya\UI\Dialog::class)
+        ->setConstructorArgs(array(new \stdClass()))
+        ->getMock();
+    }
+
+    public function getCollectionMock($owner = NULL) {
+      $collection = $this->createMock(Elements::class);
+      if ($owner) {
+        $collection
+          ->expects($this->any())
+          ->method('hasOwner')
+          ->will($this->returnValue(TRUE));
+        $collection
+          ->expects($this->any())
+          ->method('owner')
+          ->will($this->returnValue($owner));
+      } else {
+        $collection
+          ->expects($this->any())
+          ->method('hasOwner')
+          ->will($this->returnValue(FALSE));
+      }
+      return $collection;
+    }
   }
-}
 
-class PapayaUiDialogElement_TestProxy extends \Papaya\UI\Dialog\Element {
+  class Element_TestProxy extends Element {
 
-  public function appendTo(\Papaya\XML\Element $parent) {
-  }
+    public function appendTo(\Papaya\XML\Element $parent) {
+    }
 
-  public function _getParameterName($key, $withGroup = TRUE) {
-    return parent::_getParameterName($key, $withGroup);
+    public function _getParameterName($key, $withGroup = TRUE) {
+      return parent::_getParameterName($key, $withGroup);
+    }
   }
 }

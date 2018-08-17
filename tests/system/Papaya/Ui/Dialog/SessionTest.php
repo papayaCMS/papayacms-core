@@ -13,98 +13,101 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Dialog {
 
-class PapayaUiDialogSessionTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Dialog\Session::__construct
-  */
-  public function testConstructor() {
-    $dialog = new \Papaya\UI\Dialog\Session();
-    $this->assertAttributeSame(
-      $dialog, '_sessionIdentifier', $dialog
-    );
+  class SessionTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Dialog\Session::__construct
+     */
+    public function testConstructor() {
+      $dialog = new Session();
+      $this->assertAttributeSame(
+        $dialog, '_sessionIdentifier', $dialog
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Session::__construct
+     */
+    public function testConstructorWithSessionIdentifier() {
+      $dialog = new Session('sample_name');
+      $this->assertAttributeSame(
+        'sample_name', '_sessionIdentifier', $dialog
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Session::execute
+     */
+    public function testExecuteSetSessionVariableExpectingTrue() {
+      $session = $this->createMock(\Papaya\Session::class);
+      $session
+        ->expects($this->once())
+        ->method('getValue')
+        ->with('session_identifier')
+        ->will($this->returnValue(array('session' => 'value')));
+      $session
+        ->expects($this->once())
+        ->method('setValue')
+        ->with('session_identifier', array('session' => 'value'));
+
+      $dialog = new Session_TestProxy('session_identifier');
+      $dialog->papaya(
+        $this->mockPapaya()->application(
+          array('session' => $session)
+        )
+      );
+      $this->assertTrue($dialog->execute());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Session::execute
+     */
+    public function testExecuteSetSessionVariableExpectingFalseWithoutData() {
+      $session = $this->createMock(\Papaya\Session::class);
+      $session
+        ->expects($this->once())
+        ->method('getValue')
+        ->with('session_identifier')
+        ->will($this->returnValue(FALSE));
+      $session
+        ->expects($this->never())
+        ->method('setValue');
+
+      $dialog = new Session_TestProxy('session_identifier');
+      $dialog->_isSubmittedResult = FALSE;
+      $dialog->papaya(
+        $this->mockPapaya()->application(
+          array('session' => $session)
+        )
+      );
+      $this->assertFalse($dialog->execute());
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Session::reset
+     */
+    public function testReset() {
+      $session = $this->createMock(\Papaya\Session::class);
+      $session
+        ->expects($this->once())
+        ->method('setValue')
+        ->with('session_identifier', NULL);
+
+      $dialog = new Session('session_identifier');
+      $dialog->papaya(
+        $this->mockPapaya()->application(
+          array('session' => $session)
+        )
+      );
+      $dialog->reset();
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Dialog\Session::__construct
-  */
-  public function testConstructorWithSessionIdentifier() {
-    $dialog = new \Papaya\UI\Dialog\Session('sample_name');
-    $this->assertAttributeSame(
-      'sample_name', '_sessionIdentifier', $dialog
-    );
+  class Session_TestProxy extends Session {
+    public $_isSubmittedResult = TRUE;
   }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Session::execute
-  */
-  public function testExecuteSetSessionVariableExpectingTrue() {
-    $session = $this->createMock(\Papaya\Session::class);
-    $session
-      ->expects($this->once())
-      ->method('getValue')
-      ->with('session_identifier')
-      ->will($this->returnValue(array('session' => 'value')));
-    $session
-      ->expects($this->once())
-      ->method('setValue')
-      ->with('session_identifier', array('session' => 'value'));
-
-    $dialog = new \PapayaUiDialogSession_TestProxy('session_identifier');
-    $dialog->papaya(
-      $this->mockPapaya()->application(
-        array('session' => $session)
-      )
-    );
-    $this->assertTrue($dialog->execute());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Session::execute
-  */
-  public function testExecuteSetSessionVariableExpectingFalseWithoutData() {
-    $session = $this->createMock(\Papaya\Session::class);
-    $session
-      ->expects($this->once())
-      ->method('getValue')
-      ->with('session_identifier')
-      ->will($this->returnValue(FALSE));
-    $session
-      ->expects($this->never())
-      ->method('setValue');
-
-    $dialog = new \PapayaUiDialogSession_TestProxy('session_identifier');
-    $dialog->_isSubmittedResult = FALSE;
-    $dialog->papaya(
-      $this->mockPapaya()->application(
-        array('session' => $session)
-      )
-    );
-    $this->assertFalse($dialog->execute());
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Session::reset
-  */
-  public function testReset() {
-    $session = $this->createMock(\Papaya\Session::class);
-    $session
-      ->expects($this->once())
-      ->method('setValue')
-      ->with('session_identifier', NULL);
-
-    $dialog = new \Papaya\UI\Dialog\Session('session_identifier');
-    $dialog->papaya(
-      $this->mockPapaya()->application(
-        array('session' => $session)
-      )
-    );
-    $dialog->reset();
-  }
-}
-
-class PapayaUiDialogSession_TestProxy extends \Papaya\UI\Dialog\Session {
-  public $_isSubmittedResult = TRUE;
 }

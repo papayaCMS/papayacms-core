@@ -13,72 +13,73 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Record;
+namespace Papaya\UI\Dialog {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
+  class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
 
-  /**
-  * @covers \Papaya\UI\Dialog\Database::__construct
-  * @covers \Papaya\UI\Dialog\Database::record
-  */
-  public function testConstructorAndRecord() {
-    $record = $this->getRecordFixture(array('foo' => 'bar'));
-    $dialog = new \PapayaUiDialogDatabase_TestProxy($record);
-    $this->assertSame(
-      $record, $dialog->record()
-    );
-    $this->assertEquals(
-      array('foo' => 'bar'), $dialog->data()->toArray()
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Database::callbacks
-  */
-  public function testCallbacksGetAfterSet() {
-    $callbacks = $this
-      ->getMockBuilder(\Papaya\UI\Dialog\Database\Callbacks::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
-    $this->assertSame(
-      $callbacks, $dialog->callbacks($callbacks)
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Database::callbacks
-  */
-  public function testCallbacksGetImpliciteCreate() {
-    $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
-    $callbacks = $dialog->callbacks();
-    $this->assertInstanceOf(
-      \Papaya\BaseObject\Callbacks::class, $callbacks
-    );
-  }
-
-  /**************************
-  * Fixtures
-  **************************/
-
-  /**
-   * @param array $data
-   * @return \PHPUnit_Framework_MockObject_MockObject|Record
-   */
-  public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(Record::class);
-    $record
-      ->expects($this->once())
-      ->method('toArray')
-      ->will(
-        $this->returnValue($data)
+    /**
+     * @covers \Papaya\UI\Dialog\Database::__construct
+     * @covers \Papaya\UI\Dialog\Database::record
+     */
+    public function testConstructorAndRecord() {
+      $record = $this->getRecordFixture(array('foo' => 'bar'));
+      $dialog = new Database_TestProxy($record);
+      $this->assertSame(
+        $record, $dialog->record()
       );
-    return $record;
+      $this->assertEquals(
+        array('foo' => 'bar'), $dialog->data()->toArray()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Database::callbacks
+     */
+    public function testCallbacksGetAfterSet() {
+      $callbacks = $this
+        ->getMockBuilder(Database\Callbacks::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $dialog = new Database_TestProxy($this->getRecordFixture());
+      $this->assertSame(
+        $callbacks, $dialog->callbacks($callbacks)
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Database::callbacks
+     */
+    public function testCallbacksGetImplicitCreate() {
+      $dialog = new Database_TestProxy($this->getRecordFixture());
+      $callbacks = $dialog->callbacks();
+      $this->assertInstanceOf(
+        \Papaya\BaseObject\Callbacks::class, $callbacks
+      );
+    }
+
+    /**************************
+     * Fixtures
+     **************************/
+
+    /**
+     * @param array $data
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record
+     */
+    public function getRecordFixture(array $data = array()) {
+      $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+      $record
+        ->expects($this->once())
+        ->method('toArray')
+        ->will(
+          $this->returnValue($data)
+        );
+      return $record;
+    }
   }
-}
 
-class PapayaUiDialogDatabase_TestProxy extends \Papaya\UI\Dialog\Database {
+  class Database_TestProxy extends Database {
 
+  }
 }

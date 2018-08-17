@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogOptionsTest extends \PapayaTestCase {
+class OptionsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Options::appendTo
-  * @covers \Papaya\UI\Dialog\Options::_valueToString
-  */
+   * @covers \Papaya\UI\Dialog\Options::appendTo
+   * @covers \Papaya\UI\Dialog\Options::_valueToString
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('sample'));
     $options = new \Papaya\UI\Dialog\Options();
     $options->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<options>
         <option name="USE_CONFIRMATION" value="yes"/>
         <option name="USE_TOKEN" value="yes"/>

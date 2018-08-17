@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogFieldsTest extends \PapayaTestCase {
+class FieldsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Fields::validate
-  */
+   * @covers \Papaya\UI\Dialog\Fields::validate
+   */
   public function testValidateExpectingTrue() {
     $fieldOne = $this->getMockField();
     $fieldOne
@@ -31,15 +32,15 @@ class PapayaUiDialogFieldsTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('validate')
       ->will($this->returnValue(TRUE));
-    $fields = new \Papaya\UI\Dialog\Fields();
+    $fields = new Fields();
     $fields->add($fieldOne);
     $fields->add($fieldTwo);
     $this->assertTrue($fields->validate());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Fields::validate
-  */
+   * @covers \Papaya\UI\Dialog\Fields::validate
+   */
   public function testValidateExpectingFalse() {
     $fieldOne = $this->getMockField();
     $fieldOne
@@ -51,16 +52,16 @@ class PapayaUiDialogFieldsTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('validate')
       ->will($this->returnValue(TRUE));
-    $fields = new \Papaya\UI\Dialog\Fields();
+    $fields = new Fields();
     $fields->add($fieldOne);
     $fields->add($fieldTwo);
     $this->assertFalse($fields->validate());
   }
 
   /**
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field
+   * @return \PHPUnit_Framework_MockObject_MockObject|Field
    */
   private function getMockField() {
-    return $this->createMock(\Papaya\UI\Dialog\Field::class);
+    return $this->createMock(Field::class);
   }
 }

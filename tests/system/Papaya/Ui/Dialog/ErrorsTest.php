@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogErrorsTest extends \PapayaTestCase {
+class ErrorsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::getIterator
-  */
+   * @covers \Papaya\UI\Dialog\Errors::getIterator
+   */
   public function testIterator() {
-    $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add(new Exception(), new \stdClass());
-    $errors->add(new Exception(), new \stdClass());
+    $errors = new Errors();
+    $errors->add(new \Exception(), new \stdClass());
+    $errors->add(new \Exception(), new \stdClass());
     $result = array();
     foreach ($errors as $index => $error) {
       $result[$index] = get_class($error['exception']).','.get_class($error['source']);
@@ -35,20 +37,20 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::count
-  */
+   * @covers \Papaya\UI\Dialog\Errors::count
+   */
   public function testCountable() {
-    $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add(new Exception(), new \stdClass());
+    $errors = new Errors();
+    $errors->add(new \Exception(), new \stdClass());
     $this->assertCount(1, $errors);
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::add
-  */
+   * @covers \Papaya\UI\Dialog\Errors::add
+   */
   public function testAddWithoutSource() {
-    $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add($e = new Exception());
+    $errors = new Errors();
+    $errors->add($e = new \Exception());
     $this->assertAttributeEquals(
       array(
         array(
@@ -62,11 +64,11 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::add
-  */
+   * @covers \Papaya\UI\Dialog\Errors::add
+   */
   public function testAddWithSource() {
-    $errors = new \Papaya\UI\Dialog\Errors();
-    $errors->add($e = new Exception(), $source = new \stdClass());
+    $errors = new Errors();
+    $errors->add($e = new \Exception(), $source = new \stdClass());
     $this->assertAttributeEquals(
       array(
         array(
@@ -80,10 +82,10 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::clear
-  */
+   * @covers \Papaya\UI\Dialog\Errors::clear
+   */
   public function testClear() {
-    $errors = new \Papaya\UI\Dialog\Errors();
+    $errors = new Errors();
     $errors->clear();
     $this->assertAttributeEquals(
       array(),
@@ -93,23 +95,23 @@ class PapayaUiDialogErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Errors::getSourceCaptions
-  */
+   * @covers \Papaya\UI\Dialog\Errors::getSourceCaptions
+   */
   public function testGetSourceCaptions() {
-    $errors = new \Papaya\UI\Dialog\Errors();
-    $fieldOne = $this->createMock(\Papaya\UI\Dialog\Field::class);
+    $errors = new Errors();
+    $fieldOne = $this->createMock(Field::class);
     $fieldOne
       ->expects($this->once())
       ->method('getCaption')
       ->will($this->returnValue('FieldOne'));
-    $fieldTwo = $this->createMock(\Papaya\UI\Dialog\Field::class);
+    $fieldTwo = $this->createMock(Field::class);
     $fieldTwo
       ->expects($this->once())
       ->method('getCaption')
       ->will($this->returnValue('FieldTwo'));
-    $errors->add(new Exception(), $fieldOne);
-    $errors->add(new Exception()); // invalid (empty) source, without caption
-    $errors->add(new Exception(), $fieldTwo);
+    $errors->add(new \Exception(), $fieldOne);
+    $errors->add(new \Exception()); // invalid (empty) source, without caption
+    $errors->add(new \Exception(), $fieldTwo);
     $this->assertEquals(
       array('FieldOne', 'FieldTwo'), $errors->getSourceCaptions()
     );

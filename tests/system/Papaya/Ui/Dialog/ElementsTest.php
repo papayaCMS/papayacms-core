@@ -13,55 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Dialog {
 
-class PapayaUiDialogElementsTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Dialog\Elements::__construct
-  */
-  public function testConstructorWithOwner() {
-    $dialog = $this
-      ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new \stdClass()))
-      ->getMock();
-    $elements = new \PapayaUiDialogElements_TestProxy($dialog);
-    $this->assertSame(
-      $dialog, $elements->owner()
-    );
+  class PapayaUiDialogElementsTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Dialog\Elements::__construct
+     */
+    public function testConstructorWithOwner() {
+      $dialog = $this
+        ->getMockBuilder(\Papaya\UI\Dialog::class)
+        ->setConstructorArgs(array(new \stdClass()))
+        ->getMock();
+      $elements = new Elements_TestProxy($dialog);
+      $this->assertSame(
+        $dialog, $elements->owner()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Elements::appendTo
+     */
+    public function testAppendTo() {
+      $document = new \Papaya\XML\Document();
+      $node = $document->createElement('dummy');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Element $element */
+      $element = $this->createMock(Element::class);
+      $element
+        ->expects($this->once())
+        ->method('appendTo')
+        ->with($this->isInstanceOf(\Papaya\XML\Element::class));
+      $elements = new Elements_TestProxy();
+      $elements->add($element);
+      $elements->appendTo($node);
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Elements::collect
+     */
+    public function testCollect() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Element $element */
+      $element = $this->createMock(Element::class);
+      $element
+        ->expects($this->once())
+        ->method('collect');
+      $elements = new Elements_TestProxy();
+      $elements->add($element);
+      $elements->collect();
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Dialog\Elements::appendTo
-  */
-  public function testAppendTo() {
-    $document = new \Papaya\XML\Document();
-    $node = $document->createElement('dummy');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Element $element */
-    $element = $this->createMock(\Papaya\UI\Dialog\Element::class);
-    $element
-      ->expects($this->once())
-      ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
-    $elements = new \PapayaUiDialogElements_TestProxy();
-    $elements->add($element);
-    $elements->appendTo($node);
+  class Elements_TestProxy extends Elements {
   }
-
-  /**
-  * @covers \Papaya\UI\Dialog\Elements::collect
-  */
-  public function testCollect() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Element $element */
-    $element = $this->createMock(\Papaya\UI\Dialog\Element::class);
-    $element
-      ->expects($this->once())
-      ->method('collect');
-    $elements = new \PapayaUiDialogElements_TestProxy();
-    $elements->add($element);
-    $elements->collect();
-  }
-}
-
-class PapayaUiDialogElements_TestProxy extends \Papaya\UI\Dialog\Elements {
 }

@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogButtonsTest extends \PapayaTestCase {
+class ButtonsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Buttons::add
-  */
+   * @covers \Papaya\UI\Dialog\Buttons::add
+   */
   public function testAdd() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Button $button */
-    $button = $this->createMock(\Papaya\UI\Dialog\Button::class);
-    $buttons = new \Papaya\UI\Dialog\Buttons();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Button $button */
+    $button = $this->createMock(Button::class);
+    $buttons = new Buttons();
     $buttons->add($button);
     $this->assertAttributeEquals(
       array($button), '_items', $buttons
