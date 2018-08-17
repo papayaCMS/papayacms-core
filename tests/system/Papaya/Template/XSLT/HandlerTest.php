@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class HandlerTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Template\Xslt\Handler::getLocalPath
+   * @covers \Papaya\Template\XSLT\Handler::getLocalPath
    */
   public function testGetLocalPath() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -48,7 +48,7 @@ class HandlerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt\Handler::getTemplate
+   * @covers \Papaya\Template\XSLT\Handler::getTemplate
    */
   public function testGetTemplateInPublicMode() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -76,7 +76,7 @@ class HandlerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt\Handler::getTemplate
+   * @covers \Papaya\Template\XSLT\Handler::getTemplate
    */
   public function testGetTemplateInPreviewMode() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -117,7 +117,7 @@ class HandlerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt\Handler::setTemplatePreview
+   * @covers \Papaya\Template\XSLT\Handler::setTemplatePreview
    */
   public function testSetTemplatePreview() {
     $session = $this->createMock(\Papaya\Session::class);
@@ -139,7 +139,7 @@ class HandlerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt\Handler::removeTemplatePreview
+   * @covers \Papaya\Template\XSLT\Handler::removeTemplatePreview
    */
   public function testRemoveTemplatePreview() {
     $session = $this->createMock(\Papaya\Session::class);

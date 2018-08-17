@@ -132,7 +132,7 @@ class Test extends \Papaya\TestCase {
       'page_one' => array(
         'group_one' => array(
           'value_one' => /** @lang XML */
-            '<b>Xhtml</b>'
+            '<b>XHTML</b>'
         )
       )
     );
@@ -142,7 +142,7 @@ class Test extends \Papaya\TestCase {
       '<values>
         <page_one>
           <group_one>
-            <value_one type="xhtml"><b>Xhtml</b></value_one>
+            <value_one type="xhtml"><b>XHTML</b></value_one>
           </group_one>
         </page_one>
       </values>',
@@ -239,7 +239,7 @@ class Test extends \Papaya\TestCase {
       '<values>
         <page_one>
           <group_one>
-            <value_one type="xhtml"><b>Xhtml</b></value_one>
+            <value_one type="xhtml"><b>XHTML</b></value_one>
           </group_one>
         </page_one>
       </values>'
@@ -250,7 +250,7 @@ class Test extends \Papaya\TestCase {
         'page_one' => array(
           'group_one' => array(
             'value_one' => /** @lang XML */
-              '<b>Xhtml</b>'
+              '<b>XHTML</b>'
           )
         )
       ),

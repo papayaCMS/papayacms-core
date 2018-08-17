@@ -21,13 +21,13 @@ class WrapperTest extends \Papaya\TestCase {
 
   public function skipIfApcIsAvailable() {
     if (extension_loaded('apc')) {
-      $this->markTestSkipped('Apc is available');
+      $this->markTestSkipped('APC is available');
     }
   }
 
   public function skipIfApcIsNotAvailable() {
     if (!extension_loaded('apc')) {
-      $this->markTestSkipped('Apc is not available');
+      $this->markTestSkipped('APC is not available');
     }
   }
 
