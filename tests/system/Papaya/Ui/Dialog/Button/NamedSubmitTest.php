@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Button;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
+class NamedSubmitTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
+   */
   public function testConstructor() {
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test', 'name');
+    $button = new NamedSubmit('Test', 'name');
     $this->assertAttributeEquals(
       'name', '_name', $button
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
+   */
   public function testConstructorWithAllParameters() {
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit(
+    $button = new NamedSubmit(
       'Test', 'name', 'value', \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
@@ -43,27 +44,27 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname');
+    $button = new NamedSubmit('Test Caption', 'buttonname');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $button->papaya($application);
     $button->collection($this->getCollectionMock());
     $button->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<test><button type="submit" align="right" name="buttonname[1]">Test Caption</button></test>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
+   */
   public function testAppendToWithDialogParameterGroup() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
@@ -80,14 +81,14 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->will($this->returnValue(new \Papaya\Request\Parameters\Name('buttonname[1]')));
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname');
+    $button = new NamedSubmit('Test Caption', 'buttonname');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $button->papaya($application);
     $button->collection($this->getCollectionMock($dialog));
     $button->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<test>
         <button type="submit" align="right" name="group[buttonname][1]">Test Caption</button>
       </test>',
@@ -96,8 +97,8 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
+   */
   public function testCollectExpectingTrue() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
@@ -105,7 +106,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data =  $this->createMock(\Papaya\Request\Parameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -122,7 +123,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('data')
       ->will($this->returnValue($data));
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname', 42);
+    $button = new NamedSubmit('Test Caption', 'buttonname', 42);
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $button->papaya($application);
@@ -131,8 +132,8 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
+   */
   public function testCollectWithGroupExpectingTrue() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
@@ -140,7 +141,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data =  $this->createMock(\Papaya\Request\Parameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -166,22 +167,22 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('data')
       ->will($this->returnValue($data));
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname', 42);
+    $button = new NamedSubmit('Test Caption', 'buttonname', 42);
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $button->papaya($application);
     $button->collection($this->getCollectionMock($dialog));
     $this->assertTrue($button->collect());
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<button type="submit" align="right" name="group[buttonname][42]">Test Caption</button>',
       $button->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-  */
+   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
+   */
   public function testCollectExpectingFalse() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
@@ -200,7 +201,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
     $dialog
       ->expects($this->never())
       ->method('data');
-    $button = new \Papaya\UI\Dialog\Button\NamedSubmit('Test Caption', 'buttonname', 42);
+    $button = new NamedSubmit('Test Caption', 'buttonname', 42);
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $button->papaya($application);
@@ -209,8 +210,8 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   }
 
   /*****************************
-  * Mocks
-  *****************************/
+   * Mocks
+   *****************************/
 
   /**
    * @param object|NULL $owner

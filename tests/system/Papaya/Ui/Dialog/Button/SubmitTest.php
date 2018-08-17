@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Button;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
+class SubmitTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\Submit::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Button\Submit::__construct
+   */
   public function testConstructor() {
-    $button = new \Papaya\UI\Dialog\Button\Submit('Test Caption');
+    $button = new Submit('Test Caption');
     $this->assertAttributeEquals(
       'Test Caption',
       '_caption',
@@ -30,10 +31,10 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\Submit::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Button\Submit::__construct
+   */
   public function testConstructorWithAlignment() {
-    $button = new \Papaya\UI\Dialog\Button\Submit(
+    $button = new Submit(
       'Test Caption', \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
@@ -44,23 +45,23 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
-    $button = new \Papaya\UI\Dialog\Button\Submit('Test Caption');
+    $button = new Submit('Test Caption');
     $button->appendTo($document->documentElement);
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<test><button type="submit" align="right">Test Caption</button></test>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
+   */
   public function testAppendToWithInterfaceStringObject() {
     $caption = $this
       ->getMockBuilder(\Papaya\UI\Text::class)
@@ -72,12 +73,12 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
       ->will($this->returnValue('Test Caption'));
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
-    $button = new \Papaya\UI\Dialog\Button\Submit(
+    $button = new Submit(
       $caption, \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
     $button->appendTo($document->documentElement);
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<test><button type="submit" align="left">Test Caption</button></test>',
       $document->saveXML($document->documentElement)
     );
