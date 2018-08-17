@@ -13,29 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\URL;
-
+namespace Papaya\Request\Parser;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParserFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Request\Parser\File::parse
+   * @covers       \Papaya\Request\Parser\File::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|URL $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL $url */
     $url = $this
-      ->getMockBuilder(URL::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array('getPath'))
       ->getMock();
     $url
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new \Papaya\Request\Parser\File();
+    $parser = new File();
     $this->assertSame(
       $expected,
       $parser->parse($url)
@@ -43,16 +42,16 @@ class PapayaRequestParserFileTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Request\Parser\File::isLast
-  */
+   * @covers \Papaya\Request\Parser\File::isLast
+   */
   public function testIsLast() {
-    $parser = new \Papaya\Request\Parser\File();
+    $parser = new File();
     $this->assertFalse($parser->isLast());
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function parseDataProvider() {
     return array(

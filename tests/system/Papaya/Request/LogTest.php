@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestLogTest extends \PapayaTestCase {
+class LogTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Request\Log::__construct
-  */
+   * @covers \Papaya\Request\Log::__construct
+   */
   public function testConstructor() {
-    $log = new \Papaya\Request\Log();
+    $log = new Log();
     $this->assertAttributeGreaterThan(
       0, '_startTime', $log
     );
@@ -32,30 +33,30 @@ class PapayaRequestLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Request\Log::getInstance
-  */
+   * @covers \Papaya\Request\Log::getInstance
+   */
   public function testGetInstanceExpectingSameInstance() {
     $this->assertSame(
-      \Papaya\Request\Log::getInstance(TRUE),
-      \Papaya\Request\Log::getInstance()
+      Log::getInstance(TRUE),
+      Log::getInstance()
     );
   }
 
   /**
-  * @covers \Papaya\Request\Log::getInstance
-  */
+   * @covers \Papaya\Request\Log::getInstance
+   */
   public function testGetInstanceExpectingDifferentInstances() {
     $this->assertNotSame(
-      \Papaya\Request\Log::getInstance(TRUE),
-      \Papaya\Request\Log::getInstance(TRUE)
+      Log::getInstance(TRUE),
+      Log::getInstance(TRUE)
     );
   }
 
   /**
-  * @covers \Papaya\Request\Log::logTime
-  */
+   * @covers \Papaya\Request\Log::logTime
+   */
   public function testLogTime() {
-    $log = new \Papaya\Request\Log();
+    $log = new Log();
     $log->logTime('SAMPLE');
     $events = $this->readAttribute($log, '_events');
     $this->assertStringStartsWith(
@@ -64,10 +65,10 @@ class PapayaRequestLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Request\Log::logTime
-  */
+   * @covers \Papaya\Request\Log::logTime
+   */
   public function testLogTimeTwoMessages() {
-    $log = new \Papaya\Request\Log();
+    $log = new Log();
     $log->logTime('SAMPLE');
     $log->logTime('SAMPLE');
     $events = $this->readAttribute($log, '_events');
@@ -77,8 +78,8 @@ class PapayaRequestLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Request\Log::emit
-  */
+   * @covers \Papaya\Request\Log::emit
+   */
   public function testEmitWithStopMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
@@ -86,7 +87,7 @@ class PapayaRequestLogTest extends \PapayaTestCase {
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Log::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContextWithStop')));
-    $log = new \Papaya\Request\Log();
+    $log = new Log();
     $log->papaya(
       $this->mockPapaya()->application(
         array(
@@ -98,8 +99,8 @@ class PapayaRequestLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Request\Log::emit
-  */
+   * @covers \Papaya\Request\Log::emit
+   */
   public function testEmitWithoutStopMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
@@ -107,7 +108,7 @@ class PapayaRequestLogTest extends \PapayaTestCase {
       ->method('dispatch')
       ->with($this->isInstanceOf(\Papaya\Message\Log::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContext')));
-    $log = new \Papaya\Request\Log();
+    $log = new Log();
     $log->papaya(
       $this->mockPapaya()->application(
         array(

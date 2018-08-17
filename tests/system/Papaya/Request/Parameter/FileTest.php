@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parameter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParameterFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Request\Parameter\File::__construct
    * @covers \Papaya\Request\Parameter\File::getName
    */
   public function testConstructor() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $this->assertEquals(array('foo'), iterator_to_array($file->getName()));
   }
 
@@ -31,7 +32,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @covers \Papaya\Request\Parameter\File::getName
    */
   public function testConstructorWithNameAndGroup() {
-    $file = new \Papaya\Request\Parameter\File('foo/bar', 'group');
+    $file = new File('foo/bar', 'group');
     $this->assertEquals(array('group', 'foo', 'bar'), iterator_to_array($file->getName()));
   }
 
@@ -44,7 +45,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\Request\Parameters\Name::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $file = new \Papaya\Request\Parameter\File($name);
+    $file = new File($name);
     $this->assertSame($name, $file->getName());
   }
 
@@ -54,7 +55,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testToString() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('/tmp/file', (string)$file);
   }
@@ -64,7 +65,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @backupGlobals enabled
    */
   public function testToStringWithoutData() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('', (string)$file);
   }
@@ -75,7 +76,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testToStringWithInvalidFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(FALSE));
     $this->assertEquals('', (string)$file);
   }
@@ -86,7 +87,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testIsValidExpectingTrue() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertTrue($file->isValid());
   }
@@ -96,7 +97,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @backupGlobals enabled
    */
   public function testisValidExpectingFalse() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertFalse($file->isValid());
   }
@@ -106,7 +107,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testGetIterator() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals(
       array(
@@ -124,7 +125,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetExists() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $this->assertTrue(isset($file['name']));
   }
 
@@ -134,7 +135,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetExistsForTemporaryFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertTrue(isset($file['temporary']));
   }
@@ -145,7 +146,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetGetForTemporaryFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('/tmp/file', $file['temporary']);
   }
@@ -156,7 +157,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetGetForTemporaryFileWithInvalidFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(FALSE));
     $this->assertNull($file['temporary']);
   }
@@ -167,7 +168,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetGetForName() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('file.ext', $file['name']);
   }
@@ -178,7 +179,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetGetForSize() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals(42, $file['size']);
   }
@@ -189,7 +190,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    */
   public function testOffsetGetForType() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('some/sample', $file['type']);
   }
@@ -198,7 +199,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetSetExpectingException() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $this->expectException(\LogicException::class);
     $file['type'] = '';
   }
@@ -207,7 +208,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
    * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetUnsetExpectingException() {
-    $file = new \Papaya\Request\Parameter\File('foo');
+    $file = new File('foo');
     $this->expectException(\LogicException::class);
     unset($file['size']);
   }
