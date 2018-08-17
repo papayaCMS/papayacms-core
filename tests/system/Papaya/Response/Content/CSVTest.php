@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaResponseContentCsvTest extends \PapayaTestCase {
+class CSVTest extends \PapayaTestCase {
 
 
   /**
    * @covers \Papaya\Response\Content\CSV::length
    */
   public function testLength() {
-    $content = new \Papaya\Response\Content\CSV(new \EmptyIterator(), []);
+    $content = new CSV(new \EmptyIterator(), []);
     $this->assertEquals(-1, $content->length());
   }
 
@@ -30,14 +31,14 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputUsingNumericColumnIndex() {
-    $content = new \Papaya\Response\Content\CSV(
+    $content = new CSV(
       new \ArrayIterator(
         [
           ['1', '2'],
           ['3', '4']
         ]
       ),
-      ['one' , 'two']
+      ['one', 'two']
     );
     ob_start();
     $content->output();
@@ -51,7 +52,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputUsingNamedColumnIndex() {
-    $content = new \Papaya\Response\Content\CSV(
+    $content = new CSV(
       new \ArrayIterator(
         [
           ['one' => 'first value', 'two' => 'second value'],
@@ -74,7 +75,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputWithoutColumns() {
-    $content = new \Papaya\Response\Content\CSV(
+    $content = new CSV(
       new \ArrayIterator(
         [
           ['1', '2'],
@@ -94,17 +95,17 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
    * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputMappingRowAndField() {
-    $content = new \Papaya\Response\Content\CSV(
+    $content = new CSV(
       new \ArrayIterator([1, 2])
     );
-    $content->callbacks()->onMapRow = function($original) {
+    $content->callbacks()->onMapRow = function ($original) {
       $data = [
         1 => ['one', $original],
         2 => ['two', $original]
       ];
       return $data[$original];
     };
-    $content->callbacks()->onMapField = function($original) {
+    $content->callbacks()->onMapField = function ($original) {
       return strtoupper($original);
     };
     ob_start();
