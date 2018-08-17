@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Media\File\Info;
-class Svg extends \Papaya\Media\File\Info {
+class SVG extends \Papaya\Media\File\Info {
 
   public $forceDOM = FALSE;
 

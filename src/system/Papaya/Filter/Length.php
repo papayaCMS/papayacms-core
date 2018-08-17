@@ -44,17 +44,17 @@ class Length implements \Papaya\Filter {
   /**
    * @var bool use sttring as utf-8 and return the codepoint count
    */
-  private $_isUtf8 = FALSE;
+  private $_isUTF8 = FALSE;
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
    * @param integer|NULL $minimum
    * @param integer|NULL $maximum
-   * @param bool $isUtf8
+   * @param bool $isUTF8
    * @throws \RangeException
    */
-  public function __construct($minimum = 0, $maximum = NULL, $isUtf8 = FALSE) {
+  public function __construct($minimum = 0, $maximum = NULL, $isUTF8 = FALSE) {
     $this->_minimum = (int)$minimum;
     if (isset($maximum)) {
       if ($maximum < $minimum) {
@@ -62,7 +62,7 @@ class Length implements \Papaya\Filter {
       }
       $this->_maximum = (int)$maximum;
     }
-    $this->_isUtf8 = (bool)$isUtf8;
+    $this->_isUTF8 = (bool)$isUTF8;
   }
 
   /**
@@ -73,7 +73,7 @@ class Length implements \Papaya\Filter {
    * @return TRUE
    */
   public function validate($value) {
-    if ($this->_isUtf8) {
+    if ($this->_isUTF8) {
       $string = new \Papaya\Text\UTF8String(
         \Papaya\Utility\Text\UTF8::ensure($value)
       );

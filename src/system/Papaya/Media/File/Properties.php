@@ -47,7 +47,7 @@ class Properties extends Info {
         new Info\Basic($file, $originalName),
         new Info\Mimetype($file, $originalName),
         new Info\Image($file, $originalName),
-        new Info\Svg($file, $originalName),
+        new Info\SVG($file, $originalName),
       );
     }
     return $this->_fetchers;

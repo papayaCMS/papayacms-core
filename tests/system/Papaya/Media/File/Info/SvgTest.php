@@ -22,7 +22,7 @@ class SvgTest extends \Papaya\TestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new Svg(__DIR__.'/TestData/minimum.svg');
+    $info = new SVG(__DIR__.'/TestData/minimum.svg');
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
     $this->assertEquals(144, $info['height']);
@@ -32,12 +32,12 @@ class SvgTest extends \Papaya\TestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new Svg('data://text/plain,');
+    $info = new SVG('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 
   public function testReadUsingDOM() {
-    $info = new Svg(__DIR__.'/TestData/minimum.svg');
+    $info = new SVG(__DIR__.'/TestData/minimum.svg');
     $info->forceDOM = TRUE;
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
@@ -48,7 +48,7 @@ class SvgTest extends \Papaya\TestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new Svg('data://text/plain,');
+    $info = new SVG('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 
