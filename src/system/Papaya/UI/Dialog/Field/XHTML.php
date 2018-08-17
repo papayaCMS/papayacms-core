@@ -23,7 +23,7 @@ namespace Papaya\UI\Dialog\Field;
 class XHTML extends \Papaya\UI\Dialog\Field {
 
   /**
-   * Xhtml content
+   * XHTML content
    *
    * @var string
    */

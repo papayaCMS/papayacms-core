@@ -15,7 +15,7 @@
 
 namespace Papaya\Template;
 /**
- * Papaya Template, using the Xslt engine to genreate the output.
+ * Papaya Template, using the XSLT engine to generate the output.
  *
  * @package Papaya-Library
  * @subpackage Template

@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\XSLT;
 /**
- * Papaya Xslt template handler class
+ * Papaya XSLT template handler class
  *
  * @package Papaya-Library
  * @subpackage Template

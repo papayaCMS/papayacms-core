@@ -15,9 +15,9 @@
 
 namespace Papaya\Message\Dispatcher;
 /**
- * Papaya Message Dispatcher Xhtml, send out log messages as xhtml (just output to the browser)
+ * Papaya Message Dispatcher XHTML, send out log messages as xhtml (just output to the browser)
  *
- * This will output invalid xhtml because it closes
+ * This will output invalid XML because it closes some tags that could block the output.
  *
  * @package Papaya-Library
  * @subpackage Messages

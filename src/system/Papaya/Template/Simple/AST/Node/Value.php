@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\Simple\AST\Node;
 /**
- * Ast node representing a node value placeholder with a default value
+ * AST node representing a node value placeholder with a default value
  *
  * @package Papaya-Library
  * @subpackage Template

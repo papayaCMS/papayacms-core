@@ -40,7 +40,7 @@ class APC extends \Papaya\Cache\Service {
   /**
    * APC object
    *
-   * @var Apc\Wrapper
+   * @var APC\Wrapper
    */
   private $_apcObject;
 

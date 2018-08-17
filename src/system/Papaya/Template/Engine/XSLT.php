@@ -56,7 +56,7 @@ class XSLT extends \Papaya\Template\Engine {
   private $_useCache = TRUE;
 
   /**
-   * Xslt processor
+   * XSLT processor
    *
    * @var \XSLTCache|\XSLTProcessor
    */

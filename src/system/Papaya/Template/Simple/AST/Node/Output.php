@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\Simple\AST\Node;
 /**
- * Ast node containing an output.
+ * AST node containing an output.
  *
  * @package Papaya-Library
  * @subpackage Template

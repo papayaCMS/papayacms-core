@@ -19,7 +19,7 @@ namespace Papaya\Template\Simple;
  * node class names, to methods and calls them if the exists.
  *
  * @package PhpCss
- * @subpackage Ast
+ * @subpackage AST
  */
 abstract class Visitor {
 
