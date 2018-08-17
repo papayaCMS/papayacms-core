@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewColumnTest extends \PapayaTestCase {
+class ColumnTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Column::__construct
-  */
+   * @covers \Papaya\UI\Listview\Column::__construct
+   */
   public function testConstructor() {
-    $column = new \Papaya\UI\Listview\Column('test title');
+    $column = new Column('test title');
     $this->assertAttributeEquals(
       'test title', '_caption', $column
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Column::__construct
-  * @covers \Papaya\UI\Listview\Column::setAlign
-  */
+   * @covers \Papaya\UI\Listview\Column::__construct
+   * @covers \Papaya\UI\Listview\Column::setAlign
+   */
   public function testConstructorWithAllParameters() {
-    $column = new \Papaya\UI\Listview\Column(
+    $column = new Column(
       'test title', \Papaya\UI\Option\Align::CENTER
     );
     $this->assertAttributeEquals(
@@ -41,11 +42,11 @@ class PapayaUiListviewColumnTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Column::getAlign
-  * @covers \Papaya\UI\Listview\Column::setAlign
-  */
+   * @covers \Papaya\UI\Listview\Column::getAlign
+   * @covers \Papaya\UI\Listview\Column::setAlign
+   */
   public function testGetAlignAfterSetAlign() {
-    $column = new \Papaya\UI\Listview\Column('test title');
+    $column = new Column('test title');
     $column->setAlign(\Papaya\UI\Option\Align::RIGHT);
     $this->assertEquals(
       \Papaya\UI\Option\Align::RIGHT, $column->getAlign()
@@ -53,15 +54,15 @@ class PapayaUiListviewColumnTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Column::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Column::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('sample'));
-    $column = new \Papaya\UI\Listview\Column('test title');
+    $column = new Column('test title');
     $column->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><col align="left">test title</col></sample>',
       $document->saveXML($document->documentElement)
     );

@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewItemTest extends \PapayaTestCase {
+class ItemTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Item::__construct
-  */
+   * @covers \Papaya\UI\Listview\Item::__construct
+   */
   public function testConstructor() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $this->assertAttributeEquals(
       'image', '_image', $item
     );
@@ -31,20 +32,20 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::__construct
-  */
+   * @covers \Papaya\UI\Listview\Item::__construct
+   */
   public function testConstructorWithOptionalParameters() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption', array('id' => '42'));
+    $item = new Item('image', 'caption', array('id' => '42'));
     $this->assertAttributeEquals(
       array('id' => '42'), '_actionParameters', $item
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::setActionParameters
-  */
+   * @covers \Papaya\UI\Listview\Item::setActionParameters
+   */
   public function testPropertyActionParameters() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->actionParameters = array('id' => '42');
     $this->assertEquals(
       array('id' => '42'), $item->actionParameters
@@ -52,10 +53,10 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::setIndentation
-  */
+   * @covers \Papaya\UI\Listview\Item::setIndentation
+   */
   public function testPropertyIndentation() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->indentation = 2;
     $this->assertEquals(
       2, $item->indentation
@@ -63,29 +64,29 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::setIndentation
-  */
+   * @covers \Papaya\UI\Listview\Item::setIndentation
+   */
   public function testPropertyIndentationWithNegativeValueExpectingException() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: $indentation must be greater or equal zero.');
     $item->indentation = -2;
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::getListview
-  */
+   * @covers \Papaya\UI\Listview\Item::getListview
+   */
   public function testGetListview() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Items::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $items
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($listview));
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->collection($items);
     $this->assertInstanceOf(
       \Papaya\UI\Listview::class, $item->getListview()
@@ -93,14 +94,14 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::collection
-  */
+   * @covers \Papaya\UI\Listview\Item::collection
+   */
   public function testCollectionGetAfterSet() {
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Items::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->collection($items);
     $this->assertSame(
       $items, $item->collection()
@@ -108,30 +109,30 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::subitems
-  */
+   * @covers \Papaya\UI\Listview\Item::subitems
+   */
   public function testSubitemsGetAfterSet() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $subitems = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(Subitems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with($this->isInstanceOf(Item::class));
     $this->assertSame(
       $subitems, $item->subitems($subitems)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::subitems
-  */
+   * @covers \Papaya\UI\Listview\Item::subitems
+   */
   public function testSubitemsImplicitCreate() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $this->assertInstanceOf(
-      \Papaya\UI\Listview\Subitems::class, $item->subitems()
+      Subitems::class, $item->subitems()
     );
     $this->assertSame(
       $item, $item->subitems()->owner()
@@ -139,12 +140,12 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::node
-  */
+   * @covers \Papaya\UI\Listview\Item::node
+   */
   public function testNodeGetAfterSet() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $node = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Item\Node::class)
+      ->getMockBuilder(Item\Node::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $this->assertSame(
@@ -153,12 +154,12 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::node
-  */
+   * @covers \Papaya\UI\Listview\Item::node
+   */
   public function testNodeImplicitCreate() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $this->assertInstanceOf(
-      \Papaya\UI\Listview\Item\Node::class, $item->node()
+      Item\Node::class, $item->node()
     );
     $this->assertSame(
       $item, $item->node()->item
@@ -166,20 +167,20 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::reference
-  */
+   * @covers \Papaya\UI\Listview\Item::reference
+   */
   public function testReferenceGetAfterSet() {
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->reference($reference = $this->createMock(\Papaya\UI\Reference::class));
     $this->assertSame($reference, $item->reference());
   }
 
 
   /**
-  * @covers \Papaya\UI\Listview\Item::reference
-  */
+   * @covers \Papaya\UI\Listview\Item::reference
+   */
   public function testReferenceGetImplicitCreate() {
-    $item = new \Papaya\UI\Listview\Item('', '', array('foo' => 'bar'));
+    $item = new Item('', '', array('foo' => 'bar'));
     $item->papaya($this->mockPapaya()->application());
     $reference = $item->reference();
     $this->assertSame($reference->papaya(), $item->papaya());
@@ -187,13 +188,13 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::reference
-  */
+   * @covers \Papaya\UI\Listview\Item::reference
+   */
   public function testReferenceGetFromCollection() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
     $listview = $this->createMock(\Papaya\UI\Listview::class);
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Items::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $collection
@@ -204,19 +205,19 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($listview));
-    $item = new \Papaya\UI\Listview\Item('', '');
+    $item = new Item('', '');
     $item->collection($collection);
     $this->assertInstanceOf(\Papaya\UI\Reference::class, $item->reference());
     $this->assertNotSame($reference, $item->reference());
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendTo() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $node = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Item\Node::class)
+      ->getMockBuilder(Item\Node::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $node
@@ -224,7 +225,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $subitems = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(Subitems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems
@@ -237,19 +238,19 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithEmptyImage() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $subitems = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(Subitems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems
@@ -261,15 +262,15 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       $this->mockPapaya()->application(array('Images' => array('image' => '')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithActionParameters() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
     $listview
@@ -286,7 +287,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->method('getRelative')
       ->will($this->returnValue('#success'));
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Items::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $collection
@@ -298,90 +299,90 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->method('owner')
       ->will($this->returnValue($listview));
 
-    $item = new \Papaya\UI\Listview\Item('image', 'caption', array('foo' => 'bar'));
+    $item = new Item('image', 'caption', array('foo' => 'bar'));
     $item->collection($collection);
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" href="#success"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithIndentation() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->indentation = 3;
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" indent="3"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  * @covers \Papaya\UI\Listview\Item::getColumnSpan
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   * @covers \Papaya\UI\Listview\Item::getColumnSpan
+   */
   public function testAppendToWithColumnSpan() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->columnSpan = 3;
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" span="3"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithSelected() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->selected = TRUE;
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" selected="selected"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithEmphased() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->emphased = TRUE;
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" emphased="emphased"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  * @covers \Papaya\UI\Listview\Item::getColumnSpan
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   * @covers \Papaya\UI\Listview\Item::getColumnSpan
+   */
   public function testAppendToWithColumnSpanReadFromListview() {
     $columns = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
+      ->getMockBuilder(Columns::class)
       ->disableOriginalConstructor()
       ->getMock();
     $columns
@@ -394,37 +395,37 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($listview));
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $item->collection($collection);
     $item->columnSpan = -1;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" span="42"/>',
       $item->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Item::appendTo
+   */
   public function testAppendToWithText() {
-    $item = new \Papaya\UI\Listview\Item('image', 'caption');
+    $item = new Item('image', 'caption');
     $item->text = 'sample text';
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listitem title="caption" image="test.gif" subtitle="sample text"/>',
       $item->getXML()
     );

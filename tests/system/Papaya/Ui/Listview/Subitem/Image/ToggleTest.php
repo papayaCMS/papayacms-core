@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Subitem\Image;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
+class ToggleTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::__construct
-  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::setIcons
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::__construct
+   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::setIcons
+   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
     $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
-    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
+    $subitem = new Toggle($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
+   */
   public function testAppendToWithIcon() {
     $icon = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
@@ -55,19 +56,19 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->will($this->returnValue($icon));
 
     $document = new \Papaya\XML\Document();
-    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
+    $subitem = new Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><subitem align="left"/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
+   */
   public function testAppendToWithoutIcon() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
     $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
@@ -78,11 +79,11 @@ class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
       ->will($this->returnValue(FALSE));
 
     $document = new \Papaya\XML\Document();
-    $subitem = new \Papaya\UI\Listview\Subitem\Image\Toggle($icons, 'foo');
+    $subitem = new Toggle($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><subitem align="left"/></sample>',
       $document->saveXML($document->documentElement)
     );

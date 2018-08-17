@@ -13,129 +13,132 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Listview {
 
-class PapayaUiListviewSubitemTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Listview\Subitem::getAlign
-  * @covers \Papaya\UI\Listview\Subitem::setAlign
-  */
-  public function testGetAlignAfterSetAlign() {
-    $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->setAlign(\Papaya\UI\Option\Align::RIGHT);
-    $this->assertEquals(
-      \Papaya\UI\Option\Align::RIGHT, $subitem->getAlign()
-    );
-  }
+  class SubitemTest extends \PapayaTestCase {
 
-  /**
-  * @covers \Papaya\UI\Listview\Subitem::getAlign
-  */
-  public function testGetAlignFetchFromColumn() {
-    $column = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Column::class)
-      ->setConstructorArgs(array(''))
-      ->getMock();
-    $column
-      ->expects($this->once())
-      ->method('getAlign')
-      ->will($this->returnValue(\Papaya\UI\Option\Align::CENTER));
-    $listview = $this->createMock(\Papaya\UI\Listview::class);
-    $columns = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
-      ->setConstructorArgs(array($listview))
-      ->getMock();
-    $columns
-      ->expects($this->once())
-      ->method('has')
-      ->with($this->equalTo(1))
-      ->will($this->returnValue(TRUE));
-    $columns
-      ->expects($this->once())
-      ->method('get')
-      ->with($this->equalTo(1))
-      ->will($this->returnValue($column));
-    $listview
-      ->expects($this->atLeastOnce())
-      ->method('columns')
-      ->will($this->returnValue($columns));
-    $subitems = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
-      ->setConstructorArgs(
-        array(
-          $this
-            ->getMockBuilder(\Papaya\UI\Listview\Item::class)
-            ->setConstructorArgs(array('', ''))
-            ->getMock()
+    /**
+     * @covers \Papaya\UI\Listview\Subitem::getAlign
+     * @covers \Papaya\UI\Listview\Subitem::setAlign
+     */
+    public function testGetAlignAfterSetAlign() {
+      $subitem = new Subitem_TestProxy();
+      $subitem->setAlign(\Papaya\UI\Option\Align::RIGHT);
+      $this->assertEquals(
+        \Papaya\UI\Option\Align::RIGHT, $subitem->getAlign()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Listview\Subitem::getAlign
+     */
+    public function testGetAlignFetchFromColumn() {
+      $column = $this
+        ->getMockBuilder(Column::class)
+        ->setConstructorArgs(array(''))
+        ->getMock();
+      $column
+        ->expects($this->once())
+        ->method('getAlign')
+        ->will($this->returnValue(\Papaya\UI\Option\Align::CENTER));
+      $listview = $this->createMock(\Papaya\UI\Listview::class);
+      $columns = $this
+        ->getMockBuilder(Columns::class)
+        ->setConstructorArgs(array($listview))
+        ->getMock();
+      $columns
+        ->expects($this->once())
+        ->method('has')
+        ->with($this->equalTo(1))
+        ->will($this->returnValue(TRUE));
+      $columns
+        ->expects($this->once())
+        ->method('get')
+        ->with($this->equalTo(1))
+        ->will($this->returnValue($column));
+      $listview
+        ->expects($this->atLeastOnce())
+        ->method('columns')
+        ->will($this->returnValue($columns));
+      $subitems = $this
+        ->getMockBuilder(Subitems::class)
+        ->setConstructorArgs(
+          array(
+            $this
+              ->getMockBuilder(Item::class)
+              ->setConstructorArgs(array('', ''))
+              ->getMock()
+          )
         )
-      )
-      ->getMock();
-    $subitems
-      ->expects($this->atLeastOnce())
-      ->method('getListview')
-      ->will($this->returnValue($listview));
-    $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->collection($subitems);
-    $this->assertEquals(
-      \Papaya\UI\Option\Align::CENTER, $subitem->getAlign()
-    );
-  }
+        ->getMock();
+      $subitems
+        ->expects($this->atLeastOnce())
+        ->method('getListview')
+        ->will($this->returnValue($listview));
+      $subitem = new Subitem_TestProxy();
+      $subitem->collection($subitems);
+      $this->assertEquals(
+        \Papaya\UI\Option\Align::CENTER, $subitem->getAlign()
+      );
+    }
 
-  /**
-  * @covers \Papaya\UI\Listview\Subitem::getAlign
-  */
-  public function testGetAlignUseDefaultValue() {
-    $listview = $this->createMock(\Papaya\UI\Listview::class);
-    $columns = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
-      ->setConstructorArgs(array($listview))
-      ->getMock();
-    $columns
-      ->expects($this->once())
-      ->method('has')
-      ->with($this->equalTo(1))
-      ->will($this->returnValue(FALSE));
-    $listview
-      ->expects($this->atLeastOnce())
-      ->method('columns')
-      ->will($this->returnValue($columns));
-    $subitems = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
-      ->setConstructorArgs(
-        array(
-          $this
-            ->getMockBuilder(\Papaya\UI\Listview\Item::class)
-            ->setConstructorArgs(array('', ''))
-            ->getMock()
+    /**
+     * @covers \Papaya\UI\Listview\Subitem::getAlign
+     */
+    public function testGetAlignUseDefaultValue() {
+      $listview = $this->createMock(\Papaya\UI\Listview::class);
+      $columns = $this
+        ->getMockBuilder(Columns::class)
+        ->setConstructorArgs(array($listview))
+        ->getMock();
+      $columns
+        ->expects($this->once())
+        ->method('has')
+        ->with($this->equalTo(1))
+        ->will($this->returnValue(FALSE));
+      $listview
+        ->expects($this->atLeastOnce())
+        ->method('columns')
+        ->will($this->returnValue($columns));
+      $subitems = $this
+        ->getMockBuilder(Subitems::class)
+        ->setConstructorArgs(
+          array(
+            $this
+              ->getMockBuilder(Item::class)
+              ->setConstructorArgs(array('', ''))
+              ->getMock()
+          )
         )
-      )
-      ->getMock();
-    $subitems
-      ->expects($this->atLeastOnce())
-      ->method('getListview')
-      ->will($this->returnValue($listview));
-    $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->collection($subitems);
-    $this->assertEquals(
-      \Papaya\UI\Option\Align::LEFT, $subitem->getAlign()
-    );
+        ->getMock();
+      $subitems
+        ->expects($this->atLeastOnce())
+        ->method('getListview')
+        ->will($this->returnValue($listview));
+      $subitem = new Subitem_TestProxy();
+      $subitem->collection($subitems);
+      $this->assertEquals(
+        \Papaya\UI\Option\Align::LEFT, $subitem->getAlign()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Listview\Subitem::setActionParameters
+     */
+    public function testSetActionParameters() {
+      $subitem = new Subitem_TestProxy();
+      $subitem->setActionParameters(array('foo'));
+      $this->assertAttributeEquals(
+        array('foo'), '_actionParameters', $subitem
+      );
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Listview\Subitem::setActionParameters
-  */
-  public function testSetActionParameters() {
-    $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->setActionParameters(array('foo'));
-    $this->assertAttributeEquals(
-      array('foo'), '_actionParameters', $subitem
-    );
-  }
-}
+  class Subitem_TestProxy extends Subitem {
 
-class PapayaUiListviewSubitem_TestProxy extends \Papaya\UI\Listview\Subitem {
-
-  public function appendTo(\Papaya\XML\Element $parent) {
+    public function appendTo(\Papaya\XML\Element $parent) {
+    }
   }
 }

@@ -13,28 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\UI\Listview\Subitem;
+require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
+class ImagesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Images::__construct
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Images::__construct
+   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
     $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
-    $subitem = new \Papaya\UI\Listview\Subitem\Images(
-      $icons, 'foo', \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK
+    $subitem = new Images(
+      $icons, 'foo', Images::VALIDATE_BITMASK
     );
     $this->assertEquals(
-      \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK, $subitem->selectionMode
+      Images::VALIDATE_BITMASK, $subitem->selectionMode
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   */
   public function testAppendToUseValues() {
     $iconValid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
@@ -73,20 +74,20 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\XML\Document();
-    $subitem = new \Papaya\UI\Listview\Subitem\Images($icons, 'foo');
+    $subitem = new Images($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><subitem align="left"><glyphs/></subitem></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   */
   public function testAppendToUseKeys() {
     $iconValid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
@@ -125,24 +126,24 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\XML\Document();
-    $subitem = new \Papaya\UI\Listview\Subitem\Images(
+    $subitem = new Images(
       $icons,
       array('foo' => TRUE),
-      \Papaya\UI\Listview\Subitem\Images::VALIDATE_KEYS
+      Images::VALIDATE_KEYS
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><subitem align="left"><glyphs/></subitem></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-  * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
-  */
+   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
+   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   */
   public function testAppendToUseBitmask() {
     $iconValid = $this
       ->getMockBuilder(\Papaya\UI\Icon::class)
@@ -181,15 +182,15 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
       );
 
     $document = new \Papaya\XML\Document();
-    $subitem = new \Papaya\UI\Listview\Subitem\Images(
+    $subitem = new Images(
       $icons,
       5,
-      \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK
+      Images::VALIDATE_BITMASK
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><subitem align="left"><glyphs/></subitem></sample>',
       $document->saveXML($document->documentElement)
     );

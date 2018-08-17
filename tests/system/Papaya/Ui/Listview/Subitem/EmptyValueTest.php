@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Subitem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemEmptyTest extends \PapayaTestCase {
+class EmptyValueTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Subitem\EmptyValue::appendTo
-  */
+   * @covers \Papaya\UI\Listview\Subitem\EmptyValue::appendTo
+   */
   public function testAppendTo() {
-    $subitem = new \Papaya\UI\Listview\Subitem\EmptyValue();
+    $subitem = new EmptyValue();
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<subitem/>',
       $subitem->getXML()
     );
