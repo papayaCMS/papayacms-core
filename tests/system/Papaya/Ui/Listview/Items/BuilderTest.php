@@ -13,24 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Items;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
+class BuilderTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder::__construct
-  * @covers \Papaya\UI\Listview\Items\Builder::getDataSource
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder::__construct
+   * @covers \Papaya\UI\Listview\Items\Builder::getDataSource
+   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
-    $iterator = $this->createMock(Iterator::class);
-    $builder = new \Papaya\UI\Listview\Items\Builder($iterator);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Iterator $iterator */
+    $iterator = $this->createMock(\Iterator::class);
+    $builder = new Builder($iterator);
     $this->assertSame($iterator, $builder->getDataSource());
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder::fill
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder::fill
+   */
   public function testFillWithDefaultCallbacks() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
     $items = $this
@@ -44,17 +46,17 @@ class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
-    $builder = new \Papaya\UI\Listview\Items\Builder(
+    $builder = new Builder(
       array('Sample One')
     );
     $builder->fill($items);
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder::fill
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder::fill
+   */
   public function testFillWithDefinedCallbacks() {
-    $callbacks = $this->createMock(\Papaya\UI\Listview\Items\Builder\Callbacks::class);
+    $callbacks = $this->createMock(Builder\Callbacks::class);
     $callbacks
       ->expects($this->once())
       ->method('__isset')
@@ -74,7 +76,7 @@ class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
     $items
       ->expects($this->never())
       ->method('offsetSet');
-    $builder = new \Papaya\UI\Listview\Items\Builder(
+    $builder = new Builder(
       array('Sample One')
     );
     $builder->callbacks($callbacks);
@@ -82,21 +84,21 @@ class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder::callbacks
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder::callbacks
+   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(\Papaya\UI\Listview\Items\Builder\Callbacks::class);
-    $builder = new \Papaya\UI\Listview\Items\Builder(array());
+    $callbacks = $this->createMock(Builder\Callbacks::class);
+    $builder = new Builder(array());
     $builder->callbacks($callbacks);
     $this->assertSame($callbacks, $builder->callbacks());
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder::callbacks
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder::callbacks
+   */
   public function testCallbacksGetImplicitCreate() {
-    $builder = new \Papaya\UI\Listview\Items\Builder(array());
-    $this->assertInstanceOf(\Papaya\UI\Listview\Items\Builder\Callbacks::class, $builder->callbacks());
+    $builder = new Builder(array());
+    $this->assertInstanceOf(Builder\Callbacks::class, $builder->callbacks());
   }
 
   public function testCreateItem() {
@@ -109,7 +111,7 @@ class PapayaUiListviewItemsBuilderTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
-    $builder = new \Papaya\UI\Listview\Items\Builder(array());
+    $builder = new Builder(array());
     $builder->createItem(NULL, $items, 'Sample');
   }
 }

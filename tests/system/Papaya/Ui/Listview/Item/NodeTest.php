@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Item;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
+class NodeTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Listview\Item\Node
@@ -26,7 +27,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $node = new \Papaya\UI\Listview\Item\Node($item);
+    $node = new Node($item);
     $this->assertSame($item, $node->item);
   }
 
@@ -39,8 +40,8 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_EMPTY);
-    $this->assertEquals(\Papaya\UI\Listview\Item\Node::NODE_EMPTY, $node->status);
+    $node = new Node($item, Node::NODE_EMPTY);
+    $this->assertEquals(Node::NODE_EMPTY, $node->status);
   }
 
   /**
@@ -52,7 +53,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $node = new \Papaya\UI\Listview\Item\Node($item);
+    $node = new Node($item);
     $this->assertEquals('', $node->getXML());
   }
 
@@ -65,9 +66,10 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_EMPTY);
+    $node = new Node($item, Node::NODE_EMPTY);
     $this->assertEquals(
-      /** @lang XML */'<node status="empty"/>',
+    /** @lang XML */
+      '<node status="empty"/>',
       $node->getXML()
     );
   }
@@ -86,10 +88,11 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('sample.html'));
-    $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_CLOSED);
+    $node = new Node($item, Node::NODE_CLOSED);
     $node->reference($reference);
     $this->assertEquals(
-    /** @lang XML */'<node status="closed" href="sample.html"/>',
+    /** @lang XML */
+      '<node status="closed" href="sample.html"/>',
       $node->getXML()
     );
   }
@@ -108,10 +111,11 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('sample.html'));
-    $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_OPEN);
+    $node = new Node($item, Node::NODE_OPEN);
     $node->reference($reference);
     $this->assertEquals(
-      /** @lang XML */'<node status="open" href="sample.html"/>',
+    /** @lang XML */
+      '<node status="open" href="sample.html"/>',
       $node->getXML()
     );
   }
@@ -125,7 +129,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->getMockBuilder(\Papaya\UI\Listview\Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $node = new \Papaya\UI\Listview\Item\Node($item, \Papaya\UI\Listview\Item\Node::NODE_OPEN);
+    $node = new Node($item, Node::NODE_OPEN);
     $node->reference($reference = $this->createMock(\Papaya\UI\Reference::class));
     $this->assertSame($reference, $node->reference);
   }
@@ -143,7 +147,7 @@ class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('reference')
       ->will($this->returnValue($this->createMock(\Papaya\UI\Reference::class)));
-    $node = new \Papaya\UI\Listview\Item\Node($item);
+    $node = new Node($item);
     $this->assertInstanceOf(\Papaya\UI\Reference::class, $node->reference);
   }
 }

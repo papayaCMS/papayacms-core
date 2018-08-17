@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Item\Paging;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewItemPagingDownTest extends \PapayaTestCase {
+class DownTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Item\Paging\Down::getPages
+   * @covers       \Papaya\UI\Listview\Item\Paging\Down::getPages
    * @dataProvider provideDataForPageCalculations
    * @param array $expected
    * @param int $currentPage
    * @param int $itemsPerPage
    */
   public function testGetPages(array $expected, $currentPage, $itemsPerPage) {
-    $item = new \Papaya\UI\Listview\Item\Paging\Down('page', $currentPage, $itemsPerPage);
+    $item = new Down('page', $currentPage, $itemsPerPage);
     $this->assertEquals(
       $expected,
       $item->getPages()
@@ -33,10 +34,10 @@ class PapayaUiListviewItemPagingDownTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item\Paging\Down::getImagePage
-  */
+   * @covers \Papaya\UI\Listview\Item\Paging\Down::getImagePage
+   */
   public function testGetImagePage() {
-    $item = new \Papaya\UI\Listview\Item\Paging\Down('page', 5, 500);
+    $item = new Down('page', 5, 500);
     $this->assertEquals(
       4,
       $item->getImagePage()
@@ -44,10 +45,10 @@ class PapayaUiListviewItemPagingDownTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Listview\Item\Paging\Down::getImagePage
-  */
+   * @covers \Papaya\UI\Listview\Item\Paging\Down::getImagePage
+   */
   public function testGetImagePageExpectingDefault() {
-    $item = new \Papaya\UI\Listview\Item\Paging\Down('page', 0, 500);
+    $item = new Down('page', 0, 500);
     $this->assertEquals(
       1,
       $item->getImagePage()
@@ -55,8 +56,8 @@ class PapayaUiListviewItemPagingDownTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Data Provider
-  *************************/
+   * Data Provider
+   *************************/
 
   public static function provideDataForPageCalculations() {
     return array(

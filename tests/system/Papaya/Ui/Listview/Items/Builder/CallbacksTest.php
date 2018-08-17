@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Listview\Items\Builder;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewItemsBuilderCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview\Items\Builder\Callbacks::__construct
-  */
+   * @covers \Papaya\UI\Listview\Items\Builder\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\UI\Listview\Items\Builder\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertFalse($callbacks->onBeforeFill->defaultReturn);
     $this->assertNull($callbacks->onCreateItem->defaultReturn);
     $this->assertNull($callbacks->onAfterFill->defaultReturn);
