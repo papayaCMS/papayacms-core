@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "04575a61a9dc4025040beea6da010399",
+    "content-hash": "ccf42981927d1e6233a9f9efced0e1cc",
     "packages": [],
     "packages-dev": [
         {
@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-test-framework.git",
-                "reference": "1ae254fe73a3863a490065c5ce4769e9c47833b9"
+                "reference": "fb665a6df83da90cd916b0d3b4c51dc1eb204c03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/1ae254fe73a3863a490065c5ce4769e9c47833b9",
-                "reference": "1ae254fe73a3863a490065c5ce4769e9c47833b9",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/fb665a6df83da90cd916b0d3b4c51dc1eb204c03",
+                "reference": "fb665a6df83da90cd916b0d3b4c51dc1eb204c03",
                 "shasum": ""
             },
             "type": "library",
@@ -239,7 +239,7 @@
             ],
             "description": "papaya CMS unittest framework",
             "homepage": "http://www.papaya-cms.com/",
-            "time": "2018-08-01T13:24:49+00:00"
+            "time": "2018-08-17T18:58:11+00:00"
         },
         {
             "name": "papaya/theme-dynamic",
@@ -275,7 +275,9 @@
     "platform": {
         "php": ">=5.5.0",
         "ext-dom": "*",
-        "ext-xsl": "*"
+        "ext-libxml": "*",
+        "ext-xsl": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
