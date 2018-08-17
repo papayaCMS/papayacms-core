@@ -1,42 +1,42 @@
 <?php
 /**
-* Load status informations of a page publication.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Status.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Page\Publication;
+
+use Papaya\Cache;
 
 /**
-* Load status informations of a page publication.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPagePublicationStatus extends PapayaContentPageStatus {
+ * Load status informations of a page publication.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Status extends \Papaya\Content\Page\Status {
 
   /**
-  * Get status from page publication
-  *
-  * @var string
-  */
-  protected $_tableName = PapayaContentTables::PAGE_PUBLICATIONS;
+   * Get status from page publication
+   *
+   * @var string
+   */
+  protected $_tableName = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
 
   /**
-  * Query data cache.
-  *
-  * @var PapayaCacheService
-  */
+   * Query data cache.
+   *
+   * @var Cache\Service
+   */
   private $_cache = NULL;
 
   /**
@@ -48,30 +48,29 @@ class PapayaContentPagePublicationStatus extends PapayaContentPageStatus {
   public function load($id) {
     $expires = $this->papaya()->options->get('PAPAYA_CACHE_DATA_TIME', 0);
     if (($cache = $this->cache()) &&
-        ($content = $cache->read('pages', 'status', $id, $expires))) {
+      ($content = $cache->read('pages', 'status', $id, $expires))) {
       $this->assign(unserialize($content));
       return TRUE;
-    } else {
-      $result = parent::load($id);
-      if ($cache) {
-        $cache->write('pages', 'status', $id, serialize($this->toArray()), $expires);
-      }
+    }
+    $result = parent::load($id);
+    if ($cache) {
+      $cache->write('pages', 'status', $id, serialize($this->toArray()), $expires);
     }
     return $result;
   }
 
   /**
-  * Getter/Setter for cache object, fetches the system data cache if not set.
-  *
-  * @param PapayaCacheService $cache
-  * @return FALSE|PapayaCacheService
-  */
-  public function cache(PapayaCacheService $cache = NULL) {
-    if (isset($cache)) {
+   * Getter/Setter for cache object, fetches the system data cache if not set.
+   *
+   * @param Cache\Service $cache
+   * @return FALSE|Cache\Service
+   */
+  public function cache(Cache\Service $cache = NULL) {
+    if (NULL !== $cache) {
       $this->_cache = $cache;
-    } elseif (is_null($this->_cache)) {
+    } elseif (NULL === $this->_cache) {
       /** @noinspection PhpParamsInspection */
-      $this->_cache = PapayaCache::get(PapayaCache::DATA, $this->papaya()->options);
+      $this->_cache = Cache::get(Cache::DATA, $this->papaya()->options);
     }
     return $this->_cache;
   }

@@ -1,42 +1,36 @@
 <?php
 /**
-* Mapper object to convert a database fields into object properties and back. It caches the
-* results of functions call to the orginal mapping class and the callback functions.
-*
-* It will not cache the result of the property/record value mappings.
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Cache.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Database\Record\Mapping;
 /**
-* Mapper object to convert a database fields into object properties and back. It caches the
-* results of functions call to the orginal mapping class and the callback functions.
-*
-* It will not cache the result of the property/record value mappings.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping {
+ * Mapper object to convert a database fields into object properties and back. It caches the
+ * results of functions call to the orginal mapping class and the callback functions.
+ *
+ * It will not cache the result of the property/record value mappings.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Cache implements \Papaya\Database\Interfaces\Mapping {
 
   /**
-   * @var PapayaDatabaseInterfaceMapping
+   * @var \Papaya\Database\Interfaces\Mapping
    */
-  private $_mapping = NULL;
+  private $_mapping;
   /**
-   * @var array(PapayaObjectCallback)
+   * @var \Papaya\BaseObject\Callback[]
    */
   private $_callbacks = array();
 
@@ -45,9 +39,9 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    */
   private $_results = array();
 
-  public function __construct(PapayaDatabaseInterfaceMapping $mapping) {
+  public function __construct(\Papaya\Database\Interfaces\Mapping $mapping) {
     $this->_mapping = $mapping;
-    if ($mapping instanceof PapayaDatabaseRecordMapping) {
+    if ($mapping instanceof \Papaya\Database\Record\Mapping) {
       foreach ($mapping->callbacks() as $event => $callback) {
         if (isset($callback->callback) || isset($callback->defaultReturn)) {
           $this->_callbacks[$event] = $callback;
@@ -57,12 +51,12 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
   }
 
   /**
-  * Map the database fields of an record to the object properties
-  *
-  * @param array $record
-  * @return array
-  */
-  function mapFieldsToProperties(array $record) {
+   * Map the database fields of an record to the object properties
+   *
+   * @param array $record
+   * @return array
+   */
+  public function mapFieldsToProperties(array $record) {
     $callbacks = $this->_callbacks;
     $values = array();
     if (isset($callbacks['onBeforeMappingFieldsToProperties'])) {
@@ -116,7 +110,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    * @param bool $withAlias
    * @return array
    */
-  function mapPropertiesToFields(array $values, $withAlias = TRUE) {
+  public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->_callbacks;
     $record = array();
     if (isset($callbacks['onBeforeMappingPropertiesToFields'])) {
@@ -164,11 +158,11 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
   }
 
   /**
-  * Get a list of the used database fields
-  *
-  * @return array
-  */
-  function getProperties() {
+   * Get a list of the used database fields
+   *
+   * @return array
+   */
+  public function getProperties() {
     if (!isset($this->_results['getProperties'])) {
       $this->_results['getProperties'] = $this->_mapping->getProperties();
     }
@@ -181,7 +175,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    * @param bool $withAlias
    * @return array
    */
-  function getFields($withAlias = TRUE) {
+  public function getFields($withAlias = TRUE) {
     if (!isset($this->_results['getFields'][$withAlias])) {
       $this->_results['getFields'][$withAlias] = $this->_mapping->getFields($withAlias);
     }
@@ -194,7 +188,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    * @param $field
    * @return string|FALSE
    */
-  function getProperty($field) {
+  public function getProperty($field) {
     if (!isset($this->_results['getProperty'][$field])) {
       $this->_results['getProperty'][$field] = $this->_mapping->getProperty($field);
     }
@@ -209,7 +203,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    * @param bool $withAlias
    * @return string|FALSE
    */
-  function getField($property, $withAlias = TRUE) {
+  public function getField($property, $withAlias = TRUE) {
     if (!isset($this->_results['getField'][$property][$withAlias])) {
       $this->_results['getField'][$property][$withAlias] = $this->_mapping->getField(
         $property, $withAlias

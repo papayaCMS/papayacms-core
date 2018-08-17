@@ -13,70 +13,71 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEqualsTest extends PapayaTestCase {
+class EqualsTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaFilterEquals::__construct
-  */
+   * @covers \Papaya\Filter\Equals::__construct
+   */
   public function testConstructor() {
-    $filter = new PapayaFilterEquals('success');
+    $filter = new Equals('success');
     $this->assertAttributeEquals(
       'success', '_value', $filter
     );
   }
 
   /**
-   * @covers PapayaFilterEquals::validate
+   * @covers       \Papaya\Filter\Equals::validate
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
-   * @throws PapayaFilterExceptionNotEqual
+   * @throws Exception\NotEqual
    */
   public function testValidate($expected, $value) {
-    $filter = new PapayaFilterEquals($expected);
+    $filter = new Equals($expected);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterEquals::validate
+   * @covers       \Papaya\Filter\Equals::validate
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
-   * @throws PapayaFilterExceptionNotEqual
+   * @throws Exception\NotEqual
    */
   public function testValidateExpectingException($expected, $value) {
-    $filter = new PapayaFilterEquals($expected);
-    $this->expectException(PapayaFilterExceptionNotEqual::class);
+    $filter = new Equals($expected);
+    $this->expectException(Exception\NotEqual::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers PapayaFilterEquals::filter
+   * @covers       \Papaya\Filter\Equals::filter
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
    */
   public function testFilter($expected, $value) {
-    $filter = new PapayaFilterEquals($expected);
+    $filter = new Equals($expected);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers PapayaFilterEquals::filter
+   * @covers       \Papaya\Filter\Equals::filter
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
    */
   public function testFilterExpectingNull($expected, $value) {
-    $filter = new PapayaFilterEquals($expected);
+    $filter = new Equals($expected);
     $this->assertNull($filter->filter($value));
   }
 
   /************************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
   public static function provideEqualValues() {
     return array(

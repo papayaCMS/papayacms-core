@@ -1,21 +1,19 @@
 <?php
 /**
-* Show published pages
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Frontend
-* @version $Id: papaya_publictopic.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * Show published pages
@@ -45,7 +43,7 @@ class papaya_publictopic extends base_topic {
   *
   * @param integer $topicId
   * @access public
-  * @return boolean
+  * @return bool
   */
   function checkPublishPeriod($topicId) {
     if (isset($this->topic) && $this->topicId == $topicId &&
@@ -86,7 +84,7 @@ class papaya_publictopic extends base_topic {
   * @param integer $lngIdent
   * @param integer $versionTime optional, default value 0
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadOutput($topicId, $lngIdent, $versionTime = 0) {
     if (is_integer($lngIdent) && $lngIdent > 0) {
@@ -177,7 +175,7 @@ class papaya_publictopic extends base_topic {
   * (The semantics of that function for boxes and pages are the same.)
   *
   * @param base_content object $moduleObj
-  * @param boolean $pageContent page output or short text
+  * @param bool $pageContent page output or short text
   * @access public
   * @return string
   */
@@ -196,7 +194,7 @@ class papaya_publictopic extends base_topic {
    * get the cache identifer definition object for a page
    *
    * @param object $pagePlugin
-   * @return PapayaCacheIdentifierDefinition
+   * @return Cache\Identifier\Definition
    */
   function getCacheDefinition($pagePlugin) {
     if (isset($GLOBALS['PAPAYA_PAGE']) &&
@@ -206,27 +204,27 @@ class papaya_publictopic extends base_topic {
       $pageOptions = array();
     }
     $definition = NULL;
-    if ($pagePlugin instanceof PapayaPluginCacheable) {
+    if ($pagePlugin instanceof \Papaya\Plugin\Cacheable) {
       $definition = $pagePlugin->cacheable();
     } elseif (!property_exists($pagePlugin, 'cacheable') || $pagePlugin->cacheable === FALSE) {
-      return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+      return new Cache\Identifier\Definition\BooleanValue(FALSE);
     } elseif (method_exists($pagePlugin, 'getCacheId')) {
-      $definition = new PapayaCacheIdentifierDefinitionCallback(array($pagePlugin, 'getCacheId'));
+      $definition = new Cache\Identifier\Definition\Callback(array($pagePlugin, 'getCacheId'));
     } else {
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionUrl(),
-        new PapayaCacheIdentifierDefinitionValues($pageOptions)
+      $definition = new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\URL(),
+        new Cache\Identifier\Definition\Values($pageOptions)
       );
     }
     if ($definition) {
-      return new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionBoolean(PapayaUtilRequestMethod::isGet()),
-        new PapayaCacheIdentifierDefinitionPage(),
-        new PapayaCacheIdentifierDefinitionSurfer(),
+      return new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
+        new Cache\Identifier\Definition\Page(),
+        new Cache\Identifier\Definition\Surfer(),
         $definition
       );
     } else {
-      return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+      return new Cache\Identifier\Definition\BooleanValue(FALSE);
     }
   }
 
@@ -263,7 +261,7 @@ class papaya_publictopic extends base_topic {
   * @return string
   */
   function getContentCache($cacheId) {
-    $cache = PapayaCache::getService($this->papaya()->options);
+    $cache = Cache::getService($this->papaya()->options);
     return $cache->read(
       'pages',
       $this->topicId,
@@ -283,7 +281,7 @@ class papaya_publictopic extends base_topic {
   function writeContentCache($cacheId, $contentStr) {
     $expires = $this->getContentCacheTime();
     if ($expires > 0) {
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = Cache::getService($this->papaya()->options);
       return $cache->write('pages', $this->topicId, $cacheId, $contentStr, $expires);
     }
     return FALSE;

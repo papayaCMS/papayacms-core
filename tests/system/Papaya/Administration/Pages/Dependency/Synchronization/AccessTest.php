@@ -13,35 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationAccessTest extends PapayaTestCase {
+class AccessTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::page
-  */
+   * @covers Access::page
+   */
   public function testTranslationsGetAfterSet() {
-    $page = $this->createMock(PapayaContentPageWork::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
+    $action = new Access();
     $this->assertSame(
       $page, $action->page($page)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::page
-  */
+   * @covers Access::page
+   */
   public function testTranslationsGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $this->assertInstanceOf(
-      PapayaContentPageWork::class, $action->page()
+      \Papaya\Content\Page\Work::class, $action->page()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::updatePages
-  */
+   * @covers Access::synchronize
+   * @covers Access::updatePages
+   */
   public function testSynchronize() {
     $databaseAccess = $this->getDatabaseAccessFixture();
     $page = $this->getPageFixture(
@@ -66,31 +68,31 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
         )
       )
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $action->page($page);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::synchronize
-  */
+   * @covers Access::synchronize
+   */
   public function testSynchronizePageNotLoaded() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
     $page
       ->expects($this->once())
       ->method('load')
       ->will($this->returnValue(FALSE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $action->page($page);
     $this->assertFalse($action->synchronize(array(21), 42));
   }
 
   /********************************
-  * Fixtures
-  ********************************/
+   * Fixtures
+   ********************************/
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Access
    */
   private function getDatabaseAccessFixture() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -101,8 +103,8 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
     return $databaseAccess;
   }
 
-  private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
-    $page = $this->createMock(PapayaContentPageWork::class);
+  private function getPageFixture(\Papaya\Database\Access $databaseAccess, array $data = array()) {
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -111,7 +113,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
       ->expects($this->any())
       ->method('__get')
       ->willReturnCallback(
-        function($name) use ($data) {
+        function ($name) use ($data) {
           return $data[$name];
         }
       );

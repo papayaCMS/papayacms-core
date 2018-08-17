@@ -13,77 +13,79 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaCacheTest extends PapayaTestCase {
+class CacheTest extends \Papaya\TestCase {
 
   public function tearDown() {
-    PapayaCache::reset();
+    Cache::reset();
   }
 
   /**
-  * @covers PapayaCache::getService
+  * @covers Cache::getService
   */
   public function testGetServiceDefault() {
     $configuration = $this->mockPapaya()->options();
-    $service = PapayaCache::getService($configuration);
-    $this->assertInstanceOf(PapayaCacheService::class, $service);
-    $serviceTwo = PapayaCache::getService($configuration);
+    $service = Cache::getService($configuration);
+    $this->assertInstanceOf(Cache\Service::class, $service);
+    $serviceTwo = Cache::getService($configuration);
     $this->assertSame($service, $serviceTwo);
   }
 
   /**
-  * @covers PapayaCache::getService
+  * @covers Cache::getService
   */
   public function testGetServiceInvalid() {
-    $options = new PapayaCacheConfiguration();
+    $options = new Cache\Configuration();
     $options['SERVICE'] = 'InvalidName';
-    $this->expectException(UnexpectedValueException::class);
-    PapayaCache::getService($options, FALSE);
+    $this->expectException(\UnexpectedValueException::class);
+    Cache::getService($options, FALSE);
   }
 
   /**
-  * @covers PapayaCache::getService
+  * @covers Cache::getService
   */
   public function testGetServiceEmpty() {
-    $options = new PapayaCacheConfiguration();
+    $options = new Cache\Configuration();
     $options['SERVICE'] = '';
-    $this->expectException(UnexpectedValueException::class);
-    PapayaCache::getService($options, FALSE);
+    $this->expectException(\UnexpectedValueException::class);
+    Cache::getService($options, FALSE);
   }
 
   /**
-  * @covers PapayaCache::getService
+  * @covers Cache::getService
   */
   public function testGetServiceStaticExpectingSameObject() {
     $configuration = $this->mockPapaya()->options();
-    $service = PapayaCache::getService($configuration);
-    $this->assertInstanceOf(PapayaCacheServiceFile::class, $service);
-    $serviceTwo = PapayaCache::getService($configuration);
+    $service = Cache::getService($configuration);
+    $this->assertInstanceOf(Cache\Service\File::class, $service);
+    $serviceTwo = Cache::getService($configuration);
     $this->assertSame($service, $serviceTwo);
   }
 
   /**
-  * @covers PapayaCache::getService
+  * @covers Cache::getService
   */
   public function testGetServiceNonStaticExpectingDifferentObjects() {
     $configuration = $this->mockPapaya()->options();
-    $service = PapayaCache::getService($configuration, FALSE);
-    $this->assertInstanceOf(PapayaCacheServiceFile::class, $service);
-    $serviceTwo = PapayaCache::getService($configuration, FALSE);
+    $service = Cache::getService($configuration, FALSE);
+    $this->assertInstanceOf(Cache\Service\File::class, $service);
+    $serviceTwo = Cache::getService($configuration, FALSE);
     $this->assertNotSame($service, $serviceTwo);
   }
 
   /**
-  * @covers PapayaCache::prepareConfiguration
+  * @covers Cache::prepareConfiguration
   */
   public function testPrepareConfigurationPasstrough() {
-    $options = new PapayaCacheConfiguration();
-    $this->assertSame($options, PapayaCache::prepareConfiguration($options));
+    $options = new Cache\Configuration();
+    $this->assertSame($options, Cache::prepareConfiguration($options));
   }
 
   /**
-  * @covers PapayaCache::prepareConfiguration
+  * @covers Cache::prepareConfiguration
   */
   public function testPrepareConfigurationFromGlobalConfiguration() {
     $configuration = $this->mockPapaya()->options(
@@ -95,8 +97,8 @@ class PapayaCacheTest extends PapayaTestCase {
         'PAPAYA_CACHE_MEMCACHE_SERVERS' => 'sample.host'
       )
     );
-    $options = PapayaCache::prepareConfiguration($configuration);
-    $this->assertInstanceOf(PapayaCacheConfiguration::class, $options);
+    $options = Cache::prepareConfiguration($configuration);
+    $this->assertInstanceOf(Cache\Configuration::class, $options);
     $this->assertEquals(
       array(
         'SERVICE' => 'sample',
@@ -110,16 +112,16 @@ class PapayaCacheTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCache::get
+  * @covers Cache::get
   */
   public function testGetForInvalidCacheExpectingFalse() {
     $this->assertFalse(
-      PapayaCache::get(-23, $this->mockPapaya()->options())
+      Cache::get(-23, $this->mockPapaya()->options())
     );
   }
 
   /**
-   * @covers PapayaCache::get
+   * @covers Cache::get
    * @dataProvider provideCacheIdentifiers
    * @param string $for
    */
@@ -138,14 +140,14 @@ class PapayaCacheTest extends PapayaTestCase {
         'PAPAYA_CACHE_IMAGES_MEMCACHE_SERVERS' => 'sample.host'
       )
     );
-    $service = PapayaCache::get($for, $configuration);
+    $service = Cache::get($for, $configuration);
     $this->assertInstanceOf(
-      PapayaCacheServiceApc::class, $service
+      Cache\Service\APC::class, $service
     );
   }
 
   /**
-   * @covers PapayaCache::get
+   * @covers Cache::get
    * @dataProvider provideDisabledCacheIdentifiers
    * @param string $for
    */
@@ -157,34 +159,34 @@ class PapayaCacheTest extends PapayaTestCase {
       )
     );
     $this->assertFalse(
-      PapayaCache::get($for, $configuration)
+      Cache::get($for, $configuration)
     );
   }
 
   /**
-  * @covers PapayaCache::reset
+  * @covers Cache::reset
   */
   public function testReset() {
     $configuration = $this->mockPapaya()->options();
-    PapayaCache::getService($configuration);
-    PapayaCache::reset();
+    Cache::getService($configuration);
+    Cache::reset();
     $this->assertAttributeEquals(
-      array(), '_serviceObjects', PapayaCache::class
+      array(), '_serviceObjects', Cache::class
     );
   }
 
   public static function provideCacheIdentifiers() {
     return array(
-      array(PapayaCache::OUTPUT),
-      array(PapayaCache::DATA),
-      array(PapayaCache::IMAGES)
+      array(Cache::OUTPUT),
+      array(Cache::DATA),
+      array(Cache::IMAGES)
     );
   }
 
   public static function provideDisabledCacheIdentifiers() {
     return array(
-      array(PapayaCache::DATA),
-      array(PapayaCache::IMAGES)
+      array(Cache::DATA),
+      array(Cache::IMAGES)
     );
   }
 }

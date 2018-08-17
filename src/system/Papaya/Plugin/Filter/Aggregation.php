@@ -1,56 +1,55 @@
 <?php
 /**
- * This a standard implementation for content/data filters usage in a plugin.
+ * papaya CMS
  *
- * @copyright 2018 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Plugins
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
+
+namespace Papaya\Plugin\Filter;
 
 /**
  * This a standard implementation for content/data filters usage in a plugin.
  *
- * It provides access to a filters() methods that returns a PapayaPluginFilterContent
+ * It provides access to a filters() methods that returns a \Papaya\Plugin\Filter\Content
  * instance.
  *
  * To use the filters call prepare()/applyTo()/appendTo() in the
- * your PapayaPluginAppendable::appendTo() method.
+ * your \Papaya\Plugin\Appendable::appendTo() method.
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait PapayaPluginFilterAggregation {
+trait Aggregation {
 
   /**
-   * @var PapayaPluginFilterContentRecords
+   * @var Content\Records
    */
   private $_contentFilters;
 
   /**
-   * @var base_topic|PapayaUiContentPage
+   * @var \base_topic|\Papaya\UI\Content\Page
    */
   private $_page;
 
 
   /**
-   * @param PapayaPluginFilterContent|NULL $filters
+   * @param Content|NULL $filters
    *
-   * @return PapayaPluginFilterContent
+   * @return Content
    */
-  public function filters(PapayaPluginFilterContent $filters = NULL) {
-    if ($filters !== NULL) {
+  public function filters(Content $filters = NULL) {
+    if (NULL !== $filters) {
       $this->_contentFilters = $filters;
     } elseif (NULL === $this->_contentFilters) {
-      $this->_contentFilters = new PapayaPluginFilterContentRecords($this->getPage());
+      $this->_contentFilters = new Content\Records($this->getPage());
     }
     return $this->_contentFilters;
   }
@@ -60,7 +59,7 @@ trait PapayaPluginFilterAggregation {
    * This implementation expects that it was stored in the private
    * field $_page.
    *
-   * @return base_topic|PapayaUiContentPage
+   * @return \base_topic|\Papaya\UI\Content\Page
    */
   public function getPage() {
     return $this->_page;

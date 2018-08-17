@@ -1,21 +1,17 @@
 <?php
 /**
-* Linktypes Administration
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_linktypes.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Linktypes Administration
@@ -31,7 +27,7 @@ class papaya_linktypes extends base_linktypes {
   var $targets = array(0 => '_self', 1 => '_blank', 2 => '_parent');
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -320,16 +316,16 @@ class papaya_linktypes extends base_linktypes {
       $linkType = $this->getLinkType($this->params['ltid'], TRUE);
       $hidden['ltid'] = $this->params['ltid'];
       $data = array(
-        'popup_height' => PapayaUtilArray::get($linkType['popup_config'], 'height', ''),
-        'popup_location' => PapayaUtilArray::get($linkType['popup_config'], 'location', ''),
-        'popup_menubar' => PapayaUtilArray::get($linkType['popup_config'], 'menubar', ''),
-        'popup_resizable' => PapayaUtilArray::get($linkType['popup_config'], 'resizable', ''),
-        'popup_left' => PapayaUtilArray::get($linkType['popup_config'], 'left', ''),
-        'popup_top' => PapayaUtilArray::get($linkType['popup_config'], 'top', ''),
-        'popup_scrollbars' => PapayaUtilArray::get($linkType['popup_config'], 'scrollbars', ''),
-        'popup_status' => PapayaUtilArray::get($linkType['popup_config'], 'status', ''),
-        'popup_toolbar' => PapayaUtilArray::get($linkType['popup_config'], 'toolbar', ''),
-        'popup_width' => PapayaUtilArray::get($linkType['popup_config'], 'width', '')
+        'popup_height' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'height', ''),
+        'popup_location' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'location', ''),
+        'popup_menubar' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'menubar', ''),
+        'popup_resizable' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'resizable', ''),
+        'popup_left' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'left', ''),
+        'popup_top' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'top', ''),
+        'popup_scrollbars' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'scrollbars', ''),
+        'popup_status' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'status', ''),
+        'popup_toolbar' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'toolbar', ''),
+        'popup_width' => \Papaya\Utility\Arrays::get($linkType['popup_config'], 'width', '')
       );
       $title = 'Edit popup properties';
     }
@@ -440,7 +436,7 @@ class papaya_linktypes extends base_linktypes {
           'width' => $this->params['popup_width'],
         );
         $data = array(
-          'linktype_popup_config' => PapayaUtilStringXml::serializeArray($popupConfig)
+          'linktype_popup_config' => \Papaya\Utility\Text\XML::serializeArray($popupConfig)
         );
       } else {
         $data = array(

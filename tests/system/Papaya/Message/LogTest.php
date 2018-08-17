@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMessageLogTest extends PapayaTestCase {
+class LogTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageLog::__construct
-  */
+   * @covers \Papaya\Message\Log::__construct
+   */
   public function testConstructor() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertAttributeEquals(
-      PapayaMessageLogable::GROUP_SYSTEM,
+      Logable::GROUP_SYSTEM,
       '_group',
       $message
     );
     $this->assertAttributeEquals(
-      PapayaMessage::SEVERITY_WARNING,
+      \Papaya\Message::SEVERITY_WARNING,
       '_type',
       $message
     );
@@ -44,47 +45,47 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::getGroup
-  */
+   * @covers \Papaya\Message\Log::getGroup
+   */
   public function testGetGroup() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertEquals(
-      PapayaMessageLogable::GROUP_SYSTEM,
+      Logable::GROUP_SYSTEM,
       $message->getGroup()
     );
   }
 
 
   /**
-  * @covers PapayaMessageLog::getType
-  */
+   * @covers \Papaya\Message\Log::getType
+   */
   public function testGetType() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertEquals(
-      PapayaMessage::SEVERITY_WARNING,
+      \Papaya\Message::SEVERITY_WARNING,
       $message->getType()
     );
   }
 
   /**
-  * @covers PapayaMessageLog::SetContext
-  */
+   * @covers \Papaya\Message\Log::SetContext
+   */
   public function testSetContext() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextGroup $context */
-    $context = $this->createMock(PapayaMessageContextGroup::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Context\Group $context */
+    $context = $this->createMock(Context\Group::class);
     $message->setContext($context);
     $this->assertAttributeSame(
       $context,
@@ -94,16 +95,16 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::context
-  */
+   * @covers \Papaya\Message\Log::context
+   */
   public function testContext() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextGroup $context */
-    $context = $this->createMock(PapayaMessageContextGroup::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Context\Group $context */
+    $context = $this->createMock(Context\Group::class);
     $message->setContext($context);
     $this->assertSame(
       $context,
@@ -112,12 +113,12 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::getMessage
-  */
+   * @covers \Papaya\Message\Log::getMessage
+   */
   public function testGetMessage() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertEquals(
@@ -127,16 +128,16 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::Context
-  */
+   * @covers \Papaya\Message\Log::Context
+   */
   public function testContextImplizitCreate() {
-    $message = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
-      PapayaMessage::SEVERITY_WARNING,
+    $message = new Log(
+      Logable::GROUP_SYSTEM,
+      \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertInstanceOf(
-      PapayaMessageContextGroup::class,
+      Context\Group::class,
       $message->context()
     );
   }

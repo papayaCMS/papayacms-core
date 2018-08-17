@@ -1,22 +1,19 @@
 <?php
 /**
-* system test for papaya
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link      http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_systemtest.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+use Papaya\Database\Exception;
 
 /**
 * Test OK
@@ -126,7 +123,7 @@ class papaya_systemtest {
   var $resultTestMessages = array();
 
   /**
-   * @var PapayaUiImages|array
+   * @var \Papaya\UI\Images|array
    */
   public $images = array();
 
@@ -219,7 +216,7 @@ class papaya_systemtest {
     if (substr($subPath, 0, 1) != '/') {
       $subPath = '/'.$subPath;
     }
-    $protocol = PapayaUtilServerProtocol::get();
+    $protocol = \Papaya\Utility\Server\Protocol::get();
     $url = $protocol.'://'.$_SERVER['HTTP_HOST'].$subPath;
     return $url;
   }
@@ -402,7 +399,7 @@ class papaya_systemtest {
     $memoryLimit = @ini_get('memory_limit');
     if (extension_loaded('suhosin')) {
       if ($suhosinMemoryLimit = @ini_get('suhosin.memory_limit')) {
-        $suhosinMemoryLimit = PapayaUtilBytes::fromString($suhosinMemoryLimit);
+        $suhosinMemoryLimit = \Papaya\Utility\Bytes::fromString($suhosinMemoryLimit);
       } else {
         $suhosinMemoryLimit = 0;
       }
@@ -424,11 +421,11 @@ class papaya_systemtest {
   */
   function testDatabase() {
     try {
-      $uriData = new PapayaDatabaseSourceName(PAPAYA_DB_URI);
+      $uriData = new \Papaya\Database\Source\Name(PAPAYA_DB_URI);
       if (extension_loaded($uriData->api)) {
         return TESTRESULT_OK;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
     }
     return TESTRESULT_FAILED;
   }
@@ -441,14 +438,14 @@ class papaya_systemtest {
    * @return integer
    */
   function testDatabaseConnection($title) {
-    /** @var PapayaApplicationCms $application */
-    $application = PapayaApplication::getInstance();
+    /** @var \Papaya\Application\Cms $application */
+    $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
       if ($database->connect($this, TRUE) && $database->connect($this, FALSE)) {
         return TESTRESULT_OK;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
       $this->resultTestMessages[$title] = $e->getMessage();
     }
     return TESTRESULT_FAILED;
@@ -462,8 +459,8 @@ class papaya_systemtest {
   */
   function testDatabasePermissions() {
     try {
-      /** @var PapayaApplicationCms $application */
-      $application = PapayaApplication::getInstance();
+      /** @var \Papaya\Application\Cms $application */
+      $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
       if ($database->connect($this, FALSE)) {
         $dbSyntax = $database->getProtocol();
@@ -514,7 +511,7 @@ class papaya_systemtest {
           return TESTRESULT_UNKNOWN;
         }
       }
-    } catch (PapayaDatabaseException $e) {
+    } catch (Exception $e) {
     }
     return TESTRESULT_FAILED;
   }
@@ -741,11 +738,11 @@ class papaya_systemtest {
   */
   function testMemoryLimitIncrease() {
     if (is_callable('ini_get') && is_callable('ini_set')) {
-      $limit = PapayaUtilBytes::fromString(@ini_get('memory_limit'));
+      $limit = \Papaya\Utility\Bytes::fromString(@ini_get('memory_limit'));
       if ($limit > 0) {
         $limit += 1024;
         ini_set('memory_limit', $limit);
-        if ($limit == PapayaUtilBytes::fromString(@ini_get('memory_limit'))) {
+        if ($limit == \Papaya\Utility\Bytes::fromString(@ini_get('memory_limit'))) {
           return TESTRESULT_OK;
         }
       }

@@ -13,17 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Application;
+use Papaya\Cache;
+use Papaya\Content;
+use Papaya\Controller;
+use Papaya\Request;
+
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
- * they need to be changed and use ../core.php. For BC keep validate that
- * the Autoloader exists and include the ../core.php otherwise.
+ * they need to be changed and use ../core.php. For BC validate that
+ * the Autoloader exists and include it otherwise.
  */
-if (!class_exists('PapayaAutoloader', FALSE)) {
+if (!class_exists('\\Papaya\\Autoloader', FALSE)) {
   if (!defined('PAPAYA_INCLUDE_PATH')) {
-    define('PAPAYA_INCLUDE_PATH', dirname(dirname(__FILE__)).'/');
+    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'/');
   }
-  include_once(PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php');
-  spl_autoload_register('PapayaAutoloader::load');
+  include_once PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php';
+  spl_autoload_register(\Papaya\Autoloader::class.'::load');
 }
 
 define('PAPAYA_PAGE_ERROR_UNKNOWN', 0);
@@ -68,12 +74,12 @@ class papaya_page extends base_object {
   public $versionDateTime;
 
   /**
-   * @var boolean
+   * @var bool
    */
   public $readOnlySession = FALSE;
 
   /**
-   * @var PapayaContentLanguage
+   * @var \Papaya\Content\Language
    */
   public $contentLanguage;
 
@@ -112,7 +118,8 @@ class papaya_page extends base_object {
 
   /**
   * Layout
-  * @var PapayaTemplate $layout
+  *
+  * @var \Papaya\Template $layout
   */
   var $layout = NULL;
 
@@ -162,7 +169,8 @@ class papaya_page extends base_object {
 
   /**
   * Accept .gz compressed files
-  * @var boolean $acceptGzip
+  *
+  * @var bool $acceptGzip
   */
   var $acceptGzip = FALSE;
 
@@ -180,7 +188,8 @@ class papaya_page extends base_object {
 
   /**
   * default status for pages is public
-  * @var boolean
+  *
+   * @var bool
   */
   var $public = TRUE;
 
@@ -188,10 +197,11 @@ class papaya_page extends base_object {
   * allow session for current output mode
   * @var integer
   */
-  var $allowSession = PapayaSession::ACTIVATION_NEVER;
+  var $allowSession = \Papaya\Session::ACTIVATION_NEVER;
   /**
   * redirect to handle session id in path
-  * @var boolean
+   *
+   * @var bool
   */
   var $allowSessionRedirects = FALSE;
   /**
@@ -221,10 +231,10 @@ class papaya_page extends base_object {
   * @access public
   */
   function execute() {
-    PapayaRequestLog::getInstance();
+    Request\Log::getInstance();
     $application = $this->papaya();
     $application->registerProfiles(
-      new PapayaApplicationProfilesCms()
+      new Application\Profiles\Cms()
     );
     $application->profiler->start();
     if (!defined('PAPAYA_ADMIN_PAGE')) {
@@ -241,7 +251,7 @@ class papaya_page extends base_object {
     }
     $options = $application->options;
     if (!$options->load()) {
-      $controller = new PapayaControllerErrorFile($this);
+      $controller = new Controller\Error\File($this);
       $controller->setStatus(503);
       $controller->setError('Service Unavailable', 'DATABASE');
       $controller->setTemplateFile($options->get('PAPAYA_ERRORDOCUMENT_503', ''));
@@ -257,7 +267,7 @@ class papaya_page extends base_object {
     $request = $application->request;
     if ($request->languageId !== $languageId) {
       $request->language(
-        $this->papaya()->languages->getLanguage($languageId, PapayaContentLanguages::FILTER_IS_CONTENT)
+        $this->papaya()->languages->getLanguage($languageId, Content\Languages::FILTER_IS_CONTENT)
       );
     }
     $options->defineDatabaseTables();
@@ -266,14 +276,14 @@ class papaya_page extends base_object {
 
     /* handle redirected errors */
     $redirectErrorCode = $request->getParameter(
-      'redirect', 0, NULL, PapayaRequest::SOURCE_QUERY
+      'redirect', 0, NULL, \Papaya\Request::SOURCE_QUERY
     );
     if (in_array($redirectErrorCode, array(403, 404, 500), FALSE)) {
       $message = $request->getParameter(
-        'msg', '', NULL, PapayaRequest::SOURCE_QUERY
+        'msg', '', NULL, \Papaya\Request::SOURCE_QUERY
       );
       $code = $request->getParameter(
-        'code', 0, NULL, PapayaRequest::SOURCE_QUERY
+        'code', 0, NULL, \Papaya\Request::SOURCE_QUERY
       );
       $options->defineConstants();
       $this->getError($redirectErrorCode, $message, $code);
@@ -284,11 +294,13 @@ class papaya_page extends base_object {
       $this->sessionName .= 'admin';
       define('PAPAYA_ADMIN_SESSION', TRUE);
       define('PAPAYA_SESSION_DOMAIN', $baseSessionDomain);
-      if ($options->get('PAPAYA_UI_SECURE', FALSE) &&
-          'https' !== $application->request->getUrl()->scheme) {
-        $url = $application->request->getUrl();
+      if (
+        $options->get('PAPAYA_UI_SECURE', FALSE) &&
+        'https' !== $application->request->getURL()->scheme
+      ) {
+        $url = $application->request->getURL();
         $url->scheme = 'https';
-        $this->doRedirect(301, $url->getUrl(), 'Secure administration');
+        $this->doRedirect(301, $url->getURL(), 'Secure administration');
       }
     } else {
       define('PAPAYA_ADMIN_SESSION', FALSE);
@@ -314,9 +326,9 @@ class papaya_page extends base_object {
           'External Link, Remove SID'
         );
       } else {
-        $targetUrl = $_GET['exit'];
-        $this->logRequestExitPage($targetUrl);
-        $this->protectedRedirect(301, $targetUrl);
+        $targetURL = $_GET['exit'];
+        $this->logRequestExitPage($targetURL);
+        $this->protectedRedirect(301, $targetURL);
       }
     } else {
       $this->startSession();
@@ -324,7 +336,7 @@ class papaya_page extends base_object {
         $previewDomain = $application->session->values['PAGE_PREVIEW_DOMAIN'];
         $this->sendHeader('X-Papaya-Preview-Domain: '.$previewDomain);
         if (!empty($previewDomain)) {
-          $domainOptions = new PapayaConfigurationStorageDomain($previewDomain);
+          $domainOptions = new \Papaya\Configuration\Storage\Domain($previewDomain);
           $application->options->load($domainOptions);
           if ($domainId = $domainOptions->domain()->id) {
             $this->_currentDomainId = $domainId;
@@ -335,18 +347,18 @@ class papaya_page extends base_object {
     $options->defineConstants();
     /* redirect script handling */
     if (!empty($_GET['redirect'])) {
-      $targetUrl = base_object::getAbsoluteURL(
+      $targetURL = base_object::getAbsoluteURL(
         (string)$_GET['redirect'],
         empty($_GET['title']) ? '' : (string)$_GET['title']
       );
-      $this->protectedRedirect(302, $targetUrl);
+      $this->protectedRedirect(302, $targetURL);
       exit;
     } elseif (!empty($_POST['redirect'])) {
-      $targetUrl = base_object::getAbsoluteURL(
+      $targetURL = base_object::getAbsoluteURL(
         (string)$_POST['redirect'],
         empty($_POST['title']) ? '' : (string)$_POST['title']
       );
-      $this->protectedRedirect(302, $targetUrl);
+      $this->protectedRedirect(302, $targetURL);
       exit;
     }
     if ($options->get('PAPAYA_DEFAULT_HOST', '') != '' &&
@@ -369,38 +381,38 @@ class papaya_page extends base_object {
    *    about a possibly spoofed redirect
    *
    * @param integer $code the redirection status code to use
-   * @param string $targetUrl the target url to redirect to
+   * @param string $targetURL the target url to redirect to
    */
-  function protectedRedirect($code, $targetUrl) {
+  function protectedRedirect($code, $targetURL) {
     if ($this->papaya()->options->get('PAPAYA_REDIRECT_PROTECTION', FALSE)) {
-      $protocol = PapayaUtilServerProtocol::get();
-      $systemUrl = $protocol.'://'.strtolower(
+      $protocol = \Papaya\Utility\Server\Protocol::get();
+      $systemURL = $protocol.'://'.strtolower(
         $this->papaya()->options->get(
           'PAPAYA_DEFAULT_HOST',
           empty($_SERVER['HTTP_HOST']) ? 'localhost' : ''
         )
       );
-      if (FALSE !== strpos($targetUrl, "\n") &&
-          FALSE !== strpos($targetUrl, "\r")) {
+      if (FALSE !== strpos($targetURL, "\n") &&
+          FALSE !== strpos($targetURL, "\r")) {
         //don't redirect to prevent header injection
         $this->sendHeader('X-Papaya-Status: redirect link contains newline');
-      } elseif (0 === strpos($targetUrl, $systemUrl)) {
+      } elseif (0 === strpos($targetURL, $systemURL)) {
         //own hostname - just redirect
-        $this->doRedirect($code, $targetUrl, 'Absolute Link (same domain)');
+        $this->doRedirect($code, $targetURL, 'Absolute Link (same domain)');
       } elseif (isset($_SERVER['HTTP_REFERER']) &&
-                0 === strpos($_SERVER['HTTP_REFERER'], $systemUrl)) {
+                0 === strpos($_SERVER['HTTP_REFERER'], $systemURL)) {
         //from own hostname - just redirect
-        $this->doRedirect($code, $targetUrl, 'External Link (referer checked)');
+        $this->doRedirect($code, $targetURL, 'External Link (referer checked)');
       } else {
-        $urlData = base_url_analyze::parseURL($targetUrl);
+        $urlData = base_url_analyze::parseURL($targetURL);
         if ($this->domains->load($urlData['host'], 0)) {
-          $this->doRedirect($code, $targetUrl, 'External Link (domain checked)');
+          $this->doRedirect($code, $targetURL, 'External Link (domain checked)');
         } else {
-          $this->getRedirect($code, $targetUrl);
+          $this->getRedirect($code, $targetURL);
         }
       }
     } else {
-      $this->doRedirect($code, $targetUrl, 'Redirect Link');
+      $this->doRedirect($code, $targetURL, 'Redirect Link');
     }
   }
 
@@ -409,7 +421,7 @@ class papaya_page extends base_object {
   *
   * @param integer $code
   * @param string $path
-  * @param boolean $defaultHost
+   * @param bool $defaultHost
   * @param string $reason
   */
   function doRedirectToPath($code, $path, $defaultHost = FALSE, $reason = NULL) {
@@ -420,20 +432,21 @@ class papaya_page extends base_object {
     } else {
       $host = $_SERVER['HTTP_HOST'];
     }
-    $protocol = PapayaUtilServerProtocol::get();
-    $targetUrl = $protocol.'://'.strtolower($host).$path;
-    $this->doRedirect($code, $targetUrl, $reason);
+    $protocol = \Papaya\Utility\Server\Protocol::get();
+    $targetURL = $protocol.'://'.strtolower($host).$path;
+    $this->doRedirect($code, $targetURL, $reason);
   }
 
   /**
   * Send a http redirect
+  *
   * @param integer $code
-  * @param string $targetUrl
+  * @param string $targetURL
   * @param string $reason
   */
-  function doRedirect($code, $targetUrl, $reason = NULL) {
-    $response = new PapayaResponseRedirect(
-      $targetUrl,
+  function doRedirect($code, $targetURL, $reason = NULL) {
+    $response = new \Papaya\Response\Redirect(
+      $targetURL,
       ($code == 301) ? $code : 302,
       $reason
     );
@@ -491,7 +504,7 @@ class papaya_page extends base_object {
       $status = empty($_SERVER['REDIRECT_STATUS']) ? 200 : (int)$_SERVER['REDIRECT_STATUS'];
     }
     if ($status != 404) {
-      $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+      $pathData = $this->papaya()->request->getParameters(Request::SOURCE_PATH);
       $isPageMode = $pathData['mode'] == '' || $pathData['mode'] == 'page';
       $isStartPage = isset($pathData['is_startpage']) && $pathData['is_startpage'];
       if (!$isPageMode || $isStartPage) {
@@ -557,24 +570,24 @@ class papaya_page extends base_object {
         case 2 :
           if ($url = $urlMounter->executeAliasPlugin($alias[2])) {
             if (is_string($url)) {
-              $url = $this->getAbsoluteUrl($url);
-              if ($aliasUrl = $urlMounter->getAliasURL($url)) {
-                $this->doRedirect(302, $aliasUrl, 'Alias Plugin Redirect');
+              $url = $this->getAbsoluteURL($url);
+              if ($aliasURL = $urlMounter->getAliasURL($url)) {
+                $this->doRedirect(302, $aliasURL, 'Alias Plugin Redirect');
               } else {
-                $requestUrl = new PapayaUrl($url);
-                $request = new PapayaRequest($this->papaya()->options);
-                $request->load($requestUrl);
+                $requestURL = new \Papaya\URL($url);
+                $request = new \Papaya\Request($this->papaya()->options);
+                $request->load($requestURL);
                 $urlData = array(
                   'topic_id' => $request->getParameter(
-                    'page_id', NULL, NULL, PapayaRequest::SOURCE_PATH
+                    'page_id', NULL, NULL, \Papaya\Request::SOURCE_PATH
                   ),
                   'lng_ident' => $request->getParameter(
-                    'language', NULL, NULL, PapayaRequest::SOURCE_PATH
+                    'language', NULL, NULL, \Papaya\Request::SOURCE_PATH
                   ),
                   'viewmode_ext' => $request->getParameter(
-                    'output_mode', NULL, NULL, PapayaRequest::SOURCE_PATH
+                    'output_mode', NULL, NULL, \Papaya\Request::SOURCE_PATH
                   ),
-                  'url_params' => $requestUrl->getQuery(),
+                  'url_params' => $requestURL->getQuery(),
                 );
                 return $this->setRequestFromAlias($urlData);
               }
@@ -592,8 +605,8 @@ class papaya_page extends base_object {
           echo $urlMounter->getOutput($alias[0], $alias[2]);
           exit;
         default :
-          if ($aliasUrl = $urlMounter->getAliasURL($alias[0])) {
-            $this->doRedirect(302, $aliasUrl, 'Alias Redirect');
+          if ($aliasURL = $urlMounter->getAliasURL($alias[0])) {
+            $this->doRedirect(302, $aliasURL, 'Alias Redirect');
           } else {
             //no redirect needed - put data into variables
             return $this->setRequestFromAlias($alias[2]);
@@ -617,8 +630,8 @@ class papaya_page extends base_object {
       ->options
       ->get('PAPAYA_URL_LEVEL_SEPARATOR');
     $request = $application->request;
-    $parameters = $request->getParameters(PapayaRequest::SOURCE_QUERY);
-    $query = new PapayaRequestParametersQuery($parameterGroupSeparator);
+    $parameters = $request->getParameters(Request::SOURCE_QUERY);
+    $query = new Request\Parameters\QueryString($parameterGroupSeparator);
     //get addtional parameters and merge them
     if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
       $parameters->merge(
@@ -630,7 +643,7 @@ class papaya_page extends base_object {
         $query->setString($alias['url_params'])->values()
       );
     }
-    $reference = new PapayaUiReferencePage();
+    $reference = new \Papaya\UI\Reference\Page();
     if (isset($alias['topic_id'])) {
       $reference->setPageId($alias['topic_id']);
     }
@@ -643,18 +656,18 @@ class papaya_page extends base_object {
     }
     $reference->setParameters($parameters);
     //exchange request object
-    $request = new PapayaRequest($application->options);
-    $request->load(new PapayaUrl($reference->get()));
-    $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
+    $request = new \Papaya\Request($application->options);
+    $request->load(new \Papaya\URL($reference->get()));
+    $request->setParameters(Request::SOURCE_QUERY, $parameters);
     $application->setObject(
-      'Request', $request, PapayaApplication::DUPLICATE_OVERWRITE
+      'Request', $request, \Papaya\Application::DUPLICATE_OVERWRITE
     );
     // bc stuff
-    $_GET = $request->getParameters(PapayaRequest::SOURCE_QUERY)->toArray();
+    $_GET = $request->getParameters(Request::SOURCE_QUERY)->toArray();
     $requestData['page_id'] = $alias['topic_id'];
     $requestData['language'] = $alias['lng_ident'];
     $requestData['ext'] = $alias['viewmode_ext'];
-    $this->requestData = PapayaUtilArray::merge(
+    $this->requestData = \Papaya\Utility\Arrays::merge(
       $this->requestData,
       $requestData
     );
@@ -667,7 +680,7 @@ class papaya_page extends base_object {
   * @return array
   */
   function queryStringToArray($queryString) {
-    $query = new PapayaRequestParametersQuery(
+    $query = new Request\Parameters\QueryString(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR', '')
     );
     return $query->setString($queryString)->values()->toArray();
@@ -681,22 +694,22 @@ class papaya_page extends base_object {
   function startSession() {
     $session = $this->papaya()->session;
     if ($this->isPreview()) {
-      $startSession = PapayaSession::ACTIVATION_DYNAMIC;
+      $startSession = \Papaya\Session::ACTIVATION_DYNAMIC;
     } elseif ($this->allowSession &&
               $this->papaya()->options->get('PAPAYA_SESSION_START', FALSE)) {
       $startSession = $this->allowSession;
     } else {
-      $startSession = PapayaSession::ACTIVATION_NEVER;
+      $startSession = \Papaya\Session::ACTIVATION_NEVER;
     }
     $session->setName('sid'.$this->sessionName);
     $this->sendHeader('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"');
-    if (PapayaUtilServerAgent::isRobot()) {
+    if (\Papaya\Utility\Server\Agent::isRobot()) {
       if ($redirect = $session->redirectIfNeeded()) {
         $redirect->send();
         exit;
       }
-    } elseif (($startSession == PapayaSession::ACTIVATION_ALWAYS) ||
-              ($startSession == PapayaSession::ACTIVATION_DYNAMIC && $session->id()->existsIn())) {
+    } elseif (($startSession == \Papaya\Session::ACTIVATION_ALWAYS) ||
+              ($startSession == \Papaya\Session::ACTIVATION_DYNAMIC && $session->id()->existsIn())) {
       if ($this->papaya()->options->get('PAPAYA_SESSION_START', FALSE) &&
           !$this->papaya()->options->get('PAPAYA_DB_CONNECT_PERSISTENT', FALSE)) {
         $this->output->databaseClose();
@@ -704,20 +717,20 @@ class papaya_page extends base_object {
       $fallback = $this->papaya()->options->get('PAPAYA_SESSION_ID_FALLBACK', 'rewrite');
       switch ($fallback) {
       case 'get' :
-        $session->options()->fallback = PapayaSessionOptions::FALLBACK_PARAMETER;
+        $session->options()->fallback = \Papaya\Session\Options::FALLBACK_PARAMETER;
         break;
       case 'rewrite' :
-        $session->options()->fallback = PapayaSessionOptions::FALLBACK_REWRITE;
+        $session->options()->fallback = \Papaya\Session\Options::FALLBACK_REWRITE;
         break;
       default :
         if ($this->isPreview()) {
-          $session->options()->fallback = PapayaSessionOptions::FALLBACK_REWRITE;
+          $session->options()->fallback = \Papaya\Session\Options::FALLBACK_REWRITE;
         } else {
-          $session->options()->fallback = PapayaSessionOptions::FALLBACK_NONE;
+          $session->options()->fallback = \Papaya\Session\Options::FALLBACK_NONE;
         }
       }
       $session->options()->cache = $this->papaya()->options->get(
-        'PAPAYA_SESSION_CACHE', PapayaSessionOptions::CACHE_NONE
+        'PAPAYA_SESSION_CACHE', \Papaya\Session\Options::CACHE_NONE
       );
       if ($redirect = $session->activate($this->allowSessionRedirects)) {
         $redirect->send();
@@ -767,7 +780,7 @@ class papaya_page extends base_object {
   *
   * @param integer $topicId
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateAccess($topicId) {
     if ($this->isPreview()) {
@@ -781,7 +794,7 @@ class papaya_page extends base_object {
   * preview or part of current domain
   *
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateDomain() {
     if ($this->isPreview()) {
@@ -792,20 +805,20 @@ class papaya_page extends base_object {
       $result = TRUE;
     }
     if ($result && $this->topic->topic['topic_protocol'] > 0) {
-      $protocol = PapayaUtilServerProtocol::isSecure() ? 2 : 1;
+      $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != $this->topic->topic['topic_protocol']) {
-        $targetUrl = $this->topic->topic['topic_protocol'] == 2 ? 'https://' : 'http://';
-        $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
-        $targetUrl .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
-        $this->protectedRedirect('302', $targetUrl);
+        $targetURL = $this->topic->topic['topic_protocol'] == 2 ? 'https://' : 'http://';
+        $targetURL .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
+        $targetURL .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+        $this->protectedRedirect('302', $targetURL);
       }
     } elseif ($result && defined('PAPAYA_DEFAULT_PROTOCOL') && PAPAYA_DEFAULT_PROTOCOL > 0) {
-      $protocol = PapayaUtilServerProtocol::isSecure() ? 2 : 1;
+      $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != PAPAYA_DEFAULT_PROTOCOL) {
-        $targetUrl = PAPAYA_DEFAULT_PROTOCOL == 2 ? 'https://' : 'http://';
-        $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
-        $targetUrl .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
-        $this->protectedRedirect('302', $targetUrl);
+        $targetURL = PAPAYA_DEFAULT_PROTOCOL == 2 ? 'https://' : 'http://';
+        $targetURL .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
+        $targetURL .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+        $this->protectedRedirect('302', $targetURL);
       }
     }
     return $result;
@@ -815,7 +828,7 @@ class papaya_page extends base_object {
   * validate editor access (preview, debug outputs)
   *
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateEditorAccess() {
     $application = $this->papaya();
@@ -879,20 +892,20 @@ class papaya_page extends base_object {
         )
       )
     ) {
-      if ($pagePlugin instanceof PapayaPluginCacheable) {
+      if ($pagePlugin instanceof \Papaya\Plugin\Cacheable) {
         $definition = $pagePlugin->cacheable();
       } elseif (isset($pagePlugin->cacheable) && $pagePlugin->cacheable == FALSE) {
         return FALSE;
       } elseif (method_exists($pagePlugin, 'getCacheId')) {
-        $definition = new PapayaCacheIdentifierDefinitionCallback(array($pagePlugin, 'getCacheId'));
+        $definition = new Cache\Identifier\Definition\Callback(array($pagePlugin, 'getCacheId'));
       } else {
-        $definition = new PapayaCacheIdentifierDefinitionBoolean(TRUE);
+        $definition = new Cache\Identifier\Definition\BooleanValue(TRUE);
       }
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionBoolean(PapayaUtilRequestMethod::isGet()),
-        new PapayaCacheIdentifierDefinitionUrl(),
-        new PapayaCacheIdentifierDefinitionSurfer(),
-        new PapayaCacheIdentifierDefinitionSessionParameters('PAPAYA_SESSION_PAGE_PARAMS'),
+      $definition = new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
+        new Cache\Identifier\Definition\URL(),
+        new Cache\Identifier\Definition\Surfer(),
+        new Cache\Identifier\Definition\Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
         $definition,
         $debug = $boxesList->cacheable()
       );
@@ -907,7 +920,7 @@ class papaya_page extends base_object {
   * Use generic output cache
   *
   * @access public
-  * @return boolean
+  * @return bool
   */
   function useCache() {
     $method = empty($_SERVER['REQUEST_METHOD']) ? '' : strtoupper($_SERVER['REQUEST_METHOD']);
@@ -931,11 +944,11 @@ class papaya_page extends base_object {
   }
 
   /**
-  * Get cache
-  *
-  * @param integer $cacheId
-  * @access public
-  * @return boolean
+   * Get cache
+   *
+   * @param integer $cacheId
+   * @access public
+   * @return bool
   */
   function getCache($cacheId) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
@@ -960,7 +973,7 @@ class papaya_page extends base_object {
           }
         }
       }
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = \Papaya\Cache::getService($this->papaya()->options);
       $cacheIdGzip = $cacheId.'.gz';
       if ($this->acceptGzip &&
           defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
@@ -1028,12 +1041,12 @@ class papaya_page extends base_object {
    * @param integer $topicId
    * @param string $page
    * @access public
-   * @return boolean
+   * @return bool
    */
   function setCache($cacheId, $topicId, $page) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
         defined('PAPAYA_CACHE_TIME_OUTPUT') && PAPAYA_CACHE_TIME_OUTPUT > 0) {
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = \Papaya\Cache::getService($this->papaya()->options);
       if (defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
           PAPAYA_COMPRESS_CACHE_OUTPUT) {
         $cache->write(
@@ -1056,7 +1069,7 @@ class papaya_page extends base_object {
   * @access public
   */
   function initPageMode() {
-    $pathParameters = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+    $pathParameters = $this->papaya()->request->getParameters(Request::SOURCE_PATH);
     $this->versionDateTime = 0;
     if (isset($pathParameters['preview_time']) &&
               $pathParameters['preview_time'] > 0) {
@@ -1089,25 +1102,25 @@ class papaya_page extends base_object {
       (isset($this->mode) && in_array($this->mode, $pageModes))
     ) {
       $this->readOnlySession = ($this->mode != 'image');
-      $this->allowSession = PapayaSession::ACTIVATION_DYNAMIC;
+      $this->allowSession = \Papaya\Session::ACTIVATION_DYNAMIC;
       $this->allowSessionRedirects = FALSE;
       $this->allowSessionCache = 'private';
     } elseif ($this->output->loadViewModeData($this->mode)) {
       $this->readOnlySession = FALSE;
       if ($this->isPreview()) {
-        $pageStatus = new PapayaContentPageStatus();
+        $pageStatus = new \Papaya\Content\Page\Status();
       } else {
-        $pageStatus = new PapayaContentPagePublicationStatus();
+        $pageStatus = new \Papaya\Content\Page\Publication\Status();
       }
       $pageStatus->load($this->topicId);
       if ($pageStatus->sessionMode == 0) {
         $this->allowSession = $this->papaya()->options->get(
-          'PAPAYA_SESSION_ACTIVATION', PapayaSession::ACTIVATION_ALWAYS
+          'PAPAYA_SESSION_ACTIVATION', \Papaya\Session::ACTIVATION_ALWAYS
         );
       } else {
         $this->allowSession = $pageStatus->sessionMode;
       }
-      if ($this->allowSession != PapayaSession::ACTIVATION_NEVER) {
+      if ($this->allowSession != \Papaya\Session::ACTIVATION_NEVER) {
         if ($this->papaya()->options->get('PAPAYA_SESSION_CACHE') == 'nocache') {
           $this->allowSessionCache = 'nocache';
         } else {
@@ -1118,18 +1131,18 @@ class papaya_page extends base_object {
         switch ($this->output->viewMode['viewmode_sessionmode']) {
         case 1 :
           //read only session
-          $this->allowSession = PapayaSession::ACTIVATION_DYNAMIC;
+          $this->allowSession = \Papaya\Session::ACTIVATION_DYNAMIC;
           $this->readOnlySession = TRUE;
           break;
         case 2 :
           //no session
-          $this->allowSession = PapayaSession::ACTIVATION_NEVER;
+          $this->allowSession = \Papaya\Session::ACTIVATION_NEVER;
           $this->readOnlySession = TRUE;
           break;
         }
       }
     } else {
-      $this->allowSession = PapayaSession::ACTIVATION_DYNAMIC;
+      $this->allowSession = \Papaya\Session::ACTIVATION_DYNAMIC;
       $this->readOnlySession = FALSE;
       $this->allowSessionRedirects = TRUE;
     }
@@ -1155,52 +1168,52 @@ class papaya_page extends base_object {
   }
 
   private function createController($mode) {
-    $controllers = new PapayaControllerGroup();
+    $controllers = new Controller\Group();
     switch ($mode) {
     case 'image':
-      $controllers->add(new PapayaControllerImage());
+      $controllers->add(new Controller\Image());
       break;
     case 'urls':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getUrls')));
+      $controllers->add(new Controller\Callback(array($this, 'getURLs')));
       break;
     case 'status':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getStatus')));
+      $controllers->add(new Controller\Callback(array($this, 'getStatus')));
       break;
     case 'thumb':
     case 'thumbnail':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaThumbFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaThumbFile')));
       break;
     case 'media':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaFile')));
       break;
     case 'popup':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaPopup')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaPopup')));
       break;
     case 'download':
-      $controllers->add(new PapayaControllerCallback(array($this, 'outputDownload')));
+      $controllers->add(new Controller\Callback(array($this, 'outputDownload')));
       break;
     case 'outputs' :
-      $controllers->add(new PapayaControllerCallback(array($this, 'getOutputs')));
+      $controllers->add(new Controller\Callback(array($this, 'getOutputs')));
       break;
     case 'xml':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getXMLOutput')));
+      $controllers->add(new Controller\Callback(array($this, 'getXMLOutput')));
       break;
     case '.theme-wrapper' :
-      $controllers->add(new PapayaControllerCallback(array($this, 'getThemeFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getThemeFile')));
       break;
     default:
-      $controllers->add(new PapayaControllerCallback(array($this, 'getPageOutput')));
+      $controllers->add(new Controller\Callback(array($this, 'getPageOutput')));
       break;
     }
     return $controllers;
   }
 
   public function getThemeFile() {
-    $themeWrapperUrl = new PapayaThemeWrapperUrl();
-    switch ($themeWrapperUrl->getMimetype()) {
+    $themeWrapperURL = new \Papaya\Theme\Wrapper\URL();
+    switch ($themeWrapperURL->getMimetype()) {
     case 'text/javascript' :
     case 'text/css' :
-      $themeWrapper = new PapayaThemeWrapper($themeWrapperUrl);
+      $themeWrapper = new \Papaya\Theme\Wrapper($themeWrapperURL);
       $response = $themeWrapper->getResponse();
       $response->send(TRUE);
       return TRUE;
@@ -1213,14 +1226,14 @@ class papaya_page extends base_object {
   *
   * @access public
   */
-  function getUrls() {
+  function getURLs() {
     $this->topic = $this->createPage();
     $map = new base_sitemap(
       $this->topic,
       array('root' => 0, 'format' => 'static', 'forstart' => 0, 'forend' => 999)
     );
     $this->sendHeader('Content-type: text/html');
-    echo $map->getUrls();
+    echo $map->getURLs();
   }
 
   /**
@@ -1258,13 +1271,13 @@ class papaya_page extends base_object {
         $allStatus = FALSE;
         continue;
       }
-      $directory = new PapayaFileSystemDirectory($realPath);
+      $directory = new \Papaya\File\System\Directory($realPath);
       if (!($status[$name] = $directory->isWriteable())) {
         $allStatus = FALSE;
       }
     }
     $this->sendHeader('Content-type: text/xml');
-    $result = new PapayaXmlDocument();
+    $result = new \Papaya\XML\Document();
     $cms = $result->appendElement('cms', array('status' => $allStatus ? 'OK' : 'ERROR'));
     foreach ($status as $option => $value) {
       $cms->appendElement(
@@ -1294,7 +1307,7 @@ class papaya_page extends base_object {
             if (call_user_func($sandbox)) {
               $this->sendHTTPStatus();
               $this->sendHeader('Content-type: text/xml; charset=utf-8');
-              return $this->layout->getXml();
+              return $this->layout->getXML();
             }
             $this->getError(500, 'Service Unavailable', PAPAYA_PAGE_ERROR_PAGE);
           } else {
@@ -1338,7 +1351,7 @@ class papaya_page extends base_object {
             if (call_user_func($sandbox)) {
               $this->sendHTTPStatus();
               $this->sendHeader('Content-type: text/xml; charset=utf-8');
-              return $this->layout->getXml();
+              return $this->layout->getXML();
             }
             $this->getError(500, 'Service Unavailable', PAPAYA_PAGE_ERROR_PAGE);
           } else {
@@ -1387,7 +1400,7 @@ class papaya_page extends base_object {
           $this->contentLanguage['identifier'],
           NULL,
           $this->papaya()->getObject('Request')->getParameters(
-            PapayaRequest::SOURCE_QUERY
+            \Papaya\Request::SOURCE_QUERY
           ),
           NULL,
           $this->topic->topic['TRANSLATION']['topic_title']
@@ -1418,8 +1431,8 @@ class papaya_page extends base_object {
                 $application = $this->papaya();
                 $application->session->close();
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                  PapayaRequestLog::getInstance()->logTime('Page generated');
-                  PapayaRequestLog::getInstance()->emit(FALSE);
+                  Request\Log::getInstance()->logTime('Page generated');
+                  Request\Log::getInstance()->emit(FALSE);
                 }
                 $response = $this->papaya()->response;
                 $response->sendHeader('X-Papaya-Cache: no');
@@ -1428,13 +1441,13 @@ class papaya_page extends base_object {
                     $this->canUseGzip()) {
                   $response->sendHeader('Content-Encoding: gzip');
                   $response->sendHeader('X-Papaya-Gzip: yes');
-                  $response->content(new PapayaResponseContentString(gzencode($str)));
+                  $response->content(new \Papaya\Response\Content\Text(gzencode($str)));
                 } else {
                   $this->sendHeader('X-Papaya-Gzip: disabled');
-                  $response->content(new PapayaResponseContentString((string)$str));
+                  $response->content(new \Papaya\Response\Content\Text((string)$str));
                 }
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                  PapayaRequestLog::getInstance()->logTime('Page delivered');
+                  Request\Log::getInstance()->logTime('Page delivered');
                 }
                 $response->send();
                 $this->logRequest($this->topic->getContentLanguageId());
@@ -1528,9 +1541,9 @@ class papaya_page extends base_object {
   * @return string|FALSE return root url if it is different
   */
   function checkURLPathLevel() {
-    $pageUrl = $this->getWebLink();
-    if (FALSE !== strpos($pageUrl, '/')) {
-      return $this->getAbsoluteUrl($pageUrl);
+    $pageURL = $this->getWebLink();
+    if (FALSE !== strpos($pageURL, '/')) {
+      return $this->getAbsoluteURL($pageURL);
     }
     return FALSE;
   }
@@ -1545,10 +1558,10 @@ class papaya_page extends base_object {
    * @return string
    */
   function generatePage($filterParams = NULL, $outputContent = TRUE, $allowRedirect = TRUE) {
-    $this->layout = new PapayaTemplateXslt();
+    $this->layout = new \Papaya\Template\XSLT();
 
     $defaultViewMode = $this->papaya()->options->get(
-      'PAPAYA_URL_EXTENSION', 'html', new PapayaFilterNotEmpty()
+      'PAPAYA_URL_EXTENSION', 'html', new \Papaya\Filter\NotEmpty()
     );
     if (isset($this->output->viewMode) && !empty($this->output->viewMode['viewmode_ext'])) {
       $currentViewMode = $this->output->viewMode['viewmode_ext'];
@@ -1567,7 +1580,7 @@ class papaya_page extends base_object {
           (
            $url = $this->topic->checkURLFileName(
              $this->papaya()->request->getParameter(
-               'page_title', '', NULL, PapayaRequest::SOURCE_PATH
+               'page_title', '', NULL, \Papaya\Request::SOURCE_PATH
              ),
              $filterParams['viewmode']
            )
@@ -1592,9 +1605,9 @@ class papaya_page extends base_object {
     );
     $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
-      $serverUrl = PapayaUtilServerProtocol::get().'://'.PapayaUtilServerName::get();
+      $serverURL = \Papaya\Utility\Server\Protocol::get().'://'.\Papaya\Utility\Server\Name::get();
       $url = strtr(
-        $serverUrl.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
+        $serverURL.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
         '\\',
         '/'
       );
@@ -1622,10 +1635,10 @@ class papaya_page extends base_object {
         $this->layout->parameters()->set('PAPAYA_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
         $this->layout->parameters()->set('PAGE_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
       }
-      $themeHandler = new PapayaThemeHandler();
+      $themeHandler = new \Papaya\Theme\Handler();
       $this->layout->parameters()->set('PAGE_THEME', $themeHandler->getTheme());
       $this->layout->parameters()->set('PAGE_THEME_SET', $themeHandler->getThemeSet());
-      $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getUrl());
+      $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getURL());
       $this->layout->parameters()->set('PAGE_THEME_PATH_LOCAL', $themeHandler->getLocalThemePath());
       $this->layout->parameters()->set(
         'PAGE_WEB_PATH', $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')
@@ -1706,25 +1719,25 @@ class papaya_page extends base_object {
    */
   public function getPageDocument() {
     if (NULL === $this->_pageDocument) {
-      $this->_pageDocument = new PapayaXmlDocument();
-      $xml = PapayaUtilStringXml::repairEntities(
+      $this->_pageDocument = new \Papaya\XML\Document();
+      $xml = \Papaya\Utility\Text\XML::repairEntities(
         $this->topic->parseContent(TRUE, $this->_filterOptions)
       );
       if (!empty($xml)) {
-        $errors = new PapayaXmlErrors();
+        $errors = new \Papaya\XML\Errors();
         $errors->activate();
         try {
           $this->_pageDocument->loadXml($xml);
           $errors->emit();
           $errors->deactivate();
-        } catch (PapayaXmlException $e) {
-          $message = new PapayaMessageLog(
-            PapayaMessageLogable::GROUP_SYSTEM,
-            PapayaMessage::SEVERITY_ERROR,
+        } catch (\Papaya\XML\Exception $e) {
+          $message = new \Papaya\Message\Log(
+            \Papaya\Message\Logable::GROUP_SYSTEM,
+            \Papaya\Message::SEVERITY_ERROR,
             $e->getMessage()
           );
           $message->context()->append(
-            new PapayaMessageContextText($xml)
+            new \Papaya\Message\Context\Text($xml)
           );
           $this->papaya()->messages->dispatch($message);
           $errors->deactivate();
@@ -1748,7 +1761,7 @@ class papaya_page extends base_object {
     $boxes = new papaya_boxes;
     if ($boxes->load($this->boxId, $this->topic->topic['TRANSLATION']['lng_id'])) {
       $result = $boxes->parsedBox($this->topic);
-      if (!PapayaXmlDocument::createFromXml($result, TRUE)) {
+      if (!\Papaya\XML\Document::createFromXML($result, TRUE)) {
         $result = '<box><![CDATA['.str_replace(']]>', ']]&gt;', $result).']]></box>';
       }
       return $result;
@@ -1783,7 +1796,7 @@ class papaya_page extends base_object {
             $this->topic->checkPublishPeriod($this->topicId) &&
             $this->validateAccess($this->topicId)) {
           /**
-           * @var PapayaResponse $response
+           * @var \Papaya\Response $response
            */
           $response = $this->papaya()->response;
           $response->setCache(
@@ -1877,11 +1890,11 @@ class papaya_page extends base_object {
    * Execute output controller
    *
    * @param $controller
-   * @return boolean Valid content | Error
+   * @return bool Valid content | Error
    */
   function executeController($controller) {
-    if (!$controller instanceof PapayaControllerGroup) {
-      $controller = new PapayaControllerGroup($controller);
+    if (!$controller instanceof Controller\Group) {
+      $controller = new Controller\Group($controller);
     }
     $application = $this->papaya();
     $result = $controller->execute(
@@ -1962,7 +1975,7 @@ class papaya_page extends base_object {
   * @access public
   */
   function getMediaThumbFile($mediaId = NULL) {
-    if (empty($mediaId) || $mediaId instanceof PapayaApplication) {
+    if (empty($mediaId) || $mediaId instanceof \Papaya\Application) {
       $mediaId = empty($this->requestData['media_id']) ? NULL : $this->requestData['media_id'];
     }
     if (!empty($mediaId)) {
@@ -2040,7 +2053,7 @@ class papaya_page extends base_object {
   /**
   * Call setPublic() appropriately on the media file.
   *
-  * @see PapayaMediaStorageService::setPublic
+  * @see \Papaya\Media\Storage\Service::setPublic
   * @param string $storageGroup
   * @param string $storageId
   * @param string $mimeType
@@ -2048,7 +2061,7 @@ class papaya_page extends base_object {
   */
   private function _storageSetPublic($storageGroup, $storageId, $mimeType) {
     $options = $this->papaya()->options;
-    $storage = PapayaMediaStorage::getService(
+    $storage = \Papaya\Media\Storage::getService(
       $options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
       $options
     );
@@ -2063,7 +2076,7 @@ class papaya_page extends base_object {
         return '';
       }
     }
-    return $storage->getUrl($storageGroup, $storageId, $mimeType);
+    return $storage->getURL($storageGroup, $storageId, $mimeType);
   }
 
   /**
@@ -2111,7 +2124,7 @@ class papaya_page extends base_object {
       if ($str = $this->getPageMetaXML()) {
         $response = $this->papaya()->response;
         $response->sendHeader('Content-type: text/xml; charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2152,7 +2165,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2166,7 +2179,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2195,7 +2208,7 @@ class papaya_page extends base_object {
   */
   function getPageOutput() {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-      PapayaRequestLog::getInstance()->logTime('Page defined');
+      Request\Log::getInstance()->logTime('Page defined');
     }
     $this->domains->validateLanguage(
       $this->papaya()->request->languageId
@@ -2203,11 +2216,11 @@ class papaya_page extends base_object {
     $this->topic = $this->createPage();
     if ($this->boxId > 0) {
       /**
-       * @var PapayaResponse $response
+       * @var \Papaya\Response $response
        */
       $response = $this->papaya()->response;
       if ($output = $this->getBox()) {
-        $response->content(new PapayaResponseContentString((string)$output));
+        $response->content(new \Papaya\Response\Content\Text((string)$output));
       }
       $response->send();
       $response->end();
@@ -2280,7 +2293,7 @@ class papaya_page extends base_object {
       );
     }
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-      PapayaRequestLog::getInstance()->emit();
+      Request\Log::getInstance()->emit();
     }
     return FALSE;
   }
@@ -2406,7 +2419,7 @@ class papaya_page extends base_object {
   * This method logs the request to the statistic.
   *
   * @param integer $lngId optional, default value 0
-  * @param boolean $cachedPage optional, default value FALSE
+   * @param bool $cachedPage optional, default value FALSE
   * @access public
   */
   function logRequest($lngId = 0, $cachedPage = FALSE) {
@@ -2444,7 +2457,7 @@ class papaya_page extends base_object {
    * @param integer $error
    * @param string $errorString
    * @param null $errorCode
-   * @param boolean $verbose optional, default value FALSE
+   * @param bool $verbose optional, default value FALSE
    * @access public
    */
   function getError($error, $errorString, $errorCode = NULL, $verbose = FALSE) {
@@ -2482,20 +2495,20 @@ class papaya_page extends base_object {
       );
       if ((empty($_GET['redirect']) || $_GET['redirect'] != $errorStatus) &&
           $this->topic->topicId) {
-        $targetUrl = $this->getAbsoluteURL(
+        $targetURL = $this->getAbsoluteURL(
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
           $this->getBaseLink()
         );
-        $targetUrl .=
+        $targetURL .=
           '?redirect='.$errorStatus.
           '&msg='.urlencode($errorString).
           '&code='.(int)$errorCode;
 
-        $protocol = PapayaUtilServerProtocol::get();
-        $currentUrl = $protocol.'://'.PapayaUtilServerName::get().$_SERVER['REQUEST_URI'];
+        $protocol = \Papaya\Utility\Server\Protocol::get();
+        $currentURL = $protocol.'://'.\Papaya\Utility\Server\Name::get().$_SERVER['REQUEST_URI'];
 
-        if (base_url_analyze::comparePathDepth($targetUrl, $currentUrl) !== 0) {
-          $this->doRedirect(302, $targetUrl, 'Error Redirect');
+        if (base_url_analyze::comparePathDepth($targetURL, $currentURL) !== 0) {
+          $this->doRedirect(302, $targetURL, 'Error Redirect');
         } else {
           $this->sendHTTPStatus($errorStatus);
         }
@@ -2574,7 +2587,7 @@ class papaya_page extends base_object {
    */
   function getErrorHTML($status, $errorString, $errorCode) {
     $application = $this->papaya();
-    $controller = new PapayaControllerError($this);
+    $controller = new Controller\Error($this);
     $controller->setStatus($status);
     $controller->setError($errorCode, $errorString);
     $controller->execute($application, $application->request, $application->response);
@@ -2750,7 +2763,7 @@ class papaya_page extends base_object {
    * This method sends out a string as header()
    *
    * @param string $headerStr
-   * @param boolean $replace replace existing header
+   * @param bool $replace replace existing header
    * @return bool
    */
   function sendHeader($headerStr, $replace = TRUE) {
@@ -2765,7 +2778,7 @@ class papaya_page extends base_object {
       $errorMsg = 'WARNING #2 Cannot modify header information - headers already sent';
       $this->logMsg(
         MSG_WARNING,
-        PapayaMessageLogable::GROUP_PHP,
+        \Papaya\Message\Logable::GROUP_PHP,
         $errorMsg,
         $errorMsg.' in '.$file.':'.$line,
         TRUE,
@@ -2787,14 +2800,14 @@ class papaya_page extends base_object {
   *
   * For now the current status is assigned to the old $public member variable for bc, too.
   *
-  * @return boolean
+   * @return bool
   */
   public function isPreview() {
     if (isset($this->_isPreview)) {
       return $this->_isPreview;
     }
     $this->_isPreview = $this->papaya()->request->getParameter(
-      'preview', FALSE, NULL, PapayaRequest::SOURCE_ALL
+      'preview', FALSE, NULL, \Papaya\Request::SOURCE_ALL
     );
     $this->papaya()->pageReferences->setPreview($this->_isPreview);
     $this->public = !$this->_isPreview;
@@ -2805,7 +2818,7 @@ class papaya_page extends base_object {
   * Return the current domain id, this can be set after handleDomain() and changed id
   * a preview domain is found in the session.
   *
-  * @return boolean
+   * @return bool
   */
   public function getCurrentDomainId() {
     return $this->_currentDomainId;

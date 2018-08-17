@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\Database\Item;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
+\Papaya\TestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
-class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
+class RecordTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::load
-  */
+   * @covers \Papaya\Media\Database\Item\Record::load
+   */
   public function testLoad() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new Record();
     $databaseResult = $this
-      ->getMockBuilder(dbresult_base::class)
+      ->getMockBuilder(\dbresult_base::class)
       ->disableOriginalConstructor()
       ->allowMockingUnknownTypes()
       ->getMock();
@@ -60,12 +62,12 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::load
-  */
+   * @covers \Papaya\Media\Database\Item\Record::load
+   */
   public function testLoadExpectingFalse() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new Record();
     $databaseResult = $this
-      ->getMockBuilder(dbresult_base::class)
+      ->getMockBuilder(\dbresult_base::class)
       ->disableOriginalConstructor()
       ->allowMockingUnknownTypes()
       ->getMock();
@@ -87,10 +89,10 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::save
-  */
+   * @covers \Papaya\Media\Database\Item\Record::save
+   */
   public function testSaveExpectingFalse() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new Record();
     $this->assertFalse($record->save());
   }
 }

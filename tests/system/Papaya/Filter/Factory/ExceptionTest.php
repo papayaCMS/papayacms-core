@@ -13,22 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Filter\Factory {
 
-class PapayaFilterFactoryExceptionTest extends PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-   * @covers PapayaFilterFactoryException
-   */
-  public function testThrowException() {
-    $this->expectException(PapayaFilterFactoryException::class);
-    throw new PapayaFilterFactoryException_TestProxy('Test');
+  class ExceptionTest extends \Papaya\TestCase {
+
+    /**
+     * @covers \Papaya\Filter\Factory\Exception
+     */
+    public function testThrowException() {
+      $this->expectException(Exception::class);
+      throw new Exception_TestProxy('Test');
+    }
+
   }
 
-}
+  class Exception_TestProxy extends Exception {
 
-class PapayaFilterFactoryException_TestProxy extends PapayaFilterFactoryException {
-
-  public function getFilter() {
+    public function getFilter() {
+    }
   }
 }

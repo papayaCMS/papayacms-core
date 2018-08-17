@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
+class GroupTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaDatabaseRecordOrderGroup
-  */
+   * @covers Group
+   */
   public function testConstructorWithTwoLists() {
-    $group = new PapayaDatabaseRecordOrderGroup(
+    $group = new Group(
       $this->getListFixture(array('one', 'two')),
       $this->getListFixture(array('three', 'four'))
     );
@@ -29,10 +31,10 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderGroup
-  */
+   * @covers Group
+   */
   public function testAdd() {
-    $group = new PapayaDatabaseRecordOrderGroup();
+    $group = new Group();
     $group->add(
       $this->getListFixture(array('one', 'two'))
     );
@@ -40,10 +42,10 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderGroup
-  */
+   * @covers Group
+   */
   public function testAddMovesExistingToEnd() {
-    $group = new PapayaDatabaseRecordOrderGroup(
+    $group = new Group(
       $list = $this->getListFixture(array('one', 'two')),
       $this->getListFixture(array('three', 'four'))
     );
@@ -52,10 +54,10 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderGroup
-  */
+   * @covers Group
+   */
   public function testRemove() {
-    $group = new PapayaDatabaseRecordOrderGroup(
+    $group = new Group(
       $this->getListFixture(array('one', 'two')),
       $list = $this->getListFixture(array('three', 'four'))
     );
@@ -69,13 +71,13 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
 
   /**
    * @param array $fieldNames
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordOrderByFields
+   * @return \PHPUnit_Framework_MockObject_MockObject|By\Fields
    */
   private function getListFixture(array $fieldNames = array()) {
     $fields = array();
     foreach ($fieldNames as $name) {
       $fields[] = $field = $this
-        ->getMockBuilder(PapayaDatabaseRecordOrderField::class)
+        ->getMockBuilder(Field::class)
         ->disableOriginalConstructor()
         ->getMock();
       $field
@@ -84,13 +86,13 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
         ->will($this->returnValue($name));
     }
     $result = $this
-      ->getMockBuilder(PapayaDatabaseRecordOrderByFields::class)
+      ->getMockBuilder(By\Fields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $result
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($fields)));
+      ->will($this->returnValue(new \ArrayIterator($fields)));
     return $result;
   }
 }

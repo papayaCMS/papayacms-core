@@ -1,39 +1,38 @@
 <?php
 /**
-* Delete page dependency.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Delete.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency\Command;
+use Papaya\Administration\Pages\Dependency\Changer;
 
 /**
-* Delete a page dependency.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyCommandDelete
-  extends PapayaUiControlCommandDialog {
+ * Delete a page dependency.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Delete
+  extends \Papaya\UI\Control\Command\Dialog {
 
   /**
-  * Create confirmation dialog and assign callback for confirmation message.
-  */
+   * Create confirmation dialog and assign callback for confirmation message.
+   */
   public function createDialog() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
-    $dialog = new PapayaUiDialogDatabaseDelete($changer->dependency());
-    $dialog->caption = new PapayaUiStringTranslated('Delete');
+    $dialog = new \Papaya\UI\Dialog\Database\Delete($changer->dependency());
+    $dialog->caption = new \Papaya\UI\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
       array(
@@ -41,11 +40,11 @@ class PapayaAdministrationPagesDependencyCommandDelete
         'page_id' => $changer->getPageId()
       )
     );
-    $dialog->fields[] = new PapayaUiDialogFieldInformation(
-      new PapayaUiStringTranslated('Delete dependency?'),
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+      new \Papaya\UI\Text\Translated('Delete dependency?'),
       'places-trash'
     );
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Delete'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'
@@ -54,12 +53,12 @@ class PapayaAdministrationPagesDependencyCommandDelete
   }
 
   /**
-  * Callback, dispatch the delete confirmation message to the user
-  */
+   * Callback, dispatch the delete confirmation message to the user
+   */
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Dependency deleted.'
+      new \Papaya\Message\Display\Translated(
+        \Papaya\Message::SEVERITY_INFO, 'Dependency deleted.'
       )
     );
   }

@@ -1,49 +1,50 @@
 <?php
 /**
-* Papaya controller class for error pages
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Controller
-* @version $Id: Error.php 39409 2014-02-27 16:36:19Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Controller;
 /**
-* Papaya controller class for error pages
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerError extends PapayaObject implements PapayaController {
+ * Papaya controller class for error pages
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller {
 
   /**
-  * HTTP resposne status
-  * @var integer
-  */
+   * HTTP response status
+   *
+   * @var integer
+   */
   protected $_status = 500;
   /**
-  * Error message
-  * @var string
-  */
+   * Error message
+   *
+   * @var string
+   */
   protected $_errorMessage = 'Service unavailable.';
   /**
-  * Error identifier
-  * @var string
-  */
+   * Error identifier
+   *
+   * @var string
+   */
   protected $_errorIdentifier = '';
   /**
-  * Error template
-  * @var string
-  */
+   * Error template
+   *
+   * @var string
+   */
   protected $_template =
     '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
      <html>
@@ -101,56 +102,60 @@ class PapayaControllerError extends PapayaObject implements PapayaController {
      </html>';
 
   /**
-  * Set HTTP response status
-  * @param integer $status
-  * @return void
-  */
+   * Set HTTP response status
+   *
+   * @param integer $status
+   * @return void
+   */
   public function setStatus($status) {
     $this->_status = (int)$status;
   }
 
   /**
-  * Set error message and identifier
-  * @param string $identifier
-  * @param string $message
-  * @return void
-  */
+   * Set error message and identifier
+   *
+   * @param string $identifier
+   * @param string $message
+   * @return void
+   */
   public function setError($identifier, $message) {
     $this->_errorMessage = $message;
     $this->_errorIdentifier = $identifier;
   }
 
   /**
-  * Execute controller
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+   * Execute controller
+   *
+   * @param \Papaya\Application $application
+   * @param \Papaya\Request &$request
+   * @param \Papaya\Response &$response
+   * @return boolean|\Papaya\Controller
    */
-  function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+  public function execute(
+    \Papaya\Application $application,
+    \Papaya\Request &$request,
+    \Papaya\Response &$response
   ) {
     $response->setStatus($this->_status);
     $response->setContentType('text/html');
     $response->content(
-      new PapayaResponseContentString($this->_getOutput())
+      new \Papaya\Response\Content\Text($this->_getOutput())
     );
     return TRUE;
   }
 
   /**
-  * Generate error output
-  * @return string
-  */
+   * Generate error output
+   *
+   * @return string
+   */
   protected function _getOutput() {
     $replace = array(
-      '{%status%}' => PapayaUtilStringXml::escape($this->_status),
-      '{%artwork%}' => PapayaUtilStringAsciiArtwork::get($this->_status),
-      '{%identifier%}' => PapayaUtilStringXml::escape($this->_errorIdentifier),
-      '{%message%}' => PapayaUtilStringXml::escape($this->_errorMessage),
-      '{%host%}' => PapayaUtilStringXml::escape(PapayaUtilServerName::get()),
+      '{%status%}' => \Papaya\Utility\Text\XML::escape($this->_status),
+      '{%artwork%}' => \Papaya\Utility\Text\ASCII\Artwork::get($this->_status),
+      '{%identifier%}' => \Papaya\Utility\Text\XML::escape($this->_errorIdentifier),
+      '{%message%}' => \Papaya\Utility\Text\XML::escape($this->_errorMessage),
+      '{%host%}' => \Papaya\Utility\Text\XML::escape(\Papaya\Utility\Server\Name::get()),
     );
     return str_replace(
       array_keys($replace),

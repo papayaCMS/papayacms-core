@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestContentTest extends PapayaTestCase {
+class ContentTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \Papaya\Request\Content
    */
   public function testReadStream() {
     $stream = fopen('data://text/plain,'.urlencode('TEST'), 'rb');
-    $content = new PapayaRequestContent($stream);
+    $content = new Content($stream);
     $this->assertEquals('TEST', (string)$content);
   }
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \Papaya\Request\Content
    */
   public function testReadLengthStream() {
-    $content = new PapayaRequestContent(NULL, 42);
+    $content = new Content(NULL, 42);
     $this->assertEquals(42, $content->length());
   }
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \Papaya\Request\Content
    * @backupGlobals enabled
    */
   public function testReadLengthFromEnvironment() {
     $_SERVER['HTTP_CONTENT_LENGTH'] = 42;
-    $content = new PapayaRequestContent();
+    $content = new Content();
     $this->assertEquals(42, $content->length());
   }
 

@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMediaStorageTest extends PapayaTestCase {
+class StorageTest extends \Papaya\TestCase {
 
   public function testGetServiceDefault() {
-    $service = PapayaMediaStorage::getService();
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
-    $serviceTwo = PapayaMediaStorage::getService();
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $service = Storage::getService();
+    $this->assertInstanceOf(Storage\Service::class, $service);
+    $serviceTwo = Storage::getService();
+    $this->assertInstanceOf(Storage\Service::class, $service);
     $this->assertSame($service, $serviceTwo);
   }
 
   public function testGetServiceInvalid() {
-    $this->expectException(InvalidArgumentException::class);
-    PapayaMediaStorage::getService('InvalidServiceName');
+    $this->expectException(\InvalidArgumentException::class);
+    Storage::getService('InvalidServiceName');
   }
 
   public function testGetServiceWithConfiguration() {
     $configuration = $this->mockPapaya()->options();
-    $service = PapayaMediaStorage::getService('file', $configuration, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $service = Storage::getService('file', $configuration, FALSE);
+    $this->assertInstanceOf(Storage\Service::class, $service);
   }
 
   public function testGetServiceNonStatic() {
-    $service = PapayaMediaStorage::getService('file', NULL, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
-    $serviceTwo = PapayaMediaStorage::getService('file', NULL, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $service = Storage::getService('file', NULL, FALSE);
+    $this->assertInstanceOf(Storage\Service::class, $service);
+    $serviceTwo = Storage::getService('file', NULL, FALSE);
+    $this->assertInstanceOf(Storage\Service::class, $service);
     $this->assertNotSame($service, $serviceTwo);
   }
 }

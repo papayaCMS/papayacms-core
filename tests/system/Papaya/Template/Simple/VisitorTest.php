@@ -13,96 +13,99 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Template\Simple {
 
-class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-   * covers PapayaTemplateSimpleVisitor::visit
-   * covers PapayaTemplateSimpleVisitor::getMethodName
-   */
-  public function testVisitCallsMappedFunction() {
-    $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    $node = new PapayaTemplateSimpleAstNodeOutput('foo');
-    $visitor->visit($node);
-    $this->assertSame($node, $visitor->visited);
+  class VisitorTest extends \Papaya\TestCase {
+
+    /**
+     * @covers \Papaya\Template\Simple\Visitor::visit
+     * @covers \Papaya\Template\Simple\Visitor::getMethodName
+     */
+    public function testVisitCallsMappedFunction() {
+      $visitor = new Visitor_TestProxy();
+      $node = new AST\Node\Output('foo');
+      $visitor->visit($node);
+      $this->assertSame($node, $visitor->visited);
+    }
+
+    /**
+     * @covers \Papaya\Template\Simple\Visitor::visit
+     * @covers \Papaya\Template\Simple\Visitor::getMethodName
+     */
+    public function testVisitIgnoresUnknownFunction() {
+      $visitor = new Visitor_TestProxy();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|AST\Node $node */
+      $node = $this->createMock(AST\Node::class);
+      $visitor->visit($node);
+      $this->assertNull($visitor->visited);
+    }
+
+    /**
+     * @covers \Papaya\Template\Simple\Visitor::getMethodName
+     */
+    public function testVisitWithFullClassNameMappedToFunction() {
+      $visitor = new Visitor_TestProxy();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|AST\Node $node */
+      $node = $this
+        ->getMockBuilder(AST\Node::class)
+        ->setMockClassName('TestClass_PapayaTemplateSimpleAstNode')
+        ->getMock();
+      $visitor->visit($node);
+      $this->assertSame($node, $visitor->visited);
+    }
+
+    /**
+     * @covers \Papaya\Template\Simple\Visitor::enter
+     * @covers \Papaya\Template\Simple\Visitor::getMethodName
+     */
+    public function testEnterCallsMappedFunction() {
+      $visitor = new Visitor_TestProxy();
+      $node = new AST\Node\Output('foo');
+      $visitor->enter($node);
+      $this->assertSame($node, $visitor->entered);
+    }
+
+    /**
+     * @covers \Papaya\Template\Simple\Visitor::leave
+     * @covers \Papaya\Template\Simple\Visitor::getMethodName
+     */
+    public function testLeaveCallsMappedFunction() {
+      $visitor = new Visitor_TestProxy();
+      $node = new AST\Node\Output('foo');
+      $visitor->leave($node);
+      $this->assertSame($node, $visitor->leaved);
+    }
   }
 
-  /**
-   * covers PapayaTemplateSimpleVisitor::visit
-   * covers PapayaTemplateSimpleVisitor::getMethodName
-   */
-  public function testVisitIgnoresUnknownFunction() {
-    $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleAstNode $node */
-    $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
-    $visitor->visit($node);
-    $this->assertNull($visitor->visited);
-  }
+  class Visitor_TestProxy extends Visitor {
 
-  /**
-   * covers PapayaTemplateSimpleVisitor::getMethodName
-   */
-  public function testVisitWithFullClassNameMappedToFunction() {
-    $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleAstNode $node */
-    $node = $this
-      ->getMockBuilder(PapayaTemplateSimpleAstNode::class)
-      ->setMockClassName('TestClass_PapayaTemplateSimpleAstNode')
-      ->getMock();
-    $visitor->visit($node);
-    $this->assertSame($node, $visitor->visited);
-  }
+    public $visited;
+    public $entered;
+    public $leaved;
 
-  /**
-   * covers PapayaTemplateSimpleVisitor::enter
-   * covers PapayaTemplateSimpleVisitor::getMethodName
-   */
-  public function testEnterCallsMappedFunction() {
-    $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    $node = new PapayaTemplateSimpleAstNodeOutput('foo');
-    $visitor->enter($node);
-    $this->assertSame($node, $visitor->entered);
-  }
+    public function clear() {
+    }
 
-  /**
-   * covers PapayaTemplateSimpleVisitor::leave
-   * covers PapayaTemplateSimpleVisitor::getMethodName
-   */
-  public function testLeaveCallsMappedFunction() {
-    $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    $node = new PapayaTemplateSimpleAstNodeOutput('foo');
-    $visitor->leave($node);
-    $this->assertSame($node, $visitor->leaved);
-  }
-}
+    public function __toString() {
+      return '';
+    }
 
-class PapayaTemplateSimpleVisitor_TestProxy extends PapayaTemplateSimpleVisitor {
+    public function visitNodeOutput(AST\Node\Output $node) {
+      $this->visited = $node;
+    }
 
-  public $visited;
-  public $entered;
-  public $leaved;
+    public function visitTestClass_PapayaTemplateSimpleAstNode(AST $node) {
+      $this->visited = $node;
+    }
 
-  public function clear() {
-  }
+    public function enterNodeOutput(AST\Node\Output $node) {
+      $this->entered = $node;
+    }
 
-  public function __toString() {
-    return '';
-  }
-
-  public function visitNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
-    $this->visited = $node;
-  }
-
-  public function visitTestClass_PapayaTemplateSimpleAstNode(PapayaTemplateSimpleAst $node) {
-    $this->visited = $node;
-  }
-
-  public function enterNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
-    $this->entered = $node;
-  }
-
-  public function leaveNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
-    $this->leaved = $node;
+    public function leaveNodeOutput(AST\Node\Output $node) {
+      $this->leaved = $node;
+    }
   }
 }

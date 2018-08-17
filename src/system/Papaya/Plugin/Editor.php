@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An abstract superclass for plugin content editors. They need access to the plugin,
-* so it is stored in a buffer variable.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
+ * An abstract superclass for plugin content editors. They need access to the plugin,
+ * so it is stored in a buffer variable.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+abstract class Editor extends \Papaya\UI\Control\Interactive {
 
   /**
-   * @var PapayaPluginEditableData
+   * @var Editable\Data
    */
   private $_data;
 
   /**
-   * @var PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_context;
 
   /**
    * Create object and store the editable content
    *
-   * @param PapayaPluginEditableData $data
+   * @param Editable\Data $data
    */
-  public function __construct(PapayaPluginEditableData $data) {
+  public function __construct(Editable\Data $data) {
     $this->_data = $data;
   }
 
   /**
    * Return the stored data object.
    *
-   * @return PapayaPluginEditableData
+   * @return Editable\Data
    */
   public function getData() {
     return $this->_data;
@@ -54,7 +55,7 @@ abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
    * Return the stored data object - bc for old API
    *
    * @deprecated
-   * @return PapayaPluginEditableData
+   * @return Editable\Data
    */
   public function getContent() {
     return $this->getData();
@@ -64,14 +65,14 @@ abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
    * The context specifies a parameter status needed to reach the editor/dialog. These
    * parameters need to be added to links and dialogs
    *
-   * @param PapayaRequestParameters $context
-   * @return PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $context
+   * @return \Papaya\Request\Parameters
    */
-  public function context(PapayaRequestParameters $context = NULL) {
+  public function context(\Papaya\Request\Parameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
-      $this->_context = new PapayaRequestParameters();
+      $this->_context = new \Papaya\Request\Parameters();
     }
     return $this->_context;
   }

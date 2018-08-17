@@ -1,21 +1,17 @@
 <?php
 /**
-* Install default database
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_installer.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Install default database
@@ -31,12 +27,12 @@ class papaya_installer extends base_db {
   public $administrationUser = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
   /**
-   * @var PapayaUiDialog
+   * @var \Papaya\UI\Dialog
    */
   private $_optionsDialog = NULL;
 
@@ -62,15 +58,15 @@ class papaya_installer extends base_db {
   * @var array $authTables
   */
   var $authTables = array(
-    PapayaContentTables::AUTHENTICATION_USERS,
-    PapayaContentTables::AUTHENTICATION_USER_GROUP_LINKS,
-    PapayaContentTables::AUTHENTICATION_USER_OPTIONS,
-    PapayaContentTables::AUTHENTICATION_GROUPS,
-    PapayaContentTables::AUTHENTICATION_PERMISSIONS,
-    PapayaContentTables::AUTHENTICATION_MODULE_PERMISSIONS,
-    PapayaContentTables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
-    PapayaContentTables::AUTHENTICATION_LOGIN_TRIES,
-    PapayaContentTables::AUTHENTICATION_LOGIN_IPS
+    \Papaya\Content\Tables::AUTHENTICATION_USERS,
+    \Papaya\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
+    \Papaya\Content\Tables::AUTHENTICATION_USER_OPTIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_GROUPS,
+    \Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
+    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
+    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_IPS
   );
 
   /**
@@ -221,7 +217,7 @@ class papaya_installer extends base_db {
       if (!isset($this->sessionParams['installer_basic_options'])) {
         $this->sessionParams['installer_basic_options'] = array();
       }
-      $this->sessionParams['installer_basic_options'] = PapayaUtilArray::merge(
+      $this->sessionParams['installer_basic_options'] = \Papaya\Utility\Arrays::merge(
         $this->sessionParams['installer_basic_options'],
         array(
           'PAPAYA_PATH_DATA' => $dialog->data['PAPAYA_PATH_DATA'],
@@ -238,7 +234,7 @@ class papaya_installer extends base_db {
       $this->setSessionValue($this->sessionParamName, $this->sessionParams);
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->display(
-        PapayaMessage::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         'Please check your intput in the following fields: '.implode(
           ', ', $dialog->errors()->getSourceCaptions()
         )
@@ -288,7 +284,7 @@ class papaya_installer extends base_db {
       'database_connected' => $this->checkDatabase(),
       'optiontable_defined' => (
         defined('PAPAYA_DB_TBL_OPTIONS') &&
-        PapayaFilterFactory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
+        \Papaya\Filter\Factory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
       ),
       'optiontable_exists' => FALSE,
       'optionfile_exists' => FALSE,
@@ -547,7 +543,7 @@ class papaya_installer extends base_db {
         }
       }
     }
-    return PapayaUtilFilePath::cleanup($path);
+    return \Papaya\Utility\File\Path::cleanup($path);
   }
   /**
   * update path data
@@ -619,7 +615,7 @@ class papaya_installer extends base_db {
     $result .= '</cols>';
     $result .= '<items>';
     $counter = 0;
-    $tableNames = PapayaContentTables::getTables();
+    $tableNames = \Papaya\Content\Tables::getTables();
     foreach ($tableNames as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
@@ -691,7 +687,7 @@ class papaya_installer extends base_db {
     $result .= '      imageUnchecked : "'.$images['status-node-empty'].'"'.LF;
     $result .= '    },'.LF;
     $result .= '    ['.LF;
-    foreach (PapayaContentTables::getTables() as $table) {
+    foreach (\Papaya\Content\Tables::getTables() as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
         if ($this->checkTableExists($tableName)) {
@@ -887,7 +883,7 @@ class papaya_installer extends base_db {
     if ($missed + $old == 0) {
       $sql = "SELECT COUNT(*) FROM %s";
       $params = array(
-        $this->databaseGetTableName(PapayaContentTables::AUTHENTICATION_USERS)
+        $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS)
       );
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         list($count) = $res->fetchRow();
@@ -904,7 +900,7 @@ class papaya_installer extends base_db {
   * @return boolean
   */
   function checkLoginExists() {
-    $userTable = $this->databaseGetTableName(PapayaContentTables::AUTHENTICATION_USERS);
+    $userTable = $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS);
     if ($this->checkTableExists($userTable)) {
       $sql = "SELECT COUNT(*) FROM %s";
       if ($res = $this->databaseQueryFmt($sql, $userTable)) {
@@ -926,7 +922,7 @@ class papaya_installer extends base_db {
       if ($database->connect($this, FALSE)) {
         return TRUE;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
     } catch (InvalidArgumentException $e) {
     }
     return FALSE;
@@ -1517,14 +1513,14 @@ class papaya_installer extends base_db {
   }
 
   public function getOptionsValidator() {
-    return new PapayaRequestParametersValidator(
+    return new \Papaya\Request\Parameters\Validator(
       array(
-        array('PAPAYA_PATH_DATA', new PapayaFilterNotEmpty()),
-        array('givenname', new PapayaFilterNotEmpty()),
-        array('surname', new PapayaFilterNotEmpty()),
-        array('email', new PapayaFilterNotEmpty()),
-        array('login', new PapayaFilterNotEmpty()),
-        array('password_hash', new PapayaFilterNotEmpty()),
+        array('PAPAYA_PATH_DATA', new \Papaya\Filter\NotEmpty()),
+        array('givenname', new \Papaya\Filter\NotEmpty()),
+        array('surname', new \Papaya\Filter\NotEmpty()),
+        array('email', new \Papaya\Filter\NotEmpty()),
+        array('login', new \Papaya\Filter\NotEmpty()),
+        array('password_hash', new \Papaya\Filter\NotEmpty()),
       ),
       isset($this->sessionParams['installer_basic_options'])
         ? $this->sessionParams['installer_basic_options']
@@ -1534,7 +1530,7 @@ class papaya_installer extends base_db {
 
   public function getOptionsDialog() {
     if (!isset($this->_optionsDialog)) {
-      $this->_optionsDialog = $dialog = new PapayaUiDialog();
+      $this->_optionsDialog = $dialog = new \Papaya\UI\Dialog();
       $dialog->caption = 'Basic Configuration';
       $dialog->parameterGroup('installer/options');
       $dialog->hiddenValues->merge(
@@ -1547,40 +1543,40 @@ class papaya_installer extends base_db {
       $validator = $this->getOptionsValidator();
       $validator->validate();
       $dialog->data()->merge($validator);
-      $dialog->fields[] = $field = new PapayaUiDialogFieldInput(
+      $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
         'Path data',
         'PAPAYA_PATH_DATA',
         -1,
         $this->getDefaultDataPath(),
-        new PapayaFilterFilePath()
+        new \Papaya\Filter\File\Path()
       );
       $field->setMandatory(TRUE);
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup('Administrator');
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Givenname', 'givenname', -1, '', new PapayaFilterNotEmpty()
+      $dialog->fields[] = $group = new \Papaya\UI\Dialog\Field\Group('Administrator');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
+        'Givenname', 'givenname', -1, '', new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Surname', 'surname', -1, '', new PapayaFilterText()
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
+        'Surname', 'surname', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInputEmail(
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Email(
         'Email', 'email', '', TRUE
       );
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup('Login');
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Login Name', 'login', -1, '', new PapayaFilterText()
+      $dialog->fields[] = $group = new \Papaya\UI\Dialog\Field\Group('Login');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
+        'Login Name', 'login', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInputPassword('Password', 'password');
-      $group->fields[] = $field = new PapayaUiDialogFieldInputPassword(
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Password('Password', 'password');
+      $group->fields[] = $field = new \Papaya\UI\Dialog\Field\Input\Password(
         'Repetition',
         'password_repeat',
         -1,
-        new PapayaFilterEqualsParameter($dialog->parameters(), 'password')
+        new \Papaya\Filter\Equals\Parameter($dialog->parameters(), 'password')
       );
       $field->setMandatory($dialog->parameters()->get('password') != '');
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit('Save');
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit('Save');
     }
     return $this->_optionsDialog;
   }
@@ -1592,7 +1588,7 @@ class papaya_installer extends base_db {
   * @return string
   */
   function getXMLDefaults() {
-    return $this->getOptionsDialog()->getXml();
+    return $this->getOptionsDialog()->getXML();
   }
 
   /**
@@ -1613,7 +1609,7 @@ class papaya_installer extends base_db {
     }
     $fileName = $this->installationPath.$this->papaya()->options->get('PAPAYA_PATH_ADMIN').
       '/data/'.$this->licenseLng.'/gpl.txt';
-    $fileName = PapayaUtilFilePath::cleanup($fileName, FALSE);
+    $fileName = \Papaya\Utility\File\Path::cleanup($fileName, FALSE);
     if ($fileName) {
       if ($data = @file_get_contents($fileName)) {
         return papaya_strings::ensureUTF8($data);
@@ -1637,7 +1633,7 @@ class papaya_installer extends base_db {
     foreach ($allowedPaths as $name) {
       $path = $basePath.$name.'/';
       if (file_exists($path) && is_dir($path)) {
-        return PapayaUtilFilePath::cleanup($path);
+        return \Papaya\Utility\File\Path::cleanup($path);
       }
     }
     return FALSE;

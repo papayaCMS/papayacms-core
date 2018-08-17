@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentPageTest extends PapayaTestCase {
+class PageTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testLoad() {
-    $translations = $this->createMock(PapayaContentPageTranslations::class);
+    $translations = $this->createMock(Page\Translations::class);
     $translations
       ->expects($this->once())
       ->method('load')
@@ -20,7 +36,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       'author_id' => '1234567890...',
       'author_group' => -1,
       'author_perm' => '777',
-      'surfer_useparent' => PapayaContentOptions::INHERIT_PERMISSIONS_OWN,
+      'surfer_useparent' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
       'surfer_permids' => '1;2;',
       'topic_created' => 1,
       'topic_modified' => 2,
@@ -31,18 +47,18 @@ class PapayaContentPageTest extends PapayaTestCase {
       'meta_useparent' => FALSE,
       'topic_changefreq' => 50,
       'topic_priority' => 1,
-      'topic_protocol' => PapayaContentOptions::SCHEME_SYSTEM,
-      'topic_cachemode' => PapayaContentOptions::CACHE_SYSTEM,
+      'topic_protocol' => \Papaya\Content\Options::SCHEME_SYSTEM,
+      'topic_cachemode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'topic_cachetime' => 0,
-      'topic_expiresmode' => PapayaContentOptions::CACHE_SYSTEM,
+      'topic_expiresmode' => \Papaya\Content\Options::CACHE_SYSTEM,
       'topic_expirestime' => 0,
       'topic_unpublished_languages' => 0
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -50,7 +66,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->setDatabaseAccess($databaseAccess);
     $page->translations($translations);
     $this->assertTrue(
@@ -64,7 +80,7 @@ class PapayaContentPageTest extends PapayaTestCase {
         'owner' => '1234567890...',
         'group' => -1,
         'permissions' => 777,
-        'inherit_visitor_permissions' => PapayaContentOptions::INHERIT_PERMISSIONS_OWN,
+        'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
         'created' => 1,
         'modified' => 2,
         'position' => 0,
@@ -74,10 +90,10 @@ class PapayaContentPageTest extends PapayaTestCase {
         'inherit_meta_information' => FALSE,
         'change_frequency' => 50,
         'priority' => 1,
-        'scheme' => PapayaContentOptions::SCHEME_SYSTEM,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'scheme' => \Papaya\Content\Options::SCHEME_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0,
-        'expires_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'expires_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'expires_time' => 0,
         'unpublished_translations' => 0,
         'parent_path' => array(0, 11, 21),
@@ -89,14 +105,14 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testLoadExpectingFalse() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -104,7 +120,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $page->load(42)
@@ -112,11 +128,11 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testTranslationsSet() {
-    $translations = $this->createMock(PapayaContentPageTranslations::class);
-    $page = new PapayaContentPage();
+    $translations = $this->createMock(Page\Translations::class);
+    $page = new Page();
     $page->translations($translations);
     $this->assertAttributeSame(
       $translations, '_translations', $page
@@ -124,11 +140,11 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(PapayaContentPageTranslations::class);
-    $page = new PapayaContentPage();
+    $translations = $this->createMock(Page\Translations::class);
+    $page = new Page();
     $page->translations($translations);
     $this->assertSame(
       $translations, $page->translations()
@@ -136,20 +152,20 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testTranslationsGetImplicitCreate() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $this->assertInstanceOf(
-      PapayaContentPageTranslations::class, $page->translations()
+      Page\Translations::class, $page->translations()
     );
   }
 
   /**
-  * @covers PapayaContentPage
+   * @covers Page
    */
   public function testMapPropertiesToFields() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $this->assertEquals(
       array(
         'topic_id' => 42,
@@ -158,7 +174,7 @@ class PapayaContentPageTest extends PapayaTestCase {
         'author_id' => '1234567890...',
         'author_group' => -1,
         'author_perm' => '777',
-        'surfer_useparent' => PapayaContentOptions::INHERIT_PERMISSIONS_OWN,
+        'surfer_useparent' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
         'topic_created' => 1,
         'topic_modified' => 2,
         'topic_weight' => 0,
@@ -168,10 +184,10 @@ class PapayaContentPageTest extends PapayaTestCase {
         'meta_useparent' => FALSE,
         'topic_changefreq' => 50,
         'topic_priority' => 1,
-        'topic_protocol' => PapayaContentOptions::SCHEME_SYSTEM,
-        'topic_cachemode' => PapayaContentOptions::CACHE_SYSTEM,
+        'topic_protocol' => \Papaya\Content\Options::SCHEME_SYSTEM,
+        'topic_cachemode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'topic_cachetime' => 0,
-        'topic_expiresmode' => PapayaContentOptions::CACHE_SYSTEM,
+        'topic_expiresmode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'topic_expirestime' => 0,
         'topic_unpublished_languages' => 0,
         'prev_path' => ';0;11;21;',
@@ -185,7 +201,7 @@ class PapayaContentPageTest extends PapayaTestCase {
           'owner' => '1234567890...',
           'group' => -1,
           'permissions' => 777,
-          'inherit_visitor_permissions' => PapayaContentOptions::INHERIT_PERMISSIONS_OWN,
+          'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_OWN,
           'created' => 1,
           'modified' => 2,
           'position' => 0,
@@ -195,10 +211,10 @@ class PapayaContentPageTest extends PapayaTestCase {
           'inherit_meta_information' => FALSE,
           'change_frequency' => 50,
           'priority' => 1,
-          'scheme' => PapayaContentOptions::SCHEME_SYSTEM,
-          'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+          'scheme' => \Papaya\Content\Options::SCHEME_SYSTEM,
+          'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
           'cache_time' => 0,
-          'expires_mode' => PapayaContentOptions::CACHE_SYSTEM,
+          'expires_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
           'expires_time' => 0,
           'unpublished_translations' => 0,
           'parent_path' => array(0, 11, 21),
@@ -209,20 +225,20 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testOnBeforeInsert() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->callbacks()->onBeforeInsert($page);
     $this->assertGreaterThan(0, $page->created);
     $this->assertGreaterThan(0, $page->modified);
   }
 
   /**
-  * @covers PapayaContentPage
-  */
+   * @covers Page
+   */
   public function testOnBeforeUpdate() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->callbacks()->onBeforeUpdate($page);
     $this->assertGreaterThan(0, $page->modified);
   }

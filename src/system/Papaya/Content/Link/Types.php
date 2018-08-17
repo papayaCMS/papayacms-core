@@ -1,34 +1,26 @@
 <?php
 /**
-* This object loads link type data into a list.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Types.php 36970 2012-04-13 12:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Link;
 /**
-* This object loads link type data into a list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
+ * This object loads link type data into a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Types extends \Papaya\Database\Records\Lazy {
 
   protected $_fields = array(
     'id' => 'linktype_id',
@@ -45,18 +37,18 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   protected $_orderByFields = array(
-    'name' => PapayaDatabaseInterfaceOrder::ASCENDING
+    'name' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   /**
-  * Here are some default link types that does not need to be stored in the database,
-  * they are added to the result before using it.
-  *
-  * @return Iterator
-  */
+   * Here are some default link types that does not need to be stored in the database,
+   * they are added to the result before using it.
+   *
+   * @return \Iterator
+   */
   protected function getResultIterator() {
-    return new PapayaIteratorMultiple(
-      new ArrayIterator(
+    return new \Papaya\Iterator\Union(
+      new \ArrayIterator(
         array(
           array(
             'id' => 1,
@@ -83,10 +75,10 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   }
 
   /**
-  * @see PapayaDatabaseRecordsUnbuffered::_createMapping()
-  *
-  * @return PapayaDatabaseRecordMapping
-  */
+   * @see \Papaya\Database\Records\Unbuffered::_createMapping()
+   *
+   * @return \Papaya\Database\Record\Mapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty = array(
@@ -99,33 +91,33 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   }
 
   /**
-  * Link options need to be deserialized.
-  *
-  * @param string $context
-  * @param string $property
-  * @param string $field
-  * @param mixed $value
-  * @return mixed
-  */
+   * Link options need to be deserialized.
+   *
+   * @param string $context
+   * @param string $property
+   * @param string $field
+   * @param mixed $value
+   * @return mixed
+   */
   public function mapFieldToProperty($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return PapayaUtilStringXml::unserializeArray((string)$value);
+      return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
     }
     return $value;
   }
 
   /**
-  * Link options need to be serialized.
-  *
-  * @param string $context
-  * @param string $property
-  * @param string $field
-  * @param mixed $value
-  * @return mixed
-  */
+   * Link options need to be serialized.
+   *
+   * @param string $context
+   * @param string $property
+   * @param string $field
+   * @param mixed $value
+   * @return mixed
+   */
   public function mapPropertyToField($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return PapayaUtilStringXml::serializeArray((array)$value);
+      return \Papaya\Utility\Text\XML::serializeArray((array)$value);
     }
     return $value;
   }

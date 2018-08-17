@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya media db browser class
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Media-Database
-* @version $Id: papaya_mediadb_browser.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya media db browser class
@@ -38,7 +34,7 @@ class papaya_mediadb_browser extends base_mediadb {
    */
   public $alternativeFolderNames = array();
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -275,7 +271,7 @@ class papaya_mediadb_browser extends base_mediadb {
         papaya_strings::escapeHTMLChars(
           sprintf(
             "javascript:parent.changeFrames(%s,0,0,1);",
-            PapayaUtilStringJavascript::quote(
+            \Papaya\Utility\Text\Javascript::quote(
               $this->getLinkParams(
                 array(
                   'offset' => 0,
@@ -294,7 +290,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \Papaya\Utility\Text\Javascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -313,7 +309,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \Papaya\Utility\Text\Javascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -332,7 +328,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \Papaya\Utility\Text\Javascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -406,12 +402,12 @@ class papaya_mediadb_browser extends base_mediadb {
       $href .= sprintf(
         'selectFile(%s,'.
         ' {id:%s, name:%s, title:%s, description:%s, size:%d, type:%d, width:%d, height:%d});',
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($file['file_name']),
-        PapayaUtilStringJavascript::quote($file['file_title']),
-        PapayaUtilStringJavascript::quote(
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+        \Papaya\Utility\Text\Javascript::quote($fileId),
+        \Papaya\Utility\Text\Javascript::quote($fileId),
+        \Papaya\Utility\Text\Javascript::quote($file['file_name']),
+        \Papaya\Utility\Text\Javascript::quote($file['file_title']),
+        \Papaya\Utility\Text\Javascript::quote(
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -478,12 +474,12 @@ class papaya_mediadb_browser extends base_mediadb {
       $href .= sprintf(
         'selectFile(%s,'.
         ' {id:%s, name:%s, title:%s, description:%s, size:%d, type:%d, width:%d, height:%d});',
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($file['file_name']),
-        PapayaUtilStringJavascript::quote($file['file_title']),
-        PapayaUtilStringJavascript::quote(
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+        \Papaya\Utility\Text\Javascript::quote($fileId),
+        \Papaya\Utility\Text\Javascript::quote($fileId),
+        \Papaya\Utility\Text\Javascript::quote($file['file_name']),
+        \Papaya\Utility\Text\Javascript::quote($file['file_title']),
+        \Papaya\Utility\Text\Javascript::quote(
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -674,7 +670,7 @@ class papaya_mediadb_browser extends base_mediadb {
         preg_replace(
           '([\r\n ]+)',
           ' ',
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         )
       )
     );
@@ -1143,7 +1139,7 @@ var linkThumbs = "'.$this->getLink(array('mode' => 'thumbs')).'";
   function getJavascriptButtonHref($params = array()) {
     return sprintf(
       "javascript:parent.changeFrames(%s,0,0,1);",
-      PapayaUtilStringJavascript::quote(
+      \Papaya\Utility\Text\Javascript::quote(
         $this->getLinkParams($params)
       )
     );

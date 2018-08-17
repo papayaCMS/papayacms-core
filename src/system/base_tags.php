@@ -279,7 +279,7 @@ class base_tags extends base_db {
   */
   function loadCategoryCounts(&$categories) {
     if (is_array($categories) && (count($categories) > 0)) {
-      $categoryCondition = PapayaUtilString::escapeForPrintf(
+      $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
         $this->databaseGetSqlCondition('parent_id', array_keys($categories))
       );
       $sql = "SELECT COUNT(*) AS count, parent_id
@@ -558,8 +558,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? PapayaContentTables::PAGE_TRANSLATIONS
-          : PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -615,8 +615,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? PapayaContentTables::PAGE_TRANSLATIONS
-          : PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -667,8 +667,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? PapayaContentTables::PAGE_TRANSLATIONS
-          : PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -713,8 +713,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? PapayaContentTables::PAGE_TRANSLATIONS
-          : PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -916,7 +916,7 @@ class base_tags extends base_db {
       }
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $result[$row['tag_id']] = new PapayaObjectStringValues(
+          $result[$row['tag_id']] = new \Papaya\BaseObject\Text\Values(
             $row, isset($row['tag_title']) ? 'tag_title' : 'tag_id'
           );
         }
@@ -960,7 +960,7 @@ class base_tags extends base_db {
 
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $result[$row['tag_id']] = new PapayaObjectStringValues(
+          $result[$row['tag_id']] = new \Papaya\BaseObject\Text\Values(
             $row, isset($row['tag_title']) ? 'tag_title' : $row['tag_id']
           );
         }

@@ -1,21 +1,19 @@
 <?php
 /**
-* Link Box with page
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_boxeslinks.php 39787 2014-05-06 10:45:44Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * Link Box with page
@@ -142,7 +140,7 @@ class base_boxeslinks extends base_db {
   * Load box group list
   *
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadBoxGroupList() {
     $this->boxGroupsList = array();
@@ -166,7 +164,7 @@ class base_boxeslinks extends base_db {
    * @param integer $viewModeId view mode id
    * @param null|integer $now
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataList($lngId, $viewModeId, $now = NULL) {
     $this->data = array();
@@ -359,7 +357,7 @@ class base_boxeslinks extends base_db {
    * @param array $boxIds
    * @internal param int $boxId view mode id
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataElements($lngId, $viewModeId, $boxIds) {
     $this->data = array();
@@ -438,7 +436,7 @@ class base_boxeslinks extends base_db {
 
   private function getBoxReference($box) {
     /**
-     * @var PapayaUiReference $reference
+     * @var \Papaya\UI\Reference $reference
      */
     $reference = $this->papaya()->references->byString('');
     $parameters = $reference->getParameters();
@@ -451,7 +449,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<esi:include src="%s" />]]></data>',
-      PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->getRelative())
+      \Papaya\Utility\Text\XML::escapeAttribute($this->getBoxReference($box)->getRelative())
     );
     $result .= '</box>';
     return $result;
@@ -461,7 +459,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<div data-fragment-replace="%s"> </div>]]></data>',
-      PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->get())
+      \Papaya\Utility\Text\XML::escapeAttribute($this->getBoxReference($box)->get())
     );
     $result .= '</box>';
     return $result;
@@ -488,8 +486,8 @@ class base_boxeslinks extends base_db {
   * @param integer $lngId Language ID
   * @param integer $boxId ID of actual Box
   * @param integer $viewModeId ID of ViewMode
-  * @param boolean $cache default TRUE
-  * @param boolean $wrapperTags add wrapper tags with meta data
+  * @param bool $cache default TRUE
+  * @param bool $wrapperTags add wrapper tags with meta data
   * @access public
   * @return string '' or XML
   */
@@ -519,7 +517,7 @@ class base_boxeslinks extends base_db {
         // Create Box-XML from Cachefile
         if ($wrapperTags) {
           $result .= $this->getBoxMetaElement($data);
-          $xmlTree = PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
+          $xmlTree = \Papaya\XML\Document::createFromXML('<box>'.$str.'</box>', TRUE);
           if ($xmlTree && isset($xmlTree->documentElement)) {
             $result .= $str;
           } else {
@@ -533,8 +531,8 @@ class base_boxeslinks extends base_db {
       } else {
         $this->parser->setLinkOutputMode(NULL);
         // If no cache data available, load box data from XML stored in $data[box_data]
-        if ($obj instanceof PapayaPluginAppendable) {
-          $dom = new PapayaXmlDocument();
+        if ($obj instanceof \Papaya\Plugin\Appendable) {
+          $dom = new \Papaya\XML\Document();
           $boxNode = $dom->appendElement('box');
           $sandbox = $this->papaya()->messages->encapsulate(array($obj, 'appendTo'));
           call_user_func($sandbox, $boxNode);
@@ -546,7 +544,7 @@ class base_boxeslinks extends base_db {
         if (!empty($str)) {
           $output = '';
           if ($wrapperTags) {
-            if ($obj instanceof PapayaPluginAssignable) {
+            if ($obj instanceof \Papaya\Plugin\Assignable) {
               $output = $this->serializeParsedAttributes($obj->getAttributes());
             } elseif (method_exists($obj, 'getParsedAttributes')) {
               $output = $this->serializeParsedAttributes($obj->getParsedAttributes());
@@ -602,7 +600,7 @@ class base_boxeslinks extends base_db {
             if (!$wrapperTags) {
               $outputString = $str;
             } else {
-              $xmlTree = PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
+              $xmlTree = \Papaya\XML\Document::createFromXML('<box>'.$str.'</box>', TRUE);
               if ($xmlTree) {
                 $outputString = $output.'<data type="xml">'.$str.'</data>';
               } else {
@@ -687,19 +685,19 @@ class base_boxeslinks extends base_db {
   function getBoxCacheId(array $boxData, $box, $lngId, $viewModeId) {
     if (isset($box) && is_object($box) && isset($GLOBALS['PAPAYA_PAGE']) &&
         $GLOBALS['PAPAYA_PAGE']->public) {
-      if ($box instanceof PapayaPluginCacheable) {
+      if ($box instanceof \Papaya\Plugin\Cacheable) {
         $definition = $box->cacheable();
       } elseif (method_exists($box, 'getCacheId')) {
-        $definition = new PapayaCacheIdentifierDefinitionCallback(array($box, 'getCacheId'));
+        $definition = new Cache\Identifier\Definition\Callback(array($box, 'getCacheId'));
       } else {
         return FALSE;
       }
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
+      $definition = new Cache\Identifier\Definition\Group(
         $definition,
-        new PapayaCacheIdentifierDefinitionValues(
-          PapayaUtilServerProtocol::get(),
-          PapayaUtilServerName::get(),
-          PapayaUtilServerPort::get(),
+        new Cache\Identifier\Definition\Values(
+          \Papaya\Utility\Server\Protocol::get(),
+          \Papaya\Utility\Server\Name::get(),
+          \Papaya\Utility\Server\Port::get(),
           $lngId,
           $viewModeId
         )
@@ -750,7 +748,7 @@ class base_boxeslinks extends base_db {
   function loadBoxCache($cacheForTime, $ifModfiedSince, $boxData, $box, $lngId, $viewModeId) {
     if ($cacheForTime > 0) {
       if ($cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-        $cache = PapayaCache::getService($this->papaya()->options);
+        $cache = Cache::getService($this->papaya()->options);
         return $cache->read('boxes', $boxData['box_id'], $cacheId, $cacheForTime, $ifModfiedSince);
       }
     }
@@ -767,11 +765,11 @@ class base_boxeslinks extends base_db {
   * @param $str
   * @param integer $expires
   * @access public
-  * @return boolean FALSE
+  * @return bool FALSE
   */
   function writeBoxCache($boxData, $box, $lngId, $viewModeId, $str, $expires) {
     if ($str != '' && $cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = Cache::getService($this->papaya()->options);
       return $cache->write('boxes', $boxData['box_id'], $cacheId, $str, $expires);
     }
     return FALSE;
@@ -784,7 +782,7 @@ class base_boxeslinks extends base_db {
    * @param integer $lngId Language id
    * @param integer $viewModeId ID of viewmode
    * @param null|array $boxIds
-   * @param boolean $contentOnly (switches return to an array())
+   * @param bool $contentOnly (switches return to an array())
    * @access public
    * @return string | array '' or XML or array(box_id => content)
    */
@@ -812,10 +810,10 @@ class base_boxeslinks extends base_db {
       } else {
         foreach ($this->data as $boxId => $box) {
           switch ($box['box_deliverymode']) {
-          case PapayaContentBox::DELIVERY_MODE_JAVASCRIPT :
+          case \Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT :
             $result .= $this->getJavascriptCode($box, $lngId, $boxId);
             break;
-          case PapayaContentBox::DELIVERY_MODE_ESI :
+          case \Papaya\Content\Box::DELIVERY_MODE_ESI :
             if ($this->papaya()->request->allowEsi()) {
               $result .= $this->getEsiCode($box, $lngId, $boxId);
             } else {
@@ -860,10 +858,10 @@ class base_boxeslinks extends base_db {
   /**
    * Just implement the interface, this will be redefinined in the plublic boxes list
    *
-   * @param PapayaCacheIdentifierDefinition $definition
-   * @return PapayaCacheIdentifierDefinition
+   * @param Cache\Identifier\Definition $definition
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(PapayaCacheIdentifierDefinition $definition = NULL) {
-    return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+  public function cacheable(Cache\Identifier\Definition $definition = NULL) {
+    return new Cache\Identifier\Definition\BooleanValue(FALSE);
   }
 }

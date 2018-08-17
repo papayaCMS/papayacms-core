@@ -1,21 +1,19 @@
 <?php
 /**
-* Object to show sitemap in edit area (n-dimensional)
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_topic_tree.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -79,7 +77,7 @@ class papaya_topic_tree extends base_topic_tree {
   var $copyTopicsTree = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -96,14 +94,14 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Dialog to confirm and specifiy the copy page action
   *
-  * @var PapayaUiDialog
+  * @var \Papaya\UI\Dialog
   */
   private $_dialogCopyPageConfirmation = NULL;
 
   /**
   * Helper object, that synchronizes page data to dependent pages.
   *
-  * @var PapayaAdministrationPagesDependencySynchronizations
+  * @var Administration\Pages\Dependency\Synchronizations
   */
   private $_synchronizations = NULL;
 
@@ -136,7 +134,7 @@ class papaya_topic_tree extends base_topic_tree {
               if ($topic->publishTopic()) {
                 $this->addMsg(MSG_INFO, $this->_gt('Page published.'));
                 $this->sychronizations()->synchronizeAction(
-                  PapayaContentPageDependency::SYNC_PUBLICATION,
+                  \Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
                   $this->topicId,
                   array($languageId)
                 );
@@ -165,7 +163,7 @@ class papaya_topic_tree extends base_topic_tree {
                $this->topicEditable($pageId) &&
                ($this->topicEditable($targetId) || $targetId == 0)  &&
                $this->papaya()->administrationUser->hasPerm(
-                 PapayaAdministrationPermissions::PAGE_MOVE
+                 Administration\Permissions::PAGE_MOVE
                )
               ) {
             $this->movePage($topic, $targetId, $errorString);
@@ -192,19 +190,19 @@ class papaya_topic_tree extends base_topic_tree {
           if (
                ($this->topicEditable($targetId) || $targetId == 0) &&
                $this->papaya()->administrationUser->hasPerm(
-                 PapayaAdministrationPermissions::PAGE_COPY
+                 Administration\Permissions::PAGE_COPY
                )
              ) {
             if (
               !$this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE
+                Administration\Permissions::PAGE_DEPENDENCY_MANAGE
               ) ||
               $this->dialogCopyPageConfirmation()->execute()
             ) {
               $this->copyPage($topic, $targetId, $errorString);
               $this->papaya()->getObject('Surfer')->loadTopicIdList(FALSE, TRUE);
             } else {
-              $this->layout->add($this->dialogCopyPageConfirmation()->getXml());
+              $this->layout->add($this->dialogCopyPageConfirmation()->getXML());
             }
           } else {
             $this->addMsg(
@@ -228,14 +226,14 @@ class papaya_topic_tree extends base_topic_tree {
   * If the user is allowed to manage dependencies, a confirmation dialog is needed to
   * specify the dependency creation for copied pages.
   *
-  * @param PapayaUiDialog $dialog
-  * @return PapayaUiDialog
+  * @param \Papaya\UI\Dialog $dialog
+  * @return \Papaya\UI\Dialog
   */
-  function dialogCopyPageConfirmation(PapayaUiDialog $dialog = NULL) {
+  function dialogCopyPageConfirmation(\Papaya\UI\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialogCopyPageConfirmation = $dialog;
     } elseif (is_null($this->_dialogCopyPageConfirmation)) {
-      $this->_dialogCopyPageConfirmation = $dialog = new PapayaUiDialog();
+      $this->_dialogCopyPageConfirmation = $dialog = new \Papaya\UI\Dialog();
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -244,27 +242,27 @@ class papaya_topic_tree extends base_topic_tree {
           'tgt' => empty($this->params['tgt']) ? 0 : $this->params['tgt'],
         )
       );
-      $dialog->caption = new PapayaUiStringTranslated('Copy pages');
-      $dialog->fields[] = new PapayaUiDialogFieldInformation(
-        new PapayaUiStringTranslated(
+      $dialog->caption = new \Papaya\UI\Text\Translated('Copy pages');
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
+        new \Papaya\UI\Text\Translated(
           'Copy pages and create dependencies if necessary.'
         ),
         'actions-edit-copy'
       );
-      $dialog->fields[] = new PapayaUiDialogFieldSelectRadio(
-        new PapayaUiStringTranslated('Create dependencies'),
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Select\Radio(
+        new \Papaya\UI\Text\Translated('Create dependencies'),
         'confirm_create_dependencies',
         array(
-          1 => new PapayaUiStringTranslated('Yes'),
-          0 => new PapayaUiStringTranslated('No')
+          1 => new \Papaya\UI\Text\Translated('Yes'),
+          0 => new \Papaya\UI\Text\Translated('No')
         )
       );
-      $dialog->fields[] = new PapayaUiDialogFieldSelectBitmask(
-        new PapayaUiStringTranslated('Synchronization'),
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Select\Bitmask(
+        new \Papaya\UI\Text\Translated('Synchronization'),
         'synchronization',
         $this->sychronizations()->getList()
       );
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Copy'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Copy'));
     }
     return $this->_dialogCopyPageConfirmation;
   }
@@ -444,9 +442,9 @@ class papaya_topic_tree extends base_topic_tree {
         $current = &$this->copyTopics[$topic['topic_id']];
         $oldId = $topic['topic_id'];
         $current['prev'] = $target['topic_id'];
-        $ancestors = PapayaUtilArray::decodeIdList($target['prev_path']);
+        $ancestors = \Papaya\Utility\Arrays::decodeIdList($target['prev_path']);
         $ancestors[] = $target['prev'];
-        $current['prev_path'] = PapayaUtilArray::encodeAndQuoteIdList($ancestors);
+        $current['prev_path'] = \Papaya\Utility\Arrays::encodeAndQuoteIdList($ancestors);
         unset($current['topic_id']);
         if ($newId = $this->databaseInsertRecord($this->tableTopics, 'topic_id', $current)) {
           $newPath = $current['prev_path'].$current['prev'].';';
@@ -532,7 +530,7 @@ class papaya_topic_tree extends base_topic_tree {
     $synchronization = 0;
     if (
          $this->papaya()->administrationUser->hasPerm(
-           PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE
+           Administration\Permissions::PAGE_DEPENDENCY_MANAGE
          )
        ) {
       $createMissing = $this->dialogCopyPageConfirmation()->data->get(
@@ -543,16 +541,16 @@ class papaya_topic_tree extends base_topic_tree {
       );
     }
     // load the current dependency if available
-    $old = new PapayaContentPageDependency();
+    $old = new \Papaya\Content\Page\Dependency();
     if ($old->load($oldId)) {
       // if available change clone id and save
-      $new = new PapayaContentPageDependency();
+      $new = new \Papaya\Content\Page\Dependency();
       $new->assign($old->toArray());
       $new->id = $newId;
       return $new->save();
     } elseif ($createMissing) {
       // if not available and create allowed define new dependency and save
-      $new = new PapayaContentPageDependency();
+      $new = new \Papaya\Content\Page\Dependency();
       $new->id = $newId;
       $new->originId = $oldId;
       $new->synchronization = $synchronization;
@@ -977,7 +975,7 @@ class papaya_topic_tree extends base_topic_tree {
           );
           if ($showPublish &&
               $this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::PAGE_PUBLISH
+                Administration\Permissions::PAGE_PUBLISH
               ) &&
               $this->topicEditable($val['topic_id'])) {
             $publishLink = $this->getLink(array('cmd' => 'publish', 'page_id' => (int)$id));
@@ -1062,16 +1060,16 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Getter/Setter for the synchronizations object
   *
-  * @param PapayaAdministrationPagesDependencySynchronizations $synchronizations
-  * @return PapayaAdministrationPagesDependencySynchronizations
+  * @param Administration\Pages\Dependency\Synchronizations $synchronizations
+  * @return Administration\Pages\Dependency\Synchronizations
   */
   public function sychronizations(
-    PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
+    Administration\Pages\Dependency\Synchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;
     } elseif (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
+      $this->_synchronizations = new Administration\Pages\Dependency\Synchronizations();
     }
     return $this->_synchronizations;
   }

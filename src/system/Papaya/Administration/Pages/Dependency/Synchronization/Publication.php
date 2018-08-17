@@ -1,30 +1,27 @@
 <?php
 /**
-* Synchronize a publication to assigned target page. This is done duplicating the publish action.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Publication.php 39481 2014-03-03 10:55:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
 /**
-* Synchronize a publication to assigned target page. This is done duplicating the publish action.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationPublication
-  implements PapayaAdministrationPagesDependencySynchronization {
+ * Synchronize a publication to assigned target page. This is done duplicating the publish action.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Publication
+  implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
   private $_publication = NULL;
   private $_page = NULL;
@@ -58,32 +55,32 @@ class PapayaAdministrationPagesDependencySynchronizationPublication
   }
 
   /**
-  * Getter/Setter for publication page object. This is used to validate the origin
-  * and fetch the publication period limits
-  *
-  * @param PapayaContentPagePublication $publication
-  * @return PapayaContentPagePublication
-  */
-  public function publication(PapayaContentPagePublication $publication = NULL) {
+   * Getter/Setter for publication page object. This is used to validate the origin
+   * and fetch the publication period limits
+   *
+   * @param \Papaya\Content\Page\Publication $publication
+   * @return \Papaya\Content\Page\Publication
+   */
+  public function publication(\Papaya\Content\Page\Publication $publication = NULL) {
     if (isset($publication)) {
       $this->_publication = $publication;
     } elseif (is_null($this->_publication)) {
-      $this->_publication = new PapayaContentPagePublication();
+      $this->_publication = new \Papaya\Content\Page\Publication();
     }
     return $this->_publication;
   }
 
   /**
-  * Getter/Setter for working copy page object. This is used to publish the target pages.
-  *
-  * @param PapayaContentPageWork $page
-  * @return PapayaContentPageWork
-  */
-  public function page(PapayaContentPageWork $page = NULL) {
+   * Getter/Setter for working copy page object. This is used to publish the target pages.
+   *
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
+   */
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }
@@ -91,24 +88,24 @@ class PapayaAdministrationPagesDependencySynchronizationPublication
   /**
    * Getter/Setter for a page version object. This is used to create version for the target pages.
    *
-   * @param PapayaContentPageVersion $version
-   * @return PapayaContentPageVersion
+   * @param \Papaya\Content\Page\Version $version
+   * @return \Papaya\Content\Page\Version
    */
-  public function version(PapayaContentPageVersion $version = NULL) {
+  public function version(\Papaya\Content\Page\Version $version = NULL) {
     if (isset($version)) {
       $this->_version = $version;
     } elseif (is_null($this->_version)) {
-      $this->_version = new PapayaContentPageVersion();
+      $this->_version = new \Papaya\Content\Page\Version();
     }
     return $this->_version;
   }
 
   /**
-  * Fetch the needed version data (owner, message, change level).
-  *
-  * @param integer $pageId
-  * @return array
-  */
+   * Fetch the needed version data (owner, message, change level).
+   *
+   * @param integer $pageId
+   * @return array
+   */
   private function getVersionData($pageId) {
     $databaseAccess = $this->publication()->getDatabaseAccess();
     $sql = "SELECT version_author_id, version_message, topic_change_level
@@ -116,11 +113,11 @@ class PapayaAdministrationPagesDependencySynchronizationPublication
              WHERE topic_id = '%d'
              ORDER BY version_time DESC";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_VERSIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_VERSIONS),
       $pageId
     );
     if (($databaseResult = $databaseAccess->queryFmt($sql, $parameters, 1)) &&
-        ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC))) {
+      ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC))) {
       return array(
         'owner' => $row['version_author_id'],
         'message' => $row['version_message'],

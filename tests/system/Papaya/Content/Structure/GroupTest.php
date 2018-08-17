@@ -1,27 +1,43 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Structure;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureGroupTest extends PapayaTestCase {
+class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaContentStructureGroup::__construct
+   * @covers Group::__construct
    */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
-    $page =$this->createMock(PapayaContentStructurePage::class);
-    $group = new PapayaContentStructureGroup($page);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
+    $page = $this->createMock(Page::class);
+    $group = new Group($page);
     $this->assertAttributeSame($page, '_page', $group);
   }
 
   /**
-   * @covers PapayaContentStructureGroup::values
+   * @covers Group::values
    */
   public function testGroupsGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
-    $page =$this->createMock(PapayaContentStructurePage::class);
-    $group = new PapayaContentStructureGroup($page);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
+    $page = $this->createMock(Page::class);
+    $group = new Group($page);
     $values = $this
-      ->getMockBuilder(PapayaContentStructureValues::class)
+      ->getMockBuilder(Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group->values($values);
@@ -29,26 +45,26 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureGroup::values
+   * @covers Group::values
    */
   public function testGroupsGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
-    $page =$this->createMock(PapayaContentStructurePage::class);
-    $group = new PapayaContentStructureGroup($page);
-    $this->assertInstanceOf(PapayaContentStructureValues::class, $group->values());
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
+    $page = $this->createMock(Page::class);
+    $group = new Group($page);
+    $this->assertInstanceOf(Values::class, $group->values());
   }
 
   /**
-   * @covers PapayaContentStructureGroup::getIdentifier
+   * @covers Group::getIdentifier
    */
   public function testGetIdentifier() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
-    $page =$this->createMock(PapayaContentStructurePage::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
+    $page = $this->createMock(Page::class);
     $page
       ->expects($this->once())
       ->method('getIdentifier')
       ->will($this->returnValue('PAGE'));
-    $group = new PapayaContentStructureGroup($page);
+    $group = new Group($page);
     $group->name = 'GROUP';
     $this->assertEquals(
       'PAGE/GROUP', $group->getIdentifier()

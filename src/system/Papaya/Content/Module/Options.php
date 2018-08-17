@@ -1,34 +1,26 @@
 <?php
 /**
-* This object loads module options different conditions.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Options.php 37959 2013-01-14 11:48:15Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Module;
 /**
-* This object loads module options different conditions.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentModuleOptions extends PapayaDatabaseRecords {
+ * This object loads module options different conditions.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Options extends \Papaya\Database\Records {
 
   protected $_fields = array(
     'guid' => 'module_guid',
@@ -37,23 +29,23 @@ class PapayaContentModuleOptions extends PapayaDatabaseRecords {
     'type' => 'moduleoption_type'
   );
 
-  protected $_tableName = PapayaContentTables::MODULE_OPTIONS;
+  protected $_tableName = \Papaya\Content\Tables::MODULE_OPTIONS;
 
   /**
-  * Record is identified by module guid and option name
-  *
-  * @var array
-  */
+   * Record is identified by module guid and option name
+   *
+   * @var array
+   */
   protected $_identifierProperties = array(
     'guid', 'name'
   );
 
 
   /**
-  * Add a callback to the mapping to be used after mapping
-  *
-  * @return PapayaDatabaseInterfaceMapping
-  */
+   * Add a callback to the mapping to be used after mapping
+   *
+   * @return \Papaya\Database\Interfaces\Mapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onAfterMapping = array(
@@ -63,42 +55,42 @@ class PapayaContentModuleOptions extends PapayaDatabaseRecords {
   }
 
   /**
-  * The callback read the type field, and converts the value field depending on it.
-  *
-  * @param object $context
-  * @param integer $mode
-  * @param array $values
-  * @param array $record
-  * @return array
-  */
+   * The callback read the type field, and converts the value field depending on it.
+   *
+   * @param object $context
+   * @param integer $mode
+   * @param array $values
+   * @param array $record
+   * @return array
+   */
   public function callbackConvertValueByType($context, $mode, $values, $record) {
     $mapValue = (isset($values['type']) && isset($values['value']));
-    if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
       $result = $record;
       if ($mapValue) {
         switch ($values['type']) {
-        case 'array' :
-          $result['moduleoption_value'] = PapayaUtilStringXml::serializeArray($values['value']);
+          case 'array' :
+            $result['moduleoption_value'] = \Papaya\Utility\Text\XML::serializeArray($values['value']);
           break;
-        default :
-          $result['moduleoption_value'] = (string)$values['value'];
+          default :
+            $result['moduleoption_value'] = (string)$values['value'];
         }
       }
     } else {
       $result = $values;
       if ($mapValue) {
         switch ($values['type']) {
-        case 'array' :
-          if (empty($values['value'])) {
-            $result['value'] = array();
-          } elseif (substr($values['value'], 0, 1) == '<') {
-            $result['value'] = PapayaUtilStringXml::unserializeArray($values['value']);
-          } else {
-            $result['value'] = @unserialize($values['value']);
-          }
+          case 'array' :
+            if (empty($values['value'])) {
+              $result['value'] = array();
+            } elseif (substr($values['value'], 0, 1) == '<') {
+              $result['value'] = \Papaya\Utility\Text\XML::unserializeArray($values['value']);
+            } else {
+              $result['value'] = @unserialize($values['value']);
+            }
           break;
-        default :
-          $result['value'] = (string)$values['value'];
+          default :
+            $result['value'] = (string)$values['value'];
         }
       }
     }

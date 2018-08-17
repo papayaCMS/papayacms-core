@@ -1,36 +1,34 @@
 <?php
 /**
-* Synchronize assigned tags of the page
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Tags.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 /**
-* Synchronize assigned tags of the page
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationTags
-  implements PapayaAdministrationPagesDependencySynchronization {
+ * Synchronize assigned tags of the page
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Tags
+  implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
   /**
-  * buffer variable for the page tags content object
-  *
-  * @var PapayaContentPageTags
-  */
+   * buffer variable for the page tags content object
+   *
+   * @var \Papaya\Content\Page\Tags
+   */
   private $_tags = NULL;
 
   /**
@@ -60,14 +58,14 @@ class PapayaAdministrationPagesDependencySynchronizationTags
   /**
    * Getter/Setter for the tags subobject
    *
-   * @param PapayaContentPageTags $tags
-   * @return \PapayaContentPageTags
+   * @param \Papaya\Content\Page\Tags $tags
+   * @return \Papaya\Content\Page\Tags
    */
-  public function tags(PapayaContentPageTags $tags = NULL) {
+  public function tags(\Papaya\Content\Page\Tags $tags = NULL) {
     if (isset($tags)) {
       $this->_tags = $tags;
     } elseif (is_null($this->_tags)) {
-      $this->_tags = new PapayaContentPageTags();
+      $this->_tags = new \Papaya\Content\Page\Tags();
     }
     return $this->_tags;
   }

@@ -1,6 +1,21 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-class PapayaContentMediaFolders extends PapayaDatabaseRecordsTree {
+namespace Papaya\Content\Media;
+
+class Folders extends \Papaya\Database\Records\Tree {
 
   protected $_fields = array(
     'id' => 'folder_id',
@@ -13,28 +28,28 @@ class PapayaContentMediaFolders extends PapayaDatabaseRecordsTree {
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty =
-     array($this, 'callbackMapValueFromFieldToProperty');
+      array($this, 'callbackMapValueFromFieldToProperty');
     $mapping->callbacks()->onGetFieldForProperty =
-     array($this, 'callbackGetFieldForProperty');
+      array($this, 'callbackGetFieldForProperty');
     return $mapping;
   }
 
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
-    if ($property == 'ancestors') {
-      return PapayaUtilArray::decodeIdList($value);
+    if ('ancestors' === $property) {
+      return \Papaya\Utility\Arrays::decodeIdList($value);
     }
     return $value;
   }
 
   public function callbackGetFieldForProperty($context, $property) {
     switch ($property) {
-    case 'language_id' :
-    case 'title' :
-      return 'ft.'.$this->_fields[$property];
-    default :
-      if (isset($this->_fields[$property])) {
-        return 'f.'.$this->_fields[$property];
-      }
+      case 'language_id' :
+      case 'title' :
+        return 'ft.'.$this->_fields[$property];
+      default :
+        if (isset($this->_fields[$property])) {
+          return 'f.'.$this->_fields[$property];
+        }
     }
     return NULL;
   }
@@ -49,12 +64,12 @@ class PapayaContentMediaFolders extends PapayaDatabaseRecordsTree {
     } else {
       $languageId = 0;
     }
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
-      $this->getDatabaseAccess()->getTableName(PapayaContentTables::MEDIA_FOLDERS),
-      $this->getDatabaseAccess()->getTableName(PapayaContentTables::MEDIA_FOLDER_TRANSLATIONS),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDERS),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDER_TRANSLATIONS),
       $languageId
     );
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);

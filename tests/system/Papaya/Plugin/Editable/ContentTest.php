@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginEditableContentTest extends PapayaTestCase {
+class ContentTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaPluginEditableContent::getXml
+   * @covers \Papaya\Plugin\Editable\Content::getXML
    */
   public function testGetXml() {
-    $content = new PapayaPluginEditableContent(array('foo' => 'bar', 'bar' => 'foo'));
+    $content = new Content(array('foo' => 'bar', 'bar' => 'foo'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
       </data>',
-      $content->getXml()
+      $content->getXML()
     );
   }
 
   /**
-   * @covers PapayaPluginEditableContent::setXml
+   * @covers \Papaya\Plugin\Editable\Content::setXML
    */
   public function testSetXml() {
-    $content = new PapayaPluginEditableContent();
-    $content->setXml(
-      /** @lang XML */
+    $content = new Content();
+    $content->setXML(
+    /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
@@ -51,12 +52,12 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginEditableContent::setXml
+   * @covers \Papaya\Plugin\Editable\Content::setXML
    */
   public function testSetXmlReplacesAllData() {
-    $content = new PapayaPluginEditableContent(array('foo' => 'bar'));
-    $content->setXml(
-      /** @lang XML */
+    $content = new Content(array('foo' => 'bar'));
+    $content->setXML(
+    /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
       </data>'
@@ -68,28 +69,29 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginEditableContent::modified
+   * @covers \Papaya\Plugin\Editable\Content::modified
    */
   public function testModifiedIsTrueOnNewObject() {
-    $content = new PapayaPluginEditableContent();
+    $content = new Content();
     $this->assertTrue($content->modified());
   }
+
   /**
-   * @covers PapayaPluginEditableContent::modified
+   * @covers \Papaya\Plugin\Editable\Content::modified
    */
   public function testModifiedIsFalseAfterSetXml() {
-    $content = new PapayaPluginEditableContent();
-    $content->setXml('');
+    $content = new Content();
+    $content->setXML('');
     $this->assertFalse($content->modified());
   }
 
   /**
-   * @covers PapayaPluginEditableContent::modified
+   * @covers \Papaya\Plugin\Editable\Content::modified
    */
   public function testModifiedIsTrueAfterChange() {
-    $content = new PapayaPluginEditableContent();
-    $content->setXml(
-      /** @lang XML */
+    $content = new Content();
+    $content->setXML(
+    /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
       </data>'
@@ -99,12 +101,12 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginEditableContent::modified
+   * @covers \Papaya\Plugin\Editable\Content::modified
    */
   public function testModfiedIsFalseForEqualData() {
-    $content = new PapayaPluginEditableContent();
-    $content->setXml(
-      /** @lang XML */
+    $content = new Content();
+    $content->setXML(
+    /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
@@ -117,33 +119,33 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginEditableContent::editor
+   * @covers \Papaya\Plugin\Editable\Content::editor
    */
   public function testEditorGetAfterSet() {
     $editor = $this
-      ->getMockBuilder(PapayaPluginEditor::class)
+      ->getMockBuilder(\Papaya\Plugin\Editor::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $content = new PapayaPluginEditableContent();
+    $content = new Content();
     $content->editor($editor);
     $this->assertSame($editor, $content->editor());
   }
 
   /**
-   * @covers PapayaPluginEditableContent::editor
+   * @covers \Papaya\Plugin\Editable\Content::editor
    */
   public function testEditorGetImplicitCreateWithoutCallback() {
-    $content = new PapayaPluginEditableContent();
-    $this->assertInstanceOf(PapayaPluginEditor::class, $content->editor());
+    $content = new Content();
+    $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
   }
 
   /**
-   * @covers PapayaPluginEditableContent::editor
+   * @covers \Papaya\Plugin\Editable\Content::editor
    */
   public function testEditorImplicitCreateWithInvalidCallbackExpectingException() {
-    $content = new PapayaPluginEditableContent();
+    $content = new Content();
     $content->callbacks()->onCreateEditor = array($this, 'callbackOnCreateEditorReturnNull');
-    $this->expectException(LogicException::class);
+    $this->expectException(\LogicException::class);
     $content->editor();
   }
 
@@ -152,35 +154,35 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginEditableContent::editor
+   * @covers \Papaya\Plugin\Editable\Content::editor
    */
   public function testEditorImplicitCreateUsingCallback() {
-    $content = new PapayaPluginEditableContent();
+    $content = new Content();
     $content->callbacks()->onCreateEditor = array($this, 'callbackOnCreateEditor');
-    $this->assertInstanceOf(PapayaPluginEditor::class, $content->editor());
+    $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
   }
 
   public function callbackOnCreateEditor() {
     return $this
-      ->getMockBuilder(PapayaPluginEditor::class)
+      ->getMockBuilder(\Papaya\Plugin\Editor::class)
       ->disableOriginalConstructor()
       ->getMock();
   }
 
   /**
-   * @covers PapayaPluginEditableContent::callbacks
+   * @covers \Papaya\Plugin\Editable\Content::callbacks
    */
   public function testCallbacksGetAfterSet() {
-    $content = new PapayaPluginEditableContent();
-    $content->callbacks($callbacks = $this->createMock(PapayaPluginEditableCallbacks::class));
+    $content = new Content();
+    $content->callbacks($callbacks = $this->createMock(Callbacks::class));
     $this->assertSame($callbacks, $content->callbacks());
   }
 
   /**
-   * @covers PapayaPluginEditableContent::callbacks
+   * @covers \Papaya\Plugin\Editable\Content::callbacks
    */
   public function testCallbacksGetImplicitCreate() {
-    $content = new PapayaPluginEditableContent();
-    $this->assertInstanceOf(PapayaPluginEditableCallbacks::class, $content->callbacks());
+    $content = new Content();
+    $this->assertInstanceOf(Callbacks::class, $content->callbacks());
   }
 }

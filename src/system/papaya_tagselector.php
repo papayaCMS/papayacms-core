@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Permissions;
+
 /**
 * Tags Administration
 *
@@ -80,12 +82,12 @@ class papaya_tagselector extends base_tags {
   /**
   * get an instance of base_taglinks, NOT A SINGLETON, only for convenience
   *
-  * @param PapayaObjectInterface $parentObj parent object, must hold msgs, authUser, images
+  * @param \Papaya\Application\Access $parentObj parent object, must hold msgs, authUser, images
   * @return object $tagLinks instance of base_taglinks
   */
   public static function getInstance($parentObj = NULL) {
     $administrationUser = $parentObj->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_MANAGE)) {
+    if ($administrationUser->hasPerm(Permissions::TAG_MANAGE)) {
       $instance = new papaya_tagselector($parentObj, $parentObj->paramName);
       return $instance;
     }

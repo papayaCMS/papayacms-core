@@ -1,47 +1,43 @@
 <?php
 /**
-* The new papaya cms configuration option object. This replaces base_options and provides the
-* same api (mostly). It can be used in the same way, but adds the new features.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Cms.php 39863 2014-06-27 09:47:01Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Configuration;
 /**
-* Define a default project name, using the http host name
-*
-* @var string
-*/
+ * Define a default project name, using the http host name
+ *
+ * @var string
+ */
 define(
   'PAPAYA_CONFIGURATION_HOSTNAME',
   isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''
 );
 
 /**
-* The new papaya cms configuration option object. This replaces base_options and provides the
-* same api (mostly). It can be used in the same way, but adds the new features.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationCms extends PapayaConfigurationGlobal {
+ * The new papaya cms configuration option object. This replaces base_options and provides the
+ * same api (mostly). It can be used in the same way, but adds the new features.
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Cms extends GlobalValues {
 
   /**
-  * This is a list of all available options and their default values.
-  *
-  * @var array(string=>mixed)
-  */
+   * This is a list of all available options and their default values.
+   *
+   * @var array(string=>mixed)
+   */
   private $_cmsOptions = array(
     // base options (defined in configuration file)
     'PAPAYA_INCLUDE_PATH' => NULL,
@@ -95,7 +91,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_PATH_PUBLICFILES' => '',
     'PAPAYA_PATH_ADMIN' => '/papaya',
 
-     // Community / Surfers
+    // Community / Surfers
     'PAPAYA_COMMUNITY_REDIRECT_PAGE' => 0,
     'PAPAYA_COMMUNITY_AUTOLOGIN' => TRUE,
     'PAPAYA_COMMUNITY_RELOGIN' => FALSE,
@@ -107,7 +103,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_CONTENT_LANGUAGE' => 1,
     'PAPAYA_CONTENT_LANGUAGE_COOKIE' => FALSE,
 
-    'PAPAYA_DEFAULT_PROTOCOL' => PapayaUtilServerProtocol::BOTH,
+    'PAPAYA_DEFAULT_PROTOCOL' => \Papaya\Utility\Server\Protocol::BOTH,
     'PAPAYA_DEFAULT_HOST' => '',
     'PAPAYA_DEFAULT_HOST_ACTION' => 0,
     'PAPAYA_REDIRECT_PROTECTION' => FALSE,
@@ -119,7 +115,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_STATISTIC_PRESERVE_IP' => FALSE,
     'PAPAYA_PUBLISH_SOCIALMEDIA' => FALSE,
 
-     // spam filter
+    // spam filter
     'PAPAYA_SPAM_LOG' => FALSE,
     'PAPAYA_SPAM_BLOCK' => FALSE,
     'PAPAYA_SPAM_SCOREMIN_PERCENT' => 10,
@@ -280,7 +276,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     // session handling
     'PAPAYA_SESSION_START' => TRUE,
-    'PAPAYA_SESSION_ACTIVATION' => PapayaSession::ACTIVATION_DYNAMIC,
+    'PAPAYA_SESSION_ACTIVATION' => \Papaya\Session::ACTIVATION_DYNAMIC,
     'PAPAYA_SESSION_DOMAIN' => '',
     'PAPAYA_SESSION_PATH' => '',
     'PAPAYA_SESSION_SECURE' => FALSE,
@@ -304,26 +300,26 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
   );
 
   /**
-  * Create configuration object and initialize default option values
-  */
+   * Create configuration object and initialize default option values
+   */
   public function __construct() {
     parent::__construct($this->_cmsOptions);
   }
 
   /**
-  * The option list is only readable, it can not be changed.
-  *
-  * @return array
-  */
+   * The option list is only readable, it can not be changed.
+   *
+   * @return array
+   */
   public function getOptionsList() {
     return $this->_cmsOptions;
   }
 
   /**
-  * Load and define (fixate) all options
-  *
-  * @return boolean
-  */
+   * Load and define (fixate) all options
+   *
+   * @return boolean
+   */
   public function loadAndDefine() {
     if ($this->load()) {
       $this->defineConstants();
@@ -333,9 +329,9 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
   }
 
   /**
-  * Setup paths, define database table constants and define current options as constants to fixate
-  * them.
-  */
+   * Setup paths, define database table constants and define current options as constants to fixate
+   * them.
+   */
   public function defineConstants() {
     $this->setupPaths();
     $this->defineDatabaseTables();
@@ -343,41 +339,41 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
   }
 
   /**
-  * The method defines several path constants depending on other options.
-  */
+   * The method defines several path constants depending on other options.
+   */
   public function setupPaths() {
     $this->set('PAPAYA_PATH_CACHE', $this->get('PAPAYA_PATH_DATA').'cache/');
     switch ($this->get('PAPAYA_MEDIA_STORAGE_SERVICE')) {
-    case 's3' :
-      $basePath = 's3://'.
-        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
-        $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
-      PapayaStreamwrapperS3::setSecret(
-        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
-        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
-      );
-      PapayaStreamwrapperS3::register('s3');
-      $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
+      case 's3' :
+        $basePath = 's3://'.
+          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
+          $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
+        \Papaya\Streamwrapper\S3::setSecret(
+          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
+          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
+        );
+        \Papaya\Streamwrapper\S3::register('s3');
+        $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
       break;
-    default :
-      $basePath = $this->get('PAPAYA_PATH_DATA');
-      $this->set('PAPAYA_MEDIA_STORAGE_DIRECTORY', $this->get('PAPAYA_PATH_DATA').'media/');
-      if (empty($_SERVER['DOCUMENT_ROOT']) || ('' === $this->get('PAPAYA_PATH_PUBLICFILES'))) {
-        $this->set('PAPAYA_MEDIA_PUBLIC_DIRECTORY', '');
-        $this->set('PAPAYA_MEDIA_PUBLIC_URL', '');
-      } else {
-        $this->set(
-          'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
-          PapayaUtilFilePath::cleanup(
-            $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
-          )
-        );
-        $url = new PapayaUrlCurrent();
-        $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
-        $this->set(
-          'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathUrl()
-        );
-      }
+      default :
+        $basePath = $this->get('PAPAYA_PATH_DATA');
+        $this->set('PAPAYA_MEDIA_STORAGE_DIRECTORY', $this->get('PAPAYA_PATH_DATA').'media/');
+        if (empty($_SERVER['DOCUMENT_ROOT']) || ('' === $this->get('PAPAYA_PATH_PUBLICFILES'))) {
+          $this->set('PAPAYA_MEDIA_PUBLIC_DIRECTORY', '');
+          $this->set('PAPAYA_MEDIA_PUBLIC_URL', '');
+        } else {
+          $this->set(
+            'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
+            \Papaya\Utility\File\Path::cleanup(
+              $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
+            )
+          );
+          $url = new \Papaya\URL\Current();
+          $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
+          $this->set(
+            'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathURL()
+          );
+        }
       break;
     }
     $this->set('PAPAYA_PATH_MEDIAFILES', $basePath.'media/files/');
@@ -385,11 +381,11 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
       $templatePaths = array(
-        PapayaUtilFilePath::getDocumentRoot().'/../templates/',
+        \Papaya\Utility\File\Path::getDocumentRoot().'/../templates/',
         $this->get('PAPAYA_PATH_DATA').'templates/'
       );
       foreach ($templatePaths as $templatePath) {
-        $templatePath = PapayaUtilFilePath::cleanup($templatePath);
+        $templatePath = \Papaya\Utility\File\Path::cleanup($templatePath);
         $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
         if (file_exists($templatePath) && is_dir($templatePath)) {
           break;
@@ -398,25 +394,25 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     }
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
-      PapayaUtilFilePath::cleanup(
+      \Papaya\Utility\File\Path::cleanup(
         $this->get('PAPAYA_PATH_WEB').$this->get('PAPAYA_PATH_ADMIN')
       )
     );
   }
 
   /**
-  * Define the database table name constants, these constants should be replaced by
-  * calls to {@see PapayaDatabaseAcccess::getTableName()} using the class constants in
-  * {@see PapayaContentTables}.
-  *
-  * But for now the use of these constants is scattered all over the source in the
-  * base system and modules, so we need to define them for compatibility.
-  *
-  * @todo Remove usage of these constants
-  */
+   * Define the database table name constants, these constants should be replaced by
+   * calls to {@see \Papaya\Database\Acccess::getTableName()} using the class constants in
+   * {@see \Papaya\Content\Tables}.
+   *
+   * But for now the use of these constants is scattered all over the source in the
+   * base system and modules, so we need to define them for compatibility.
+   *
+   * @todo Remove usage of these constants
+   */
   public function defineDatabaseTables() {
     $prefix = $this->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-    foreach (PapayaContentTables::getTables() as $tableConstant => $tableName) {
+    foreach (\Papaya\Content\Tables::getTables() as $tableConstant => $tableName) {
       if (!defined($tableConstant)) {
         define($tableConstant, $prefix.'_'.$tableName);
       }

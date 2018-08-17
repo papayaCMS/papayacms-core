@@ -67,7 +67,7 @@ class base_formdesigner extends base_formdesigner_xml {
   var $baseParams = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 

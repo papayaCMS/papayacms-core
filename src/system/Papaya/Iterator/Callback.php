@@ -1,64 +1,65 @@
 <?php
 /**
-* This iterator allows convert the values on request. The callback function will be called with
-* the current value and key.
-*
-* @copyright 2012-2018 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Iterator;
+use Iterator;
 
 /**
-* This iterator allows convert the values on request. The callback function will be called with
-* the current value and key.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorCallback implements OuterIterator {
+ * This iterator allows convert the values on request. The callback function will be called with
+ * the current value and key.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Callback implements \OuterIterator {
 
   const MODIFY_VALUES = 1;
   const MODIFY_KEYS = 2;
   const MODIFY_BOTH = 3;
 
   /**
-  * Inner Iterator
-  * @var Iterator
-  */
+   * Inner Iterator
+   *
+   * @var Iterator
+   */
   private $_iterator = NULL;
   /**
-  * Element value convert function
-  * @var Callable
-  */
+   * Element value convert function
+   *
+   * @var Callable
+   */
   private $_callback = NULL;
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   private $_target = NULL;
 
   /**
-  * Create object and store arguments.
-  *
-  * @param Traversable|array $iterator
-  * @param Callable $callback
-  * @param integer $target
-  */
+   * Create object and store arguments.
+   *
+   * @param \Traversable|array $iterator
+   * @param \Callable $callback
+   * @param integer $target
+   */
   public function __construct(
     $iterator, $callback = NULL, $target = self::MODIFY_VALUES
   ) {
-    PapayaUtilConstraints::assertArrayOrTraversable($iterator);
-    PapayaUtilConstraints::assertCallable($callback);
-    $this->_iterator = ($iterator instanceof Iterator)
-      ? $iterator : new PapayaIteratorTraversable($iterator);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
+    \Papaya\Utility\Constraints::assertCallable($callback);
+    $this->_iterator = ($iterator instanceof \Iterator)
+      ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
     $this->_callback = $callback;
     $this->_target = in_array(
       $target,
@@ -68,35 +69,35 @@ class PapayaIteratorCallback implements OuterIterator {
   }
 
   /**
-  * OuterIterator interface: return the stored inner iterator
-  *
-  * @return Iterator
-  */
+   * OuterIterator interface: return the stored inner iterator
+   *
+   * @return \Iterator
+   */
   public function getInnerIterator() {
     return $this->_iterator;
   }
 
   /**
-  * Rewind the inner iterator
-  */
+   * Rewind the inner iterator
+   */
   public function rewind() {
     $this->getInnerIterator()->rewind();
   }
 
   /**
-  * Move inner iterator to next item
-  */
+   * Move inner iterator to next item
+   */
   public function next() {
     $this->getInnerIterator()->next();
   }
 
   /**
-  * Convert the current value using the callback function and return the result.
-  *
-  * @return mixed
-  */
+   * Convert the current value using the callback function and return the result.
+   *
+   * @return mixed
+   */
   public function current() {
-    if (PapayaUtilBitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
@@ -109,12 +110,12 @@ class PapayaIteratorCallback implements OuterIterator {
   }
 
   /**
-  * Convert the current key from the inner iterator
-  *
-  * @return mixed
-  */
+   * Convert the current key from the inner iterator
+   *
+   * @return mixed
+   */
   public function key() {
-    if (PapayaUtilBitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
@@ -126,8 +127,8 @@ class PapayaIteratorCallback implements OuterIterator {
   }
 
   /**
-  * Validate the current element of the inner iterator
-  */
+   * Validate the current element of the inner iterator
+   */
   public function valid() {
     return $this->getInnerIterator()->valid();
   }

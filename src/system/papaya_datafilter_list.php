@@ -1,21 +1,17 @@
 <?php
 /**
-* data filter plugins administration
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_datafilter_list.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * data filter plugins administration
@@ -71,7 +67,7 @@ class papaya_datafilter_list extends base_datafilter_list {
   public $moduleGroups = array();
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
   /**
@@ -219,7 +215,7 @@ class papaya_datafilter_list extends base_datafilter_list {
         $parent,
         $this->filterLink['datafilter_data']
       );
-      if ($plugin instanceof PapayaPluginEditable) {
+      if ($plugin instanceof \Papaya\Plugin\Editable) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/centercol');
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(
@@ -234,7 +230,7 @@ class papaya_datafilter_list extends base_datafilter_list {
           $pluginNode->append($plugin->content()->editor());
           if ($plugin->content()->modified()) {
             $saved = $this->saveFilterLinkContent(
-              $this->filterLink['view_id'], $this->filterLink['datafilter_id'], $plugin->content()->getXml()
+              $this->filterLink['view_id'], $this->filterLink['datafilter_id'], $plugin->content()->getXML()
             );
             if ($saved) {
               $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));

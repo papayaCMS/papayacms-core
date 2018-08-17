@@ -13,33 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box translation details.
-*
-* Allows to load/save the box translation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $boxId
-* @property integer $languageId
-* @property string $title
-* @property array $content
-* @property-read integer $created
-* @property-read integer $modified
-* @property integer $viewId
-* @property-read string $viewTitle
-* @property-read string $viewName
-* @property-read string $moduleGuid
-* @property-read string $moduleTitle
-*/
-class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
+ * Provide data encapsulation for the content box translation details.
+ *
+ * Allows to load/save the box translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $boxId
+ * @property integer $languageId
+ * @property string $title
+ * @property array $content
+ * @property-read integer $created
+ * @property-read integer $modified
+ * @property integer $viewId
+ * @property-read string $viewTitle
+ * @property-read string $viewName
+ * @property-read string $moduleGuid
+ * @property-read string $moduleTitle
+ */
+class Translation extends \Papaya\Database\BaseObject\Record {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'box_id' => 'box_id',
     'language_id' => 'lng_id',
@@ -54,7 +55,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
     'module_title' => 'module_title'
   );
 
-  protected $_tableNameBoxTranslations = PapayaContentTables::BOX_TRANSLATIONS;
+  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_TRANSLATIONS;
 
   /**
    * Load box translation details
@@ -75,8 +76,8 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
                AND t.lng_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
-      $this->databaseGetTableName(PapayaContentTables::MODULES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
       (int)$filter[0],
       (int)$filter[1]
     );
@@ -84,30 +85,30 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Convert the database record into the values property
-  *
-  * The method uses a basic function to map the fields. Content needs a special handling because it
-  * contains a serialized array.
-  *
-  * It is used as a callback function after reading the record from the database result.
-  *
-  * @param array $record
-  * @return array
-  */
+   * Convert the database record into the values property
+   *
+   * The method uses a basic function to map the fields. Content needs a special handling because it
+   * contains a serialized array.
+   *
+   * It is used as a callback function after reading the record from the database result.
+   *
+   * @param array $record
+   * @return array
+   */
   protected function convertBoxRecordToValues($record) {
     $values = $this->convertRecordToValues($record);
-    $values['content'] = PapayaUtilStringXml::unserializeArray($record['box_data']);
+    $values['content'] = \Papaya\Utility\Text\XML::unserializeArray($record['box_data']);
     return $values;
   }
 
 
   /**
-  * Save (insert or update) box translation record.
-  *
-  * This method check if the record exists and calls the nessesary private method.
-  *
-  * @return boolean
-  */
+   * Save (insert or update) box translation record.
+   *
+   * This method check if the record exists and calls the nessesary private method.
+   *
+   * @return boolean
+   */
   public function save() {
     if ($this->boxId > 0 && $this->languageId > 0) {
       $sql = "SELECT COUNT(*)
@@ -131,33 +132,33 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Insert a new translation record into database table
-  *
-  * @return boolean
-  */
+   * Insert a new translation record into database table
+   *
+   * @return boolean
+   */
   private function _insert() {
     $data = array(
       'box_id' => (int)$this->boxId,
       'lng_id' => (int)$this->languageId,
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-         ? PapayaUtilStringXml::serializeArray($this->content) : '',
+        ? \Papaya\Utility\Text\XML::serializeArray($this->content) : '',
       'box_trans_created' => time(),
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
     );
     return FALSE !== $this->databaseInsertRecord(
-      $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      NULL,
-      $data
-    );
+        $this->databaseGetTableName($this->_tableNameBoxTranslations),
+        NULL,
+        $data
+      );
   }
 
   /**
-  * Update an existing translation record in the database table
-  *
-  * @return boolean
-  */
+   * Update an existing translation record in the database table
+   *
+   * @return boolean
+   */
   private function _update() {
     $filter = array(
       'box_id' => (int)$this->boxId,
@@ -166,14 +167,14 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
     $data = array(
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-         ? PapayaUtilStringXml::serializeArray($this->content) : '',
+        ? \Papaya\Utility\Text\XML::serializeArray($this->content) : '',
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
     );
     return FALSE !== $this->databaseUpdateRecord(
-      $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      $data,
-      $filter
-    );
+        $this->databaseGetTableName($this->_tableNameBoxTranslations),
+        $data,
+        $filter
+      );
   }
 }

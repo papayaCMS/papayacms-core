@@ -1,21 +1,17 @@
 <?php
 /**
-* Sitemap basic class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_sitemap.php 39973 2015-05-28 13:13:36Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Sitemap basic class
@@ -307,7 +303,7 @@ class base_sitemap extends base_db {
   * @access public
   * @return string
   */
-  function getUrls() {
+  function getURLs() {
     $sql = "SELECT tt.topic_id,
                    l.lng_id, l.lng_ident, vm.viewmode_ext
               FROM %s tt, %s l, %s vl, %s vm
@@ -663,7 +659,7 @@ class base_sitemap extends base_db {
         if (!isset($this->linkTypeObj)) {
           $this->linkTypeObj = new base_linktypes();
         }
-        $this->linkTypes = PapayaUtilArray::merge(
+        $this->linkTypes = \Papaya\Utility\Arrays::merge(
           $this->linkTypes,
           $this->linkTypeObj->getCompleteLinkTypes(array_keys($linkTypeIds))
         );
@@ -1000,7 +996,7 @@ class base_sitemap extends base_db {
             $linkProtocol = 0;
           }
           if ($linkProtocol > 0) {
-            $currentProtocol = (PapayaUtilServerProtocol::isSecure()) ? 2 : 1;
+            $currentProtocol = (\Papaya\Utility\Server\Protocol::isSecure()) ? 2 : 1;
             /* if the session fallback is active, we should not create absolute links because
              * that whould make caching impossible. So we keep the link without the protocol
              * and redirect later. */
@@ -1008,7 +1004,7 @@ class base_sitemap extends base_db {
             if ($currentProtocol != $linkProtocol &&
                 !(
                   $session->isActive() &&
-                  $session->id()->existsIn(PapayaSessionId::SOURCE_PATH)
+                  $session->id()->existsIn(\Papaya\Session\Id::SOURCE_PATH)
                 )
                ) {
               $href = $this->getAbsoluteURL(
@@ -1080,7 +1076,7 @@ class base_sitemap extends base_db {
         $cfgData = $this->linkTypes[$row['linktype_id']]['popup_config'];
         $target = sprintf(
           ' target="%s"',
-          PapayaUtilStringXml::escapeAttribute(
+          \Papaya\Utility\Text\XML::escapeAttribute(
             $this->linkTypes[$row['linktype_id']]['linktype_name']
           )
         );
@@ -1088,16 +1084,16 @@ class base_sitemap extends base_db {
           ' data-popup="%s"',
           papaya_strings::escapeHTMLChars(
             papaya_parser::getDataPopupAttribute(
-              PapayaUtilArray::get($cfgData, 'width'),
-              PapayaUtilArray::get($cfgData, 'height'),
-              PapayaUtilArray::get($cfgData, 'scrollbars'),
-              PapayaUtilArray::get($cfgData, 'resizable'),
-              PapayaUtilArray::get($cfgData, 'toolbar'),
-              PapayaUtilArray::get($cfgData, 'top'),
-              PapayaUtilArray::get($cfgData, 'left'),
-              PapayaUtilArray::get($cfgData, 'menubar'),
-              PapayaUtilArray::get($cfgData, 'location'),
-              PapayaUtilArray::get($cfgData, 'status')
+              \Papaya\Utility\Arrays::get($cfgData, 'width'),
+              \Papaya\Utility\Arrays::get($cfgData, 'height'),
+              \Papaya\Utility\Arrays::get($cfgData, 'scrollbars'),
+              \Papaya\Utility\Arrays::get($cfgData, 'resizable'),
+              \Papaya\Utility\Arrays::get($cfgData, 'toolbar'),
+              \Papaya\Utility\Arrays::get($cfgData, 'top'),
+              \Papaya\Utility\Arrays::get($cfgData, 'left'),
+              \Papaya\Utility\Arrays::get($cfgData, 'menubar'),
+              \Papaya\Utility\Arrays::get($cfgData, 'location'),
+              \Papaya\Utility\Arrays::get($cfgData, 'status')
             )
           )
         );

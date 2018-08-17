@@ -1,21 +1,17 @@
 <?php
 /**
-* Data filter base class
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_datafilter_list.php 39733 2014-04-08 18:10:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Data filter basse class
@@ -108,7 +104,7 @@ class base_datafilter_list extends base_db {
           $filter->loadFilterData(
             $this->contentObj->data
           );
-        } elseif ($filter instanceof PapayaPluginFilterContent) {
+        } elseif ($filter instanceof \Papaya\Plugin\Filter\Content) {
           $content = '';
           if (is_array($this->contentObj->data) || $this->contentObj->data instanceof Traversable) {
             foreach ($this->contentObj->data as $text) {
@@ -138,7 +134,7 @@ class base_datafilter_list extends base_db {
       ) {
         if ($filter instanceof base_datafilter) {
           $string = $filter->applyFilterData($string);
-        } elseif ($filter instanceof PapayaPluginFilterContent) {
+        } elseif ($filter instanceof \Papaya\Plugin\Filter\Content) {
           $string = $filter->applyTo($string);
         }
       }
@@ -164,8 +160,8 @@ class base_datafilter_list extends base_db {
         ) {
           if ($filter instanceof base_datafilter) {
             $result .= $filter->getFilterData($parseParams);
-          } elseif ($filter instanceof PapayaPluginFilterContent) {
-            $document = new PapayaXmlDocument();
+          } elseif ($filter instanceof \Papaya\Plugin\Filter\Content) {
+            $document = new \Papaya\XML\Document();
             $content = $document->appendElement('content');
             $filter->appendTo($content);
             $result .= $content->saveFragment();
@@ -232,11 +228,11 @@ class base_datafilter_list extends base_db {
   * @param object $parent parent object
   * @param mixed $data optional, default value NULL
   * @access public
-  * @return base_datafilter|PapayaPluginFilterContent|NULL filter
+  * @return base_datafilter|\Papaya\Plugin\Filter\Content|NULL filter
   */
   function createFilterObject($guid, $parent = NULL, $data = NULL) {
     $filter = $this->papaya()->plugins->get($guid, $parent, $data);
-    if ($filter instanceof base_datafilter || $filter instanceof PapayaPluginFilterContent) {
+    if ($filter instanceof base_datafilter || $filter instanceof \Papaya\Plugin\Filter\Content) {
       return $filter;
     }
     return NULL;

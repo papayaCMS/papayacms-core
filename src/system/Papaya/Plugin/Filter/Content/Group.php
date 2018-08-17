@@ -1,25 +1,40 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-class PapayaPluginFilterContentGroup
-  extends PapayaObject
-  implements PapayaPluginFilterContent, IteratorAggregate {
+namespace Papaya\Plugin\Filter\Content;
+
+class Group
+  extends \Papaya\Application\BaseObject
+  implements \Papaya\Plugin\Filter\Content, \IteratorAggregate {
 
   private $_filters = array();
 
   /**
-   * @var PapayaObjectParameters
+   * @var \Papaya\BaseObject\Parameters
    */
   private $_options;
   private $_page = NULL;
 
   public function __construct($page) {
-    PapayaUtilConstraints::assertObject($page);
+    \Papaya\Utility\Constraints::assertObject($page);
     $this->_page = $page;
-    $this->_options = new PapayaObjectParameters([]);
+    $this->_options = new \Papaya\BaseObject\Parameters([]);
   }
 
   /**
-   * @return PapayaUiContentPage
+   * @return \Papaya\UI\Content\Page
    */
   public function getPage() {
     return $this->_page;
@@ -30,17 +45,17 @@ class PapayaPluginFilterContentGroup
   }
 
   public function getIterator() {
-    return new ArrayIterator($this->_filters);
+    return new \ArrayIterator($this->_filters);
   }
 
-  public function prepare($content, PapayaObjectParameters $options = NULL) {
-    $this->_options = isset($options) ? $options : new PapayaObjectParameters([]);
+  public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL) {
+    $this->_options = isset($options) ? $options : new \Papaya\BaseObject\Parameters([]);
     foreach ($this as $filter) {
-      if ($filter instanceof PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $filter->prepare($content, $this->_options);
       } elseif (method_exists($filter, 'prepareFilterData')) {
         if (method_exists($filter, 'initialize')) {
-          $bc = new stdClass();
+          $bc = new \stdClass();
           $bc->parentObj = $this->getPage();
           $filter->initialize($bc);
         }
@@ -56,22 +71,22 @@ class PapayaPluginFilterContentGroup
   public function applyTo($content) {
     $result = $content;
     foreach ($this as $filter) {
-      if ($filter instanceof PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
       } elseif (method_exists($filter, 'applyFilterData')) {
-        $result = PapayaUtilStringXml::repairEntities($filter->applyFilterData($result));
+        $result = \Papaya\Utility\Text\XML::repairEntities($filter->applyFilterData($result));
       }
     }
     return $result;
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     foreach ($this as $filter) {
-      if ($filter instanceof PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
-        $parent->appendXml(
-          $filter->getFilterData(PapayaUtilArray::ensure(iterator_to_array($this->_options)))
+        $parent->appendXML(
+          $filter->getFilterData(\Papaya\Utility\Arrays::ensure(iterator_to_array($this->_options)))
         );
       }
     }

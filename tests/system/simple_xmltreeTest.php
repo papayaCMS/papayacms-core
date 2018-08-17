@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../bootstrap.php';
 
-class simple_xmltreeTest extends PapayaTestCase {
+class simple_xmltreeTest extends \Papaya\TestCase {
 
   /**
    * @covers simple_xmltree::unserializeArrayFromXML

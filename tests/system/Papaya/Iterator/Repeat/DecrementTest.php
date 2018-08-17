@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorRepeatDecrementTest extends PapayaTestCase {
+class DecrementTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaIteratorRepeatDecrement::__construct
-   * @covers PapayaIteratorRepeatDecrement::decrement
+   * @covers       \Papaya\Iterator\Repeat\Decrement::__construct
+   * @covers       \Papaya\Iterator\Repeat\Decrement::decrement
    * @dataProvider provideLimits
    * @param array $expected
    * @param int $minimum
@@ -27,7 +28,7 @@ class PapayaIteratorRepeatDecrementTest extends PapayaTestCase {
    * @param int $step
    */
   public function testIteration($expected, $minimum, $maximum, $step) {
-    $iterator = new PapayaIteratorRepeatDecrement($minimum, $maximum, $step);
+    $iterator = new Decrement($minimum, $maximum, $step);
     $this->assertEquals(
       $expected,
       iterator_to_array($iterator)
@@ -35,12 +36,12 @@ class PapayaIteratorRepeatDecrementTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorRepeatDecrement::__construct
-  * @covers PapayaIteratorRepeatDecrement::decrement
-  */
+   * @covers \Papaya\Iterator\Repeat\Decrement::__construct
+   * @covers \Papaya\Iterator\Repeat\Decrement::decrement
+   */
   public function testIterationWithAssocMode() {
-    $iterator = new PapayaIteratorRepeatDecrement(
-      100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC
+    $iterator = new Decrement(
+      100, 0, 10, Decrement::MODE_ASSOC
     );
     $this->assertEquals(
       array(

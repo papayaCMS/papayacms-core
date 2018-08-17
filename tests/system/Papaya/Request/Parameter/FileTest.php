@@ -1,98 +1,113 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Request\Parameter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParameterFileTest extends PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaRequestParameterFile::__construct
-   * @covers PapayaRequestParameterFile::getName
+   * @covers \Papaya\Request\Parameter\File::__construct
+   * @covers \Papaya\Request\Parameter\File::getName
    */
   public function testConstructor() {
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $this->assertEquals(array('foo'), iterator_to_array($file->getName()));
   }
 
   /**
-   * @covers PapayaRequestParameterFile::__construct
-   * @covers PapayaRequestParameterFile::getName
+   * @covers \Papaya\Request\Parameter\File::__construct
+   * @covers \Papaya\Request\Parameter\File::getName
    */
   public function testConstructorWithNameAndGroup() {
-    $file = new PapayaRequestParameterFile('foo/bar', 'group');
+    $file = new File('foo/bar', 'group');
     $this->assertEquals(array('group', 'foo', 'bar'), iterator_to_array($file->getName()));
   }
 
   /**
-   * @covers PapayaRequestParameterFile::__construct
-   * @covers PapayaRequestParameterFile::getName
+   * @covers \Papaya\Request\Parameter\File::__construct
+   * @covers \Papaya\Request\Parameter\File::getName
    */
   public function testConstructorWithNameObject() {
     $name = $this
-      ->getMockBuilder(PapayaRequestParametersName::class)
+      ->getMockBuilder(\Papaya\Request\Parameters\Name::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $file = new PapayaRequestParameterFile($name);
+    $file = new File($name);
     $this->assertSame($name, $file->getName());
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testToString() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('/tmp/file', (string)$file);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testToStringWithoutData() {
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('', (string)$file);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testToStringWithInvalidFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(FALSE));
     $this->assertEquals('', (string)$file);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testIsValidExpectingTrue() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertTrue($file->isValid());
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testisValidExpectingFalse() {
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertFalse($file->isValid());
   }
 
   /**
-   * @covers PapayaRequestParameterFile::getIterator
+   * @covers \Papaya\Request\Parameter\File::getIterator
    */
   public function testGetIterator() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals(
       array(
@@ -107,94 +122,94 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetExists() {
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $this->assertTrue(isset($file['name']));
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetExistsForTemporaryFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertTrue(isset($file['temporary']));
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetGetForTemporaryFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('/tmp/file', $file['temporary']);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetGetForTemporaryFileWithInvalidFile() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(FALSE));
     $this->assertNull($file['temporary']);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetGetForName() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('file.ext', $file['name']);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetGetForSize() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals(42, $file['size']);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    * @backupGlobals enabled
    */
   public function testOffsetGetForType() {
     $_FILES = $this->getFileParametersFixture();
-    $file = new PapayaRequestParameterFile('foo');
+    $file = new File('foo');
     $file->fileSystem($this->getFileSystemFixtureWithUploadedFile(TRUE));
     $this->assertEquals('some/sample', $file['type']);
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetSetExpectingException() {
-    $file = new PapayaRequestParameterFile('foo');
-    $this->expectException(LogicException::class);
+    $file = new File('foo');
+    $this->expectException(\LogicException::class);
     $file['type'] = '';
   }
 
   /**
-   * @covers PapayaRequestParameterFile
+   * @covers \Papaya\Request\Parameter\File
    */
   public function testOffsetUnsetExpectingException() {
-    $file = new PapayaRequestParameterFile('foo');
-    $this->expectException(LogicException::class);
+    $file = new File('foo');
+    $this->expectException(\LogicException::class);
     unset($file['size']);
   }
 
@@ -216,7 +231,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
 
   public function getFileSystemFixtureWithUploadedFile($isUploadedFile) {
     $file = $this
-      ->getMockBuilder(PapayaFileSystemFile::class)
+      ->getMockBuilder(\Papaya\File\System\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -225,7 +240,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue($isUploadedFile));
 
-    $fileSystem = $this->createMock(PapayaFileSystemFactory::class);
+    $fileSystem = $this->createMock(\Papaya\File\System\Factory::class);
     $fileSystem
       ->expects($this->any())
       ->method('getFile')

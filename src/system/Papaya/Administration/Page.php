@@ -1,35 +1,33 @@
 <?php
 /**
-* Abstract superclass for an administration page.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Page.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration;
 
 /**
-* Abstract superclass for an administration page.
-*
-* The administration page has thrre parts (content, navigation, information). The parts are executed
-* one after another with the same parameters. Changes to the parameters of one part are assigned
-* to the next.
-*
-* Here is an composed toolbar sets for each element.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-abstract class PapayaAdministrationPage extends PapayaObject {
+ * Abstract superclass for an administration page.
+ *
+ * The administration page has thrre parts (content, navigation, information). The parts are executed
+ * one after another with the same parameters. Changes to the parameters of one part are assigned
+ * to the next.
+ *
+ * Here is an composed toolbar sets for each element.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+abstract class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @var string|NULL
@@ -37,16 +35,16 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   private $_moduleId;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   private $_layout = NULL;
   /**
-   * @var PapayaAdministrationPageParts
+   * @var Page\Parts
    */
   private $_parts = NULL;
 
   /**
-   * @var PapayaUiToolbar
+   * @var \Papaya\UI\Toolbar
    */
   private $_toolbar = NULL;
 
@@ -58,7 +56,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   /**
    * Create page object and store layout object for later use
    *
-   * @param PapayaTemplate $layout
+   * @param \Papaya\Template $layout
    * @param null|string $moduleId
    */
   public function __construct($layout, $moduleId = NULL) {
@@ -77,7 +75,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createContent() {
     return FALSE;
@@ -87,7 +85,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createNavigation() {
     return FALSE;
@@ -97,7 +95,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createInformation() {
     return FALSE;
@@ -114,15 +112,15 @@ abstract class PapayaAdministrationPage extends PapayaObject {
       $value = $this->papaya()->session->getValue($parametersName);
       $parts->parameters()->merge(is_array($value) ? $value : array());
       $this->papaya()->request->setParameters(
-        PapayaRequest::SOURCE_QUERY,
-        $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)->set(
+        \Papaya\Request::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(\Papaya\Request::SOURCE_QUERY)->set(
           $this->_parameterGroup, is_array($value) ? $value : array()
         )
       );
     }
     foreach ($parts as $name => $part) {
-      if ($part instanceof PapayaAdministrationPagePart) {
-        if ($xml = $part->getXml()) {
+      if ($part instanceof \Papaya\Administration\Page\Part) {
+        if ($xml = $part->getXML()) {
           $this->_layout->add($xml, $this->parts()->getTarget($name));
         }
       }
@@ -131,20 +129,20 @@ abstract class PapayaAdministrationPage extends PapayaObject {
       $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
     }
     $this->parts()->toolbar()->toolbar($this->toolbar());
-    $this->_layout->addMenu($this->parts()->toolbar()->getXml());
+    $this->_layout->addMenu($this->parts()->toolbar()->getXML());
   }
 
   /**
    * Getter/Setter for the parts list
    *
-   * @param PapayaAdministrationPageParts $parts
-   * @return PapayaAdministrationPageParts
+   * @param \Papaya\Administration\Page\Parts $parts
+   * @return \Papaya\Administration\Page\Parts
    */
-  public function parts(PapayaAdministrationPageParts $parts = NULL) {
+  public function parts(\Papaya\Administration\Page\Parts $parts = NULL) {
     if ($parts) {
       $this->_parts = $parts;
     } elseif (NULL === $this->_parts) {
-      $this->_parts = new PapayaAdministrationPageParts($this);
+      $this->_parts = new \Papaya\Administration\Page\Parts($this);
       $this->_parts->papaya($this->papaya());
       if (!empty($this->_parameterGroup)) {
         $this->_parts->parameterGroup($this->_parameterGroup);
@@ -160,16 +158,16 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|PapayaAdministrationPagePart
+   * @return FALSE|\Papaya\Administration\Page\Part
    */
   public function createPart($name) {
     switch ($name) {
-    case PapayaAdministrationPageParts::PART_CONTENT :
-      return $this->createContent();
-    case PapayaAdministrationPageParts::PART_NAVIGATION :
-      return $this->createNavigation();
-    case PapayaAdministrationPageParts::PART_INFORMATION :
-      return $this->createInformation();
+      case \Papaya\Administration\Page\Parts::PART_CONTENT :
+        return $this->createContent();
+      case \Papaya\Administration\Page\Parts::PART_NAVIGATION :
+        return $this->createNavigation();
+      case \Papaya\Administration\Page\Parts::PART_INFORMATION :
+        return $this->createInformation();
     }
     return FALSE;
   }
@@ -178,14 +176,14 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param PapayaUiToolbar $toolbar
-   * @return PapayaUiToolbar
+   * @param \Papaya\UI\Toolbar $toolbar
+   * @return \Papaya\UI\Toolbar
    */
-  public function toolbar(PapayaUiToolbar $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new PapayaUiMenu();
+      $this->_toolbar = new \Papaya\UI\Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }

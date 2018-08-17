@@ -1,41 +1,35 @@
 <?php
 /**
-* Provide data encapsulation for the content box translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Translations.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentBoxTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentBoxTranslations extends PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content box translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see \Papaya\Content\Box\Translation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Translations extends \Papaya\Database\BaseObject\Records {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'box_id' => 'id',
     'lng_id' => 'language_id',
@@ -61,9 +55,9 @@ class PapayaContentBoxTranslations extends PapayaDatabaseObjectList {
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
              WHERE tt.box_id = %d";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::BOX_TRANSLATIONS),
-      $this->databaseGetTableName(PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$boxId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -75,10 +69,10 @@ class PapayaContentBoxTranslations extends PapayaDatabaseObjectList {
    * @param int $boxId
    * @param integer $languageId
    * @internal param int $pageId
-   * @return PapayaContentBoxTranslation
+   * @return Translation
    */
   public function getTranslation($boxId, $languageId) {
-    $result = new PapayaContentBoxTranslation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load(array($boxId, $languageId));
     return $result;

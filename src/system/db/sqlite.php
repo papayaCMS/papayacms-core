@@ -1,26 +1,22 @@
 <?php
 /**
-* SQLite database access classes
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: sqlite.php 39625 2014-03-19 12:36:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * basic database connection and result class
 */
-require_once(dirname(__FILE__).'/base.php');
+require_once __DIR__.'/base.php';
 
 /**
 * DB-abstraction layer - SQLite
@@ -45,12 +41,12 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Check for sqlite database extension found
    *
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   public function extensionFound() {
     if (!extension_loaded('sqlite')) {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "sqlite" not available.'
       );
     }
@@ -60,7 +56,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @return resource $this->databaseConnection connection ID
    */
   public function connect() {
@@ -74,7 +70,7 @@ class dbcon_sqlite extends dbcon_base {
         $this->databaseConnection = $connection;
         return TRUE;
       } else {
-        throw new PapayaDatabaseExceptionConnect($error);
+        throw new \Papaya\Database\Exception\Connect($error);
       }
     }
   }
@@ -92,7 +88,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws PapayaDatabaseExceptionQuery
+   * @throws \Papaya\Database\Exception\Query
    * @param string $sql
    * @return \SQLiteResult
    */
@@ -107,29 +103,29 @@ class dbcon_sqlite extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return PapayaDatabaseExceptionQuery
+   * @return \Papaya\Database\Exception\Query
    */
   private function _createQueryException($sql) {
     $errorCode = sqlite_last_error($this->databaseConnection);
     $errorMessage = sqlite_error_string($errorCode);
     $severityMapping = array(
       // 5 - The database file is locked
-      5 => PapayaDatabaseException::SEVERITY_WARNING,
+      5 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 6 - A table in the database is locked
-      6 => PapayaDatabaseException::SEVERITY_WARNING,
+      6 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 20 - Data type mismatch
-      20 => PapayaDatabaseException::SEVERITY_WARNING,
+      20 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 100 - sqlite_step() has another row ready
-      100 => PapayaDatabaseException::SEVERITY_INFO,
+      100 => \Papaya\Database\Exception::SEVERITY_INFO,
       // 101 - sqlite_step() has finished executing
-      101 => PapayaDatabaseException::SEVERITY_INFO,
+      101 => \Papaya\Database\Exception::SEVERITY_INFO,
     );
     if (isset($severityMapping[$errorCode])) {
       $severity = $severityMapping[$errorCode];
     } else {
-      $severity = PapayaDatabaseException::SEVERITY_ERROR;
+      $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
-    return new PapayaDatabaseExceptionQuery(
+    return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
@@ -1073,13 +1069,13 @@ class dbresult_sqlite extends dbresult_base {
   /**
   * Compile database explain for SELECT query
   *
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if (sqlite_num_rows($res) > 0 ) {
-        $explain = new PapayaMessageContextTable('Explain');
+        $explain = new \Papaya\Message\Context\Table('Explain');
         while ($row = sqlite_fetch_array($res, SQLITE_NUM)) {
           $explain->addRow($row);
         }

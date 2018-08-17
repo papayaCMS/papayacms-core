@@ -1,32 +1,29 @@
 <?php
 /**
-* Use the environtment variable (from $_SERVER) as cache data
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Environment.php 39416 2014-02-27 17:02:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Request parameters are used to create cache condition data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionEnvironment
-  implements PapayaCacheIdentifierDefinition {
+ * Request parameters are used to create cache condition data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Environment
+  implements \Papaya\Cache\Identifier\Definition {
 
-  private $_name = 'QUERY_STRING';
+  private $_name;
 
   /**
    * Store the name of the environment variable
@@ -34,8 +31,8 @@ class PapayaCacheIdentifierDefinitionEnvironment
    * @param string $name
    */
   public function __construct($name) {
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
@@ -54,7 +51,7 @@ class PapayaCacheIdentifierDefinitionEnvironment
   /**
    * Any kind of data from the request environment
    *
-   * @see PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

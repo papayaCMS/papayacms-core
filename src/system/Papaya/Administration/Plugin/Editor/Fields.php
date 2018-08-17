@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+
 /**
-* An PluginEditor implementation that build a dialog based on an array of field definitions
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPluginEditorFields extends PapayaAdministrationPluginEditorDialog {
+ * An PluginEditor implementation that build a dialog based on an array of field definitions
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Fields extends Dialog {
 
   private $_fields;
 
@@ -28,19 +30,19 @@ class PapayaAdministrationPluginEditorFields extends PapayaAdministrationPluginE
   /**
    * Create the object store plugin instance and field definition
    *
-   * @param PapayaPluginEditableData $data
+   * @param \Papaya\Plugin\Editable\Data $data
    * @param array $fields
    */
-  public function __construct(PapayaPluginEditableData $data, array $fields) {
+  public function __construct(\Papaya\Plugin\Editable\Data $data, array $fields) {
     parent::__construct($data);
-    PapayaUtilConstraints::assertArrayOrTraversable($fields);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($fields);
     $this->_fields = $fields;
   }
 
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return PapayaUiDialog
+   * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {
     $dialog = parent::createDialog();
@@ -52,14 +54,14 @@ class PapayaAdministrationPluginEditorFields extends PapayaAdministrationPluginE
    * Getter/Setter for a dialog field builder. It maps the field definitions to profiles
    * and uses a factory to create the field instances.
    *
-   * @param PapayaUiDialogFieldBuilderArray $builder
-   * @return PapayaUiDialogFieldBuilderArray
+   * @param \Papaya\UI\Dialog\Field\Builder\FromArray $builder
+   * @return \Papaya\UI\Dialog\Field\Builder\FromArray
    */
-  public function builder(PapayaUiDialogFieldBuilderArray $builder = NULL) {
+  public function builder(\Papaya\UI\Dialog\Field\Builder\FromArray $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
-      $this->_builder = new PapayaUiDialogFieldBuilderArray($this, $this->_fields);
+      $this->_builder = new \Papaya\UI\Dialog\Field\Builder\FromArray($this, $this->_fields);
     }
     return $this->_builder;
   }

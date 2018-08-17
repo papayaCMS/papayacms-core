@@ -1,13 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextMemoryTest extends PapayaTestCase {
+class MemoryTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageContextMemory::__construct
-  */
+   * @covers \Papaya\Message\Context\Memory::__construct
+   */
   public function testContructor() {
-    $context = new PapayaMessageContextMemory();
+    $context = new Memory();
     $this->assertAttributeGreaterThan(
       0,
       '_currentUsage',
@@ -21,23 +36,23 @@ class PapayaMessageContextMemoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextMemory::rememberMemoryUsage
-  */
+   * @covers \Papaya\Message\Context\Memory::rememberMemoryUsage
+   */
   public function testRememberMemoryUsage() {
-    $context = new PapayaMessageContextMemory();
+    $context = new Memory();
     $context->rememberMemoryUsage(42);
     $this->assertAttributeEquals(
       42,
       '_previousUsage',
-      PapayaMessageContextMemory::class
+      Memory::class
     );
   }
 
   /**
-  * @covers PapayaMessageContextMemory::setMemoryUsage
-  */
+   * @covers \Papaya\Message\Context\Memory::setMemoryUsage
+   */
   public function testSetMemoryUsage() {
-    $context = new PapayaMessageContextMemory();
+    $context = new Memory();
     $context->rememberMemoryUsage(2);
     $context->setMemoryUsage(23, 42);
     $this->assertAttributeEquals(
@@ -58,10 +73,10 @@ class PapayaMessageContextMemoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextMemory::asString
-  */
+   * @covers \Papaya\Message\Context\Memory::asString
+   */
   public function testAsStringWithIncreasingUsage() {
-    $context = new PapayaMessageContextMemory();
+    $context = new Memory();
     $context->rememberMemoryUsage(23);
     $context->setMemoryUsage(3117, 4221);
     $this->assertEquals(
@@ -71,10 +86,10 @@ class PapayaMessageContextMemoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextMemory::asString
-  */
+   * @covers \Papaya\Message\Context\Memory::asString
+   */
   public function testAsStringWithDecreasingUsage() {
-    $context = new PapayaMessageContextMemory();
+    $context = new Memory();
     $context->rememberMemoryUsage(3117);
     $context->setMemoryUsage(23, 4221);
     $this->assertEquals(

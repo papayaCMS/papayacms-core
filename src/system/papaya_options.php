@@ -1,21 +1,19 @@
 <?php
 /**
-* papaya_options variable
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_options.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * papaya_options variable
@@ -63,7 +61,7 @@ class papaya_options extends base_options {
   var $searchDialog = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -78,7 +76,7 @@ class papaya_options extends base_options {
   private $optionDialog;
 
   /**
-   * @var PapayaAdministrationThemeBrowser
+   * @var Administration\Theme\Browser
    */
   private $_themeBrowser;
 
@@ -288,7 +286,7 @@ class papaya_options extends base_options {
     $this->getSearchForm();
     $this->getList();
     if (isset($this->params['id']) && $this->params['id'] == 'PAPAYA_LAYOUT_THEME') {
-      $this->layout->addRight($this->themeBrowser()->getXml());
+      $this->layout->addRight($this->themeBrowser()->getXML());
       $this->layout->addRight($this->getOptionHelp($this->params['id']));
     } else {
       $this->getForm();
@@ -302,11 +300,11 @@ class papaya_options extends base_options {
     }
   }
 
-  public function themeBrowser(PapayaAdministrationThemeBrowser $themeBrowser = NULL) {
+  public function themeBrowser(Administration\Theme\Browser $themeBrowser = NULL) {
     if (isset($themeBrowser)) {
       $this->_themeBrowser = $themeBrowser;
     } elseif (NULL === $this->_themeBrowser) {
-      $this->_themeBrowser = $browser = new PapayaAdministrationThemeBrowser();
+      $this->_themeBrowser = $browser = new Administration\Theme\Browser();
       $browser->papaya($this->papaya());
     }
     return $this->_themeBrowser;
@@ -887,7 +885,7 @@ class papaya_options extends base_options {
    * @return string
    */
   function getThemeSetsCombo($name, $element, $data) {
-    $themeSets = new PapayaContentThemeSets();
+    $themeSets = new \Papaya\Content\Theme\Sets();
     $themeSets->load(
       array('theme_name' => $this->papaya()->options->get('PAPAYA_LAYOUT_THEME'))
     );
@@ -899,7 +897,7 @@ class papaya_options extends base_options {
     );
     $result .= sprintf(
       '<option value="">%s</option>'.LF,
-      new PapayaUiStringTranslated('None')
+      new \Papaya\UI\Text\Translated('None')
     );
     $current = $this->papaya()->options->get('PAPAYA_LAYOUT_THEME_SET', '');
     foreach ($themeSets as $themeSet) {
@@ -1019,7 +1017,7 @@ class papaya_options extends base_options {
     case 'PAPAYA_UI_SECURE' :
     case 'PAPAYA_SESSION_SECURE' :
       if (0 != (int)$value) {
-        if (!PapayaUtilServerProtocol::isSecure()) {
+        if (!\Papaya\Utility\Server\Protocol::isSecure()) {
           $this->addMsg(MSG_ERROR, $this->_gt('You need HTTPS to use this feature.'));
           return FALSE;
         }
@@ -1040,8 +1038,8 @@ class papaya_options extends base_options {
           return TRUE;
         }
         $this->papaya()->messages->dispatch(
-          new PapayaMessageDisplay(
-            PapayaMessage::SEVERITY_ERROR,
+          new \Papaya\Message\Display(
+            \Papaya\Message::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
               $statisticOverviewGuid
@@ -1172,7 +1170,7 @@ class papaya_options extends base_options {
       return;
     }
     // Try to create an XML tree and check whether it's valid
-    $xml = PapayaXmlDocument::createFromXML(file_get_contents($tempFileName), TRUE);
+    $xml = \Papaya\XML\Document::createFromXML(file_get_contents($tempFileName), TRUE);
     if (!($xml && isset($xml->documentElement))) {
       $this->addMsg(MSG_ERROR, $this->_gt('This is not a valid XML file.'));
       return;
@@ -1340,8 +1338,8 @@ class papaya_options extends base_options {
       $this->checkDirectoryWriteable(PAPAYA_PATH_CACHE, 'Cache path');
     } else {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageDisplay(
-          PapayaMessage::SEVERITY_ERROR,
+        new \Papaya\Message\Display(
+          \Papaya\Message::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )
       );

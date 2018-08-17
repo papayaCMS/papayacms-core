@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Page\Publication;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
+class StatusTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPagePublicationStatus::load
-  */
+   * @covers Status::load
+   */
   public function testLoadReadingFromCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -17,13 +33,13 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
           serialize(
             array(
               'id' => 42,
-              'session_mode' => PapayaSession::ACTIVATION_DYNAMIC
+              'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
             )
           )
         )
       );
 
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya($this->mockPapaya()->application());
     $status->cache($cache);
 
@@ -31,17 +47,17 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
     $this->assertEquals(
       array(
         'id' => 42,
-        'session_mode' => PapayaSession::ACTIVATION_DYNAMIC
+        'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
       ),
       $status->toArray()
     );
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::load
-  */
+   * @covers Status::load
+   */
   public function testLoadWritingCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -57,20 +73,20 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         serialize(
           array(
             'id' => 42,
-            'session_mode' => PapayaSession::ACTIVATION_DYNAMIC
+            'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
           )
         ),
         0
       );
 
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya($this->mockPapaya()->application());
     $status->cache($cache);
     $status->setDatabaseAccess(
       $this->getDatabaseAccessFixture(
         array(
           'topic_id' => 42,
-          'topic_sessionmode' => PapayaSession::ACTIVATION_DYNAMIC
+          'topic_sessionmode' => \Papaya\Session::ACTIVATION_DYNAMIC
         )
       )
     );
@@ -79,7 +95,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
     $this->assertEquals(
       array(
         'id' => 42,
-        'session_mode' => PapayaSession::ACTIVATION_DYNAMIC
+        'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
       ),
       $status->toArray()
     );
@@ -87,20 +103,20 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::cache
-  */
+   * @covers Status::cache
+   */
   public function testCacheGetAfterSet() {
-    $cache = $this->createMock(PapayaCacheService::class);
-    $status = new PapayaContentPagePublicationStatus();
+    $cache = $this->createMock(\Papaya\Cache\Service::class);
+    $status = new Status();
     $status->cache($cache);
     $this->assertSame($cache, $status->cache());
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::cache
-  */
+   * @covers Status::cache
+   */
   public function testCacheGetImplicitCreate() {
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya(
       $this->mockPapaya()->application(
         array(
@@ -112,23 +128,23 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         )
       )
     );
-    $this->assertInstanceOf(PapayaCacheService::class, $status->cache());
+    $this->assertInstanceOf(\Papaya\Cache\Service::class, $status->cache());
   }
 
   /****************
-  * Fixtures
-  ****************/
+   * Fixtures
+   ****************/
 
   /**
    * @param array $recordData
-   * @return PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject
+   * @return \Papaya\Database\Access|\PHPUnit_Framework_MockObject_MockObject
    */
   public function getDatabaseAccessFixture(array $recordData) {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           $recordData,

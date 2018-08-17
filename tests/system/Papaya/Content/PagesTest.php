@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentPagesTest extends PapayaTestCase {
+class PagesTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -17,7 +33,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \Papaya\Utility\Server\Protocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -31,18 +47,18 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('INNER JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           23,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages(TRUE);
+    $pages = new Pages(TRUE);
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('language_id' => 1, 'viewmode_id' => 23)));
     $this->assertEquals(
@@ -53,7 +69,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP
         )
       ),
       $pages->toArray()
@@ -61,10 +77,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testLoadWithEmptyFilter() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -74,7 +90,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \Papaya\Utility\Server\Protocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => NULL
           ),
@@ -88,18 +104,18 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           0,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages(FALSE);
+    $pages = new Pages(FALSE);
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array()));
     $this->assertEquals(
@@ -110,7 +126,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => NULL,
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP
         )
       ),
       $pages->toArray()
@@ -118,10 +134,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testLoadWithId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -131,7 +147,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \Papaya\Utility\Server\Protocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -150,18 +166,18 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('id' => 42, 'language_id' => 1)));
     $this->assertEquals(
@@ -172,7 +188,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP
         )
       ),
       $pages->toArray()
@@ -180,10 +196,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testLoadWithStatus() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -193,7 +209,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \Papaya\Utility\Server\Protocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -212,18 +228,18 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $pages->load(
@@ -238,7 +254,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP
         )
       ),
       $pages->toArray()
@@ -246,10 +262,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testLoadWithParentId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -259,7 +275,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \Papaya\Utility\Server\Protocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -278,18 +294,18 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_PUBLICATIONS,
+          'table_'.\Papaya\Content\Tables::VIEWS,
+          'table_'.\Papaya\Content\Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.\Papaya\Content\Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('parent' => 42, 'language_id' => 1)));
     $this->assertEquals(
@@ -300,7 +316,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP
         )
       ),
       $pages->toArray()
@@ -308,25 +324,25 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testMappingImplicitCreateAttachesCallback() {
-    $pages = new PapayaContentPages();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $pages = new Pages();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $pages->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testMapValueReturnsValueByDefault() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       'success',
       $pages->mapValue(
-        new stdClass,
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        new \stdClass,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'id',
         'topic_id',
         'success'
@@ -335,15 +351,15 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testMapValueDecodesPath() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       array(21, 42),
       $pages->mapValue(
-        new stdClass,
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        new \stdClass,
+        \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'path',
         'prev_path',
         ';21;42;'
@@ -352,15 +368,15 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testMapValueEncodesPath() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       ';21;42;',
       $pages->mapValue(
-        new stdClass,
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        new \stdClass,
+        \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         'path',
         'prev_path',
         array(21, 42)
@@ -369,10 +385,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
-  */
+   * @covers Pages
+   */
   public function testIsPublicExpectingFalse() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertFalse($pages->isPublic());
   }
 }

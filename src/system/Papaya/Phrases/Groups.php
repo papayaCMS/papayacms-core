@@ -1,29 +1,26 @@
 <?php
 /**
-* Array Access implementation for phrase group objects.
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-* @version $Id: Groups.php 39740 2014-04-16 15:56:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Phrases;
 /**
-* Array Access implementation for phrase group objects.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-*/
-class PapayaPhrasesGroups implements ArrayAccess {
+ * Array Access implementation for phrase group objects.
+ *
+ * @package Papaya-Library
+ * @subpackage Phrases
+ */
+class Groups implements \ArrayAccess {
 
   /**
    * @var array
@@ -31,17 +28,17 @@ class PapayaPhrasesGroups implements ArrayAccess {
   private $_groups = array();
 
   /**
-   * @var PapayaPhrases
+   * @var \Papaya\Phrases
    */
   private $_phrases = NULL;
 
-  public function __construct(PapayaPhrases $phrases) {
+  public function __construct(\Papaya\Phrases $phrases) {
     $this->_phrases = $phrases;
   }
 
   /**
    * @param string $name
-   * @return PapayaPhrasesGroup
+   * @return \Papaya\Phrases\Group
    */
   public function get($name) {
     return $this->offsetGet($name);
@@ -57,21 +54,21 @@ class PapayaPhrasesGroups implements ArrayAccess {
 
   /**
    * @param string $name
-   * @return PapayaPhrasesGroup
+   * @return \Papaya\Phrases\Group
    */
   public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
-      $this->_groups[$name] = new PapayaPhrasesGroup($this->_phrases, $name);
+      $this->_groups[$name] = new \Papaya\Phrases\Group($this->_phrases, $name);
     }
     return $this->_groups[$name];
   }
 
   /**
    * @param string $name
-   * @param PapayaPhrasesGroup $group
+   * @param \Papaya\Phrases\Group $group
    */
   public function offsetSet($name, $group) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaPhrasesGroup', $group);
+    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Phrases\Group::class, $group);
     $this->_groups[$name] = $group;
   }
 

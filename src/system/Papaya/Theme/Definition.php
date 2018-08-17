@@ -1,22 +1,19 @@
 <?php
 /**
-* Load and provide access to the theme definition.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Theme
-* @version $Id: Definition.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Theme;
 /**
  * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
  *
@@ -32,10 +29,11 @@
  * @property string $templatePath
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
-class PapayaThemeDefinition extends PapayaContentStructure {
+class Definition extends \Papaya\Content\Structure {
 
   /**
    * Theme data
+   *
    * @var array
    */
   private $_properties = array(
@@ -50,6 +48,7 @@ class PapayaThemeDefinition extends PapayaContentStructure {
 
   /**
    * Theme thunbnails
+   *
    * @var array
    */
   private $_thumbnails = array(
@@ -63,7 +62,7 @@ class PapayaThemeDefinition extends PapayaContentStructure {
    * @param string $location
    */
   public function load($location) {
-    $dom = new PapayaXmlDocument();
+    $dom = new \Papaya\XML\Document();
     $dom->load($location);
     $xpath = $dom->xpath();
     $this->_properties['name'] = basename(dirname($location));
@@ -75,7 +74,7 @@ class PapayaThemeDefinition extends PapayaContentStructure {
     $this->_properties['template_path'] = $xpath->evaluate(
       'string(/papaya-theme/templates/@directory)'
     );
-    /** @var PapayaXmlElement $thumbNode */
+    /** @var \Papaya\XML\Element $thumbNode */
     foreach ($xpath->evaluate('/papaya-theme/thumbs/thumb') as $thumbNode) {
       $size = $thumbNode->getAttribute('size');
       if (isset($this->_thumbnails[$size])) {
@@ -89,18 +88,19 @@ class PapayaThemeDefinition extends PapayaContentStructure {
 
   /**
    * Get a theme property
+   *
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return array
    */
   public function __get($name) {
-    $identifier = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifier = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
     } elseif ($identifier == 'thumbnails') {
       return $this->_thumbnails;
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf(
         'Can not read unknown property "%s::$%s".',
         get_class($this),

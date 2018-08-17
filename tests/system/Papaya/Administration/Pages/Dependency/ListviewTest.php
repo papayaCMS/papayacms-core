@@ -1,16 +1,32 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
+class ListviewTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencyListview::__construct
-  */
+   * @covers Listview::__construct
+   */
   public function testConstructor() {
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
-    $listview = new PapayaAdministrationPagesDependencyListview(
+    $listview = new Listview(
       21, 42, $dependencies, $references, $synchronizations
     );
     $this->assertAttributeSame(
@@ -28,22 +44,22 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyListview::appendTo
-  */
+   * @covers Listview::appendTo
+   */
   public function testAppendToWithEmptyRecordList() {
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
-    $listview = new PapayaAdministrationPagesDependencyListview(
+    $listview = new Listview(
       21, 42, $dependencies, $references, $synchronizations
     );
-    $this->assertEquals('', $listview->getXml());
+    $this->assertEquals('', $listview->getXML());
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyListview::appendTo
-  * @covers PapayaAdministrationPagesDependencyListview::prepare
-  */
+   * @covers Listview::appendTo
+   * @covers Listview::prepare
+   */
   public function testAppendTo() {
     $dependencies = $this->getDependenciesFixture(
       array(
@@ -83,7 +99,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       )
     );
     $synchronizations = $this->getSynchronizationsFixture();
-    $listview = new PapayaAdministrationPagesDependencyListview(
+    $listview = new Listview(
       42, 21, $dependencies, $references, $synchronizations
     );
     $listview->papaya(
@@ -99,7 +115,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       )
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<listview title="Dependent pages of page &quot;[...] #42&quot;">
         <cols>
           <col align="left">Page</col>
@@ -150,19 +166,19 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
           </listitem>
         </items>
       </listview>',
-      $listview->getXml()
+      $listview->getXML()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyListview::pages
-  */
+   * @covers Listview::pages
+   */
   public function testPagesGetAfterSet() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(\Papaya\Content\Pages::class);
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
-    $listview = new PapayaAdministrationPagesDependencyListview(
+    $listview = new Listview(
       21, 42, $dependencies, $references, $synchronizations
     );
     $this->assertSame(
@@ -171,30 +187,30 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyListview::pages
-  */
+   * @covers Listview::pages
+   */
   public function testPagesGetImplicitCreate() {
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
-    $listview = new PapayaAdministrationPagesDependencyListview(
+    $listview = new Listview(
       21, 42, $dependencies, $references, $synchronizations
     );
     $this->assertInstanceOf(
-      PapayaContentPages::class, $listview->pages()
+      \Papaya\Content\Pages::class, $listview->pages()
     );
   }
 
   /**************************
-  * Fixtures
-  **************************/
+   * Fixtures
+   **************************/
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependencies
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\Dependencies
    */
   public function getDependenciesFixture(array $data = array()) {
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
     $dependencies
       ->expects($this->any())
       ->method('count')
@@ -202,16 +218,16 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
     $dependencies
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($data)));
+      ->will($this->returnValue(new \ArrayIterator($data)));
     return $dependencies;
   }
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageReferences
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\References
    */
   public function getReferencesFixture(array $data = array()) {
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $references = $this->createMock(\Papaya\Content\Page\References::class);
     $references
       ->expects($this->any())
       ->method('count')
@@ -219,20 +235,20 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
     $references
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($data)));
+      ->will($this->returnValue(new \ArrayIterator($data)));
     return $references;
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaAdministrationPagesDependencySynchronizations
+   * @return \PHPUnit_Framework_MockObject_MockObject|Synchronizations
    */
   public function getSynchronizationsFixture() {
-    $icons = $this->createMock(PapayaUiIconList::class);
+    $icons = $this->createMock(\Papaya\UI\Icon\Collection::class);
     $icons
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator()));
-    $synchronizations = $this->createMock(PapayaAdministrationPagesDependencySynchronizations::class);
+      ->will($this->returnValue(new \ArrayIterator()));
+    $synchronizations = $this->createMock(Synchronizations::class);
     $synchronizations
       ->expects($this->any())
       ->method('getIcons')

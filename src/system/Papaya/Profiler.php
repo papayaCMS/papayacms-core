@@ -1,31 +1,28 @@
 <?php
 /**
-* Papaya profile, collects and stores profilng data for requests.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: Profiler.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya;
 /**
-* Papaya profile, collects and stores profilng data for requests. A divisor is used to
-* define a probability that the profiling is activated.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
+ * Papaya profile, collects and stores profilng data for requests. A divisor is used to
+ * define a probability that the profiling is activated.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
 
-class PapayaProfiler {
+class Profiler {
 
   private $_collector = NULL;
   private $_storage = NULL;
@@ -36,22 +33,22 @@ class PapayaProfiler {
   private $_type = 'papaya';
 
   /**
-  * Create Profiler and set collector and storage objects.
-  *
-  * @param PapayaProfilerCollector $collector
-  * @param PapayaProfilerStorage $storage
-  */
-  public function __construct(PapayaProfilerCollector $collector, PapayaProfilerStorage $storage) {
+   * Create Profiler and set collector and storage objects.
+   *
+   * @param \Papaya\Profiler\Collector $collector
+   * @param \Papaya\Profiler\Storage $storage
+   */
+  public function __construct(Profiler\Collector $collector, Profiler\Storage $storage) {
     $this->_collector = $collector;
     $this->_storage = $storage;
   }
 
   /**
-  * Set the divisor. That defines the probability that the profiler is activated.
-  *
-  *
-  * @param int $divisor
-  */
+   * Set the divisor. That defines the probability that the profiler is activated.
+   *
+   *
+   * @param int $divisor
+   */
   public function setDivisor($divisor) {
     $this->_allowRun = NULL;
     if ($divisor < 1) {
@@ -67,12 +64,12 @@ class PapayaProfiler {
   }
 
   /**
-  * Return true if profilng data for the current run should be collected.
-  *
-  * If it is not defined otherwise, it willb e calculated using the $divisor.
-  *
-  * @return boolean.
-  */
+   * Return true if profilng data for the current run should be collected.
+   *
+   * If it is not defined otherwise, it willb e calculated using the $divisor.
+   *
+   * @return boolean.
+   */
   public function allowRun() {
     if (is_null($this->_allowRun)) {
       $this->_allowRun = (rand(1, $this->_divisor) == 1);
@@ -81,8 +78,8 @@ class PapayaProfiler {
   }
 
   /**
-  * Start the profilning if allowed.
-  */
+   * Start the profilning if allowed.
+   */
   public function start() {
     if ($this->allowRun()) {
       $this->_collector->enable();
@@ -90,8 +87,8 @@ class PapayaProfiler {
   }
 
   /**
-  * Store the collected profiling data.
-  */
+   * Store the collected profiling data.
+   */
   public function store() {
     if ($this->allowRun() && ($data = $this->_collector->disable())) {
       $this->_storage->saveRun($data, $this->_type);

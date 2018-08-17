@@ -1,68 +1,68 @@
 <?php
 /**
-* Database source name (DSN) specifies a data structure that contains the information
-* about a specific data source
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Name.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Database\Source;
 
 /**
-* Database source name (DSN) specifies a data structure that contains the information
-* about a specific data source
-*
-* @package Papaya-Library
-* @subpackage Database
-*
-* @property string $api
-* @property string $platform
-* @property string $filename
-* @property string $username
-* @property string $password
-* @property string $host
-* @property string $port
-* @property string $socket
-* @property string $database
-* @property PapayaRequestParameters $parameters
-*/
-class PapayaDatabaseSourceName {
+ * Database source name (DSN) specifies a data structure that contains the information
+ * about a specific data source
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ *
+ * @property string $api
+ * @property string $platform
+ * @property string $filename
+ * @property string $username
+ * @property string $password
+ * @property string $host
+ * @property string $port
+ * @property string $socket
+ * @property string $database
+ * @property \Papaya\Request\Parameters $parameters
+ */
+class Name {
 
   /**
-  * Raw dsn string
-  * @var string
-  */
+   * Raw dsn string
+   *
+   * @var string
+   */
   private $_name = '';
 
   /**
-  * Parsed dsn informations
-  * @var array
-  */
+   * Parsed dsn information
+   *
+   * @var array
+   */
   private $_properties = array();
 
   /**
-  * Additional parameters
-  *
-  * @var PapayaRequestParameters
-  */
-  private $_parameters = NULL;
+   * Additional parameters
+   *
+   * @var \Papaya\Request\Parameters
+   */
+  private $_parameters;
 
   /**
-  * Construct a dsn object and set it's properties from a dsn string
-  *
-  * @throws InvalidArgumentException
-  * @param string $name
-  */
+   * Construct a dsn object and set it's properties from a dsn string
+   *
+   * @throws \InvalidArgumentException
+   * @param string $name
+   * @throws \Papaya\Database\Exception\Connect
+   */
   public function __construct($name) {
     $this->setName($name);
   }
@@ -97,12 +97,12 @@ class PapayaDatabaseSourceName {
    *
    *
    * @param string $name
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new PapayaDatabaseExceptionConnect(
-        sprintf('Can not initialize database connection from empty dsn.', $name)
+      throw new \Papaya\Database\Exception\Connect(
+        'Can not initialize database connection from empty dsn.'
       );
     }
     $patternServer = '(^
@@ -143,7 +143,7 @@ class PapayaDatabaseSourceName {
       $dsn = $name;
     }
     if (preg_match($patternServer, $dsn, $matches) ||
-        preg_match($patternFile, $dsn, $matches)) {
+      preg_match($patternFile, $dsn, $matches)) {
       $this->_name = $name;
       $this->_properties = array(
         'api' => $matches['api'],
@@ -157,14 +157,14 @@ class PapayaDatabaseSourceName {
         'database' => $this->_getMatchValue($matches, 'database')
       );
       if ($queryStringStart > 0) {
-        $query = new PapayaRequestParametersQuery();
+        $query = new \Papaya\Request\Parameters\QueryString();
         $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
       } else {
-        $this->_parameters = new PapayaRequestParameters();
+        $this->_parameters = new \Papaya\Request\Parameters();
       }
     } else {
-      throw new PapayaDatabaseExceptionConnect(
-        sprintf('Can not initialize database connection from invalid dsn.', $name)
+      throw new \Papaya\Database\Exception\Connect(
+        'Can not initialize database connection from invalid dsn.'
       );
     }
   }
@@ -180,41 +180,40 @@ class PapayaDatabaseSourceName {
   private function _getMatchValue($matches, $name, $default = NULL) {
     if (empty($matches[$name])) {
       return $default;
-    } else {
-      return $matches[$name];
     }
+    return $matches[$name];
   }
 
   /**
-  * Check if a dsn property does exists (contains a value in this case)
-  *
-  * @param name
-  * @return boolean
-  */
+   * Check if a dsn property does exists (contains a value in this case)
+   *
+   * @param name
+   * @return boolean
+   */
   public function __isset($name) {
     if (empty($this->_properties[$name])) {
       return FALSE;
-    } else {
-      return TRUE;
     }
+    return TRUE;
   }
 
   /**
-  * Get dynamic properties
-  *
-  * Provides read access to the values in the _properties array and the parameters property.
-  *
-  * @throws ErrorException
-  * @param string $name
-  * @return mixed
-  */
+   * Get dynamic properties
+   *
+   * Provides read access to the values in the _properties array and the parameters property.
+   *
+   * @throws \ErrorException
+   * @param string $name
+   * @return mixed
+   */
   public function __get($name) {
     if (array_key_exists($name, $this->_properties)) {
       return $this->_properties[$name];
-    } elseif ($name == 'parameters') {
+    }
+    if ('parameters' === $name) {
       return $this->_parameters;
     }
-    throw new ErrorException(
+    throw new \ErrorException(
       sprintf('Undefined property: %s::$%s', __CLASS__, $name),
       0,
       0,
@@ -225,13 +224,14 @@ class PapayaDatabaseSourceName {
 
   /**
    * Proptect properties agains changes from the outside
+   *
    * @param string $name
    * @param mixed $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
-    throw new BadMethodCallException(
-      sprintf('Property %s::$%s is not writeable.', __CLASS__, $name)
+    throw new \BadMethodCallException(
+      sprintf('Property %s::$%s is not writable.', __CLASS__, $name)
     );
   }
 }

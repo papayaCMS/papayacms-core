@@ -1,29 +1,27 @@
 <?php
 /**
-* Object represenatin a system path (depending on the configuration)
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Path.php 37507 2012-09-05 14:28:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Configuration;
 
 /**
-* Object represenatin a system path (depending on the configuration)
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationPath extends PapayaObject {
+ * Object representation a system path (depending on the configuration)
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Path extends \Papaya\Application\BaseObject {
 
   const PATH_THEMES = 'theme';
   const PATH_THEME_CURRENT = 'current_theme';
@@ -42,7 +40,7 @@ class PapayaConfigurationPath extends PapayaObject {
   private $_path = '';
 
   /**
-   * @var PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler = NULL;
 
@@ -74,45 +72,45 @@ class PapayaConfigurationPath extends PapayaObject {
    */
   public function get() {
     switch ($this->_basePath) {
-    case self::PATH_THEMES :
-      $result = $this->themeHandler()->getLocalPath().$this->_path;
+      case self::PATH_THEMES :
+        $result = $this->themeHandler()->getLocalPath().$this->_path;
       break;
-    case self::PATH_THEME_CURRENT :
-      $result = $this->themeHandler()->getLocalThemePath().$this->_path;
+      case self::PATH_THEME_CURRENT :
+        $result = $this->themeHandler()->getLocalThemePath().$this->_path;
       break;
-    case self::PATH_INSTALLATION :
-      $result = PapayaUtilFilePath::getDocumentRoot().
-        $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-        $this->_path;
+      case self::PATH_INSTALLATION :
+        $result = \Papaya\Utility\File\Path::getDocumentRoot().
+          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->_path;
       break;
-    case self::PATH_ADMINISTRATION :
-      $result = PapayaUtilFilePath::getDocumentRoot().
-        $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-        $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
-        $this->_path;
+      case self::PATH_ADMINISTRATION :
+        $result = \Papaya\Utility\File\Path::getDocumentRoot().
+          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
+          $this->_path;
       break;
-    case self::PATH_UPLOAD :
-      $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
-        $this->_path;
+      case self::PATH_UPLOAD :
+        $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
+          $this->_path;
       break;
-    default :
-      $result = $this->_basePath.'/'.$this->_path;
+      default :
+        $result = $this->_basePath.'/'.$this->_path;
       break;
     }
-    return PapayaUtilFilePath::cleanup($result);
+    return \Papaya\Utility\File\Path::cleanup($result);
   }
 
   /**
    *Getter/Setter for a theme handler subobject.
    *
-   * @param PapayaThemeHandler $handler
-   * @return PapayaThemeHandler
+   * @param \Papaya\Theme\Handler $handler
+   * @return \Papaya\Theme\Handler
    */
-  public function themeHandler(PapayaThemeHandler $handler = NULL) {
+  public function themeHandler(\Papaya\Theme\Handler $handler = NULL) {
     if (isset($handler)) {
       $this->_themeHandler = $handler;
     } elseif (NULL == $this->_themeHandler) {
-      $this->_themeHandler = new PapayaThemeHandler();
+      $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

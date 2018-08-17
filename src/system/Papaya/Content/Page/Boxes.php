@@ -1,41 +1,35 @@
 <?php
 /**
-* Provide data encapsulation for the content page translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Boxes.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageBoxes extends PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see \Papaya\Content\Page\Translation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Boxes extends \Papaya\Database\BaseObject\Records {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'topic_id' => 'page_id',
     'box_id' => 'box_id',
@@ -54,34 +48,34 @@ class PapayaContentPageBoxes extends PapayaDatabaseObjectList {
              WHERE topic_id = '%d'
              ORDER BY box_sort, box_id";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::PAGE_BOXES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
       $pageId
     );
     return $this->_loadRecords($sql, $parameters);
   }
 
   /**
-  * Delete box links on the given page ids
-  *
-  * @param array|integer $pageIds
-  * @return boolean
-  */
+   * Delete box links on the given page ids
+   *
+   * @param array|integer $pageIds
+   * @return boolean
+   */
   public function delete($pageIds) {
     return FALSE !== $this->databaseDeleteRecord(
-      $this->databaseGetTableName(PapayaContentTables::PAGE_BOXES),
-      'topic_id',
-      PapayaUtilArray::ensure($pageIds)
-    );
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+        'topic_id',
+        \Papaya\Utility\Arrays::ensure($pageIds)
+      );
   }
 
   /**
-  * Copy currently loaded box links to the given page ids
-  *
-  * @param array|integer $pageIds
-  * @return boolean
-  */
+   * Copy currently loaded box links to the given page ids
+   *
+   * @param array|integer $pageIds
+   * @return boolean
+   */
   public function copyTo($pageIds) {
-    $pageIds = PapayaUtilArray::ensure($pageIds);
+    $pageIds = \Papaya\Utility\Arrays::ensure($pageIds);
     if (empty($this->_records) || empty($pageIds)) {
       return TRUE;
     }
@@ -97,9 +91,9 @@ class PapayaContentPageBoxes extends PapayaDatabaseObjectList {
         }
       }
       return FALSE !== $this->databaseInsertRecords(
-        $this->databaseGetTableName(PapayaContentTables::PAGE_BOXES),
-        $records
-      );
+          $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+          $records
+        );
     }
     return FALSE;
   }

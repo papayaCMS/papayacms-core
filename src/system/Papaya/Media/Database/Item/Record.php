@@ -1,33 +1,32 @@
 <?php
 /**
-* Papaya Media Database Item Record
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Media-Database
-* @version $Id: Record.php 39165 2014-02-10 16:33:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Media\Database\Item;
 /**
-* Papaya Media Database Item Record
-* @package Papaya-Library
-* @subpackage Media-Database
-*/
-class PapayaMediaDatabaseItemRecord extends PapayaDatabaseObjectRecord {
+ * Papaya Media Database Item Record
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Database
+ */
+class Record extends \Papaya\Database\BaseObject\Record {
 
   /**
-  * Fields (accessible using dynamic properties)
-  * @var array
-  */
+   * Fields (accessible using dynamic properties)
+   *
+   * @var array
+   */
   protected $_fields = array(
     'media_id', 'folder_id', 'surfer_id',
     'file_name', 'file_date', 'file_size',
@@ -35,10 +34,11 @@ class PapayaMediaDatabaseItemRecord extends PapayaDatabaseObjectRecord {
   );
 
   /**
-  * Load item from database
-  * @param string $mediaId
-  * @return boolean
-  */
+   * Load item from database
+   *
+   * @param string $mediaId
+   * @return boolean
+   */
   public function load($mediaId) {
     $sql = "SELECT f.file_id, f.folder_id, f.surfer_id, f.file_name, f.file_date,
                    f.file_size, f.width, f.height, f.metadata, f.file_sort,
@@ -49,8 +49,8 @@ class PapayaMediaDatabaseItemRecord extends PapayaDatabaseObjectRecord {
               LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
              WHERE f.file_id = '%s'";
     $params = array(
-      $this->databaseGetTableName(PapayaContentTables::MEDIA_FILES),
-      $this->databaseGetTableName(PapayaContentTables::MEDIA_MIMETYPES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_FILES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_MIMETYPES),
       $mediaId
     );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
@@ -65,6 +65,7 @@ class PapayaMediaDatabaseItemRecord extends PapayaDatabaseObjectRecord {
 
   /**
    * Make it readonly
+   *
    * @return bool|int
    */
   public function save() {

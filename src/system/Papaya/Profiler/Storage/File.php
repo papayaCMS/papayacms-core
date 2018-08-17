@@ -1,39 +1,36 @@
 <?php
 /**
-* Stores the Xhrof profiling data into a file usable by the standard report app.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: File.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Profiler\Storage;
 /**
-* Stores the Xhrof profiling data into a file usable by the standard report app.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerStorageFile implements PapayaProfilerStorage {
+ * Stores the Xhrof profiling data into a file usable by the standard report app.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class File implements \Papaya\Profiler\Storage {
 
   private $_suffix = 'xhprof';
   private $_directory = '/tmp/';
 
   /**
-  * Create storage object and store configuration options
-  *
-  * @param string $directory
-  * @param string $suffix
-  */
+   * Create storage object and store configuration options
+   *
+   * @param string $directory
+   * @param string $suffix
+   */
   public function __construct($directory, $suffix = NULL) {
     $this->_directory = $directory;
     if (!empty($suffix)) {
@@ -68,32 +65,32 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
   }
 
   /**
-  * create id for profling run
-  *
-  * @return string
-  */
+   * create id for profling run
+   *
+   * @return string
+   */
   protected function getId() {
-    return uniqid();
+    return uniqid('papaya', TRUE);
   }
 
   /**
    * Cleanup directory option and validate it.
    *
    * @param string $directory
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   private function prepareDirectory($directory) {
     if (empty($directory)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'No profiling directory defined.'
       );
     }
-    $directory = PapayaUtilFilePath::cleanup($directory);
+    $directory = \Papaya\Utility\File\Path::cleanup($directory);
     if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
       return $directory;
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf('Profiling directory "%s" is not writeable.', $directory)
     );
   }
@@ -102,14 +99,14 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
    * Validate profiling file extension.
    *
    * @param string $suffix
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   private function prepareSuffix($suffix) {
     if (preg_match('(^[a-z\d]+$)D', $suffix)) {
       return $suffix;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf('Invalid profiling file suffix "%s"', $suffix)
       );
     }

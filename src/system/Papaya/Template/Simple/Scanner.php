@@ -1,52 +1,52 @@
 <?php
 /**
-* The scanner uses scanner status objects to create a token stream from the input string
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Scanner.php 39407 2014-02-27 15:09:25Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Template\Simple;
 /**
-* The scanner uses scanner status objects to create a token stream from the input string
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateSimpleScanner {
+ * The scanner uses scanner status objects to create a token stream from the input string
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Scanner {
 
   /**
-  * Scanner status object
-  * @var PapayaTemplateSimpleScannerStatus
-  */
+   * Scanner status object
+   *
+   * @var \Papaya\Template\Simple\Scanner\Status
+   */
   private $_status = NULL;
   /**
-  * string to parse
-  * @var string
-  */
+   * string to parse
+   *
+   * @var string
+   */
   private $_buffer = '';
   /**
-  * current offset
-  * @var integer
-  */
+   * current offset
+   *
+   * @var integer
+   */
   private $_offset = 0;
 
   /**
-  * Constructor, set status object
-  *
-  * @param PapayaTemplateSimpleScannerStatus $status
-  */
-  public function __construct(PapayaTemplateSimpleScannerStatus $status) {
+   * Constructor, set status object
+   *
+   * @param \Papaya\Template\Simple\Scanner\Status $status
+   */
+  public function __construct(Scanner\Status $status) {
     $this->_status = $status;
   }
 
@@ -56,7 +56,7 @@ class PapayaTemplateSimpleScanner {
    * @param array $target token target
    * @param string $string content string
    * @param integer $offset start offset
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return integer new offset
    */
   public function scan(&$target, $string, $offset = 0) {
@@ -76,9 +76,9 @@ class PapayaTemplateSimpleScanner {
     }
     if ($this->_offset < strlen($this->_buffer)) {
       /**
-      * @todo a some substring logic for large strings
-      */
-      throw new UnexpectedValueException(
+       * @todo a some substring logic for large strings
+       */
+      throw new \UnexpectedValueException(
         sprintf(
           'Invalid char "%s" for status "%s" at offset #%d in "%s"',
           substr($this->_buffer, $this->_offset, 1),
@@ -92,13 +92,13 @@ class PapayaTemplateSimpleScanner {
   }
 
   /**
-  * Get next token
-  *
-  * @return PapayaTemplateSimpleScannerToken|NULL
-  */
+   * Get next token
+   *
+   * @return \Papaya\Template\Simple\Scanner\Token|NULL
+   */
   private function _next() {
     if (($token = $this->_status->getToken($this->_buffer, $this->_offset)) &&
-        $token->length > 0) {
+      $token->length > 0) {
       $this->_offset += $token->length;
       return $token;
     }
@@ -106,14 +106,14 @@ class PapayaTemplateSimpleScanner {
   }
 
   /**
-  * Got new status, delegate to subscanner.
-  *
-  * If the status returns a new status object, a new scanner is created to handle it.
-  *
-  * @param array $target
-  * @param PapayaTemplateSimpleScannerStatus $status
-  * @return PapayaTemplateSimpleScanner
-  */
+   * Got new status, delegate to subscanner.
+   *
+   * If the status returns a new status object, a new scanner is created to handle it.
+   *
+   * @param array $target
+   * @param \Papaya\Template\Simple\Scanner\Status $status
+   * @return int offset
+   */
   private function _delegate(&$target, $status) {
     $scanner = new self($status);
     return $scanner->scan($target, $this->_buffer, $this->_offset);

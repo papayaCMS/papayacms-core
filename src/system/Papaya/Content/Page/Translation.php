@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page translation details.
-*
-* Allows to load/save the page translation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property integer $languageId
-* @property string $title
-* @property array $content
-* @property-read integer $created
-* @property-read integer $modified
-* @property string $metaTitle
-* @property string $metaKeywords
-* @property string $metaDescription
-* @property integer $viewId
-* @property-read string $viewTitle
-* @property-read string $viewName
-* @property-read string $moduleGuid
-* @property-read string $moduleTitle
-*/
-class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
+ * Provide data encapsulation for the content page translation details.
+ *
+ * Allows to load/save the page translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property integer $languageId
+ * @property string $title
+ * @property array $content
+ * @property-read integer $created
+ * @property-read integer $modified
+ * @property string $metaTitle
+ * @property string $metaKeywords
+ * @property string $metaDescription
+ * @property integer $viewId
+ * @property-read string $viewTitle
+ * @property-read string $viewName
+ * @property-read string $moduleGuid
+ * @property-read string $moduleTitle
+ */
+class Translation extends \Papaya\Database\Record\Lazy {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'tt.topic_id',
     'language_id' => 'tt.lng_id',
@@ -58,15 +59,15 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
     'module_guid' => 'v.module_guid'
   );
 
-  protected $_tableName = PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
   protected $_tableAlias = 'tt';
 
-  protected $_tableNameViews = PapayaContentTables::VIEWS;
+  protected $_tableNameViews = \Papaya\Content\Tables::VIEWS;
 
   public function load($filter) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s AS tt, %s AS v WHERE v.view_id = tt.view_id ";
-    $sql .= PapayaUtilString::escapeForPrintf($this->_compileCondition($filter, "AND"));
+    $sql .= \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter, "AND"));
     $parameters = array(
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $this->getDatabaseAccess()->getTableName($this->_tableNameViews)
@@ -77,7 +78,7 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see PapayaDatabaseRecord::_createMapping()
+   * @see \Papaya\Database\Record::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -101,8 +102,8 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
    */
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
-    case 'content' :
-      return PapayaUtilStringXml::unserializeArray($value);
+      case 'content' :
+        return \Papaya\Utility\Text\XML::unserializeArray($value);
     }
     return $value;
   }
@@ -118,14 +119,14 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
    */
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
-    case 'content' :
-      return PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
+      case 'content' :
+        return \Papaya\Utility\Text\XML::serializeArray(empty($value) ? array() : $value);
     }
     return $value;
   }
 
   public function _createKey() {
-    return new PapayaDatabaseRecordKeyFields(
+    return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       array('id', 'language_id')

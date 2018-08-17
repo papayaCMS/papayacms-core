@@ -1,43 +1,39 @@
 <?php
 /**
-* Provide a superclass data encapsulation for the content box itself. HEre a two children
-* of this class {@see PapayaContent'BoxWork} for the working copy and
-* {@see PapayaContentBoxPublication} for the published version.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Box.php 39095 2014-01-31 17:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content;
 
 /**
-* Provide a superclass data encapsulation for the content box itself. HEre a two children
-* of this class {@see PapayaContent'BoxWork} for the working copy and
-* {@see PapayaContentBoxPublication} for the published version.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
+ * Provide a superclass data encapsulation for the content box itself. Here are two children
+ * of this class {@see \Papaya\Content\Box\Work} for the working copy and
+ * {@see \Papaya\Content\Box\Publication} for the published version.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+abstract class Box extends \Papaya\Database\BaseObject\Record {
 
   const DELIVERY_MODE_STATIC = 0;
   const DELIVERY_MODE_ESI = 1;
   const DELIVERY_MODE_JAVASCRIPT = 2;
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // box id
     'id' => 'box_id',
@@ -60,12 +56,13 @@ abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
     'unpublished_translations' => 'box_unpublished_languages'
   );
 
-  protected $_tableName = PapayaContentTables::BOXES;
+  protected $_tableName = \Papaya\Content\Tables::BOXES;
 
   /**
-  * Box translations list object
-  * @var PapayaContentBoxTranslations
-  */
+   * Box translations list object
+   *
+   * @var Box\Translations
+   */
   protected $_translations = NULL;
 
   public function load($id) {
@@ -77,19 +74,19 @@ abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Access to the translation list informations
-  *
-  * Allows to get/set the list object. Can create a list object if needed.
-  *
-  * @param PapayaContentBoxTranslations $translations
-  * @return PapayaContentBoxTranslations
-  */
-  public function translations(PapayaContentBoxTranslations $translations = NULL) {
+   * Access to the translation list information
+   *
+   * Allows to get/set the list object. Can create a list object if needed.
+   *
+   * @param Box\Translations $translations
+   * @return Box\Translations
+   */
+  public function translations(Box\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new PapayaContentBoxTranslations();
+      $this->_translations = new Box\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

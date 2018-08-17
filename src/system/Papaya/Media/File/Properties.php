@@ -1,5 +1,21 @@
 <?php
-class PapayaMediaFileProperties extends PapayaMediaFileInfo {
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Media\File;
+
+class Properties extends Info {
 
   private $_fetchers;
 
@@ -28,10 +44,10 @@ class PapayaMediaFileProperties extends PapayaMediaFileInfo {
       $file = $this->getFile();
       $originalName = $this->getOriginalFileName();
       $this->_fetchers = array(
-        new PapayaMediaFileInfoBasic($file, $originalName),
-        new PapayaMediaFileInfoMimetype($file, $originalName),
-        new PapayaMediaFileInfoImage($file, $originalName),
-        new PapayaMediaFileInfoSvg($file, $originalName),
+        new Info\Basic($file, $originalName),
+        new Info\Mimetype($file, $originalName),
+        new Info\Image($file, $originalName),
+        new Info\SVG($file, $originalName),
       );
     }
     return $this->_fetchers;

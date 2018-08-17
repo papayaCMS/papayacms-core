@@ -1,22 +1,17 @@
 <?php
 /**
-* DB- abstraction layer
-*
-* Class for handle database requests
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Database
-* @version $Id: sys_db_simple.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * DB - abstraction layer
@@ -118,7 +113,7 @@ class db_simple extends base_object {
   /**
   * connect to database
   *
-  * @param object|PapayaDatabaseAccess $object calling object
+  * @param object|\Papaya\Database\Access $object calling object
   * @param boolean $readOnly use read connection
   * @return dbcon_base
   */
@@ -150,14 +145,14 @@ class db_simple extends base_object {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE)) {
       if ($this->queryTimeSum > 0) {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject. ' in '.
-          PapayaUtilDate::periodToString($this->queryTimeSum);
+          \Papaya\Utility\Date::periodToString($this->queryTimeSum);
       } else {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject;
       }
       $this->papaya()->messages->dispatch(
-        new PapayaMessageLog(
-          PapayaMessageLogable::GROUP_DEBUG,
-          PapayaMessage::SEVERITY_DEBUG,
+        new \Papaya\Message\Log(
+          \Papaya\Message\Logable::GROUP_DEBUG,
+          \Papaya\Message::SEVERITY_DEBUG,
           $message
         )
       );
@@ -175,7 +170,7 @@ class db_simple extends base_object {
    *
    * @param object $object calling object
    * @param bool $readOnly
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean Success
    */
   function createConnection($object, $readOnly = TRUE) {
@@ -194,7 +189,7 @@ class db_simple extends base_object {
     } else {
       $uriString = $this->databaseURIs['read'];
     }
-    $this->databaseConfiguration[$mode] = new PapayaDatabaseSourceName($uriString);
+    $this->databaseConfiguration[$mode] = new \Papaya\Database\Source\Name($uriString);
     if (isset($this->databaseObjects[$mode]) &&
         is_object($this->databaseObjects[$mode])) {
       if ($this->getConnection($mode)->extensionFound()) {
@@ -213,7 +208,7 @@ class db_simple extends base_object {
         $this->getConnection($mode)->extensionFound();
         $this->getConnection($mode)->connect($object);
       } else {
-        throw new PapayaDatabaseExceptionConnect(
+        throw new \Papaya\Database\Exception\Connect(
           sprintf(
             'Abstraction "%s" could not be loaded.',
             $this->databaseConfiguration[$mode]->api
@@ -327,15 +322,15 @@ class db_simple extends base_object {
     $this->connect($object, $readOnly);
     if ($readOnly && $options->get('PAPAYA_LOG_DATABASE_CLUSTER_VIOLATIONS', FALSE)) {
       if (preg_match('~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql)) {
-        $logMessage = new PapayaMessageLog(
-          PapayaMessageLogable::GROUP_DATABASE,
-          PapayaMessage::SEVERITY_WARNING,
+        $logMessage = new \Papaya\Message\Log(
+          \Papaya\Message\Logable::GROUP_DATABASE,
+          \Papaya\Message::SEVERITY_WARNING,
           'Detected write query on read connection.'
         );
         $logMessage
           ->context()
-          ->append(new PapayaMessageContextText($sql))
-          ->append(new PapayaMessageContextBacktrace(1));
+          ->append(new \Papaya\Message\Context\Text($sql))
+          ->append(new \Papaya\Message\Context\Backtrace(1));
         $this->papaya()->messages->dispatch($logMessage);
       }
     }
@@ -441,7 +436,7 @@ class db_simple extends base_object {
       }
       if ($dispatchLogMessageDetails || $populateQueryLogDetails) {
         if (is_object($query['result'])) {
-          /** @var PapayaDatabaseResult $queryResult */
+          /** @var \Papaya\Database\Result $queryResult */
           $queryResult = $query['result'];
           if (isset($query['max'])) {
             $counter = sprintf(
@@ -460,20 +455,20 @@ class db_simple extends base_object {
             $explain = $queryResult->getExplain();
           }
         }
-        $backtrace = new PapayaMessageContextBacktrace(9);
+        $backtrace = new \Papaya\Message\Context\Backtrace(9);
       }
       if ($dispatchLogMessage) {
-        $logMessage = new PapayaMessageLog(
-          PapayaMessageLogable::GROUP_DATABASE,
-          PapayaMessage::SEVERITY_DEBUG,
+        $logMessage = new \Papaya\Message\Log(
+          \Papaya\Message\Logable::GROUP_DATABASE,
+          \Papaya\Message::SEVERITY_DEBUG,
           $caption
         );
-        $logMessage->context()->append(new PapayaMessageContextRuntime($timeStart, $timeStop));
+        $logMessage->context()->append(new \Papaya\Message\Context\Runtime($timeStart, $timeStop));
         if (isset($counter)) {
-          $logMessage->context()->append(new PapayaMessageContextText($counter));
+          $logMessage->context()->append(new \Papaya\Message\Context\Text($counter));
         }
         $logMessage->context()->append(
-          new PapayaMessageContextVariable(array('sql' => $query['sql']), 3, 99999)
+          new \Papaya\Message\Context\Variable(array('sql' => $query['sql']), 3, 99999)
         );
         if ($dispatchLogMessageDetails) {
           $logMessage->context()->append($backtrace);
@@ -498,7 +493,7 @@ class db_simple extends base_object {
           'query_hash' => md5($query['sql']),
           'query_uri' => empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'],
         );
-        if ($query['result'] instanceof PapayaDatabaseResult) {
+        if ($query['result'] instanceof \Papaya\Database\Result) {
           $logData['query_records'] = $query['result']->count();
           if (isset($query['max'])) {
             $logData['query_limit'] = $query['max'];
@@ -509,13 +504,13 @@ class db_simple extends base_object {
         }
         if ($populateQueryLogDetails) {
           $logData['query_backtrace'] = $backtrace->asString();
-          if (isset($explain) && $explain instanceof PapayaMessageContextInterfaceString) {
+          if (isset($explain) && $explain instanceof \Papaya\Message\Context\Interfaces\Text) {
             $logData['query_explain'] = $explain->asString();
           }
         }
         try {
           $this->insertRecord($this, PAPAYA_DB_TBL_LOG_QUERIES, NULL, $logData);
-        } catch (PapayaDatabaseException $e) {
+        } catch (\Papaya\Database\Exception $e) {
         }
       }
     }

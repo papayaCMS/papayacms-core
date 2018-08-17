@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+
 /**
  * An PluginEditor implementation that combines several other dialogs,
  * allowing to separate the fields.
@@ -22,47 +24,47 @@
  * @package Papaya-Library
  * @subpackage Administration
  */
-class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
+class Group extends \Papaya\Plugin\Editor {
 
   private $_editors = [];
   private $_toolbar;
   private $_indexParameterName;
 
   /**
-   * PapayaAdministrationPluginEditorGroup constructor.
+   * Papaya\Administration\Plugin\Editor\Group constructor.
    *
-   * @param PapayaPluginEditableData $data
+   * @param \Papaya\Plugin\Editable\Data $data
    * @param string $indexParameterName
    */
-  public function __construct(PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
+  public function __construct(\Papaya\Plugin\Editable\Data $data, $indexParameterName = 'editor_index') {
     parent::__construct($data);
     $this->_indexParameterName = $indexParameterName;
   }
 
   /**
-   * @param PapayaPluginEditor $editor
+   * @param \Papaya\Plugin\Editor $editor
    * @param $buttonCaption
    * @param string $buttonImage
    */
-  public function add(PapayaPluginEditor $editor, $buttonCaption, $buttonImage = '') {
+  public function add(\Papaya\Plugin\Editor $editor, $buttonCaption, $buttonImage = '') {
     $this->_editors[] = [$editor, $buttonCaption, $buttonImage];
   }
 
   /**
-   * @param PapayaUiToolbar|NULL $toolbar
-   * @return PapayaUiToolbar
+   * @param \Papaya\UI\Toolbar|NULL $toolbar
+   * @return \Papaya\UI\Toolbar
    */
-  public function toolbar(PapayaUiToolbar $toolbar = NULL) {
+  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = $toolbar = new PapayaUiToolbar();
+      $this->_toolbar = $toolbar = new \Papaya\UI\Toolbar();
       $toolbar->papaya($this->papaya());
-      $toolbar->elements[] = $buttons = new PapayaUiToolbarSelectButtons(
+      $toolbar->elements[] = $buttons = new \Papaya\UI\Toolbar\Select\Buttons(
         $this->_indexParameterName,
-        new PapayaIteratorCallback(
+        new \Papaya\Iterator\Callback(
           $this->_editors,
-          function($data) {
+          function ($data) {
             return array('caption' => $data[1], 'image' => $data[2]);
           }
         )
@@ -75,13 +77,13 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
   }
 
   /**
-   * @return PapayaPluginEditor
+   * @return \Papaya\Plugin\Editor
    */
   private function getCurrentEditor() {
     $editorIndex = $this->parameters()->get($this->_indexParameterName, 0);
     $editorIndex = isset($this->_editors[$editorIndex]) ? $editorIndex : 0;
     if (isset($this->_editors[$editorIndex])) {
-      /** @var PapayaPluginEditor $editor */
+      /** @var \Papaya\Plugin\Editor $editor */
       $editor = $this->_editors[$editorIndex][0];
       $editor->context()->set($this->_indexParameterName, $editorIndex);
       return $editor;
@@ -92,10 +94,10 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
-   * @see PapayaXmlAppendable::appendTo()
-   * @param PapayaXmlElement $parent
+   * @see \Papaya\XML\Appendable::appendTo()
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->append($this->toolbar());
     $parent->append($this->getCurrentEditor());
   }

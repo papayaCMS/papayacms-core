@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestParametersTest extends PapayaTestCase {
+class ParametersTest extends \Papaya\TestCase {
 
   public function testCreateFromString() {
-    $parameters = PapayaRequestParameters::createFromString('foo=42&bar=21');
+    $parameters = Parameters::createFromString('foo=42&bar=21');
     $this->assertEquals(42, $parameters->get('foo'));
-    $this->assertEquals(21, $parameters->get( 'bar'));
+    $this->assertEquals(21, $parameters->get('bar'));
   }
 
   /**
-  * @covers PapayaRequestParameters::toArray
-  */
+   * @covers \Papaya\Request\Parameters::toArray
+   */
   public function testToArray() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array('group' => array('foo' => 'bar'))
     );
@@ -38,15 +39,15 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::getGroup
-  */
+   * @covers \Papaya\Request\Parameters::getGroup
+   */
   public function testGetGroup() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array('group' => array('foo' => 'bar'))
     );
     $this->assertInstanceOf(
-      PapayaRequestParameters::class,
+      Parameters::class,
       $group = $parameters->getGroup('group')
     );
     $this->assertEquals(
@@ -56,8 +57,8 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaRequestParameters::set
-   * @covers PapayaRequestParameters::_parseParameterName
+   * @covers       \Papaya\Request\Parameters::set
+   * @covers       \Papaya\Request\Parameters::_parseParameterName
    * @dataProvider setDataProvider
    * @param array $before
    * @param string $parameter
@@ -65,7 +66,7 @@ class PapayaRequestParametersTest extends PapayaTestCase {
    * @param array $expected
    */
   public function testSet($before, $parameter, $value, $expected) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge($before);
     $parameters->set($parameter, $value);
     $this->assertEquals(
@@ -75,14 +76,15 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * Set and parameter object
-  * @covers PapayaRequestParameters::set
-  */
+   * Set and parameter object
+   *
+   * @covers \Papaya\Request\Parameters::set
+   */
   public function testSetWithObject() {
-    $parametersFirst = new PapayaRequestParameters();
-    $parametersSecond = new PapayaRequestParameters();
+    $parametersFirst = new Parameters();
+    $parametersSecond = new Parameters();
     $parametersFirst->merge(
-       array('foo' => 'bar', 'group' => array('e1' => 'fail'))
+      array('foo' => 'bar', 'group' => array('e1' => 'fail'))
     );
     $parametersSecond->merge(array('e2' => 'success'));
     $parametersFirst->set('group', $parametersSecond);
@@ -93,38 +95,38 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaRequestParameters::has
+   * @covers       \Papaya\Request\Parameters::has
    * @dataProvider hasDataProviderExpectingTrue
    * @param string $parameterName
    * @param mixed $parameterData
    */
   public function testHasExpectingTrue($parameterName, $parameterData) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->set($parameterData);
     $this->assertTrue($parameters->has($parameterName));
   }
 
   /**
-   * @covers PapayaRequestParameters::has
+   * @covers       \Papaya\Request\Parameters::has
    * @dataProvider hasDataProviderExpectingFalse
    * @param string $parameterName
    * @param mixed $parameterData
    */
   public function testHasExpectingFalse($parameterName, $parameterData) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->set($parameterData);
     $this->assertFalse($parameters->has($parameterName));
   }
 
   /**
-   * @covers PapayaRequestParameters::get
+   * @covers       \Papaya\Request\Parameters::get
    * @dataProvider getDataProvider
    * @param string $name
    * @param mixed $defaultValue
    * @param mixed $expected
    */
   public function testGet($name, $defaultValue, $expected) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge(
       array(
         'string' => 'test',
@@ -144,14 +146,14 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::remove
-  * @dataProvider removeDataProvider
+   * @covers       \Papaya\Request\Parameters::remove
+   * @dataProvider removeDataProvider
    * @param array $before
    * @param string $parameter
    * @param array $expected
-  */
+   */
   public function testRemove($before, $parameter, $expected) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge($before);
     $parameters->remove($parameter);
     $this->assertEquals(
@@ -161,10 +163,10 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::getQueryString
-  */
+   * @covers \Papaya\Request\Parameters::getQueryString
+   */
   public function testGetQueryString() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->merge(array('group' => array('foo' => 'bar')));
     $this->assertEquals(
       'group/foo=bar',
@@ -173,10 +175,10 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::setQueryString
-  */
+   * @covers \Papaya\Request\Parameters::setQueryString
+   */
   public function testSetQueryString() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters->setQueryString('group/foo=bar');
     $this->assertEquals(
       array('group' => array('foo' => 'bar')),
@@ -185,29 +187,29 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaRequestParameters::getList
-   * @covers PapayaRequestParameters::flattenArray
+   * @covers       \Papaya\Request\Parameters::getList
+   * @covers       \Papaya\Request\Parameters::flattenArray
    * @dataProvider getListDataProvider
    * @param array $expected
    * @param array $parameterArray
    * @param string $separator
    */
   public function testGetList($expected, $parameterArray, $separator) {
-    $parameters = new PapayaRequestParameters($parameterArray);
+    $parameters = new Parameters($parameterArray);
     $this->assertSame(
       $expected, $parameters->getList($separator)
     );
   }
 
   /**
-   * @covers PapayaRequestParameters::prepareParameter
+   * @covers       \Papaya\Request\Parameters::prepareParameter
    * @dataProvider prepareParameterDataProvider
    * @param mixed $value
    * @param bool $stripSlashes
    * @param array|string $expected
    */
   public function testPrepareParameter($value, $stripSlashes, $expected) {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $this->assertEquals(
       $expected,
       $parameters->prepareParameter($value, $stripSlashes)
@@ -215,10 +217,10 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetSet
-  */
+   * @covers \Papaya\Request\Parameters::offsetSet
+   */
   public function testArrayAccessOffsetSet() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $parameters['test'] = 'sample';
     $this->assertEquals(
       array('test' => 'sample'),
@@ -227,30 +229,30 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetExists
-  */
+   * @covers \Papaya\Request\Parameters::offsetExists
+   */
   public function testArrayAccessOffsetExistsExpectingTrue() {
-    $parameters = new PapayaRequestParameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertTrue(
       isset($parameters['foo'])
     );
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetExists
-  */
+   * @covers \Papaya\Request\Parameters::offsetExists
+   */
   public function testArrayAccessOffsetExistsExpectingFalse() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $this->assertFalse(
       isset($parameters['foo'])
     );
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetUnset
-  */
+   * @covers \Papaya\Request\Parameters::offsetUnset
+   */
   public function testArrayAccessOffsetUnset() {
-    $parameters = new PapayaRequestParameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     unset($parameters['foo']);
     $this->assertEquals(
       array(),
@@ -259,22 +261,22 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetGet
-  */
+   * @covers \Papaya\Request\Parameters::offsetGet
+   */
   public function testArrayAccessOffsetGet() {
-    $parameters = new PapayaRequestParameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertEquals(
       'bar', $parameters['foo']
     );
   }
 
   /**
-  * @covers PapayaRequestParameters::offsetGet
-  */
+   * @covers \Papaya\Request\Parameters::offsetGet
+   */
   public function testArrayAccessOffsetGetWithArray() {
-    $parameters = new PapayaRequestParameters(array('foo' => array('bar' => 'foobar')));
+    $parameters = new Parameters(array('foo' => array('bar' => 'foobar')));
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $parameters['foo']
+      Parameters::class, $parameters['foo']
     );
     $this->assertEquals(
       'foobar', $parameters['foo']['bar']
@@ -282,36 +284,36 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::count
-  */
+   * @covers \Papaya\Request\Parameters::count
+   */
   public function testCountable() {
-    $parameters = new PapayaRequestParameters(array('foo' => 'bar', 'bar' => 'foo'));
+    $parameters = new Parameters(array('foo' => 'bar', 'bar' => 'foo'));
     $this->assertCount(2, $parameters);
   }
 
   /**
-  * @covers PapayaRequestParameters::isEmpty
-  */
+   * @covers \Papaya\Request\Parameters::isEmpty
+   */
   public function testIsEmptyExpectingTrue() {
-    $parameters = new PapayaRequestParameters();
+    $parameters = new Parameters();
     $this->assertTrue(
       $parameters->isEmpty()
     );
   }
 
   /**
-  * @covers PapayaRequestParameters::isEmpty
-  */
+   * @covers \Papaya\Request\Parameters::isEmpty
+   */
   public function testIsEmptyExpectingFalse() {
-    $parameters = new PapayaRequestParameters(array('foo' => 'bar'));
+    $parameters = new Parameters(array('foo' => 'bar'));
     $this->assertFalse(
       $parameters->isEmpty()
     );
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function setDataProvider() {
     return array(

@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
+class XhtmlTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::dispatch
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::dispatch
+   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
-    $message = $this->createMock(PapayaMessage::class);
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
+    $message = $this->createMock(\Papaya\Message::class);
+    $dispatcher = new XHTML();
     $this->assertFalse(
       $dispatcher->dispatch($message)
     );
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::dispatch
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::dispatch
+   */
   public function testDispatch() {
-    $context = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\XHTML::class);
     $context
       ->expects($this->any())
       ->method('asXhtml')
       ->will($this->returnValue('CONTEXT'));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
-    $message = $this->createMock(PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(PapayaMessage::SEVERITY_WARNING));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -52,7 +53,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('context')
       ->will($this->returnValue($context));
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(TRUE, TRUE)
     );
@@ -68,12 +69,12 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::allow
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::allow
+   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
-    $message = $this->createMock(PapayaMessageLogable::class);
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)
     );
@@ -83,10 +84,10 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::outputClosers
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::outputClosers
+   */
   public function testOutputClosers() {
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, TRUE)
     );
@@ -99,10 +100,10 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::outputClosers
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::outputClosers
+   */
   public function testOutputClosersWithOptionDisabled() {
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)
     );
@@ -115,21 +116,21 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::getHeaderOptionsFromType
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::getHeaderOptionsFromType
+   */
   public function testGetHeaderOptionsFromType() {
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    $dispatcher = new XHTML();
     $this->assertContains(
       'Warning',
-      $dispatcher->getHeaderOptionsFromType(PapayaMessage::SEVERITY_WARNING)
+      $dispatcher->getHeaderOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
     );
   }
 
   /**
-  * @covers PapayaMessageDispatcherXhtml::getHeaderOptionsFromType
-  */
+   * @covers \Papaya\Message\Dispatcher\XHTML::getHeaderOptionsFromType
+   */
   public function testGetHeaderOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
-    $dispatcher = new PapayaMessageDispatcherXhtml();
+    $dispatcher = new XHTML();
     $this->assertContains(
       'Error',
       $dispatcher->getHeaderOptionsFromType(99999)

@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Permissions;
+use Papaya\Application\Cms;
+
 /**
 * Tags Administration
 *
@@ -105,7 +108,7 @@ class papaya_taglinks extends base_tags {
   public $linkedTagsMulti;
 
   /**
-   * @var PapayaUiDialog
+   * @var \Papaya\UI\Dialog
    */
   private $_dialogLinkPriority = NULL;
 
@@ -126,10 +129,10 @@ class papaya_taglinks extends base_tags {
    * @return object $tagLinks instance of base_taglinks
    */
   public static function getInstance($parentObj = NULL, $paramName = NULL) {
-    /** @var PapayaApplicationCms $application */
-    $application = PapayaApplication::getInstance();
+    /** @var Cms $application */
+    $application = \Papaya\Application::getInstance();
     $validUser = $application->administrationUser->hasPerm(
-      PapayaAdministrationPermissions::TAG_MANAGE
+      Permissions::TAG_MANAGE
     );
     if ($validUser && isset($parentObj) && is_object($parentObj)) {
       if ($paramName == NULL) {
@@ -360,16 +363,16 @@ class papaya_taglinks extends base_tags {
     $result .= '<layout border="1">'.LF;
     $result .= '<row>'.LF;
     $result .= '<cell cols="3">'.LF;
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK) &&
+    if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK) &&
         isset($this->params['cmd']) &&
         $this->params['cmd'] == 'prioritize_tag' &&
         !empty($this->linkId)) {
-      $result .= $this->getLinkPriorityDialog()->getXml();
+      $result .= $this->getLinkPriorityDialog()->getXML();
     }
     $result .= $this->getLinkedTagsListXML();
     $result .= '</cell>'.LF;
     $result .= '</row>'.LF;
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK)) {
+    if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK)) {
       $result .= '<row>'.LF;
       $result .= '<cell width="50%">'.LF;
       $result .= $categoryTree;
@@ -584,7 +587,7 @@ class papaya_taglinks extends base_tags {
         $hint = '';
         if (
             $this->papaya()->administrationUser->hasPerm(
-              PapayaAdministrationPermissions::TAG_LINK
+              Permissions::TAG_LINK
             )
            ) {
           $link = $this->getLink(array('cmd' => 'unlink_tag', 'tag_id' => $tagId));
@@ -820,7 +823,7 @@ class papaya_taglinks extends base_tags {
           }
           if (
               $this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::TAG_LINK
+                Permissions::TAG_LINK
               )
              ) {
             $result .= sprintf(
@@ -836,7 +839,7 @@ class papaya_taglinks extends base_tags {
       if (!isset($this->alternativeCategoryNames[$categoryId])) {
         $this->loadAlternativeCategoryNames(array($categoryId));
       }
-      if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK)) {
+      if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK)) {
         $result .= sprintf(
           '<a href="%s">%s</a>',
           papaya_strings::escapeHTMLChars($this->getLink(array('cat_id' => $categoryId))),
@@ -1229,10 +1232,10 @@ class papaya_taglinks extends base_tags {
   }
 
   public function getLinkPriorityDialog() {
-    if (!($this->_dialogLinkPriority instanceof PapayaUiDialog)) {
+    if (!($this->_dialogLinkPriority instanceof \Papaya\UI\Dialog)) {
       $tagId = empty($this->params['tag_id']) ? 0 : $this->params['tag_id'];
-      $this->_dialogLinkPriority = $dialog = new PapayaUiDialog();
-      $dialog->caption = new PapayaUiStringTranslated('Edit priority');
+      $this->_dialogLinkPriority = $dialog = new \Papaya\UI\Dialog();
+      $dialog->caption = new \Papaya\UI\Text\Translated('Edit priority');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -1240,13 +1243,13 @@ class papaya_taglinks extends base_tags {
           'tag_id' => $tagId
         )
       );
-      $dialog->fields[] = $field = new PapayaUiDialogFieldSelect(
-        new PapayaUiStringTranslated('Priority'),
+      $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Select(
+        new \Papaya\UI\Text\Translated('Priority'),
         'taglink_priority',
-        new PapayaIteratorRepeatDecrement(100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC)
+        new \Papaya\Iterator\Repeat\Decrement(100, 0, 10, \Papaya\Iterator\Repeat\Decrement::MODE_ASSOC)
       );
       $field->callbacks()->getOptionCaption = array($this, 'callbackFormatPriority');
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
       if (isset($this->linkedTags[$tagId])) {
         $dialog->data()->set(
           'taglink_priority', $this->linkedTags[$tagId]['link_priority']

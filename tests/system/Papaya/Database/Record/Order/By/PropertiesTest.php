@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order\By;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
+class PropertiesTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   */
   public function testWithSimpleField() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array('property' => -1),
       $this->getMappingFixture(array('property' => 'field'))
     );
@@ -30,14 +32,14 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   */
   public function testWithTwoProperties() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
-        'one' => PapayaDatabaseInterfaceOrder::DESCENDING,
-        'two' => PapayaDatabaseInterfaceOrder::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -47,15 +49,15 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
-  * @covers PapayaDatabaseRecordOrderByProperties::setProperties
-  */
+   * @covers Properties::__construct
+   * @covers Properties::__toString
+   * @covers Properties::setProperties
+   */
   public function testWithTwoPropertiesOneWithoutMapping() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
-        'one' => PapayaDatabaseInterfaceOrder::DESCENDING,
-        'two' => PapayaDatabaseInterfaceOrder::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one')
@@ -65,12 +67,12 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::setProperties
-  */
+   * @covers Properties::setProperties
+   */
   public function testSetFieldClearsExistingProperties() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
-        'one' => PapayaDatabaseInterfaceOrder::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -78,20 +80,20 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
     );
     $orderBy->setProperties(
       array(
-        'two' => PapayaDatabaseInterfaceOrder::DESCENDING
+        'two' => \Papaya\Database\Interfaces\Order::DESCENDING
       )
     );
     $this->assertEquals('field_two DESC', (string)$orderBy);
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::getIterator
-  */
+   * @covers Properties::getIterator
+   */
   public function testIterator() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
-        'one' => PapayaDatabaseInterfaceOrder::DESCENDING,
-        'two' => PapayaDatabaseInterfaceOrder::ASCENDING
+        'one' => \Papaya\Database\Interfaces\Order::DESCENDING,
+        'two' => \Papaya\Database\Interfaces\Order::ASCENDING
       ),
       $this->getMappingFixture(
         array('one' => 'field_one', 'two' => 'field_two')
@@ -106,14 +108,14 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
 
   /**
    * @param array $mappingData
-   * @return array|PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping
+   * @return array|\PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping
    */
   private function getMappingFixture(array $mappingData) {
     $valueMap = array();
     foreach ($mappingData as $property => $field) {
       $valueMap[] = array($property, TRUE, $field);
     }
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
     $mapping
       ->expects($this->any())
       ->method('getField')

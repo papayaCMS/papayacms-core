@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEmailTest extends PapayaTestCase {
+class EmailTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaFilterEmail::validate
-  */
+   * @covers \Papaya\Filter\Email::validate
+   */
   public function testValidateExpectingTrue() {
-    $filter = new PapayaFilterEmail();
+    $filter = new Email();
     $this->assertTrue($filter->validate('info@papaya-cms.com'));
   }
 
   /**
-  * @covers PapayaFilterEmail::validate
-  */
+   * @covers \Papaya\Filter\Email::validate
+   */
   public function testValidateExpectingException() {
-    $filter = new PapayaFilterEmail();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $filter = new Email();
+    $this->expectException(Exception\UnexpectedType::class);
     $filter->validate('invalid email @dress');
   }
 
   /**
-   * @covers PapayaFilterEmail::filter
+   * @covers       \Papaya\Filter\Email::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new PapayaFilterEmail();
+    $filter = new Email();
     $this->assertEquals($expected, $filter->filter($input));
   }
 
   /**********************
-  * Data Provider
-  **********************/
+   * Data Provider
+   **********************/
 
   public static function provideFilterData() {
     return array(

@@ -1,21 +1,16 @@
 <?php
 /**
- * HTML Purifier: papaya CMS Video-Tag
- * transform <video>-Tags (Flash)
+ * papaya CMS
  *
- * @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya
- * @subpackage Validation
- * @version $Id: VideoTag.php 32578 2009-10-14 14:03:56Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -102,7 +97,7 @@ class HTMLPurifier_Filter_VideoTag extends HTMLPurifier_Filter {
                 } else if (isset($match2[1]) && $match2[1] == 'height') {
                   $height = $match2[2];
                 } else if (isset($match2[1]) && $match2[1] == 'dataurl') {
-                  $dataUrl = $match2[2];
+                  $dataURL = $match2[2];
                 } else if (isset($match2[1]) && $match2[1] == 'flashvars') {
                   $flashvars = $match2[2];
                 }
@@ -119,8 +114,8 @@ class HTMLPurifier_Filter_VideoTag extends HTMLPurifier_Filter {
             // Get & Build FlashParams if need (fall back to data url)
             if (!isset($flashvars)) {
               $flashvars = '';
-              if (isset($dataUrl)) {
-                $flashvars = 'dataurl='.$dataUrl;
+              if (isset($dataURL)) {
+                $flashvars = 'dataurl='.$dataURL;
               } else {
                 $flashvars = 'playerMode=embedded';
               }
@@ -134,7 +129,7 @@ class HTMLPurifier_Filter_VideoTag extends HTMLPurifier_Filter {
 
           unset($width);
           unset($height);
-          unset($dataUrl);
+          unset($dataURL);
           unset($flashvars);
         }
       }

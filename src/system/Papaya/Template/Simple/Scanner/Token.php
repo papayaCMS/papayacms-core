@@ -1,34 +1,31 @@
 <?php
 /**
-* Scanner token of papaya simple template sytem.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Token.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Template\Simple\Scanner;
 /**
-* Scanner token of papaya simple template sytem.
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-* @property-read integer $type
-* @property-read integer $offset
-* @property-read integer $length
-* @property-read string $content
-*/
-class PapayaTemplateSimpleScannerToken {
+ * Scanner token of papaya simple template sytem.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ *
+ * @property-read integer $type
+ * @property-read integer $offset
+ * @property-read integer $length
+ * @property-read string $content
+ */
+class Token {
 
   const ANY = -1;
 
@@ -53,15 +50,15 @@ class PapayaTemplateSimpleScannerToken {
    * @param integer $type
    * @param integer $offset
    * @param string $content
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($type, $offset, $content) {
-    PapayaUtilConstraints::assertInteger($type);
-    PapayaUtilConstraints::assertInteger($offset);
-    PapayaUtilConstraints::assertString($content);
+    \Papaya\Utility\Constraints::assertInteger($type);
+    \Papaya\Utility\Constraints::assertInteger($offset);
+    \Papaya\Utility\Constraints::assertString($content);
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Unknown token type "%d"', $type
         )
@@ -80,7 +77,7 @@ class PapayaTemplateSimpleScannerToken {
   private static function getTokenTypes() {
     // @codeCoverageIgnoreStart
     if (NULL == self::$_tokenNames) {
-      $reflection = new ReflectionClass(__CLASS__);
+      $reflection = new \ReflectionClass(__CLASS__);
       self::$_tokenNames = array_flip($reflection->getConstants());
     }
     // @codeCoverageIgnoreEnd
@@ -113,21 +110,21 @@ class PapayaTemplateSimpleScannerToken {
    * Read private properties stored in constructor
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return int|string
    */
   public function __get($name) {
     switch ($name) {
-    case 'offset' :
-      return $this->_offset;
-    case 'type' :
-      return $this->_type;
-    case 'content' :
-      return $this->_content;
-    case 'length' :
-      return strlen($this->_content);
+      case 'offset' :
+        return $this->_offset;
+      case 'type' :
+        return $this->_type;
+      case 'content' :
+        return $this->_content;
+      case 'length' :
+        return strlen($this->_content);
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf('Unknown property: %s::$%s', __CLASS__, $name)
     );
   }
@@ -137,9 +134,9 @@ class PapayaTemplateSimpleScannerToken {
    *
    * @param string $name
    * @param mixed $value
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __set($name, $value) {
-    throw new LogicException('All properties are defined in the constrcutor, they are read only.');
+    throw new \LogicException('All properties are defined in the constrcutor, they are read only.');
   }
 }

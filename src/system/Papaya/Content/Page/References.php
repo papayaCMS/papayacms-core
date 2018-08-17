@@ -1,38 +1,32 @@
 <?php
 /**
-* Provide data encapsulation for the content page references list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: References.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page references list.
-*
-* The list can contain additional data, used to display the list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageReferences extends PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page references list.
+ *
+ * The list can contain additional data, used to display the list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class References extends \Papaya\Database\BaseObject\Records {
 
   /**
-  * page id used to load the references, will be the source_id in the resulting record arrays
-  */
+   * page id used to load the references, will be the source_id in the resulting record arrays
+   */
   private $_pageId = 0;
 
   /**
@@ -61,9 +55,9 @@ class PapayaContentPageReferences extends PapayaDatabaseObjectList {
                    tr.topic_target_id = '%4\$d'
              ORDER BY tr.topic_source_id, tr.topic_target_id";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::PAGE_REFERENCES),
-      $this->databaseGetTableName(PapayaContentTables::PAGES),
-      $this->databaseGetTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
       $pageId,
       $languageId
     );
@@ -71,16 +65,16 @@ class PapayaContentPageReferences extends PapayaDatabaseObjectList {
   }
 
   /**
-  * Converts the record from database into a values. The mapping here is special because
-  * the reference could be saved in either direction, the mapping converts it so that the
-  * id used to load the refrences is always the source id.
-  *
-  * @param PapayaDatabaseResult $databaseResult
-  * @param string $idField
-  */
+   * Converts the record from database into a values. The mapping here is special because
+   * the reference could be saved in either direction, the mapping converts it so that the
+   * id used to load the refrences is always the source id.
+   *
+   * @param \Papaya\Database\Result $databaseResult
+   * @param string $idField
+   */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
-    while ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+    while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
       if ($row['topic_source_id'] == $this->_pageId) {
         $record = array(
           'source_id' => $row['topic_source_id'],

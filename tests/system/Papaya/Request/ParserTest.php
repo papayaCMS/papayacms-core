@@ -12,21 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+namespace Papaya\Request;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestParserTest extends PapayaTestCase {
+class ParserTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaRequestParser::isLast
+  * @covers \Papaya\Request\Parser::isLast
   */
   public function testIsLast() {
-    $parser = new PapayaRequestParser_TestProxy();
+    $parser = new Parser_TestProxy();
     $this->assertTrue($parser->isLast());
   }
 }
 
-class PapayaRequestParser_TestProxy extends PapayaRequestParser {
+class Parser_TestProxy extends Parser {
 
   public function parse($url) {
   }

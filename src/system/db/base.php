@@ -1,21 +1,17 @@
 <?php
 /**
-* Implementation common database access
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: base.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Data record as array with fieldname and Indizes
@@ -81,10 +77,10 @@ abstract class dbcon_base extends base_object {
   /**
    * Constructor
    *
-   * @param array|\PapayaDatabaseSourceName $conf
+   * @param array|\Papaya\Database\Source\Name $conf
    * @return \dbcon_base
    */
-  public function __construct(PapayaDatabaseSourceName $conf) {
+  public function __construct(\Papaya\Database\Source\Name $conf) {
     $this->databaseConfiguration = $conf;
   }
 
@@ -619,7 +615,7 @@ abstract class dbcon_base extends base_object {
 * @subpackage Database
 * @author Thomas Weinert <info@papaya-cms.com>
 */
-class dbresult_base extends base_object implements PapayaDatabaseResult {
+class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * @var dbcon_base $connection connection object
   * @access private
@@ -679,10 +675,10 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   /**
   * Return and Iterator for the result, allowing to use foreach on it.
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
-    return new PapayaDatabaseResultIterator($this);
+    return new \Papaya\Database\Result\Iterator($this);
   }
 
   /**
@@ -823,7 +819,7 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   * Get an a database explain if possible
   *
   * @access public
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     return NULL;

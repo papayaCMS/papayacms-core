@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestLogTest extends PapayaTestCase {
+class LogTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaRequestLog::__construct
-  */
+   * @covers \Papaya\Request\Log::__construct
+   */
   public function testConstructor() {
-    $log = new PapayaRequestLog();
+    $log = new Log();
     $this->assertAttributeGreaterThan(
       0, '_startTime', $log
     );
@@ -32,30 +33,30 @@ class PapayaRequestLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestLog::getInstance
-  */
+   * @covers \Papaya\Request\Log::getInstance
+   */
   public function testGetInstanceExpectingSameInstance() {
     $this->assertSame(
-      PapayaRequestLog::getInstance(TRUE),
-      PapayaRequestLog::getInstance()
+      Log::getInstance(TRUE),
+      Log::getInstance()
     );
   }
 
   /**
-  * @covers PapayaRequestLog::getInstance
-  */
+   * @covers \Papaya\Request\Log::getInstance
+   */
   public function testGetInstanceExpectingDifferentInstances() {
     $this->assertNotSame(
-      PapayaRequestLog::getInstance(TRUE),
-      PapayaRequestLog::getInstance(TRUE)
+      Log::getInstance(TRUE),
+      Log::getInstance(TRUE)
     );
   }
 
   /**
-  * @covers PapayaRequestLog::logTime
-  */
+   * @covers \Papaya\Request\Log::logTime
+   */
   public function testLogTime() {
-    $log = new PapayaRequestLog();
+    $log = new Log();
     $log->logTime('SAMPLE');
     $events = $this->readAttribute($log, '_events');
     $this->assertStringStartsWith(
@@ -64,10 +65,10 @@ class PapayaRequestLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestLog::logTime
-  */
+   * @covers \Papaya\Request\Log::logTime
+   */
   public function testLogTimeTwoMessages() {
-    $log = new PapayaRequestLog();
+    $log = new Log();
     $log->logTime('SAMPLE');
     $log->logTime('SAMPLE');
     $events = $this->readAttribute($log, '_events');
@@ -77,16 +78,16 @@ class PapayaRequestLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestLog::emit
-  */
+   * @covers \Papaya\Request\Log::emit
+   */
   public function testEmitWithStopMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLog::class))
+      ->with($this->isInstanceOf(\Papaya\Message\Log::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContextWithStop')));
-    $log = new PapayaRequestLog();
+    $log = new Log();
     $log->papaya(
       $this->mockPapaya()->application(
         array(
@@ -98,16 +99,16 @@ class PapayaRequestLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestLog::emit
-  */
+   * @covers \Papaya\Request\Log::emit
+   */
   public function testEmitWithoutStopMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLog::class))
+      ->with($this->isInstanceOf(\Papaya\Message\Log::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContext')));
-    $log = new PapayaRequestLog();
+    $log = new Log();
     $log->papaya(
       $this->mockPapaya()->application(
         array(
@@ -118,11 +119,11 @@ class PapayaRequestLogTest extends PapayaTestCase {
     $log->emit(FALSE);
   }
 
-  public function checkLogMessageContextWithStop(PapayaMessageLogable $logMessage) {
+  public function checkLogMessageContextWithStop(\Papaya\Message\Logable $logMessage) {
     $this->assertCount(3, $logMessage->context());
   }
 
-  public function checkLogMessageContext(PapayaMessageLogable $logMessage) {
+  public function checkLogMessageContext(\Papaya\Message\Logable $logMessage) {
     $this->assertCount(2, $logMessage->context());
   }
 }

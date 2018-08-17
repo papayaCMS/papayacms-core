@@ -1,11 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Iterator\Tree;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
+class ChildrenTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaIteratorTreeChildren
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateRoot() {
     $iterator = $this->getIteratorFixture();
     $this->assertEquals(
@@ -17,10 +32,10 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorTreeChildren
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateLeafs() {
-    $iterator = new RecursiveIteratorIterator($this->getIteratorFixture());
+    $iterator = new \RecursiveIteratorIterator($this->getIteratorFixture());
     $this->assertEquals(
       array(
         3 => 'three', 2 => 'two'
@@ -30,11 +45,11 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorTreeChildren
-  */
+   * @covers \Papaya\Iterator\Tree\Children
+   */
   public function testIterateAll() {
-    $iterator = new RecursiveIteratorIterator(
-      $this->getIteratorFixture(), RecursiveIteratorIterator::SELF_FIRST
+    $iterator = new \RecursiveIteratorIterator(
+      $this->getIteratorFixture(), \RecursiveIteratorIterator::SELF_FIRST
     );
     $this->assertEquals(
       array(
@@ -45,18 +60,18 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   }
 
   /**
-  * A simple test data tree
-  *
-  * 1 => 'one'
-  *   3 => 'tree'
-  * 2 => 'two'
-  *
-  * The element id 4 is included int the children ids to simulate a missing element.
-  *
-  * @return PapayaIteratorTreeChildren
-  */
+   * A simple test data tree
+   *
+   * 1 => 'one'
+   *   3 => 'tree'
+   * 2 => 'two'
+   *
+   * The element id 4 is included int the children ids to simulate a missing element.
+   *
+   * @return Children
+   */
   public function getIteratorFixture() {
-    return new PapayaIteratorTreeChildren(
+    return new Children(
       array(
         1 => 'one',
         2 => 'two',

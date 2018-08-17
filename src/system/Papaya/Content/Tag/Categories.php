@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Tag;
+
 /**
  *
  */
 
 
 /**
-* This object loads page data by different conditions.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentTagCategories extends PapayaDatabaseRecordsTree {
+ * This object loads page data by different conditions.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Categories extends \Papaya\Database\Records\Tree {
 
   /**
    * Map field names to more convinient property names
@@ -41,10 +43,10 @@ class PapayaContentTagCategories extends PapayaDatabaseRecordsTree {
   );
 
   protected $_orderByProperties = array(
-    'title' => PapayaDatabaseInterfaceOrder::ASCENDING
+    'title' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
-    /**
+  /**
    * Load records from the defined table. This method can be overloaded to define an own sql.
    *
    * @param mixed $filter If it is an scalar the value will be used for the id property.
@@ -63,12 +65,12 @@ class PapayaContentTagCategories extends PapayaDatabaseRecordsTree {
       "SELECT $fields 
          FROM %s AS c 
          LEFT OUTER JOIN %s as ct  ON (ct.category_id = c.category_id AND ct.lng_id = '%d') ";
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
-      $this->getDatabaseAccess()->getTableName(PapayaContentTables::TAG_CATEGORY),
-      $this->getDatabaseAccess()->getTableName(PapayaContentTables::TAG_CATEGORY_TRANSLATIONS),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY_TRANSLATIONS),
       $languageId
     );
     return $this->_loadRecords($sql, $parameters, $limit, $offset, array('id'));

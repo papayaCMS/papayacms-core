@@ -1,29 +1,27 @@
 <?php
 /**
-* Wrapping a file entry in the file system to call operation as methods
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-* @version $Id: Directory.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\File\System;
 
 /**
-* Wrapping a file entry in the file system to call operation as methods
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemDirectory {
+ * Wrapping a file entry in the file system to call operation as methods
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Directory {
 
   const FETCH_FILES = 1;
   const FETCH_DIRECTORIES = 2;
@@ -37,8 +35,8 @@ class PapayaFileSystemDirectory {
    * @param string $path
    */
   public function __construct($path) {
-    PapayaUtilConstraints::assertNotEmpty($path);
-    $this->_path = PapayaUtilFilePath::cleanup($path, FALSE);
+    \Papaya\Utility\Constraints::assertNotEmpty($path);
+    $this->_path = \Papaya\Utility\File\Path::cleanup($path, FALSE);
   }
 
   /**
@@ -80,42 +78,42 @@ class PapayaFileSystemDirectory {
    *
    * @param string $filter
    * @param integer $type
-   * @return Traversable
+   * @return \Traversable
    */
   public function getEntries($filter = '(^[^.])', $type = self::FETCH_FILES_AND_DIRECTORIES) {
-    $result = new FilesystemIterator(
+    $result = new \FilesystemIterator(
       $this->_path,
-      FilesystemIterator::SKIP_DOTS |
-      FilesystemIterator::UNIX_PATHS |
-      FilesystemIterator::KEY_AS_FILENAME |
-      FilesystemIterator::CURRENT_AS_FILEINFO
+      \FilesystemIterator::SKIP_DOTS |
+      \FilesystemIterator::UNIX_PATHS |
+      \FilesystemIterator::KEY_AS_FILENAME |
+      \FilesystemIterator::CURRENT_AS_FILEINFO
     );
     switch ($type) {
-    case self::FETCH_FILES :
-      $result = new PapayaIteratorFilterCallback(
-        $result, array($this, 'callbackFileInfoIsFile')
-      );
+      case self::FETCH_FILES :
+        $result = new \Papaya\Iterator\Filter\Callback(
+          $result, array($this, 'callbackFileInfoIsFile')
+        );
       break;
-    case self::FETCH_DIRECTORIES :
-      $result = new PapayaIteratorFilterCallback(
-        $result, array($this, 'callbackFileInfoIsDirectory')
-      );
+      case self::FETCH_DIRECTORIES :
+        $result = new \Papaya\Iterator\Filter\Callback(
+          $result, array($this, 'callbackFileInfoIsDirectory')
+        );
       break;
     }
     if (!empty($filter)) {
-      return new PapayaIteratorFilterRegex(
-        $result, $filter, 0, PapayaIteratorFilterRegex::FILTER_KEYS
+      return new \Papaya\Iterator\Filter\RegEx(
+        $result, $filter, 0, \Papaya\Iterator\Filter\RegEx::FILTER_KEYS
       );
     } else {
       return $result;
     }
   }
 
-  public function callbackFileInfoIsFile(splFileInfo $fileInfo) {
+  public function callbackFileInfoIsFile(\splFileInfo $fileInfo) {
     return $fileInfo->isFile();
   }
 
-  public function callbackFileInfoIsDirectory(splFileInfo $fileInfo) {
+  public function callbackFileInfoIsDirectory(\splFileInfo $fileInfo) {
     return $fileInfo->isDir();
   }
 }

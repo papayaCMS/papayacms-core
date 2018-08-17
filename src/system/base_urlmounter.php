@@ -201,21 +201,22 @@ class base_urlmounter extends base_db {
 
   /**
   * get alias target url
-  * @param $targetUrl
+  *
+  * @param $targetURL
   * @return string|FALSE
   */
-  function getAliasURL($targetUrl) {
-    $target = new PapayaUrl($targetUrl);
+  function getAliasURL($targetURL) {
+    $target = new \Papaya\URL($targetURL);
     $application = $this->papaya();
     $request = $application->getObject('Request');
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\URL\Transformer\Relative();
     $relative = $transformer->transform(
-      $request->getUrl(),
+      $request->getURL(),
       $target
     );
     if (is_null($relative)) {
       //different servers
-      return $targetUrl;
+      return $targetURL;
     } elseif (FALSE !== strpos($relative, '../')) {
       //path is a subpath of papaya root
       $offset = 0;
@@ -224,7 +225,7 @@ class base_urlmounter extends base_db {
         $offset += 3;
         $difference++;
       }
-      $path = substr($request->getUrl()->getPath(), 1);
+      $path = substr($request->getURL()->getPath(), 1);
       $parts = explode('/', $path);
       $pathLevels = count($parts) - $difference;
       $path = '';
@@ -239,7 +240,7 @@ class base_urlmounter extends base_db {
         ++$i;
       }
       $path = preg_replace('('.preg_quote($separator).'+$)', '', $path);
-      $protocol = PapayaUtilServerProtocol::get();
+      $protocol = \Papaya\Utility\Server\Protocol::get();
       $result = $protocol.'://'.$_SERVER['HTTP_HOST'].$path;
       if (!empty($requestData['query'])) {
         $result .= $this->recodeQueryString($requestData['query']);
@@ -249,7 +250,7 @@ class base_urlmounter extends base_db {
       //not redirect needed to fix path data
       return FALSE;
     } else {
-      return $targetUrl;
+      return $targetURL;
     }
   }
 
@@ -264,7 +265,7 @@ class base_urlmounter extends base_db {
     $pathWeb = $this->papaya()->options->get(
       'PAPAYA_PATH_WEB',
       '/',
-      new PapayaFilterNotEmpty()
+      new \Papaya\Filter\NotEmpty()
     );
     if ($pathWeb != '/' && strpos($path, $pathWeb) === 0) {
       $strippedAliasPath = substr($path, strlen($pathWeb) - 1);

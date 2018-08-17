@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextFileTest extends PapayaTestCase {
+class FileTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageContextFile::__construct
-  */
+   * @covers \Papaya\Message\Context\File::__construct
+   */
   public function testConstructor() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertAttributeEquals(
       __FILE__, '_fileName', $context
     );
@@ -34,10 +35,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::__construct
-  */
+   * @covers \Papaya\Message\Context\File::__construct
+   */
   public function testConstructorWithPosition() {
-    $context = new PapayaMessageContextFile(__FILE__, 42, 21);
+    $context = new File(__FILE__, 42, 21);
     $this->assertAttributeEquals(
       __FILE__, '_fileName', $context
     );
@@ -50,10 +51,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::getLabel
-  */
+   * @covers \Papaya\Message\Context\File::getLabel
+   */
   public function testGetLabel() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertEquals(
       __FILE__,
       $context->getLabel()
@@ -61,10 +62,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::getLabel
-  */
+   * @covers \Papaya\Message\Context\File::getLabel
+   */
   public function testGetLabelWithLine() {
-    $context = new PapayaMessageContextFile(__FILE__, 42);
+    $context = new File(__FILE__, 42);
     $this->assertEquals(
       __FILE__.':42',
       $context->getLabel()
@@ -72,10 +73,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::getLabel
-  */
+   * @covers \Papaya\Message\Context\File::getLabel
+   */
   public function testGetLabelWithLineAndColumn() {
-    $context = new PapayaMessageContextFile(__FILE__, 42, 21);
+    $context = new File(__FILE__, 42, 21);
     $this->assertEquals(
       __FILE__.':42:21',
       $context->getLabel()
@@ -83,50 +84,50 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::readable
-  */
+   * @covers \Papaya\Message\Context\File::readable
+   */
   public function testReadable() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertTrue(
       $context->readable(__FILE__)
     );
   }
 
   /**
-  * @covers PapayaMessageContextFile::readable
-  */
+   * @covers \Papaya\Message\Context\File::readable
+   */
   public function testReadableWithDirectory() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertFalse(
       $context->readable(__DIR__)
     );
   }
 
   /**
-  * @covers PapayaMessageContextFile::readable
-  */
+   * @covers \Papaya\Message\Context\File::readable
+   */
   public function testReadableWithEmpty() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertFalse(
       $context->readable('')
     );
   }
 
   /**
-  * @covers PapayaMessageContextFile::readable
-  */
+   * @covers \Papaya\Message\Context\File::readable
+   */
   public function testReadableWithNotExistingFile() {
-    $context = new PapayaMessageContextFile(__FILE__);
+    $context = new File(__FILE__);
     $this->assertFalse(
       $context->readable(__FILE__.'does-not-exist.txt')
     );
   }
 
   /**
-  * @covers PapayaMessageContextFile::asString
-  */
+   * @covers \Papaya\Message\Context\File::asString
+   */
   public function testAsString() {
-    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt');
+    $context = new File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
       "Line1\nLine2\nLine3",
       $context->asString()
@@ -134,10 +135,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::asString
-  */
+   * @covers \Papaya\Message\Context\File::asString
+   */
   public function testAsStringWithNotExistingFile() {
-    $context = new PapayaMessageContextFile(__FILE__.'does-not-exist.txt');
+    $context = new File(__FILE__.'does-not-exist.txt');
     $this->assertEquals(
       '',
       $context->asString()
@@ -145,10 +146,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::asArray
-  */
+   * @covers \Papaya\Message\Context\File::asArray
+   */
   public function testAsArray() {
-    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt');
+    $context = new File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
       array('Line1', 'Line2', 'Line3'),
       $context->asArray()
@@ -156,10 +157,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::asArray
-  */
+   * @covers \Papaya\Message\Context\File::asArray
+   */
   public function testAsArrayWithNotExistingFile() {
-    $context = new PapayaMessageContextFile(__FILE__.'does-not-exist.txt');
+    $context = new File(__FILE__.'does-not-exist.txt');
     $this->assertEquals(
       array(),
       $context->asArray()
@@ -167,10 +168,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::asXhtml
-  */
+   * @covers \Papaya\Message\Context\File::asXhtml
+   */
   public function testAsXhtml() {
-    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt', 2, 3);
+    $context = new File(__DIR__.'/TestData/sample.txt', 2, 3);
     $this->assertEquals(
       '<ol class="file" style="white-space: pre; font-family: monospace;">'.
       '<li style="list-style-position: outside;">Line1</li>'.
@@ -182,10 +183,10 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextFile::asXhtml
-  */
+   * @covers \Papaya\Message\Context\File::asXhtml
+   */
   public function testAsXhtmlWithNotExistingFile() {
-    $context = new PapayaMessageContextFile(__FILE__.'does-not-exist.txt', 2, 3);
+    $context = new File(__FILE__.'does-not-exist.txt', 2, 3);
     $this->assertEquals(
       '',
       $context->asXhtml()

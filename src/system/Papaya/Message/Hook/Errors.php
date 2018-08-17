@@ -1,67 +1,68 @@
 <?php
 /**
-* Papaya Message Hook Error, capture php error events and handle them
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Errors.php 39423 2014-02-27 18:20:42Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Message\Hook;
 if (!defined('E_RECOVERABLE_ERROR')) {
   /**
-  * Available since PHP 5.2, define if not here
-  * @ignore
-  */
+   * Available since PHP 5.2, define if not here
+   *
+   * @ignore
+   */
   define('E_RECOVERABLE_ERROR', 4096);
 }
 if (!defined('E_DEPRECATED')) {
   /**
-  * Available since PHP 5.3, define if not here
-  * @ignore
-  */
+   * Available since PHP 5.3, define if not here
+   *
+   * @ignore
+   */
   define('E_DEPRECATED', 8192);
 }
 if (!defined('E_USER_DEPRECATED')) {
   /**
-  * Available since PHP 5.3, define if not here
-  * @ignore
-  */
+   * Available since PHP 5.3, define if not here
+   *
+   * @ignore
+   */
   define('E_USER_DEPRECATED', 16384);
 }
 
 /**
-* Papaya Message Hook Error, capture php error events and handle them
-*
-* Nonfatal errors, are send to the message system. Fatal errors are converted into exceptions.
-* The system recognizes duplicates by severity, file and line. Duplicates are ignored.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageHookErrors
-  implements PapayaMessageHook {
+ * Papaya Message Hook Error, capture php error events and handle them
+ *
+ * Nonfatal errors, are send to the message system. Fatal errors are converted into exceptions.
+ * The system recognizes duplicates by severity, file and line. Duplicates are ignored.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Errors
+  implements \Papaya\Message\Hook {
 
   /**
-  * Message manger object to dispatch the created messages
-  * @var PapayaMessageManager
-  */
+   * Message manger object to dispatch the created messages
+   *
+   * @var \Papaya\Message\Manager
+   */
   private $_messageManager = NULL;
 
   /**
-  * Count errors messages, currently used for duplicate check
-  *
-  * @var array
-  */
+   * Count errors messages, currently used for duplicate check
+   *
+   * @var array
+   */
   private $_previousErrors = array();
 
 
@@ -74,10 +75,10 @@ class PapayaMessageHookErrors
   private $_exceptionHook = NULL;
 
   /**
-  * List of nonfatal error severities
-  *
-  * @var array
-  */
+   * List of nonfatal error severities
+   *
+   * @var array
+   */
   protected $_nonfatalErrors = array(
     E_NOTICE, E_USER_NOTICE, E_WARNING, E_USER_WARNING,
     E_STRICT, E_RECOVERABLE_ERROR,
@@ -85,22 +86,22 @@ class PapayaMessageHookErrors
   );
 
   /**
-  * Create hook and set message manager object
-  *
-  * @param PapayaMessageManager $messageManager
-  * @param PapayaMessageHookExceptions $exceptionHook
-  */
+   * Create hook and set message manager object
+   *
+   * @param \Papaya\Message\Manager $messageManager
+   * @param \Papaya\Message\Hook\Exceptions $exceptionHook
+   */
   public function __construct(
-    PapayaMessageManager $messageManager, PapayaMessageHookExceptions $exceptionHook = NULL
+    \Papaya\Message\Manager $messageManager, \Papaya\Message\Hook\Exceptions $exceptionHook = NULL
   ) {
     $this->_messageManager = $messageManager;
     $this->_exceptionHook = $exceptionHook;
   }
 
   /**
-  * Activate hook, override current error handler. E_STRICT errors are not handled because
-  * we still have a lot of php 4 source.
-  */
+   * Activate hook, override current error handler. E_STRICT errors are not handled because
+   * we still have a lot of php 4 source.
+   */
   public function activate() {
     set_error_handler(
       array($this, 'handle')
@@ -108,8 +109,8 @@ class PapayaMessageHookErrors
   }
 
   /**
-  * Deactivate hook, restore previous error handler
-  */
+   * Deactivate hook, restore previous error handler
+   */
   public function deactivate() {
     restore_error_handler();
   }
@@ -136,29 +137,29 @@ class PapayaMessageHookErrors
             If the Autoloader is not working and the class does not exist yes,
             we disable the internal handling and let php take over.
             */
-            if (!class_exists('PapayaMessagePhpError')) {
+            if (!class_exists(\Papaya\Message\PHP\Error::class)) {
               return FALSE;
             }
             // @codeCoverageIgnoreEnd
             $this->_messageManager->dispatch(
-              new PapayaMessagePhpError($severity, $text, $context)
+              new \Papaya\Message\PHP\Error($severity, $text, $context)
             );
           }
         } else {
           $this->handleException(
-            new ErrorException($text, 0, $severity, $file, $line)
+            new \ErrorException($text, 0, $severity, $file, $line)
           );
         }
-      } catch (ErrorException $e) {
+      } catch (\ErrorException $e) {
         return $this->handleException($e);
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         return FALSE;
       }
     }
     return TRUE;
   }
 
-  private function handleException(Exception $exception) {
+  private function handleException(\Exception $exception) {
     if (isset($this->_exceptionHook)) {
       $this->_exceptionHook->handle($exception);
       return TRUE;

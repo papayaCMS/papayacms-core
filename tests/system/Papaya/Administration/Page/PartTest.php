@@ -1,62 +1,79 @@
 <?php
-require_once __DIR__.'/../../../../bootstrap.php';
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-class PapayaAdministrationPagePartTest extends PapayaTestCase {
+namespace Papaya\Administration\Page {
 
-  /**
-   * @covers PapayaAdministrationPagePart::appendTo
-   */
-  public function testAppendTo() {
-    $commands = $this->createMock(PapayaUiControlCommand::class);
-    $commands
-      ->expects($this->once())
-      ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $part = new PapayaAdministrationPagePart_TestProxy();
-    $part->commands($commands);
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-    $this->assertEquals(
-      '',
-      $part->getXml()
-    );
+  class PartTest extends \Papaya\TestCase {
+
+    /**
+     * @covers Part::appendTo
+     */
+    public function testAppendTo() {
+      $commands = $this->createMock(\Papaya\UI\Control\Command::class);
+      $commands
+        ->expects($this->once())
+        ->method('appendTo')
+        ->with($this->isInstanceOf(\Papaya\XML\Element::class));
+      $part = new PagePart_TestProxy();
+      $part->commands($commands);
+
+      $this->assertEquals(
+        '',
+        $part->getXML()
+      );
+    }
+
+    /**
+     * @covers Part::commands
+     */
+    public function testCommandsGetAfterSet() {
+      $part = new PagePart_TestProxy();
+      $part->commands($commands = $this->createMock(\Papaya\UI\Control\Command::class));
+      $this->assertSame($commands, $part->commands());
+    }
+
+    /**
+     * @covers Part::commands
+     * @covers Part::_createCommands
+     */
+    public function testCommandsGetImplicitCreate() {
+      $part = new PagePart_TestProxy();
+      $this->assertInstanceOf(\Papaya\UI\Control\Command\Controller::class, $part->commands());
+    }
+
+    /**
+     * @covers Part::toolbar
+     */
+    public function testToolbarGetAfterSet() {
+      $part = new PagePart_TestProxy();
+      $part->toolbar($toolbar = $this->createMock(\Papaya\UI\Toolbar\Collection::class));
+      $this->assertSame($toolbar, $part->toolbar());
+    }
+
+    /**
+     * @covers Part::toolbar
+     */
+    public function testToolbarGetImplicitCreate() {
+      $part = new PagePart_TestProxy();
+      $this->assertInstanceOf(\Papaya\UI\Toolbar\Collection::class, $part->toolbar());
+    }
   }
 
-  /**
-   * @covers PapayaAdministrationPagePart::commands
-   */
-  public function testCommandsGetAfterSet() {
-    $part = new PapayaAdministrationPagePart_TestProxy();
-    $part->commands($commands = $this->createMock(PapayaUiControlCommand::class));
-    $this->assertSame($commands, $part->commands());
+  class PagePart_TestProxy extends Part {
+
   }
-
-  /**
-   * @covers PapayaAdministrationPagePart::commands
-   * @covers PapayaAdministrationPagePart::_createCommands
-   */
-  public function testCommandsGetImplicitCreate() {
-    $part = new PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(PapayaUiControlCommandController::class, $part->commands());
-  }
-
-  /**
-   * @covers PapayaAdministrationPagePart::toolbar
-   */
-  public function testToolbarGetAfterSet() {
-    $part = new PapayaAdministrationPagePart_TestProxy();
-    $part->toolbar($toolbar = $this->createMock(PapayaUiToolbarSet::class));
-    $this->assertSame($toolbar, $part->toolbar());
-  }
-
-  /**
-   * @covers PapayaAdministrationPagePart::toolbar
-   */
-  public function testToolbarGetImplicitCreate() {
-    $part = new PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(PapayaUiToolbarSet::class, $part->toolbar());
-  }
-}
-
-class PapayaAdministrationPagePart_TestProxy extends PapayaAdministrationPagePart {
-
 }

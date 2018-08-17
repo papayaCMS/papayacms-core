@@ -1,82 +1,79 @@
-<?php 
+<?php
 /**
-* Papaya filter class that checks if the value is equal to a given parameter value.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Parameter.php 38143 2013-02-19 14:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Filter\Equals;
 /**
-* Papaya filter class that checks if the value is equal to a given parameter value.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterEqualsParameter implements PapayaFilter {
-  
+ * Papaya filter class that checks if the value is equal to a given parameter value.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Parameter implements \Papaya\Filter {
+
   /**
-  * Given parameters object
-  * 
-  * @var PapayaRequestParameters
-  */
+   * Given parameters object
+   *
+   * @var \Papaya\Request\Parameters
+   */
   private $_parameters = TRUE;
-  
+
   /**
-  * Given parameters name object
-  * 
-  * @var PapayaRequestParametersName
-  */
+   * Given parameters name object
+   *
+   * @var \Papaya\Request\Parameters\Name
+   */
   private $_parameterName = TRUE;
-  
+
   /**
-  * Construct object, check and store options
-  *
-  * @param PapayaRequestParameters $parameters
-  * @param string $parameterName
-  */
-  public function __construct(PapayaRequestParameters $parameters, $parameterName) {
+   * Construct object, check and store options
+   *
+   * @param \Papaya\Request\Parameters $parameters
+   * @param string $parameterName
+   */
+  public function __construct(\Papaya\Request\Parameters $parameters, $parameterName) {
     $this->_parameters = $parameters;
-    $this->_parameterName = new PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
   }
-  
+
   /**
-  * Check the value throw exception if value is not equal to given parameter value
-  * 
-  * @see PapayaFilter::validate()
-  * 
-  * @throws PapayaFilterExceptionInvalid
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value throw exception if value is not equal to given parameter value
+   *
+   * @see \Papaya\Filter::validate()
+   *
+   * @throws \Papaya\Filter\Exception\InvalidValue
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if ($this->_parameters->get((string)$this->_parameterName) != (string)$value) {
-      throw new PapayaFilterExceptionInvalid($value);
+      throw new \Papaya\Filter\Exception\InvalidValue($value);
     }
     return TRUE;
   }
-  
+
   /**
-  * Checks the value and returns the value if validate succeeded, otherwise NULL
-  *
-  * @param string $value
-  * @return mixed|NULL
-  */
+   * Checks the value and returns the value if validate succeeded, otherwise NULL
+   *
+   * @param string $value
+   * @return mixed|NULL
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

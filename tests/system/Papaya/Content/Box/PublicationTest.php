@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Box;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxPublicationTest extends PapayaTestCase {
+class PublicationTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentBoxPublication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -25,7 +41,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->will($this->returnCallback(array($this, 'checkInsertData')));
-    $box = new PapayaContentBoxPublication();
+    $box = new Publication();
     $box->papaya($this->mockPapaya()->application());
     $box->setDatabaseAccess($databaseAccess);
     $box->assign(
@@ -35,7 +51,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 0,
         'modified' => 0,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -49,16 +65,16 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertGreaterThan(0, $data['box_created']);
     $this->assertGreaterThan(0, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(\Papaya\Content\Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     return TRUE;
   }
 
   /**
-  * @covers PapayaContentBoxPublication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -76,7 +92,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
-    $box = new PapayaContentBoxPublication();
+    $box = new Publication();
     $box->papaya($this->mockPapaya()->application());
     $box->setDatabaseAccess($databaseAccess);
     $box->assign(
@@ -86,7 +102,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 123,
         'modified' => 0,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => \Papaya\Content\Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -99,23 +115,23 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(123, $data['box_created']);
     $this->assertGreaterThan(1, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(\Papaya\Content\Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(array('box_id' => 42), $filter);
     return 42;
   }
 
   /**
-  * @covers PapayaContentBoxPublication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveWithoutIdExpectingFalse() {
-    $box = new PapayaContentBoxPublication();
+    $box = new Publication();
     $this->assertFalse($box->save());
   }
 
   /**
-  * @covers PapayaContentBoxPublication::save
-  */
+   * @covers Publication::save
+   */
   public function testSaveWithSqlErrorOnCheckExistingExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -126,7 +142,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
         $this->equalTo(array('table_box_public', 42))
       )
       ->will($this->returnValue(FALSE));
-    $page = new PapayaContentBoxPublication();
+    $page = new Publication();
     $page->papaya($this->mockPapaya()->application());
     $page->setDatabaseAccess($databaseAccess);
     $page->assign(

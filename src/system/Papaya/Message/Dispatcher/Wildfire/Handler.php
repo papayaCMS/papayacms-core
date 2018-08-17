@@ -13,43 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher\Wildfire;
 /**
-* Papaya Message Dispatcher Wildfire Handler, provides functions to use the wildfire protocol
-*
-* Wildfire ist the protocol behind FirePHP, an Firefox extension to display messages,
-* recieved in HTTP headers. {@link http://www.firephp.org}
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherWildfireHandler {
+ * Papaya Message Dispatcher Wildfire Handler, provides functions to use the wildfire protocol
+ *
+ * Wildfire ist the protocol behind FirePHP, an Firefox extension to display messages,
+ * recieved in HTTP headers. {@link http://www.firephp.org}
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Handler {
 
   /**
-  * Header type main
-  * @var integer
-  */
+   * Header type main
+   *
+   * @var integer
+   */
   const HEADER_MAIN = 0;
   /**
-  * Header type console (messages)
-  * @var integer
-  */
+   * Header type console (messages)
+   *
+   * @var integer
+   */
   const HEADER_CONSOLE = 1;
   /**
-  * Header type dump (variable dumps)
-  * @var integer
-  */
+   * Header type dump (variable dumps)
+   *
+   * @var integer
+   */
   const HEADER_DUMP = 2;
   /**
-  * Header type data (headers with the actual data)
-  * @var integer
-  */
+   * Header type data (headers with the actual data)
+   *
+   * @var integer
+   */
   const HEADER_DATA = 3;
 
   /**
-  * Counters for send headers
-  *
-  * @var array
-  */
+   * Counters for send headers
+   *
+   * @var array
+   */
   private static $_counter = array(
     self::HEADER_MAIN => 0,
     self::HEADER_CONSOLE => 0,
@@ -58,16 +63,17 @@ class PapayaMessageDispatcherWildfireHandler {
   );
 
   /**
-  * Length limit for headers
-  * @var integer
-  */
+   * Length limit for headers
+   *
+   * @var integer
+   */
   public static $lengthLimit = 5000;
 
   /**
-  * Headers needed to initialize the the protocol
-  *
-  * @var array[]
-  */
+   * Headers needed to initialize the the protocol
+   *
+   * @var array[]
+   */
   private static $_initializationHeaders = array(
     self::HEADER_MAIN => array(
       'X-Wf-Protocol-1' => 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
@@ -83,27 +89,29 @@ class PapayaMessageDispatcherWildfireHandler {
   );
 
   /**
-  * Callback function for sending headers  *
-  * @var callable
-  */
+   * Callback function for sending headers  *
+   *
+   * @var callable
+   */
   private $_callback;
 
   /**
    * Create Handler and set callback function
-   * @param Callback $callback
-   * @throws InvalidArgumentException
+   *
+   * @param \Callback $callback
+   * @throws \InvalidArgumentException
    */
   public function __construct($callback) {
     if (is_callable($callback)) {
       $this->_callback = $callback;
     } else {
-      throw new InvalidArgumentException('Valid callback needed, to send HTTP headers.');
+      throw new \InvalidArgumentException('Valid callback needed, to send HTTP headers.');
     }
   }
 
   /**
-  * Reset class counters to inital values
-  */
+   * Reset class counters to inital values
+   */
   public function resetCounters() {
     self::$_counter = array(
       self::HEADER_MAIN => 0,
@@ -114,11 +122,11 @@ class PapayaMessageDispatcherWildfireHandler {
   }
 
   /**
-  * Use callback to send headers
-  *
-  * @param string $name
-  * @param string $value
-  */
+   * Use callback to send headers
+   *
+   * @param string $name
+   * @param string $value
+   */
   private function _send($name, $value) {
     if (NULL !== $this->_callback) {
       call_user_func($this->_callback, $name.': '.$value);
@@ -126,10 +134,10 @@ class PapayaMessageDispatcherWildfireHandler {
   }
 
   /**
-  * Send initialization headers if needed
-  *
-  * @param integer $type
-  */
+   * Send initialization headers if needed
+   *
+   * @param integer $type
+   */
   public function sendInitialization($type) {
     if (isset(self::$_initializationHeaders[$type]) && 0 === self::$_counter[$type]) {
       foreach (self::$_initializationHeaders[$type] as $name => $value) {
@@ -157,9 +165,10 @@ class PapayaMessageDispatcherWildfireHandler {
   }
 
   /**
-  * Send a variable dump
-  * @param mixed $content
-  */
+   * Send a variable dump
+   *
+   * @param mixed $content
+   */
   public function sendDump($content) {
     $this->sendData(self::HEADER_CONSOLE, array('Type' => 'LOG'), $content);
   }
@@ -171,7 +180,7 @@ class PapayaMessageDispatcherWildfireHandler {
    */
   public function startGroup($label = ' ') {
     /**
-    */
+     */
     $meta = array(
       'Type' => 'GROUP_START',
       'Label' => empty($label) ? ' ' : $label
@@ -180,8 +189,8 @@ class PapayaMessageDispatcherWildfireHandler {
   }
 
   /**
-  * End the previously opened group
-  */
+   * End the previously opened group
+   */
   public function endGroup() {
     $meta = array(
       'Type' => 'GROUP_END'
@@ -190,23 +199,23 @@ class PapayaMessageDispatcherWildfireHandler {
   }
 
   /**
-  * Send a header containing data
-  *
-  * @param integer $structure
-  * @param array $meta
-  * @param mixed $content
-  */
+   * Send a header containing data
+   *
+   * @param integer $structure
+   * @param array $meta
+   * @param mixed $content
+   */
   public function sendData($structure, $meta, $content) {
     $this->sendInitialization(self::HEADER_MAIN);
     $this->sendInitialization($structure);
     $structureIndex = ($structure === self::HEADER_DUMP) ? 2 : 1;
     switch ($structure) {
-    case self::HEADER_DUMP :
-      $value = json_encode($content);
+      case self::HEADER_DUMP :
+        $value = json_encode($content);
       break;
-    case self::HEADER_CONSOLE :
-    default :
-      $value = '['.json_encode($meta).','.json_encode($content).']';
+      case self::HEADER_CONSOLE :
+      default :
+        $value = '['.json_encode($meta).','.json_encode($content).']';
     }
     $lines = str_split(
       $value,

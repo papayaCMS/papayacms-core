@@ -1,26 +1,22 @@
 <?php
 /**
-* PostgreSQL database access classes
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: pgsql.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * basic database connection and result class
 */
-require_once(dirname(__FILE__).'/base.php');
+require_once __DIR__.'/base.php';
 
 /**
 * DB-abstraction layer - connection object PostgreSQL
@@ -32,13 +28,14 @@ class dbcon_pgsql extends dbcon_base {
 
   /**
    * Check that the pgsql extension is available
+   *
    * @access public
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   function extensionFound() {
     if (!extension_loaded('pgsql')) {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "pgsql" not available.'
       );
     }
@@ -49,7 +46,7 @@ class dbcon_pgsql extends dbcon_base {
    * Establish connection to database
    *
    * @access public
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @throws Exception
    * @return resource $this->databaseConnection connection ID
    */
@@ -81,7 +78,7 @@ class dbcon_pgsql extends dbcon_base {
       }
       if (isset($connection) && is_resource($connection)) {
         if (pg_set_client_encoding($connection, 'UNICODE') !== 0) {
-          throw new PapayaDatabaseExceptionConnect(
+          throw new \Papaya\Database\Exception\Connect(
             'Can not set client encoding for database connection.'
           );
         }
@@ -93,7 +90,7 @@ class dbcon_pgsql extends dbcon_base {
   }
 
   public function handleConnectionError($code, $message) {
-    throw new PapayaDatabaseExceptionConnect(
+    throw new \Papaya\Database\Exception\Connect(
       strip_tags(str_replace('&quot;', '"', $message)), $code
     );
   }
@@ -113,7 +110,7 @@ class dbcon_pgsql extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws PapayaDatabaseExceptionQuery
+   * @throws \Papaya\Database\Exception\Query
    * @param string $sql
    * @return bool|resource
    */
@@ -128,11 +125,11 @@ class dbcon_pgsql extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return PapayaDatabaseExceptionQuery
+   * @return \Papaya\Database\Exception\Query
    */
   private function _createQueryException($sql) {
     $errorMessage = pg_last_error($this->databaseConnection);
-    return new PapayaDatabaseExceptionQuery(
+    return new \Papaya\Database\Exception\Query(
       empty($errorMessage) ? 'Unknown PostgreSQL error.' : $errorMessage, 0, NULL, $sql
     );
   }
@@ -882,18 +879,18 @@ class dbcon_pgsql extends dbcon_base {
     $result = NULL;
     try {
       return $this->changeIndex($table, $index, FALSE);
-    } catch (PapayaDatabaseExceptionQuery $e) {
-      $logMessage = new PapayaMessageLog(
-        PapayaMessageLogable::GROUP_DATABASE,
-        PapayaMessage::SEVERITY_ERROR,
+    } catch (\Papaya\Database\Exception\Query $e) {
+      $logMessage = new \Papaya\Message\Log(
+        \Papaya\Message\Logable::GROUP_DATABASE,
+        \Papaya\Message::SEVERITY_ERROR,
         'Database #' . $e->getCode() . ': ' . $e->getMessage()
       );
       $logMessage
         ->context()
-        ->append(new PapayaMessageContextBacktrace(3))
-        ->append(new PapayaMessageContextText($table))
-        ->append(new PapayaMessageContextText($index))
-        ->append(new PapayaMessageContextText($e->getStatement()));
+        ->append(new \Papaya\Message\Context\Backtrace(3))
+        ->append(new \Papaya\Message\Context\Text($table))
+        ->append(new \Papaya\Message\Context\Text($index))
+        ->append(new \Papaya\Message\Context\Text($e->getStatement()));
       //$this->getApplication()->messages->dispatch($logMessage);
     }
     return FALSE;
@@ -1140,7 +1137,7 @@ class dbresult_pgsql extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
@@ -1150,7 +1147,7 @@ class dbresult_pgsql extends dbresult_base {
         $explain[] = $row[0];
       }
       if (!empty($explain)) {
-        return new PapayaMessageContextList('Explain', $explain);
+        return new \Papaya\Message\Context\Items('Explain', $explain);
       }
     }
     return NULL;

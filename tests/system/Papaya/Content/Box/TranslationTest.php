@@ -1,12 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Box;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxTranslationTest extends PapayaTestCase {
+class TranslationTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentBoxTranslation::load
-  * @covers PapayaContentBoxTranslation::convertBoxRecordToValues
-  */
+   * @covers Translation::load
+   * @covers Translation::convertBoxRecordToValues
+   */
   public function testLoad() {
     $record = array(
       'box_id' => '42',
@@ -20,11 +36,11 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       'module_guid' => '123456789012345678901234567890ab',
       'module_title' => 'module title'
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -32,7 +48,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_box_trans', 'table_views', 'table_modules', 42, 1))
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentBoxTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))
@@ -56,11 +72,11 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxTranslation::save
-  * @covers PapayaContentBoxTranslation::_insert
-  */
+   * @covers Translation::save
+   * @covers Translation::_insert
+   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -75,7 +91,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->will($this->returnCallback(array($this, 'checkInsertData')));
-    $translation = new PapayaContentBoxTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $translation->assign(
       array(
@@ -96,7 +112,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $this->assertEquals(21, $data['lng_id']);
     $this->assertEquals('box title', $data['box_title']);
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $data['box_data']
     );
@@ -105,11 +121,11 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxTranslation::save
-  * @covers PapayaContentBoxTranslation::_update
-  */
+   * @covers Translation::save
+   * @covers Translation::_update
+   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -124,7 +140,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
-    $translation = new PapayaContentBoxTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $translation->assign(
       array(
@@ -142,7 +158,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $this->assertEquals('table_box_trans', $table);
     $this->assertEquals('box title', $data['box_title']);
     $this->assertEquals(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $data['box_data']
     );
@@ -152,16 +168,16 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxTranslation::save
-  */
+   * @covers Translation::save
+   */
   public function testSaveWithoutIndexDataExpectingFalse() {
-    $translation = new PapayaContentBoxTranslation();
+    $translation = new Translation();
     $this->assertFalse($translation->save());
   }
 
   /**
-  * @covers PapayaContentBoxTranslation::save
-  */
+   * @covers Translation::save
+   */
   public function testSaveCheckFailesExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -169,7 +185,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), $this->equalTo(array('table_box_trans', 42, 21)))
       ->will($this->returnValue(FALSE));
-    $translation = new PapayaContentBoxTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $translation->assign(
       array(

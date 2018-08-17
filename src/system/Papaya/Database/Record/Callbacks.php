@@ -1,42 +1,39 @@
 <?php
 /**
-* Callbacks that are used by the record object
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Callbacks.php 39694 2014-03-26 13:33:49Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Database\Record;
 /**
-* Callbacks that are used by the record object
-*
-* @package Papaya-Library
-* @subpackage Database
-*
- * @property PapayaObjectCallback $onBeforeUpdate
- * @property PapayaObjectCallback $onBeforeInsert
- * @property PapayaObjectCallback $onBeforeDelete
- * @property PapayaObjectCallback $onAfterUpdate
- * @property PapayaObjectCallback $onAfterInsert
- * @property PapayaObjectCallback $onAfterDelete
- * @method boolean onBeforeUpdate(PapayaDatabaseRecord $record)
- * @method boolean onBeforeInsert(PapayaDatabaseRecord $record)
- * @method boolean onBeforeDelete(PapayaDatabaseRecord $record)
- * @method boolean onAfterUpdate(PapayaDatabaseRecord $record)
- * @method boolean onAfterInsert(PapayaDatabaseRecord $record)
- * @method boolean onAfterDelete(PapayaDatabaseRecord $record)
-*/
-class PapayaDatabaseRecordCallbacks extends PapayaObjectCallbacks {
+ * Callbacks that are used by the record object
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ *
+ * @property \Papaya\BaseObject\Callback $onBeforeUpdate
+ * @property \Papaya\BaseObject\Callback $onBeforeInsert
+ * @property \Papaya\BaseObject\Callback $onBeforeDelete
+ * @property \Papaya\BaseObject\Callback $onAfterUpdate
+ * @property \Papaya\BaseObject\Callback $onAfterInsert
+ * @property \Papaya\BaseObject\Callback $onAfterDelete
+ * @method boolean onBeforeUpdate(\Papaya\Database\Record $record)
+ * @method boolean onBeforeInsert(\Papaya\Database\Record $record)
+ * @method boolean onBeforeDelete(\Papaya\Database\Record $record)
+ * @method boolean onAfterUpdate(\Papaya\Database\Record $record)
+ * @method boolean onAfterInsert(\Papaya\Database\Record $record)
+ * @method boolean onAfterDelete(\Papaya\Database\Record $record)
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

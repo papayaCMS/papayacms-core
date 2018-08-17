@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page tag/label list.
-*
-* This is a list of the attached tags for an page. The list can not only contain the link data but
-* additional data like the tag title. For the additional data an language id has to be provided.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageTags extends PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page tag/label list.
+ *
+ * This is a list of the attached tags for an page. The list can not only contain the link data but
+ * additional data like the tag title. For the additional data an language id has to be provided.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Tags extends \Papaya\Database\BaseObject\Records {
 
   /**
-  * All tag links are saved into one table, the type specified the link group
-  *
-  * @var string
-  */
+   * All tag links are saved into one table, the type specified the link group
+   *
+   * @var string
+   */
   private $_linkType = 'topic';
 
   /**
-  * Map the fields to array keys
-  *
-  * @var array(string=>string)
-  */
+   * Map the fields to array keys
+   *
+   * @var array(string=>string)
+   */
   protected $_fieldMapping = array(
     'link_id' => 'page_id',
     'link_priority' => 'priority',
@@ -58,7 +59,7 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
   public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
     $categoryCondition = '';
     if ($categoryIds) {
-      $categoryCondition = PapayaUtilString::escapeForPrintf(
+      $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
         ' AND '.$this->databaseGetSqlCondition(
           array('t.category_id' => $categoryIds)
         )
@@ -76,11 +77,11 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
                 $categoryCondition
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
-      $this->databaseGetTableName(PapayaContentTables::TAG_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
       $languageId,
-      $this->databaseGetTableName(PapayaContentTables::TAGS),
-      $this->databaseGetTableName(PapayaContentTables::TAG_CATEGORY),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAGS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_CATEGORY),
       $this->_linkType,
       $pageId
     );
@@ -88,19 +89,19 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
   }
 
   /**
-  * Remove all tags for a specified page id.
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Remove all tags for a specified page id.
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
-      array(
-        'link_type' => $this->_linkType,
-        'link_id' => $pageId
-      )
-    );
+        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+        array(
+          'link_type' => $this->_linkType,
+          'link_id' => $pageId
+        )
+      );
   }
 
   /**
@@ -120,8 +121,8 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
       );
     }
     return FALSE !== $this->databaseInsertRecords(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
-      $data
-    );
+        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+        $data
+      );
   }
 }

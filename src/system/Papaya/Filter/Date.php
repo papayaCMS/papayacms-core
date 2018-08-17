@@ -1,51 +1,52 @@
 <?php
 /**
-* Papaya filter class for date.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Date.php 39404 2014-02-27 14:55:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a date with optional time in human-readable format.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterDate implements PapayaFilter {
+ * This filter class checks a date with optional time in human-readable format.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Date implements \Papaya\Filter {
   /**
-  * Do not include a time
-  * @constant int
-  */
+   * Do not include a time
+   *
+   * @constant int
+   */
   const DATE_NO_TIME = 0;
 
   /**
-  * Optionally include a time
-  * @constant int
-  */
+   * Optionally include a time
+   *
+   * @constant int
+   */
   const DATE_OPTIONAL_TIME = 1;
 
   /**
-  * Include a mandatory time
-  * @constant int
-  */
+   * Include a mandatory time
+   *
+   * @constant int
+   */
   const DATE_MANDATORY_TIME = 2;
 
   /**
-  * Static array of all time constants
-  * @staticvar array
-  */
+   * Static array of all time constants
+   *
+   * @staticvar array
+   */
   private static $timeConstants = array(
     self::DATE_NO_TIME,
     self::DATE_OPTIONAL_TIME,
@@ -53,15 +54,17 @@ class PapayaFilterDate implements PapayaFilter {
   );
 
   /**
-  * Include a time?
-  * @var boolean
-  */
+   * Include a time?
+   *
+   * @var boolean
+   */
   private $_includeTime = self::DATE_NO_TIME;
 
   /**
-  * Step for the included time in seconds, default 60
-  * @var float
-  */
+   * Step for the included time in seconds, default 60
+   *
+   * @var float
+   */
   private $_step = 1.0;
 
   /**
@@ -69,18 +72,19 @@ class PapayaFilterDate implements PapayaFilter {
    *
    * @param integer $includeTime optional, default self::DATE_NO_TIME
    * @param float $step optional, default 1.0
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
     if (!in_array($includeTime, self::$timeConstants)) {
-      throw new UnexpectedValueException(
-        'Argument must be PapayaFilterDate::DATE_NO_TIME, '.
-        'PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
-        'PapayaFilterDate::DATE_MANDATORY_TIME.'
+      throw new \UnexpectedValueException(
+        sprintf(
+          'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
+          __CLASS__
+        )
       );
     }
     if ($step <= 0) {
-      throw new UnexpectedValueException('Step must be greater than 0.');
+      throw new \UnexpectedValueException('Step must be greater than 0.');
     }
     $this->_includeTime = $includeTime;
     $this->_step = $step;
@@ -90,16 +94,16 @@ class PapayaFilterDate implements PapayaFilter {
    * Validate a date
    *
    * @param string $value
-   * @throws PapayaFilterExceptionType
-   * @throws PapayaFilterExceptionRangeMaximum
+   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @return boolean
    */
   public function validate($value) {
     if ($this->_includeTime > self::DATE_NO_TIME) {
       $elements = preg_split('([T ])', $value);
       if (count($elements) > 2 ||
-          ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
-        throw new PapayaFilterExceptionType('Wrong number of elements in date/time string.');
+        ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
+        throw new \Papaya\Filter\Exception\UnexpectedType('Wrong number of elements in date/time string.');
       }
       $date = $elements[0];
       if (count($elements) > 1) {
@@ -114,7 +118,7 @@ class PapayaFilterDate implements PapayaFilter {
       (?P<day>\d{2})
     $)Dx';
     if (!preg_match($patternDateISO, $date, $matches)) {
-      throw new PapayaFilterExceptionType('Invalid date format.');
+      throw new \Papaya\Filter\Exception\UnexpectedType('Invalid date format.');
     }
     $daysPerMonth = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
     $year = $matches['year'];
@@ -124,28 +128,28 @@ class PapayaFilterDate implements PapayaFilter {
       $daysPerMonth[1] = 29;
     }
     if ($month > 12) {
-      throw new PapayaFilterExceptionRangeMaximum(12, $month);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge(12, $month);
     }
     if ($day > $daysPerMonth[$month - 1]) {
-      throw new PapayaFilterExceptionRangeMaximum($daysPerMonth[$month - 1], $day);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($daysPerMonth[$month - 1], $day);
     }
     if (isset($time)) {
-      $timeFilter = new PapayaFilterTime($this->_step);
+      $timeFilter = new \Papaya\Filter\Time($this->_step);
       $timeFilter->validate($time);
     }
     return TRUE;
   }
 
   /**
-  * Filter a date
-  *
-  * @param string $value
-  * @return mixed the filtered date value or NULL
-  */
+   * Filter a date
+   *
+   * @param string $value
+   * @return mixed the filtered date value or NULL
+   */
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
     return trim($value);

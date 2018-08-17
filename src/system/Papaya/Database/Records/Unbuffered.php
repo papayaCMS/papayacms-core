@@ -1,66 +1,95 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-abstract class PapayaDatabaseRecordsUnbuffered
-  extends PapayaObject
-  implements PapayaDatabaseInterfaceAccess, IteratorAggregate, Countable {
+namespace Papaya\Database\Records;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+abstract class Unbuffered
+  extends \Papaya\Application\BaseObject
+  implements \Papaya\Database\Interfaces\Access, \IteratorAggregate, \Countable {
   /**
-  * Stored database access object
-  * @var PapayaDatabaseAccess
-  */
+   * Stored database access object
+   *
+   * @var \Papaya\Database\Access
+   */
   private $_databaseAccessObject = NULL;
 
   /**
-  * The database result of the last loading query.
-  *
-  * @var PapayaDatabaseResult
-  */
+   * The database result of the last loading query.
+   *
+   * @var \Papaya\Database\Result
+   */
   private $_databaseResult = NULL;
 
   /**
-  * Mapping object
-  *
-  * @var PapayaDatabaseInterfaceMapping
-  */
+   * Mapping object
+   *
+   * @var \Papaya\Database\Interfaces\Mapping
+   */
   private $_mapping = NULL;
 
   /**
-  * Order object
-  *
-  * @var PapayaDatabaseInterfaceOrder
-  */
+   * Order object
+   *
+   * @var \Papaya\Database\Interfaces\Order
+   */
   private $_orderBy = NULL;
 
   /**
-  * An array of property to field mappings.
-  *
-  * @var array(string=>string)
-  */
+   * An array of property to field mappings.
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array();
 
   /**
-  * An array of order by properties and directions.
-  *
-  * @var array(string=>integer)|NULL
-  */
+   * An array of order by properties and directions.
+   *
+   * @var array(string=>integer)|NULL
+   */
   protected $_orderByProperties = NULL;
 
   /**
-  * An array of order by fields and directions
-  */
+   * An array of order by fields and directions
+   */
   protected $_orderByFields = NULL;
 
   /**
-  * Table name for the default loading logic.
-  *
-  * @var string
-  */
+   * Table name for the default loading logic.
+   *
+   * @var string
+   */
   protected $_tableName = '';
 
   /**
-  * Add table prefix from global configuration
-  *
-  * @var boolean
-  */
+   * Add table prefix from global configuration
+   *
+   * @var boolean
+   */
   protected $_useTablePrefix = TRUE;
 
   /**
@@ -82,7 +111,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
@@ -104,7 +133,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
     $this->_databaseResult = NULL;
     $databaseAccess = $this->getDatabaseAccess();
     $databaseResult = $databaseAccess->queryFmt($sql, $parameters, $limit, $offset);
-    if ($databaseResult instanceof PapayaDatabaseResult) {
+    if ($databaseResult instanceof \Papaya\Database\Result) {
       $this->_databaseResult = $databaseResult;
       return TRUE;
     }
@@ -113,29 +142,30 @@ abstract class PapayaDatabaseRecordsUnbuffered
 
   /**
    * Create a filter condition object attached to this database accesss and mapping
-   * @return PapayaDatabaseConditionRoot
+   *
+   * @return \Papaya\Database\Condition\Root
    */
   public function createFilter() {
-    return new PapayaDatabaseConditionRoot($this, $this->mapping());
+    return new \Papaya\Database\Condition\Root($this, $this->mapping());
   }
 
   /**
-  * Compile a sql condition specified by the filter. Prefix it, if it is not empty.
-  *
-  * @param mixed $filter
-  * @param string $prefix
-  * @return string
-  */
+   * Compile a sql condition specified by the filter. Prefix it, if it is not empty.
+   *
+   * @param mixed $filter
+   * @param string $prefix
+   * @return string
+   */
   protected function _compileCondition($filter, $prefix = " WHERE ") {
     if (isset($filter)) {
-      if ($filter instanceof PapayaDatabaseConditionElement) {
+      if ($filter instanceof \Papaya\Database\Condition\Element) {
         $condition = $filter->getSql();
         return empty($condition) ? '' : $prefix.$condition;
       } else {
         if (!is_array($filter)) {
           $filter = array('id' => $filter);
         }
-        $generator = new PapayaDatabaseConditionGenerator($this, $this->mapping());
+        $generator = new \Papaya\Database\Condition\Generator($this, $this->mapping());
         $condition = $generator->fromArray($filter)->getSql(TRUE);
         return empty($condition) ? '' : $prefix.$condition;
       }
@@ -144,10 +174,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Convert the order by clause defined by the orderBy() return value into an sql string.
-  *
-  * @return string
-  */
+   * Convert the order by clause defined by the orderBy() return value into an sql string.
+   *
+   * @return string
+   */
   protected function _compileOrderBy() {
     $result = '';
     if ($orderBy = $this->orderBy()) {
@@ -157,13 +187,13 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Getter/Setter for the mapping subobject. This is used to convert the property values into
-  * a database record and back.
-  *
-  * @param PapayaDatabaseInterfaceMapping $mapping
-  * @return PapayaDatabaseInterfaceMapping
-  */
-  public function mapping(PapayaDatabaseInterfaceMapping $mapping = NULL) {
+   * Getter/Setter for the mapping subobject. This is used to convert the property values into
+   * a database record and back.
+   *
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @return \Papaya\Database\Interfaces\Mapping
+   */
+  public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
     } elseif (is_null($this->_mapping)) {
@@ -173,23 +203,23 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Create a standard mapping object for the property $_fields.
-  *
-  * @return PapayaDatabaseRecordMapping
-  */
+   * Create a standard mapping object for the property $_fields.
+   *
+   * @return \Papaya\Database\Record\Mapping
+   */
   protected function _createMapping() {
-    return new PapayaDatabaseRecordMapping($this->_fields);
+    return new \Papaya\Database\Record\Mapping($this->_fields);
   }
 
   /**
-  * Getter/Setter for the order subobject. This is used to define a order by clause for the
-  * select statement. It is possible that the method return FALSE, indicating that
-  * here should be no order by clause.
-  *
-  * @param PapayaDatabaseInterfaceOrder $orderBy
-  * @return PapayaDatabaseInterfaceOrder|FALSE
-  */
-  public function orderBy(PapayaDatabaseInterfaceOrder $orderBy = NULL) {
+   * Getter/Setter for the order subobject. This is used to define a order by clause for the
+   * select statement. It is possible that the method return FALSE, indicating that
+   * here should be no order by clause.
+   *
+   * @param \Papaya\Database\Interfaces\Order $orderBy
+   * @return \Papaya\Database\Interfaces\Order|FALSE
+   */
+  public function orderBy(\Papaya\Database\Interfaces\Order $orderBy = NULL) {
     if (isset($orderBy)) {
       $this->_orderBy = $orderBy;
     } elseif (is_null($this->_orderBy)) {
@@ -199,34 +229,34 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Create a standard order object using the property $_orderByFields. If the property is empty
-  * the method will return FALSE.
-  *
-  * @return PapayaDatabaseInterfaceOrder|FALSE
-  */
+   * Create a standard order object using the property $_orderByFields. If the property is empty
+   * the method will return FALSE.
+   *
+   * @return \Papaya\Database\Interfaces\Order|FALSE
+   */
   protected function _createOrderBy() {
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {
       return FALSE;
     }
-    $result = new PapayaDatabaseRecordOrderGroup();
+    $result = new \Papaya\Database\Record\Order\Group();
     if (!empty($this->_orderByProperties)) {
       $result->add(
-        new PapayaDatabaseRecordOrderByProperties($this->_orderByProperties, $this->mapping())
+        new \Papaya\Database\Record\Order\By\Properties($this->_orderByProperties, $this->mapping())
       );
     }
     if (!empty($this->_orderByFields)) {
       $result->add(
-        new PapayaDatabaseRecordOrderByFields($this->_orderByFields)
+        new \Papaya\Database\Record\Order\By\Fields($this->_orderByFields)
       );
     }
     return $result;
   }
 
   /**
-  * Return the current count of records in the internal buffer
-  *
-  * @return integer
-  */
+   * Return the current count of records in the internal buffer
+   *
+   * @return integer
+   */
   public function count() {
     if ($databaseResult = $this->databaseResult()) {
       return $databaseResult->count();
@@ -235,11 +265,11 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Fetch the absolute count from the last database result. If the result was limited, this
-  * number can be different from the record count.
-  *
-  * @return integer
-  */
+   * Fetch the absolute count from the last database result. If the result was limited, this
+   * number can be different from the record count.
+   *
+   * @return integer
+   */
   public function absCount() {
     if ($databaseResult = $this->databaseResult()) {
       return $databaseResult->absCount();
@@ -249,49 +279,49 @@ abstract class PapayaDatabaseRecordsUnbuffered
   }
 
   /**
-  * Return loaded records as array
-  *
-  * @return array
-  */
+   * Return loaded records as array
+   *
+   * @return array
+   */
   public function toArray() {
     return iterator_to_array($this);
   }
 
   /**
-  * IteratorAggregate interface, return and iterator for the database result
-  *
-  * @return Iterator
-  */
+   * IteratorAggregate interface, return and iterator for the database result
+   *
+   * @return \Iterator
+   */
   public function getIterator() {
     return $this->getResultIterator();
   }
 
   /**
-  * Iterator for the curent database result, includes mapping callback
-  *
-  * @return Iterator
-  */
+   * Iterator for the curent database result, includes mapping callback
+   *
+   * @return \Iterator
+   */
   protected function getResultIterator() {
-    if (!($this->databaseResult() instanceof PapayaDatabaseResult)) {
-      return new EmptyIterator();
+    if (!($this->databaseResult() instanceof \Papaya\Database\Result)) {
+      return new \EmptyIterator();
     }
-    $iterator = new PapayaDatabaseResultIterator($this->databaseResult());
+    $iterator = new \Papaya\Database\Result\Iterator($this->databaseResult());
     $mapping = $this->mapping();
     $iterator->setMapping(
-      $mapping instanceof PapayaDatabaseRecordMappingCache
+      $mapping instanceof \Papaya\Database\Record\Mapping\Cache
         ? $mapping
-        : new PapayaDatabaseRecordMappingCache($mapping)
+        : new \Papaya\Database\Record\Mapping\Cache($mapping)
     );
     return $iterator;
   }
 
   /**
-  * Getter/Setter for the current database result object
-  *
-  * @param PapayaDatabaseResult $databaseResult
-  * @return NULL|PapayaDatabaseResult
-  */
-  public function databaseResult(PapayaDatabaseResult $databaseResult = NULL) {
+   * Getter/Setter for the current database result object
+   *
+   * @param \Papaya\Database\Result $databaseResult
+   * @return NULL|\Papaya\Database\Result
+   */
+  public function databaseResult(\Papaya\Database\Result $databaseResult = NULL) {
     if (isset($databaseResult)) {
       $this->_databaseResult = $databaseResult;
     }
@@ -301,17 +331,17 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
    * Set database access object
    *
-   * @param PapayaDatabaseAccess $databaseAccessObject
+   * @param \Papaya\Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
-  * Get database access object
-  *
-  * @return PapayaDatabaseAccess
-  */
+   * Get database access object
+   *
+   * @return \Papaya\Database\Access
+   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
       $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess($this);
@@ -323,8 +353,8 @@ abstract class PapayaDatabaseRecordsUnbuffered
    * Protected method to create an item class, you can overload this method or just set
    * the $_itemClass property.
    *
-   * @return PapayaDatabaseRecord
-   * @throws LogicException
+   * @return \Papaya\Database\Record
+   * @throws \LogicException
    */
   protected function _createItem() {
     if (isset($this->_itemClass)) {
@@ -340,7 +370,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
    * the $item object.
    *
    * @param null $filter
-   * @return PapayaDatabaseRecord
+   * @return \Papaya\Database\Record
    */
   public function getItem($filter = NULL) {
     $item = $this->_createItem();

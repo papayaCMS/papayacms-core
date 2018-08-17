@@ -1,13 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterPasswordTest extends PapayaTestCase {
+class PasswordTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaFilterPassword::__construct
-  */
+   * @covers \Papaya\Filter\Password::__construct
+   */
   public function testConstructor() {
-    $filter = new PapayaFilterPassword(21, 42);
+    $filter = new Password(21, 42);
     $this->assertAttributeSame(
       21, '_minimumLength', $filter
     );
@@ -17,47 +32,47 @@ class PapayaFilterPasswordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterPassword::validate
-  * @dataProvider provideValidPasswords
-  */
+   * @covers       \Papaya\Filter\Password::validate
+   * @dataProvider provideValidPasswords
+   */
   public function testValidateExpectingTrue() {
-    $filter = new PapayaFilterPassword();
+    $filter = new Password();
     $this->assertTrue($filter->validate('Foo.Bar5'));
   }
 
   /**
-  * @covers PapayaFilterPassword::validate
-  */
+   * @covers \Papaya\Filter\Password::validate
+   */
   public function testValidateExpectingExceptionLengthMinimum() {
-    $filter = new PapayaFilterPassword(5);
-    $this->expectException(PapayaFilterExceptionLengthMinimum::class);
+    $filter = new Password(5);
+    $this->expectException(Exception\InvalidLength\ToShort::class);
     $filter->validate('Foo');
   }
 
   /**
-  * @covers PapayaFilterPassword::validate
-  */
+   * @covers \Papaya\Filter\Password::validate
+   */
   public function testValidateExpectingExceptionLengthMaximum() {
-    $filter = new PapayaFilterPassword(1, 2);
-    $this->expectException(PapayaFilterExceptionLengthMaximum::class);
+    $filter = new Password(1, 2);
+    $this->expectException(Exception\InvalidLength\ToLong::class);
     $filter->validate('Foo');
   }
 
   /**
-  * @covers PapayaFilterPassword::validate
-  * @dataProvider provideWeakPasswords
-  */
+   * @covers       \Papaya\Filter\Password::validate
+   * @dataProvider provideWeakPasswords
+   */
   public function testValidateExpectingExceptionPasswordWeak() {
-    $filter = new PapayaFilterPassword(1, 10);
-    $this->expectException(PapayaFilterExceptionPasswordWeak::class);
+    $filter = new Password(1, 10);
+    $this->expectException(Exception\Password\Weak::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers PapayaFilterPassword::filter
-  */
+   * @covers \Papaya\Filter\Password::filter
+   */
   public function testFilterExpectingValue() {
-    $filter = new PapayaFilterPassword();
+    $filter = new Password();
     $this->assertEquals(
       'FooBar.5',
       $filter->filter('FooBar.5')
@@ -65,18 +80,18 @@ class PapayaFilterPasswordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterPassword::filter
-  */
+   * @covers \Papaya\Filter\Password::filter
+   */
   public function testFilterExpectingNull() {
-    $filter = new PapayaFilterPassword();
+    $filter = new Password();
     $this->assertNull(
       $filter->filter('Foo')
     );
   }
 
   /************************
-  * Data Provider
-  *************************/
+   * Data Provider
+   *************************/
 
   public static function provideValidPasswords() {
     return array(

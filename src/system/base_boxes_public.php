@@ -1,21 +1,17 @@
 <?php
 /**
-* Manage action boxes, database handling and parsing
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_boxes_public.php 39260 2014-02-18 17:13:06Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Manage action boxes, database handling and parsing
@@ -78,13 +74,13 @@ class base_boxes_public extends base_boxes {
   */
   function getBoxBrowserCacheTime() {
     switch ($this->box['box_expiresmode']) {
-    case PapayaContentOptions::CACHE_SYSTEM :
+    case \Papaya\Content\Options::CACHE_SYSTEM :
       //system cache time
       if (defined('PAPAYA_CACHE_TIME_BROWSER') && PAPAYA_CACHE_TIME_BROWSER > 0) {
         return (int)PAPAYA_CACHE_TIME_BROWSER;
       }
       break;
-    case PapayaContentOptions::CACHE_INDIVIDUAL :
+    case \Papaya\Content\Options::CACHE_INDIVIDUAL :
       if ($this->box['box_expirestime'] > 0) {
         return (int)$this->box['box_expirestime'];
       }

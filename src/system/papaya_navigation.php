@@ -1,21 +1,20 @@
 <?php
 /**
-* Create base navigagtion for papaya admin area
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_navigation.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
+use Papaya\Administration\Permissions;
 
 /**
 * Create base navigagtion for papaya admin area
@@ -54,7 +53,7 @@ class papaya_navigation extends base_object {
         'Messages',
         'Messages / ToDo',
         'status-mail-open',
-        PapayaAdministrationPermissions::MESSAGES,
+        Administration\Permissions::MESSAGES,
         'msgbox.php',
         '_self',
         FALSE
@@ -65,7 +64,7 @@ class papaya_navigation extends base_object {
         'Sitemap',
         'All pages in a tree',
         'categories-sitemap',
-        PapayaAdministrationPermissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'tree.php',
         '_self',
         FALSE,
@@ -75,7 +74,7 @@ class papaya_navigation extends base_object {
         'Search',
         'Search pages',
         'actions-search',
-        PapayaAdministrationPermissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'search.php',
         '_self',
         FALSE
@@ -84,7 +83,7 @@ class papaya_navigation extends base_object {
         'Edit',
         'Edit pages',
         'items-page',
-        PapayaAdministrationPermissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'topic.php',
         '_self',
         FALSE,
@@ -96,14 +95,14 @@ class papaya_navigation extends base_object {
         'Boxes',
         'Edit boxes',
         'items-box',
-        PapayaAdministrationPermissions::BOX_MANAGE,
+        Administration\Permissions::BOX_MANAGE,
         'boxes.php'
       ),
       array(
         'Files',
         'Media database',
         'items-folder',
-        PapayaAdministrationPermissions::FILE_MANAGE,
+        Administration\Permissions::FILE_MANAGE,
         'mediadb.php',
         '_self',
         FALSE,
@@ -113,14 +112,14 @@ class papaya_navigation extends base_object {
         'Aliases',
         'Aliases for pages',
         'items-alias',
-        PapayaAdministrationPermissions::ALIAS_MANAGE,
+        Administration\Permissions::ALIAS_MANAGE,
         'alias.php'
       ),
       array(
         'Tags',
         'Manage Tags',
         'items-tag',
-        PapayaAdministrationPermissions::TAG_MANAGE,
+        Administration\Permissions::TAG_MANAGE,
         'tags.php'
       ),
     ),
@@ -131,56 +130,56 @@ class papaya_navigation extends base_object {
         'Users',
         'User management',
         'items-user-group',
-        PapayaAdministrationPermissions::USER_MANAGE,
+        Administration\Permissions::USER_MANAGE,
         'auth.php'
       ),
       array(
         'Views',
         'Configure Views',
         'items-view',
-        PapayaAdministrationPermissions::VIEW_MANAGE,
+        Administration\Permissions::VIEW_MANAGE,
         'views.php'
       ),
       array(
         'Modules',
         'Modules management',
         'items-plugin',
-        PapayaAdministrationPermissions::MODULE_MANAGE,
+        Administration\Permissions::MODULE_MANAGE,
         'modules.php'
       ),
       array(
         'Themes',
         'Configure Dynamic Themes',
         'items-theme',
-        PapayaAdministrationPermissions::SYSTEM_THEMESET_MANAGE,
+        Administration\Permissions::SYSTEM_THEMESET_MANAGE,
         'themes.php'
       ),
       array(
         'Images',
         'Configure Dynamic Images',
         'items-graphic',
-        PapayaAdministrationPermissions::IMAGE_GENERATOR,
+        Administration\Permissions::IMAGE_GENERATOR,
         'imggen.php'
       ),
       array(
         'Settings',
         'System configuration',
         'items-option',
-        PapayaAdministrationPermissions::SYSTEM_SETTINGS,
+        Administration\Permissions::SYSTEM_SETTINGS,
         'options.php'
       ),
       array(
         'Protocol',
         'Event protocol',
         'categories-protocol',
-        PapayaAdministrationPermissions::SYSTEM_PROTOCOL,
+        Administration\Permissions::SYSTEM_PROTOCOL,
         'log.php'
       ),
       array(
         'Translations',
         'Interface Translations',
         'items-translation',
-        PapayaAdministrationPermissions::SYSTEM_TRANSLATE,
+        Administration\Permissions::SYSTEM_TRANSLATE,
         'phrases.php'
       )
     ),
@@ -195,7 +194,7 @@ class papaya_navigation extends base_object {
   );
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -243,25 +242,25 @@ class papaya_navigation extends base_object {
   * @return string
   */
   function getMenuBar($fileName = '') {
-    $menu = new PapayaUiMenu();
+    $menu = new \Papaya\UI\Menu();
     $menu->identifier = 'main';
-    $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
+    $currentURL = $this->papaya()->request->getURL()->getPathURL();
     foreach ($this->menuGroups as $groupId => $groupTitle) {
       if (isset($this->menu[$groupId])) {
-        $group = new PapayaUiToolbarGroup(new PapayaUiStringTranslated($groupTitle));
+        $group = new \Papaya\UI\Toolbar\Group(new \Papaya\UI\Text\Translated($groupTitle));
         foreach ($this->menu[$groupId] as  $buttonData) {
           if (empty($buttonData[3]) ||
               $this->papaya()->administrationUser->hasPerm($buttonData[3])) {
-            $button = new PapayaUiToolbarButton();
+            $button = new \Papaya\UI\Toolbar\Button();
             $button->image = $buttonData[2];
             if (isset($buttonData[8]) && $buttonData[8]) {
               $button->caption = empty($buttonData[0]) ? '' : $buttonData[0];
               $button->hint = empty($buttonData[1]) ? '' : $buttonData[1];
             } else {
-              $button->caption = new PapayaUiStringTranslated(
+              $button->caption = new \Papaya\UI\Text\Translated(
                 empty($buttonData[0]) ? '' : $buttonData[0]
               );
-              $button->hint = new PapayaUiStringTranslated(
+              $button->hint = new \Papaya\UI\Text\Translated(
                 empty($buttonData[1]) ? '' : $buttonData[1]
               );
             }
@@ -272,7 +271,7 @@ class papaya_navigation extends base_object {
             $button->reference->setRelative(
               empty($buttonData[4]) ? '' : $buttonData[4]
             );
-            if ($button->reference->url()->getPathUrl() == $currentUrl) {
+            if ($button->reference->url()->getPathURL() == $currentURL) {
               $button->selected = TRUE;
             }
             $group->elements[] = $button;
@@ -281,6 +280,6 @@ class papaya_navigation extends base_object {
         $menu->elements[] = $group;
       }
     }
-    return $menu->getXml();
+    return $menu->getXML();
   }
 }

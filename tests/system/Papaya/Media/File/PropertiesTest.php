@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMediaFilePropertiesTest extends PapayaTestCase {
+class PropertiesTest extends \Papaya\TestCase {
 
   public function testFetchPropertiesFromInfoImplementation() {
-    $infoMock = $this->createMock(PapayaMediaFileInfo::class);
+    $infoMock = $this->createMock(\Papaya\Media\File\Info::class);
     $infoMock
       ->expects($this->once())
       ->method('isSupported')
@@ -26,8 +27,8 @@ class PapayaMediaFilePropertiesTest extends PapayaTestCase {
     $infoMock
       ->expects($this->once())
       ->method('getIterator')
-      ->willReturn(new ArrayIterator(array('foo' => 'bar')));
-    $info = new PapayaMediaFileProperties(__FILE__);
+      ->willReturn(new \ArrayIterator(array('foo' => 'bar')));
+    $info = new Properties(__FILE__);
     $info->fetchers($infoMock);
 
     $this->assertEquals(
@@ -37,7 +38,7 @@ class PapayaMediaFilePropertiesTest extends PapayaTestCase {
   }
 
   public function testLazyInitializationOfFetchers() {
-    $info = new PapayaMediaFileProperties('example.file');
+    $info = new Properties('example.file');
     $this->assertCount(4, $info->fetchers());
   }
 }

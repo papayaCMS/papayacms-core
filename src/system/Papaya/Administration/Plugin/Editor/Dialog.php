@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+
 /**
-* An PluginEditor implementation that build a dialog based on an array of field definitions
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
+ * An PluginEditor implementation that build a dialog based on an array of field definitions
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Dialog extends \Papaya\Plugin\Editor {
 
   private $_dialog;
   private $_onExecuteCallback;
@@ -27,10 +29,10 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
-   * @see PapayaXmlAppendable::appendTo()
-   * @param PapayaXmlElement $parent
+   * @see \Papaya\XML\Appendable::appendTo()
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $context = $this->context();
     if (!$context->isEmpty()) {
       $this->dialog()->hiddenValues()->merge($context);
@@ -44,8 +46,8 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
       }
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageDisplayTranslated(
-          PapayaMessage::SEVERITY_ERROR,
+        new \Papaya\Message\Display\Translated(
+          \Papaya\Message::SEVERITY_ERROR,
           'Invalid input. Please check the field(s) "%s".',
           array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
         )
@@ -66,10 +68,10 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Getter/Setter for the dialog subobject.
    *
-   * @param PapayaUiDialog $dialog
-   * @return PapayaUiDialog
+   * @param \Papaya\UI\Dialog $dialog
+   * @return \Papaya\UI\Dialog
    */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -81,29 +83,29 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return PapayaUiDialog
+   * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {
-    $dialog = new PapayaUiDialog();
+    $dialog = new \Papaya\UI\Dialog();
     $dialog->papaya($this->papaya());
 
-    if ($this->getData() instanceof PapayaPluginEditableContent) {
-      $dialog->caption = new PapayaAdministrationLanguagesCaption(
-        new PapayaUiStringTranslated('Edit content')
+    if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {
+      $dialog->caption = new \Papaya\Administration\Languages\Caption(
+        new \Papaya\UI\Text\Translated('Edit content')
       );
-      $dialog->image = new PapayaAdministrationLanguagesImage();
+      $dialog->image = new \Papaya\Administration\Languages\Image();
       $dialog->parameterGroup('content');
-    } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
-      $dialog->caption = new PapayaUiStringTranslated('Edit options');
+    } elseif ($this->getData() instanceof \Papaya\Plugin\Editable\Options) {
+      $dialog->caption = new \Papaya\UI\Text\Translated('Edit options');
       $dialog->parameterGroup('options');
     } else {
-      $dialog->caption = new PapayaUiStringTranslated('Edit properties');
+      $dialog->caption = new \Papaya\UI\Text\Translated('Edit properties');
       $dialog->parameterGroup('properties');
     }
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
 
     return $dialog;
   }

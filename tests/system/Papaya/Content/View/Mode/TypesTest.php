@@ -1,82 +1,98 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\View\Mode;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentViewModeTypesTest extends PapayaTestCase {
+class TypesTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaContentViewModeTypes::exists
+   * @covers Types::exists
    */
   public function testExistsExpectingTrue() {
-    $this->assertTrue(PapayaContentViewModeTypes::exists(PapayaContentViewModeTypes::PAGE));
+    $this->assertTrue(Types::exists(Types::PAGE));
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::exists
+   * @covers Types::exists
    */
   public function testExistsExpectingFalse() {
-    $this->assertFalse(PapayaContentViewModeTypes::exists(-23));
+    $this->assertFalse(Types::exists(-23));
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetExists
+   * @covers Types::offsetExists
    */
   public function testArrayAccessExistsExpectingTrue() {
-    $types = new PapayaContentViewModeTypes();
-    $this->assertTrue(isset($types[PapayaContentViewModeTypes::PAGE]));
+    $types = new Types();
+    $this->assertTrue(isset($types[Types::PAGE]));
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetExists
+   * @covers Types::offsetExists
    */
   public function testArrayAccessExistsExpectingFalse() {
-    $types = new PapayaContentViewModeTypes();
+    $types = new Types();
     $this->assertFalse(isset($types[-23]));
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetGet
+   * @covers Types::offsetGet
    */
   public function testArrayAccessGet() {
-    $types = new PapayaContentViewModeTypes();
-    $this->assertEquals('Feed', $types[PapayaContentViewModeTypes::FEED]);
+    $types = new Types();
+    $this->assertEquals('Feed', $types[Types::FEED]);
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetGet
+   * @covers Types::offsetGet
    */
   public function testArrayAccessGetwithInvalidType() {
-    $types = new PapayaContentViewModeTypes();
+    $types = new Types();
     $this->assertEquals('Page', $types[-23]);
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetSet
+   * @covers Types::offsetSet
    */
   public function testArrayAccessBlockedSet() {
-    $types = new PapayaContentViewModeTypes();
-    $this->expectException(LogicException::class);
-    $types[PapayaContentViewModeTypes::FEED] = 'invalid';
+    $types = new Types();
+    $this->expectException(\LogicException::class);
+    $types[Types::FEED] = 'invalid';
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::offsetUnset
+   * @covers Types::offsetUnset
    */
   public function testArrayAccessBlockedUnset() {
-    $types = new PapayaContentViewModeTypes();
-    $this->expectException(LogicException::class);
-    unset($types[PapayaContentViewModeTypes::FEED]);
+    $types = new Types();
+    $this->expectException(\LogicException::class);
+    unset($types[Types::FEED]);
   }
 
   /**
-   * @covers PapayaContentViewModeTypes::getIterator
+   * @covers Types::getIterator
    */
   public function testIterator() {
-    $types = new PapayaContentViewModeTypes();
+    $types = new Types();
     $this->assertEquals(
       array(
-        PapayaContentViewModeTypes::PAGE => 'Page',
-        PapayaContentViewModeTypes::FEED => 'Feed',
-        PapayaContentViewModeTypes::HIDDEN => 'Hidden'
+        Types::PAGE => 'Page',
+        Types::FEED => 'Feed',
+        Types::HIDDEN => 'Hidden'
       ),
       iterator_to_array($types)
     );

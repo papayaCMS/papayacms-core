@@ -1,59 +1,59 @@
 <?php
 /**
-* Request log, a debugging object, colleting and omitting informations about the events during the
-* request processing.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Log.php 39436 2014-02-28 10:37:20Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Request;
 /**
-* Request log, a debugging object, colleting and omitting informations about the events during the
-* request processing.
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestLog extends PapayaObject {
+ * Request log, a debugging object, colleting and omitting informations about the events during the
+ * request processing.
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Log extends \Papaya\Application\BaseObject {
 
   /**
-  * Same instance to make it usable like a singleton
-  * @var PapayaRequestLog
-  */
-  private static $_instance = NULL;
+   * Same instance to make it usable like a singleton
+   *
+   * @var self
+   */
+  private static $_instance;
 
   /**
-  * Time the object instance was created.
-  * @var float
-  */
+   * Time the object instance was created.
+   *
+   * @var float
+   */
   private $_startTime = 0;
 
   /**
-  * Last time an event was logged
-  * @var float
-  */
+   * Last time an event was logged
+   *
+   * @var float
+   */
   private $_previousTime = 0;
 
   /**
-  * Logged event messages
-  * @var array(string)
-  */
+   * Logged event messages
+   *
+   * @var array(string)
+   */
   private $_events = array();
 
   /**
-  * Construct object and initialize start time.
-  */
+   * Construct object and initialize start time.
+   */
   public function __construct() {
     $now = microtime(TRUE);
     $dateString = date('Y-m-d H:i:s:');
@@ -68,29 +68,29 @@ class PapayaRequestLog extends PapayaObject {
    * This object can be used like a singleton, or created normally.
    *
    * @param boolean $reset create new instance
-   * @return \PapayaRequestLog
+   * @return self
    */
   public static function getInstance($reset = FALSE) {
-    if (is_null(self::$_instance) || $reset) {
+    if (NULL === self::$_instance || $reset) {
       self::$_instance = new self();
     }
     return self::$_instance;
   }
 
   /**
-  * Log an event an the time
-  *
-  * @param string $message
-  */
+   * Log an event an the time
+   *
+   * @param string $message
+   */
   public function logTime($message) {
     $now = microtime(TRUE);
-    $message .= ' after '.PapayaUtilDate::periodToString(
-      $now - $this->_startTime
-    );
+    $message .= ' after '.\Papaya\Utility\Date::periodToString(
+        $now - $this->_startTime
+      );
     if ($this->_previousTime > 0) {
-      $message .= ' (+'.PapayaUtilDate::periodToString(
-        $now - $this->_previousTime
-      ).')';
+      $message .= ' (+'.\Papaya\Utility\Date::periodToString(
+          $now - $this->_previousTime
+        ).')';
     }
     $this->_previousTime = $now;
     $this->_events[] = $message;
@@ -105,22 +105,22 @@ class PapayaRequestLog extends PapayaObject {
     if ($stop) {
       $this->logTime('Stopped');
     }
-    $log = new PapayaMessageLog(
-      PapayaMessageLogable::GROUP_DEBUG,
-      PapayaMessage::SEVERITY_DEBUG,
+    $log = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_DEBUG,
+      \Papaya\Message::SEVERITY_DEBUG,
       'Request Log'
     );
     foreach ($this->_events as $event) {
       $log
         ->context()
         ->append(
-          new PapayaMessageContextText($event)
+          new \Papaya\Message\Context\Text($event)
         );
     }
     $log
       ->context()
       ->append(
-        new PapayaMessageContextMemory()
+        new \Papaya\Message\Context\Memory()
       );
     $this->papaya()->messages->dispatch($log);
   }

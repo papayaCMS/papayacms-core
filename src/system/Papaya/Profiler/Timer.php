@@ -1,29 +1,26 @@
 <?php
 /**
-* A stack of timings, it fetches a starting time at the moment the object is created.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: Timer.php 39436 2014-02-28 10:37:20Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Profiler;
 /**
-* A stack of timings, it fetches a starting time at the moment the object is created.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
+ * A stack of timings, it fetches a starting time at the moment the object is created.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate {
 
   private $_start = 0;
 
@@ -54,7 +51,7 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
   /**
    * Compile an return the list of taken timings.
    *
-   * @return Traversable
+   * @return \Traversable
    */
   public function getIterator() {
     $result = array();
@@ -69,13 +66,13 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
       }
       $result[] = array(
         'time' => $take['time'] - $offset,
-        'time_string' => PapayaUtilDate::periodToString($take['time'] - $offset),
+        'time_string' => \Papaya\Utility\Date::periodToString($take['time'] - $offset),
         'start' => $offset,
         'end' => $offset = $take['time'],
         'text' => $text
       );
     }
-    return new ArrayIterator($result);
+    return new \ArrayIterator($result);
   }
 
   /**
@@ -84,10 +81,10 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
   public function emit() {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
-        PapayaMessageLogable::GROUP_DEBUG,
-        PapayaMessage::SEVERITY_DEBUG,
+        \Papaya\Message\Logable::GROUP_DEBUG,
+        \Papaya\Message::SEVERITY_DEBUG,
         $take['text'],
-        new PapayaMessageContextRuntime($take['start'], $take['end'])
+        new \Papaya\Message\Context\Runtime($take['start'], $take['end'])
       );
     }
   }

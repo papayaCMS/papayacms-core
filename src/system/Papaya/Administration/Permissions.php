@@ -1,31 +1,30 @@
 <?php
 /**
-* Constant and structure definitions for administration interface permissions.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Permissions.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration;
+
+use Papaya\Administration\Permission\Groups;
 
 /**
-* Constant and structure definitions for administration interface permissions.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPermissions
-  extends PapayaDatabaseRecordsLazy
-  implements IteratorAggregate {
+ * Constant and structure definitions for administration interface permissions.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Permissions
+  extends \Papaya\Database\Records\Lazy {
 
   const SYSTEM_SETTINGS = 25;
   const SYSTEM_PROTOCOL = 31;
@@ -86,21 +85,21 @@ class PapayaAdministrationPermissions
 
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'perm_id',
     'is_active' => 'perm_active'
   );
 
   /**
-  * Table containing permission status informations (active/inactive)
-  *
-  * @var string
-  */
-  protected $_tableName = PapayaContentTables::AUTHENTICATION_PERMISSIONS;
+   * Table containing permission status informations (active/inactive)
+   *
+   * @var string
+   */
+  protected $_tableName = \Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS;
 
   protected $_identifierProperties = array('id');
 
@@ -112,7 +111,7 @@ class PapayaAdministrationPermissions
   private static $_permissions = NULL;
 
   /**
-   * @var PapayaAdministrationPermissionGroups
+   * @var Groups
    */
   private $_groups = NULL;
 
@@ -122,7 +121,7 @@ class PapayaAdministrationPermissions
   public function __construct() {
     // @codeCoverageIgnoreStart
     if (NULL == self::$_permissions) {
-      $reflection = new ReflectionClass(__CLASS__);
+      $reflection = new \ReflectionClass(__CLASS__);
       self::$_permissions = array_flip($reflection->getConstants());
     }
     // @codeCoverageIgnoreEnd
@@ -130,8 +129,8 @@ class PapayaAdministrationPermissions
   }
 
   /**
-  * Reset the object to "unloaded" status
-  */
+   * Reset the object to "unloaded" status
+   */
   public function reset() {
     $this->_records = array();
     foreach (self::$_permissions as $id => $name) {
@@ -165,7 +164,7 @@ class PapayaAdministrationPermissions
   /**
    * Validate if the given permission is in the given group.
    *
-   * @see PapayaAdministrationPermissions::exists()
+   * @see \Papaya\Administration\Permissions::exists()
    * @param integer $permissionId
    * @param integer $groupId
    * @return boolean
@@ -190,14 +189,14 @@ class PapayaAdministrationPermissions
 
   /**
    *
-   * @param PapayaAdministrationPermissionGroups $groups
-   * @return \PapayaAdministrationPermissionGroups
+   * @param \Papaya\Administration\Permission\Groups $groups
+   * @return \Papaya\Administration\Permission\Groups
    */
-  public function groups(PapayaAdministrationPermissionGroups $groups = NULL) {
+  public function groups(\Papaya\Administration\Permission\Groups $groups = NULL) {
     if (isset($groups)) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new PapayaAdministrationPermissionGroups();
+      $this->_groups = new \Papaya\Administration\Permission\Groups();
     }
     return $this->_groups;
   }

@@ -1,27 +1,19 @@
 <?php
 /**
-* Papaya media db administration class - provides the backend
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* This file is divided into three sections:
-*   1. basic administration setup and switch between files and folders (f&f) and
-*      mimetypes administration
-*   2. files and folders (f&f) administration
-*   3. mimetype adminstration
-*
-* @package Papaya
-* @subpackage Media-Database
-* @version $Id:papaya_mediadb.php 837 2007-05-23 15:47:23Z rekowski $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * Papaya media db administration class - provides the backend
@@ -47,7 +39,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   public $dialog = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -95,7 +87,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
     $this->menubar->images = $this->papaya()->images;
 
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_MANAGE)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_MANAGE)) {
       $this->executeMimeTypesHandling();
       $this->initializeMimeTypesLayout();
     } else {
@@ -198,7 +190,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
     if (isset($this->params['cmd'])) {
       switch($this->params['cmd']) {
       case 'add_group':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeGroupEditDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
@@ -209,7 +201,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         break;
       case 'edit_group':
         $this->initializeMimeGroupEditDialog($this->params['cmd']);
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
               $this->setMimeGroup();
@@ -223,7 +215,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_group':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             $this->delMimeGroup();
           } else {
@@ -232,7 +224,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'add_type':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeTypeEditDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
@@ -244,7 +236,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         break;
       case 'edit_type':
         $this->initializeMimeTypeEditDialog($this->params['cmd']);
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
               $this->setMimeType();
@@ -258,7 +250,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_type':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             $this->delMimeType();
           } else {
@@ -267,11 +259,11 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'add_ext':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeTypeExtensionDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']
               && $this->params['extension'] != ''
-              && PapayaFilterFactory::isText($this->params['extension'])) {
+              && \Papaya\Filter\Factory::isText($this->params['extension'])) {
             $mimeTypes = $this->mimeObj->getMimeTypeByExtension($this->params['extension']);
             if (count($mimeTypes) > 0 && !isset($this->params['override'])) {
               $this->initializeMimeTypeExtensionConfirmDialog($mimeTypes);
@@ -282,7 +274,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_ext':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['mimetype_id']) && $this->params['mimetype_id'] > 0 &&
               isset($this->params['extension']) && $this->params['extension'] != '' &&
               isset($this->params['confirm']) && $this->params['confirm']) {
@@ -319,7 +311,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   function loadMimeTypeMenubar() {
     $this->menubar->addSeperator();
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
       $this->menubar->addButton(
         'Add Mimegroup',
         $this->getLink(array('cmd' => 'add_group')),
@@ -492,7 +484,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
             $extension
           );
           $allowEdit = $administrationUser->hasPerm(
-            PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT
+            Administration\Permissions::SYSTEM_MIMETYPES_EDIT
           );
           if ($allowEdit) {
             $result .= sprintf(
@@ -832,7 +824,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return string
   */
   function formatByteValue($bytes) {
-    return PapayaUtilBytes::toString($bytes);
+    return \Papaya\Utility\Bytes::toString($bytes);
   }
 
   /**
@@ -841,7 +833,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return integer
   */
   function decodeBytesInput($input) {
-    return PapayaUtilBytes::fromString($input);
+    return \Papaya\Utility\Bytes::fromString($input);
   }
 
   /**

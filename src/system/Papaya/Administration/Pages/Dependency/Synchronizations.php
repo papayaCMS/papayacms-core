@@ -1,116 +1,113 @@
 <?php
 /**
-* Encapsulate the synchronization definitions and provide access in different formats for other
-* object.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Synchronizations.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency;
 
 /**
-* Encapsulate the synchronization definitions and provide access in different formats for other
-* object.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizations {
+ * Encapsulate the synchronization definitions and provide access in different formats for other
+ * object.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Synchronizations {
 
   /**
-  * Synchronization definitions
-  *
-  * @var array
-  */
+   * Synchronization definitions
+   *
+   * @var array
+   */
   private $_definitions = array(
-    PapayaContentPageDependency::SYNC_PROPERTIES => array(
+    \Papaya\Content\Page\Dependency::SYNC_PROPERTIES => array(
       'caption' => 'Properties',
       'hint' => 'Page properties',
       'image' => 'categories-properties',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationProperties'
+      'class' => Synchronization\Properties::class
     ),
-    PapayaContentPageDependency::SYNC_VIEW => array(
+    \Papaya\Content\Page\Dependency::SYNC_VIEW => array(
       'caption' => 'View',
       'hint' => 'Page view',
       'image' => 'items-view',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationView'
+      'class' => Synchronization\View::class
     ),
-    PapayaContentPageDependency::SYNC_CONTENT => array(
+    \Papaya\Content\Page\Dependency::SYNC_CONTENT => array(
       'caption' => 'Content',
       'hint' => 'Page content',
       'image' => 'categories-content',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationContent'
+      'class' => Synchronization\Content::class
     ),
-    PapayaContentPageDependency::SYNC_BOXES => array(
+    \Papaya\Content\Page\Dependency::SYNC_BOXES => array(
       'caption' => 'Boxes',
       'hint' => 'Box links',
       'image' => 'items-box',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationBoxes'
+      'class' => Synchronization\Boxes::class
     ),
-    PapayaContentPageDependency::SYNC_TAGS => array(
+    \Papaya\Content\Page\Dependency::SYNC_TAGS => array(
       'caption' => 'Tags',
       'hint' => 'Page tags/labels',
       'image' => 'items-tag',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationTags'
+      'class' => Synchronization\Tags::class
     ),
-    PapayaContentPageDependency::SYNC_ACCESS => array(
+    \Papaya\Content\Page\Dependency::SYNC_ACCESS => array(
       'caption' => 'Access',
       'hint' => 'Access permissions for visitors',
       'image' => 'categories-access',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationAccess'
+      'class' => Synchronization\Access::class
     ),
-    PapayaContentPageDependency::SYNC_PUBLICATION => array(
+    \Papaya\Content\Page\Dependency::SYNC_PUBLICATION => array(
       'caption' => 'Publication',
       'hint' => 'Publication action',
       'image' => 'items-publication',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationPublication'
+      'class' => Synchronization\Publication::class
     )
   );
 
   /**
-  * Buffer variable for icon list
-  *
-  * @var PapayaUiIconList
-  */
+   * Buffer variable for icon list
+   *
+   * @var \Papaya\UI\Icon\Collection
+   */
   private $_icons = NULL;
 
   /**
-  * Buffer variable for array(id => caption).
-  *
-  * @var array(integer => string)
-  */
+   * Buffer variable for array(id => caption).
+   *
+   * @var array(integer => string)
+   */
   private $_list = NULL;
 
   /**
-  * Dependencies records list.
-  *
-  * @var PapayaContentPageDependencies
-  */
+   * Dependencies records list.
+   *
+   * @var \Papaya\Content\Page\Dependencies
+   */
   private $_dependencies = NULL;
 
   /**
-  * Create {@see PapayaUiIconList} from definitions and return it.
-  *
-  * @return PapayaUiIconList
-  */
+   * Create {@see \Papaya\UI\Icon\Collection} from definitions and return it.
+   *
+   * @return \Papaya\UI\Icon\Collection
+   */
   public function getIcons() {
     if (is_null($this->_icons)) {
-      $this->_icons = new PapayaUiIconList;
+      $this->_icons = new \Papaya\UI\Icon\Collection;
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_icons[$synchronization] = new PapayaUiIcon(
+        $this->_icons[$synchronization] = new \Papaya\UI\Icon(
           $data['image'],
-          new PapayaUiStringTranslated($data['caption']),
-          new PapayaUiStringTranslated($data['hint'])
+          new \Papaya\UI\Text\Translated($data['caption']),
+          new \Papaya\UI\Text\Translated($data['hint'])
         );
       }
     }
@@ -118,41 +115,41 @@ class PapayaAdministrationPagesDependencySynchronizations {
   }
 
   /**
-  * Get synchronization as an array
-  *
-  * @return array
-  */
+   * Get synchronization as an array
+   *
+   * @return array
+   */
   public function getList() {
     if (is_null($this->_list)) {
       $this->_list = array();
       foreach ($this->_definitions as $synchronization => $data) {
-         $this->_list[$synchronization] = new PapayaUiStringTranslated($data['caption']);
+        $this->_list[$synchronization] = new \Papaya\UI\Text\Translated($data['caption']);
       }
     }
     return $this->_list;
   }
 
   /**
-  * Getter/setter for the dependcies database list
-  *
-  * @param PapayaContentPageDependencies|NULL $dependencies
-  * @return PapayaContentPageDependencies
-  */
-  public function dependencies(PapayaContentPageDependencies $dependencies = NULL) {
+   * Getter/setter for the dependcies database list
+   *
+   * @param \Papaya\Content\Page\Dependencies|NULL $dependencies
+   * @return \Papaya\Content\Page\Dependencies
+   */
+  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new PapayaContentPageDependencies();
+      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
 
   /**
-  * Get the action object for an synchronization.
-  *
-  * @param integer $synchronization
-  * @return NULL|PapayaAdministrationPagesDependencySynchronization
-  */
+   * Get the action object for an synchronization.
+   *
+   * @param integer $synchronization
+   * @return NULL|\Papaya\Administration\Pages\Dependency\Synchronization
+   */
   public function getAction($synchronization) {
     if (isset($this->_definitions[$synchronization])) {
       $className = $this->_definitions[$synchronization]['class'];
@@ -162,13 +159,13 @@ class PapayaAdministrationPagesDependencySynchronizations {
   }
 
   /**
-  * Get the targets for an given synchonization. The targets are dependent pages that
-  * are configured to be syncronized.
-  *
-  * @param integer $originId
-  * @param integer $synchronization
-  * @return array|NULL
-  */
+   * Get the targets for an given synchonization. The targets are dependent pages that
+   * are configured to be syncronized.
+   *
+   * @param integer $originId
+   * @param integer $synchronization
+   * @return array|NULL
+   */
   public function getTargets($originId, $synchronization) {
     $targetIds = array();
     $this->dependencies()->load($originId);
@@ -181,15 +178,15 @@ class PapayaAdministrationPagesDependencySynchronizations {
   }
 
   /**
-  * Synchronize a dependency - this is called is a dependency is created or changed.
-  *
-  * @param PapayaContentPageDependency $dependency
-  */
-  public function synchronizeDependency(PapayaContentPageDependency $dependency) {
+   * Synchronize a dependency - this is called is a dependency is created or changed.
+   *
+   * @param \Papaya\Content\Page\Dependency $dependency
+   */
+  public function synchronizeDependency(\Papaya\Content\Page\Dependency $dependency) {
     foreach ($this->_definitions as $synchronization => $data) {
       if ($dependency->synchronization & $synchronization &&
-          $synchronization != PapayaContentPageDependency::SYNC_PUBLICATION &&
-          ($action = $this->getAction($synchronization))) {
+        $synchronization != \Papaya\Content\Page\Dependency::SYNC_PUBLICATION &&
+        ($action = $this->getAction($synchronization))) {
         $action->synchronize(array($dependency->id), $dependency->originId);
       }
     }

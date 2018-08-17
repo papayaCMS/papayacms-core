@@ -1,21 +1,17 @@
 <?php
 /**
-* singleton class for modules to load and save options
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_module_options.php 39760 2014-04-24 17:05:58Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * singleton class for modules to load and save options
@@ -119,7 +115,7 @@ class base_module_options extends base_db {
             $this->_options[$moduleGuid][$row['moduleoption_name']] = array();
           } elseif (substr($row['moduleoption_value'], 0, 1) == '<') {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
-              PapayaUtilStringXml::unserializeArray($row['moduleoption_value']);
+              \Papaya\Utility\Text\XML::unserializeArray($row['moduleoption_value']);
           } else {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
               @unserialize($row['moduleoption_value']);
@@ -146,7 +142,7 @@ class base_module_options extends base_db {
   * @return boolean
   */
   function saveOption($moduleGuid, $optionName, $value) {
-    $optionName = PapayaUtilStringIdentifier::toUnderscoreUpper($optionName);
+    $optionName = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($optionName);
     if (preg_match('~^[a-fA-F\d]{32}$~', $moduleGuid) &&
         preg_match('~^[A-Z_\d-]{3,50}$~', $optionName)) {
       $sql = "SELECT moduleoption_value
@@ -155,7 +151,7 @@ class base_module_options extends base_db {
                  AND moduleoption_name = '%s'";
       $params = array($this->tableModuleOptions, $moduleGuid, $optionName);
       if (isset($value) && is_array($value)) {
-        $value = PapayaUtilStringXml::serializeArray($value);
+        $value = \Papaya\Utility\Text\XML::serializeArray($value);
         $type = 'array';
       } else {
         $value = (string)$value;

@@ -1,16 +1,32 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Page;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageReferencesTest extends PapayaTestCase {
+class ReferencesTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPageReferences::load
-  * @covers PapayaContentPageReferences::_fetchRecords
-  *
-  *
+   * @covers References::load
+   * @covers References::_fetchRecords
+   *
+   *
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -44,9 +60,9 @@ class PapayaContentPageReferencesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_REFERENCES,
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.\Papaya\Content\Tables::PAGE_REFERENCES,
+          'table_'.\Papaya\Content\Tables::PAGES,
+          'table_'.\Papaya\Content\Tables::PAGE_TRANSLATIONS,
           42,
           1
         )
@@ -54,7 +70,7 @@ class PapayaContentPageReferencesTest extends PapayaTestCase {
       ->will(
         $this->returnValue($databaseResult)
       );
-    $references = new PapayaContentPageReferences();
+    $references = new References();
     $references->setDatabaseAccess($databaseAccess);
     $this->assertTrue($references->load(42, 1));
     $this->assertEquals(

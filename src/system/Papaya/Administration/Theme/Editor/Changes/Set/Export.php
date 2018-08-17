@@ -1,54 +1,52 @@
 <?php
 /**
-* Import theme set values from an uploaded file
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Export.php 39160 2014-02-10 13:43:27Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
 /**
-* Import theme set values from an uploaded file
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditorChangesSetExport
-  extends PapayaUiControlCommand {
+ * Import theme set values from an uploaded file
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Export
+  extends \Papaya\UI\Control\Command {
 
   /**
-   * @var PapayaContentThemeSet
+   * @var \Papaya\Content\Theme\Set
    */
   private $_themeSet = NULL;
 
   /**
-   * @var PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler = NULL;
 
   /**
-   * @param PapayaContentThemeSet $themeSet
-   * @param PapayaThemeHandler $themeHandler
+   * @param \Papaya\Content\Theme\Set $themeSet
+   * @param \Papaya\Theme\Handler $themeHandler
    */
-  public function __construct(PapayaContentThemeSet $themeSet, PapayaThemeHandler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
 
   /**
-   * @param PapayaXmlElement $parent
+   * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $this->_themeSet->load($this->parameters()->get('set_id', 0));
     $themeName = $this->_themeSet['theme'];
     $response = $this->papaya()->response;
@@ -65,13 +63,13 @@ class PapayaAdministrationThemeEditorChangesSetExport
     );
     $response->setContentType('application/octet-stream');
     $response->content(
-      new PapayaResponseContentString(
+      new \Papaya\Response\Content\Text(
         $this
           ->_themeSet
-          ->getValuesXml(
+          ->getValuesXML(
             $this->_themeHandler->getDefinition($themeName)
           )
-          ->saveXml()
+          ->saveXML()
       )
     );
     $response->send();

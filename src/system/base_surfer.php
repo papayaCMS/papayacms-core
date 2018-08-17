@@ -1,21 +1,17 @@
 <?php
 /**
-* Base surfer (community user)
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage User-Community
-* @version $Id: base_surfer.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Unknown surfer error
@@ -414,7 +410,7 @@ class base_surfer extends base_db {
               ? '' : $_POST[$this->logformVar]['redirection'];
           }
           if (isset($login) && trim($login) != '') {
-            if (PapayaFilterFactory::isEmail($login)) {
+            if (\Papaya\Filter\Factory::isEmail($login)) {
               $this->setSessionValue($this->loginVar, 'id');
               // successful login will terminate script after login()
               $this->login($login, $password, $redirection);
@@ -438,7 +434,7 @@ class base_surfer extends base_db {
   * @return mixed
   */
   public function __get($name) {
-    $identifer = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifer = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     switch ($identifer) {
     case 'id' :
       return $this->surferId;
@@ -728,9 +724,9 @@ class base_surfer extends base_db {
   /**
    * Redirect on successful login
    *
-   * @param string $redirectionUrl
+   * @param string $redirectionURL
    */
-  function redirectOnLogin($redirectionUrl) {
+  function redirectOnLogin($redirectionURL) {
     $application = $this->papaya();
     $request = $application->getObject('Request');
     $queryString = $request->getParameter(
@@ -739,40 +735,40 @@ class base_surfer extends base_db {
         $this->logformVar.'[query_string]',
         '',
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \Papaya\Request::SOURCE_BODY
       ),
       NULL,
-      PapayaRequest::SOURCE_BODY
+      \Papaya\Request::SOURCE_BODY
     );
     $defaultHost = strtolower(PAPAYA_DEFAULT_HOST);
-    if (!$redirectionUrl) {
+    if (!$redirectionURL) {
       if ($this->surfer['surfergroup_redirect_page'] > 0) {
-        $redirectionUrl = $this->getAbsoluteUrl(
+        $redirectionURL = $this->getAbsoluteURL(
           $this->getWebLink($this->surfer['surfergroup_redirect_page'])
         );
       } elseif (defined('PAPAYA_COMMUNITY_REDIRECT_PAGE') &&
                 PAPAYA_COMMUNITY_REDIRECT_PAGE > 0) {
-        $redirectionUrl = $this->getAbsoluteUrl(
+        $redirectionURL = $this->getAbsoluteURL(
           $this->getWebLink(PAPAYA_COMMUNITY_REDIRECT_PAGE)
         );
       } else {
-        $redirectionUrl = $this->papaya()->request->getUrl()->getPathUrl();
+        $redirectionURL = $this->papaya()->request->getURL()->getPathURL();
       }
     }
     $newQueryString = $this->recodeQueryString($queryString);
     if (!preg_match('(^\?)', $newQueryString)) {
-      $redirectionUrl .= '?';
+      $redirectionURL .= '?';
     }
-    $redirectionUrl .= $newQueryString;
-    $targetUrl = NULL;
-    if ($this->validateRedirectHost($redirectionUrl, $defaultHost)) {
-      $targetUrl = $redirectionUrl;
+    $redirectionURL .= $newQueryString;
+    $targetURL = NULL;
+    if ($this->validateRedirectHost($redirectionURL, $defaultHost)) {
+      $targetURL = $redirectionURL;
     }
     /**
-     * @var PapayaSession $session
+     * @var \Papaya\Session $session
      */
     $session = $this->papaya()->session;
-    if ($redirect = $session->regenerateId($targetUrl)) {
+    if ($redirect = $session->regenerateId($targetURL)) {
       $redirect->send();
       $redirect->end();
     }
@@ -783,12 +779,12 @@ class base_surfer extends base_db {
   *
   * Hostname can be the default host or one of the configured domains
   *
-  * @param string $redirectionUrl
+  * @param string $redirectionURL
   * @param string $defaultHost
   * @return boolean
   */
-  public function validateRedirectHost($redirectionUrl, $defaultHost) {
-    $redirectionString = strtolower($redirectionUrl);
+  public function validateRedirectHost($redirectionURL, $defaultHost) {
+    $redirectionString = strtolower($redirectionURL);
     if (FALSE !== strpos($redirectionString, "\n") &&
         FALSE !== strpos($redirectionString, "\r")) {
       return FALSE;
@@ -798,7 +794,7 @@ class base_surfer extends base_db {
       return TRUE;
     }
     $domains = new base_domains();
-    $url = new PapayaUrl($redirectionUrl);
+    $url = new \Papaya\URL($redirectionURL);
     if ($domains->load($url->host, 0)) {
       return TRUE;
     }
@@ -863,9 +859,9 @@ class base_surfer extends base_db {
     }
     if (empty($credentialString)) {
       if ($this->papaya()->request->method == 'post') {
-        $source = PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY;
+        $source = \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY;
       } else {
-        $source = PapayaRequest::SOURCE_QUERY;
+        $source = \Papaya\Request::SOURCE_QUERY;
       }
       $credentialString = $this->papaya()->request->getParameter('api_login', '', NULL, $source);
     }
@@ -886,7 +882,7 @@ class base_surfer extends base_db {
           $this->loadLoginBy('email', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);
           break;
         case 2:
-          if (PapayaFilterFactory::isEmail($credentials[0])) {
+          if (\Papaya\Filter\Factory::isEmail($credentials[0])) {
             $this->loadLoginBy('email', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);
           } else {
             $this->loadLoginBy('handle', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);
@@ -1574,10 +1570,10 @@ class base_surfer extends base_db {
           isset($this->logformVar['query_string']) ? $this->logformVar['query_string'] : NULL,
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \Papaya\Request::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \Papaya\Request::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(
@@ -1717,10 +1713,10 @@ class base_surfer extends base_db {
           isset($this->logformVar['query_string']) ? $this->logformVar['query_string'] : NULL,
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \Papaya\Request::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \Papaya\Request::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(
@@ -1860,10 +1856,10 @@ class base_surfer extends base_db {
           $this->logformVar['query_string'],
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \Papaya\Request::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \Papaya\Request::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(

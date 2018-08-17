@@ -1,41 +1,38 @@
 <?php
 /**
-* Papaya Message Exception, message object representing a php exception
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Exception.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Exception, message object representing a php exception. This allows to convert
-* any exception into an error log message.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageException
-  extends PapayaMessagePhp {
+ * Papaya Message Exception, message object representing a php exception. This allows to convert
+ * any exception into an error log message.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Exception
+  extends \Papaya\Message\PHP {
 
   /**
    * Create object and set values from exception object
    *
-   * @param Exception $exception
-   * @param PapayaMessageContextBacktrace $trace
+   * @param \Exception $exception
+   * @param \Papaya\Message\Context\Backtrace $trace
    */
   public function __construct(
-    Exception $exception,
-    PapayaMessageContextBacktrace $trace = NULL
+    \Exception $exception,
+    \Papaya\Message\Context\Backtrace $trace = NULL
   ) {
     parent::__construct();
     $this->setSeverity(E_USER_ERROR);
@@ -51,7 +48,7 @@ class PapayaMessageException
       ->_context
       ->append(
         is_null($trace)
-          ? new PapayaMessageContextBacktrace(0, $exception->getTrace())
+          ? new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
           : $trace
       );
   }

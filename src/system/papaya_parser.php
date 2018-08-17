@@ -141,7 +141,8 @@ class papaya_parser extends base_db {
 
   /**
   * storage service instance
-  * @var PapayaMediaStorageService
+  *
+  * @var \Papaya\Media\Storage\Service
   */
   var $storageService = NULL;
 
@@ -169,7 +170,7 @@ class papaya_parser extends base_db {
   * @return string
   */
   function parse($data, $lngId) {
-    PapayaUtilConstraints::assertString($data);
+    \Papaya\Utility\File\Constraints::assertString($data);
     $this->data = $data;
     if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
       $this->lngId = $this->papaya()->administrationLanguage->id;
@@ -270,7 +271,7 @@ class papaya_parser extends base_db {
           $this->addOns[strtolower($paramValue)] = FALSE;
           break;
         case 'href':
-          if (PapayaFilterFactory::isInteger($paramValue, TRUE)) {
+          if (\Papaya\Filter\Factory::isInteger($paramValue, TRUE)) {
             $this->topics[(int)$paramValue] = FALSE;
           }
           break;
@@ -348,7 +349,7 @@ class papaya_parser extends base_db {
           $this->topics[$row['topic_id']] = $row;
           if (!isset($this->topicLinkTypes[$row['linktype_id']]) && $row['linktype_is_popup']) {
             $this->topicLinkTypes[$row['linktype_id']] = array();
-            $xmlTree = PapayaXmlDocument::createFromXml($row['linktype_popup_config']);
+            $xmlTree = \Papaya\XML\Document::createFromXML($row['linktype_popup_config']);
             if (isset($xmlTree) && isset($xmlTree->documentElement) &&
                 $xmlTree->documentElement->hasChildNodes()) {
               for ($idx = 0; $idx < $xmlTree->documentElement->childNodes->length; $idx++) {
@@ -404,12 +405,13 @@ class papaya_parser extends base_db {
 
   /**
   * create storage
-  * @return PapayaMediaStorageService
+  *
+  * @return \Papaya\Media\Storage\Service
   */
   function getStorageService() {
     if (!isset($this->storageService)) {
       $configuration = $this->papaya()->options;
-      $this->storageService = PapayaMediaStorage::getService(
+      $this->storageService = \Papaya\Media\Storage::getService(
         $configuration->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
         $configuration
       );
@@ -774,7 +776,7 @@ class papaya_parser extends base_db {
             $imageData['storage_group'], $imageData['storage_id'], TRUE, $imageData['mimetype']
           )
         ) {
-          $imageData['src'] = $storage->getUrl(
+          $imageData['src'] = $storage->getURL(
             $imageData['storage_group'],
             $imageData['storage_id'],
             $imageData['mimetype']
@@ -809,7 +811,7 @@ class papaya_parser extends base_db {
           $cfgData['status']
         );
       }
-    } elseif (isset($params['href']) && PapayaFilterFactory::isInteger($params['href'], TRUE) &&
+    } elseif (isset($params['href']) && \Papaya\Filter\Factory::isInteger($params['href'], TRUE) &&
         isset($this->topics[$params['href']]) &&
               is_array($this->topics[$params['href']])) {
       $hrefData = array(
@@ -818,7 +820,7 @@ class papaya_parser extends base_db {
         'title' => isset($params['title']) ? $params['title'] : ''
       );
     } elseif (isset($params['href']) &&
-              PapayaFilterFactory::isUrl($params['href'], TRUE) && $this->isSessionInUri()) {
+              \Papaya\Filter\Factory::isURL($params['href'], TRUE) && $this->isSessionInUri()) {
       $hrefData = array(
         'href' => $this->getWebLink(0, '', 'page', array('exit' => $params['href'])),
         'target' => isset($params['target']) ? $params['target'] : '_self',
@@ -876,7 +878,7 @@ class papaya_parser extends base_db {
       $altText = preg_replace(
         '([\r\n ]+)',
         ' ',
-        PapayaUtilStringHtml::stripTags($data['description'])
+        \Papaya\Utility\Text\HTML::stripTags($data['description'])
       );
     } else {
       $altText = $hrefData['title'];
@@ -1073,11 +1075,11 @@ class papaya_parser extends base_db {
         $source = '';
       }
       if (!empty($params['source_url'])) {
-        $sourceUrl = $params['source_url'];
+        $sourceURL = $params['source_url'];
       } elseif (!empty($data['source_url'])) {
-        $sourceUrl = $data['source_url'];
+        $sourceURL = $data['source_url'];
       } else {
-        $sourceUrl = '';
+        $sourceURL = '';
       }
       $subTitle = papaya_strings::escapeHTMLChars($title);
       if (!empty($source) &&
@@ -1087,7 +1089,7 @@ class papaya_parser extends base_db {
         } else {
           $subTitle .= sprintf(
             ' (<a href="%s" class="%s" target="%s">%s</a>)',
-            papaya_strings::escapeHTMLChars($sourceUrl),
+            papaya_strings::escapeHTMLChars($sourceURL),
             papaya_strings::escapeHTMLChars(
               defined('PAPAYA_MEDIA_CUTLINE_LINK_CLASS')
                 ? PAPAYA_MEDIA_CUTLINE_LINK_CLASS : 'source'
@@ -1533,7 +1535,7 @@ class papaya_parser extends base_db {
   */
   function isSessionInUri() {
     return $this->papaya()->session->id()->existsIn(
-      PapayaSessionId::SOURCE_PARAMETER
+      \Papaya\Session\Id::SOURCE_PARAMETER
     );
   }
 

@@ -13,57 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterBeforeTest extends PapayaTestCase {
+class BeforeTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaFilterBefore
+   * @covers \Papaya\Filter\Before
    */
   public function testValidate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $before */
-    $before = $this->createMock(PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
+    $before = $this->createMock(\Papaya\Filter::class);
     $before
       ->expects($this->once())
       ->method('filter')
       ->with('foo')
       ->willReturn('success');
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $after */
-    $after = $this->createMock(PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $after */
+    $after = $this->createMock(\Papaya\Filter::class);
     $after
       ->expects($this->once())
       ->method('validate')
       ->with('success')
       ->willReturn(TRUE);
 
-    $filter = new PapayaFilterBefore($before, $after);
+    $filter = new Before($before, $after);
     $this->assertTrue(
       $filter->validate('foo')
     );
   }
 
   /**
-   * @covers PapayaFilterBefore
+   * @covers \Papaya\Filter\Before
    */
   public function testFilter() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $before */
-    $before = $this->createMock(PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
+    $before = $this->createMock(\Papaya\Filter::class);
     $before
       ->expects($this->once())
       ->method('filter')
       ->with('foo')
       ->willReturn('success');
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $after */
-    $after = $this->createMock(PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $after */
+    $after = $this->createMock(\Papaya\Filter::class);
     $after
       ->expects($this->once())
       ->method('filter')
       ->with('success')
       ->willReturn(42);
 
-    $filter = new PapayaFilterBefore($before, $after);
+    $filter = new Before($before, $after);
     $this->assertSame(
       42,
       $filter->filter('foo')

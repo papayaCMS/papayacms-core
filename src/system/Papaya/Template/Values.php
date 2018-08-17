@@ -1,56 +1,52 @@
 <?php
 /**
-* Templates values are a handling object for a dom document of template values,
-* later convertet to an output using a template engine
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Values.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Template;
 /**
-* Templates values are a handling object for a dom document of template values,
-* later convertet to an output using a template engine
-*
-* @package Papaya-Library
-* @subpackage Template
-*/
-class PapayaTemplateValues {
+ * Templates values are a handling object for a dom document of template values,
+ * later convertet to an output using a template engine
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ */
+class Values {
 
   /**
-  * The Dom Document containg the actual values
-  * @var PapayaXmlDocument
-  */
+   * The Dom Document containg the actual values
+   *
+   * @var \Papaya\XML\Document
+   */
   private $_document = NULL;
 
   /**
-   * Construct object and initalize internal dom document.
+   * Construct object and initialize internal dom document.
    *
-   * @param PapayaXmlDocument $document
-   * @return \PapayaTemplateValues
+   * @param \Papaya\XML\Document $document
    */
-  public function __construct(PapayaXmlDocument $document = NULL) {
-    $this->document(isset($document) ? $document : new PapayaXmlDocument());
+  public function __construct(\Papaya\XML\Document $document = NULL) {
+    $this->document(isset($document) ? $document : new \Papaya\XML\Document());
   }
 
   /**
    * Get/Set document property
    *
-   * @param DOMDocument $document
+   * @param \DOMDocument $document
    * @return \DOMDocument
    * @internal param $node
    */
-  public function document(DOMDocument $document = NULL) {
+  public function document(\DOMDocument $document = NULL) {
     if (isset($document)) {
       $this->_document = $document;
     }
@@ -58,10 +54,10 @@ class PapayaTemplateValues {
   }
 
   /**
-  * Get an Xpath object for the current document. Create it if it does not exist.
-  *
-  * @return DOMXpath;
-  */
+   * Get an Xpath object for the current document. Create it if it does not exist.
+   *
+   * @return \DOMXpath;
+   */
   public function getXpath() {
     /** @noinspection PhpUndefinedMethodInspection */
     return $this->document()->xpath();
@@ -78,12 +74,12 @@ class PapayaTemplateValues {
    * the element.
    *
    * @param string $path
-   * @param DOMElement $context
+   * @param \DOMElement $context
    * @param boolean $createIfNotExists
-   * @throws InvalidArgumentException
-   * @return PapayaTemplateValue|FALSE
+   * @throws \InvalidArgumentException
+   * @return \Papaya\Template\Value|FALSE
    */
-  public function getValueByPath($path, DOMElement $context = NULL, $createIfNotExists = TRUE) {
+  public function getValueByPath($path, \DOMElement $context = NULL, $createIfNotExists = TRUE) {
     if (substr($path, 0, 1) == '/') {
       $context = NULL;
       $paths = explode('/', substr($path, 1));
@@ -93,7 +89,7 @@ class PapayaTemplateValues {
     $node = FALSE;
     foreach ($paths as $name) {
       if (!preg_match('(^[a-z][a-z\d_-]*$)iD', $name)) {
-        throw new InvalidArgumentException('Invalid argument path: "'.$path.'"');
+        throw new \InvalidArgumentException('Invalid argument path: "'.$path.'"');
       }
       $nodeList = $this->getXpath()->evaluate(
         $name.'[1]', is_null($context) ? $this->_document : $context
@@ -114,45 +110,45 @@ class PapayaTemplateValues {
       }
       $context = $node;
     }
-    return ($node instanceof PapayaXmlElement)
-      ? new PapayaTemplateValue($node) : FALSE;
+    return ($node instanceof \Papaya\XML\Element)
+      ? new \Papaya\Template\Value($node) : FALSE;
   }
 
   /**
-  * Get a template value from the current tree
-  *
-  * The functions tries to get a template value element defined by the selector.
-  *
-  * If it is an string it {@see PapayaTemplateValues::getPath()} will be used.
-  *
-  * If it is NULL, it will return a value containing the document itself.
-  *
-  * If it is an DOMElement a value containing this element will be returned.
-  *
-  * @throws InvalidArgumentException
-  * @param string|NULL|DOMElement $selector
-  * @return PapayaTemplateValue
-  */
+   * Get a template value from the current tree
+   *
+   * The functions tries to get a template value element defined by the selector.
+   *
+   * If it is an string it {@see \Papaya\Template\Values::getPath()} will be used.
+   *
+   * If it is NULL, it will return a value containing the document itself.
+   *
+   * If it is an DOMElement a value containing this element will be returned.
+   *
+   * @throws \InvalidArgumentException
+   * @param string|NULL|\DOMElement $selector
+   * @return \Papaya\Template\Value
+   */
   public function getValue($selector = NULL) {
     if (is_string($selector)) {
       return $this->getValueByPath($selector);
     } elseif (is_null($selector)) {
-      return new PapayaTemplateValue($this->_document);
-    } elseif ($selector instanceof PapayaXmlElement) {
-      return new PapayaTemplateValue($selector);
+      return new \Papaya\Template\Value($this->_document);
+    } elseif ($selector instanceof \Papaya\XML\Element) {
+      return new \Papaya\Template\Value($selector);
     }
-    throw new InvalidArgumentException('Can not find specified template value');
+    throw new \InvalidArgumentException('Can not find specified template value');
   }
 
   /**
-  * Append a new template element to a defined parent
-  *
-  * @param string|NULL|DOMElement $parent
-  * @param string $name
-  * @param array $attributes
-  * @param string $content
-  * @return PapayaTemplateValue
-  */
+   * Append a new template element to a defined parent
+   *
+   * @param string|NULL|\DOMElement $parent
+   * @param string $name
+   * @param array $attributes
+   * @param string $content
+   * @return \Papaya\Template\Value
+   */
   public function append($parent, $name, array $attributes = array(), $content = '') {
     return $this->getValue($parent)->append($name, $attributes, $content);
   }
@@ -160,11 +156,11 @@ class PapayaTemplateValues {
   /**
    * Append a new xml fragment to a defined parent
    *
-   * @param string|NULL|DOMElement $parent
+   * @param string|NULL|\DOMElement $parent
    * @param string $xml
-   * @return PapayaTemplateValue
+   * @return \Papaya\Template\Value
    */
-  public function appendXml($parent, $xml) {
-    return $this->getValue($parent)->appendXml(PapayaUtilStringUtf8::ensure($xml));
+  public function appendXML($parent, $xml) {
+    return $this->getValue($parent)->appendXML(\Papaya\Utility\Text\UTF8::ensure($xml));
   }
 }

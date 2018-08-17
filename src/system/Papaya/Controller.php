@@ -1,30 +1,26 @@
 <?php
 /**
-* Papaya Controller superclass class
-*
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Controller
-* @version $Id: Controller.php 39323 2014-02-21 20:35:12Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya;
 /**
-* Papaya base object superclass
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-interface PapayaController {
+ * Papaya base object superclass
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+interface Controller {
 
   /**
    * Execute controller
@@ -32,17 +28,17 @@ interface PapayaController {
    * Results:
    *   TRUE - break
    *   FALSE - next
-   *   PapayaController - delegate to this controller
+   *   \Papaya\Controller - delegate to this controller
    *
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+   * @param \Papaya\Application $application
+   * @param \Papaya\Request &$request
+   * @param \Papaya\Response &$response
+   * @return boolean|self
    */
-  function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+  public function execute(
+    \Papaya\Application $application,
+    \Papaya\Request &$request,
+    \Papaya\Response &$response
   );
 
 }

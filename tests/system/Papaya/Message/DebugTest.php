@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMessageDebugTest extends PapayaTestCase {
+class DebugTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageDebug::__construct
-  */
+   * @covers \Papaya\Message\Debug::__construct
+   */
   public function testConstructor() {
-    $message = new PapayaMessageDebug(PapayaMessageLogable::GROUP_SYSTEM, 'Sample Message');
+    $message = new Debug(Logable::GROUP_SYSTEM, 'Sample Message');
     $this->assertAttributeEquals(
-      PapayaMessageLogable::GROUP_SYSTEM,
+      Logable::GROUP_SYSTEM,
       '_group',
       $message
     );
@@ -33,60 +34,60 @@ class PapayaMessageDebugTest extends PapayaTestCase {
       $message
     );
     $this->assertAttributeInstanceOf(
-      PapayaMessageContextGroup::class,
+      Context\Group::class,
       '_context',
       $message
     );
   }
 
   /**
-  * @covers PapayaMessageDebug::getGroup
-  */
+   * @covers \Papaya\Message\Debug::getGroup
+   */
   public function testGetGroup() {
-    $message = new PapayaMessageDebug();
+    $message = new Debug();
     $this->assertEquals(
-      PapayaMessageLogable::GROUP_DEBUG,
+      Logable::GROUP_DEBUG,
       $message->getGroup()
     );
   }
 
 
   /**
-  * @covers PapayaMessageDebug::getType
-  */
+   * @covers \Papaya\Message\Debug::getType
+   */
   public function testGetType() {
-    $message = new PapayaMessageDebug();
+    $message = new Debug();
     $this->assertEquals(
-      PapayaMessage::SEVERITY_DEBUG,
+      \Papaya\Message::SEVERITY_DEBUG,
       $message->getType()
     );
   }
 
   /**
-  * @covers PapayaMessageDebug::context
-  */
+   * @covers \Papaya\Message\Debug::context
+   */
   public function testContext() {
-    $message = new PapayaMessageDebug();
+    $message = new Debug();
     $found = array();
     foreach ($message->context() as $subContext) {
       $found[] = get_class($subContext);
     }
     $this->assertEquals(
       array(
-        PapayaMessageContextMemory::class,
-        PapayaMessageContextRuntime::class,
-        PapayaMessageContextBacktrace::class
+        Context\Memory::class,
+        Context\Runtime::class,
+        Context\Backtrace::class
       ),
       $found
     );
   }
 
   /**
-  * @covers PapayaMessageDebug::getMessage
-  */
+   * @covers \Papaya\Message\Debug::getMessage
+   */
   public function testGetMessage() {
-    $message = new PapayaMessageDebug(
-      PapayaMessageLogable::GROUP_DEBUG,
+    $message = new Debug(
+      Logable::GROUP_DEBUG,
       'Sample Message'
     );
     $this->assertEquals(

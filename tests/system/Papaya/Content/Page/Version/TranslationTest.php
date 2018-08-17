@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page\Version;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
+class TranslationTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPageVersionTranslation::load
-  */
+   * @covers Translation::load
+   */
   public function testLoad() {
     $record = array(
       'topic_id' => '42',
@@ -35,11 +37,11 @@ class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
       'view_name' => 'view-example',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -47,7 +49,7 @@ class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_versions_trans', 'table_views'))
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentPageVersionTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))

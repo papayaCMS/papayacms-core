@@ -1,78 +1,75 @@
 <?php
 /**
-* Session persistance for request parameters
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Parameters.php 36097 2011-08-15 17:50:29Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Session;
 /**
-* Session persistance for request parameters
-*
-* @package Papaya-Library
-* @subpackage Session
-*/
-class PapayaSessionParameters extends PapayaObject {
+ * Session persistance for request parameters
+ *
+ * @package Papaya-Library
+ * @subpackage Session
+ */
+class Parameters extends \Papaya\Application\BaseObject {
 
   /**
-  * A group identifer for the session data, if an object is provided, it's classname will be used.
-  *
-  * @var object|string
-  */
+   * A group identifer for the session data, if an object is provided, it's classname will be used.
+   *
+   * @var object|string
+   */
   private $_group = NULL;
 
   /**
-  * @var PapayaRequestParameters
-  */
+   * @var \Papaya\Request\Parameters
+   */
   private $_parameters = NULL;
 
   /**
-  * Session values
-  *
-  * @var PapayaSessionValues
-  */
+   * Session values
+   *
+   * @var \Papaya\Session\Values
+   */
   private $_values = NULL;
 
   /**
-  * Initialize object, set a group and the parameters object. The group can be an string or
-  * an object. If it is an object, the classname is used.
-  *
-  * @param object|string $group
-  * @param PapayaRequestParameters $parameters
-  */
-  public function __construct($group, PapayaRequestParameters $parameters) {
+   * Initialize object, set a group and the parameters object. The group can be an string or
+   * an object. If it is an object, the classname is used.
+   *
+   * @param object|string $group
+   * @param \Papaya\Request\Parameters $parameters
+   */
+  public function __construct($group, \Papaya\Request\Parameters $parameters) {
     $this->_group = $group;
     $this->parameters($parameters);
   }
 
   /**
-  * Load a given parameter. The parameter will be read from the session. If it exists in
-  * $parameters it will be read from where and compared to the session value. If they are
-  * different the session value will be changed. If dependencies are provided these parameters
-  * will be removed in this case.
-  *
-  * If only the session value exists the $parameters object will be changed to restore the session
-  * value into the parameters object.
-  *
-  * If a value was found in the $parameters object or the session it will be returned.
-  *
-  * @param string|array $name
-  * @param mixed $default
-  * @param PapayaFilter|NULL $filter
-  * @param array|string $dependencies
-  * @return mixed
-  */
+   * Load a given parameter. The parameter will be read from the session. If it exists in
+   * $parameters it will be read from where and compared to the session value. If they are
+   * different the session value will be changed. If dependencies are provided these parameters
+   * will be removed in this case.
+   *
+   * If only the session value exists the $parameters object will be changed to restore the session
+   * value into the parameters object.
+   *
+   * If a value was found in the $parameters object or the session it will be returned.
+   *
+   * @param string|array $name
+   * @param mixed $default
+   * @param \Papaya\Filter|NULL $filter
+   * @param array|string $dependencies
+   * @return mixed
+   */
   public function load($name, $default = NULL, $filter = NULL, $dependencies = NULL) {
     $sessionName = $this->getIdentifier($name);
     $sessionValue = $this->values()->get($sessionName);
@@ -80,7 +77,7 @@ class PapayaSessionParameters extends PapayaObject {
       $value = $this->parameters()->get($name, $default, $filter);
       $this->values()->set($sessionName, $value);
       if ($sessionValue != $value && !empty($dependencies)) {
-        foreach (PapayaUtilArray::ensure($dependencies) as $dependency) {
+        foreach (\Papaya\Utility\Arrays::ensure($dependencies) as $dependency) {
           $this->remove($dependency);
         }
       }
@@ -94,33 +91,33 @@ class PapayaSessionParameters extends PapayaObject {
   }
 
   /**
-  * Set a parameter and its session value
-  *
-  * @param string|array $name
-  * @param mixed $value
-  */
+   * Set a parameter and its session value
+   *
+   * @param string|array $name
+   * @param mixed $value
+   */
   public function store($name, $value) {
     $this->parameters()->set($name, $value);
     $this->values()->set($this->getIdentifier($name), $value);
   }
 
   /**
-  * Remove a parameter and its session value
-  *
-  * @param string|array $name
-  */
+   * Remove a parameter and its session value
+   *
+   * @param string|array $name
+   */
   public function remove($name) {
     $this->parameters()->remove($name);
     $this->values()->set($this->getIdentifier($name), NULL);
   }
 
   /**
-  * Getter/Setter for the associated request parameters
-  *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
-  */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+   * Getter/Setter for the associated request parameters
+   *
+   * @param \Papaya\Request\Parameters $parameters
+   * @return \Papaya\Request\Parameters
+   */
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     }
@@ -128,12 +125,12 @@ class PapayaSessionParameters extends PapayaObject {
   }
 
   /**
-  * Getter/Setter for the associated session values
-  *
-  * @param PapayaSessionValues $values
-  * @return PapayaSessionValues
-  */
-  public function values(PapayaSessionValues $values = NULL) {
+   * Getter/Setter for the associated session values
+   *
+   * @param \Papaya\Session\Values $values
+   * @return \Papaya\Session\Values
+   */
+  public function values(\Papaya\Session\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {
@@ -143,13 +140,13 @@ class PapayaSessionParameters extends PapayaObject {
   }
 
   /**
-  * Get a clean session identifer
-  *
-  * @param string|array $parameterName
-  * @return array string
-  */
+   * Get a clean session identifer
+   *
+   * @param string|array $parameterName
+   * @return array string
+   */
   private function getIdentifier($parameterName) {
-    $name = new PapayaRequestParametersName($parameterName);
+    $name = new \Papaya\Request\Parameters\Name($parameterName);
     return array($this->_group, $name->getString());
   }
 }

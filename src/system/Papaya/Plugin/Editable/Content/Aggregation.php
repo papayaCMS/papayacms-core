@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable\Content;
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the PapayaPluginEditable interface and
+ * makes implements the \Papaya\Plugin\Editable interface and
  * expects an implementation of the abstract method "createEditor".
  *
- * The method needs to return a PapayaPluginEditor instance.
+ * The method needs to return a \Papaya\Plugin\Editor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait PapayaPluginEditableContentAggregation {
+trait Aggregation {
 
   /**
-   * @var PapayaPluginEditableContent
+   * @var \Papaya\Plugin\Editable\Content
    */
   private $_content;
 
   /**
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
-   * @see PapayaPluginEditable::content()
-   * @param PapayaPluginEditableContent $content
-   * @return PapayaPluginEditableContent
+   * @see \Papaya\Plugin\Editable::content()
+   * @param \Papaya\Plugin\Editable\Content $content
+   * @return \Papaya\Plugin\Editable\Content
    */
-  public function content(PapayaPluginEditableContent $content = NULL) {
+  public function content(\Papaya\Plugin\Editable\Content $content = NULL) {
     if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new PapayaPluginEditableContent();
-      $this->_content->callbacks()->onCreateEditor = function($callbackContext, PapayaPluginEditableContent $content) {
+      $this->_content = new \Papaya\Plugin\Editable\Content();
+      $this->_content->callbacks()->onCreateEditor = function ($callbackContext, \Papaya\Plugin\Editable\Content $content) {
         return $this->createEditor($content);
       };
     }
@@ -50,8 +51,8 @@ trait PapayaPluginEditableContentAggregation {
   }
 
   /**
-   * @param PapayaPluginEditableContent $content
-   * @return PapayaPluginEditor
+   * @param \Papaya\Plugin\Editable\Content $content
+   * @return \Papaya\Plugin\Editor
    */
-  abstract public function createEditor(PapayaPluginEditableContent $content);
+  abstract public function createEditor(\Papaya\Plugin\Editable\Content $content);
 }

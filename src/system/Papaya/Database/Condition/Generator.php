@@ -1,6 +1,34 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-class PapayaDatabaseConditionGenerator {
+namespace Papaya\Database\Condition;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+class Generator {
 
   private $_mapping = NULL;
   private $_databaseAccess = NULL;
@@ -20,17 +48,17 @@ class PapayaDatabaseConditionGenerator {
 
   /**
    *
-   * @param PapayaDatabaseInterfaceAccess|PapayaDatabaseAccess $parent
-   * @param PapayaDatabaseInterfaceMapping $mapping
-   * @throws InvalidArgumentException
+   * @param \Papaya\Database\Interfaces\Access|\Papaya\Database\Access $parent
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @throws \InvalidArgumentException
    */
-  public function __construct($parent, PapayaDatabaseInterfaceMapping $mapping = NULL) {
-    if ($parent instanceof PapayaDatabaseInterfaceAccess) {
+  public function __construct($parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL) {
+    if ($parent instanceof \Papaya\Database\Interfaces\Access) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
-    } elseif ($parent instanceof PapayaDatabaseAccess) {
+    } elseif ($parent instanceof \Papaya\Database\Access) {
       $this->_databaseAccess = $parent;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid parent class %s in %s', get_class($parent), __METHOD__)
       );
     }
@@ -38,20 +66,20 @@ class PapayaDatabaseConditionGenerator {
   }
 
   public function fromArray($filter) {
-    $group = new PapayaDatabaseConditionGroup($this->_databaseAccess, $this->_mapping, 'AND');
+    $group = new \Papaya\Database\Condition\Group($this->_databaseAccess, $this->_mapping, 'AND');
     $this->appendConditions($group, $filter);
     return $group;
   }
 
-  private function appendConditions(PapayaDatabaseConditionGroup $group, $filter, $limit = 42) {
+  private function appendConditions(\Papaya\Database\Condition\Group $group, $filter, $limit = 42) {
     foreach ($filter as $key => $value) {
       if (preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
         $condition = strtoLower($match['type']);
         $field = FALSE !== strpos($match['fields'], ',') ? explode(',', $match['fields']) : $match['fields'];
       } else {
         $definition = explode(',', $key);
-        $field = PapayaUtilArray::get($definition, 0, '');
-        $condition = strtoLower(PapayaUtilArray::get($definition, 1, 'equal'));
+        $field = \Papaya\Utility\Arrays::get($definition, 0, '');
+        $condition = strtoLower(\Papaya\Utility\Arrays::get($definition, 1, 'equal'));
       }
       if ($condition == 'and' && is_array($value)) {
         $this->appendConditions($group->logicalAnd(), $value, $limit - 1);

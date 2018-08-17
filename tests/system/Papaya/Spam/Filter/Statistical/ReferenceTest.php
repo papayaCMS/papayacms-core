@@ -1,58 +1,74 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Spam\Filter\Statistical;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
+class ReferenceTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
-  * @covers PapayaSpamFilterStatisticalReference::loadTotals
-  * @covers PapayaSpamFilterStatisticalReference::getHamCount
-  * @covers PapayaSpamFilterStatisticalReference::getSpamCount
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::loadTotals
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::getHamCount
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::getSpamCount
+   */
   public function testLoad() {
-    $totalsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $totalsDatabaseResult = $this->createMock(\Papaya\Database\Result::class);
     $totalsDatabaseResult
-       ->expects($this->any())
-       ->method('fetchRow')
-       ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
-       ->will(
-         $this->onConsecutiveCalls(
-           array(
-             'spamcategory_ident' => 'ham',
-             'text_count' => '42'
-           ),
-           array(
-             'spamcategory_ident' => 'spam',
-             'text_count' => '2142'
-           ),
-           NULL
-         )
-       );
-    $recordsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
+      ->expects($this->any())
+      ->method('fetchRow')
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
+      ->will(
+        $this->onConsecutiveCalls(
+          array(
+            'spamcategory_ident' => 'ham',
+            'text_count' => '42'
+          ),
+          array(
+            'spamcategory_ident' => 'spam',
+            'text_count' => '2142'
+          ),
+          NULL
+        )
+      );
+    $recordsDatabaseResult = $this->createMock(\Papaya\Database\Result::class);
     $recordsDatabaseResult
-       ->expects($this->any())
-       ->method('fetchRow')
-       ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
-       ->will(
-         $this->onConsecutiveCalls(
-           array(
-             'spamword' => 'papaya',
-             'spamword_count' => '3',
-             'spamcategory_ident' => 'ham'
-           ),
-           array(
-             'spamword' => 'papaya',
-             'spamword_count' => '1',
-             'spamcategory_ident' => 'spam'
-           ),
-           array(
-             'spamword' => 'poker',
-             'spamword_count' => '13',
-             'spamcategory_ident' => 'spam'
-           ),
-           NULL
-         )
-       );
+      ->expects($this->any())
+      ->method('fetchRow')
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
+      ->will(
+        $this->onConsecutiveCalls(
+          array(
+            'spamword' => 'papaya',
+            'spamword_count' => '3',
+            'spamcategory_ident' => 'ham'
+          ),
+          array(
+            'spamword' => 'papaya',
+            'spamword_count' => '1',
+            'spamcategory_ident' => 'spam'
+          ),
+          array(
+            'spamword' => 'poker',
+            'spamword_count' => '13',
+            'spamcategory_ident' => 'spam'
+          ),
+          NULL
+        )
+      );
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
@@ -74,7 +90,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
         )
       );
 
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertTrue($reference->load(array('foo', 'bar'), 2));
     $this->assertAttributeEquals(
@@ -98,16 +114,16 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   */
   public function testLoadWithEmptyWordList() {
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new Reference();
     $this->assertFalse($reference->load(array(), 2));
   }
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   */
   public function testLoadWithDatabaseError() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -121,7 +137,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
       ->with($this->isType('string'), $this->isType('array'))
       ->will($this->returnValue(FALSE));
 
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertFalse($reference->load(array('foo', 'bar'), 2));
   }

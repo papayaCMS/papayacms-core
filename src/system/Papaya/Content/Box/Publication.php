@@ -1,47 +1,42 @@
 <?php
 /**
-* Provide data encapsulation for the content box publication.
-*
-* Allows to load/save the boxes.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Publication.php 39486 2014-03-03 11:50:42Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box publication.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id box id
-* @property integer $groupId box group id
-* @property string $name administration interface box name
-* @property integer $created box creation timestamp
-* @property integer $modified last modification timestamp
-* @property integer $cacheMode box content cache mode (system, none, own)
-* @property integer $cacheTime box content cache time, if mode == own
-* @property integer $publishedFrom publication time limit - start
-* @property integer $publishedTo publication time limit - end
-*/
-class PapayaContentBoxPublication extends PapayaContentBox {
+ * Provide data encapsulation for the content box publication.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id box id
+ * @property integer $groupId box group id
+ * @property string $name administration interface box name
+ * @property integer $created box creation timestamp
+ * @property integer $modified last modification timestamp
+ * @property integer $cacheMode box content cache mode (system, none, own)
+ * @property integer $cacheTime box content cache time, if mode == own
+ * @property integer $publishedFrom publication time limit - start
+ * @property integer $publishedTo publication time limit - end
+ */
+class Publication extends \Papaya\Content\Box {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id
     'id' => 'box_id',
@@ -65,7 +60,7 @@ class PapayaContentBoxPublication extends PapayaContentBox {
     'published_to' => 'box_public_to'
   );
 
-  protected $_tableName = PapayaContentTables::BOX_PUBLICATIONS;
+  protected $_tableName = \Papaya\Content\Tables::BOX_PUBLICATIONS;
 
   public function save() {
     if ($this->id > 0) {

@@ -13,47 +13,50 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\Plugin {
 
-class PapayaPluginEditorTest extends PapayaTestCase {
+  require_once __DIR__.'/../../../bootstrap.php';
 
-  /**
-   * @covers PapayaPluginEditor::__construct
-   * @covers PapayaPluginEditor::getContent
-   */
-  public function testConstructorAndGetContent() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
-    $this->assertSame($content, $editor->getData());
+  class EditorTest extends \Papaya\TestCase {
+
+    /**
+     * @covers \Papaya\Plugin\Editor::__construct
+     * @covers \Papaya\Plugin\Editor::getContent
+     */
+    public function testConstructorAndGetContent() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
+      $content = $this->createMock(Editable\Content::class);
+      $editor = new Editor_TestProxy($content);
+      $this->assertSame($content, $editor->getData());
+    }
+
+    /**
+     * @covers \Papaya\Plugin\Editor::context
+     */
+    public function testContextGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
+      $content = $this->createMock(Editable\Content::class);
+      $editor = new Editor_TestProxy($content);
+      $editor->context($context = $this->createMock(\Papaya\Request\Parameters::class));
+      $this->assertSame($context, $editor->context());
+    }
+
+    /**
+     * @covers \Papaya\Plugin\Editor::context
+     */
+    public function testContextGetImplicitCreate() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
+      $content = $this->createMock(Editable\Content::class);
+      $editor = new Editor_TestProxy($content);
+      $this->assertInstanceOf(\Papaya\Request\Parameters::class, $editor->context());
+    }
+
   }
 
-  /**
-   * @covers PapayaPluginEditor::context
-   */
-  public function testContextGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
-    $editor->context($context = $this->createMock(PapayaRequestParameters::class));
-    $this->assertSame($context, $editor->context());
-  }
+  class Editor_TestProxy extends Editor {
 
-  /**
-   * @covers PapayaPluginEditor::context
-   */
-  public function testContextGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
-    $this->assertInstanceOf(PapayaRequestParameters::class, $editor->context());
-  }
+    public function appendTo(\Papaya\XML\Element $parent) {
 
-}
-
-class PapayaPluginEditor_TestProxy extends PapayaPluginEditor {
-
-  public function appendTo(PapayaXmlElement $parent) {
-
+    }
   }
 }

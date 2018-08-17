@@ -1,21 +1,20 @@
 <?php
 /**
-* Basic topic tree object
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: base_topictree.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
+use Papaya\Cache;
 
 /**
 * Basic topic tree object
@@ -25,7 +24,7 @@
 class base_topic_tree extends base_db {
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -152,21 +151,21 @@ class base_topic_tree extends base_db {
           $this->hasParent($administrationUser->user['start_node'])
         )) {
       if ($this->params['page_id'] != $administrationUser->user['start_node']) {
-        $protocol = PapayaUtilServerProtocol::get();
+        $protocol = \Papaya\Utility\Server\Protocol::get();
         // Set the current user's personal allowed start page
         if ($administrationUser->user['start_node'] > 0) {
-          $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
+          $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
             $this->getLink(array('page_id' => $administrationUser->user['start_node']));
           $this->sessionParams['page_id'] = $administrationUser->user['start_node'];
         } else {
-          $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().$this->baseLink;
+          $toURL = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().$this->baseLink;
           $this->sessionParams['page_id'] = 0;
         }
         $this->setSessionValue($this->sessionParamName, $this->sessionParams);
         if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
           header('X-Papaya-Status: redirecting to allowed subtree');
         }
-        header("Location: $toUrl");
+        header("Location: $toURL");
         exit;
       }
     }
@@ -189,12 +188,12 @@ class base_topic_tree extends base_db {
         }
         break;
       case 'regenerate':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_REPAIR_INDEX)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::PAGE_REPAIR_INDEX)) {
           $this->regeneratePath();
         }
         break;
       case 'refreshpages':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
           $this->refreshPages();
         }
         break;
@@ -267,7 +266,7 @@ class base_topic_tree extends base_db {
     $sql = $baseSql;
     $sql .= " AND ".$this->databaseGetSQLCondition('t.prev', $prevs);
     $administrationUser = $this->papaya()->administrationUser;
-    if (!$administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE)) {
+    if (!$administrationUser->hasPerm(Administration\Permissions::PAGE_TRASH_MANAGE)) {
       $sql .= "AND t.is_deleted = 0 \n";
     }
     $sql .= " ORDER BY t.topic_weight ASC, t.topic_created ASC";
@@ -465,7 +464,7 @@ class base_topic_tree extends base_db {
     unset($this->topics);
     unset($this->topicLinks);
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::PAGE_TRASH_MANAGE)) {
       $filter = '';
     } else {
       $filter = "WHERE t.is_deleted = 0";
@@ -762,7 +761,7 @@ class base_topic_tree extends base_db {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_REPAIR_INDEX)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::PAGE_REPAIR_INDEX)) {
       $menubar->addButton(
         'Check index',
         $this->getLink(array('cmd' => 'regenerate')),
@@ -771,7 +770,7 @@ class base_topic_tree extends base_db {
         FALSE
       );
     }
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
       $menubar->addButton(
         'Empty cache',
         $this->getLink(array('cmd' => 'refreshpages')),
@@ -791,7 +790,7 @@ class base_topic_tree extends base_db {
   * @access public
   */
   function refreshPages() {
-    $cache = PapayaCache::getService($this->papaya()->options);
+    $cache = Cache::getService($this->papaya()->options);
     $counter = $cache->delete();
     if ($counter === TRUE) {
       $this->addMsg(MSG_INFO, 'Cache deleted or invalidated.');
@@ -822,7 +821,7 @@ class base_topic_tree extends base_db {
       $topic = $this->topics[$topicId];
       //edit entries allowed
       $administrationUser = $this->papaya()->administrationUser;
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_MANAGE)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::PAGE_MANAGE)) {
         if ($administrationUser->subLevel == 0) {
           return TRUE;
         }

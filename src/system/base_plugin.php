@@ -1,21 +1,17 @@
 <?php
 /**
-* Superclass for all plugin superclasses
-*
-* @copyright 2002-2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Modules
-* @version $Id: base_plugin.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Superclass for all plugin superclasses
@@ -164,7 +160,8 @@ class base_plugin extends base_object {
 
   /**
   * parent object / owner
-  * @var object|base_topic|PapayaContentPage|NULL
+  *
+  * @var object|base_topic|\Papaya\Content\Page|NULL
   */
   var $parentObj = NULL;
 
@@ -236,7 +233,7 @@ class base_plugin extends base_object {
   * @access public
   */
   function setData($xmlData) {
-    $this->data = PapayaUtilStringXml::unserializeArray($xmlData);
+    $this->data = \Papaya\Utility\Text\XML::unserializeArray($xmlData);
     $this->onLoad();
   }
 
@@ -286,7 +283,7 @@ class base_plugin extends base_object {
   * @return string $result XML-data string
   */
   function getData() {
-    return PapayaUtilStringXml::serializeArray($this->data);
+    return \Papaya\Utility\Text\XML::serializeArray($this->data);
   }
 
   /**
@@ -441,7 +438,7 @@ class base_plugin extends base_object {
   */
   function checkDialogInput() {
     if ($result = $this->dialog->checkDialogInput()) {
-      $this->data = PapayaUtilArray::merge($this->data, $this->dialog->data, 1);
+      $this->data = \Papaya\Utility\Arrays::merge($this->data, $this->dialog->data, 1);
     }
     if (isset($this->dialog->inputErrors)) {
       $this->fieldErrors = $this->dialog->inputErrors;

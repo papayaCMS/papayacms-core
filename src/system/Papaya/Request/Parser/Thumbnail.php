@@ -1,34 +1,32 @@
 <?php
 /**
-* Papaya request parser for media database thumbnail links
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Thumbnail.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for media database thumbnail links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserThumbnail extends PapayaRequestParser {
+ * Papaya request parser for media database thumbnail links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Thumbnail extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:[a-zA-Z\d_-]+\.) # title
     (?P<mode>thumb)\. # mode
@@ -45,7 +43,8 @@ class PapayaRequestParserThumbnail extends PapayaRequestParser {
 
   /**
    * Parse url and return data
-   * @param PapayaUrl $url
+   *
+   * @param \Papaya\URL $url
    * @return FALSE|array
    */
   public function parse($url) {
@@ -58,7 +57,7 @@ class PapayaRequestParserThumbnail extends PapayaRequestParser {
       $result['media_id'] = $matches['id'];
       $result['media_uri'] = $matches['media_uri'];
       if (!empty($matches['version']) &&
-          $matches['version'] > 0) {
+        $matches['version'] > 0) {
         $result['media_version'] = (int)$matches['version'];
       }
       $result['thumbnail_mode'] = $matches['thumbnail_mode'];

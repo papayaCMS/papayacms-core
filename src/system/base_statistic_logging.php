@@ -1,26 +1,23 @@
 <?php
 /**
-* Basic statistic object with logging
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Statistic
-* @version $Id: base_statistic_logging.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Basic statistic object
 * @package Papaya
 * @subpackage Statistic
+ * @deprecated
 */
 class base_statistic_logging extends base_db_statistic {
 
@@ -63,15 +60,15 @@ class base_statistic_logging extends base_db_statistic {
     $request = $application->getObject('Request');
 
     $filename = $request->getParameter(
-      'page_title', 'index', NULL, PapayaRequest::SOURCE_PATH
+      'page_title', 'index', NULL, \Papaya\Request::SOURCE_PATH
     );
     $preview = $request->getParameter(
-      'preview', FALSE, NULL, PapayaRequest::SOURCE_PATH
+      'preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH
     );
 
     $requestId = NULL;
     if ($this->loggable($preview, $filename)) {
-      $protocol = PapayaUtilServerProtocol::get();
+      $protocol = \Papaya\Utility\Server\Protocol::get();
 
       if (defined("PAPAYA_STATISTIC_PRESERVE_IP") && PAPAYA_STATISTIC_PRESERVE_IP) {
         $remoteAddress = $this->getRealIP();
@@ -100,7 +97,7 @@ class base_statistic_logging extends base_db_statistic {
         empty($_SERVER['HTTP_REFERER']) ? '' : (string)$_SERVER['HTTP_REFERER'];
       $dataRequest['user_id'] = $userId;
 
-      $mode = $request->getParameter('mode', '', NULL, PapayaRequest::SOURCE_PATH);
+      $mode = $request->getParameter('mode', '', NULL, \Papaya\Request::SOURCE_PATH);
       switch ($mode) {
       case 'image':
       case 'media':
@@ -109,10 +106,10 @@ class base_statistic_logging extends base_db_statistic {
       case 'download':
         $dataRequest['statistic_server_id'] = PAPAYA_WEBSERVER_IDENT;
         $dataRequest['statistic_media_mode'] = $request->getParameter(
-          'mode', '', NULL, PapayaRequest::SOURCE_PATH
+          'mode', '', NULL, \Papaya\Request::SOURCE_PATH
         );
         $dataRequest['statistic_media_id'] = $request->getParameter(
-          'media_id', '', NULL, PapayaRequest::SOURCE_PATH
+          'media_id', '', NULL, \Papaya\Request::SOURCE_PATH
         );
 
         $this->databaseInsertRecord($this->tableStatisticMediaRequests, NULL, $dataRequest);
@@ -124,24 +121,24 @@ class base_statistic_logging extends base_db_statistic {
           'page_id',
           $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
           NULL,
-          PapayaRequest::SOURCE_PATH
+          \Papaya\Request::SOURCE_PATH
         );
 
         $dataPage['lng_id'] = ((int)$lngId > 0)
           ? (int)$lngId
           : $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 0);
         $dataPage['categ_id'] = $request->getParameter(
-          'category_id', 0, NULL, PapayaRequest::SOURCE_PATH
+          'category_id', 0, NULL, \Papaya\Request::SOURCE_PATH
         );
         $dataPage['statistic_mode'] = $request->getParameter(
           'output_mode',
           $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html'),
           NULL,
-          PapayaRequest::SOURCE_PATH
+          \Papaya\Request::SOURCE_PATH
         );
 
         $dataPage['statistic_filename'] = $request->getParameter(
-          'page_title', '', NULL, PapayaRequest::SOURCE_PATH
+          'page_title', '', NULL, \Papaya\Request::SOURCE_PATH
         );
         $dataPage['statistic_server_id'] = PAPAYA_WEBSERVER_IDENT;
 

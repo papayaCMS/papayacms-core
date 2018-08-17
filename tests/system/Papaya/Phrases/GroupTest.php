@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Phrases;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPhrasesGroupTest extends PapayaTestCase {
+class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaPhrasesGroup
+   * @covers \Papaya\Phrases\Group
    */
   public function testGet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrases $phrases */
-    $phrases = $this->createMock(PapayaPhrases::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
+    $phrases = $this->createMock(\Papaya\Phrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new PapayaPhrasesGroup($phrases, '#default');
+    $group = new Group($phrases, '#default');
     $phrase = $group->get('Test');
-    $this->assertInstanceOf(PapayaUiStringTranslated::class, $phrase);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
   /**
-   * @covers PapayaPhrasesGroup
+   * @covers \Papaya\Phrases\Group
    */
   public function testGetList() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrases $phrases */
-    $phrases = $this->createMock(PapayaPhrases::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
+    $phrases = $this->createMock(\Papaya\Phrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new PapayaPhrasesGroup($phrases, '#default');
+    $group = new Group($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
-    $this->assertInstanceOf(PapayaUiStringTranslatedList::class, $phraseList);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated\Collection::class, $phraseList);
     $list = iterator_to_array($phraseList);
     $this->assertEquals('Success', (string)$list['One']);
   }

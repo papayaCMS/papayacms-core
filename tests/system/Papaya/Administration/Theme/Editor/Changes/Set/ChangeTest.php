@@ -1,21 +1,37 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase {
+class ChangeTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>
@@ -36,29 +52,29 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
         </field>
         <button type="submit" align="right">Add</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
       ->with(42)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Change theme set"/>
         <options>
@@ -79,29 +95,29 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
         </field>
         <button type="submit" align="right">Save</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadRecordFailed() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
       ->with(42)
       ->will($this->returnValue(FALSE));
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>
@@ -122,22 +138,22 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
         </field>
         <button type="submit" align="right">Add</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::callbackSaveValues
+   * @covers Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -147,34 +163,34 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::callbackShowError
+   * @covers Change::callbackShowError
    */
   public function testCallbackShowError() {
-    $errors = $this->createMock(PapayaUiDialogErrors::class);
+    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialog $dialog */
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
 
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
       )
     );
-    $command->callbackShowError(new stdClass, $dialog);
+    $command->callbackShowError(new \stdClass, $dialog);
   }
 }

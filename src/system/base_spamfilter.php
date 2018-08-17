@@ -1,21 +1,17 @@
 <?php
 /**
-* Spam filter base class, collect text and check for spam
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Spamfilter
-* @version $Id: base_spamfilter.php 39605 2014-03-18 15:35:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Spam filter base class, collect text and check for spam
@@ -324,7 +320,7 @@ class base_spamfilter extends base_db {
   */
   function _categorize($tokens, $lngId) {
     $scores = array();
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \Papaya\Spam\Filter\Statistical();
     $probability = $filter->classify('', $tokens, $lngId);
     $scores['HAM'] = 1 - $probability;
     $scores['SPAM'] = $probability;

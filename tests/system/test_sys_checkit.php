@@ -16,7 +16,7 @@
 /** @noinspection PhpDeprecationInspection */
 require_once __DIR__.'/../bootstrap.php';
 
-class PapayaLibSystemCheckitTest extends PapayaTestCase {
+class PapayaLibSystemCheckitTest extends \Papaya\TestCase {
 
 
 

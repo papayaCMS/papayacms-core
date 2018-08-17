@@ -1,64 +1,65 @@
 <?php
 /**
-* File based storage service for papaya
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Media-Storage
-* @version $Id: File.php 39726 2014-04-07 17:32:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Media\Storage\Service;
 /**
-* File based storage service for papaya
-*
-* @package Papaya-Library
-* @subpackage Media-Storage
-*/
-class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
+ * File based storage service for papaya
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Storage
+ */
+class File extends \Papaya\Media\Storage\Service {
 
   /**
-  * base storage directory - will contain subdirectories for each storage group
-  * @var string $_storageDirectory
-  */
+   * base storage directory - will contain subdirectories for each storage group
+   *
+   * @var string $_storageDirectory
+   */
   private $_storageDirectory = '';
 
   /**
-  * subdirectory levels to avoid to many files in one directory
-  * @var integer $_storageDirectoryDepth
-  */
+   * subdirectory levels to avoid to many files in one directory
+   *
+   * @var integer $_storageDirectoryDepth
+   */
   private $_storageDirectoryDepth = 1;
 
   /**
-  * base public directory - public file resources can be linked here for better performance
-  * @var string $_publicDirectory
-  */
+   * base public directory - public file resources can be linked here for better performance
+   *
+   * @var string $_publicDirectory
+   */
   private $_publicDirectory = '';
 
   /**
-  * base public directory url - absolute urls to public linked files
-  * @var string $_publicUrl
-  */
-  private $_publicUrl = '';
+   * base public directory url - absolute urls to public linked files
+   *
+   * @var string $_publicURL
+   */
+  private $_publicURL = '';
 
   /**
-  * Maps mime-types that are acceptable for use with setPublic
-  * to file extensions.
-  *
-  * For example application/x-httpd-php would be unacceptable because
-  * we don't want to accidentally execute the file on the server
-  * instead of delivering it.
-  *
-  * @var array $_mimeTypeToExtension
-  */
+   * Maps mime-types that are acceptable for use with setPublic
+   * to file extensions.
+   *
+   * For example application/x-httpd-php would be unacceptable because
+   * we don't want to accidentally execute the file on the server
+   * instead of delivering it.
+   *
+   * @var array $_mimeTypeToExtension
+   */
   private $_mimeTypeToExtension = array(
     'image/png' => 'png',
     'image/jpeg' => 'jpg',
@@ -67,10 +68,10 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   );
 
   /**
-  * set the base storage directory and other configuration values
-  *
-  * @param PapayaConfiguration $configuration
-  */
+   * set the base storage directory and other configuration values
+   *
+   * @param \Papaya\Configuration $configuration
+   */
   public function setConfiguration($configuration) {
     $this->_storageDirectory = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_DIRECTORY', $this->_storageDirectory
@@ -82,11 +83,11 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
       'PAPAYA_MEDIA_PUBLIC_DIRECTORY', $this->_publicDirectory
     );
     if (!empty($this->_publicDirectory) &&
-        !is_dir($this->_publicDirectory)) {
+      !is_dir($this->_publicDirectory)) {
       $this->_publicDirectory = '';
     }
-    $this->_publicUrl = $configuration->get(
-      'PAPAYA_MEDIA_PUBLIC_URL', $this->_publicUrl
+    $this->_publicURL = $configuration->get(
+      'PAPAYA_MEDIA_PUBLIC_URL', $this->_publicURL
     );
     if (substr($this->_publicDirectory, -1) == '/') {
       $this->_publicDirectory = substr($this->_publicDirectory, 0, -1);
@@ -94,17 +95,18 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * check that the base storage directory exists
-  * @return boolean
-  */
+   * check that the base storage directory exists
+   *
+   * @return boolean
+   */
   protected function _verifyConfiguration() {
     if (!empty($this->_storageDirectory) &&
-        is_dir($this->_storageDirectory) &&
-        is_readable($this->_storageDirectory) &&
-        is_writeable($this->_storageDirectory)) {
+      is_dir($this->_storageDirectory) &&
+      is_readable($this->_storageDirectory) &&
+      is_writeable($this->_storageDirectory)) {
       $lastChar = substr($this->_storageDirectory, -1);
       if ($lastChar == '/' ||
-          $lastChar == DIRECTORY_SEPARATOR) {
+        $lastChar == DIRECTORY_SEPARATOR) {
         $this->_storageDirectory = substr($this->_storageDirectory, 0, -1);
       }
       return TRUE;
@@ -113,13 +115,13 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * get absolute file location for depending on the used directory structure
-  *
-  * @param string $path
-  * @param string $storageId
-  * @param boolean $createPath
-  * @return string|NULL
-  */
+   * get absolute file location for depending on the used directory structure
+   *
+   * @param string $path
+   * @param string $storageId
+   * @param boolean $createPath
+   * @return string|NULL
+   */
   private function _getFileLocation($path, $storageId, $createPath) {
     $result = NULL;
     if (strlen($storageId) > $this->_storageDirectoryDepth) {
@@ -166,13 +168,13 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * get the absolute file location for a storage id
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param boolean $createPath
-  * @return string|NULL
-  */
+   * get the absolute file location for a storage id
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param boolean $createPath
+   * @return string|NULL
+   */
   private function _getStorageFilename($storageGroup, $storageId, $createPath) {
     return $this->_getFileLocation(
       $this->_storageDirectory.DIRECTORY_SEPARATOR.$storageGroup,
@@ -182,17 +184,17 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * Get the absolute file location of the public file (link) for a storage id.
-  *
-  * An apropriate file extension is added, so that the webserver
-  * sets a proper mime-type when delivering the file.
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $mimeType
-  * @param boolean $createPath
-  * @return string|NULL
-  */
+   * Get the absolute file location of the public file (link) for a storage id.
+   *
+   * An apropriate file extension is added, so that the webserver
+   * sets a proper mime-type when delivering the file.
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $mimeType
+   * @param boolean $createPath
+   * @return string|NULL
+   */
   private function _getPublicFilename($storageGroup, $storageId, $mimeType, $createPath) {
     if (empty($this->_publicDirectory)) {
       return NULL;
@@ -209,13 +211,13 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * Return an apropriate file extension
-  * if it isn't already present in the $storageId.
-  *
-  * @param string $storageId
-  * @param string $mimeType
-  * @return string
-  */
+   * Return an apropriate file extension
+   * if it isn't already present in the $storageId.
+   *
+   * @param string $storageId
+   * @param string $mimeType
+   * @return string
+   */
   private function _getPublicExtension($storageId, $mimeType) {
     if (!isset($this->_mimeTypeToExtension[$mimeType])) {
       return '';
@@ -229,28 +231,29 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * check if a storage file exists and is read-/writeable
-  * @param string $storageFilename
-  * @return boolean
-  */
+   * check if a storage file exists and is read-/writeable
+   *
+   * @param string $storageFilename
+   * @return boolean
+   */
   private function _existLocalFile($storageFilename) {
     if (!empty($storageFilename) &&
-        file_exists($storageFilename) &&
-        is_file($storageFilename) &&
-        is_readable($storageFilename) &&
-        is_writeable($storageFilename)) {
+      file_exists($storageFilename) &&
+      is_file($storageFilename) &&
+      is_readable($storageFilename) &&
+      is_writeable($storageFilename)) {
       return TRUE;
     }
     return FALSE;
   }
 
   /**
-  * Get files in the directory that start with a specified string.
-  *
-  * @param string $path
-  * @param string $startsWith
-  * @return array(string) files
-  */
+   * Get files in the directory that start with a specified string.
+   *
+   * @param string $path
+   * @param string $startsWith
+   * @return array(string) files
+   */
   private function _browseDirectory($path, $startsWith = '') {
     $result = array();
     $directories = glob($path.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
@@ -274,32 +277,32 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * Get a list of resource ids in a storage group
-  *
-  * @param string $storageGroup
-  * @param string $startsWith
-  * @return array
-  */
+   * Get a list of resource ids in a storage group
+   *
+   * @param string $storageGroup
+   * @param string $startsWith
+   * @return array
+   */
   public function browse($storageGroup, $startsWith = '') {
     $storagePath = $this->_storageDirectory.DIRECTORY_SEPARATOR.$storageGroup;
     if (file_exists($storagePath) &&
-        is_dir($storagePath) &&
-        is_readable($storagePath)) {
+      is_dir($storagePath) &&
+      is_readable($storagePath)) {
       return $this->_browseDirectory($storagePath, $startsWith);
     }
     return array();
   }
 
   /**
-  * save a resource into the storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param resource|string $content
-  * @param string $mimeType
-  * @param boolean $isPublic
-  * @return boolean
-  */
+   * save a resource into the storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param resource|string $content
+   * @param string $mimeType
+   * @param boolean $isPublic
+   * @return boolean
+   */
   public function store(
     $storageGroup, $storageId, $content, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
@@ -322,15 +325,15 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * save a file into the storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $filename
-  * @param string $mimeType
-  * @param boolean $isPublic
-  * @return boolean
-  */
+   * save a file into the storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $filename
+   * @param string $mimeType
+   * @param boolean $isPublic
+   * @return boolean
+   */
   public function storeLocalFile(
     $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
@@ -345,12 +348,12 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * remove a resource from storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return boolean
-  */
+   * remove a resource from storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return boolean
+   */
   public function remove($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
@@ -360,12 +363,12 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * check if resource exists in storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return boolean
-  */
+   * check if resource exists in storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return boolean
+   */
   public function exists($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
@@ -375,12 +378,12 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * return resource content
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return string|NULL
-  */
+   * return resource content
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return string|NULL
+   */
   public function get($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
@@ -390,15 +393,15 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * output resource content
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param integer $rangeFrom
-  * @param integer $rangeTo
-  * @param integer $bufferSize
-  * @return boolean
-  */
+   * output resource content
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param integer $rangeFrom
+   * @param integer $rangeTo
+   * @param integer $bufferSize
+   * @return boolean
+   */
   public function output(
     $storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0, $bufferSize = 1024
   ) {
@@ -419,14 +422,15 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * Ouutput range of local file
-  * @access protected
-  * @param string $fileName
-  * @param integer $rangeFrom
-  * @param integer $length
-  * @param integer $bufferSize
-  * @return boolean
-  */
+   * Ouutput range of local file
+   *
+   * @access protected
+   * @param string $fileName
+   * @param integer $rangeFrom
+   * @param integer $length
+   * @param integer $bufferSize
+   * @return boolean
+   */
   protected function _outputLocalFile($fileName, $rangeFrom, $length, $bufferSize) {
     if ($fh = fopen($fileName, 'r')) {
       if ($rangeFrom > 0) {
@@ -454,13 +458,13 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * check if stored file is public (is linked in public directory)
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $mimeType
-  * @return boolean $isPublic
-  */
+   * check if stored file is public (is linked in public directory)
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $mimeType
+   * @return boolean $isPublic
+   */
   public function isPublic($storageGroup, $storageId, $mimeType) {
     if ($this->allowPublic()) {
       $publicFilename = $this->_getPublicFilename(
@@ -474,14 +478,14 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * set public status for storage id
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param boolean $isPublic
-  * @param string $mimeType
-  * @return boolean file is now in target status
-  */
+   * set public status for storage id
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param boolean $isPublic
+   * @param string $mimeType
+   * @return boolean file is now in target status
+   */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
     $publicFilename = $this->_getPublicFilename(
       $storageGroup, $storageId, $mimeType, $isPublic
@@ -498,7 +502,7 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
       } else {
         $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
         if ($this->_existLocalFile($storageFilename) &&
-            !file_exists($publicFilename)) {
+          !file_exists($publicFilename)) {
           return @symlink($storageFilename, $publicFilename);
         }
       }
@@ -513,14 +517,14 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * get local file name of storage file and temporary status.
-  *
-  * Temporary status is always FALSE in this service
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return array array('filename' => string, 'is_temporary' => FALSE)
-  */
+   * get local file name of storage file and temporary status.
+   *
+   * Temporary status is always FALSE in this service
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return array array('filename' => string, 'is_temporary' => FALSE)
+   */
   public function getLocalFile($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
@@ -533,20 +537,20 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
-  * get public url for a storage id if file is linked
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $mimeType
-  * @return string|NULL
-  */
-  public function getUrl($storageGroup, $storageId, $mimeType) {
+   * get public url for a storage id if file is linked
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $mimeType
+   * @return string|NULL
+   */
+  public function getURL($storageGroup, $storageId, $mimeType) {
     if (strlen($storageId) > $this->_storageDirectoryDepth) {
       $publicFilename = $this->_getPublicFilename(
         $storageGroup, $storageId, $mimeType, FALSE
       );
       if ($this->_existLocalFile($publicFilename)) {
-        $result = $this->_publicUrl.$storageGroup;
+        $result = $this->_publicURL.$storageGroup;
         for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
           $result .= '/'.substr($storageId, $offset, 1);
         }

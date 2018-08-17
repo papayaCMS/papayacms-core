@@ -1,22 +1,19 @@
 <?php
 /**
-* Load/save a domain record
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Domain.php 39479 2014-03-03 10:47:14Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content;
 /**
  * Load/save a domain record
  *
@@ -30,36 +27,36 @@
  * @property int $mode
  * @property string $data
  * @property array $options
-*/
-class PapayaContentDomain extends PapayaDatabaseRecord {
+ */
+class Domain extends \Papaya\Database\Record {
 
   /**
-  * No special handling
-  */
+   * No special handling
+   */
   const MODE_DEFAULT = 0;
   /**
-  * Redirect to another domain - keep request uri
-  */
+   * Redirect to another domain - keep request uri
+   */
   const MODE_REDIRECT_DOMAIN = 1;
   /**
-  * Redirct to a specific page on another domain
-  */
+   * Redirct to a specific page on another domain
+   */
   const MODE_REDIRECT_PAGE = 2;
   /**
-  * Redirect to a start page in a specific language
-  */
+   * Redirect to a start page in a specific language
+   */
   const MODE_REDIRECT_LANGUAGE = 3;
   /**
-  * Restrict access to a part of the page tree and allow to change options
-  * This works like virtual servers.
-  */
+   * Restrict access to a part of the page tree and allow to change options
+   * This works like virtual servers.
+   */
   const MODE_VIRTUAL_DOMAIN = 4;
 
   /**
-  * Mapping fields
-  *
-  * @var array
-  */
+   * Mapping fields
+   *
+   * @var array
+   */
   protected $_fields = array(
     'id' => 'domain_id',
     'host' => 'domain_hostname',
@@ -71,21 +68,21 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
   );
 
   /**
-  * Table containing domain informations
-  *
-  * @var string
-  */
-  protected $_tableName = PapayaContentTables::DOMAINS;
+   * Table containing domain informations
+   *
+   * @var string
+   */
+  protected $_tableName = \Papaya\Content\Tables::DOMAINS;
 
   /**
-  * Create the mapping objects and set callbacks to handle the
-  * special fields like "domain_options" and "domain_hostlength"
-  *
-  * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
-  * used to order the domain lists in some cases.
-  *
-  * @return PapayaDatabaseRecordMapping
-  */
+   * Create the mapping objects and set callbacks to handle the
+   * special fields like "domain_options" and "domain_hostlength"
+   *
+   * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
+   * used to order the domain lists in some cases.
+   *
+   * @return \Papaya\Database\Record\Mapping
+   */
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValue = array($this, 'callbackFieldSerialization');
@@ -105,26 +102,26 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
    */
   public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
     if ($property == 'options') {
-      if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
-        return PapayaUtilStringXml::serializeArray($value);
+      if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
+        return \Papaya\Utility\Text\XML::serializeArray($value);
       } else {
-        return PapayaUtilStringXml::unserializeArray($value);
+        return \Papaya\Utility\Text\XML::unserializeArray($value);
       }
     }
     return $value;
   }
 
   /**
-  * Update the host length field before storing the data
-  *
-  * @param object $context
-  * @param integer $mode
-  * @param array $values
-  * @param array $record
-  * @return array
-  */
+   * Update the host length field before storing the data
+   *
+   * @param object $context
+   * @param integer $mode
+   * @param array $values
+   * @param array $record
+   * @return array
+   */
   public function callbackUpdateHostLength($context, $mode, $values, $record) {
-    if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
       $result = $record;
       $result['domain_hostlength'] = strlen($record['domain_hostname']);
     } else {

@@ -122,7 +122,7 @@ class papaya_modulemanager extends base_db {
   public $tableStruct = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -154,14 +154,14 @@ class papaya_modulemanager extends base_db {
    */
   public function prependModulePath($path) {
     $map = array(
-      'vendor:' => PapayaUtilFilePath::getVendorPath(),
-      'src:' => PapayaUtilFilePath::getSourcePath()
+      'vendor:' => \Papaya\Utility\File\Path::getVendorPath(),
+      'src:' => \Papaya\Utility\File\Path::getSourcePath()
     );
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
-        $basePath = PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $basePath = \Papaya\Utility\File\Path::getDocumentRoot().$mapPath;
         $relativePath = substr($path, strlen($prefix));
-        return PapayaUtilFilePath::cleanup(
+        return \Papaya\Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
@@ -317,7 +317,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -359,9 +359,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['field']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['field'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['field'])
         ) {
           $changed = $this->databaseDropField(
             $this->getTableFullName($this->params['table']),
@@ -379,7 +379,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -419,9 +419,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['index']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['index'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['index'])
         ) {
           $changed = $this->databaseDropIndex(
             $this->getTableFullName($this->params['table']), $this->params['index']
@@ -437,7 +437,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['table_action_confirm']) &&
           $this->params['table_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -955,7 +955,7 @@ class papaya_modulemanager extends base_db {
       $sql = "SELECT module_path, module_glyph
                 FROM %s
                WHERE module_guid = '%s'";
-      $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, array($tableModules, $_GET['module']))) {
         if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $pattern = '(^((?:script)/)([\w-]+\.(js|vbs|css|html|xml))$)D';
@@ -1086,7 +1086,7 @@ class papaya_modulemanager extends base_db {
                      module_file, module_path, module_glyph, modulegroup_id
                 FROM %s
                ORDER BY module_guid";
-      $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
         $modInDatabase = array();
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1188,7 +1188,7 @@ class papaya_modulemanager extends base_db {
     if (isset($this->packages) && is_array($this->packages)) {
       if (
         FALSE !== $this->databaseEmptyTable(
-          $this->databaseGetTableName(PapayaContentTables::MODULE_GROUPS)
+          $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS)
         )
       ) {
         $idx = 1;
@@ -1214,7 +1214,7 @@ class papaya_modulemanager extends base_db {
         }
         if (isset($data) && is_array($data) && count($data) > 0) {
           $this->databaseInsertRecords(
-            $this->databaseGetTableName(PapayaContentTables::MODULE_GROUPS), $data
+            $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS), $data
           );
           return TRUE;
         }
@@ -1234,7 +1234,7 @@ class papaya_modulemanager extends base_db {
   function updatePackageStatus($pkgId, $activate) {
     return (
       FALSE !== $this->databaseUpdateRecord(
-        $this->databaseGetTableName(PapayaContentTables::MODULES),
+        $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
         array('module_active' => ($activate) ? 1 : 0),
         array('modulegroup_id' => $pkgId)
       )
@@ -1252,7 +1252,7 @@ class papaya_modulemanager extends base_db {
   function updateModuleStatus($moduleId, $activate) {
     return (
       FALSE !== $this->databaseUpdateRecord(
-        $this->databaseGetTableName(PapayaContentTables::MODULES),
+        $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
         array('module_active' => ($activate) ? 1 : 0),
         array('module_guid' => $moduleId)
       )
@@ -1266,13 +1266,13 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getVendorPath()),
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getSourcePath())
+      \Papaya\Utility\File\Path::cleanup(\Papaya\Utility\File\Path::getDocumentRoot().\Papaya\Utility\File\Path::getVendorPath()),
+      \Papaya\Utility\File\Path::cleanup(\Papaya\Utility\File\Path::getDocumentRoot().\Papaya\Utility\File\Path::getSourcePath())
     );
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {
         $this->addMsg(
-          PapayaMessage::SEVERITY_INFO,
+          \Papaya\Message::SEVERITY_INFO,
           sprintf(
             $this->_gt('Scanning %s'), $path
           )
@@ -1280,7 +1280,7 @@ class papaya_modulemanager extends base_db {
         $this->scanDirectory($path);
       } else {
         $this->addMsg(
-          PapayaMessage::SEVERITY_INFO,
+          \Papaya\Message::SEVERITY_INFO,
           sprintf(
             $this->_gt('Not readable: %s'), $path
           )
@@ -1372,7 +1372,7 @@ class papaya_modulemanager extends base_db {
    * @return array|FALSE array $packageData or boolean FALSE
    */
   function loadPackageFile($packageFileName) {
-    $dom = new PapayaXmlDocument();
+    $dom = new \Papaya\XML\Document();
     if (file_exists($packageFileName) && $dom->load($packageFileName)) {
       $packageData = array(
         'modulegroup_title' => '',
@@ -1397,7 +1397,7 @@ class papaya_modulemanager extends base_db {
       foreach ($xpath->evaluate('/*/author') as $node) {
         $packageData['modulegroup_authors'][] = $node->nodeValue;
       }
-      /** @var PapayaXmlElement $moduleNode */
+      /** @var \Papaya\XML\Element $moduleNode */
       foreach ($xpath->evaluate('/*/modules/module') as $moduleNode) {
         $moduleData = array(
           'type' => '',
@@ -1523,7 +1523,7 @@ class papaya_modulemanager extends base_db {
                    modulegroup_prefix, modulegroup_classes
               FROM %s
              ORDER BY modulegroup_title";
-    $groupTable = $this->databaseGetTableName(PapayaContentTables::MODULE_GROUPS);
+    $groupTable = $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS);
     if ($res = $this->databaseQueryFmt($sql, $groupTable)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->packages[(int)$row['modulegroup_id']] = $row;
@@ -1541,7 +1541,7 @@ class papaya_modulemanager extends base_db {
     $sql = "SELECT modulegroup_id, module_active, count(module_guid) as counted
               FROM %s
              GROUP BY modulegroup_id, module_active";
-    $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+    $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
     if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $active = (bool)$row['module_active'];
@@ -1589,7 +1589,7 @@ class papaya_modulemanager extends base_db {
                 FROM %s
                WHERE $filter
                ORDER BY module_guid";
-      $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           if (isset($this->modules[$row['module_guid']])) {
@@ -1629,7 +1629,7 @@ class papaya_modulemanager extends base_db {
               FROM %s
              WHERE module_type = '%s' AND module_active = 1";
     $params = array(
-      $this->databaseGetTableName(PapayaContentTables::MODULES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
       $moduleType
     );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
@@ -1657,7 +1657,7 @@ class papaya_modulemanager extends base_db {
                     module_active
                 FROM %s
               WHERE module_guid = '%s'";
-      $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, array($tableModules, $moduleId))) {
         if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $this->module = $row;
@@ -1755,7 +1755,7 @@ class papaya_modulemanager extends base_db {
         'fields' => array(),
         'keys' => array(),
       );
-      $xmlTree = PapayaXmlDocument::createFromXml(file_get_contents($xmlFileName), TRUE);
+      $xmlTree = \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName), TRUE);
       if (
         isset($xmlTree) &&
         isset($xmlTree->documentElement) &&
@@ -2071,7 +2071,7 @@ class papaya_modulemanager extends base_db {
       'module_title' => $this->params['module_title']
     );
     return FALSE !== $this->databaseUpdateRecord(
-      $this->databaseGetTableName(PapayaContentTables::MODULES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
       $data,
       'module_guid',
       $this->params['module_id']
@@ -2112,8 +2112,8 @@ class papaya_modulemanager extends base_db {
    */
   function getPackageListView() {
     if (isset($this->packages) && is_array($this->packages)) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Packages');
+      $listview = new \Papaya\UI\Listview();
+      $listview->caption = new \Papaya\UI\Text\Translated('Packages');
       $listview->parameterGroup($this->paramName);
       foreach ($this->packages as $package) {
 
@@ -2152,11 +2152,11 @@ class papaya_modulemanager extends base_db {
           break;
         case PAPAYA_MODULE_TABLE_MISSING :
           $statusImage = 'status-sign-warning';
-          $statusText = new PapayaUiStringTranslated('Missing tables.');
+          $statusText = new \Papaya\UI\Text\Translated('Missing tables.');
           break;
         case PAPAYA_MODULE_TABLE_ERROR :
           $statusImage = 'status-sign-problem';
-          $statusText = new PapayaUiStringTranslated('Invalid table structures.');
+          $statusText = new \Papaya\UI\Text\Translated('Invalid table structures.');
           break;
         default :
           $statusImage = FALSE;
@@ -2164,7 +2164,7 @@ class papaya_modulemanager extends base_db {
           break;
         }
 
-        $item = new PapayaUiListviewItem(
+        $item = new \Papaya\UI\Listview\Item(
           $itemImage,
           $package['modulegroup_title'].' ('.$moduleStatus.')',
           array(
@@ -2174,10 +2174,10 @@ class papaya_modulemanager extends base_db {
           ),
           $selected
         );
-        $item->subitems[] = new PapayaUiListviewSubitemImage($statusImage, $statusText);
+        $item->subitems[] = new \Papaya\UI\Listview\Subitem\Image($statusImage, $statusText);
         $listview->items[] = $item;
       }
-      $this->layout->addLeft($listview->getXml());
+      $this->layout->addLeft($listview->getXML());
     }
   }
 
@@ -2223,7 +2223,7 @@ class papaya_modulemanager extends base_db {
           '/',
           $this->papaya()->plugins->getFileName($this->module['module_guid'])
         );
-        $root = PapayaUtilFilePath::getDocumentRoot();
+        $root = \Papaya\Utility\File\Path::getDocumentRoot();
         if (0 === strpos($fileName, $root)) {
           $fileName = substr($fileName, strlen($root));
         } elseif ($position = strpos($fileName, '/vendor/')) {
@@ -3345,7 +3345,7 @@ class papaya_modulemanager extends base_db {
    */
   function resetModuleNames() {
     $sql = "UPDATE %s SET module_title = module_title_org";
-    $tableModules = $this->databaseGetTableName(PapayaContentTables::MODULES);
+    $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
     return (FALSE !== $this->databaseQueryFmtWrite($sql, $tableModules));
   }
 
@@ -3361,7 +3361,7 @@ class papaya_modulemanager extends base_db {
         $this->module['module_guid'],
         $this
       );
-      if ($pluginObject instanceof \PapayaPluginAdaptable) {
+      if ($pluginObject instanceof \Papaya\Plugin\Adaptable) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/rightcol');
         if ($editor = $pluginObject->options()->editor()) {
           $editor->context()->merge(
@@ -3597,7 +3597,7 @@ class papaya_modulemanager extends base_db {
             if (!empty($this->params['offset']) && $this->params['offset'] > 0) {
               $offset = (int)$this->params['offset'];
             }
-            $csvReader = new PapayaCsvReader($file);
+            $csvReader = new \Papaya\CSV\Reader($file);
             try {
               $csvReader->isValid(TRUE);
               $emptyTable = ($offset == 0);

@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Filter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorFilterRegexTest extends PapayaTestCase {
+class RegExTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaIteratorFilterRegex::__construct
-  */
+   * @covers \Papaya\Iterator\Filter\RegEx::__construct
+   */
   public function testConstructor() {
-    $filter = new PapayaIteratorFilterRegex(new ArrayIterator(array()), '(pattern)');
+    $filter = new RegEx(new \ArrayIterator(array()), '(pattern)');
     $this->assertAttributeEquals(
       '(pattern)', '_pattern', $filter
     );
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::__construct
-  */
+   * @covers \Papaya\Iterator\Filter\RegEx::__construct
+   */
   public function testConstructorWithAllArguments() {
-    $filter = new PapayaIteratorFilterRegex(
-      new ArrayIterator(array()), '(pattern)', 42, PapayaIteratorFilterRegex::FILTER_BOTH
+    $filter = new RegEx(
+      new \ArrayIterator(array()), '(pattern)', 42, RegEx::FILTER_BOTH
     );
     $this->assertAttributeEquals(
       42, '_offset', $filter
     );
     $this->assertAttributeEquals(
-      PapayaIteratorFilterRegex::FILTER_BOTH, '_target', $filter
+      RegEx::FILTER_BOTH, '_target', $filter
     );
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::accept
-  * @covers PapayaIteratorFilterRegex::isMatch
-  */
+   * @covers \Papaya\Iterator\Filter\RegEx::accept
+   * @covers \Papaya\Iterator\Filter\RegEx::isMatch
+   */
   public function testAccept() {
     $data = array(
       'ok' => 'offset pattern',
       'fail string' => 'wrong',
       'fail offset' => 'pattern',
     );
-    $filter = new PapayaIteratorFilterRegex(
-      new ArrayIterator($data), '(pattern)', 4
+    $filter = new RegEx(
+      new \ArrayIterator($data), '(pattern)', 4
     );
     $this->assertEquals(
       array('ok' => 'offset pattern'),
@@ -62,17 +63,17 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::accept
-  * @covers PapayaIteratorFilterRegex::isMatch
-  */
+   * @covers \Papaya\Iterator\Filter\RegEx::accept
+   * @covers \Papaya\Iterator\Filter\RegEx::isMatch
+   */
   public function testAcceptUsingKeys() {
     $data = array(
       'ok' => 'offset pattern',
       'fail string' => 'wrong',
       'fail offset' => 'pattern',
     );
-    $filter = new PapayaIteratorFilterRegex(
-      new ArrayIterator(array_flip($data)), '(pattern)', 4, PapayaIteratorFilterRegex::FILTER_KEYS
+    $filter = new RegEx(
+      new \ArrayIterator(array_flip($data)), '(pattern)', 4, RegEx::FILTER_KEYS
     );
     $this->assertEquals(
       array('offset pattern' => 'ok'),

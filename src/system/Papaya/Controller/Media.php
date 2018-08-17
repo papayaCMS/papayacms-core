@@ -1,84 +1,87 @@
 <?php
 /**
-* Papaya controller superclass with media database access
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Controller
-* @version $Id: Media.php 39323 2014-02-21 20:35:12Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Controller;
 
 /**
-* Papaya controller superclass with media database access
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerMedia extends PapayaObject implements PapayaController {
+ * Papaya controller superclass with media database access
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller {
 
-  private $_mediaDatabase = NULL;
-
-    /**
-  * Execute controller
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+  /**
+   * @var \base_mediadb
    */
-  function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+  private $_mediaDatabase;
+
+  /**
+   * Execute controller
+   *
+   * @param \Papaya\Application $application
+   * @param \Papaya\Request &$request
+   * @param \Papaya\Response &$response
+   * @return boolean|\Papaya\Controller
+   */
+  public function execute(
+    /** @noinspection ReferencingObjectsInspection */
+    \Papaya\Application $application,
+    \Papaya\Request &$request,
+    \Papaya\Response &$response
   ) {
     $this->papaya($application);
+    /** @var \Papaya\Request $request */
     $request = $application->getObject('Request');
-    $isPreview = $request->getParameter('preview', '', NULL, PapayaRequest::SOURCE_PATH);
-    $mediaId = $request->getParameter('media_id', '', NULL, PapayaRequest::SOURCE_PATH);
+    $isPreview = $request->getParameter('preview', '', NULL, \Papaya\Request::SOURCE_PATH);
+    $mediaId = $request->getParameter('media_id', '', NULL, \Papaya\Request::SOURCE_PATH);
     $mediaVersion = $request->getParameter(
-      'media_version', 0, NULL, PapayaRequest::SOURCE_PATH
+      'media_version', 0, NULL, \Papaya\Request::SOURCE_PATH
     );
     if (!empty($mediaId)) {
       $file = $this->getMediaDatabase()->getFile($mediaId, $mediaVersion);
       if ($file) {
         if ($isPreview) {
           return $this->_outputPreviewFile($file);
-        } else {
-          return $this->_outputPublicFile($file);
         }
-      } else {
-        return PapayaControllerFactory::createError(
-          404, 'MEDIA_NO_RECORD', 'File record not found'
-        );
+        return $this->_outputPublicFile($file);
       }
-    } else {
-      return PapayaControllerFactory::createError(
-        404, 'MEDIA_EMPTY_ID', 'Empty media id'
+      return Factory::createError(
+        404, 'MEDIA_NO_RECORD', 'File record not found'
       );
     }
+    return Factory::createError(
+      404, 'MEDIA_EMPTY_ID', 'Empty media id'
+    );
   }
 
   /**
-  * Determine if the current surfer has the permission to retrieve the requested file.
-  * @param array $file
-  * @return boolean
-  */
+   * Determine if the current surfer has the permission to retrieve the requested file.
+   *
+   * @param array $file
+   * @return boolean
+   */
   protected function _outputPublicFile($file) {
     $folderPermissions = $this->getMediaDatabase()->getFolderPermissions($file['folder_id']);
     if (!isset($folderPermissions['surfer_view']) &&
-        !isset($folderPermissions['surfer_edit'])) {
+      !isset($folderPermissions['surfer_edit'])) {
       //make public
       $this->_outputFile($file);
       return TRUE;
-    } elseif (isset($folderPermissions['surfer_view'])) {
+    }
+    if (isset($folderPermissions['surfer_view'])) {
       $surfer = $this->papaya()->getObject('Surfer');
       // the surfer has one of the folder permissions
       if ($surfer->hasOnePermOf(array_keys($folderPermissions['surfer_view']))) {
@@ -91,6 +94,7 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
 
   /**
    * Determine if current admin user is valid to send given file to client
+   *
    * @param array $file
    * @return bool
    */
@@ -99,39 +103,41 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
     if ($user->isLoggedIn()) {
       $this->_outputFile($file);
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
-  * Stop current session and send given file to client
-  * @param array $file
-  */
+   * Stop current session and send given file to client
+   *
+   * @param array $file
+   */
   protected function _outputFile($file) {
     // @codeCoverageIgnoreStart
     $session = $this->papaya()->getObject('Session');
     $session->close();
-    papaya_file_delivery::outputFile($file['fileName'], $file);
+    \papaya_file_delivery::outputFile($file['fileName'], $file);
   }
   // @codeCoverageIgnoreEnd
 
   /**
-  * Set media database object
-  * @param base_mediadb $mediaDatabase
-  * @return void
-  */
+   * Set media database object
+   *
+   * @param \base_mediadb $mediaDatabase
+   * @return void
+   */
   public function setMediaDatabase($mediaDatabase) {
     $this->_mediaDatabase = $mediaDatabase;
   }
 
   /**
-  * Get media database object (implicit create)
-  * @return base_mediadb
-  */
+   * Get media database object (implicit create)
+   *
+   * @return \base_mediadb
+   */
   public function getMediaDatabase() {
-    if (is_null($this->_mediaDatabase)) {
-      $this->_mediaDatabase = new base_mediadb();
+    if (NULL === $this->_mediaDatabase) {
+      $this->_mediaDatabase = new \base_mediadb();
     }
     return $this->_mediaDatabase;
   }

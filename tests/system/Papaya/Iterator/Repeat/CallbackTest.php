@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
+class CallbackTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaIteratorRepeatCallback
-  */
+   * @covers \Papaya\Iterator\Repeat\Callback
+   */
   public function testIteration() {
-    $iterator = new PapayaIteratorRepeatCallback(array($this, 'incrementToThree'), 0);
+    $iterator = new Callback(array($this, 'incrementToThree'), 0);
     $this->assertEquals(
       array(1, 2, 3),
       iterator_to_array($iterator)
@@ -29,10 +30,10 @@ class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorRepeatCallback
-  */
+   * @covers \Papaya\Iterator\Repeat\Callback
+   */
   public function testIterationAfterRewind() {
-    $iterator = new PapayaIteratorRepeatCallback(array($this, 'incrementToThree'), 0);
+    $iterator = new Callback(array($this, 'incrementToThree'), 0);
     iterator_to_array($iterator);
     $this->assertEquals(
       array(1, 2, 3),
@@ -41,12 +42,12 @@ class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorRepeatCallback
-  */
+   * @covers \Papaya\Iterator\Repeat\Callback
+   */
   public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid callback provided.');
-    new PapayaIteratorRepeatCallback(NULL);
+    new Callback(NULL);
   }
 
   public function incrementToThree($value, $key) {

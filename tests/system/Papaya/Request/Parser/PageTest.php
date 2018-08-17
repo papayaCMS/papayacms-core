@@ -13,27 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParserPageTest extends PapayaTestCase {
+class PageTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaRequestParserPage::parse
+   * @covers       \Papaya\Request\Parser\Page::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUrl $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL $url */
     $url = $this
-      ->getMockBuilder(PapayaUrl::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array('getPath'))
       ->getMock();
     $url
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new PapayaRequestParserPage();
+    $parser = new Page();
     $this->assertSame(
       $expected,
       $parser->parse($url)
@@ -41,8 +43,8 @@ class PapayaRequestParserPageTest extends PapayaTestCase {
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function parseDataProvider() {
     return array(

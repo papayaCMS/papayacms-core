@@ -1,36 +1,33 @@
 <?php
 /**
-* An file change notifier, other use this class to notify an url or shell script about a
-* file they have changed. (added, delete, modified)
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-* @version $Id: Notifier.php 39480 2014-03-03 10:49:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\File\System\Change;
 /**
-* An filter iterator to filter an given iterator using a pcre pattern.
-*
-* The elements of the inner iterator are casted to string, so they can be objects implemening
-* the __toString method.
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemChangeNotifier {
+ * An filter iterator to filter an given iterator using a pcre pattern.
+ *
+ * The elements of the inner iterator are casted to string, so they can be objects implemening
+ * the __toString method.
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Notifier {
 
   /**
    * File/directory was added
+   *
    * @var string
    */
   const ACTION_ADD = 'A';
@@ -43,23 +40,26 @@ class PapayaFileSystemChangeNotifier {
   const ACTION_MODIFIED = 'M';
   /**
    * File/directory was deleted
+   *
    * @var string
    */
   const ACTION_DELETED = 'D';
   /**
    * Directory was cleared (all files/subdirectories were deleted)
+   *
    * @var string
    */
   const ACTION_CLEARED = 'C';
 
   /**
    * Directory was invalidated (the files/directories are not up to date but they are not deleted)
+   *
    * @var string
    */
   const ACTION_INVALIDATED = 'I';
 
   /**
-   * @var PapayaFileSystemAction
+   * @var \Papaya\File\System\Action
    */
   private $_action = NULL;
 
@@ -80,9 +80,9 @@ class PapayaFileSystemChangeNotifier {
    */
   public function setTarget($target) {
     if (preg_match('(^https?://)', $target)) {
-      $this->_action = new PapayaFileSystemActionUrl($target);
+      $this->_action = new \Papaya\File\System\Action\URL($target);
     } elseif (!empty($target)) {
-      $this->_action = new PapayaFileSystemActionScript($target);
+      $this->_action = new \Papaya\File\System\Action\Script($target);
     } else {
       $this->_action = NULL;
     }
@@ -113,10 +113,10 @@ class PapayaFileSystemChangeNotifier {
   /**
    * Get/Set the notifier action object, this will be set from setTarget usually.
    *
-   * @param PapayaFileSystemAction $action
-   * @return \PapayaFileSystemAction
+   * @param \Papaya\File\System\Action $action
+   * @return \Papaya\File\System\Action
    */
-  public function action(PapayaFileSystemAction $action = NULL) {
+  public function action(\Papaya\File\System\Action $action = NULL) {
     if (isset($action)) {
       $this->_action = $action;
     }

@@ -13,30 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginOptionsTest extends PapayaTestCase {
+class OptionsTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaPluginOptions::__construct
-  */
+   * @covers \Papaya\Plugin\Options::__construct
+   */
   public function testConstructor() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $this->assertAttributeEquals(
       'ab123456789012345678901234567890', '_guid', $options
     );
   }
 
   /**
-  * @covers PapayaPluginOptions::load
-  * @covers PapayaPluginOptions::getStatus
-  * @covers PapayaPluginOptions::getIterator
-  */
+   * @covers \Papaya\Plugin\Options::load
+   * @covers \Papaya\Plugin\Options::getStatus
+   * @covers \Papaya\Plugin\Options::getIterator
+   */
   public function testLoad() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->load($this->getStorageFixture(array('SAMPLE_OPTION' => '42'), TRUE));
     $this->assertEquals(
-      PapayaPluginOptions::STATUS_LOADED, $options->getStatus()
+      Options::STATUS_LOADED, $options->getStatus()
     );
     $this->assertEquals(
       array(
@@ -47,11 +48,11 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginOptions::get
-  * @covers PapayaPluginOptions::lazyLoad
-  */
+   * @covers \Papaya\Plugin\Options::get
+   * @covers \Papaya\Plugin\Options::lazyLoad
+   */
   public function testGet() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->storage($this->getStorageFixture(array('SAMPLE_OPTION' => '42')));
     $this->assertEquals(
       '42', $options['SAMPLE_OPTION']
@@ -59,12 +60,12 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginOptions::get
-  * @covers PapayaPluginOptions::set
-  * @covers PapayaPluginOptions::lazyLoad
-  */
+   * @covers \Papaya\Plugin\Options::get
+   * @covers \Papaya\Plugin\Options::set
+   * @covers \Papaya\Plugin\Options::lazyLoad
+   */
   public function testGetAfterSet() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->storage($this->getStorageFixture(array('SAMPLE_OPTION' => '42')));
     $options['SAMPLE_OPTION'] = '21';
     $this->assertEquals(
@@ -73,49 +74,49 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginOptions::has
-  * @covers PapayaPluginOptions::lazyLoad
-  */
+   * @covers \Papaya\Plugin\Options::has
+   * @covers \Papaya\Plugin\Options::lazyLoad
+   */
   public function testHasExpectingTrue() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->storage($this->getStorageFixture(array('SAMPLE_OPTION' => '42')));
     $this->assertTrue($options->has('SAMPLE_OPTION'));
   }
 
   /**
-  * @covers PapayaPluginOptions::has
-  * @covers PapayaPluginOptions::lazyLoad
-  */
+   * @covers \Papaya\Plugin\Options::has
+   * @covers \Papaya\Plugin\Options::lazyLoad
+   */
   public function testHasExpectingFalse() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->storage($this->getStorageFixture(array('SAMPLE_OPTION' => '42')));
     $this->assertFalse($options->has('INVALID_OPTION'));
   }
 
   /**
-  * @covers PapayaPluginOptions::storage
-  */
+   * @covers \Papaya\Plugin\Options::storage
+   */
   public function testStorageGetAfterSet() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
+    $options = new Options('ab123456789012345678901234567890');
     $options->storage($storage = $this->getStorageFixture());
     $this->assertSame($storage, $options->storage());
   }
 
   /**
-  * @covers PapayaPluginOptions::storage
-  */
+   * @covers \Papaya\Plugin\Options::storage
+   */
   public function testStorageImplicitCreate() {
-    $options = new PapayaPluginOptions('ab123456789012345678901234567890');
-    $this->assertInstanceOf(PapayaConfigurationStorage::class, $options->storage());
+    $options = new Options('ab123456789012345678901234567890');
+    $this->assertInstanceOf(\Papaya\Configuration\Storage::class, $options->storage());
   }
 
   /**
    * @param array $data
    * @param bool $requireLoading
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaConfigurationStorage
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Configuration\Storage
    */
   public function getStorageFixture(array $data = array(), $requireLoading = FALSE) {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(\Papaya\Configuration\Storage::class);
     $storage
       ->expects($requireLoading ? $this->once() : $this->any())
       ->method('load')
@@ -123,7 +124,7 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
     $storage
       ->expects($this->any())
       ->method('getIterator')
-      ->will($this->returnValue(new ArrayIterator($data)));
+      ->will($this->returnValue(new \ArrayIterator($data)));
     return $storage;
   }
 }

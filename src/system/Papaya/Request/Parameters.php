@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 /**
-* Papaya Request Parameters Handling
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParameters extends PapayaObjectParameters {
+ * Papaya Request Parameters Handling
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Parameters extends \Papaya\BaseObject\Parameters {
 
   public static function createFromString($queryString) {
-    $queryParameters = new PapayaRequestParametersQuery();
+    $queryParameters = new Parameters\QueryString();
     $queryParameters->setString($queryString);
     $parameters = new self();
     $parameters->assign($queryParameters->values());
@@ -30,15 +31,16 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   }
 
   /**
-  * Get a subgroup of parameters
-  * @param string $groupName
-  * @return PapayaRequestParameters
-  */
+   * Get a subgroup of parameters
+   *
+   * @param string $groupName
+   * @return self
+   */
   public function getGroup($groupName) {
     $result = new self();
     if (isset($this[$groupName])) {
       $value = $this[$groupName];
-      if (is_array($value) || $value instanceof Traversable) {
+      if (is_array($value) || $value instanceof \Traversable) {
         $result->merge($this[$groupName]);
       }
     }
@@ -49,13 +51,13 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * Get the value, filter it, convert it to the type of the default value and
    * return the default value if no value is found.
    *
-   * @see PapayaObjectParameters::get()
+   * @see \Papaya\BaseObject\Parameters::get()
    * @param array|int|string $offset
    * @param null $defaultValue
-   * @param PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, PapayaFilter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, \Papaya\Filter $filter = NULL) {
     return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
   }
 
@@ -63,14 +65,14 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * Set a value. If $offsets is an array or Traversalbe each element in the array/Traversalbe
    * is set.
    *
-   * @param int|string|array|Traversable $offsets
+   * @param int|string|array|\Traversable $offsets
    * @param mixed $value
    * @return $this
    */
   public function set($offsets, $value = NULL) {
-    if (is_array($offsets) || $offsets instanceof Traversable) {
-      foreach ($offsets as $offset => $value) {
-        $this[$offset] = $value;
+    if (is_array($offsets) || $offsets instanceof \Traversable) {
+      foreach ($offsets as $offset => $element) {
+        $this[$offset] = $element;
       }
     } else {
       $this[$offsets] = $value;
@@ -86,7 +88,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return $this
    */
   public function remove($offsets) {
-    if (!(is_array($offsets) || $offsets instanceof Traversable)) {
+    if (!(is_array($offsets) || $offsets instanceof \Traversable)) {
       $offsets = array($offsets);
     }
     foreach ($offsets as $offset) {
@@ -105,39 +107,39 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   }
 
   /**
-  * Parse request parameter name into parts
-  *
-  * @param string $name
-  * @param string $groupSeparator
-  * @return array|string
-  */
+   * Parse request parameter name into parts
+   *
+   * @param string $name
+   * @param string $groupSeparator
+   * @return array|string
+   */
   private function _parseParameterName($name, $groupSeparator = '') {
-    $parts = new PapayaRequestParametersName(str_replace('.', '_', $name), $groupSeparator);
+    $parts = new Parameters\Name(str_replace('.', '_', $name), $groupSeparator);
     return $parts->getArray();
   }
 
   /**
-  * Prepare parameters, make sure it is utf8 and strip slashes if needed
-  *
-  * @param string|array $parameter
-  * @param boolean $stripSlashes
-  * @param integer $recursion
-  * @return array|string
-  */
+   * Prepare parameters, make sure it is utf8 and strip slashes if needed
+   *
+   * @param string|array|bool $parameter
+   * @param boolean $stripSlashes
+   * @param integer $recursion
+   * @return array|string
+   */
   public function prepareParameter($parameter, $stripSlashes = FALSE, $recursion = 42) {
     if (is_array($parameter) && $recursion > 0) {
       foreach ($parameter as $name => $value) {
         $parameter[$name] = $this->prepareParameter($value, $stripSlashes, $recursion - 1);
       }
       return $parameter;
-    } elseif (is_bool($parameter)) {
-      return $parameter;
-    } else {
-      if ($stripSlashes) {
-        $parameter = stripslashes($parameter);
-      }
-      return PapayaUtilStringUtf8::ensure($parameter);
     }
+    if (is_bool($parameter)) {
+      return $parameter;
+    }
+    if ($stripSlashes) {
+      $parameter = stripslashes($parameter);
+    }
+    return \Papaya\Utility\Text\UTF8::ensure($parameter);
   }
 
   /**
@@ -147,7 +149,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return string
    */
   public function getQueryString($groupSeparator) {
-    $query = new PapayaRequestParametersQuery($groupSeparator);
+    $query = new Parameters\QueryString($groupSeparator);
     $query->values($this);
     return $query->getString();
   }
@@ -157,7 +159,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return $this
    */
   public function setQueryString($queryString) {
-    $query = new PapayaRequestParametersQuery();
+    $query = new Parameters\QueryString();
     $query->setString($queryString);
     $this->assign($query->values());
     return $this;
@@ -176,26 +178,26 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   }
 
   /**
-  * Flatten the internal recursive array into a simple name => value list.
-  *
-  * @param array $parameters
-  * @param string $groupSeparator
-  * @param string $prefix
-  * @param integer $maxRecursions
-  * @return array
-  */
+   * Flatten the internal recursive array into a simple name => value list.
+   *
+   * @param array $parameters
+   * @param string $groupSeparator
+   * @param string $prefix
+   * @param integer $maxRecursions
+   * @return array
+   */
   private function flattenArray($parameters, $groupSeparator, $prefix = '', $maxRecursions = 42) {
     $result = array();
     foreach ($parameters as $name => $value) {
       if (empty($prefix)) {
         $fullName = $name;
-      } elseif ($groupSeparator == '[]' || empty($groupSeparator)) {
+      } elseif ('[]' === $groupSeparator || empty($groupSeparator)) {
         $fullName = $prefix.'['.$name.']';
       } else {
         $fullName = $prefix.$groupSeparator.$name;
       }
       if (is_array($value)) {
-        $result = PapayaUtilArray::merge(
+        $result = \Papaya\Utility\Arrays::merge(
           $result, $this->flattenArray($value, $groupSeparator, $fullName, $maxRecursions - 1)
         );
       } else {
@@ -206,11 +208,11 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   }
 
   /**
-  * ArrayAccess Interface: set value
-  *
-  * @param string|integer $offset
-  * @param mixed $value
-  */
+   * ArrayAccess Interface: set value
+   *
+   * @param string|integer $offset
+   * @param mixed $value
+   */
   public function offsetSet($offset, $value) {
     parent::offsetSet($this->_parseParameterName($offset), $value);
   }
@@ -226,10 +228,10 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   }
 
   /**
-  * ArrayAccess Interface: remove value
-  *
-  * @param string|integer $offset
-  */
+   * ArrayAccess Interface: remove value
+   *
+   * @param string|integer $offset
+   */
   public function offsetUnset($offset) {
     parent::offsetUnset($this->_parseParameterName($offset));
   }
@@ -241,22 +243,21 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    *
    * @param string|integer $offset
    * @internal param mixed $value
-   * @return mixed|\PapayaRequestParameters
+   * @return mixed|self
    */
   public function offsetGet($offset) {
     $result = parent::offsetGet($this->_parseParameterName($offset));
     if (is_array($result)) {
       return new self($result);
-    } else {
-      return $result;
     }
+    return $result;
   }
 
   /**
-  * Check if the object contains data at all.
-  *
-  * @return boolean
-  */
+   * Check if the object contains data at all.
+   *
+   * @return boolean
+   */
   public function isEmpty() {
     return count($this) < 1;
   }

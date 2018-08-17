@@ -13,26 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
+class TemplateTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
-  * @backupGlobals enabled
-  */
+   * @covers \Papaya\Message\Dispatcher\Template::dispatch
+   * @backupGlobals enabled
+   */
   public function testDispatch() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDisplayable $message */
-    $message = $this->createMock(PapayaMessageDisplayable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Displayable $message */
+    $message = $this->createMock(\Papaya\Message\Displayable::class);
     $message
       ->expects($this->once())
       ->method('getType')
-      ->will($this->returnValue(PapayaMessage::SEVERITY_WARNING));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->once())
       ->method('getMessage')
       ->will($this->returnValue('Sample message'));
-    $values = $this->createMock(PapayaTemplateValues::class);
+    $values = $this->createMock(\Papaya\Template\Values::class);
     $values
       ->expects($this->once())
       ->method('append')
@@ -44,32 +46,32 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
         ),
         $this->equalTo('Sample message')
       );
-    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(PapayaTemplate::class);
+    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(\Papaya\Template::class);
     $GLOBALS['PAPAYA_LAYOUT']
       ->expects($this->once())
       ->method('values')
       ->will($this->returnValue($values));
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    $dispatcher = new Template();
     $this->assertTrue($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
-  */
+   * @covers \Papaya\Message\Dispatcher\Template::dispatch
+   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
-    $message = $this->createMock(PapayaMessage::class);
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
+    $message = $this->createMock(\Papaya\Message::class);
+    $dispatcher = new Template();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
-  */
+   * @covers \Papaya\Message\Dispatcher\Template::dispatch
+   */
   public function testDispatchWithoutGlobalObjectExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDisplayable $message */
-    $message = $this->createMock(PapayaMessageDisplayable::class);
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Displayable $message */
+    $message = $this->createMock(\Papaya\Message\Displayable::class);
+    $dispatcher = new Template();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 }

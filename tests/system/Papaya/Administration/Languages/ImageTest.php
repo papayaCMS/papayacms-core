@@ -1,42 +1,58 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Languages;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
+class ImageTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testConstructor() {
-    $image = new PapayaAdministrationLanguagesImage();
+    $image = new Image();
     $this->assertAttributeEquals(0, '_languageId', $image);
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testConstructorWithLanguageId() {
-    $image = new PapayaAdministrationLanguagesImage(21);
+    $image = new Image(21);
     $this->assertAttributeEquals(21, '_languageId', $image);
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testToStringWithoutLanguageInformationExpectingEmptyString() {
-    $image = new PapayaAdministrationLanguagesImage();
+    $image = new Image();
     $this->assertEquals('', (string)$image);
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testToStringFetchingCurrentLanguage() {
-    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $switch = $this->createMock(Selector::class);
     $switch
       ->expects($this->once())
       ->method('getCurrent')
       ->will($this->returnValue(array('image' => 'sample.png')));
-    $image = new PapayaAdministrationLanguagesImage();
+    $image = new Image();
     $image->papaya(
       $this->mockPapaya()->application(array('administrationLanguage' => $switch))
     );
@@ -44,22 +60,22 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testToStringFetchingDefinedLanguage() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
       ->with(42)
       ->will($this->returnValue(array('image' => 'sample.png')));
 
-    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $switch = $this->createMock(Selector::class);
     $switch
       ->expects($this->once())
       ->method('languages')
       ->will($this->returnValue($languages));
-    $image = new PapayaAdministrationLanguagesImage(42);
+    $image = new Image(42);
     $image->papaya(
       $this->mockPapaya()->application(array('administrationLanguage' => $switch))
     );
@@ -67,22 +83,22 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesImage
-  */
+   * @covers Image
+   */
   public function testToStringWithNonExistingLanguageExpectingEmptyString() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
       ->with(23)
       ->will($this->returnValue(NULL));
 
-    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $switch = $this->createMock(Selector::class);
     $switch
       ->expects($this->once())
       ->method('languages')
       ->will($this->returnValue($languages));
-    $image = new PapayaAdministrationLanguagesImage(23);
+    $image = new Image(23);
     $image->papaya(
       $this->mockPapaya()->application(array('administrationLanguage' => $switch))
     );

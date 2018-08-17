@@ -1,28 +1,26 @@
 <?php
 /**
-* Papaya Application - object registry with profiles
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Application
-* @version $Id: Application.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya;
 
 /**
 * Papaya Application - object registry with profiles
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplication implements ArrayAccess {
+class Application implements \ArrayAccess {
 
   /**
   * Duplicate profiles trigger an error
@@ -44,7 +42,7 @@ class PapayaApplication implements ArrayAccess {
 
   /**
   * Class variable for singleton instance
-  * @var PapayaApplication
+  * @var \Papaya\Application
   */
   private static $instance = NULL;
 
@@ -65,23 +63,24 @@ class PapayaApplication implements ArrayAccess {
   * Create a new instance of this class or return existing one (singleton)
   *
   * @param boolean $reset
-  * @return PapayaApplication Instance of Application Object
+  * @return \Papaya\Application Instance of Application Object
   */
   public static function getInstance($reset = FALSE) {
-    if ($reset || is_null(self::$instance)) {
-      self::$instance = new PapayaApplication();
+    if ($reset || NULL === self::$instance) {
+      self::$instance = new self();
     }
     return self::$instance;
   }
 
   /**
   * Register a collection of profiles
-  * @param PapayaApplicationProfiles $profiles
+  *
+  * @param \Papaya\Application\Profiles $profiles
   * @param integer $duplicationMode
   * @return void
   */
   public function registerProfiles(
-    PapayaApplicationProfiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
+    Application\Profiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
   ) {
     foreach ($profiles->getProfiles($this) as $identifier => $profile) {
       $this->registerProfile($identifier, $profile, $duplicationMode);
@@ -90,16 +89,17 @@ class PapayaApplication implements ArrayAccess {
 
   /**
    * Register an object profile
+   *
    * @param string $identifier
-   * @param PapayaApplicationProfile|callable $profile
+   * @param \Papaya\Application\Profile|callable $profile
    * @param integer $duplicationMode
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function registerProfile(
     $identifier, $profile, $duplicationMode = self::DUPLICATE_ERROR
   ) {
-    if (!($profile instanceof PapayaApplicationProfile || is_callable($profile))) {
-      throw new InvalidArgumentException(
+    if (!($profile instanceof Application\Profile || is_callable($profile))) {
+      throw new \InvalidArgumentException(
         sprintf(
           'Invalid profile %s is %s.',
           $identifier,
@@ -113,7 +113,7 @@ class PapayaApplication implements ArrayAccess {
       case self::DUPLICATE_OVERWRITE :
         break;
       case self::DUPLICATE_ERROR :
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
             'Duplicate application object profile: "%s"',
             $identifier
@@ -133,7 +133,7 @@ class PapayaApplication implements ArrayAccess {
    * used to create a new object, if provided.
    *
    * @param string $identifier
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return object
    */
   public function getObject($identifier) {
@@ -144,13 +144,13 @@ class PapayaApplication implements ArrayAccess {
     }
     if (isset($this->_profiles[$index])) {
       $profile = $this->_profiles[$index];
-      if ($profile instanceof PapayaApplicationProfile) {
+      if ($profile instanceof Application\Profile) {
         return $this->_objects[$index] = $profile->createObject($this);
       } else {
         return $this->_objects[$index] = call_user_func($profile, $this);
       }
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       'Unknown profile identifier: '.$identifier
     );
   }
@@ -161,17 +161,17 @@ class PapayaApplication implements ArrayAccess {
    * @param string $identifier
    * @param object $object
    * @param int $duplicationMode
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
-    PapayaUtilConstraints::assertObject($object);
+    \Papaya\Utility\Constraints::assertObject($object);
     $index = strtolower($identifier);
     if (isset($this->_objects[$index])) {
       switch ($duplicationMode) {
       case self::DUPLICATE_OVERWRITE :
         break;
       case self::DUPLICATE_ERROR :
-        throw new LogicException(
+        throw new \LogicException(
           sprintf(
             'Application object does already exists: "%s"',
             $identifier
@@ -206,7 +206,7 @@ class PapayaApplication implements ArrayAccess {
    * Check if an object or an profile for an object exists
    *
    * @param string $identifier
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return boolean
    */
   public function removeObject($identifier) {
@@ -218,7 +218,7 @@ class PapayaApplication implements ArrayAccess {
     } elseif (isset($this->_profiles[$index])) {
       return TRUE;
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       'Unknown profile identifier: '.$identifier
     );
   }

@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Application\BaseObject;
+
 /**
 * log type for user messages (login/logout)
 */
-define('PAPAYA_LOGTYPE_USER', PapayaMessageLogable::GROUP_USER);
+define('PAPAYA_LOGTYPE_USER', \Papaya\Message\Logable::GROUP_USER);
 /**
 * log type for page messages (published)
 */
-define('PAPAYA_LOGTYPE_PAGES', PapayaMessageLogable::GROUP_CONTENT);
+define('PAPAYA_LOGTYPE_PAGES', \Papaya\Message\Logable::GROUP_CONTENT);
 /**
 * log type for database messages (errors)
 */
-define('PAPAYA_LOGTYPE_DATABASE', PapayaMessageLogable::GROUP_DATABASE);
+define('PAPAYA_LOGTYPE_DATABASE', \Papaya\Message\Logable::GROUP_DATABASE);
 /**
 * log type for calendar messages
 */
@@ -32,19 +34,19 @@ define('PAPAYA_LOGTYPE_CALENDAR', 4);
 /**
 * log type for cronjob messages
 */
-define('PAPAYA_LOGTYPE_CRONJOBS', PapayaMessageLogable::GROUP_CRONJOBS);
+define('PAPAYA_LOGTYPE_CRONJOBS', \Papaya\Message\Logable::GROUP_CRONJOBS);
 /**
 * log type for surfer/community messages
 */
-define('PAPAYA_LOGTYPE_SURFER', PapayaMessageLogable::GROUP_COMMUNITY);
+define('PAPAYA_LOGTYPE_SURFER', \Papaya\Message\Logable::GROUP_COMMUNITY);
 /**
 * log type for system messages
 */
-define('PAPAYA_LOGTYPE_SYSTEM', PapayaMessageLogable::GROUP_SYSTEM);
+define('PAPAYA_LOGTYPE_SYSTEM', \Papaya\Message\Logable::GROUP_SYSTEM);
 /**
 * log type for system messages
 */
-define('PAPAYA_LOGTYPE_MODULES', PapayaMessageLogable::GROUP_MODULES);
+define('PAPAYA_LOGTYPE_MODULES', \Papaya\Message\Logable::GROUP_MODULES);
 
 /**
 * line break string constant
@@ -54,17 +56,17 @@ define('LF', "\n");
 /**
 * message type info
 */
-define('MSG_INFO', PapayaMessage::SEVERITY_INFO);
+define('MSG_INFO', \Papaya\Message::SEVERITY_INFO);
 
 /**
 * message type warning
 */
-define('MSG_WARNING', PapayaMessage::SEVERITY_WARNING);
+define('MSG_WARNING', \Papaya\Message::SEVERITY_WARNING);
 
 /**
 * message type error
 */
-define('MSG_ERROR', PapayaMessage::SEVERITY_ERROR);
+define('MSG_ERROR', \Papaya\Message::SEVERITY_ERROR);
 
 /**
 * Implementation super class
@@ -74,7 +76,7 @@ define('MSG_ERROR', PapayaMessage::SEVERITY_ERROR);
 * @package Papaya
 * @subpackage Core
 */
-class base_object extends PapayaObject implements PapayaRequestParametersInterface {
+class base_object extends BaseObject implements \Papaya\Request\Parameters\Access {
   /**
   * Error messages, not used any more
   * @deprecated
@@ -84,8 +86,9 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
 
   /**
   * Images -> use $this->papaya()->images
+  *
   * @deprecated
-  * @var array|PapayaUiImages $images
+  * @var array|\Papaya\UI\Images $images
   */
   var $images = NULL;
 
@@ -124,13 +127,14 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
 
   /**
   * Application object
-  * @var PapayaApplication
+  * @var \Papaya\Application
   */
   var $_applicationObject = NULL;
+
   public $baseLink;
 
   /**
-   * @var PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_parameters = NULL;
 
@@ -219,8 +223,8 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         $lng = 'en-US';
       }
     }
-    $fileName = PapayaUtilFilePath::cleanup(
-      PapayaUtilFilePath::getDocumentRoot($this->papaya()->options).
+    $fileName = \Papaya\Utility\File\Path::cleanup(
+      \Papaya\Utility\File\Path::getDocumentRoot($this->papaya()->options).
       $this->papaya()->options->get('PAPAYA_PATHWEB_ADMIN', '/papaya/').
       '/data/'.$lng.'/'
     ).$fileName;
@@ -228,7 +232,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       if ($fh = @fopen($fileName, 'r')) {
         $data = fread($fh, filesize($fileName));
         fclose($fh);
-        return PapayaUtilStringUtf8::ensure($data);
+        return \Papaya\Utility\Text\UTF8::ensure($data);
       }
     }
     return '';
@@ -239,8 +243,8 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   *
   * The strings $short and $long may not be translated and must be in english.
   *
-  * @param integer $type message priority, {@see PapayaMessage}
-  * @param integer $group message group (@see PapayaMessageLogable)
+  * @param integer $type message priority, {@see \Papaya\Message}
+  * @param integer $group message group (@see \Papaya\Message\Logable)
   * @param string $short message short (for lists)
   * @param string $long message detailed
   * @param boolean $addBacktrace
@@ -248,15 +252,15 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   * @access public
   */
   function logMsg($type, $group, $short, $long = '', $addBacktrace = FALSE, $backtraceOffset = 1) {
-    $logMessage = new PapayaMessageLog($group, $type, $short);
+    $logMessage = new \Papaya\Message\Log($group, $type, $short);
     if (!empty($long)) {
       $logMessage->context()->append(
-        new PapayaMessageContextText($long)
+        new \Papaya\Message\Context\Text($long)
       );
     }
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new PapayaMessageContextBacktrace($backtraceOffset)
+        new \Papaya\Message\Context\Backtrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -278,13 +282,13 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   function logVariable(
     $level, $group, $title, $variable, $addBacktrace = FALSE, $backtraceOffset = 3
   ) {
-    $logMessage = new PapayaMessageLog($group, $level, $title);
+    $logMessage = new \Papaya\Message\Log($group, $level, $title);
     $logMessage->context()->append(
-      new PapayaMessageContextVariable($variable)
+      new \Papaya\Message\Context\Variable($variable)
     );
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new PapayaMessageContextBacktrace($backtraceOffset)
+        new \Papaya\Message\Context\Backtrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -303,11 +307,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    */
   public function addMsg($level, $text, $log = FALSE, $group = PAPAYA_LOGTYPE_SYSTEM) {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplay($level, $text)
+      new \Papaya\Message\Display($level, $text)
     );
     if ($log) {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageLog($group, $level, $text)
+        new \Papaya\Message\Log($group, $level, $text)
       );
     }
   }
@@ -333,7 +337,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         $this->paramName,
         array(),
         NULL,
-        PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY
+        \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
       );
     } else {
       $this->params = array();
@@ -370,17 +374,17 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       switch ($modes[$i]) {
       case 'C' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, PapayaRequest::SOURCE_COOKIE
+          $paramName, NULL, NULL, \Papaya\Request::SOURCE_COOKIE
         );
         break;
       case 'G' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, PapayaRequest::SOURCE_QUERY
+          $paramName, NULL, NULL, \Papaya\Request::SOURCE_QUERY
         );
         break;
       case 'P' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, PapayaRequest::SOURCE_BODY
+          $paramName, NULL, NULL, \Papaya\Request::SOURCE_BODY
         );
         break;
       }
@@ -490,7 +494,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   * @return string
   */
   function getBasePath($withDocumentRoot = FALSE) {
-    return PapayaUtilFilePath::getBasePath($withDocumentRoot);
+    return \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
   }
 
   /**
@@ -504,11 +508,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     if (empty($url)) {
       $request = $application->getObject('Request');
     } else {
-      $request = new PapayaRequest($application->options);
+      $request = new \Papaya\Request($application->options);
       if (is_object($url)) {
         $request->load($url);
       } else {
-        $request->load(new PapayaUrl($url));
+        $request->load(new \Papaya\URL($url));
       }
     }
     $fileTitle = 'index';
@@ -523,43 +527,43 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $ext = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
     }
     $mode = $request->getParameter(
-      'mode', 'page', NULL, PapayaRequest::SOURCE_PATH
+      'mode', 'page', NULL, \Papaya\Request::SOURCE_PATH
     );
     $specialModes = array(
       'media', 'download', 'thumb', 'thumbnail', 'image', 'status', 'urls'
     );
     if (!in_array($mode, $specialModes)) {
       $mode = $request->getParameter(
-        'output_mode', $ext, NULL, PapayaRequest::SOURCE_PATH
+        'output_mode', $ext, NULL, \Papaya\Request::SOURCE_PATH
       );
     }
     $result = array(
       'sid' => $request->getParameter(
-        'session', '', NULL, PapayaRequest::SOURCE_PATH
+        'session', '', NULL, \Papaya\Request::SOURCE_PATH
       ),
       'path' => $request->getParameter(
-        'file_path', '/', NULL, PapayaRequest::SOURCE_PATH
+        'file_path', '/', NULL, \Papaya\Request::SOURCE_PATH
       ),
       'filename' => $request->getParameter(
-        'file_title', $fileTitle, NULL, PapayaRequest::SOURCE_PATH
+        'file_title', $fileTitle, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'page_id' => $request->getParameter(
-        'page_id', 0, NULL, PapayaRequest::SOURCE_PATH
+        'page_id', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'categ_id' => $request->getParameter(
-        'category_id', 0, NULL, PapayaRequest::SOURCE_PATH
+        'category_id', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'language' => $request->getParameter(
-        'language', '', NULL, PapayaRequest::SOURCE_PATH
+        'language', '', NULL, \Papaya\Request::SOURCE_PATH
       ),
       'preview' => $request->getParameter(
-        'preview', FALSE, NULL, PapayaRequest::SOURCE_PATH
+        'preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'datetime' => $request->getParameter(
-        'preview_time', 0, NULL, PapayaRequest::SOURCE_PATH
+        'preview_time', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'media_id' => $request->getParameter(
-        'media_uri', '', NULL, PapayaRequest::SOURCE_PATH
+        'media_uri', '', NULL, \Papaya\Request::SOURCE_PATH
       ),
       'ext' => $mode,
       'output' => $mode
@@ -591,7 +595,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   ) {
     $application = $this->papaya();
     $request = $application->request;
-    $reference = new PapayaUiReferencePage();
+    $reference = new \Papaya\UI\Reference\Page();
     $reference->load($request);
     if (isset($pageId)) {
       $reference->setPageId($pageId);
@@ -628,7 +632,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         'language',
         $lng,
         NULL,
-        PapayaRequest::SOURCE_ALL
+        \Papaya\Request::SOURCE_ALL
       );
     }
     $reference->setPageLanguage($lng);
@@ -645,11 +649,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $reference->setOutputMode($this->_getWebLinkPageModeExtension($mode));
     $reference->setParameters($params, $paramName);
 
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\URL\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer->transform(
-      $request->getUrl(),
-      new PapayaUrl($absolute)
+      $request->getURL(),
+      new \Papaya\URL($absolute)
     );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -690,7 +694,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   */
   function encodeQueryString($params, $paramName = NULL, $maxDepth = 5) {
     if (isset($params) && is_array($params)) {
-      $parameters = new PapayaRequestParameters();
+      $parameters = new \Papaya\Request\Parameters();
       if (empty($paramName)) {
         $parameters->merge($params);
       } else {
@@ -719,7 +723,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    * @return string
    */
   public function recodeQueryString($queryString, $newQueryParams = array()) {
-    $query = new PapayaRequestParametersQuery(
+    $query = new \Papaya\Request\Parameters\QueryString(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR')
     );
     $query->setString($queryString);
@@ -741,7 +745,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   * @return string
   */
   function escapeForFilename($str, $default = 'index', $language = NULL) {
-    $str = PapayaUtilFile::normalizeName(
+    $str = \Papaya\Utility\File::normalizeName(
       $str,
       $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
       $language
@@ -763,7 +767,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $request = $application->request;
     $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
-      $reference = new PapayaUiReferenceThumbnail();
+      $reference = new \Papaya\UI\Reference\Thumbnail();
       $reference->papaya($this->papaya());
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
@@ -774,7 +778,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       );
       $ext = $extensions[$thumbsFileType];
     } else {
-      $reference = new PapayaUiReferenceMedia();
+      $reference = new \Papaya\UI\Reference\Media();
       $reference->papaya($this->papaya());
       $reference->setMode($mode);
       $storageGroup = 'files';
@@ -807,15 +811,15 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         }
       }
       if ($isPublic) {
-        $storage = PapayaMediaStorage::getService(
+        $storage = \Papaya\Media\Storage::getService(
           $options->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
           $options
         );
         if ($storage->isPublic($storageGroup, $mid, $mimeType)) {
-          return $storage->getUrl($storageGroup, $mid, $mimeType);
+          return $storage->getURL($storageGroup, $mid, $mimeType);
         } elseif (!empty($versionSuffix) &&
                   $storage->isPublic($storageGroup, $mid.$versionSuffix, $mimeType)) {
-          return $storage->getUrl($storageGroup, $mid.$versionSuffix, $mimeType);
+          return $storage->getURL($storageGroup, $mid.$versionSuffix, $mimeType);
         }
       }
     }
@@ -831,12 +835,12 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         'index'
       )
     );
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\URL\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer
       ->transform(
-        $request->getUrl(),
-        new PapayaUrl($absolute)
+        $request->getURL(),
+        new \Papaya\URL($absolute)
       );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -852,7 +856,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    * @return string URL
    */
   function getAbsoluteURL($url, $text = '', $sid = TRUE, $protocol = NULL) {
-    $urlObject = $this->papaya()->request->getUrl();
+    $urlObject = $this->papaya()->request->getURL();
     if (empty($protocol)) {
       if (!($protocol = $urlObject->getScheme())) {
         $protocol = 'http';
@@ -871,7 +875,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
 
     $session = $this->papaya()->session;
     if ($session->isActive() &&
-        $session->id()->existsIn(PapayaSessionId::SOURCE_PARAMETER) &&
+        $session->id()->existsIn(\Papaya\Session\Id::SOURCE_PARAMETER) &&
         $sid) {
       $sidStr = '/'.$session->name.$session->id;
     } else {
@@ -893,37 +897,37 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $href = $baseHref.$pathWeb;
     } elseif (preg_match("(^(?:(\d+)\.)?(\d+)$)", trim($url), $regs)) {
       $href = $this->getWebLink(
-        PapayaUtilArray::get($regs, 2, 0),
+        \Papaya\Utility\Arrays::get($regs, 2, 0),
         NULL,
         NULL,
         NULL,
         NULL,
         $text,
-        PapayaUtilArray::get($regs, 1, 0)
+        \Papaya\Utility\Arrays::get($regs, 1, 0)
       );
       if (!preg_match('(^\w+://)', $href)) {
         $href = $baseHref.$sidStr.$pathWeb.$href;
       }
-    } elseif (PapayaFilterFactory::isUrl($url)) {
+    } elseif (\Papaya\Filter\Factory::isURL($url)) {
       $href = $url;
     } elseif (preg_match("#^/#", $url)) {
       $href = $baseHref.$sidStr.$url;
     } else {
-      $iUrl = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
-      if (FALSE === ($pos = strpos($iUrl, '?'))) {
-        $pos = strpos($iUrl, '#');
+      $iURL = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+      if (FALSE === ($pos = strpos($iURL, '?'))) {
+        $pos = strpos($iURL, '#');
       }
       if (FALSE !== $pos) {
-        $iUrl = substr($iUrl, 0, $pos);
+        $iURL = substr($iURL, 0, $pos);
       }
-      $iUrl = preg_replace('([^/]+$)', '', $iUrl);
-      $href = $baseHref.$iUrl.$url;
+      $iURL = preg_replace('([^/]+$)', '', $iURL);
+      $href = $baseHref.$iURL.$url;
     }
     $pathAdmin = $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/');
     $href = preg_replace(
       '('.preg_quote($pathAdmin).'/../)', '/', $href
     );
-    $transformer = new PapayaUrlTransformerCleanup();
+    $transformer = new \Papaya\URL\Transformer\Cleanup();
     return $transformer->transform($href.$urlAppend);
   }
 
@@ -968,12 +972,12 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    * @access public
    */
   public function debug() {
-    $debugMessage = new PapayaMessageDebug(
-      PapayaMessageLogable::GROUP_DEBUG, 'Variables'
+    $debugMessage = new \Papaya\Message\Debug(
+      \Papaya\Message\Logable::GROUP_DEBUG, 'Variables'
     );
     foreach (func_get_args() as $variable) {
       $debugMessage->context()->append(
-        new PapayaMessageContextVariable($variable)
+        new \Papaya\Message\Context\Variable($variable)
       );
     }
     $this->papaya()->messages->dispatch($debugMessage);
@@ -986,7 +990,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    */
   function debugMsg($message = '') {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDebug(PapayaMessageLogable::GROUP_DEBUG, $message)
+      new \Papaya\Message\Debug(\Papaya\Message\Logable::GROUP_DEBUG, $message)
     );
   }
 
@@ -1045,8 +1049,8 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var PapayaApplicationCms $application */
-        $application = PapayaApplication::getInstance();
+        /** @var \Papaya\Application\Cms $application */
+        $application = \Papaya\Application::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE
         );
@@ -1059,7 +1063,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
               $errorOutput .= sprintf(
                 '<li>%d: %s in line %d at char %d</li>'.LF,
                 (int)$error->code,
-                PapayaUtilStringXml::escape($error->message),
+                \Papaya\Utility\Text\XML::escape($error->message),
                 (int)$error->line,
                 (int)$error->column
               );
@@ -1069,13 +1073,13 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
           $errorOutput .= '<ol class="xmlBrokenFragment">'.LF;
           $lines = preg_split("(\r\n|\n\r|[\r\n])", $iStr);
           foreach ($lines as $line) {
-            $errorOutput .= sprintf('<li>%s</li>'.LF, PapayaUtilStringXml::escape($line));
+            $errorOutput .= sprintf('<li>%s</li>'.LF, \Papaya\Utility\Text\XML::escape($line));
           }
           $errorOutput .= '</ol>'.LF;
           $errorOutput .= '</div>'.LF;
           $iStr = $errorOutput;
         } else {
-          $iStr = PapayaUtilStringXml::escape($iStr);
+          $iStr = \Papaya\Utility\Text\XML::escape($iStr);
         }
       }
       libxml_clear_errors();
@@ -1119,15 +1123,15 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   *
   * This method gives you access to request parameters.
   *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
+  * @param \Papaya\Request\Parameters $parameters
+  * @return \Papaya\Request\Parameters
   */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
       $this->params = $parameters->toArray();
     } elseif ($this->_parameters === NULL) {
-      $this->_parameters = new PapayaRequestParameters($this->params);
+      $this->_parameters = new \Papaya\Request\Parameters($this->params);
     }
     return $this->_parameters;
   }

@@ -1,29 +1,26 @@
 <?php
 /**
-* Papaya filter superclass
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Filter.php 39437 2014-02-28 11:51:15Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya;
 /**
-* Papaya filter superclass
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-interface PapayaFilter {
+ * Papaya filter superclass
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+interface Filter {
 
   const IS_CSS_COLOR = 'isCssColor';
   const IS_CSS_SIZE = 'isCssSize';
@@ -42,38 +39,38 @@ interface PapayaFilter {
   const IS_ISO_DATE = 'isIsoDate';
   const IS_ISO_DATE_TIME = 'isIsoDateTime';
   const IS_NOT_EMPTY = 'isNotEmpty';
-  const IS_NOT_XML = 'isNotXml';
+  const IS_NOT_XML = 'isNotXML';
   const IS_PASSWORD = 'isPassword';
   const IS_PHONE = 'isPhone';
   const IS_TEXT = 'isText';
   const IS_TIME = 'isTime';
   const IS_TEXT_WITH_NUMBERS = 'isTextWithNumbers';
-  const IS_URL = 'isUrl';
-  const IS_URL_HOST = 'isUrlHost';
-  const IS_URL_HTTP = 'isUrlHttp';
-  const IS_XML = 'isXml';
+  const IS_URL = 'isURL';
+  const IS_URL_HOST = 'isURLHost';
+  const IS_URL_HTTP = 'isURLWeb';
+  const IS_XML = 'isXML';
 
   /**
-  * The filter function returns the filtered version of an input value.
-  *
-  * It removes invalid bytes from the input value. A possible implementation whould be a
-  * trimmed version of the input.
-  *
-  * If the input is invalid it should NULL
-  *
-  * @param mixed|NULL $value
-  * @return mixed
-  */
+   * The filter function returns the filtered version of an input value.
+   *
+   * It removes invalid bytes from the input value. A possible implementation whould be a
+   * trimmed version of the input.
+   *
+   * If the input is invalid it should NULL
+   *
+   * @param mixed|NULL $value
+   * @return mixed
+   */
   function filter($value);
 
   /**
-  * Checks an input and return true if it is valid.
-  *
-  * It will throw an PapayaFilterException if the input is invalid.
-  *
-  * @throws PapayaFilterException
-  * @param mixed $value
-  * @return boolean
-  */
+   * Checks an input and return true if it is valid.
+   *
+   * It will throw an \Papaya\Filter\Exception if the input is invalid.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param mixed $value
+   * @return boolean
+   */
   function validate($value);
 }

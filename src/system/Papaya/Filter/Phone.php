@@ -1,34 +1,32 @@
 <?php
 /**
-* Papaya filter class for phone numbers.
-*
-* @copyright 2011-2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Phone.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a phone number.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterPhone implements PapayaFilter {
+ * This filter class checks a phone number.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Phone implements \Papaya\Filter {
 
   /**
-  * Pattern to check for a linebreak
-  * @var string
-  */
+   * Pattern to check for a linebreak
+   *
+   * @var string
+   */
   private $_patternCheck = '
     (^
       (((\+|00)\d{2}|\(0\d+\))[-\s]?)?
@@ -40,27 +38,27 @@ class PapayaFilterPhone implements PapayaFilter {
    * Check the value if it's a valid phone number, if not throw an exception.
    *
    * @param string $value
-   * @throws PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    * @return TRUE
    */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
-      throw new PapayaFilterExceptionType('phone');
+      throw new \Papaya\Filter\Exception\UnexpectedType('phone');
     }
     return TRUE;
   }
 
   /**
-  * The filter function is used to read an input value if it is valid.
-  *
-  * @param string $value
-  * @return string
-  */
+   * The filter function is used to read an input value if it is valid.
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

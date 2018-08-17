@@ -1,53 +1,51 @@
 <?php
 /**
-* Provide data encapsulation for a single content page version and access to its translations.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Version.php 39481 2014-03-03 10:55:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Page;
 
 /**
-* Provide data encapsulation for a single content page version and access to its translations.
-*
-* Allows to load/create the page version.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property integer $created
-* @property string $owner
-* @property string $message
-* @property integer $level
-* @property integer $pageId
-* @property integer $modified
-* @property integer $position page position relative to its siblings
-* @property boolean $inheritBoxes box inheritance
-* @property integer $defaultLanguage default/fallback language,
-* @property integer $linkType page link type for navigation,
-* @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
-* @property integer $changeFrequency change frequency (for search engines)
-* @property integer $priority content priority (for search engines)
-* @property integer $scheme page scheme (http, https or both)
-*/
-class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
+ * Provide data encapsulation for a single content page version and access to its translations.
+ *
+ * Allows to load/create the page version.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property integer $created
+ * @property string $owner
+ * @property string $message
+ * @property integer $level
+ * @property integer $pageId
+ * @property integer $modified
+ * @property integer $position page position relative to its siblings
+ * @property boolean $inheritBoxes box inheritance
+ * @property integer $defaultLanguage default/fallback language,
+ * @property integer $linkType page link type for navigation,
+ * @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
+ * @property integer $changeFrequency change frequency (for search engines)
+ * @property integer $priority content priority (for search engines)
+ * @property integer $scheme page scheme (http, https or both)
+ */
+class Version extends \Papaya\Database\BaseObject\Record {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // auto increment version id
     'id' => 'version_id',
@@ -84,33 +82,33 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   );
 
   /**
-  * version table name for default load() implementations
-  *
-  * @var string
-  */
-  protected $_tableName = PapayaContentTables::PAGE_VERSIONS;
+   * version table name for default load() implementations
+   *
+   * @var string
+   */
+  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSIONS;
 
   /**
-  * version translations list subobject
-  *
-  * @var PapayaContentPageVersionTranslations
-  */
+   * version translations list subobject
+   *
+   * @var Version\Translations
+   */
   private $_translations;
 
   /**
    * Saving an existing version is not allowed. The creation of a new version will be directly from
    * the stored data using sql commands.
    *
-   * @throws LogicException
-   * @throws UnexpectedValueException
+   * @throws \LogicException
+   * @throws \UnexpectedValueException
    * @return boolean
    */
   public function save() {
     if (isset($this->id)) {
-      throw new LogicException('LogicException: Page versions can not be changed.');
+      throw new \LogicException('LogicException: Page versions can not be changed.');
     }
     if (empty($this->pageId) || empty($this->owner) || empty($this->message)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: page id, owner or message are missing.'
       );
     }
@@ -118,10 +116,10 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Create and store a backup of the current page working copy and its translations
-  *
-  * @return integer|FALSE
-  */
+   * Create and store a backup of the current page working copy and its translations
+   *
+   * @return integer|FALSE
+   */
   private function create() {
     $sql = /** @lang Text */
       "INSERT INTO %s (
@@ -141,7 +139,7 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
       $this->owner,
       $this->message,
       isset($this->level) ? $this->level : -1,
-      $this->databaseGetTableName(PapayaContentTables::PAGES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
       $this->pageId
     );
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -160,9 +158,9 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
           FROM %s tt
          WHERE tt.topic_id = %d";
       $parameters = array(
-        $this->databaseGetTableName(PapayaContentTables::PAGE_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         $this->pageId
       );
       $this->databaseQueryFmtWrite($sql, $parameters);
@@ -174,15 +172,15 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param PapayaContentPageVersionTranslations $translations
-   * @return PapayaContentPageVersionTranslations
+   * @param Version\Translations $translations
+   * @return Version\Translations
    */
-  public function translations(PapayaContentPageVersionTranslations $translations = NULL) {
+  public function translations(Version\Translations $translations = NULL) {
     if (NULL !== $translations) {
       $this->_translations = $translations;
     }
     if (NULL === $this->_translations) {
-      $this->_translations = new PapayaContentPageVersionTranslations();
+      $this->_translations = new Version\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

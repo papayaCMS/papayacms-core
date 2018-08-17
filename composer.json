@@ -10,7 +10,9 @@
   "require": {
     "php": ">=5.5.0",
     "ext-dom": "*",
-    "ext-xsl": "*"
+    "ext-libxml": "*",
+    "ext-xsl": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "papaya/cms-administration": "dev-master",

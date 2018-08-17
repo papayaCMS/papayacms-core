@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\File;
 /**
-* This wraps an stream resource into an line iterator.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorFileStream implements Iterator {
+ * This wraps an stream resource into an line iterator.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Stream implements \Iterator {
 
   const TRIM_NONE = 0;
   const TRIM_RIGHT = 1;
@@ -57,27 +58,27 @@ class PapayaIteratorFileStream implements Iterator {
    * once - in the constructor.
    *
    * @param resource $stream
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   private function setStream($stream) {
     if (!is_resource($stream)) {
-      throw new InvalidArgumentException('Provided file stream is invalid');
+      throw new \InvalidArgumentException('Provided file stream is invalid');
     }
     $this->_stream = $stream;
   }
 
   /**
-  * Return the used stream resource
-  *
-  * @return resource
-  */
+   * Return the used stream resource
+   *
+   * @return resource
+   */
   public function getStream() {
     return $this->_stream;
   }
 
   /**
-  * Rewind the stream to the start and read first line
-  */
+   * Rewind the stream to the start and read first line
+   */
   public function rewind() {
     fseek($this->_stream, 0);
     $this->_line = -1;
@@ -85,31 +86,31 @@ class PapayaIteratorFileStream implements Iterator {
   }
 
   /**
-  * return current line index
-  *
-  * @return integer
-  */
+   * return current line index
+   *
+   * @return integer
+   */
   public function key() {
     return $this->_line;
   }
 
   /**
-  * return current line content
-  *
-  * @return string|FALSE
-  */
+   * return current line content
+   *
+   * @return string|FALSE
+   */
   public function current() {
     switch ($this->_trim) {
-    case self::TRIM_RIGHT :
-      return rtrim($this->_current);
-    default :
-      return $this->_current;
+      case self::TRIM_RIGHT :
+        return rtrim($this->_current);
+      default :
+        return $this->_current;
     }
   }
 
   /**
-  * read next line and increase line index
-  */
+   * read next line and increase line index
+   */
   public function next() {
     if ($this->_line < 0 || $this->_current !== FALSE) {
       $this->_current = fgets($this->_stream);
@@ -118,8 +119,8 @@ class PapayaIteratorFileStream implements Iterator {
   }
 
   /**
-  * Has an valid line in buffer.
-  */
+   * Has an valid line in buffer.
+   */
   public function valid() {
     return FALSE !== $this->_current;
   }

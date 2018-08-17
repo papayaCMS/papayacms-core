@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorGlobTest extends PapayaTestCase {
+class GlobTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaIteratorGlob::__construct
-  */
+   * @covers \Papaya\Iterator\Glob::__construct
+   */
   public function testConstructor() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/*.*');
+    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     $this->assertStringEndsWith(
       '/TestDataGlob/*.*', $this->readAttribute($glob, '_path')
     );
   }
 
   /**
-  * @covers PapayaIteratorGlob::__construct
-  * @covers PapayaIteratorGlob::setFlags
-  * @covers PapayaIteratorGlob::getFlags
-  */
+   * @covers \Papaya\Iterator\Glob::__construct
+   * @covers \Papaya\Iterator\Glob::setFlags
+   * @covers \Papaya\Iterator\Glob::getFlags
+   */
   public function testConstructorWithFlags() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/*.*', GLOB_NOSORT);
+    $glob = new Glob(__DIR__.'/TestDataGlob/*.*', GLOB_NOSORT);
     $this->assertEquals(
       GLOB_NOSORT, $glob->getFlags()
     );
   }
 
   /**
-  * @covers PapayaIteratorGlob::rewind
-  */
+   * @covers \Papaya\Iterator\Glob::rewind
+   */
   public function testRewind() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/*.*');
+    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     iterator_to_array($glob);
     $glob->rewind();
     $this->assertAttributeSame(
@@ -52,11 +53,11 @@ class PapayaIteratorGlobTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorGlob::getFilesLazy
-  * @covers PapayaIteratorGlob::getIterator
-  */
+   * @covers \Papaya\Iterator\Glob::getFilesLazy
+   * @covers \Papaya\Iterator\Glob::getIterator
+   */
   public function testGetIterator() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/*.*');
+    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     $files = iterator_to_array($glob);
     $this->assertStringEndsWith(
       '/TestDataGlob/sampleOne.txt', $files[0]
@@ -68,22 +69,22 @@ class PapayaIteratorGlobTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaIteratorGlob::getFilesLazy
-  * @covers PapayaIteratorGlob::getIterator
-  */
+   * @covers \Papaya\Iterator\Glob::getFilesLazy
+   * @covers \Papaya\Iterator\Glob::getIterator
+   */
   public function testGetIteratorInvalidDirectory() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/INVALID_DIRECTORY/*.*');
+    $glob = new Glob(__DIR__.'/TestDataGlob/INVALID_DIRECTORY/*.*');
     $this->assertEquals(
       array(), iterator_to_array($glob)
     );
   }
 
   /**
-  * @covers PapayaIteratorGlob::getFilesLazy
-  * @covers PapayaIteratorGlob::count
-  */
+   * @covers \Papaya\Iterator\Glob::getFilesLazy
+   * @covers \Papaya\Iterator\Glob::count
+   */
   public function testCount() {
-    $glob = new PapayaIteratorGlob(__DIR__.'/TestDataGlob/*.*');
+    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     $this->assertCount(2, $glob);
   }
 }

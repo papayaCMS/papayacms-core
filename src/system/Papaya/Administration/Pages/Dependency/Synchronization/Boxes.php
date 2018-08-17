@@ -1,51 +1,49 @@
 <?php
 /**
-* Synchronize box inheritance on the page workling copy and the page links
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Boxes.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 /**
-* Synchronize box inheritance on the page workling copy and the page links
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationBoxes
-  implements PapayaAdministrationPagesDependencySynchronization {
+ * Synchronize box inheritance on the page workling copy and the page links
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Boxes
+  implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
   /**
-  * Page boxes list database object
-  *
-  * @var PapayaContentPageBoxes
-  */
+   * Page boxes list database object
+   *
+   * @var Boxes
+   */
   private $_boxes = NULL;
 
   /**
-  * Page working copy object
-  *
-  * @var PapayaContentPageWork
-  */
+   * Page working copy object
+   *
+   * @var \Papaya\Content\Page\Work
+   */
   private $_page = NULL;
 
   /**
-  * Synchronize a dependency
-  *
-  * @param array $targetIds
-  * @param integer $originId
-  * @param array|NULL $languages
+   * Synchronize a dependency
+   *
+   * @param array $targetIds
+   * @param integer $originId
+   * @param array|NULL $languages
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     if ($this->page()->load($originId)) {
@@ -60,45 +58,45 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
    *
    * @param array $targetIds
    * @param int $status
-   * @return PapayaContentPageWork
+   * @return bool
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
     $filter = $databaseAccess->getSqlCondition('topic_id', $targetIds);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGES),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
       $status
     );
     return FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters);
   }
 
   /**
-  * Getter/Setter for the  page boxes list database object
-  *
-  * @param PapayaContentPageBoxes $boxes
-  * @return PapayaContentPageBoxes
-  */
-  public function boxes(PapayaContentPageBoxes $boxes = NULL) {
+   * Getter/Setter for the  page boxes list database object
+   *
+   * @param \Papaya\Content\Page\Boxes $boxes
+   * @return \Papaya\Content\Page\Boxes
+   */
+  public function boxes(\Papaya\Content\Page\Boxes $boxes = NULL) {
     if (isset($boxes)) {
       $this->_boxes = $boxes;
     } elseif (is_null($this->_boxes)) {
-      $this->_boxes = new PapayaContentPageBoxes();
+      $this->_boxes = new \Papaya\Content\Page\Boxes();
     }
     return $this->_boxes;
   }
 
   /**
-  * Getter/Setter for the page working copy
-  *
-  * @param PapayaContentPageWork $page
-  * @return PapayaContentPageWork
-  */
-  public function page(PapayaContentPageWork $page = NULL) {
+   * Getter/Setter for the page working copy
+   *
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
+   */
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }

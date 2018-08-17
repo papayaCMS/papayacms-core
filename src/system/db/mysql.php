@@ -1,26 +1,22 @@
 <?php
 /**
-* MySQL database access classes (ext/mysql)
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: mysql.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * basic database connection and result class
 */
-require_once(dirname(__FILE__).'/base.php');
+require_once __DIR__.'/base.php';
 
 /**
 * DB-abstraction layer - connection object MySQLDB
@@ -40,12 +36,12 @@ class dbcon_mysql extends dbcon_base {
   /**
   * Check that the mysql extension is available
   *
-  * @throws PapayaDatabaseExceptionConnect
+  * @throws \Papaya\Database\Exception\Connect
   * @return bool
   */
   public function extensionFound() {
     if (!extension_loaded('mysql')) {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "mysql" not available.'
       );
     }
@@ -55,7 +51,7 @@ class dbcon_mysql extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   public function connect() {
@@ -89,7 +85,7 @@ class dbcon_mysql extends dbcon_base {
           $connection
         );
         if (!$selected) {
-          throw new PapayaDatabaseExceptionConnect(
+          throw new \Papaya\Database\Exception\Connect(
             sprintf(
               'Could not select database "%s".',
               $this->databaseConfiguration->database
@@ -107,7 +103,7 @@ class dbcon_mysql extends dbcon_base {
           return TRUE;
         }
       }
-      throw new PapayaDatabaseExceptionConnect(mysql_error(), mysql_errno());
+      throw new \Papaya\Database\Exception\Connect(mysql_error(), mysql_errno());
     }
   }
 
@@ -203,7 +199,7 @@ class dbcon_mysql extends dbcon_base {
    * Wrap query execution so we can convert the erorr to an exception
    *
    * @param string $sql
-   * @throws PapayaDatabaseExceptionQuery
+   * @throws \Papaya\Database\Exception\Query
    * @return boolean|NULL|resource on success a resource if a result set is
    *   available, otherwise TRUE; on failure NULL
    */
@@ -218,25 +214,25 @@ class dbcon_mysql extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return PapayaDatabaseExceptionQuery
+   * @return \Papaya\Database\Exception\Query
    */
   private function _createQueryException($sql) {
     $errorCode = mysql_errno($this->databaseConnection);
     $errorMessage = mysql_error($this->databaseConnection);
     $severityMapping = array(
       // 1062 - duplicate entry
-      1062 => PapayaDatabaseException::SEVERITY_WARNING,
+      1062 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 1205 - lock error
-      1205 => PapayaDatabaseException::SEVERITY_INFO,
+      1205 => \Papaya\Database\Exception::SEVERITY_INFO,
       // 1213 - deadlock error
-      1213 => PapayaDatabaseException::SEVERITY_INFO,
+      1213 => \Papaya\Database\Exception::SEVERITY_INFO,
     );
     if (isset($severityMapping[$errorCode])) {
       $severity = $severityMapping[$errorCode];
     } else {
-      $severity = PapayaDatabaseException::SEVERITY_ERROR;
+      $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
-    return new PapayaDatabaseExceptionQuery(
+    return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
@@ -1131,13 +1127,13 @@ class dbresult_mysql extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if (mysql_num_rows($res) > 0 ) {
-        $explain = new PapayaMessageContextTable('Explain');
+        $explain = new \Papaya\Message\Context\Table('Explain');
         $explain->setColumns(
           array(
             'id' => 'Id',

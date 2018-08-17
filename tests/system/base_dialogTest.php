@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../bootstrap.php';
 
-class base_dialogTest extends PapayaTestCase {
+class base_dialogTest extends \Papaya\TestCase {
 
   /**
    * @covers base_dialog::checkDialogInput
@@ -42,15 +42,15 @@ class base_dialogTest extends PapayaTestCase {
     $dialog = new base_dialog(NULL, NULL, $fields);
     $dialog->useToken = FALSE;
 
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
 
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $values

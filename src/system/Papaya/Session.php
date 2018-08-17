@@ -13,110 +13,117 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 /**
-* Papaya Session Handling, initialize, start, close and destroy session, give access to the the
-* session values.
-*
-* @package Papaya-Library
-* @subpackage Session
-*
-* @property-read boolean $active
-* @property-read string $name
-* @property-read string $id
-* @property-read PapayaSessionValues $values
-* @property-read PapayaSessionOptions $options
-*/
-class PapayaSession extends PapayaObject {
+ * Papaya Session Handling, initialize, start, close and destroy session, give access to the the
+ * session values.
+ *
+ * @package Papaya-Library
+ * @subpackage Session
+ *
+ * @property-read boolean $active
+ * @property-read string $name
+ * @property-read string $id
+ * @property-read \Papaya\Session\Values $values
+ * @property-read \Papaya\Session\Options $options
+ */
+class Session extends Application\BaseObject {
 
   const ACTIVATION_ALWAYS = 1;
   const ACTIVATION_NEVER = 2;
   const ACTIVATION_DYNAMIC = 3;
 
   /**
-  * Internal storage vor values subobject
-  * @var PapayaSessionValues
-  */
+   * Internal storage vor values subobject
+   *
+   * @var \Papaya\Session\Values
+   */
   private $_values = NULL;
 
   /**
-  * Session options
-  * @var PapayaSessionOptions
-  */
+   * Session options
+   *
+   * @var \Papaya\Session\Options
+   */
   private $_options = NULL;
 
   /**
-  * Session function wrapper
-  * @var PapayaSessionWrapper
-  */
+   * Session function wrapper
+   *
+   * @var \Papaya\Session\Wrapper
+   */
   private $_wrapper = NULL;
 
   /**
-  * Session Identifier encapsulation
-  * @var PapayaSessionId
-  */
+   * Session Identifier encapsulation
+   *
+   * @var \Papaya\Session\Id
+   */
   private $_id = NULL;
 
   /**
-  * Session name
-  */
+   * Session name
+   */
   private $_sessionName = 'sid';
 
   /**
-  * session ist started and active
-  * @var boolean
-  */
+   * session ist started and active
+   *
+   * @var boolean
+   */
   private $_active = FALSE;
 
 
   /**
-  * Set the session name (include sid)
-  *
-  * @param string $name
-  */
+   * Set the session name (include sid)
+   *
+   * @param string $name
+   */
   public function setName($name) {
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_sessionName = $name;
   }
 
   /**
-  * check if the session is active
-  *
-  * @return boolean
-  */
+   * check if the session is active
+   *
+   * @return boolean
+   */
   public function isActive() {
     return $this->_active;
   }
 
   /**
-  * Allows to get/set the values subobject. The subobject provides an array access interface to
-  * the session values.
-  *
-  * @param PapayaSessionValues $values
-  * @return PapayaSessionValues
-  */
-  public function values(PapayaSessionValues $values = NULL) {
+   * Allows to get/set the values subobject. The subobject provides an array access interface to
+   * the session values.
+   *
+   * @param \Papaya\Session\Values $values
+   * @return \Papaya\Session\Values
+   */
+  public function values(Session\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     }
     if (is_null($this->_values)) {
-      $this->_values = new PapayaSessionValues($this);
+      $this->_values = new Session\Values($this);
     }
     return $this->_values;
   }
 
   /**
-  * Getter/Setter for session options object
-  *
-  * @param PapayaSessionOptions $options
-  * @return PapayaSessionOptions
-  */
-  public function options(PapayaSessionOptions $options = NULL) {
+   * Getter/Setter for session options object
+   *
+   * @param \Papaya\Session\Options $options
+   * @return \Papaya\Session\Options
+   */
+  public function options(Session\Options $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     }
     if (is_null($this->_options)) {
-      $this->_options = new PapayaSessionOptions();
+      $this->_options = new Session\Options();
     }
     return $this->_options;
   }
@@ -124,15 +131,15 @@ class PapayaSession extends PapayaObject {
   /**
    * Getter/Setter for session identifier object
    *
-   * @param \PapayaSessionId $id
-   * @return PapayaSessionId
+   * @param \Papaya\Session\Id $id
+   * @return \Papaya\Session\Id
    */
-  public function id(PapayaSessionId $id = NULL) {
+  public function id(Session\Id $id = NULL) {
     if (isset($id)) {
       $this->_id = $id;
     }
     if (is_null($this->_id)) {
-      $this->_id = new PapayaSessionId($this->_sessionName);
+      $this->_id = new Session\Id($this->_sessionName);
     }
     return $this->_id;
   }
@@ -140,15 +147,15 @@ class PapayaSession extends PapayaObject {
   /**
    * Getter/Setter for session options object
    *
-   * @param PapayaSessionWrapper $wrapper
-   * @return PapayaSessionWrapper
+   * @param \Papaya\Session\Wrapper $wrapper
+   * @return \Papaya\Session\Wrapper
    */
-  public function wrapper(PapayaSessionWrapper $wrapper = NULL) {
+  public function wrapper(Session\Wrapper $wrapper = NULL) {
     if (isset($wrapper)) {
       $this->_wrapper = $wrapper;
     }
     if (is_null($this->_wrapper)) {
-      $this->_wrapper = new PapayaSessionWrapper();
+      $this->_wrapper = new Session\Wrapper();
     }
     return $this->_wrapper;
   }
@@ -160,23 +167,23 @@ class PapayaSession extends PapayaObject {
    * $this->papaya()->session->values['name'];
    *
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return mixed
    */
   public function __get($name) {
     switch ($name) {
-    case 'active' :
-      return $this->isActive();
-    case 'name' :
-      return $this->_sessionName;
-    case 'id' :
-      return (string)$this->id();
-    case 'values' :
-      return $this->values();
-    case 'options' :
-      return $this->options();
+      case 'active' :
+        return $this->isActive();
+      case 'name' :
+        return $this->_sessionName;
+      case 'id' :
+        return (string)$this->id();
+      case 'values' :
+        return $this->values();
+      case 'options' :
+        return $this->options();
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf(
         'Invalid property "%s" in class "%s"', $name, get_class($this)
       )
@@ -184,14 +191,14 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * Prohibit write access to all undeclared properties
-  *
-  * @throws LogicException
-  * @param string $name
-  * @param mixed $value
-  */
+   * Prohibit write access to all undeclared properties
+   *
+   * @throws \LogicException
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'All dynamic properties are read only in class "%s"', get_class($this)
       )
@@ -199,42 +206,42 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * For backwards compatibility add a shortcut to the values.
-  *
-  * @param string $name
-  * @param mixed $value
-  */
+   * For backwards compatibility add a shortcut to the values.
+   *
+   * @param string $name
+   * @param mixed $value
+   */
   public function setValue($name, $value) {
     $this->values->set($name, $value);
   }
 
   /**
-  * For backwards compatibility add a shortcut to the values.
-  *
-  * @param string $name
-  * @return mixed
-  */
+   * For backwards compatibility add a shortcut to the values.
+   *
+   * @param string $name
+   * @return mixed
+   */
   public function getValue($name) {
     return $this->values->get($name);
   }
 
   /**
-  * Check if session is possible with this protocol and user agent.
-  *
-  * @return boolean
-  */
+   * Check if session is possible with this protocol and user agent.
+   *
+   * @return boolean
+   */
   public function isAllowed() {
-    return $this->isProtocolAllowed() && !PapayaUtilServerAgent::isRobot();
+    return $this->isProtocolAllowed() && !Utility\Server\Agent::isRobot();
   }
 
   /**
-  * Check if the options allow the session on the current protocol.
-  *
-  * @return boolean
-  */
+   * Check if the options allow the session on the current protocol.
+   *
+   * @return boolean
+   */
   public function isProtocolAllowed() {
     if ($this->isSecureOnly()) {
-      if (PapayaUtilServerProtocol::isSecure()) {
+      if (Utility\Server\Protocol::isSecure()) {
         return TRUE;
       } else {
         return FALSE;
@@ -245,14 +252,14 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * Check if the request should be secure only (delivered over https)
-  *
-  * PAPAYA_SESSION_SECURE sets both (page and administration interface) to secure mode.
-  *
-  * PAPAYA_UI_SECURE sets only the administration interface and previews to secure mode.
-  *
-  * @return boolean
-  */
+   * Check if the request should be secure only (delivered over https)
+   *
+   * PAPAYA_SESSION_SECURE sets both (page and administration interface) to secure mode.
+   *
+   * PAPAYA_UI_SECURE sets only the administration interface and previews to secure mode.
+   *
+   * @return boolean
+   */
   public function isSecureOnly() {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_SESSION_SECURE', FALSE)) {
@@ -277,7 +284,7 @@ class PapayaSession extends PapayaObject {
    * If the method returns a redirect response, the caller should send it.
    *
    * @param bool|string $redirect
-   * @return NULL|PapayaSessionRedirect redirect response or null
+   * @return NULL|\Papaya\Session\Redirect redirect response or null
    */
   public function activate($redirect = FALSE) {
     if (!$this->_active) {
@@ -285,7 +292,7 @@ class PapayaSession extends PapayaObject {
         $wrapper = $this->wrapper();
         $wrapper->setName($this->_sessionName);
         $this->configure();
-        if ($this->id()->existsIn(PapayaSessionId::SOURCE_ANY)) {
+        if ($this->id()->existsIn(Session\Id::SOURCE_ANY)) {
           $wrapper->setId((string)$this->id());
         }
         $this->_active = $wrapper->start();
@@ -300,15 +307,15 @@ class PapayaSession extends PapayaObject {
   private function configure() {
     $options = $this->papaya()->options;
     $wrapper = $this->wrapper();
-    $defaults = $wrapper->getCookieParams();
-    $wrapper->setCookieParams(
+    $defaults = $wrapper->getCookieParameters();
+    $wrapper->setCookieParameters(
       array(
         'lifetime' => $defaults['lifetime'],
         'path' => $options->get(
-          'PAPAYA_SESSION_PATH', '/', new PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
         ),
         'domain' => $options->get(
-          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
         ),
         'secure' => $this->isSecureOnly(),
         'httponly' => $options->get('PAPAYA_SESSION_HTTP_ONLY', $defaults['httponly']),
@@ -320,35 +327,35 @@ class PapayaSession extends PapayaObject {
   /**
    * Trigger redirects for session id storage/removal in browser if needed.
    *
-   * @return null|PapayaSessionRedirect
+   * @return null|\Papaya\Session\Redirect
    */
   public function redirectIfNeeded() {
     if ($this->_active &&
-        !$this->id()->existsIn(PapayaSessionId::SOURCE_COOKIE)) {
+      !$this->id()->existsIn(Session\Id::SOURCE_COOKIE)) {
       switch ($this->options()->fallback) {
-      case PapayaSessionOptions::FALLBACK_REWRITE :
-        // put sid in path if it is not here and remove it from query string if it is there
-        if (!$this->id()->existsIn(PapayaSessionId::SOURCE_PATH) ||
-            $this->id()->existsIn(PapayaSessionId::SOURCE_QUERY)) {
-          return $this->_createRedirect(
-            PapayaSessionId::SOURCE_PATH, 'session rewrite active'
-          );
-        }
+        case Session\Options::FALLBACK_REWRITE :
+          // put sid in path if it is not here and remove it from query string if it is there
+          if (!$this->id()->existsIn(Session\Id::SOURCE_PATH) ||
+            $this->id()->existsIn(Session\Id::SOURCE_QUERY)) {
+            return $this->_createRedirect(
+              Session\Id::SOURCE_PATH, 'session rewrite active'
+            );
+          }
         break;
-      case PapayaSessionOptions::FALLBACK_PARAMETER :
-        // remove sid from path if it is there
-        if ($this->id()->existsIn(PapayaSessionId::SOURCE_PATH)) {
-          return $this->_createRedirect(
-            PapayaSessionId::SOURCE_QUERY, 'session rewrite inactive'
-          );
-        }
+        case Session\Options::FALLBACK_PARAMETER :
+          // remove sid from path if it is there
+          if ($this->id()->existsIn(Session\Id::SOURCE_PATH)) {
+            return $this->_createRedirect(
+              Session\Id::SOURCE_QUERY, 'session rewrite inactive'
+            );
+          }
         break;
       }
       return NULL;
     } elseif (
-      $this->id()->existsIn(
-        PapayaSessionId::SOURCE_PATH | PapayaSessionId::SOURCE_QUERY
-      )
+    $this->id()->existsIn(
+      Session\Id::SOURCE_PATH | Session\Id::SOURCE_QUERY
+    )
     ) {
       return $this->_createRedirect();
     }
@@ -356,8 +363,8 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * Close session if active, to write data and release the lock
-  */
+   * Close session if active, to write data and release the lock
+   */
   public function close() {
     if ($this->_active) {
       $wrapper = $this->wrapper();
@@ -367,8 +374,8 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * Reset the session data (only if the session if active)
-  */
+   * Reset the session data (only if the session if active)
+   */
   public function reset() {
     if ($this->_active) {
       $_SESSION = array();
@@ -376,8 +383,8 @@ class PapayaSession extends PapayaObject {
   }
 
   /**
-  * Destroy the active session (delete the data container)
-  */
+   * Destroy the active session (delete the data container)
+   */
   public function destroy() {
     if ($this->_active) {
       $this->wrapper()->destroy();
@@ -388,27 +395,27 @@ class PapayaSession extends PapayaObject {
   /**
    * Create a new session id, redirect if session id is in path
    *
-   * @param string $targetUrl
-   * @return \PapayaSessionRedirect|FALSE
+   * @param string $targetURL
+   * @return \Papaya\Session\Redirect|FALSE
    */
-  public function regenerateId($targetUrl = NULL) {
+  public function regenerateId($targetURL = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
-      if (isset($targetUrl) || $this->id()->existsIn(PapayaSessionId::SOURCE_PATH)) {
+      if (isset($targetURL) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
         $transports = array(
-          PapayaSessionId::SOURCE_COOKIE,
-          PapayaSessionId::SOURCE_PATH,
-          PapayaSessionId::SOURCE_QUERY
+          Session\Id::SOURCE_COOKIE,
+          Session\Id::SOURCE_PATH,
+          Session\Id::SOURCE_QUERY
         );
-        $transport = PapayaSessionId::SOURCE_COOKIE;
+        $transport = Session\Id::SOURCE_COOKIE;
         foreach ($transports as $transport) {
           if ($this->id()->existsIn($transport)) {
             break;
           }
         }
         $redirect = $this->_createRedirect($transport, 'session id regeneration');
-        if (isset($targetUrl)) {
-          $redirect->url()->setUrl($targetUrl);
+        if (NULL !== $targetURL) {
+          $redirect->url()->setURLString($targetURL);
         }
         return $redirect;
       }
@@ -421,11 +428,11 @@ class PapayaSession extends PapayaObject {
    *
    * @param integer $transport
    * @param string $reason
-   * @return \PapayaSessionRedirect
+   * @return \Papaya\Session\Redirect
    */
   private function _createRedirect($transport = 0, $reason = 'session redirect') {
     // remove sid from path and/or query string
-    $redirect = new PapayaSessionRedirect(
+    $redirect = new Session\Redirect(
       $this->_sessionName, $this->wrapper()->getId(), $transport, $reason
     );
     $redirect->papaya($this->papaya());

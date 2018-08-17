@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTagsTest extends PapayaTestCase {
+class TagsTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentPageTags::load
-  */
+   * @covers Tags::load
+   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -56,7 +58,7 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
         array('table_tag_links', 'table_tag_trans', 0, 'table_tag', 'table_tag_category', 'topic', 23)
       )
       ->will($this->returnValue($databaseResult));
-    $tags = new PapayaContentPageTags();
+    $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);
     $this->assertTrue($tags->load(23));
     $this->assertEquals(
@@ -83,14 +85,14 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTags::load
-  */
+   * @covers Tags::load
+   */
   public function testLoadWithLanguageId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(\Papaya\Database\Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -121,7 +123,7 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
         array('table_tag_links', 'table_tag_trans', 2, 'table_tag', 'table_tag_category', 'topic', 23)
       )
       ->will($this->returnValue($databaseResult));
-    $tags = new PapayaContentPageTags();
+    $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);
     $this->assertTrue($tags->load(23, 2));
     $this->assertEquals(
@@ -148,8 +150,8 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTags::clear
-  */
+   * @covers Tags::clear
+   */
   public function testClear() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -163,14 +165,14 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(2));
-    $tags = new PapayaContentPageTags();
+    $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);
     $this->assertTrue($tags->clear(23));
   }
 
   /**
-  * @covers PapayaContentPageTags::insert
-  */
+   * @covers Tags::insert
+   */
   public function testInsert() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -192,7 +194,7 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(2));
-    $tags = new PapayaContentPageTags();
+    $tags = new Tags();
     $tags->setDatabaseAccess($databaseAccess);
     $this->assertTrue($tags->insert(23, array(2, 3)));
   }

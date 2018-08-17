@@ -1,63 +1,60 @@
 <?php
 /**
-* Mapper object to convert a database fields into object properties and back
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Database\Record;
 /**
-* Mapper object to convert a database fields into object properties and back
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
-*/
-class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
+ * Mapper object to convert a database fields into object properties and back
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
+ */
+class Mapping implements \Papaya\Database\Interfaces\Mapping {
 
   /**
-  * Properties to fields mapping
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Properties to fields mapping
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_properties = array();
   /**
-  * Field to properties mapping
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Field to properties mapping
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_fields = array();
   /**
-  * Field to properties mapping excluding table aliases, this is only used if the original
-  * field name contains an . - indicating the use of an table alias.
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Field to properties mapping excluding table aliases, this is only used if the original
+   * field name contains an . - indicating the use of an table alias.
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_fieldsWithoutAlias = array();
 
   /**
-  * Callbacks to modify the mapping behaviour
-  *
-  * @var PapayaDatabaseRecordMappingCallbacks
-  */
+   * Callbacks to modify the mapping behaviour
+   *
+   * @var \Papaya\Database\Record\Mapping\Callbacks
+   */
   private $_callbacks = NULL;
 
   /**
-  * Create object and define mapping
-  *
-  * @param array(string=>string|NULL) $definition
-  */
+   * Create object and define mapping
+   *
+   * @param array(string=>string|NULL) $definition
+   */
   public function __construct(array $definition) {
     $this->setDefinition($definition);
   }
@@ -66,7 +63,7 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
    * Define mapping
    *
    * @param array(string=>string|NULL) $definition
-   * @throws LogicException
+   * @throws \LogicException
    */
   private function setDefinition($definition) {
     $this->_properties = array();
@@ -75,7 +72,7 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
       $this->_properties[$property] = $field;
       if (!empty($field)) {
         if (isset($this->_fields[$field])) {
-          throw new LogicException(
+          throw new \LogicException(
             sprintf(
               'Duplicate database field "%s" in mapping definition.',
               $field
@@ -161,12 +158,12 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
   }
 
   /**
-  * Map the object properties to database fields
-  *
-  * @param array $values
-  * @param bool $withAlias
-  * @return array
-  */
+   * Map the object properties to database fields
+   *
+   * @param array $values
+   * @param bool $withAlias
+   * @return array
+   */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->callbacks();
     $record = array();
@@ -221,10 +218,10 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
   }
 
   /**
-  * Get a list of the used properties
-  *
-  * @return array
-  */
+   * Get a list of the used properties
+   *
+   * @return array
+   */
   public function getProperties() {
     return array_keys($this->_properties);
   }
@@ -286,11 +283,11 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
   }
 
   /**
-  * Get the property name for a database fields
-  *
-  * @param string $field
-  * @return string|NULL
-  */
+   * Get the property name for a database fields
+   *
+   * @param string $field
+   * @return string|NULL
+   */
   public function getProperty($field) {
     $callbacks = $this->callbacks();
     $result = NULL;
@@ -308,16 +305,16 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
   }
 
   /**
-  * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
-  *
-  * @param PapayaDatabaseRecordMappingCallbacks $callbacks
-  * @return PapayaDatabaseRecordMappingCallbacks
-  */
-  public function callbacks(PapayaDatabaseRecordMappingCallbacks $callbacks = NULL) {
+   * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
+   *
+   * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
+   * @return \Papaya\Database\Record\Mapping\Callbacks
+   */
+  public function callbacks(\Papaya\Database\Record\Mapping\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaDatabaseRecordMappingCallbacks();
+      $this->_callbacks = new \Papaya\Database\Record\Mapping\Callbacks();
     }
     return $this->_callbacks;
   }

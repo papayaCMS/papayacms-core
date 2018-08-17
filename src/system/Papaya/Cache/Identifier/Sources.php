@@ -1,42 +1,39 @@
 <?php
 /**
-* An class to get the sources in a more readable way
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Sources.php 39769 2014-04-29 15:30:14Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Cache\Identifier;
 /**
-* An class to get the sources in a more readable way
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierSources implements IteratorAggregate {
+ * An class to get the sources in a more readable way
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Sources implements \IteratorAggregate {
 
   private $_names = array(
-     PapayaCacheIdentifierDefinition::SOURCE_URL => 'Url',
-     PapayaCacheIdentifierDefinition::SOURCE_REQUEST => 'Request',
-     PapayaCacheIdentifierDefinition::SOURCE_SESSION => 'Session',
-     PapayaCacheIdentifierDefinition::SOURCE_DATABASE => 'Database',
-     PapayaCacheIdentifierDefinition::SOURCE_VARIABLES => 'Variables'
+    Definition::SOURCE_URL => 'URL',
+    Definition::SOURCE_REQUEST => 'Request',
+    Definition::SOURCE_SESSION => 'Session',
+    Definition::SOURCE_DATABASE => 'Database',
+    Definition::SOURCE_VARIABLES => 'Variables'
   );
 
   private $_sources = 0;
 
   public function __construct($sources) {
-    PapayaUtilConstraints::assertInteger($sources);
+    \Papaya\Utility\Constraints::assertInteger($sources);
     $this->_sources = $sources;
   }
 
@@ -45,16 +42,16 @@ class PapayaCacheIdentifierSources implements IteratorAggregate {
   }
 
   /**
-   * @return ArrayIterator
+   * @return \ArrayIterator
    */
   public function getIterator() {
-    return new ArrayIterator($this->toArray());
+    return new \ArrayIterator($this->toArray());
   }
 
   private function toArray() {
     $result = array();
     foreach ($this->_names as $source => $name) {
-      if (PapayaUtilBitwise::inBitmask($source, $this->_sources)) {
+      if (\Papaya\Utility\Bitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
       }
     }

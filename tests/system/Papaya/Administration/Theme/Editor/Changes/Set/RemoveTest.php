@@ -1,21 +1,37 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase {
+class RemoveTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::createDialog
+   * @covers Remove::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Delete theme set"/>
         <options>
@@ -32,29 +48,29 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
           <message>Theme set not found.</message>
         </field>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::createDialog
+   * @covers Remove::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
       ->expects($this->once())
       ->method('load')
       ->with(42)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+    $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Delete theme set"/>
         <options>
@@ -75,22 +91,22 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
         </field>
         <button type="submit" align="right">Delete</button>
       </dialog-box>',
-      $dialog->getXml()
+      $dialog->getXML()
     );
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::callbackDeleted
+   * @covers Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Remove($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)

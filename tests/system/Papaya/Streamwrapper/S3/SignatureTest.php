@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Streamwrapper\S3;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaStreamwrapperS3SignatureTest extends PapayaTestCase {
+class SignatureTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaStreamwrapperS3Signature::__construct
-  */
+   * @covers \Papaya\Streamwrapper\S3\Signature::__construct
+   */
   public function testConstructor() {
-    $signature = new PapayaStreamwrapperS3Signature(array(), 'GET', array('Date' => '42'));
+    $signature = new Signature(array(), 'GET', array('Date' => '42'));
     $this->assertAttributeEquals(array(), '_resource', $signature);
     $this->assertAttributeEquals('GET', '_method', $signature);
     $this->assertAttributeEquals(array('Date' => '42'), '_headers', $signature);
   }
 
   /**
-   * @covers PapayaStreamwrapperS3Signature
+   * @covers       \Papaya\Streamwrapper\S3\Signature
    * @dataProvider magicToStringDataProvider
    * @param array $resource
    * @param string $method
@@ -36,13 +37,13 @@ class PapayaStreamwrapperS3SignatureTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testMagicToString(array $resource, $method, array $headers, $expected) {
-    $signature = new PapayaStreamwrapperS3Signature($resource, $method, $headers);
+    $signature = new Signature($resource, $method, $headers);
     $this->assertEquals($expected, (string)$signature);
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function magicToStringDataProvider() {
     return array(

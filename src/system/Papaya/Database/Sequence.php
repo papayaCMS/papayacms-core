@@ -1,57 +1,56 @@
 <?php
 /**
-* Papaya Database Sequence, handles manual client side sequence
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Sequence.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Database;
 /**
-* Papaya Database Sequence, handles manual client side sequence
-*
-* To use this class you have to define a child that implements the abstract createId() method.
-*
-* Usage:
-*   $sequence = new PapayaDatabaseSequenceSample(
-*     'tablename', 'fieldname'
-*   );
-*   $newId = $sequence->next();
-*
-* The class requests new ids from the generator and checks them agains the database table.
-* It does not insert a record.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
+ * Papaya Database Sequence, handles manual client side sequence
+ *
+ * To use this class you have to define a child that implements \the abstract createId() method.
+ *
+ * Usage:
+ *   $sequence = new \Papaya\Database\Sequence\Sample(
+ *     'tablename', 'fieldname'
+ *   );
+ *   $newId = $sequence->next();
+ *
+ * The class requests new ids from the generator and checks them agains the database table.
+ * It does not insert a record.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Sequence extends BaseObject {
 
   /**
-  * Database table name
-  * @var string
-  */
+   * Database table name
+   *
+   * @var string
+   */
   protected $_table = '';
   /**
-  * Identifier table column name
-  * @var string
-  */
+   * Identifier table column name
+   *
+   * @var string
+   */
   protected $_field = '';
 
   /**
-  * Create a single randimized identifier string
-  *
-  * @return string
-  */
+   * Create a single randomized identifier string
+   *
+   * @return string
+   */
   abstract public function create();
 
   /**
@@ -59,16 +58,16 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
    *
    * @param string $table
    * @param string $field
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($table, $field) {
     if (empty($table)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'No table name provided.'
       );
     }
     if (empty($field)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'No field name provided.'
       );
     }
@@ -77,10 +76,10 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
   }
 
   /**
-  * Return the next sequence identifier
-  *
-  * @return string|FALSE
-  */
+   * Return the next sequence identifier
+   *
+   * @return string|FALSE
+   */
   public function next() {
     $ids = array();
     while (empty($ids)) {
@@ -94,11 +93,11 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
   }
 
   /**
-  * Create a several ids at once
-  *
-  * @param integer $count
-  * @return array
-  */
+   * Create a several ids at once
+   *
+   * @param integer $count
+   * @return array
+   */
   protected function createIdentifiers($count) {
     $result = array();
     for ($i = 0; $i < $count; $i++) {
@@ -114,7 +113,7 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
    * Check identifiers agains table, return only identifiers not already used.
    *
    * @param array $identifiers
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return array|FALSE $identifiers
    */
   protected function checkIdentifiers(array $identifiers) {
@@ -125,7 +124,7 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
       $this->databaseGetSqlCondition($this->_field, $identifiers)
     );
     if (empty($filter)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Please provide one or more sequence ids to check.'
       );
     }

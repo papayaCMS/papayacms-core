@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration;
+use Papaya\Content;
+
 /**
 * Create topic list
 *
@@ -79,7 +82,7 @@ class papaya_overview extends base_db {
   var $topics = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -162,7 +165,7 @@ class papaya_overview extends base_db {
       break;
     case 'refreshpages':
       $administrationUser = $this->papaya()->administrationUser;
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
         $this->refreshPages();
       }
       break;
@@ -213,7 +216,7 @@ class papaya_overview extends base_db {
     $this->loadUsers();
     $this->loadTodoList($administrationUser->options['PAPAYA_OVERVIEW_ITEMS_TASKS']);
     $this->layout->addLeft($this->getTodoList('100%'));
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::MESSAGES)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       $this->loadMessageList(
         TRUE,
         $administrationUser->options['PAPAYA_OVERVIEW_ITEMS_MESSAGES']
@@ -233,7 +236,7 @@ class papaya_overview extends base_db {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
       $menubar->addButton(
         'Empty cache',
         $this->getLink(array('cmd' => 'refreshpages')),
@@ -261,7 +264,7 @@ class papaya_overview extends base_db {
     $ancestorId = $this->papaya()->administrationUser->startNode;
     $ancestorCondition = '';
     if ($ancestorId > 0) {
-      $ancestorCondition = PapayaUtilString::escapeForPrintf(
+      $ancestorCondition = \Papaya\Utility\Text::escapeForPrintf(
         sprintf(
         " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
         )
@@ -307,7 +310,7 @@ class papaya_overview extends base_db {
     $ancestorId = $this->papaya()->administrationUser->startNode;
     $ancestorCondition = '';
     if ($ancestorId > 0) {
-      $ancestorCondition = PapayaUtilString::escapeForPrintf(
+      $ancestorCondition = \Papaya\Utility\Text::escapeForPrintf(
         sprintf(
         " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
         )
@@ -351,12 +354,12 @@ class papaya_overview extends base_db {
    */
   function getTopicsList($title, $width = 490, $showDetails = FALSE) {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated($title);
-      $listview->toolbars()->topLeft->elements[] = $paging = new PapayaUiToolbarPaging(
+      $listview = new \Papaya\UI\Listview();
+      $listview->caption = new \Papaya\UI\Text\Translated($title);
+      $listview->toolbars()->topLeft->elements[] = $paging = new \Papaya\UI\Toolbar\Paging(
         array($this->paramName, 'filter_offset'),
         (int)$this->_topicsAbsCount,
-        PapayaUiToolbarPaging::MODE_OFFSET
+        \Papaya\UI\Toolbar\Paging::MODE_OFFSET
       );
       $paging->reference()->setParameters(
         array(
@@ -370,7 +373,7 @@ class papaya_overview extends base_db {
       foreach ($this->topics as $topic) {
         $title = '';
         if (empty($topic['topic_title'])) {
-          $pageTitle = new PapayaUiStringTranslated('No Title');
+          $pageTitle = new \Papaya\UI\Text\Translated('No Title');
         } else {
           $pageTitle = $topic['topic_title'];
         }
@@ -396,24 +399,24 @@ class papaya_overview extends base_db {
         if (isset($topic['topic_modified']) && $topic['topic_modified'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Modified'),
-            new PapayaUiStringDate($topic['topic_modified'])
+            new \Papaya\UI\Text\Translated('Modified'),
+            new \Papaya\UI\Text\Date($topic['topic_modified'])
           );
         } else {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Created'),
-            new PapayaUiStringDate($topic['topic_created'])
+            new \Papaya\UI\Text\Translated('Created'),
+            new \Papaya\UI\Text\Date($topic['topic_created'])
           );
         }
         if (isset($topic['topic_published']) && $topic['topic_published'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Published'),
-            new PapayaUiStringDate($topic['topic_published'])
+            new \Papaya\UI\Text\Translated('Published'),
+            new \Papaya\UI\Text\Date($topic['topic_published'])
           );
         }
-        $listview->items[] = $item = new PapayaUiListviewItem($image, $title);
+        $listview->items[] = $item = new \Papaya\UI\Listview\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
         $item->reference()->setRelative('topic.php');
@@ -424,10 +427,10 @@ class papaya_overview extends base_db {
           if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
-          $item->subitems[] = $subitem = new PapayaUiListviewSubitemText($text);
+          $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text($text);
         }
       }
-      return $listview->getXml();
+      return $listview->getXML();
     }
     return '';
   }
@@ -752,10 +755,10 @@ class papaya_overview extends base_db {
       );
       $data = array();
       if (empty($data['filter_date_from'])) {
-        $data['filter_date_from'] = new PapayaUiStringDate(time() - (86400 * 7));
+        $data['filter_date_from'] = new \Papaya\UI\Text\Date(time() - (86400 * 7));
       }
       if (empty($data['filter_date_to'])) {
-        $data['filter_date_to'] = new PapayaUiStringDate(time() + 86400);
+        $data['filter_date_to'] = new \Papaya\UI\Text\Date(time() + 86400);
       }
       $statusComboValue = array(
         'all' => $this->_gt('All'),
@@ -771,18 +774,18 @@ class papaya_overview extends base_db {
       );
       $this->modules()->load(array('type' => 'page', 'is_active' => TRUE));
       $modules = iterator_to_array(
-        new PapayaIteratorMultiple(
-          PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        new \Papaya\Iterator\Union(
+          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new PapayaIteratorArrayMapper($this->modules(), 'title')
+          new \Papaya\Iterator\ArrayMapper($this->modules(), 'title')
         )
       );
       $this->views()->load(array('module_type' => 'page'));
       $views = iterator_to_array(
-        new PapayaIteratorMultiple(
-          PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        new \Papaya\Iterator\Union(
+          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new PapayaIteratorArrayMapper($this->views(), 'title')
+          new \Papaya\Iterator\ArrayMapper($this->views(), 'title')
         )
       );
 
@@ -811,8 +814,8 @@ class papaya_overview extends base_db {
           FALSE,
           'checkgroup',
           array(
-            'meta' => new PapayaUiStringTranslated('Meta Tags'),
-            'boxes' => new PapayaUiStringTranslated('Boxes')
+            'meta' => new \Papaya\UI\Text\Translated('Meta Tags'),
+            'boxes' => new \Papaya\UI\Text\Translated('Boxes')
           )
         )
       );
@@ -824,7 +827,7 @@ class papaya_overview extends base_db {
       $this->dialogSearch->buttonTitle = 'Search';
       $this->dialogSearch->inputFieldSize = 'x-small';
       $this->dialogSearch->dialogDoubleButtons = FALSE;
-      $this->dialogSearch->addButton('search_clear', new PapayaUiStringTranslated('Reset'));
+      $this->dialogSearch->addButton('search_clear', new \Papaya\UI\Text\Translated('Reset'));
     }
   }
 
@@ -847,10 +850,10 @@ class papaya_overview extends base_db {
               LEFT OUTER JOIN %s v ON (v.view_id= tt.view_id)
               LEFT OUTER JOIN %s m ON (m.module_guid = v.module_guid)";
     $dateFrom = empty($this->params['filter_date_from'])
-      ? 0 : PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']);
+      ? 0 : \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']);
     $dateTo = empty($this->params['filter_date_to'])
       ? time() + 86400
-      : PapayaUtilDate::stringToTimestamp($this->params['filter_date_to']) + 86400;
+      : \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to']) + 86400;
     $sqlParams = array(
       $this->tableTopics,
       $this->tableAuthUser,
@@ -916,8 +919,8 @@ class papaya_overview extends base_db {
                 AND taglinks.link_type = 'topic'
                 AND %s
            )",
-          $this->getDatabaseAccess()->getTableName(PapayaContentTables::TAG_LINKS),
-          $this->getDatabaseAccess()->getTableName(PapayaContentTables::TAG_TRANSLATIONS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_LINKS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
           $sqlString->getSQL($this->params['filter_tag'], array('tagdata.tag_title'))
         );
       } else {
@@ -962,22 +965,22 @@ class papaya_overview extends base_db {
       case 'created':
         $conditions[] = sprintf(
           "t.topic_created >= '%d' AND t.topic_created <= '%d'",
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       case 'modified':
         $conditions[] = sprintf(
           "t.topic_modified >= '%d' AND t.topic_modified <= '%d'",
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       case 'published':
         $conditions[] = sprintf(
           "tp.topic_modified >= '%d' AND tp.topic_modified <= '%d'",
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       }
@@ -1011,7 +1014,7 @@ class papaya_overview extends base_db {
     if ($res = $this->databaseQueryFmt($sql, $sqlParams, $limit, $offset)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $key = $row["topic_id"]."-".(empty($row["lng_id"]) ? 0 : (int)$row["lng_id"]);
-        $ancestors = PapayaUtilArray::decodeIdList($row['prev_path']);
+        $ancestors = \Papaya\Utility\Arrays::decodeIdList($row['prev_path']);
         $ancestors[] = (int)$row['prev'];
         array_shift($ancestors);
         $allAncestors = array_merge($allAncestors, $ancestors);
@@ -1032,14 +1035,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a pages list subobject
    *
-   * @param PapayaContentPages $pages
-   * @return PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (NULL == $this->_pages) {
-      $this->_pages = new PapayaContentPages();
+      $this->_pages = new Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;
@@ -1048,14 +1051,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a view list subobject
    *
-   * @param PapayaContentViews $views
-   * @return PapayaContentViews
+   * @param \Papaya\Content\Views $views
+   * @return \Papaya\Content\Views
    */
-  public function views(PapayaContentViews $views = NULL) {
+  public function views(Content\Views $views = NULL) {
     if (isset($views)) {
       $this->_views = $views;
     } elseif (NULL == $this->_views) {
-      $this->_views = new PapayaContentViews();
+      $this->_views = new Content\Views();
       $this->_views->papaya($this->papaya());
     }
     return $this->_views;
@@ -1064,14 +1067,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a modules list subobject
    *
-   * @param PapayaContentModules $modules
-   * @return PapayaContentModules
+   * @param \Papaya\Content\Modules $modules
+   * @return \Papaya\Content\Modules
    */
-  public function modules(PapayaContentModules $modules = NULL) {
+  public function modules(Content\Modules $modules = NULL) {
     if (isset($modules)) {
       $this->_modules = $modules;
     } elseif (NULL == $this->_modules) {
-      $this->_modules = new PapayaContentModules();
+      $this->_modules = new Content\Modules();
       $this->_modules->papaya($this->papaya());
     }
     return $this->_modules;
@@ -1083,7 +1086,7 @@ class papaya_overview extends base_db {
   * @access public
   */
   function refreshPages() {
-    $cache = PapayaCache::getService($this->papaya()->options);
+    $cache = Cache::getService($this->papaya()->options);
     $counter = $cache->delete();
     if ($counter > 0) {
       $this->addMsg(MSG_INFO, sprintf($this->_gt('%s files deleted.'), $counter));

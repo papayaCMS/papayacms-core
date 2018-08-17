@@ -1,54 +1,51 @@
 <?php
 /**
-* Wrapper object for a DOMElement, defining a template value.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Template
-* @version $Id: Value.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Template;
 /**
-* Wrapper object for a DOMElement, defining a template value.
-*
-* @package Papaya-Library
-* @subpackage Template
-*
-*/
-class PapayaTemplateValue {
+ * Wrapper object for a DOMElement, defining a template value.
+ *
+ * @package Papaya-Library
+ * @subpackage Template
+ *
+ */
+class Value {
 
   /**
-  * Wrapped DOM element
-  *
-  * @var PapayaXmlElement
-  */
+   * Wrapped DOM element
+   *
+   * @var \Papaya\XML\Element
+   */
   private $_node = NULL;
 
   /**
-  * Construct object from DOMNode
-  *
-  * @param PapayaXmlDocument|PapayaXmlElement $node
-  */
+   * Construct object from DOMNode
+   *
+   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   */
   public function __construct($node) {
     $this->node($node);
   }
 
   /**
-  * Get the document from the $node property
-  *
-  * @return DOMDocument
-  */
+   * Get the document from the $node property
+   *
+   * @return \DOMDocument
+   */
   private function _getDocument() {
-    if ($this->_node instanceof PapayaXmlDocument) {
+    if ($this->_node instanceof \Papaya\XML\Document) {
       return $this->_node;
     } else {
       return $this->_node->ownerDocument;
@@ -58,19 +55,21 @@ class PapayaTemplateValue {
   /**
    * Get/Set node property
    *
-   * @param PapayaXmlDocument|PapayaXmlElement $node
-   * @throws InvalidArgumentException
-   * @return \PapayaXmlElement|null
+   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   * @throws \InvalidArgumentException
+   * @return \Papaya\XML\Element|null
    */
   public function node($node = NULL) {
     if (isset($node)) {
-      if ($node instanceof PapayaXmlDocument ||
-          $node instanceof PapayaXmlElement) {
+      if ($node instanceof \Papaya\XML\Document ||
+        $node instanceof \Papaya\XML\Element) {
         $this->_node = $node;
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
-            'PapayaXmlDocument or PapayaXmlElement expected, got %s',
+            '%1$s or %2$s expected, got %3$s',
+            \Papaya\XML\Document::class,
+            \Papaya\XML\Element::class,
             is_object($node) ? get_class($node) : gettype($node)
           )
         );
@@ -80,12 +79,12 @@ class PapayaTemplateValue {
   }
 
   /**
-  * Append the node represented by this value to a parent node.
-  *
-  * @param PapayaXmlElement $parentNode
-  * @return PapayaTemplateValue
-  */
-  public function appendTo(PapayaXmlElement $parentNode) {
+   * Append the node represented by this value to a parent node.
+   *
+   * @param \Papaya\XML\Element $parentNode
+   * @return $this
+   */
+  public function appendTo(\Papaya\XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
   }
@@ -93,36 +92,36 @@ class PapayaTemplateValue {
   /**
    * Append a new element to the value.
    *
-   * If the first argument is a string a new element is created. If it is alread an DOMElement the
+   * If the first argument is a string a new element is created. If it is already an DOMElement the
    * element is used directly.
    *
    * It sets all attributes defined by the second argument and the text content if not empty.
    * The element is append to the $_node property and a new instance of this object containing
    * the element is returned.
    *
-   * @param string|DOMElement $element
+   * @param string|\DOMElement $element
    * @param array $attributes
    * @param string $textContent
-   * @throws InvalidArgumentException
-   * @return PapayaTemplateValue|NULL
+   * @throws \InvalidArgumentException
+   * @return self|NULL
    */
   public function append($element, array $attributes = array(), $textContent = '') {
     if (is_string($element)) {
       $element = $this->_getDocument()->createElement($element);
-    } elseif ($element instanceof PapayaXmlAppendable) {
+    } elseif ($element instanceof \Papaya\XML\Appendable) {
       $element->appendTo($this->_node);
       return NULL;
-    } elseif ($element instanceof DOMDocument) {
+    } elseif ($element instanceof \DOMDocument) {
       if (isset($element->documentElement)) {
         $element = $element->documentElement;
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           'Argument 1 is an empty dom document, nothing to append.'
         );
       }
     }
-    if (!$element instanceof DOMElement) {
-      throw new InvalidArgumentException(
+    if (!$element instanceof \DOMElement) {
+      throw new \InvalidArgumentException(
         sprintf(
           'Argument 1 passed to %s must be a string or DOMElement, %s given.',
           __CLASS__.'::'.__METHOD__.'()',
@@ -142,19 +141,20 @@ class PapayaTemplateValue {
   }
 
   /**
-  * Appends a xml fragement to the node and returns the new element.
-  *
-  * This function creates an xml fragment and appends the first element in it.
-  *
-  * An instance of this class containing the appended element is returned.
-  *
-  * @param string $xml
-  * @return PapayaTemplateValue
-  */
-  public function appendXml($xml) {
-    $errors = new PapayaXmlErrors();
+   * Appends a xml fragment to the node and returns the new element.
+   *
+   * This function creates an xml fragment and appends the first element in it.
+   *
+   * An instance of this class containing the appended element is returned.
+   *
+   * @param string $xml
+   * @return $this
+   * @throws \Papaya\XML\Exception
+   */
+  public function appendXML($xml) {
+    $errors = new \Papaya\XML\Errors();
     $errors->activate();
-    $this->node()->appendXml($xml);
+    $this->node()->appendXML($xml);
     $errors->emit();
     $errors->deactivate();
     return $this;
@@ -169,8 +169,9 @@ class PapayaTemplateValue {
    * If it is an string is will be threated as an xml fragment but you can provide a single DOMNode
    * or a list of DOMNodes as well.
    *
-   * @param DOMNode|array|string $xml
-   * @throws InvalidArgumentException
+   * @param \DOMNode|array|string $xml
+   * @throws \InvalidArgumentException
+   * @throws \Papaya\XML\Exception
    * @return string
    */
   public function xml($xml = NULL) {
@@ -179,15 +180,15 @@ class PapayaTemplateValue {
         $this->_node->removeChild($this->_node->childNodes->item($i));
       }
       if (is_string($xml)) {
-        $this->appendXml($xml);
-      } elseif ($xml instanceof DOMNode) {
+        $this->appendXML($xml);
+      } elseif ($xml instanceof \DOMNode) {
         $this->_node->appendChild($xml);
       } elseif (is_array($xml)) {
         foreach ($xml as $index => $node) {
-          if ($node instanceof DOMNode) {
+          if ($node instanceof \DOMNode) {
             $this->_node->appendChild($node);
           } else {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
               sprintf(
                 'Argument 1 passed to %s must be an array of DOMNodes, %s given at index "%s".',
                 __CLASS__.'::'.__METHOD__.'()',
@@ -198,7 +199,7 @@ class PapayaTemplateValue {
           }
         }
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
             'Argument 1 passed to %s must be a string, array or DOMNode, %s given.',
             __CLASS__.'::'.__METHOD__.'()',
@@ -209,7 +210,7 @@ class PapayaTemplateValue {
     }
     $result = '';
     foreach ($this->_node->childNodes as $node) {
-      $result .= $this->_getDocument()->saveXml($node);
+      $result .= $this->_getDocument()->saveXML($node);
     }
     return $result;
   }

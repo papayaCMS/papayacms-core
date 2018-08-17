@@ -1,33 +1,31 @@
 <?php
 /**
-* This iterator decrements a value by step until an minimum is reached.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Decrement.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Iterator\Repeat;
 /**
-* This iterator decrements a value by step until an minimum is reached.
-*
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorRepeatDecrement extends PapayaIteratorRepeatCallback {
+ * This iterator decrements a value by step until an minimum is reached.
+ *
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Decrement extends Callback {
 
-  protected $_minimum = 0;
-  protected $_step = 0;
+  private $_minimum;
+  private $_step;
+  private $_mode;
 
   const MODE_LIST = 0;
   const MODE_ASSOC = 1;
@@ -48,23 +46,22 @@ class PapayaIteratorRepeatDecrement extends PapayaIteratorRepeatCallback {
   }
 
   /**
-  * Increment the current value by step until it is larger then the maximim.
-  *
-  * @param integer $value
-  * @param integer $key
-  * @return boolean
-  */
+   * Increment the current value by step until it is larger then the maximim.
+   *
+   * @param integer $value
+   * @param integer $key
+   * @return FALSE|array
+   */
   public function decrement($value, $key) {
     $value -= $this->_step;
-    if ($this->_mode == self::MODE_ASSOC) {
+    if ($this->_mode === self::MODE_ASSOC) {
       $key = $value;
     } else {
       ++$key;
     }
     if ($value >= $this->_minimum) {
       return array($value, $key);
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 }

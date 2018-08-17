@@ -13,57 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
  * Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
  *
  * @package Papaya-Library
  * @subpackage Phrases
  *
- * @property PapayaPhrasesGroups groups
+ * @property \Papaya\Phrases\Groups groups
  *
  */
-class PapayaPhrases extends PapayaObject {
+class Phrases extends Application\BaseObject {
 
   /**
-   * @var PapayaPhrasesGroups
+   * @var \Papaya\Phrases\Groups
    */
   private $_groups;
 
   /**
-   * @var PapayaPhrasesStorage
+   * @var \Papaya\Phrases\Storage
    */
   private $_storage;
 
   /**
-   * @var PapayaContentLanguage
+   * @var Content\Language
    */
   private $_language;
 
   private $_defaultGroup;
 
-  public function __construct(PapayaPhrasesStorage $storage, PapayaContentLanguage $language) {
+  public function __construct(Phrases\Storage $storage, Content\Language $language) {
     $this->_storage = $storage;
     $this->_language = $language;
   }
 
   /**
-   * @return PapayaPhrasesStorage
+   * @return \Papaya\Phrases\Storage
    */
   public function getStorage() {
     return $this->_storage;
   }
 
   /**
-   * @return PapayaContentLanguage
+   * @return Content\Language
    */
   public function getLanguage() {
     return $this->_language;
   }
 
   /**
-   * @param PapayaContentLanguage $language
+   * @param Content\Language $language
    */
-  public function setLanguage(PapayaContentLanguage $language) {
+  public function setLanguage(Content\Language $language) {
     $this->_language = $language;
   }
 
@@ -72,9 +73,9 @@ class PapayaPhrases extends PapayaObject {
    * @return mixed
    */
   public function __get($name) {
-    switch($name) {
-    case 'groups' :
-      return $this->groups();
+    switch ($name) {
+      case 'groups' :
+        return $this->groups();
     }
     return $this->$name;
   }
@@ -84,7 +85,7 @@ class PapayaPhrases extends PapayaObject {
    * @return bool
    */
   public function __isset($name) {
-    switch($name) {
+    switch ($name) {
       case 'groups' :
         return TRUE;
     }
@@ -96,9 +97,9 @@ class PapayaPhrases extends PapayaObject {
    * @param mixed $value
    */
   public function __set($name, $value) {
-    switch($name) {
-    case 'groups' :
-      $this->groups($value);
+    switch ($name) {
+      case 'groups' :
+        $this->groups($value);
     }
     $this->$name = $value;
   }
@@ -110,14 +111,14 @@ class PapayaPhrases extends PapayaObject {
    * $group = $phrases->groups()->get('GROUP_NAME');
    * $phrase = $group->get('PHRASE');
    *
-   * @param PapayaPhrasesGroups $groups
-   * @return PapayaPhrasesGroups
+   * @param \Papaya\Phrases\Groups $groups
+   * @return \Papaya\Phrases\Groups
    */
-  public function groups(PapayaPhrasesGroups $groups = NULL) {
+  public function groups(Phrases\Groups $groups = NULL) {
     if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new PapayaPhrasesGroups($this);
+      $this->_groups = new Phrases\Groups($this);
     }
     return $this->_groups;
   }
@@ -135,8 +136,8 @@ class PapayaPhrases extends PapayaObject {
     if (NULL === $this->_defaultGroup) {
       $fileNamePattern = '#^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?#i';
       $pathNamePattern = '#^(([^\?]*)/)?([^?]+)(\?.*)?#';
-      /** @var PapayaUrl $url */
-      $url = $this->papaya()->request->getUrl();
+      /** @var \Papaya\URL $url */
+      $url = $this->papaya()->request->getURL();
       $requestUri = $url->getPath();
       $result = '';
       if (preg_match($fileNamePattern, $requestUri, $regs)) {
@@ -163,7 +164,7 @@ class PapayaPhrases extends PapayaObject {
   }
 
   /**
-   * Get a PapayaUiStringTranslated instance for a phrase. This object encaspulates
+   * Get a \Papaya\UI\Text\Translated instance for a phrase. This object encaspulates
    * a string that will be translated. If the $arguments are provided it the translated
    * string can contain placeholders usable with sprintf().
    *
@@ -172,18 +173,18 @@ class PapayaPhrases extends PapayaObject {
    * @param string $phrase
    * @param array $arguments
    * @param string|NULL $groupName
-   * @return PapayaUiStringTranslated
+   * @return \Papaya\UI\Text\Translated
    */
   public function get($phrase, array $arguments = array(), $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->get($phrase, $arguments);
   }
 
   /**
-   * Get a PapayaUiStringTranslatedList instance for a list of phrases.
+   * Get a \Papaya\UI\Text\Translated\Collection instance for a list of phrases.
    *
-   * @param array|Traversable $phrases
+   * @param array|\Traversable $phrases
    * @param array $groupName
-   * @return PapayaUiStringTranslatedList
+   * @return \Papaya\UI\Text\Translated\Collection
    */
   public function getList($phrases, $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->getList($phrases);
@@ -212,7 +213,7 @@ class PapayaPhrases extends PapayaObject {
    * @return string
    */
   public function getTextFmt($phrase, array $values = array(), $groupName = NULL) {
-    $result = new PapayaUiString(
+    $result = new UI\Text(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );
     return (string)$result;

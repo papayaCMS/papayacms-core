@@ -13,27 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParserSessionTest extends PapayaTestCase {
+class SessionTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaRequestParserSession::parse
+   * @covers       \Papaya\Request\Parser\Session::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUrl $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL $url */
     $url = $this
-      ->getMockBuilder(PapayaUrl::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array('getPath'))
       ->getMock();
     $url
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new PapayaRequestParserSession();
+    $parser = new Session();
     $this->assertSame(
       $expected,
       $parser->parse($url)
@@ -41,16 +43,16 @@ class PapayaRequestParserSessionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParserSession::isLast
-  */
+   * @covers \Papaya\Request\Parser\Session::isLast
+   */
   public function testIsLast() {
-    $parser = new PapayaRequestParserSession();
+    $parser = new Session();
     $this->assertFalse($parser->isLast());
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function parseDataProvider() {
     return array(

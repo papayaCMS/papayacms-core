@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Theme;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentThemeSetTest extends PapayaTestCase {
+class SetTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaContentThemeSet::_createMapping
-  */
+   * @covers Set::_createMapping
+   */
   public function testCreateMapping() {
-    $themeSet = new PapayaContentThemeSet();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $themeSet = new Set();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
-      PapayaDatabaseInterfaceMapping::class,
+      \Papaya\Database\Record\Mapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
@@ -32,11 +34,11 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentThemeSet::mapFieldToProperty
-  */
+   * @covers Set::mapFieldToProperty
+   */
   public function testMapFieldToPropertyPassthru() {
-    $themeSet = new PapayaContentThemeSet();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $themeSet = new Set();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -47,11 +49,11 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentThemeSet::mapFieldToProperty
-  */
+   * @covers Set::mapFieldToProperty
+   */
   public function testMapFieldToPropertyUnserialize() {
-    $themeSet = new PapayaContentThemeSet();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $themeSet = new Set();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       array(
@@ -64,7 +66,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
       $mapping->callbacks()->onMapValueFromFieldToProperty(
         'values',
         'themeset_values',
-        /** @lang XML  */
+        /** @lang XML */
         '<data version="2">
           <data-list name="PAGE">
             <data-list name="GROUP">
@@ -77,11 +79,11 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentThemeSet::mapPropertyToField
-  */
+   * @covers Set::mapPropertyToField
+   */
   public function testMapPropertyToFieldPassthru() {
-    $themeSet = new PapayaContentThemeSet();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $themeSet = new Set();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -92,14 +94,14 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentThemeSet::mapPropertyToField
-  */
+   * @covers Set::mapPropertyToField
+   */
   public function testMapPropertyToFieldSerialize() {
-    $themeSet = new PapayaContentThemeSet();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $themeSet = new Set();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<data version="2">
         <data-list name="PAGE">
           <data-list name="GROUP">
@@ -114,35 +116,35 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentThemeSet::getValuesXml
-  */
+   * @covers Set::getValuesXML
+   */
   public function testGetValuesXml() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructure $definition */
-    $definition = $this->createMock(PapayaContentStructure::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
+    $definition = $this->createMock(\Papaya\Content\Structure::class);
     $definition
       ->expects($this->once())
       ->method('getXmlDocument')
       ->with(array())
-      ->will($this->returnValue(new PapayaXmlDocument));
-    $themeSet = new PapayaContentThemeSet();
-    $this->assertInstanceOf(PapayaXmlDocument::class, $themeSet->getValuesXml($definition));
+      ->will($this->returnValue(new \Papaya\XML\Document));
+    $themeSet = new Set();
+    $this->assertInstanceOf(\Papaya\XML\Document::class, $themeSet->getValuesXML($definition));
   }
 
   /**
-  * @covers PapayaContentThemeSet::setValuesXml
-  */
+   * @covers Set::setValuesXML
+   */
   public function testSetValuesXml() {
-    $document = new PapayaXmlDocument();
+    $document = new \Papaya\XML\Document();
     $element = $document->appendElement('set');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructure $definition */
-    $definition = $this->createMock(PapayaContentStructure::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
+    $definition = $this->createMock(\Papaya\Content\Structure::class);
     $definition
       ->expects($this->once())
       ->method('getArray')
-      ->with($this->isInstanceOf(PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\Papaya\XML\Element::class))
       ->will($this->returnValue(array('foo' => 'bar')));
-    $themeSet = new PapayaContentThemeSet();
-    $themeSet->setValuesXml($definition, $element);
+    $themeSet = new Set();
+    $themeSet->setValuesXML($definition, $element);
     $this->assertEquals(array('foo' => 'bar'), $themeSet->values);
   }
 }

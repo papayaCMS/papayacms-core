@@ -1,24 +1,22 @@
 <?php
 /**
- * Papaya Template, abstract superclass for Papaya Template objects.
+ * papaya CMS
  *
- * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Template
- * @version $Id: Template.php 39818 2014-05-13 13:15:13Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 /**
- * Papaya Template, abstract superclass for Papaya Template objects.
+ * Papaya Template, abstract superclass for \Papaya Template objects.
  *
  * It contains all the handling for data (in a DOM document) and parameters. It defines
  * a method parse() for the actual processing.
@@ -32,7 +30,7 @@
  * @method bool addMenu($xml, $encodeInvalidEntities = TRUE)
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
-abstract class PapayaTemplate extends PapayaObject {
+abstract class Template extends Application\BaseObject {
 
   /**
    * Strip the XML processing instruction <?xml ...?>
@@ -52,17 +50,17 @@ abstract class PapayaTemplate extends PapayaObject {
   const STRIP_ALL = 7;
 
   /**
-   * @var PapayaTemplateValues
+   * @var \Papaya\Template\Values
    */
   private $_values = NULL;
 
   /**
-   * @var PapayaTemplateParameters
+   * @var \Papaya\Template\Parameters
    */
   private $_parameters = NULL;
 
   /**
-   * @var PapayaXmlErrors
+   * @var \Papaya\XML\Errors
    */
   private $_errors = NULL;
 
@@ -84,14 +82,14 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Combined getter/setter for the template values object
    *
-   * @param PapayaTemplateValues $values
-   * @return PapayaTemplateValues;
+   * @param \Papaya\Template\Values $values
+   * @return \Papaya\Template\Values
    */
-  public function values(PapayaTemplateValues $values = NULL) {
+  public function values(Template\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {
-      $this->_values = new PapayaTemplateValues();
+      $this->_values = new Template\Values();
     }
     return $this->_values;
   }
@@ -102,36 +100,36 @@ abstract class PapayaTemplate extends PapayaObject {
    * @param string $xml
    * @return boolean
    */
-  public function setXml($xml) {
+  public function setXML($xml) {
     return $this->errors()->encapsulate(
-      array($this->values()->document(), 'loadXml'),
+      array($this->values()->document(), 'loadXML'),
       array($xml)
     );
   }
 
   /**
-  * Get XML values as string
-  *
-  * @access public
-  * @return string
-  */
-  function getXml() {
-    return $this->values()->document()->saveXml();
+   * Get XML values as string
+   *
+   * @access public
+   * @return string
+   */
+  function getXML() {
+    return $this->values()->document()->saveXML();
   }
 
   /**
-   * @param array|Traversable $parameters
-   * @return PapayaTemplateParameters
+   * @param array|\Traversable $parameters
+   * @return \Papaya\Template\Parameters
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
-      if ($parameters instanceof PapayaTemplateParameters) {
+      if ($parameters instanceof Template\Parameters) {
         $this->_parameters = $parameters;
       } else {
-        $this->_parameters = new PapayaTemplateParameters($parameters);
+        $this->_parameters = new Template\Parameters($parameters);
       }
     } elseif (NULL === $this->_parameters) {
-      $this->_parameters = new PapayaTemplateParameters();
+      $this->_parameters = new Template\Parameters();
     }
     return $this->_parameters;
   }
@@ -139,14 +137,14 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Combined getter/setter for the libxml errors
    *
-   * @param PapayaXmlErrors $errors
-   * @return PapayaXmlErrors
+   * @param \Papaya\XML\Errors $errors
+   * @return \Papaya\XML\Errors
    */
-  public function errors(PapayaXmlErrors $errors = NULL) {
+  public function errors(XML\Errors $errors = NULL) {
     if (isset($errors)) {
       $this->_errors = $errors;
     } elseif (is_null($this->_errors)) {
-      $this->_errors = new PapayaXmlErrors();
+      $this->_errors = new XML\Errors();
       $this->_errors->papaya($this->papaya());
     }
     return $this->_errors;
@@ -165,15 +163,15 @@ abstract class PapayaTemplate extends PapayaObject {
         '(<([\w:-]+)\s\s*>)s'
       );
       $with = array('<$1>', '');
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_PI, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_PI, $options)) {
         $replace[] = '(<\?xml[^>]+\?>)';
         $with [] = '';
       }
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns(:[a-zA-Z]+)?="\s*")';
         $with [] = '';
       }
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns="[^"]*")';
         $with [] = '';
       }
@@ -184,12 +182,12 @@ abstract class PapayaTemplate extends PapayaObject {
 
 
   /**
-   * Add content to the Xml document. The content will be added to the 'page' root
+   * Add content to the XML document. The content will be added to the 'page' root
    * element. If you do not provide an path 'centercol' will be used. A path
    * can be a simple element name or a sequence of element names separated by '/'.
    * If an element in the path does not exists, it will be created.
    *
-   * @param string|PapayaXmlAppendable|\DOMNode $xml data
+   * @param string|\Papaya\XML\Appendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encodeInvalidEntities encode invalid entities like &
    * @return mixed
@@ -200,7 +198,7 @@ abstract class PapayaTemplate extends PapayaObject {
     } else {
       $path = '/page/'.$path;
     }
-    if ($xml instanceof PapayaXmlAppendable || $xml instanceof DOMNode) {
+    if ($xml instanceof XML\Appendable || $xml instanceof \DOMNode) {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),
@@ -212,7 +210,7 @@ abstract class PapayaTemplate extends PapayaObject {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),
-          'appendXml'
+          'appendXML'
         ),
         array(
           $encodeInvalidEntities ? $this->encodeInvalidEntities($xml) : $xml
@@ -229,8 +227,8 @@ abstract class PapayaTemplate extends PapayaObject {
    * @return string
    */
   private function encodeInvalidEntities($xml) {
-    $result = PapayaUtilStringUtf8::ensure($xml);
-    $result = PapayaUtilStringHtml::decodeNamedEntities($result);
+    $result = Utility\Text\UTF8::ensure($xml);
+    $result = Utility\Text\HTML::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace(
       '(&amp;(gt|lt|quot|apos|amp|#\d{1,6}|#x[a-fA-F\d]{1,4});)',
@@ -246,13 +244,13 @@ abstract class PapayaTemplate extends PapayaObject {
    * @param string $method
    * @param array $arguments
    * @return mixed
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __call($method, $arguments) {
     if (0 === strpos($method, 'add')) {
       $target = strtolower(substr($method, 3));
       if (!isset($this->_addMethods[$target])) {
-        throw new LogicException(
+        throw new \LogicException(
           sprintf(
             'Invalid add method %s::%s(), can not find target.',
             get_class($this),
@@ -260,7 +258,7 @@ abstract class PapayaTemplate extends PapayaObject {
           )
         );
       } elseif (!isset($arguments[0])) {
-        throw new LogicException(
+        throw new \LogicException(
           sprintf(
             'Invalid $xml argument for add method "%s:%s()".',
             get_class($this),
@@ -276,7 +274,7 @@ abstract class PapayaTemplate extends PapayaObject {
         );
       }
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Can not call nonexisting method "%s:%s()"',
         get_class($this),
@@ -292,16 +290,16 @@ abstract class PapayaTemplate extends PapayaObject {
    * @return string
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
-    $debugXml = $this->papaya()->request->getParameter(
-      'XML', FALSE, NULL, PapayaRequest::SOURCE_QUERY
+    $debugXML = $this->papaya()->request->getParameter(
+      'XML', FALSE, NULL, \Papaya\Request::SOURCE_QUERY
     );
-    if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
+    if ($debugXML && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
-       * @var PapayaResponse $response
+       * @var \Papaya\Response $response
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');
-      $response->content(new PapayaResponseContentString($this->getXml()));
+      $response->content(new Response\Content\Text($this->getXML()));
       $response->send(TRUE);
     } elseif ($result = $this->parse($options)) {
       return $result;
@@ -316,7 +314,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for add()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
@@ -328,7 +326,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addNavigation()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
@@ -339,7 +337,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addContent()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
@@ -350,7 +348,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addInformation()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
@@ -379,12 +377,12 @@ abstract class PapayaTemplate extends PapayaObject {
   }
 
   /**
-   * Alias for getXml()
+   * Alias for getXML()
    *
    * @deprecated
    * @return string
    */
   public function xml() {
-    return $this->getXml();
+    return $this->getXML();
   }
 }

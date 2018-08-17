@@ -145,7 +145,8 @@ class base_topic extends base_db {
 
   /**
   * current content language
-  * @var PapayaContentLanguage $currentLanguage
+  *
+  * @var \Papaya\Content\Language $currentLanguage
   */
   var $currentLanguage = NULL;
 
@@ -321,20 +322,20 @@ class base_topic extends base_db {
       $this->topic['TRANSLATION']['module_path'].$this->topic['TRANSLATION']['module_file']
     );
     if (isset($this->moduleObj) && is_object($this->moduleObj)) {
-      if ($this->moduleObj instanceof PapayaPluginEditable) {
-        $this->moduleObj->content()->setXml($this->topic['TRANSLATION']['topic_content']);
+      if ($this->moduleObj instanceof \Papaya\Plugin\Editable) {
+        $this->moduleObj->content()->setXML($this->topic['TRANSLATION']['topic_content']);
       }
       $cacheId = $this->getContentCacheId($this->moduleObj, $pageContent);
       if ($cacheId && $result = $this->getContentCache($cacheId)) {
         return $result;
       } else {
-        if ($this->moduleObj instanceof PapayaPluginConfigurable && !empty($parseParams)) {
+        if ($this->moduleObj instanceof \Papaya\Plugin\Configurable && !empty($parseParams)) {
           $this->moduleObj->configuration()->merge($parseParams);
         }
         if (!$pageContent) {
           $teaser = FALSE;
-          if ($this->moduleObj instanceof PapayaPluginQuoteable) {
-            $dom = new PapayaXmlDocument();
+          if ($this->moduleObj instanceof \Papaya\Plugin\Quoteable) {
+            $dom = new \Papaya\XML\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendQuoteTo($node);
             $teaser = $node->saveFragment();
@@ -352,8 +353,8 @@ class base_topic extends base_db {
           }
         } else {
           $str = FALSE;
-          if ($this->moduleObj instanceof PapayaPluginAppendable) {
-            $dom = new PapayaXmlDocument();
+          if ($this->moduleObj instanceof \Papaya\Plugin\Appendable) {
+            $dom = new \Papaya\XML\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendTo($node);
             $str = $node->saveFragment();
@@ -506,11 +507,11 @@ class base_topic extends base_db {
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['givenname']),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['surname']),
       empty($this->topic['topic_created'])
-        ? '' : PapayaUtilDate::timestampToString((int)$this->topic['topic_created']),
+        ? '' : \Papaya\Utility\Date::timestampToString((int)$this->topic['topic_created']),
       empty($this->topic['topic_created'])
         ? '' : date('D, d M Y H:i:s O', (int)$this->topic['topic_created']),
-      empty($published) ? '' : PapayaUtilDate::timestampToString($published),
-      empty($audited) ? '' : PapayaUtilDate::timestampToString($audited),
+      empty($published) ? '' : \Papaya\Utility\Date::timestampToString($published),
+      empty($audited) ? '' : \Papaya\Utility\Date::timestampToString($audited),
       papaya_strings::escapeHTMLChars(get_class($this->moduleObj)),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['module_guid']),
       empty($this->topic['TRANSLATION']['view_name'])
@@ -872,8 +873,8 @@ class base_topic extends base_db {
 
   private function getAncestorId(array $filter) {
     if (isset($this->topic)) {
-      $previousIds = PapayaUtilArray::decodeIdList(PapayaUtilArray::get($this->topic, 'prev_path'));
-      $previousIds[] = PapayaUtilArray::get($this->topic, 'prev');
+      $previousIds = \Papaya\Utility\Arrays::decodeIdList(\Papaya\Utility\Arrays::get($this->topic, 'prev_path'));
+      $previousIds[] = \Papaya\Utility\Arrays::get($this->topic, 'prev');
     } else {
       $previousIds = array();
     }
@@ -1032,7 +1033,7 @@ class base_topic extends base_db {
   * @return boolean|integer
   */
   public function deleteCache() {
-    $cache = PapayaCache::getService($this->papaya()->options);
+    $cache = \Papaya\Cache::getService($this->papaya()->options);
     return $cache->delete('pages', $this->topicId);
   }
 
@@ -1072,8 +1073,8 @@ class base_topic extends base_db {
         $this->currentLanguage['code']
       );
       $isValid = NULL;
-      if ($this->moduleObj instanceof PapayaPluginAddressable) {
-        $url = $this->moduleObj->validateUrl($this->papaya()->request);
+      if ($this->moduleObj instanceof \Papaya\Plugin\Addressable) {
+        $url = $this->moduleObj->validateURL($this->papaya()->request);
         if ($url === TRUE) {
           $isValid = TRUE;
         } elseif (is_string($url) && !empty($url)) {
@@ -1138,7 +1139,7 @@ class base_topic extends base_db {
   }
 
   public function getPageLanguage() {
-    if ($this->_language instanceof PapayaContentLanguage) {
+    if ($this->_language instanceof \Papaya\Content\Language) {
       return $this->_language;
     } elseif (0 < ($languageId = $this->getContentLanguageId())) {
       return $this->_language = $this->papaya()->languages->getLanguage($languageId);

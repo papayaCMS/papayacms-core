@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Reference\Command;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase {
+class ChangeTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
-  */
+   * @covers Change::createDialog
+   */
   public function testCreateDialog() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -16,10 +32,10 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('reference')
       ->will(
-        $this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42)))
+        $this->returnValue($this->getRecordFixture(array('sourceId' => 21, 'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
@@ -28,10 +44,10 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
-  */
+   * @covers Change::createDialog
+   */
   public function testCreateDialogWithoutSourceId() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -40,20 +56,20 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('reference')
       ->will(
-        $this->returnValue($this->getRecordFixture(array('sourceId' => 0,'targetId' => 42)))
+        $this->returnValue($this->getRecordFixture(array('sourceId' => 0, 'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
-  */
+   * @covers Change::createDialog
+   */
   public function testCreateDialogWhileSourceIdEqualsPageId() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -62,52 +78,52 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('reference')
       ->will(
-        $this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42)))
+        $this->returnValue($this->getRecordFixture(array('sourceId' => 21, 'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::validateTarget
-  * @covers PapayaAdministrationPagesReferenceCommandChange::sortAsc
-  */
+   * @covers Change::validateTarget
+   * @covers Change::sortAsc
+   */
   public function testValidateTargetExpectsTrue() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(\Papaya\Database\Interfaces\Key::class);
     $key
       ->expects($this->once())
       ->method('getProperties')
-      ->will($this->returnValue(array('sourceId' => 21,'targetId' => 42)));
-    $record = $this->getRecordFixture(array('sourceId' => 42,'targetId' => 21));
+      ->will($this->returnValue(array('sourceId' => 21, 'targetId' => 42)));
+    $record = $this->getRecordFixture(array('sourceId' => 42, 'targetId' => 21));
     $record
       ->expects($this->once())
       ->method('key')
       ->will($this->returnValue($key));
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $this->assertTrue(
-      $command->validateTarget($this->createMock(stdClass::class), $record)
+      $command->validateTarget($this->createMock(\stdClass::class), $record)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::validateTarget
-  * @covers PapayaAdministrationPagesReferenceCommandChange::sortAsc
-  */
+   * @covers Change::validateTarget
+   * @covers Change::sortAsc
+   */
   public function testValidateTargetExpectingFalse() {
-    $field = $this->createMock(PapayaUiDialogField::class);
+    $field = $this->createMock(\Papaya\UI\Dialog\Field::class);
     $field
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(PapayaFilterExceptionCallbackFailed::class));
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+      ->with($this->isInstanceOf(\Papaya\Filter\Exception\FailedCallback::class));
+    $key = $this->createMock(\Papaya\Database\Interfaces\Key::class);
     $key
       ->expects($this->once())
       ->method('getProperties')
-      ->will($this->returnValue(array('sourceId' => 21,'targetId' => 42)));
-    $record = $this->getRecordFixture(array('sourceId' => 21,'targetId' => 23));
+      ->will($this->returnValue(array('sourceId' => 21, 'targetId' => 42)));
+    $record = $this->getRecordFixture(array('sourceId' => 21, 'targetId' => 23));
     $record
       ->expects($this->once())
       ->method('key')
@@ -117,8 +133,8 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->method('exists')
       ->with(21, 23)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
-    $context = new stdClass();
+    $command = new Change();
+    $context = new \stdClass();
     $context->targetIdField = $field;
     $this->assertFalse(
       $command->validateTarget($context, $record)
@@ -126,64 +142,64 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::dispatchSavedMessage
-  */
+   * @covers Change::dispatchSavedMessage
+   */
   public function testDispatchSavedMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
       )
     );
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->papaya($application);
     $command->dispatchSavedMessage();
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::dispatchErrorMessage
-  */
+   * @covers Change::dispatchErrorMessage
+   */
   public function testDispatchErrorMessage() {
-    $errors = $this->createMock(PapayaUiDialogErrors::class);
+    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array('field')));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialog $dialog */
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
+    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
       )
     );
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->papaya($application);
-    $command->dispatchErrorMessage(new stdClass, $dialog);
+    $command->dispatchErrorMessage(new \stdClass, $dialog);
   }
 
   /**************************
-  * Fixtures
-  **************************/
+   * Fixtures
+   **************************/
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageReference
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Page\Reference
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageReference::class);
+    $record = $this->createMock(\Papaya\Content\Page\Reference::class);
     $record
       ->expects($this->any())
       ->method('toArray')
@@ -201,7 +217,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->method('__get')
       ->withAnyParameters()
       ->willReturnCallback(
-        function($name) use ($data) {
+        function ($name) use ($data) {
           return $data[$name];
         }
       );

@@ -1,21 +1,20 @@
 <?php
 /**
-* Basic options of papaya project
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_options.php 39863 2014-06-27 09:47:01Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Application\Cms;
+use Papaya\Configuration\Cms;
 
 /**
 * Basic options of papaya-cms
@@ -516,8 +515,8 @@ class base_options extends base_db {
   * @return base_options
   */
   public static function getInstance($reset = FALSE) {
-    /** @var PapayaApplicationCms $application */
-    $application = PapayaApplication::getInstance();
+    /** @var Cms $application */
+    $application = \Papaya\Application::getInstance();
     return $application->options;
   }
 
@@ -528,7 +527,7 @@ class base_options extends base_db {
   */
   function defineDatabaseTables() {
     $options = $this->papaya()->options;
-    if ($options instanceof PapayaConfigurationCms) {
+    if ($options instanceof Cms) {
       $options->defineDatabaseTables();
     }
   }
@@ -542,7 +541,7 @@ class base_options extends base_db {
    */
   function loadAndDefine($loadFromDB = TRUE) {
     $options = $this->papaya()->options;
-    if ($options instanceof PapayaConfigurationCms) {
+    if ($options instanceof Cms) {
       $options->loadAndDefine();
     }
   }

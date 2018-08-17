@@ -13,10 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../bootstrap.php';
-PapayaTestCase::defineConstantDefaults('PAPAYA_URL_EXTENSION');
+use Papaya\URL;
 
-class PapayaLibSystemBaseObjectTest extends PapayaTestCase {
+require_once __DIR__.'/../bootstrap.php';
+\Papaya\TestCase::defineConstantDefaults('PAPAYA_URL_EXTENSION');
+
+class PapayaLibSystemBaseObjectTest extends \Papaya\TestCase {
 
   /**
    * @group Bug2474
@@ -26,12 +28,12 @@ class PapayaLibSystemBaseObjectTest extends PapayaTestCase {
    * @param string $expectedLink
    */
   public function testGetWebLinkResetCategory($categoryId, $expectedLink) {
-    $request = new PapayaRequest(
+    $request = new \Papaya\Request(
       $this->mockPapaya()->options(
         array('PAPAYA_URL_LEVEL_SEPARATOR' => ':')
       )
     );
-    $request->load(new PapayaUrl('http://www.blah.tld/index.3.7.html'));
+    $request->load(new URL('http://www.blah.tld/index.3.7.html'));
 
     $obj = new base_object;
     $obj->papaya($this->mockPapaya()->application(array('Request' => $request)));

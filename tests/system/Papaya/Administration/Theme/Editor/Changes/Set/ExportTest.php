@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase {
+class ExportTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetExport
+   * @covers Export
    */
   public function testAppendTo() {
-    $response = $this->createMock(PapayaResponse::class);
+    $response = $this->createMock(\Papaya\Response::class);
     $response
       ->expects($this->once())
       ->method('setStatus')
@@ -41,24 +43,25 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf(PapayaResponseContentString::class));
+      ->with($this->isInstanceOf(\Papaya\Response\Content\Text::class));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
-    $themeHandler = $this->createMock(PapayaThemeHandler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
+    $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getDefinition')
       ->with('theme')
-      ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Content\Structure::class)));
 
-    $document = $this->createMock(PapayaXmlDocument::class);
+    $document = $this->createMock(\Papaya\XML\Document::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
-      ->will($this->returnValue(/** @lang XML */'<theme/>'));
+      ->will($this->returnValue(/** @lang XML */
+        '<theme/>'));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -77,10 +80,10 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
     $themeSet
       ->expects($this->once())
       ->method('getValuesXml')
-      ->with($this->isInstanceOf(PapayaContentStructure::class))
+      ->with($this->isInstanceOf(\Papaya\Content\Structure::class))
       ->will($this->returnValue($document));
 
-    $export = new PapayaAdministrationThemeEditorChangesSetExport($themeSet, $themeHandler);
+    $export = new Export($themeSet, $themeHandler);
     $export->papaya(
       $this->mockPapaya()->application(
         array(
@@ -88,6 +91,6 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
         )
       )
     );
-    $export->getXml();
+    $export->getXML();
   }
 }

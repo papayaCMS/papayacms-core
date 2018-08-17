@@ -1,34 +1,32 @@
 <?php
 /**
-* Papaya request parser for media database links
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Media.php 39122 2014-02-06 11:17:32Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for media database links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserMedia extends PapayaRequestParser {
+ * Papaya request parser for media database links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Media extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for media and download links
-  * @var string
-  */
+   * PCRE pattern for media and download links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:[a-zA-Z\d_-]+\.) #title
     (?P<mode>media|download|thumb)\. # mode
@@ -42,7 +40,8 @@ class PapayaRequestParserMedia extends PapayaRequestParser {
 
   /**
    * Parse url and return data
-   * @param PapayaUrl $url
+   *
+   * @param \Papaya\URL $url
    * @return FALSE|array
    */
   public function parse($url) {
@@ -59,7 +58,7 @@ class PapayaRequestParserMedia extends PapayaRequestParser {
       $result['media_id'] = $matches['id'];
       $result['media_uri'] = $matches['media_uri'];
       if (!empty($matches['version']) &&
-          $matches['version'] > 0) {
+        $matches['version'] > 0) {
         $result['media_version'] = (int)$matches['version'];
       }
       return $result;

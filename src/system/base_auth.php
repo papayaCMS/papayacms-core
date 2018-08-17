@@ -1,21 +1,19 @@
 <?php
 /**
-* Administration user authentification
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Authentication
-* @version $Id: base_auth.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * Administration user authentification
@@ -147,7 +145,8 @@ class base_auth extends base_db {
 
   /**
   * layout
-  * @var PapayaTemplate $layout
+  *
+  * @var \Papaya\Template $layout
   */
   var $layout = NULL;
 
@@ -210,7 +209,7 @@ class base_auth extends base_db {
   protected $modulePermLinks = array();
 
   /**
-   * @var PapayaAdministrationPermissions
+   * @var Administration\Permissions
    */
   private $_permissions = NULL;
 
@@ -255,7 +254,7 @@ class base_auth extends base_db {
         return $this->changeForgottenPassword($userId);
       } else {
         $this->papaya()->messages->dispatch(
-          new PapayaMessageDisplay(PapayaMessage::SEVERITY_ERROR, 'Invalid password change token')
+          new \Papaya\Message\Display(\Papaya\Message::SEVERITY_ERROR, 'Invalid password change token')
         );
         return FALSE;
       }
@@ -581,7 +580,7 @@ class base_auth extends base_db {
           $sql = "SELECT perm_id FROM %s WHERE perm_active = '1' OR permgroup_id = '%d'";
           $params = array(
             $this->tableAuthPermissions,
-            PapayaAdministrationPermissionGroups::SYSTEM
+            Administration\Permission\Groups::SYSTEM
           );
           if ($res = $this->databaseQueryFmt($sql, $params)) {
             while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1267,7 +1266,7 @@ class base_auth extends base_db {
         '<login title="%s" action="%s" is-secure="%s">',
         papaya_strings::escapeHTMLChars($this->_gt('Login')),
         papaya_strings::escapeHTMLChars($this->baseLink),
-        PapayaUtilServerProtocol::isSecure() ? 'yes' : 'no'
+        \Papaya\Utility\Server\Protocol::isSecure() ? 'yes' : 'no'
       );
       $result .= sprintf(
         '<input type="hidden" name="%s[login]" value="1" />'.LF,
@@ -1284,16 +1283,16 @@ class base_auth extends base_db {
         papaya_strings::escapeHTMLChars($this->getLink(array('cmd' => 'forgot'))),
         papaya_strings::escapeHTMLChars($this->_gt('Forgot password?'))
       );
-      if (!PapayaUtilServerProtocol::isSecure() &&
+      if (!\Papaya\Utility\Server\Protocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
-        $url = new PapayaUrlCurrent();
+        $url = new \Papaya\URL\Current();
         $url->setScheme('https');
         $result .= sprintf(
           '<hint><p>%s</p><a href="%s">%s</a></hint>'.LF,
           papaya_strings::escapeHTMLChars(
             $this->_gt('If possible, please use https to access the administration interface.')
           ),
-          papaya_strings::escapeHTMLChars($url->getUrl()),
+          papaya_strings::escapeHTMLChars($url->getURL()),
           papaya_strings::escapeHTMLChars($this->_gt('Switch to Https!'))
         );
       }
@@ -1366,7 +1365,7 @@ class base_auth extends base_db {
             $this->user['email'], $this->user['givenname'].' '.$this->user['surname']
           );
 
-          if (PapayaFilterFactory::isEmail($this->user['email'], TRUE)) {
+          if (\Papaya\Filter\Factory::isEmail($this->user['email'], TRUE)) {
             $email->send();
           }
         }
@@ -1577,7 +1576,7 @@ class base_auth extends base_db {
               in_array($permId, $this->userPerms)) {
       return TRUE;
     } elseif ($this->isAdmin() &&
-              $this->permissions()->exists($permId, PapayaAdministrationPermissionGroups::SYSTEM)) {
+              $this->permissions()->exists($permId, Administration\Permission\Groups::SYSTEM)) {
       return TRUE;
     }
     return FALSE;
@@ -1676,11 +1675,11 @@ class base_auth extends base_db {
     }
   }
 
-  public function permissions(PapayaAdministrationPermissions $permissions = NULL) {
+  public function permissions(Administration\Permissions $permissions = NULL) {
     if (isset($permissions)) {
       $this->_permissions = $permissions;
     } elseif (NULL === $this->_permissions) {
-      $this->_permissions = new PapayaAdministrationPermissions();
+      $this->_permissions = new Administration\Permissions();
       $this->_permissions->papaya($this->papaya());
       $this->_permissions->activateLazyLoad();
     }

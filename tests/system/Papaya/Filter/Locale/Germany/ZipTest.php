@@ -13,91 +13,92 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Locale\Germany;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
+class ZipTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaFilterLocaleGermanyZip::__construct
+   * @covers       \Papaya\Filter\Locale\Germany\Zip::__construct
    * @dataProvider providerConstructor
    * @param bool|NULL $value
    */
   public function testConstruct($value) {
-    $filter = new PapayaFilterLocaleGermanyZip($value);
+    $filter = new Zip($value);
     $this->assertAttributeEquals($value, '_allowCountryPrefix', $filter);
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::__construct
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::__construct
+   */
   public function testConstructWithoutArgument() {
-    $filter = new PapayaFilterLocaleGermanyZip();
+    $filter = new Zip();
     $this->assertAttributeEquals(NULL, '_allowCountryPrefix', $filter);
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::validate
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
+   */
   public function testValidate() {
-    $filter = new PapayaFilterLocaleGermanyZip();
+    $filter = new Zip();
     $this->assertTrue($filter->validate('12345'));
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::validate
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
+   */
   public function testValidateExpectCharacterInvalidException() {
-    $filter = new PapayaFilterLocaleGermanyZip(TRUE);
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $filter = new Zip(TRUE);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('11235');
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::validate
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
+   */
   public function testValidateExpectLengthMinimumException() {
-    $filter = new PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionLengthMinimum::class);
+    $filter = new Zip();
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('123');
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::validate
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
+   */
   public function testValidateExpectLengthMaximumException() {
-    $filter = new PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionLengthMaximum::class);
+    $filter = new Zip();
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('342423432424');
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::validate
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
+   */
   public function testValidateExpectCharacterInvalidExceptionInPostalcode() {
-    $filter = new PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $filter = new Zip();
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('23a91');
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::filter
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::filter
+   */
   public function testFilter() {
-    $filter = new PapayaFilterLocaleGermanyZip();
+    $filter = new Zip();
     $this->assertEquals('12345', $filter->filter('12345'));
   }
 
   /**
-  * @covers PapayaFilterLocaleGermanyZip::filter
-  */
+   * @covers \Papaya\Filter\Locale\Germany\Zip::filter
+   */
   public function testFilterExpectsFilterException() {
-    $filter = new PapayaFilterLocaleGermanyZip();
+    $filter = new Zip();
     $this->assertNull($filter->filter('78asdblnnlnltest'));
   }
 
   /************************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
   public static function providerConstructor() {
     return array(

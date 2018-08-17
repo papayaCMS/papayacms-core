@@ -1,77 +1,78 @@
 <?php
 /**
-* Papaya Streamwrapper Amazon S3 Handler
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Streamwrapper
-* @version $Id: Handler.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Streamwrapper\S3;
 /**
-* Papaya Streamwrapper Amazon S3 Handler
-*
-* @package Papaya-Library
-* @subpackage Streamwrapper
-*/
-class PapayaStreamwrapperS3Handler {
+ * Papaya Streamwrapper Amazon S3 Papaya\Theme\Handler
+ *
+ * @package Papaya-Library
+ * @subpackage Streamwrapper
+ */
+class Handler {
 
   /**
-  * HTTP client object
-  * @var PapayaHttpClient
-  */
+   * HTTP client object
+   *
+   * @var \Papaya\HTTP\Client
+   */
   private $_client = NULL;
 
   /**
-  * Temporary file that will on close be written to S3
-  * @var resource
-  */
+   * Temporary file that will on close be written to S3
+   *
+   * @var resource
+   */
   private $_temporaryFile = NULL;
 
   /**
-  * Set HTTP client object
-  * @param PapayaHttpClient $client
-  * @return void
-  */
-  public function setHTTPClient(PapayaHttpClient $client) {
+   * Set HTTP client object
+   *
+   * @param \Papaya\HTTP\Client $client
+   * @return void
+   */
+  public function setHTTPClient(\Papaya\HTTP\Client $client) {
     $this->_client = $client;
   }
 
   /**
-  * Get the HTTP client object, reset it if it already exists
-  * @return PapayaHttpClient
-  */
+   * Get the HTTP client object, reset it if it already exists
+   *
+   * @return \Papaya\HTTP\Client
+   */
   public function getHTTPClient() {
-    if (!($this->_client instanceof PapayaHttpClient)) {
-      $this->_client = new PapayaHttpClient();
+    if (!($this->_client instanceof \Papaya\HTTP\Client)) {
+      $this->_client = new \Papaya\HTTP\Client();
     }
     $this->_client->reset();
     return $this->_client;
   }
 
   /**
-  * Send request to Amazon S3, handle errors and return client if valid response
-  *
-  * @param string $method
-  * @param string $url
-  * @param array $headers
-  * @param integer $options
-  * @param array $arguments for the http request
-  * @return NULL|PapayaHttpClient
-  */
+   * Send request to Amazon S3, handle errors and return client if valid response
+   *
+   * @param string $method
+   * @param string $url
+   * @param array $headers
+   * @param integer $options
+   * @param array $arguments for the http request
+   * @return NULL|\Papaya\HTTP\Client
+   */
   private function _sendRequest($method, $url, $headers, $options, $arguments = array()) {
     $client = $this->getHTTPClient();
     $client->setMethod($method);
-    $client->setUrl($url);
+    $client->setURL($url);
     foreach ($headers as $key => $value) {
       $client->setHeader($key, $value);
     }
@@ -86,19 +87,19 @@ class PapayaStreamwrapperS3Handler {
       $client->close();
       if ($options & STREAM_REPORT_ERRORS) {
         switch ($status) {
-        case 404 :
+          case 404 :
           break;
-        case 403 :
-          trigger_error(
-            'Invalid Amazon S3 permissions',
-            E_USER_WARNING
-          );
+          case 403 :
+            trigger_error(
+              'Invalid Amazon S3 permissions',
+              E_USER_WARNING
+            );
           break;
-        default :
-          trigger_error(
-            'Unexpected response status: '.$status,
-            E_USER_WARNING
-          );
+          default :
+            trigger_error(
+              'Unexpected response status: '.$status,
+              E_USER_WARNING
+            );
           break;
         }
       }
@@ -107,19 +108,19 @@ class PapayaStreamwrapperS3Handler {
   }
 
   /**
-  * Get informations about a file resource
-  *
-  * @param array $location
-  * @param integer $options
-  * @return array|NULL
-  */
+   * Get informations about a file resource
+   *
+   * @param array $location
+   * @param integer $options
+   * @return array|NULL
+   */
   public function getFileInformations($location, $options) {
     $headers = array(
       'Date' => gmdate(DATE_RFC1123),
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'HEAD', $headers);
+    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'HEAD', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'HEAD',
@@ -157,7 +158,7 @@ class PapayaStreamwrapperS3Handler {
       'Connection' => 'keep-alive',
       'Range' => 'bytes='.$position.'-'.($position + $count - 1)
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'GET', $headers);
+    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -211,7 +212,7 @@ class PapayaStreamwrapperS3Handler {
       'Connection' => 'close',
     );
     $method = 'PUT';
-    $signature = new PapayaStreamwrapperS3Signature(
+    $signature = new \Papaya\Streamwrapper\S3\Signature(
       $location,
       $method,
       $headers
@@ -221,7 +222,7 @@ class PapayaStreamwrapperS3Handler {
     $client->setMethod($method);
     $url = 'http://'.$location['bucket'].'.s3.amazonaws.com/'.
       $location['object'];
-    $client->setUrl($url);
+    $client->setURL($url);
     foreach ($headers as $key => $value) {
       $client->setHeader($key, $value);
     }
@@ -239,45 +240,45 @@ class PapayaStreamwrapperS3Handler {
   }
 
   /**
-  * Write $data to file
-  *
-  * @param integer $options
-  * @param string $data
-  * @return integer amount of bytes written
-  */
+   * Write $data to file
+   *
+   * @param integer $options
+   * @param string $data
+   * @return integer amount of bytes written
+   */
   public function writeFileContent($options, $data) {
     return fwrite($this->_temporaryFile, $data);
   }
 
   /**
-  * Close file for writing
-  *
-  * @param integer $options
-  * @return void
-  */
+   * Close file for writing
+   *
+   * @param integer $options
+   * @return void
+   */
   public function closeWriteFile($options) {
     $client = $this->_client;
     fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new PapayaHttpClientFileResource("file", "file", $this->_temporaryFile)
+      new \Papaya\HTTP\Client\File\Resource("file", "file", $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();
     $client->close();
     if (!in_array($status, array(200))
-        && ($options & STREAM_REPORT_ERRORS)) {
+      && ($options & STREAM_REPORT_ERRORS)) {
       switch ($status) {
-      case 403 :
-        trigger_error(
-          'Invalid Amazon S3 permissions',
-          E_USER_WARNING
-        );
+        case 403 :
+          trigger_error(
+            'Invalid Amazon S3 permissions',
+            E_USER_WARNING
+          );
         break;
-      default :
-        trigger_error(
-          'Unexpected response status: '.$status,
-          E_USER_WARNING
-        );
+        default :
+          trigger_error(
+            'Unexpected response status: '.$status,
+            E_USER_WARNING
+          );
         break;
       }
     }
@@ -297,7 +298,7 @@ class PapayaStreamwrapperS3Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive',
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'DELETE', $headers);
+    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'DELETE', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'DELETE',
@@ -313,21 +314,21 @@ class PapayaStreamwrapperS3Handler {
   }
 
   /**
-  * Get informations about a directory resource
-  *
-  * array $result['contents'] of strings with contained file names.
-  *   The array may be empty.
-  * boolean $result['moreContent'] boolean
-  * string $result['startMarker'] contains $startMarker .
-  * integer $result['size'] , $result['modified'] and $result['mode']
-  *   are hard coded.
-  *
-  * @param array $location
-  * @param integer $options
-  * @param integer $maxKeys Limit the number of results, default 1
-  * @param string $startMarker Start output lexicographically after this, default ''
-  * @return array|NULL associative array $result
-  */
+   * Get informations about a directory resource
+   *
+   * array $result['contents'] of strings with contained file names.
+   *   The array may be empty.
+   * boolean $result['moreContent'] boolean
+   * string $result['startMarker'] contains $startMarker .
+   * integer $result['size'] , $result['modified'] and $result['mode']
+   *   are hard coded.
+   *
+   * @param array $location
+   * @param integer $options
+   * @param integer $maxKeys Limit the number of results, default 1
+   * @param string $startMarker Start output lexicographically after this, default ''
+   * @return array|NULL associative array $result
+   */
   public function getDirectoryInformations($location, $options, $maxKeys = 1, $startMarker = '') {
     $headers = array(
       'Date' => gmdate(DATE_RFC1123),
@@ -346,7 +347,7 @@ class PapayaStreamwrapperS3Handler {
       'delimiter' => '/'
     );
     $location['object'] = '';
-    $signature = new PapayaStreamwrapperS3Signature($location, 'GET', $headers);
+    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -358,12 +359,12 @@ class PapayaStreamwrapperS3Handler {
     if ($client) {
       $response = $client->getResponseData();
       $moreContent = $this->evaluateResult(
-        new DOMDocument('1.0', 'UTF-8'),
+        new \DOMDocument('1.0', 'UTF-8'),
         $response,
         '//s3:IsTruncated/text() = "true"'
       );
       $items = $this->evaluateResult(
-        new DOMDocument('1.0', 'UTF-8'),
+        new \DOMDocument('1.0', 'UTF-8'),
         $response,
         '//s3:Contents/s3:Key | //s3:CommonPrefixes/s3:Prefix'
       );
@@ -395,16 +396,16 @@ class PapayaStreamwrapperS3Handler {
   }
 
   /**
-  * Evaluate xml result using a xpath expression
-  *
-  * @param DOMDocument $dom
-  * @param string $xml
-  * @param string $xpath
-  * @return mixed
-  */
+   * Evaluate xml result using a xpath expression
+   *
+   * @param \DOMDocument $dom
+   * @param string $xml
+   * @param string $xpath
+   * @return mixed
+   */
   public function evaluateResult($dom, $xml, $xpath) {
     $dom->loadXML($xml);
-    $query = new DOMXPath($dom);
+    $query = new \DOMXPath($dom);
     $query->registerNamespace('s3', 'http://s3.amazonaws.com/doc/2006-03-01/');
     return $query->evaluate($xpath);
   }

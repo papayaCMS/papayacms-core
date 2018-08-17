@@ -1,32 +1,30 @@
 <?php
 /**
-* An iterator that group items using a callback function on them.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Groups.php 37507 2012-09-05 14:28:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Iterator\Tree;
 
 /**
-* An iterator that group items using a callback function on them.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTreeGroups implements RecursiveIterator {
+ * An iterator that group items using a callback function on them.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Groups implements \RecursiveIterator {
 
   /**
-   * @var Iterator
+   * @var \Iterator
    */
   private $_iterator = NULL;
 
@@ -48,19 +46,19 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   /**
    * Store item traversable and callback function for group generation
    *
-   * @param Traversable|array $traversable
+   * @param \Traversable|array $traversable
    * @param callback $callback
    */
   public function __construct($traversable, $callback) {
-    $this->_iterator = new PapayaIteratorTraversable($traversable);
-    PapayaUtilConstraints::assertCallable($callback);
+    $this->_iterator = new \Papaya\Iterator\TraversableIterator($traversable);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 
   /**
    * Fill groups and children arrays it they are still empty
    *
-   * @throws LogicException
+   * @throws \LogicException
    */
   private function prepareGroupsLazy() {
     if (is_null($this->_tree)) {
@@ -92,7 +90,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   /**
    * Reset array pointer in tree
    *
-   * @see RecursiveIterator::rewind()
+   * @see \RecursiveIterator::rewind()
    */
   public function rewind() {
     $this->prepareGroupsLazy();
@@ -102,7 +100,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   /**
    * Move to next element
    *
-   * @see RecursiveIterator::next()
+   * @see \RecursiveIterator::next()
    */
   public function next() {
     $this->prepareGroupsLazy();
@@ -110,7 +108,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   }
 
   /**
-   * @see RecursiveIterator::current()
+   * @see \RecursiveIterator::current()
    * @return mixed
    */
   public function current() {
@@ -119,7 +117,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   }
 
   /**
-   * @see RecursiveIterator::key()
+   * @see \RecursiveIterator::key()
    * @return integer
    */
   public function key() {
@@ -128,7 +126,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   }
 
   /**
-   * @see RecursiveIterator::valid()
+   * @see \RecursiveIterator::valid()
    * @return boolean
    */
   public function valid() {
@@ -138,7 +136,7 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   }
 
   /**
-   * @see RecursiveIterator::hasChildren()
+   * @see \RecursiveIterator::hasChildren()
    * @return boolean
    */
   public function hasChildren() {
@@ -146,12 +144,12 @@ class PapayaIteratorTreeGroups implements RecursiveIterator {
   }
 
   /**
-   * @see RecursiveIterator::getChildren()
-   * @return RecursiveIterator
+   * @see \RecursiveIterator::getChildren()
+   * @return \RecursiveIterator
    */
   public function getChildren() {
     $key = $this->key();
-    return new PapayaIteratorTreeItems(
+    return new \Papaya\Iterator\Tree\Items(
       isset($this->_children[$key]) ? $this->_children[$key] : array()
     );
   }

@@ -1,20 +1,19 @@
 <?php
 /**
-* Object to display user task list
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * Object to display user task list
@@ -62,7 +61,7 @@ class papaya_todo extends base_db {
   var $paramName = 'todo';
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -91,7 +90,7 @@ class papaya_todo extends base_db {
   * @access public
   */
   function execute() {
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::MESSAGES)) {
+    if ($this->papaya()->administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       if (isset($this->params['cmd'])) {
         switch ($this->params['cmd']) {
         case 'todo_delete':
@@ -179,7 +178,7 @@ class papaya_todo extends base_db {
     $this->layout->parameters()->set('COLUMNWIDTH_LEFT', '100px');
     $this->layout->parameters()->set('COLUMNWIDTH_CENTER', '50%');
     $this->layout->parameters()->set('COLUMNWIDTH_RIGHT', '50%');
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::MESSAGES)) {
+    if ($this->papaya()->administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       $this->loadTodoList();
       if ($str = $this->getTodoList()) {
         $this->layout->add($str);

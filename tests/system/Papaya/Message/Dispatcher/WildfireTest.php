@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
+class WildfireTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::allow
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::allow
+   */
   public function testAllowExpectingFalse() {
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -37,13 +38,13 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::allow
-  * @covers PapayaMessageDispatcherWildfire::usable
-  * @backupGlobals
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::allow
+   * @covers \Papaya\Message\Dispatcher\Wildfire::usable
+   * @backupGlobals
+   */
   public function testAllowWithUserAgentAllowExpectingFalse() {
     $_SERVER['HTTP_USER_AGENT'] = 'FirePHP';
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -59,12 +60,12 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::allow
-  * @backupGlobals
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::allow
+   * @backupGlobals
+   */
   public function testAllowWithUserAgentAllowExpectingTrue() {
     $_SERVER['HTTP_USER_AGENT'] = 'FirePHP';
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -80,16 +81,16 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::setHandler
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::setHandler
+   */
   public function testSetHandler() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $this->assertAttributeSame(
       $handler,
@@ -99,16 +100,16 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::getHandler
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::getHandler
+   */
   public function testGetHandler() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $this->assertSame(
       $handler,
@@ -117,70 +118,70 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::getHandler
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::getHandler
+   */
   public function testGetHandlerExpectingImplicitCreate() {
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $this->assertInstanceOf(
-      PapayaMessageDispatcherWildfireHandler::class,
+      Wildfire\Handler::class,
       $dispatcher->getHandler()
     );
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::getWildfireMessageType
-  * @dataProvider getWildfireMessageTypeDataProvider
-  *
-  * @param string $expected
-  * @param integer $type
-  */
+   * @covers       \Papaya\Message\Dispatcher\Wildfire::getWildfireMessageType
+   * @dataProvider getWildfireMessageTypeDataProvider
+   *
+   * @param string $expected
+   * @param integer $type
+   */
   public function testGetWildfireMessageType($expected, $type) {
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $this->assertEquals($expected, $dispatcher->getWildfireMessageType($type));
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::getWildfireGroupLabelFromType
-  * @dataProvider getWildfireGroupLabelFromTypeDataProvider
-  *
-  * @param string $expected
-  * @param integer $type
-  */
+   * @covers       \Papaya\Message\Dispatcher\Wildfire::getWildfireGroupLabelFromType
+   * @dataProvider getWildfireGroupLabelFromTypeDataProvider
+   *
+   * @param string $expected
+   * @param integer $type
+   */
   public function testGetWildfireGroupLabelFromType($expected, $type) {
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $this->assertEquals($expected, $dispatcher->getWildfireGroupLabelFromType($type));
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::dispatch
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::dispatch
+   */
   public function testDispatchExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
-    $message = $this->createMock(PapayaMessage::class);
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
+    $message = $this->createMock(\Papaya\Message::class);
+    $dispatcher = new Wildfire();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::send
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::send
+   */
   public function testSendWithSimpleMessage() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo('Hello'), 'LOG');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
-    $message = $this->createMock(PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(PapayaMessage::SEVERITY_DEBUG));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -188,20 +189,20 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('context')
-      ->will($this->returnValue($this->createMock(PapayaMessageContextGroup::class)));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->send($message);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::send
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::send
+   */
   public function testSendWithMessageIncludingContext() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
@@ -215,12 +216,12 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $handler
       ->expects($this->once())
       ->method('endGroup');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
-    $message = $this->createMock(PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(PapayaMessage::SEVERITY_DEBUG));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -229,75 +230,75 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('context')
       ->will(
-        $this->returnValue(array($this->createMock(PapayaMessageContextInterface::class)))
+        $this->returnValue(array($this->createMock(\Papaya\Message\Context\Data::class)))
       );
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->send($message);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   */
   public function testSendContextWithString() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo('Hello'), 'LOG');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterfaceString $context */
-    $context = $this->createMock(PapayaMessageContextInterfaceString::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Interfaces\Text $context */
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Text::class);
     $context
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('Hello'));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  * @covers PapayaMessageDispatcherWildfire::_sendContextVariable
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_sendContextVariable
+   */
   public function testSendContextWithVariable() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
       ->expects($this->once())
       ->method('sendDump')
       ->with(NULL);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextVariable $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Variable $context */
     $context = $this
-      ->getMockBuilder(PapayaMessageContextVariable::class)
+      ->getMockBuilder(\Papaya\Message\Context\Variable::class)
       ->setConstructorArgs(array(42))
       ->getMock();
     $context
       ->expects($this->once())
       ->method('acceptVisitor')
-      ->with($this->isInstanceOf(PapayaMessageContextVariableVisitor::class));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+      ->with($this->isInstanceOf(\Papaya\Message\Context\Variable\Visitor::class));
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   */
   public function testSendContextWithList() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
@@ -315,8 +316,8 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $handler
       ->expects($this->at(3))
       ->method('endGroup');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterfaceList $context */
-    $context = $this->createMock(PapayaMessageContextInterfaceList::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Interfaces\Items $context */
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Items::class);
     $context
       ->expects($this->any())
       ->method('getLabel')
@@ -325,17 +326,17 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('asArray')
       ->will($this->returnValue(array('Hello', 'World')));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  * @covers PapayaMessageDispatcherWildfire::_sendContextTrace
-  * @covers PapayaMessageDispatcherWildfire::_getArrayElement
-  * @covers PapayaMessageDispatcherWildfire::_traceElementToArray
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_sendContextTrace
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_getArrayElement
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_traceElementToArray
+   */
   public function testSendContextWithBacktrace() {
     $backtrace = array(
       array(
@@ -374,61 +375,61 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       )
     );
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo($expected), 'TRACE');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextBacktrace $context */
-    $context = $this->createMock(PapayaMessageContextBacktrace::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Backtrace $context */
+    $context = $this->createMock(\Papaya\Message\Context\Backtrace::class);
     $context
       ->expects($this->once())
       ->method('getBacktrace')
       ->will($this->returnValue($backtrace));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  * @covers PapayaMessageDispatcherWildfire::_sendContextTrace
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_sendContextTrace
+   */
   public function testSendContextWithEmptyBacktrace() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
       ->expects($this->never())
       ->method('sendMessage');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextBacktrace $context */
-    $context = $this->createMock(PapayaMessageContextBacktrace::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Backtrace $context */
+    $context = $this->createMock(\Papaya\Message\Context\Backtrace::class);
     $context
       ->expects($this->once())
       ->method('getBacktrace')
       ->will($this->returnValue(array()));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  * @covers PapayaMessageDispatcherWildfire::_sendContextTable
-  * @covers PapayaMessageDispatcherWildfire::formatTableValue
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_sendContextTable
+   * @covers \Papaya\Message\Dispatcher\Wildfire::formatTableValue
+   */
   public function testSendContextWithTableWithColumns() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
@@ -444,8 +445,8 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
         'TABLE',
         'Sample Table'
       );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterfaceTable $context */
-    $context = $this->createMock(PapayaMessageContextInterfaceTable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Interfaces\Table $context */
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Table::class);
     $context
       ->expects($this->once())
       ->method('getLabel')
@@ -463,21 +464,21 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->method('getRow')
       ->with($this->equalTo(0))
       ->will($this->returnValue(array('c1' => 'Data One', 'c2' => 'Data Two')));
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfire::sendContext
-  * @covers PapayaMessageDispatcherWildfire::_sendContextTable
-  * @covers PapayaMessageDispatcherWildfire::formatTableValue
-  */
+   * @covers \Papaya\Message\Dispatcher\Wildfire::sendContext
+   * @covers \Papaya\Message\Dispatcher\Wildfire::_sendContextTable
+   * @covers \Papaya\Message\Dispatcher\Wildfire::formatTableValue
+   */
   public function testSendContextWithTableWithoutColumns() {
     $callback = array($this, 'collectHeader');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcherWildfireHandler $handler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
     $handler = $this
-      ->getMockBuilder(PapayaMessageDispatcherWildfireHandler::class)
+      ->getMockBuilder(Wildfire\Handler::class)
       ->setConstructorArgs(array($callback))
       ->getMock();
     $handler
@@ -490,8 +491,8 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
         'TABLE',
         'Sample Table'
       );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterfaceTable $context */
-    $context = $this->createMock(PapayaMessageContextInterfaceTable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Interfaces\Table $context */
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Table::class);
     $context
       ->expects($this->once())
       ->method('getLabel')
@@ -514,14 +515,14 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
           $this->returnValue(array('2.1', NULL))
         )
       );
-    $dispatcher = new PapayaMessageDispatcherWildfire();
+    $dispatcher = new Wildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
   }
 
   /*************************
-  * Callbacks
-  *************************/
+   * Callbacks
+   *************************/
 
   public function useableSimulationCallback() {
     return TRUE;
@@ -532,26 +533,26 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   }
 
   /*************************
-  * Data provider
-  *************************/
+   * Data provider
+   *************************/
 
   public static function getWildfireMessageTypeDataProvider() {
     return array(
       array('LOG', -1),
-      array('LOG', PapayaMessage::SEVERITY_DEBUG),
-      array('INFO', PapayaMessage::SEVERITY_INFO),
-      array('WARN', PapayaMessage::SEVERITY_WARNING),
-      array('ERROR', PapayaMessage::SEVERITY_ERROR)
+      array('LOG', \Papaya\Message::SEVERITY_DEBUG),
+      array('INFO', \Papaya\Message::SEVERITY_INFO),
+      array('WARN', \Papaya\Message::SEVERITY_WARNING),
+      array('ERROR', \Papaya\Message::SEVERITY_ERROR)
     );
   }
 
   public static function getWildfireGroupLabelFromTypeDataProvider() {
     return array(
       array('Debug', -1),
-      array('Debug', PapayaMessage::SEVERITY_DEBUG),
-      array('Information', PapayaMessage::SEVERITY_INFO),
-      array('Warning', PapayaMessage::SEVERITY_WARNING),
-      array('Error', PapayaMessage::SEVERITY_ERROR)
+      array('Debug', \Papaya\Message::SEVERITY_DEBUG),
+      array('Information', \Papaya\Message::SEVERITY_INFO),
+      array('Warning', \Papaya\Message::SEVERITY_WARNING),
+      array('Error', \Papaya\Message::SEVERITY_ERROR)
     );
   }
 }

@@ -1,37 +1,37 @@
 <?php
 /**
-* Add/save a page reference.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Change.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Reference\Command;
+
+use Papaya\Administration\Pages\Dependency\Changer;
 
 /**
-* Add/save a page dependency.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCommandDialog {
+ * Add/save a page dependency.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Change extends \Papaya\UI\Control\Command\Dialog {
 
   /**
-  * Create the add/edit dialog and assign callbacks.
-  *
-  * @return PapayaUiDialogDatabaseSave
-  */
+   * Create the add/edit dialog and assign callbacks.
+   *
+   * @return \Papaya\UI\Dialog\Database\Save
+   */
   public function createDialog() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var Changer $changer */
     $changer = $this->owner();
     $pageId = $changer->getPageId();
     $record = $changer->reference();
@@ -43,9 +43,9 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
       $targetId = $record->sourceId;
     }
 
-    $dialog = new PapayaUiDialogDatabaseSave($record);
+    $dialog = new \Papaya\UI\Dialog\Database\Save($record);
 
-    $dialog->caption = new PapayaUiStringTranslated('Page reference');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Page reference');
     $dialog->data->merge(
       array(
         'source_id' => $pageId,
@@ -69,13 +69,13 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
       )
     );
 
-    $dialog->fields[] = $targetIdField = new PapayaUiDialogFieldInputPage(
-      new PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
+    $dialog->fields[] = $targetIdField = new \Papaya\UI\Dialog\Field\Input\Page(
+      new \Papaya\UI\Text\Translated('Target page'), 'target_id', NULL, TRUE
     );
-    $dialog->fields[] = new PapayaUiDialogFieldTextarea(
-      new PapayaUiStringTranslated('Note'), 'note', 8, ''
+    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Textarea(
+      new \Papaya\UI\Text\Translated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateTarget');
     $dialog->callbacks()->onBeforeSave->context->targetIdField = $targetIdField;
@@ -91,18 +91,18 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
    * a reference like this does not already exists.
    *
    * @param object $context
-   * @param PapayaContentPageReference $record
+   * @param \Papaya\Content\Page\Reference $record
    * @return bool
    */
-  public function validateTarget($context, PapayaContentPageReference $record) {
+  public function validateTarget($context, \Papaya\Content\Page\Reference $record) {
     list($sourceId, $targetId) = $this->sortAsc($record->sourceId, $record->targetId);
     $currentKey = $record->key()->getProperties();
     if (
-        $currentKey != array('source_id' => $sourceId, 'target_id' => $targetId) &&
-        $record->exists($sourceId, $targetId)
-       ) {
+      $currentKey != array('source_id' => $sourceId, 'target_id' => $targetId) &&
+      $record->exists($sourceId, $targetId)
+    ) {
       $context->targetIdField->handleValidationFailure(
-        new PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
       );
       return FALSE;
     }
@@ -125,23 +125,23 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   }
 
   /**
-  * Callback to dispatch a message to the user that the record was saved.
-  */
+   * Callback to dispatch a message to the user that the record was saved.
+   */
   public function dispatchSavedMessage() {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Reference saved.'
+      new \Papaya\Message\Display\Translated(
+        \Papaya\Message::SEVERITY_INFO, 'Reference saved.'
       )
     );
   }
 
   /**
-  * Callback to dispatch a message to the user that here was an input error.
-  */
-  public function dispatchErrorMessage($context, PapayaUiDialog $dialog) {
+   * Callback to dispatch a message to the user that here was an input error.
+   */
+  public function dispatchErrorMessage($context, \Papaya\UI\Dialog $dialog) {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_ERROR,
+      new \Papaya\Message\Display\Translated(
+        \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

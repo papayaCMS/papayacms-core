@@ -1,21 +1,17 @@
 <?php
 /**
-* Cronjob-administration
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_cron.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Cronjob-administration
@@ -54,7 +50,7 @@ class base_cronjobs extends base_db {
   var $cronjobs = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -129,10 +125,10 @@ class base_cronjobs extends base_db {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $row['cron_module_file'] = $row['cron_module_path'].$row['cron_module_file'];
         $row['job_module_file'] = $row['job_module_path'].$row['job_module_file'];
-        $row['cronjob_start_str'] = PapayaUtilDate::timestampToString(
+        $row['cronjob_start_str'] = \Papaya\Utility\Date::timestampToString(
           $row['cronjob_start'], TRUE, FALSE
         );
-        $row['cronjob_end_str'] = PapayaUtilDate::timestampToString(
+        $row['cronjob_end_str'] = \Papaya\Utility\Date::timestampToString(
           $row['cronjob_end'], TRUE, FALSE
         );
         $this->cronjob = $row;
@@ -379,7 +375,7 @@ class base_cronjobs extends base_db {
   function check() {
     $result = TRUE;
     if (empty($this->params['cronjob_title']) ||
-        !PapayaFilterFactory::isNotXml($this->params['cronjob_title'], TRUE)) {
+        !\Papaya\Filter\Factory::isNotXML($this->params['cronjob_title'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -387,7 +383,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['cronjob_description']) ||
-        !PapayaFilterFactory::isNotXml($this->params['cronjob_description'], TRUE)) {
+        !\Papaya\Filter\Factory::isNotXML($this->params['cronjob_description'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -395,7 +391,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['cron_module_guid']) ||
-        !PapayaFilterFactory::isGuid($this->params['cron_module_guid'], TRUE)) {
+        !\Papaya\Filter\Factory::isGuid($this->params['cron_module_guid'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -403,7 +399,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['job_module_guid']) ||
-        !PapayaFilterFactory::isGuid($this->params['job_module_guid'], TRUE)) {
+        !\Papaya\Filter\Factory::isGuid($this->params['job_module_guid'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -411,9 +407,9 @@ class base_cronjobs extends base_db {
       );
     }
     $this->params['cronjob_start'] =
-      PapayaUtilDate::stringToTimestamp($this->params['cronjob_start_str']);
+      \Papaya\Utility\Date::stringToTimestamp($this->params['cronjob_start_str']);
     $this->params['cronjob_end'] =
-      PapayaUtilDate::stringToTimestamp($this->params['cronjob_end_str']);
+      \Papaya\Utility\Date::stringToTimestamp($this->params['cronjob_end_str']);
     if ($this->params['cronjob_end'] <= $this->params['cronjob_start']) {
       $result = FALSE;
       $this->addMsg(MSG_ERROR, $this->_gt('Invalid time frame.'));
@@ -529,7 +525,7 @@ class base_cronjobs extends base_db {
         $this->load((int)$this->params['id']);
         $dialog = $this->initializeActivateForm();
         if ($dialog->checkDialogInput()) {
-          $nextExecutionTime = PapayaUtilDate::stringToTimestamp($dialog->data['nextexec']);
+          $nextExecutionTime = \Papaya\Utility\Date::stringToTimestamp($dialog->data['nextexec']);
           if ($this->activate($nextExecutionTime, 0, (int)$this->params['id'])) {
             $this->addMsg(MSG_INFO, $this->_gt('Cronjob activated'));
           } else {
@@ -968,14 +964,14 @@ class base_cronjobs extends base_db {
         '<listitem title="%s"><subitem>%s</subitem></listitem>'.LF,
         papaya_strings::escapeHTMLChars($this->_gt('Last execution')),
         ($this->cronjob['cronjob_lastexec'] > 1)
-          ? PapayaUtilDate::timestampToString($this->cronjob['cronjob_lastexec'], TRUE, FALSE)
+          ? \Papaya\Utility\Date::timestampToString($this->cronjob['cronjob_lastexec'], TRUE, FALSE)
           : papaya_strings::escapeHTMLChars($this->_gt('never'))
       );
       $result .= sprintf(
         '<listitem title="%s"><subitem>%s</subitem></listitem>'.LF,
         papaya_strings::escapeHTMLChars($this->_gt('Next execution')),
         ($this->cronjob['cronjob_nextexec'] > time())
-          ? PapayaUtilDate::timestampToString($this->cronjob['cronjob_nextexec'], TRUE, FALSE)
+          ? \Papaya\Utility\Date::timestampToString($this->cronjob['cronjob_nextexec'], TRUE, FALSE)
           : papaya_strings::escapeHTMLChars($this->_gt('instantaneous'))
       );
       $result .= sprintf(
@@ -1069,7 +1065,7 @@ class base_cronjobs extends base_db {
           defined('PAPAYA_BROWSER_CRONJOBS_IP')) {
         $ipAddresses = preg_split('(\s*,\s*)', trim(PAPAYA_BROWSER_CRONJOBS_IP));
         if (isset($_SERVER['REMOTE_ADDR']) &&
-            PapayaFilterFactory::isIpAddress($_SERVER['REMOTE_ADDR'], TRUE)) {
+            \Papaya\Filter\Factory::isIpAddress($_SERVER['REMOTE_ADDR'], TRUE)) {
           $remoteAddress = $_SERVER['REMOTE_ADDR'];
         }
         if (in_array('0.0.0.0', $ipAddresses) ||
@@ -1330,7 +1326,7 @@ class base_cronjobs extends base_db {
 
       if ($calculatedData = $this->checkCronJobData()) {
 
-        $data['nextexec'] = PapayaUtilDate::timestampToString(
+        $data['nextexec'] = \Papaya\Utility\Date::timestampToString(
           $calculatedData['nextexec'], TRUE, FALSE
         );
 
@@ -1352,10 +1348,10 @@ class base_cronjobs extends base_db {
       $dialog->dialogDoubleButtons = FALSE;
       $dialog->initializeParams();
 
-      $currentNextExec = PapayaUtilDate::stringToTimestamp($dialog->data['nextexec']);
+      $currentNextExec = \Papaya\Utility\Date::stringToTimestamp($dialog->data['nextexec']);
       if (empty($dialog->params['nextexec']) && $this->cronjob['cronjob_nextexec'] > time() &&
           $currentNextExec < $this->cronjob['cronjob_nextexec']) {
-        $dialog->params['nextexec'] = PapayaUtilDate::timestampToString(
+        $dialog->params['nextexec'] = \Papaya\Utility\Date::timestampToString(
           $this->cronjob['cronjob_nextexec'], TRUE, FALSE
         );
       }

@@ -1,55 +1,52 @@
 <?php
 /**
-* Provide an array like access to session values. Allow to use complex identifiers. Handle
-* sessions that are not startet yet.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Values.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Session;
 /**
-* Provide an array like access to session values. Allow to use complex identifiers. Handle
-* sessions that are not startet yet.
-*
-* @package Papaya-Library
-* @subpackage Session
-*/
-class PapayaSessionValues implements ArrayAccess {
+ * Provide an array like access to session values. Allow to use complex identifiers. Handle
+ * sessions that are not startet yet.
+ *
+ * @package Papaya-Library
+ * @subpackage Session
+ */
+class Values implements \ArrayAccess {
 
   /**
-  * Linked session object
-  * @var PapayaSession
-  */
+   * Linked session object
+   *
+   * @var \Papaya\Session
+   */
   private $_session = NULL;
 
   private $_fallback = array();
 
   /**
-  * Initialize object and link session object
-  *
-  * @param PapayaSession $session
-  */
-  public function __construct(PapayaSession $session) {
+   * Initialize object and link session object
+   *
+   * @param \Papaya\Session $session
+   */
+  public function __construct(\Papaya\Session $session) {
     $this->_session = $session;
   }
 
   /**
-  * Check if the session variable exists
-  *
-  * @param mixed $identifier
-  * @return boolean
-  */
+   * Check if the session variable exists
+   *
+   * @param mixed $identifier
+   * @return boolean
+   */
   public function offsetExists($identifier) {
     $key = $this->_compileKey($identifier);
     if (isset($_SESSION) && is_array($_SESSION) && array_key_exists($key, $_SESSION)) {
@@ -60,11 +57,11 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-  * Get a session value if the session is active and the value exists. Return NULL otherwise.
-  *
-  * @param mixed $identifier
-  * @return mixed
-  */
+   * Get a session value if the session is active and the value exists. Return NULL otherwise.
+   *
+   * @param mixed $identifier
+   * @return mixed
+   */
   public function offsetGet($identifier) {
     $key = $this->_compileKey($identifier);
     if (isset($_SESSION[$key])) {
@@ -76,7 +73,7 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-   * Alias for {@see PapayaSessionValues::offsetGet()}.
+   * Alias for {@see \Papaya\Session\Values::offsetGet()}.
    *
    * @param mixed $identifier
    * @return mixed
@@ -88,11 +85,11 @@ class PapayaSessionValues implements ArrayAccess {
 
 
   /**
-  * Set a session value, if the session is inactive the value will not be stored.
-  *
-  * @param mixed $identifier
-  * @param mixed $value
-  */
+   * Set a session value, if the session is inactive the value will not be stored.
+   *
+   * @param mixed $identifier
+   * @param mixed $value
+   */
   public function offsetSet($identifier, $value) {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive()) {
@@ -102,24 +99,24 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-  * Alias for {@see PapayaSessionValues::offsetSet()}.
-  *
-  * @param mixed $identifier
-  * @param mixed $value
-  */
+   * Alias for {@see \Papaya\Session\Values::offsetSet()}.
+   *
+   * @param mixed $identifier
+   * @param mixed $value
+   */
   public function set($identifier, $value) {
     $this->offsetSet($identifier, $value);
   }
 
   /**
-  * Remove an existing session value if the session is active.
-  *
-  * @param mixed $identifier
-  */
+   * Remove an existing session value if the session is active.
+   *
+   * @param mixed $identifier
+   */
   public function offsetUnset($identifier) {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive() &&
-        is_array($_SESSION)) {
+      is_array($_SESSION)) {
       if (array_key_exists($key, $_SESSION)) {
         unset($_SESSION[$key]);
       }
@@ -140,19 +137,19 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-  * Compile session variable identifier data into an string.
-  *
-  * If the identifier data is an object the class of this object is used.
-  *
-  * If the identifier data is an array the elements are joined using underscores. For object
-  * elements their classname will be used. Array elements will be serialized and hased with md5.
-  * All other elements are casted to strings.
-  *
-  * All other identifier data is casted to a string.
-  *
-  * @param mixed $identifier
-  * @return string
-  */
+   * Compile session variable identifier data into an string.
+   *
+   * If the identifier data is an object the class of this object is used.
+   *
+   * If the identifier data is an array the elements are joined using underscores. For object
+   * elements their classname will be used. Array elements will be serialized and hased with md5.
+   * All other elements are casted to strings.
+   *
+   * All other identifier data is casted to a string.
+   *
+   * @param mixed $identifier
+   * @return string
+   */
   private function _compileKey($identifier) {
     if (is_array($identifier)) {
       $result = '';

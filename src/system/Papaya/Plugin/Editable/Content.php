@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable;
 /**
  * An editable module content, the content needs to be provided as array
  * serialized as an XML string.
@@ -20,10 +21,11 @@
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class PapayaPluginEditableContent extends PapayaPluginEditableData {
+class Content extends Data {
 
   /**
-   * Checksum buffer filled in {@see PapayaPluginEditableContent::modified()}
+   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Content::modified()}
+   *
    * @var string|NULL
    */
   private $_checksum;
@@ -33,9 +35,9 @@ class PapayaPluginEditableContent extends PapayaPluginEditableData {
    *
    * @param string $xml
    */
-  public function setXml($xml) {
+  public function setXML($xml) {
     $this->clear();
-    $this->merge(PapayaUtilStringXml::unserializeArray($xml));
+    $this->merge(\Papaya\Utility\Text\XML::unserializeArray($xml));
     $this->_checksum = $this->getChecksum();
   }
 
@@ -44,13 +46,13 @@ class PapayaPluginEditableContent extends PapayaPluginEditableData {
    *
    * @return string
    */
-  public function getXml() {
-    return PapayaUtilStringXml::serializeArray((array)$this);
+  public function getXML() {
+    return \Papaya\Utility\Text\XML::serializeArray((array)$this);
   }
 
   /**
    * Check if the contained data was modified. The data is considered modified if it was not
-   * set using {@see PapayaPluginEditableContent::setXml()} or the generated checksum is
+   * set using {@see \Papaya\Plugin\Editable\Content::setXML()} or the generated checksum is
    * different.
    *
    * @return boolean

@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterColorTest extends PapayaTestCase {
+class ColorTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaFilterColor::validate
-  */
+   * @covers \Papaya\Filter\Color::validate
+   */
   public function testValidateExpectingTrue() {
-    $filter = new PapayaFilterColor();
+    $filter = new Color();
     $this->assertTrue($filter->validate('#FFFFFF'));
   }
 
   /**
-  * @covers PapayaFilterColor::validate
-  */
+   * @covers \Papaya\Filter\Color::validate
+   */
   public function testValidateExpectingException() {
-    $filter = new PapayaFilterColor();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $filter = new Color();
+    $this->expectException(Exception\UnexpectedType::class);
     $filter->validate('invalid color');
   }
 
   /**
-   * @covers PapayaFilterColor::filter
+   * @covers       \Papaya\Filter\Color::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new PapayaFilterColor();
+    $filter = new Color();
     $this->assertEquals($expected, $filter->filter($input));
   }
 
   /**********************
-  * Data Provider
-  **********************/
+   * Data Provider
+   **********************/
 
   public static function provideFilterData() {
     return array(

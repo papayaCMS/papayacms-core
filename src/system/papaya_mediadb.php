@@ -1,27 +1,19 @@
 <?php
 /**
-* Papaya media db administration class - provides the backend
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* This file is divided into three sections:
-*   1. basic administration setup and switch between files and folders (f&f) and
-*      mimetypes administration
-*   2. files and folders (f&f) administration
-*   3. mimetype adminstration
-*
-* @package Papaya
-* @subpackage Media-Database
-* @version $Id:papaya_mediadb.php 837 2007-05-23 15:47:23Z rekowski $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration;
 
 /**
 * Papaya media db administration class - provides the backend
@@ -117,7 +109,7 @@ class papaya_mediadb extends base_mediadb_edit {
   public $dialog = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -455,7 +447,7 @@ class papaya_mediadb extends base_mediadb_edit {
       /* FOLDERS */
       case 'import_folder':
         $this->getUploadToolbar();
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_IMPORT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::FILE_IMPORT)) {
           if (defined('PAPAYA_PATH_MEDIADB_IMPORT') && PAPAYA_PATH_MEDIADB_IMPORT != '') {
             if (is_dir(PAPAYA_PATH_MEDIADB_IMPORT)) {
               $this->layout->addRight($this->getLocalFolderXML());
@@ -1058,21 +1050,21 @@ class papaya_mediadb extends base_mediadb_edit {
     $administrationUser = $this->papaya()->administrationUser;
     switch ($action) {
     case 'edit_folder':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_FOLDER_MANAGE) &&
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_FOLDER_MANAGE) &&
           NULL !== $folderId &&
           ($folderPermissions = $this->calculateFolderPermissions($folderId))) {
         return $this->checkActionPermissionGroup($folderPermissions['user_edit']);
       }
       break;
     case 'upload_file':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_UPLOAD) &&
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_UPLOAD) &&
           NULL !== $folderId &&
           ($folderPermissions = $this->calculateFolderPermissions($folderId))) {
         return $this->checkActionPermissionGroup($folderPermissions['user_edit']);
       }
       break;
     case 'edit_file':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_EDIT)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_EDIT)) {
         if (!is_array($fileId) && ($folderPermissions = $this->calculateFilePermission($fileId))) {
           if (isset($folderPermissions['user_edit'])) {
             foreach ($administrationUser->user['groups'] as $groupId) {
@@ -1101,14 +1093,14 @@ class papaya_mediadb extends base_mediadb_edit {
         } elseif (NULL !== $folderId &&
                   ($folderPermissions = $this->calculateFolderPermissions($folderId))) {
           return (
-            $administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_EDIT) &&
+            $administrationUser->hasPerm(Administration\Permissions::FILE_EDIT) &&
             $this->checkActionPermissionGroup($folderPermissions['user_edit'])
           );
         }
       }
       break;
     case 'delete_file':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_DELETE)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_DELETE)) {
         $allowed = FALSE;
         if (!is_array($fileId) && ($folderPermissions = $this->calculateFilePermission($fileId))) {
           return $this->checkActionPermissionGroup($folderPermissions['user_edit']);
@@ -1210,7 +1202,7 @@ class papaya_mediadb extends base_mediadb_edit {
       'edit_folder', NULL, empty($this->params['folder_id']) ? 0 : (int)$this->params['folder_id']
     );
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_FOLDER_MANAGE) &&
+    if ($administrationUser->hasPerm(Administration\Permissions::FILE_FOLDER_MANAGE) &&
         $isFolderEditable) {
       $this->menubar->addButton(
         'Add folder',
@@ -1257,7 +1249,7 @@ class papaya_mediadb extends base_mediadb_edit {
         count($this->currentFile) > 0 &&
         $this->checkActionPermission('edit_file', $this->currentFile['file_id'])) {
       $this->menubar->addSeparator();
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_DELETE)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_DELETE)) {
         $this->menubar->addButton(
           'Delete file',
           $this->getLink(array('cmd' => 'delete_file', 'file_id' => $this->params['file_id'])),
@@ -1267,7 +1259,7 @@ class papaya_mediadb extends base_mediadb_edit {
       }
 
       if (!$this->isFileInClipboard()) {
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::FILE_EDIT)) {
           $copyParams = array (
             'cmd' => 'copy_file',
             'file_id' => $this->params['file_id'],
@@ -1319,7 +1311,7 @@ class papaya_mediadb extends base_mediadb_edit {
 
         $this->menubar->addSeparator();
 
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::FILE_EDIT)) {
           $this->menubar->addButton(
             'Restore metadata',
             $this->getLink(array('cmd' => 'restore_meta', 'file_id' => $this->params['file_id'])),
@@ -1580,7 +1572,7 @@ class papaya_mediadb extends base_mediadb_edit {
         $this->params['cat_id'],
         $this->papaya()->administrationLanguage->id
       );
-      $parentPath = PapayaUtilArray::decodeIdList($this->category['parent_path']);
+      $parentPath = \Papaya\Utility\Arrays::decodeIdList($this->category['parent_path']);
       array_pop($parentPath);
       $preParentId = (int)array_pop($parentPath);
       $catIds = array(
@@ -2701,7 +2693,7 @@ class papaya_mediadb extends base_mediadb_edit {
       // make sure a deep link to a folder opens all parent folders
       $folderData = $this->getFolder($this->params['folder_id']);
       $folder = current($folderData);
-      $parentIds = PapayaUtilArray::decodeIdList($folder['parent_path']);
+      $parentIds = \Papaya\Utility\Arrays::decodeIdList($folder['parent_path']);
       foreach ($parentIds as $parentId) {
         if ($parentId > 0) {
           $this->sessionParams['open_folders'][$parentId] = 1;
@@ -3591,14 +3583,14 @@ class papaya_mediadb extends base_mediadb_edit {
   */
   function addNewFolder() {
     if (isset($this->currentFolder)) {
-      $ancestors = PapayaUtilArray::decodeIdList($this->currentFolder['parent_path']);
+      $ancestors = \Papaya\Utility\Arrays::decodeIdList($this->currentFolder['parent_path']);
       $ancestors[] = $this->currentFolder['folder_id'];
     } else {
       $ancestors = array(0);
     }
     $folderId = $this->addFolder(
       $this->params['parent_id'],
-      PapayaUtilArray::encodeAndQuoteIdList($ancestors),
+      \Papaya\Utility\Arrays::encodeAndQuoteIdList($ancestors),
       $this->params['permission_mode']
     );
     if ($folderId) {
@@ -3689,8 +3681,8 @@ class papaya_mediadb extends base_mediadb_edit {
   function getUploadToolbar() {
     $administrationUser = $this->papaya()->administrationUser;
     if ((
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_UPLOAD) ||
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_IMPORT)
+          $administrationUser->hasPerm(Administration\Permissions::FILE_UPLOAD) ||
+          $administrationUser->hasPerm(Administration\Permissions::FILE_IMPORT)
         ) &&
         $this->isFolderSelected()) {
       $toolbar = new base_btnbuilder;
@@ -3707,7 +3699,7 @@ class papaya_mediadb extends base_mediadb_edit {
         'Upload files from your computer',
         isset($this->params['cmd']) && $this->params['cmd'] == 'upload_files'
       );
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_IMPORT)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_IMPORT)) {
         $toolbar->addButton(
           'Import folder',
           $this->getLink(array('cmd' => 'import_folder')),
@@ -3716,7 +3708,7 @@ class papaya_mediadb extends base_mediadb_edit {
           isset($this->params['cmd']) && $this->params['cmd'] == 'import_folder'
         );
       }
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_UPLOAD)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::FILE_UPLOAD)) {
         $toolbar->addButton(
           'Get webfile',
           $this->getLink(array('cmd' => 'get_file')),
@@ -3737,7 +3729,7 @@ class papaya_mediadb extends base_mediadb_edit {
   function getUploadDialog() {
     $administrationUser = $this->papaya()->administrationUser;
     $images = $this->papaya()->images;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::FILE_UPLOAD)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::FILE_UPLOAD)) {
       $result = '';
       $fields = array();
       $data = array();
@@ -4169,7 +4161,7 @@ class papaya_mediadb extends base_mediadb_edit {
         'file_sort' => array('Sorting', 'isNoHTML', TRUE, 'input', 100),
         'Source',
         'file_source' => array('Text', 'isNoHTML', FALSE, 'input', 400),
-        'file_source_url' => array('Url', 'isHttpX', FALSE, 'input', 1000),
+        'file_source_url' => array('URL', 'isHttpX', FALSE, 'input', 1000),
         'Properties',
         'file_title' => array($captionFileTitle, 'isNoHTML', FALSE, 'input', 255),
         'file_description' => array(
@@ -5431,7 +5423,7 @@ HEREDOC;
         $ancestors = $folder['ancestors_validated'];
       }
       if ($repair) {
-        $newPath = PapayaUtilArray::encodeAndQuoteIdList($ancestors);
+        $newPath = \Papaya\Utility\Arrays::encodeAndQuoteIdList($ancestors);
         if ($newPath != $folder['parent_path']) {
           $data = array(
             'parent_path' => $newPath

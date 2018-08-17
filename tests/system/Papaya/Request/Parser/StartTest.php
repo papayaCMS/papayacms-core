@@ -13,27 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParserStartTest extends PapayaTestCase {
+class StartTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaRequestParserStart::parse
+   * @covers       \Papaya\Request\Parser\Start::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
    */
   public function testParse($path, $expected) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUrl $url */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL $url */
     $url = $this
-      ->getMockBuilder(PapayaUrl::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array('getPath'))
       ->getMock();
     $url
       ->expects($this->any())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new PapayaRequestParserStart();
+    $parser = new Start();
     $parser->papaya($this->mockPapaya()->application());
     $this->assertSame(
       $expected,
@@ -42,8 +44,8 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
   }
 
   /*************************************
-  * Data Provider
-  *************************************/
+   * Data Provider
+   *************************************/
 
   public static function parseDataProvider() {
     return array(
@@ -93,7 +95,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
       ),
       array(
         '/foobar.rss',
-        false
+        FALSE
       ),
       array(
         '/index.rss',

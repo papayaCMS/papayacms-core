@@ -1,16 +1,32 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Page;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageVersionsTest extends PapayaTestCase {
-/**
-  * @covers PapayaContentPageVersions::load
-  */
+class VersionsTest extends \Papaya\TestCase {
+  /**
+   * @covers Versions::load
+   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -30,7 +46,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_versions', 42), 10, 0)
       ->will($this->returnValue($databaseResult));
-    $list = new PapayaContentPageVersions();
+    $list = new Versions();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load(42, 10, 0));
     $this->assertAttributeEquals(
@@ -50,8 +66,8 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageVersions::getVersion
-  */
+   * @covers Versions::getVersion
+   */
   public function testGetVersion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -59,11 +75,11 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_versions', 21))
       ->will($this->returnValue(FALSE));
-    $list = new PapayaContentPageVersions();
+    $list = new Versions();
     $list->setDatabaseAccess($databaseAccess);
     $version = $list->getVersion(21);
     $this->assertInstanceOf(
-      PapayaContentPageVersion::class, $version
+      Version::class, $version
     );
   }
 }

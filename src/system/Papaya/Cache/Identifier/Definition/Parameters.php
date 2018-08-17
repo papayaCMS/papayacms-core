@@ -1,31 +1,28 @@
 <?php
 /**
-* Request parameters are used to create cache condition data.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Parameters.php 39834 2014-05-21 13:12:00Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Request parameters are used to create cache condition data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionParameters
-  extends PapayaObjectInteractive
-  implements PapayaCacheIdentifierDefinition {
+ * Request parameters are used to create cache condition data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Parameters
+  extends \Papaya\BaseObject\Interactive
+  implements \Papaya\Cache\Identifier\Definition {
 
   private $_names = array();
 
@@ -37,8 +34,8 @@ class PapayaCacheIdentifierDefinitionParameters
    * @param int $method
    */
   public function __construct($names, $group = NULL, $method = self::METHOD_GET) {
-    PapayaUtilConstraints::assertNotEmpty($names);
-    if (is_array($names) || $names instanceof Traversable) {
+    \Papaya\Utility\Constraints::assertNotEmpty($names);
+    if (is_array($names) || $names instanceof \Traversable) {
       $this->_names = $names;
     } else {
       $this->_names = array($names);
@@ -59,7 +56,7 @@ class PapayaCacheIdentifierDefinitionParameters
   public function getStatus() {
     $data = array();
     foreach ($this->_names as $name) {
-      $name = new PapayaRequestParametersName($name);
+      $name = new \Papaya\Request\Parameters\Name($name);
       if ($this->parameters()->has((string)$name)) {
         $value = $this->parameters()->get((string)$name, NULL);
         $data[(string)$name] = $value;
@@ -72,7 +69,7 @@ class PapayaCacheIdentifierDefinitionParameters
    * The source depends on the method. If the method is GET, only valeus from the query string
    * are used - the source is URL otherwise values from the request body are used, too.
    *
-   * @see PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

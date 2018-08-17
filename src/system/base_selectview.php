@@ -1,21 +1,19 @@
 <?php
 /**
-* Select view class
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: base_selectview.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
 
 /**
 * Select view class
@@ -216,7 +214,7 @@ class base_selectview extends base_db {
         papaya_strings::escapeHTMLChars($this->_gt('View'))
       );
       $user = $this->papaya()->administrationUser;
-      if ($user->hasPerm(PapayaAdministrationPermissions::VIEW_MANAGE)) {
+      if ($user->hasPerm(Permissions::VIEW_MANAGE)) {
         $result .= '<col/>';
       }
       $result .= sprintf(
@@ -279,7 +277,7 @@ class base_selectview extends base_db {
                 papaya_strings::escapeHTMLChars($images['items-view']),
                 $selected
               );
-              if ($administrationUser->hasPerm(PapayaAdministrationPermissions::VIEW_MANAGE)) {
+              if ($administrationUser->hasPerm(Permissions::VIEW_MANAGE)) {
                 $result .= sprintf(
                   '<subitem align="center"><a href="%s"><glyph src="%s" hint="%s"/></a>'.
                   '</subitem>'.LF,
@@ -313,7 +311,7 @@ class base_selectview extends base_db {
         }
       }
       $result .= '</items>'.LF;
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::VIEW_MANAGE)) {
+      if ($administrationUser->hasPerm(Permissions::VIEW_MANAGE)) {
         $result .= '<menu>'.LF;
         $result .= sprintf(
           '<button href="views.php" title="%s" glyph="%s"/>'.LF,

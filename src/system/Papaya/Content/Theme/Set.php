@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Theme;
 /**
  * Load/save a the theme set main record (contains name and id)
  *
@@ -24,7 +25,7 @@
  * @property string $theme
  * @property array $values
  */
-class PapayaContentThemeSet extends PapayaDatabaseRecord {
+class Set extends \Papaya\Database\Record {
 
   /**
    * Map field names to more convenient property names
@@ -43,13 +44,13 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
    *
    * @var string
    */
-  protected $_tableName = PapayaContentTables::THEME_SETS;
+  protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
 
   /**
-  * @see PapayaDatabaseRecordsUnbuffered::_createMapping()
-  *
-  * @return PapayaDatabaseRecordMapping
-  */
+   * @see \Papaya\Database\Records\Unbuffered::_createMapping()
+   *
+   * @return \Papaya\Database\Record\Mapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty = array(
@@ -76,7 +77,7 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return PapayaUtilStringXml::unserializeArray((string)$value);
+      return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -95,7 +96,7 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return PapayaUtilStringXml::serializeArray((array)$value);
+      return \Papaya\Utility\Text\XML::serializeArray((array)$value);
     }
     return $value;
   }
@@ -103,20 +104,20 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
   /**
    * Return the values as a xml document
    *
-   * @param PapayaContentStructure $definition
-   * @return PapayaXmlDocument
+   * @param \Papaya\Content\Structure $definition
+   * @return \Papaya\XML\Document
    */
-  public function getValuesXml(PapayaContentStructure $definition) {
-    return $definition->getXmlDocument(isset($this->values) ? $this->values : array());
+  public function getValuesXML(\Papaya\Content\Structure $definition) {
+    return $definition->getXMLDocument(isset($this->values) ? $this->values : array());
   }
 
   /**
    * Loads the values from a xml document
    *
-   * @param PapayaContentStructure $definition
-   * @param \PapayaXmlElement $values
+   * @param \Papaya\Content\Structure $definition
+   * @param \Papaya\XML\Element $values
    */
-  public function setValuesXml(PapayaContentStructure $definition, PapayaXmlElement $values) {
+  public function setValuesXML(\Papaya\Content\Structure $definition, \Papaya\XML\Element $values) {
     $this['values'] = $definition->getArray($values);
   }
 }

@@ -1,34 +1,26 @@
 <?php
 /**
-* Provide basic data encapsulation for the content page.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Page.php 39486 2014-03-03 11:50:42Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya\Content;
 /**
  * Provide basic data encapsulation for the content page.
  *
  * Allows to load pages and provides basic function for the working copy and publication.
  *
- * This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
- * working copy of a page or {@see PapayaContentPagePublication} to use the published page.
+ * This is an abstract superclass, please use {@see \Papaya\Content\Page\Work} to modify the
+ * working copy of a page or {@see \Papaya\Content\Page\Publication} to use the published page.
  *
  * @package Papaya-Library
  * @subpackage Content
@@ -58,13 +50,13 @@
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class PapayaContentPage extends PapayaDatabaseRecordLazy {
+class Page extends \Papaya\Database\Record\Lazy {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id
     'id' => 'topic_id',
@@ -111,24 +103,25 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   );
 
   /**
-  * Pages table name for sql queries
-  *
-  * @var string
-  */
-  protected $_tableName = PapayaContentTables::PAGES;
+   * Pages table name for sql queries
+   *
+   * @var string
+   */
+  protected $_tableName = \Papaya\Content\Tables::PAGES;
 
   /**
-  * Page translations list object
-  * @var PapayaContentPageTranslations
-  */
-  protected $_translations = NULL;
+   * Page translations list object
+   *
+   * @var Page\Translations
+   */
+  protected $_translations;
 
   /**
-  * Translations table name, used to define the table for the translations
-  * subobject
-  *
-  * @var string
-  */
+   * Translations table name, used to define the table for the translations
+   * object
+   *
+   * @var string
+   */
   protected $_translationsTableName = 'topic_trans';
 
   /**
@@ -149,7 +142,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see PapayaDatabaseRecord::_createMapping()
+   * @see \Papaya\Database\Record::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -163,7 +156,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   }
 
   /**
-   * Unserialize path and permissions field values
+   * Deserialize path and permissions field values
    *
    * @param object $context
    * @param string $property
@@ -171,11 +164,14 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
    * @param string $value
    * @return mixed
    */
-  public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
+  public function callbackMapValueFromFieldToProperty(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $property, $field, $value
+  ) {
     switch ($property) {
-    case 'parent_path' :
-    case 'visitor_permissions' :
-      return PapayaUtilArray::decodeIdList($value);
+      case 'parent_path' :
+      case 'visitor_permissions' :
+        return \Papaya\Utility\Arrays::decodeIdList($value);
     }
     return $value;
   }
@@ -190,30 +186,32 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
    * @param string $value
    * @return mixed
    */
-  public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
+  public function callbackMapValueFromPropertyToField(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $property, $field, $value
+  ) {
     switch ($property) {
-    case 'parent_path' :
-      return PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
-    case 'visitor_permissions' :
-      return PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
+      case 'parent_path' :
+        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? array() : $value);
+      case 'visitor_permissions' :
+        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? array() : $value);
     }
     return $value;
   }
 
   /**
-  * Access to the translation list informations
-  *
-  * Allows to get/set the list object. Can create a list object if needed.
-  *
-  * @param PapayaContentPageTranslations $translations
-  * @return PapayaContentPageTranslations
-  */
-  public function translations(PapayaContentPageTranslations $translations = NULL) {
-    if (isset($translations)) {
+   * Access to the translation list information
+   *
+   * Allows to get/set the list object. Can create a list object if needed.
+   *
+   * @param Page\Translations $translations
+   * @return Page\Translations
+   */
+  public function translations(Page\Translations $translations = NULL) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
-    }
-    if (is_null($this->_translations)) {
-      $this->_translations = new PapayaContentPageTranslations();
+    } elseif (NULL === $this->_translations) {
+      $this->_translations = new Page\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
       $this->_translations->setTranslationsTableName($this->_translationsTableName);
     }

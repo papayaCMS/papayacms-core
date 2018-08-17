@@ -1,36 +1,35 @@
 <?php
 /**
-* Synchronize properties of the page working copy
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Properties.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
+use Papaya\Content\Page\Work;
 
 /**
-* Synchronize properties of the page working copy
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationProperties
-  extends PapayaAdministrationPagesDependencySynchronizationContent {
+ * Synchronize properties of the page working copy
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Properties
+  extends Content {
 
   /**
-  * Page database record object
-  *
-  * @var PapayaContentPageWork
-  */
+   * Page database record object
+   *
+   * @var Work
+   */
   private $_page = NULL;
 
   /**
@@ -50,71 +49,71 @@ class PapayaAdministrationPagesDependencySynchronizationProperties
   }
 
   /**
-  * Getter/Setter for the content page object
-  *
-  * @param PapayaContentPageWork $page
-  * @return PapayaContentPageWork
-  */
-  public function page(PapayaContentPageWork $page = NULL) {
+   * Getter/Setter for the content page object
+   *
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
+   */
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }
 
   /**
-  * Update target translation properties
-  *
-  * @param PapayaContentPageTranslation $origin
-  * @param array $targetIds
-  * @return boolean
-  */
-  protected function updateTranslations(PapayaContentPageTranslation $origin, array $targetIds) {
+   * Update target translation properties
+   *
+   * @param \Papaya\Content\Page\Translation $origin
+   * @param array $targetIds
+   * @return boolean
+   */
+  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
-      array(
-        'topic_title' => $origin->title,
-        'meta_title' => $origin->metaTitle,
-        'meta_keywords' => $origin->metaKeywords,
-        'meta_descr' => $origin->metaDescription
-      ),
-      array(
-        'lng_id' => $origin->languageId,
-        'topic_id' => $targetIds
-      )
-    );
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+        array(
+          'topic_title' => $origin->title,
+          'meta_title' => $origin->metaTitle,
+          'meta_keywords' => $origin->metaKeywords,
+          'meta_descr' => $origin->metaDescription
+        ),
+        array(
+          'lng_id' => $origin->languageId,
+          'topic_id' => $targetIds
+        )
+      );
   }
 
   /**
-  * Update target page properties
-  *
-  * @param PapayaContentPageWork $origin
-  * @param array $targetIds
-  * @return boolean
-  */
-  protected function updatePages(PapayaContentPageWork $origin, array $targetIds) {
+   * Update target page properties
+   *
+   * @param \Papaya\Content\Page\Work $origin
+   * @param array $targetIds
+   * @return boolean
+   */
+  protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(PapayaContentTables::PAGES),
-      array(
-        'topic_modified' => $databaseAccess->getTimestamp(),
-        'topic_mainlanguage' => $origin->defaultLanguage,
-        'linktype_id' => $origin->linkType,
-        'topic_changefreq' => $origin->changeFrequency,
-        'topic_priority' => $origin->priority,
-        'topic_protocol' => $origin->scheme,
-        'topic_cachemode' => $origin->cacheMode,
-        'topic_cachetime' => $origin->cacheTime,
-        'topic_expiresmode' => $origin->expiresMode,
-        'topic_expirestime' => $origin->expiresTime
-      ),
-      array(
-        'topic_id' => $targetIds
-      )
-    );
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
+        array(
+          'topic_modified' => $databaseAccess->getTimestamp(),
+          'topic_mainlanguage' => $origin->defaultLanguage,
+          'linktype_id' => $origin->linkType,
+          'topic_changefreq' => $origin->changeFrequency,
+          'topic_priority' => $origin->priority,
+          'topic_protocol' => $origin->scheme,
+          'topic_cachemode' => $origin->cacheMode,
+          'topic_cachetime' => $origin->cacheTime,
+          'topic_expiresmode' => $origin->expiresMode,
+          'topic_expirestime' => $origin->expiresTime
+        ),
+        array(
+          'topic_id' => $targetIds
+        )
+      );
   }
 
 }

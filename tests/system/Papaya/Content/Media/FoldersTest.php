@@ -1,67 +1,83 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Content\Media;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentMediaFoldersTest extends PapayaTestCase {
+class FoldersTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaContentMediaFolders::_createMapping
+   * @covers Folders::_createMapping
    */
   public function testCreateMapping() {
-    $records = new PapayaContentMediaFolders();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    $records = new Folders();
+    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
     $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));
   }
 
   /**
-   * @covers PapayaContentMediaFolders::callbackMapValueFromFieldToProperty
+   * @covers Folders::callbackMapValueFromFieldToProperty
    */
   public function testCallbackMapValueFromFieldToProperty() {
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $this->assertEquals(
       23,
       $records->callbackMapValueFromFieldToProperty(
-        new stdClass(), 'id', 'folder', '23'
+        new \stdClass(), 'id', 'folder', '23'
       )
     );
   }
 
   /**
-   * @covers PapayaContentMediaFolders::callbackMapValueFromFieldToProperty
+   * @covers Folders::callbackMapValueFromFieldToProperty
    */
   public function testCallbackMapValueFromFieldToPropertyDecodesAncestors() {
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $this->assertEquals(
       array(21, 42),
       $records->callbackMapValueFromFieldToProperty(
-        new stdClass(), 'ancestors', 'parent_path', ';21;42;'
+        new \stdClass(), 'ancestors', 'parent_path', ';21;42;'
       )
     );
   }
 
   /**
-   * @covers PapayaContentMediaFolders::callbackGetFieldForProperty
+   * @covers Folders::callbackGetFieldForProperty
    */
   public function testCallbackGetFieldForPropertyUnknownPropertyExpectingNull() {
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $this->assertNull(
       $records->callbackGetFieldForProperty(
-        new stdClass(), 'unknown_property_name'
+        new \stdClass(), 'unknown_property_name'
       )
     );
   }
 
   /**
-   * @covers PapayaContentMediaFolders::callbackGetFieldForProperty
+   * @covers       Folders::callbackGetFieldForProperty
    * @dataProvider providePropertyToFieldValues
    * @param string $expected
    * @param string $property
    */
   public function testCallbackGetFieldForProperty($expected, $property) {
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $this->assertEquals(
-      $expected, $records->callbackGetFieldForProperty(new stdClass, $property)
+      $expected, $records->callbackGetFieldForProperty(new \stdClass, $property)
     );
   }
 
@@ -76,10 +92,10 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentMediaFolders::load
+   * @covers Folders::load
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -118,7 +134,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
 
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load(array('language_id' => 1)));
 
@@ -147,17 +163,17 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
         )
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($records, \RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }
 
 
   /**
-   * @covers PapayaContentMediaFolders::load
+   * @covers Folders::load
    */
   public function testLoadwithoutLanguageIdExpectingNoTranslations() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -182,7 +198,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
 
-    $records = new PapayaContentMediaFolders();
+    $records = new Folders();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
 
@@ -192,12 +208,12 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
           'id' => 1,
           'parent_id' => 0,
           'ancestors' => array(0),
-          'language_id' =>  NULL,
+          'language_id' => NULL,
           'title' => NULL
         )
       ),
       iterator_to_array(
-        new RecursiveIteratorIterator($records, RecursiveIteratorIterator::SELF_FIRST)
+        new \RecursiveIteratorIterator($records, \RecursiveIteratorIterator::SELF_FIRST)
       )
     );
   }

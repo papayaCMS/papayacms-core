@@ -1,38 +1,66 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-class PapayaAdministrationThemeBrowser
-  extends PapayaUiControl
-  implements PapayaXmlAppendable  {
+namespace Papaya\Administration\Theme;
+
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+class Browser
+  extends \Papaya\UI\Control {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
   /**
-   * @var Traversable
+   * @var \Traversable
    */
   private $_themes;
   /**
-   * @var PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler;
   /**
-   * @var PapayaUiDialog
+   * @var \Papaya\UI\Dialog
    */
   private $_dialog;
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $parent->append($this->dialog());
   }
 
   /**
-   * @param PapayaUiDialog $dialog
-   * @return PapayaUiDialog
+   * @param \Papaya\UI\Dialog $dialog
+   * @return \Papaya\UI\Dialog
    */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
-      $this->_dialog = $dialog = new PapayaUiDialog();
-      $dialog->caption = new PapayaUiStringTranslated('Themes (%s)', [$this->_optionName]);
+      $this->_dialog = $dialog = new \Papaya\UI\Dialog();
+      $dialog->caption = new \Papaya\UI\Text\Translated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');
       $dialog->data()->merge(
@@ -47,42 +75,42 @@ class PapayaAdministrationThemeBrowser
           'save' => 1
         ]
       );
-      $dialog->fields[] = new PapayaUiDialogFieldCollector(
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Collector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new PapayaUiDialogFieldListview(
-        $listview = new PapayaUiListview()
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Listview(
+        $listview = new \Papaya\UI\Listview()
       );
-      $listview->mode = PapayaUiListview::MODE_TILES;
-      $listview->builder($builder = new PapayaUiListviewItemsBuilder($this->themes()));
-      $builder->callbacks()->onCreateItem = function(
-        $context, PapayaUiListviewItems $items, PapayaThemeDefinition $theme
+      $listview->mode = \Papaya\UI\Listview::MODE_TILES;
+      $listview->builder($builder = new \Papaya\UI\Listview\Items\Builder($this->themes()));
+      $builder->callbacks()->onCreateItem = function (
+        $context, \Papaya\UI\Listview\Items $items, \Papaya\Theme\Definition $theme
       ) use ($dialog) {
-        $items[] = $item = new PapayaUiListviewItemRadio(
+        $items[] = $item = new \Papaya\UI\Listview\Item\Radio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
     }
     return $this->_dialog;
   }
 
   /**
-   * @param Traversable|NULL $themes
-   * @return Traversable
+   * @param \Traversable|NULL $themes
+   * @return \Traversable
    */
-  public function themes(Traversable $themes = NULL) {
+  public function themes(\Traversable $themes = NULL) {
     if (isset($themes)) {
       $this->_themes = $themes;
     } elseif (NULL === $this->_themes) {
-      $this->_themes = new PapayaIteratorCaching(
-        new PapayaIteratorFilterCallback(
-          new PapayaIteratorCallback(
-            new DirectoryIterator(
-              PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
+      $this->_themes = new \Papaya\Iterator\Caching(
+        new \Papaya\Iterator\Filter\Callback(
+          new \Papaya\Iterator\Callback(
+            new \DirectoryIterator(
+              \Papaya\Utility\File\Path::cleanup($this->themeHandler()->getLocalPath())
             ),
-            function(DirectoryIterator $fileInfo) {
+            function (\DirectoryIterator $fileInfo) {
               if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                 if (file_exists($fileInfo->getRealPath().'/theme.xml')) {
                   return $this->themeHandler()->getDefinition($fileInfo->getBasename());
@@ -91,8 +119,8 @@ class PapayaAdministrationThemeBrowser
               return FALSE;
             }
           ),
-          function($theme) {
-            return $theme instanceof PapayaThemeDefinition;
+          function ($theme) {
+            return $theme instanceof \Papaya\Theme\Definition;
           }
         )
       );
@@ -101,21 +129,21 @@ class PapayaAdministrationThemeBrowser
   }
 
   /**
-   * @param PapayaThemeHandler|NULL $themeHandler
-   * @return PapayaThemeHandler
+   * @param \Papaya\Theme\Handler|NULL $themeHandler
+   * @return \Papaya\Theme\Handler
    */
-  public function themeHandler(PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new PapayaThemeHandler();
+      $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;
   }
 
   /**
-   * @return PapayaThemeDefinition
+   * @return \Papaya\Theme\Definition
    */
   public function getCurrent() {
     return $this->themeHandler()->getDefinition($this->dialog()->data->get($this->_optionName));

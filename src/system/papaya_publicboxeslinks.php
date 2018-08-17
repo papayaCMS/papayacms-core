@@ -1,21 +1,19 @@
 <?php
 /**
-* papaya_public_boxeslinks variable
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_publicboxeslinks.php 39794 2014-05-06 15:34:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * papaya_public_boxeslinks variable
@@ -61,7 +59,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   * @param integer $lngId language id
   * @param integer $viewModeId view mode id
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadDataList($lngId, $viewModeId, $now = NULL) {
     $this->_cacheDefinition = NULL;
@@ -75,7 +73,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
    * @param integer $viewModeId view mode id
    * @param array|integer $boxIds
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataElements($lngId, $viewModeId, $boxIds) {
     $this->data = array();
@@ -163,16 +161,16 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   }
 
   /**
-   * Merge the cache definiiton of the loaded boxes and return them
+   * Merge the cache definition of the loaded boxes and return them
    *
-   * @param PapayaCacheIdentifierDefinition $definition
-   * @return PapayaCacheIdentifierDefinition
+   * @param Cache\Identifier\Definition $definition
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(PapayaCacheIdentifierDefinition $definition = NULL) {
+  public function cacheable(Cache\Identifier\Definition $definition = NULL) {
     if (isset($definition)) {
       $this->_cacheDefinition = $definition;
     } elseif (NULL === $this->_cacheDefinition) {
-      $this->_cacheDefinition = $definition = new PapayaCacheIdentifierDefinitionGroup();
+      $this->_cacheDefinition = $definition = new Cache\Identifier\Definition\Group();
       $modules = array();
       foreach ($this->data as $boxData) {
         $modules[] = $boxData['module_guid'];
@@ -183,14 +181,14 @@ class papaya_public_boxeslinks extends base_boxeslinks {
           $this->parentObj,
           $boxData['box_data']
         );
-        if ($plugin instanceof PapayaPluginCacheable) {
+        if ($plugin instanceof \Papaya\Plugin\Cacheable) {
           $definition->add($plugin->cacheable());
         } elseif (method_exists($plugin, 'getCacheId')) {
           $definition->add(
-            new PapayaCacheIdentifierDefinitionCallback(array($plugin, 'getCacheId'))
+            new Cache\Identifier\Definition\Callback(array($plugin, 'getCacheId'))
           );
         } else {
-          $this->_cacheDefinition = new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+          $this->_cacheDefinition = new Cache\Identifier\Definition\BooleanValue(FALSE);
           return $this->_cacheDefinition;
         }
       }

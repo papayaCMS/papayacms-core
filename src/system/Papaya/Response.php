@@ -1,32 +1,30 @@
 <?php
 /**
-* Papaya Response - Response handling object
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Response
-* @version $Id: Response.php 39789 2014-05-06 11:32:29Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
+namespace Papaya;
 /**
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponse extends PapayaObject {
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class Response extends Application\BaseObject {
 
   /**
-  * Status codes
-  * @var array
-  */
+   * Status codes
+   *
+   * @var array
+   */
   private $_statusCodes = array(
     100 => 'Continue',
     101 => 'Switching Protocols',
@@ -81,59 +79,61 @@ class PapayaResponse extends PapayaObject {
   );
 
   /**
-  * Response status code
-  * @var integer
-  */
+   * Response status code
+   *
+   * @var integer
+   */
   private $_status = 200;
 
   /**
-  * Response http headers
-  * @var PapayaResponseHeaders
-  */
-  private $_headers = NULL;
+   * Response http headers
+   *
+   * @var \Papaya\Response\Headers
+   */
+  private $_headers;
 
   /**
-  * Response content
-  * @var PapayaResponseContent
-  */
-  private $_content = NULL;
+   * Response content
+   *
+   * @var \Papaya\Response\Content
+   */
+  private $_content;
 
   /**
-  * Helper object (wraps php functions)
-  * @var PapayaResponseHelper
-  */
-  private $_helper = NULL;
+   * Helper object (wraps php functions)
+   *
+   * @var \Papaya\Response\Helper
+   */
+  private $_helper;
 
   private $_isSent = FALSE;
 
   /**
-  * Get response helper
-  *
-  * @param PapayaResponseHelper $helper
-  * @return PapayaResponseHelper
-  */
-  public function helper(PapayaResponseHelper $helper = NULL) {
-    if (isset($helper)) {
+   * Get response helper
+   *
+   * @param \Papaya\Response\Helper $helper
+   * @return \Papaya\Response\Helper
+   */
+  public function helper(Response\Helper $helper = NULL) {
+    if (NULL !== $helper) {
       $this->_helper = $helper;
-    }
-    if (is_null($this->_helper)) {
-      $this->_helper = new PapayaResponseHelper();
+    } elseif (NULL === $this->_helper) {
+      $this->_helper = new Response\Helper();
     }
     return $this->_helper;
   }
 
   /**
-  * Get response http headers list
-  *
-  * @param PapayaResponseHeaders $headers
-  * @return PapayaResponseHeaders
-  */
-  public function headers(PapayaResponseHeaders $headers = NULL) {
-    if (isset($headers)) {
+   * Get response http headers list
+   *
+   * @param \Papaya\Response\Headers $headers
+   * @return \Papaya\Response\Headers
+   */
+  public function headers(Response\Headers $headers = NULL) {
+    if (NULL !== $headers) {
       $this->_headers = $headers;
-    }
-    if (is_null($this->_headers)) {
-      $this->_headers = new PapayaResponseHeaders();
+    } elseif (NULL === $this->_headers) {
+      $this->_headers = new Response\Headers();
     }
     return $this->_headers;
   }
@@ -141,43 +141,45 @@ class PapayaResponse extends PapayaObject {
   /**
    * Get/Set response content object
    *
-   * @param PapayaResponseContent $content
-   * @return \PapayaResponseContent
+   * @param \Papaya\Response\Content $content
+   * @return \Papaya\Response\Content
    */
-  public function content(PapayaResponseContent $content = NULL) {
-    if (isset($content)) {
+  public function content(Response\Content $content = NULL) {
+    if (NULL !== $content) {
       $this->_content = $content;
-    }
-    if (is_null($this->_content)) {
-      $this->_content = new PapayaResponseContentString('');
+    } elseif (NULL === $this->_content) {
+      $this->_content = new Response\Content\Text('');
     }
     return $this->_content;
   }
 
   /**
    * Set response status
+   *
    * @param integer $status
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setStatus($status) {
     if (isset($this->_statusCodes[$status])) {
       $this->_status = $status;
     } else {
-      throw new UnexpectedValueException('Unknown response status code: '.$status);
+      throw new \UnexpectedValueException('Unknown response status code: '.$status);
     }
   }
 
   /**
-  * Get response status
-  * @return integer
-  */
+   * Get response status
+   *
+   * @return integer
+   */
   public function getStatus() {
     return $this->_status;
   }
 
   /**
    * Set Content-Type header
-   * @param string$contentType
+   *
+   * @param string $contentType
    * @param string $encoding
    * @return void
    */
@@ -187,22 +189,21 @@ class PapayaResponse extends PapayaObject {
   }
 
   /**
-  * Set caching headers
-  *
-  * @param string $cacheMode nocache, private, public
-  * @param integer $cachePeriod
-  * @param integer|NULL $cacheStartTime
-  * @param integer|NULL $currentTime
-  */
+   * Set caching headers
+   *
+   * @param string $cacheMode nocache, private, public
+   * @param integer $cachePeriod
+   * @param integer|NULL $cacheStartTime
+   * @param integer|NULL $currentTime
+   */
   public function setCache(
     $cacheMode, $cachePeriod = 0, $cacheStartTime = NULL, $currentTime = NULL
   ) {
-    if (in_array($cacheMode, array('private', 'public')) &&
-        $cachePeriod > 0) {
-      if (is_null($currentTime)) {
+    if ($cachePeriod > 0 && in_array($cacheMode, array('private', 'public'), TRUE)) {
+      if (NULL === $currentTime) {
         $currentTime = time();
       }
-      if (is_null($cacheStartTime)) {
+      if (NULL === $cacheStartTime) {
         $cacheStartTime = $currentTime;
         $cachePeriodDelta = $cachePeriod;
       } else {
@@ -245,6 +246,7 @@ class PapayaResponse extends PapayaObject {
 
   /**
    * Send response to browser
+   *
    * @param bool $end
    * @param bool $force force sending (ignore if it was already sent)
    */
@@ -278,6 +280,7 @@ class PapayaResponse extends PapayaObject {
 
   /**
    * Send HTTP status header
+   *
    * @param int|string $status
    */
   public function sendStatus($status = 0) {
@@ -287,27 +290,30 @@ class PapayaResponse extends PapayaObject {
     if (!isset($this->_statusCodes[$status])) {
       $status = 200;
     }
-    $isCgiApi = (in_array(strtolower(PHP_SAPI), array('cgi', 'cgi-fcgi', 'fpm-fcgi')));
+    $isCgiApi = in_array(strtolower(PHP_SAPI), array('cgi', 'cgi-fcgi', 'fpm-fcgi'), TRUE);
     $prefix = $isCgiApi ? 'Status: ' : 'HTTP/1.1 ';
     $this->helper()->header($prefix.$status.' '.$this->_statusCodes[$status], TRUE, $status);
   }
 
   /**
-  * Send HTTP header
-  * @param string $header
-  * @param boolean|NULL $disableXHeaders
-  * @param boolean $force
-  * @return void
-  */
+   * Send HTTP header
+   *
+   * @param string $header
+   * @param boolean|NULL $disableXHeaders
+   * @param boolean $force
+   * @return void
+   */
   public function sendHeader($header, $disableXHeaders = NULL, $force = FALSE) {
-    if (is_null($disableXHeaders)) {
-      $disableXHeaders = $this->papaya()->options->get(
+    if (NULL === $disableXHeaders) {
+      $disableXHeaders = (bool)$this->papaya()->options->get(
         'PAPAYA_DISABLE_XHEADERS', FALSE
       );
     }
     if ($force || !$this->helper()->headersSent()) {
-      if ($disableXHeaders &&
-          substr($header, 0, 2) == 'X-') {
+      if (
+        $disableXHeaders &&
+        0 === strpos($header, 'X-')
+      ) {
         return;
       }
       $header = str_replace(array("\r", "\n"), '', $header);
@@ -316,9 +322,10 @@ class PapayaResponse extends PapayaObject {
   }
 
   //@codeCoverageIgnoreStart
+
   /**
-  * End/Exit the request
-  */
+   * End/Exit the request
+   */
   public function end() {
     exit();
   }

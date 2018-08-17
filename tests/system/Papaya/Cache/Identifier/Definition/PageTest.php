@@ -1,16 +1,32 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya\Cache\Identifier\Definition;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
+class PageTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionPage
+   * @covers       Page
    * @dataProvider provideParameterData
    * @param array $expected
    * @param array $parameters
    */
-  public function testGetStatus(array $expected, array  $parameters) {
-    $definition = new PapayaCacheIdentifierDefinitionPage();
+  public function testGetStatus(array $expected, array $parameters) {
+    $definition = new Page();
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -22,10 +38,10 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionPage
+   * @covers Page
    */
   public function testGetStatusForPreviewExpectingFalse() {
-    $definition = new PapayaCacheIdentifierDefinitionPage();
+    $definition = new Page();
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -37,7 +53,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionPage
+   * @covers Page
    */
   public function testGetStatusWithDefinedHttpEnvironment() {
     $environment = $_SERVER;
@@ -46,11 +62,11 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       'HTTP_HOST' => 'www.sample.tld',
       'SERVER_PORT' => 443
     );
-    $definition = new PapayaCacheIdentifierDefinitionPage();
+    $definition = new Page();
     $definition->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       array(
-        PapayaCacheIdentifierDefinitionPage::class => array(
+        Page::class => array(
           'scheme' => 'https',
           'host' => 'www.sample.tld',
           'port' => 443,
@@ -61,17 +77,17 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
         )
       ),
       $definition->getStatus()
-     );
+    );
     $_SERVER = $environment;
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionPage
+   * @covers Page
    */
   public function testGetSources() {
-    $definition = new PapayaCacheIdentifierDefinitionPage();
+    $definition = new Page();
     $this->assertEquals(
-      PapayaCacheIdentifierDefinition::SOURCE_URL,
+      \Papaya\Cache\Identifier\Definition::SOURCE_URL,
       $definition->getSources()
     );
   }
@@ -80,7 +96,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
     return array(
       array(
         array(
-          PapayaCacheIdentifierDefinitionPage::class => array(
+          Page::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -94,7 +110,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          PapayaCacheIdentifierDefinitionPage::class => array(
+          Page::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -110,7 +126,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          PapayaCacheIdentifierDefinitionPage::class => array(
+          Page::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -126,7 +142,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          PapayaCacheIdentifierDefinitionPage::class => array(
+          Page::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -145,7 +161,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          PapayaCacheIdentifierDefinitionPage::class => array(
+          Page::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,

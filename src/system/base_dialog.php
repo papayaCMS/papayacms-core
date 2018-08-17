@@ -1,49 +1,17 @@
 <?php
 /**
-* Delegation-class for dialogs
-*
-* This class can be used to easily create dialogs for back- and frontend applications.
-* It features a check for dialog input supporting predefined types and PCREs. A token
-* is used to prevent multiple submissions of a dialog. Captchas are available.
-*
-* <code>
-*  // generate a list of input fields (have a look at base_dialog::getDlgElement)
-*  // for a list of available types, see documentation on var $fields of base_dialog
-*  $fields = array('user_email' => array('User Email', 'isNoHTML', TRUE, 'input', 200,
-*    'Enter the users email here', 'username@domain.tld', 'left'));
-*  // set the starting value of fields you want to preset
-*  $data = array('user_email' => 'myuser@email.tld');
-*  // add hidden values you want to submit
-*  $hidden = array('user_id' => $myUserId);
-*  //  initialize the dialog using the data you just prepared
-*  $this->dialog = new base_dialog($this, $this->paramName, $fields, $data, $hidden);
-*  // this restores the user submitted data as field presets
-*  $this->dialog->loadParams();
-*  $this->dialog->dialogTitle = $title;
-*  $this->dialog->buttonTitle = 'Save';       // will be in xml node dialog/dlgbutton/@value
-*  $this->dialog->inputFieldSize = 'large';
-*  return $this->dialog->getDialogXML();         // get the dialog XML
-* </code>
-*
-* If you have to create a custom form, e.g for uploads, use getHidden() to get the hidden fields xml
-* Don't add any parameters to the the dialogs action attribute, since either _GET or _POST are
-* evaluated, not both and you will lose parameters. If you initialize a dialog twice in a class,
-* checkDialogInput will not work correctly, since the token changed.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Controls
-* @version $Id: base_dialog.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Delegation-class for dialogs
@@ -202,7 +170,7 @@ class base_dialog extends base_object {
   /**
   * CSRF tokens manager
   *
-  * @var PapayaUiTokens
+  * @var \Papaya\UI\Tokens
   */
   protected $_tokens = NULL;
 
@@ -1150,7 +1118,7 @@ class base_dialog extends base_object {
       $dir = $_SERVER['DOCUMENT_ROOT'].PAPAYA_PATH_WEB.'papaya-themes/'.$path;
       break;
     case 'current_theme':
-      $themeHandler = new PapayaThemeHandler();
+      $themeHandler = new \Papaya\Theme\Handler();
       $dir = $themeHandler->getLocalThemePath().$path;
       break;
     case 'page':
@@ -1523,7 +1491,7 @@ class base_dialog extends base_object {
                   $filter->validate($subValue);
                   $this->data[$fieldName][$subKey] = $filter->filter($subValue);
                   $this->inputErrors[$fieldName] = 0;
-                } catch (PapayaFilterException $e) {
+                } catch (\Papaya\Filter\Exception $e) {
                   $result = $this->markFieldInvalid($fieldName, $field[0]);
                   break;
                 }
@@ -1540,7 +1508,7 @@ class base_dialog extends base_object {
               $filter->validate($this->params[$fieldName]);
               $this->data[$fieldName] = $filter->filter($this->params[$fieldName]);
               $this->inputErrors[$fieldName] = 0;
-            } catch (PapayaFilterException $e) {
+            } catch (\Papaya\Filter\Exception $e) {
               $result = $this->markFieldInvalid($fieldName, $field[0]);
             }
           }
@@ -1575,19 +1543,19 @@ class base_dialog extends base_object {
   * Return filter object to check and filter an single input value
   *
   * @param string|array $check
-  * @return PapayaFilter
+  * @return \Papaya\Filter
   */
   function getFilterObject($check) {
     if (is_object($check) &&
-        $check instanceof PapayaFilter) {
+        $check instanceof \Papaya\Filter) {
       return $check;
     } elseif (is_string($check)) {
       if (checkit::has($check)) {
-        return new PapayaFilterCallback(array('checkit', $check), array(TRUE));
+        return new \Papaya\Filter\Callback(array('checkit', $check), array(TRUE));
       } elseif (class_exists($check)) {
         return $this->createFilterObject($check);
       } else {
-        return new PapayaFilterPcre($check);
+        return new \Papaya\Filter\RegEx($check);
       }
     } elseif (is_array($check) && class_exists($check[0])) {
       $filterClass = $check[0];
@@ -1605,7 +1573,7 @@ class base_dialog extends base_object {
    */
   function createFilterObject($name, $arguments = array()) {
     $filterReflection = new ReflectionClass($name);
-    if ($filterReflection->isSubClassOf('PapayaFilter')) {
+    if ($filterReflection->isSubclassOf(\Papaya\Filter::class)) {
       return call_user_func_array(
         array($filterReflection, 'newInstance'),
         $arguments
@@ -1679,14 +1647,14 @@ class base_dialog extends base_object {
   /**
   * Getter/Setter for csrf token manager including implizit create
   *
-  * @param PapayaUiTokens $tokens
-  * @return PapayaUiTokens
+  * @param \Papaya\UI\Tokens $tokens
+  * @return \Papaya\UI\Tokens
   */
-  protected function tokens(PapayaUiTokens $tokens = NULL) {
+  protected function tokens(\Papaya\UI\Tokens $tokens = NULL) {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {
-      $this->_tokens = new PapayaUiTokens();
+      $this->_tokens = new \Papaya\UI\Tokens();
     }
     return $this->_tokens;
   }

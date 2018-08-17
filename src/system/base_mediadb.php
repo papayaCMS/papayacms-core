@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Tables;
+
 if (!defined('IMAGETYPE_SWC')) {
   /**
   * Fallback to ensure the existence of constant IMAGETYPE_SWC. It comes usually with PHP
@@ -139,11 +141,11 @@ class base_mediadb extends base_db {
    *
    * @param string $mediaId
    * @param integer|null $versionId
-   * @return PapayaMediaDatabaseItem
+   * @return \Papaya\Media\Database\Item
    */
   public function getItem($mediaId, $versionId = NULL) {
-    $item = new PapayaMediaDatabaseItem(
-      PapayaMediaStorage::getService(
+    $item = new \Papaya\Media\Database\Item(
+      \Papaya\Media\Storage::getService(
         $this->papaya()->options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
         $this->papaya()->options
       )
@@ -182,7 +184,7 @@ class base_mediadb extends base_db {
       }
     }
     if ($fileId != '') {
-      $fileCondition = PapayaUtilString::escapeForPrintf($this->databaseGetSQLCondition('f.file_id', $fileId));
+      $fileCondition = \Papaya\Utility\Text::escapeForPrintf($this->databaseGetSQLCondition('f.file_id', $fileId));
       $sql = "SELECT f.file_id, f.folder_id, f.surfer_id, f.file_name, f.file_date, f.file_created,
                      f.file_size, f.width, f.height, f.metadata, f.file_sort,
                      f.file_source, f.file_source_url, f.file_keywords,
@@ -750,7 +752,7 @@ class base_mediadb extends base_db {
         if ($translatedTextFilter) {
           $condition .= sprintf(
             ' OR file_id IN (SELECT file_id FROM %s WHERE %s)',
-            $this->databaseGetTablename(PapayaContentTables::MEDIA_FILE_TRANSLATIONS),
+            $this->databaseGetTablename(Tables::MEDIA_FILE_TRANSLATIONS),
             $translatedTextFilter
           );
         }
@@ -782,15 +784,15 @@ class base_mediadb extends base_db {
     if (!empty($searchParams['younger'])) {
       $conditions[] = sprintf(
         " (f.file_date >= %d OR f.file_created >= '%s' AND f.file_created <> '')",
-        PapayaUtilDate::stringToTimestamp($searchParams['younger']),
-        PapayaUtilDate::stringToIso($searchParams['younger'])
+        \Papaya\Utility\Date::stringToTimestamp($searchParams['younger']),
+        \Papaya\Utility\Date::stringToIso($searchParams['younger'])
       );
     }
     if (!empty($searchParams['older'])) {
       $conditions[] = sprintf(
         " (f.file_date <= %d OR (f.file_created <= '%s' AND f.file_created <> ''))",
-        PapayaUtilDate::stringToTimestamp($searchParams['older']),
-        PapayaUtilDate::stringToIso($searchParams['older'])
+        \Papaya\Utility\Date::stringToTimestamp($searchParams['older']),
+        \Papaya\Utility\Date::stringToIso($searchParams['older'])
       );
     }
     if (!empty($searchParams['smaller'])) {
@@ -1281,7 +1283,7 @@ class base_mediadb extends base_db {
   function getFileProperties($fileLocation, $originalFileName, array $meta = array()) {
     $this->initializeMimeObject();
 
-    $properties = iterator_to_array(new PapayaMediaFileProperties($fileLocation, $originalFileName));
+    $properties = iterator_to_array(new \Papaya\Media\File\Properties($fileLocation, $originalFileName));
     if (empty($properties['extension'])) {
       $properties['extension'] = $this->getFileExtension($originalFileName);
     }
@@ -1295,9 +1297,9 @@ class base_mediadb extends base_db {
       $properties['mimetype_id'] = 0;
     }
     $properties['metadata'] = '';
-    $properties['file_source'] = PapayaUtilArray::get($meta, 'file_source', '');
-    $properties['file_source_url'] = PapayaUtilArray::get($meta, 'file_source_url', '');
-    $properties['file_keywords'] = PapayaUtilArray::get($meta, 'file_keywords', '');
+    $properties['file_source'] = \Papaya\Utility\Arrays::get($meta, 'file_source', '');
+    $properties['file_source_url'] = \Papaya\Utility\Arrays::get($meta, 'file_source_url', '');
+    $properties['file_keywords'] = \Papaya\Utility\Arrays::get($meta, 'file_keywords', '');
     return $properties;
   }
 
@@ -1444,7 +1446,7 @@ class base_mediadb extends base_db {
   * @return mixed timestamp if $date was matched, otherwise FALSE
   */
   function parseDate($date) {
-    return PapayaUtilDate::stringToTimestamp($date);
+    return \Papaya\Utility\Date::stringToTimestamp($date);
   }
 
   /**

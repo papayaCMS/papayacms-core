@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Key;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
+class SequenceTest extends \Papaya\TestCase {
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::__construct
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::__construct
+   */
   public function testConstructor() {
     $sequence = $this->getSequenceFixture();
-    $key = new PapayaDatabaseRecordKeySequence($sequence);
+    $key = new Sequence($sequence);
     $this->assertAttributeSame(
       $sequence, '_sequence', $key
     );
@@ -32,10 +34,10 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::__construct
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::__construct
+   */
   public function testConstructorWithPropertyName() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture(), 'ident');
+    $key = new Sequence($this->getSequenceFixture(), 'ident');
     $this->assertEquals(
       array('ident'), $key->getProperties()
     );
@@ -43,11 +45,11 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::assign
-  * @covers PapayaDatabaseRecordKeySequence::getFilter
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::assign
+   * @covers \Papaya\Database\Record\Key\Sequence::getFilter
+   */
   public function testAssignAndGetFilter() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $this->assertTrue($key->assign(array('id' => 'PROVIDED_SEQUENCE_ID')));
     $this->assertEquals(
       array('id' => 'PROVIDED_SEQUENCE_ID'), $key->getFilter()
@@ -55,11 +57,11 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::assign
-  * @covers PapayaDatabaseRecordKeySequence::getFilter
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::assign
+   * @covers \Papaya\Database\Record\Key\Sequence::getFilter
+   */
   public function testAssignWithInvalidData() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $this->assertFalse($key->assign(array('other' => 'PROVIDED_SEQUENCE_ID')));
     $this->assertEquals(
       array('id' => NULL), $key->getFilter()
@@ -67,89 +69,89 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::getFilter
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::getFilter
+   */
   public function testGetFilterWithoutAssign() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $this->assertEquals(
       array('id' => NULL), $key->getFilter()
     );
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::getFilter
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::getFilter
+   */
   public function testGetFilterWithoutAssignCreatingId() {
-    $sequence =$this->getSequenceFixture();
+    $sequence = $this->getSequenceFixture();
     $sequence
       ->expects($this->once())
       ->method('next')
       ->will($this->returnValue('CREATED_SEQUENCE_ID'));
-    $key = new PapayaDatabaseRecordKeySequence($sequence);
+    $key = new Sequence($sequence);
     $this->assertEquals(
       array('id' => 'CREATED_SEQUENCE_ID'),
-      $key->getFilter(PapayaDatabaseInterfaceKey::ACTION_CREATE)
+      $key->getFilter(\Papaya\Database\Interfaces\Key::ACTION_CREATE)
     );
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::exists
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::exists
+   */
   public function testExistsExpectingTrue() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $key->assign(array('id' => 'PROVIDED_SEQUENCE_ID'));
     $this->assertTrue($key->exists());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::exists
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::exists
+   */
   public function testExistsExpectingFalse() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $this->assertFalse($key->exists());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::getQualities
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::getQualities
+   */
   public function testGetQualities() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
-    $this->assertEquals(PapayaDatabaseInterfaceKey::CLIENT_GENERATED, $key->getQualities());
+    $key = new Sequence($this->getSequenceFixture());
+    $this->assertEquals(\Papaya\Database\Interfaces\Key::CLIENT_GENERATED, $key->getQualities());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::__toString
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::__toString
+   */
   public function testMagicToString() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $key->assign(array('id' => 'PROVIDED_SEQUENCE_ID'));
     $this->assertSame('PROVIDED_SEQUENCE_ID', (string)$key);
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::clear
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::clear
+   */
   public function testClear() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $key->assign(array('id' => 42));
     $key->clear();
     $this->assertSame('', (string)$key);
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeySequence::getProperties
-  */
+   * @covers \Papaya\Database\Record\Key\Sequence::getProperties
+   */
   public function testGetProperties() {
-    $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
+    $key = new Sequence($this->getSequenceFixture());
     $this->assertEquals(array('id'), $key->getProperties());
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseSequence
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Sequence
    */
   private function getSequenceFixture() {
     $sequence = $this
-      ->getMockBuilder(PapayaDatabaseSequence::class)
+      ->getMockBuilder(\Papaya\Database\Sequence::class)
       ->disableOriginalConstructor()
       ->getMock();
     return $sequence;

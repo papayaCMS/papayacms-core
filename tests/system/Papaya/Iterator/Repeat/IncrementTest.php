@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorRepeatIncrementTest extends PapayaTestCase {
+class IncrementTest extends \Papaya\TestCase {
 
   /**
-   * @covers PapayaIteratorRepeatIncrement::__construct
-   * @covers PapayaIteratorRepeatIncrement::increment
+   * @covers       \Papaya\Iterator\Repeat\Increment::__construct
+   * @covers       \Papaya\Iterator\Repeat\Increment::increment
    * @dataProvider provideLimits
    * @param array $expected
    * @param int $minimum
@@ -27,7 +28,7 @@ class PapayaIteratorRepeatIncrementTest extends PapayaTestCase {
    * @param int $step
    */
   public function testIteration($expected, $minimum, $maximum, $step) {
-    $iterator = new PapayaIteratorRepeatIncrement($minimum, $maximum, $step);
+    $iterator = new Increment($minimum, $maximum, $step);
     $this->assertEquals(
       $expected,
       iterator_to_array($iterator)
@@ -35,12 +36,12 @@ class PapayaIteratorRepeatIncrementTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorRepeatIncrement::__construct
-   * @covers PapayaIteratorRepeatIncrement::increment
+   * @covers \Papaya\Iterator\Repeat\Increment::__construct
+   * @covers \Papaya\Iterator\Repeat\Increment::increment
    */
   public function testIterationWithAssocMode() {
-    $iterator = new PapayaIteratorRepeatIncrement(
-      0, 100, 10, PapayaIteratorRepeatIncrement::MODE_ASSOC
+    $iterator = new Increment(
+      0, 100, 10, Increment::MODE_ASSOC
     );
     $this->assertEquals(
       array(
