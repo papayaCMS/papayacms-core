@@ -307,8 +307,8 @@ class Session extends Application\BaseObject {
   private function configure() {
     $options = $this->papaya()->options;
     $wrapper = $this->wrapper();
-    $defaults = $wrapper->getCookieParams();
-    $wrapper->setCookieParams(
+    $defaults = $wrapper->getCookieParameters();
+    $wrapper->setCookieParameters(
       array(
         'lifetime' => $defaults['lifetime'],
         'path' => $options->get(

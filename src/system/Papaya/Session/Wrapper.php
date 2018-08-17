@@ -148,7 +148,7 @@ class Wrapper {
    * @see session_get_cookie_params()
    * @return array
    */
-  public function getCookieParams() {
+  public function getCookieParameters() {
     return session_get_cookie_params();
   }
 
@@ -158,7 +158,7 @@ class Wrapper {
    * @see session_set_cookie_params()
    * @param array $cookieParams
    */
-  public function setCookieParams(array $cookieParams) {
+  public function setCookieParameters(array $cookieParams) {
     session_set_cookie_params(
       $cookieParams['lifetime'],
       $cookieParams['path'],

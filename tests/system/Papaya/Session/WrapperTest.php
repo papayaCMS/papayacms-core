@@ -73,21 +73,24 @@ namespace Papaya\Session {
     }
 
     /**
-     * @covers \Papaya\Session\Wrapper::getCookieParams
-     * @covers \Papaya\Session\Wrapper::setCookieParams
+     * @covers \Papaya\Session\Wrapper::getCookieParameters
+     * @covers \Papaya\Session\Wrapper::setCookieParameters
      */
-    public function testGetAndGetCookieParams() {
+    public function testSetAndGetCookieParams() {
       ini_set('session.use_cookies', TRUE);
-      $params = array(
+      $parameters = array(
         'lifetime' => 1800,
         'path' => '/foo/',
         'domain' => 'sample.tld',
         'secure' => TRUE,
         'httponly' => TRUE
       );
+      if (PHP_VERSION_ID >= 70400) {
+        $parameters['samesite'] = 'Strict';
+      }
       $wrapper = new Wrapper();
-      $wrapper->setCookieParams($params);
-      $this->assertEquals($params, $wrapper->getCookieParams());
+      $wrapper->setCookieParameters($parameters);
+      $this->assertEquals($parameters, $wrapper->getCookieParameters());
     }
 
     /**
