@@ -64,7 +64,7 @@ class XhtmlTest extends \Papaya\TestCase {
     $xhtml = new XHTML('<strong>Test</strong>');
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<field class="DialogFieldXhtml" error="no">
+      '<field class="DialogFieldXHTML" error="no">
         <xhtml><strong>Test</strong></xhtml>
       </field>',
       $xhtml->getXML()

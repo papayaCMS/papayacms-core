@@ -31,7 +31,7 @@ class LengthTest extends \Papaya\TestCase {
       NULL, '_maximum', $filter
     );
     $this->assertAttributeSame(
-      FALSE, '_isUtf8', $filter
+      FALSE, '_isUTF8', $filter
     );
   }
 
@@ -47,7 +47,7 @@ class LengthTest extends \Papaya\TestCase {
       42, '_maximum', $filter
     );
     $this->assertAttributeSame(
-      TRUE, '_isUtf8', $filter
+      TRUE, '_isUTF8', $filter
     );
   }
 

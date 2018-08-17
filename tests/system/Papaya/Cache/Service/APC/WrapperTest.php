@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Cache\Service\Apc;
+namespace Papaya\Cache\Service\APC;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 

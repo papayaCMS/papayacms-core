@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class CallbackTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Xhtml\Callback
+   * @covers \Papaya\UI\Dialog\Field\XHTML\Callback
    * @covers \Papaya\UI\Dialog\Field\Callback::appendTo
    */
   public function testAppendTo() {
@@ -28,7 +28,7 @@ class CallbackTest extends \Papaya\TestCase {
     );
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<field caption="Caption" class="DialogFieldXhtmlCallback" error="no">
+      '<field caption="Caption" class="DialogFieldXHTMLCallback" error="no">
         <xhtml><select/></xhtml>
       </field>',
       $xhtml->getXML()

@@ -17,7 +17,7 @@ namespace Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ApcTest extends \Papaya\TestCase {
+class APCTest extends \Papaya\TestCase {
 
   /**
    * @covers APC::setConfiguration
@@ -31,8 +31,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::setAPCObject
    */
   public function testSetApcObject() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $service = new APC();
     $service->setAPCObject($apc);
     $this->assertSame($apc, $this->readAttribute($service, '_apcObject'));
@@ -43,15 +43,15 @@ class ApcTest extends \Papaya\TestCase {
    */
   public function testGetApcObject() {
     $service = new APC();
-    $this->assertInstanceOf(Apc\Wrapper::class, $service->getAPCObject());
+    $this->assertInstanceOf(APC\Wrapper::class, $service->getAPCObject());
   }
 
   /**
    * @covers APC::verify
    */
   public function testVerifyExpectingTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -64,8 +64,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::verify
    */
   public function testVerifyExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
@@ -78,8 +78,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::verify
    */
   public function testVerifyExpectingError() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
@@ -94,8 +94,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::write
    */
   public function testWrite() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -119,8 +119,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::write
    */
   public function testWriteExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -144,8 +144,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::_read
    */
   public function testRead() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -170,8 +170,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::_read
    */
   public function testReadExpired() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -197,8 +197,8 @@ class ApcTest extends \Papaya\TestCase {
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -221,8 +221,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::read
    */
   public function testReadExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
@@ -235,8 +235,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::exists
    */
   public function testExists() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -261,8 +261,8 @@ class ApcTest extends \Papaya\TestCase {
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -285,8 +285,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::exists
    */
   public function testExistsUsingCachedResult() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -302,8 +302,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::exists
    */
   public function testExistsExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
@@ -317,8 +317,8 @@ class ApcTest extends \Papaya\TestCase {
    */
   public function testCreated() {
     $lastHour = time() - 3600;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -343,8 +343,8 @@ class ApcTest extends \Papaya\TestCase {
    */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -368,8 +368,8 @@ class ApcTest extends \Papaya\TestCase {
    */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->any())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -394,8 +394,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::delete
    */
   public function testDelete() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(TRUE));
@@ -412,8 +412,8 @@ class ApcTest extends \Papaya\TestCase {
    * @covers APC::delete
    */
   public function testDeleteExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Apc\Wrapper $apc */
-    $apc = $this->createMock(Apc\Wrapper::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
+    $apc = $this->createMock(APC\Wrapper::class);
     $apc->expects($this->once())
       ->method('available')
       ->will($this->returnValue(FALSE));
