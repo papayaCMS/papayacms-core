@@ -13,25 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Domain;
-use Papaya\Content\Domains;
-
+namespace Papaya;
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaDomainsTest extends \PapayaTestCase {
+class DomainsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Domains::getDomainsByPath
-  */
+   * @covers \Papaya\Domains::getDomainsByPath
+   */
   public function testGetDomainsByPath() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains($this->getDomainDataFixture());
     $this->assertEquals(
       array(
         1 => array(
-          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+          'scheme' => Utility\Server\Protocol::BOTH,
           'host' => 'www.sample.tld',
-          'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+          'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
           'data' => 42
         )
       ),
@@ -40,18 +38,18 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Domains::loadLazy
-  * @covers \Papaya\Domains::getDomainsByPath
-  */
+   * @covers \Papaya\Domains::loadLazy
+   * @covers \Papaya\Domains::getDomainsByPath
+   */
   public function testGetDefaultDomainsByPath() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains(
       $this->getDomainDataFixture(
         array(
           1 => array(
-            'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+            'scheme' => Utility\Server\Protocol::BOTH,
             'host' => 'www.test.tld',
-            'mode' => Domain::MODE_DEFAULT,
+            'mode' => Content\Domain::MODE_DEFAULT,
             'data' => ''
           )
         )
@@ -60,9 +58,9 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         1 => array(
-          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+          'scheme' => Utility\Server\Protocol::BOTH,
           'host' => 'www.test.tld',
-          'mode' => Domain::MODE_DEFAULT,
+          'mode' => Content\Domain::MODE_DEFAULT,
           'data' => ''
         )
       ),
@@ -71,46 +69,46 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Domains::getDomainByHost
-  */
+   * @covers \Papaya\Domains::getDomainByHost
+   */
   public function testGetDomainByHost() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains($this->getDomainDataFixture());
     $this->assertEquals(
       array(
-        'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
+        'scheme' => Utility\Server\Protocol::HTTP,
         'host' => '*.test.tld',
-        'mode' => Domain::MODE_REDIRECT_DOMAIN,
+        'mode' => Content\Domain::MODE_REDIRECT_DOMAIN,
         'data' => ''
       ),
-      $domains->getDomainByHost('www.test.tld', \Papaya\Utility\Server\Protocol::HTTP)
+      $domains->getDomainByHost('www.test.tld', Utility\Server\Protocol::HTTP)
     );
   }
 
   /**
-  * @covers \Papaya\Domains::getDomainByHost
-  */
+   * @covers \Papaya\Domains::getDomainByHost
+   */
   public function testGetDomainByHostUsingSchemePriority() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains(
       $this->getDomainDataFixture(
         array(
           1 => array(
-            'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+            'scheme' => Utility\Server\Protocol::BOTH,
             'host' => 'www.test.tld',
-            'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+            'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'failed'
           ),
           2 => array(
-            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
+            'scheme' => Utility\Server\Protocol::HTTP,
             'host' => 'www.test.tld',
-            'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+            'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'success'
           ),
           3 => array(
-            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
+            'scheme' => Utility\Server\Protocol::HTTP,
             'host' => '*.test.tld',
-            'mode' => Domain::MODE_REDIRECT_DOMAIN,
+            'mode' => Content\Domain::MODE_REDIRECT_DOMAIN,
             'data' => 'failed'
           )
         )
@@ -118,31 +116,31 @@ class PapayaDomainsTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       array(
-        'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
+        'scheme' => Utility\Server\Protocol::HTTP,
         'host' => 'www.test.tld',
-        'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+        'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 'success'
       ),
-      $domains->getDomainByHost('www.test.tld', \Papaya\Utility\Server\Protocol::HTTP)
+      $domains->getDomainByHost('www.test.tld', Utility\Server\Protocol::HTTP)
     );
   }
 
   /**
-  * @covers \Papaya\Domains::getCurrent
-  * @covers \Papaya\Domains::getDomainByHost
-  * @backupGlobals enabled
-  */
+   * @covers \Papaya\Domains::getCurrent
+   * @covers \Papaya\Domains::getDomainByHost
+   * @backupGlobals enabled
+   */
   public function testGetCurrent() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
     $_SERVER['HTTPS'] = 'on';
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains($this->getDomainDataFixture());
     $domains->getCurrent();
     $this->assertEquals(
       array(
-        'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+        'scheme' => Utility\Server\Protocol::BOTH,
         'host' => 'www.sample.tld',
-        'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+        'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 42
       ),
       $domains->getCurrent()
@@ -150,13 +148,13 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Domains::getHostVariants
+   * @covers       \Papaya\Domains::getHostVariants
    * @dataProvider provideHostVariants
    * @param array $expected
    * @param string $host
    */
   public function testGetHostVariants(array $expected, $host) {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $this->assertEquals(
       $expected,
       $domains->getHostVariants($host)
@@ -164,38 +162,38 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Domains::loadLazy
-  */
+   * @covers \Papaya\Domains::loadLazy
+   */
   public function testLoadLazy() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->domains($this->getDomainDataFixture());
     $domains->loadLazy();
     $domains->loadLazy();
   }
 
   /**
-  * @covers \Papaya\Domains::domains
-  */
+   * @covers \Papaya\Domains::domains
+   */
   public function testDomainsGetAfterSet() {
-    $data = $this->createMock(Domains::class);
-    $domains = new \Papaya\Domains();
+    $data = $this->createMock(Content\Domains::class);
+    $domains = new Domains();
     $domains->domains($data);
     $this->assertSame($data, $domains->domains());
   }
 
   /**
-  * @covers \Papaya\Domains::domains
-  */
+   * @covers \Papaya\Domains::domains
+   */
   public function testDomainGetImplicitCreate() {
-    $domains = new \Papaya\Domains();
+    $domains = new Domains();
     $domains->papaya($papaya = $this->mockPapaya()->application());
-    $this->assertInstanceOf(Domains::class, $data = $domains->domains());
+    $this->assertInstanceOf(Content\Domains::class, $data = $domains->domains());
     $this->assertSame($papaya, $data->papaya());
   }
 
   /****************************
-  * Data Provider
-  ****************************/
+   * Data Provider
+   ****************************/
 
   public static function provideHostVariants() {
     return array(
@@ -250,31 +248,31 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /****************************
-  * Fixtures
-  ****************************/
+   * Fixtures
+   ****************************/
 
   /**
    * @param null $domains
-   * @return \PHPUnit_Framework_MockObject_MockObject|Domains
+   * @return \PHPUnit_Framework_MockObject_MockObject|Content\Domains
    */
   private function getDomainDataFixture($domains = NULL) {
     if (empty($domains)) {
       $domains = array(
         1 => array(
-          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
+          'scheme' => Utility\Server\Protocol::BOTH,
           'host' => 'www.sample.tld',
-          'mode' => Domain::MODE_VIRTUAL_DOMAIN,
+          'mode' => Content\Domain::MODE_VIRTUAL_DOMAIN,
           'data' => '42'
         ),
         2 => array(
-          'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
+          'scheme' => Utility\Server\Protocol::HTTP,
           'host' => '*.test.tld',
-          'mode' => Domain::MODE_REDIRECT_DOMAIN,
+          'mode' => Content\Domain::MODE_REDIRECT_DOMAIN,
           'data' => ''
         )
       );
     }
-    $data = $this->createMock(Domains::class);
+    $data = $this->createMock(Content\Domains::class);
     $data
       ->expects($this->once())
       ->method('load')
