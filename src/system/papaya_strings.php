@@ -36,7 +36,7 @@ class papaya_strings {
       '#||\\1||#',
       $result
     );
-    $result = \Papaya\Utility\Text\Html::decodeNamedEntities($result);
+    $result = \Papaya\Utility\Text\HTML::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/iu', '&\\1;', $result);
     $result = str_replace('&amp;amp;', '&amp;', $result);

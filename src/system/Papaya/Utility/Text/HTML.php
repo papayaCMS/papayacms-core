@@ -20,7 +20,7 @@ namespace Papaya\Utility\Text;
  * @package Papaya-Library
  * @subpackage Util
  */
-class Html {
+class HTML {
 
   const PATTERN_HTML_TAG = '(</?[^\s\d\pP>][^>]*>)u';
 

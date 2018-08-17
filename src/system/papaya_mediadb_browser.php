@@ -407,7 +407,7 @@ class papaya_mediadb_browser extends base_mediadb {
         \Papaya\Utility\Text\Javascript::quote($file['file_name']),
         \Papaya\Utility\Text\Javascript::quote($file['file_title']),
         \Papaya\Utility\Text\Javascript::quote(
-          \Papaya\Utility\Text\Html::stripTags($file['file_description'])
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -479,7 +479,7 @@ class papaya_mediadb_browser extends base_mediadb {
         \Papaya\Utility\Text\Javascript::quote($file['file_name']),
         \Papaya\Utility\Text\Javascript::quote($file['file_title']),
         \Papaya\Utility\Text\Javascript::quote(
-          \Papaya\Utility\Text\Html::stripTags($file['file_description'])
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -670,7 +670,7 @@ class papaya_mediadb_browser extends base_mediadb {
         preg_replace(
           '([\r\n ]+)',
           ' ',
-          \Papaya\Utility\Text\Html::stripTags($file['file_description'])
+          \Papaya\Utility\Text\HTML::stripTags($file['file_description'])
         )
       )
     );

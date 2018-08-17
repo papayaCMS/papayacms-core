@@ -574,7 +574,7 @@ class papaya_rpc extends base_object {
         );
         if (!empty($translations[$mediaId])) {
           $params['title'] = $translations[$mediaId]['file_title'];
-          $params['description'] = \Papaya\Utility\Text\Html::stripTags(
+          $params['description'] = \Papaya\Utility\Text\HTML::stripTags(
             $translations[$mediaId]['file_description']
           );
         }

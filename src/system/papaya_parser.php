@@ -878,7 +878,7 @@ class papaya_parser extends base_db {
       $altText = preg_replace(
         '([\r\n ]+)',
         ' ',
-        \Papaya\Utility\Text\Html::stripTags($data['description'])
+        \Papaya\Utility\Text\HTML::stripTags($data['description'])
       );
     } else {
       $altText = $hrefData['title'];

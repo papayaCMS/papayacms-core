@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class HtmlTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\Html::escapeStripped
+   * @covers       \Papaya\Utility\Text\HTML::escapeStripped
    * @dataProvider escapeStrippedDataProvider
    * @param string $expected
    * @param string $string
@@ -27,12 +27,12 @@ class HtmlTest extends \Papaya\TestCase {
   public function testEscapeStripped($expected, $string) {
     $this->assertEquals(
       $expected,
-      Html::escapeStripped($string)
+      HTML::escapeStripped($string)
     );
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Html::stripTags
+   * @covers       \Papaya\Utility\Text\HTML::stripTags
    * @dataProvider stripTagsDataProvider
    * @param string $expected
    * @param string $string
@@ -40,12 +40,12 @@ class HtmlTest extends \Papaya\TestCase {
   public function testStripTags($expected, $string) {
     $this->assertEquals(
       $expected,
-      Html::stripTags($string)
+      HTML::stripTags($string)
     );
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Html::decodeNamedEntities
+   * @covers       \Papaya\Utility\Text\HTML::decodeNamedEntities
    * @dataProvider decodeNamedEntitiesDataProvider
    * @param string $expected
    * @param string $string
@@ -53,7 +53,7 @@ class HtmlTest extends \Papaya\TestCase {
   public function testDecodeNamedEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      Html::decodeNamedEntities($string)
+      HTML::decodeNamedEntities($string)
     );
   }
 

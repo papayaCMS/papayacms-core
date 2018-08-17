@@ -62,7 +62,7 @@ class Group
       if ($element instanceof Interfaces\Text) {
         $result .= "\n\n".$element->asString();
       } elseif ($element instanceof Interfaces\Xhtml) {
-        $result .= "\n\n".\Papaya\Utility\Text\Html::stripTags($element->asXhtml());
+        $result .= "\n\n".\Papaya\Utility\Text\HTML::stripTags($element->asXhtml());
       }
     }
     return substr($result, 2);
