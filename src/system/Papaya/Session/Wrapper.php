@@ -159,13 +159,17 @@ class Wrapper {
    * @param array $cookieParams
    */
   public function setCookieParameters(array $cookieParams) {
-    session_set_cookie_params(
-      $cookieParams['lifetime'],
-      $cookieParams['path'],
-      $cookieParams['domain'],
-      $cookieParams['secure'],
-      $cookieParams['httponly']
-    );
+    if (PHP_VERSION_ID >= 70300) {
+      session_set_cookie_params($cookieParams);
+    } else {
+      session_set_cookie_params(
+        $cookieParams['lifetime'],
+        $cookieParams['path'],
+        $cookieParams['domain'],
+        $cookieParams['secure'],
+        $cookieParams['httponly']
+      );
+    }
   }
 
   /**

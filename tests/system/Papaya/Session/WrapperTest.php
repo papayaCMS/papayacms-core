@@ -85,7 +85,7 @@ namespace Papaya\Session {
         'secure' => TRUE,
         'httponly' => TRUE
       );
-      if (PHP_VERSION_ID >= 70400) {
+      if (PHP_VERSION_ID >= 70300) {
         $parameters['samesite'] = 'Strict';
       }
       $wrapper = new Wrapper();
