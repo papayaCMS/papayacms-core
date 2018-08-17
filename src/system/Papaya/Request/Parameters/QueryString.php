@@ -136,7 +136,7 @@ class QueryString {
     if ($stripSlashes) {
       $parameter = stripslashes($parameter);
     }
-    return \Papaya\Utility\Text\Utf8::ensure($parameter);
+    return \Papaya\Utility\Text\UTF8::ensure($parameter);
   }
 
   /**

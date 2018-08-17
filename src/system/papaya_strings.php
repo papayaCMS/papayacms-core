@@ -30,7 +30,7 @@ class papaya_strings {
   * @return string
   */
   public static function entityToXML($str, $escapeTags = FALSE) {
-    $result = \Papaya\Utility\Text\Utf8::ensure($str);
+    $result = \Papaya\Utility\Text\UTF8::ensure($str);
     $result = preg_replace(
       '/\&((amp)|(quot)|([gl]t)|(#((\d+)|(x[a-fA-F\d]{2,4}))))\;/iu',
       '#||\\1||#',
@@ -219,7 +219,7 @@ class papaya_strings {
   * @return string
   */
   public static function ensureUTF8($str) {
-    return \Papaya\Utility\Text\Utf8::ensure($str);
+    return \Papaya\Utility\Text\UTF8::ensure($str);
   }
 
   /**
@@ -263,7 +263,7 @@ class papaya_strings {
    * @return string
    */
   public static function substr($str, $start, $length = NULL) {
-    return \Papaya\Utility\Text\Utf8::copy($str, $start, $length);
+    return \Papaya\Utility\Text\UTF8::copy($str, $start, $length);
   }
 
   /**
@@ -274,7 +274,7 @@ class papaya_strings {
   * @return integer lenght of string
   */
   public static function strlen($str) {
-    return \Papaya\Utility\Text\Utf8::length($str);
+    return \Papaya\Utility\Text\UTF8::length($str);
   }
 
   /**
@@ -287,7 +287,7 @@ class papaya_strings {
    * @return integer
    */
   public static function strpos($haystack, $needle, $offset = 0) {
-    return \Papaya\Utility\Text\Utf8::position($haystack, $needle, $offset);
+    return \Papaya\Utility\Text\UTF8::position($haystack, $needle, $offset);
   }
 
   /**
@@ -314,7 +314,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtolower($string) {
-    return \Papaya\Utility\Text\Utf8::toLowerCase($string);
+    return \Papaya\Utility\Text\UTF8::toLowerCase($string);
   }
 
   /**
@@ -323,7 +323,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtoupper($string) {
-    return \Papaya\Utility\Text\Utf8::toUpperCase($string);
+    return \Papaya\Utility\Text\UTF8::toUpperCase($string);
   }
 
   /**

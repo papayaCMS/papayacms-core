@@ -232,7 +232,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       if ($fh = @fopen($fileName, 'r')) {
         $data = fread($fh, filesize($fileName));
         fclose($fh);
-        return \Papaya\Utility\Text\Utf8::ensure($data);
+        return \Papaya\Utility\Text\UTF8::ensure($data);
       }
     }
     return '';

@@ -61,7 +61,7 @@ class Normalize implements \Papaya\Filter {
     $pattern = '([^\pL\pN'.($asterisk).']+)u';
     $value = trim(preg_replace($pattern, ' ', $value));
     if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
-      $value = \Papaya\Utility\Text\Utf8::toLowerCase($value);
+      $value = \Papaya\Utility\Text\UTF8::toLowerCase($value);
     }
     return $value !== '' ? $value : NULL;
   }

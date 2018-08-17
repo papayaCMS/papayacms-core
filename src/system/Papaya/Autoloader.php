@@ -144,17 +144,27 @@ class Autoloader {
 
     // Typos
     'Anchestors' => 'Ancestors',
+
+    // Abbreviations
+    'Apc' => 'APC',
+    'Ascii' => 'ASCII',
     'Ast' => 'AST',
+    'Cli' => 'CLI',
     'Css' => 'CSS',
     'Csv' => 'CSV',
+    'Html' => 'HTML',
     'Http' => 'HTTP',
     'Php' => 'PHP',
     'Regex' => 'RegEx',
     'Svn' => 'SVN',
+    'Svg' => 'SVG',
     'Ui' => 'UI',
     'Url' => 'URL',
     'Util' => 'Utility',
-    'Xml' => 'XML'
+    'Utf8' => 'UTF8',
+    'Xhtml' => 'XHTML',
+    'Xml' => 'XML',
+    'Xslt' => 'XSLT'
   );
 
   /**

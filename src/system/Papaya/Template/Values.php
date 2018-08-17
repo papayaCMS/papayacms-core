@@ -161,6 +161,6 @@ class Values {
    * @return \Papaya\Template\Value
    */
   public function appendXML($parent, $xml) {
-    return $this->getValue($parent)->appendXML(\Papaya\Utility\Text\Utf8::ensure($xml));
+    return $this->getValue($parent)->appendXML(\Papaya\Utility\Text\UTF8::ensure($xml));
   }
 }

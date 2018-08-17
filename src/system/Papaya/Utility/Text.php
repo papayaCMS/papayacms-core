@@ -44,7 +44,7 @@ class Text {
       if ($matches[1] == $string) {
         return $string;
       }
-      return \Papaya\Utility\Text\Utf8::ensure(chop($matches[1]).$suffix);
+      return \Papaya\Utility\Text\UTF8::ensure(chop($matches[1]).$suffix);
     }
     return '';
   }

@@ -178,7 +178,7 @@ class Document
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      \Papaya\Utility\Text\XML::removeControlCharacters(\Papaya\Utility\Text\Utf8::ensure($content))
+      \Papaya\Utility\Text\XML::removeControlCharacters(\Papaya\Utility\Text\UTF8::ensure($content))
     );
     $fragment->appendXML($content);
     if ($fragment->firstChild) {

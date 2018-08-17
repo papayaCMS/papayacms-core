@@ -82,7 +82,7 @@ class XML {
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
     $result = str_replace('&amp;amp;', '&amp;', $result);
-    return \Papaya\Utility\Text\Utf8::ensure($result);
+    return \Papaya\Utility\Text\UTF8::ensure($result);
   }
 
 
@@ -116,13 +116,13 @@ class XML {
       if (trim($name) != '') {
         if (isset($value) && is_array($value)) {
           $childNode = $parent->ownerDocument->createElement($tagName.'-list');
-          $childNode->setAttribute('name', \Papaya\Utility\Text\Utf8::ensure($name));
+          $childNode->setAttribute('name', \Papaya\Utility\Text\UTF8::ensure($name));
           self::_serializeSubArray($childNode, $tagName, $value);
         } else {
           $childNode = $parent->ownerDocument->createElement($tagName.'-element');
-          $childNode->setAttribute('name', \Papaya\Utility\Text\Utf8::ensure($name));
+          $childNode->setAttribute('name', \Papaya\Utility\Text\UTF8::ensure($name));
           $dataNode = $parent->ownerDocument->createTextNode(
-            \Papaya\Utility\Text\Utf8::ensure($value)
+            \Papaya\Utility\Text\UTF8::ensure($value)
           );
           $childNode->appendChild($dataNode);
         }
@@ -143,7 +143,7 @@ class XML {
       return $result;
     }
     if (FALSE === strpos($xml, ' version="2">')) {
-      $xml = \Papaya\Utility\Text\Utf8::ensure(
+      $xml = \Papaya\Utility\Text\UTF8::ensure(
         preg_replace_callback(
           '(&\\#(
             (?:1(?:2[6-9]|[3-9][0-9]))

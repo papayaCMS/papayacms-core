@@ -20,7 +20,7 @@ namespace Papaya\Utility\Text;
  * @package Papaya-Library
  * @subpackage Util
  */
-class Utf8 {
+class UTF8 {
 
   const EXT_UNKNOWN = 0;
   const EXT_PCRE = -1;

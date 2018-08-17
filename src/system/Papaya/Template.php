@@ -227,7 +227,7 @@ abstract class Template extends Application\BaseObject {
    * @return string
    */
   private function encodeInvalidEntities($xml) {
-    $result = Utility\Text\Utf8::ensure($xml);
+    $result = Utility\Text\UTF8::ensure($xml);
     $result = Utility\Text\Html::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace(
