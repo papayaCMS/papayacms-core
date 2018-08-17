@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaProfilerTimerTest extends \PapayaTestCase {
+class TimerTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithOnTake() {
-    $timer = new \Papaya\Profiler\Timer();
+    $timer = new Timer();
     usleep(50);
     $timer->take('TEST');
     $takes = iterator_to_array($timer);
@@ -37,7 +38,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
    * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTwoTakes() {
-    $timer = new \Papaya\Profiler\Timer();
+    $timer = new Timer();
     $timer->take('TEST');
     $timer->take('TEST');
     $takes = iterator_to_array($timer);
@@ -48,7 +49,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
    * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTextWithArgument() {
-    $timer = new \Papaya\Profiler\Timer();
+    $timer = new Timer();
     $timer->take('Hello %s!', 'World');
     $takes = iterator_to_array($timer);
     $this->assertCount(1, $takes);
@@ -59,7 +60,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
    * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTextWithArrayArgument() {
-    $timer = new \Papaya\Profiler\Timer();
+    $timer = new Timer();
     $timer->take('Hello %s and %s!', array('World', 'Universe'));
     $takes = iterator_to_array($timer);
     $this->assertCount(1, $takes);
@@ -80,7 +81,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
         $this->isType('string'),
         $this->isInstanceOf(\Papaya\Message\Context\Runtime::class)
       );
-    $timer = new \Papaya\Profiler\Timer();
+    $timer = new Timer();
     $timer->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)

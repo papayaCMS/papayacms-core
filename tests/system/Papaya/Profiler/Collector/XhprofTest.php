@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler\Collector;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaProfilerCollectorXhprofTest extends \PapayaTestCase {
+class XhprofTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Profiler\Collector\Xhprof::enable
-  */
+   * @covers \Papaya\Profiler\Collector\Xhprof::enable
+   */
   public function testEnable() {
     $this->skipIfNotExtensionLoaded('xhprof');
-    $collector = new \Papaya\Profiler\Collector\Xhprof();
+    $collector = new Xhprof();
     $this->assertTrue($collector->enable());
     $collector->disable();
   }
 
   /**
-  * @covers \Papaya\Profiler\Collector\Xhprof::enable
-  */
+   * @covers \Papaya\Profiler\Collector\Xhprof::enable
+   */
   public function testEnableNoXhProf() {
     $this->skipIfExtensionLoaded('xhprof');
-    $collector = new \Papaya\Profiler\Collector\Xhprof();
+    $collector = new Xhprof();
     $this->assertFalse($collector->enable());
   }
 
   /**
-  * @covers \Papaya\Profiler\Collector\Xhprof::disable
-  */
+   * @covers \Papaya\Profiler\Collector\Xhprof::disable
+   */
   public function testDisable() {
     $this->skipIfNotExtensionLoaded('xhprof');
-    $collector = new \Papaya\Profiler\Collector\Xhprof();
+    $collector = new Xhprof();
     $collector->enable();
     $this->assertInternalType(
       'array',
@@ -50,10 +51,10 @@ class PapayaProfilerCollectorXhprofTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Profiler\Collector\Xhprof::disable
-  */
+   * @covers \Papaya\Profiler\Collector\Xhprof::disable
+   */
   public function testDisableNoEnabled() {
-    $collector = new \Papaya\Profiler\Collector\Xhprof();
+    $collector = new Xhprof();
     $this->assertNull(
       $collector->disable()
     );

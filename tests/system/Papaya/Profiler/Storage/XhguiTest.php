@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler\Storage;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
+class XhguiTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Profiler\Storage\Xhgui::__construct
-  */
+   * @covers \Papaya\Profiler\Storage\Xhgui::__construct
+   */
   public function testConstructor() {
-    $storage = new \Papaya\Profiler\Storage\Xhgui('database', 'table', 'foo');
+    $storage = new Xhgui('database', 'table', 'foo');
     $this->assertAttributeEquals(
       'database', '_database', $storage
     );
@@ -34,11 +35,11 @@ class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Profiler\Storage\Xhgui::saveRun
-  * @covers \Papaya\Profiler\Storage\Xhgui::getId
-  * @covers \Papaya\Profiler\Storage\Xhgui::normalizeURL
-  * @covers \Papaya\Profiler\Storage\Xhgui::removeSid
-  */
+   * @covers \Papaya\Profiler\Storage\Xhgui::saveRun
+   * @covers \Papaya\Profiler\Storage\Xhgui::getId
+   * @covers \Papaya\Profiler\Storage\Xhgui::normalizeURL
+   * @covers \Papaya\Profiler\Storage\Xhgui::removeSid
+   */
   public function testSaveRun() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -46,7 +47,7 @@ class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
       ->method('queryFmtWrite')
       ->with($this->isType('string'), $this->isType('array'))
       ->will($this->returnValue(TRUE));
-    $storage = new \Papaya\Profiler\Storage\Xhgui('database', 'table', 'foo');
+    $storage = new Xhgui('database', 'table', 'foo');
     $storage->setDatabaseAccess($databaseAccess);
     $this->assertNotEmpty(
       $storage->saveRun(array(), 'type')
@@ -54,12 +55,12 @@ class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Profiler\Storage\Xhgui::setDatabaseAccess
-  * @covers \Papaya\Profiler\Storage\Xhgui::getDatabaseAccess
-  */
+   * @covers \Papaya\Profiler\Storage\Xhgui::setDatabaseAccess
+   * @covers \Papaya\Profiler\Storage\Xhgui::getDatabaseAccess
+   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $storage = new \Papaya\Profiler\Storage\Xhgui('database', 'table', 'foo');
+    $storage = new Xhgui('database', 'table', 'foo');
     $storage->setDatabaseAccess($databaseAccess);
     $this->assertSame(
       $databaseAccess, $storage->getDatabaseAccess()
@@ -67,10 +68,10 @@ class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Profiler\Storage\Xhgui::getDatabaseAccess
-  */
+   * @covers \Papaya\Profiler\Storage\Xhgui::getDatabaseAccess
+   */
   public function testGetDatabaseAccessImplicitCreate() {
-    $storage = new \Papaya\Profiler\Storage\Xhgui('database', 'table', 'foo');
+    $storage = new Xhgui('database', 'table', 'foo');
     $storage->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
       \Papaya\Database\Access::class, $storage->getDatabaseAccess()
