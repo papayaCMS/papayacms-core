@@ -287,7 +287,7 @@ class base_import extends base_db {
   */
   function transformXML($xml, $xslFile) {
     if (file_exists($xslFile)) {
-      $transformer = new \Papaya\Template\Xslt($xslFile);
+      $transformer = new \Papaya\Template\XSLT($xslFile);
       $transformer->setXML($xml);
       return $transformer->parse();
     }

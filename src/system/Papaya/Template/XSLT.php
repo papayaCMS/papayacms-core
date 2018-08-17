@@ -20,7 +20,7 @@ namespace Papaya\Template;
  * @package Papaya-Library
  * @subpackage Template
  */
-class Xslt extends \Papaya\Template {
+class XSLT extends \Papaya\Template {
 
   /**
    * @var string

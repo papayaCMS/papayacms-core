@@ -1558,7 +1558,7 @@ class papaya_page extends base_object {
    * @return string
    */
   function generatePage($filterParams = NULL, $outputContent = TRUE, $allowRedirect = TRUE) {
-    $this->layout = new \Papaya\Template\Xslt();
+    $this->layout = new \Papaya\Template\XSLT();
 
     $defaultViewMode = $this->papaya()->options->get(
       'PAPAYA_URL_EXTENSION', 'html', new \Papaya\Filter\NotEmpty()

@@ -22,72 +22,72 @@ require_once __DIR__.'/../../../bootstrap.php';
 class XsltTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testConstructorWithXslFileArgument() {
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $this->assertEquals('test.xsl', $template->getXslFile());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testSetXslFile() {
-    $template = new Xslt();
+    $template = new XSLT();
     $template->setXsl('test.xsl');
     $this->assertEquals('test.xsl', $template->getXslFile());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testEngineGetAfterSet() {
     $engine = $this->createMock(Engine\XSLT::class);
-    $template = new Xslt();
+    $template = new XSLT();
     $template->engine($engine);
     $this->assertSame($engine, $template->engine());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testEngineGetImplicitCreate() {
-    $template = new Xslt();
+    $template = new XSLT();
     $template->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(Engine\XSLT::class, $template->engine());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseExpectingFalse() {
     $engine = $this->getEngineFixture(FALSE);
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertFalse($template->parse());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseExpectingText() {
     $engine = $this->getEngineFixture('success');
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals('success', $template->parse());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseExpectingXml() {
     $engine = $this->getEngineFixture(
     /** @lang XML */
       '<?xml version="1.0"?><test xmlns="urn:default" xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
@@ -98,43 +98,43 @@ class XsltTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseExpectingXmlRemoveXmlPi() {
     $engine = $this->getEngineFixture(
     /** @lang XML */
       '<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
     /** @lang XML */
       '<test xmlns:empty="" xmlns:foo="urn:bar"/>',
-      $template->parse(Xslt::STRIP_XML_PI)
+      $template->parse(XSLT::STRIP_XML_PI)
     );
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseExpectingXmlRemoveXmlNamespaces() {
     $engine = $this->getEngineFixture(
     /** @lang XML */
       '<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
     /** @lang XML */
       '<?xml version="1.0"?><test xmlns:foo="urn:bar"/>',
-      $template->parse(Xslt::STRIP_XML_EMPTY_NAMESPACE)
+      $template->parse(XSLT::STRIP_XML_EMPTY_NAMESPACE)
     );
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testParseWithProfiling() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -142,7 +142,7 @@ class XsltTest extends \Papaya\TestCase {
       ->expects($this->exactly(2))
       ->method('log');
     $engine = $this->getEngineFixture(FALSE);
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya(
       $this->mockPapaya()->application(
         array(
@@ -156,29 +156,29 @@ class XsltTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testGetOutput() {
     $engine = $this->getEngineFixture('success');
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals('success', $template->getOutput());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testGetOutputExpectingFalse() {
     $engine = $this->getEngineFixture(FALSE);
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertFalse($template->getOutput());
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testGetOutputExpectingXmlOutput() {
     $response = $this->createMock(\Papaya\Response::class);
@@ -195,7 +195,7 @@ class XsltTest extends \Papaya\TestCase {
       ->method('send')
       ->with(TRUE);
 
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya(
       $this->mockPapaya()->application(
         array(
@@ -209,11 +209,11 @@ class XsltTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Xslt
+   * @covers \Papaya\Template\XSLT
    */
   public function testXhtml() {
     $engine = $this->getEngineFixture(FALSE);
-    $template = new Xslt('test.xsl');
+    $template = new XSLT('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     /** @noinspection PhpDeprecationInspection */
