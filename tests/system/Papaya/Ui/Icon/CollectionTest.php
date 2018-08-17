@@ -13,90 +13,91 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Icon;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiIconListTest extends \PapayaTestCase {
+class CollectionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetExists
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetExists
+   */
   public function testOffsetExists() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['sample'] = new \Papaya\UI\Icon('sample.png');
     $this->assertTrue(isset($list['sample']));
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetGet
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetGet
+   */
   public function testOffsetGet() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['sample'] = $icon = new \Papaya\UI\Icon('sample.png');
     $this->assertSame($icon, $list['sample']);
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetSet
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetSet
+   */
   public function testOffsetSet() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['sample'] = $icon = new \Papaya\UI\Icon('sample.png');
     $this->assertAttributeSame(array('sample' => $icon), '_icons', $list);
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetSet
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetSet
+   */
   public function testOffsetSetWithoutIndexExpectingException() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Please provide a valid offset for the icon.');
     $list[] = new \Papaya\UI\Icon('sample.png');
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetSet
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetSet
+   */
   public function testOffsetSetWithInvalidIconExpectingException() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Please provide an instance of Papaya\UI\Icon.');
     $list['sample'] = 'X';
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::offsetUnset
-  */
+   * @covers \Papaya\UI\Icon\Collection::offsetUnset
+   */
   public function testOffsetUnset() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['sample'] = new \Papaya\UI\Icon('sample.png');
     unset($list['sample']);
     $this->assertFalse(isset($list['sample']));
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::count
-  */
+   * @covers \Papaya\UI\Icon\Collection::count
+   */
   public function testCountExpectingZero() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $this->assertCount(0, $list);
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::count
-  */
+   * @covers \Papaya\UI\Icon\Collection::count
+   */
   public function testCountExpectingTwo() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['one'] = $icon = new \Papaya\UI\Icon('one.png');
     $list['two'] = $icon = new \Papaya\UI\Icon('two.png');
     $this->assertCount(2, $list);
   }
 
   /**
-  * @covers \Papaya\UI\Icon\Collection::getIterator
-  */
+   * @covers \Papaya\UI\Icon\Collection::getIterator
+   */
   public function testGetIterator() {
-    $list = new \Papaya\UI\Icon\Collection();
+    $list = new Collection();
     $list['sample'] = $icon = new \Papaya\UI\Icon('sample.png');
     $this->assertSame(array('sample' => $icon), $list->getIterator()->getArrayCopy());
   }
