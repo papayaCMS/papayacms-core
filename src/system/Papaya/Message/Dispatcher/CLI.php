@@ -15,7 +15,7 @@
 
 namespace Papaya\Message\Dispatcher;
 
-class Cli
+class CLI
   extends \Papaya\Application\BaseObject
   implements \Papaya\Message\Dispatcher {
 
