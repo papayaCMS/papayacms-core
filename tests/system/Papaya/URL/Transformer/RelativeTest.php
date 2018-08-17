@@ -13,18 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\URL;
-
+namespace Papaya\URL\Transformer;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUrlTransformerRelativeTest extends \PapayaTestCase {
+class RelativeTest extends \PapayaTestCase {
 
   /**
-  * get mock for \Papaya\PapayaUrl from url string
-  *
-  * @param string $url
-  * @return \PHPUnit_Framework_MockObject_MockObject|URL
-  */
+   * get mock for \Papaya\PapayaUrl from url string
+   *
+   * @param string $url
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL
+   */
   public function getPapayaUrlMockFixture($url) {
     $mapping = array(
       'getScheme' => 'scheme',
@@ -37,7 +36,7 @@ class PapayaUrlTransformerRelativeTest extends \PapayaTestCase {
       'getFragment' => 'fragment',
     );
     $urlObject = $this
-      ->getMockBuilder(URL::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array_keys($mapping))
       ->getMock();
     if (empty($url)) {
@@ -59,15 +58,15 @@ class PapayaUrlTransformerRelativeTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\URL\Transformer\Relative::transform
-   * @covers \Papaya\URL\Transformer\Relative::_comparePorts
+   * @covers       \Papaya\URL\Transformer\Relative::transform
+   * @covers       \Papaya\URL\Transformer\Relative::_comparePorts
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetUrl
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetUrl, $expected) {
-    $transformer = new URL\Transformer\Relative();
+    $transformer = new Relative();
     $this->assertSame(
       $expected,
       $transformer->transform(
@@ -78,14 +77,14 @@ class PapayaUrlTransformerRelativeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\URL\Transformer\Relative::getRelativePath
-  * @dataProvider getRelativePathDataProvider
+   * @covers       \Papaya\URL\Transformer\Relative::getRelativePath
+   * @dataProvider getRelativePathDataProvider
    * @param string $currentPath
    * @param string $targetPath
    * @param string $expected
-  */
+   */
   public function testGetRelativePath($currentPath, $targetPath, $expected) {
-    $transformer = new URL\Transformer\Relative();
+    $transformer = new Relative();
     $this->assertEquals(
       $expected,
       $transformer->getRelativePath($currentPath, $targetPath)
@@ -93,8 +92,8 @@ class PapayaUrlTransformerRelativeTest extends \PapayaTestCase {
   }
 
   /*************************************
-  * Data Providers
-  *************************************/
+   * Data Providers
+   *************************************/
 
   public static function transformDataProvider() {
     return array(

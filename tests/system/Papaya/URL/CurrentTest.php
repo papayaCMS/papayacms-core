@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\URL;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUrlCurrentTest extends \PapayaTestCase {
+class CurrentTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\URL\Current::__construct
-  * @backupGlobals enabled
-  */
+   * @covers \Papaya\URL\Current::__construct
+   * @backupGlobals enabled
+   */
   public function testConstructor() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
-    $urlObject = new \Papaya\URL\Current();
+    $urlObject = new Current();
     $this->assertSame(
       'http://www.sample.tld',
       $urlObject->getURL()
@@ -31,13 +32,13 @@ class PapayaUrlCurrentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\URL\Current::__construct
-  * @backupGlobals enabled
-  */
+   * @covers \Papaya\URL\Current::__construct
+   * @backupGlobals enabled
+   */
   public function testConstructorOnHttps() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
     $_SERVER['HTTPS'] = 'on';
-    $urlObject = new \Papaya\URL\Current();
+    $urlObject = new Current();
     $this->assertSame(
       'https://www.sample.tld',
       $urlObject->getURL()
@@ -45,12 +46,12 @@ class PapayaUrlCurrentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\URL\Current::__construct
-  * @backupGlobals enabled
-  */
+   * @covers \Papaya\URL\Current::__construct
+   * @backupGlobals enabled
+   */
   public function testConstructorWithUrl() {
     $_SERVER = array();
-    $urlObject = new \Papaya\URL\Current('http://www.sample.tld');
+    $urlObject = new Current('http://www.sample.tld');
     $this->assertSame(
       'http://www.sample.tld',
       $urlObject->getURL()
@@ -58,22 +59,22 @@ class PapayaUrlCurrentTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\URL\Current::getURLFromEnvironment
-   * @covers \Papaya\URL\Current::_getServerValue
+   * @covers       \Papaya\URL\Current::getURLFromEnvironment
+   * @covers       \Papaya\URL\Current::_getServerValue
    * @backupGlobals enabled
    * @dataProvider getUrlDataProvider
    * @param array $environment
    * @param string $expected
    */
   public function testGetUrlFromEnvironment(array $environment, $expected) {
-    $urlObject = new \Papaya\URL\Current();
+    $urlObject = new Current();
     $_SERVER = $environment;
     $this->assertSame($expected, $urlObject->getURLFromEnvironment());
   }
 
   /*************************************
-  * Data Providers
-  *************************************/
+   * Data Providers
+   *************************************/
 
   public static function getUrlDataProvider() {
     return array(

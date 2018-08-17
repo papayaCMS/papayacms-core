@@ -13,18 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\URL;
 
+namespace Papaya\URL\Transformer;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
+class AbsoluteTest extends \PapayaTestCase {
 
   /**
-  * get mock for \Papaya\PapayaUrl from url string
-  *
-  * @param string $url
-  * @return \PHPUnit_Framework_MockObject_MockObject|URL
-  */
+   * get mock for \Papaya\PapayaUrl from url string
+   *
+   * @param string $url
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL
+   */
   public function getPapayaUrlMockFixture($url) {
     $mapping = array(
       'getScheme' => 'scheme',
@@ -37,7 +37,7 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
       'getFragment' => 'fragment',
     );
     $urlObject = $this
-      ->getMockBuilder(URL::class)
+      ->getMockBuilder(\Papaya\URL::class)
       ->setMethods(array_merge(array('getHostUrl'), array_keys($mapping)))
       ->getMock();
     if (empty($url)) {
@@ -63,15 +63,15 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\URL\Transformer\Absolute::transform
-   * @covers \Papaya\URL\Transformer\Absolute::_calculateRealPath
+   * @covers       \Papaya\URL\Transformer\Absolute::transform
+   * @covers       \Papaya\URL\Transformer\Absolute::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetPath
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetPath, $expected) {
-    $transformer = new URL\Transformer\Absolute();
+    $transformer = new \Papaya\URL\Transformer\Absolute();
     $this->assertSame(
       $expected,
       $transformer->transform(
@@ -82,8 +82,8 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   }
 
   /*************************************
-  * Data Providers
-  *************************************/
+   * Data Providers
+   *************************************/
 
   public static function transformDataProvider() {
     return array(

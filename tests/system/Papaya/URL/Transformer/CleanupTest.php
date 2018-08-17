@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\URL\Transformer;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUrlTransformerCleanupTest extends \PapayaTestCase {
+class CleanupTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\URL\Transformer\Cleanup::transform
-   * @covers \Papaya\URL\Transformer\Cleanup::_calculateRealPath
+   * @covers       \Papaya\URL\Transformer\Cleanup::transform
+   * @covers       \Papaya\URL\Transformer\Cleanup::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $expected
    * @param string $targetUrl
    */
   public function testTransform($expected, $targetUrl) {
-    $transformer = new \Papaya\URL\Transformer\Cleanup();
+    $transformer = new Cleanup();
     $this->assertSame(
       $expected,
       $transformer->transform(
@@ -35,8 +36,8 @@ class PapayaUrlTransformerCleanupTest extends \PapayaTestCase {
   }
 
   /*************************************
-  * Data Providers
-  *************************************/
+   * Data Providers
+   *************************************/
 
   public static function transformDataProvider() {
     return array(
