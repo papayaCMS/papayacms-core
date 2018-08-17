@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Content\Teaser;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
+class ImagesTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Content\Teaser\Images::__construct
-  */
+   * @covers \Papaya\UI\Content\Teaser\Images::__construct
+   */
   public function testConstructorWithAllParameters() {
     $xml =
       /** @lang XML */
@@ -31,8 +32,8 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
         </subtopic>
       </subtopics>';
     $document = new \Papaya\XML\Document();
-    $document->loadXml($xml);
-    $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 21, 42, 'min');
+    $document->loadXML($xml);
+    $images = new Images($document->documentElement, 21, 42, 'min');
     $this->assertAttributeSame(
       $document->documentElement, '_teasers', $images
     );
@@ -48,8 +49,8 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Content\Teaser\Images::appendTo
-  */
+   * @covers \Papaya\UI\Content\Teaser\Images::appendTo
+   */
   public function testAppendToWithTeasers() {
     $xml =
       /** @lang XML */
@@ -61,11 +62,11 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
         </teaser>
       </teasers>';
     $document = new \Papaya\XML\Document();
-    $document->loadXml($xml);
+    $document->loadXML($xml);
 
-    $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
+    $images = new Images($document->documentElement, 100, 100);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<teaser-thumbnails>
         <thumbnail page-id="42">
           <papaya:media xmlns:papaya="http://www.papaya-cms.com/ns/papayacms"
@@ -77,24 +78,24 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Content\Teaser\Images::appendTo
-  */
+   * @covers \Papaya\UI\Content\Teaser\Images::appendTo
+   */
   public function testAppendToWithSubtopics() {
     $xml =
       /** @lang XML */
       '<subtopics>'.
-        '<subtopic no="42">'.
-          '<image>'.
-            '<img src="test.png"/>'.
-          '</image>'.
-        '</subtopic>'.
+      '<subtopic no="42">'.
+      '<image>'.
+      '<img src="test.png"/>'.
+      '</image>'.
+      '</subtopic>'.
       '</subtopics>';
     $document = new \Papaya\XML\Document();
-    $document->loadXml($xml);
+    $document->loadXML($xml);
 
-    $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
+    $images = new Images($document->documentElement, 100, 100);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<subtopicthumbs>
         <thumb topic="42">
           <papaya:media xmlns:papaya="http://www.papaya-cms.com/ns/papayacms"
@@ -106,8 +107,8 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Content\Teaser\Images::appendTo
-  */
+   * @covers \Papaya\UI\Content\Teaser\Images::appendTo
+   */
   public function testAppendToWithoutImageData() {
     $xml =
       /** @lang XML */
@@ -115,9 +116,9 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
         <teaser page-id="42"/>
       </teasers>';
     $document = new \Papaya\XML\Document();
-    $document->loadXml($xml);
+    $document->loadXML($xml);
 
-    $images = new \Papaya\UI\Content\Teaser\Images($document->documentElement, 100, 100);
+    $images = new Images($document->documentElement, 100, 100);
     $this->assertEquals(
       '', $images->getXML()
     );
