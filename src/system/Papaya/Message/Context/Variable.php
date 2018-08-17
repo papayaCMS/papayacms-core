@@ -122,7 +122,7 @@ class Variable
    * @return string
    */
   public function asXhtml() {
-    $visitor = new Variable\Visitor\Xhtml($this->_depth, $this->_stringLength);
+    $visitor = new Variable\Visitor\XHTML($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }

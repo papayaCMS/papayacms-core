@@ -21,7 +21,7 @@ namespace Papaya\Message\Context\Variable\Visitor;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Xhtml
+class XHTML
   extends \Papaya\Message\Context\Variable\Visitor {
 
   /**

@@ -18,11 +18,11 @@ namespace Papaya\Message\Context\Variable\Visitor {
   class XhtmlTest extends \Papaya\TestCase {
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::__construct
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::get
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::__construct
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::get
      */
     public function testGet() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $this->assertEquals(
         '<ul class="variableDump"></ul>',
         $visitor->get()
@@ -30,10 +30,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitArray
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitArray
      */
     public function testVisitArrayWithEmptyArray() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitArray(array());
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -44,12 +44,12 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitArray
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_increaseIndent
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_decreaseIndent
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitArray
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_increaseIndent
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_decreaseIndent
      */
     public function testVisitArrayWithNestedArray() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitArray(array(array()));
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -64,11 +64,11 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitArray
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_increaseIndent
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitArray
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_increaseIndent
      */
     public function testVisitArrayWithNestedArrayReachingLimit() {
-      $visitor = new Xhtml(1, 42);
+      $visitor = new XHTML(1, 42);
       $visitor->visitArray(array(array()));
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -80,10 +80,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitBoolean
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitBoolean
      */
     public function testVisitBooleanWithTrue() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitBoolean(TRUE);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -94,10 +94,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitBoolean
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitBoolean
      */
     public function testVisitBooleanWithFalse() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitBoolean(FALSE);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -108,14 +108,14 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitInteger
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_createListNode
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_addTypeNode
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_addValueNode
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::_addText
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitInteger
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_createListNode
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_addTypeNode
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_addValueNode
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::_addText
      */
     public function testVisitInteger() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitInteger(42);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -126,10 +126,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitFloat
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitFloat
      */
     public function testVisitFloat() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitFloat(42.21);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -140,10 +140,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitNull
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitNull
      */
     public function testVisitNull() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitNull(NULL);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -154,10 +154,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitObject
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitObject
      */
     public function testVisitObject() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $sample = new XhtmlVisitor_SampleClass();
       $visitor->visitObject($sample);
       $this->assertEquals(
@@ -181,10 +181,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitObject
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitObject
      */
     public function testVisitObjectWithInheritance() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $sample = new XhtmlVisitor_SampleChildClass();
       $visitor->visitObject($sample);
       $this->assertEquals(
@@ -209,10 +209,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitObject
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitObject
      */
     public function testVisitObjectWithRecursion() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $sample = new XhtmlVisitor_SampleClass();
       $sample->recursion = $sample;
       $visitor->visitObject($sample);
@@ -240,10 +240,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitObject
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitObject
      */
     public function testVisitObjectWithRecursionLimit() {
-      $visitor = new Xhtml(1, 42);
+      $visitor = new XHTML(1, 42);
       $sample = new XhtmlVisitor_SampleClass();
       $sample->recursion = $sample;
       $visitor->visitObject($sample);
@@ -259,11 +259,11 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitArray
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitObject
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitArray
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitObject
      */
     public function testVisitObjectWithDuplication() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $sample = new XhtmlVisitor_SampleClass();
       $objects = array($sample, $sample);
       $visitor->visitArray($objects);
@@ -297,11 +297,11 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitResource
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitResource
      */
     public function testVisitResource() {
       $resource = fopen('php://memory', 'rwb');
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitResource($resource);
       $this->assertEquals(
         '<ul class="variableDump">'.
@@ -313,10 +313,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitString
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitString
      */
     public function testVisitString() {
-      $visitor = new Xhtml(21, 42);
+      $visitor = new XHTML(21, 42);
       $visitor->visitString('Sample');
       $this->assertEquals(
         '<ul class="variableDump"><li>'.
@@ -328,10 +328,10 @@ namespace Papaya\Message\Context\Variable\Visitor {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor\Xhtml::visitString
+     * @covers \Papaya\Message\Context\Variable\Visitor\XHTML::visitString
      */
     public function testVisitLongString() {
-      $visitor = new Xhtml(21, 3);
+      $visitor = new XHTML(21, 3);
       $visitor->visitString('Sample');
       $this->assertEquals(
         '<ul class="variableDump"><li>'.
