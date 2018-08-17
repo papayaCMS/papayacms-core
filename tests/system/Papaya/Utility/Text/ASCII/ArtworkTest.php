@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Utility\Text\Ascii;
+namespace Papaya\Utility\Text\ASCII;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class ArtworkTest extends \Papaya\TestCase {
