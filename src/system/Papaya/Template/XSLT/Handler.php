@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Template\Xslt;
+namespace Papaya\Template\XSLT;
 /**
  * Papaya Xslt template handler class
  *
