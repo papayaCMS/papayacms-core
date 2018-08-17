@@ -13,28 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Paging;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiPagingStepsTest extends \PapayaTestCase {
+class StepsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::__construct
-  */
+   * @covers \Papaya\UI\Paging\Steps::__construct
+   */
   public function testConstructor() {
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, array(10, 20, 30));
+    $steps = new Steps('steps', 20, array(10, 20, 30));
     $this->assertEquals('steps', $steps->parameterName);
     $this->assertEquals(20, $steps->currentStepSize);
     $this->assertEquals(array(10, 20, 30), $steps->stepSizes);
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::appendTo
-  */
+   * @covers \Papaya\UI\Paging\Steps::appendTo
+   */
   public function testAppendTo() {
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, array(10, 20, 30));
+    $steps = new Steps('steps', 20, array(10, 20, 30));
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<paging-steps>
         <step-size href="http://www.test.tld/test.html?steps=10">10</step-size>
         <step-size href="http://www.test.tld/test.html?steps=20" selected="selected">20</step-size>
@@ -45,13 +46,13 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::appendTo
-  */
+   * @covers \Papaya\UI\Paging\Steps::appendTo
+   */
   public function testAppendToWithTraversable() {
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, new \ArrayIterator(array(10)));
+    $steps = new Steps('steps', 20, new \ArrayIterator(array(10)));
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<paging-steps>
         <step-size href="http://www.test.tld/test.html?steps=10">10</step-size>
       </paging-steps>',
@@ -60,14 +61,14 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::appendTo
-  */
+   * @covers \Papaya\UI\Paging\Steps::appendTo
+   */
   public function testAppendToWithAdditionalParameters() {
-    $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
+    $steps = new Steps('foo/steps', 20, array(10, 20, 30));
     $steps->papaya($this->mockPapaya()->application());
     $steps->reference()->setParameters(array('foo' => array('role' => 42)));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<paging-steps>
         <step-size href="http://www.test.tld/test.html?foo[role]=42&amp;foo[steps]=10">10</step-size>
         <step-size href="http://www.test.tld/test.html?foo[role]=42&amp;foo[steps]=20"
@@ -79,10 +80,10 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXMLNames
-  */
+   * @covers \Papaya\UI\Paging\Steps::setXMLNames
+   */
   public function testAppendToWithDifferentXml() {
-    $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
+    $steps = new Steps('foo/steps', 20, array(10, 20, 30));
     $steps->setXMLNames(
       array(
         'list' => 'sizes',
@@ -91,7 +92,7 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
     );
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sizes>
         <size href="http://www.test.tld/test.html?foo[steps]=10">10</size>
         <size href="http://www.test.tld/test.html?foo[steps]=20" selected="selected">20</size>
@@ -102,10 +103,10 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXMLNames
-  */
+   * @covers \Papaya\UI\Paging\Steps::setXMLNames
+   */
   public function testSetXmlWithInvalidElement() {
-    $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
+    $steps = new Steps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
     $steps->setXMLNames(
@@ -116,10 +117,10 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::setXMLNames
-  */
+   * @covers \Papaya\UI\Paging\Steps::setXMLNames
+   */
   public function testSetXmlWithInvalidElementName() {
-    $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array(10, 20, 30));
+    $steps = new Steps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
     $steps->setXMLNames(
@@ -130,11 +131,11 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::getStepSizes
-  * @covers \Papaya\UI\Paging\Steps::setStepSizes
-  */
+   * @covers \Papaya\UI\Paging\Steps::getStepSizes
+   * @covers \Papaya\UI\Paging\Steps::setStepSizes
+   */
   public function testGetStepsAfterSet() {
-    $steps = new \Papaya\UI\Paging\Steps('foo/steps', 20, array());
+    $steps = new Steps('foo/steps', 20, array());
     $steps->stepSizes = array(100, 200);
     $this->assertEquals(
       array(100, 200), $steps->stepSizes
@@ -142,11 +143,11 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::reference
-  */
+   * @covers \Papaya\UI\Paging\Steps::reference
+   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, array(10, 20, 30));
+    $steps = new Steps('steps', 20, array(10, 20, 30));
     $steps->reference($reference);
     $this->assertSame(
       $reference, $steps->reference()
@@ -154,10 +155,10 @@ class PapayaUiPagingStepsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Paging\Steps::reference
-  */
+   * @covers \Papaya\UI\Paging\Steps::reference
+   */
   public function testReferenceGetImplicitCreate() {
-    $steps = new \Papaya\UI\Paging\Steps('steps', 20, array(10, 20, 30));
+    $steps = new Steps('steps', 20, array(10, 20, 30));
     $steps->papaya(
       $application = $this->mockPapaya()->application()
     );

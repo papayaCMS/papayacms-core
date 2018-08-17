@@ -13,54 +13,55 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Option;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiOptionAlignTest extends \PapayaTestCase {
+class AlignTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Option\Align::getString
-  */
+   * @covers \Papaya\UI\Option\Align::getString
+   */
   public function testGetString() {
     $this->assertEquals(
       'center',
-      \Papaya\UI\Option\Align::getString(\Papaya\UI\Option\Align::CENTER)
+      Align::getString(Align::CENTER)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Option\Align::getString
-  */
+   * @covers \Papaya\UI\Option\Align::getString
+   */
   public function testGetStringWithInvalidValueExpectingLeft() {
     $this->assertEquals(
       'left',
-      \Papaya\UI\Option\Align::getString(-42)
+      Align::getString(-42)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Option\Align::validate
-  */
+   * @covers \Papaya\UI\Option\Align::validate
+   */
   public function testValidate() {
     $this->assertTrue(
-      \Papaya\UI\Option\Align::validate(\Papaya\UI\Option\Align::CENTER)
+      Align::validate(Align::CENTER)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Option\Align::validate
-  */
+   * @covers \Papaya\UI\Option\Align::validate
+   */
   public function testValidateWithInvalidValue() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid align value "-42".');
-    \Papaya\UI\Option\Align::validate(-42);
+    Align::validate(-42);
   }
 
   /**
-  * @covers \Papaya\UI\Option\Align::validate
-  */
+   * @covers \Papaya\UI\Option\Align::validate
+   */
   public function testValidateWithInvalidValueAndIndividualMessage() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Failed.');
-    \Papaya\UI\Option\Align::validate(-42, 'Failed.');
+    Align::validate(-42, 'Failed.');
   }
 }
