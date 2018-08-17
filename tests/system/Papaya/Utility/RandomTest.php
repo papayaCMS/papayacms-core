@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilRandomTest extends \PapayaTestCase {
+class RandomTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Utility\Random::rand
-  */
+   * @covers \Papaya\Utility\Random::rand
+   */
   public function testRand() {
-    $random = \Papaya\Utility\Random::rand();
+    $random = Random::rand();
     $this->assertGreaterThanOrEqual(0, $random);
   }
 
   /**
-  * @covers \Papaya\Utility\Random::rand
-  */
+   * @covers \Papaya\Utility\Random::rand
+   */
   public function testRandWithLimits() {
-    $random = \Papaya\Utility\Random::rand(1, 1);
+    $random = Random::rand(1, 1);
     $this->assertGreaterThanOrEqual(1, $random);
   }
 
   /**
-  * @covers \Papaya\Utility\Random::getId
-  */
+   * @covers \Papaya\Utility\Random::getId
+   */
   public function testGetId() {
-    $idOne = \Papaya\Utility\Random::getId();
-    $idTwo = \Papaya\Utility\Random::getId();
+    $idOne = Random::getId();
+    $idTwo = Random::getId();
     $this->assertNotEquals($idOne, $idTwo);
   }
 }

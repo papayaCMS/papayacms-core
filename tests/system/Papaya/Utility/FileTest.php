@@ -13,40 +13,50 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilBytesTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Bytes::toString
+   * @covers       \Papaya\Utility\File::formatBytes
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
    */
-  public function testToString($expected, $bytes) {
+  public function testFormatBytes($expected, $bytes) {
     $this->assertEquals(
-      $expected, \Papaya\Utility\Bytes::toString($bytes)
+      $expected, File::formatBytes($bytes)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Bytes::toString
-  */
-  public function testToStringWithGermanDecimalSeparator() {
-    $this->assertEquals(
-      '39,1 GB', \Papaya\Utility\Bytes::toString(42001231205, 1, ',')
-    );
-  }
-
-  /**
-   * @covers \Papaya\Utility\Bytes::fromString
-   * @dataProvider provideStringsAndBytes
-   * @param int $expected
-   * @param string $bytes
+   * @covers \Papaya\Utility\File::formatBytes
    */
-  public function testFromString($expected, $bytes) {
+  public function testFormatBytesWithGermanDecimalSeparator() {
     $this->assertEquals(
-      $expected, \Papaya\Utility\Bytes::fromString($bytes)
+      '39,1 GB', File::formatBytes(42001231205, 1, ',')
+    );
+  }
+
+  /**
+   * @covers       \Papaya\Utility\File::normalizeName
+   * @dataProvider provideStringsForNames
+   * @param string $expected
+   * @param string $string
+   */
+  public function testNormalizeName($expected, $string) {
+    $this->assertEquals(
+      $expected, File::normalizeName($string, 15, 'de')
+    );
+  }
+
+  /**
+   * @covers \Papaya\Utility\File::normalizeName
+   */
+  public function testNormalizeNameWithUnderscoreSeparator() {
+    $this->assertEquals(
+      'Hallo_Welt', File::normalizeName('Hallo Welt', 15, 'de', '_')
     );
   }
 
@@ -61,16 +71,12 @@ class PapayaUtilBytesTest extends \PapayaTestCase {
     );
   }
 
-  public static function provideStringsAndBytes() {
+  public static function provideStringsForNames() {
     return array(
-      array(0, 'FOO'),
-      array(0, '0 B'),
-      array(1, '1 B'),
-      array(42, '42'),
-      array(42, '42 B'),
-      array(419840, '410.16 kB'),
-      array(41943040, '40.09 MB'),
-      array(41875931136, '39.12 GB')
+      array('Hallo-Welt', 'Hallo Welt'),
+      array('Hallo-Schoene', 'Hallo Schöne Welt!'),
+      array('HalloSchoeneWel', 'HalloSchöneWelt!'),
+      array('Hallo-Schoene', 'Hallo--Schöne--Welt!'),
     );
   }
 }

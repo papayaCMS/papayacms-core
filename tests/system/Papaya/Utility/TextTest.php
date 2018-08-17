@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilStringTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text::truncate
+   * @covers       \Papaya\Utility\Text::truncate
    * @dataProvider provideTruncateSamples
    * @param string $expected
    * @param string $string
@@ -27,43 +28,43 @@ class PapayaUtilStringTest extends \PapayaTestCase {
    */
   public function testTruncate($expected, $string, $length, $cut) {
     $this->assertEquals(
-      $expected, \Papaya\Utility\Text::truncate($string, $length, $cut)
+      $expected, Text::truncate($string, $length, $cut)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Text::truncate
-  */
+   * @covers \Papaya\Utility\Text::truncate
+   */
   public function testTruncateAppendsSuffix() {
     $this->assertEquals(
-      "Hello\xE2\x80\xA6", \Papaya\Utility\Text::truncate('Hello World', 6, FALSE, "\xE2\x80\xA6")
+      "Hello\xE2\x80\xA6", Text::truncate('Hello World', 6, FALSE, "\xE2\x80\xA6")
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Text::truncate
-  */
+   * @covers \Papaya\Utility\Text::truncate
+   */
   public function testTruncateWithShortStringExpectingNoSuffix() {
     $this->assertEquals(
-      'Hello', \Papaya\Utility\Text::truncate('Hello', 6, FALSE, "\xE2\x80\xA6")
+      'Hello', Text::truncate('Hello', 6, FALSE, "\xE2\x80\xA6")
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text::escapeForPrintf
+   * @covers       \Papaya\Utility\Text::escapeForPrintf
    * @dataProvider provideEscapingSamples
    * @param $expected
    * @param $input
    */
   public function testEscapeForPrintf($expected, $input) {
     $this->assertEquals(
-      $expected, \Papaya\Utility\Text::escapeForPrintf($input)
+      $expected, Text::escapeForPrintf($input)
     );
   }
 
   /*************************
-  * Data Provider
-  *************************/
+   * Data Provider
+   *************************/
 
   public static function provideTruncateSamples() {
     return array(
