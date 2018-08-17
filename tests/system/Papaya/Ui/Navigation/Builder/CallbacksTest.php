@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Navigation\Builder;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiNavigationBuilderCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Navigation\Builder\Callbacks::__construct
-  */
+   * @covers \Papaya\UI\Navigation\Builder\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\UI\Navigation\Builder\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertNull($callbacks->onBeforeAppend->defaultReturn);
     $this->assertNull($callbacks->onAfterAppend->defaultReturn);
     $this->assertNull($callbacks->onCreateItem->defaultReturn);

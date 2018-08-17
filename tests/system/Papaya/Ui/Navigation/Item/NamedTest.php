@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Navigation\Item;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiNavigationItemNamedTest extends \PapayaTestCase {
+class NamedTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Navigation\Item\Named::appendTo
-  */
+   * @covers \Papaya\UI\Navigation\Item\Named::appendTo
+   */
   public function testAppendTo() {
-    $item = new \Papaya\UI\Navigation\Item\Named('sample');
+    $item = new Named('sample');
     $item->papaya(
       $this->mockPapaya()->application()
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<link href="http://www.test.tld/index.html" name="sample"/>',
       $item->getXML()
     );

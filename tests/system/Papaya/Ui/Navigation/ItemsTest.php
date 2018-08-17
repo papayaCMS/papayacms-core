@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Navigation;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiNavigationItemsTest extends \PapayaTestCase {
+class ItemsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Navigation\Items::reference
-  */
+   * @covers \Papaya\UI\Navigation\Items::reference
+   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
-    $items = new \Papaya\UI\Navigation\Items();
+    $items = new Items();
     $this->assertSame(
       $reference, $items->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Navigation\Items::reference
-  */
+   * @covers \Papaya\UI\Navigation\Items::reference
+   */
   public function testReferenceImpliciteCreate() {
-    $items = new \Papaya\UI\Navigation\Items();
+    $items = new Items();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       \Papaya\UI\Reference::class, $reference = $items->reference()
