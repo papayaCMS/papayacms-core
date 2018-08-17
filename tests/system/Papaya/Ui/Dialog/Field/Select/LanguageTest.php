@@ -13,22 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Languages;
-
+namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
+class LanguageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Language
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Language
+   */
   public function testAppendTo() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Language(
+    $select = new Language(
       'Caption', 'name', $this->getLanguagesFixture()
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectLanguage" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="1">Deutsch (de-DE)</option>
@@ -40,15 +39,15 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Language
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Language
+   */
   public function testAppendToWithAny() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Language(
-      'Caption', 'name', $this->getLanguagesFixture(), \Papaya\UI\Dialog\Field\Select\Language::OPTION_ALLOW_ANY
+    $select = new Language(
+      'Caption', 'name', $this->getLanguagesFixture(), Language::OPTION_ALLOW_ANY
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectLanguage" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="0" selected="selected">Any</option>
@@ -61,15 +60,15 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Language
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Language
+   */
   public function testAppendToWithIdentifierKeys() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Language(
-      'Caption', 'name', $this->getLanguagesFixture(), \Papaya\UI\Dialog\Field\Select\Language::OPTION_USE_IDENTIFIER
+    $select = new Language(
+      'Caption', 'name', $this->getLanguagesFixture(), Language::OPTION_USE_IDENTIFIER
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectLanguage" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="de">Deutsch (de-DE)</option>
@@ -81,19 +80,19 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Language
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Language
+   */
   public function testAppendToWithIdentifierKeysAndAny() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Language(
+    $select = new Language(
       'Caption',
       'name',
       $this->getLanguagesFixture(),
-      \Papaya\UI\Dialog\Field\Select\Language::OPTION_USE_IDENTIFIER |
-      \Papaya\UI\Dialog\Field\Select\Language::OPTION_ALLOW_ANY
+      Language::OPTION_USE_IDENTIFIER |
+      Language::OPTION_ALLOW_ANY
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectLanguage" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="*">Any</option>
@@ -106,10 +105,10 @@ class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
   }
 
   /**
-   * @return \PHPUnit_Framework_MockObject_MockObject|Languages
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Languages
    */
   private function getLanguagesFixture() {
-    $languages = $this->createMock(Languages::class);
+    $languages = $this->createMock(\Papaya\Content\Languages::class);
     $languages
       ->expects($this->any())
       ->method('getIterator')

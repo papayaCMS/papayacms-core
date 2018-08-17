@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Select\Media;
+
 use Papaya\Content\Media\Folders;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
+class FolderTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::__construct
+   */
   public function testConstructor() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    $select = new Folder(
       'Caption', 'name'
     );
     $this->assertEquals(
@@ -35,10 +37,10 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::mediaFolders
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::mediaFolders
+   */
   public function testMediaFoldersGetAfterSet() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    $select = new Folder(
       'Caption', 'name'
     );
     $select->mediaFolders(
@@ -48,27 +50,27 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::mediaFolders
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::mediaFolders
+   */
   public function testMediaFoldersGetImplicitCreate() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    $select = new Folder(
       'Caption', 'name'
     );
     $this->assertInstanceOf(Folders::class, $select->mediaFolders());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Media\Folder::appendTo
+   */
   public function testAppendTo() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    $select = new Folder(
       'Caption', 'name'
     );
     $select->mediaFolders($this->getMediaFoldersFixture());
     $select->papaya($this->mockPapaya()->application());
     $select->setDefaultValue(42);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectMediaFolder" error="no">
         <select name="name" type="dropdown">
           <option value="21">Folder 21</option>

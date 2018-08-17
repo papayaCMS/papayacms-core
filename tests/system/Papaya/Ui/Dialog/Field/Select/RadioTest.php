@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectRadioTest extends \PapayaTestCase {
+class RadioTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Radio
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Radio
+   */
   public function testAppendTo() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Radio(
+    $select = new Radio(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectRadio" error="yes" mandatory="yes">
         <select name="name" type="radio">
           <option value="1">One</option>

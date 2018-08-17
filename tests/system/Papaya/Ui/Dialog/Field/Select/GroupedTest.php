@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
+class GroupedTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::setValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::setValues
+   */
   public function testSetValues() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Grouped(
+    $select = new Grouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
     $this->assertAttributeEquals(
@@ -33,10 +34,10 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::setValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::setValues
+   */
   public function testSetValuesComplex() {
-    $select = new \Papaya\UI\Dialog\Field\Select\Grouped(
+    $select = new Grouped(
       'Caption',
       'name',
       array(
@@ -52,14 +53,14 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::_appendOptionGroups
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::_appendOptionGroups
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new \Papaya\UI\Dialog\Field\Select\Grouped(
+    $select = new Grouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
     $request = $this->mockPapaya()->request();
@@ -68,7 +69,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $select->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <group caption="Group Caption">
@@ -82,14 +83,14 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select\Grouped::_appendOptionGroups
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select\Grouped::_appendOptionGroups
+   */
   public function testAppendToWithComplexLabel() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new \Papaya\UI\Dialog\Field\Select\Grouped(
+    $select = new Grouped(
       'Caption',
       'name',
       array(
@@ -105,7 +106,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $select->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <group caption="Group Caption">

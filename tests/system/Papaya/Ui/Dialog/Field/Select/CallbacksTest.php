@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select\Callbacks::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\UI\Dialog\Field\Select\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertNull($callbacks->getOptionCaption->defaultReturn);
   }
 }
