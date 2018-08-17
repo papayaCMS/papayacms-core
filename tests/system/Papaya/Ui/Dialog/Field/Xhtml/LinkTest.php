@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Xhtml;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldXhtmlLinkTest extends \PapayaTestCase {
+class LinkTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Xhtml\Link::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Xhtml\Link::__construct
+   */
   public function testConstructor() {
-    $link = new \Papaya\UI\Dialog\Field\Xhtml\Link('http://www.papaya-cms.com', 'PapayaCMS');
+    $link = new Link('http://www.papaya-cms.com', 'PapayaCMS');
     $this->assertAttributeEquals('http://www.papaya-cms.com', '_url', $link);
     $this->assertAttributeEquals('PapayaCMS', '_urlCaption', $link);
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Xhtml\Link::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Xhtml\Link::appendTo
+   */
   public function testAppendTo() {
-    $link = new \Papaya\UI\Dialog\Field\Xhtml\Link('http://www.papaya-cms.com', 'PapayaCMS');
+    $link = new Link('http://www.papaya-cms.com', 'PapayaCMS');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field class="DialogFieldXhtmlLink" error="no">
         <xhtml><a href="http://www.papaya-cms.com">PapayaCMS</a></xhtml>
       </field>',

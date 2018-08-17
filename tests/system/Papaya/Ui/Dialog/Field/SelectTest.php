@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
+class SelectTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::__construct
-  * @covers \Papaya\UI\Dialog\Field\Select::setValues
-  * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-  * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::__construct
+   * @covers \Papaya\UI\Dialog\Field\Select::setValues
+   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
+   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
+   */
   public function testConstructor() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array(21 => 'half', 42 => 'full')
     );
     $this->assertEquals('Caption', $select->getCaption());
@@ -38,13 +39,13 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::__construct
-  * @covers \Papaya\UI\Dialog\Field\Select::setValues
-  * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-  * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::__construct
+   * @covers \Papaya\UI\Dialog\Field\Select::setValues
+   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
+   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
+   */
   public function testConstructorWithTraversable() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', $iterator = new \ArrayIterator(array(21 => 'half', 42 => 'full'))
     );
     $this->assertAttributeSame(
@@ -53,11 +54,11 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::setValues
-  * @covers \Papaya\UI\Dialog\Field\Select::getValues
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::setValues
+   * @covers \Papaya\UI\Dialog\Field\Select::getValues
+   */
   public function testGetValuesAfterSetValues() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array()
     );
     $select->setValues(array(21 => 'half', 42 => 'full'));
@@ -65,25 +66,25 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-  * @covers \Papaya\UI\Dialog\Field\Select::getValueMode
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
+   * @covers \Papaya\UI\Dialog\Field\Select::getValueMode
+   */
   public function testGetValueModeAfterSetValueMode() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array()
     );
-    $select->setValueMode(\Papaya\UI\Dialog\Field\Select::VALUE_USE_CAPTION);
-    $this->assertEquals(\Papaya\UI\Dialog\Field\Select::VALUE_USE_CAPTION, $select->getValueMode());
+    $select->setValueMode(Select::VALUE_USE_CAPTION);
+    $this->assertEquals(Select::VALUE_USE_CAPTION, $select->getValueMode());
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendTo() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array(21 => 'half', 42 => 'full')
     );
     $request = $this->mockPapaya()->request();
@@ -91,7 +92,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="21">half</option>
@@ -103,13 +104,13 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendToWithEmptyValue() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array('' => 'empty', 'some' => 'filled')
     );
     $request = $this->mockPapaya()->request();
@@ -117,7 +118,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option selected="selected">empty</option>
@@ -129,26 +130,26 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
+   */
   public function testAppendToUsingCaptionsAsOptionValues() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption',
       'name',
       array(21 => 'half', 42 => 'full'),
       TRUE,
-      \Papaya\UI\Dialog\Field\Select::VALUE_USE_CAPTION
+      Select::VALUE_USE_CAPTION
     );
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="half">half</option>
@@ -160,13 +161,13 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendToWithIterator() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', new \ArrayIterator(array(21 => 'half', 42 => 'full'))
     );
     $request = $this->mockPapaya()->request();
@@ -174,7 +175,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="21">half</option>
@@ -186,29 +187,29 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
+   */
   public function testAppendToWithRecursiveIterator() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption',
       'name',
       new \Papaya\Iterator\Tree\Groups\RegEx(
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,
-      \Papaya\UI\Dialog\Field\Select::VALUE_USE_CAPTION
+      Select::VALUE_USE_CAPTION
     );
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <group caption="foo">
@@ -223,12 +224,12 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  * @covers \Papaya\UI\Dialog\Field\Select::_isOptionSelected
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   * @covers \Papaya\UI\Dialog\Field\Select::_isOptionSelected
+   */
   public function testAppendToWithDefaultValue() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
@@ -246,7 +247,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')
     );
     $request = $this->mockPapaya()->request();
@@ -255,7 +256,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select->collection($this->getCollectionMock($dialog));
     $select->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="no" mandatory="yes">
         <select name="truth" type="dropdown">
           <option value="21">half</option>
@@ -267,18 +268,18 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendToWithOptionCaptionCallback() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
-      'Caption', 'name', array(21 => array('title' => 'half'), 42 =>  array('title' => 'full'))
+    $select = new Select(
+      'Caption', 'name', array(21 => array('title' => 'half'), 42 => array('title' => 'full'))
     );
     $select->callbacks()->getOptionCaption = array($this, 'callbackGetOptionCaption');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="21">mapped: half</option>
@@ -297,18 +298,18 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendToWithOptionDataAttributesCallback() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'name', array(21 => 'half', 42 => 'full')
     );
     $select->callbacks()->getOptionData = array($this, 'callbackGetOptionDataAttributes');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <option value="21" data-title="half" data-index="21" data-json="[21,42]">half</option>
@@ -327,25 +328,25 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
-  * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
+   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
+   */
   public function testAppendToWithOptionGroupCallback() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption',
       'name',
       new \Papaya\Iterator\Tree\Groups\RegEx(
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,
-      \Papaya\UI\Dialog\Field\Select::VALUE_USE_CAPTION
+      Select::VALUE_USE_CAPTION
     );
     $select->callbacks()->getOptionGroupCaption = array($this, 'callbackGetOptionGroupCaption');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
         <select name="name" type="dropdown">
           <group caption="Group: foo">
@@ -367,14 +368,14 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::callbacks
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::callbacks
+   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
       ->getMockBuilder(\Papaya\UI\Dialog\Field\Select\Callbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')
     );
     $this->assertSame(
@@ -383,10 +384,10 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Select::callbacks
-  */
+   * @covers \Papaya\UI\Dialog\Field\Select::callbacks
+   */
   public function testCallbacksGetImplicitCreate() {
-    $select = new \Papaya\UI\Dialog\Field\Select(
+    $select = new Select(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')
     );
     $callbacks = $select->callbacks();
@@ -396,8 +397,8 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
   }
 
   /*************************
-  * Mocks
-  *************************/
+   * Mocks
+   *************************/
 
   /**
    * @param object|NULL $owner

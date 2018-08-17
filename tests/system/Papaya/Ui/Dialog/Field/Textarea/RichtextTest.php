@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Textarea;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
+class RichtextTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::__construct
    */
   public function testConstructorSettingRteMode() {
-    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext(
-      'Caption', 'name', 12, NULL, NULL, \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
+    $richtext = new Richtext(
+      'Caption', 'name', 12, NULL, NULL, Richtext::RTE_SIMPLE
     );
     $this->assertEquals(
-      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
+      Richtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 
@@ -33,9 +34,9 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::appendTo
    */
   public function testAppendTo() {
-    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext('Caption', 'name');
+    $richtext = new Richtext('Caption', 'name');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
         <textarea type="text" name="name" lines="10" data-rte="standard"/>
       </field>',
@@ -48,11 +49,11 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::appendTo
    */
   public function testAppendToWithAllParameters() {
-    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext(
-      'Caption', 'name', 12, NULL, NULL, \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE
+    $richtext = new Richtext(
+      'Caption', 'name', 12, NULL, NULL, Richtext::RTE_SIMPLE
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
         <textarea type="text" name="name" lines="12" data-rte="simple"/>
       </field>',
@@ -65,10 +66,10 @@ class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
    * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::getRteMode
    */
   public function testGetRteModeAfterSetRteMode() {
-    $richtext = new \Papaya\UI\Dialog\Field\Textarea\Richtext('Caption', 'name');
-    $richtext->setRteMode(\Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE);
+    $richtext = new Richtext('Caption', 'name');
+    $richtext->setRteMode(Richtext::RTE_SIMPLE);
     $this->assertEquals(
-      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE, $richtext->getRteMode()
+      Richtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 }

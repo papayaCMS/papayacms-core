@@ -27,7 +27,7 @@ class Callback extends \Papaya\UI\Dialog\Field {
    *
    * @var integer
    */
-  private $_callback = 'null';
+  private $_callback;
 
   /**
    *
@@ -40,7 +40,7 @@ class Callback extends \Papaya\UI\Dialog\Field {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param callback $callback
+   * @param callable $callback
    * @param mixed $default
    * @param \Papaya\Filter|NULL $filter
    */

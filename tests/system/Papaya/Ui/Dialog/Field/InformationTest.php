@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
+class InformationTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Information::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Information::__construct
+   */
   public function testConstructor() {
-    $message = new \Papaya\UI\Dialog\Field\Information('Information', 'image');
+    $message = new Information('Information', 'image');
     $this->assertAttributeEquals(
       'Information', '_text', $message
     );
@@ -31,12 +32,12 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Information::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $message = new \Papaya\UI\Dialog\Field\Information('Information', 'image');
+    $message = new Information('Information', 'image');
     $message->papaya(
       $this->mockPapaya()->application(
         array(
@@ -46,7 +47,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
     );
     $message->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <field class="DialogFieldInformation" error="no">
           <message image="image.png">Information</message>
@@ -57,12 +58,12 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Information::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
+   */
   public function testAppendToWithoutImage() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $message = new \Papaya\UI\Dialog\Field\Information('Information');
+    $message = new Information('Information');
     $message->papaya(
       $this->mockPapaya()->application(
         array(
@@ -72,7 +73,7 @@ class PapayaUiDialogFieldInformationTest extends \PapayaTestCase {
     );
     $message->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <field class="DialogFieldInformation" error="no">
           <message>Information</message>

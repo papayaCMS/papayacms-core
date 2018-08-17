@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
+class CallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Callback
-  */
+   * @covers \Papaya\UI\Dialog\Field\Callback
+   */
   public function testConstructorWithAllArguments() {
-    $xhtml = new \Papaya\UI\Dialog\Field\Callback(
+    $xhtml = new Callback(
       'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(\Papaya\Filter::class)
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
@@ -34,14 +36,14 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Callback
-  */
+   * @covers \Papaya\UI\Dialog\Field\Callback
+   */
   public function testAppendToWithCallbackReturningString() {
-    $xhtml = new \Papaya\UI\Dialog\Field\Callback(
+    $xhtml = new Callback(
       'Caption', 'name', array($this, 'callbackGetFieldString')
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
@@ -50,14 +52,14 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Callback
-  */
+   * @covers \Papaya\UI\Dialog\Field\Callback
+   */
   public function testAppendToWithCallbackReturningDomElement() {
-    $xhtml = new \Papaya\UI\Dialog\Field\Callback(
+    $xhtml = new Callback(
       'Caption', 'name', array($this, 'callbackGetFieldDomElement')
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldCallback" error="no">
         <select/>
       </field>',
@@ -66,25 +68,26 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Callback
-  */
+   * @covers \Papaya\UI\Dialog\Field\Callback
+   */
   public function testAppendToWithCallbackReturningPapayaXmlAppendable() {
-    $xhtml = new \Papaya\UI\Dialog\Field\Callback(
+    $xhtml = new Callback(
       'Caption', 'name', array($this, 'callbackGetFieldPapayaXmlAppendable')
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldCallback" error="no"/>',
       $xhtml->getXML()
     );
   }
 
   public function callbackGetFieldString() {
-    return /** @lang XML */ '<select/>';
+    return /** @lang XML */
+      '<select/>';
   }
 
   public function callbackGetFieldDomElement() {
-    $document = new DOMDocument();
+    $document = new \DOMDocument();
     return $document->createElement('select');
   }
 

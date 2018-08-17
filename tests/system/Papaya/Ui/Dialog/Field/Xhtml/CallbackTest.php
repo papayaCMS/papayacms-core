@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Xhtml;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldXhtmlCallbackTest extends \PapayaTestCase {
+class CallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Xhtml\Callback
-  * @covers \Papaya\UI\Dialog\Field\Callback::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Xhtml\Callback
+   * @covers \Papaya\UI\Dialog\Field\Callback::appendTo
+   */
   public function testAppendTo() {
-    $xhtml = new \Papaya\UI\Dialog\Field\Xhtml\Callback(
+    $xhtml = new Callback(
       'Caption', 'name', array($this, 'callbackGetFieldString')
     );
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldXhtmlCallback" error="no">
         <xhtml><select/></xhtml>
       </field>',
@@ -35,7 +36,8 @@ class PapayaUiDialogFieldXhtmlCallbackTest extends \PapayaTestCase {
   }
 
   public function callbackGetFieldString() {
-    return /** @lang XML */ '<select/>';
+    return /** @lang XML */
+      '<select/>';
   }
 
 }

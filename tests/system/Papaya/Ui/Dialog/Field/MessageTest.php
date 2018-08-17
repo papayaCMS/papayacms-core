@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
+class MessageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Message::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Message::__construct
+   */
   public function testConstructor() {
-    $message = new \Papaya\UI\Dialog\Field\Message(\Papaya\Message::SEVERITY_WARNING, 'Message');
+    $message = new Message(\Papaya\Message::SEVERITY_WARNING, 'Message');
     $this->assertAttributeEquals(
       'Message', '_text', $message
     );
@@ -31,12 +32,12 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Message::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Message::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $message = new \Papaya\UI\Dialog\Field\Message(\Papaya\Message::SEVERITY_INFO, 'Message');
+    $message = new Message(\Papaya\Message::SEVERITY_INFO, 'Message');
     $message->papaya(
       $this->mockPapaya()->application(
         array(
@@ -46,7 +47,7 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
     );
     $message->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <field class="DialogFieldMessage" error="no">
           <message image="image.png">Message</message>

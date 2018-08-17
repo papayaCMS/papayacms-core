@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
+class HiddenTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
+   */
   public function testConstructor() {
-    $input = new \Papaya\UI\Dialog\Field\Hidden('name', 'default');
+    $input = new Hidden('name', 'default');
     $this->assertAttributeEquals(
       'name', '_name', $input
     );
@@ -31,31 +32,31 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
-  */
+   * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
+   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new \Papaya\UI\Dialog\Field\Hidden('name', 'value', $filter);
+    $input = new Hidden('name', 'value', $filter);
     $this->assertAttributeSame(
       $filter, '_filter', $input
     );
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
+   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new \Papaya\UI\Dialog\Field\Hidden('name', 'default');
+    $input = new Hidden('name', 'default');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
     $input->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <field class="DialogFieldHidden">
         <input type="hidden" name="name">default</input>
@@ -66,13 +67,13 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
-  */
+   * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
+   */
   public function testAppendToWithId() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
 
-    $input = new \Papaya\UI\Dialog\Field\Hidden('name', 'default');
+    $input = new Hidden('name', 'default');
     $input->setId('id');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
@@ -80,7 +81,7 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
     $input->collection($this->createMock(\Papaya\UI\Dialog\Fields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <field class="DialogFieldHidden" id="id">
         <input type="hidden" name="name">default</input>
