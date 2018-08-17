@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Plugin\Configurable\Aggregation;
+namespace Papaya\Plugin\Configurable {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginConfigurableAggregationTest extends \PapayaTestCase {
-  public function testContentGetAfterSet() {
-    $plugin = new \PapayaPluginConfigurableAggregation_TestProxy();
-    $plugin->configuration($content = $this->createMock(\Papaya\BaseObject\Parameters::class));
-    $this->assertSame($content, $plugin->configuration());
+  class AggregationTest extends \PapayaTestCase {
+    public function testContentGetAfterSet() {
+      $plugin = new ConfigurableAggregation_TestProxy();
+      $plugin->configuration($content = $this->createMock(\Papaya\BaseObject\Parameters::class));
+      $this->assertSame($content, $plugin->configuration());
+    }
+
+    public function testContentGetWithImplicitCreate() {
+      $plugin = new ConfigurableAggregation_TestProxy();
+      $content = $plugin->configuration();
+      $this->assertInstanceOf(\Papaya\BaseObject\Parameters::class, $content);
+      $this->assertSame($content, $plugin->configuration());
+    }
   }
 
-  public function testContentGetWithImplicitCreate() {
-    $plugin = new \PapayaPluginConfigurableAggregation_TestProxy();
-    $content = $plugin->configuration();
-    $this->assertInstanceOf(\Papaya\BaseObject\Parameters::class, $content);
-    $this->assertSame($content, $plugin->configuration());
+  class ConfigurableAggregation_TestProxy implements \Papaya\Plugin\Configurable {
+
+    use Aggregation;
   }
-}
-
-class PapayaPluginConfigurableAggregation_TestProxy implements \Papaya\Plugin\Configurable {
-
-  use Aggregation;
 }
 

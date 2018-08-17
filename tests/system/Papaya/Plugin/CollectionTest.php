@@ -13,17 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Result;
-
+namespace Papaya\Plugin;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginListTest extends \PapayaTestCase {
+class CollectionTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Plugin\Collection::load
-  */
+   * @covers \Papaya\Plugin\Collection::load
+   */
   public function testLoad() {
-    $databaseResult = $this->createMock(Result::class);
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->exactly(2))
       ->method('fetchRow')
@@ -47,7 +46,7 @@ class PapayaPluginListTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), $this->equalTo(array('table_modules', 'table_modulegroups')))
       ->will($this->returnValue($databaseResult));
-    $list = new \Papaya\Plugin\Collection();
+    $list = new Collection();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load('123'));
     $this->assertEquals(

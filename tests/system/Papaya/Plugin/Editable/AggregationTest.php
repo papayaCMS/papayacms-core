@@ -13,35 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Plugin\Editor\Dialog;
-use Papaya\Plugin\Editable\Aggregation;
+namespace Papaya\Plugin\Editable {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginEditableAggregationTest extends \PapayaTestCase {
+  class AggregationTest extends \PapayaTestCase {
 
-  public function testContentGetAfterSet() {
-    $plugin = new \PapayaPluginEditableAggregation_TestProxy();
-    $plugin->content($content = $this->createMock(\Papaya\Plugin\Editable\Content::class));
-    $this->assertSame($content, $plugin->content());
+    public function testContentGetAfterSet() {
+      $plugin = new EditableAggregation_TestProxy();
+      $plugin->content($content = $this->createMock(Content::class));
+      $this->assertSame($content, $plugin->content());
+    }
+
+    public function testContentGetWithImplicitCreate() {
+      $plugin = new EditableAggregation_TestProxy();
+      $content = $plugin->content();
+      $this->assertInstanceOf(Content::class, $content);
+      $this->assertSame($content, $plugin->content());
+      $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
+    }
+
   }
 
-  public function testContentGetWithImplicitCreate() {
-    $plugin = new \PapayaPluginEditableAggregation_TestProxy();
-    $content = $plugin->content();
-    $this->assertInstanceOf(\Papaya\Plugin\Editable\Content::class, $content);
-    $this->assertSame($content, $plugin->content());
-    $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
-  }
+  class EditableAggregation_TestProxy implements \Papaya\Plugin\Editable {
 
-}
+    use Aggregation;
 
-class PapayaPluginEditableAggregation_TestProxy implements \Papaya\Plugin\Editable {
-
-  use Aggregation;
-
-  public function createEditor(\Papaya\Plugin\Editable\Content $content) {
-    return new Dialog($content);
+    public function createEditor(Content $content) {
+      return new \Papaya\Administration\Plugin\Editor\Dialog($content);
+    }
   }
 }
 

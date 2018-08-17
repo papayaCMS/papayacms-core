@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\Plugin\Editable;
+require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginEditableContentCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Plugin\Editable\Callbacks::__construct
-  */
+   * @covers \Papaya\Plugin\Editable\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\Plugin\Editable\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertNull($callbacks->onCreateEditor->defaultReturn);
   }
 }

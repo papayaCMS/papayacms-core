@@ -13,42 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Module\Options;
+namespace Papaya\Plugin\Option;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginOptionStorageTest extends \PapayaTestCase {
+class StorageTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Plugin\Option\Storage::__construct
-  */
+   * @covers \Papaya\Plugin\Option\Storage::__construct
+   */
   public function testConstructor() {
-    $storage = new \Papaya\Plugin\Option\Storage('AB123456789012345678901234567890');
+    $storage = new Storage('AB123456789012345678901234567890');
     $this->assertAttributeEquals(
       'ab123456789012345678901234567890', '_guid', $storage
     );
   }
 
   /**
-  * @covers \Papaya\Plugin\Option\Storage::load
-  */
+   * @covers \Papaya\Plugin\Option\Storage::load
+   */
   public function testLoad() {
-    $options = $this->createMock(Options::class);
+    $options = $this->createMock(\Papaya\Content\Module\Options::class);
     $options
       ->expects($this->once())
       ->method('load')
       ->with(array('guid' => 'ab123456789012345678901234567890'))
       ->will($this->returnValue(TRUE));
-    $storage = new \Papaya\Plugin\Option\Storage('ab123456789012345678901234567890');
+    $storage = new Storage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertTrue($storage->load());
   }
 
   /**
-  * @covers \Papaya\Plugin\Option\Storage::getIterator
-  */
+   * @covers \Papaya\Plugin\Option\Storage::getIterator
+   */
   public function testGetIterator() {
-    $options = $this->createMock(Options::class);
+    $options = $this->createMock(\Papaya\Content\Module\Options::class);
     $options
       ->expects($this->once())
       ->method('getIterator')
@@ -64,7 +64,7 @@ class PapayaPluginOptionStorageTest extends \PapayaTestCase {
           )
         )
       );
-    $storage = new \Papaya\Plugin\Option\Storage('ab123456789012345678901234567890');
+    $storage = new Storage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertEquals(
       array('foo' => 'bar'),
@@ -73,20 +73,20 @@ class PapayaPluginOptionStorageTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Plugin\Option\Storage::options
-  */
+   * @covers \Papaya\Plugin\Option\Storage::options
+   */
   public function testOptionsGetAfterSet() {
-    $options = $this->createMock(Options::class);
-    $storage = new \Papaya\Plugin\Option\Storage('ab123456789012345678901234567890');
+    $options = $this->createMock(\Papaya\Content\Module\Options::class);
+    $storage = new Storage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertSame($options, $storage->options());
   }
 
   /**
-  * @covers \Papaya\Plugin\Option\Storage::options
-  */
+   * @covers \Papaya\Plugin\Option\Storage::options
+   */
   public function testOptionsGetImplicitCreate() {
-    $storage = new \Papaya\Plugin\Option\Storage('ab123456789012345678901234567890');
-    $this->assertInstanceOf(Options::class, $options = $storage->options());
+    $storage = new Storage('ab123456789012345678901234567890');
+    $this->assertInstanceOf(\Papaya\Content\Module\Options::class, $options = $storage->options());
   }
 }

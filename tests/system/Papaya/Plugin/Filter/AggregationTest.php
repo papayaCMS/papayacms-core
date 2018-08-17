@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Plugin\Filter\Aggregation;
+namespace Papaya\Plugin\Filter {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginFilterAggregationTest extends \PapayaTestCase {
+  class AggregationTest extends \PapayaTestCase {
 
-  public function testContentGetAfterSet() {
-    $plugin = new \PapayaPluginFilterAggregation_TestProxy(
-      $page = $this->createMock(\Papaya\UI\Content\Page::class)
-    );
-    $plugin->filters($content = $this->createMock(\Papaya\Plugin\Filter\Content::class));
-    $this->assertSame($content, $plugin->filters());
+    public function testContentGetAfterSet() {
+      $plugin = new FilterAggregation_TestProxy(
+        $page = $this->createMock(\Papaya\UI\Content\Page::class)
+      );
+      $plugin->filters($content = $this->createMock(Content::class));
+      $this->assertSame($content, $plugin->filters());
+    }
+
+    public function testContentGetWithImplicitCreate() {
+      $plugin = new FilterAggregation_TestProxy(
+        $page = $this->createMock(\Papaya\UI\Content\Page::class)
+      );
+      $content = $plugin->filters();
+      $this->assertInstanceOf(Content::class, $content);
+      $this->assertSame($content, $plugin->filters());
+    }
+
   }
 
-  public function testContentGetWithImplicitCreate() {
-    $plugin = new \PapayaPluginFilterAggregation_TestProxy(
-      $page = $this->createMock(\Papaya\UI\Content\Page::class)
-    );
-    $content = $plugin->filters();
-    $this->assertInstanceOf(\Papaya\Plugin\Filter\Content::class, $content);
-    $this->assertSame($content, $plugin->filters());
+  class FilterAggregation_TestProxy {
+
+    use Aggregation;
+
+    public function __construct($page) {
+      $this->_page = $page;
+    }
+
   }
-
-}
-
-class PapayaPluginFilterAggregation_TestProxy {
-
-  use Aggregation;
-
-  public function __construct($page) {
-    $this->_page = $page;
-  }
-
 }
 

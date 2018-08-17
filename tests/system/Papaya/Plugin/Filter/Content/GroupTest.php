@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Filter\Content;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testConstructor() {
-    $filter = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filter = new Group($page = $this->getPageFixture());
     $this->assertSame($page, $filter->getPage());
   }
 
@@ -29,7 +30,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testAddAndIterator() {
-    $filter = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filter = new Group($page = $this->getPageFixture());
     $filter->add(
       $filterOne = $this->createMock(\Papaya\Plugin\Filter\Content::class)
     );
@@ -52,7 +53,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->method('prepare')
       ->with('data');
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->prepare('data');
   }
@@ -78,7 +79,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->method('loadFilterData')
       ->with(array('text' => 'data'));
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->prepare('data');
   }
@@ -94,7 +95,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->with('data')
       ->will($this->returnValue('success'));
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->applyTo('data');
   }
@@ -113,7 +114,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->with('data')
       ->will($this->returnValue('success'));
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->applyTo('data');
   }
@@ -130,7 +131,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->appendTo($node);
   }
@@ -151,10 +152,11 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
       ->with()
       ->will($this->returnValue('success'));
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
+    $filterGroup = new Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->appendTo($node);
-    $this->assertEquals(/** @lang XML */'<test>success</test>', $node->saveXML());
+    $this->assertEquals(/** @lang XML */
+      '<test>success</test>', $node->saveXML());
   }
 
   public function getPageFixture() {

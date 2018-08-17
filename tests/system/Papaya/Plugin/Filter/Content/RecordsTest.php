@@ -13,18 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\View\Configurations;
+namespace Papaya\Plugin\Filter\Content;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
+class RecordsTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\Plugin\Filter\Content\Records
    */
   public function testRecordsGetAfterSet() {
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
-    $filterGroup->records($records = $this->createMock(Configurations::class));
+    $filterGroup = new Records($this->getPageFixture());
+    $filterGroup->records($records = $this->createMock(\Papaya\Content\View\Configurations::class));
     $this->assertSame($records, $filterGroup->records());
   }
 
@@ -32,8 +32,8 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Records
    */
   public function testRecordsImplicitCreate() {
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
-    $this->assertInstanceOf(Configurations::class, $filterGroup->records());
+    $filterGroup = new Records($this->getPageFixture());
+    $this->assertInstanceOf(\Papaya\Content\View\Configurations::class, $filterGroup->records());
   }
 
   /**
@@ -47,7 +47,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
       ->with('guid', $this->isInstanceOf(\Papaya\UI\Content\Page::class), 'options')
       ->will($this->returnValue($this->createMock(\Papaya\Plugin\Filter\Content::class)));
 
-    $records = $this->createMock(Configurations::class);
+    $records = $this->createMock(\Papaya\Content\View\Configurations::class);
     $records
       ->expects($this->once())
       ->method('getIterator')
@@ -64,7 +64,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
         )
       );
 
-    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
+    $filterGroup = new Records($this->getPageFixture());
     $filterGroup->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
     $filterGroup->records($records);
 
