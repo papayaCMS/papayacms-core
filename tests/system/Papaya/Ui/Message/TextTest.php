@@ -13,46 +13,49 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Message;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiMessageTextTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Message\Text::__construct
-  */
+   * @covers \Papaya\UI\Message\Text::__construct
+   */
   public function testConstructor() {
-    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content');
+    $message = new Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content');
     $this->assertEquals(
       'content', $message->content
     );
   }
 
   /**
-  * @covers \Papaya\UI\Message\Text::appendTo
-  */
+   * @covers \Papaya\UI\Message\Text::appendTo
+   */
   public function testAppendTo() {
-    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXML()
+    /** @lang XML */
+      '<error event="sample" occured="yes">content</error>', $message->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Message\Text::appendTo
-  */
+   * @covers \Papaya\UI\Message\Text::appendTo
+   */
   public function testAppendToWithSpecialChars() {
-    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
+    $message = new Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */'<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXML()
+    /** @lang XML */
+      '<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Message\Text::getContent
-  * @covers \Papaya\UI\Message\Text::setContent
-  */
+   * @covers \Papaya\UI\Message\Text::getContent
+   * @covers \Papaya\UI\Message\Text::setContent
+   */
   public function testGetXmlAfterSetXml() {
-    $message = new \Papaya\UI\Message\Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '');
+    $message = new Text(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', '');
     $message->content = 'content';
     $this->assertEquals(
       'content', $message->content
