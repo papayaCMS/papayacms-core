@@ -13,57 +13,61 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\UI\Control\Command {
 
-class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Toolbar
-  */
-  public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
-    $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
-    $this->assertSame($elements, $command->elements());
+  class ToolbarTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Toolbar
+     */
+    public function testConstructor() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+      $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
+      $command = new Toolbar_TestProxy($elements);
+      $this->assertSame($elements, $command->elements());
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Toolbar
+     */
+    public function testGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+      $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
+      $command = new Toolbar_TestProxy($elements);
+      $command->elements($newElements = $this->createMock(\Papaya\UI\Toolbar\Elements::class));
+      $this->assertSame($newElements, $command->elements());
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Toolbar
+     */
+    public function testAppendTo() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
+      $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
+      $elements
+        ->expects($this->once())
+        ->method('add')
+        ->with($this->isInstanceOf(\Papaya\UI\Toolbar\Element::class));
+
+      $document = new \Papaya\XML\Document();
+      $document->appendElement('test');
+      $command = new Toolbar_TestProxy($elements);
+      $command->testElement = $this->createMock(\Papaya\UI\Toolbar\Element::class);
+      $command->appendTo($document->documentElement);
+      $this->assertEquals(/** @lang XML */
+        '<test/>', $document->documentElement->saveXML());
+    }
+
   }
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Toolbar
-  */
-  public function testGetAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
-    $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
-    $command->elements($newElements = $this->createMock(\Papaya\UI\Toolbar\Elements::class));
-    $this->assertSame($newElements, $command->elements());
-  }
+  class Toolbar_TestProxy extends Toolbar {
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Toolbar
-  */
-  public function testAppendTo() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Toolbar\Elements $elements */
-    $elements = $this->createMock(\Papaya\UI\Toolbar\Elements::class);
-    $elements
-      ->expects($this->once())
-      ->method('add')
-      ->with($this->isInstanceOf(\Papaya\UI\Toolbar\Element::class));
+    public $testElement;
 
-    $document = new \Papaya\XML\Document();
-    $document->appendElement('test');
-    $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
-    $command->testElement = $this->createMock(\Papaya\UI\Toolbar\Element::class);
-    $command->appendTo($document->documentElement);
-    $this->assertEquals(/** @lang XML */'<test/>', $document->documentElement->saveXML());
-  }
-
-}
-
-class PapayaUiControlCommandToolbar_TestProxy extends \Papaya\UI\Control\Command\Toolbar {
-
-  public $testElement;
-
-  public function appendToolbarElements() {
-    $this->elements()->add($this->testElement);
+    public function appendToolbarElements() {
+      $this->elements()->add($this->testElement);
+    }
   }
 }

@@ -13,132 +13,135 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Control {
 
-class PapayaUiControlInteractiveTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameterMethod
-  */
-  public function testParameterMethodSet() {
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->parameterMethod(\Papaya\UI\Control\Interactive::METHOD_GET);
-    $this->assertAttributeEquals(
-      \Papaya\UI\Control\Interactive::METHOD_GET, '_parameterMethod', $dialog
-    );
+  class InteractiveTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameterMethod
+     */
+    public function testParameterMethodSet() {
+      $dialog = new Interactive_TestProxy();
+      $dialog->parameterMethod(Interactive::METHOD_GET);
+      $this->assertAttributeEquals(
+        Interactive::METHOD_GET, '_parameterMethod', $dialog
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameterMethod
+     */
+    public function testParameterMethodGet() {
+      $dialog = new Interactive_TestProxy();
+      $this->assertEquals(
+        Interactive::METHOD_GET,
+        $dialog->parameterMethod(Interactive::METHOD_GET)
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameterGroup
+     */
+    public function testParameterGroupSet() {
+      $dialog = new Interactive_TestProxy();
+      $dialog->parameterGroup('sample');
+      $this->assertAttributeEquals(
+        'sample', '_parameterGroup', $dialog
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameterGroup
+     */
+    public function testParameterGroupGet() {
+      $dialog = new Interactive_TestProxy();
+      $dialog->parameterGroup('sample');
+      $this->assertEquals(
+        'sample', $dialog->parameterGroup()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameters
+     */
+    public function testParametersGetAfterSet() {
+      $parameters = $this->createMock(\Papaya\Request\Parameters::class);
+      $dialog = new Interactive_TestProxy();
+      $this->assertSame(
+        $parameters, $dialog->parameters($parameters)
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameters
+     */
+    public function testParamtersGetImplicit() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getParameters')
+        ->with(\Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
+        ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
+      $dialog = new Interactive_TestProxy();
+      $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
+      $this->assertEquals(
+        array('foo' => 'bar'), $dialog->parameters()->toArray()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::parameters
+     */
+    public function testParamtersGetImplicitWithGroup() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getParameterGroup')
+        ->with('group', \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
+        ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
+      $dialog = new Interactive_TestProxy();
+      $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
+      $dialog->parameterGroup('group');
+      $this->assertEquals(
+        array('foo' => 'bar'), $dialog->parameters()->toArray()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::isPostRequest
+     */
+    public function testIsPostRequestExpectingTrue() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getMethod')
+        ->will($this->returnValue('post'));
+      $dialog = new Interactive_TestProxy();
+      $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
+      $this->assertTrue($dialog->isPostRequest());
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Interactive::isPostRequest
+     */
+    public function testIsPostRequestExpectingFalse() {
+      $request = $this->createMock(\Papaya\Request::class);
+      $request
+        ->expects($this->once())
+        ->method('getMethod')
+        ->will($this->returnValue('get'));
+      $dialog = new Interactive_TestProxy();
+      $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
+      $this->assertFalse($dialog->isPostRequest());
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameterMethod
-  */
-  public function testParameterMethodGet() {
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $this->assertEquals(
-      \Papaya\UI\Control\Interactive::METHOD_GET,
-      $dialog->parameterMethod(\Papaya\UI\Control\Interactive::METHOD_GET)
-    );
-  }
+  class Interactive_TestProxy extends Interactive {
 
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameterGroup
-  */
-  public function testParameterGroupSet() {
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->parameterGroup('sample');
-    $this->assertAttributeEquals(
-      'sample', '_parameterGroup', $dialog
-    );
-  }
+    public function appendTo(\Papaya\XML\Element $node) {
 
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameterGroup
-  */
-  public function testParameterGroupGet() {
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->parameterGroup('sample');
-    $this->assertEquals(
-      'sample', $dialog->parameterGroup()
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameters
-  */
-  public function testParametersGetAfterSet() {
-    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $this->assertSame(
-      $parameters, $dialog->parameters($parameters)
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameters
-  */
-  public function testParamtersGetImplicit() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getParameters')
-      ->with(\Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
-    $this->assertEquals(
-      array('foo' => 'bar'), $dialog->parameters()->toArray()
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Control\Interactive::parameters
-  */
-  public function testParamtersGetImplicitWithGroup() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getParameterGroup')
-      ->with('group', \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
-    $dialog->parameterGroup('group');
-    $this->assertEquals(
-      array('foo' => 'bar'), $dialog->parameters()->toArray()
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Control\Interactive::isPostRequest
-  */
-  public function testIsPostRequestExpectingTrue() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getMethod')
-      ->will($this->returnValue('post'));
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
-    $this->assertTrue($dialog->isPostRequest());
-  }
-
-  /**
-  * @covers \Papaya\UI\Control\Interactive::isPostRequest
-  */
-  public function testIsPostRequestExpectingFalse() {
-    $request = $this->createMock(\Papaya\Request::class);
-    $request
-      ->expects($this->once())
-      ->method('getMethod')
-      ->will($this->returnValue('get'));
-    $dialog = new \PapayaUiControlInteractive_TestProxy();
-    $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
-    $this->assertFalse($dialog->isPostRequest());
-  }
-}
-
-class PapayaUiControlInteractive_TestProxy extends \Papaya\UI\Control\Interactive {
-
-  public function appendTo(\Papaya\XML\Element $node) {
-
+    }
   }
 }

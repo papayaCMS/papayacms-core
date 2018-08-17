@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Control\Command\Dialog;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiControlCommandDialogCallbacksTest extends \PapayaTestCase {
+class CallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Control\Command\Dialog\Callbacks::__construct
-  */
+   * @covers \Papaya\UI\Control\Command\Dialog\Callbacks::__construct
+   */
   public function testConstructor() {
-    $callbacks = new \Papaya\UI\Control\Command\Dialog\Callbacks();
+    $callbacks = new Callbacks();
     $this->assertNull($callbacks->onCreateDialog->defaultReturn);
     $this->assertNull($callbacks->onExecuteFailed->defaultReturn);
     $this->assertNull($callbacks->onExecuteSuccessful->defaultReturn);

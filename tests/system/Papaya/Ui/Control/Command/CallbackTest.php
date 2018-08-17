@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Control\Command;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiControlCommandCallbackTest extends \PapayaTestCase {
+class CallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Control\Command\Callback
-  */
+   * @covers \Papaya\UI\Control\Command\Callback
+   */
   public function testWithValidCallback() {
-    $command = new \Papaya\UI\Control\Command\Callback(array($this, 'callbackAppendTo'));
-    $this->assertAppendedXmlEqualsXmlFragment(/** @lang XML */'<success/>', $command);
+    $command = new Callback(array($this, 'callbackAppendTo'));
+    $this->assertAppendedXmlEqualsXmlFragment(/** @lang XML */
+      '<success/>', $command);
   }
 
   public function callbackAppendTo(\Papaya\XML\Element $parent) {

@@ -13,60 +13,63 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\UI\Control\Command {
 
-class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Condition::command
-  */
-  public function testCommandGetAfterSet() {
-    $application = $this->mockPapaya()->application();
-    $command = $this->createMock(\Papaya\UI\Control\Command::class);
-    $command
-      ->expects($this->once())
-      ->method('papaya')
-      ->will($this->returnValue($application));
-    $condition = new \PapayaUiControlCommandCondition_TestProxy();
-    $condition->papaya();
-    $this->assertSame($command, $condition->command($command));
-    $this->assertEquals($application, $condition->papaya());
+  class ConditionTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Condition::command
+     */
+    public function testCommandGetAfterSet() {
+      $application = $this->mockPapaya()->application();
+      $command = $this->createMock(\Papaya\UI\Control\Command::class);
+      $command
+        ->expects($this->once())
+        ->method('papaya')
+        ->will($this->returnValue($application));
+      $condition = new Condition_TestProxy();
+      $condition->papaya();
+      $this->assertSame($command, $condition->command($command));
+      $this->assertEquals($application, $condition->papaya());
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Condition::command
+     */
+    public function testCommandGetExpectingException() {
+      $condition = new Condition_TestProxy();
+      $this->expectException(\LogicException::class);
+      $this->expectExceptionMessage(
+        'LogicException: Instance of "Papaya\UI\Control\Command\Condition_TestProxy" has no command assigned.'
+      );
+      $condition->command();
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Condition::hasCommand
+     */
+    public function testHasCommandExpectingTrue() {
+      $command = $this->createMock(\Papaya\UI\Control\Command::class);
+      $condition = new Condition_TestProxy();
+      $condition->command($command);
+      $this->assertTrue($condition->hasCommand());
+    }
+
+    /**
+     * @covers \Papaya\UI\Control\Command\Condition::hasCommand
+     */
+    public function testHasCommandExpectingFalse() {
+      $condition = new Condition_TestProxy();
+      $this->assertFalse($condition->hasCommand());
+    }
   }
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Condition::command
-  */
-  public function testCommandGetExpectingException() {
-    $condition = new \PapayaUiControlCommandCondition_TestProxy();
-    $this->expectException(\LogicException::class);
-    $this->expectExceptionMessage(
-      'LogicException: Instance of "PapayaUiControlCommandCondition_TestProxy" has no command assigned.'
-    );
-    $condition->command();
-  }
+  class Condition_TestProxy extends Condition {
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Condition::hasCommand
-  */
-  public function testHascommandExpectingTrue() {
-    $command = $this->createMock(\Papaya\UI\Control\Command::class);
-    $condition = new \PapayaUiControlCommandCondition_TestProxy();
-    $condition->command($command);
-    $this->assertTrue($condition->hasCommand());
-  }
+    public function validate() {
 
-  /**
-  * @covers \Papaya\UI\Control\Command\Condition::hasCommand
-  */
-  public function testHasCommandExpectingFalse() {
-    $condition = new \PapayaUiControlCommandCondition_TestProxy();
-    $this->assertFalse($condition->hasCommand());
-  }
-}
-
-class PapayaUiControlCommandCondition_TestProxy extends \Papaya\UI\Control\Command\Condition {
-
-  public function validate() {
-
+    }
   }
 }

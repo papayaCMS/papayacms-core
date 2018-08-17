@@ -13,40 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Interfaces\Record;
+namespace Papaya\UI\Control\Command\Dialog\Database;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiControlCommandDialogDatabaseRecordTest extends \PapayaTestCase {
+class RecordTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::__construct
-  */
+   * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::__construct
+   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
-    $command = new \Papaya\UI\Control\Command\Dialog\Database\Record($record);
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Record($record);
     $this->assertSame($record, $command->record());
   }
 
   /**
-  * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::record
-  */
+   * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::record
+   */
   public function testRecordGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
-    $command = new \Papaya\UI\Control\Command\Dialog\Database\Record($record);
-    $command->record($record = $this->createMock(Record::class));
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Record($record);
+    $command->record($record = $this->createMock(\Papaya\Database\Interfaces\Record::class));
     $this->assertSame($record, $command->record());
   }
 
   /**
-  * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::createDialog
-  */
+   * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::createDialog
+   */
   public function testCreateSaveDialog() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
-    $command = new \Papaya\UI\Control\Command\Dialog\Database\Record($record);
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Record($record);
     $command->papaya($this->mockPapaya()->application());
     /** @var \Papaya\UI\Dialog\Database\Save $dialog */
     $dialog = $command->dialog();
@@ -56,14 +56,14 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::createDialog
-  */
+   * @covers \Papaya\UI\Control\Command\Dialog\Database\Record::createDialog
+   */
   public function testCreateDeleteDialog() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Record $record */
-    $record = $this->createMock(Record::class);
-    $command = new \Papaya\UI\Control\Command\Dialog\Database\Record(
+    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
+    $command = new Record(
       $record,
-      \Papaya\UI\Control\Command\Dialog\Database\Record::ACTION_DELETE
+      Record::ACTION_DELETE
     );
     $command->papaya($this->mockPapaya()->application());
     /** @var \Papaya\UI\Dialog\Database\Delete $dialog */

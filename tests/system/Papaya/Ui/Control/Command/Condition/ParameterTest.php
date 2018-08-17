@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Control\Command\Condition;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
+class ParameterTest extends \PapayaTestCase {
 
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
@@ -25,7 +26,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
       ->method('filter')
       ->with('value')
       ->will($this->returnArgument(0));
-    $condition = new \Papaya\UI\Control\Command\Condition\Parameter('name', $filter);
+    $condition = new Parameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertTrue($condition->validate());
   }
@@ -38,7 +39,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
       ->method('filter')
       ->with('value')
       ->will($this->returnValue(NULL));
-    $condition = new \Papaya\UI\Control\Command\Condition\Parameter('name', $filter);
+    $condition = new Parameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertFalse($condition->validate());
   }
