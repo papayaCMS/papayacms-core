@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Text\Transliteration\Ascii;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaStringTransliterationAsciiMappingTest extends \PapayaTestCase {
+class MappingTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::__construct
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::__construct
+   */
   public function testConstructor() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $this->assertFileExists($mapping->getFile(0, 'generic'));
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::get
+   * @covers       \Papaya\Text\Transliteration\Ascii\Mapping::get
    * @dataProvider getMappedCharacterDataProvider
    * @param string $expected
    * @param string $codePoint
    * @param string $language
    */
   public function testGet($expected, $codePoint, $language) {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $actual = $mapping->get($codePoint, $language);
     $this->assertSame(
       $expected, $actual
@@ -41,75 +42,75 @@ class PapayaStringTransliterationAsciiMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::clear
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::clear
+   */
   public function testClear() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(0, 'de');
     $mapping->clear();
     $this->assertFalse($mapping->isLoaded(0, 'de'));
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
+   */
   public function testIsLoadedBeforeLoading() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $this->assertFalse($mapping->isLoaded(0, 'de'));
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::isLoaded
+   */
   public function testIsLoadedAfterLoading() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(0, 'de');
     $this->assertTrue($mapping->isLoaded(0, 'de'));
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   */
   public function testLazyLoadLanguageSpecificMapping() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(0, 'de');
     $result = $this->readAttribute($mapping, '_mappingTables');
     $this->assertArrayHasKey('de', $result);
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   */
   public function testLazyLoadFallbackToGeneric() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(5, 'de');
     $result = $this->readAttribute($mapping, '_mappingTables');
     $this->assertArrayHasKey('de', $result);
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   */
   public function testLazyLoadGeneric() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(5, 'generic');
     $result = $this->readAttribute($mapping, '_mappingTables');
     $this->assertArrayHasKey('generic', $result);
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::lazyLoad
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::add
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::link
+   */
   public function testLazyLoadMultipleCall() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $mapping->lazyLoad(5, 'de');
     $mapping->lazyLoad(5, 'generic');
     $result = $this->readAttribute($mapping, '_mappingTables');
@@ -119,10 +120,10 @@ class PapayaStringTransliterationAsciiMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
+   */
   public function testGetFileGeneric() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $this->assertStringEndsWith(
       'utf8/external/x00.php',
       $mapping->getFile(0, 'generic')
@@ -130,10 +131,10 @@ class PapayaStringTransliterationAsciiMappingTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
-  */
+   * @covers \Papaya\Text\Transliteration\Ascii\Mapping::getFile
+   */
   public function testGetFileGerman() {
-    $mapping = new \Papaya\Text\Transliteration\Ascii\Mapping();
+    $mapping = new Mapping();
     $this->assertStringEndsWith(
       'utf8/external/de/x00.php',
       $mapping->getFile(0, 'de')

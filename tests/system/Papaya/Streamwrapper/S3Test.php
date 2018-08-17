@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Streamwrapper;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaStreamwrapperS3Test extends \PapayaTestCase {
+class S3Test extends \PapayaTestCase {
 
   const TEST_FILE =
     's3:KEYID123456789012345:1234567890123456789012345678901234567890@bucketname/objectkey';
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::setHandler
-  */
+   * @covers \Papaya\Streamwrapper\S3::setHandler
+   */
   public function testSetHandler() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $client */
-    $client = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $client */
+    $client = $this->createMock(S3\Handler::class);
+    $wrapper = new S3();
     $wrapper->setHandler($client);
     $this->assertAttributeSame(
       $client, '_handler', $wrapper
@@ -34,12 +35,12 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::getHandler
-  */
+   * @covers \Papaya\Streamwrapper\S3::getHandler
+   */
   public function testGetHandler() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $client */
-    $client = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $client */
+    $client = $this->createMock(S3\Handler::class);
+    $wrapper = new S3();
     $wrapper->setHandler($client);
     $this->assertSame(
       $client, $wrapper->getHandler()
@@ -47,24 +48,24 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::getHandler
-  */
+   * @covers \Papaya\Streamwrapper\S3::getHandler
+   */
   public function testGetHandlerImplicitCreate() {
-    $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $this->createMock(S3\Handler::class);
+    $wrapper = new S3();
     $this->assertInstanceOf(
-      \Papaya\Streamwrapper\S3\Handler::class, $wrapper->getHandler()
+      S3\Handler::class, $wrapper->getHandler()
     );
   }
 
   /**
-   * @covers \Papaya\Streamwrapper\S3::parsePath
+   * @covers       \Papaya\Streamwrapper\S3::parsePath
    * @dataProvider parsePathDataProvider
    * @param string $path
    * @param array|bool $expected
    */
   public function testParsePath($path, $expected) {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $this->assertEquals(
       $expected,
       $wrapper->parsePath($path, 0)
@@ -72,94 +73,94 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::parsePath
-  */
+   * @covers \Papaya\Streamwrapper\S3::parsePath
+   */
   public function testParsePathTriggersError() {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $this->expectError(E_WARNING);
     $wrapper->parsePath('INVALID', STREAM_REPORT_ERRORS);
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::parsePath
-  */
+   * @covers \Papaya\Streamwrapper\S3::parsePath
+   */
   public function testParsePathBlockedError() {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $this->assertFalse(
       @$wrapper->parsePath('INVALID', STREAM_REPORT_ERRORS)
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::parsePath
-  */
+   * @covers \Papaya\Streamwrapper\S3::parsePath
+   */
   public function testParsePathSilentError() {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $this->assertFalse(
       $wrapper->parsePath('INVALID', 0)
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::setSecret
-  */
+   * @covers \Papaya\Streamwrapper\S3::setSecret
+   */
   public function testSetSecret() {
     $id = 'KEYID123456789012345';
     $secret = '1234567890123456789012345678901234567890';
     $secrets = array($id => $secret);
     $this->assertTrue(
-      \Papaya\Streamwrapper\S3::setSecret(
+      S3::setSecret(
         $id,
         $secret
       )
     );
     $this->assertAttributeSame(
-      $secrets, '_secrets', \Papaya\Streamwrapper\S3::class
+      $secrets, '_secrets', S3::class
     );
-    \Papaya\Streamwrapper\S3::setSecret($id, NULL);
+    S3::setSecret($id, NULL);
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::setSecret
-  */
+   * @covers \Papaya\Streamwrapper\S3::setSecret
+   */
   public function testSetSecretUnset() {
     $id = 'KEYID123456789012345';
     $secret = '1234567890123456789012345678901234567890';
-    \Papaya\Streamwrapper\S3::setSecret($id, $secret);
+    S3::setSecret($id, $secret);
     $this->assertFalse(
-      \Papaya\Streamwrapper\S3::setSecret(
+      S3::setSecret(
         $id,
         NULL
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', \Papaya\Streamwrapper\S3::class
+      array(), '_secrets', S3::class
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::setSecret
-  */
+   * @covers \Papaya\Streamwrapper\S3::setSecret
+   */
   public function testSetSecretWithInvalidSecret() {
     $this->assertFalse(
-      \Papaya\Streamwrapper\S3::setSecret(
+      S3::setSecret(
         'KEYID123456789012345',
         'INVALID'
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', \Papaya\Streamwrapper\S3::class
+      array(), '_secrets', S3::class
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::parsePath
-  */
+   * @covers \Papaya\Streamwrapper\S3::parsePath
+   */
   public function testParsePathWithSetSecret() {
     $id = 'KEYID123456789012345';
     $secret = '1234567890123456789012345678901234567890';
-    \Papaya\Streamwrapper\S3::setSecret($id, $secret);
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    S3::setSecret($id, $secret);
+    $wrapper = new S3();
     $path = 'amazon://'.$id.':@bucketname/object';
     $expected = array(
       'bucket' => 'bucketname',
@@ -171,15 +172,15 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       $expected,
       $wrapper->parsePath($path, STREAM_REPORT_ERRORS)
     );
-    \Papaya\Streamwrapper\S3::setSecret($id, NULL);
+    S3::setSecret($id, NULL);
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::parsePath
-  */
+   * @covers \Papaya\Streamwrapper\S3::parsePath
+   */
   public function testParsePathForNoSecretFound() {
     $id = 'KEYID123456789012345';
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $path = 'amazon://'.$id.':@bucketname/object';
     $this->assertFalse(
       @$wrapper->parsePath($path, STREAM_REPORT_ERRORS)
@@ -187,55 +188,55 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::url_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::url_stat
+   */
   public function testUrlStat() {
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
       'mode' => 0100006
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
       ->will($this->returnValue($fileInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertEquals(
       array(
-       'dev' => 0,
-       'ino' => 0,
-       'mode' => 0100006,
-       'nlink' => 0,
-       'uid' => 0,
-       'gid' => 0,
-       'rdev' => 0,
-       'size' => 23,
-       'atime' => 1257167160,
-       'mtime' => 1257167160,
-       'ctime' => 1257167160,
-       'blksize' => 0,
-       'blocks' => -1
+        'dev' => 0,
+        'ino' => 0,
+        'mode' => 0100006,
+        'nlink' => 0,
+        'uid' => 0,
+        'gid' => 0,
+        'rdev' => 0,
+        'size' => 23,
+        'atime' => 1257167160,
+        'mtime' => 1257167160,
+        'ctime' => 1257167160,
+        'blksize' => 0,
+        'blocks' => -1
       ),
       $wrapper->url_stat(self::TEST_FILE, 0)
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::url_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::url_stat
+   */
   public function testUrlStatQuietForNotFound() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations');
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertNull(
       $wrapper->url_stat(self::TEST_FILE, STREAM_URL_STAT_QUIET)
@@ -243,18 +244,18 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::url_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::url_stat
+   */
   public function testUrlStatForNotFound() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations');
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertNull(
       @$wrapper->url_stat(self::TEST_FILE, 0)
@@ -262,11 +263,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_open
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_open
+   */
   public function testStreamOpen() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -276,7 +277,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $this->assertTrue(
@@ -290,18 +291,18 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_open
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_open
+   */
   public function testStreamOpenWithInvalidPath() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->never())
       ->method('readFileContent');
     $handler
       ->expects($this->never())
       ->method('openWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $this->assertFalse(
@@ -315,16 +316,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_open
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_open
+   */
   public function testStreamOpenNotFoundSuppressedWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $this->assertFalse(
@@ -338,16 +339,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_open
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_open
+   */
   public function testStreamOpenNotFoundWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $this->expectError(E_WARNING);
@@ -360,12 +361,12 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Streamwrapper\S3::stream_open
+   * @covers       \Papaya\Streamwrapper\S3::stream_open
    * @dataProvider streamOpenUnsupportedModeDataProvider
    * @param string $mode
    */
   public function testStreamOpenUnsupportedModeSuppressedWarning($mode) {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $openedPath = NULL;
     $this->assertFalse(
       @$wrapper->stream_open(
@@ -378,12 +379,12 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Streamwrapper\S3::stream_open
+   * @covers       \Papaya\Streamwrapper\S3::stream_open
    * @dataProvider streamOpenUnsupportedModeDataProvider
    * @param string $mode
    */
   public function testStreamOpenUnsupportedModeWarning($mode) {
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $openedPath = NULL;
     $this->expectError(E_WARNING);
     $wrapper->stream_open(
@@ -395,11 +396,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_stat
+   */
   public function testStreamStat() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -409,7 +410,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -420,30 +421,30 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     );
     $this->assertEquals(
       array(
-       'dev' => 0,
-       'ino' => 0,
-       'mode' => 0100006,
-       'nlink' => 0,
-       'uid' => 0,
-       'gid' => 0,
-       'rdev' => 0,
-       'size' => 23,
-       'atime' => 1257167160,
-       'mtime' => 1257167160,
-       'ctime' => 1257167160,
-       'blksize' => 0,
-       'blocks' => -1
+        'dev' => 0,
+        'ino' => 0,
+        'mode' => 0100006,
+        'nlink' => 0,
+        'uid' => 0,
+        'gid' => 0,
+        'rdev' => 0,
+        'size' => 23,
+        'atime' => 1257167160,
+        'mtime' => 1257167160,
+        'ctime' => 1257167160,
+        'blksize' => 0,
+        'blocks' => -1
       ),
       $wrapper->stream_stat()
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_stat
+   */
   public function testStreamStatWriteable() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('openWriteFile')
@@ -454,7 +455,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->method('writeFileContent')
       ->with($this->anything(), $this->equalTo($testContent))
       ->will($this->returnValue(strlen($testContent)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -473,11 +474,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_tell
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_tell
+   */
   public function testStreamTell() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -487,7 +488,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -503,11 +504,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_stat
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_stat
+   */
   public function testStreamTellWritten() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('openWriteFile')
@@ -518,7 +519,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->method('writeFileContent')
       ->with($this->anything(), $this->equalTo($testContent))
       ->will($this->returnValue(strlen($testContent)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -535,11 +536,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -549,7 +550,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -564,11 +565,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekSetExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -578,7 +579,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -593,11 +594,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekSetAfterEOF() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -607,7 +608,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -622,11 +623,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekCurrent() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -636,7 +637,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -651,11 +652,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekCurrentExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -665,7 +666,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -680,11 +681,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekEnd() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -694,7 +695,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -709,11 +710,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekEndExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -723,7 +724,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -738,8 +739,8 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   public function testStreamSeekEndWithInvalidWhence() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -749,7 +750,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -764,16 +765,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_seek
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_seek
+   */
   public function testStreamSeekWriteable() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('openWriteFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -788,11 +789,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_eof
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_eof
+   */
   public function testStreamEOF() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -802,7 +803,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -818,11 +819,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_eof
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_eof
+   */
   public function testStreamEOFExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -832,7 +833,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -848,11 +849,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   */
   public function testStreamRead() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -863,7 +864,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array($testContent, $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -879,11 +880,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   */
   public function testStreamReadNothing() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -893,7 +894,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -909,11 +910,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   */
   public function testStreamReadEOF() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -923,7 +924,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -940,11 +941,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   */
   public function testStreamReadEmptyResult() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -954,7 +955,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('readFileContent')
       ->will($this->returnValue(array('', $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -970,11 +971,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   */
   public function testStreamReadFromBuffer() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -985,7 +986,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('readFileContent')
       ->will($this->returnValue(array($testContent, $fileInformation)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1005,12 +1006,12 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  * @covers \Papaya\Streamwrapper\S3::fillBuffer
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   * @covers \Papaya\Streamwrapper\S3::fillBuffer
+   */
   public function testStreamReadOverBufferEnd() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -1030,7 +1031,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
           )
         )
       );
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1050,12 +1051,12 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_read
-  * @covers \Papaya\Streamwrapper\S3::fillBuffer
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_read
+   * @covers \Papaya\Streamwrapper\S3::fillBuffer
+   */
   public function testStreamReadWithFilesSizeBiggerThanBufferSize() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 1024 * 1024 + 1,
       'modified' => 1257167160,
@@ -1075,7 +1076,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
           )
         )
       );
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1091,15 +1092,15 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::fillBuffer
-  */
+   * @covers \Papaya\Streamwrapper\S3::fillBuffer
+   */
   public function testFillBufferWithoutSizeNorForce() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->never())
       ->method('readFileContent');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertNull(
       $wrapper->fillBuffer(FALSE)
@@ -1107,11 +1108,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_opendir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_opendir
+   */
   public function testDirOpen() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1124,7 +1125,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getDirectoryInformations')
       ->will($this->returnValue($directoryInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertTrue(
       $wrapper->dir_opendir(
@@ -1135,16 +1136,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_opendir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_opendir
+   */
   public function testDirOpenExpectingNotFoundWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->expectError(E_WARNING);
     $wrapper->dir_opendir(
@@ -1154,16 +1155,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_opendir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_opendir
+   */
   public function testDirOpenSuppressedNotFoundWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->dir_opendir(
@@ -1174,11 +1175,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirRead() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1191,7 +1192,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getDirectoryInformations')
       ->will($this->returnValue($directoryInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1204,11 +1205,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirReadMore() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1237,7 +1238,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->exactly(2))
       ->method('getDirectoryInformations');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1251,11 +1252,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirReadNoMore() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1268,7 +1269,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getDirectoryInformations')
       ->will($this->returnValue($directoryInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1281,11 +1282,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirReadExpectingNotFoundWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1302,7 +1303,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('getDirectoryInformations')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1313,11 +1314,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirReadSuppressedNotFoundWarning() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1334,7 +1335,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('getDirectoryInformations')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1346,11 +1347,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_readdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_readdir
+   */
   public function testDirReadNotFound() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1367,7 +1368,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('getDirectoryInformations')
       ->will($this->returnValue(NULL));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1379,11 +1380,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_rewinddir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_rewinddir
+   */
   public function testDirRewind() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1396,7 +1397,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(1))
       ->method('getDirectoryInformations')
       ->will($this->returnValue($directoryInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1416,11 +1417,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::dir_rewinddir
-  */
+   * @covers \Papaya\Streamwrapper\S3::dir_rewinddir
+   */
   public function testDirRewindWithReload() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'size' => 0,
       'modified' => 0,
@@ -1433,7 +1434,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('getDirectoryInformations')
       ->will($this->returnValue($directoryInformation));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $wrapper->dir_opendir(
       self::TEST_FILE,
@@ -1453,16 +1454,16 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_open
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_open
+   */
   public function testStreamOpenForWrite() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('openWriteFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $this->assertTrue(
@@ -1476,18 +1477,18 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_write
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_write
+   */
   public function testStreamWrite() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $testContent = 'testContent';
     $handler
       ->expects($this->once())
       ->method('writeFileContent')
       ->with($this->anything(), $this->equalTo($testContent))
       ->will($this->returnValue(strlen($testContent)));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1503,11 +1504,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_close
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_close
+   */
   public function testStreamCloseReadable() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $fileInformation = array(
       'size' => 23,
       'modified' => 1257167160,
@@ -1520,7 +1521,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('closeWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1533,15 +1534,15 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::stream_close
-  */
+   * @covers \Papaya\Streamwrapper\S3::stream_close
+   */
   public function testStreamCloseWriteable() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('closeWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
     $wrapper->stream_open(
@@ -1554,11 +1555,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::unlink
-  */
+   * @covers \Papaya\Streamwrapper\S3::unlink
+   */
   public function testUnlink() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1567,7 +1568,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('removeFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertTrue(
       $wrapper->unlink(self::TEST_FILE)
@@ -1575,11 +1576,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::unlink
-  */
+   * @covers \Papaya\Streamwrapper\S3::unlink
+   */
   public function testUnlinkWithNonExistingFile() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1587,7 +1588,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->unlink(self::TEST_FILE)
@@ -1595,15 +1596,15 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::unlink
-  */
+   * @covers \Papaya\Streamwrapper\S3::unlink
+   */
   public function testUnlinkWithInvalidPath() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->unlink('INVALID')
@@ -1611,11 +1612,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectory() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1628,7 +1629,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('openWriteFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertTrue(
       $wrapper->mkdir(self::TEST_FILE, 0, 0)
@@ -1636,11 +1637,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryWithSlash() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1653,22 +1654,22 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('openWriteFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $testFile =
       's3:KEYID123456789012345:1234567890123456789012345678901234567890'.
-        '@bucketname/objectkey/';
+      '@bucketname/objectkey/';
     $this->assertTrue(
       $wrapper->mkdir($testFile, 0, 0)
     );
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryWithFileExists() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1676,7 +1677,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('openWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->mkdir(self::TEST_FILE, 0, 0)
@@ -1684,11 +1685,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryWithFailingOpen() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1701,7 +1702,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->once())
       ->method('openWriteFile')
       ->will($this->returnValue(FALSE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       $wrapper->mkdir(self::TEST_FILE, 0, 0)
@@ -1709,11 +1710,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryWithFailing2ndOpen() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getFileInformations')
@@ -1731,7 +1732,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
           $this->returnValue(FALSE)
         )
       );
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       $wrapper->mkdir(self::TEST_FILE, 0, 0)
@@ -1739,11 +1740,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryExists() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations')
@@ -1751,7 +1752,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('openWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->mkdir(self::TEST_FILE, 0, 0)
@@ -1759,11 +1760,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::mkdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::mkdir
+   */
   public function testMakeDirectoryWithInvalidPath() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->never())
       ->method('getFileInformations');
@@ -1773,7 +1774,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('openWriteFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->mkdir('INVALID', 0, 0)
@@ -1781,11 +1782,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectory() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'moreContent' => FALSE,
       'contents' => array('$'),
@@ -1798,7 +1799,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(3))
       ->method('removeFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertTrue(
       $wrapper->rmdir(self::TEST_FILE, 0)
@@ -1806,11 +1807,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectoryWithSlash() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'moreContent' => FALSE,
       'contents' => array('$'),
@@ -1823,7 +1824,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
       ->expects($this->exactly(3))
       ->method('removeFile')
       ->will($this->returnValue(TRUE));
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertTrue(
       $wrapper->rmdir(self::TEST_FILE.'/', 0)
@@ -1831,11 +1832,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectoryWithContent() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'moreContent' => FALSE,
       'contents' => array('foo', 'bar'),
@@ -1847,7 +1848,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->rmdir(self::TEST_FILE, 0)
@@ -1855,11 +1856,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectoryWithMoreContent() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $directoryInformation = array(
       'moreContent' => TRUE,
       'contents' => array('$'),
@@ -1871,7 +1872,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->rmdir(self::TEST_FILE, 0)
@@ -1879,11 +1880,11 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectoryNotExisting() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getDirectoryInformations')
@@ -1891,7 +1892,7 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->rmdir(self::TEST_FILE, 0)
@@ -1899,18 +1900,18 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Streamwrapper\S3::rmdir
-  */
+   * @covers \Papaya\Streamwrapper\S3::rmdir
+   */
   public function testRemoveDirectoryWithInvalidPath() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Streamwrapper\S3\Handler $handler */
-    $handler = $this->createMock(\Papaya\Streamwrapper\S3\Handler::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
+    $handler = $this->createMock(S3\Handler::class);
     $handler
       ->expects($this->never())
       ->method('getDirectoryInformations');
     $handler
       ->expects($this->never())
       ->method('removeFile');
-    $wrapper = new \Papaya\Streamwrapper\S3();
+    $wrapper = new S3();
     $wrapper->setHandler($handler);
     $this->assertFalse(
       @$wrapper->rmdir('INVALID', 0)
@@ -1918,8 +1919,8 @@ class PapayaStreamwrapperS3Test extends \PapayaTestCase {
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function parsePathDataProvider() {
     return array(
