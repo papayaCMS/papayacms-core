@@ -13,62 +13,62 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Result;
+namespace Papaya\Spam\Filter\Statistical;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
+class ReferenceTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::loadTotals
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::getHamCount
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::getSpamCount
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::loadTotals
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::getHamCount
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::getSpamCount
+   */
   public function testLoad() {
-    $totalsDatabaseResult = $this->createMock(Result::class);
+    $totalsDatabaseResult = $this->createMock(\Papaya\Database\Result::class);
     $totalsDatabaseResult
-       ->expects($this->any())
-       ->method('fetchRow')
-       ->with($this->equalTo(Result::FETCH_ASSOC))
-       ->will(
-         $this->onConsecutiveCalls(
-           array(
-             'spamcategory_ident' => 'ham',
-             'text_count' => '42'
-           ),
-           array(
-             'spamcategory_ident' => 'spam',
-             'text_count' => '2142'
-           ),
-           NULL
-         )
-       );
-    $recordsDatabaseResult = $this->createMock(Result::class);
+      ->expects($this->any())
+      ->method('fetchRow')
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
+      ->will(
+        $this->onConsecutiveCalls(
+          array(
+            'spamcategory_ident' => 'ham',
+            'text_count' => '42'
+          ),
+          array(
+            'spamcategory_ident' => 'spam',
+            'text_count' => '2142'
+          ),
+          NULL
+        )
+      );
+    $recordsDatabaseResult = $this->createMock(\Papaya\Database\Result::class);
     $recordsDatabaseResult
-       ->expects($this->any())
-       ->method('fetchRow')
-       ->with($this->equalTo(Result::FETCH_ASSOC))
-       ->will(
-         $this->onConsecutiveCalls(
-           array(
-             'spamword' => 'papaya',
-             'spamword_count' => '3',
-             'spamcategory_ident' => 'ham'
-           ),
-           array(
-             'spamword' => 'papaya',
-             'spamword_count' => '1',
-             'spamcategory_ident' => 'spam'
-           ),
-           array(
-             'spamword' => 'poker',
-             'spamword_count' => '13',
-             'spamcategory_ident' => 'spam'
-           ),
-           NULL
-         )
-       );
+      ->expects($this->any())
+      ->method('fetchRow')
+      ->with($this->equalTo(\Papaya\Database\Result::FETCH_ASSOC))
+      ->will(
+        $this->onConsecutiveCalls(
+          array(
+            'spamword' => 'papaya',
+            'spamword_count' => '3',
+            'spamcategory_ident' => 'ham'
+          ),
+          array(
+            'spamword' => 'papaya',
+            'spamword_count' => '1',
+            'spamcategory_ident' => 'spam'
+          ),
+          array(
+            'spamword' => 'poker',
+            'spamword_count' => '13',
+            'spamcategory_ident' => 'spam'
+          ),
+          NULL
+        )
+      );
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
@@ -90,7 +90,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
         )
       );
 
-    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
+    $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertTrue($reference->load(array('foo', 'bar'), 2));
     $this->assertAttributeEquals(
@@ -114,16 +114,16 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   */
   public function testLoadWithEmptyWordList() {
-    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
+    $reference = new Reference();
     $this->assertFalse($reference->load(array(), 2));
   }
 
   /**
-  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
-  */
+   * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+   */
   public function testLoadWithDatabaseError() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -137,7 +137,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
       ->with($this->isType('string'), $this->isType('array'))
       ->will($this->returnValue(FALSE));
 
-    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
+    $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertFalse($reference->load(array('foo', 'bar'), 2));
   }
