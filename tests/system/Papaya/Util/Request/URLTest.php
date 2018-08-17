@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Request;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilRequestUrlTest extends \PapayaTestCase {
+class URLTest extends \PapayaTestCase {
 
   private $_server;
 
@@ -28,18 +29,18 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\Request\URL::get
-  */
+   * @covers \Papaya\Utility\Request\URL::get
+   */
   public function testGetOnEmptyRequestEnvironmentExpectingEmptyString() {
     $_SERVER = array();
     $this->assertEquals(
-      '', \Papaya\Utility\Request\URL::get()
+      '', URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\URL::get
-  */
+   * @covers \Papaya\Utility\Request\URL::get
+   */
   public function testGet() {
     $_SERVER = array(
       'HTTP_HOST' => 'www.sample.tld',
@@ -47,13 +48,13 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld/', \Papaya\Utility\Request\URL::get()
+      'http://www.sample.tld/', URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\URL::get
-  */
+   * @covers \Papaya\Utility\Request\URL::get
+   */
   public function testGetWithNonDefaultPort() {
     $_SERVER = array(
       'HTTP_HOST' => 'www.sample.tld',
@@ -61,13 +62,13 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld:8080/', \Papaya\Utility\Request\URL::get()
+      'http://www.sample.tld:8080/', URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\URL::get
-  */
+   * @covers \Papaya\Utility\Request\URL::get
+   */
   public function testGetWithHttps() {
     $_SERVER = array(
       'HTTPS' => 'on',
@@ -76,15 +77,15 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\URL::get()
+      'https://www.sample.tld/secure.html', URL::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\URL::get
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers \Papaya\Utility\Request\URL::get
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testGetWithHttpsAtProxy() {
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $_SERVER = array(
@@ -95,7 +96,7 @@ class PapayaUtilRequestUrlTest extends \PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', \Papaya\Utility\Request\URL::get()
+      'https://www.sample.tld/secure.html', URL::get()
     );
   }
 }

@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Utility;
+require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilArrayMapperTest extends \PapayaTestCase {
+class ArrayMapperTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Utility\ArrayMapper::byIndex
-  */
+   * @covers \Papaya\Utility\ArrayMapper::byIndex
+   */
   public function testByIndex() {
     $this->assertEquals(
       array(
         42 => 'caption one',
         'foo' => 'caption two'
       ),
-      \Papaya\Utility\ArrayMapper::byIndex(
+      ArrayMapper::byIndex(
         array(
           42 => array(
             'key' => 'caption one'
@@ -44,15 +45,15 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\ArrayMapper::byIndex
-  */
+   * @covers \Papaya\Utility\ArrayMapper::byIndex
+   */
   public function testByIndexWithTraversable() {
     $this->assertEquals(
       array(
         42 => 'caption one',
         'foo' => 'caption two'
       ),
-      \Papaya\Utility\ArrayMapper::byIndex(
+      ArrayMapper::byIndex(
         new \ArrayIterator(
           array(
             42 => array(
@@ -72,15 +73,15 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\ArrayMapper::byIndex
-  */
+   * @covers \Papaya\Utility\ArrayMapper::byIndex
+   */
   public function testByIndexMappingBothUsingLists() {
     $this->assertEquals(
       array(
         42 => 'caption one',
         21 => 'caption two'
       ),
-      \Papaya\Utility\ArrayMapper::byIndex(
+      ArrayMapper::byIndex(
         array(
           array(
             'id' => 42,
@@ -98,8 +99,8 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\ArrayMapper::byIndex
-  */
+   * @covers \Papaya\Utility\ArrayMapper::byIndex
+   */
   public function testByIndexMappingKeyOnly() {
     $this->assertEquals(
       array(
@@ -112,7 +113,7 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
           'title' => 'caption two'
         )
       ),
-      \Papaya\Utility\ArrayMapper::byIndex(
+      ArrayMapper::byIndex(
         array(
           array(
             'id' => 42,
@@ -130,8 +131,8 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\ArrayMapper::byIndex
-  */
+   * @covers \Papaya\Utility\ArrayMapper::byIndex
+   */
   public function testByIndexMappingKeyNotFound() {
     $this->assertEquals(
       array(
@@ -144,7 +145,7 @@ class PapayaUtilArrayMapperTest extends \PapayaTestCase {
           'title' => 'caption two'
         )
       ),
-      \Papaya\Utility\ArrayMapper::byIndex(
+      ArrayMapper::byIndex(
         array(
           array(
             'id' => 42,

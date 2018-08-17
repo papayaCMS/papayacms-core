@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text\Ascii;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUtilStringAsciiArtworkTest extends \PapayaTestCase {
+class ArtworkTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Ascii\Artwork::get
+   * @covers       \Papaya\Utility\Text\Ascii\Artwork::get
    * @dataProvider getDataProvider
    * @param string $string
    * @param string $fileName
@@ -26,13 +27,13 @@ class PapayaUtilStringAsciiArtworkTest extends \PapayaTestCase {
   public function testGet($string, $fileName) {
     $this->assertStringEqualsFile(
       __DIR__.'/TestData/'.$fileName,
-      \Papaya\Utility\Text\Ascii\Artwork::get($string)
+      Artwork::get($string)
     );
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function getDataProvider() {
     return array(

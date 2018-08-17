@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Request;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilRequestMethodTest extends \PapayaTestCase {
+class MethodTest extends \PapayaTestCase {
 
   private $_server;
 
@@ -28,96 +29,96 @@ class PapayaUtilRequestMethodTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::get
-  */
+   * @covers \Papaya\Utility\Request\Method::get
+   */
   public function testGetOnEmptyRequestEnvironmentExpectingGet() {
     $_SERVER = array();
     $this->assertEquals(
-      'get', \Papaya\Utility\Request\Method::get()
+      'get', Method::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::get
-  */
+   * @covers \Papaya\Utility\Request\Method::get
+   */
   public function testGetForPostRequestInLowercase() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
     $this->assertEquals(
-      'post', \Papaya\Utility\Request\Method::get()
+      'post', Method::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::get
-  */
+   * @covers \Papaya\Utility\Request\Method::get
+   */
   public function testGetForPostRequestInUppercase() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
     $this->assertEquals(
-      'POST', \Papaya\Utility\Request\Method::get(\Papaya\Utility\Request\Method::FORMAT_UPPERCASE)
+      'POST', Method::get(Method::FORMAT_UPPERCASE)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isGet
-  */
+   * @covers \Papaya\Utility\Request\Method::isGet
+   */
   public function testIsGetExpectingTrue() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertTrue(\Papaya\Utility\Request\Method::isGet());
+    $this->assertTrue(Method::isGet());
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isGet
-  */
+   * @covers \Papaya\Utility\Request\Method::isGet
+   */
   public function testIsGetExpectingFalse() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
-    $this->assertFalse(\Papaya\Utility\Request\Method::isGet());
+    $this->assertFalse(Method::isGet());
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isPost
-  */
+   * @covers \Papaya\Utility\Request\Method::isPost
+   */
   public function testIsPostExpectingTrue() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
-    $this->assertTrue(\Papaya\Utility\Request\Method::isPost());
+    $this->assertTrue(Method::isPost());
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isPost
-  */
+   * @covers \Papaya\Utility\Request\Method::isPost
+   */
   public function testIsPostExpectingFalse() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertFalse(\Papaya\Utility\Request\Method::isPost());
+    $this->assertFalse(Method::isPost());
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isPut
-  */
+   * @covers \Papaya\Utility\Request\Method::isPut
+   */
   public function testIsPutExpectingTrue() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'PUT'
     );
-    $this->assertTrue(\Papaya\Utility\Request\Method::isPut());
+    $this->assertTrue(Method::isPut());
   }
 
   /**
-  * @covers \Papaya\Utility\Request\Method::isPut
-  */
+   * @covers \Papaya\Utility\Request\Method::isPut
+   */
   public function testIsPutExpectingFalse() {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertFalse(\Papaya\Utility\Request\Method::isPut());
+    $this->assertFalse(Method::isPut());
   }
 }

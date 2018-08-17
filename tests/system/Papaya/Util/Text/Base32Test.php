@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringBase32Test extends \PapayaTestCase {
+class Base32Test extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Base32::encode
+   * @covers       \Papaya\Utility\Text\Base32::encode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -26,12 +27,12 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
   public function testEncode($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      \Papaya\Utility\Text\Base32::encode($plain)
+      Base32::encode($plain)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Base32::encode
+   * @covers       \Papaya\Utility\Text\Base32::encode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -39,12 +40,12 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
   public function testEncodeWithPadding($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      \Papaya\Utility\Text\Base32::encode($plain, TRUE)
+      Base32::encode($plain, TRUE)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Base32::decode
+   * @covers       \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -52,12 +53,12 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
   public function testDecode($plain, $encoded) {
     $this->assertEquals(
       $plain,
-      \Papaya\Utility\Text\Base32::decode($encoded)
+      Base32::decode($encoded)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Base32::decode
+   * @covers       \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -65,27 +66,27 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
   public function testDecodeWithPadding($plain, $encoded) {
     $this->assertEquals(
       $plain,
-      \Papaya\Utility\Text\Base32::decode($encoded)
+      Base32::decode($encoded)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Base32::decode
+   * @covers       \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideInvalidDecodeSamples
    * @param string $encoded
    */
   public function testDecodeExpectingException($encoded) {
     $this->expectException(\OutOfBoundsException::class);
-    \Papaya\Utility\Text\Base32::decode($encoded);
+    Base32::decode($encoded);
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function provideValidSamples() {
     return array(
-      array('f' , 'my'),
+      array('f', 'my'),
       array('fo', 'mzxq'),
       array('foo', 'mzxw6'),
       array('foob', 'mzxw6yq'),
@@ -96,7 +97,7 @@ class PapayaUtilStringBase32Test extends \PapayaTestCase {
 
   public static function provideValidSamplesWithPadding() {
     return array(
-      array('f' , 'my======'),
+      array('f', 'my======'),
       array('fo', 'mzxq===='),
       array('foo', 'mzxw6==='),
       array('foob', 'mzxw6yq='),

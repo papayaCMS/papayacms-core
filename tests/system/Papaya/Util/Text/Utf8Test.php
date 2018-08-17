@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringUtf8Test extends \PapayaTestCase {
+class Utf8Test extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::ensure
-   * @covers \Papaya\Utility\Text\Utf8::ensureCharCallback
+   * @covers       \Papaya\Utility\Text\Utf8::ensure
    * @dataProvider ensureDataProvider
    * @param string $string
    * @param string $expected
@@ -27,12 +27,12 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
   public function testEnsure($string, $expected) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Utf8::ensure($string)
+      Utf8::ensure($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::getCodepoint
+   * @covers       \Papaya\Utility\Text\Utf8::getCodepoint
    * @dataProvider getCodepointDataProvider
    * @param string $string
    * @param string $expected
@@ -40,24 +40,24 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
   public function testGetCodepoint($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Utf8::getCodepoint($string)
+      Utf8::getCodepoint($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::length
+   * @covers       \Papaya\Utility\Text\Utf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
    */
   public function testLengthUsingIntl($expected, $string) {
     $this->skipIfExtensionNotLoaded('intl');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_INTL);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::length($string));
+    Utf8::setExtension(Utf8::EXT_INTL);
+    $this->assertEquals($expected, Utf8::length($string));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::position
+   * @covers       \Papaya\Utility\Text\Utf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -66,12 +66,12 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    */
   public function testPositionUsingIntl($expected, $haystack, $needle, $offset = 0) {
     $this->skipIfExtensionNotLoaded('intl');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_INTL);
-    $this->assertSame($expected, \Papaya\Utility\Text\Utf8::position($haystack, $needle, $offset));
+    Utf8::setExtension(Utf8::EXT_INTL);
+    $this->assertSame($expected, Utf8::position($haystack, $needle, $offset));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::copy
+   * @covers       \Papaya\Utility\Text\Utf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -80,24 +80,24 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    */
   public function testCopyUsingIntl($expected, $haystack, $start, $length = NULL) {
     $this->skipIfExtensionNotLoaded('intl');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_INTL);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::copy($haystack, $start, $length));
+    Utf8::setExtension(Utf8::EXT_INTL);
+    $this->assertEquals($expected, Utf8::copy($haystack, $start, $length));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::length
+   * @covers       \Papaya\Utility\Text\Utf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
    */
   public function testLengthUsingMbstring($expected, $string) {
     $this->skipIfExtensionNotLoaded('mbstring');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_MBSTRING);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::length($string));
+    Utf8::setExtension(Utf8::EXT_MBSTRING);
+    $this->assertEquals($expected, Utf8::length($string));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::position
+   * @covers       \Papaya\Utility\Text\Utf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -106,12 +106,12 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    */
   public function testPositionUsingMbstring($expected, $haystack, $needle, $offset = 0) {
     $this->skipIfExtensionNotLoaded('mbstring');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_MBSTRING);
-    $this->assertSame($expected, \Papaya\Utility\Text\Utf8::position($haystack, $needle, $offset));
+    Utf8::setExtension(Utf8::EXT_MBSTRING);
+    $this->assertSame($expected, Utf8::position($haystack, $needle, $offset));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::copy
+   * @covers       \Papaya\Utility\Text\Utf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -120,23 +120,23 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    */
   public function testCopyUsingMbstring($expected, $haystack, $start, $length = NULL) {
     $this->skipIfExtensionNotLoaded('mbstring');
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_MBSTRING);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::copy($haystack, $start, $length));
+    Utf8::setExtension(Utf8::EXT_MBSTRING);
+    $this->assertEquals($expected, Utf8::copy($haystack, $start, $length));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::length
+   * @covers       \Papaya\Utility\Text\Utf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
    */
   public function testLengthUsingPcreFallback($expected, $string) {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_PCRE);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::length($string));
+    Utf8::setExtension(Utf8::EXT_PCRE);
+    $this->assertEquals($expected, Utf8::length($string));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::position
+   * @covers       \Papaya\Utility\Text\Utf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -144,12 +144,12 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    * @param int $offset
    */
   public function testPositionUsingPcreFallback($expected, $haystack, $needle, $offset = 0) {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_PCRE);
-    $this->assertSame($expected, \Papaya\Utility\Text\Utf8::position($haystack, $needle, $offset));
+    Utf8::setExtension(Utf8::EXT_PCRE);
+    $this->assertSame($expected, Utf8::position($haystack, $needle, $offset));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Utf8::copy
+   * @covers       \Papaya\Utility\Text\Utf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -157,8 +157,8 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    * @param int|null $length
    */
   public function testCopyUsingPcreFallback($expected, $haystack, $start, $length = NULL) {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_PCRE);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::copy($haystack, $start, $length));
+    Utf8::setExtension(Utf8::EXT_PCRE);
+    $this->assertEquals($expected, Utf8::copy($haystack, $start, $length));
   }
 
   /**
@@ -170,8 +170,8 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    *   ["abcÄdef", "ABCÄDEF"]
    */
   public function testLowerCaseUsingPcreFallback($expected, $input) {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_PCRE);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::toLowerCase($input));
+    Utf8::setExtension(Utf8::EXT_PCRE);
+    $this->assertEquals($expected, Utf8::toLowerCase($input));
   }
 
   /**
@@ -183,30 +183,30 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
    *   ["ABCäDEF", "abcädef"]
    */
   public function testUpperCaseUsingPcreFallback($expected, $input) {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_PCRE);
-    $this->assertEquals($expected, \Papaya\Utility\Text\Utf8::toUpperCase($input));
+    Utf8::setExtension(Utf8::EXT_PCRE);
+    $this->assertEquals($expected, Utf8::toUpperCase($input));
   }
 
-    /**
-  * @covers \Papaya\Utility\Text\Utf8::getExtension
-  */
+  /**
+   * @covers \Papaya\Utility\Text\Utf8::getExtension
+   */
   public function testGetExtension() {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_UNKNOWN);
+    Utf8::setExtension(Utf8::EXT_UNKNOWN);
     $this->assertNotEquals(
-      \Papaya\Utility\Text\Utf8::EXT_UNKNOWN,
-      \Papaya\Utility\Text\Utf8::getExtension()
+      Utf8::EXT_UNKNOWN,
+      Utf8::getExtension()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Text\Utf8::setExtension
-  * @covers \Papaya\Utility\Text\Utf8::getExtension
-  */
+   * @covers \Papaya\Utility\Text\Utf8::setExtension
+   * @covers \Papaya\Utility\Text\Utf8::getExtension
+   */
   public function testGetExtensionAfterSetExtension() {
-    \Papaya\Utility\Text\Utf8::setExtension(\Papaya\Utility\Text\Utf8::EXT_INTL);
+    Utf8::setExtension(Utf8::EXT_INTL);
     $this->assertEquals(
-      \Papaya\Utility\Text\Utf8::EXT_INTL,
-      \Papaya\Utility\Text\Utf8::getExtension()
+      Utf8::EXT_INTL,
+      Utf8::getExtension()
     );
   }
 
@@ -217,8 +217,8 @@ class PapayaUtilStringUtf8Test extends \PapayaTestCase {
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function ensureDataProvider() {
     return array(

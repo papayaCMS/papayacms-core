@@ -13,35 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringHyphenationTest extends \PapayaTestCase {
+class NormalizeTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Hyphenation::german
-   * @dataProvider provideGermanWords
+   * @covers       \Papaya\Utility\Text\Normalize::toHTTPHeaderName
+   * @dataProvider toHttpHeaderNameDataProvider
+   * @param string $string
    * @param string $expected
-   * @param string $word
    */
-  public function testGerman($expected, $word) {
+  public function testToHttpHeaderName($string, $expected) {
     $this->assertEquals(
-      $expected, \Papaya\Utility\Text\Hyphenation::german($word)
+      $expected,
+      \Papaya\Utility\Text\Normalize::toHTTPHeaderName($string)
     );
   }
 
-  /********************************
-  * Data Provider
-  ********************************/
+  /*********************************
+   * Data Provider
+   *********************************/
 
-  public static function provideGermanWords() {
+  public static function toHttpHeaderNameDataProvider() {
     return array(
-      array('meis-tens', 'meistens'),
-      array('Kis-ten', 'Kisten'),
-      array('Es-pe', 'Espe'),
-      array('Mas-ke', 'Maske'),
-      array('Zu-cker', 'Zucker'),
-      array('Quad-rat' , 'Quadrat'),
-      array('beo-bachten', 'beobachten')
+      'lower case' => array('content-type', 'Content-Type'),
+      'upper case' => array('CONTENT-TYPE', 'Content-Type'),
+      'mixed case' => array('CoNtEnT-TyPe', 'Content-Type'),
+      'single word' => array('cache', 'Cache')
     );
   }
 }
+

@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilServerNameTest extends \PapayaTestCase {
+class NameTest extends \PapayaTestCase {
 
   private $_server;
 
@@ -28,31 +29,31 @@ class PapayaUtilServerNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Name::get
-  */
+   * @covers \Papaya\Utility\Server\Name::get
+   */
   public function testGetFromHttpHost() {
     $_SERVER['HTTP_HOST'] = 'www.test.tld';
     $this->assertEquals(
-      'www.test.tld', \Papaya\Utility\Server\Name::get()
+      'www.test.tld', Name::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Name::get
-  */
+   * @covers \Papaya\Utility\Server\Name::get
+   */
   public function testGetFromServerName() {
     $_SERVER['SERVER_NAME'] = 'www.test.tld';
     $this->assertEquals(
-      'www.test.tld', \Papaya\Utility\Server\Name::get()
+      'www.test.tld', Name::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Name::get
-  */
+   * @covers \Papaya\Utility\Server\Name::get
+   */
   public function testGetExpectingEmptyString() {
     $this->assertEquals(
-      '', \Papaya\Utility\Server\Name::get()
+      '', Name::get()
     );
   }
 }

@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringXmlTest extends \PapayaTestCase {
+class XMLTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\XML::escape
+   * @covers       \Papaya\Utility\Text\XML::escape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -26,12 +28,12 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testEscape($string, $expected) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\XML::escape($string)
+      XML::escape($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::unescape
+   * @covers       \Papaya\Utility\Text\XML::unescape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -39,12 +41,12 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testUnescape($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\XML::unescape($string)
+      XML::unescape($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::escapeAttribute
+   * @covers       \Papaya\Utility\Text\XML::escapeAttribute
    * @dataProvider escapeAttributeDataProvider
    * @param string $string
    * @param string $expected
@@ -52,7 +54,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testEscapeAttribute($string, $expected) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\XML::escapeAttribute($string)
+      XML::escapeAttribute($string)
     );
   }
 
@@ -63,15 +65,15 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
-  public function testRepairEntitiesInitalizesTranslationTable() {
+  public function testRepairEntitiesInitialisesTranslationTable() {
     $this->assertEquals(
       'ä',
-      \Papaya\Utility\Text\XML::repairEntities('&auml;')
+      XML::repairEntities('&auml;')
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::repairEntities
+   * @covers       \Papaya\Utility\Text\XML::repairEntities
    * @dataProvider getXhtmlDataToRepair
    * @param string $string
    * @param string $expected
@@ -79,53 +81,54 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testRepairEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\XML::repairEntities($string)
+      XML::repairEntities($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::serializeArray
-   * @covers \Papaya\Utility\Text\XML::_serializeSubArray
+   * @covers       \Papaya\Utility\Text\XML::serializeArray
+   * @covers       \Papaya\Utility\Text\XML::_serializeSubArray
    * @dataProvider provideSerializerArrayAndXml
    * @param string $expected
    * @param array $array
    */
   public function testSerializeArray($expected, $array) {
-    $this->assertXmlStringEqualsXmlString($expected, \Papaya\Utility\Text\XML::serializeArray($array));
+    $this->assertXmlStringEqualsXmlString($expected, XML::serializeArray($array));
   }
 
   /**
-  * @covers \Papaya\Utility\Text\XML::serializeArray
-  * @covers \Papaya\Utility\Text\XML::_serializeSubArray
-  */
+   * @covers \Papaya\Utility\Text\XML::serializeArray
+   * @covers \Papaya\Utility\Text\XML::_serializeSubArray
+   */
   public function testSerializeArrayWithName() {
     $this->assertEquals(
-      /** @lang XML */'<sample version="2"><sample-element name="foo">bar</sample-element></sample>',
-      \Papaya\Utility\Text\XML::serializeArray(array('foo' => 'bar'), 'sample')
+    /** @lang XML */
+      '<sample version="2"><sample-element name="foo">bar</sample-element></sample>',
+      XML::serializeArray(array('foo' => 'bar'), 'sample')
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::unserializeArray
-   * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
+   * @covers       \Papaya\Utility\Text\XML::unserializeArray
+   * @covers       \Papaya\Utility\Text\XML::_unserializeArrayFromNode
    * @dataProvider provideSerializerArrayAndXml
    * @param string $xml
    * @param string $expected
    */
   public function testUnserializeArray($xml, $expected) {
-    $this->assertEquals($expected, \Papaya\Utility\Text\XML::unserializeArray($xml));
-  }
-
-  /**
-  * @covers \Papaya\Utility\Text\XML::unserializeArray
-  */
-  public function testDeserializeArrayWithEmptyString() {
-    $this->assertEquals(array(), \Papaya\Utility\Text\XML::unserializeArray(''));
+    $this->assertEquals($expected, XML::unserializeArray($xml));
   }
 
   /**
    * @covers \Papaya\Utility\Text\XML::unserializeArray
-   * @covers \Papaya\Utility\Text\XML::decodeOldEntitiesToUtf8
+   */
+  public function testDeserializeArrayWithEmptyString() {
+    $this->assertEquals(array(), XML::unserializeArray(''));
+  }
+
+  /**
+   * @covers       \Papaya\Utility\Text\XML::unserializeArray
+   * @covers       \Papaya\Utility\Text\XML::decodeOldEntitiesToUtf8
    * @dataProvider provideOldEncodedEntities
    * @param array $expected
    * @param string $entities
@@ -133,36 +136,36 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testUnserializeWithOldEntities($expected, $entities) {
     $this->assertEquals(
       array('foo' => $expected),
-      \Papaya\Utility\Text\XML::unserializeArray(
-        /** @lang XML */
+      XML::unserializeArray(
+      /** @lang XML */
         "<sample><sample-element name='foo'>$entities</sample-element></sample>"
       )
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Text\XML::unserializeArray
-  * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
-  */
+   * @covers \Papaya\Utility\Text\XML::unserializeArray
+   * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
+   */
   public function testDeserializeWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
       array('foo' => '"<br/>'),
-      \Papaya\Utility\Text\XML::unserializeArray(
-        /** @lang XML */
+      XML::unserializeArray(
+      /** @lang XML */
         '<sample><sample-element name="foo">&amp;quot;&lt;br/&gt;</sample-element></sample>'
       )
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Text\XML::unserializeArray
-  * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
-  */
+   * @covers \Papaya\Utility\Text\XML::unserializeArray
+   * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
+   */
   public function testDeserializeListWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
       array('bar' => array('foo' => '"<br/>')),
-      \Papaya\Utility\Text\XML::unserializeArray(
-        /** @lang XML */
+      XML::unserializeArray(
+      /** @lang XML */
         '<sample>
           <sample-list name="bar">
             <sample-element name="foo">&amp;quot;&lt;br/&gt;</sample-element>
@@ -173,30 +176,30 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::truncate
-   * @covers \Papaya\Utility\Text\XML::_truncateChildNodes
-   * @covers \Papaya\Utility\Text\XML::_copyElement
+   * @covers       \Papaya\Utility\Text\XML::truncate
+   * @covers       \Papaya\Utility\Text\XML::_truncateChildNodes
+   * @covers       \Papaya\Utility\Text\XML::_copyElement
    * @dataProvider provideTruncateXml
    * @param string $expected
    * @param string $xml
    * @param int $length
    */
   public function testTruncate($expected, $xml, $length) {
-    $document = new DOMDocument('1.0', 'UTF-8');
+    $document = new \DOMDocument('1.0', 'UTF-8');
     $document->loadXML($xml);
-    $node = \Papaya\Utility\Text\XML::truncate($document->documentElement, $length);
+    $node = XML::truncate($document->documentElement, $length);
     $this->assertXmlStringEqualsXmlString(
       $expected, $node->ownerDocument->saveXML($node)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isQName
+   * @covers       \Papaya\Utility\Text\XML::isQName
    * @dataProvider provideValidQualifiedNames
    * @param string $qualifiedName
    */
   public function testIsQName($qualifiedName) {
-    $this->assertTrue(\Papaya\Utility\Text\XML::isQName($qualifiedName));
+    $this->assertTrue(XML::isQName($qualifiedName));
   }
 
   /**
@@ -204,18 +207,18 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
    */
   public function testIsQNameWithEmptyNameExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
-    \Papaya\Utility\Text\XML::isQName('');
+    XML::isQName('');
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isNcName
+   * @covers       \Papaya\Utility\Text\XML::isNcName
    * @dataProvider provideValidNcNames
    * @param string $tagName
    * @param int $offset
    * @param int $length
    */
   public function testIsNcName($tagName, $offset, $length) {
-    $this->assertTrue(\Papaya\Utility\Text\XML::isNcName($tagName, $offset, $length));
+    $this->assertTrue(XML::isNcName($tagName, $offset, $length));
   }
 
   /**
@@ -224,7 +227,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testIsNcNameWithEmptyTagnameExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:": Missing QName part.');
-    \Papaya\Utility\Text\XML::isNcName('nc:', 3);
+    XML::isNcName('nc:', 3);
   }
 
   /**
@@ -233,7 +236,7 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testIsNcNameWithInvalidTagnameCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:ta<g>": Invalid character at index 5.');
-    \Papaya\Utility\Text\XML::isNcName('nc:ta<g>', 3);
+    XML::isNcName('nc:ta<g>', 3);
   }
 
   /**
@@ -242,12 +245,12 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:1tag": Invalid character at index 3.');
-    \Papaya\Utility\Text\XML::isNcName('nc:1tag', 3);
+    XML::isNcName('nc:1tag', 3);
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function provideOldEncodedEntities() {
     return array(
@@ -258,7 +261,8 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
 
   public static function escapeDataProvider() {
     return array(
-      array(/** @lang Text */'<sample>', '&lt;sample&gt;'),
+      array(/** @lang Text */
+        '<sample>', '&lt;sample&gt;'),
       array('"sample"', '&quot;sample&quot;'),
       array("'sample'", '&#039;sample&#039;'),
     );
@@ -266,7 +270,8 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
 
   public static function escapeAttributeDataProvider() {
     return array(
-      array(/** @lang Text */'<sample>', '&lt;sample&gt;'),
+      array(/** @lang Text */
+        '<sample>', '&lt;sample&gt;'),
       array('"sample"', '&quot;sample&quot;'),
       array("'sample'", '&#039;sample&#039;'),
       array("\r\n", '&#13;&#10;'),
@@ -275,7 +280,8 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
 
   public static function provideSerializerArrayAndXml() {
     return array(
-      array(/** @lang XML */'<data version="2"/>', array()),
+      array(/** @lang XML */
+        '<data version="2"/>', array()),
       array(
         /** @lang XML */
         '<data version="2"><data-element name="test">value</data-element></data>',
@@ -294,14 +300,16 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
       array(
         /** @lang XML */
         '<data version="2"><data-element name="test">&lt;tag/&gt;</data-element></data>',
-        array('test' => /** @lang XML */'<tag/>')
+        array('test' => /** @lang XML */
+          '<tag/>')
       ),
       array(
         /** @lang XML */
         '<data version="2">
           <data-element name="test">&lt;tag attr="&amp;quot;"/&gt;</data-element>
         </data>',
-        array('test' => /** @lang XML */'<tag attr="&quot;"/>')
+        array('test' => /** @lang XML */
+          '<tag attr="&quot;"/>')
       ),
     );
   }
@@ -309,28 +317,38 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
   public static function provideTruncateXml() {
     return array(
       'full copy' => array(
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child></sample>',
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child></sample>',
         100
       ),
       'first' => array(
-        /** @lang XML */'<sample><child>TEST 1</child></sample>',
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child></sample>',
         7
       ),
       'first two' => array(
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child></sample>',
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child><child>TEST 3</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child><child>TEST 3</child></sample>',
         13
       ),
       'first and part two' => array(
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST</child></sample>',
-        /** @lang XML */'<sample><child>TEST 1</child><child>TEST 2</child><child>TEST 3</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST</child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1</child><child>TEST 2</child><child>TEST 3</child></sample>',
         11
       ),
       'first and part child' => array(
-        /** @lang XML */'<sample><child>TEST 1<child foo="bar">TEST</child></child></sample>',
-        /** @lang XML */'<sample><child>TEST 1<child foo="bar">TEST 2</child></child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1<child foo="bar">TEST</child></child></sample>',
+        /** @lang XML */
+        '<sample><child>TEST 1<child foo="bar">TEST 2</child></child></sample>',
         11
       )
     );
@@ -362,10 +380,18 @@ class PapayaUtilStringXmlTest extends \PapayaTestCase {
       array('&amp;', '&'),
       array('&amp;', '&amp;'),
       array('ö', '&ouml;'),
-      array(/** @lang XML */'<div/>', /** @lang XML */'<div/>'),
-      array(/** @lang XML */'<div data-value="&quot;foo&quot;"/>', /** @lang XML */'<div data-value="&quot;foo&quot;"/>'),
-      array(/** @lang XML */'<div>"foo"</div>', /** @lang XML */'<div>"foo"</div>'),
-      array(/** @lang XML */'<div>&quot;foo&quot;</div>', /** @lang XML */'<div>&quot;foo&quot;</div>'),
+      array(/** @lang XML */
+        '<div/>', /** @lang XML */
+        '<div/>'),
+      array(/** @lang XML */
+        '<div data-value="&quot;foo&quot;"/>', /** @lang XML */
+        '<div data-value="&quot;foo&quot;"/>'),
+      array(/** @lang XML */
+        '<div>"foo"</div>', /** @lang XML */
+        '<div>"foo"</div>'),
+      array(/** @lang XML */
+        '<div>&quot;foo&quot;</div>', /** @lang XML */
+        '<div>&quot;foo&quot;</div>'),
     );
   }
 }

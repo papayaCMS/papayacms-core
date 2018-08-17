@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilServerPortTest extends \PapayaTestCase {
+class PortTest extends \PapayaTestCase {
 
   private $_server;
 
@@ -28,70 +29,70 @@ class PapayaUtilServerPortTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   */
   public function testGetOnEmptyRequestEnvironmentExpecting80() {
     $_SERVER = array();
     $this->assertEquals(
-      80, \Papaya\Utility\Server\Port::get()
+      80, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   */
   public function testGet() {
     $_SERVER = array(
       'SERVER_PORT' => 80
     );
     $this->assertEquals(
-      80, \Papaya\Utility\Server\Port::get()
+      80, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   */
   public function testGetWithNonDefaultPort() {
     $_SERVER = array(
       'SERVER_PORT' => 8080
     );
     $this->assertEquals(
-      8080, \Papaya\Utility\Server\Port::get()
+      8080, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   */
   public function testGetWithHttps() {
     $_SERVER = array(
       'HTTPS' => 'on',
       'SERVER_PORT' => 443
     );
     $this->assertEquals(
-      443, \Papaya\Utility\Server\Port::get()
+      443, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   */
   public function testGetWithHttpsNonDefaultPort() {
     $_SERVER = array(
       'HTTPS' => 'on',
       'SERVER_PORT' => 886
     );
     $this->assertEquals(
-      886, \Papaya\Utility\Server\Port::get()
+      886, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testGetWithHttpsAtProxy() {
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $_SERVER = array(
@@ -99,15 +100,15 @@ class PapayaUtilServerPortTest extends \PapayaTestCase {
       'SERVER_PORT' => 8000
     );
     $this->assertEquals(
-      443, \Papaya\Utility\Server\Port::get()
+      443, Port::get()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Port::get
-  * @preserveGlobalState disabled
-  * @runInSeparateProcess
-  */
+   * @covers \Papaya\Utility\Server\Port::get
+   * @preserveGlobalState disabled
+   * @runInSeparateProcess
+   */
   public function testGetWithHttpsAtProxyPrefixedEnvironmentVariable() {
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $_SERVER = array(
@@ -115,7 +116,7 @@ class PapayaUtilServerPortTest extends \PapayaTestCase {
       'SERVER_PORT' => 8000
     );
     $this->assertEquals(
-      443, \Papaya\Utility\Server\Port::get()
+      443, Port::get()
     );
   }
 }

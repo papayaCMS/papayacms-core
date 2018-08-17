@@ -13,93 +13,94 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilServerAgentTest extends \PapayaTestCase {
+class AgentTest extends \PapayaTestCase {
 
   /**
-  * @backupGlobals enabled
-  * @covers \Papaya\Utility\Server\Agent::get
-  */
+   * @backupGlobals enabled
+   * @covers \Papaya\Utility\Server\Agent::get
+   */
   public function testGet() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
     $this->assertEquals(
-      'Googlebot/2.1 (+http://www.google.com/bot.html)', \Papaya\Utility\Server\Agent::get()
+      'Googlebot/2.1 (+http://www.google.com/bot.html)', Agent::get()
     );
   }
 
   /**
-  * @backupGlobals enabled
-  * @covers \Papaya\Utility\Server\Agent::get
-  */
+   * @backupGlobals enabled
+   * @covers \Papaya\Utility\Server\Agent::get
+   */
   public function testGetExpectingEmptyString() {
     $_SERVER['HTTP_USER_AGENT'] = '';
     $this->assertEquals(
-      '', \Papaya\Utility\Server\Agent::get()
+      '', Agent::get()
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Server\Agent::isRobot
-   * @covers \Papaya\Utility\Server\Agent::_checkAgentIsRobot
-   * @covers \Papaya\Utility\Server\Agent::_checkAgainstList
+   * @covers       \Papaya\Utility\Server\Agent::isRobot
+   * @covers       \Papaya\Utility\Server\Agent::_checkAgentIsRobot
+   * @covers       \Papaya\Utility\Server\Agent::_checkAgainstList
    * @dataProvider provideRobots
    * @param string $userAgent
    */
   public function testIsRobotExpectingTrue($userAgent) {
     $this->assertTrue(
-      \Papaya\Utility\Server\Agent::isRobot($userAgent)
+      Agent::isRobot($userAgent)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Server\Agent::isRobot
-   * @covers \Papaya\Utility\Server\Agent::_checkAgentIsRobot
-   * @covers \Papaya\Utility\Server\Agent::_checkAgainstList
+   * @covers       \Papaya\Utility\Server\Agent::isRobot
+   * @covers       \Papaya\Utility\Server\Agent::_checkAgentIsRobot
+   * @covers       \Papaya\Utility\Server\Agent::_checkAgainstList
    * @dataProvider provideUserAgents
    * @param string $userAgent
    */
   public function testIsRobotExpectingFalse($userAgent) {
     $this->assertFalse(
-      \Papaya\Utility\Server\Agent::isRobot($userAgent)
+      Agent::isRobot($userAgent)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\Server\Agent::isRobot
-  */
+   * @covers \Papaya\Utility\Server\Agent::isRobot
+   */
   public function testIsRobotExpectingTrueUsingCachedResult() {
-    \Papaya\Utility\Server\Agent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)');
+    Agent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)');
     $this->assertTrue(
-      \Papaya\Utility\Server\Agent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)')
+      Agent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)')
     );
   }
 
   /**
-  * @backupGlobals
-  * @covers \Papaya\Utility\Server\Agent::isRobot
-  */
+   * @backupGlobals
+   * @covers \Papaya\Utility\Server\Agent::isRobot
+   */
   public function testIsRobotExpectingTrueReadingServerVariable() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
     $this->assertTrue(
-      \Papaya\Utility\Server\Agent::isRobot()
+      Agent::isRobot()
     );
   }
 
   /**
-  * @backupGlobals enabled
-  * @covers \Papaya\Utility\Server\Agent::isRobot
-  */
+   * @backupGlobals enabled
+   * @covers \Papaya\Utility\Server\Agent::isRobot
+   */
   public function testIsRobotExpectingFalseWithEmptyUserAgent() {
     $_SERVER['HTTP_USER_AGENT'] = '';
     $this->assertFalse(
-      \Papaya\Utility\Server\Agent::isRobot()
+      Agent::isRobot()
     );
   }
 
   /***********************
-  * Data Provider
-  ************************/
+   * Data Provider
+   ************************/
 
   // @codingStandardsIgnoreStart
   public static function provideRobots() {

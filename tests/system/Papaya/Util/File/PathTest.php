@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilFilePathTest extends \PapayaTestCase {
+class PathTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\File\Path::cleanup
+   * @covers       \Papaya\Utility\File\Path::cleanup
    * @dataProvider provideCleanupData
    * @param string $expected
    * @param string $string
@@ -27,12 +28,12 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
   public function testCleanup($expected, $string, $trailingSlash = TRUE) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\File\Path::cleanup($string, $trailingSlash)
+      Path::cleanup($string, $trailingSlash)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\File\Path::ensureIsAbsolute
+   * @covers       \Papaya\Utility\File\Path::ensureIsAbsolute
    * @dataProvider provideEnsureIsAbsoluteData
    * @param string $expected
    * @param string $string
@@ -40,12 +41,12 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
   public function testEnsureIsAbsolute($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\File\Path::ensureIsAbsolute($string)
+      Path::ensureIsAbsolute($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\File\Path::ensureTrailingSlash
+   * @covers       \Papaya\Utility\File\Path::ensureTrailingSlash
    * @dataProvider provideEnsureTrailingSlashData
    * @param string $expected
    * @param string $string
@@ -53,12 +54,12 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
   public function testEnsureTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\File\Path::ensureTrailingSlash($string)
+      Path::ensureTrailingSlash($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\File\Path::ensureNoTrailingSlash
+   * @covers       \Papaya\Utility\File\Path::ensureNoTrailingSlash
    * @dataProvider provideEnsureNoTrailingSlashData
    * @param string $expected
    * @param string $string
@@ -66,64 +67,64 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
   public function testEnsureNoTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\File\Path::ensureNoTrailingSlash($string)
+      Path::ensureNoTrailingSlash($string)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getBasePath
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getBasePath
+   * @backupGlobals
+   */
   public function testGetBasePathIncludingDocumentRoot() {
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/file';
     $this->assertEquals(
       '/path/to/',
-      \Papaya\Utility\File\Path::getBasePath(TRUE)
+      Path::getBasePath(TRUE)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getBasePath
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getBasePath
+   * @backupGlobals
+   */
   public function testGetBasePathExcludingDocumentRoot() {
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/file';
     $_SERVER['DOCUMENT_ROOT'] = '/path';
     $this->assertEquals(
       '/to/',
-      \Papaya\Utility\File\Path::getBasePath(FALSE)
+      Path::getBasePath(FALSE)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getBasePath
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getBasePath
+   * @backupGlobals
+   */
   public function testGetBasePathExcludingDocumentRootWithDeviceLetter() {
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/file';
     $_SERVER['DOCUMENT_ROOT'] = 'c:\\path\\';
     $this->assertEquals(
       '/to/',
-      \Papaya\Utility\File\Path::getBasePath(FALSE)
+      Path::getBasePath(FALSE)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getDocumentRoot
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getDocumentRoot
+   * @backupGlobals
+   */
   public function testGetDocumentRoot() {
     $_SERVER['DOCUMENT_ROOT'] = '/path';
     $this->assertEquals(
       '/path/',
-      \Papaya\Utility\File\Path::getDocumentRoot()
+      Path::getDocumentRoot()
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getDocumentRoot
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getDocumentRoot
+   * @backupGlobals
+   */
   public function testGetDocumentRootFromScriptFilename() {
     $_SERVER['DOCUMENT_ROOT'] = NULL;
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/papaya/papaya/file';
@@ -135,20 +136,20 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       '/path/to/',
-      \Papaya\Utility\File\Path::getDocumentRoot($options)
+      Path::getDocumentRoot($options)
     );
   }
 
   /**
-  * @covers \Papaya\Utility\File\Path::getDocumentRoot
-  * @backupGlobals
-  */
+   * @covers \Papaya\Utility\File\Path::getDocumentRoot
+   * @backupGlobals
+   */
   public function testGetDocumentRootDefaultReturn() {
     $_SERVER['DOCUMENT_ROOT'] = NULL;
     $_SERVER['SCRIPT_FILENAME'] = NULL;
     $this->assertEquals(
       '/',
-      \Papaya\Utility\File\Path::getDocumentRoot()
+      Path::getDocumentRoot()
     );
   }
 
@@ -162,14 +163,14 @@ class PapayaUtilFilePathTest extends \PapayaTestCase {
       'DATA'
     );
     $this->assertFileExists($this->_temporaryDirectory.'/GROUP/ELEMENT/PARAMETERS');
-    \Papaya\Utility\File\Path::clear($this->_temporaryDirectory);
+    Path::clear($this->_temporaryDirectory);
     $this->assertFileNotExists($this->_temporaryDirectory.'/GROUP/ELEMENT/PARAMETERS');
     rmdir($this->_temporaryDirectory);
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function provideCleanupData() {
     return array(

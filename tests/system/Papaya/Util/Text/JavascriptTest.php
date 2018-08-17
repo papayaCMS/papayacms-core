@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringJavascriptTest extends \PapayaTestCase {
+class JavascriptTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Javascript::quote
+   * @covers       \Papaya\Utility\Text\Javascript::quote
    * @dataProvider quoteDataProvider
    * @param string $string
    * @param string $expected
@@ -26,20 +27,20 @@ class PapayaUtilStringJavascriptTest extends \PapayaTestCase {
   public function testQuote($string, $expected) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Javascript::quote($string)
+      Javascript::quote($string)
     );
   }
 
   public function testQuoteWithDoubleQuotes() {
     $this->assertEquals(
       '"foo\\"-" + "-bar"',
-      \Papaya\Utility\Text\Javascript::quote('foo"--bar', '"')
+      Javascript::quote('foo"--bar', '"')
     );
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function quoteDataProvider() {
     return array(

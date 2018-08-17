@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringHtmlTest extends \PapayaTestCase {
+class HtmlTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Utility\Text\Html::escapeStripped
+   * @covers       \Papaya\Utility\Text\Html::escapeStripped
    * @dataProvider escapeStrippedDataProvider
    * @param string $expected
    * @param string $string
@@ -26,12 +27,12 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testEscapeStripped($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Html::escapeStripped($string)
+      Html::escapeStripped($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Html::stripTags
+   * @covers       \Papaya\Utility\Text\Html::stripTags
    * @dataProvider stripTagsDataProvider
    * @param string $expected
    * @param string $string
@@ -39,12 +40,12 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testStripTags($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Html::stripTags($string)
+      Html::stripTags($string)
     );
   }
 
   /**
-   * @covers \Papaya\Utility\Text\Html::decodeNamedEntities
+   * @covers       \Papaya\Utility\Text\Html::decodeNamedEntities
    * @dataProvider decodeNamedEntitiesDataProvider
    * @param string $expected
    * @param string $string
@@ -52,41 +53,50 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testDecodeNamedEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      \Papaya\Utility\Text\Html::decodeNamedEntities($string)
+      Html::decodeNamedEntities($string)
     );
   }
 
   /*********************************
-  * Data Provider
-  *********************************/
+   * Data Provider
+   *********************************/
 
   public static function escapeStrippedDataProvider() {
     return array(
-      array('', /** @lang Text */'<sample>'),
-      array('&lt;sample', /** @lang Text */'<sample'),
-      array('&lt;5&gt;', /** @lang Text */'<5>'),
+      array('', /** @lang Text */
+        '<sample>'),
+      array('&lt;sample', /** @lang Text */
+        '<sample'),
+      array('&lt;5&gt;', /** @lang Text */
+        '<5>'),
     );
   }
 
   public static function stripTagsDataProvider() {
     return array(
-      array('', /** @lang Text */'<sample>'),
+      array('', /** @lang Text */
+        '<sample>'),
       array('<sample', '<sample'),
       array('<5>', '<5>'),
-      array('FOO', /** @lang Text */'<p>FOO</p>')
+      array('FOO', /** @lang Text */
+        '<p>FOO</p>')
     );
   }
 
   public static function decodeNamedEntitiesDataProvider() {
     return array(
-      array(/** @lang Text */'<sample>', /** @lang Text */'<sample>'),
+      array(/** @lang Text */
+        '<sample>', /** @lang Text */
+        '<sample>'),
       array('ä', '&auml;'),
       array('&gt;', '&gt;'),
       array('&lt;', '&lt;'),
       array('&quot;', '&quot;'),
       array(
-        /** @lang XML */'<sample attr="">&#39;ä&#160;ö&#160;ü&#39;</sample>',
-        /** @lang Text */'<sample attr="">&#39;&auml;&#160;&ouml;&#160;&uuml;&#39;</sample>'
+        /** @lang XML */
+        '<sample attr="">&#39;ä&#160;ö&#160;ü&#39;</sample>',
+        /** @lang Text */
+        '<sample attr="">&#39;&auml;&#160;&ouml;&#160;&uuml;&#39;</sample>'
       )
     );
   }
