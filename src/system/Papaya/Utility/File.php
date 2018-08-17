@@ -45,7 +45,7 @@ class File {
    * @return string
    */
   public static function normalizeName($utf8string, $maxLength, $language = '', $unknown = '-') {
-    $transliterator = new \Papaya\Text\Transliteration\Ascii();
+    $transliterator = new \Papaya\Text\Transliteration\ASCII();
     $result = trim(
       preg_replace(
         '([^a-zA-Z\d]+)',

@@ -20,7 +20,7 @@ namespace Papaya\Text\Transliteration;
  * @package Papaya-Library
  * @subpackage String
  */
-class Ascii {
+class ASCII {
 
   private static $_mapping = NULL;
   private $_language = 'generic';

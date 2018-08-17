@@ -19,37 +19,37 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class AsciiTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Text\Transliteration\Ascii::transliterate
-   * @covers       \Papaya\Text\Transliteration\Ascii::mapCharacterMatch
+   * @covers       \Papaya\Text\Transliteration\ASCII::transliterate
+   * @covers       \Papaya\Text\Transliteration\ASCII::mapCharacterMatch
    * @dataProvider provideTransliterationExamples
    * @param string $expected
    * @param string $string
    * @param string $language
    */
   public function testTransliterate($expected, $string, $language) {
-    $transliterator = new Ascii();
+    $transliterator = new ASCII();
     $this->assertEquals(
       $expected, $transliterator->transliterate($string, $language)
     );
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii::mapping
+   * @covers \Papaya\Text\Transliteration\ASCII::mapping
    */
   public function testMappingGetAfterSet() {
     $mapping = $this->createMock(Ascii\Mapping::class);
-    $transliteratorOne = new Ascii();
-    $transliteratorTwo = new Ascii();
+    $transliteratorOne = new ASCII();
+    $transliteratorTwo = new ASCII();
     $transliteratorOne->mapping($mapping);
     $this->assertSame($mapping, $transliteratorTwo->mapping());
   }
 
   /**
-   * @covers \Papaya\Text\Transliteration\Ascii::mapping
-   * @covers \Papaya\Text\Transliteration\Ascii::resetMapping
+   * @covers \Papaya\Text\Transliteration\ASCII::mapping
+   * @covers \Papaya\Text\Transliteration\ASCII::resetMapping
    */
   public function testMappingImplicitCreate() {
-    $transliterator = new Ascii();
+    $transliterator = new ASCII();
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();
