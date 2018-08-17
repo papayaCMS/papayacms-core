@@ -115,7 +115,6 @@ class Wrapper {
    */
   public function writeClose() {
     session_write_close();
-    return;
   }
 
   /**
@@ -139,7 +138,6 @@ class Wrapper {
     session_unset();
     session_destroy();
     $_SESSION = array();
-    return;
   }
 
   /**
@@ -156,18 +154,19 @@ class Wrapper {
    * Change the session cookie parameters
    *
    * @see session_set_cookie_params()
-   * @param array $cookieParams
+   * @param array $cookieParameters
    */
-  public function setCookieParameters(array $cookieParams) {
+  public function setCookieParameters(array $cookieParameters) {
     if (PHP_VERSION_ID >= 70300) {
-      session_set_cookie_params($cookieParams);
+      /** @noinspection PhpParamsInspection */
+      session_set_cookie_params($cookieParameters);
     } else {
       session_set_cookie_params(
-        $cookieParams['lifetime'],
-        $cookieParams['path'],
-        $cookieParams['domain'],
-        $cookieParams['secure'],
-        $cookieParams['httponly']
+        $cookieParameters['lifetime'],
+        $cookieParameters['path'],
+        $cookieParameters['domain'],
+        $cookieParameters['secure'],
+        $cookieParameters['httponly']
       );
     }
   }
