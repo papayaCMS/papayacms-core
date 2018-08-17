@@ -13,43 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaResponseContentFileTest extends \PapayaTestCase {
+class FileTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Response\Content\File::__construct
-  */
+   * @covers \Papaya\Response\Content\File::__construct
+   */
   public function testConstructor() {
-    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
+    $content = new File(__DIR__.'/TestData/data.txt');
     $this->assertStringEndsWith(
       '/TestData/data.txt', $this->readAttribute($content, '_filename')
     );
   }
 
   /**
-  * @covers \Papaya\Response\Content\File::length
-  */
+   * @covers \Papaya\Response\Content\File::length
+   */
   public function testLength() {
-    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
+    $content = new File(__DIR__.'/TestData/data.txt');
     $this->assertEquals(4, $content->length());
   }
 
   /**
-  * @covers \Papaya\Response\Content\File::output
-  */
+   * @covers \Papaya\Response\Content\File::output
+   */
   public function testOutput() {
-    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
+    $content = new File(__DIR__.'/TestData/data.txt');
     ob_start();
     $content->output();
     $this->assertEquals('DATA', ob_get_clean());
   }
 
   /**
-  * @covers \Papaya\Response\Content\File::__toString
-  */
+   * @covers \Papaya\Response\Content\File::__toString
+   */
   public function testMagicMethodToString() {
-    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
+    $content = new File(__DIR__.'/TestData/data.txt');
     $this->assertEquals('DATA', (string)$content);
   }
 

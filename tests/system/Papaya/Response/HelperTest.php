@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaResponseHelperTest extends \PapayaTestCase {
+class HelperTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Response\Helper::headersSent
-  */
+   * @covers \Papaya\Response\Helper::headersSent
+   */
   public function testHeadersSent() {
-    $helper = new \Papaya\Response\Helper();
+    $helper = new Helper();
     $this->assertInternalType(
       'boolean',
       $helper->headersSent()
