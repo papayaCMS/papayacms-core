@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Reference;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiReferenceFactoryTest extends \PapayaTestCase {
+class FactoryTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Reference\Factory
+   * @covers       \Papaya\UI\Reference\Factory
    * @dataProvider provideStringsAndExpectedUrls
    * @param string $expected
    * @param string $string
    */
   public function testByString($expected, $string) {
-    $factory = new \Papaya\UI\Reference\Factory();
+    $factory = new Factory();
     $factory->papaya($this->mockPapaya()->application());
     $reference = $factory->byString($string);
     $this->assertEquals($expected, (string)$reference);

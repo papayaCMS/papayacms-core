@@ -13,25 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\URL;
+namespace Papaya\UI\Reference;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiReferenceMediaTest extends \PapayaTestCase {
+class MediaTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Reference\Media::create
-  */
+   * @covers \Papaya\UI\Reference\Media::create
+   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      \Papaya\UI\Reference\Media::class,
-      \Papaya\UI\Reference\Media::create()
+      Media::class,
+      Media::create()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::load
-  */
+   * @covers \Papaya\UI\Reference\Media::load
+   */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request $request */
     $request = $this->createMock(\Papaya\Request::class);
@@ -55,7 +55,7 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
       ->will(
         $this->returnValue(TRUE)
       );
-    $reference = new \Papaya\UI\Reference\Media();
+    $reference = new Media();
     $reference->load($request);
     $this->assertEquals(
       array(
@@ -71,21 +71,21 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::get
-  */
+   * @covers \Papaya\UI\Reference\Media::get
+   */
   public function testGetDefaultExpectingNull() {
-    $reference = new \Papaya\UI\Reference\Media();
+    $reference = new Media();
     $this->assertNull(
       $reference->get()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setMediaId
-  * @covers \Papaya\UI\Reference\Media::get
-  */
+   * @covers \Papaya\UI\Reference\Media::setMediaId
+   * @covers \Papaya\UI\Reference\Media::get
+   */
   public function testSetMediaId() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaId('012345678901234567890123456789ab')
@@ -108,10 +108,10 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setMediaVersion
-  */
+   * @covers \Papaya\UI\Reference\Media::setMediaVersion
+   */
   public function testSetMediaVersion() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaVersion(23)
@@ -130,10 +130,10 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setTitle
-  */
+   * @covers \Papaya\UI\Reference\Media::setTitle
+   */
   public function testSetTitle() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setTitle('sample')
@@ -152,13 +152,13 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Reference\Media::setMode
+   * @covers       \Papaya\UI\Reference\Media::setMode
    * @dataProvider setModeDataProvider
    * @param string $mode
    * @param array $expected
    */
   public function testSetMode($mode, $expected) {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMode($mode)
@@ -177,10 +177,10 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setExtension
-  */
+   * @covers \Papaya\UI\Reference\Media::setExtension
+   */
   public function testSetExtension() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setExtension('mp3')
@@ -199,11 +199,11 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setMediaUri
-  * @covers \Papaya\UI\Reference\Media::get
-  */
+   * @covers \Papaya\UI\Reference\Media::setMediaUri
+   * @covers \Papaya\UI\Reference\Media::get
+   */
   public function testSetMediaUri() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
       $reference->setMediaUri('012345678901234567890123456789abv23.png')
@@ -226,11 +226,11 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Reference\Media::setPreview
-  * @covers \Papaya\UI\Reference\Media::get
-  */
+   * @covers \Papaya\UI\Reference\Media::setPreview
+   * @covers \Papaya\UI\Reference\Media::get
+   */
   public function testSetPreview() {
-    $reference = new \Papaya\UI\Reference\Media($this->getUrlObjectMockFixture());
+    $reference = new Media($this->getUrlObjectMockFixture());
     $reference->setMediaUri('012345678901234567890123456789abv23.png');
     $this->assertSame(
       $reference,
@@ -255,11 +255,11 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
 
 
   /**********************************
-  * Fixtures
-  **********************************/
+   * Fixtures
+   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->createMock(URL::class);
+    $url = $this->createMock(\Papaya\URL::class);
     $url
       ->expects($this->any())
       ->method('getHostUrl')
@@ -268,8 +268,8 @@ class PapayaUiReferenceMediaTest extends \PapayaTestCase {
   }
 
   /**********************************
-  * Data Provider
-  **********************************/
+   * Data Provider
+   **********************************/
 
   public static function setModeDataProvider() {
     return array(
