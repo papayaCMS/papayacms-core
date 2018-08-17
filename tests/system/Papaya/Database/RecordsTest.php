@@ -22,13 +22,15 @@
  *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
- */ /** @noinspection PhpIllegalArrayKeyTypeInspection */
+ */
+
+ /** @noinspection PhpIllegalArrayKeyTypeInspection */
 
 namespace Papaya\Database {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class PapayaDatabaseRecordsTest extends \Papaya\TestCase {
+  class RecordsTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Database\Records::load

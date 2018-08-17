@@ -20,12 +20,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class AbsoluteTest extends \Papaya\TestCase {
 
   /**
-   * get mock for \Papaya\PapayaUrl from url string
+   * get mock for \Papaya\URL from url string
    *
    * @param string $url
    * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\URL
    */
-  public function getPapayaUrlMockFixture($url) {
+  private function getURLMockFixture($url) {
     $mapping = array(
       'getScheme' => 'scheme',
       'getUser' => 'user',
@@ -75,7 +75,7 @@ class AbsoluteTest extends \Papaya\TestCase {
     $this->assertSame(
       $expected,
       $transformer->transform(
-        $this->getPapayaUrlMockFixture($currentUrl),
+        $this->getURLMockFixture($currentUrl),
         $targetPath
       )
     );

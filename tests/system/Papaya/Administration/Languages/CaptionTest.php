@@ -17,7 +17,7 @@ namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesCaptionTest extends \Papaya\TestCase {
+class CaptionTest extends \Papaya\TestCase {
 
   /**
    * @covers Caption

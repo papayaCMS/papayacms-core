@@ -347,7 +347,7 @@ class LoaderTest extends \Papaya\TestCase {
    * @covers \Papaya\Plugin\Loader
    */
   public function testGetWithAutloaderPrefix() {
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->any())
@@ -379,16 +379,16 @@ class LoaderTest extends \Papaya\TestCase {
         '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
       ),
       '_paths',
-      \PapayaAutoloader::class
+      \Papaya\Autoloader::class
     );
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
   /**
    * @covers \Papaya\Plugin\Loader
    */
-  public function testGetWithAutloaderClassmap() {
-    \PapayaAutoloader::clear();
+  public function testGetWithAutoloaderClassmap() {
+    \Papaya\Autoloader::clear();
     $loader = new Loader();
     $loader->plugins(
       $this->getPluginListFixture(
@@ -403,7 +403,7 @@ class LoaderTest extends \Papaya\TestCase {
       )
     );
     $this->assertInstanceOf('PluginLoader_SampleClass', $loader->get('123'));
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
 
@@ -441,7 +441,7 @@ class LoaderTest extends \Papaya\TestCase {
    * @covers \Papaya\Plugin\Loader
    */
   public function testGetFileName() {
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
     $loader = new Loader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -463,16 +463,16 @@ class LoaderTest extends \Papaya\TestCase {
         '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
       ),
       '_paths',
-      \PapayaAutoloader::class
+      \Papaya\Autoloader::class
     );
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
   /**
    * @covers \Papaya\Plugin\Loader
    */
   public function testGetFileNameFromClassmap() {
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
     $loader = new Loader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -489,14 +489,14 @@ class LoaderTest extends \Papaya\TestCase {
     $this->assertEquals(
       $path.'SampleClass.php', $loader->getFileName('123')
     );
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
   /**
    * @covers \Papaya\Plugin\Loader
    */
   public function testGetFileNameWithPathFromOptions() {
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
     $loader = new Loader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -519,14 +519,14 @@ class LoaderTest extends \Papaya\TestCase {
     $this->assertEquals(
       '/foo/bar/modules/sample/path/sample.php', $loader->getFileName('123')
     );
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
   /**
    * @covers \Papaya\Plugin\Loader
    */
   public function testGetFileNameWithComposerPath() {
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
     $loader = new Loader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -543,7 +543,7 @@ class LoaderTest extends \Papaya\TestCase {
     $this->assertStringEndsWith(
       '/vendor/sample/path/sample.php', $loader->getFileName('123')
     );
-    \PapayaAutoloader::clear();
+    \Papaya\Autoloader::clear();
   }
 
   /**

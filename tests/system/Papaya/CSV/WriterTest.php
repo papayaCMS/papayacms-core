@@ -17,7 +17,7 @@ namespace Papaya\CSV;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCsvWriterTest extends \Papaya\TestCase {
+class WriterTest extends \Papaya\TestCase {
 
   /**
    * @covers Writer::__construct

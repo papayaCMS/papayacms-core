@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class PapayaFilterExceptionLengthTest extends \Papaya\TestCase {
+  class LengthTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Filter\Exception\InvalidLength::__construct

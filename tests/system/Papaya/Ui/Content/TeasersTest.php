@@ -88,7 +88,7 @@ namespace Papaya\UI\Content {
           array(
             'id' => 42,
             'language_id' => 1,
-            'title' => 'implementing Papaya\Plugin\PapayaPluginQuoteable',
+            'title' => 'implementing Papaya\Plugin\Quoteable',
             'module_guid' => '12345678901234567890123456789042',
             'content' => 'data',
             'created' => strtotime('2017-01-16T12:21Z'),

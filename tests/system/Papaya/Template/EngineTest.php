@@ -17,7 +17,7 @@ namespace Papaya\Template {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class PapayaTemplateEngineTest extends \Papaya\TestCase {
+  class EngineTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Template\Engine::parameters
@@ -184,7 +184,7 @@ namespace Papaya\Template {
     /**
      * @covers \Papaya\Template\Engine::values
      */
-    public function testValuesSetterWithPapayaXmlElement() {
+    public function testValuesSetterWithXMLElement() {
       $document = new \Papaya\XML\Document();
       $node = $document->appendElement('test');
       $engine = new Engine_TestProxy();

@@ -26,7 +26,7 @@ namespace Papaya\Plugin {
     public function testConstructorAndGetContent() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
-      $editor = new PapayaPluginEditor_TestProxy($content);
+      $editor = new Editor_TestProxy($content);
       $this->assertSame($content, $editor->getData());
     }
 
@@ -36,7 +36,7 @@ namespace Papaya\Plugin {
     public function testContextGetAfterSet() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
-      $editor = new PapayaPluginEditor_TestProxy($content);
+      $editor = new Editor_TestProxy($content);
       $editor->context($context = $this->createMock(\Papaya\Request\Parameters::class));
       $this->assertSame($context, $editor->context());
     }
@@ -47,13 +47,13 @@ namespace Papaya\Plugin {
     public function testContextGetImplicitCreate() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
-      $editor = new PapayaPluginEditor_TestProxy($content);
+      $editor = new Editor_TestProxy($content);
       $this->assertInstanceOf(\Papaya\Request\Parameters::class, $editor->context());
     }
 
   }
 
-  class PapayaPluginEditor_TestProxy extends Editor {
+  class Editor_TestProxy extends Editor {
 
     public function appendTo(\Papaya\XML\Element $parent) {
 

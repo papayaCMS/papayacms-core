@@ -181,7 +181,7 @@ class CheckboxTest extends \Papaya\TestCase {
   }
 
   /**
-   * @coversPapayaUiDialogFieldInputCheckbox::getCurrentValue
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getCurrentValue
    * @dataProvider provideCheckboxValues
    * @param mixed $expected
    * @param mixed $default

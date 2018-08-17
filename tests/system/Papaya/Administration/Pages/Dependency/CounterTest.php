@@ -17,7 +17,7 @@ namespace Papaya\Administration\Pages\Dependency {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class PapayaAdministrationPagesDependencyCounterTest extends \Papaya\TestCase {
+  class CounterTest extends \Papaya\TestCase {
 
     /**
      * @covers Counter::__construct

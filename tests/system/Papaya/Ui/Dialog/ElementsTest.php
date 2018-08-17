@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class PapayaUiDialogElementsTest extends \Papaya\TestCase {
+  class ElementsTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Elements::__construct

@@ -96,7 +96,7 @@ namespace Papaya\BaseObject {
      * @covers \Papaya\BaseObject\Callbacks::__set
      * @covers \Papaya\BaseObject\Callbacks::validateName
      */
-    public function testGetAfterSetWithPapayaObjectCallbackObject() {
+    public function testGetAfterSetWithCallbackObject() {
       $callback = $this->createMock(Callback::class);
       $list = new Callbacks_TestProxy(array('sample' => 23));
       $list->sample = $callback;
@@ -129,7 +129,7 @@ namespace Papaya\BaseObject {
     /**
      * @covers \Papaya\BaseObject\Callbacks::__unset
      */
-    public function testUnsetCreatesNewPapayaObjectCallbackObject() {
+    public function testUnsetCreatesNewCallbackObject() {
       $list = new Callbacks_TestProxy(array('sample' => 23));
       $list->sample = 'substr';
       unset($list->sample);

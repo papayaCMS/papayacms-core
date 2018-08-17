@@ -15,6 +15,8 @@
 
 namespace Papaya\UI {
 
+  require_once __DIR__.'/../../../bootstrap.php';
+
   class TokensTest extends \Papaya\TestCase {
 
     /**
@@ -42,7 +44,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::storeTokens
      */
     public function testCreate() {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array(
@@ -120,7 +122,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::create
      */
     public function testCreateTriggeringCleanup() {
-      $tokens = new \PapayaUiTokens_TestProxy(2);
+      $tokens = new Tokens_TestProxy(2);
       $tokens->papaya(
         $this->mockPapaya()->application(
           array(
@@ -148,7 +150,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::validate
      */
     public function testValidate() {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array(
@@ -183,7 +185,7 @@ namespace Papaya\UI {
      */
     public function testValidateWithTime() {
       $validTime = time() + 9999;
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array(
@@ -203,7 +205,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::validate
      */
     public function testValidateWithVerification() {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array(
@@ -224,7 +226,7 @@ namespace Papaya\UI {
      */
     public function testValidateWithInvalidTimeExpectingFalse() {
       $invalidTime = time() - 9999;
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array('Session' => $this->getSessionObjectFixture($tokens))
@@ -240,7 +242,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::validate
      */
     public function testValidateWithInvalidVerificationExpectingFalse() {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array('Session' => $this->getSessionObjectFixture($tokens))
@@ -256,7 +258,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::validate
      */
     public function testValidateWithInvalidTokenExpectingFalse() {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $tokens->papaya(
         $this->mockPapaya()->application(
           array('Session' => $this->getSessionObjectFixture($tokens))
@@ -272,7 +274,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::cleanup
      */
     public function testCleanupFirstItems() {
-      $tokens = new \PapayaUiTokens_TestProxy(2);
+      $tokens = new Tokens_TestProxy(2);
       $tokens->_tokens = array(
         'sample_token_one' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'),
         'sample_token_two' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e')
@@ -289,7 +291,7 @@ namespace Papaya\UI {
      * @covers \Papaya\UI\Tokens::cleanup
      */
     public function testCleanupOldItems() {
-      $tokens = new \PapayaUiTokens_TestProxy(2);
+      $tokens = new Tokens_TestProxy(2);
       $tokens->_tokens = array(
         'sample_token_one' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'),
         'sample_token_two' => array(time() - 9999, 'd41d8cd98f00b204e9800998ecf8427e')
@@ -309,7 +311,7 @@ namespace Papaya\UI {
      * @param mixed $for
      */
     public function testVerification($expected, $for) {
-      $tokens = new \PapayaUiTokens_TestProxy();
+      $tokens = new Tokens_TestProxy();
       $this->assertEquals(
         $expected, $tokens->getVerification($for)
       );
@@ -376,27 +378,8 @@ namespace Papaya\UI {
       return $session;
     }
   }
-}
 
-namespace {
-
-  /**
-   * papaya CMS
-   *
-   * @copyright 2000-2018 by papayaCMS project - All rights reserved.
-   * @link http://www.papaya-cms.com/
-   * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-   *
-   *  You can redistribute and/or modify this script under the terms of the GNU General Public
-   *  License (GPL) version 2, provided that the copyright and license notes, including these
-   *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-   *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   *  FOR A PARTICULAR PURPOSE.
-   */
-
-  require_once __DIR__.'/../../../bootstrap.php';
-
-  class PapayaUiTokens_TestProxy extends \Papaya\UI\Tokens {
+  class Tokens_TestProxy extends Tokens {
 
     public $_tokens;
 

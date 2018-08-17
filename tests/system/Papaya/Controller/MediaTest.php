@@ -35,7 +35,7 @@ namespace Papaya\Controller {
     'PAPAYA_MEDIADB_SUBDIRECTORIES'
   );
 
-  class PapayaControllerMediaTest extends \Papaya\TestCase {
+  class MediaTest extends \Papaya\TestCase {
 
     /**
      * @covers Media::execute

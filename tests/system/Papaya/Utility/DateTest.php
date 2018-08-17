@@ -63,7 +63,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * covers \Papaya\Utility\PapayaUtilDate::timestampToString
+   * @covers \Papaya\Utility\Date::timestampToString
    *
    * @dataProvider timestampToStringDataProvider
    * @param int $timestamp

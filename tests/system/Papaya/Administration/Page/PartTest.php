@@ -17,7 +17,7 @@ namespace Papaya\Administration\Page {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class PapayaAdministrationPagePartTest extends \Papaya\TestCase {
+  class PartTest extends \Papaya\TestCase {
 
     /**
      * @covers Part::appendTo

@@ -167,7 +167,7 @@ class ValueTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Template\Value::append
    */
-  public function testAppendWithPapayaXmlAppendable() {
+  public function testAppendWithXMLAppendable() {
     $appendable = $this->createMock(\Papaya\XML\Appendable::class);
     $appendable
       ->expects($this->once())

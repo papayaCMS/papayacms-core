@@ -23,9 +23,9 @@ namespace Papaya\Filter {
      * @covers \Papaya\Filter\Callback::__construct
      */
     public function testConstructor() {
-      $filter = new Callback('PapayaFilterCallbackTest_ValidateCallback');
+      $filter = new Callback('CallbackTest_ValidateCallback');
       $this->assertAttributeEquals(
-        'PapayaFilterCallbackTest_ValidateCallback', '_callback', $filter
+        'CallbackTest_ValidateCallback', '_callback', $filter
       );
     }
 
@@ -34,7 +34,7 @@ namespace Papaya\Filter {
      */
     public function testConstructorWithArgumentsArray() {
       $filter = new Callback(
-        'PapayaFilterCallbackTest_ValidateCallback', array('test')
+        'CallbackTest_ValidateCallback', array('test')
       );
       $this->assertAttributeEquals(
         array('test'), '_arguments', $filter

@@ -85,7 +85,7 @@ class ProfilerTest extends \Papaya\TestCase {
     $builder
       ->expects($this->once())
       ->method('papaya')
-      ->with($this->isInstanceOf(\PapayaApplication::class));
+      ->with($this->isInstanceOf(\Papaya\Application::class));
     $builder
       ->expects($this->once())
       ->method('createCollector')

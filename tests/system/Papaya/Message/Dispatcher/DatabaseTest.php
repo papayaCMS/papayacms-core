@@ -29,7 +29,7 @@ namespace Papaya\Message\Dispatcher {
     )
   );
 
-  class PapayaMessageDispatcherDatabaseTest extends \Papaya\TestCase {
+  class DatabaseTest extends \Papaya\TestCase {
 
     /**
      * @covers \Papaya\Message\Dispatcher\Database::dispatch

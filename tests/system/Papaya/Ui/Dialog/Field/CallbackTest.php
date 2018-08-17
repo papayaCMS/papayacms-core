@@ -70,9 +70,18 @@ class CallbackTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\UI\Dialog\Field\Callback
    */
-  public function testAppendToWithCallbackReturningPapayaXmlAppendable() {
+  public function testAppendToWithCallbackReturningXMLAppendable() {
     $xhtml = new Callback(
-      'Caption', 'name', array($this, 'callbackGetFieldPapayaXmlAppendable')
+      'Caption',
+      'name',
+      function() {
+        $result = $this->createMock(\Papaya\XML\Appendable::class);
+        $result
+          ->expects($this->once())
+          ->method('appendTo')
+          ->with($this->isInstanceOf(\Papaya\XML\Element::class));
+        return $result;
+      }
     );
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
@@ -89,14 +98,5 @@ class CallbackTest extends \Papaya\TestCase {
   public function callbackGetFieldDomElement() {
     $document = new \DOMDocument();
     return $document->createElement('select');
-  }
-
-  public function callbackGetFieldPapayaXmlAppendable() {
-    $result = $this->createMock(\Papaya\XML\Appendable::class);
-    $result
-      ->expects($this->once())
-      ->method('appendTo')
-      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
-    return $result;
   }
 }
