@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarGroupTest extends \PapayaTestCase {
+class GroupTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Toolbar\Group::__construct
-  */
+   * @covers \Papaya\UI\Toolbar\Group::__construct
+   */
   public function testConstructor() {
-    $group = new \Papaya\UI\Toolbar\Group('group caption');
+    $group = new Group('group caption');
     $this->assertEquals(
       'group caption', $group->caption
     );
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Group::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Group::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $group = new \Papaya\UI\Toolbar\Group('group caption');
+    $group = new Group('group caption');
     $elements = $this
-      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
+      ->getMockBuilder(Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
@@ -49,21 +50,21 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
     $group->elements($elements);
     $this->assertInstanceOf(\Papaya\XML\Element::class, $group->appendTo($document->documentElement));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<group title="group caption"/>',
       $document->documentElement->saveFragment()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Group::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Group::appendTo
+   */
   public function testAppendToWithoutElements() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $group = new \Papaya\UI\Toolbar\Group('group caption');
+    $group = new Group('group caption');
     $elements = $this
-      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
+      ->getMockBuilder(Elements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
@@ -73,7 +74,7 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
     $group->elements($elements);
     $this->assertNull($group->appendTo($document->documentElement));
     $this->assertXmlStringEqualsXmlString(
-       /** @lang XML */
+    /** @lang XML */
       '<sample/>',
       $document->documentElement->saveXML()
     );

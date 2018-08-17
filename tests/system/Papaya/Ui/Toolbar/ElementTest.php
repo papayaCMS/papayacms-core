@@ -13,42 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Toolbar {
 
-class PapayaUiToolbarElementTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Toolbar\Element::reference
-  */
-  public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\UI\Reference::class);
-    $button = new \PapayaUiToolbarElement_TestProxy();
-    $button->reference($reference);
-    $this->assertSame(
-      $reference, $button->reference()
-    );
+  class PapayaUiToolbarElementTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Toolbar\Element::reference
+     */
+    public function testReferenceGetAfterSet() {
+      $reference = $this->createMock(\Papaya\UI\Reference::class);
+      $button = new Element_TestProxy();
+      $button->reference($reference);
+      $this->assertSame(
+        $reference, $button->reference()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Toolbar\Element::reference
+     */
+    public function testReferenceGetImplicitCreate() {
+      $button = new Element_TestProxy();
+      $button->papaya(
+        $application = $this->mockPapaya()->application()
+      );
+      $this->assertInstanceOf(
+        \Papaya\UI\Reference::class, $button->reference()
+      );
+      $this->assertSame(
+        $application, $button->reference()->papaya()
+      );
+    }
+
   }
 
-  /**
-  * @covers \Papaya\UI\Toolbar\Element::reference
-  */
-  public function testReferenceGetImplicitCreate() {
-    $button = new \PapayaUiToolbarElement_TestProxy();
-    $button->papaya(
-      $application = $this->mockPapaya()->application()
-    );
-    $this->assertInstanceOf(
-      \Papaya\UI\Reference::class, $button->reference()
-    );
-    $this->assertSame(
-      $application, $button->reference()->papaya()
-    );
-  }
+  class Element_TestProxy extends Element {
 
-}
-
-class PapayaUiToolbarElement_TestProxy extends \Papaya\UI\Toolbar\Element {
-
-  public function appendTo(\Papaya\XML\Element $parent) {
+    public function appendTo(\Papaya\XML\Element $parent) {
+    }
   }
 }

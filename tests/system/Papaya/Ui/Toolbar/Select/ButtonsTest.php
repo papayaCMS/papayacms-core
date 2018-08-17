@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Toolbar\Select;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
+class ButtonsTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
+   */
   public function testAppendToWithCurrentValue() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
-    $select = new \Papaya\UI\Toolbar\Select\Buttons('foo', array(10 => '10', 20 => '20', 50 => '50'));
+    $select = new Buttons('foo', array(10 => '10', 20 => '20', 50 => '50'));
     $select->papaya($this->mockPapaya()->application());
     $select->currentValue = 20;
     $select->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <button href="http://www.test.tld/test.html?foo=10" title="10"/>
         <button href="http://www.test.tld/test.html?foo=20" title="20" down="down"/>
@@ -39,19 +40,19 @@ class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
+   */
   public function testAppendToWithAdditionalParameters() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
-    $select = new \Papaya\UI\Toolbar\Select\Buttons(
+    $select = new Buttons(
       'foo/size', array(10 => '10', 20 => '20', 50 => '50')
     );
     $select->papaya($this->mockPapaya()->application());
     $select->reference->setParameters(array('page' => 3), 'foo');
     $select->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <button href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10" title="10"/>
         <button href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=20" title="20"/>
@@ -62,7 +63,7 @@ class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
   }
 
   public function testAppendToWithImages() {
-    $select = new \Papaya\UI\Toolbar\Select\Buttons(
+    $select = new Buttons(
       'foo/size',
       array(
         'first' => array('caption' => 'First', 'image' => 'first-image'),

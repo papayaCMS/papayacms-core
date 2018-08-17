@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarButtonTest extends \PapayaTestCase {
+class ButtonTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Toolbar\Button::setAccessKey
-  */
+   * @covers \Papaya\UI\Toolbar\Button::setAccessKey
+   */
   public function testSetAccessKey() {
-    $button = new \Papaya\UI\Toolbar\Button();
+    $button = new Button();
     $button->accessKey = '1';
     $this->assertEquals(
       '1', $button->accessKey
@@ -29,22 +30,22 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Button::setAccessKey
-  */
+   * @covers \Papaya\UI\Toolbar\Button::setAccessKey
+   */
   public function testSetAccessKeyWithInvalidKeyExpectingException() {
-    $button = new \Papaya\UI\Toolbar\Button();
+    $button = new Button();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Access key must be an single character.');
     $button->accessKey = 'foo';
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Button::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Button::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
-    $button = new \Papaya\UI\Toolbar\Button();
+    $button = new Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -52,7 +53,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
     $button->image = 'image';
     $button->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <button href="http://www.test.tld/test.html" target="_self"
            glyph="sample.png" title="Test"/>
@@ -62,12 +63,12 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Button::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Button::appendTo
+   */
   public function testAppendToWithAllProperties() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
-    $button = new \Papaya\UI\Toolbar\Button();
+    $button = new Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -79,7 +80,7 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
     $button->target = '_top';
     $button->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <button href="http://www.test.tld/test.html" target="_top" glyph="sample.png"
            title="Test Caption" accesskey="T" hint="Test Hint" down="down"/>
@@ -89,18 +90,19 @@ class PapayaUiToolbarButtonTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar\Button::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar\Button::appendTo
+   */
   public function testAppendToWithoutProperties() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
-    $button = new \Papaya\UI\Toolbar\Button();
+    $button = new Button();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('' => '')))
     );
     $button->appendTo($document->documentElement);
     $this->assertEquals(
-    /** @lang XML */'<sample/>',
+    /** @lang XML */
+      '<sample/>',
       $document->saveXML($document->documentElement)
     );
   }
