@@ -33,7 +33,7 @@ class Messages implements \Papaya\Application\Profile {
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Template());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Database());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Wildfire());
-    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Xhtml());
+    $messages->addDispatcher(new \Papaya\Message\Dispatcher\XHTML());
     return $messages;
   }
 }

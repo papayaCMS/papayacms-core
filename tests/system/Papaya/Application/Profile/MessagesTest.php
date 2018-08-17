@@ -39,7 +39,7 @@ class MessagesTest extends \Papaya\TestCase {
       \Papaya\Message\Dispatcher\Wildfire::class, $dispatchers[2]
     );
     $this->assertInstanceOf(
-      \Papaya\Message\Dispatcher\Xhtml::class, $dispatchers[3]
+      \Papaya\Message\Dispatcher\XHTML::class, $dispatchers[3]
     );
   }
 }

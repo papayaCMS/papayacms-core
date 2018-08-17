@@ -19,19 +19,19 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class XhtmlTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::dispatch
+   * @covers \Papaya\Message\Dispatcher\XHTML::dispatch
    */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
     $message = $this->createMock(\Papaya\Message::class);
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $this->assertFalse(
       $dispatcher->dispatch($message)
     );
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::dispatch
+   * @covers \Papaya\Message\Dispatcher\XHTML::dispatch
    */
   public function testDispatch() {
     $context = $this->createMock(\Papaya\Message\Context\Interfaces\Xhtml::class);
@@ -53,7 +53,7 @@ class XhtmlTest extends \Papaya\TestCase {
       ->expects($this->any())
       ->method('context')
       ->will($this->returnValue($context));
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(TRUE, TRUE)
     );
@@ -69,12 +69,12 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::allow
+   * @covers \Papaya\Message\Dispatcher\XHTML::allow
    */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
     $message = $this->createMock(\Papaya\Message\Logable::class);
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)
     );
@@ -84,10 +84,10 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::outputClosers
+   * @covers \Papaya\Message\Dispatcher\XHTML::outputClosers
    */
   public function testOutputClosers() {
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, TRUE)
     );
@@ -100,10 +100,10 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::outputClosers
+   * @covers \Papaya\Message\Dispatcher\XHTML::outputClosers
    */
   public function testOutputClosersWithOptionDisabled() {
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)
     );
@@ -116,10 +116,10 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::getHeaderOptionsFromType
+   * @covers \Papaya\Message\Dispatcher\XHTML::getHeaderOptionsFromType
    */
   public function testGetHeaderOptionsFromType() {
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $this->assertContains(
       'Warning',
       $dispatcher->getHeaderOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
@@ -127,10 +127,10 @@ class XhtmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\Xhtml::getHeaderOptionsFromType
+   * @covers \Papaya\Message\Dispatcher\XHTML::getHeaderOptionsFromType
    */
   public function testGetHeaderOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
-    $dispatcher = new Xhtml();
+    $dispatcher = new XHTML();
     $this->assertContains(
       'Error',
       $dispatcher->getHeaderOptionsFromType(99999)

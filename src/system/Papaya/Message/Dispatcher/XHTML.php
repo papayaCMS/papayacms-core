@@ -22,7 +22,7 @@ namespace Papaya\Message\Dispatcher;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Xhtml
+class XHTML
   extends \Papaya\Application\BaseObject
   implements \Papaya\Message\Dispatcher {
 
