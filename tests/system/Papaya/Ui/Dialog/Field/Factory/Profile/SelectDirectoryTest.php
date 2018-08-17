@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCase {
+class SelectDirectoryTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectDirectory
@@ -35,7 +36,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCa
         'context' => $context
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectDirectory();
+    $profile = new SelectDirectory();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());

@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileTextareaTest extends \PapayaTestCase {
+class TextareaTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Textarea::getField
@@ -23,12 +24,12 @@ class PapayaUiDialogFieldFactoryProfileTextareaTest extends \PapayaTestCase {
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'textareafield',
+        'name' => 'textarea_field',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Textarea();
+    $profile = new Textarea();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Textarea::class, $field = $profile->getField());
   }
@@ -39,13 +40,13 @@ class PapayaUiDialogFieldFactoryProfileTextareaTest extends \PapayaTestCase {
   public function testGetFieldDisabled() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'textareafield',
+        'name' => 'textarea_field',
         'caption' => 'Input',
         'default' => 'some value',
         'disabled' => TRUE
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Textarea();
+    $profile = new Textarea();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertTrue($field->getDisabled());
@@ -57,13 +58,13 @@ class PapayaUiDialogFieldFactoryProfileTextareaTest extends \PapayaTestCase {
   public function testGetFieldWithHint() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'textareafield',
+        'name' => 'textarea_field',
         'caption' => 'Input',
         'default' => 'some value',
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Textarea();
+    $profile = new Textarea();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

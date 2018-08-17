@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends \PapayaTestCase {
+class SelectCheckboxesTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectRadio::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectCheckboxes::createField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
@@ -29,8 +30,8 @@ class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectRadio();
+    $profile = new SelectCheckboxes();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Radio::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Checkboxes::class, $field = $profile->getField());
   }
 }

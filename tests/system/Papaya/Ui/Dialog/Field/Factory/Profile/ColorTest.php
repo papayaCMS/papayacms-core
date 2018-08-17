@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileColorTest extends \PapayaTestCase {
+class ColorTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Color
@@ -28,7 +29,7 @@ class PapayaUiDialogFieldFactoryProfileColorTest extends \PapayaTestCase {
         'default' => '#FFF'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Color();
+    $profile = new Color();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Color::class, $profile->getField());
   }

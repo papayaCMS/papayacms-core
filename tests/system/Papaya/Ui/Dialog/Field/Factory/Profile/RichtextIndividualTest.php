@@ -13,22 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputMediaFileTest extends \PapayaTestCase {
+class RichtextIndividualTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaFile::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\RichtextIndividual::getField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'inputfield',
-        'caption' => 'Input'
+        'name' => 'rtefield',
+        'caption' => 'Richtext',
+        'default' => 'some value'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaFile();
+    $profile = new RichtextIndividual();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\File::class, $field = $profile->getField());
+    $this->assertInstanceOf(
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::class, $field = $profile->getField()
+    );
+    $this->assertEquals(
+      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_INDIVIDUAL,
+      $field->getRteMode()
+    );
   }
 }

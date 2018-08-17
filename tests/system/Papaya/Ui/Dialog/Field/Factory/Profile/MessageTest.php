@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileMessageTest extends \PapayaTestCase {
+class MessageTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Message::getField
@@ -27,7 +28,7 @@ class PapayaUiDialogFieldFactoryProfileMessageTest extends \PapayaTestCase {
         'parameters' => \Papaya\Message::SEVERITY_INFO
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Message();
+    $profile = new Message();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Message::class, $field = $profile->getField());
   }

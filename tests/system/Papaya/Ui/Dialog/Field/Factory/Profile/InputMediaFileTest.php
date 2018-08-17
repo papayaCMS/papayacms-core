@@ -13,24 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectBooleanTest extends \PapayaTestCase {
+class InputMediaFileTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectBoolean::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaFile::getField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
-        'caption' => 'Input',
-        'default' => 0
+        'caption' => 'Input'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectBoolean();
+    $profile = new InputMediaFile();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Radio::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\Papaya\UI\Text\Translated\Collection::class, '_values', $field);
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\File::class, $field = $profile->getField());
   }
 }

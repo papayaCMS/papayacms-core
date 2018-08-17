@@ -13,24 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectCheckboxesTest extends \PapayaTestCase {
+class InputMediaImageResizedTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectCheckboxes::createField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImageResized::getField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
-        'caption' => 'Input',
-        'default' => 0,
-        'parameters' => array('foo', 'bar')
+        'caption' => 'Input'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectCheckboxes();
+    $profile = new InputMediaImageResized();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Checkboxes::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\ImageResized::class, $field = $profile->getField());
   }
 }

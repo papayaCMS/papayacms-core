@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputMediaImageResizedTest extends \PapayaTestCase {
+class SelectMediaFolderTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImageResized::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectMediaFolder::createField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'inputfield',
-        'caption' => 'Input'
+        'name' => 'mediafolder',
+        'caption' => 'Folder'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImageResized();
+
+    $profile = new SelectMediaFolder();
     $profile->options($options);
-    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\ImageResized::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Media\Folder::class, $profile->getField());
   }
 }

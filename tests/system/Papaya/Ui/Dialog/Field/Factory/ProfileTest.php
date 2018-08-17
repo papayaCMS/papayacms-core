@@ -13,37 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory {
 
-class PapayaUiDialogFieldFactoryProfileTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../../../bootstrap.php';
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile::options
-   */
-  public function testOptionsGetAfterSet() {
-    $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
-    $profile->options($options = $this->createMock(\Papaya\UI\Dialog\Field\Factory\Options::class));
-    $this->assertSame(
-      $options,
-      $profile->options()
-    );
+  class ProfileTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Dialog\Field\Factory\Profile::options
+     */
+    public function testOptionsGetAfterSet() {
+      $profile = new Profile_TestProxy();
+      $profile->options($options = $this->createMock(Options::class));
+      $this->assertSame(
+        $options,
+        $profile->options()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Dialog\Field\Factory\Profile::options
+     */
+    public function testOptionsGetImplicitCreate() {
+      $profile = new Profile_TestProxy();
+      $this->assertInstanceOf(
+        Options::class,
+        $profile->options()
+      );
+    }
+
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile::options
-   */
-  public function testOptionsGetImplicitCreate() {
-    $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
-    $this->assertInstanceOf(
-      \Papaya\UI\Dialog\Field\Factory\Options::class,
-      $profile->options()
-    );
-  }
+  class Profile_TestProxy extends Profile {
 
-}
-
-class PapayaUiDialogFieldFactoryProfile_TestProxy extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
-  public function getField() {
+    public function getField() {
+    }
   }
 }

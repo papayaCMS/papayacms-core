@@ -13,29 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileRichtextIndividualTest extends \PapayaTestCase {
+class SelectRadioTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\RichtextIndividual::getField
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\SelectRadio::createField
    */
   public function testGetField() {
     $options = new \Papaya\UI\Dialog\Field\Factory\Options(
       array(
-        'name' => 'rtefield',
-        'caption' => 'Richtext',
-        'default' => 'some value'
+        'name' => 'inputfield',
+        'caption' => 'Input',
+        'default' => 0,
+        'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\RichtextIndividual();
+    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\SelectRadio();
     $profile->options($options);
-    $this->assertInstanceOf(
-      \Papaya\UI\Dialog\Field\Textarea\Richtext::class, $field = $profile->getField()
-    );
-    $this->assertEquals(
-      \Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_INDIVIDUAL,
-      $field->getRteMode()
-    );
+    $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Radio::class, $field = $profile->getField());
   }
 }

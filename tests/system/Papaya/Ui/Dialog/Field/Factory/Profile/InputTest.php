@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
+class InputTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Input::getField
@@ -28,7 +29,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
         'default' => 'some value'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Input();
+    $profile = new Input();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input::class, $field = $profile->getField());
   }
@@ -45,7 +46,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
         'disabled' => TRUE
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Input();
+    $profile = new Input();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertTrue($field->getDisabled());
@@ -63,7 +64,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Input();
+    $profile = new Input();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

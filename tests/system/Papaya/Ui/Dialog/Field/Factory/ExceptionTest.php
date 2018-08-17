@@ -13,22 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory {
 
-class PapayaUiDialogFieldFactoryExceptionTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../../../../bootstrap.php';
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Factory\Exception
-   */
-  public function testThrowException() {
-    $this->expectException(\Papaya\UI\Dialog\Field\Factory\Exception::class);
-    throw new \PapayaUiDialogFieldFactoryException_TestProxy('Test');
+  class PapayaUiDialogFieldFactoryExceptionTest extends \PapayaTestCase {
+
+    /**
+     * @covers \Papaya\UI\Dialog\Field\Factory\Exception
+     */
+    public function testThrowException() {
+      $this->expectException(Exception::class);
+      throw new Exception_TestProxy('Test');
+    }
+
   }
 
-}
+  class Exception_TestProxy extends Exception {
 
-class PapayaUiDialogFieldFactoryException_TestProxy extends \Papaya\UI\Dialog\Field\Factory\Exception {
-
-  public function getFilter() {
+    public function getFilter() {
+    }
   }
 }

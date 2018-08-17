@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
+class SelectTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Select::getField
@@ -30,7 +31,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Select();
+    $profile = new Select();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
   }
@@ -48,7 +49,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => NULL
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Select();
+    $profile = new Select();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
   }
@@ -67,7 +68,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Select();
+    $profile = new Select();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

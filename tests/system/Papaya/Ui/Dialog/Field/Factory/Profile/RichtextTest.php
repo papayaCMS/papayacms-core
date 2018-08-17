@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
+class RichtextTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Richtext::getField
@@ -28,7 +29,7 @@ class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
         'default' => 'some value'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Richtext();
+    $profile = new Richtext();
     $profile->options($options);
     $this->assertInstanceOf(
       \Papaya\UI\Dialog\Field\Textarea\Richtext::class, $field = $profile->getField()
@@ -50,7 +51,7 @@ class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
         'hint' => 'Richtext Hint'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Richtext();
+    $profile = new Richtext();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertEquals(

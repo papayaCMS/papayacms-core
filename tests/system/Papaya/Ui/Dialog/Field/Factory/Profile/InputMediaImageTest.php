@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
+require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputMediaImageTest extends \PapayaTestCase {
+class InputMediaImageTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImage::getField
@@ -27,7 +28,7 @@ class PapayaUiDialogFieldFactoryProfileInputMediaImageTest extends \PapayaTestCa
         'caption' => 'Input'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\InputMediaImage();
+    $profile = new InputMediaImage();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Media\Image::class, $field = $profile->getField());
   }

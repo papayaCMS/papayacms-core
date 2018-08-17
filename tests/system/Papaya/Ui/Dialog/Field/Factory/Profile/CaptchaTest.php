@@ -13,9 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileCaptchaTest extends \PapayaTestCase {
+class CaptchaTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\Captcha
@@ -27,7 +28,7 @@ class PapayaUiDialogFieldFactoryProfileCaptchaTest extends \PapayaTestCase {
         'caption' => 'Captcha'
       )
     );
-    $profile = new \Papaya\UI\Dialog\Field\Factory\Profile\Captcha();
+    $profile = new Captcha();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Input\Captcha::class, $field = $profile->getField());
   }
