@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI\Dialog\Field\Date;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldDateRangeTest extends \PapayaTestCase {
+class RangeTest extends \PapayaTestCase {
 
   public function testAppendTo() {
-    $field = new \Papaya\UI\Dialog\Field\Date\Range('Caption', 'name');
+    $field = new Range('Caption', 'name');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<field caption="Caption" class="DialogFieldDateRange" data-include-time="false" error="no">
         <group data-selected-page="fromTo">
           <labels/>
