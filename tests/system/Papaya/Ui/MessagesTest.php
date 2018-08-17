@@ -13,36 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiMessagesTest extends \PapayaTestCase {
+class MessagesTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \Papaya\UI\Messages::__construct
-  * @covers \Papaya\UI\Messages::appendTo
-  * @covers \Papaya\UI\Messages::getXML
-  */
+   * @covers \Papaya\UI\Messages::__construct
+   * @covers \Papaya\UI\Messages::appendTo
+   * @covers \Papaya\UI\Messages::getXML
+   */
   public function testAppendTo() {
     $message = $this
-      ->getMockBuilder(\Papaya\UI\Message::class)
+      ->getMockBuilder(Message::class)
       ->disableOriginalConstructor()
       ->getMock();
     $message
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
-    $messages = new \Papaya\UI\Messages;
+    $messages = new Messages;
     $messages[] = $message;
     $this->assertEquals(
-    /** @lang XML */'<messages/>',
+    /** @lang XML */
+      '<messages/>',
       $messages->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Messages::appendTo
-  */
+   * @covers \Papaya\UI\Messages::appendTo
+   */
   public function testAppendToWithoutElements() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Element $parent */
     $parent = $this
@@ -52,17 +54,17 @@ class PapayaUiMessagesTest extends \PapayaTestCase {
     $parent
       ->expects($this->never())
       ->method('appendTo');
-    $messages = new \Papaya\UI\Messages;
+    $messages = new Messages;
     $this->assertNull(
       $messages->appendTo($parent)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Messages::getXML
-  */
+   * @covers \Papaya\UI\Messages::getXML
+   */
   public function testgetXmlWithoutElements() {
-    $messages = new \Papaya\UI\Messages;
+    $messages = new Messages;
     $this->assertEquals(
       '', $messages->getXML()
     );

@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiIconTest extends \PapayaTestCase {
+class IconTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Icon::__construct
-  */
-  public function testContructor() {
-    $icon = new \Papaya\UI\Icon('sample');
+   * @covers \Papaya\UI\Icon::__construct
+   */
+  public function testConstructor() {
+    $icon = new Icon('sample');
     $this->assertAttributeEquals(
       'sample', '_image', $icon
     );
   }
 
   /**
-  * @covers \Papaya\UI\Icon::__construct
-  */
-  public function testContructorWithAllArguments() {
-    $icon = new \Papaya\UI\Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
+   * @covers \Papaya\UI\Icon::__construct
+   */
+  public function testConstructorWithAllArguments() {
+    $icon = new Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
     $this->assertAttributeEquals(
       'caption', '_caption', $icon
     );
@@ -44,10 +45,10 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::__toString
-  */
+   * @covers \Papaya\UI\Icon::__toString
+   */
   public function testMagicMethodToString() {
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
@@ -57,52 +58,52 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::appendTo
-  */
+   * @covers \Papaya\UI\Icon::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
     $icon->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><glyph src="sample.png"/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Icon::appendTo
-  */
+   * @covers \Papaya\UI\Icon::appendTo
+   */
   public function testAppendToWithHiddenIcon() {
     $document = new \Papaya\XML\Document();
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
     $icon->visible = FALSE;
     $icon->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><glyph src="-"/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Icon::appendTo
-  */
+   * @covers \Papaya\UI\Icon::appendTo
+   */
   public function testAppendToWithLink() {
     $document = new \Papaya\XML\Document();
-    $icon = new \Papaya\UI\Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
+    $icon = new Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
     $icon->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample>
         <glyph src="sample.png" caption="caption" hint="hint"
          href="http://www.test.tld/test.html?foo=bar"/>
@@ -112,10 +113,10 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getImageURL
-  */
+   * @covers \Papaya\UI\Icon::getImageURL
+   */
   public function testGetImageUrl() {
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
@@ -125,10 +126,10 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getURL
-  */
+   * @covers \Papaya\UI\Icon::getURL
+   */
   public function testGetUrl() {
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application()
     );
@@ -136,10 +137,10 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::getURL
-  */
+   * @covers \Papaya\UI\Icon::getURL
+   */
   public function testGetUrlWithActionParameters() {
-    $icon = new \Papaya\UI\Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
+    $icon = new Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
     $icon->papaya(
       $this->mockPapaya()->application()
     );
@@ -149,26 +150,26 @@ class PapayaUiIconTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Icon::reference
-  */
+   * @covers \Papaya\UI\Icon::reference
+   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\UI\Reference::class);
-    $icon = new \Papaya\UI\Icon('sample');
+    $reference = $this->createMock(Reference::class);
+    $icon = new Icon('sample');
     $this->assertSame(
       $reference, $icon->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Icon::reference
-  */
+   * @covers \Papaya\UI\Icon::reference
+   */
   public function testReferenceGetImplicitCreate() {
-    $icon = new \Papaya\UI\Icon('sample');
+    $icon = new Icon('sample');
     $icon->papaya(
       $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      \Papaya\UI\Reference::class, $icon->reference()
+      Reference::class, $icon->reference()
     );
   }
 }

@@ -13,65 +13,69 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\UI {
 
-class PapayaUiControlTest extends \PapayaTestCase {
+  require_once __DIR__.'/../../../bootstrap.php';
 
-  /**
-  * @covers \Papaya\UI\Control::getXML
-  */
-  public function testGetXml() {
-    $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\XML\Document;
-    $control->nodeStub = array(
-      $document->appendElement('sample')
-    );
-    $this->assertEquals(
-    /** @lang XML */'<sample/>', $control->getXML()
-    );
-  }
+  class ControlTest extends \PapayaTestCase {
 
-  /**
-  * @covers \Papaya\UI\Control::getXML
-  */
-  public function testGetXmlWithTextNode() {
-    $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\XML\Document;
-    $control->nodeStub = array(
-      $document->createTextNode('sample')
-    );
-    $this->assertEquals(
-      'sample', $control->getXML()
-    );
-  }
-
-  /**
-  * @covers \Papaya\UI\Control::getXML
-  */
-  public function testGetXmlWithSeveralNodes() {
-    $control = new \PapayaUiControl_TestProxy();
-    $document = new \Papaya\XML\Document;
-    $control->nodeStub = array(
-      $document->createTextNode('sample'),
-      $document->createElement('sample'),
-      $document->createComment('comment')
-    );
-    $this->assertEquals(
-      // language=XML prefix=<fragment> suffix=</fragment>
-      'sample<sample/><!--comment-->', $control->getXML()
-    );
-  }
-}
-
-class PapayaUiControl_TestProxy extends \Papaya\UI\Control {
-
-  public $nodeStub = array();
-
-  public function appendTo(\Papaya\XML\Element $parent) {
-    foreach ($this->nodeStub as $node) {
-      $parent->appendChild(
-        $parent->ownerDocument->importNode($node)
+    /**
+     * @covers \Papaya\UI\Control::getXML
+     */
+    public function testGetXml() {
+      $control = new Control_TestProxy();
+      $document = new \Papaya\XML\Document;
+      $control->nodeStub = array(
+        $document->appendElement('sample')
       );
+      $this->assertEquals(
+      /** @lang XML */
+        '<sample/>', $control->getXML()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control::getXML
+     */
+    public function testGetXmlWithTextNode() {
+      $control = new Control_TestProxy();
+      $document = new \Papaya\XML\Document;
+      $control->nodeStub = array(
+        $document->createTextNode('sample')
+      );
+      $this->assertEquals(
+        'sample', $control->getXML()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Control::getXML
+     */
+    public function testGetXmlWithSeveralNodes() {
+      $control = new Control_TestProxy();
+      $document = new \Papaya\XML\Document;
+      $control->nodeStub = array(
+        $document->createTextNode('sample'),
+        $document->createElement('sample'),
+        $document->createComment('comment')
+      );
+      $this->assertEquals(
+      // language=XML prefix=<fragment> suffix=</fragment>
+        'sample<sample/><!--comment-->', $control->getXML()
+      );
+    }
+  }
+
+  class Control_TestProxy extends Control {
+
+    public $nodeStub = array();
+
+    public function appendTo(\Papaya\XML\Element $parent) {
+      foreach ($this->nodeStub as $node) {
+        $parent->appendChild(
+          $parent->ownerDocument->importNode($node)
+        );
+      }
     }
   }
 }

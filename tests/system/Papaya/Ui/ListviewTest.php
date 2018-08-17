@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiListviewTest extends \PapayaTestCase {
+class ListviewTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Listview::appendTo
-  */
+   * @covers \Papaya\UI\Listview::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Listview\Items::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $items
@@ -34,7 +35,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $listview->items($items);
     $columns = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
+      ->getMockBuilder(Listview\Columns::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $columns
@@ -42,7 +43,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $listview->columns($columns);
-    $toolbars = $this->createMock(\Papaya\UI\Toolbars::class);
+    $toolbars = $this->createMock(Toolbars::class);
     $toolbars
       ->expects($this->once())
       ->method('appendTo')
@@ -50,161 +51,161 @@ class PapayaUiListviewTest extends \PapayaTestCase {
     $listview->toolbars($toolbars);
     $listview->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><listview/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview::appendTo
-  */
+   * @covers \Papaya\UI\Listview::appendTo
+   */
   public function testAppendToWithCaption() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $listview->caption = 'test caption';
     $listview->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><listview title="test caption"/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview::appendTo
-  */
+   * @covers \Papaya\UI\Listview::appendTo
+   */
   public function testAppendToWithMode() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
-    $listview = new \Papaya\UI\Listview();
-    $listview->mode = \Papaya\UI\Listview::MODE_THUMBNAILS;
+    $listview = new Listview();
+    $listview->mode = Listview::MODE_THUMBNAILS;
     $listview->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><listview mode="thumbnails"/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview::items
-  */
+   * @covers \Papaya\UI\Listview::items
+   */
   public function testItemsGetAfterSet() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(Listview\Items::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $this->assertSame($items, $listview->items($items));
   }
 
   /**
-  * @covers \Papaya\UI\Listview::items
-  * @covers \Papaya\UI\Listview::builder
-  */
+   * @covers \Papaya\UI\Listview::items
+   * @covers \Papaya\UI\Listview::builder
+   */
   public function testItemsGetAfterSettingBuilder() {
     $builder = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items\Builder::class)
+      ->getMockBuilder(Listview\Items\Builder::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder
       ->expects($this->once())
       ->method('fill')
-      ->with($this->isInstanceOf(\Papaya\UI\Listview\Items::class));
-    $listview = new \Papaya\UI\Listview();
+      ->with($this->isInstanceOf(Listview\Items::class));
+    $listview = new Listview();
     $listview->builder($builder);
     $listview->items();
     $listview->items();
   }
 
   /**
-  * @covers \Papaya\UI\Listview::items
-  */
+   * @covers \Papaya\UI\Listview::items
+   */
   public function testItemsGetImplicitCreate() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $items = $listview->items();
-    $this->assertInstanceOf(\Papaya\UI\Listview\Items::class, $items);
+    $this->assertInstanceOf(Listview\Items::class, $items);
     $this->assertSame($listview, $items->owner());
   }
 
   /**
-  * @covers \Papaya\UI\Listview::columns
-  */
+   * @covers \Papaya\UI\Listview::columns
+   */
   public function testColumnsGetAfterSet() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $columns = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Columns::class)
+      ->getMockBuilder(Listview\Columns::class)
       ->setConstructorArgs(array($listview))
       ->getMock();
     $this->assertSame($columns, $listview->columns($columns));
   }
 
   /**
-  * @covers \Papaya\UI\Listview::columns
-  */
+   * @covers \Papaya\UI\Listview::columns
+   */
   public function testColumnsGetImplicitCreate() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $columns = $listview->columns();
-    $this->assertInstanceOf(\Papaya\UI\Listview\Columns::class, $columns);
+    $this->assertInstanceOf(Listview\Columns::class, $columns);
     $this->assertSame($listview, $columns->owner());
   }
 
   /**
-  * @covers \Papaya\UI\Listview::toolbars
-  */
+   * @covers \Papaya\UI\Listview::toolbars
+   */
   public function testToolbarsGetAfterSet() {
-    $listview = new \Papaya\UI\Listview();
-    $toolbars = $this->createMock(\Papaya\UI\Toolbars::class);
+    $listview = new Listview();
+    $toolbars = $this->createMock(Toolbars::class);
     $this->assertSame($toolbars, $listview->toolbars($toolbars));
   }
 
   /**
-  * @covers \Papaya\UI\Listview::toolbars
-  */
+   * @covers \Papaya\UI\Listview::toolbars
+   */
   public function testToolbarsGetImplicitCreate() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $toolbars = $listview->toolbars();
-    $this->assertInstanceOf(\Papaya\UI\Toolbars::class, $toolbars);
+    $this->assertInstanceOf(Toolbars::class, $toolbars);
   }
 
   /**
-  * @covers \Papaya\UI\Listview::reference
-  */
+   * @covers \Papaya\UI\Listview::reference
+   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(\Papaya\UI\Reference::class);
-    $listview = new \Papaya\UI\Listview();
+    $reference = $this->createMock(Reference::class);
+    $listview = new Listview();
     $this->assertSame(
       $reference, $listview->reference($reference)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview::reference
-  */
+   * @covers \Papaya\UI\Listview::reference
+   */
   public function testReferenceGetImplicitCreate() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $this->assertInstanceOf(
-      \Papaya\UI\Reference::class, $listview->reference()
+      Reference::class, $listview->reference()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Listview::setMode
-  */
+   * @covers \Papaya\UI\Listview::setMode
+   */
   public function testGetModeAfterSet() {
-    $listview = new \Papaya\UI\Listview();
-    $listview->mode = \Papaya\UI\Listview::MODE_THUMBNAILS;
-    $this->assertEquals(\Papaya\UI\Listview::MODE_THUMBNAILS, $listview->mode);
+    $listview = new Listview();
+    $listview->mode = Listview::MODE_THUMBNAILS;
+    $this->assertEquals(Listview::MODE_THUMBNAILS, $listview->mode);
   }
 
   /**
-  * @covers \Papaya\UI\Listview::setMode
-  */
+   * @covers \Papaya\UI\Listview::setMode
+   */
   public function testGetModeAfterSetInvalidMode() {
-    $listview = new \Papaya\UI\Listview();
+    $listview = new Listview();
     $listview->mode = 'invalid mode string';
-    $this->assertEquals(\Papaya\UI\Listview::MODE_DETAILS, $listview->mode);
+    $this->assertEquals(Listview::MODE_DETAILS, $listview->mode);
   }
 }

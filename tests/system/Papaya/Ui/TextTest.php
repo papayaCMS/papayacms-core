@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiStringTest extends \PapayaTestCase {
+class TextTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Text::__construct
-  */
+   * @covers \Papaya\UI\Text::__construct
+   */
   public function testConstructor() {
-    $string = new \Papaya\UI\Text('Hello %s!', array('World'));
+    $string = new Text('Hello %s!', array('World'));
     $this->assertAttributeEquals(
       'Hello %s!', '_pattern', $string
     );
@@ -31,10 +32,10 @@ class PapayaUiStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Text::__construct
-  */
+   * @covers \Papaya\UI\Text::__construct
+   */
   public function testConstructorWithPatternOnly() {
-    $string = new \Papaya\UI\Text('Hello World!');
+    $string = new Text('Hello World!');
     $this->assertAttributeEquals(
       'Hello World!', '_pattern', $string
     );
@@ -44,23 +45,23 @@ class PapayaUiStringTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Text::__toString
-   * @covers \Papaya\UI\Text::compile
+   * @covers       \Papaya\UI\Text::__toString
+   * @covers       \Papaya\UI\Text::compile
    * @dataProvider provideExamplesForToString
    * @param string $expected
    * @param string $pattern
    * @param array $values
    */
   public function testMagicMethodToString($expected, $pattern, array $values = array()) {
-    $string = new \Papaya\UI\Text($pattern, $values);
+    $string = new Text($pattern, $values);
     $this->assertEquals(
       $expected, (string)$string
     );
   }
 
   /**************************
-  * Data Provider
-  **************************/
+   * Data Provider
+   **************************/
 
   public static function provideExamplesForToString() {
     return array(

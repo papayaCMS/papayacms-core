@@ -13,29 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiSheetTest extends \PapayaTestCase {
+class SheetTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Panel::appendTo
-  */
+   * @covers \Papaya\UI\Panel::appendTo
+   */
   public function testAppendTo() {
-    $sheet = new \Papaya\UI\Sheet();
+    $sheet = new Sheet();
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */'<sheet><text/></sheet>',
+    /** @lang XML */
+      '<sheet><text/></sheet>',
       $sheet->getXML()
     );
   }
 
   /**
-  * @covers \Papaya\UI\Panel::appendTo
-  */
+   * @covers \Papaya\UI\Panel::appendTo
+   */
   public function testAppendToWithTitle() {
-    $sheet = new \Papaya\UI\Sheet();
+    $sheet = new Sheet();
     $sheet->title('Sample Title');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<?xml version="1.0"?>
        <sheet>
          <header>
@@ -48,13 +50,13 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Panel::appendTo
-  */
+   * @covers \Papaya\UI\Panel::appendTo
+   */
   public function testAppendToWithSubtitle() {
-    $sheet = new \Papaya\UI\Sheet();
-    $sheet->subtitles()->add(new \Papaya\UI\Sheet\Subtitle('Sample Title'));
+    $sheet = new Sheet();
+    $sheet->subtitles()->add(new Sheet\Subtitle('Sample Title'));
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<?xml version="1.0"?>
        <sheet>
          <header>
@@ -67,15 +69,15 @@ class PapayaUiSheetTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Panel::appendTo
-  */
+   * @covers \Papaya\UI\Panel::appendTo
+   */
   public function testAppendToWithContent() {
-    $sheet = new \Papaya\UI\Sheet();
+    $sheet = new Sheet();
     $sheet
       ->content()
       ->appendElement('div', array('class' => 'simple'), 'Content');
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<?xml version="1.0"?>
        <sheet>
          <text>

@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiToolbarTest extends \PapayaTestCase {
+class ToolbarTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\UI\Toolbar::elements
-  */
+   * @covers \Papaya\UI\Toolbar::elements
+   */
   public function testElementsGetAfterSet() {
-    $menu = new \Papaya\UI\Toolbar();
+    $menu = new Toolbar();
     $elements = $this
-      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
+      ->getMockBuilder(Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf(\Papaya\UI\Toolbar::class));
+      ->with($this->isInstanceOf(Toolbar::class));
     $this->assertSame(
       $elements, $menu->elements($elements)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar::elements
-  */
+   * @covers \Papaya\UI\Toolbar::elements
+   */
   public function testElementsImplicitCreate() {
-    $menu = new \Papaya\UI\Toolbar();
+    $menu = new Toolbar();
     $this->assertInstanceOf(
-      \Papaya\UI\Toolbar\Elements::class, $menu->elements()
+      Toolbar\Elements::class, $menu->elements()
     );
     $this->assertSame(
       $menu, $menu->elements()->owner()
@@ -49,14 +50,14 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar::appendTo
+   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $parent = $document->appendElement('sample');
-    $menu = new \Papaya\UI\Toolbar();
+    $menu = new Toolbar();
     $elements = $this
-      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
+      ->getMockBuilder(Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -70,21 +71,21 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
     $menu->elements($elements);
     $menu->appendTo($parent);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample><toolbar/></sample>',
       $document->saveXML($parent)
     );
   }
 
   /**
-  * @covers \Papaya\UI\Toolbar::appendTo
-  */
+   * @covers \Papaya\UI\Toolbar::appendTo
+   */
   public function testAppendToWithoutElements() {
     $document = new \Papaya\XML\Document();
     $parent = $document->appendElement('sample');
-    $menu = new \Papaya\UI\Toolbar();
+    $menu = new Toolbar();
     $elements = $this
-      ->getMockBuilder(\Papaya\UI\Toolbar\Elements::class)
+      ->getMockBuilder(Toolbar\Elements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -94,7 +95,7 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
     $menu->elements($elements);
     $menu->appendTo($parent);
     $this->assertXmlStringEqualsXmlString(
-      /** @lang XML */
+    /** @lang XML */
       '<sample/>',
       $document->saveXML($parent)
     );
