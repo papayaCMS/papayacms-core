@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Dialog\Field\Xhtml;
+namespace Papaya\UI\Dialog\Field\XHTML;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class LinkTest extends \Papaya\TestCase {
