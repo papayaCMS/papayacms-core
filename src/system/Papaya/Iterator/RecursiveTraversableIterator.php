@@ -30,12 +30,21 @@ namespace Papaya\Iterator {
     private $_flags;
     private $_mode;
 
+    /**
+     * @param array|\RecursiveIterator|\IteratorAggregate $traversable
+     * @param int $mode
+     * @param int $flags
+     */
     public function __construct($traversable, $mode = self::LEAVES_ONLY, $flags = 0) {
       parent::__construct($traversable);
       $this->_mode = $mode;
       $this->_flags = $flags;
     }
 
+    /**
+     * @param $traversable
+     * @return \RecursiveIteratorIterator
+     */
     protected function createIteratorForTraversable($traversable) {
       $iterator = NULL;
       if ($traversable instanceof \RecursiveIterator) {
