@@ -36,8 +36,7 @@ namespace Papaya\Iterator {
       $this->_flags = $flags;
     }
 
-    protected function createIteratorForTraversable() {
-      $traversable = $this->getInnerIterator();
+    protected function createIteratorForTraversable($traversable) {
       $iterator = NULL;
       if ($traversable instanceof \RecursiveIterator) {
         $iterator = $traversable;

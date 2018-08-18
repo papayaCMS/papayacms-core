@@ -49,17 +49,22 @@ class TraversableIterator implements \OuterIterator {
    */
   public function getIteratorForTraversable($useCached = FALSE) {
     if (!$useCached || NULL === $this->_iterator) {
-      if ($this->_traversable instanceof \Iterator) {
-        $this->_iterator = $this->_traversable;
-      } elseif ($this->_traversable instanceof \IteratorAggregate) {
-        $this->_iterator = $this->_traversable->getIterator();
-      } elseif (is_array($this->_traversable)) {
-        $this->_iterator = new \ArrayIterator($this->_traversable);
-      } else {
-        $this->_iterator = new \IteratorIterator($this->_traversable);
-      }
+      $this->_iterator = $this->createIteratorForTraversable($this->_traversable);
     }
     return $this->_iterator;
+  }
+
+  protected function createIteratorForTraversable($traversable) {
+    if ($traversable instanceof \Iterator) {
+      return $traversable;
+    }
+    if ($traversable instanceof \IteratorAggregate) {
+      return $traversable->getIterator();
+    }
+    if (is_array($traversable)) {
+      return new \ArrayIterator($traversable);
+    }
+    return new \IteratorIterator($traversable);
   }
 
   /**
