@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class ChangeTest extends \Papaya\TestCase {
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
    */
   public function testCreateDialogWithoutSetId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -57,7 +57,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -100,7 +100,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadRecordFailed() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -143,7 +143,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::callbackSaveValues
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -163,7 +163,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::callbackShowError
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::callbackShowError
    */
   public function testCallbackShowError() {
     $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);

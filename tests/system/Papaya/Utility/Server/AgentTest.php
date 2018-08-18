@@ -41,9 +41,9 @@ class AgentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Server\Agent::isRobot
-   * @covers       \Papaya\Utility\Server\Agent::_checkAgentIsRobot
-   * @covers       \Papaya\Utility\Server\Agent::_checkAgainstList
+   * @covers \Papaya\Utility\Server\Agent::isRobot
+   * @covers \Papaya\Utility\Server\Agent::_checkAgentIsRobot
+   * @covers \Papaya\Utility\Server\Agent::_checkAgainstList
    * @dataProvider provideRobots
    * @param string $userAgent
    */
@@ -54,9 +54,9 @@ class AgentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Server\Agent::isRobot
-   * @covers       \Papaya\Utility\Server\Agent::_checkAgentIsRobot
-   * @covers       \Papaya\Utility\Server\Agent::_checkAgainstList
+   * @covers \Papaya\Utility\Server\Agent::isRobot
+   * @covers \Papaya\Utility\Server\Agent::_checkAgentIsRobot
+   * @covers \Papaya\Utility\Server\Agent::_checkAgainstList
    * @dataProvider provideUserAgents
    * @param string $userAgent
    */

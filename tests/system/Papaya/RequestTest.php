@@ -394,7 +394,7 @@ class RequestTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request::setParameterGroupSeparator
+   * @covers \Papaya\Request::setParameterGroupSeparator
    * @dataProvider setParameterLevelSeparatorDataProvider
    * @param string $separator
    * @param string $expected
@@ -870,7 +870,7 @@ class RequestTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request::validateBrowserCache
+   * @covers \Papaya\Request::validateBrowserCache
    * @dataProvider provideValidBrowserCacheData
    * @backupGlobals enabled
    * @param string $eTag
@@ -886,7 +886,7 @@ class RequestTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request::validateBrowserCache
+   * @covers \Papaya\Request::validateBrowserCache
    * @dataProvider provideInvalidBrowserCacheData
    * @backupGlobals enabled
    * @param string $eTag

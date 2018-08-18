@@ -43,7 +43,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Date::validate
+   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateSuccessProvider
    * @param int $includeTime
    * @param mixed $value
@@ -56,7 +56,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Date::validate
+   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateExceptionFormatProvider
    * @param int $includeTime
    * @param mixed $value
@@ -70,7 +70,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Date::validate
+   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateExceptionRangeProvider
    * @param mixed $value
    * @throws Exception\OutOfRange\ToLarge
@@ -83,7 +83,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Date::filter
+   * @covers \Papaya\Filter\Date::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param string $result

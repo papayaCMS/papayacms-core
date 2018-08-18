@@ -27,7 +27,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\Transliteration\ASCII\Mapping::get
+   * @covers \Papaya\Text\Transliteration\ASCII\Mapping::get
    * @dataProvider getMappedCharacterDataProvider
    * @param string $expected
    * @param string $codePoint

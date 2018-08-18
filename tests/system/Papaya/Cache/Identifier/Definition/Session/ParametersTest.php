@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class ParametersTest extends \Papaya\TestCase {
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Session\Parameters
    */
   public function testGetStatus() {
     $values = $this
@@ -62,7 +62,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Session\Parameters
    */
   public function testGetStatusValueReturnsNull() {
     $values = $this
@@ -103,7 +103,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Session\Parameters
    */
   public function testGetStatusNoSessionActive() {
     $session = $this->createMock(\Papaya\Session::class);
@@ -126,7 +126,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Session\Parameters
    */
   public function testGetStatusMultipleParameters() {
     $values = $this
@@ -181,7 +181,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Session\Parameters
    */
   public function testGetSources() {
     $definition = new Parameters('foo');

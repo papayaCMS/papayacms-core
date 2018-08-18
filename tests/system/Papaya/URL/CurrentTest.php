@@ -59,8 +59,8 @@ class CurrentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\URL\Current::getURLFromEnvironment
-   * @covers       \Papaya\URL\Current::_getServerValue
+   * @covers \Papaya\URL\Current::getURLFromEnvironment
+   * @covers \Papaya\URL\Current::_getServerValue
    * @backupGlobals enabled
    * @dataProvider getUrlDataProvider
    * @param array $environment

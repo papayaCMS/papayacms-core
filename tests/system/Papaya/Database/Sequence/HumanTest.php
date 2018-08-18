@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class HumanTest extends \Papaya\TestCase {
 
   /**
-   * @covers Human::__construct
+   * @covers \Papaya\Database\Sequence\Human::__construct
    */
   public function testConstructor() {
     $sequence = new Human('table', 'field');
@@ -30,7 +30,7 @@ class HumanTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Human::__construct
+   * @covers \Papaya\Database\Sequence\Human::__construct
    */
   public function testConstructorWithByteLength() {
     $sequence = new Human('table', 'field', 42);
@@ -40,8 +40,8 @@ class HumanTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Human::create
-   * @covers Human::getRandomCharacters
+   * @covers \Papaya\Database\Sequence\Human::create
+   * @covers \Papaya\Database\Sequence\Human::getRandomCharacters
    */
   public function testCreate5Bytes() {
     $sequence = new Human('table', 'field', 5);
@@ -51,7 +51,7 @@ class HumanTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Human::create
+   * @covers \Papaya\Database\Sequence\Human::create
    */
   public function testCreate7Bytes() {
     $sequence = new Human('table', 'field');
@@ -61,7 +61,7 @@ class HumanTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Human::create
+   * @covers \Papaya\Database\Sequence\Human::create
    */
   public function testCreateIsRandom() {
     $sequence = new Human('table', 'field');

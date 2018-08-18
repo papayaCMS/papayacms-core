@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class RootTest extends \Papaya\TestCase {
 
   /**
-   * @covers Root
+   * @covers \Papaya\Database\Condition\Root
    */
   public function testCallAddingFirstElement() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -40,7 +40,7 @@ class RootTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Root
+   * @covers \Papaya\Database\Condition\Root
    */
   public function testCallAddingSecondElementExpectingException() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -51,7 +51,7 @@ class RootTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Root
+   * @covers \Papaya\Database\Condition\Root
    */
   public function testGetSqlWithoutElement() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

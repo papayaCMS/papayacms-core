@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class DatabaseTest extends \Papaya\TestCase {
 
   /**
-   * @covers Database::createObject
+   * @covers \Papaya\Application\Profile\Database::createObject
    */
   public function testCreateObject() {
     $application = $this->mockPapaya()->application();

@@ -208,7 +208,7 @@ class ThumbnailTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference\Thumbnail::setThumbnailParameters
+   * @covers \Papaya\UI\Reference\Thumbnail::setThumbnailParameters
    * @dataProvider setThumbnailParametersDataProvider
    * @param array|string $parameters
    * @param string $expected

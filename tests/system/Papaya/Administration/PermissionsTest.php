@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PermissionsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Permissions::__construct
-   * @covers Permissions::getIterator
+   * @covers \Papaya\Administration\Permissions::__construct
+   * @covers \Papaya\Administration\Permissions::getIterator
    */
   public function testGetIterator() {
     $permissions = new Permissions();
@@ -30,7 +30,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::exists
+   * @covers \Papaya\Administration\Permissions::exists
    */
   public function testExistsExpectingTrue() {
     $permissions = new Permissions();
@@ -38,7 +38,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::exists
+   * @covers \Papaya\Administration\Permissions::exists
    */
   public function testExistsExpectingFalse() {
     $permissions = new Permissions();
@@ -46,7 +46,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::exists
+   * @covers \Papaya\Administration\Permissions::exists
    */
   public function testExistsInGroupExpectingTrue() {
     $permissions = new Permissions();
@@ -59,7 +59,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::exists
+   * @covers \Papaya\Administration\Permissions::exists
    */
   public function testExistsInGroupExpectingFalse() {
     $permissions = new Permissions();
@@ -72,7 +72,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::inGroup
+   * @covers \Papaya\Administration\Permissions::inGroup
    */
   public function testInGroupExpectingTrue() {
     $permissions = new Permissions();
@@ -85,7 +85,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::inGroup
+   * @covers \Papaya\Administration\Permissions::inGroup
    */
   public function testInGroupExpectingFalse() {
     $permissions = new Permissions();
@@ -98,7 +98,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::isActive
+   * @covers \Papaya\Administration\Permissions::isActive
    */
   public function testIsActiveExpectingTrue() {
     $permissions = new Permissions();
@@ -106,7 +106,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::isActive
+   * @covers \Papaya\Administration\Permissions::isActive
    */
   public function testIsActiveWithInvalidPermissionExpectingFalse() {
     $permissions = new Permissions();
@@ -114,8 +114,8 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::isActive
-   * @covers Permissions::reset
+   * @covers \Papaya\Administration\Permissions::isActive
+   * @covers \Papaya\Administration\Permissions::reset
    */
   public function testIsActiveAfterLoadingExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -149,7 +149,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::groups
+   * @covers \Papaya\Administration\Permissions::groups
    */
   public function testGroupsGetAfterSet() {
     $permissions = new Permissions();
@@ -158,7 +158,7 @@ class PermissionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Permissions::groups
+   * @covers \Papaya\Administration\Permissions::groups
    */
   public function testGroupsGetImplicitCreate() {
     $permissions = new Permissions();

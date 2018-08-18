@@ -64,7 +64,7 @@ class IdentifierTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Identifier::toArray
+   * @covers \Papaya\Utility\Text\Identifier::toArray
    * @dataProvider provideIdentifiersAndParts
    * @param string $identifier
    * @param array $parts

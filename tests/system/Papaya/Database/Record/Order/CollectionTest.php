@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class CollectionTest extends \Papaya\TestCase {
 
   /**
-   * @covers Collection::__construct
+   * @covers \Papaya\Database\Record\Order\Collection::__construct
    */
   public function testConstructorWithoutArguments() {
     $orderBy = new Collection();
@@ -28,7 +28,7 @@ class CollectionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Collection::__construct
+   * @covers \Papaya\Database\Record\Order\Collection::__construct
    */
   public function testConstructorWithArguments() {
     $child = $this->createMock(\Papaya\Database\Interfaces\Order::class);
@@ -37,7 +37,7 @@ class CollectionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Collection::__toString
+   * @covers \Papaya\Database\Record\Order\Collection::__toString
    */
   public function testToStringWithTwoItems() {
     $one = $this->createMock(\Papaya\Database\Interfaces\Order::class);
@@ -55,7 +55,7 @@ class CollectionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Collection::__toString
+   * @covers \Papaya\Database\Record\Order\Collection::__toString
    */
   public function testToStringWithoutItems() {
     $orderBy = new Collection();

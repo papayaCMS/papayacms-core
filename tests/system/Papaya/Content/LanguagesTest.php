@@ -20,7 +20,7 @@ namespace Papaya\Content {
   class LanguagesTest extends \Papaya\TestCase {
 
     /**
-     * @covers Languages::load
+     * @covers \Papaya\Content\Languages::load
      */
     public function testLoad() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -103,7 +103,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers       Languages::getLanguage
+     * @covers \Papaya\Content\Languages::getLanguage
      * @dataProvider provideLanguageFilterVariants
      * @param mixed $languageFilter
      */
@@ -139,7 +139,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguage
+     * @covers \Papaya\Content\Languages::getLanguage
      */
     public function testGetLanguageImplicitLoad() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -191,7 +191,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguage
+     * @covers \Papaya\Content\Languages::getLanguage
      */
     public function testGetLanguageImplicitLoadExpectingNull() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -218,7 +218,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguageByCode
+     * @covers \Papaya\Content\Languages::getLanguageByCode
      */
     public function testGetLanguageByCode() {
       $languages = new Languages_TestProxy();
@@ -240,7 +240,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguageByCode
+     * @covers \Papaya\Content\Languages::getLanguageByCode
      */
     public function testGetLanguageByCodeExpectingNull() {
       $languages = new Languages_TestProxy();
@@ -249,7 +249,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguageByIdentifier
+     * @covers \Papaya\Content\Languages::getLanguageByIdentifier
      */
     public function testGetLanguageByIdentifier() {
       $languages = new Languages_TestProxy();
@@ -271,7 +271,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getLanguageByIdentifier
+     * @covers \Papaya\Content\Languages::getLanguageByIdentifier
      */
     public function testGetLanguageByIdentifierExpectingNull() {
       $languages = new Languages_TestProxy();
@@ -280,7 +280,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getIdentiferById
+     * @covers \Papaya\Content\Languages::getIdentiferById
      */
     public function testGetIdentifierById() {
       $languages = new Languages_TestProxy();
@@ -294,7 +294,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Languages::getIdentiferById
+     * @covers \Papaya\Content\Languages::getIdentiferById
      */
     public function testGetIdentifierByIdExpectingNull() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);

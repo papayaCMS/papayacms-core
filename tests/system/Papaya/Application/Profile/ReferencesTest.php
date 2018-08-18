@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ReferenceTest extends \Papaya\TestCase {
 
   /**
-   * @covers References::createObject
+   * @covers \Papaya\Application\Profile\References::createObject
    */
   public function testCreateObject() {
     $options = $this->mockPapaya()->options(

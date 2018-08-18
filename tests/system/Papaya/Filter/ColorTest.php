@@ -36,7 +36,7 @@ class ColorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Color::filter
+   * @covers \Papaya\Filter\Color::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input

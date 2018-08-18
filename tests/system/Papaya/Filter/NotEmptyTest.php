@@ -39,7 +39,7 @@ class NotEmptyTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\NotEmpty::validate
+   * @covers \Papaya\Filter\NotEmpty::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreSpaces
@@ -51,7 +51,7 @@ class NotEmptyTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\NotEmpty::validate
+   * @covers \Papaya\Filter\NotEmpty::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreSpaces

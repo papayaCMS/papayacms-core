@@ -18,7 +18,7 @@ namespace Papaya\Administration\Community\Users\Roster;
 class DialogTest extends \Papaya\TestCase {
 
   /**
-   * @covers Dialog::prepare
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::prepare
    */
   public function testPrepare() {
     $dialog = new Dialog();
@@ -54,7 +54,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::execute
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::execute
    */
   public function testExecute() {
     $users = $this->createMock(\Papaya\Content\Community\Users::class);
@@ -74,7 +74,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::execute
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::execute
    */
   public function testExecuteWithFilter() {
     $users = $this->createMock(\Papaya\Content\Community\Users::class);
@@ -107,7 +107,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::execute
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::execute
    */
   public function testExecuteWithFilterReset() {
     $users = $this->createMock(\Papaya\Content\Community\Users::class);
@@ -134,7 +134,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::users
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::users
    */
   public function testUsersGetAfterset() {
     $users = $this->createMock(\Papaya\Content\Community\Users::class);
@@ -144,7 +144,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::users
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::users
    */
   public function testUsersImplicitCreate() {
     $dialog = new Dialog();
@@ -152,7 +152,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::listview
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::listview
    */
   public function testListviewGetAfterSet() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
@@ -162,7 +162,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::listview
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::listview
    */
   public function testListviewImplicitCreate() {
     $dialog = new Dialog();
@@ -171,7 +171,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::createUserItem
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::createUserItem
    */
   public function testCreateUserItem() {
     $dialog = new Dialog();
@@ -187,7 +187,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::paging
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::paging
    */
   public function testPagingGetAfterSet() {
     $paging = $this
@@ -200,7 +200,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::paging
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::paging
    */
   public function testPagingImplicitCreate() {
     $dialog = new Dialog();
@@ -208,7 +208,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::reference
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::reference
    */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
@@ -218,7 +218,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::reference
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::reference
    */
   public function testReferenceImplicitCreate() {
     $dialog = new Dialog();
@@ -226,7 +226,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::setParameterNameMapping
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::setParameterNameMapping
    */
   public function testSetParameterNameMapping() {
     $dialog = new Dialog();
@@ -245,7 +245,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::setParameterNameMapping
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::setParameterNameMapping
    */
   public function testSetParamterNameMappingExpectingException() {
     $dialog = new Dialog();

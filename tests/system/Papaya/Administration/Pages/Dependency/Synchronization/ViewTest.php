@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class ViewTest extends \Papaya\TestCase {
 
   /**
-   * @covers View::updateTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\View::updateTranslations
    */
   public function testSynchronizeUpdateOneTranslation() {
     $translations = $this->getTranslationsFixture(

@@ -20,7 +20,7 @@ namespace Papaya\Database\Condition {
   class ElementTest extends \Papaya\TestCase {
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testConstructor() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -33,7 +33,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testConstructorWithField() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -46,7 +46,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testConstructorWithOperator() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -59,7 +59,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetDatabaseAccess() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -77,7 +77,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetMapping() {
       $mapping = $this
@@ -98,7 +98,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetMappingExpectingNull() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -111,7 +111,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testMagicMethodToString() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -135,7 +135,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testMapFieldName() {
       $mapping = $this
@@ -161,7 +161,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testMapFieldNameWithoutMapping() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -174,7 +174,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testMapFieldNameWithInvalidMappingExpectingException() {
       $mapping = $this
@@ -201,7 +201,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testMapFieldNameWithEmptyFieldNameException() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -215,7 +215,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetSqlWithScalar() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -249,7 +249,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetSqlWithList() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -287,7 +287,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetSqlWithInvalidFieldNameExpectingException() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -311,7 +311,7 @@ namespace Papaya\Database\Condition {
     }
 
     /**
-     * @covers Element
+     * @covers \Papaya\Database\Condition\Element
      */
     public function testGetSqlWithExceptionInSilentMode() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

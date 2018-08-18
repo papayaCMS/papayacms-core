@@ -38,7 +38,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideValidPageIdInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -53,7 +53,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideInvalidPageIdInputs
    * @param mixed $value
    * @param bool $mandatory

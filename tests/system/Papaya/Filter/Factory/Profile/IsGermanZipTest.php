@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsGermanZipTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsGermanZip::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsGermanZip::getFilter
    * @dataProvider provideValidZips
    * @param string $zip
    * @throws \Papaya\Filter\Exception

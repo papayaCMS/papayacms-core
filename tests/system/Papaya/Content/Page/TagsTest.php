@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class TagsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Tags::load
+   * @covers \Papaya\Content\Page\Tags::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -85,7 +85,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::load
+   * @covers \Papaya\Content\Page\Tags::load
    */
   public function testLoadWithLanguageId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -150,7 +150,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::clear
+   * @covers \Papaya\Content\Page\Tags::clear
    */
   public function testClear() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -171,7 +171,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::insert
+   * @covers \Papaya\Content\Page\Tags::insert
    */
   public function testInsert() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

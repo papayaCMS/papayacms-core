@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class CommentTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Template\Simple\Scanner\Status\CSS\Comment::getToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS\Comment::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer

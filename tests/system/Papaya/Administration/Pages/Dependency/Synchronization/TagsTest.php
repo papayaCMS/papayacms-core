@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class TagsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Tags::synchronize
-   * @covers Tags::synchronizeTags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronizeTags
    */
   public function testSynchronize() {
     $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
@@ -67,8 +67,8 @@ class TagsTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Tags::synchronize
-   * @covers Tags::synchronizeTags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronizeTags
    */
   public function testSynchronizeLoadFailed() {
     $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
@@ -84,8 +84,8 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::synchronize
-   * @covers Tags::synchronizeTags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronizeTags
    */
   public function testSynchronizeClearOnly() {
     $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
@@ -112,8 +112,8 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::synchronize
-   * @covers Tags::synchronizeTags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::synchronizeTags
    */
   public function testSynchronizeClearFailedExpectingFalse() {
     $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
@@ -140,7 +140,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::tags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::tags
    */
   public function testTagsGetAfterSet() {
     $tags = $this->createMock(\Papaya\Content\Page\Tags::class);
@@ -151,7 +151,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Tags::tags
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Tags::tags
    */
   public function testTagsGetImplicitCreate() {
     $action = new Tags();

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class HostTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\URL\Host
+   * @covers \Papaya\Filter\URL\Host
    * @dataProvider provideHostNameValues
    * @param mixed $value
    * @throws \Papaya\Filter\Exception
@@ -30,7 +30,7 @@ class HostTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\URL\Host
+   * @covers \Papaya\Filter\URL\Host
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @throws \Papaya\Filter\Exception

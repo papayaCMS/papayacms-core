@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class CallbackTest extends \Papaya\TestCase {
 
   /**
-   * @covers Callback
+   * @covers \Papaya\Cache\Identifier\Definition\Callback
    */
   public function testGetStatus() {
     $definition = new Callback(function () {
@@ -35,7 +35,7 @@ class CallbackTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Callback
+   * @covers \Papaya\Cache\Identifier\Definition\Callback
    */
   public function testGetStatusExpectingFalse() {
     $definition = new Callback(function () {
@@ -45,7 +45,7 @@ class CallbackTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Callback
+   * @covers \Papaya\Cache\Identifier\Definition\Callback
    */
   public function testGetSources() {
     $definition = new Callback(function () {

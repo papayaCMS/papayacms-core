@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class DomainsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Domains::load
+   * @covers \Papaya\Content\Domains::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -59,7 +59,7 @@ class DomainsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domains::load
+   * @covers \Papaya\Content\Domains::load
    */
   public function testLoadWithFilter() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);

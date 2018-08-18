@@ -136,8 +136,8 @@ class NameTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\Name::setString
-   * @covers       \Papaya\Request\Parameters\Name::parseString
+   * @covers \Papaya\Request\Parameters\Name::setString
+   * @covers \Papaya\Request\Parameters\Name::parseString
    * @dataProvider provideNameStrings
    * @param array $nameArray
    * @param string $nameString
@@ -186,7 +186,7 @@ class NameTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\Name::insertBefore
+   * @covers \Papaya\Request\Parameters\Name::insertBefore
    * @dataProvider provideInsertBeforeData
    * @param array $expected
    * @param int $index
@@ -202,7 +202,7 @@ class NameTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\Name::getString
+   * @covers \Papaya\Request\Parameters\Name::getString
    * @dataProvider provideNameStrings
    * @param array $nameArray
    * @param string $nameString

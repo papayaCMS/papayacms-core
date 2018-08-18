@@ -41,8 +41,8 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Message::appendMessageElement
-     * @covers       \Papaya\UI\Message::getTagName
+     * @covers \Papaya\UI\Message::appendMessageElement
+     * @covers \Papaya\UI\Message::getTagName
      * @dataProvider provideTestMessages
      * @param string $expectedXml
      * @param int $severity

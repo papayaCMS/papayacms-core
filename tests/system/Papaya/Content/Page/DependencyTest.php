@@ -20,7 +20,7 @@ namespace Papaya\Content\Page {
   class DependencyTest extends \Papaya\TestCase {
 
     /**
-     * @covers Dependency::_createKey
+     * @covers \Papaya\Content\Page\Dependency::_createKey
      */
     public function testCreateKey() {
       $dependency = new Dependency();
@@ -30,7 +30,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::save
+     * @covers \Papaya\Content\Page\Dependency::save
      */
     public function testSaveWithoutPageIdExpectingException() {
       $dependency = new Dependency();
@@ -45,7 +45,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::save
+     * @covers \Papaya\Content\Page\Dependency::save
      */
     public function testSaveWithoutOriginPageIdExpectingException() {
       $dependency = new Dependency();
@@ -61,7 +61,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::save
+     * @covers \Papaya\Content\Page\Dependency::save
      */
     public function testSaveIdEqualsOriginExpectingException() {
       $dependency = new Dependency();
@@ -78,7 +78,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::save
+     * @covers \Papaya\Content\Page\Dependency::save
      */
     public function testSaveOriginHasDependencyExpectingException() {
       $dependency = new Dependency_TestProxy();
@@ -96,7 +96,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::save
+     * @covers \Papaya\Content\Page\Dependency::save
      */
     public function testSaveInsertsRecordExpectingTrue() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -142,7 +142,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isDependency
+     * @covers \Papaya\Content\Page\Dependency::isDependency
      */
     public function testIsDependencyExpectingTrue() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -162,7 +162,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isDependency
+     * @covers \Papaya\Content\Page\Dependency::isDependency
      */
     public function testIsDependencyExpectingFalse() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -182,7 +182,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isDependency
+     * @covers \Papaya\Content\Page\Dependency::isDependency
      */
     public function testIsDependencyWithDatabaseErrorExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -197,7 +197,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isOrigin
+     * @covers \Papaya\Content\Page\Dependency::isOrigin
      */
     public function testIsOriginExpectingTrue() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -217,7 +217,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isOrigin
+     * @covers \Papaya\Content\Page\Dependency::isOrigin
      */
     public function testIsOriginExpectingFalse() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -237,7 +237,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependency::isOrigin
+     * @covers \Papaya\Content\Page\Dependency::isOrigin
      */
     public function testIsOriginWithDatabaseErrorExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

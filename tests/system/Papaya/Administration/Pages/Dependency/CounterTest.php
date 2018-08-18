@@ -20,7 +20,7 @@ namespace Papaya\Administration\Pages\Dependency {
   class CounterTest extends \Papaya\TestCase {
 
     /**
-     * @covers Counter::__construct
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::__construct
      */
     public function testConstructor() {
       $counter = new Counter(42);
@@ -28,7 +28,7 @@ namespace Papaya\Administration\Pages\Dependency {
     }
 
     /**
-     * @covers Counter::load
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::load
      */
     public function testLoad() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -73,7 +73,7 @@ namespace Papaya\Administration\Pages\Dependency {
     }
 
     /**
-     * @covers Counter::load
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::load
      */
     public function testLoadFailedExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -89,8 +89,8 @@ namespace Papaya\Administration\Pages\Dependency {
     }
 
     /**
-     * @covers Counter::getDependencies
-     * @covers Counter::lazyLoad
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::getDependencies
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::lazyLoad
      */
     public function testGetDependencies() {
       $counter = new \Papaya\Administration\Pages\Dependency\Counter_TestProxy(42);
@@ -100,8 +100,8 @@ namespace Papaya\Administration\Pages\Dependency {
     }
 
     /**
-     * @covers Counter::getReferences
-     * @covers Counter::lazyLoad
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::getReferences
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::lazyLoad
      */
     public function testGetReferences() {
       $counter = new \Papaya\Administration\Pages\Dependency\Counter_TestProxy(42);
@@ -111,8 +111,8 @@ namespace Papaya\Administration\Pages\Dependency {
     }
 
     /**
-     * @covers       Counter::getLabel
-     * @covers       Counter::lazyLoad
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::getLabel
+     * @covers \Papaya\Administration\Pages\Dependency\Counter::lazyLoad
      * @dataProvider provideCountingsForGetLabel
      * @param string $expected
      * @param int $dependencies

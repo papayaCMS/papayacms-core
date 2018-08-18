@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PageTest extends \Papaya\TestCase {
 
   /**
-   * @covers       Page
+   * @covers \Papaya\Cache\Identifier\Definition\Page
    * @dataProvider provideParameterData
    * @param array $expected
    * @param array $parameters
@@ -38,7 +38,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Cache\Identifier\Definition\Page
    */
   public function testGetStatusForPreviewExpectingFalse() {
     $definition = new Page();
@@ -53,7 +53,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Cache\Identifier\Definition\Page
    */
   public function testGetStatusWithDefinedHttpEnvironment() {
     $environment = $_SERVER;
@@ -82,7 +82,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Cache\Identifier\Definition\Page
    */
   public function testGetSources() {
     $definition = new Page();

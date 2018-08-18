@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class CallbacksTest extends \Papaya\TestCase {
 
   /**
-   * @covers Callbacks::__construct
+   * @covers \Papaya\Database\Record\Callbacks::__construct
    */
   public function testConstructor() {
     $callbacks = new Callbacks();

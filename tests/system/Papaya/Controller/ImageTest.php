@@ -25,7 +25,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class ImageTest extends \Papaya\TestCase {
 
   /**
-   * @covers Image::setImageGenerator
+   * @covers \Papaya\Controller\Image::setImageGenerator
    */
   public function testSetImageGenerator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
@@ -38,7 +38,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::getImageGenerator
+   * @covers \Papaya\Controller\Image::getImageGenerator
    */
   public function testGetImageGenerator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
@@ -52,7 +52,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::getImageGenerator
+   * @covers \Papaya\Controller\Image::getImageGenerator
    */
   public function testGetImageGeneratorImplicitCreate() {
     $controller = new Image();
@@ -63,7 +63,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::execute
+   * @covers \Papaya\Controller\Image::execute
    */
   public function testExecute() {
     $application = $this->mockPapaya()->application();
@@ -92,7 +92,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::execute
+   * @covers \Papaya\Controller\Image::execute
    */
   public function testExecuteImageGenerateFailed() {
     $application = $this->mockPapaya()->application();
@@ -122,7 +122,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::execute
+   * @covers \Papaya\Controller\Image::execute
    */
   public function testExecuteInvalidImageIdentifier() {
     $controller = new Image();
@@ -144,7 +144,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image::execute
+   * @covers \Papaya\Controller\Image::execute
    */
   public function testExecuteInvalidPermission() {
     $application = $this->mockPapaya()->application(

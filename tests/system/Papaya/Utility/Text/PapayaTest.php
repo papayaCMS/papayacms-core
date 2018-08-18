@@ -20,7 +20,7 @@ class PapayaTest extends \Papaya\TestCase {
 
   /**
    * @dataProvider getImageTagDataProvider
-   * @covers       \Papaya\Utility\Text\Papaya::getImageTag
+   * @covers \Papaya\Utility\Text\Papaya::getImageTag
    * @param string $expected
    * @param array $parameters
    */

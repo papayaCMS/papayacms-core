@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class QueryTest extends \Papaya\TestCase {
 
   /**
-   * @covers Query::__construct
+   * @covers \Papaya\Database\Exception\Query::__construct
    */
   public function testConstructorWithMessage() {
     $exception = new Query('Sample');
@@ -30,7 +30,7 @@ class QueryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Query::__construct
+   * @covers \Papaya\Database\Exception\Query::__construct
    */
   public function testConstructorWithCode() {
     $exception = new Query('Sample', 42);
@@ -40,8 +40,8 @@ class QueryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Query::__construct
-   * @covers Query::getSeverity
+   * @covers \Papaya\Database\Exception\Query::__construct
+   * @covers \Papaya\Database\Exception\Query::getSeverity
    */
   public function testConstructorWithSeverity() {
     $exception = new Query(
@@ -53,8 +53,8 @@ class QueryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Query::__construct
-   * @covers Query::getSeverity
+   * @covers \Papaya\Database\Exception\Query::__construct
+   * @covers \Papaya\Database\Exception\Query::getSeverity
    */
   public function testConstructorWithNullAsSeverity() {
     $exception = new Query('Sample', 42, NULL);
@@ -64,8 +64,8 @@ class QueryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Query::__construct
-   * @covers Query::getStatement
+   * @covers \Papaya\Database\Exception\Query::__construct
+   * @covers \Papaya\Database\Exception\Query::getStatement
    */
   public function testConstructorWithSql() {
     $exception = new Query(

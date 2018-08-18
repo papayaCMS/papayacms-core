@@ -20,7 +20,7 @@ namespace Papaya\Administration\Theme {
   class EditorTest extends \Papaya\TestCase {
 
     /**
-     * @covers Editor::createContent
+     * @covers \Papaya\Administration\Theme\Editor::createContent
      */
     public function testCreateContent() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */
@@ -32,7 +32,7 @@ namespace Papaya\Administration\Theme {
     }
 
     /**
-     * @covers Editor::createNavigation
+     * @covers \Papaya\Administration\Theme\Editor::createNavigation
      */
     public function testCreateNavigation() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */

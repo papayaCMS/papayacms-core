@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PagesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Pages::__construct
+   * @covers \Papaya\Content\Structure\Pages::__construct
    */
   public function testConstructor() {
     $pages = new Pages();
@@ -28,7 +28,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages::load
+   * @covers \Papaya\Content\Structure\Pages::load
    */
   public function testLoad() {
     $document = new \Papaya\XML\Document();

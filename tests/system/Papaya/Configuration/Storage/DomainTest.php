@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class DomainTest extends \Papaya\TestCase {
 
   /**
-   * @covers       Domain::__construct
+   * @covers \Papaya\Configuration\Storage\Domain::__construct
    * @dataProvider provideHostUrls
    * @param string $expectedScheme
    * @param string $expectedHost
@@ -37,7 +37,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::domain
+   * @covers \Papaya\Configuration\Storage\Domain::domain
    */
   public function testDomainGetAfterSet() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);
@@ -46,7 +46,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::domain
+   * @covers \Papaya\Configuration\Storage\Domain::domain
    */
   public function testDomainGetImplicitCreate() {
     $storage = new Domain('sample.tld');
@@ -54,7 +54,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::load
+   * @covers \Papaya\Configuration\Storage\Domain::load
    */
   public function testLoad() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);
@@ -70,7 +70,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::getIterator
+   * @covers \Papaya\Configuration\Storage\Domain::getIterator
    */
   public function testGetIterator() {
     $domain = $this->createMock(\Papaya\Content\Domain::class);

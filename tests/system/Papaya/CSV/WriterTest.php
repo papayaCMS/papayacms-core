@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class WriterTest extends \Papaya\TestCase {
 
   /**
-   * @covers Writer::__construct
+   * @covers \Papaya\CSV\Writer::__construct
    */
   public function testConstructor() {
     $writer = new Writer();
@@ -28,7 +28,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__construct
+   * @covers \Papaya\CSV\Writer::__construct
    */
   public function testConstructorWithStream() {
     $writer = new Writer($ms = fopen('php://memory', 'rwb'));
@@ -36,8 +36,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testStreamGetAfterSet() {
     $writer = new Writer();
@@ -46,8 +46,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testSeparatorGetAfterSet() {
     $writer = new Writer();
@@ -57,8 +57,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testSeparatorLengthExpectingException() {
     $writer = new Writer();
@@ -69,8 +69,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testQuoteGetAfterSet() {
     $writer = new Writer();
@@ -79,8 +79,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testLinebreakGetAfterSet() {
     $writer = new Writer();
@@ -89,8 +89,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__get
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testEncodedLinebreakGetAfterSet() {
     $writer = new Writer();
@@ -99,7 +99,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__set
+   * @covers \Papaya\CSV\Writer::__set
    */
   public function testSetPropertyWithInvalidNameExpectingException() {
     $writer = new Writer();
@@ -110,7 +110,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::__get
+   * @covers \Papaya\CSV\Writer::__get
    */
   public function testGetPropertyWithInvalidNameExpectingException() {
     $writer = new Writer();
@@ -121,7 +121,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeHeader
+   * @covers \Papaya\CSV\Writer::writeHeader
    */
   public function testWriteHeader() {
     $writer = new Writer();
@@ -134,7 +134,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeHeader
+   * @covers \Papaya\CSV\Writer::writeHeader
    */
   public function testWriteHeaderCallsCallback() {
     $callbacks = $this
@@ -164,10 +164,10 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Writer::writeRow
-   * @covers       Writer::quoteValue
-   * @covers       Writer::write
-   * @covers       Writer::writeString
+   * @covers \Papaya\CSV\Writer::writeRow
+   * @covers \Papaya\CSV\Writer::quoteValue
+   * @covers \Papaya\CSV\Writer::write
+   * @covers \Papaya\CSV\Writer::writeString
    * @dataProvider provideSampleRowsAndExpectedOutput
    * @param $expected
    * @param $row
@@ -183,7 +183,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeRow
+   * @covers \Papaya\CSV\Writer::writeRow
    */
   public function testWriteRowCallsCallback() {
     $callbacks = $this
@@ -213,8 +213,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeList
-   * @covers Writer::writeString
+   * @covers \Papaya\CSV\Writer::writeList
+   * @covers \Papaya\CSV\Writer::writeString
    */
   public function testWriteList() {
     $list = array(
@@ -231,7 +231,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeList
+   * @covers \Papaya\CSV\Writer::writeList
    */
   public function testWriteListWithTraversable() {
     $list = new \ArrayIterator(
@@ -250,8 +250,8 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::writeList
-   * @covers Writer::writeString
+   * @covers \Papaya\CSV\Writer::writeList
+   * @covers \Papaya\CSV\Writer::writeString
    */
   public function testWriteListToStream() {
     $list = array(
@@ -269,7 +269,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::callbacks
+   * @covers \Papaya\CSV\Writer::callbacks
    */
   public function testCallbacksGetAfterSet() {
     $writer = new Writer();
@@ -278,7 +278,7 @@ class WriterTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Writer::callbacks
+   * @covers \Papaya\CSV\Writer::callbacks
    */
   public function testCallbacksGetWithImplizitCreate() {
     $writer = new Writer();

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ListviewTest extends \Papaya\TestCase {
 
   /**
-   * @covers Listview::__construct
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::__construct
    */
   public function testConstructor() {
     $dependencies = $this->getDependenciesFixture();
@@ -44,7 +44,7 @@ class ListviewTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Listview::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::appendTo
    */
   public function testAppendToWithEmptyRecordList() {
     $dependencies = $this->getDependenciesFixture();
@@ -57,8 +57,8 @@ class ListviewTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Listview::appendTo
-   * @covers Listview::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::prepare
    */
   public function testAppendTo() {
     $dependencies = $this->getDependenciesFixture(
@@ -171,7 +171,7 @@ class ListviewTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Listview::pages
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::pages
    */
   public function testPagesGetAfterSet() {
     $pages = $this->createMock(\Papaya\Content\Pages::class);
@@ -187,7 +187,7 @@ class ListviewTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Listview::pages
+   * @covers \Papaya\Administration\Pages\Dependency\Listview::pages
    */
   public function testPagesGetImplicitCreate() {
     $dependencies = $this->getDependenciesFixture();

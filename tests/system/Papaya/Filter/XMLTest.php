@@ -29,7 +29,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\XML::validate
+   * @covers \Papaya\Filter\XML::validate
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
@@ -50,7 +50,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\XML::validate
+   * @covers \Papaya\Filter\XML::validate
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
@@ -81,7 +81,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\XML::filter
+   * @covers \Papaya\Filter\XML::filter
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    */
@@ -91,7 +91,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\XML::filter
+   * @covers \Papaya\Filter\XML::filter
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    */

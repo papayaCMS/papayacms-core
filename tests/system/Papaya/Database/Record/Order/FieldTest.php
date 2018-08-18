@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class FieldTest extends \Papaya\TestCase {
 
   /**
-   * @covers Field::__construct
-   * @covers Field::__toString
+   * @covers \Papaya\Database\Record\Order\Field::__construct
+   * @covers \Papaya\Database\Record\Order\Field::__toString
    */
   public function testSimpleFieldName() {
     $orderBy = new Field('field');
@@ -29,9 +29,9 @@ class FieldTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Field::__construct
-   * @covers Field::__toString
-   * @covers Field::getDirectionString
+   * @covers \Papaya\Database\Record\Order\Field::__construct
+   * @covers \Papaya\Database\Record\Order\Field::__toString
+   * @covers \Papaya\Database\Record\Order\Field::getDirectionString
    */
   public function testFieldNameAndDirection() {
     $orderBy = new Field(
@@ -41,9 +41,9 @@ class FieldTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Field::__construct
-   * @covers Field::__toString
-   * @covers Field::getDirectionString
+   * @covers \Papaya\Database\Record\Order\Field::__construct
+   * @covers \Papaya\Database\Record\Order\Field::__toString
+   * @covers \Papaya\Database\Record\Order\Field::getDirectionString
    */
   public function testWithInvalidDirectionExpectingAscending() {
     $orderBy = new Field(

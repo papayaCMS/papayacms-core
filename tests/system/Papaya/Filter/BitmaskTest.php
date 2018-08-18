@@ -29,7 +29,7 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Bitmask::validate
+   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
    * @throws \Papaya\Filter\Exception
@@ -42,7 +42,7 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Bitmask::validate
+   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
    * @throws \Papaya\Filter\Exception
@@ -63,7 +63,7 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Bitmask::filter
+   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
    */
@@ -75,7 +75,7 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Bitmask::filter
+   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
    */

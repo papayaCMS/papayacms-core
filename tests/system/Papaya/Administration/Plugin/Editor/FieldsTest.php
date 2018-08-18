@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class FieldsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Fields::__construct
+   * @covers \Papaya\Administration\Plugin\Editor\Fields::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Data $content */
@@ -30,8 +30,8 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::dialog
-   * @covers Fields::createDialog
+   * @covers \Papaya\Administration\Plugin\Editor\Fields::dialog
+   * @covers \Papaya\Administration\Plugin\Editor\Fields::createDialog
    */
   public function testDialogGetImplicitCreate() {
     $languageSwitch = $this->createMock(\Papaya\Administration\Languages\Selector::class);
@@ -73,7 +73,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::builder
+   * @covers \Papaya\Administration\Plugin\Editor\Fields::builder
    */
   public function testBuilderGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
@@ -88,7 +88,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::builder
+   * @covers \Papaya\Administration\Plugin\Editor\Fields::builder
    */
   public function testBuilderGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */

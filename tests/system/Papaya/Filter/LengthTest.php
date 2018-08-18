@@ -60,7 +60,7 @@ class LengthTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Length::validate
+   * @covers \Papaya\Filter\Length::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param int|0 $minimum
@@ -76,7 +76,7 @@ class LengthTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Length::validate
+   * @covers \Papaya\Filter\Length::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param int|0 $minimum

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class ImageResizedTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
    * @dataProvider provideValuesForFilterValidation
    * @param string $value
    * @throws \Papaya\Filter\Exception
@@ -30,7 +30,7 @@ class ImageResizedTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct
    * @dataProvider provideInvalidValuesForFilterValidation
    * @param string $value
    * @throws \Papaya\Filter\Exception

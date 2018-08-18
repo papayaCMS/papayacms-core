@@ -141,8 +141,8 @@ class OptionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Factory\Options::get
-   * @covers       \Papaya\UI\Dialog\Field\Factory\Options::set
+   * @covers \Papaya\UI\Dialog\Field\Factory\Options::get
+   * @covers \Papaya\UI\Dialog\Field\Factory\Options::set
    * @dataProvider provideOptionData
    * @param mixed $expected
    * @param string $name

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class DatabaseTest extends \Papaya\TestCase {
 
   /**
-   * @covers Database::records
+   * @covers \Papaya\Configuration\Storage\Database::records
    */
   public function testRecordsGetAfterSet() {
     $records = $this->createMock(\Papaya\Content\Configuration::class);
@@ -29,7 +29,7 @@ class DatabaseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Database::records
+   * @covers \Papaya\Configuration\Storage\Database::records
    */
   public function testRecordsGetImplicitCreate() {
     $storage = new Database();
@@ -37,7 +37,7 @@ class DatabaseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Database::load
+   * @covers \Papaya\Configuration\Storage\Database::load
    */
   public function testLoad() {
     $databaseAccess = $this
@@ -64,7 +64,7 @@ class DatabaseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Database::handleError
+   * @covers \Papaya\Configuration\Storage\Database::handleError
    */
   public function testHandleErrorDevmode() {
     $options = $this->mockPapaya()->options(
@@ -95,7 +95,7 @@ class DatabaseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Database::handleError
+   * @covers \Papaya\Configuration\Storage\Database::handleError
    */
   public function testHandleErrorNoDevmodeSilent() {
     $response = $this->createMock(\Papaya\Response::class);
@@ -119,7 +119,7 @@ class DatabaseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Database::getIterator
+   * @covers \Papaya\Configuration\Storage\Database::getIterator
    */
   public function testGetIterator() {
     $records = $this->createMock(\Papaya\Content\Configuration::class);

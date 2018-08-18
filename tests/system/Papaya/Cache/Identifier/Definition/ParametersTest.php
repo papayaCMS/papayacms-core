@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ParametersTest extends \Papaya\TestCase {
 
   /**
-   * @covers       Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Parameters
    * @dataProvider provideParameterData
    * @param mixed $expected
    * @param mixed $group
@@ -41,7 +41,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Parameters
    */
   public function testGetSourcesWithDefaultMethodGet() {
     $definition = new Parameters(array('foo'));
@@ -52,7 +52,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parameters
+   * @covers \Papaya\Cache\Identifier\Definition\Parameters
    */
   public function testGetSourcesWithMethodPost() {
     $definition = new Parameters(

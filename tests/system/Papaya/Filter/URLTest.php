@@ -36,7 +36,7 @@ class URLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\URL::filter
+   * @covers \Papaya\Filter\URL::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class CSSTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Template\Simple\Scanner\Status\CSS::getToken
+   * @covers \Papaya\Template\Simple\Scanner\Status\CSS::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer

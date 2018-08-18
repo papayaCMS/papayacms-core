@@ -20,7 +20,7 @@ namespace Papaya\Utility {
   class ArraysTest extends \Papaya\TestCase {
 
     /**
-     * @covers       \Papaya\Utility\Arrays::merge
+     * @covers \Papaya\Utility\Arrays::merge
      * @dataProvider mergeDataProvider
      * @param array|NULL $arrayOne
      * @param array|NULL $arrayTwo
@@ -32,7 +32,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Arrays::ensure
+     * @covers \Papaya\Utility\Arrays::ensure
      * @dataProvider toArrayDataProvider
      * @param array $expected
      * @param mixed $input
@@ -214,7 +214,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Arrays::normalize
+     * @covers \Papaya\Utility\Arrays::normalize
      * @dataProvider provideDataForNormalize
      * @param mixed $expected
      * @param mixed $input

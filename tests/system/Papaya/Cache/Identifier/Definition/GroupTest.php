@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers Group
+   * @covers \Papaya\Cache\Identifier\Definition\Group
    */
   public function testGetStatusWithOneDefinitionReturingTrue() {
     $mockDefinition = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
@@ -33,7 +33,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Cache\Identifier\Definition\Group
    */
   public function testGetStatusWithTwoDefinitionsReturingFalseSecondNeverCalled() {
     $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
@@ -50,7 +50,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Cache\Identifier\Definition\Group
    */
   public function testGetStatusWithTwoDefinitionsMergingReturns() {
     $one = $this->createMock(\Papaya\Cache\Identifier\Definition::class);
@@ -75,7 +75,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Group
+   * @covers \Papaya\Cache\Identifier\Definition\Group
    * @dataProvider provideSourceExamples
    * @param int $expected
    * @param int $sourceOne
@@ -100,7 +100,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Cache\Identifier\Definition\Group
    */
   public function testAdd() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Cache\Identifier\Definition $one */

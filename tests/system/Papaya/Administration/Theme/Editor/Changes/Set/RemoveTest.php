@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class RemoveTest extends \Papaya\TestCase {
 
   /**
-   * @covers Remove::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::createDialog
    */
   public function testCreateDialogWithoutSetId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -53,7 +53,7 @@ class RemoveTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Remove::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -96,7 +96,7 @@ class RemoveTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Remove::callbackDeleted
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);

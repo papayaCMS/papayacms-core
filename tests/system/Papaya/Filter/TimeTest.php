@@ -34,7 +34,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Time::validate
+   * @covers \Papaya\Filter\Time::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $timeString
    * @throws Exception\OutOfRange\ToLarge
@@ -46,7 +46,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Time::validate
+   * @covers \Papaya\Filter\Time::validate
    * @dataProvider validateExceptionTypeProvider
    * @param mixed $timeString
    * @throws Exception\OutOfRange\ToLarge
@@ -59,7 +59,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Time::validate
+   * @covers \Papaya\Filter\Time::validate
    * @dataProvider validateExceptionRangeMaximumProvider
    * @param mixed $timeString
    * @throws Exception\OutOfRange\ToLarge
@@ -82,7 +82,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Time
+   * @covers \Papaya\Filter\Time
    * @dataProvider filterProvider
    * @param mixed $timeString
    * @param string|NULL $expected

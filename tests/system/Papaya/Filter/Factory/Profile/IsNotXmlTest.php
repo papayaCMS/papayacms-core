@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsNotXmlTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
    * @dataProvider provideNotXmlStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception
@@ -30,7 +30,7 @@ class IsNotXmlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotXML::getFilter
    * @dataProvider provideXmlStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception

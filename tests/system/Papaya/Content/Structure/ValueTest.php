@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ValueTest extends \Papaya\TestCase {
 
   /**
-   * @covers Value::__construct
+   * @covers \Papaya\Content\Structure\Value::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -33,7 +33,7 @@ class ValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Value::getIdentifier
+   * @covers \Papaya\Content\Structure\Value::getIdentifier
    */
   public function testGetIdentifier() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */

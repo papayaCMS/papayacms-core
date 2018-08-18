@@ -19,8 +19,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class IncrementTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Iterator\Repeat\Increment::__construct
-   * @covers       \Papaya\Iterator\Repeat\Increment::increment
+   * @covers \Papaya\Iterator\Repeat\Increment::__construct
+   * @covers \Papaya\Iterator\Repeat\Increment::increment
    * @dataProvider provideLimits
    * @param array $expected
    * @param int $minimum

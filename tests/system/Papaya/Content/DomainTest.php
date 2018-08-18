@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class DomainTest extends \Papaya\TestCase {
 
   /**
-   * @covers Domain::_createMapping
+   * @covers \Papaya\Content\Domain::_createMapping
    */
   public function testCreateMapping() {
     $record = new Domain();
@@ -31,7 +31,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain::callbackFieldSerialization
    */
   public function testCallbackFieldSerializationSerializeOptions() {
     $record = new Domain();
@@ -49,7 +49,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain::callbackFieldSerialization
    */
   public function testCallbackFieldSerializationUnserializeOptions() {
     $record = new Domain();
@@ -67,7 +67,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain::callbackFieldSerialization
    */
   public function testCallbackFieldSerializationPassthru() {
     $record = new Domain();
@@ -84,7 +84,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::callbackUpdateHostLength
+   * @covers \Papaya\Content\Domain::callbackUpdateHostLength
    */
   public function testCallbackUpdateHostLength() {
     $record = new Domain();
@@ -128,7 +128,7 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Domain::callbackUpdateHostLength
+   * @covers \Papaya\Content\Domain::callbackUpdateHostLength
    */
   public function testCallbackUpdateHostLengthPassthru() {
     $record = new Domain();

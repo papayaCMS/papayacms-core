@@ -40,7 +40,7 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers       \Papaya\Filter\ArrayKey::validate
+     * @covers \Papaya\Filter\ArrayKey::validate
      * @dataProvider provideValidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues
@@ -52,7 +52,7 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers       \Papaya\Filter\ArrayKey::validate
+     * @covers \Papaya\Filter\ArrayKey::validate
      * @dataProvider provideInvalidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues
@@ -65,7 +65,7 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers       \Papaya\Filter\ArrayKey::filter
+     * @covers \Papaya\Filter\ArrayKey::filter
      * @dataProvider provideValidFilterData
      * @param mixed $expected
      * @param mixed $value
@@ -77,7 +77,7 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers       \Papaya\Filter\ArrayKey::filter
+     * @covers \Papaya\Filter\ArrayKey::filter
      * @dataProvider provideInvalidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues

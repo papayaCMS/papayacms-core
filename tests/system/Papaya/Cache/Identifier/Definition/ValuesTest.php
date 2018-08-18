@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ValuesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Values
+   * @covers \Papaya\Cache\Identifier\Definition\Values
    */
   public function testGetStatus() {
     $definition = new Values('21', '42');
@@ -32,7 +32,7 @@ class ValuesTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Values
+   * @covers \Papaya\Cache\Identifier\Definition\Values
    */
   public function testGetStatusWithoutValuesExpectingTrue() {
     $definition = new Values();
@@ -42,7 +42,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Values
+   * @covers \Papaya\Cache\Identifier\Definition\Values
    */
   public function testGetSources() {
     $definition = new Values();

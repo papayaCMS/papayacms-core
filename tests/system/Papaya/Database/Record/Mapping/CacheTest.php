@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class CacheTest extends \Papaya\TestCase {
 
   /**
-   * @covers Cache::__construct
+   * @covers \Papaya\Database\Record\Mapping\Cache::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -30,7 +30,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::__construct
+   * @covers \Papaya\Database\Record\Mapping\Cache::__construct
    */
   public function testConstructorWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -62,7 +62,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping\Cache::mapFieldsToProperties
    */
   public function testMapFieldsToProperties() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -82,7 +82,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping\Cache::mapFieldsToProperties
    */
   public function testMapFieldsToPropertiesWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -119,7 +119,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping\Cache::mapPropertiesToFields
    */
   public function testMapPropertiesToFields() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -139,7 +139,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping\Cache::mapPropertiesToFields
    */
   public function testMapPropertiesToFieldsWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -176,7 +176,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::getProperties
+   * @covers \Papaya\Database\Record\Mapping\Cache::getProperties
    */
   public function testGetProperties() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -192,7 +192,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::getFields
+   * @covers \Papaya\Database\Record\Mapping\Cache::getFields
    */
   public function testGetFields() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -209,7 +209,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::getProperty
+   * @covers \Papaya\Database\Record\Mapping\Cache::getProperty
    */
   public function testGetProperty() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
@@ -226,7 +226,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::getField
+   * @covers \Papaya\Database\Record\Mapping\Cache::getField
    */
   public function testGetField() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */

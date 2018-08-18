@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PropertiesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Properties::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::page
    */
   public function testPageGetAfterSet() {
     $page = $this->createMock(\Papaya\Content\Page\Work::class);
@@ -31,7 +31,7 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::page
    */
   public function testPageGetImplicitCreate() {
     $action = new Properties();
@@ -41,9 +41,9 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::synchronize
-   * @covers Properties::updateTranslations
-   * @covers Properties::updatePages
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::updateTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::updatePages
    */
   public function testSynchronizeUpdatePageAndOneTranslation() {
     $databaseAccess = $this->getDatabaseAccessFixture(
@@ -126,9 +126,9 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::synchronize
-   * @covers Properties::updateTranslations
-   * @covers Properties::updatePages
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::updateTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Properties::updatePages
    */
   public function testSynchronizeUpdatePageFailed() {
     $databaseAccess = $this->getDatabaseAccessFixture(

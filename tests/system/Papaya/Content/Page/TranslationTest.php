@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class TranslationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testLoad() {
     $record = array(
@@ -81,7 +81,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testLoadWithId() {
     $record = array(
@@ -142,7 +142,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -165,7 +165,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testLoadNoRecordExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -194,7 +194,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testSaveCreateNew() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -253,7 +253,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -310,7 +310,7 @@ class TranslationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translation
+   * @covers \Papaya\Content\Page\Translation
    */
   public function testSaveWithoutIndexDataExpectingFalse() {
     $translation = new Translation();

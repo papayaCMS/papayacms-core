@@ -27,7 +27,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Number::__construct
+   * @covers \Papaya\Filter\Number::__construct
    * @dataProvider constructFailureProvider
    * @param int $minimumLength
    * @param int $maximumLength
@@ -38,7 +38,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Number::validate
+   * @covers \Papaya\Filter\Number::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $value
    * @throws Exception\OutOfRange\ToLarge
@@ -82,7 +82,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Number::filter
+   * @covers \Papaya\Filter\Number::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param mixed $filtered

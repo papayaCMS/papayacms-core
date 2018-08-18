@@ -33,8 +33,8 @@ class CollectionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Options\Collection::offsetSet
-   * @covers       \Papaya\BaseObject\Options\Collection::_prepareName
+   * @covers \Papaya\BaseObject\Options\Collection::offsetSet
+   * @covers \Papaya\BaseObject\Options\Collection::_prepareName
    * @dataProvider offsetSetDataProvider
    * @param mixed $expected
    * @param string $name

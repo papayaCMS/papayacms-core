@@ -20,7 +20,7 @@ namespace Papaya\Content\Box {
   class WorkTest extends \Papaya\TestCase {
 
     /**
-     * @covers Work::save
+     * @covers \Papaya\Content\Box\Work::save
      */
     public function testSaveCreateNew() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -59,7 +59,7 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::save
+     * @covers \Papaya\Content\Box\Work::save
      */
     public function testSaveUpdateExisting() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -99,7 +99,7 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::_createPublicationObject
+     * @covers \Papaya\Content\Box\Work::_createPublicationObject
      */
     public function testCreatePublicationObject() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -115,7 +115,7 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
+     * @covers \Papaya\Content\Box\Work::publish
      */
     public function testPublishWithoutIdExpectingFalse() {
       $box = new Work_TestProxy();
@@ -123,8 +123,8 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Box\Work::publish
+     * @covers \Papaya\Content\Box\Work::_publishTranslations
      */
     public function testPublishWithoutLanguagesOrPeriod() {
       $box = $this->getContentBoxFixture();
@@ -149,7 +149,7 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
+     * @covers \Papaya\Content\Box\Work::publish
      */
     public function testPublishFailed() {
       $box = $this->getContentBoxFixture();
@@ -174,8 +174,8 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Box\Work::publish
+     * @covers \Papaya\Content\Box\Work::_publishTranslations
      */
     public function testPublishWithLanguagesPeriod() {
       $box = $this->getContentBoxFixture();
@@ -239,8 +239,8 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Box\Work::publish
+     * @covers \Papaya\Content\Box\Work::_publishTranslations
      */
     public function testPublishTranslationDeletionFailedExpetingFalse() {
       $box = $this->getContentBoxFixture();
@@ -274,8 +274,8 @@ namespace Papaya\Content\Box {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Box\Work::publish
+     * @covers \Papaya\Content\Box\Work::_publishTranslations
      */
     public function testPublishTranslationFailedExpetingFalse() {
       $box = $this->getContentBoxFixture();

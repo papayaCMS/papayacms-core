@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class Base32Test extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\Base32::encode
+   * @covers \Papaya\Utility\Text\Base32::encode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -32,7 +32,7 @@ class Base32Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Base32::encode
+   * @covers \Papaya\Utility\Text\Base32::encode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -45,7 +45,7 @@ class Base32Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Base32::decode
+   * @covers \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -58,7 +58,7 @@ class Base32Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Base32::decode
+   * @covers \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -71,7 +71,7 @@ class Base32Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\Base32::decode
+   * @covers \Papaya\Utility\Text\Base32::decode
    * @dataProvider provideInvalidDecodeSamples
    * @param string $encoded
    */

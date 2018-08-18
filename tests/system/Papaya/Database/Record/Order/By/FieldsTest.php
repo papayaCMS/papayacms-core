@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class FieldsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Fields::__construct
-   * @covers Fields::__toString
+   * @covers \Papaya\Database\Record\Order\By\Fields::__construct
+   * @covers \Papaya\Database\Record\Order\By\Fields::__toString
    */
   public function testWithSimpleField() {
     $orderBy = new Fields(array('field' => -1));
@@ -29,8 +29,8 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::__construct
-   * @covers Fields::__toString
+   * @covers \Papaya\Database\Record\Order\By\Fields::__construct
+   * @covers \Papaya\Database\Record\Order\By\Fields::__toString
    */
   public function testWithTwoFields() {
     $orderBy = new Fields(
@@ -43,7 +43,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::setFields
+   * @covers \Papaya\Database\Record\Order\By\Fields::setFields
    */
   public function testSetFieldClearsExistingFields() {
     $orderBy = new Fields(array('field_one' => -1));
@@ -56,7 +56,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::getIterator
+   * @covers \Papaya\Database\Record\Order\By\Fields::getIterator
    */
   public function testIterator() {
     $orderBy = new Fields(

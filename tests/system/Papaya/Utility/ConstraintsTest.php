@@ -27,7 +27,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertArray
+     * @covers \Papaya\Utility\Constraints::assertArray
      * @dataProvider provideInvalidValuesForAssertArray
      * @param mixed $value
      */
@@ -55,7 +55,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertArrayOrTraversable
+     * @covers \Papaya\Utility\Constraints::assertArrayOrTraversable
      * @dataProvider provideInvalidValuesForAssertArrayOrTraversable
      * @param mixed $value
      */
@@ -83,7 +83,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertBoolean
+     * @covers \Papaya\Utility\Constraints::assertBoolean
      * @dataProvider provideInvalidValuesForAssertBoolean
      * @param mixed $value
      */
@@ -93,7 +93,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertCallable
+     * @covers \Papaya\Utility\Constraints::assertCallable
      * @dataProvider provideValidValuesForAssertCallable
      * @param callable $value
      */
@@ -113,7 +113,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertCallable
+     * @covers \Papaya\Utility\Constraints::assertCallable
      * @dataProvider provideInvalidValuesForAssertCallable
      * @param mixed $value
      */
@@ -159,7 +159,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertFloat
+     * @covers \Papaya\Utility\Constraints::assertFloat
      * @dataProvider provideInvalidValuesForAssertFloat
      * @param mixed $value
      */
@@ -221,7 +221,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertInteger
+     * @covers \Papaya\Utility\Constraints::assertInteger
      * @dataProvider provideInvalidValuesForAssertInteger
      * @param mixed $value
      */
@@ -231,7 +231,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertNotEmpty
+     * @covers \Papaya\Utility\Constraints::assertNotEmpty
      * @dataProvider provideValidValuesForAssertNotEmpty
      * @param mixed $value
      */
@@ -242,7 +242,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertNotEmpty
+     * @covers \Papaya\Utility\Constraints::assertNotEmpty
      * @dataProvider provideInvalidValuesForAssertNotEmpty
      * @param mixed $value
      */
@@ -252,7 +252,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertNotEmpty
+     * @covers \Papaya\Utility\Constraints::assertNotEmpty
      * @dataProvider provideInvalidValuesForAssertNotEmpty
      * @param mixed $value
      */
@@ -280,7 +280,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertNumber
+     * @covers \Papaya\Utility\Constraints::assertNumber
      * @dataProvider provideInvalidValuesForAssertNumber
      * @param mixed $value
      */
@@ -299,7 +299,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertObject
+     * @covers \Papaya\Utility\Constraints::assertObject
      * @dataProvider provideInvalidValuesForAssertObject
      * @param mixed $value
      */
@@ -327,7 +327,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertObjectOrNull
+     * @covers \Papaya\Utility\Constraints::assertObjectOrNull
      * @dataProvider provideInvalidValuesForAssertObjectOrNull
      * @param mixed $value
      */
@@ -364,7 +364,7 @@ namespace Papaya\Utility {
     }
 
     /**
-     * @covers       \Papaya\Utility\Constraints::assertString
+     * @covers \Papaya\Utility\Constraints::assertString
      * @dataProvider provideInvalidValuesForAssertString
      * @param mixed $value
      */

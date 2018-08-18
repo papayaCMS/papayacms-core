@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class FieldsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Fields::__construct
+   * @covers \Papaya\Database\Record\Key\Fields::__construct
    */
   public function testConstructor() {
     $key = $this->getKeyFixture();
@@ -30,8 +30,8 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::assign
-   * @covers Fields::getFilter
+   * @covers \Papaya\Database\Record\Key\Fields::assign
+   * @covers \Papaya\Database\Record\Key\Fields::getFilter
    */
   public function testAssignAndGetFilter() {
     $key = $this->getKeyFixture();
@@ -42,8 +42,8 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::assign
-   * @covers Fields::getFilter
+   * @covers \Papaya\Database\Record\Key\Fields::assign
+   * @covers \Papaya\Database\Record\Key\Fields::getFilter
    */
   public function testAssignWithInvalidData() {
     $key = $this->getKeyFixture();
@@ -54,7 +54,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::getFilter
+   * @covers \Papaya\Database\Record\Key\Fields::getFilter
    */
   public function testGetFilterWithoutAssign() {
     $key = $this->getKeyFixture();
@@ -64,7 +64,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::getFilter
+   * @covers \Papaya\Database\Record\Key\Fields::getFilter
    */
   public function testGetFilterWithRecord() {
     $record = $this->createMock(\Papaya\Database\Record::class);
@@ -97,7 +97,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::getProperties
+   * @covers \Papaya\Database\Record\Key\Fields::getProperties
    */
   public function testGetProperties() {
     $key = $this->getKeyFixture();
@@ -107,7 +107,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::exists
+   * @covers \Papaya\Database\Record\Key\Fields::exists
    */
   public function testExistsExpectingTrue() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -154,7 +154,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::exists
+   * @covers \Papaya\Database\Record\Key\Fields::exists
    */
   public function testExistsWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -193,7 +193,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::exists
+   * @covers \Papaya\Database\Record\Key\Fields::exists
    */
   public function testExistsWithEmptyMappingResult() {
     $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -212,7 +212,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::getQualities
+   * @covers \Papaya\Database\Record\Key\Fields::getQualities
    */
   public function testGetQualities() {
     $key = $this->getKeyFixture();
@@ -220,7 +220,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::__toString
+   * @covers \Papaya\Database\Record\Key\Fields::__toString
    */
   public function testMagicToString() {
     $key = $this->getKeyFixture();
@@ -229,7 +229,7 @@ class FieldsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Fields::clear
+   * @covers \Papaya\Database\Record\Key\Fields::clear
    */
   public function testClear() {
     $key = $this->getKeyFixture();

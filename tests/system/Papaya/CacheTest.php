@@ -24,7 +24,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::getService
+  * @covers \Papaya\Cache::getService
   */
   public function testGetServiceDefault() {
     $configuration = $this->mockPapaya()->options();
@@ -35,7 +35,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::getService
+  * @covers \Papaya\Cache::getService
   */
   public function testGetServiceInvalid() {
     $options = new Cache\Configuration();
@@ -45,7 +45,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::getService
+  * @covers \Papaya\Cache::getService
   */
   public function testGetServiceEmpty() {
     $options = new Cache\Configuration();
@@ -55,7 +55,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::getService
+  * @covers \Papaya\Cache::getService
   */
   public function testGetServiceStaticExpectingSameObject() {
     $configuration = $this->mockPapaya()->options();
@@ -66,7 +66,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::getService
+  * @covers \Papaya\Cache::getService
   */
   public function testGetServiceNonStaticExpectingDifferentObjects() {
     $configuration = $this->mockPapaya()->options();
@@ -77,7 +77,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::prepareConfiguration
+  * @covers \Papaya\Cache::prepareConfiguration
   */
   public function testPrepareConfigurationPasstrough() {
     $options = new Cache\Configuration();
@@ -85,7 +85,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::prepareConfiguration
+  * @covers \Papaya\Cache::prepareConfiguration
   */
   public function testPrepareConfigurationFromGlobalConfiguration() {
     $configuration = $this->mockPapaya()->options(
@@ -112,7 +112,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::get
+  * @covers \Papaya\Cache::get
   */
   public function testGetForInvalidCacheExpectingFalse() {
     $this->assertFalse(
@@ -121,7 +121,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::get
+   * @covers \Papaya\Cache::get
    * @dataProvider provideCacheIdentifiers
    * @param string $for
    */
@@ -147,7 +147,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cache::get
+   * @covers \Papaya\Cache::get
    * @dataProvider provideDisabledCacheIdentifiers
    * @param string $for
    */
@@ -164,7 +164,7 @@ class CacheTest extends \Papaya\TestCase {
   }
 
   /**
-  * @covers Cache::reset
+  * @covers \Papaya\Cache::reset
   */
   public function testReset() {
     $configuration = $this->mockPapaya()->options();

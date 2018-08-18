@@ -129,7 +129,7 @@ class WildfireTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Message\Dispatcher\Wildfire::getWildfireMessageType
+   * @covers \Papaya\Message\Dispatcher\Wildfire::getWildfireMessageType
    * @dataProvider getWildfireMessageTypeDataProvider
    *
    * @param string $expected
@@ -141,7 +141,7 @@ class WildfireTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Message\Dispatcher\Wildfire::getWildfireGroupLabelFromType
+   * @covers \Papaya\Message\Dispatcher\Wildfire::getWildfireGroupLabelFromType
    * @dataProvider getWildfireGroupLabelFromTypeDataProvider
    *
    * @param string $expected

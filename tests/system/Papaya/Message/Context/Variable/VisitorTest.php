@@ -48,7 +48,7 @@ namespace Papaya\Message\Context\Variable {
     }
 
     /**
-     * @covers       \Papaya\Message\Context\Variable\Visitor::visitVariable
+     * @covers \Papaya\Message\Context\Variable\Visitor::visitVariable
      * @dataProvider dataProviderForVisitVariable
      * @param string $expected
      * @param mixed $with

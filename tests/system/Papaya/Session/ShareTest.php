@@ -200,7 +200,7 @@ namespace Papaya\Session {
     }
 
     /**
-     * @covers       \Papaya\Session\Share::preparePropertyName
+     * @covers \Papaya\Session\Share::preparePropertyName
      * @dataProvider providePropertyNames
      * @param string $propertyName
      */

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class BitwiseTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Bitwise::inBitmask
+   * @covers \Papaya\Utility\Bitwise::inBitmask
    * @dataProvider provideInBitmaskPositiveData
    * @param int $bit
    * @param int $bitmask
@@ -32,7 +32,7 @@ class BitwiseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Bitwise::inBitmask
+   * @covers \Papaya\Utility\Bitwise::inBitmask
    * @dataProvider provideInBitmaskNegativeData
    * @param int $bit
    * @param int $bitmask
@@ -44,7 +44,7 @@ class BitwiseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Bitwise::union
+   * @covers \Papaya\Utility\Bitwise::union
    * @dataProvider provideUnionData
    * @param int $expected
    * @param array $bits

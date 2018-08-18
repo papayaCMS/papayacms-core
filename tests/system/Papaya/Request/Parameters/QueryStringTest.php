@@ -29,7 +29,7 @@ class QueryStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\QueryString::setSeparator
+   * @covers \Papaya\Request\Parameters\QueryString::setSeparator
    * @dataProvider provideValidSeparators
    * @param string $separator
    * @param string $expected
@@ -86,9 +86,9 @@ class QueryStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\QueryString::setString
-   * @covers       \Papaya\Request\Parameters\QueryString::_decode
-   * @covers       \Papaya\Request\Parameters\QueryString::_prepare
+   * @covers \Papaya\Request\Parameters\QueryString::setString
+   * @covers \Papaya\Request\Parameters\QueryString::_decode
+   * @covers \Papaya\Request\Parameters\QueryString::_prepare
    * @dataProvider provideQueryStringsForDecode
    * @param string $queryString
    * @param bool $stripSlashes
@@ -105,8 +105,8 @@ class QueryStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters\QueryString::GetString
-   * @covers       \Papaya\Request\Parameters\QueryString::_encode
+   * @covers \Papaya\Request\Parameters\QueryString::GetString
+   * @covers \Papaya\Request\Parameters\QueryString::_encode
    * @dataProvider provideValuesForEncode
    * @param array $values
    * @param string $groupSeparator

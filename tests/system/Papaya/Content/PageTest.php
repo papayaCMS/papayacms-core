@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PageTest extends \Papaya\TestCase {
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testLoad() {
     $translations = $this->createMock(Page\Translations::class);
@@ -105,7 +105,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testLoadExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -128,7 +128,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testTranslationsSet() {
     $translations = $this->createMock(Page\Translations::class);
@@ -140,7 +140,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(Page\Translations::class);
@@ -152,7 +152,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testTranslationsGetImplicitCreate() {
     $page = new Page();
@@ -162,7 +162,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testMapPropertiesToFields() {
     $page = new Page();
@@ -225,7 +225,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testOnBeforeInsert() {
     $page = new Page();
@@ -235,7 +235,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page
+   * @covers \Papaya\Content\Page
    */
   public function testOnBeforeUpdate() {
     $page = new Page();

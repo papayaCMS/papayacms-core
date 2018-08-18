@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ReferenceTest extends \Papaya\TestCase {
 
   /**
-   * @covers Reference::_createKey
+   * @covers \Papaya\Content\Page\Reference::_createKey
    */
   public function testCreateKey() {
     $reference = new Reference();
@@ -30,7 +30,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Reference::_createMapping
+   * @covers \Papaya\Content\Page\Reference::_createMapping
    */
   public function testCreateMapping() {
     $reference = new Reference();
@@ -41,7 +41,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Reference::callbackSortPageIds
+   * @covers \Papaya\Content\Page\Reference::callbackSortPageIds
    * @dataProvider provideMappingData
    * @param array $expected
    * @param int $mode
@@ -57,7 +57,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Reference::exists
+   * @covers \Papaya\Content\Page\Reference::exists
    */
   public function testExistsExpectingTrue() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -77,7 +77,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Reference::exists
+   * @covers \Papaya\Content\Page\Reference::exists
    */
   public function testExistsExpectingFalse() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -97,7 +97,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Reference::exists
+   * @covers \Papaya\Content\Page\Reference::exists
    */
   public function testExistsWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class UrlTest extends \Papaya\TestCase {
 
   /**
-   * @covers URL
+   * @covers \Papaya\Cache\Identifier\Definition\URL
    */
   public function testGetStatus() {
     $environment = $_SERVER;
@@ -40,7 +40,7 @@ class UrlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers URL
+   * @covers \Papaya\Cache\Identifier\Definition\URL
    */
   public function testGetSources() {
     $definition = new URL();

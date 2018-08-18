@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class FactoryTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\UI\Reference\Factory
+   * @covers \Papaya\UI\Reference\Factory
    * @dataProvider provideStringsAndExpectedUrls
    * @param string $expected
    * @param string $string

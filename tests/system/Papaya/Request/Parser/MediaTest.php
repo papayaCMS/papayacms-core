@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class MediaTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Request\Parser\Media::parse
+   * @covers \Papaya\Request\Parser\Media::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected

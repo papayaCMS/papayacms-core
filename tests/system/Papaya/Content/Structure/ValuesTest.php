@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ValuesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Values::__construct
+   * @covers \Papaya\Content\Structure\Values::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -33,7 +33,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Values::load
+   * @covers \Papaya\Content\Structure\Values::load
    */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -55,7 +55,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Values::load
+   * @covers \Papaya\Content\Structure\Values::load
    */
   public function testLoadValueWithMultipleParameters() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -80,7 +80,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Values::load
+   * @covers \Papaya\Content\Structure\Values::load
    */
   public function testLoadValueWithSimpleParameterAsAttribute() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -97,7 +97,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Values::load
+   * @covers \Papaya\Content\Structure\Values::load
    */
   public function testLoadValueWithParametersList() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */

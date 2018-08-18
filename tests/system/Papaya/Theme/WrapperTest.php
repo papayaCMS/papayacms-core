@@ -178,7 +178,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper::getCompiledContent
+   * @covers \Papaya\Theme\Wrapper::getCompiledContent
    * @dataProvider provideFilesToCompileContent
    * @param string $content
    * @param array $files
@@ -265,8 +265,8 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper::getFiles
-   * @covers       \Papaya\Theme\Wrapper::prepareFileName
+   * @covers \Papaya\Theme\Wrapper::getFiles
+   * @covers \Papaya\Theme\Wrapper::prepareFileName
    * @dataProvider provideFileListsForValidation
    * @param $validated
    * @param $files
@@ -385,7 +385,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper::getCacheIdentifier
+   * @covers \Papaya\Theme\Wrapper::getCacheIdentifier
    * @dataProvider provideDataForCacheIdentifiers
    * @param string $expected
    * @param int $themeSetId

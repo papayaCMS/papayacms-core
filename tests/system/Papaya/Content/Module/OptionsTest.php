@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class OptionsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Options::_createMapping
+   * @covers \Papaya\Content\Module\Options::_createMapping
    */
   public function testCreateMapping() {
     $content = new Options();
@@ -30,7 +30,7 @@ class OptionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Options::callbackConvertValueByType
+   * @covers \Papaya\Content\Module\Options::callbackConvertValueByType
    * @dataProvider providePropertiesToFieldsData
    * @param array $expected
    * @param array $properties
@@ -50,7 +50,7 @@ class OptionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Options::callbackConvertValueByType
+   * @covers \Papaya\Content\Module\Options::callbackConvertValueByType
    * @dataProvider provideFieldsToPropertiesData
    * @param array $expected
    * @param array $properties

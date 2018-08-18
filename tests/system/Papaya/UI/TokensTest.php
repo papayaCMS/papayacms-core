@@ -305,7 +305,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Tokens::getVerification
+     * @covers \Papaya\UI\Tokens::getVerification
      * @dataProvider provideVerificationHashesAndData
      * @param string $expected
      * @param mixed $for

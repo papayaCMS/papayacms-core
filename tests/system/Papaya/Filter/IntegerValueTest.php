@@ -62,7 +62,7 @@ class IntegerValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\IntegerValue::validate
+   * @covers \Papaya\Filter\IntegerValue::validate
    * @dataProvider provideValidValidateData
    * @param int $value
    * @param int $minimum
@@ -75,7 +75,7 @@ class IntegerValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\IntegerValue::validate
+   * @covers \Papaya\Filter\IntegerValue::validate
    * @dataProvider provideInvalidValidateData
    * @param int $value
    * @param int $minimum

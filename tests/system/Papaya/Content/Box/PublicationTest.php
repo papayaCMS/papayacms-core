@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PublicationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Publication::save
+   * @covers \Papaya\Content\Box\Publication::save
    */
   public function testSaveCreateNew() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -71,7 +71,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::save
+   * @covers \Papaya\Content\Box\Publication::save
    */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -122,7 +122,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::save
+   * @covers \Papaya\Content\Box\Publication::save
    */
   public function testSaveWithoutIdExpectingFalse() {
     $box = new Publication();
@@ -130,7 +130,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::save
+   * @covers \Papaya\Content\Box\Publication::save
    */
   public function testSaveWithSqlErrorOnCheckExistingExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

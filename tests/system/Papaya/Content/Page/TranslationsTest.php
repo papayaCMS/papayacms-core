@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class TranslationsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Translations::setTranslationsTableName
+   * @covers \Papaya\Content\Page\Translations::setTranslationsTableName
    */
   public function testSetTranslationsTable() {
     $list = new Translations();
@@ -31,7 +31,7 @@ class TranslationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translations::load
+   * @covers \Papaya\Content\Page\Translations::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -78,7 +78,7 @@ class TranslationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translations::load
+   * @covers \Papaya\Content\Page\Translations::load
    */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -93,7 +93,7 @@ class TranslationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Translations::getTranslation
+   * @covers \Papaya\Content\Page\Translations::getTranslation
    */
   public function testGetTranslation() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

@@ -20,9 +20,9 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PublicationsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Publications::__construct
-   * @covers Publications::load
-   * @covers Publications::_compileCondition
+   * @covers \Papaya\Content\Page\Publications::__construct
+   * @covers \Papaya\Content\Page\Publications::load
+   * @covers \Papaya\Content\Page\Publications::_compileCondition
    */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -60,7 +60,7 @@ class PublicationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publications
+   * @covers \Papaya\Content\Page\Publications
    */
   public function testIsPublicExpectingTrue() {
     $pages = new Publications();

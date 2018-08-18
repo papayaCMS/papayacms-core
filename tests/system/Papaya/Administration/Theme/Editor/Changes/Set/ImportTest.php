@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class ImportTest extends \Papaya\TestCase {
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testCreateDialog() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -67,7 +67,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testCreateDialogWithSelectedSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -120,7 +120,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testOnValidationSuccessWithoutTheme() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -140,7 +140,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testOnValidationSuccessWithInvalidXml() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -161,7 +161,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testOnValidationSuccessWithValidXml() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -206,7 +206,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testOnValidationSuccessWithValidXmlNotSaved() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -245,7 +245,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
    */
   public function testOnValidationSuccessWithValidXmlImportingIntoExistingSet() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);

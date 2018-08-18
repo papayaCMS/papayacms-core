@@ -86,7 +86,7 @@ class AttributesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Link\Attributes::getPopupOptionsArray
+   * @covers \Papaya\UI\Link\Attributes::getPopupOptionsArray
    * @dataProvider providePopupLinkOptions
    * @param array $expected
    * @param string|integer $top
@@ -104,7 +104,7 @@ class AttributesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Link\Attributes::appendTo
+   * @covers \Papaya\UI\Link\Attributes::appendTo
    * @dataProvider provideSimpleLinkData
    * @param string $expected
    * @param string $class
@@ -123,7 +123,7 @@ class AttributesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Link\Attributes::appendTo
+   * @covers \Papaya\UI\Link\Attributes::appendTo
    * @dataProvider providePopupLinkData
    * @param string $expected
    * @param string|integer $top

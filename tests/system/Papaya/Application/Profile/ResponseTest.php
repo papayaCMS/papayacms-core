@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ResponseTest extends \Papaya\TestCase {
 
   /**
-   * @covers Response::createObject
+   * @covers \Papaya\Application\Profile\Response::createObject
    */
   public function testCreateObject() {
     $profile = new Response();

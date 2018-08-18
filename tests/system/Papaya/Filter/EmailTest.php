@@ -36,7 +36,7 @@ class EmailTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Email::filter
+   * @covers \Papaya\Filter\Email::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input

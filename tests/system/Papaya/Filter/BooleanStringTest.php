@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class BooleanStringTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\BooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideValidBooleanStrings
    * @param mixed $expected
    * @param mixed $value
@@ -35,7 +35,7 @@ class BooleanStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\BooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideInvalidBooleanStrings
    * @param mixed $value
    * @throws Exception
@@ -47,7 +47,7 @@ class BooleanStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\BooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideValidBooleanStrings
    * @param mixed $expected
    * @param mixed $value
@@ -58,7 +58,7 @@ class BooleanStringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\BooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideInvalidBooleanStrings
    * @param mixed $value
    */

@@ -20,7 +20,7 @@ namespace Papaya\Content\Page {
   class WorkTest extends \Papaya\TestCase {
 
     /**
-     * @covers Work::save
+     * @covers \Papaya\Content\Page\Work::save
      */
     public function testSaveCreateNew() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -91,7 +91,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::save
+     * @covers \Papaya\Content\Page\Work::save
      */
     public function testInsertExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -106,7 +106,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::save
+     * @covers \Papaya\Content\Page\Work::save
      */
     public function testSaveUpdateExisting() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -178,7 +178,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::createChild
+     * @covers \Papaya\Content\Page\Work::createChild
      */
     public function testCreateChild() {
       $parentPage = new Work();
@@ -244,7 +244,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::_createPublicationObject
+     * @covers \Papaya\Content\Page\Work::_createPublicationObject
      */
     public function testCreatePublicationObject() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -260,7 +260,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
+     * @covers \Papaya\Content\Page\Work::publish
      */
     public function testPublishWithoutIdExpectingFalse() {
       $page = new Work_TestProxy();
@@ -268,7 +268,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
+     * @covers \Papaya\Content\Page\Work::publish
      */
     public function testPublishFailed() {
       $page = $this->getContentPageFixture();
@@ -293,8 +293,8 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Page\Work::publish
+     * @covers \Papaya\Content\Page\Work::_publishTranslations
      */
     public function testPublishWithoutLanguagesOrPeriod() {
       $page = $this->getContentPageFixture();
@@ -319,8 +319,8 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Page\Work::publish
+     * @covers \Papaya\Content\Page\Work::_publishTranslations
      */
     public function testPublishWithLanguagesPeriod() {
       $page = $this->getContentPageFixture();
@@ -384,8 +384,8 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Page\Work::publish
+     * @covers \Papaya\Content\Page\Work::_publishTranslations
      */
     public function testPublishTranslationDeletionFailedExpetingFalse() {
       $page = $this->getContentPageFixture();
@@ -419,8 +419,8 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Work::publish
-     * @covers Work::_publishTranslations
+     * @covers \Papaya\Content\Page\Work::publish
+     * @covers \Papaya\Content\Page\Work::_publishTranslations
      */
     public function testPublishTranslationFailedExpetingFalse() {
       $page = $this->getContentPageFixture();

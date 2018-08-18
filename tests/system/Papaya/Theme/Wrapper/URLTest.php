@@ -41,7 +41,7 @@ class URLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper\URL::getMimetype
+   * @covers \Papaya\Theme\Wrapper\URL::getMimetype
    * @dataProvider provideValidWrapperUrls
    * @param string $mimetype
    * @param string $url
@@ -52,7 +52,7 @@ class URLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper\URL::getMimetype
+   * @covers \Papaya\Theme\Wrapper\URL::getMimetype
    * @dataProvider provideInvalidWrapperUrls
    * @param string $url
    */
@@ -139,7 +139,7 @@ class URLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Theme\Wrapper\URL::getTheme
+   * @covers \Papaya\Theme\Wrapper\URL::getTheme
    * @dataProvider provideThemesFromUrl
    * @param string $theme
    * @param string $url

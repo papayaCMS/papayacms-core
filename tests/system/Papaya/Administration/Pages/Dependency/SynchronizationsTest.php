@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class SynchronizationsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Synchronizations::getIcons
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getIcons
    */
   public function testGetIcons() {
     $synchronizations = new Synchronizations();
@@ -30,7 +30,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::getList
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getList
    */
   public function testGetList() {
     $synchronizations = new Synchronizations();
@@ -40,7 +40,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::dependencies
    */
   public function testDependenciesGetAfterSet() {
     $synchronizations = new Synchronizations();
@@ -49,7 +49,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::dependencies
    */
   public function testDependenciesGetImplicitCreate() {
     $synchronizations = new Synchronizations();
@@ -57,7 +57,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::getAction
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getAction
    */
   public function testGetAction() {
     $synchronizations = new Synchronizations();
@@ -69,7 +69,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::getAction
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getAction
    */
   public function testGetActionExpectingNull() {
     $synchronizations = new Synchronizations();
@@ -79,7 +79,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::getTargets
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getTargets
    */
   public function testGetTargets() {
     $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
@@ -116,7 +116,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::getTargets
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::getTargets
    */
   public function testGetTargetsExpectingNull() {
     $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
@@ -143,7 +143,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::synchronizeDependency
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::synchronizeDependency
    */
   public function testSynchronizeDependency() {
     $dependency = $this->getRecordFixture(
@@ -165,7 +165,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Synchronizations::synchronizeAction
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronizations::synchronizeAction
    */
   public function testSynchronizeAction() {
     $action = $this->createMock(Synchronization::class);

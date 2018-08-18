@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class JavascriptTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\Javascript::quote
+   * @covers \Papaya\Utility\Text\Javascript::quote
    * @dataProvider quoteDataProvider
    * @param string $string
    * @param string $expected

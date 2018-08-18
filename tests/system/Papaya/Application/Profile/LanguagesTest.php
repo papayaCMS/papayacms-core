@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class LanguagesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Languages::createObject
+   * @covers \Papaya\Application\Profile\Languages::createObject
    */
   public function testCreateObject() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

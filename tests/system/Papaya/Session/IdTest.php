@@ -57,7 +57,7 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::existsIn
+   * @covers \Papaya\Session\Id::existsIn
    * @dataProvider provideValidParametersForExistsIn
    * @param int $source
    * @param $parameters
@@ -72,7 +72,7 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::existsIn
+   * @covers \Papaya\Session\Id::existsIn
    * @dataProvider provideInvalidParametersForExistsIn
    * @param int $source
    * @param array $parameters
@@ -99,7 +99,7 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::validate
+   * @covers \Papaya\Session\Id::validate
    * @dataProvider provideValidSessionIds
    * @param string $sessionId
    */
@@ -109,7 +109,7 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::validate
+   * @covers \Papaya\Session\Id::validate
    * @dataProvider provideInvalidSessionIds
    * @param string $sessionId
    */
@@ -119,9 +119,9 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::getId
-   * @covers       \Papaya\Session\Id::_readCookie
-   * @covers       \Papaya\Session\Id::_isCookieUnique
+   * @covers \Papaya\Session\Id::getId
+   * @covers \Papaya\Session\Id::_readCookie
+   * @covers \Papaya\Session\Id::_isCookieUnique
    * @backupGlobals enabled
    * @dataProvider provideCookieStrings
    * @param string $cookieString
@@ -143,8 +143,8 @@ class IdTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Id::_readCookie
-   * @covers       \Papaya\Session\Id::_isCookieUnique
+   * @covers \Papaya\Session\Id::_readCookie
+   * @covers \Papaya\Session\Id::_isCookieUnique
    * @backupGlobals enabled
    * @dataProvider provideAmbiguousCookieStrings
    * @param string $cookieString

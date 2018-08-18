@@ -152,7 +152,7 @@ namespace Papaya\XML {
     }
 
     /**
-     * @covers       \Papaya\XML\Element::setAttribute
+     * @covers \Papaya\XML\Element::setAttribute
      * @dataProvider provideAttributeValues
      * @param string $expected
      * @param mixed $value

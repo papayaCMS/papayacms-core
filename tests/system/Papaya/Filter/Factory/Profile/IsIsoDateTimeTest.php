@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsIsoDateTimeTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsIsoDateTime::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsIsoDateTime::getFilter
    * @dataProvider provideValidDatetimeStrings
    * @param string $datetime
    * @throws \Papaya\Filter\Exception

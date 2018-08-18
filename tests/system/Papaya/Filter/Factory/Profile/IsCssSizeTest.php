@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsCssSizeTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsCssSize::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsCssSize::getFilter
    * @dataProvider provideCssSizes
    * @param string $size
    * @throws \Papaya\Filter\Exception

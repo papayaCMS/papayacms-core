@@ -20,7 +20,7 @@ namespace Papaya\Content\Structure {
   class NodeTest extends \Papaya\TestCase {
 
     /**
-     * @covers Node
+     * @covers \Papaya\Content\Structure\Node
      */
     public function testIssetWithValidPropertyExpectingTrue() {
       $node = new Node_TestProxy();
@@ -28,7 +28,7 @@ namespace Papaya\Content\Structure {
     }
 
     /**
-     * @covers Node
+     * @covers \Papaya\Content\Structure\Node
      */
     public function testIssetWithInvalidPropertyExpectingFalse() {
       $node = new Node_TestProxy();
@@ -37,7 +37,7 @@ namespace Papaya\Content\Structure {
 
 
     /**
-     * @covers       Node
+     * @covers \Papaya\Content\Structure\Node
      * @dataProvider providePropertyValues
      * @param mixed $expected
      * @param string $name
@@ -50,7 +50,7 @@ namespace Papaya\Content\Structure {
     }
 
     /**
-     * @covers Node
+     * @covers \Papaya\Content\Structure\Node
      */
     public function testSetInvalidPropertyExpectingException() {
       $node = new Node_TestProxy();
@@ -60,7 +60,7 @@ namespace Papaya\Content\Structure {
     }
 
     /**
-     * @covers Node
+     * @covers \Papaya\Content\Structure\Node
      */
     public function testGetInvalidPropertyExpectingException() {
       $node = new Node_TestProxy();
@@ -70,7 +70,7 @@ namespace Papaya\Content\Structure {
     }
 
     /**
-     * @covers Node
+     * @covers \Papaya\Content\Structure\Node
      */
     public function testSetInvalidPropertyNameExpectingException() {
       $node = new Node_TestProxy();

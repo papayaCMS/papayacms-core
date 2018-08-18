@@ -20,7 +20,7 @@ namespace Papaya\Cache {
   class ServiceTest extends \Papaya\TestCase {
 
     /**
-     * @covers Service::__construct
+     * @covers \Papaya\Cache\Service::__construct
      */
     public function testConstructor() {
       $service = new Service_TestProxy($options = new Configuration());
@@ -30,7 +30,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::getCacheIdentifier
+     * @covers \Papaya\Cache\Service::getCacheIdentifier
      * @dataProvider getCacheIdentifierDataProvider
      * @param string $group
      * @param mixed $identifier
@@ -46,7 +46,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::getCacheIdentifier
+     * @covers \Papaya\Cache\Service::getCacheIdentifier
      * @dataProvider getInvalidCacheIdentifierDataProvider
      * @param string $group
      * @param mixed $identifier
@@ -59,7 +59,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers Service::getCacheIdentifier
+     * @covers \Papaya\Cache\Service::getCacheIdentifier
      */
     public function testGetCacheIdentifierToLargeExpectingException() {
       $service = new Service_TestProxy();
@@ -68,7 +68,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::_escapeIdentifierString
+     * @covers \Papaya\Cache\Service::_escapeIdentifierString
      * @dataProvider escapeIdentifierStringDataProvider
      * @param string $string
      * @param string $expected
@@ -82,7 +82,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::_serializeParameters
+     * @covers \Papaya\Cache\Service::_serializeParameters
      * @dataProvider serializeParametersDataProvider
      * @param mixed $parameters
      * @param string $expected
@@ -96,7 +96,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::_getCacheIdentification
+     * @covers \Papaya\Cache\Service::_getCacheIdentification
      * @dataProvider getCacheIdentificationDataProvider
      * @param string $group
      * @param mixed $identifier
@@ -112,7 +112,7 @@ namespace Papaya\Cache {
     }
 
     /**
-     * @covers       Service::_getCacheIdentification
+     * @covers \Papaya\Cache\Service::_getCacheIdentification
      * @dataProvider getInvalidCacheIdentificationDataProvider
      * @param string $group
      * @param mixed $identifier

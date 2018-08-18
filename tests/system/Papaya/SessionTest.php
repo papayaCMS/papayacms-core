@@ -383,7 +383,7 @@ class SessionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session::isSecureOnly
+   * @covers \Papaya\Session::isSecureOnly
    * @dataProvider provideValidOptionsForSecureSession
    * @param array $options
    */
@@ -400,7 +400,7 @@ class SessionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session::isSecureOnly
+   * @covers \Papaya\Session::isSecureOnly
    * @dataProvider provideInvalidOptionsForSecureSession
    * @param array $options
    */
@@ -417,9 +417,9 @@ class SessionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session::activate
-   * @covers       \Papaya\Session::configure
-   * @covers       \Papaya\Session::redirectIfNeeded
+   * @covers \Papaya\Session::activate
+   * @covers \Papaya\Session::configure
+   * @covers \Papaya\Session::redirectIfNeeded
    * @backupGlobals enabled
    * @runInSeparateProcess
    * @dataProvider provideSessionSourcesNoRedirect
@@ -455,10 +455,10 @@ class SessionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session::activate
-   * @covers       \Papaya\Session::configure
-   * @covers       \Papaya\Session::_createRedirect
-   * @covers       \Papaya\Session::redirectIfNeeded
+   * @covers \Papaya\Session::activate
+   * @covers \Papaya\Session::configure
+   * @covers \Papaya\Session::_createRedirect
+   * @covers \Papaya\Session::redirectIfNeeded
    * @backupGlobals enabled
    * @runInSeparateProcess
    * @dataProvider provideSessionSourcesTriggeringRedirect

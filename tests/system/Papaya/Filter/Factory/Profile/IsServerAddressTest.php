@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsServerAddressTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsServerAddress::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsServerAddress::getFilter
    * @dataProvider provideServerAddressStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception
@@ -30,7 +30,7 @@ class IsServerAddressTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsServerAddress::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsServerAddress::getFilter
    * @dataProvider provideInvalidStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class TextTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Parser\Search\Text
+   * @covers \Papaya\Parser\Search\Text
    * @param array $expected
    * @param string $searchFor
    * @dataProvider provideSearchStrings

@@ -20,7 +20,7 @@ namespace Papaya\CSV {
   class ReaderTest extends \Papaya\TestCase {
 
     /**
-     * @covers Reader::__construct
+     * @covers \Papaya\CSV\Reader::__construct
      */
     public function testConstructor() {
       $reader = new Reader('sample.csv');
@@ -30,7 +30,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::setMaximumFileSize
+     * @covers \Papaya\CSV\Reader::setMaximumFileSize
      */
     public function testSetMaximumFileSize() {
       $reader = new Reader('sample.csv');
@@ -41,7 +41,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::setMaximumLineSize
+     * @covers \Papaya\CSV\Reader::setMaximumLineSize
      */
     public function testSetMaximumLineSize() {
       $reader = new Reader('sample.csv');
@@ -52,7 +52,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::isValid
+     * @covers \Papaya\CSV\Reader::isValid
      */
     public function testIsValidExpectingTrue() {
       $reader = new Reader(__DIR__.'/TestData/sample.csv');
@@ -60,7 +60,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::isValid
+     * @covers \Papaya\CSV\Reader::isValid
      */
     public function testIsValidDisallowLocalFilesExpectingException() {
       $reader = new Reader(__DIR__.'/TestData/sample.csv');
@@ -69,7 +69,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::isValid
+     * @covers \Papaya\CSV\Reader::isValid
      */
     public function testIsValidNonExistingFileExpectingException() {
       $reader = new Reader(__DIR__.'/TestData/INVALID_FILENAME.csv');
@@ -78,7 +78,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::isValid
+     * @covers \Papaya\CSV\Reader::isValid
      */
     public function testIsValidEmptyFileExpectingException() {
       $reader = new Reader(__DIR__.'/TestData/empty.csv');
@@ -87,7 +87,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::isValid
+     * @covers \Papaya\CSV\Reader::isValid
      */
     public function testIsValidFileToLargeExpectingException() {
       $reader = new Reader(__DIR__.'/TestData/sample.csv');
@@ -97,8 +97,8 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers       Reader::fetchAssoc
-     * @covers       Reader::_getFileResource
+     * @covers \Papaya\CSV\Reader::fetchAssoc
+     * @covers \Papaya\CSV\Reader::_getFileResource
      * @dataProvider provideDataForFetchAssoc
      * @param int $startOffset
      * @param int $limit
@@ -118,7 +118,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers Reader::fetchAssoc
+     * @covers \Papaya\CSV\Reader::fetchAssoc
      */
     public function testFetchAssocWithInvalidFileExpectingNull() {
       $reader = new Reader_TestProxy('sample.csv');
@@ -129,8 +129,8 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers       Reader::_getStyle
-     * @covers       Reader::_getFirstCharacter
+     * @covers \Papaya\CSV\Reader::_getStyle
+     * @covers \Papaya\CSV\Reader::_getFirstCharacter
      * @dataProvider provideDataForGetStyle
      * @param array $expected
      * @param string $csvData
@@ -143,7 +143,7 @@ namespace Papaya\CSV {
     }
 
     /**
-     * @covers       Reader::_readLine
+     * @covers \Papaya\CSV\Reader::_readLine
      * @dataProvider provideDataForReadLine
      * @param array $expected
      * @param string $csvData

@@ -38,7 +38,7 @@ namespace Papaya\Controller {
   class MediaTest extends \Papaya\TestCase {
 
     /**
-     * @covers Media::execute
+     * @covers \Papaya\Controller\Media::execute
      */
     public function testExecuteNoMediaFound() {
       $application = $this->mockPapaya()->application();
@@ -52,7 +52,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::execute
+     * @covers \Papaya\Controller\Media::execute
      */
     public function testExecuteNonExistentMediaFile() {
       $application = $this->mockPapaya()->application();
@@ -81,7 +81,7 @@ namespace Papaya\Controller {
 
     /**
      * @dataProvider trueFalseDataProvider
-     * @covers       Media::execute
+     * @covers \Papaya\Controller\Media::execute
      * @param bool $enablePreview
      */
     public function testExecute($enablePreview) {
@@ -109,7 +109,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::setMediaDatabase
+     * @covers \Papaya\Controller\Media::setMediaDatabase
      */
     public function testSetMediaDatabase() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\base_mediadb $generator */
@@ -122,7 +122,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::getMediaDatabase
+     * @covers \Papaya\Controller\Media::getMediaDatabase
      */
     public function testGetMediaDatabase() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\base_mediadb $generator */
@@ -136,7 +136,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::getMediaDatabase
+     * @covers \Papaya\Controller\Media::getMediaDatabase
      */
     public function testGetMediaDatabaseImplicitCreate() {
       $controller = new Media();
@@ -147,7 +147,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::_outputPublicFile
+     * @covers \Papaya\Controller\Media::_outputPublicFile
      */
     public function testOutputPublicFileWithFolderPermissions() {
       $surfer = $this->getMockBuilder(\base_surfer::class)->getMock();
@@ -180,7 +180,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::_outputPublicFile
+     * @covers \Papaya\Controller\Media::_outputPublicFile
      */
     public function testOutputPublicFile() {
       $surfer = $this->getMockBuilder(\base_surfer::class)->getMock();
@@ -213,7 +213,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::_outputPublicFile
+     * @covers \Papaya\Controller\Media::_outputPublicFile
      */
     public function testOutputPublicFileWithoutFolderPermissions() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\base_mediadb $generator */
@@ -231,7 +231,7 @@ namespace Papaya\Controller {
 
     /**
      * @dataProvider trueFalseDataProvider
-     * @covers       Media::_outputPreviewFile
+     * @covers \Papaya\Controller\Media::_outputPreviewFile
      * @param bool $userValid
      */
     public function testOutputPreviewFile($userValid) {
@@ -247,7 +247,7 @@ namespace Papaya\Controller {
     }
 
     /**
-     * @covers Media::_outputFile
+     * @covers \Papaya\Controller\Media::_outputFile
      */
     public function testOutputFile() {
       $this->markTestSkipped('Request on a static function not mockable.');

@@ -45,7 +45,7 @@ class EmptyValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\EmptyValue::validate
+   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -58,7 +58,7 @@ class EmptyValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\EmptyValue::validate
+   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero

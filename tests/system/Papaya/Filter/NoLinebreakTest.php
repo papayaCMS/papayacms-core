@@ -36,7 +36,7 @@ class NoLinebreakTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\NoLinebreak::filter
+   * @covers \Papaya\Filter\NoLinebreak::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class TranslationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Translation::load
+   * @covers \Papaya\Content\Box\Version\Translation::load
    */
   public function testLoad() {
     $record = array(

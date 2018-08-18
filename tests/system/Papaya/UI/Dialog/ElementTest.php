@@ -39,7 +39,7 @@ namespace Papaya\UI\Dialog {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog\Element::_getParameterName
+     * @covers \Papaya\UI\Dialog\Element::_getParameterName
      * @dataProvider provideKeysForGetParameterName
      * @param string $expected
      * @param string|array $keys

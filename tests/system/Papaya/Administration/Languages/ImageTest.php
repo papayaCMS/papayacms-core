@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ImageTest extends \Papaya\TestCase {
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testConstructor() {
     $image = new Image();
@@ -28,7 +28,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testConstructorWithLanguageId() {
     $image = new Image(21);
@@ -36,7 +36,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testToStringWithoutLanguageInformationExpectingEmptyString() {
     $image = new Image();
@@ -44,7 +44,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testToStringFetchingCurrentLanguage() {
     $switch = $this->createMock(Selector::class);
@@ -60,7 +60,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testToStringFetchingDefinedLanguage() {
     $languages = $this->createMock(\Papaya\Content\Languages::class);
@@ -83,7 +83,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Image
+   * @covers \Papaya\Administration\Languages\Image
    */
   public function testToStringWithNonExistingLanguageExpectingEmptyString() {
     $languages = $this->createMock(\Papaya\Content\Languages::class);

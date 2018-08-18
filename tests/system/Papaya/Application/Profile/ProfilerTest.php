@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ProfilerTest extends \Papaya\TestCase {
 
   /**
-   * @covers Profiler::createObject
+   * @covers \Papaya\Application\Profile\Profiler::createObject
    */
   public function testCreateObjectProfilerInactive() {
     $options = $this->mockPapaya()->options(
@@ -41,7 +41,7 @@ class ProfilerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Profiler::createObject
+   * @covers \Papaya\Application\Profile\Profiler::createObject
    */
   public function testCreateObjectProfilerActive() {
     $options = $this->mockPapaya()->options(
@@ -63,7 +63,7 @@ class ProfilerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Profiler::builder
+   * @covers \Papaya\Application\Profile\Profiler::builder
    */
   public function testBuilderGetAfterSet() {
     $builder = $this->createMock(\Papaya\Profiler\Builder::class);
@@ -73,7 +73,7 @@ class ProfilerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Profiler::builder
+   * @covers \Papaya\Application\Profile\Profiler::builder
    */
   public function testBuilderGetImplicitCreate() {
     $profile = new Profiler();

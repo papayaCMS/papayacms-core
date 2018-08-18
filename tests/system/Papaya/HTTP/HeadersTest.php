@@ -67,8 +67,8 @@ class HeadersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\HTTP\Headers::get
-   * @covers       \Papaya\HTTP\Headers::normalizeName
+   * @covers \Papaya\HTTP\Headers::get
+   * @covers \Papaya\HTTP\Headers::normalizeName
    * @dataProvider provideValidHeaderVariants
    * @param string $name
    */

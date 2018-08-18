@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class GroupsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Groups::__construct
+   * @covers \Papaya\Content\Structure\Groups::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
@@ -33,7 +33,7 @@ class GroupsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Groups::load
+   * @covers \Papaya\Content\Structure\Groups::load
    */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */

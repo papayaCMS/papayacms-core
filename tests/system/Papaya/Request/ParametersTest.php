@@ -57,8 +57,8 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::set
-   * @covers       \Papaya\Request\Parameters::_parseParameterName
+   * @covers \Papaya\Request\Parameters::set
+   * @covers \Papaya\Request\Parameters::_parseParameterName
    * @dataProvider setDataProvider
    * @param array $before
    * @param string $parameter
@@ -95,7 +95,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::has
+   * @covers \Papaya\Request\Parameters::has
    * @dataProvider hasDataProviderExpectingTrue
    * @param string $parameterName
    * @param mixed $parameterData
@@ -107,7 +107,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::has
+   * @covers \Papaya\Request\Parameters::has
    * @dataProvider hasDataProviderExpectingFalse
    * @param string $parameterName
    * @param mixed $parameterData
@@ -119,7 +119,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::get
+   * @covers \Papaya\Request\Parameters::get
    * @dataProvider getDataProvider
    * @param string $name
    * @param mixed $defaultValue
@@ -146,7 +146,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::remove
+   * @covers \Papaya\Request\Parameters::remove
    * @dataProvider removeDataProvider
    * @param array $before
    * @param string $parameter
@@ -187,8 +187,8 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::getList
-   * @covers       \Papaya\Request\Parameters::flattenArray
+   * @covers \Papaya\Request\Parameters::getList
+   * @covers \Papaya\Request\Parameters::flattenArray
    * @dataProvider getListDataProvider
    * @param array $expected
    * @param array $parameterArray
@@ -202,7 +202,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Request\Parameters::prepareParameter
+   * @covers \Papaya\Request\Parameters::prepareParameter
    * @dataProvider prepareParameterDataProvider
    * @param mixed $value
    * @param bool $stripSlashes

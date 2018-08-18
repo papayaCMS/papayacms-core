@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class NumberWithUnitTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\NumberWithUnit::__construct
+   * @covers \Papaya\Filter\NumberWithUnit::__construct
    * @dataProvider providerConstructArguments
    * @param string|array $units
    * @param array $expectedUnits
@@ -153,7 +153,7 @@ class NumberWithUnitTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\NumberWithUnit::filter
+   * @covers \Papaya\Filter\NumberWithUnit::filter
    * @dataProvider providerFilter
    * @param string|NULL $expects
    * @param mixed $value

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class BoxesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Boxes::load
+   * @covers \Papaya\Content\Page\Boxes::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -70,7 +70,7 @@ class BoxesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Boxes::delete
+   * @covers \Papaya\Content\Page\Boxes::delete
    */
   public function testDelete() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -85,7 +85,7 @@ class BoxesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Boxes::copyTo
+   * @covers \Papaya\Content\Page\Boxes::copyTo
    */
   public function testCopyTo() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -143,7 +143,7 @@ class BoxesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Boxes::copyTo
+   * @covers \Papaya\Content\Page\Boxes::copyTo
    */
   public function testCopyToWithEmptySourceAndTargetExpectingTrue() {
     $boxes = new Boxes();
@@ -151,7 +151,7 @@ class BoxesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Boxes::copyTo
+   * @covers \Papaya\Content\Page\Boxes::copyTo
    */
   public function testCopyToWhileDeleteFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class DialogTest extends \Papaya\TestCase {
 
   /**
-   * @covers Dialog::appendTo
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::appendTo
    */
   public function testAppendToWithoutSubmit() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */
@@ -48,7 +48,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::appendTo
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessful() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */
@@ -72,7 +72,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::appendTo
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessfulAndTriggeredCallback() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */
@@ -103,7 +103,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::AppendTo
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::AppendTo
    */
   public function testAppendToWhileExecuteFailed() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */
@@ -152,7 +152,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::dialog
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::dialog
    */
   public function testDialogGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */
@@ -163,8 +163,8 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::dialog
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::dialog
+   * @covers \Papaya\Administration\Plugin\Editor\Dialog::createDialog
    */
   public function testDialogGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $pluginContent */

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class NotNullTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\NotNull::validate
+   * @covers \Papaya\Filter\NotNull::validate
    * @dataProvider provideValues
    * @param mixed $value
    * @throws Exception\IsUndefined
@@ -39,7 +39,7 @@ class NotNullTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\NotNull::filter
+   * @covers \Papaya\Filter\NotNull::filter
    * @dataProvider provideValues
    * @param mixed $value
    */

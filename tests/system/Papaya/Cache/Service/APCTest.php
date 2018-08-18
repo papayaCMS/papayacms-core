@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class APCTest extends \Papaya\TestCase {
 
   /**
-   * @covers APC::setConfiguration
+   * @covers \Papaya\Cache\Service\APC::setConfiguration
    */
   public function testSetConfiguration() {
     $service = new APC();
@@ -28,7 +28,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::setAPCObject
+   * @covers \Papaya\Cache\Service\APC::setAPCObject
    */
   public function testSetApcObject() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -39,7 +39,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::getAPCObject
+   * @covers \Papaya\Cache\Service\APC::getAPCObject
    */
   public function testGetApcObject() {
     $service = new APC();
@@ -47,7 +47,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::verify
+   * @covers \Papaya\Cache\Service\APC::verify
    */
   public function testVerifyExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -61,7 +61,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::verify
+   * @covers \Papaya\Cache\Service\APC::verify
    */
   public function testVerifyExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -75,7 +75,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::verify
+   * @covers \Papaya\Cache\Service\APC::verify
    */
   public function testVerifyExpectingError() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -91,7 +91,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::write
+   * @covers \Papaya\Cache\Service\APC::write
    */
   public function testWrite() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -116,7 +116,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::write
+   * @covers \Papaya\Cache\Service\APC::write
    */
   public function testWriteExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -140,8 +140,8 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::read
-   * @covers APC::_read
+   * @covers \Papaya\Cache\Service\APC::read
+   * @covers \Papaya\Cache\Service\APC::_read
    */
   public function testRead() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -166,8 +166,8 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::read
-   * @covers APC::_read
+   * @covers \Papaya\Cache\Service\APC::read
+   * @covers \Papaya\Cache\Service\APC::_read
    */
   public function testReadExpired() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -191,8 +191,8 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::read
-   * @covers APC::_read
+   * @covers \Papaya\Cache\Service\APC::read
+   * @covers \Papaya\Cache\Service\APC::_read
    */
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
@@ -218,7 +218,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::read
+   * @covers \Papaya\Cache\Service\APC::read
    */
   public function testReadExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -232,7 +232,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::exists
+   * @covers \Papaya\Cache\Service\APC::exists
    */
   public function testExists() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -256,7 +256,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::exists
+   * @covers \Papaya\Cache\Service\APC::exists
    */
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
@@ -282,7 +282,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::exists
+   * @covers \Papaya\Cache\Service\APC::exists
    */
   public function testExistsUsingCachedResult() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -299,7 +299,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::exists
+   * @covers \Papaya\Cache\Service\APC::exists
    */
   public function testExistsExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -313,7 +313,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::created
+   * @covers \Papaya\Cache\Service\APC::created
    */
   public function testCreated() {
     $lastHour = time() - 3600;
@@ -339,7 +339,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::created
+   * @covers \Papaya\Cache\Service\APC::created
    */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
@@ -364,7 +364,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::created
+   * @covers \Papaya\Cache\Service\APC::created
    */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
@@ -391,7 +391,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::delete
+   * @covers \Papaya\Cache\Service\APC::delete
    */
   public function testDelete() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
@@ -409,7 +409,7 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers APC::delete
+   * @covers \Papaya\Cache\Service\APC::delete
    */
   public function testDeleteExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */

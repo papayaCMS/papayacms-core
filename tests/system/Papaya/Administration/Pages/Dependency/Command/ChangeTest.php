@@ -22,7 +22,7 @@ class ChangeTest extends \Papaya\TestCase {
   private $_dependencyRecordData;
 
   /**
-   * @covers Change::createCondition
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::createCondition
    */
   public function testCreateCondition() {
     $command = new Change();
@@ -33,7 +33,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validatePageId
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validatePageId
    */
   public function testValidatePageIdExpectingFalse() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -52,7 +52,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validatePageId
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validatePageId
    */
   public function testValidatePageIdExpectingTrue() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -71,7 +71,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validatePageId
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validatePageId
    */
   public function testValidatePageIdWithoutOriginExpectingTrue() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -90,7 +90,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::createDialog
    */
   public function testCreateDialog() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -123,7 +123,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateOriginAndSynchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validateOriginAndSynchronizations
    */
   public function testValidateOriginAndSynchronizationsExpectingTrue() {
     $record = $this->getRecordFixture(
@@ -138,7 +138,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateOriginAndSynchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validateOriginAndSynchronizations
    */
   public function testValidateOriginAndSynchronizationsEqualsPageIdExpectingFalse() {
     $context = new \stdClass();
@@ -163,7 +163,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateOriginAndSynchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validateOriginAndSynchronizations
    */
   public function testValidateOriginAndSynchronizationsIsDependencyExpectingFalse() {
     $context = new \stdClass();
@@ -188,8 +188,8 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateOriginAndSynchronizations
-   * @covers Change::compareViewModules
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validateOriginAndSynchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::compareViewModules
    */
   public function testValidateOriginAndSynchronizationsWithModuleConflictExpectingFalse() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -248,8 +248,8 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateOriginAndSynchronizations
-   * @covers Change::compareViewModules
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::validateOriginAndSynchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::compareViewModules
    */
   public function testValidateOriginAndSynchronizationsWithoutModuleConflictExpectingTrue() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -287,7 +287,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::handleExecutionSuccess
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::handleExecutionSuccess
    */
   public function testHandleExecutionSuccess() {
     $context = new \stdClass();
@@ -316,7 +316,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::dispatchErrorMessage
+   * @covers \Papaya\Administration\Pages\Dependency\Command\Change::dispatchErrorMessage
    */
   public function testDispatchErrorMessage() {
     $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);

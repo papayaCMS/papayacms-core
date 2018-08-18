@@ -39,7 +39,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Time
+   * @covers \Papaya\UI\Dialog\Field\Input\Time
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -52,7 +52,7 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Time
+   * @covers \Papaya\UI\Dialog\Field\Input\Time
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory

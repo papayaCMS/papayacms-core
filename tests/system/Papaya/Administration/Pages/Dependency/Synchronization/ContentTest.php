@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class ContentTest extends \Papaya\TestCase {
 
   /**
-   * @covers Content::translations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::translations
    */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(\Papaya\Content\Page\Translations::class);
@@ -31,7 +31,7 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::translations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::translations
    */
   public function testTranslationsGetImplicitCreate() {
     $action = new Content();
@@ -41,9 +41,9 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
    */
   public function testSynchronizeWithoutAnyTranslations() {
     $action = new Content();
@@ -52,9 +52,9 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
    */
   public function testSynchronizeFetchLanguagesFromTranslations() {
     $action = new Content();
@@ -70,11 +70,11 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
-   * @covers Content::synchronizeTranslations
-   * @covers Content::updateTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronizeTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::updateTranslations
    */
   public function testSynchronizeUpdateOneTranslation() {
     $translations = $this->getTranslationsFixture(
@@ -118,11 +118,11 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
-   * @covers Content::synchronizeTranslations
-   * @covers Content::updateTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronizeTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::updateTranslations
    */
   public function testSynchronizeUpdateFailed() {
     $translations = $this->getTranslationsFixture(
@@ -166,11 +166,11 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
-   * @covers Content::synchronizeTranslations
-   * @covers Content::deleteTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronizeTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::deleteTranslations
    */
   public function testSynchronizeDeleteOneTranslation() {
     $translations = $this->getTranslationsFixture(
@@ -208,11 +208,11 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
-   * @covers Content::synchronizeTranslations
-   * @covers Content::insertTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronizeTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::insertTranslations
    */
   public function testSynchronizeInsertOneTranslation() {
     $key = $this->createMock(\Papaya\Database\Interfaces\Key::class);
@@ -251,11 +251,11 @@ class ContentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Content::synchronize
-   * @covers Content::getExistingTargetTranslations
-   * @covers Content::getMissingTargetTranslations
-   * @covers Content::synchronizeTranslations
-   * @covers Content::insertTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getExistingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::getMissingTargetTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::synchronizeTranslations
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Content::insertTranslations
    */
   public function testSynchronizeInsertOneTranslationInsertFailed() {
     $key = $this->createMock(\Papaya\Database\Interfaces\Key::class);

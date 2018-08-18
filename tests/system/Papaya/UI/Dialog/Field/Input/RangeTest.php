@@ -47,7 +47,7 @@ class RangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Range::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Range::__construct
    * @dataProvider provideArgumentsForConstructor
    * @param int $default
    * @param int $min
@@ -82,7 +82,7 @@ class RangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Range
+   * @covers \Papaya\UI\Dialog\Field\Input\Range
    * @dataProvider provideValidRangeInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -97,7 +97,7 @@ class RangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Range
+   * @covers \Papaya\UI\Dialog\Field\Input\Range
    * @dataProvider provideInvalidRangeInputs
    * @param mixed $value
    * @param bool $mandatory

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class SurferTest extends \Papaya\TestCase {
 
   /**
-   * @covers Surfer
+   * @covers \Papaya\Cache\Identifier\Definition\Surfer
    */
   public function testGetStatus() {
     $surfer = new \stdClass();
@@ -41,7 +41,7 @@ class SurferTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Surfer
+   * @covers \Papaya\Cache\Identifier\Definition\Surfer
    */
   public function testGetStatusForPreviewExpectingFalse() {
     $surfer = new \stdClass();
@@ -58,7 +58,7 @@ class SurferTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Surfer
+   * @covers \Papaya\Cache\Identifier\Definition\Surfer
    */
   public function testGetSources() {
     $definition = new Surfer();

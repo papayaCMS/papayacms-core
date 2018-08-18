@@ -122,7 +122,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::get
+   * @covers \Papaya\BaseObject\Parameters::get
    * @dataProvider provideOffsetsAndDefaultValues
    * @param string $name
    * @param mixed $defaultValue
@@ -353,7 +353,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::offsetGet
+   * @covers \Papaya\BaseObject\Parameters::offsetGet
    * @dataProvider provideOffsetsAndValues
    * @param string $name
    * @param mixed $expected
@@ -367,7 +367,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::offsetExists
+   * @covers \Papaya\BaseObject\Parameters::offsetExists
    * @dataProvider provideExistingOffsets
    * @param string $name
    */
@@ -377,7 +377,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::offsetExists
+   * @covers \Papaya\BaseObject\Parameters::offsetExists
    * @dataProvider provideNonExistingOffsets
    * @param string $name
    */
@@ -387,7 +387,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::offsetUnset
+   * @covers \Papaya\BaseObject\Parameters::offsetUnset
    * @dataProvider provideExistingOffsets
    * @param string $name
    */
@@ -398,7 +398,7 @@ class ParametersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\BaseObject\Parameters::offsetUnset
+   * @covers \Papaya\BaseObject\Parameters::offsetUnset
    * @dataProvider provideNonExistingOffsets
    * @param string $name
    */

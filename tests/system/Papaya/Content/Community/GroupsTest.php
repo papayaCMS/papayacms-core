@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class GroupsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Groups::loadByPermission
+   * @covers \Papaya\Content\Community\Groups::loadByPermission
    */
   public function testLoadByPermission() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);

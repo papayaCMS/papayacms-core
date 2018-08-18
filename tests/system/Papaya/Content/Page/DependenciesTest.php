@@ -20,7 +20,7 @@ namespace Papaya\Content\Page {
   class DependenciesTest extends \Papaya\TestCase {
 
     /**
-     * @covers Dependencies::load
+     * @covers \Papaya\Content\Page\Dependencies::load
      */
     public function testLoad() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -78,7 +78,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependencies::getDependency
+     * @covers \Papaya\Content\Page\Dependencies::getDependency
      */
     public function testGetDependency() {
       $dependencies = new Dependencies_TestProxy();
@@ -97,7 +97,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependencies::getDependency
+     * @covers \Papaya\Content\Page\Dependencies::getDependency
      */
     public function testGetDependencyWithData() {
       $dependencies = new Dependencies_TestProxy();
@@ -129,7 +129,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependencies::delete
+     * @covers \Papaya\Content\Page\Dependencies::delete
      */
     public function testDelete() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -146,7 +146,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependencies::delete
+     * @covers \Papaya\Content\Page\Dependencies::delete
      */
     public function testDeleteChangesRecords() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -178,7 +178,7 @@ namespace Papaya\Content\Page {
     }
 
     /**
-     * @covers Dependencies::changeOrigin
+     * @covers \Papaya\Content\Page\Dependencies::changeOrigin
      */
     public function testChangeOrigin() {
       $databaseResultLoad = $this->createMock(\Papaya\Database\Result::class);

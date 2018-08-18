@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class BlockerTest extends \Papaya\TestCase {
 
   /**
-   * @covers Blocker::__construct
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::__construct
    */
   public function testConstructor() {
     $blocker = new Blocker(42);
@@ -30,7 +30,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::dependency
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::dependency
    */
   public function testDependencyGetAfterSet() {
     $dependency = $this->createMock(\Papaya\Content\Page\Dependency::class);
@@ -39,7 +39,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::dependency
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::dependency
    */
   public function testDependencyImplicitCreate() {
     $blocker = new Blocker(42);
@@ -47,8 +47,8 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Blocker::isSynchronized
-   * @covers       Blocker::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::isSynchronized
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::prepare
    * @dataProvider provideSynchronizationData
    * @param bool $expected
    * @param int $checkFor
@@ -64,8 +64,8 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::isSynchronized
-   * @covers Blocker::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::isSynchronized
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::prepare
    */
   public function testDependencyLoadsOnlyOnce() {
     $dependency = $this->getRecordFixture(
@@ -83,8 +83,8 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::isSynchronized
-   * @covers Blocker::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::isSynchronized
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::prepare
    */
   public function testDependencyLoadsAgainIfRequested() {
     $dependency = $this->getRecordFixture(
@@ -102,7 +102,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::appendTo
    */
   public function testAppendTo() {
     $pages = $this->createMock(\Papaya\Content\Pages::class);
@@ -150,7 +150,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::dependencies
    */
   public function testDependenciesGetAfterSet() {
     $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
@@ -161,7 +161,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::dependencies
    */
   public function testDependenciesGetImplicitCreate() {
     $blocker = new Blocker(42);
@@ -172,7 +172,7 @@ class BlockerTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Blocker::views
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::views
    */
   public function testViewsGetAfterSet() {
     $views = $this->createMock(\Papaya\Content\Views::class);
@@ -183,7 +183,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::views
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::views
    */
   public function testViewsGetImplicitCreate() {
     $blocker = new Blocker(42);
@@ -193,7 +193,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::pages
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::pages
    */
   public function testPagesGetAfterSet() {
     $pages = $this->createMock(\Papaya\Content\Pages::class);
@@ -204,7 +204,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::pages
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::pages
    */
   public function testPagesGetImplicitCreate() {
     $blocker = new Blocker(42);
@@ -214,7 +214,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::counter
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::counter
    */
   public function testCounterGetAfterSet() {
     $counter = $this
@@ -228,7 +228,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::counter
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::counter
    */
   public function testCounterGetImplicitCreate() {
     $blocker = new Blocker(42);
@@ -238,7 +238,7 @@ class BlockerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Blocker::getSynchronizedViews
+   * @covers \Papaya\Administration\Pages\Dependency\Blocker::getSynchronizedViews
    */
   public function testGetSynchronizedViews() {
     $dependency = $this->getRecordFixture();

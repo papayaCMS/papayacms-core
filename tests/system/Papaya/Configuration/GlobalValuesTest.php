@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class GlobalValuesTest extends \Papaya\TestCase {
 
   /**
-   * @covers GlobalValues::get
+   * @covers \Papaya\Configuration\GlobalValues::get
    */
   public function testGetReadingConstant() {
     $config = new GlobalValues_TestProxy();
@@ -30,7 +30,7 @@ class GlobalValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers GlobalValues::get
+   * @covers \Papaya\Configuration\GlobalValues::get
    */
   public function testGetCallingParentMethod() {
     $config = new GlobalValues_TestProxy();
@@ -40,7 +40,7 @@ class GlobalValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers GlobalValues::get
+   * @covers \Papaya\Configuration\GlobalValues::get
    */
   public function testSetConstantShouldBeIgnored() {
     $config = new GlobalValues_TestProxy();
@@ -51,7 +51,7 @@ class GlobalValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers GlobalValues::has
+   * @covers \Papaya\Configuration\GlobalValues::has
    */
   public function testHasWithConstantExpectingTrue() {
     $config = new GlobalValues_TestProxy();
@@ -59,7 +59,7 @@ class GlobalValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers GlobalValues::has
+   * @covers \Papaya\Configuration\GlobalValues::has
    */
   public function testHasExpectingTrue() {
     $config = new GlobalValues_TestProxy();
@@ -67,7 +67,7 @@ class GlobalValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers GlobalValues::defineConstants
+   * @covers \Papaya\Configuration\GlobalValues::defineConstants
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */

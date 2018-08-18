@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class IsNotEmptyTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
    * @dataProvider provideNotEmptyStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception
@@ -30,7 +30,7 @@ class IsNotEmptyTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
    * @dataProvider provideEmptyStrings
    * @param string $string
    * @throws \Papaya\Filter\Exception

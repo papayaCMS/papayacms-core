@@ -53,7 +53,7 @@ class InputPageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Factory\Profile\InputPage
+   * @covers \Papaya\UI\Dialog\Field\Factory\Profile\InputPage
    * @dataProvider provideValidPageInputs
    * @param string $value
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption

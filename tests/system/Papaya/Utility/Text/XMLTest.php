@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class XMLTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::escape
+   * @covers \Papaya\Utility\Text\XML::escape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -33,7 +33,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::unescape
+   * @covers \Papaya\Utility\Text\XML::unescape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -46,7 +46,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::escapeAttribute
+   * @covers \Papaya\Utility\Text\XML::escapeAttribute
    * @dataProvider escapeAttributeDataProvider
    * @param string $string
    * @param string $expected
@@ -73,7 +73,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::repairEntities
+   * @covers \Papaya\Utility\Text\XML::repairEntities
    * @dataProvider getXhtmlDataToRepair
    * @param string $string
    * @param string $expected
@@ -86,8 +86,8 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::serializeArray
-   * @covers       \Papaya\Utility\Text\XML::_serializeSubArray
+   * @covers \Papaya\Utility\Text\XML::serializeArray
+   * @covers \Papaya\Utility\Text\XML::_serializeSubArray
    * @dataProvider provideSerializerArrayAndXml
    * @param string $expected
    * @param array $array
@@ -109,8 +109,8 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::unserializeArray
-   * @covers       \Papaya\Utility\Text\XML::_unserializeArrayFromNode
+   * @covers \Papaya\Utility\Text\XML::unserializeArray
+   * @covers \Papaya\Utility\Text\XML::_unserializeArrayFromNode
    * @dataProvider provideSerializerArrayAndXml
    * @param string $xml
    * @param string $expected
@@ -127,8 +127,8 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::unserializeArray
-   * @covers       \Papaya\Utility\Text\XML::decodeOldEntitiesToUtf8
+   * @covers \Papaya\Utility\Text\XML::unserializeArray
+   * @covers \Papaya\Utility\Text\XML::decodeOldEntitiesToUtf8
    * @dataProvider provideOldEncodedEntities
    * @param array $expected
    * @param string $entities
@@ -176,9 +176,9 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::truncate
-   * @covers       \Papaya\Utility\Text\XML::_truncateChildNodes
-   * @covers       \Papaya\Utility\Text\XML::_copyElement
+   * @covers \Papaya\Utility\Text\XML::truncate
+   * @covers \Papaya\Utility\Text\XML::_truncateChildNodes
+   * @covers \Papaya\Utility\Text\XML::_copyElement
    * @dataProvider provideTruncateXml
    * @param string $expected
    * @param string $xml
@@ -194,7 +194,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::isQName
+   * @covers \Papaya\Utility\Text\XML::isQName
    * @dataProvider provideValidQualifiedNames
    * @param string $qualifiedName
    */
@@ -211,7 +211,7 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\XML::isNcName
+   * @covers \Papaya\Utility\Text\XML::isNcName
    * @dataProvider provideValidNcNames
    * @param string $tagName
    * @param int $offset

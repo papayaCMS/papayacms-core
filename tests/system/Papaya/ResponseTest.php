@@ -178,7 +178,7 @@ class ResponseTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Response::setCache
+   * @covers \Papaya\Response::setCache
    * @dataProvider provideCacheHeaders
    * @param array $expected
    * @param int $cacheMode

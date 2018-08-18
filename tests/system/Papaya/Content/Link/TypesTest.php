@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class TypesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Types::getResultIterator
+   * @covers \Papaya\Content\Link\Types::getResultIterator
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -85,7 +85,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::_createMapping
+   * @covers \Papaya\Content\Link\Types::_createMapping
    */
   public function testCreateMapping() {
     $linkTypes = new Types();
@@ -99,7 +99,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::mapFieldToProperty
+   * @covers \Papaya\Content\Link\Types::mapFieldToProperty
    */
   public function testMapFieldToPropertyPassthru() {
     $linkTypes = new Types();
@@ -114,7 +114,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::mapFieldToProperty
+   * @covers \Papaya\Content\Link\Types::mapFieldToProperty
    */
   public function testMapFieldToPropertyUnserialize() {
     $linkTypes = new Types();
@@ -134,7 +134,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::mapPropertyToField
+   * @covers \Papaya\Content\Link\Types::mapPropertyToField
    */
   public function testMapPropertyToFieldPassthru() {
     $linkTypes = new Types();
@@ -149,7 +149,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::mapPropertyToField
+   * @covers \Papaya\Content\Link\Types::mapPropertyToField
    */
   public function testMapPropertyToFieldSerialize() {
     $linkTypes = new Types();

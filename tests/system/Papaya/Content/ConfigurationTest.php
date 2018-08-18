@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class ConfigurationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Configuration::load
+   * @covers \Papaya\Content\Configuration::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);

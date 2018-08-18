@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers Group::__construct
+   * @covers \Papaya\Content\Structure\Group::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
@@ -30,7 +30,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group::values
+   * @covers \Papaya\Content\Structure\Group::values
    */
   public function testGroupsGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
@@ -45,7 +45,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group::values
+   * @covers \Papaya\Content\Structure\Group::values
    */
   public function testGroupsGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
@@ -55,7 +55,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group::getIdentifier
+   * @covers \Papaya\Content\Structure\Group::getIdentifier
    */
   public function testGetIdentifier() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */

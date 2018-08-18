@@ -20,7 +20,7 @@ namespace Papaya\Database\BaseObject {
   class RecordsTest extends \Papaya\TestCase {
 
     /**
-     * @covers Records::getIterator
+     * @covers \Papaya\Database\BaseObject\Records::getIterator
      */
     public function testGetIterator() {
       $list = new Records_TestProxy();
@@ -41,7 +41,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::count
+     * @covers \Papaya\Database\BaseObject\Records::count
      */
     public function testCount() {
       $list = new Records_TestProxy();
@@ -49,7 +49,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::countAll
+     * @covers \Papaya\Database\BaseObject\Records::countAll
      */
     public function testCountAll() {
       $list = new Records_TestProxy();
@@ -57,7 +57,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::countAll
+     * @covers \Papaya\Database\BaseObject\Records::countAll
      */
     public function testCountAllReturnsAbsoluteCount() {
       $list = new Records_TestProxy();
@@ -68,7 +68,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::item
+     * @covers \Papaya\Database\BaseObject\Records::item
      */
     public function testItemExpectingArray() {
       $list = new Records_TestProxy();
@@ -82,7 +82,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::item
+     * @covers \Papaya\Database\BaseObject\Records::item
      */
     public function testItemExpectingNull() {
       $list = new Records_TestProxy();
@@ -90,7 +90,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::itemAt
+     * @covers \Papaya\Database\BaseObject\Records::itemAt
      */
     public function testItemAtExpectingArray() {
       $list = new Records_TestProxy();
@@ -104,7 +104,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::itemAt
+     * @covers \Papaya\Database\BaseObject\Records::itemAt
      */
     public function testItemAtNegativePositionExpectingArray() {
       $list = new Records_TestProxy();
@@ -118,7 +118,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::assign
+     * @covers \Papaya\Database\BaseObject\Records::assign
      */
     public function testAssign() {
       $list = new Records_TestProxy();
@@ -154,7 +154,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::_loadRecords
+     * @covers \Papaya\Database\BaseObject\Records::_loadRecords
      */
     public function testLoadRecords() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -197,7 +197,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::_loadRecords
+     * @covers \Papaya\Database\BaseObject\Records::_loadRecords
      */
     public function testLoadRecordsExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -219,7 +219,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::_fetchRecords
+     * @covers \Papaya\Database\BaseObject\Records::_fetchRecords
      */
     public function testFetchRecords() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Result $databaseResult */
@@ -244,7 +244,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Records::_fetchRecords
+     * @covers \Papaya\Database\BaseObject\Records::_fetchRecords
      */
     public function testFetchRecordsWithIndex() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Result $databaseResult */

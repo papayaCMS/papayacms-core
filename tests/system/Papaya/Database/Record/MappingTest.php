@@ -20,9 +20,9 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class MappingTest extends \Papaya\TestCase {
 
   /**
-   * @covers Mapping::__construct
-   * @covers Mapping::setDefinition
-   * @covers Mapping::stripAliasFromField
+   * @covers \Papaya\Database\Record\Mapping::__construct
+   * @covers \Papaya\Database\Record\Mapping::setDefinition
+   * @covers \Papaya\Database\Record\Mapping::stripAliasFromField
    */
   public function testConstructor() {
     $mapping = new Mapping(
@@ -60,8 +60,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::__construct
-   * @covers Mapping::setDefinition
+   * @covers \Papaya\Database\Record\Mapping::__construct
+   * @covers \Papaya\Database\Record\Mapping::setDefinition
    */
   public function testConstructorWithInvalidDefinition() {
     $this->expectException(\LogicException::class);
@@ -76,8 +76,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapFieldsToProperties
-   * @covers Mapping::getProperty
+   * @covers \Papaya\Database\Record\Mapping::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping::getProperty
    */
   public function testMapFieldsToProperties() {
     $mapping = new Mapping(
@@ -103,8 +103,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapPropertiesToFields
-   * @covers Mapping::getField
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::getField
    */
   public function testMapPropertiesToFields() {
     $mapping = new Mapping(
@@ -131,8 +131,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapPropertiesToFields
-   * @covers Mapping::getField
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::getField
    */
   public function testMapPropertiesToFieldsWithoutAlias() {
     $mapping = new Mapping(
@@ -160,7 +160,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::getProperties
+   * @covers \Papaya\Database\Record\Mapping::getProperties
    */
   public function testGetProperties() {
     $mapping = new Mapping(
@@ -176,7 +176,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::getFields
+   * @covers \Papaya\Database\Record\Mapping::getFields
    */
   public function testGetFields() {
     $mapping = new Mapping(
@@ -193,7 +193,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::getFields
+   * @covers \Papaya\Database\Record\Mapping::getFields
    */
   public function testGetFieldsWithoutAlias() {
     $mapping = new Mapping(
@@ -210,7 +210,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::getFields
+   * @covers \Papaya\Database\Record\Mapping::getFields
    */
   public function testGetFieldsLimitedByAlias() {
     $mapping = new Mapping(
@@ -228,7 +228,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::callbacks
+   * @covers \Papaya\Database\Record\Mapping::callbacks
    */
   public function testCallbacksGetAfterSet() {
     $mapping = new Mapping(array());
@@ -237,7 +237,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::callbacks
+   * @covers \Papaya\Database\Record\Mapping::callbacks
    */
   public function testCallbacksGetImplicitCreate() {
     $mapping = new Mapping(array());
@@ -245,8 +245,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::getField
-   * @covers Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::getField
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
    */
   public function testMapPropertiesToFieldsWithoutCallbacksLimitByAlias() {
     $values = array(
@@ -298,7 +298,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
    */
   public function testMapPropertiesToFieldsGenericCallbacks() {
     $values = array(
@@ -363,7 +363,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
    */
   public function testMapPropertiesToFieldsSpecificCallbacks() {
     $values = array(
@@ -434,8 +434,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapPropertiesToFields
-   * @covers Mapping::getField
+   * @covers \Papaya\Database\Record\Mapping::mapPropertiesToFields
+   * @covers \Papaya\Database\Record\Mapping::getField
    */
   public function testMapPropertiesToFieldsFieldNameCallback() {
     $callbacks = $this
@@ -479,7 +479,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping::mapFieldsToProperties
    */
   public function testMapFieldsToPropertiesGenericCallbacks() {
     $values = array(
@@ -544,7 +544,7 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping::mapFieldsToProperties
    */
   public function testMapFieldsToPropertiesSpecificCallbacks() {
     $values = array(
@@ -615,8 +615,8 @@ class MappingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Mapping::mapFieldsToProperties
-   * @covers Mapping::getProperty
+   * @covers \Papaya\Database\Record\Mapping::mapFieldsToProperties
+   * @covers \Papaya\Database\Record\Mapping::getProperty
    */
   public function testMapFieldsToPropertiesWithPropertyNameCallback() {
     $callbacks = $this

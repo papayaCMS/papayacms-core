@@ -20,7 +20,7 @@ namespace Papaya {
   class URLTest extends \Papaya\TestCase {
 
     /**
-     * @covers URL::__construct
+     * @covers \Papaya\URL::__construct
      */
     public function testConstructor() {
       $urlObject = new URL();
@@ -28,7 +28,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__construct
+     * @covers \Papaya\URL::__construct
      */
     public function testConstructorWithUrl() {
       $urlObject = new URL(
@@ -44,7 +44,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::setURLString
+     * @covers \Papaya\URL::setURLString
      * @dataProvider setUrlDataProvider
      * @param string $url
      * @param array $expected
@@ -58,7 +58,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__toString
+     * @covers \Papaya\URL::__toString
      */
     public function testToString() {
       $urlObject = new URL();
@@ -69,7 +69,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__toString
+     * @covers \Papaya\URL::__toString
      */
     public function testToStringCapturesInvalidArgumentException() {
       $urlObject = new Url_TestProxy_ForToString();
@@ -78,7 +78,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__toString
+     * @covers \Papaya\URL::__toString
      */
     public function testToStringCapturesBadMethodCallException() {
       $urlObject = new Url_TestProxy_ForToString();
@@ -88,7 +88,7 @@ namespace Papaya {
 
 
     /**
-     * @covers       URL::getURL
+     * @covers \Papaya\URL::getURL
      * @dataProvider getUrlDataProvider
      * @param string $url
      */
@@ -102,7 +102,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::getPathURL
+     * @covers \Papaya\URL::getPathURL
      * @dataProvider getUrlDataProvider
      */
     public function testGetPathUrl() {
@@ -115,7 +115,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::getHostURL
+     * @covers \Papaya\URL::getHostURL
      * @dataProvider getHostUrlDataProvider
      * @param string $url
      * @param string $hostUrl
@@ -130,7 +130,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setScheme
+     * @covers \Papaya\URL::setScheme
      */
     public function testSetScheme() {
       $urlObject = new URL();
@@ -150,7 +150,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setScheme
+     * @covers \Papaya\URL::setScheme
      */
     public function testSetSchemeExpectingException() {
       $urlObject = new URL();
@@ -160,7 +160,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::setHost
+     * @covers \Papaya\URL::setHost
      * @dataProvider setHostDataProvider
      * @param string $url
      * @param string $host
@@ -180,7 +180,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::setHost
+     * @covers \Papaya\URL::setHost
      * @expectedException \InvalidArgumentException
      * @dataProvider setHostDataProviderExceptions
      * @param string $host
@@ -192,7 +192,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setPort
+     * @covers \Papaya\URL::setPort
      */
     public function testSetPort() {
       $urlObject = new URL();
@@ -213,7 +213,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setPort
+     * @covers \Papaya\URL::setPort
      * @expectedException \InvalidArgumentException
      */
     public function testSetPortExpectingException() {
@@ -223,7 +223,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setPath
+     * @covers \Papaya\URL::setPath
      */
     public function testSetPath() {
       $urlObject = new URL();
@@ -244,7 +244,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setPath
+     * @covers \Papaya\URL::setPath
      */
     public function testSetPathExpectingException() {
       $urlObject = new URL();
@@ -254,7 +254,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setQuery
+     * @covers \Papaya\URL::setQuery
      */
     public function testSetQuery() {
       $urlObject = new URL();
@@ -275,7 +275,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::setQuery
+     * @covers \Papaya\URL::setQuery
      */
     public function testSetQueryExpectingException() {
       $urlObject = new URL();
@@ -285,7 +285,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::__call
+     * @covers \Papaya\URL::__call
      * @dataProvider provideValidDataForMagicMethodCall
      * @param mixed $expected
      * @param string $method
@@ -298,7 +298,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__call
+     * @covers \Papaya\URL::__call
      */
     public function testMagicMethodCallExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
@@ -308,7 +308,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL::__get
+     * @covers \Papaya\URL::__get
      * @dataProvider provideValidDataForMagicMethodGet
      * @param mixed $expected
      * @param string $property
@@ -321,7 +321,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__get
+     * @covers \Papaya\URL::__get
      */
     public function testMagicMethodGetExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
@@ -331,7 +331,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL
+     * @covers \Papaya\URL
      * @dataProvider provideValidDataForMagicMethodSet
      * @param mixed $expected
      * @param string $property
@@ -345,7 +345,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers       URL
+     * @covers \Papaya\URL
      * @dataProvider provideInvalidDataForMagicMethodSet
      * @param string $property
      * @param mixed $value
@@ -357,7 +357,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__set
+     * @covers \Papaya\URL::__set
      */
     public function testMagicMethodSetReadonlyExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
@@ -366,7 +366,7 @@ namespace Papaya {
     }
 
     /**
-     * @covers URL::__set
+     * @covers \Papaya\URL::__set
      */
     public function testMagicMethodSetInvalidExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');

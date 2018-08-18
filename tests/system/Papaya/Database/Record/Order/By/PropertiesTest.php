@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PropertiesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Properties::__construct
-   * @covers Properties::__toString
+   * @covers \Papaya\Database\Record\Order\By\Properties::__construct
+   * @covers \Papaya\Database\Record\Order\By\Properties::__toString
    */
   public function testWithSimpleField() {
     $orderBy = new Properties(
@@ -32,8 +32,8 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::__construct
-   * @covers Properties::__toString
+   * @covers \Papaya\Database\Record\Order\By\Properties::__construct
+   * @covers \Papaya\Database\Record\Order\By\Properties::__toString
    */
   public function testWithTwoProperties() {
     $orderBy = new Properties(
@@ -49,9 +49,9 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::__construct
-   * @covers Properties::__toString
-   * @covers Properties::setProperties
+   * @covers \Papaya\Database\Record\Order\By\Properties::__construct
+   * @covers \Papaya\Database\Record\Order\By\Properties::__toString
+   * @covers \Papaya\Database\Record\Order\By\Properties::setProperties
    */
   public function testWithTwoPropertiesOneWithoutMapping() {
     $orderBy = new Properties(
@@ -67,7 +67,7 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::setProperties
+   * @covers \Papaya\Database\Record\Order\By\Properties::setProperties
    */
   public function testSetFieldClearsExistingProperties() {
     $orderBy = new Properties(
@@ -87,7 +87,7 @@ class PropertiesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Properties::getIterator
+   * @covers \Papaya\Database\Record\Order\By\Properties::getIterator
    */
   public function testIterator() {
     $orderBy = new Properties(

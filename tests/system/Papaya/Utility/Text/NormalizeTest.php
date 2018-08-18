@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class NormalizeTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\Normalize::toHTTPHeaderName
+   * @covers \Papaya\Utility\Text\Normalize::toHTTPHeaderName
    * @dataProvider toHttpHeaderNameDataProvider
    * @param string $string
    * @param string $expected

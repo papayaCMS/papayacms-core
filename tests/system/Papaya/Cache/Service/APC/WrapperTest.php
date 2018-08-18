@@ -32,7 +32,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Wrapper::available
+   * @covers \Papaya\Cache\Service\APC\Wrapper::available
    */
   public function testAvailableExpectingTrue() {
     $this->skipIfApcIsNotAvailable();
@@ -41,7 +41,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Wrapper::available
+   * @covers \Papaya\Cache\Service\APC\Wrapper::available
    */
   public function testAvailableExpectingFalse() {
     $this->skipIfApcIsAvailable();
@@ -50,7 +50,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Wrapper::store
+   * @covers \Papaya\Cache\Service\APC\Wrapper::store
    */
   public function testStore() {
     $this->skipIfApcIsNotAvailable();
@@ -60,7 +60,7 @@ class WrapperTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Wrapper::fetch
+   * @covers \Papaya\Cache\Service\APC\Wrapper::fetch
    */
   public function testFetch() {
     $this->skipIfApcIsNotAvailable();
@@ -69,7 +69,7 @@ class WrapperTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Wrapper::clearCache
+   * @covers \Papaya\Cache\Service\APC\Wrapper::clearCache
    */
   public function testClearCache() {
     $this->skipIfApcIsNotAvailable();

@@ -38,7 +38,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Date::stringToISO
+   * @covers \Papaya\Utility\Date::stringToISO
    * @dataProvider stringToIsoDataProvider
    * @param string $dateString
    * @param bool $includeTime
@@ -52,8 +52,8 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Date::stringToArray
-   * @covers       \Papaya\Utility\Date::_getValueFromArray
+   * @covers \Papaya\Utility\Date::stringToArray
+   * @covers \Papaya\Utility\Date::_getValueFromArray
    * @dataProvider stringToArrayDataProvider
    * @param string $dateString
    * @param array|FALSE $expected
@@ -126,8 +126,8 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Date::periodToString
-   * @covers       \Papaya\Utility\Date::_roundPeriodElement
+   * @covers \Papaya\Utility\Date::periodToString
+   * @covers \Papaya\Utility\Date::_roundPeriodElement
    * @dataProvider periodToArrayDataProvider
    * @param string $expected
    * @param string $period
@@ -160,7 +160,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Date::iso8601ToTimestamp
+   * @covers \Papaya\Utility\Date::iso8601ToTimestamp
    * @dataProvider iso8601ToTimestampDataProvider
    * @param $expected
    * @param $datetime

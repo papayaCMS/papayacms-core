@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class AncestorsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Ancestors::appendTo
+   * @covers \Papaya\Administration\Pages\Ancestors::appendTo
    */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
@@ -39,7 +39,7 @@ class AncestorsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Ancestors::setIds
+   * @covers \Papaya\Administration\Pages\Ancestors::setIds
    */
   public function testSetIds() {
     $pages = $this->createMock(\Papaya\Content\Pages::class);
@@ -87,7 +87,7 @@ class AncestorsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Ancestors::pages
+   * @covers \Papaya\Administration\Pages\Ancestors::pages
    */
   public function testPagesGetAfterSet() {
     $ancestors = new Ancestors();
@@ -98,7 +98,7 @@ class AncestorsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Ancestors::pages
+   * @covers \Papaya\Administration\Pages\Ancestors::pages
    */
   public function testPagesGetWithImpliciteCreate() {
     $ancestors = new Ancestors();
@@ -112,7 +112,7 @@ class AncestorsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Ancestors::menu
+   * @covers \Papaya\Administration\Pages\Ancestors::menu
    */
   public function testItemsGetAfterSet() {
     $ancestors = new Ancestors();
@@ -123,7 +123,7 @@ class AncestorsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Ancestors::menu
+   * @covers \Papaya\Administration\Pages\Ancestors::menu
    */
   public function testItemsGetWithImpliciteCreate() {
     $ancestors = new Ancestors();

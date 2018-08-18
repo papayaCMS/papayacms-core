@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PublicationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Publication::synchronize
-   * @covers Publication::getVersionData
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::getVersionData
    */
   public function testSynchronize() {
     $action = new Publication();
@@ -52,8 +52,8 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::synchronize
-   * @covers Publication::getVersionData
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::getVersionData
    */
   public function testSynchronizeVersionDataLoadFailedExpectingFalse() {
     $action = new Publication();
@@ -70,7 +70,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::publication
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::publication
    */
   public function testPublicationGetAfterSet() {
     $publication = $this->createMock(\Papaya\Content\Page\Publication::class);
@@ -81,7 +81,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::publication
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::publication
    */
   public function testPublicationGetImplicitCreate() {
     $action = new Publication();
@@ -91,7 +91,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::page
    */
   public function testPageGetAfterSet() {
     $page = $this->createMock(\Papaya\Content\Page\Work::class);
@@ -102,7 +102,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::page
    */
   public function testPageGetImplicitCreate() {
     $action = new Publication();
@@ -112,7 +112,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::version
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::version
    */
   public function testVersionGetAfterSet() {
     $version = $this->createMock(\Papaya\Content\Page\Version::class);
@@ -123,7 +123,7 @@ class PublicationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Publication::version
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Publication::version
    */
   public function testVersionGetImplicitCreate() {
     $action = new Publication();

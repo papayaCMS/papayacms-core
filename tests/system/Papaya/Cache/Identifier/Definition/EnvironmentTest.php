@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class EnvironmentTest extends \Papaya\TestCase {
 
   /**
-   * @covers Environment
+   * @covers \Papaya\Cache\Identifier\Definition\Environment
    */
   public function testGetStatus() {
     $_SERVER['TEST_VARIABLE'] = 'success';
@@ -33,7 +33,7 @@ class EnvironmentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Environment
+   * @covers \Papaya\Cache\Identifier\Definition\Environment
    */
   public function testGetStatusWithUnknownVariableExpectingTrue() {
     $definition = new Environment('UNKNOWN_TEST_VARIABLE');
@@ -43,7 +43,7 @@ class EnvironmentTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Environment
+   * @covers \Papaya\Cache\Identifier\Definition\Environment
    */
   public function testGetSources() {
     $definition = new Environment('X');

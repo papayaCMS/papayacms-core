@@ -20,7 +20,7 @@ namespace Papaya\Database\BaseObject {
   class RecordTest extends \Papaya\TestCase {
 
     /**
-     * @covers Record::load
+     * @covers \Papaya\Database\BaseObject\Record::load
      */
     public function testLoad() {
       $record = array(
@@ -57,9 +57,9 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::save
-     * @covers Record::_saveRecordWithAutoId
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::save
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithAutoId
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testSaveInsertsRecordWithAutoId() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -87,9 +87,9 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::save
-     * @covers Record::_saveRecordWithAutoId
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::save
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithAutoId
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testSaveInsertsRecordFailed() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -117,8 +117,8 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_saveRecordWithDefinedId
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithDefinedId
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testSaveInsertsRecordWithDefinedId() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -162,7 +162,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_saveRecordWithDefinedId
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithDefinedId
      */
     public function testSaveInsertsRecordWithDefinedIdExistenceQueryFailed() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -206,7 +206,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_saveRecordWithDefinedId
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithDefinedId
      */
     public function testSaveInsertsRecordWithDefinedIdInsertQueryFailed() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -233,7 +233,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_saveRecordWithDefinedId
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithDefinedId
      */
     public function testSaveInsertsRecordWithDefinedIdWithoutValueExpectingFalse() {
       $item = new Record_TestProxy();
@@ -249,8 +249,8 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::save
-     * @covers Record::_saveRecordWithAutoId
+     * @covers \Papaya\Database\BaseObject\Record::save
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithAutoId
      */
     public function testSaveUpdatesRecordWithAutoId() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -277,7 +277,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_saveRecordWithDefinedId
+     * @covers \Papaya\Database\BaseObject\Record::_saveRecordWithDefinedId
      */
     public function testSaveUpdatesRecordWithDefinedId() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -323,7 +323,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::assign
+     * @covers \Papaya\Database\BaseObject\Record::assign
      */
     public function testAssign() {
       $record = new Record_TestProxy();
@@ -345,7 +345,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::toArray
+     * @covers \Papaya\Database\BaseObject\Record::toArray
      */
     public function testToArray() {
       $record = new Record_TestProxy();
@@ -359,7 +359,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::getIterator
+     * @covers \Papaya\Database\BaseObject\Record::getIterator
      */
     public function testGetIterator() {
       $record = new Record_TestProxy();
@@ -375,7 +375,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetExists
+     * @covers \Papaya\Database\BaseObject\Record::offsetExists
      */
     public function testOffsetExistsExpectingFalse() {
       $record = new Record_TestProxy();
@@ -385,7 +385,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetExists
+     * @covers \Papaya\Database\BaseObject\Record::offsetExists
      */
     public function testOffsetExistsExpectingTrue() {
       $record = new Record_TestProxy();
@@ -395,7 +395,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetGet
+     * @covers \Papaya\Database\BaseObject\Record::offsetGet
      */
     public function testOffsetGet() {
       $record = new Record_TestProxy();
@@ -405,7 +405,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetGet
+     * @covers \Papaya\Database\BaseObject\Record::offsetGet
      */
     public function testOffetGetWithInvalidField() {
       $record = new Record_TestProxy();
@@ -414,7 +414,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetGet
+     * @covers \Papaya\Database\BaseObject\Record::offsetGet
      */
     public function testOffsetGetExpectingNull() {
       $record = new Record_TestProxy();
@@ -424,7 +424,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetSet
+     * @covers \Papaya\Database\BaseObject\Record::offsetSet
      */
     public function testOffetSet() {
       $record = new Record_TestProxy();
@@ -435,7 +435,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetSet
+     * @covers \Papaya\Database\BaseObject\Record::offsetSet
      */
     public function testOffetSetWithInvalidField() {
       $record = new Record_TestProxy();
@@ -444,7 +444,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::offsetUnset
+     * @covers \Papaya\Database\BaseObject\Record::offsetUnset
      */
     public function testOffetUnset() {
       $record = new Record_TestProxy();
@@ -455,7 +455,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::__isset
+     * @covers \Papaya\Database\BaseObject\Record::__isset
      */
     public function testPropertyIsset() {
       $record = new Record_TestProxy();
@@ -465,7 +465,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::__get
+     * @covers \Papaya\Database\BaseObject\Record::__get
      */
     public function testPropertyGet() {
       $record = new Record_TestProxy();
@@ -476,7 +476,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::__set
+     * @covers \Papaya\Database\BaseObject\Record::__set
      */
     public function testPropertySet() {
       $record = new Record_TestProxy();
@@ -491,7 +491,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers       Record::__set
+     * @covers \Papaya\Database\BaseObject\Record::__set
      * @dataProvider provideValidOffsetVariations
      * @param string $offset
      */
@@ -512,7 +512,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::__set
+     * @covers \Papaya\Database\BaseObject\Record::__set
      */
     public function testPropertySetTestingNormalizationExpectingException() {
       $record = new Record_TestProxy();
@@ -521,7 +521,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::__unset
+     * @covers \Papaya\Database\BaseObject\Record::__unset
      */
     public function testPropertyUnset() {
       $record = new Record_TestProxy();
@@ -532,7 +532,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_loadRecordFromTable
+     * @covers \Papaya\Database\BaseObject\Record::_loadRecordFromTable
      */
     public function testLoadRecordFromTable() {
       $record = array(
@@ -573,7 +573,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_loadRecord
+     * @covers \Papaya\Database\BaseObject\Record::_loadRecord
      */
     public function testLoadRecord() {
       $record = array(
@@ -612,7 +612,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_loadRecord
+     * @covers \Papaya\Database\BaseObject\Record::_loadRecord
      */
     public function testLoadRecordWithEmptyResult() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -635,7 +635,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_loadRecord
+     * @covers \Papaya\Database\BaseObject\Record::_loadRecord
      */
     public function testLoadRecordWithSqlError() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -652,7 +652,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testInsertRecord() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -676,7 +676,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testInsertRecordRemovingOldId() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -701,7 +701,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_insertRecord
+     * @covers \Papaya\Database\BaseObject\Record::_insertRecord
      */
     public function testInsertRecordWithoutId() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -733,7 +733,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_updateRecord
+     * @covers \Papaya\Database\BaseObject\Record::_updateRecord
      */
     public function testUpdateRecord() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -755,8 +755,8 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::delete
-     * @covers Record::_deleteRecord
+     * @covers \Papaya\Database\BaseObject\Record::delete
+     * @covers \Papaya\Database\BaseObject\Record::_deleteRecord
      */
     public function testDelete() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -779,8 +779,8 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::delete
-     * @covers Record::_deleteRecord
+     * @covers \Papaya\Database\BaseObject\Record::delete
+     * @covers \Papaya\Database\BaseObject\Record::_deleteRecord
      */
     public function testDeleteWithoutIdExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -800,7 +800,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_applyCallback
+     * @covers \Papaya\Database\BaseObject\Record::_applyCallback
      */
     public function testApplyCallback() {
       $item = new Record_TestProxy();
@@ -811,7 +811,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_applyCallback
+     * @covers \Papaya\Database\BaseObject\Record::_applyCallback
      */
     public function testApplyCallbackWithDefaultCallback() {
       $item = new Record_TestProxy();
@@ -827,7 +827,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::_applyCallback
+     * @covers \Papaya\Database\BaseObject\Record::_applyCallback
      */
     public function testApplyCallbackWithoutCallbackExpectingException() {
       $item = new Record_TestProxy();
@@ -836,7 +836,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::convertRecordToValues
+     * @covers \Papaya\Database\BaseObject\Record::convertRecordToValues
      */
     public function testConvertRecordToValues() {
       $row = array(
@@ -851,7 +851,7 @@ namespace Papaya\Database\BaseObject {
     }
 
     /**
-     * @covers Record::convertValuesToRecord
+     * @covers \Papaya\Database\BaseObject\Record::convertValuesToRecord
      */
     public function testConvertValuesToRecord() {
       $data = array(

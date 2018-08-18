@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ChangerTest extends \Papaya\TestCase {
 
   /**
-   * @covers Changer::getPageId
-   * @covers Changer::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::getPageId
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::prepare
    */
   public function testGetPageId() {
     $changer = $this->getChangerFixture(42);
@@ -30,8 +30,8 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::getOriginId
-   * @covers Changer::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::getOriginId
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::prepare
    */
   public function testGetWithoutDependency() {
     $changer = $this->getChangerFixture(21);
@@ -40,8 +40,8 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::getOriginId
-   * @covers Changer::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::getOriginId
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::prepare
    */
   public function testGetWithDependency() {
     $changer = $this->getChangerFixture(42, array('originId' => 21));
@@ -50,7 +50,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::prepare
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::prepare
    */
   public function testPrepareLoadsReferenceIfTargetIsDefined() {
     $changer = new Changer();
@@ -80,7 +80,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendTo
    */
   public function testAppendToWithoutPageId() {
     $changer = $this->getChangerFixture();
@@ -88,8 +88,8 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::appendTo
-   * @covers Changer::appendButtons
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendButtons
    */
   public function testAppendToWithOriginPage() {
     $changer = $this->getChangerFixture(21);
@@ -127,8 +127,8 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::appendTo
-   * @covers Changer::appendButtons
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendButtons
    */
   public function testAppendToWithDependency() {
     $changer = $this->getChangerFixture(42, array('id' => 42, 'originId' => 21));
@@ -187,8 +187,8 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::appendTo
-   * @covers Changer::appendButtons
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendTo
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::appendButtons
    */
   public function testAppendToWithReference() {
     $changer = new Changer();
@@ -271,7 +271,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::dependency
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::dependency
    */
   public function testDependencyGetAfterSet() {
     $dependency = $this->getDependencyFixture();
@@ -282,7 +282,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::dependency
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::dependency
    */
   public function testDependencyGetImplicitCreate() {
     $changer = new Changer();
@@ -292,7 +292,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::dependencies
    */
   public function testDependenciesGetAfterSet() {
     $dependencies = $this->createMock(\Papaya\Content\Page\Dependencies::class);
@@ -303,7 +303,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::dependencies
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::dependencies
    */
   public function testDependenciesGetImplicitCreate() {
     $changer = new Changer();
@@ -313,7 +313,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::reference
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::reference
    */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(\Papaya\Content\Page\Reference::class);
@@ -324,7 +324,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::reference
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::reference
    */
   public function testReferenceGetImplicitCreate() {
     $changer = new Changer();
@@ -334,7 +334,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::references
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::references
    */
   public function testReferencesGetAfterSet() {
     $references = $this->createMock(\Papaya\Content\Page\References::class);
@@ -345,7 +345,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::references
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::references
    */
   public function testReferencesGetImplicitCreate() {
     $changer = new Changer();
@@ -355,7 +355,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::menu
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::menu
    */
   public function testMenuGetAfterSet() {
     $menu = $this->createMock(\Papaya\UI\Toolbar::class);
@@ -366,7 +366,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::menu
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::menu
    */
   public function testMenuGetImplicitCreate() {
     $changer = new Changer();
@@ -376,7 +376,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::commands
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::commands
    */
   public function testCommandsGetAfterSet() {
     $commands = $this
@@ -390,7 +390,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::commands
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::commands
    */
   public function testCommandsGetImplicitCreate() {
     $changer = new Changer();
@@ -402,7 +402,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::listview
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::listview
    */
   public function testListviewGetAfterSet() {
     $listview = $this
@@ -416,7 +416,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::listview
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::listview
    */
   public function testListviewGetImplicitCreate() {
     $changer = new Changer();
@@ -426,7 +426,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::synchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::synchronizations
    */
   public function testSynchronizationsGetAfterSet() {
     $synchronizations = $this->createMock(Synchronizations::class);
@@ -437,7 +437,7 @@ class ChangerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changer::synchronizations
+   * @covers \Papaya\Administration\Pages\Dependency\Changer::synchronizations
    */
   public function testSynchronizationsGetImplicitCreate() {
     $changer = new Changer();

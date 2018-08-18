@@ -40,7 +40,7 @@ namespace Papaya\Filter\Exception {
     }
 
     /**
-     * @covers       \Papaya\Filter\Exception\Callback::callbackToString
+     * @covers \Papaya\Filter\Exception\Callback::callbackToString
      * @dataProvider provideCallbacks
      * @param string $expected
      * @param callable $callback

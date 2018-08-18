@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class VersionsTest extends \Papaya\TestCase {
   /**
-   * @covers Versions::load
+   * @covers \Papaya\Content\Page\Versions::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -66,7 +66,7 @@ class VersionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Versions::getVersion
+   * @covers \Papaya\Content\Page\Versions::getVersion
    */
   public function testGetVersion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

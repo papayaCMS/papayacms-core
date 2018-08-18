@@ -40,7 +40,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::setConfiguration
+   * @covers \Papaya\Cache\Service\File::setConfiguration
    */
   public function testSetConfiguration() {
     $service = $this->getServiceObjectFixture();
@@ -50,7 +50,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::setConfiguration
+   * @covers \Papaya\Cache\Service\File::setConfiguration
    */
   public function testSetConfigurationWithNotifier() {
     $configuration = new \Papaya\Cache\Configuration();
@@ -63,7 +63,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::verify
+   * @covers \Papaya\Cache\Service\File::verify
    */
   public function testVerifyExpectingTrue() {
     $service = $this->getServiceObjectFixture();
@@ -71,7 +71,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::verify
+   * @covers \Papaya\Cache\Service\File::verify
    */
   public function testVerifyExpectingFalse() {
     $configuration = new \Papaya\Cache\Configuration();
@@ -81,7 +81,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::verify
+   * @covers \Papaya\Cache\Service\File::verify
    */
   public function testVerifyExpectingError() {
     $configuration = new \Papaya\Cache\Configuration();
@@ -92,9 +92,9 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::write
-   * @covers File::notify
-   * @covers File::_ensureLocalDirectory
+   * @covers \Papaya\Cache\Service\File::write
+   * @covers \Papaya\Cache\Service\File::notify
+   * @covers \Papaya\Cache\Service\File::_ensureLocalDirectory
    */
   public function testWrite() {
     $service = $this->getServiceObjectFixture();
@@ -106,9 +106,9 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::write
-   * @covers File::notify
-   * @covers File::_ensureLocalDirectory
+   * @covers \Papaya\Cache\Service\File::write
+   * @covers \Papaya\Cache\Service\File::notify
+   * @covers \Papaya\Cache\Service\File::_ensureLocalDirectory
    */
   public function testWriteTriggersNotifier() {
     $service = $this->getServiceObjectFixture();
@@ -147,8 +147,8 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::write
-   * @covers File::_ensureLocalDirectory
+   * @covers \Papaya\Cache\Service\File::write
+   * @covers \Papaya\Cache\Service\File::_ensureLocalDirectory
    */
   public function testWriteOverExistingFile() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -160,8 +160,8 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::write
-   * @covers File::_ensureLocalDirectory
+   * @covers \Papaya\Cache\Service\File::write
+   * @covers \Papaya\Cache\Service\File::_ensureLocalDirectory
    */
   public function testWriteExpectingFailure() {
     $service = new File();
@@ -171,8 +171,8 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::read
-   * @covers File::exists
+   * @covers \Papaya\Cache\Service\File::read
+   * @covers \Papaya\Cache\Service\File::exists
    */
   public function testRead() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -183,8 +183,8 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::read
-   * @covers File::exists
+   * @covers \Papaya\Cache\Service\File::read
+   * @covers \Papaya\Cache\Service\File::exists
    */
   public function testReadWithInvalidConfigurationExpectingFalse() {
     $service = new File();
@@ -194,7 +194,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::exists
+   * @covers \Papaya\Cache\Service\File::exists
    */
   public function testExistsWithInvalidFile() {
     $service = $this->getServiceObjectFixture();
@@ -204,7 +204,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::exists
+   * @covers \Papaya\Cache\Service\File::exists
    */
   public function testExistsWithExpiredFile() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -219,7 +219,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::exists
+   * @covers \Papaya\Cache\Service\File::exists
    */
   public function testExistsWithDeprecatedFile() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -235,7 +235,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::created
+   * @covers \Papaya\Cache\Service\File::created
    */
   public function testCreated() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -251,7 +251,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::created
+   * @covers \Papaya\Cache\Service\File::created
    */
   public function testCreatedWithExpiredExpectingFalse() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -268,7 +268,7 @@ class FileTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers       File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    * @dataProvider deleteArgumentsDataProvider
    * @param NULL|string $group
    * @param NULL|string $element
@@ -280,7 +280,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    */
   public function testDeleteFileTriggersNotifier() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -303,7 +303,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    */
   public function testDeleteDirectoryTriggersNotifier() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -327,7 +327,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    */
   public function testInvalidateDirectoryTriggersNotifier() {
     $this->createTemporaryDirectory();
@@ -363,7 +363,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    */
   public function testDeleteNonexistingElement() {
     $service = $this->getServiceObjectFixture(TRUE);
@@ -371,7 +371,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::delete
+   * @covers \Papaya\Cache\Service\File::delete
    */
   public function testDeleteWithInvalidConfiguration() {
     $service = new File();
@@ -379,7 +379,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       File::_getCacheIdentification
+   * @covers \Papaya\Cache\Service\File::_getCacheIdentification
    * @dataProvider getCacheIdentificationDataProvider
    * @param string $group
    * @param string $identifier
@@ -395,7 +395,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       File::_getCacheIdentification
+   * @covers \Papaya\Cache\Service\File::_getCacheIdentification
    * @dataProvider getInvalidCacheIdentificationDataProvider
    * @param string $group
    * @param string $identifier
@@ -408,7 +408,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::notifier
+   * @covers \Papaya\Cache\Service\File::notifier
    */
   public function testNotifierGetAfterSet() {
     $notifier = $this
@@ -422,7 +422,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::notifier
+   * @covers \Papaya\Cache\Service\File::notifier
    */
   public function testNofifierGetImplicitCreate() {
     $configuration = new \Papaya\Cache\Configuration();
@@ -434,7 +434,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers File::notifier
+   * @covers \Papaya\Cache\Service\File::notifier
    */
   public function testNofifierGetImplicitCreateWithoutNotifierScriptExpectingFalse() {
     $service = new File();

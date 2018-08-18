@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SelectorTest extends \Papaya\TestCase {
 
   /**
-   * @covers Selector::languages
+   * @covers \Papaya\Administration\Languages\Selector::languages
    */
   public function testLanguagesGetAfterSet() {
     $languages = $this->createMock(\Papaya\Content\Languages::class);
@@ -31,7 +31,7 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::languages
+   * @covers \Papaya\Administration\Languages\Selector::languages
    */
   public function testLanguagesGetImplicitCreate() {
     $switch = new Selector();
@@ -41,7 +41,7 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::__get
+   * @covers \Papaya\Administration\Languages\Selector::__get
    */
   public function testGetCurrentLanguageIdFromProperty() {
     $switch = new Selector();
@@ -57,7 +57,7 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::__get
+   * @covers \Papaya\Administration\Languages\Selector::__get
    */
   public function testGetCurrentLanguageTitleFromProperty() {
     $switch = new Selector();
@@ -73,7 +73,7 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::__get
+   * @covers \Papaya\Administration\Languages\Selector::__get
    */
   public function testGetCurrentLanguageImageFromProperty() {
     $switch = new Selector();
@@ -89,8 +89,8 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
    */
   public function testLanguagesGetCurrentFromRequestParameters() {
     $switch = new Selector();
@@ -110,8 +110,8 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
    */
   public function testLanguagesGetCurrentFromSession() {
     $switch = new Selector();
@@ -128,8 +128,8 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
    */
   public function testLanguagesGetCurrentFromList() {
     $switch = new Selector();
@@ -146,9 +146,9 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
-   * @covers Selector::getDefault
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getDefault
    */
   public function testLanguagesGetCurrentFromDefault() {
     $switch = new Selector();
@@ -165,9 +165,9 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
-   * @covers Selector::getDefault
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getDefault
    */
   public function testLanguagesGetCurrentFromDefaultNoExistingLanguage() {
     $switch = new Selector();
@@ -184,8 +184,8 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Selector::getCurrent
-   * @covers       Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
    * @dataProvider provideLanguageOptions
    * @param array $options
    */
@@ -205,8 +205,8 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::getCurrent
-   * @covers Selector::prepare
+   * @covers \Papaya\Administration\Languages\Selector::getCurrent
+   * @covers \Papaya\Administration\Languages\Selector::prepare
    */
   public function testLanguagesGetCurrentFromUserOptionContent() {
     $user = new StubForLanguageSwitch();
@@ -226,7 +226,7 @@ class SelectorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Selector::appendTo
+   * @covers \Papaya\Administration\Languages\Selector::appendTo
    */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();

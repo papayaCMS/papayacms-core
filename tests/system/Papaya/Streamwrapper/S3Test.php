@@ -59,7 +59,7 @@ class S3Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Streamwrapper\S3::parsePath
+   * @covers \Papaya\Streamwrapper\S3::parsePath
    * @dataProvider parsePathDataProvider
    * @param string $path
    * @param array|bool $expected
@@ -361,7 +361,7 @@ class S3Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Streamwrapper\S3::stream_open
+   * @covers \Papaya\Streamwrapper\S3::stream_open
    * @dataProvider streamOpenUnsupportedModeDataProvider
    * @param string $mode
    */
@@ -379,7 +379,7 @@ class S3Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Streamwrapper\S3::stream_open
+   * @covers \Papaya\Streamwrapper\S3::stream_open
    * @dataProvider streamOpenUnsupportedModeDataProvider
    * @param string $mode
    */

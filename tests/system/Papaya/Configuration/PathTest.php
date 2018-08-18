@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PathTest extends \Papaya\TestCase {
 
   /**
-   * @covers       Path
+   * @covers \Papaya\Configuration\Path
    * @backupGlobals enabled
    * @dataProvider providePathSamples
    * @param string $expected
@@ -49,7 +49,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path
+   * @covers \Papaya\Configuration\Path
    */
   public function testPathThemeCallsThemeHandler() {
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
@@ -65,7 +65,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path
+   * @covers \Papaya\Configuration\Path
    */
   public function testPathCurrentThemeCallsThemeHandler() {
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
@@ -81,7 +81,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path::themeHandler
+   * @covers \Papaya\Configuration\Path::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
     $path = new Path('', '');
@@ -90,7 +90,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path::themeHandler
+   * @covers \Papaya\Configuration\Path::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
     $path = new Path('', '');
@@ -98,7 +98,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path::isIdentifier
+   * @covers \Papaya\Configuration\Path::isIdentifier
    */
   public function testIsIdentiferExpectingTrue() {
     $this->assertTrue(
@@ -107,7 +107,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Path::isIdentifier
+   * @covers \Papaya\Configuration\Path::isIdentifier
    */
   public function testIsIdentiferExpectingFalse() {
     $this->assertFalse(

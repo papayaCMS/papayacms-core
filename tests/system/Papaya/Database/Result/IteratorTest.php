@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class IteratorTest extends \Papaya\TestCase {
 
   /**
-   * @covers Iterator::__construct
+   * @covers \Papaya\Database\Result\Iterator::__construct
    */
   public function testConstructor() {
     $iterator = new Iterator(
@@ -32,7 +32,7 @@ class IteratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Iterator::__construct
+   * @covers \Papaya\Database\Result\Iterator::__construct
    */
   public function testConstructorWithAllParameters() {
     $iterator = new Iterator(
@@ -45,11 +45,11 @@ class IteratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Iterator::rewind
-   * @covers Iterator::key
-   * @covers Iterator::current
-   * @covers Iterator::next
-   * @covers Iterator::valid
+   * @covers \Papaya\Database\Result\Iterator::rewind
+   * @covers \Papaya\Database\Result\Iterator::key
+   * @covers \Papaya\Database\Result\Iterator::current
+   * @covers \Papaya\Database\Result\Iterator::next
+   * @covers \Papaya\Database\Result\Iterator::valid
    */
   public function testIterate() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -79,7 +79,7 @@ class IteratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Iterator::current
+   * @covers \Papaya\Database\Result\Iterator::current
    */
   public function testIterateWithMapping() {
     $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -118,7 +118,7 @@ class IteratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Iterator::rewind
+   * @covers \Papaya\Database\Result\Iterator::rewind
    */
   public function testRewindAfterIteration() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -150,8 +150,8 @@ class IteratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Iterator::setMapping
-   * @covers Iterator::getMapping
+   * @covers \Papaya\Database\Result\Iterator::setMapping
+   * @covers \Papaya\Database\Result\Iterator::getMapping
    */
   public function testSetMappingGetAfterSet() {
     $iterator = new Iterator($this->createMock(\Papaya\Database\Result::class));

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class ChangeTest extends \Papaya\TestCase {
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::createDialog
    */
   public function testCreateDialog() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -44,7 +44,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::createDialog
    */
   public function testCreateDialogWithoutSourceId() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -66,7 +66,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::createDialog
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::createDialog
    */
   public function testCreateDialogWhileSourceIdEqualsPageId() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -88,8 +88,8 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateTarget
-   * @covers Change::sortAsc
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::validateTarget
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::sortAsc
    */
   public function testValidateTargetExpectsTrue() {
     $key = $this->createMock(\Papaya\Database\Interfaces\Key::class);
@@ -109,8 +109,8 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::validateTarget
-   * @covers Change::sortAsc
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::validateTarget
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::sortAsc
    */
   public function testValidateTargetExpectingFalse() {
     $field = $this->createMock(\Papaya\UI\Dialog\Field::class);
@@ -142,7 +142,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::dispatchSavedMessage
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::dispatchSavedMessage
    */
   public function testDispatchSavedMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -161,7 +161,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Change::dispatchErrorMessage
+   * @covers \Papaya\Administration\Pages\Reference\Command\Change::dispatchErrorMessage
    */
   public function testDispatchErrorMessage() {
     $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);

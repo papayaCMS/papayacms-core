@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class FactoryTest extends \Papaya\TestCase {
 
   /**
-   * @covers Factory::createError
+   * @covers \Papaya\Controller\Factory::createError
    */
   public function testCreateError() {
     $error = Factory::createError(404, 'Test', 'TEST');
@@ -37,7 +37,7 @@ class FactoryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Factory::createError
+   * @covers \Papaya\Controller\Factory::createError
    */
   public function testCreateErrorWithFile() {
     $error = Factory::createError(

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class ErrorTest extends \Papaya\TestCase {
 
   /**
-   * @covers Error::setStatus
+   * @covers \Papaya\Controller\Error::setStatus
    */
   public function testSetStatus() {
     $controller = new Error();
@@ -31,7 +31,7 @@ class ErrorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Error::setError
+   * @covers \Papaya\Controller\Error::setError
    */
   public function testSetError() {
     $controller = new Error();
@@ -45,8 +45,8 @@ class ErrorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Error::execute
-   * @covers Error::_getOutput
+   * @covers \Papaya\Controller\Error::execute
+   * @covers \Papaya\Controller\Error::_getOutput
    */
   public function testControllerExecute() {
     $application = $this->mockPapaya()->application();

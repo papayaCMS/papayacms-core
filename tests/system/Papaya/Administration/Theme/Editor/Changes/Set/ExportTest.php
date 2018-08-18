@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class ExportTest extends \Papaya\TestCase {
 
   /**
-   * @covers Export
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Export
    */
   public function testAppendTo() {
     $response = $this->createMock(\Papaya\Response::class);

@@ -19,8 +19,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class CleanupTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\URL\Transformer\Cleanup::transform
-   * @covers       \Papaya\URL\Transformer\Cleanup::_calculateRealPath
+   * @covers \Papaya\URL\Transformer\Cleanup::transform
+   * @covers \Papaya\URL\Transformer\Cleanup::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $expected
    * @param string $targetUrl

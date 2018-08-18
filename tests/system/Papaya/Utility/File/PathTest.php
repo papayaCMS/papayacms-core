@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PathTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\File\Path::cleanup
+   * @covers \Papaya\Utility\File\Path::cleanup
    * @dataProvider provideCleanupData
    * @param string $expected
    * @param string $string
@@ -33,7 +33,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\File\Path::ensureIsAbsolute
+   * @covers \Papaya\Utility\File\Path::ensureIsAbsolute
    * @dataProvider provideEnsureIsAbsoluteData
    * @param string $expected
    * @param string $string
@@ -46,7 +46,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\File\Path::ensureTrailingSlash
+   * @covers \Papaya\Utility\File\Path::ensureTrailingSlash
    * @dataProvider provideEnsureTrailingSlashData
    * @param string $expected
    * @param string $string
@@ -59,7 +59,7 @@ class PathTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\File\Path::ensureNoTrailingSlash
+   * @covers \Papaya\Utility\File\Path::ensureNoTrailingSlash
    * @dataProvider provideEnsureNoTrailingSlashData
    * @param string $expected
    * @param string $string

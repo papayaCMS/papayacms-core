@@ -57,7 +57,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Date
+   * @covers \Papaya\UI\Dialog\Field\Input\Date
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -72,7 +72,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Date
+   * @covers \Papaya\UI\Dialog\Field\Input\Date
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory

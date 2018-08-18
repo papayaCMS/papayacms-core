@@ -47,7 +47,7 @@ class Checkbox extends \Papaya\UI\Listview\Subitem {
    *
    * @param \Papaya\XML\Element $parent
    */
-  public function appendTo(Papaya\Xml\Element $parent) {
+  public function appendTo(\Papaya\XML\Element $parent) {
     $item = $parent->appendElement(
       'subitem',
       array(

@@ -20,8 +20,8 @@ namespace Papaya\Database\Record {
   class LazyTest extends \Papaya\TestCase {
 
     /**
-     * @covers Lazy::activateLazyLoad
-     * @covers Lazy::getLazyLoadParameters
+     * @covers \Papaya\Database\Record\Lazy::activateLazyLoad
+     * @covers \Papaya\Database\Record\Lazy::getLazyLoadParameters
      */
     public function testActivateLazyLoadDoesNotTriggerLoading() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -38,9 +38,9 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::activateLazyLoad
-     * @covers Lazy::lazyLoad
-     * @covers Lazy::_loadRecord
+     * @covers \Papaya\Database\Record\Lazy::activateLazyLoad
+     * @covers \Papaya\Database\Record\Lazy::lazyLoad
+     * @covers \Papaya\Database\Record\Lazy::_loadRecord
      */
     public function testActiveLazyLoadParametersAreUsedDuringLazyLoad() {
       $databaseAccess = $this->getDatabaseAccessFixture();
@@ -62,7 +62,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::assign
+     * @covers \Papaya\Database\Record\Lazy::assign
      */
     public function testAssignDisablesLazyLoad() {
       $record = new Lazy_TestProxy();
@@ -72,7 +72,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::lazyLoad
+     * @covers \Papaya\Database\Record\Lazy::lazyLoad
      */
     public function testLoadIsOnlyCalledOnce() {
       $databaseAccess = $this->getDatabaseAccessFixture();
@@ -90,7 +90,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::toArray
+     * @covers \Papaya\Database\Record\Lazy::toArray
      */
     public function testToArray() {
       $record = new Lazy_TestProxy();
@@ -106,7 +106,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::__isset
+     * @covers \Papaya\Database\Record\Lazy::__isset
      */
     public function testMagicMethodIsset() {
       $record = new Lazy_TestProxy();
@@ -118,7 +118,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::__get
+     * @covers \Papaya\Database\Record\Lazy::__get
      */
     public function testMagicMethodGet() {
       $record = new Lazy_TestProxy();
@@ -131,7 +131,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::__set
+     * @covers \Papaya\Database\Record\Lazy::__set
      */
     public function testMagicMethodSet() {
       $record = new Lazy_TestProxy();
@@ -148,7 +148,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::__unset
+     * @covers \Papaya\Database\Record\Lazy::__unset
      */
     public function testMagicMethodUnset() {
       $record = new Lazy_TestProxy();
@@ -165,7 +165,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::offsetExists
+     * @covers \Papaya\Database\Record\Lazy::offsetExists
      */
     public function testOffsetExists() {
       $record = new Lazy_TestProxy();
@@ -175,7 +175,7 @@ namespace Papaya\Database\Record {
     }
 
     /**
-     * @covers Lazy::isLoaded
+     * @covers \Papaya\Database\Record\Lazy::isLoaded
      */
     public function testIsLoaded() {
       $record = new Lazy_TestProxy();

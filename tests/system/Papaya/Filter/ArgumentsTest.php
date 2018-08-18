@@ -40,7 +40,7 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Arguments::validate
+   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideValidValidationData
    * @param mixed $value
    * @param array $filters
@@ -53,7 +53,7 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Arguments::validate
+   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters
@@ -67,7 +67,7 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Arguments::filter
+   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideFilterData
    * @param mixed $expected
    * @param mixed $value
@@ -80,7 +80,7 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Arguments::filter
+   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters

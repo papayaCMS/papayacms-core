@@ -64,8 +64,8 @@ class RuntimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Message\Context\Runtime::setTimeValues
-   * @covers       \Papaya\Message\Context\Runtime::_prepareTimeValue
+   * @covers \Papaya\Message\Context\Runtime::setTimeValues
+   * @covers \Papaya\Message\Context\Runtime::_prepareTimeValue
    * @dataProvider setTimeValuesDataProvider
    *
    * @param float $expectedDiff

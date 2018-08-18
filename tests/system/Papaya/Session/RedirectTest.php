@@ -83,9 +83,9 @@ class RedirectTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Redirect::prepare
-   * @covers       \Papaya\Session\Redirect::_setQueryParameter
-   * @covers       \Papaya\Session\Redirect::_setPathParameter
+   * @covers \Papaya\Session\Redirect::prepare
+   * @covers \Papaya\Session\Redirect::_setQueryParameter
+   * @covers \Papaya\Session\Redirect::_setPathParameter
    * @dataProvider provideRedirectData
    * @param string $expectedUrl
    * @param string $url

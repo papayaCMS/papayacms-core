@@ -40,7 +40,7 @@ class EmailTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Email
+   * @covers \Papaya\UI\Dialog\Field\Input\Email
    * @dataProvider provideValidEmailInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -55,7 +55,7 @@ class EmailTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Email
+   * @covers \Papaya\UI\Dialog\Field\Input\Email
    * @dataProvider provideInvalidEmailInputs
    * @param mixed $value
    * @param bool $mandatory

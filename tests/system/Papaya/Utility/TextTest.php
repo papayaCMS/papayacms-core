@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class TextTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text::truncate
+   * @covers \Papaya\Utility\Text::truncate
    * @dataProvider provideTruncateSamples
    * @param string $expected
    * @param string $string
@@ -51,7 +51,7 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text::escapeForPrintf
+   * @covers \Papaya\Utility\Text::escapeForPrintf
    * @dataProvider provideEscapingSamples
    * @param $expected
    * @param $input

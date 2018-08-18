@@ -35,8 +35,8 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::read
-     * @covers       \Papaya\Template\Simple\Parser::matchToken
+     * @covers \Papaya\Template\Simple\Parser::read
+     * @covers \Papaya\Template\Simple\Parser::matchToken
      * @dataProvider provideDirectMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -58,9 +58,9 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::read
-     * @covers       \Papaya\Template\Simple\Parser::matchToken
-     * @covers       \Papaya\Template\Simple\Parser::createMismatchException
+     * @covers \Papaya\Template\Simple\Parser::read
+     * @covers \Papaya\Template\Simple\Parser::matchToken
+     * @covers \Papaya\Template\Simple\Parser::createMismatchException
      * @dataProvider provideDirectMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens
@@ -73,7 +73,7 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::lookahead
+     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideDirectMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -92,7 +92,7 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::lookahead
+     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideDirectMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens
@@ -105,7 +105,7 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::lookahead
+     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideLookaheadMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -124,7 +124,7 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers       \Papaya\Template\Simple\Parser::lookahead
+     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideLookaheadMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens

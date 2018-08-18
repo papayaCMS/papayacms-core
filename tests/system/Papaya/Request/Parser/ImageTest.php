@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ImageTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Request\Parser\Image::parse
+   * @covers \Papaya\Request\Parser\Image::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected

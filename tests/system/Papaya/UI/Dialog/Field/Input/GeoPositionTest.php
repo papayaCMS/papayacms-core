@@ -38,7 +38,7 @@ class GeoPositionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\GeoPosition
+   * @covers \Papaya\UI\Dialog\Field\Input\GeoPosition
    * @dataProvider provideValidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -53,7 +53,7 @@ class GeoPositionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Page
+   * @covers \Papaya\UI\Dialog\Field\Input\Page
    * @dataProvider provideInvalidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory

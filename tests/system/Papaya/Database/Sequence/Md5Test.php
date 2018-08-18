@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class Md5Test extends \Papaya\TestCase {
 
   /**
-   * @covers Md5::create
+   * @covers \Papaya\Database\Sequence\Md5::create
    */
   public function testCreate7Bytes() {
     $sequence = new Md5('table', 'field');
@@ -30,7 +30,7 @@ class Md5Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Md5::create
+   * @covers \Papaya\Database\Sequence\Md5::create
    */
   public function testCreateIsRandom() {
     $sequence = new Md5('table', 'field');

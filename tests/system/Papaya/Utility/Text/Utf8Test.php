@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class Utf8Test extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::ensure
+   * @covers \Papaya\Utility\Text\UTF8::ensure
    * @dataProvider ensureDataProvider
    * @param string $string
    * @param string $expected
@@ -32,7 +32,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::getCodepoint
+   * @covers \Papaya\Utility\Text\UTF8::getCodepoint
    * @dataProvider getCodepointDataProvider
    * @param string $string
    * @param string $expected
@@ -45,7 +45,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::length
+   * @covers \Papaya\Utility\Text\UTF8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -57,7 +57,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::position
+   * @covers \Papaya\Utility\Text\UTF8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -71,7 +71,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::copy
+   * @covers \Papaya\Utility\Text\UTF8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -85,7 +85,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::length
+   * @covers \Papaya\Utility\Text\UTF8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -97,7 +97,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::position
+   * @covers \Papaya\Utility\Text\UTF8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -111,7 +111,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::copy
+   * @covers \Papaya\Utility\Text\UTF8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -125,7 +125,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::length
+   * @covers \Papaya\Utility\Text\UTF8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -136,7 +136,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::position
+   * @covers \Papaya\Utility\Text\UTF8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -149,7 +149,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\Text\UTF8::copy
+   * @covers \Papaya\Utility\Text\UTF8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack

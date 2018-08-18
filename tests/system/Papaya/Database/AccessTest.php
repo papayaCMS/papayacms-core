@@ -76,7 +76,7 @@ class AccessTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Database\Access::__call
+   * @covers \Papaya\Database\Access::__call
    * @dataProvider getDelegationMethodData
    * @param string $functionName
    * @param bool $isWriteFunction

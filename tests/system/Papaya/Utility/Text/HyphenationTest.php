@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class HyphenationTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\Hyphenation::german
+   * @covers \Papaya\Utility\Text\Hyphenation::german
    * @dataProvider provideGermanWords
    * @param string $expected
    * @param string $word

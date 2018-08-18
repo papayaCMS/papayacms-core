@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PlaceholdersTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\UI\Text\Placeholders
+   * @covers \Papaya\UI\Text\Placeholders
    * @dataProvider providePlaceholderExamples
    * @param string $expected
    * @param string $string

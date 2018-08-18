@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class StatusTest extends \Papaya\TestCase {
 
   /**
-   * @covers Status::load
+   * @covers \Papaya\Content\Page\Publication\Status::load
    */
   public function testLoadReadingFromCache() {
     $cache = $this->createMock(\Papaya\Cache\Service::class);
@@ -54,7 +54,7 @@ class StatusTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Status::load
+   * @covers \Papaya\Content\Page\Publication\Status::load
    */
   public function testLoadWritingCache() {
     $cache = $this->createMock(\Papaya\Cache\Service::class);
@@ -103,7 +103,7 @@ class StatusTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Status::cache
+   * @covers \Papaya\Content\Page\Publication\Status::cache
    */
   public function testCacheGetAfterSet() {
     $cache = $this->createMock(\Papaya\Cache\Service::class);
@@ -113,7 +113,7 @@ class StatusTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Status::cache
+   * @covers \Papaya\Content\Page\Publication\Status::cache
    */
   public function testCacheGetImplicitCreate() {
     $status = new Status();

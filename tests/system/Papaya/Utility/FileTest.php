@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class FileTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\File::formatBytes
+   * @covers \Papaya\Utility\File::formatBytes
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
@@ -40,7 +40,7 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Utility\File::normalizeName
+   * @covers \Papaya\Utility\File::normalizeName
    * @dataProvider provideStringsForNames
    * @param string $expected
    * @param string $string

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SessionTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Request\Parser\Session::parse
+   * @covers \Papaya\Request\Parser\Session::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected

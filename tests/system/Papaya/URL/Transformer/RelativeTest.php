@@ -58,8 +58,8 @@ class RelativeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\URL\Transformer\Relative::transform
-   * @covers       \Papaya\URL\Transformer\Relative::_comparePorts
+   * @covers \Papaya\URL\Transformer\Relative::transform
+   * @covers \Papaya\URL\Transformer\Relative::_comparePorts
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetUrl
@@ -77,7 +77,7 @@ class RelativeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\URL\Transformer\Relative::getRelativePath
+   * @covers \Papaya\URL\Transformer\Relative::getRelativePath
    * @dataProvider getRelativePathDataProvider
    * @param string $currentPath
    * @param string $targetPath

@@ -20,7 +20,7 @@ namespace Papaya\Database\Sequence\Human {
   class CumulativeTest extends \Papaya\TestCase {
 
     /**
-     * @covers Cumulative::__construct
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::__construct
      */
     public function testConstructor() {
       $sequence = new Cumulative('table', 'field');
@@ -30,7 +30,7 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::__construct
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::__construct
      */
     public function testConstructorWithParameters() {
       $sequence = new Cumulative('table', 'field', 21, 42);
@@ -40,7 +40,7 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::__construct
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::__construct
      */
     public function testConstructorWithInvalidLengthLimits() {
       $this->expectException(\InvalidArgumentException::class);
@@ -49,7 +49,7 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::create
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::create
      */
     public function testCreate() {
       $sequence = new Cumulative('table', 'field', 4, 7);
@@ -57,8 +57,8 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::create
-     * @covers Cumulative::createIdentifiers
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::create
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::createIdentifiers
      */
     public function testCreateIdentifiersHaveIncreasingLength() {
       $sequence = new Cumulative_TestProxy('table', 'field', 4, 6);
@@ -72,8 +72,8 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::create
-     * @covers Cumulative::createIdentifiers
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::create
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::createIdentifiers
      */
     public function testCreateIdentifiersHaveReachMaximumLength() {
       $sequence = new Cumulative_TestProxy('table', 'field', 4, 32);
@@ -83,8 +83,8 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::create
-     * @covers Cumulative::createIdentifiers
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::create
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::createIdentifiers
      */
     public function testCreateIdentifiersWhileMinimumEqualsMaximum() {
       $sequence = new Cumulative_TestProxy('table', 'field', 10, 10);
@@ -94,8 +94,8 @@ namespace Papaya\Database\Sequence\Human {
     }
 
     /**
-     * @covers Cumulative::create
-     * @covers Cumulative::createIdentifiers
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::create
+     * @covers \Papaya\Database\Sequence\Human\Cumulative::createIdentifiers
      */
     public function testCreateSingleIdentifierWhileMinimumDiffersMaximum() {
       $sequence = new Cumulative_TestProxy('table', 'field', 2, 10);

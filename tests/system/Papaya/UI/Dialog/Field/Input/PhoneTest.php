@@ -40,7 +40,7 @@ class PhoneTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Phone
+   * @covers \Papaya\UI\Dialog\Field\Input\Phone
    * @dataProvider provideValidPhoneInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -55,7 +55,7 @@ class PhoneTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Phone
+   * @covers \Papaya\UI\Dialog\Field\Input\Phone
    * @dataProvider provideInvalidPhoneInputs
    * @param mixed $value
    * @param bool $mandatory

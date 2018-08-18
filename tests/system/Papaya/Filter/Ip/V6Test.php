@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class V6Test extends \Papaya\TestCase {
   /**
-   * @covers       \Papaya\Filter\Ip\V6::validate
+   * @covers \Papaya\Filter\Ip\V6::validate
    * @dataProvider getIpV6ValidDataProvider
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
@@ -31,7 +31,7 @@ class V6Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V6::validate
+   * @covers \Papaya\Filter\Ip\V6::validate
    * @dataProvider getIpV6CountMismatchProvider
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
@@ -45,7 +45,7 @@ class V6Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V6::validate
+   * @covers \Papaya\Filter\Ip\V6::validate
    * @dataProvider getIpV6CountMismatchProvider
    */
   public function testValidateExpectingEmptyException() {
@@ -55,7 +55,7 @@ class V6Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V6::validate
+   * @covers \Papaya\Filter\Ip\V6::validate
    * @dataProvider getIpV6PartInvalidProvider
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
@@ -69,7 +69,7 @@ class V6Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V6::filter
+   * @covers \Papaya\Filter\Ip\V6::filter
    * @dataProvider getFilterProvider
    * @param string $expected
    * @param string $ip

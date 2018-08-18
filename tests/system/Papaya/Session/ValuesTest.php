@@ -138,7 +138,7 @@ class ValuesTest extends \Papaya\TestCase {
 
   /**
    * @backupGlobals
-   * @covers       \Papaya\Session\Values::_compileKey
+   * @covers \Papaya\Session\Values::_compileKey
    * @dataProvider provideIdentifierData
    * @param $expected
    * @param $identifierData
@@ -178,7 +178,7 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Session\Values::getKey
+   * @covers \Papaya\Session\Values::getKey
    * @dataProvider provideIdentifierData
    * @param mixed $expected
    * @param mixed $identifierData

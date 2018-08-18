@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers Group
+   * @covers \Papaya\Controller\Group
    */
   public function testConstructorWithTwoControllers() {
     $controller = new Group(
@@ -34,7 +34,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Controller\Group
    */
   public function testExecute() {
     $application = $this->mockPapaya()->application();
@@ -65,7 +65,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Controller\Group
    */
   public function testExecuteWithoutControllers() {
     $application = $this->mockPapaya()->application();

@@ -30,7 +30,7 @@ class ArrayValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\ArrayValues::validate
+   * @covers \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param array|\Traversable $validValues
@@ -42,7 +42,7 @@ class ArrayValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\ArrayValues::validate
+   * @covers \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|\Traversable $validValues
@@ -55,7 +55,7 @@ class ArrayValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\ArrayValues::filter
+   * @covers \Papaya\Filter\ArrayValues::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value

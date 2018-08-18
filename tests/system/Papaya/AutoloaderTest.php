@@ -42,7 +42,7 @@ class AutoloaderTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Autoloader
+   * @covers \Papaya\Autoloader
    * @dataProvider getClassFileDataProvider
    * @param string $expected
    * @param string $className
@@ -104,7 +104,7 @@ class AutoloaderTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Autoloader
+   * @covers \Papaya\Autoloader
    * @dataProvider getModuleClassFileDataProvider
    * @param string $expected
    * @param string $moduleClass

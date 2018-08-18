@@ -153,7 +153,7 @@ class CheckboxTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
    * @dataProvider provideValidCheckboxInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -167,7 +167,7 @@ class CheckboxTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
    * @dataProvider provideInvalidCheckboxInputs
    * @param mixed $value
    * @param bool $mandatory

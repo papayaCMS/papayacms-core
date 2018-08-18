@@ -34,8 +34,8 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Toolbars::__set
-     * @covers       \Papaya\UI\Toolbars::__get
+     * @covers \Papaya\UI\Toolbars::__set
+     * @covers \Papaya\UI\Toolbars::__get
      * @dataProvider provideToolbarPositions
      * @param string $position
      */

@@ -40,7 +40,7 @@ class ColorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Color
+   * @covers \Papaya\UI\Dialog\Field\Input\Color
    * @dataProvider provideValidColorInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -55,7 +55,7 @@ class ColorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Color
+   * @covers \Papaya\UI\Dialog\Field\Input\Color
    * @dataProvider provideInvalidColorInputs
    * @param mixed $value
    * @param bool $mandatory

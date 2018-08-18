@@ -29,8 +29,8 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Text::validate
-   * @covers       \Papaya\Filter\Text::getPattern
+   * @covers \Papaya\Filter\Text::validate
+   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideValidValues
    * @param mixed $value
    * @param int $options
@@ -45,8 +45,8 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Text::validate
-   * @covers       \Papaya\Filter\Text::getPattern
+   * @covers \Papaya\Filter\Text::validate
+   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @param int $options
@@ -92,8 +92,8 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Text::filter
-   * @covers       \Papaya\Filter\Text::getPattern
+   * @covers \Papaya\Filter\Text::filter
+   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideFilterValues
    * @param string|NULL $expected
    * @param mixed $value

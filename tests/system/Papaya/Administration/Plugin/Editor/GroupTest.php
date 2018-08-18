@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers Group
+   * @covers \Papaya\Administration\Plugin\Editor\Group
    */
   public function testAppendToWithOneEditor() {
     $context = new \Papaya\Request\Parameters();
@@ -52,7 +52,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Administration\Plugin\Editor\Group
    */
   public function testAppendToWithOneEditorAndContextData() {
     $context = new \Papaya\Request\Parameters(array('foo' => 'bar'));
@@ -82,7 +82,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Administration\Plugin\Editor\Group
    */
   public function testAppendToWithTwoEditorsSelectingSecond() {
     $context = new \Papaya\Request\Parameters(array('dialog-index' => 1));
@@ -129,7 +129,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Administration\Plugin\Editor\Group
    */
   public function testAppendToWithoutEditorExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */

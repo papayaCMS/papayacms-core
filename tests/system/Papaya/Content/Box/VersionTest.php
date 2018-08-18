@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class VersionTest extends \Papaya\TestCase {
 
   /**
-   * @covers Version::save
+   * @covers \Papaya\Content\Box\Version::save
    */
   public function testSaveBlockingUpdateExpectingException() {
     $version = new Version();
@@ -32,7 +32,7 @@ class VersionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Version::save
+   * @covers \Papaya\Content\Box\Version::save
    */
   public function testSaveInsertWhileMissingValuesExcpectingException() {
     $version = new Version();
@@ -42,8 +42,8 @@ class VersionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Version::save
-   * @covers Version::create
+   * @covers \Papaya\Content\Box\Version::save
+   * @covers \Papaya\Content\Box\Version::create
    */
   public function testSave() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -81,8 +81,8 @@ class VersionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Version::save
-   * @covers Version::create
+   * @covers \Papaya\Content\Box\Version::save
+   * @covers \Papaya\Content\Box\Version::create
    */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -113,7 +113,7 @@ class VersionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Version::translations
+   * @covers \Papaya\Content\Box\Version::translations
    */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(Version\Translations::class);
@@ -122,7 +122,7 @@ class VersionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Version::translations
+   * @covers \Papaya\Content\Box\Version::translations
    */
   public function testTranslationsGetWithImplicitCreate() {
     $version = new Version();

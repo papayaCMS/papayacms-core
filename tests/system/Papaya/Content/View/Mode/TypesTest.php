@@ -20,21 +20,21 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class TypesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Types::exists
+   * @covers \Papaya\Content\View\Mode\Types::exists
    */
   public function testExistsExpectingTrue() {
     $this->assertTrue(Types::exists(Types::PAGE));
   }
 
   /**
-   * @covers Types::exists
+   * @covers \Papaya\Content\View\Mode\Types::exists
    */
   public function testExistsExpectingFalse() {
     $this->assertFalse(Types::exists(-23));
   }
 
   /**
-   * @covers Types::offsetExists
+   * @covers \Papaya\Content\View\Mode\Types::offsetExists
    */
   public function testArrayAccessExistsExpectingTrue() {
     $types = new Types();
@@ -42,7 +42,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::offsetExists
+   * @covers \Papaya\Content\View\Mode\Types::offsetExists
    */
   public function testArrayAccessExistsExpectingFalse() {
     $types = new Types();
@@ -50,7 +50,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::offsetGet
+   * @covers \Papaya\Content\View\Mode\Types::offsetGet
    */
   public function testArrayAccessGet() {
     $types = new Types();
@@ -58,7 +58,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::offsetGet
+   * @covers \Papaya\Content\View\Mode\Types::offsetGet
    */
   public function testArrayAccessGetwithInvalidType() {
     $types = new Types();
@@ -66,7 +66,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::offsetSet
+   * @covers \Papaya\Content\View\Mode\Types::offsetSet
    */
   public function testArrayAccessBlockedSet() {
     $types = new Types();
@@ -75,7 +75,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::offsetUnset
+   * @covers \Papaya\Content\View\Mode\Types::offsetUnset
    */
   public function testArrayAccessBlockedUnset() {
     $types = new Types();
@@ -84,7 +84,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Types::getIterator
+   * @covers \Papaya\Content\View\Mode\Types::getIterator
    */
   public function testIterator() {
     $types = new Types();

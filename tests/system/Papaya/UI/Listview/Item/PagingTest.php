@@ -273,7 +273,7 @@ namespace Papaya\UI\Listview\Item {
     }
 
     /**
-     * @covers       \Papaya\UI\Listview\Item\Paging::getLastPage
+     * @covers \Papaya\UI\Listview\Item\Paging::getLastPage
      * @dataProvider provideLastPageCalculationData
      * @param int $itemsPerPage
      * @param int $itemsCount

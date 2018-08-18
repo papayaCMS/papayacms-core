@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ImagesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Images::createObject
+   * @covers \Papaya\Application\Profile\Images::createObject
    */
   public function testCreateObject() {
     $profile = new Images();

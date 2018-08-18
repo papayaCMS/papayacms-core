@@ -42,7 +42,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::__construct
+   * @covers \Papaya\Filter\Ip\V4::__construct
    * @dataProvider getConfigurationOutOfRangeDataProvider
    * @param int $configuration
    */
@@ -59,7 +59,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::validate
+   * @covers \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateDataProvider
    * @param string $ip
    * @param int $config
@@ -85,7 +85,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::validate
+   * @covers \Papaya\Filter\Ip\V4::validate
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\InvalidPart
@@ -108,7 +108,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::validate
+   * @covers \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateExceptionPartInvalidDataProvider
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
@@ -132,7 +132,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::validate
+   * @covers \Papaya\Filter\Ip\V4::validate
    * @dataProvider getValidateInvalidArgumentExceptionDataProvider
    * @param string $ip
    * @param int $configuration
@@ -155,7 +155,7 @@ class V4Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Ip\V4::filter
+   * @covers \Papaya\Filter\Ip\V4::filter
    * @dataProvider getFilterDataProvider
    * @param string $expected
    * @param string $input

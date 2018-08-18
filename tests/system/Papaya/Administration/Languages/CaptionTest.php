@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class CaptionTest extends \Papaya\TestCase {
 
   /**
-   * @covers Caption
+   * @covers \Papaya\Administration\Languages\Caption
    */
   public function testConstructor() {
     $caption = new Caption();
@@ -28,7 +28,7 @@ class CaptionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Caption
+   * @covers \Papaya\Administration\Languages\Caption
    */
   public function testConstructorWithString() {
     $caption = new Caption('Suffix string');
@@ -36,7 +36,7 @@ class CaptionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Caption
+   * @covers \Papaya\Administration\Languages\Caption
    */
   public function testConstructorWithStringAndSeparator() {
     $caption = new Caption('Suffix string', '|');
@@ -44,7 +44,7 @@ class CaptionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Caption
+   * @covers \Papaya\Administration\Languages\Caption
    * @dataProvider provideSampleWithoutLanguageSwitch
    * @param string $expected
    * @param string $suffix
@@ -56,7 +56,7 @@ class CaptionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Caption
+   * @covers \Papaya\Administration\Languages\Caption
    * @dataProvider provideSampleWithLanguageSwitch
    * @param string $expected
    * @param array $language

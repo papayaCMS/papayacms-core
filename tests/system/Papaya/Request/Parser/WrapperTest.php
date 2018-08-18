@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class WrapperTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Request\Parser\Wrapper::parse
+   * @covers \Papaya\Request\Parser\Wrapper::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected

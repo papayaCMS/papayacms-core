@@ -31,7 +31,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Number::__construct
+   * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
    * @dataProvider constructFailureProvider
    * @param mixed $minimumLength
    * @param mixed $maximumLength
@@ -44,7 +44,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Number
+   * @covers \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -57,7 +57,7 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Number
+   * @covers \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory

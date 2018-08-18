@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SetTest extends \Papaya\TestCase {
 
   /**
-   * @covers Set::_createMapping
+   * @covers \Papaya\Content\Theme\Set::_createMapping
    */
   public function testCreateMapping() {
     $themeSet = new Set();
@@ -34,7 +34,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::mapFieldToProperty
+   * @covers \Papaya\Content\Theme\Set::mapFieldToProperty
    */
   public function testMapFieldToPropertyPassthru() {
     $themeSet = new Set();
@@ -49,7 +49,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::mapFieldToProperty
+   * @covers \Papaya\Content\Theme\Set::mapFieldToProperty
    */
   public function testMapFieldToPropertyUnserialize() {
     $themeSet = new Set();
@@ -79,7 +79,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::mapPropertyToField
+   * @covers \Papaya\Content\Theme\Set::mapPropertyToField
    */
   public function testMapPropertyToFieldPassthru() {
     $themeSet = new Set();
@@ -94,7 +94,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::mapPropertyToField
+   * @covers \Papaya\Content\Theme\Set::mapPropertyToField
    */
   public function testMapPropertyToFieldSerialize() {
     $themeSet = new Set();
@@ -116,7 +116,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::getValuesXML
+   * @covers \Papaya\Content\Theme\Set::getValuesXML
    */
   public function testGetValuesXml() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
@@ -131,7 +131,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Set::setValuesXML
+   * @covers \Papaya\Content\Theme\Set::setValuesXML
    */
   public function testSetValuesXml() {
     $document = new \Papaya\XML\Document();

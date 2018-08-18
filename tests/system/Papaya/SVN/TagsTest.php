@@ -167,7 +167,7 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\SVN\Tags::find
+   * @covers \Papaya\SVN\Tags::find
    * @dataProvider provideFindExamples
    * @param string $url
    * @param array|FALSE $lsResult

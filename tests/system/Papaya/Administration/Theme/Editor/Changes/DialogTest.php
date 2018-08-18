@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class DialogTest extends \Papaya\TestCase {
 
   /**
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::createDialog
    */
   public function testCreateDialogWithEmptyPage() {
     $page = $this->createMock(\Papaya\Content\Structure\Page::class);
@@ -37,7 +37,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::createDialog
    */
   public function testCreateDialogWithOneEmptyGroup() {
     $page = new \Papaya\Content\Structure\Page();
@@ -56,7 +56,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::createDialog
    */
   public function testCreateDialogWithOneValueOfUnknownType() {
     $page = new \Papaya\Content\Structure\Page();
@@ -91,7 +91,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::createDialog
    */
   public function testCreateDialogWithOneValue() {
     $page = new \Papaya\Content\Structure\Page();
@@ -124,7 +124,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::createDialog
    */
   public function testCreateDialogWithEmptyDefinition() {
     $papaya = $this->mockPapaya()->application(
@@ -160,7 +160,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::themePage
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::themePage
    */
   public function testThemePageGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -171,7 +171,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::themePage
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::themePage
    */
   public function testThemePageGetImplicitCreate() {
     $papaya = $this->mockPapaya()->application(
@@ -202,7 +202,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::themeHandler
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -213,7 +213,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::themeHandler
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -223,7 +223,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::fieldFactory
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::fieldFactory
    */
   public function testFieldFactoryGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -234,7 +234,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::fieldFactory
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::fieldFactory
    */
   public function testFieldFactoryGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -244,7 +244,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::callbackSaveValues
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackSaveValues
    */
   public function testCallbackSaveValues() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -271,7 +271,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::callbackShowError
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackShowError
    */
   public function testCallbackShowError() {
     $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
@@ -304,7 +304,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::cache
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::cache
    */
   public function testCacheGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
@@ -315,7 +315,7 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Dialog::cache
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::cache
    */
   public function testCacheGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */

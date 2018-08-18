@@ -31,7 +31,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SurferTest extends \Papaya\TestCase {
 
   /**
-   * @covers Surfer::createObject
+   * @covers \Papaya\Application\Profile\Surfer::createObject
    */
   public function testCreateObject() {
     $profile = new Surfer();

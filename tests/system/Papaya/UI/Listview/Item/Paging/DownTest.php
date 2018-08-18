@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class DownTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\UI\Listview\Item\Paging\Down::getPages
+   * @covers \Papaya\UI\Listview\Item\Paging\Down::getPages
    * @dataProvider provideDataForPageCalculations
    * @param array $expected
    * @param int $currentPage

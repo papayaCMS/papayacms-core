@@ -323,7 +323,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference::setParameterGroupSeparator
+   * @covers \Papaya\UI\Reference::setParameterGroupSeparator
    * @dataProvider setParameterLevelSeparatorDataProvider
    * @param string $separator
    * @param string $expected
@@ -502,7 +502,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference::getQueryString
+   * @covers \Papaya\UI\Reference::getQueryString
    * @dataProvider getQueryStringDataProvider
    * @param string $separator
    * @param string|NULL $parameterGroup
@@ -556,7 +556,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference::setBasePath
+   * @covers \Papaya\UI\Reference::setBasePath
    * @dataProvider setBasePathDataProvider
    * @param string $path
    * @param string $expected
@@ -574,7 +574,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference::setRelative
+   * @covers \Papaya\UI\Reference::setRelative
    * @dataProvider setRelativeUrlDataProvider
    * @param string $expected
    * @param string $relativeUrl

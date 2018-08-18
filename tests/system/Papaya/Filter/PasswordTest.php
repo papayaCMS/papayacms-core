@@ -32,7 +32,7 @@ class PasswordTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Password::validate
+   * @covers \Papaya\Filter\Password::validate
    * @dataProvider provideValidPasswords
    */
   public function testValidateExpectingTrue() {
@@ -59,7 +59,7 @@ class PasswordTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Password::validate
+   * @covers \Papaya\Filter\Password::validate
    * @dataProvider provideWeakPasswords
    */
   public function testValidateExpectingExceptionPasswordWeak() {

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SessionTest extends \Papaya\TestCase {
 
   /**
-   * @covers Session::createObject
+   * @covers \Papaya\Application\Profile\Session::createObject
    */
   public function testCreateObject() {
     $profile = new Session();

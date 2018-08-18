@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ChangesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Changes::appendTo
+   * @covers \Papaya\Administration\Theme\Editor\Changes::appendTo
    */
   public function testAppendTo() {
     $commands = $this
@@ -37,7 +37,7 @@ class ChangesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changes::commands
+   * @covers \Papaya\Administration\Theme\Editor\Changes::commands
    */
   public function testCommandsGetAfterSet() {
     $commands = $this
@@ -50,7 +50,7 @@ class ChangesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changes::commands
+   * @covers \Papaya\Administration\Theme\Editor\Changes::commands
    */
   public function testCommandGetImplicitCreate() {
     $changes = new Changes();
@@ -60,7 +60,7 @@ class ChangesTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Changes::themeSet
+   * @covers \Papaya\Administration\Theme\Editor\Changes::themeSet
    */
   public function testThemeSetGetAfterSet() {
     $command = new Changes();
@@ -69,7 +69,7 @@ class ChangesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changes::themeSet
+   * @covers \Papaya\Administration\Theme\Editor\Changes::themeSet
    */
   public function testThemeSetGetImplicitCreate() {
     $command = new Changes();
@@ -77,7 +77,7 @@ class ChangesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changes::themeHandler
+   * @covers \Papaya\Administration\Theme\Editor\Changes::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
     $command = new Changes();
@@ -86,7 +86,7 @@ class ChangesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Changes::themeHandler
+   * @covers \Papaya\Administration\Theme\Editor\Changes::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
     $command = new Changes();

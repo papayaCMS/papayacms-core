@@ -23,7 +23,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PluginsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Plugins::createObject
+   * @covers \Papaya\Application\Profile\Plugins::createObject
    */
   public function testCreateObject() {
     $profile = new Plugins();

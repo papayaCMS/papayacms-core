@@ -148,7 +148,7 @@ class DomainsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Domains::getHostVariants
+   * @covers \Papaya\Domains::getHostVariants
    * @dataProvider provideHostVariants
    * @param array $expected
    * @param string $host

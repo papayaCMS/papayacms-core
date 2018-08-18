@@ -20,8 +20,8 @@ namespace Papaya\Database\Records {
   class GroupedTest extends \Papaya\TestCase {
 
     /**
-     * @covers Grouped::_loadRecords
-     * @covers Grouped::getIterator
+     * @covers \Papaya\Database\Records\Grouped::_loadRecords
+     * @covers \Papaya\Database\Records\Grouped::getIterator
      */
     public function testLoadAndIterateRootWithoutIdentifier() {
       $records = new Grouped_TestProxy();
@@ -58,8 +58,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Grouped::_loadRecords
-     * @covers Grouped::getIterator
+     * @covers \Papaya\Database\Records\Grouped::_loadRecords
+     * @covers \Papaya\Database\Records\Grouped::getIterator
      */
     public function testLoadAndIterateRootWithIdentifier() {
       $records = new Grouped_TestProxy();
@@ -97,8 +97,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Grouped::_loadRecords
-     * @covers Grouped::getIterator
+     * @covers \Papaya\Database\Records\Grouped::_loadRecords
+     * @covers \Papaya\Database\Records\Grouped::getIterator
      */
     public function testLoadWithInvalidIdentifierExpectingException() {
       $records = new Grouped_TestProxy();
@@ -110,8 +110,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Grouped::load
-     * @covers Grouped::_loadRecords
+     * @covers \Papaya\Database\Records\Grouped::load
+     * @covers \Papaya\Database\Records\Grouped::_loadRecords
      */
     public function testLoadExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

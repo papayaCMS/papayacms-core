@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class DeleteTest extends \Papaya\TestCase {
   /**
-   * @covers Delete::createDialog
+   * @covers \Papaya\Administration\Pages\Reference\Command\Delete::createDialog
    */
   public function testCreateDialog() {
     $owner = $this->createMock(\Papaya\Administration\Pages\Dependency\Changer::class);
@@ -40,7 +40,7 @@ class DeleteTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Delete::dispatchDeleteMessage
+   * @covers \Papaya\Administration\Pages\Reference\Command\Delete::dispatchDeleteMessage
    */
   public function testDispatchDeleteMessage() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);

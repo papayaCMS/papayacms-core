@@ -66,8 +66,8 @@ class NameTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Database\Source\Name::setName
-   * @covers       \Papaya\Database\Source\Name::_getMatchValue
+   * @covers \Papaya\Database\Source\Name::setName
+   * @covers \Papaya\Database\Source\Name::_getMatchValue
    * @dataProvider provideValidDatabaseSourceNames
    * @param string $name
    * @param mixed $expected
@@ -97,7 +97,7 @@ class NameTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Database\Source\Name::__get
+   * @covers \Papaya\Database\Source\Name::__get
    * @dataProvider provideValidPropertyNames
    * @param string $property
    * @param mixed $expected

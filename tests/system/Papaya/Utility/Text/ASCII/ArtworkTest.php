@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class ArtworkTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Utility\Text\ASCII\Artwork::get
+   * @covers \Papaya\Utility\Text\ASCII\Artwork::get
    * @dataProvider getDataProvider
    * @param string $string
    * @param string $fileName

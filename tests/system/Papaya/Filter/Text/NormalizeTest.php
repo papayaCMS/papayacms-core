@@ -47,7 +47,7 @@ class NormalizeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Text\Normalize
+   * @covers \Papaya\Filter\Text\Normalize
    * @dataProvider provideValuesToNormalize
    * @param string|NULL $expected
    * @param mixed $provided

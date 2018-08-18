@@ -30,7 +30,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class UserTest extends \Papaya\TestCase {
 
   /**
-  * @covers User::createObject
+  * @covers \Papaya\Application\Profile\Administration\User::createObject
   */
   public function testCreateObject() {
     $options = $this->createMock(\Papaya\Configuration\Cms::class);

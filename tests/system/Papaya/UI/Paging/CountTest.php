@@ -299,7 +299,7 @@ class CountTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Paging\Count::getLastPage
+   * @covers \Papaya\UI\Paging\Count::getLastPage
    * @dataProvider provideLastPageCalculationData
    * @param int $itemsPerPage
    * @param int $itemsCount

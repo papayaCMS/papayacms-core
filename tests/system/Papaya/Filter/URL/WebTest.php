@@ -19,8 +19,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class WebTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\URL\Web::validate
-   * @covers       \Papaya\Filter\URL\Web::prepare
+   * @covers \Papaya\Filter\URL\Web::validate
+   * @covers \Papaya\Filter\URL\Web::prepare
    * @dataProvider provideValidUrls
    * @param mixed $value
    */
@@ -30,8 +30,8 @@ class WebTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\URL\Web::validate
-   * @covers       \Papaya\Filter\URL\Web::prepare
+   * @covers \Papaya\Filter\URL\Web::validate
+   * @covers \Papaya\Filter\URL\Web::prepare
    * @dataProvider provideInvalidValues
    * @param mixed $value
    */

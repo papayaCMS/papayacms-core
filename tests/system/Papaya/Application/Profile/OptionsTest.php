@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class OptionsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Options::createObject
+   * @covers \Papaya\Application\Profile\Options::createObject
    */
   public function testCreateObject() {
     $profile = new Options();

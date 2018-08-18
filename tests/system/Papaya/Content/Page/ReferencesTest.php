@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ReferencesTest extends \Papaya\TestCase {
 
   /**
-   * @covers References::load
-   * @covers References::_fetchRecords
+   * @covers \Papaya\Content\Page\References::load
+   * @covers \Papaya\Content\Page\References::_fetchRecords
    *
    *
    */

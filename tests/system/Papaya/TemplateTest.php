@@ -20,7 +20,7 @@ require_once __DIR__.'/../../bootstrap.php';
 class TemplateTest extends \Papaya\TestCase {
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testValuesGetAfterSet() {
     $values = $this->createMock(Template\Values::class);
@@ -31,7 +31,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testValuesGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -40,7 +40,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testSetXml() {
     $document = $this->createMock(XML\Document::class);
@@ -62,7 +62,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testGetXml() {
     $document = $this->createMock(XML\Document::class);
@@ -84,7 +84,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testParametersGetAfterSet() {
     $parameters = $this->createMock(Template\Parameters::class);
@@ -95,7 +95,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testParametersGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -104,7 +104,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testParametersGetImplicitWithArray() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -116,7 +116,7 @@ class TemplateTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testErrorsGetAfterSet() {
     $errors = $this->createMock(XML\Errors::class);
@@ -127,7 +127,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testErrorsGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -136,7 +136,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithDomNode() {
     $document = new XML\Document();
@@ -151,7 +151,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithXmlAppendable() {
     $appendable = $this->createMock(XML\Appendable::class);
@@ -169,7 +169,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithXmlString() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -184,7 +184,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithString() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -198,7 +198,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithStringContainingInvalidCharacters() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -215,7 +215,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Template
+   * @covers \Papaya\Template
    * @dataProvider providesDataForAddWithTarget
    * @param string $expected
    * @param string $method
@@ -232,7 +232,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithInvalidContentExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -243,7 +243,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddWithInvalidTargetExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -255,7 +255,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testCallInvalidDynamicMethodExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -268,7 +268,7 @@ class TemplateTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testAddData() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -283,7 +283,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testSetParam() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
@@ -296,7 +296,7 @@ class TemplateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Template
+   * @covers \Papaya\Template
    */
   public function testXml() {
     $document = $this->createMock(XML\Document::class);

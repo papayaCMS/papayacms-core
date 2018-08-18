@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class AutoincrementTest extends \Papaya\TestCase {
 
   /**
-   * @covers Autoincrement::__construct
+   * @covers \Papaya\Database\Record\Key\Autoincrement::__construct
    */
   public function testConstructor() {
     $key = new Autoincrement();
@@ -30,8 +30,8 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::__construct
-   * @covers Autoincrement::getProperties
+   * @covers \Papaya\Database\Record\Key\Autoincrement::__construct
+   * @covers \Papaya\Database\Record\Key\Autoincrement::getProperties
    */
   public function testConstructorWithPropertyParameter() {
     $key = new Autoincrement('other');
@@ -53,8 +53,8 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::assign
-   * @covers Autoincrement::getFilter
+   * @covers \Papaya\Database\Record\Key\Autoincrement::assign
+   * @covers \Papaya\Database\Record\Key\Autoincrement::getFilter
    */
   public function testAssignWithInvalidData() {
     $key = new Autoincrement();
@@ -65,7 +65,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::getFilter
+   * @covers \Papaya\Database\Record\Key\Autoincrement::getFilter
    */
   public function testGetFilterWithoutAssign() {
     $key = new Autoincrement();
@@ -75,7 +75,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::exists
+   * @covers \Papaya\Database\Record\Key\Autoincrement::exists
    */
   public function testExistsExpectingTrue() {
     $key = new Autoincrement();
@@ -84,7 +84,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::exists
+   * @covers \Papaya\Database\Record\Key\Autoincrement::exists
    */
   public function testExistsExpectingFalse() {
     $key = new Autoincrement();
@@ -92,7 +92,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::getQualities
+   * @covers \Papaya\Database\Record\Key\Autoincrement::getQualities
    */
   public function testGetQualities() {
     $key = new Autoincrement();
@@ -100,7 +100,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::__toString
+   * @covers \Papaya\Database\Record\Key\Autoincrement::__toString
    */
   public function testMagicToString() {
     $key = new Autoincrement();
@@ -109,7 +109,7 @@ class AutoincrementTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Autoincrement::clear
+   * @covers \Papaya\Database\Record\Key\Autoincrement::clear
    */
   public function testClear() {
     $key = new Autoincrement();

@@ -235,7 +235,7 @@ namespace Papaya\Message\Dispatcher {
     }
 
     /**
-     * @covers       \Papaya\Message\Dispatcher\Database::allow
+     * @covers \Papaya\Message\Dispatcher\Database::allow
      * @dataProvider allowDataProvider
      *
      * @param boolean $expected

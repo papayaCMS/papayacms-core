@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class BooleanValueTest extends \Papaya\TestCase {
 
   /**
-   * @covers BooleanValue
+   * @covers \Papaya\Cache\Identifier\Definition\BooleanValue
    */
   public function testGetStatusForBooleanReturningTrue() {
     $definition = new BooleanValue(TRUE);
@@ -28,7 +28,7 @@ class BooleanValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers BooleanValue
+   * @covers \Papaya\Cache\Identifier\Definition\BooleanValue
    */
   public function testGetStatusForBooleanReturningFalse() {
     $definition = new BooleanValue(FALSE);
@@ -36,7 +36,7 @@ class BooleanValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers BooleanValue
+   * @covers \Papaya\Cache\Identifier\Definition\BooleanValue
    */
   public function testGetStatusForCallableReturningTrue() {
     $definition = new BooleanValue(function () {
@@ -46,7 +46,7 @@ class BooleanValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers BooleanValue
+   * @covers \Papaya\Cache\Identifier\Definition\BooleanValue
    */
   public function testGetStatusForCallableReturningFalse() {
     $definition = new BooleanValue(function () {
@@ -56,7 +56,7 @@ class BooleanValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers BooleanValue
+   * @covers \Papaya\Cache\Identifier\Definition\BooleanValue
    */
   public function testGetSources() {
     $definition = new BooleanValue(TRUE);

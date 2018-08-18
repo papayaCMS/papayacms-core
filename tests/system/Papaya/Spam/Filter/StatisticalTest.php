@@ -185,10 +185,10 @@ class StatisticalTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Spam\Filter\Statistical::getDetails
-   * @covers       \Papaya\Spam\Filter\Statistical::getProbabilities
-   * @covers       \Papaya\Spam\Filter\Statistical::aggregateProbabilities
-   * @covers       \Papaya\Spam\Filter\Statistical::compareProbabilityRelevance
+   * @covers \Papaya\Spam\Filter\Statistical::getDetails
+   * @covers \Papaya\Spam\Filter\Statistical::getProbabilities
+   * @covers \Papaya\Spam\Filter\Statistical::aggregateProbabilities
+   * @covers \Papaya\Spam\Filter\Statistical::compareProbabilityRelevance
    * @dataProvider provideTokenSamples
    * @param float $expected
    * @param array $report

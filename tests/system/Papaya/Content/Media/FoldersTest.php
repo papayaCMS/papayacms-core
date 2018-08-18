@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class FoldersTest extends \Papaya\TestCase {
 
   /**
-   * @covers Folders::_createMapping
+   * @covers \Papaya\Content\Media\Folders::_createMapping
    */
   public function testCreateMapping() {
     $records = new Folders();
@@ -31,7 +31,7 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Folders::callbackMapValueFromFieldToProperty
+   * @covers \Papaya\Content\Media\Folders::callbackMapValueFromFieldToProperty
    */
   public function testCallbackMapValueFromFieldToProperty() {
     $records = new Folders();
@@ -44,7 +44,7 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Folders::callbackMapValueFromFieldToProperty
+   * @covers \Papaya\Content\Media\Folders::callbackMapValueFromFieldToProperty
    */
   public function testCallbackMapValueFromFieldToPropertyDecodesAncestors() {
     $records = new Folders();
@@ -57,7 +57,7 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Folders::callbackGetFieldForProperty
+   * @covers \Papaya\Content\Media\Folders::callbackGetFieldForProperty
    */
   public function testCallbackGetFieldForPropertyUnknownPropertyExpectingNull() {
     $records = new Folders();
@@ -69,7 +69,7 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Folders::callbackGetFieldForProperty
+   * @covers \Papaya\Content\Media\Folders::callbackGetFieldForProperty
    * @dataProvider providePropertyToFieldValues
    * @param string $expected
    * @param string $property
@@ -92,7 +92,7 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Folders::load
+   * @covers \Papaya\Content\Media\Folders::load
    */
   public function testLoad() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -170,7 +170,7 @@ class FoldersTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers Folders::load
+   * @covers \Papaya\Content\Media\Folders::load
    */
   public function testLoadwithoutLanguageIdExpectingNoTranslations() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);

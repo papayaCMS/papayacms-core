@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PhoneTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Filter\Phone::validate
+   * @covers \Papaya\Filter\Phone::validate
    * @dataProvider provideValidPhoneNumbers
    * @param string $phoneNumber
    * @throws Exception\UnexpectedType
@@ -30,7 +30,7 @@ class PhoneTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Phone::validate
+   * @covers \Papaya\Filter\Phone::validate
    * @dataProvider provideInvalidData
    * @param mixed $value
    * @throws Exception\UnexpectedType
@@ -42,7 +42,7 @@ class PhoneTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Phone::filter
+   * @covers \Papaya\Filter\Phone::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input

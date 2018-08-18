@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class CmsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Cms::__construct
+   * @covers \Papaya\Configuration\Cms::__construct
    */
   public function testConstructor() {
     $configuration = new Cms();
@@ -30,7 +30,7 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::getOptionsList
+   * @covers \Papaya\Configuration\Cms::getOptionsList
    */
   public function testGetOptionsList() {
     $configuration = new Cms();
@@ -40,7 +40,7 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::loadAndDefine
+   * @covers \Papaya\Configuration\Cms::loadAndDefine
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -56,10 +56,10 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::loadAndDefine
-   * @covers Cms::defineConstants
-   * @covers Cms::setupPaths
-   * @covers Cms::defineDatabaseTables
+   * @covers \Papaya\Configuration\Cms::loadAndDefine
+   * @covers \Papaya\Configuration\Cms::defineConstants
+   * @covers \Papaya\Configuration\Cms::setupPaths
+   * @covers \Papaya\Configuration\Cms::defineDatabaseTables
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -79,7 +79,7 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::setupPaths
+   * @covers \Papaya\Configuration\Cms::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -97,7 +97,7 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::setupPaths
+   * @covers \Papaya\Configuration\Cms::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -121,7 +121,7 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Cms::setupPaths
+   * @covers \Papaya\Configuration\Cms::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */

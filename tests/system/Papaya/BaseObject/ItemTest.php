@@ -214,7 +214,7 @@ namespace Papaya\BaseObject {
     }
 
     /**
-     * @covers       \Papaya\BaseObject\Item::_prepareName
+     * @covers \Papaya\BaseObject\Item::_prepareName
      * @dataProvider provideNameVariants
      * @param string $name
      * @param string $normalizedName

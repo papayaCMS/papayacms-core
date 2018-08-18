@@ -21,8 +21,8 @@ namespace Papaya\Database\Records {
   class TreeTest extends \Papaya\TestCase {
 
     /**
-     * @covers Tree::_loadRecords
-     * @covers Tree::getIterator
+     * @covers \Papaya\Database\Records\Tree::_loadRecords
+     * @covers \Papaya\Database\Records\Tree::getIterator
      */
     public function testLoadAndIterateRoot() {
       $records = new Tree_TestProxy();
@@ -46,8 +46,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Tree::_loadRecords
-     * @covers Tree::getIterator
+     * @covers \Papaya\Database\Records\Tree::_loadRecords
+     * @covers \Papaya\Database\Records\Tree::getIterator
      */
     public function testLoadAndIterateAll() {
       $records = new Tree_TestProxy();
@@ -78,8 +78,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Tree::_loadRecords
-     * @covers Tree::getIterator
+     * @covers \Papaya\Database\Records\Tree::_loadRecords
+     * @covers \Papaya\Database\Records\Tree::getIterator
      */
     public function testLoadAndIterateLeafs() {
       $records = new Tree_TestProxy();
@@ -105,8 +105,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Tree::_loadRecords
-     * @covers Tree::getIterator
+     * @covers \Papaya\Database\Records\Tree::_loadRecords
+     * @covers \Papaya\Database\Records\Tree::getIterator
      */
     public function testLoadWithInvalidIdentifierExpectingException() {
       $records = new Tree_TestProxy();
@@ -118,8 +118,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Tree::load
-     * @covers Tree::_loadRecords
+     * @covers \Papaya\Database\Records\Tree::load
+     * @covers \Papaya\Database\Records\Tree::_loadRecords
      */
     public function testLoadExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

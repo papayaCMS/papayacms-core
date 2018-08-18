@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class UsersTest extends \Papaya\TestCase {
 
   /**
-   * @covers       Users::_compileCondition
+   * @covers \Papaya\Content\Community\Users::_compileCondition
    * @dataProvider provideFilterArrays
    * @param string $expected
    * @param array $filter
@@ -47,7 +47,7 @@ class UsersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Users::_createMapping
+   * @covers \Papaya\Content\Community\Users::_createMapping
    */
   public function testCreateMapping() {
     $users = new Users();
@@ -57,7 +57,7 @@ class UsersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Users::callbackAfterMappingFieldsToProperties
+   * @covers \Papaya\Content\Community\Users::callbackAfterMappingFieldsToProperties
    * @dataProvider provideRecordsForMapping
    * @param $expected
    * @param $values

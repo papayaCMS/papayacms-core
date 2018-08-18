@@ -203,7 +203,7 @@ class PagingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Toolbar\Paging::getCurrentOffset
+   * @covers \Papaya\UI\Toolbar\Paging::getCurrentOffset
    * @dataProvider providePageToOffsetPairs
    * @param int $page
    * @param int $offset
@@ -215,7 +215,7 @@ class PagingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Toolbar\Paging::setCurrentOffset
+   * @covers \Papaya\UI\Toolbar\Paging::setCurrentOffset
    * @dataProvider provideOffsetToPagePairs
    * @param int $offset
    * @param int $page
@@ -227,7 +227,7 @@ class PagingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Toolbar\Paging::getLastPage
+   * @covers \Papaya\UI\Toolbar\Paging::getLastPage
    * @dataProvider provideLastPageCalculationData
    * @param int $itemsPerPage
    * @param int $itemsCount

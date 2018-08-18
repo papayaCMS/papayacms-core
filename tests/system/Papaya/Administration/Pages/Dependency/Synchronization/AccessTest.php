@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class AccessTest extends \Papaya\TestCase {
 
   /**
-   * @covers Access::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Access::page
    */
   public function testTranslationsGetAfterSet() {
     $page = $this->createMock(\Papaya\Content\Page\Work::class);
@@ -31,7 +31,7 @@ class AccessTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Access::page
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Access::page
    */
   public function testTranslationsGetImplicitCreate() {
     $action = new Access();
@@ -41,8 +41,8 @@ class AccessTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Access::synchronize
-   * @covers Access::updatePages
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Access::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Access::updatePages
    */
   public function testSynchronize() {
     $databaseAccess = $this->getDatabaseAccessFixture();
@@ -74,7 +74,7 @@ class AccessTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Access::synchronize
+   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Access::synchronize
    */
   public function testSynchronizePageNotLoaded() {
     $page = $this->createMock(\Papaya\Content\Page\Work::class);

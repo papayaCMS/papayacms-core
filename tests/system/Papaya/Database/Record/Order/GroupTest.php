@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class GroupTest extends \Papaya\TestCase {
 
   /**
-   * @covers Group
+   * @covers \Papaya\Database\Record\Order\Group
    */
   public function testConstructorWithTwoLists() {
     $group = new Group(
@@ -31,7 +31,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Database\Record\Order\Group
    */
   public function testAdd() {
     $group = new Group();
@@ -42,7 +42,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Database\Record\Order\Group
    */
   public function testAddMovesExistingToEnd() {
     $group = new Group(
@@ -54,7 +54,7 @@ class GroupTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Group
+   * @covers \Papaya\Database\Record\Order\Group
    */
   public function testRemove() {
     $group = new Group(

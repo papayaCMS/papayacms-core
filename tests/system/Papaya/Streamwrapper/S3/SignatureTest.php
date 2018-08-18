@@ -29,7 +29,7 @@ class SignatureTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Streamwrapper\S3\Signature
+   * @covers \Papaya\Streamwrapper\S3\Signature
    * @dataProvider magicToStringDataProvider
    * @param array $resource
    * @param string $method

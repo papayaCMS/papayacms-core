@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class GroupsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Groups::__construct
+   * @covers \Papaya\Administration\Permission\Groups::__construct
    */
   public function testConstructorPreparesIndex() {
     $permissions = new Groups();
@@ -28,7 +28,7 @@ class GroupsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Groups::getIterator
+   * @covers \Papaya\Administration\Permission\Groups::getIterator
    */
   public function testGetIterator() {
     $permissions = new Groups();
@@ -37,7 +37,7 @@ class GroupsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Groups::getIterator
+   * @covers \Papaya\Administration\Permission\Groups::getIterator
    */
   public function testGetIteratorReturnsItems() {
     $permissions = new Groups();
@@ -50,7 +50,7 @@ class GroupsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Groups::getGroupId
+   * @covers \Papaya\Administration\Permission\Groups::getGroupId
    */
   public function testGetGroupId() {
     $permissions = new Groups();
@@ -61,7 +61,7 @@ class GroupsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Groups::getGroupId
+   * @covers \Papaya\Administration\Permission\Groups::getGroupId
    */
   public function testGetGroupIdExpectingZero() {
     $permissions = new Groups();

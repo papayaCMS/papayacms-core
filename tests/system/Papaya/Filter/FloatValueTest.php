@@ -84,7 +84,7 @@ class FloatValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\FloatValue::filter
+   * @covers \Papaya\Filter\FloatValue::filter
    * @dataProvider provideValidFilterValues
    * @param float $expected
    * @param mixed $value
@@ -97,7 +97,7 @@ class FloatValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\FloatValue::filter
+   * @covers \Papaya\Filter\FloatValue::filter
    * @dataProvider provideInvalidFilterValues
    * @param mixed $value
    * @param float $minimum

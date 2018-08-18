@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SystemTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\Request\Parser\System::parse
+   * @covers \Papaya\Request\Parser\System::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected

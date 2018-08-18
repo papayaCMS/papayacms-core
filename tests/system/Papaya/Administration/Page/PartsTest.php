@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PartsTest extends \Papaya\TestCase {
 
   /**
-   * @covers Parts::__construct
+   * @covers \Papaya\Administration\Page\Parts::__construct
    */
   public function testConstructor() {
     $parts = new Parts(
@@ -32,8 +32,8 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::__get
-   * @covers Parts::__set
+   * @covers \Papaya\Administration\Page\Parts::__get
+   * @covers \Papaya\Administration\Page\Parts::__set
    */
   public function testOffsetGetAfterOffsetSet() {
     $parts = new Parts(
@@ -44,8 +44,8 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::get
-   * @covers Parts::set
+   * @covers \Papaya\Administration\Page\Parts::get
+   * @covers \Papaya\Administration\Page\Parts::set
    */
   public function testGetAfterSet() {
     $parts = new Parts(
@@ -56,8 +56,8 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::get
-   * @covers Parts::create
+   * @covers \Papaya\Administration\Page\Parts::get
+   * @covers \Papaya\Administration\Page\Parts::create
    */
   public function testGetImplicitCreate() {
     $page = $this->getPageFixture();
@@ -71,8 +71,8 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::get
-   * @covers Parts::create
+   * @covers \Papaya\Administration\Page\Parts::get
+   * @covers \Papaya\Administration\Page\Parts::create
    */
   public function testGetCreateReturnsFalse() {
     $page = $this->getPageFixture();
@@ -86,8 +86,8 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::get
-   * @covers Parts::create
+   * @covers \Papaya\Administration\Page\Parts::get
+   * @covers \Papaya\Administration\Page\Parts::create
    */
   public function testGetWithInvalidNameExpectingException() {
     $parts = new Parts($this->getPageFixture());
@@ -96,7 +96,7 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::set
+   * @covers \Papaya\Administration\Page\Parts::set
    */
   public function testSetWithInvalidNameExpectingException() {
     $parts = new Parts($this->getPageFixture());
@@ -105,7 +105,7 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Parts::getTarget
+   * @covers \Papaya\Administration\Page\Parts::getTarget
    * @dataProvider providePartsAndTargets
    * @param string $expected
    * @param string $partName
@@ -124,7 +124,7 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::getTarget
+   * @covers \Papaya\Administration\Page\Parts::getTarget
    */
   public function testGetTargetWithInvalidNameExpectingException() {
     $parts = new Parts($this->getPageFixture());
@@ -133,7 +133,7 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::toolbar
+   * @covers \Papaya\Administration\Page\Parts::toolbar
    */
   public function testToolbarGetAfterSet() {
     $parts = new Parts($this->getPageFixture());
@@ -147,7 +147,7 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::toolbar
+   * @covers \Papaya\Administration\Page\Parts::toolbar
    */
   public function testToolbarGetImplicitCreate() {
     $parts = new Parts($this->getPageFixture());
@@ -155,11 +155,11 @@ class PartsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Parts::rewind
-   * @covers Parts::next
-   * @covers Parts::current
-   * @covers Parts::key
-   * @covers Parts::valid
+   * @covers \Papaya\Administration\Page\Parts::rewind
+   * @covers \Papaya\Administration\Page\Parts::next
+   * @covers \Papaya\Administration\Page\Parts::current
+   * @covers \Papaya\Administration\Page\Parts::key
+   * @covers \Papaya\Administration\Page\Parts::valid
    */
   public function testIteration() {
     $parts = new Parts($this->getPageFixture());

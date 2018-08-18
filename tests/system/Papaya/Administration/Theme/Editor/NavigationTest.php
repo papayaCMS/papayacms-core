@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class NavigationTest extends \Papaya\TestCase {
 
   /**
-   * @covers Navigation::appendTo
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::appendTo
    */
   public function testAppendTo() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
@@ -34,7 +34,7 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::appendTo
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::appendTo
    */
   public function testToolbarButtonsWithSelectedTheme() {
     $navigation = new Navigation();
@@ -57,7 +57,7 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::appendTo
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::appendTo
    */
   public function testToolbarButtonsWithSelectedSet() {
     $navigation = new Navigation();
@@ -88,7 +88,7 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::listview
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
    */
   public function testListviewGetAfterSet() {
     $navigation = new Navigation();
@@ -99,8 +99,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::listview
-   * @covers Navigation::createThemeList
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
   public function testListviewImplicitCreate() {
     $navigation = new Navigation();
@@ -111,8 +111,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::listview
-   * @covers Navigation::createThemeList
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
   public function testListviewImplicitCreateWithSelectedTheme() {
     $navigation = new Navigation();
@@ -123,8 +123,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::listview
-   * @covers Navigation::createThemeList
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
   public function testListviewImplicitCreateWithSelectedSet() {
     $navigation = new Navigation();
@@ -137,7 +137,7 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
    */
   public function testCallbackCreateItemForInvalidElement() {
     $navigation = new Navigation();
@@ -152,8 +152,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createThemeItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeItem
    */
   public function testCallbackCreateItemForTheme() {
     $papaya = $this->mockPapaya()->application(
@@ -182,8 +182,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createThemeItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeItem
    */
   public function testCallbackCreateItemForSelectedTheme() {
     $papaya = $this->mockPapaya()->application(
@@ -216,8 +216,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createThemeItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeItem
    */
   public function testCallbackCreateItemForSelectedThemeAndSelectedSet() {
     $papaya = $this->mockPapaya()->application(
@@ -249,8 +249,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createSetItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createSetItem
    */
   public function testCallbackCreateItemForSet() {
     $papaya = $this->mockPapaya()->application(
@@ -287,8 +287,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createSetItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createSetItem
    */
   public function testCallbackCreateItemForSelectedSet() {
     $papaya = $this->mockPapaya()->application(
@@ -327,8 +327,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createPageItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createPageItem
    */
   public function testCallbackPageItemForPage() {
     $papaya = $this->mockPapaya()->application(
@@ -371,8 +371,8 @@ class NavigationTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Navigation::callbackCreateItem
-   * @covers Navigation::createPageItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
+   * @covers \Papaya\Administration\Theme\Editor\Navigation::createPageItem
    */
   public function testCallbackPageItemForSelectedPage() {
     $papaya = $this->mockPapaya()->application(

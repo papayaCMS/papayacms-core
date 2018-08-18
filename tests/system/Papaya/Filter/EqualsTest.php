@@ -29,7 +29,7 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Equals::validate
+   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -41,7 +41,7 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Equals::validate
+   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -54,7 +54,7 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Equals::filter
+   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -65,7 +65,7 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Filter\Equals::filter
+   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value

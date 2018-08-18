@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PagesTest extends \Papaya\TestCase {
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -77,7 +77,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testLoadWithEmptyFilter() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -134,7 +134,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testLoadWithId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -196,7 +196,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testLoadWithStatus() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -262,7 +262,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testLoadWithParentId() {
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -324,7 +324,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new Pages();
@@ -334,7 +334,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testMapValueReturnsValueByDefault() {
     $pages = new Pages();
@@ -351,7 +351,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testMapValueDecodesPath() {
     $pages = new Pages();
@@ -368,7 +368,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testMapValueEncodesPath() {
     $pages = new Pages();
@@ -385,7 +385,7 @@ class PagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Pages
+   * @covers \Papaya\Content\Pages
    */
   public function testIsPublicExpectingFalse() {
     $pages = new Pages();

@@ -20,7 +20,7 @@ namespace Papaya\Content {
   class BoxTest extends \Papaya\TestCase {
 
     /**
-     * @covers Box::load
+     * @covers \Papaya\Content\Box::load
      */
     public function testLoad() {
       $translations = $this->createMock(Box\Translations::class);
@@ -79,7 +79,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Box::load
+     * @covers \Papaya\Content\Box::load
      */
     public function testLoadFailedExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -96,7 +96,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Box::translations
+     * @covers \Papaya\Content\Box::translations
      */
     public function testTranslationsSet() {
       $translations = $this->createMock(Box\Translations::class);
@@ -108,7 +108,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Box::translations
+     * @covers \Papaya\Content\Box::translations
      */
     public function testTranslationsGetAfterSet() {
       $translations = $this->createMock(Box\Translations::class);
@@ -120,7 +120,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers Box::translations
+     * @covers \Papaya\Content\Box::translations
      */
     public function testTranslationsGetImplicitCreate() {
       $box = new Box_TestProxy();

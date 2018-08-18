@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PageTest extends \Papaya\TestCase {
 
   /**
-   * @covers Page::__construct
+   * @covers \Papaya\Content\Structure\Page::__construct
    */
   public function testConstructor() {
     $page = new Page();
@@ -28,7 +28,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page::groups
+   * @covers \Papaya\Content\Structure\Page::groups
    */
   public function testGroupsGetAfterSet() {
     $groups = $this
@@ -41,7 +41,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page::groups
+   * @covers \Papaya\Content\Structure\Page::groups
    */
   public function testGroupsGetImplicitCreate() {
     $page = new Page();
@@ -49,7 +49,7 @@ class PageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Page::getIdentifier
+   * @covers \Papaya\Content\Structure\Page::getIdentifier
    */
   public function testGetIdentifier() {
     $page = new Page();

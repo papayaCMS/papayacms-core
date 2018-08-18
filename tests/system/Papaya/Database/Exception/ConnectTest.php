@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ConnectTest extends \Papaya\TestCase {
 
   /**
-   * @covers Connect::__construct
+   * @covers \Papaya\Database\Exception\Connect::__construct
    */
   public function testConstructorWithMessage() {
     $exception = new Connect('Sample');
@@ -33,7 +33,7 @@ class ConnectTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Connect::__construct
+   * @covers \Papaya\Database\Exception\Connect::__construct
    */
   public function testConstructorWithCode() {
     $exception = new Connect('Sample', 42);

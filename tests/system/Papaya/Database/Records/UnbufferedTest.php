@@ -20,10 +20,10 @@ namespace Papaya\Database\Records {
   class UnbufferedTest extends \Papaya\TestCase {
 
     /**
-     * @covers Unbuffered::load
-     * @covers Unbuffered::_loadSql
-     * @covers Unbuffered::_compileCondition
-     * @covers Unbuffered::_compileOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::load
+     * @covers \Papaya\Database\Records\Unbuffered::_loadSql
+     * @covers \Papaya\Database\Records\Unbuffered::_compileCondition
+     * @covers \Papaya\Database\Records\Unbuffered::_compileOrderBy
      */
     public function testLoad() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -47,10 +47,10 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::load
-     * @covers Unbuffered::_loadSql
-     * @covers Unbuffered::_compileCondition
-     * @covers Unbuffered::_compileOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::load
+     * @covers \Papaya\Database\Records\Unbuffered::_loadSql
+     * @covers \Papaya\Database\Records\Unbuffered::_compileCondition
+     * @covers \Papaya\Database\Records\Unbuffered::_compileOrderBy
      * @see https://bugs.papaya-cms.com/view.php?id=2982 Reason for checking if SQL contains WHERE
      */
     public function testLoadWithConditionObject() {
@@ -85,10 +85,10 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::load
-     * @covers Unbuffered::_loadSql
-     * @covers Unbuffered::_compileCondition
-     * @covers Unbuffered::_compileOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::load
+     * @covers \Papaya\Database\Records\Unbuffered::_loadSql
+     * @covers \Papaya\Database\Records\Unbuffered::_compileCondition
+     * @covers \Papaya\Database\Records\Unbuffered::_compileOrderBy
      */
     public function testLoadWithoutConditions() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -107,10 +107,10 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::load
-     * @covers Unbuffered::_loadSql
-     * @covers Unbuffered::_compileCondition
-     * @covers Unbuffered::_compileOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::load
+     * @covers \Papaya\Database\Records\Unbuffered::_loadSql
+     * @covers \Papaya\Database\Records\Unbuffered::_compileCondition
+     * @covers \Papaya\Database\Records\Unbuffered::_compileOrderBy
      */
     public function testLoadWithoutConditionsWithOrderBy() {
       $orderBy = $this->createMock(\Papaya\Database\Interfaces\Order::class);
@@ -135,8 +135,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::load
-     * @covers Unbuffered::_loadSql
+     * @covers \Papaya\Database\Records\Unbuffered::load
+     * @covers \Papaya\Database\Records\Unbuffered::_loadSql
      */
     public function testLoadExpectingFalse() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -159,7 +159,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::createFilter
+     * @covers \Papaya\Database\Records\Unbuffered::createFilter
      */
     public function testCreateFilter() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -176,7 +176,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::count
+     * @covers \Papaya\Database\Records\Unbuffered::count
      */
     public function testCount() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -190,7 +190,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::count
+     * @covers \Papaya\Database\Records\Unbuffered::count
      */
     public function testCountWihtoutDatabaseResultExpectingZero() {
       $records = new Unbuffered_TestProxy();
@@ -198,7 +198,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::absCount
+     * @covers \Papaya\Database\Records\Unbuffered::absCount
      */
     public function testAbsCount() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -212,7 +212,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::absCount
+     * @covers \Papaya\Database\Records\Unbuffered::absCount
      */
     public function testAbsCountWihtoutDatabaseResultExpectingZero() {
       $records = new Unbuffered_TestProxy();
@@ -220,9 +220,9 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::toArray
-     * @covers Unbuffered::getIterator
-     * @covers Unbuffered::getResultIterator
+     * @covers \Papaya\Database\Records\Unbuffered::toArray
+     * @covers \Papaya\Database\Records\Unbuffered::getIterator
+     * @covers \Papaya\Database\Records\Unbuffered::getResultIterator
      */
     public function testToArrayUsingGetIterator() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -261,9 +261,9 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::toArray
-     * @covers Unbuffered::getIterator
-     * @covers Unbuffered::getResultIterator
+     * @covers \Papaya\Database\Records\Unbuffered::toArray
+     * @covers \Papaya\Database\Records\Unbuffered::getIterator
+     * @covers \Papaya\Database\Records\Unbuffered::getResultIterator
      */
     public function testToArrayWithEmptyResultUsingGetIterator() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -285,8 +285,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::getIterator
-     * @covers Unbuffered::getResultIterator
+     * @covers \Papaya\Database\Records\Unbuffered::getIterator
+     * @covers \Papaya\Database\Records\Unbuffered::getResultIterator
      */
     public function testGetIteratorWithoutResultEmptytingEmpty() {
       $records = new Unbuffered_TestProxy();
@@ -294,7 +294,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::mapping
+     * @covers \Papaya\Database\Records\Unbuffered::mapping
      */
     public function testMappingGetAfterSet() {
       $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -306,8 +306,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::mapping
-     * @covers Unbuffered::_createMapping
+     * @covers \Papaya\Database\Records\Unbuffered::mapping
+     * @covers \Papaya\Database\Records\Unbuffered::_createMapping
      */
     public function testMappingGetImplicitCreate() {
       $records = new Unbuffered_TestProxy();
@@ -317,7 +317,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
      */
     public function testOrderByGetAfterSet() {
       $orderBy = $this->createMock(\Papaya\Database\Interfaces\Order::class);
@@ -329,8 +329,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateExpectingEmpty() {
       $records = new Unbuffered_TestProxy();
@@ -338,8 +338,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateWithField() {
       $records = new Unbuffered_TestProxy();
@@ -351,8 +351,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateWithTwoFields() {
       $records = new Unbuffered_TestProxy();
@@ -367,8 +367,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateWithProperty() {
       $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -387,8 +387,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateWithTwoProperties() {
       $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -416,8 +416,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::orderBy
-     * @covers Unbuffered::_createOrderBy
+     * @covers \Papaya\Database\Records\Unbuffered::orderBy
+     * @covers \Papaya\Database\Records\Unbuffered::_createOrderBy
      */
     public function testOrderByGetImplicitCreateWithPropertiesAndFields() {
       $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -449,7 +449,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::databaseResult
+     * @covers \Papaya\Database\Records\Unbuffered::databaseResult
      */
     public function testDatabaseResultGetAfterSet() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -461,8 +461,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::setDatabaseAccess
-     * @covers Unbuffered::getDatabaseAccess
+     * @covers \Papaya\Database\Records\Unbuffered::setDatabaseAccess
+     * @covers \Papaya\Database\Records\Unbuffered::getDatabaseAccess
      */
     public function testGetDatabaseAccessAfterSet() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -474,7 +474,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::getDatabaseAccess
+     * @covers \Papaya\Database\Records\Unbuffered::getDatabaseAccess
      */
     public function testGetDatabaseAccessImplicitCreate() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -495,8 +495,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::_createItem
-     * @covers Unbuffered::getItem
+     * @covers \Papaya\Database\Records\Unbuffered::_createItem
+     * @covers \Papaya\Database\Records\Unbuffered::getItem
      */
     public function testGetItemExpectingException() {
       $records = new Unbuffered_TestProxy();
@@ -505,8 +505,8 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::_createItem
-     * @covers Unbuffered::getItem
+     * @covers \Papaya\Database\Records\Unbuffered::_createItem
+     * @covers \Papaya\Database\Records\Unbuffered::getItem
      */
     public function testGetItem() {
       $records = new Unbuffered_TestProxy();
@@ -515,7 +515,7 @@ namespace Papaya\Database\Records {
     }
 
     /**
-     * @covers Unbuffered::getItem
+     * @covers \Papaya\Database\Records\Unbuffered::getItem
      */
     public function testGetItemWithFilterCallingLoad() {
       $record = $this->createMock(\Papaya\Database\Record::class);

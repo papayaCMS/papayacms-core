@@ -31,7 +31,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog::getMethodString
+     * @covers \Papaya\UI\Dialog::getMethodString
      * @dataProvider provideMethodsAndStringRepresentations
      * @param int $expected
      * @param string $method
@@ -174,7 +174,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog::appendHidden
+     * @covers \Papaya\UI\Dialog::appendHidden
      * @dataProvider provideHiddenDataAndResult
      * @param string|NULL $group
      * @param array $values
@@ -203,7 +203,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog::getParameterName
+     * @covers \Papaya\UI\Dialog::getParameterName
      * @dataProvider provideParameterNameSamples
      * @param string $expected
      * @param string $name
@@ -721,7 +721,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog::isSubmitted
+     * @covers \Papaya\UI\Dialog::isSubmitted
      * @dataProvider provideValidMethodPairs
      * @param int $requestMethod
      * @param int $dialogMethod
@@ -822,7 +822,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers       \Papaya\UI\Dialog::isSubmitted
+     * @covers \Papaya\UI\Dialog::isSubmitted
      * @dataProvider provideInvalidMethodPairs
      * @param int $requestMethod
      * @param int $dialogMethod

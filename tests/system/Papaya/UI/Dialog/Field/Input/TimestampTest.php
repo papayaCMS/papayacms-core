@@ -53,7 +53,7 @@ class TimestampTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Timestamp
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -68,7 +68,7 @@ class TimestampTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\Timestamp
+   * @covers \Papaya\UI\Dialog\Field\Input\Timestamp
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory

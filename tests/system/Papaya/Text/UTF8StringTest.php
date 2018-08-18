@@ -27,7 +27,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -55,7 +55,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -74,7 +74,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -85,7 +85,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -104,7 +104,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -115,7 +115,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -126,7 +126,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */
@@ -171,7 +171,7 @@ class UTF8StringTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\Text\UTF8String
+   * @covers \Papaya\Text\UTF8String
    * @dataProvider dataProviderSupportedModes
    * @param int $mode
    */

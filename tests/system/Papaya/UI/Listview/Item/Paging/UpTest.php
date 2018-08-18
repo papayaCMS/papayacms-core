@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class UpTest extends \Papaya\TestCase {
 
   /**
-   * @covers       \Papaya\UI\Listview\Item\Paging\Up::getPages
+   * @covers \Papaya\UI\Listview\Item\Paging\Up::getPages
    * @dataProvider provideDataForPageCalculations
    * @param array $expected
    * @param int $currentPage

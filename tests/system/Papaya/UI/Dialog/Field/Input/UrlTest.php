@@ -40,7 +40,7 @@ class UrlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\URL
+   * @covers \Papaya\UI\Dialog\Field\Input\URL
    * @dataProvider provideValidUrlInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -55,7 +55,7 @@ class UrlTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Dialog\Field\Input\URL
+   * @covers \Papaya\UI\Dialog\Field\Input\URL
    * @dataProvider provideInvalidUrlInputs
    * @param mixed $value
    * @param bool $mandatory

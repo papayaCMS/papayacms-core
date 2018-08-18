@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class Test extends \Papaya\TestCase {
 
   /**
-   * @covers Structure::load
+   * @covers \Papaya\Content\Structure::load
    */
   public function testLoad() {
     $pages = $this->createMock(Structure\Pages::class);
@@ -35,7 +35,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::load
+   * @covers \Papaya\Content\Structure::load
    */
   public function testLoadWithString() {
     $pages = $this->createMock(Structure\Pages::class);
@@ -51,7 +51,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::load
+   * @covers \Papaya\Content\Structure::load
    */
   public function testLoadWithEmptyString() {
     $pages = $this->createMock(Structure\Pages::class);
@@ -65,7 +65,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::load
+   * @covers \Papaya\Content\Structure::load
    */
   public function testLoadWithXmlElement() {
     $document = new \Papaya\XML\Document();
@@ -83,7 +83,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getXMLDocument
+   * @covers \Papaya\Content\Structure::getXMLDocument
    */
   public function testGetXmlDocumentWithExistingValue() {
     $definition = new Structure();
@@ -116,7 +116,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getXMLDocument
+   * @covers \Papaya\Content\Structure::getXMLDocument
    */
   public function testGetXmlDocumentWithXhtmlValue() {
     $definition = new Structure();
@@ -151,7 +151,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getXMLDocument
+   * @covers \Papaya\Content\Structure::getXMLDocument
    */
   public function testGetXmlDocumentWithEmptyValueUsingDefault() {
     $definition = new Structure();
@@ -185,7 +185,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getArray
+   * @covers \Papaya\Content\Structure::getArray
    */
   public function testGetArrayFromXmlWithExistingValue() {
     $definition = new Structure();
@@ -221,7 +221,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getArray
+   * @covers \Papaya\Content\Structure::getArray
    */
   public function testGetArrayFromXmlWithExistingXhtmlValue() {
     $definition = new Structure();
@@ -259,7 +259,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::pages
+   * @covers \Papaya\Content\Structure::pages
    */
   public function testPagesGetAfterSet() {
     $definition = new Structure();
@@ -268,7 +268,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::pages
+   * @covers \Papaya\Content\Structure::pages
    */
   public function testPagesImplicitCreate() {
     $definition = new Structure();
@@ -276,7 +276,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getIterator
+   * @covers \Papaya\Content\Structure::getIterator
    */
   public function testGetIteratorReturnsPages() {
     $definition = new Structure();
@@ -284,7 +284,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getPage
+   * @covers \Papaya\Content\Structure::getPage
    */
   public function testGetPageExpectingPage() {
     $page = new Structure\Page();
@@ -297,7 +297,7 @@ class Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Structure::getPage
+   * @covers \Papaya\Content\Structure::getPage
    */
   public function testGetPageExpectingNull() {
     $pages = new Structure\Pages();

@@ -152,7 +152,7 @@ class MediaTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Reference\Media::setMode
+   * @covers \Papaya\UI\Reference\Media::setMode
    * @dataProvider setModeDataProvider
    * @param string $mode
    * @param array $expected

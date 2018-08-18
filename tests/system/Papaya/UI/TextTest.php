@@ -45,8 +45,8 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\UI\Text::__toString
-   * @covers       \Papaya\UI\Text::compile
+   * @covers \Papaya\UI\Text::__toString
+   * @covers \Papaya\UI\Text::compile
    * @dataProvider provideExamplesForToString
    * @param string $expected
    * @param string $pattern

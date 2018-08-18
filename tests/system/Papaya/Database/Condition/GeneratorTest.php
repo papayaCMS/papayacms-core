@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class GeneratorTest extends \Papaya\TestCase {
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testConstructor() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -31,7 +31,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -48,7 +48,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testConstructorWithInvalidParent() {
     $this->expectException(\InvalidArgumentException::class);
@@ -57,7 +57,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithSimpleEqualsFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -75,7 +75,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithFieldMapping() {
     $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -100,7 +100,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithFieldMappingReturnsNoFieldname() {
     $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
@@ -123,7 +123,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithConditionInAnd() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -154,7 +154,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithConditionInOr() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -185,7 +185,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers Generator
+   * @covers \Papaya\Database\Condition\Generator
    */
   public function testFromArrayWithConditionInNot() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -216,7 +216,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       Generator
+   * @covers \Papaya\Database\Condition\Generator
    * @dataProvider provideFilterSamples
    * @param string $expected
    * @param array $filter

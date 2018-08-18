@@ -20,7 +20,7 @@ namespace Papaya\Administration\Page {
   class PartTest extends \Papaya\TestCase {
 
     /**
-     * @covers Part::appendTo
+     * @covers \Papaya\Administration\Page\Part::appendTo
      */
     public function testAppendTo() {
       $commands = $this->createMock(\Papaya\UI\Control\Command::class);
@@ -38,7 +38,7 @@ namespace Papaya\Administration\Page {
     }
 
     /**
-     * @covers Part::commands
+     * @covers \Papaya\Administration\Page\Part::commands
      */
     public function testCommandsGetAfterSet() {
       $part = new PagePart_TestProxy();
@@ -47,8 +47,8 @@ namespace Papaya\Administration\Page {
     }
 
     /**
-     * @covers Part::commands
-     * @covers Part::_createCommands
+     * @covers \Papaya\Administration\Page\Part::commands
+     * @covers \Papaya\Administration\Page\Part::_createCommands
      */
     public function testCommandsGetImplicitCreate() {
       $part = new PagePart_TestProxy();
@@ -56,7 +56,7 @@ namespace Papaya\Administration\Page {
     }
 
     /**
-     * @covers Part::toolbar
+     * @covers \Papaya\Administration\Page\Part::toolbar
      */
     public function testToolbarGetAfterSet() {
       $part = new PagePart_TestProxy();
@@ -65,7 +65,7 @@ namespace Papaya\Administration\Page {
     }
 
     /**
-     * @covers Part::toolbar
+     * @covers \Papaya\Administration\Page\Part::toolbar
      */
     public function testToolbarGetImplicitCreate() {
       $part = new PagePart_TestProxy();

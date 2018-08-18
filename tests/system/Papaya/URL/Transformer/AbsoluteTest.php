@@ -63,8 +63,8 @@ class AbsoluteTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers       \Papaya\URL\Transformer\Absolute::transform
-   * @covers       \Papaya\URL\Transformer\Absolute::_calculateRealPath
+   * @covers \Papaya\URL\Transformer\Absolute::transform
+   * @covers \Papaya\URL\Transformer\Absolute::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetPath
