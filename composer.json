@@ -12,7 +12,8 @@
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-xsl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "psr/log": "1.*"
   },
   "require-dev": {
     "papaya/cms-administration": "dev-master",

@@ -28,7 +28,7 @@ class TemplateTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Displayable::class);
     $message
       ->expects($this->once())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->once())

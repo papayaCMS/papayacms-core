@@ -15,31 +15,24 @@
 
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Message;
+
 class CLI
   extends \Papaya\Application\BaseObject
-  implements \Papaya\Message\Dispatcher {
+  implements Message\Dispatcher {
 
   const TARGET_STDOUT = 'stdout';
   const TARGET_STDERR = 'stderr';
 
-  /**
-   * Options for message formatting
-   *
-   * @var array
-   */
-  private $_messageOptions = array(
-    \Papaya\Message::SEVERITY_ERROR => array(
-      'label' => 'Error'
-    ),
-    \Papaya\Message::SEVERITY_WARNING => array(
-      'label' => 'Warning'
-    ),
-    \Papaya\Message::SEVERITY_INFO => array(
-      'label' => 'Information'
-    ),
-    \Papaya\Message::SEVERITY_DEBUG => array(
-      'label' => 'Debug'
-    )
+  private static $_SEVERITY_LABELS = array(
+    Message::SEVERITY_DEBUG => 'Debug',
+    Message::SEVERITY_INFO => 'Info',
+    Message::SEVERITY_NOTICE => 'Notice',
+    Message::SEVERITY_WARNING => 'Warning',
+    Message::SEVERITY_ERROR => 'Error',
+    Message::SEVERITY_CRITICAL => 'Critical',
+    Message::SEVERITY_ALERT => 'Alert',
+    Message::SEVERITY_EMERGENCY => 'Emergency'
   );
 
   /**
@@ -62,23 +55,29 @@ class CLI
   /**
    * Output log message to stdout
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    * @return boolean
    */
-  public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \Papaya\Message\Logable &&
+  public function dispatch(Message $message) {
+    if ($message instanceof Message\Logable &&
       $this->allow()) {
-      $options = $this->getOptionsFromType($message->getType());
+      $label = $this->getLabelFromType($message->getSeverity());
       $isError = in_array(
-        $message->getType(),
-        array(\Papaya\Message::SEVERITY_ERROR, \Papaya\Message::SEVERITY_WARNING),
+        $message->getSeverity(),
+        array(
+          Message::SEVERITY_WARNING,
+          Message::SEVERITY_ERROR,
+          Message::SEVERITY_CRITICAL,
+          Message::SEVERITY_ALERT,
+          Message::SEVERITY_EMERGENCY
+        ),
         FALSE
       );
       fwrite(
         $this->stream($isError ? self::TARGET_STDERR : self::TARGET_STDOUT),
         sprintf(
           "\n\n%s: %s %s\n",
-          $options['label'],
+          $label,
           $message->getMessage(),
           $message->context()->asString()
         )
@@ -112,16 +111,14 @@ class CLI
   }
 
   /**
-   * Get formating options for the error message
-   *
    * @param integer $type
    * @return array
    */
-  public function getOptionsFromType($type) {
-    if (isset($this->_messageOptions[$type])) {
-      return $this->_messageOptions[$type];
+  public function getLabelFromType($type) {
+    if (isset(self::$_SEVERITY_LABELS[$type])) {
+      return self::$_SEVERITY_LABELS[$type];
     }
-    return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
+    return self::$_SEVERITY_LABELS[Message::SEVERITY_ERROR];
   }
 
   /**

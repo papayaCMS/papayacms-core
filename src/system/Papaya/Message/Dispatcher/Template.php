@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Message\Dispatcher;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Dispatcher Template, handle messages to be shown to the user in browser
  *
@@ -25,13 +28,17 @@ namespace Papaya\Message\Dispatcher;
  */
 class Template
   extends \Papaya\Application\BaseObject
-  implements \Papaya\Message\Dispatcher {
+  implements Message\Dispatcher {
 
-  private $severityStrings = array(
-    \Papaya\Message::SEVERITY_INFO => 'info',
-    \Papaya\Message::SEVERITY_WARNING => 'warning',
-    \Papaya\Message::SEVERITY_ERROR => 'error',
-    \Papaya\Message::SEVERITY_DEBUG => 'debug'
+  private static $_SEVERITY_STRINGS = array(
+    Message::SEVERITY_DEBUG => 'debug',
+    Message::SEVERITY_INFO => 'info',
+    Message::SEVERITY_NOTICE => 'notice',
+    Message::SEVERITY_WARNING => 'warning',
+    Message::SEVERITY_ERROR => 'error',
+    Message::SEVERITY_CRITICAL => 'critical',
+    Message::SEVERITY_ALERT => 'alert',
+    Message::SEVERITY_EMERGENCY => 'emergency'
   );
 
   /**
@@ -39,11 +46,11 @@ class Template
    *
    * Only messages that implements \Papaya\Message\Display are used, \all other message are ignored.
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    * @return boolean
    */
-  public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \Papaya\Message\Displayable) {
+  public function dispatch(Message $message) {
+    if ($message instanceof Message\Displayable) {
       if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
         /** @var \Papaya\Template $layout */
         $layout = $GLOBALS['PAPAYA_LAYOUT'];
@@ -51,7 +58,7 @@ class Template
           '/page/messages',
           'message',
           array(
-            'severity' => $this->severityStrings[$message->getType()]
+            'severity' => self::$_SEVERITY_STRINGS[$message->getSeverity()]
           ),
           $message->getMessage()
         );
