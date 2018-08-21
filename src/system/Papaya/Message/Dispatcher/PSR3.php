@@ -92,6 +92,10 @@ class PSR3
     foreach ($group as $item) {
       $label = NULL;
       $value = NULL;
+      if ($item instanceof Message\Context\Exception) {
+        $label = 'exception';
+        $value = $item->getException();
+      }
       if ($item instanceof Message\Context\Interfaces\Labeled) {
         $label = $item->getLabel();
       }
