@@ -208,7 +208,7 @@ class WildfireTest extends \Papaya\TestCase {
     $handler
       ->expects($this->once())
       ->method('startGroup')
-      ->with($this->equalTo('Debug'));
+      ->with($this->equalTo('Log'));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -548,7 +548,7 @@ class WildfireTest extends \Papaya\TestCase {
 
   public static function getWildfireGroupLabelFromTypeDataProvider() {
     return array(
-      array('Debug', -1),
+      array('Log', -1),
       array('Debug', \Papaya\Message::SEVERITY_DEBUG),
       array('Information', \Papaya\Message::SEVERITY_INFO),
       array('Warning', \Papaya\Message::SEVERITY_WARNING),

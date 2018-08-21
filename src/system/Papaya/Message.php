@@ -23,29 +23,42 @@ namespace Papaya;
 interface Message {
 
   /**
-   * Information message type
-   *
    * @var integer
    */
   const SEVERITY_INFO = 0;
   /**
-   * Warning message type
-   *
    * @var integer
    */
   const SEVERITY_WARNING = 1;
   /**
-   * Error message type
-   *
    * @var integer
    */
   const SEVERITY_ERROR = 2;
+
   /**
-   * Error message type
-   *
    * @var integer
    */
   const SEVERITY_DEBUG = 3;
+
+  /**
+   * @var integer
+   */
+  const SEVERITY_EMERGENCY = 4;
+
+  /**
+   * @var integer
+   */
+  const SEVERITY_ALERT = 5;
+
+  /**
+   * @var integer
+   */
+  const SEVERITY_CRITICAL = 6;
+
+  /**
+   * @var integer
+   */
+  const SEVERITY_NOTICE = 7;
 
   /**
    * Information message type
@@ -79,9 +92,17 @@ interface Message {
   /**
    * Get type of message (info, warning, error)
    *
+   * @deprecated
    * @return integer
    */
   public function getType();
+
+  /**
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
+  public function getSeverity();
 
   /**
    * Get message string

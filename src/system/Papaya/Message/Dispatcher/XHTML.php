@@ -31,19 +31,31 @@ class XHTML
    *
    * @var array
    */
-  private $_messageOptions = array(
-    \Papaya\Message::SEVERITY_ERROR => array(
-      '#CC0000', '#FFFFFF', 'Error'
-    ),
-    \Papaya\Message::SEVERITY_WARNING => array(
-      '#FFCC33', '#000000', 'Warning'
+  private static $_MESSAGE_OPTIONS = array(
+    \Papaya\Message::SEVERITY_DEBUG => array(
+      '#F0F0F0', '#000', 'Debug'
     ),
     \Papaya\Message::SEVERITY_INFO => array(
       '#F0F0F0', '#000060', 'Information'
     ),
-    \Papaya\Message::SEVERITY_DEBUG => array(
-      '#F0F0F0', '#000', 'Debug'
-    )
+    \Papaya\Message::SEVERITY_NOTICE => array(
+      '#F0F0F0', '#000060', 'Notice'
+    ),
+    \Papaya\Message::SEVERITY_WARNING => array(
+      '#FFCC33', '#000000', 'Warning'
+    ),
+    \Papaya\Message::SEVERITY_ERROR => array(
+      '#CC0000', '#FFFFFF', 'Error'
+    ),
+    \Papaya\Message::SEVERITY_CRITICAL => array(
+      '#CC0000', '#FFFFFF', 'Critical'
+    ),
+    \Papaya\Message::SEVERITY_ALERT => array(
+      '#CC0000', '#FFFFFF', 'Alert'
+    ),
+    \Papaya\Message::SEVERITY_EMERGENCY => array(
+      '#CC0000', '#FFFFFF', 'Emergency'
+    ),
   );
 
   /**
@@ -57,7 +69,7 @@ class XHTML
       $this->allow()) {
       $this->outputClosers();
       print('<div class="debug" style="border: none; margin: 3em; padding: 0; font-size: 1em;">');
-      $headerOptions = $this->getHeaderOptionsFromType($message->getType());
+      $headerOptions = $this->getHeaderOptionsFromType($message->getSeverity());
       printf(
         '<h3 style="background-color: %s; color: %s; padding: 0.3em; margin: 0;">%s: %s</h3>',
         \Papaya\Utility\Text\XML::escapeAttribute($headerOptions[0]),
@@ -100,10 +112,9 @@ class XHTML
    * @return array
    */
   public function getHeaderOptionsFromType($type) {
-    if (isset($this->_messageOptions[$type])) {
-      return $this->_messageOptions[$type];
-    } else {
-      return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
+    if (isset(self::$_MESSAGE_OPTIONS[$type])) {
+      return self::$_MESSAGE_OPTIONS[$type];
     }
+    return self::$_MESSAGE_OPTIONS[\Papaya\Message::SEVERITY_ERROR];
   }
 }

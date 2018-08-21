@@ -43,7 +43,7 @@ class XhtmlTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->any())

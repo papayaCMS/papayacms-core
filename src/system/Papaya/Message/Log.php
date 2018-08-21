@@ -70,11 +70,20 @@ class Log
   }
 
   /**
-   * Get type of message (info, warning, error)
+   * Get severity/type of message (info, warning, error)
    *
    * @return integer
    */
   public function getType() {
+    return $this->_type;
+  }
+
+  /**
+   * Get severity of message (info, warning, error)
+   *
+   * @return integer
+   */
+  public function getSeverity() {
     return $this->_type;
   }
 
