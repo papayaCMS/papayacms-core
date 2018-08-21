@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Message\Hook;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Hook Exception, capture exceptions and handle them
  *
@@ -21,21 +24,21 @@ namespace Papaya\Message\Hook;
  * @subpackage Messages
  */
 class Exceptions
-  implements \Papaya\Message\Hook {
+  implements Message\Hook {
 
   /**
    * Message manger object to dispatch the created messages
    *
-   * @var \Papaya\Message\Manager
+   * @var Message\Manager
    */
-  private $_messageManager = NULL;
+  private $_messageManager;
 
   /**
    * Create hook and set message manager object
    *
-   * @param \Papaya\Message\Manager $messageManager
+   * @param Message\Manager $messageManager
    */
-  public function __construct(\Papaya\Message\Manager $messageManager) {
+  public function __construct(Message\Manager $messageManager) {
     $this->_messageManager = $messageManager;
   }
 
@@ -63,7 +66,7 @@ class Exceptions
   public function handle($exception) {
     if ($exception instanceof \ErrorException) {
       $this->_messageManager->dispatch(
-        new \Papaya\Message\PHP\Exception($exception)
+        new Message\PHP\Exception($exception)
       );
     } else {
       $error = new \ErrorException(
@@ -76,9 +79,9 @@ class Exceptions
         )
       );
       $this->_messageManager->dispatch(
-        new \Papaya\Message\PHP\Exception(
+        new Message\PHP\Exception(
           $error,
-          new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
+          new Message\Context\Backtrace(0, $exception->getTrace())
         )
       );
     }
