@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application\Profile;
+
 /**
  * Application object profile for the messages (manager) object
  *
@@ -39,9 +40,9 @@ class Messages implements \Papaya\Application\Profile {
       foreach ($plugins->withType(\Papaya\Plugin\Types::LOGGER) as $plugin) {
         if (
           $plugin instanceof \Papaya\Plugin\LoggerFactory &&
-          ($logger = $plugin->createLogger())
+          ($dispatcher = $plugin->createLogger())
         ) {
-          $messages->addDispatcher(new \Papaya\Message\Dispatcher\PSR3($logger));
+          $messages->addDispatcher($dispatcher);
         }
       }
     }
