@@ -24,24 +24,24 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  *
- * @property \Papaya\Plugin\Collection $plugins
- * @property \Papaya\Plugin\Option\Groups $options
+ * @property Collection $plugins
+ * @property Option\Groups $options
  */
 class Loader extends \Papaya\Application\BaseObject {
 
   /**
    * Database access to plugin data
    *
-   * @var \Papaya\Plugin\Collection
+   * @var Collection
    */
-  private $_plugins = NULL;
+  private $_plugins;
 
   /**
    * Access to plugin options data, grouped by plugin
    *
-   * @var \Papaya\Plugin\Option\Groups
+   * @var Option\Groups
    */
-  private $_optionGroups = NULL;
+  private $_optionGroups;
 
   /**
    * Internal list of single instance plugins (external singletons)
@@ -70,6 +70,20 @@ class Loader extends \Papaya\Application\BaseObject {
   }
 
   /**
+   * define available dynamic properties
+   * @param string $name
+   * @return mixed
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'plugins' :
+      case 'options' :
+        return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * define plugins and options as readable properties
    *
    * @param string $name
@@ -93,13 +107,16 @@ class Loader extends \Papaya\Application\BaseObject {
 
   /**
    * Getter/Setter für plugin data list
+   *
+   * @param \Papaya\Plugin\Collection|null $plugins
+   * @return \Papaya\Plugin\Collection
    */
-  public function plugins(\Papaya\Plugin\Collection $plugins = NULL) {
-    if (isset($plugins)) {
+  public function plugins(Collection $plugins = NULL) {
+    if (NULL !== $plugins) {
       $this->_plugins = $plugins;
     }
-    if (is_null($this->_plugins)) {
-      $this->_plugins = new \Papaya\Plugin\Collection();
+    if (NULL === $this->_plugins) {
+      $this->_plugins = new Collection();
       $this->_plugins->activateLazyLoad(
         array('active' => TRUE)
       );
@@ -109,13 +126,16 @@ class Loader extends \Papaya\Application\BaseObject {
 
   /**
    * Getter/Setter für plugin option groups (grouped by module guid)
+   *
+   * @param \Papaya\Plugin\Option\Groups|null $groups
+   * @return \Papaya\Plugin\Option\Groups
    */
-  public function options(\Papaya\Plugin\Option\Groups $groups = NULL) {
-    if (isset($groups)) {
+  public function options(Option\Groups $groups = NULL) {
+    if (NULL !== $groups) {
       $this->_optionGroups = $groups;
     }
-    if (is_null($this->_optionGroups)) {
-      $this->_optionGroups = new \Papaya\Plugin\Option\Groups();
+    if (NULL === $this->_optionGroups) {
+      $this->_optionGroups = new Option\Groups();
     }
     return $this->_optionGroups;
   }
@@ -125,10 +145,9 @@ class Loader extends \Papaya\Application\BaseObject {
    * queries means better performance. The system will now always load all plugins descriptions.
    *
    * @deprecated
-   * @param array $guids
    * @return TRUE
    */
-  public function preload(array $guids = array()) {
+  public function preload() {
     return TRUE;
   }
 
@@ -142,9 +161,8 @@ class Loader extends \Papaya\Application\BaseObject {
     $plugins = $this->plugins();
     if (isset($plugins[$guid])) {
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -160,12 +178,13 @@ class Loader extends \Papaya\Application\BaseObject {
    */
   public function get($guid, $parent = NULL, $data = NULL, $singleInstance = FALSE) {
     $plugins = $this->plugins();
-    if ($pluginData = $plugins[$guid]) {
-      if ($this->preparePluginFile($pluginData)) {
-        $plugin = $this->createObject($pluginData, $parent, $singleInstance);
-        $this->configure($plugin, $data);
-        return $plugin;
-      }
+    if (
+      ($pluginData = $plugins[$guid]) &&
+      $this->preparePluginFile($pluginData)
+    ) {
+      $plugin = $this->createObject($pluginData, $parent, $singleInstance);
+      $this->configure($plugin, $data);
+      return $plugin;
     }
     return NULL;
   }
@@ -184,6 +203,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @return \Object|NULL
    */
   public function getPluginInstance(
+    /** @noinspection PhpUnusedParameterInspection */
     $guid,
     $parent = NULL,
     $data = NULL,
@@ -229,7 +249,7 @@ class Loader extends \Papaya\Application\BaseObject {
       /** @noinspection PhpIncludeInspection */
       if (
         !\Papaya\Autoloader::hasClassMap($path) &&
-        ($classMap = include($path.'/'.$pluginData['classes']))
+        ($classMap = include $path.'/'.$pluginData['classes'])
       ) {
         \Papaya\Autoloader::registerClassMap($path, $classMap);
       }
@@ -247,11 +267,14 @@ class Loader extends \Papaya\Application\BaseObject {
     if (!class_exists($pluginData['class'], TRUE)) {
       $fileName = $this->getPluginPath($pluginData['path']).$pluginData['file'];
       /** @noinspection PhpIncludeInspection */
-      if (!(
-        file_exists($fileName) &&
-        is_readable($fileName) &&
-        include_once($fileName)
-      )) {
+      /** @noinspection UsingInclusionOnceReturnValueInspection */
+      if (
+        !(
+          file_exists($fileName) &&
+          is_readable($fileName) &&
+          include_once $fileName
+        )
+      ) {
         $logMessage = new \Papaya\Message\Log(
           \Papaya\Message\Logable::GROUP_MODULES,
           \Papaya\Message::SEVERITY_ERROR,
@@ -343,7 +366,7 @@ class Loader extends \Papaya\Application\BaseObject {
    */
   public function configure($plugin, $data) {
     \Papaya\Utility\Constraints::assertObject($plugin);
-    if ($plugin instanceof \Papaya\Plugin\Editable) {
+    if ($plugin instanceof Editable) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
       } elseif (is_string($data)) {
