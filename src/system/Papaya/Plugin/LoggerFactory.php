@@ -18,7 +18,7 @@ namespace Papaya\Plugin {
   interface LoggerFactory {
 
     /**
-     * @return \Psr\Log\LoggerInterface|NULL
+     * @return \Papaya\Message\Dispatcher|NULL
      */
     public function createLogger();
   }
