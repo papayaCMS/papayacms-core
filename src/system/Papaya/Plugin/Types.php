@@ -41,7 +41,8 @@ namespace Papaya\Plugin {
       self::CONNECTOR, self::ALIAS,
       self::OUTPUT, self::IMPORT, self::FILTER,
       self::DATE, self::TIME, self::CRON_JOB,
-      self::LOGGER
+      self::LOGGER,
+      self::ADMINISTRATION, self::ADMINISTRATION_PARSER
     ];
   }
 }
