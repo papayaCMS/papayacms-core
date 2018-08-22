@@ -13,9 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Cms;
-use Papaya\Configuration\Cms;
-
 /**
 * Basic options of papaya-cms
 *
@@ -515,7 +512,7 @@ class base_options extends base_db {
   * @return base_options
   */
   public static function getInstance($reset = FALSE) {
-    /** @var Cms $application */
+    /** @var \Papaya\Application\Cms $application */
     $application = \Papaya\Application::getInstance();
     return $application->options;
   }
@@ -527,7 +524,7 @@ class base_options extends base_db {
   */
   function defineDatabaseTables() {
     $options = $this->papaya()->options;
-    if ($options instanceof Cms) {
+    if ($options instanceof \Papaya\Configuration\Cms) {
       $options->defineDatabaseTables();
     }
   }
@@ -541,7 +538,7 @@ class base_options extends base_db {
    */
   function loadAndDefine($loadFromDB = TRUE) {
     $options = $this->papaya()->options;
-    if ($options instanceof Cms) {
+    if ($options instanceof \Papaya\Configuration\Cms) {
       $options->loadAndDefine();
     }
   }
