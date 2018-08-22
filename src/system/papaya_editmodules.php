@@ -168,12 +168,16 @@ class papaya_editmodules extends base_db {
     if ($this->loadModule()) {
       if ($this->checkTables($this->module['modulegroup_tables'])) {
         $this->_moduleInstance = $this->papaya()->plugins->get(
-          $this->module['module_guid']
+          $this->module['module_guid'], $this->layout
         );
-        if (isset($this->_moduleInstance) && is_object($this->_moduleInstance)) {
+        if ($this->_moduleInstance instanceof \Papaya\Administration\Page) {
+
+        } elseif ($this->_moduleInstance instanceof base_module) {
           $this->_moduleInstance->layout = $this->layout;
           $this->_moduleInstance->images = $this->papaya()->images;
           $this->_moduleInstance->authUser = $this->papaya()->administrationUser;
+        }
+        if (NULL !== $this->_moduleInstance) {
           $this->layout->parameters()->assign(
             array(
               'PAGE_TITLE' =>
