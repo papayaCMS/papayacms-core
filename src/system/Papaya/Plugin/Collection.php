@@ -30,6 +30,7 @@ class Collection extends \Papaya\Database\Records\Lazy {
    */
   protected $_fields = array(
     'guid' => 'm.module_guid',
+    'type' => 'm.module_type',
     'class' => 'm.module_class',
     'path' => 'm.module_path',
     'file' => 'm.module_file',
@@ -78,5 +79,21 @@ class Collection extends \Papaya\Database\Records\Lazy {
       $databaseAccess->getTableName($this->_tablePluginGroups)
     );
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
+  }
+
+  /**
+   * Fetch a list of all (active) plugins of a type
+   * @param string $type
+   * @param bool $activeOnly
+   * @return \Papaya\Iterator\Filter\Callback
+   */
+  public function withType($type, $activeOnly = TRUE) {
+    $this->lazyLoad();
+    return new \Papaya\Iterator\Filter\Callback(
+      $this,
+      function($plugin) use ($type, $activeOnly) {
+        return $plugin['type'] === $type && (!$activeOnly || $plugin['active']);
+      }
+    );
   }
 }

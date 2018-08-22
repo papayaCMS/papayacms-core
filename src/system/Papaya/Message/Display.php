@@ -81,6 +81,15 @@ class Display
   }
 
   /**
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
+  public function getSeverity() {
+    return $this->_type;
+  }
+
+  /**
    * Get message string
    *
    * @return string

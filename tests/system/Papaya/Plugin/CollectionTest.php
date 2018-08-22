@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class CollectionTest extends \Papaya\TestCase {
@@ -30,6 +31,7 @@ class CollectionTest extends \Papaya\TestCase {
         $this->onConsecutiveCalls(
           array(
             'module_guid' => '123',
+            'module_type' => Types::PAGE,
             'module_class' => 'SampleClass',
             'module_path' => '/Sample/Path',
             'module_file' => 'SampleFile.php',
@@ -53,6 +55,7 @@ class CollectionTest extends \Papaya\TestCase {
       array(
         '123' => array(
           'guid' => '123',
+          'type' => Types::PAGE,
           'class' => 'SampleClass',
           'path' => '/Sample/Path',
           'file' => 'SampleFile.php',
@@ -63,5 +66,72 @@ class CollectionTest extends \Papaya\TestCase {
       ),
       iterator_to_array($list)
     );
+  }
+
+  public function testWithType() {
+    $databaseResult = $this->createMock(\Papaya\Database\Result::class);
+    $databaseResult
+      ->expects($this->atLeastOnce())
+      ->method('fetchRow')
+      ->will(
+        $this->onConsecutiveCalls(
+          array(
+            'module_guid' => '123',
+            'module_type' => Types::PAGE,
+            'module_class' => 'SampleClassOne',
+            'module_path' => '/Sample/Path',
+            'module_file' => 'SampleFile.php',
+            'module_active' => '1',
+            'modulegroup_prefix' => 'SamplePrefix',
+            'modulegroup_classes' => '_classmap.php'
+          ),
+          array(
+            'module_guid' => '456',
+            'module_type' => Types::BOX,
+            'module_class' => 'SampleClassTwo',
+            'module_path' => '/Sample/Path',
+            'module_file' => 'SampleFile.php',
+            'module_active' => '1',
+            'modulegroup_prefix' => 'SamplePrefix',
+            'modulegroup_classes' => '_classmap.php'
+          ),
+          array(
+            'module_guid' => '789',
+            'module_type' => Types::PAGE,
+            'module_class' => 'SampleClassTwo',
+            'module_path' => '/Sample/Path',
+            'module_file' => 'SampleFile.php',
+            'module_active' => '0',
+            'modulegroup_prefix' => 'SamplePrefix',
+            'modulegroup_classes' => '_classmap.php'
+          ),
+          FALSE
+        )
+      );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
+    $databaseAccess
+      ->expects($this->once())
+      ->method('queryFmt')
+      ->with($this->isType('string'), $this->equalTo(array('table_modules', 'table_modulegroups')))
+      ->will($this->returnValue($databaseResult));
+    $list = new Collection();
+    $list->setDatabaseAccess($databaseAccess);
+    $this->assertTrue($list->load());
+    $this->assertEquals(
+      array(
+        '123' => array(
+          'guid' => '123',
+          'type' => Types::PAGE,
+          'class' => 'SampleClassOne',
+          'path' => '/Sample/Path',
+          'file' => 'SampleFile.php',
+          'active' => TRUE,
+          'prefix' => 'SamplePrefix',
+          'classes' => '_classmap.php',
+        )
+      ),
+      iterator_to_array($list->withType(Types::PAGE))
+    );
+
   }
 }

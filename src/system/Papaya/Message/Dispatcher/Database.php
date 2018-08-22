@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Message\Dispatcher;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Dispatcher Database, handles messages logged to the database
  *
@@ -25,7 +28,18 @@ namespace Papaya\Message\Dispatcher;
  */
 class Database
   extends \Papaya\Database\BaseObject
-  implements \Papaya\Message\Dispatcher {
+  implements Message\Dispatcher {
+
+  private static $_SEVERITY_TYPES = array(
+    Message::SEVERITY_DEBUG => 3,
+    Message::SEVERITY_INFO => 0,
+    Message::SEVERITY_NOTICE => 0,
+    Message::SEVERITY_WARNING => 1,
+    Message::SEVERITY_ERROR => 2,
+    Message::SEVERITY_CRITICAL => 2,
+    Message::SEVERITY_ALERT => 2,
+    Message::SEVERITY_EMERGENCY => 2
+  );
 
   /**
    * Name of logging table
@@ -44,11 +58,11 @@ class Database
   /**
    * Log messages to database
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    * @return boolean
    */
-  public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \Papaya\Message\Logable) {
+  public function dispatch(Message $message) {
+    if ($message instanceof Message\Logable) {
       if ($this->allow($message)) {
         return $this->save($message);
       }
@@ -59,14 +73,14 @@ class Database
   /**
    * Check if the current message should be logged
    *
-   * @param \Papaya\Message|\Papaya\Message\Logable $message
+   * @param Message|Message\Logable $message
    * @return bool
    */
-  public function allow(\Papaya\Message\Logable $message) {
+  public function allow(Message\Logable $message) {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_PROTOCOL_DATABASE', FALSE)) {
-      switch ($message->getType()) {
-        case \Papaya\Message::SEVERITY_DEBUG:
+      switch ($message->getSeverity()) {
+        case Message::SEVERITY_DEBUG:
           return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
       }
       return TRUE;
@@ -78,22 +92,22 @@ class Database
   /**
    * Save the message to database
    *
-   * @param \Papaya\Message|\Papaya\Message\Logable $message
+   * @param Message|Message\Logable $message
    * @return bool
    */
-  protected function save(\Papaya\Message\Logable $message) {
+  protected function save(Message\Logable $message) {
     $url = new \Papaya\URL\Current();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
-    if ($message->context() instanceof \Papaya\Message\Context\Interfaces\XHTML) {
+    if ($message->context() instanceof Message\Context\Interfaces\XHTML) {
       $details .= $message->context()->asXhtml();
     }
-    $cookies = ($message instanceof \Papaya\Message\PHP\Error && !empty($_SERVER['HTTP_COOKIE']))
+    $cookies = ($message instanceof Message\PHP\Error && !empty($_SERVER['HTTP_COOKIE']))
       ? $_SERVER['HTTP_COOKIE'] : '';
     $values = array(
       'log_time' => time(),
       'log_msgtype' => $message->getGroup(),
-      'log_msgno' => $message->getType(),
+      'log_msgno' => isset(self::$_SEVERITY_TYPES[$message->getSeverity()]) ? self::$_SEVERITY_TYPES[$message->getSeverity()] : 0,
       'log_msg_short' => $message->getMessage(),
       'log_msg_long' => $details,
       'log_msg_uri' => $url->getURL(),

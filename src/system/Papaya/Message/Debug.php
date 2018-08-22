@@ -78,6 +78,15 @@ class Debug
   }
 
   /**
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
+  public function getSeverity() {
+    return \Papaya\Message::SEVERITY_DEBUG;
+  }
+
+  /**
    * Get message string
    *
    * @return string

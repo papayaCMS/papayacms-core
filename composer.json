@@ -8,11 +8,12 @@
     "files" : ["src/core.php"]
   },
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=5.6.0",
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-xsl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "psr/log": "1.*"
   },
   "require-dev": {
     "papaya/cms-administration": "dev-master",

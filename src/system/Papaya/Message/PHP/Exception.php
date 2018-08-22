@@ -39,8 +39,8 @@ class Exception
     $this
       ->_context
       ->append(
-        is_null($trace)
-          ? new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
+        NULL === $trace
+          ? new \Papaya\Message\Context\Exception($exception)
           : $trace
       );
   }

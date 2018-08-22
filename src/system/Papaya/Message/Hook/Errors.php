@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Message\Hook;
+
+use Papaya\Message;
+
 if (!defined('E_RECOVERABLE_ERROR')) {
   /**
    * Available since PHP 5.2, define if not here
@@ -49,14 +52,14 @@ if (!defined('E_USER_DEPRECATED')) {
  * @subpackage Messages
  */
 class Errors
-  implements \Papaya\Message\Hook {
+  implements Message\Hook {
 
   /**
    * Message manger object to dispatch the created messages
    *
-   * @var \Papaya\Message\Manager
+   * @var Message\Manager
    */
-  private $_messageManager = NULL;
+  private $_messageManager;
 
   /**
    * Count errors messages, currently used for duplicate check
@@ -72,7 +75,7 @@ class Errors
    *
    * @var array
    */
-  private $_exceptionHook = NULL;
+  private $_exceptionHook;
 
   /**
    * List of nonfatal error severities
@@ -88,11 +91,11 @@ class Errors
   /**
    * Create hook and set message manager object
    *
-   * @param \Papaya\Message\Manager $messageManager
-   * @param \Papaya\Message\Hook\Exceptions $exceptionHook
+   * @param Message\Manager $messageManager
+   * @param Exceptions $exceptionHook
    */
   public function __construct(
-    \Papaya\Message\Manager $messageManager, \Papaya\Message\Hook\Exceptions $exceptionHook = NULL
+    Message\Manager $messageManager, Exceptions $exceptionHook = NULL
   ) {
     $this->_messageManager = $messageManager;
     $this->_exceptionHook = $exceptionHook;
@@ -124,12 +127,13 @@ class Errors
    * @param integer $line
    * @param mixed $context
    * @return bool
+   * @throws \Exception
    */
   public function handle($severity, $text, $file, $line, $context) {
     $errorReporting = error_reporting();
-    if (($errorReporting & $severity) == $severity) {
+    if (($errorReporting & $severity) === $severity) {
       try {
-        if (in_array($severity, $this->_nonfatalErrors)) {
+        if (in_array($severity, $this->_nonfatalErrors, TRUE)) {
           if (!$this->checkErrorDuplicates($severity, $file, $line)) {
             // @codeCoverageIgnoreStart
             /*
@@ -137,12 +141,12 @@ class Errors
             If the Autoloader is not working and the class does not exist yes,
             we disable the internal handling and let php take over.
             */
-            if (!class_exists(\Papaya\Message\PHP\Error::class)) {
+            if (!class_exists(Message\PHP\Error::class)) {
               return FALSE;
             }
             // @codeCoverageIgnoreEnd
             $this->_messageManager->dispatch(
-              new \Papaya\Message\PHP\Error($severity, $text, $context)
+              new Message\PHP\Error($severity, $text, $context)
             );
           }
         } else {
@@ -150,7 +154,7 @@ class Errors
             new \ErrorException($text, 0, $severity, $file, $line)
           );
         }
-      } catch (\ErrorException $e) {
+      } /** @noinspection PhpRedundantCatchClauseInspection */ catch (\ErrorException $e) {
         return $this->handleException($e);
       } catch (\Exception $e) {
         return FALSE;
@@ -159,13 +163,17 @@ class Errors
     return TRUE;
   }
 
+  /**
+   * @param \Exception $exception
+   * @return bool
+   * @throws \Exception
+   */
   private function handleException(\Exception $exception) {
-    if (isset($this->_exceptionHook)) {
+    if (NULL !== $this->_exceptionHook) {
       $this->_exceptionHook->handle($exception);
       return TRUE;
-    } else {
-      throw $exception;
     }
+    throw $exception;
   }
 
   /**
@@ -181,9 +189,8 @@ class Errors
     $hash = md5($severity.'|'.$file.'|'.$line);
     if (isset($this->_previousErrors[$hash])) {
       return $this->_previousErrors[$hash]++;
-    } else {
-      $this->_previousErrors[$hash] = 1;
-      return 0;
     }
+    $this->_previousErrors[$hash] = 1;
+    return 0;
   }
 }

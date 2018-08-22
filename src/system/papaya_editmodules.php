@@ -57,13 +57,18 @@ class papaya_editmodules extends base_db {
   private $_moduleInstance;
 
   /**
-  * Constructor
-  *
-  * @param string $moduleClass optional, default value ''
-  * @access public
-  */
-  function __construct($moduleClass = '') {
-    $this->moduleClass = $moduleClass;
+   * @var string
+   */
+  private $_moduleGuid;
+
+  /**
+   * Constructor
+   *
+   * @param string $moduleGuid
+   * @access public
+   */
+  function __construct($moduleGuid = '') {
+    $this->_moduleGuid = $moduleGuid;
   }
 
   /**
@@ -107,8 +112,8 @@ class papaya_editmodules extends base_db {
             }
             $result[] = array($module['module_title'], $module['module_title'],
               $glyph, 0,
-              'module_'.$module['module_class'].'.php', '_self',
-              $this->moduleClass == $module['module_class'], NULL, TRUE);
+              'module_'.$module['module_guid'].'.php', '_self',
+              $this->_moduleGuid == $module['module_guid'], NULL, TRUE);
           }
         }
 
@@ -141,9 +146,9 @@ class papaya_editmodules extends base_db {
                    mg.modulegroup_tables
               FROM %s m
               LEFT OUTER JOIN %s mg ON mg.modulegroup_id = m.modulegroup_id
-             WHERE module_class = '%s' AND module_active = 1";
+             WHERE module_guid = '%s' AND module_active = 1";
     $params = array($this->tableModules,
-      $this->tableModulegroups, $this->moduleClass);
+      $this->tableModulegroups, $this->_moduleGuid);
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->module = $row;
@@ -163,12 +168,16 @@ class papaya_editmodules extends base_db {
     if ($this->loadModule()) {
       if ($this->checkTables($this->module['modulegroup_tables'])) {
         $this->_moduleInstance = $this->papaya()->plugins->get(
-          $this->module['module_guid']
+          $this->module['module_guid'], $this->layout
         );
-        if (isset($this->_moduleInstance) && is_object($this->_moduleInstance)) {
+        if ($this->_moduleInstance instanceof \Papaya\Administration\Page) {
+
+        } elseif ($this->_moduleInstance instanceof base_module) {
           $this->_moduleInstance->layout = $this->layout;
           $this->_moduleInstance->images = $this->papaya()->images;
           $this->_moduleInstance->authUser = $this->papaya()->administrationUser;
+        }
+        if (NULL !== $this->_moduleInstance) {
           $this->layout->parameters()->assign(
             array(
               'PAGE_TITLE' =>
@@ -206,7 +215,11 @@ class papaya_editmodules extends base_db {
   */
   function execute() {
     if (isset($this->_moduleInstance) && is_object($this->_moduleInstance)) {
-      $this->_moduleInstance->execModule();
+      if ($this->_moduleInstance instanceof Papaya\Administration\Page) {
+        $this->_moduleInstance->execute();
+      } elseif (method_exists($this->_moduleInstance, 'execModule')) {
+        $this->_moduleInstance->execModule();
+      }
     } elseif (isset($this->modules) &&
        is_array($this->modules) && count($this->modules) > 0) {
       $administrationUser = $this->papaya()->administrationUser;
@@ -335,7 +348,7 @@ class papaya_editmodules extends base_db {
           $result .= sprintf(
             '<listitem image="%s" href="%s" title="%s" subtitle="%s">',
             papaya_strings::escapeHTMLChars($glyph),
-            papaya_strings::escapeHTMLChars('module_'.$module['module_class'].'.php'),
+            papaya_strings::escapeHTMLChars('module_'.$module['module_guid'].'.php'),
             papaya_strings::escapeHTMLChars($module['module_title']),
             papaya_strings::escapeHTMLChars($basePath.'/...')
           );

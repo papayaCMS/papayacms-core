@@ -64,24 +64,24 @@ class CliTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\CLI::getOptionsFromType
+   * @covers \Papaya\Message\Dispatcher\CLI::getLabelFromType
    */
   public function testGetOptionsFromType() {
     $dispatcher = new CLI();
     $this->assertContains(
       'Warning',
-      $dispatcher->getOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
+      $dispatcher->getLabelFromType(\Papaya\Message::SEVERITY_WARNING)
     );
   }
 
   /**
-   * @covers \Papaya\Message\Dispatcher\CLI::getOptionsFromType
+   * @covers \Papaya\Message\Dispatcher\CLI::getLabelFromType
    */
   public function testGetOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
     $dispatcher = new CLI();
     $this->assertContains(
       'Error',
-      $dispatcher->getOptionsFromType(99999)
+      $dispatcher->getLabelFromType(99999)
     );
   }
 
@@ -123,7 +123,7 @@ class CliTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->any())
@@ -158,7 +158,7 @@ class CliTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())

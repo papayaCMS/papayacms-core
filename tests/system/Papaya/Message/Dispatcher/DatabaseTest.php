@@ -49,15 +49,15 @@ namespace Papaya\Message\Dispatcher {
         ->method('getGroup')
         ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
       $message
-        ->expects($this->exactly(2))
-        ->method('getType')
+        ->expects($this->atLeastOnce())
+        ->method('getSeverity')
         ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('getMessage')
         ->will($this->returnValue('Sample message'));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('context')
         ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
       $dispatcher = new Database();
@@ -110,15 +110,15 @@ namespace Papaya\Message\Dispatcher {
         ->method('getGroup')
         ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
       $message
-        ->expects($this->exactly(2))
-        ->method('getType')
+        ->expects($this->atLeastOnce())
+        ->method('getSeverity')
         ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('getMessage')
         ->will($this->returnValue('Sample message'));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('context')
         ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
       $dispatcher = new Database();
@@ -157,7 +157,7 @@ namespace Papaya\Message\Dispatcher {
       $message = $this->createMock(\Papaya\Message\Logable::class);
       $message
         ->expects($this->once())
-        ->method('getType')
+        ->method('getSeverity')
         ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
       $dispatcher = new Database();
       $dispatcher->papaya(
@@ -202,15 +202,15 @@ namespace Papaya\Message\Dispatcher {
         ->method('getGroup')
         ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
       $message
-        ->expects($this->exactly(2))
-        ->method('getType')
+        ->expects($this->atLeastOnce())
+        ->method('getSeverity')
         ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('getMessage')
         ->will($this->returnValue('Sample message'));
       $message
-        ->expects($this->exactly(2))
+        ->expects($this->atLeastOnce())
         ->method('context')
         ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
       $dispatcher = new Dispatcher_DatabaseProxy();
@@ -248,7 +248,7 @@ namespace Papaya\Message\Dispatcher {
       $message = $this->createMock(\Papaya\Message\Logable::class);
       $message
         ->expects($this->any())
-        ->method('getType')
+        ->method('getSeverity')
         ->will($this->returnValue($type));
       $dispatcher = new Database();
       $dispatcher->papaya(
