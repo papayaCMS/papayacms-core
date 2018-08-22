@@ -1049,7 +1049,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var \Papaya\Application\Cms $application */
+        /** @var \Papaya\Application\CMS $application */
         $application = \Papaya\Application::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE

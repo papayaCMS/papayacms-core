@@ -23,7 +23,7 @@ namespace Papaya\Application;
  * @property \Papaya\UI\Images images
  * @property \Papaya\Content\Languages $languages
  * @property \Papaya\Message\Manager $messages
- * @property \Papaya\Configuration\Cms $options
+ * @property \Papaya\Configuration\CMS $options
  * @property \Papaya\Plugin\Loader $plugins
  * @property \Papaya\Profiler $profiler
  * @property \Papaya\Request $request
@@ -36,6 +36,6 @@ namespace Papaya\Application;
  * @property \Papaya\UI\Reference\Page\Factory $pageReferences
  * @property \Papaya\Phrases $phrases
  */
-abstract class Cms extends \Papaya\Application {
+abstract class CMS extends \Papaya\Application {
 
 }

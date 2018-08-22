@@ -33,7 +33,7 @@ class UserTest extends \Papaya\TestCase {
   * @covers \Papaya\Application\Profile\Administration\User::createObject
   */
   public function testCreateObject() {
-    $options = $this->createMock(\Papaya\Configuration\Cms::class);
+    $options = $this->createMock(\Papaya\Configuration\CMS::class);
     $options
       ->expects($this->once())
       ->method('defineDatabaseTables');

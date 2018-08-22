@@ -23,7 +23,7 @@ use Papaya\Application\Profile;
  * @package Papaya-Library
  * @subpackage Application
  */
-class Cms implements \Papaya\Application\Profiles {
+class CMS implements \Papaya\Application\Profiles {
 
   /**
    * Get a collection of application object profiles

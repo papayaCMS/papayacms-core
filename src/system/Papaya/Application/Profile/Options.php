@@ -27,10 +27,10 @@ class Options implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \Papaya\Configuration\Cms
+   * @return \Papaya\Configuration\CMS
    */
   public function createObject($application) {
-    $options = new \Papaya\Configuration\Cms();
+    $options = new \Papaya\Configuration\CMS();
     $options->storage(new \Papaya\Configuration\Storage\Database());
     return $options;
   }

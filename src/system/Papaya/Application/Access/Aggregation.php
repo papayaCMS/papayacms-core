@@ -22,7 +22,7 @@ namespace Papaya\Application\Access {
      * An combined getter/setter for the Papaya Application object
      *
      * @param \Papaya\Application $application
-     * @return \Papaya\Application\Cms|\Papaya\Application
+     * @return \Papaya\Application\CMS|\Papaya\Application
      */
     public function papaya(\Papaya\Application $application = NULL) {
       if (NULL !== $application) {

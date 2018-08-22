@@ -438,7 +438,7 @@ class papaya_systemtest {
    * @return integer
    */
   function testDatabaseConnection($title) {
-    /** @var \Papaya\Application\Cms $application */
+    /** @var \Papaya\Application\CMS $application */
     $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
@@ -459,7 +459,7 @@ class papaya_systemtest {
   */
   function testDatabasePermissions() {
     try {
-      /** @var \Papaya\Application\Cms $application */
+      /** @var \Papaya\Application\CMS $application */
       $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
       if ($database->connect($this, FALSE)) {

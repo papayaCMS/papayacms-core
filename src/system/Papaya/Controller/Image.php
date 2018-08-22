@@ -50,7 +50,7 @@ class Image implements \Papaya\Controller {
   /**
    * Execute controller
    *
-   * @param \Papaya\Application|\Papaya\Application\Cms $application
+   * @param \Papaya\Application|\Papaya\Application\CMS $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
    * @return boolean|\Papaya\Controller

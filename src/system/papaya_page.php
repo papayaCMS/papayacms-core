@@ -234,7 +234,7 @@ class papaya_page extends base_object {
     Request\Log::getInstance();
     $application = $this->papaya();
     $application->registerProfiles(
-      new Application\Profiles\Cms()
+      new Application\Profiles\CMS()
     );
     $application->profiler->start();
     if (!defined('PAPAYA_ADMIN_PAGE')) {

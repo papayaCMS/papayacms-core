@@ -31,7 +31,7 @@ define(
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Cms extends GlobalValues {
+class CMS extends GlobalValues {
 
   /**
    * This is a list of all available options and their default values.

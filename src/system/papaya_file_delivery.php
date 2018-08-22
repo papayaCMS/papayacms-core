@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Cms;
+use Papaya\Application\CMS;
 
 /**
 * Deliver binary content
@@ -346,7 +346,7 @@ class papaya_file_delivery {
   * @access private
   */
   public static function _closeSession() {
-    /** @var Cms $application */
+    /** @var CMS $application */
     $application = \Papaya\Application::getInstance();
     $application->session->close();
   }

@@ -17,30 +17,30 @@ namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CmsTest extends \Papaya\TestCase {
+class CMSTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Configuration\Cms::__construct
+   * @covers \Papaya\Configuration\CMS::__construct
    */
   public function testConstructor() {
-    $configuration = new Cms();
+    $configuration = new CMS();
     $this->assertNotEmpty(
       iterator_to_array($configuration->getIterator())
     );
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::getOptionsList
+   * @covers \Papaya\Configuration\CMS::getOptionsList
    */
   public function testGetOptionsList() {
-    $configuration = new Cms();
+    $configuration = new CMS();
     $this->assertNotEmpty(
       $configuration->getOptionsList()
     );
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::loadAndDefine
+   * @covers \Papaya\Configuration\CMS::loadAndDefine
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -50,16 +50,16 @@ class CmsTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('load')
       ->will($this->returnValue(FALSE));
-    $configuration = new Cms();
+    $configuration = new CMS();
     $configuration->storage($storage);
     $this->assertFalse($configuration->loadAndDefine());
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::loadAndDefine
-   * @covers \Papaya\Configuration\Cms::defineConstants
-   * @covers \Papaya\Configuration\Cms::setupPaths
-   * @covers \Papaya\Configuration\Cms::defineDatabaseTables
+   * @covers \Papaya\Configuration\CMS::loadAndDefine
+   * @covers \Papaya\Configuration\CMS::defineConstants
+   * @covers \Papaya\Configuration\CMS::setupPaths
+   * @covers \Papaya\Configuration\CMS::defineDatabaseTables
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
@@ -73,18 +73,18 @@ class CmsTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('getIterator')
       ->will($this->returnValue(new \ArrayIterator(array())));
-    $configuration = new Cms();
+    $configuration = new CMS();
     $configuration->storage($storage);
     $this->assertTrue($configuration->loadAndDefine());
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::setupPaths
+   * @covers \Papaya\Configuration\CMS::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
   public function testSetupPathsDefaultLocal() {
-    $configuration = new Cms();
+    $configuration = new CMS();
     $configuration->setupPaths();
     $this->assertEquals('cache/', $configuration['PAPAYA_PATH_CACHE']);
     $this->assertEquals('media/', $configuration['PAPAYA_MEDIA_STORAGE_DIRECTORY']);
@@ -97,14 +97,14 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::setupPaths
+   * @covers \Papaya\Configuration\CMS::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
   public function testSetupPathsLocal() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root/';
 
-    $configuration = new Cms();
+    $configuration = new CMS();
     $configuration['PAPAYA_PATH_DATA'] = '/data/path/';
     $configuration['PAPAYA_PATH_PUBLICFILES'] = '/public/files/';
     $configuration->setupPaths();
@@ -121,14 +121,14 @@ class CmsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Configuration\Cms::setupPaths
+   * @covers \Papaya\Configuration\CMS::setupPaths
    * @preserveGlobalState disabled
    * @runInSeparateProcess
    */
   public function testSetupPathsAwsS3() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root/';
 
-    $configuration = new Cms();
+    $configuration = new CMS();
     $configuration['PAPAYA_PATH_DATA'] = '/data/path/';
     $configuration['PAPAYA_MEDIA_STORAGE_SERVICE'] = 's3';
     $configuration->setupPaths();

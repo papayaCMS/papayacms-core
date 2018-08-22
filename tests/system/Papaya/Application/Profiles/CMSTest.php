@@ -19,15 +19,15 @@ use Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CmsTest extends \Papaya\TestCase {
+class CMSTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Application\Profiles\Cms::getProfiles
+   * @covers \Papaya\Application\Profiles\CMS::getProfiles
    */
   public function testGetProfiles() {
     /** @var \Papaya\Application $application */
     $application = $this->createMock(\Papaya\Application::class);
-    $profiles = new Cms();
+    $profiles = new CMS();
     $list = $profiles->getProfiles($application);
     $this->assertEquals(
       array(

@@ -149,6 +149,7 @@ class Autoloader {
     'Apc' => 'APC',
     'Ascii' => 'ASCII',
     'Ast' => 'AST',
+    'Cms' => 'CMS',
     'Cli' => 'CLI',
     'Css' => 'CSS',
     'Csv' => 'CSV',

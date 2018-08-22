@@ -26,7 +26,7 @@ interface Access {
    * Getter/Setter for the application registry
    *
    * @param \Papaya\Application $application
-   * @return \Papaya\Application\Cms
+   * @return \Papaya\Application\CMS
    */
   public function papaya(\Papaya\Application $application = NULL);
 }
