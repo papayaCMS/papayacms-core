@@ -384,4 +384,13 @@ class Loader extends \Papaya\Application\BaseObject {
       }
     }
   }
+
+  public function withType($type) {
+    return new \Papaya\Iterator\Callback(
+      $this->plugins()->withType($type),
+      function($data, $guid) {
+        return $this->get($guid);
+      }
+    );
+  }
 }

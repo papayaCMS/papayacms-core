@@ -25,7 +25,7 @@ class Messages implements \Papaya\Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
    * @return \Papaya\Message\Manager
    */
   public function createObject($application) {
@@ -34,6 +34,17 @@ class Messages implements \Papaya\Application\Profile {
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Database());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Wildfire());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\XHTML());
+    $plugins = $application->plugins;
+    if (NULL !== $plugins) {
+      foreach ($plugins->withType(\Papaya\Plugin\Types::LOGGER) as $plugin) {
+        if (
+          $plugin instanceof \Papaya\Plugin\LoggerFactory &&
+          ($logger = $plugin->createLogger())
+        ) {
+          $messages->addDispatcher(new \Papaya\Message\Dispatcher\PSR3($logger));
+        }
+      }
+    }
     return $messages;
   }
 }
