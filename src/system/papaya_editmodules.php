@@ -211,7 +211,11 @@ class papaya_editmodules extends base_db {
   */
   function execute() {
     if (isset($this->_moduleInstance) && is_object($this->_moduleInstance)) {
-      $this->_moduleInstance->execModule();
+      if ($this->_moduleInstance instanceof Papaya\Administration\Page) {
+        $this->_moduleInstance->execute();
+      } elseif (method_exists($this->_moduleInstance, 'execModule')) {
+        $this->_moduleInstance->execModule();
+      }
     } elseif (isset($this->modules) &&
        is_array($this->modules) && count($this->modules) > 0) {
       $administrationUser = $this->papaya()->administrationUser;
