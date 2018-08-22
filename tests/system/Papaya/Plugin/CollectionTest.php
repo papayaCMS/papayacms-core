@@ -122,7 +122,7 @@ class CollectionTest extends \Papaya\TestCase {
         '123' => array(
           'guid' => '123',
           'type' => Types::PAGE,
-          'class' => 'SampleClass',
+          'class' => 'SampleClassOne',
           'path' => '/Sample/Path',
           'file' => 'SampleFile.php',
           'active' => TRUE,
