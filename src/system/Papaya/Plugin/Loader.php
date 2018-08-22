@@ -384,4 +384,8 @@ class Loader extends \Papaya\Application\BaseObject {
       }
     }
   }
+
+  public function byType($type) {
+
+  }
 }
