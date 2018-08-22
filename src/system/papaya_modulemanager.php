@@ -62,9 +62,7 @@ class papaya_modulemanager extends base_db {
    * Module types
    * @var array $moduleTypes
    */
-  var $moduleTypes = array('page', 'box', 'admin', 'cronjob', 'time', 'date',
-    'output', 'import', 'image', 'parser', 'datafilter', 'statistic',
-    'connector', 'alias', 'logger');
+  var $moduleTypes = \Papaya\Plugin\Types::ALL;
 
   /**
    * Packages
