@@ -16,7 +16,6 @@
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
-use Psr\Log;
 
 /**
  * Papaya Message Dispatcher PSR-3 implements the PHP-FIG interface for logging
@@ -39,19 +38,20 @@ class PSR3
   const LEVEL_EMERGENCY = 0;
 
   private static $_SEVERITY_LEVELS = array(
-    Message::SEVERITY_DEBUG => Log\LogLevel::DEBUG,
-    Message::SEVERITY_INFO => Log\LogLevel::INFO,
-    Message::SEVERITY_NOTICE => Log\LogLevel::NOTICE,
-    Message::SEVERITY_WARNING => Log\LogLevel::WARNING,
-    Message::SEVERITY_ERROR => Log\LogLevel::ERROR,
-    Message::SEVERITY_CRITICAL => Log\LogLevel::CRITICAL,
-    Message::SEVERITY_ALERT => Log\LogLevel::ALERT,
-    Message::SEVERITY_EMERGENCY => Log\LogLevel::EMERGENCY
+    Message::SEVERITY_DEBUG => \Psr\Log\LogLevel::DEBUG,
+    Message::SEVERITY_INFO => \Psr\Log\LogLevel::INFO,
+    Message::SEVERITY_NOTICE => \Psr\Log\LogLevel::NOTICE,
+    Message::SEVERITY_WARNING => \Psr\Log\LogLevel::WARNING,
+    Message::SEVERITY_ERROR => \Psr\Log\LogLevel::ERROR,
+    Message::SEVERITY_CRITICAL => \Psr\Log\LogLevel::CRITICAL,
+    Message::SEVERITY_ALERT => \Psr\Log\LogLevel::ALERT,
+    Message::SEVERITY_EMERGENCY => \Psr\Log\LogLevel::EMERGENCY
   );
 
   private $_logger;
+  private $_enabled = TRUE;
 
-  public function __construct(Log\LoggerInterface $logger = NULL) {
+  public function __construct(\Psr\Log\LoggerInterface $logger = NULL) {
     $this->_logger = $logger;
   }
 
@@ -64,6 +64,7 @@ class PSR3
    */
   public function dispatch(Message $message) {
     if (
+      $this->_enabled &&
       $message instanceof Message\Logable
     ) {
       $this->send($message);
@@ -78,12 +79,19 @@ class PSR3
    * @throws \InvalidArgumentException
    */
   public function send(Message\Logable $message) {
-    $this->_logger->log(
-      isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
-        ? self::$_SEVERITY_LEVELS[$message->getSeverity()]  : Log\LogLevel::DEBUG,
-      $message->getMessage(),
-      $this->getContextAsArray($message->context())
-    );
+    try {
+      $this->_logger->log(
+        isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
+          ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : \Psr\Log\LogLevel::DEBUG,
+        $message->getMessage(),
+        $this->getContextAsArray($message->context()) ?: array()
+      );
+    } catch (\Exception $e) {
+      $this->_enabled = FALSE;
+      $this->papaya()->messages->dispatch(
+        new Message\Exception($e)
+      );
+    }
   }
 
   private function getContextAsArray(Message\Context\Group $group) {
