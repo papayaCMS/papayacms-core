@@ -17,13 +17,31 @@ namespace Papaya\Plugin {
   interface Types {
     const PAGE = 'page';
     const BOX = 'box';
+    const IMAGE = 'image';
 
     const CONNECTOR = 'connector';
-    const FILTER = 'filter';
+
+    const ALIAS = 'alias';
+
+    const OUTPUT = 'output';
+    const IMPORT = 'import';
+    const FILTER = 'datafilter';
 
     const ADMINISTRATION = 'admin';
+    const ADMINISTRATION_PARSER = 'parser';
 
+    const DATE = 'date';
+    const TIME = 'time';
     const CRON_JOB = 'cronjob';
-    const CRON_TIME = 'crontime';
+
+    const LOGGER = 'logger';
+
+    const ALL = [
+      self::PAGE, self::BOX, self::IMAGE,
+      self::CONNECTOR, self::ALIAS,
+      self::OUTPUT, self::IMPORT, self::FILTER,
+      self::DATE, self::TIME, self::CRON_JOB,
+      self::LOGGER
+    ];
   }
 }
