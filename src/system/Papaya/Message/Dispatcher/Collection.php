@@ -28,7 +28,9 @@ namespace Papaya\Message\Dispatcher {
     extends \Papaya\BaseObject\Collection
     implements Message\Dispatcher {
 
-    protected $_itemClass = Message\Dispatcher::class;
+    public function __construct() {
+      parent::__construct(Message\Dispatcher::class);
+    }
 
     /**
      * @param Message $message

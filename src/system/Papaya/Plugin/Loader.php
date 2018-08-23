@@ -281,7 +281,9 @@ class Loader extends \Papaya\Application\BaseObject {
           sprintf('Can not include module file "%s"', $fileName)
         );
         $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
-        $this->papaya()->messages->dispatch($logMessage);
+        if ($this->papaya()->messages) {
+          $this->papaya()->messages->dispatch($logMessage);
+        }
         return FALSE;
       }
       if (!class_exists($pluginData['class'], FALSE)) {
@@ -291,7 +293,9 @@ class Loader extends \Papaya\Application\BaseObject {
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );
         $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
-        $this->papaya()->messages->dispatch($logMessage);
+        if ($this->papaya()->messages) {
+          $this->papaya()->messages->dispatch($logMessage);
+        }
         return FALSE;
       }
     }
