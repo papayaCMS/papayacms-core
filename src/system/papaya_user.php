@@ -1685,11 +1685,11 @@ class papaya_user extends base_auth {
         $result .= '</listitem>'.LF;
 
         if ($this->permGroupOpened($modId)) {
-          $parent = NULL;
+          $parent = $this->layout;
           $moduleObject = $this->papaya()->plugins->get(
             $module['module_guid'], $parent
           );
-          if ($moduleObject instanceof base_module) {
+          if (property_exists($moduleObject, 'permissions')) {
             $perms = $moduleObject->permissions;
             if (isset($perms) && is_array($perms)) {
               uasort($perms, 'strnatcasecmp');
