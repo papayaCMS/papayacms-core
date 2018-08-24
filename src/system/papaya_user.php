@@ -1726,7 +1726,7 @@ class papaya_user extends base_auth {
             $this->addMsg(
               MSG_ERROR,
               papaya_strings::escapeHTMLChars(
-                sprintf($this->_gt('Cannot initialize module class "%s"'), $module['module_class'])
+                sprintf($this->_gt('Module class "%s" provides no permissions.'), $module['module_class'])
               )
             );
           }
