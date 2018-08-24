@@ -37,16 +37,16 @@ abstract class Page extends \Papaya\Application\BaseObject {
   /**
    * @var \Papaya\Template
    */
-  private $_layout = NULL;
+  private $_layout;
   /**
    * @var Page\Parts
    */
-  private $_parts = NULL;
+  private $_parts;
 
   /**
    * @var \Papaya\UI\Toolbar
    */
-  private $_toolbar = NULL;
+  private $_toolbar;
 
   /**
    * @var string
@@ -75,7 +75,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return \Papaya\Administration\Page\Part|FALSE
+   * @return Page\Part|FALSE
    */
   protected function createContent() {
     return FALSE;
@@ -85,7 +85,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return \Papaya\Administration\Page\Part|FALSE
+   * @return Page\Part|FALSE
    */
   protected function createNavigation() {
     return FALSE;
@@ -95,7 +95,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return \Papaya\Administration\Page\Part|FALSE
+   * @return Page\Part|FALSE
    */
   protected function createInformation() {
     return FALSE;
@@ -105,8 +105,16 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Execute the module and add the xml to the layout object
    */
   public function execute() {
+    if (!$this->validateAccess()) {
+      $this->papaya()->messages->display(
+        \Papaya\Message::SEVERITY_ERROR, new \Papaya\UI\Text\Translated(
+           'Access forbidden.'
+         )
+      );
+      return;
+    }
     $parts = $this->parts();
-    $restoreParameters = ($this->papaya()->request->method == 'get') && !empty($this->_parameterGroup);
+    $restoreParameters = ('get' === $this->papaya()->request->method) && !empty($this->_parameterGroup);
     $parametersName = array(get_class($this), 'parameters', $this->_parameterGroup);
     if ($restoreParameters && $parts->parameters()->isEmpty()) {
       $value = $this->papaya()->session->getValue($parametersName);
@@ -119,10 +127,11 @@ abstract class Page extends \Papaya\Application\BaseObject {
       );
     }
     foreach ($parts as $name => $part) {
-      if ($part instanceof \Papaya\Administration\Page\Part) {
-        if ($xml = $part->getXML()) {
-          $this->_layout->add($xml, $this->parts()->getTarget($name));
-        }
+      if (
+        $part instanceof Page\Part &&
+        ($xml = $part->getXML())
+      ) {
+        $this->_layout->add($xml, $this->parts()->getTarget($name));
       }
     }
     if ($restoreParameters) {
@@ -135,14 +144,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for the parts list
    *
-   * @param \Papaya\Administration\Page\Parts $parts
-   * @return \Papaya\Administration\Page\Parts
+   * @param Page\Parts $parts
+   * @return Page\Parts
    */
-  public function parts(\Papaya\Administration\Page\Parts $parts = NULL) {
+  public function parts(Page\Parts $parts = NULL) {
     if ($parts) {
       $this->_parts = $parts;
     } elseif (NULL === $this->_parts) {
-      $this->_parts = new \Papaya\Administration\Page\Parts($this);
+      $this->_parts = new Page\Parts($this);
       $this->_parts->papaya($this->papaya());
       if (!empty($this->_parameterGroup)) {
         $this->_parts->parameterGroup($this->_parameterGroup);
@@ -158,15 +167,15 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|\Papaya\Administration\Page\Part
+   * @return FALSE|Page\Part
    */
   public function createPart($name) {
     switch ($name) {
-      case \Papaya\Administration\Page\Parts::PART_CONTENT :
+      case Page\Parts::PART_CONTENT :
         return $this->createContent();
-      case \Papaya\Administration\Page\Parts::PART_NAVIGATION :
+      case Page\Parts::PART_NAVIGATION :
         return $this->createNavigation();
-      case \Papaya\Administration\Page\Parts::PART_INFORMATION :
+      case Page\Parts::PART_INFORMATION :
         return $this->createInformation();
     }
     return FALSE;
@@ -188,5 +197,12 @@ abstract class Page extends \Papaya\Application\BaseObject {
       $this->_toolbar->identifier = 'edit';
     }
     return $this->_toolbar;
+  }
+
+  /**
+   * @return bool
+   */
+  public function validateAccess() {
+    return TRUE;
   }
 }

@@ -208,7 +208,7 @@ class Session extends Application\BaseObject {
   /**
    * For backwards compatibility add a shortcut to the values.
    *
-   * @param string $name
+   * @param string|array $name
    * @param mixed $value
    */
   public function setValue($name, $value) {
@@ -218,7 +218,7 @@ class Session extends Application\BaseObject {
   /**
    * For backwards compatibility add a shortcut to the values.
    *
-   * @param string $name
+   * @param string|array $name
    * @return mixed
    */
   public function getValue($name) {

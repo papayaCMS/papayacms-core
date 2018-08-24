@@ -149,7 +149,7 @@ class Parts
    * The toolbar is composed, so the navigation and the changes subobjects can add elements
    *
    * @param \Papaya\UI\Toolbar\Composed $toolbar
-   * @return null|\Papaya\UI\Toolbar\Composed
+   * @return \Papaya\UI\Toolbar\Composed
    */
   public function toolbar(\Papaya\UI\Toolbar\Composed $toolbar = NULL) {
     if (isset($toolbar)) {
