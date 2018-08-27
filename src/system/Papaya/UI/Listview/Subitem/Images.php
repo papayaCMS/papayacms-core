@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 /**
  * A listview subitem displaying multiple icons from a given list.
  *

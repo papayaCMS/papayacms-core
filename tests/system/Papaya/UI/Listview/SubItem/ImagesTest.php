@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class ImagesTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Images::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Images::__construct
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
@@ -33,8 +33,8 @@ class ImagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   * @covers \Papaya\UI\Listview\SubItem\Images::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Images::validateSelection
    */
   public function testAppendToUseValues() {
     $iconValid = $this
@@ -85,8 +85,8 @@ class ImagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   * @covers \Papaya\UI\Listview\SubItem\Images::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Images::validateSelection
    */
   public function testAppendToUseKeys() {
     $iconValid = $this
@@ -141,8 +141,8 @@ class ImagesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Images::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Images::validateSelection
+   * @covers \Papaya\UI\Listview\SubItem\Images::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Images::validateSelection
    */
   public function testAppendToUseBitmask() {
     $iconValid = $this

@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class DateTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Date::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Date::__construct
    */
   public function testConstructor() {
     $now = time();
@@ -30,7 +30,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Date::appendTo
    */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
@@ -46,7 +46,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Date::appendTo
    */
   public function testAppendToDateOnly() {
     $document = new \Papaya\XML\Document();
@@ -65,7 +65,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Date::appendTo
    */
   public function testAppendToWithSeconds() {
     $document = new \Papaya\XML\Document();
@@ -84,7 +84,7 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Date::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Date::appendTo
    */
   public function testAppendToHidesZero() {
     $document = new \Papaya\XML\Document();

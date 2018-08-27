@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 /**
  * An empty listview subitem.
  *
@@ -22,7 +22,7 @@ namespace Papaya\UI\Listview\Subitem;
  * @package Papaya-Library
  * @subpackage UI
  */
-class EmptyValue extends \Papaya\UI\Listview\Subitem {
+class EmptyValue extends \Papaya\UI\Listview\SubItem {
 
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element

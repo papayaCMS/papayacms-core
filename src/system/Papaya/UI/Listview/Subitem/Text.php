@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 /**
  * A simple listview subitem displaying text.
  *
@@ -25,7 +25,7 @@ namespace Papaya\UI\Listview\Subitem;
  * @property array $actionParameters
  * @property \Papaya\UI\Reference $reference
  */
-class Text extends \Papaya\UI\Listview\Subitem {
+class Text extends \Papaya\UI\Listview\SubItem {
 
   /**
    * buffer for text variable

@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class TextTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Text::__construct
    */
   public function testConstructor() {
     $subitem = new Text('Sample text');
@@ -29,7 +29,7 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Text::__construct
    */
   public function testConstructorWithOptionalParameters() {
     $subitem = new Text('Sample text', array('foo' => 'bar'));
@@ -39,7 +39,7 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Text::appendTo
    */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
@@ -55,8 +55,8 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Text::getURL
+   * @covers \Papaya\UI\Listview\SubItem\Text::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Text::getURL
    */
   public function testAppendToWithActionParameters() {
     $reference = $this->mockPapaya()->reference('http://www.example.html');
@@ -75,7 +75,7 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::reference
+   * @covers \Papaya\UI\Listview\SubItem\Text::reference
    */
   public function testReferenceGetSet() {
     $reference = $this->mockPapaya()->reference();
@@ -85,7 +85,7 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Text::reference
+   * @covers \Papaya\UI\Listview\SubItem\Text::reference
    */
   public function testReferenceGetFromListview() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
@@ -95,7 +95,7 @@ class TextTest extends \Papaya\TestCase {
       ->method('reference')
       ->will($this->returnValue($reference));
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(\Papaya\UI\Listview\SubItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

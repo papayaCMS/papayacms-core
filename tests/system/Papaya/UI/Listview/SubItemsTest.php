@@ -16,11 +16,11 @@
 namespace Papaya\UI\Listview;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class SubitemsTest extends \Papaya\TestCase {
+class SubItemsTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitems::__construct
-   * @covers \Papaya\UI\Listview\Subitems::owner
+   * @covers \Papaya\UI\Listview\SubItems::__construct
+   * @covers \Papaya\UI\Listview\SubItems::owner
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Item $item */
@@ -28,14 +28,14 @@ class SubitemsTest extends \Papaya\TestCase {
       ->getMockBuilder(Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $subitems = new Subitems($item);
+    $subitems = new SubItems($item);
     $this->assertSame(
       $item, $subitems->owner()
     );
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitems::getListview
+   * @covers \Papaya\UI\Listview\SubItems::getListview
    */
   public function testGetListview() {
     $listview = $this->createMock(\Papaya\UI\Listview::class);
@@ -56,7 +56,7 @@ class SubitemsTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('collection')
       ->will($this->returnValue($collection));
-    $subitems = new Subitems($item);
+    $subitems = new SubItems($item);
     $this->assertSame(
       $listview, $subitems->getListview()
     );

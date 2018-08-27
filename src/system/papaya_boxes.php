@@ -2054,7 +2054,7 @@ class papaya_boxes extends base_boxes {
 
       if (!isset($this->templateGroups[$group["boxgroup_name"]])) {
         $item->columnSpan = 2;
-        $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Image('status-sign-warning');
+        $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Image('status-sign-warning');
         $subitem->hint = new \Papaya\UI\Text\Translated('Group is not defined in template set.');
       } else {
         $item->columnSpan = 3;
@@ -2090,7 +2090,7 @@ class papaya_boxes extends base_boxes {
           );
           if ($group['boxgroup_linkable']) {
             if (isset($previous)) {
-              $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Image(
+              $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Image(
                 'actions-go-up',
                 '',
                 array(
@@ -2102,7 +2102,7 @@ class papaya_boxes extends base_boxes {
                   )
                 )
               );
-              $previous->subitems[1] = $subitem = new \Papaya\UI\Listview\Subitem\Image(
+              $previous->subitems[1] = $subitem = new \Papaya\UI\Listview\SubItem\Image(
                 'actions-go-down',
                 '',
                 array(
@@ -2115,9 +2115,9 @@ class papaya_boxes extends base_boxes {
                 )
               );
             } else {
-              $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text('');
+              $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Text('');
             }
-            $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text('');
+            $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Text('');
             $previous = $item;
             $previousId = $boxId;
           } else {
@@ -2226,8 +2226,8 @@ class papaya_boxes extends base_boxes {
         $listitem->text = \Papaya\Utility\Text::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text($version['fullname']);
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Image(
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text($version['fullname']);
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
           'actions-recycle',
           new \Papaya\UI\Text\Translated('Recycle'),
           array(
@@ -2770,26 +2770,26 @@ class papaya_boxes extends base_boxes {
         '', new \Papaya\UI\Text\Translated('Name')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text($this->box['box_name']);
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text($this->box['box_name']);
       $listview->items[] = $item = new \Papaya\UI\Listview\Item(
         '', new \Papaya\UI\Text\Translated('Group')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
         $this->boxGroupsList[$this->box['boxgroup_id']]['boxgroup_title']
       );
       $listview->items[] = $item = new \Papaya\UI\Listview\Item(
         '', new \Papaya\UI\Text\Translated('Created')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
         (int)$this->box['box_created']
       );
       $listview->items[] = $item = new \Papaya\UI\Listview\Item(
         '', new \Papaya\UI\Text\Translated('Modified')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
         (int)$this->box['box_modified']
       );
       if (!empty($this->box['box_published'])) {
@@ -2802,7 +2802,7 @@ class papaya_boxes extends base_boxes {
           '', new \Papaya\UI\Text\Translated('Currently public')
         );
         $item->indentation = 1;
-        $item->subitems[] = new \Papaya\UI\Listview\Subitem\Image(
+        $item->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
           $isPublic ? 'status-sign-ok' : 'status-sign-warning',
           new \Papaya\UI\Text\Translated($isPublic ? 'Yes' : 'No')
         );
@@ -2811,7 +2811,7 @@ class papaya_boxes extends base_boxes {
             '', new \Papaya\UI\Text\Translated('From')
           );
           $item->indentation = 2;
-          $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
             (int)$this->box['box_public_from']
           );
         }
@@ -2820,7 +2820,7 @@ class papaya_boxes extends base_boxes {
             '', new \Papaya\UI\Text\Translated('To')
           );
           $item->indentation = 2;
-          $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
             (int)$this->box['box_public_to']
           );
         }
@@ -2838,14 +2838,14 @@ class papaya_boxes extends base_boxes {
               '', new \Papaya\UI\Text\Translated('Title')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               $translation['box_title']
             );
             $listview->items[] = $item = new \Papaya\UI\Listview\Item(
               '', new \Papaya\UI\Text\Translated('View')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               $translation['view_title']
             );
             if (isset($translation['box_trans_published'])) {
@@ -2855,7 +2855,7 @@ class papaya_boxes extends base_boxes {
                   '', new \Papaya\UI\Text\Translated('Status')
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+                $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
                   new \Papaya\UI\Text\Translated('modified')
                 );
               } else {
@@ -2863,7 +2863,7 @@ class papaya_boxes extends base_boxes {
                   '', new \Papaya\UI\Text\Translated('Status')
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+                $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
                   new \Papaya\UI\Text\Translated('published')
                 );
               }
@@ -2871,7 +2871,7 @@ class papaya_boxes extends base_boxes {
                 '', new \Papaya\UI\Text\Translated('Published')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
                 (int)$translation['box_trans_published']
               );
             } else {
@@ -2879,7 +2879,7 @@ class papaya_boxes extends base_boxes {
                 '', new \Papaya\UI\Text\Translated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
                 new \Papaya\UI\Text\Translated('created')
               );
             }
@@ -2887,7 +2887,7 @@ class papaya_boxes extends base_boxes {
               '', new \Papaya\UI\Text\Translated('Modified')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
               (int)$translation['box_trans_modified']
             );
           } else {
@@ -2895,7 +2895,7 @@ class papaya_boxes extends base_boxes {
               '', new \Papaya\UI\Text\Translated('Status')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               new \Papaya\UI\Text\Translated('no content')
             );
           }
@@ -2922,11 +2922,11 @@ class papaya_boxes extends base_boxes {
                 new \Papaya\UI\Text\Translated('Content')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
                 $translation['view_title']
               );
             }
-            $aggregation->subitems[] = new \Papaya\UI\Listview\Subitem\Image(
+            $aggregation->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
               $cacheable ? 'status-sign-ok' : 'status-sign-problem',
               new \Papaya\UI\Text\Translated($cacheable ? 'Yes' : 'No')
             );

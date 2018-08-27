@@ -1489,13 +1489,13 @@ class base_viewlist extends base_db {
       $listview->items[] = $item =
         new \Papaya\UI\Listview\Item('', new \Papaya\UI\Text\Translated('Path'));
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
         \Papaya\Utility\Text::truncate($module['module_path'], 30, '...')
       );
       $listview->items[] = $item =
         new \Papaya\UI\Listview\Item('', new \Papaya\UI\Text\Translated('Class'));
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text($module['module_class']);
+      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text($module['module_class']);
       if ($plugin = $this->papaya()->plugins->get($module['module_guid'])) {
         if ($plugin instanceof \Papaya\Plugin\Cacheable) {
           $listview->items[] = $item =
@@ -1857,15 +1857,15 @@ class base_viewlist extends base_db {
               './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_TRANS][$lngId]
             );
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_PUBLIC_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_PUBLIC_TRANS][$lngId]
             );
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_VERSIONS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_VERSIONS_TRANS][$lngId]
             );
@@ -1884,15 +1884,15 @@ class base_viewlist extends base_db {
               './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_TRANS][$lngId]
             );
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_PUBLIC_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_PUBLIC_TRANS][$lngId]
             );
-            $item->subitems[] = new \Papaya\UI\Listview\Subitem\Text(
+            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_VERSIONS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_VERSIONS_TRANS][$lngId]
             );

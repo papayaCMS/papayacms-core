@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 /**
  * A simple listview subitem displaying date time.
  *
@@ -24,7 +24,7 @@ namespace Papaya\UI\Listview\Subitem;
  * @property string|\Papaya\UI\Text $text
  * @property int $timestamp
  */
-class Date extends \Papaya\UI\Listview\Subitem {
+class Date extends \Papaya\UI\Listview\SubItem {
 
   const SHOW_DATE = \Papaya\UI\Text\Date::SHOW_DATE;
   const SHOW_TIME = \Papaya\UI\Text\Date::SHOW_TIME;

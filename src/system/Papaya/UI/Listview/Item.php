@@ -28,7 +28,7 @@ namespace Papaya\UI\Listview;
  * @property integer $columnSpan
  * @property boolean $selected
  * @property boolean $emphased
- * @property \Papaya\UI\Listview\Subitems $subitems
+ * @property \Papaya\UI\Listview\SubItems $subitems
  * @property \Papaya\UI\Reference $reference
  * @property \Papaya\UI\Listview\Item\Node $node
  */
@@ -37,7 +37,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Subitems collection
    *
-   * @var \Papaya\UI\Listview\Subitems
+   * @var \Papaya\UI\Listview\SubItems
    */
   protected $_subitems = NULL;
 
@@ -209,16 +209,16 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Getter/Setter for the item subitems. Subitems represent addiitonal data.
    *
-   * @param \Papaya\UI\Listview\Subitems $subitems
-   * @return \Papaya\UI\Listview\Subitems
+   * @param \Papaya\UI\Listview\SubItems $subitems
+   * @return \Papaya\UI\Listview\SubItems
    */
-  public function subitems(\Papaya\UI\Listview\Subitems $subitems = NULL) {
+  public function subitems(\Papaya\UI\Listview\SubItems $subitems = NULL) {
     if (isset($subitems)) {
       $this->_subitems = $subitems;
       $this->_subitems->owner($this);
     }
     if (is_null($this->_subitems)) {
-      $this->_subitems = new \Papaya\UI\Listview\Subitems($this);
+      $this->_subitems = new \Papaya\UI\Listview\SubItems($this);
     }
     return $this->_subitems;
   }

@@ -21,15 +21,15 @@ namespace Papaya\UI\Listview;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Subitems
+class SubItems
   extends \Papaya\UI\Control\Collection {
 
   /**
-   * Only {@see \Papaya\Ui\Listview\Subitem} objects are allowed in this list
+   * Only {@see \Papaya\Ui\Listview\SubItem} objects are allowed in this list
    *
    * @var string
    */
-  protected $_itemClass = Subitem::class;
+  protected $_itemClass = SubItem::class;
 
   /**
    * Provide no tag name, so no additional element will be added in

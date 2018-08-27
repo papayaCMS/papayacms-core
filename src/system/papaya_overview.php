@@ -427,7 +427,7 @@ class papaya_overview extends base_db {
           if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
-          $item->subitems[] = $subitem = new \Papaya\UI\Listview\Subitem\Text($text);
+          $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Text($text);
         }
       }
       return $listview->getXML();

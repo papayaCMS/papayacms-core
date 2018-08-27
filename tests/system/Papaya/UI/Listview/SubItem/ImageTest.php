@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class ImageTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Image::__construct
    */
   public function testConstructor() {
     $subitem = new Image('sample.png');
@@ -29,7 +29,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Image::__construct
    */
   public function testConstructorWithOptionalParameters() {
     $subitem = new Image('sample.png', 'quickinfo', array('foo' => 'bar'));
@@ -42,7 +42,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::reference
+   * @covers \Papaya\UI\Listview\SubItem\Image::reference
    */
   public function testReferenceGetAfterSet() {
     $subitem = new Image('sample.png', 'quickinfo', array('foo' => 'bar'));
@@ -53,7 +53,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::reference
+   * @covers \Papaya\UI\Listview\SubItem\Image::reference
    */
   public function testReferenceGetFromListview() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
@@ -63,7 +63,7 @@ class ImageTest extends \Papaya\TestCase {
       ->method('reference')
       ->will($this->returnValue($reference));
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(\Papaya\UI\Listview\SubItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -79,7 +79,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image::appendTo
    */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
@@ -98,7 +98,7 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image::appendTo
    */
   public function testAppendToWithHint() {
     $document = new \Papaya\XML\Document();
@@ -117,8 +117,8 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Image::getURL
+   * @covers \Papaya\UI\Listview\SubItem\Image::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image::getURL
    */
   public function testAppendToWithReference() {
     $document = new \Papaya\XML\Document();
@@ -147,8 +147,8 @@ class ImageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image::appendTo
-   * @covers \Papaya\UI\Listview\Subitem\Image::getURL
+   * @covers \Papaya\UI\Listview\SubItem\Image::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image::getURL
    */
   public function testAppendToWithReferenceFromListview() {
     $document = new \Papaya\XML\Document();
@@ -172,7 +172,7 @@ class ImageTest extends \Papaya\TestCase {
       ->method('parameterGroup')
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Subitems::class)
+      ->getMockBuilder(\Papaya\UI\Listview\SubItems::class)
       ->setConstructorArgs(
         array(
           $this

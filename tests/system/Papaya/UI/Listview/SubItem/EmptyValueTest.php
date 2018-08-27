@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class EmptyValueTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\EmptyValue::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\EmptyValue::appendTo
    */
   public function testAppendTo() {
     $subitem = new EmptyValue();

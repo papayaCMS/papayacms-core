@@ -110,13 +110,13 @@ class Listview extends \Papaya\UI\Listview {
         'items-folder',
         new \Papaya\UI\Text\Translated('Dependencies')
       );
-      $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Image(
+      $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
         'actions-go-superior',
         new \Papaya\UI\Text\Translated('Go to origin page'),
         array('page_id' => $this->_originPageId)
       );
-      $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text('');
-      $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text('');
+      $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text('');
+      $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text('');
       foreach ($this->_dependencies as $dependency) {
         $this->items[] = $listitem = new \Papaya\UI\Listview\Item(
           'items-page',
@@ -128,13 +128,13 @@ class Listview extends \Papaya\UI\Listview {
           $listitem->text = \Papaya\Utility\Text::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = $dependency['id'] == $this->_currentPageId;
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text('');
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Images(
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text('');
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Images(
           $this->_synchronizations->getIcons(),
           $dependency['synchronization'],
-          \Papaya\UI\Listview\Subitem\Images::VALIDATE_BITMASK
+          \Papaya\UI\Listview\SubItem\Images::VALIDATE_BITMASK
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
           (int)$dependency['modified']
         );
       }
@@ -163,7 +163,7 @@ class Listview extends \Papaya\UI\Listview {
           $this->parameters()->get('target_id'),
           array($reference['source_id'], $reference['target_id'])
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Image(
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
           'items-page',
           new \Papaya\UI\Text\Translated(
             'Go to page %s #%d', array($reference['title'], $reference['target_id'])
@@ -174,8 +174,8 @@ class Listview extends \Papaya\UI\Listview {
             'cmd' => 'reference_change'
           )
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text('');
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Date(
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text('');
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
           (int)$reference['modified']
         );
       }

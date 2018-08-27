@@ -21,7 +21,7 @@ namespace Papaya\UI\Listview;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Subitem extends \Papaya\UI\Control\Collection\Item {
+abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
 
   /**
    * Alignment, if it is NULL, the column alignment is used, "left" is the default value.
@@ -57,7 +57,7 @@ abstract class Subitem extends \Papaya\UI\Control\Collection\Item {
       $columnIndex = $this->index();
       if ($this->hasCollection() &&
         ($collection = $this->collection()) &&
-        $collection instanceof \Papaya\UI\Listview\Subitems &&
+        $collection instanceof \Papaya\UI\Listview\SubItems &&
         $collection->getListview()->columns()->has($columnIndex + 1)) {
         /** @noinspection PhpUndefinedMethodInspection */
         return $collection->getListview()->columns()->get($columnIndex + 1)->getAlign();

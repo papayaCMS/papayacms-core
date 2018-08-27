@@ -17,14 +17,14 @@ namespace Papaya\UI\Listview {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class SubitemTest extends \Papaya\TestCase {
+  class SubItemTest extends \Papaya\TestCase {
 
     /**
-     * @covers \Papaya\UI\Listview\Subitem::getAlign
-     * @covers \Papaya\UI\Listview\Subitem::setAlign
+     * @covers \Papaya\UI\Listview\SubItem::getAlign
+     * @covers \Papaya\UI\Listview\SubItem::setAlign
      */
     public function testGetAlignAfterSetAlign() {
-      $subitem = new Subitem_TestProxy();
+      $subitem = new SubItem_TestProxy();
       $subitem->setAlign(\Papaya\UI\Option\Align::RIGHT);
       $this->assertEquals(
         \Papaya\UI\Option\Align::RIGHT, $subitem->getAlign()
@@ -32,7 +32,7 @@ namespace Papaya\UI\Listview {
     }
 
     /**
-     * @covers \Papaya\UI\Listview\Subitem::getAlign
+     * @covers \Papaya\UI\Listview\SubItem::getAlign
      */
     public function testGetAlignFetchFromColumn() {
       $column = $this
@@ -63,7 +63,7 @@ namespace Papaya\UI\Listview {
         ->method('columns')
         ->will($this->returnValue($columns));
       $subitems = $this
-        ->getMockBuilder(Subitems::class)
+        ->getMockBuilder(SubItems::class)
         ->setConstructorArgs(
           array(
             $this
@@ -77,7 +77,7 @@ namespace Papaya\UI\Listview {
         ->expects($this->atLeastOnce())
         ->method('getListview')
         ->will($this->returnValue($listview));
-      $subitem = new Subitem_TestProxy();
+      $subitem = new SubItem_TestProxy();
       $subitem->collection($subitems);
       $this->assertEquals(
         \Papaya\UI\Option\Align::CENTER, $subitem->getAlign()
@@ -85,7 +85,7 @@ namespace Papaya\UI\Listview {
     }
 
     /**
-     * @covers \Papaya\UI\Listview\Subitem::getAlign
+     * @covers \Papaya\UI\Listview\SubItem::getAlign
      */
     public function testGetAlignUseDefaultValue() {
       $listview = $this->createMock(\Papaya\UI\Listview::class);
@@ -103,7 +103,7 @@ namespace Papaya\UI\Listview {
         ->method('columns')
         ->will($this->returnValue($columns));
       $subitems = $this
-        ->getMockBuilder(Subitems::class)
+        ->getMockBuilder(SubItems::class)
         ->setConstructorArgs(
           array(
             $this
@@ -117,7 +117,7 @@ namespace Papaya\UI\Listview {
         ->expects($this->atLeastOnce())
         ->method('getListview')
         ->will($this->returnValue($listview));
-      $subitem = new Subitem_TestProxy();
+      $subitem = new SubItem_TestProxy();
       $subitem->collection($subitems);
       $this->assertEquals(
         \Papaya\UI\Option\Align::LEFT, $subitem->getAlign()
@@ -125,10 +125,10 @@ namespace Papaya\UI\Listview {
     }
 
     /**
-     * @covers \Papaya\UI\Listview\Subitem::setActionParameters
+     * @covers \Papaya\UI\Listview\SubItem::setActionParameters
      */
     public function testSetActionParameters() {
-      $subitem = new Subitem_TestProxy();
+      $subitem = new SubItem_TestProxy();
       $subitem->setActionParameters(array('foo'));
       $this->assertAttributeEquals(
         array('foo'), '_actionParameters', $subitem
@@ -136,7 +136,7 @@ namespace Papaya\UI\Listview {
     }
   }
 
-  class Subitem_TestProxy extends Subitem {
+  class SubItem_TestProxy extends SubItem {
 
     public function appendTo(\Papaya\XML\Element $parent) {
     }

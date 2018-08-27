@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem\Image;
+namespace Papaya\UI\Listview\SubItem\Image;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class ToggleTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::__construct
-   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::setIcons
+   * @covers \Papaya\UI\Listview\SubItem\Image\Toggle::__construct
+   * @covers \Papaya\UI\Listview\SubItem\Image\Toggle::setIcons
    */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */
@@ -31,7 +31,7 @@ class ToggleTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image\Toggle::appendTo
    */
   public function testAppendToWithIcon() {
     $icon = $this
@@ -67,7 +67,7 @@ class ToggleTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Listview\Subitem\Image\Toggle::appendTo
+   * @covers \Papaya\UI\Listview\SubItem\Image\Toggle::appendTo
    */
   public function testAppendToWithoutIcon() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Icon\Collection $icons */

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem\Image;
+namespace Papaya\UI\Listview\SubItem\Image;
 /**
  * A listview subitem displaying an icon from a given list.
  *
@@ -25,7 +25,7 @@ namespace Papaya\UI\Listview\Subitem\Image;
  * @property string $selection
  * @property array $actionParameters
  */
-class Toggle extends \Papaya\UI\Listview\Subitem {
+class Toggle extends \Papaya\UI\Listview\SubItem {
 
   /**
    * A list of icons

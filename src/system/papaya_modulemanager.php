@@ -2172,7 +2172,7 @@ class papaya_modulemanager extends base_db {
           ),
           $selected
         );
-        $item->subitems[] = new \Papaya\UI\Listview\Subitem\Image($statusImage, $statusText);
+        $item->subitems[] = new \Papaya\UI\Listview\SubItem\Image($statusImage, $statusText);
         $listview->items[] = $item;
       }
       $this->layout->addLeft($listview->getXML());

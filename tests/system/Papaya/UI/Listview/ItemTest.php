@@ -114,7 +114,7 @@ class ItemTest extends \Papaya\TestCase {
   public function testSubitemsGetAfterSet() {
     $item = new Item('', '');
     $subitems = $this
-      ->getMockBuilder(Subitems::class)
+      ->getMockBuilder(SubItems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems
@@ -132,7 +132,7 @@ class ItemTest extends \Papaya\TestCase {
   public function testSubitemsImplicitCreate() {
     $item = new Item('', '');
     $this->assertInstanceOf(
-      Subitems::class, $item->subitems()
+      SubItems::class, $item->subitems()
     );
     $this->assertSame(
       $item, $item->subitems()->owner()
@@ -225,7 +225,7 @@ class ItemTest extends \Papaya\TestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class));
     $subitems = $this
-      ->getMockBuilder(Subitems::class)
+      ->getMockBuilder(SubItems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems
@@ -250,7 +250,7 @@ class ItemTest extends \Papaya\TestCase {
   public function testAppendToWithEmptyImage() {
     $item = new Item('image', 'caption');
     $subitems = $this
-      ->getMockBuilder(Subitems::class)
+      ->getMockBuilder(SubItems::class)
       ->setConstructorArgs(array($item))
       ->getMock();
     $subitems

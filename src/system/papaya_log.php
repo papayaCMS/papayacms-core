@@ -424,8 +424,8 @@ class papaya_log extends base_db {
         } else {
           $logType = new \Papaya\UI\Text\Translated('Invalid logtype #%d', $msg['log_msgtype']);
         }
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Text($logType);
-        $listitem->subitems[] = new \Papaya\UI\Listview\Subitem\Date((int)$msg['log_time']);
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text($logType);
+        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Date((int)$msg['log_time']);
       }
       return $listview->getXML();
     }

@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Listview\Subitem;
+namespace Papaya\UI\Listview\SubItem;
 /**
  * An listview subitem with a checkbox element.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Checkbox extends \Papaya\UI\Listview\Subitem {
+class Checkbox extends \Papaya\UI\Listview\SubItem {
 
   /**
    * @var \Papaya\Request\Parameters\Name
