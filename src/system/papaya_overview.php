@@ -354,7 +354,7 @@ class papaya_overview extends base_db {
    */
   function getTopicsList($title, $width = 490, $showDetails = FALSE) {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
-      $listview = new \Papaya\UI\Listview();
+      $listview = new \Papaya\UI\ListView();
       $listview->caption = new \Papaya\UI\Text\Translated($title);
       $listview->toolbars()->topLeft->elements[] = $paging = new \Papaya\UI\Toolbar\Paging(
         array($this->paramName, 'filter_offset'),
@@ -416,7 +416,7 @@ class papaya_overview extends base_db {
             new \Papaya\UI\Text\Date($topic['topic_published'])
           );
         }
-        $listview->items[] = $item = new \Papaya\UI\Listview\Item($image, $title);
+        $listview->items[] = $item = new \Papaya\UI\ListView\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
         $item->reference()->setRelative('topic.php');
@@ -427,7 +427,7 @@ class papaya_overview extends base_db {
           if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
-          $item->subitems[] = $subitem = new \Papaya\UI\Listview\SubItem\Text($text);
+          $item->subitems[] = $subitem = new \Papaya\UI\ListView\SubItem\Text($text);
         }
       }
       return $listview->getXML();

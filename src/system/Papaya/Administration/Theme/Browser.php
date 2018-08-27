@@ -78,15 +78,15 @@ class Browser
       $dialog->fields[] = new \Papaya\UI\Dialog\Field\Collector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Listview(
-        $listview = new \Papaya\UI\Listview()
+      $dialog->fields[] = new \Papaya\UI\Dialog\Field\ListView(
+        $listview = new \Papaya\UI\ListView()
       );
-      $listview->mode = \Papaya\UI\Listview::MODE_TILES;
-      $listview->builder($builder = new \Papaya\UI\Listview\Items\Builder($this->themes()));
+      $listview->mode = \Papaya\UI\ListView::MODE_TILES;
+      $listview->builder($builder = new \Papaya\UI\ListView\Items\Builder($this->themes()));
       $builder->callbacks()->onCreateItem = function (
-        $context, \Papaya\UI\Listview\Items $items, \Papaya\Theme\Definition $theme
+        $context, \Papaya\UI\ListView\Items $items, \Papaya\Theme\Definition $theme
       ) use ($dialog) {
-        $items[] = $item = new \Papaya\UI\Listview\Item\Radio(
+        $items[] = $item = new \Papaya\UI\ListView\Item\Radio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
         );
         $item->text = $theme->templatePath;

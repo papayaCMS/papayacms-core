@@ -126,8 +126,8 @@ class Autoloader {
     'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => UI\Dialog\Field\Factory\Exception\InvalidProfile::class,
     'PapayaUiDialogFieldInputGeoPosition' => UI\Dialog\Field\Input\GeoPosition::class,
     'PapayaUiDialogFieldInputMediaImageResized' => UI\Dialog\Field\Input\Media\ImageResized::class,
-    'PapayaUiListviewSubitemImageList' => UI\Listview\SubItem\Images::class,
-    'PapayaUiListviewSubitemImageSelect' => UI\Listview\SubItem\Image\Toggle::class,
+    'PapayaUiListviewSubitemImageList' => UI\ListView\SubItem\Images::class,
+    'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   );
 
@@ -155,6 +155,7 @@ class Autoloader {
     'Csv' => 'CSV',
     'Html' => 'HTML',
     'Http' => 'HTTP',
+    'Listview' => 'ListView',
     'Php' => 'PHP',
     'Regex' => 'RegEx',
     'Subitem' => 'SubItem',

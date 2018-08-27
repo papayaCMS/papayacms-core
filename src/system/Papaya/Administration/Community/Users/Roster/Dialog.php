@@ -86,7 +86,7 @@ class Dialog extends \Papaya\UI\Dialog {
       TRUE,
       \Papaya\UI\Dialog\Button::ALIGN_LEFT
     );
-    $this->fields[] = $field = new \Papaya\UI\Dialog\Field\Listview($listview = $this->listview());
+    $this->fields[] = $field = new \Papaya\UI\Dialog\Field\ListView($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();
   }
 
@@ -140,20 +140,20 @@ class Dialog extends \Papaya\UI\Dialog {
   /**
    * Getter/Setter for the listview subobject, it displays a chunk of the users list
    *
-   * @param \Papaya\UI\Listview $listview
-   * @return \Papaya\UI\Listview
+   * @param \Papaya\UI\ListView $listview
+   * @return \Papaya\UI\ListView
    */
-  public function listview(\Papaya\UI\Listview $listview = NULL) {
+  public function listview(\Papaya\UI\ListView $listview = NULL) {
     if (NULL !== $listview) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \Papaya\UI\Listview();
+      $this->_listview = new \Papaya\UI\ListView();
       $this->_listview->papaya($this->papaya());
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
       $this->_listview->reference(clone $this->reference());
       $this->_listview->builder(
-        $builder = new \Papaya\UI\Listview\Items\Builder($this->users())
+        $builder = new \Papaya\UI\ListView\Items\Builder($this->users())
       );
       $builder->callbacks()->onCreateItem = array($this, 'createUserItem');
     }
@@ -164,11 +164,11 @@ class Dialog extends \Papaya\UI\Dialog {
    * Create a listview item for a community user record.
    *
    * @param object $context
-   * @param \Papaya\UI\Listview\Items $items
+   * @param \Papaya\UI\ListView\Items $items
    * @param array $user
    */
   public function createUserItem($context, $items, $user) {
-    $items[] = new \Papaya\UI\Listview\Item(
+    $items[] = new \Papaya\UI\ListView\Item(
       'items-user',
       empty($user['caption']) ? $user['email'] : $user['caption'],
       array(

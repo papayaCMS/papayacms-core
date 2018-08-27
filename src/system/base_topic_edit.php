@@ -3390,156 +3390,156 @@ class base_topic_edit extends base_topic {
     $metaData = $this->loadMetaData();
     $this->loadTranslationsInfo();
     $boxesPageId = $this->getBoxesTopicID();
-    $listview = new \Papaya\UI\Listview();
+    $listview = new \Papaya\UI\ListView();
     $listview->caption = new \Papaya\UI\Text\Translated('Information');
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       'categories-properties', new \Papaya\UI\Text\Translated('General')
     );
     $item->columnSpan = 2;
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       '', new \Papaya\UI\Text\Translated('Page title')
     );
     $item->indentation = 1;
-    $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text($metaData['meta_title']);
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text($metaData['meta_title']);
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       '', new \Papaya\UI\Text\Translated('Author')
     );
     $item->indentation = 1;
-    $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+    $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
       $this->topic['author_givenname'].' '.$this->topic['author_surname']
     );
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       '', new \Papaya\UI\Text\Translated('Boxes')
     );
     $item->indentation = 1;
-    $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+    $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
       ($boxesPageId == $this->topicId)
         ? new \Papaya\UI\Text\Translated('own')
         : new \Papaya\UI\Text\Translated('Page #%d', array($boxesPageId))
     );
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       '', new \Papaya\UI\Text\Translated('Created')
     );
     $item->indentation = 1;
-    $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date((int)$this->topic['topic_created']);
-    $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+    $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date((int)$this->topic['topic_created']);
+    $listview->items[] = $item = new \Papaya\UI\ListView\Item(
       '', new \Papaya\UI\Text\Translated('Modified')
     );
     $item->indentation = 1;
-    $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date((int)$this->topic['topic_modified']);
+    $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date((int)$this->topic['topic_modified']);
 
     if ($this->topic['topic_published_created'] > 0) {
-      $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+      $listview->items[] = $item = new \Papaya\UI\ListView\Item(
         '', new \Papaya\UI\Text\Translated('Prepared')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
+      $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
         (int)$this->topic['topic_published_created']
       );
     }
 
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
-      $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+      $listview->items[] = $item = new \Papaya\UI\ListView\Item(
         '', new \Papaya\UI\Text\Translated('Published from')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
+      $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
         (int)$this->topic['published_from']
       );
     }
 
     if ($this->topic['published_to'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
-      $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+      $listview->items[] = $item = new \Papaya\UI\ListView\Item(
         '', new \Papaya\UI\Text\Translated('Published to')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
+      $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
         (int)$this->topic['published_to']
       );
     }
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] == $this->topic['published_to']) {
-      $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+      $listview->items[] = $item = new \Papaya\UI\ListView\Item(
         '', new \Papaya\UI\Text\Translated('Published to')
       );
       $item->indentation = 1;
-      $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+      $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
         new \Papaya\UI\Text\Translated('unlimited')
       );
     }
     foreach ($this->papaya()->languages as $languageId => $language) {
       if ($language['is_content'] || isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
-        $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+        $listview->items[] = $item = new \Papaya\UI\ListView\Item(
           './pics/language/'.$language['image'],
           $language['title'].' ('.$language['code'].')'
         );
         $item->columnSpan = 2;
         if (isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
           $translation = $this->topic['TRANSLATIONINFOS'][$languageId];
-          $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+          $listview->items[] = $item = new \Papaya\UI\ListView\Item(
             '', new \Papaya\UI\Text\Translated('Title')
           );
           $item->indentation = 1;
-          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+          $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
             $translation['topic_title']
           );
-          $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+          $listview->items[] = $item = new \Papaya\UI\ListView\Item(
             '', new \Papaya\UI\Text\Translated('View')
           );
           $item->indentation = 1;
-          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+          $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
             $translation['view_title']
           );
           if (isset($translation['topic_trans_published'])) {
             if ($translation['topic_trans_published'] <
                 $translation['topic_trans_modified']) {
-              $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+              $listview->items[] = $item = new \Papaya\UI\ListView\Item(
                 '', new \Papaya\UI\Text\Translated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+              $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
                 new \Papaya\UI\Text\Translated('modified')
               );
             } else {
-              $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+              $listview->items[] = $item = new \Papaya\UI\ListView\Item(
                 '', new \Papaya\UI\Text\Translated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+              $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
                 new \Papaya\UI\Text\Translated('published')
               );
             }
-            $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+            $listview->items[] = $item = new \Papaya\UI\ListView\Item(
               '', new \Papaya\UI\Text\Translated('Published')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
+            $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
               (int)$translation['topic_trans_published']
             );
           } else {
-            $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+            $listview->items[] = $item = new \Papaya\UI\ListView\Item(
               '', new \Papaya\UI\Text\Translated('Status')
             );
             $item->indentation = 1;
-            $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+            $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
               new \Papaya\UI\Text\Translated('created')
             );
           }
-          $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+          $listview->items[] = $item = new \Papaya\UI\ListView\Item(
             '', new \Papaya\UI\Text\Translated('Modified')
           );
           $item->indentation = 1;
-          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Date(
+          $item->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
             (int)$translation['topic_trans_modified']
           );
         } else {
-          $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+          $listview->items[] = $item = new \Papaya\UI\ListView\Item(
             '', new \Papaya\UI\Text\Translated('Status')
           );
           $item->indentation = 1;
-          $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+          $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
             new \Papaya\UI\Text\Translated('no content')
           );
         }
@@ -3550,7 +3550,7 @@ class base_topic_edit extends base_topic {
            Administration\Permissions::PAGE_CACHE_CONFIGURE
          )
        ) {
-      $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+      $listview->items[] = $item = new \Papaya\UI\ListView\Item(
         '', new \Papaya\UI\Text\Translated('Marked As Cacheable')
       );
       $item->columnSpan = 2;
@@ -3559,7 +3559,7 @@ class base_topic_edit extends base_topic {
         foreach ($this->topic['TRANSLATIONINFOS'] as $languageId => $translation) {
           if (isset($this->papaya()->languages[$languageId])) {
             $language = $this->papaya()->languages[$languageId];
-            $listview->items[] = $item = $aggregation = new \Papaya\UI\Listview\Item(
+            $listview->items[] = $item = $aggregation = new \Papaya\UI\ListView\Item(
               './pics/language/'.$language['image'],
               $language['title'].' ('.$language['code'].')'
             );
@@ -3567,29 +3567,29 @@ class base_topic_edit extends base_topic {
             $cacheable = TRUE;
             if (!$translation['view_is_cacheable']) {
               $cacheable = FALSE;
-              $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+              $listview->items[] = $item = new \Papaya\UI\ListView\Item(
                 'categories-content',
                 new \Papaya\UI\Text\Translated('Content')
               );
               $item->indentation = 1;
-              $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+              $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
                 $translation['view_title']
               );
             }
             if (isset($boxCacheStatus[$languageId])) {
               foreach ($boxCacheStatus[$languageId] as $boxStatus) {
                 $cacheable = FALSE;
-                $listview->items[] = $item = new \Papaya\UI\Listview\Item(
+                $listview->items[] = $item = new \Papaya\UI\ListView\Item(
                   'status-box-published',
                   $boxStatus['box_name']
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new \Papaya\UI\Listview\SubItem\Text(
+                $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
                   $boxStatus['view_title']
                 );
               }
             }
-            $aggregation->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
+            $aggregation->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
               $cacheable ? 'status-sign-ok' : 'status-sign-problem',
               new \Papaya\UI\Text\Translated($cacheable ? 'Yes' : 'No')
             );
@@ -3672,7 +3672,7 @@ class base_topic_edit extends base_topic {
   */
   function getVersionsList() {
     if (isset($this->versions) && is_array($this->versions)) {
-      $listview = new \Papaya\UI\Listview();
+      $listview = new \Papaya\UI\ListView();
       $listview->caption = new \Papaya\UI\Text\Translated('Versions');
       $listview->parameterGroup($this->paramName);
 
@@ -3689,23 +3689,23 @@ class base_topic_edit extends base_topic {
       $paging->reference->setParameters(array('page_id' => $this->topicId), $this->paramName);
       $listview->toolbars->topLeft->elements[] = $paging;
 
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         new \Papaya\UI\Text\Translated('Version time')
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         new \Papaya\UI\Text\Translated('User')
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         '', \Papaya\UI\Option\Align::CENTER
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         '', \Papaya\UI\Option\Align::CENTER
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         '', \Papaya\UI\Option\Align::CENTER
       );
       foreach ($this->versions as $id => $version) {
-        $listitem = new \Papaya\UI\Listview\Item(
+        $listitem = new \Papaya\UI\ListView\Item(
           'items-page',
           new \Papaya\UI\Text\Date($version['version_time']),
           array(
@@ -3718,8 +3718,8 @@ class base_topic_edit extends base_topic {
         $listitem->text = \Papaya\Utility\Text::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text($version['fullname']);
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text($version['fullname']);
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
           'actions-recycle',
           new \Papaya\UI\Text\Translated('Recycle'),
           array(
@@ -3729,7 +3729,7 @@ class base_topic_edit extends base_topic {
             'version_offset' => $paging->currentOffset
           )
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
           'categories-preview',
           new \Papaya\UI\Text\Translated('Preview'),
           array(
@@ -3740,7 +3740,7 @@ class base_topic_edit extends base_topic {
             'version_offset' => $paging->currentOffset
           )
         );
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Image(
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
           'places-trash',
           new \Papaya\UI\Text\Translated('Delete'),
           array(

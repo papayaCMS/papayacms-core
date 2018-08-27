@@ -45,7 +45,7 @@ class DialogTest extends \Papaya\TestCase {
             <button type="submit" align="left" name="filter-reset[1]">Reset</button>
           </buttons>
         </field>
-        <field class="DialogFieldListview" error="no">
+        <field class="DialogFieldListView" error="no">
           <listview><toolbar position="bottom right"/></listview>
         </field>
       </dialog-box>',
@@ -154,8 +154,8 @@ class DialogTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Community\Users\Roster\Dialog::listview
    */
-  public function testListviewGetAfterSet() {
-    $listview = $this->createMock(\Papaya\UI\Listview::class);
+  public function testListViewGetAfterSet() {
+    $listview = $this->createMock(\Papaya\UI\ListView::class);
     $dialog = new Dialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
@@ -164,10 +164,10 @@ class DialogTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Community\Users\Roster\Dialog::listview
    */
-  public function testListviewImplicitCreate() {
+  public function testListViewImplicitCreate() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(\Papaya\UI\Listview::class, $dialog->listview());
+    $this->assertInstanceOf(\Papaya\UI\ListView::class, $dialog->listview());
   }
 
   /**

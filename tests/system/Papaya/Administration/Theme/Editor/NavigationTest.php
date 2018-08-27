@@ -23,7 +23,7 @@ class NavigationTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Theme\Editor\Navigation::appendTo
    */
   public function testAppendTo() {
-    $listview = $this->createMock(\Papaya\UI\Listview::class);
+    $listview = $this->createMock(\Papaya\UI\ListView::class);
     $listview
       ->expects($this->once())
       ->method('appendTo');
@@ -39,7 +39,7 @@ class NavigationTest extends \Papaya\TestCase {
   public function testToolbarButtonsWithSelectedTheme() {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
-    $navigation->listview($this->createMock(\Papaya\UI\Listview::class));
+    $navigation->listview($this->createMock(\Papaya\UI\ListView::class));
     $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
     $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
@@ -62,7 +62,7 @@ class NavigationTest extends \Papaya\TestCase {
   public function testToolbarButtonsWithSelectedSet() {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
-    $navigation->listview($this->createMock(\Papaya\UI\Listview::class));
+    $navigation->listview($this->createMock(\Papaya\UI\ListView::class));
     $navigation->parameters(
       new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 42))
     );
@@ -90,9 +90,9 @@ class NavigationTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
    */
-  public function testListviewGetAfterSet() {
+  public function testListViewGetAfterSet() {
     $navigation = new Navigation();
-    $navigation->listview($listview = $this->createMock(\Papaya\UI\Listview::class));
+    $navigation->listview($listview = $this->createMock(\Papaya\UI\ListView::class));
     $this->assertSame(
       $listview, $navigation->listview()
     );
@@ -102,11 +102,11 @@ class NavigationTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
    * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
-  public function testListviewImplicitCreate() {
+  public function testListViewImplicitCreate() {
     $navigation = new Navigation();
     $navigation->parameters(new \Papaya\Request\Parameters());
     $this->assertInstanceOf(
-      \Papaya\UI\Listview::class, $navigation->listview()
+      \Papaya\UI\ListView::class, $navigation->listview()
     );
   }
 
@@ -114,11 +114,11 @@ class NavigationTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
    * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
-  public function testListviewImplicitCreateWithSelectedTheme() {
+  public function testListViewImplicitCreateWithSelectedTheme() {
     $navigation = new Navigation();
     $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
     $this->assertInstanceOf(
-      \Papaya\UI\Listview::class, $navigation->listview()
+      \Papaya\UI\ListView::class, $navigation->listview()
     );
   }
 
@@ -126,13 +126,13 @@ class NavigationTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Theme\Editor\Navigation::listview
    * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeList
    */
-  public function testListviewImplicitCreateWithSelectedSet() {
+  public function testListViewImplicitCreateWithSelectedSet() {
     $navigation = new Navigation();
     $navigation->parameters(
       new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 23))
     );
     $this->assertInstanceOf(
-      \Papaya\UI\Listview::class, $navigation->listview()
+      \Papaya\UI\ListView::class, $navigation->listview()
     );
   }
 
@@ -141,9 +141,9 @@ class NavigationTest extends \Papaya\TestCase {
    */
   public function testCallbackCreateItemForInvalidElement() {
     $navigation = new Navigation();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->assertNull(
@@ -159,15 +159,15 @@ class NavigationTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array('images' => array('items-theme' => 'theme.png'))
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
     $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
@@ -192,15 +192,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
     $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
@@ -226,15 +226,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
     $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
@@ -258,15 +258,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
     $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
@@ -297,15 +297,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
     $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
@@ -337,15 +337,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
 
     $page = new \Papaya\Content\Structure\Page();
     $page->title = 'Page title';
@@ -383,15 +383,15 @@ class NavigationTest extends \Papaya\TestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
     $items = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\Listview\Item::class));
+      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
 
     $page = new \Papaya\Content\Structure\Page();
     $page->title = 'Page title';
@@ -419,7 +419,7 @@ class NavigationTest extends \Papaya\TestCase {
 
   /**
    * @param int $depth
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Listview\Items\Builder
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items\Builder
    */
   private function getBuilderFixture($depth = 0) {
     $iterator = $this
@@ -431,7 +431,7 @@ class NavigationTest extends \Papaya\TestCase {
       ->method('getDepth')
       ->will($this->returnValue($depth));
     $builder = $this
-      ->getMockBuilder(\Papaya\UI\Listview\Items\Builder::class)
+      ->getMockBuilder(\Papaya\UI\ListView\Items\Builder::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder

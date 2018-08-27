@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
-use Papaya\Administration\Pages\Dependency\Listview;
+use Papaya\Administration\Pages\Dependency\ListView;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\Dependency;
@@ -86,7 +86,7 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Dependencies listview
    *
-   * @var Listview
+   * @var ListView
    */
   private $_listview = NULL;
 
@@ -309,14 +309,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the dependencies listview.
    *
-   * @param \Papaya\Administration\Pages\Dependency\Listview $listview
-   * @return \Papaya\Administration\Pages\Dependency\Listview
+   * @param \Papaya\Administration\Pages\Dependency\ListView $listview
+   * @return \Papaya\Administration\Pages\Dependency\ListView
    */
-  public function listview(\Papaya\Administration\Pages\Dependency\Listview $listview = NULL) {
+  public function listview(\Papaya\Administration\Pages\Dependency\ListView $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
-      $this->_listview = new \Papaya\Administration\Pages\Dependency\Listview(
+      $this->_listview = new \Papaya\Administration\Pages\Dependency\ListView(
         $this->getOriginId(),
         $this->getPageId(),
         $this->dependencies(),

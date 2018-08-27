@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Theme\Editor;
-use Papaya\UI\Listview;
+use Papaya\UI\ListView;
 
 /**
  * Navigation part of the theme sets editor (dynamic values for a theme)
@@ -25,7 +25,7 @@ use Papaya\UI\Listview;
 class Navigation extends \Papaya\Administration\Page\Part {
 
   /**
-   * @var \Papaya\UI\Listview
+   * @var \Papaya\UI\ListView
    */
   private $_listview = NULL;
 
@@ -95,17 +95,17 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * It displays the list of Themes, the Sets of the selected theme and the pages of the
    * selected set.
    *
-   * @param \Papaya\UI\Listview $listview
-   * @return \Papaya\UI\Listview
+   * @param \Papaya\UI\ListView $listview
+   * @return \Papaya\UI\ListView
    */
-  public function listview(\Papaya\UI\Listview $listview = NULL) {
+  public function listview(\Papaya\UI\ListView $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \Papaya\UI\Listview();
+      $this->_listview = new \Papaya\UI\ListView();
       $this->_listview->caption = new \Papaya\UI\Text\Translated('Themes');
       $this->_listview->builder(
-        $builder = new \Papaya\UI\Listview\Items\Builder(
+        $builder = new \Papaya\UI\ListView\Items\Builder(
           new \RecursiveIteratorIterator(
             $this->createThemeList(), \RecursiveIteratorIterator::SELF_FIRST
           )
@@ -156,11 +156,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
   /**
    * Callback to create the items, depending on the depth here are the theme and set elements
    *
-   * @param \Papaya\UI\Listview\Items\Builder $builder
-   * @param \Papaya\UI\Listview\Items $items
+   * @param \Papaya\UI\ListView\Items\Builder $builder
+   * @param \Papaya\UI\ListView\Items $items
    * @param mixed $element
    * @param mixed $index
-   * @return null|\Papaya\UI\Listview\Item
+   * @return null|\Papaya\UI\ListView\Item
    */
   public function callbackCreateItem($builder, $items, $element, $index) {
     /** @noinspection PhpUndefinedMethodInspection */
@@ -182,10 +182,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme
    *
    * @param string $element
-   * @return \Papaya\UI\Listview\Item
+   * @return \Papaya\UI\ListView\Item
    */
   private function createThemeItem($element) {
-    $item = new \Papaya\UI\Listview\Item('items-theme', (string)$element);
+    $item = new \Papaya\UI\ListView\Item('items-theme', (string)$element);
     $item->papaya($this->papaya());
     $item->reference->setParameters(
       array(
@@ -205,10 +205,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a set
    *
    * @param array $element
-   * @return \Papaya\UI\Listview\Item
+   * @return \Papaya\UI\ListView\Item
    */
   private function createSetItem($element) {
-    $item = new \Papaya\UI\Listview\Item('items-folder', (string)$element['title']);
+    $item = new \Papaya\UI\ListView\Item('items-folder', (string)$element['title']);
     $item->papaya($this->papaya());
     $item->indentation = 1;
     $item->reference->setParameters(
@@ -229,10 +229,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme values page
    *
    * @param \Papaya\Content\Structure\Page $element
-   * @return \Papaya\UI\Listview\Item
+   * @return \Papaya\UI\ListView\Item
    */
   private function createPageItem(\Papaya\Content\Structure\Page $element) {
-    $item = new \Papaya\UI\Listview\Item('items-folder', (string)$element->title);
+    $item = new \Papaya\UI\ListView\Item('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;
     $item->reference->setParameters(

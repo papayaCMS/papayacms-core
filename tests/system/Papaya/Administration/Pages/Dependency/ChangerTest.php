@@ -109,7 +109,7 @@ class ChangerTest extends \Papaya\TestCase {
       ->method('load')
       ->with(array('id' => 21, 'language_id' => 1));
     $listview = $this
-      ->getMockBuilder(Listview::class)
+      ->getMockBuilder(ListView::class)
       ->disableOriginalConstructor()
       ->getMock();
     $listview
@@ -148,7 +148,7 @@ class ChangerTest extends \Papaya\TestCase {
       ->method('load')
       ->with(array('id' => 21, 'language_id' => 1));
     $listview = $this
-      ->getMockBuilder(Listview::class)
+      ->getMockBuilder(ListView::class)
       ->disableOriginalConstructor()
       ->getMock();
     $listview
@@ -230,7 +230,7 @@ class ChangerTest extends \Papaya\TestCase {
       ->method('load')
       ->with(array('id' => 0, 'language_id' => 1));
     $listview = $this
-      ->getMockBuilder(Listview::class)
+      ->getMockBuilder(ListView::class)
       ->disableOriginalConstructor()
       ->getMock();
     $listview
@@ -404,9 +404,9 @@ class ChangerTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Pages\Dependency\Changer::listview
    */
-  public function testListviewGetAfterSet() {
+  public function testListViewGetAfterSet() {
     $listview = $this
-      ->getMockBuilder(Listview::class)
+      ->getMockBuilder(ListView::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changer = new Changer();
@@ -418,10 +418,10 @@ class ChangerTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Pages\Dependency\Changer::listview
    */
-  public function testListviewGetImplicitCreate() {
+  public function testListViewGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      Listview::class, $changer->listview()
+      ListView::class, $changer->listview()
     );
   }
 

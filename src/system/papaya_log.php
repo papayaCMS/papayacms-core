@@ -363,7 +363,7 @@ class papaya_log extends base_db {
   */
   function getList() {
     if (isset($this->messageList) && is_array($this->messageList)) {
-      $listview = new \Papaya\UI\Listview();
+      $listview = new \Papaya\UI\ListView();
       $listview->caption = new \Papaya\UI\Text\Translated('Event protocol');
       $listview->parameterGroup($this->paramName);
       $listview->reference()->setParameters(
@@ -392,13 +392,13 @@ class papaya_log extends base_db {
       );
       $listview->toolbars->topLeft->elements[] = $paging;
 
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         new \Papaya\UI\Text\Translated('Message'), \Papaya\UI\Option\Align::LEFT
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         new \Papaya\UI\Text\Translated('Group'), \Papaya\UI\Option\Align::CENTER
       );
-      $listview->columns[] = new \Papaya\UI\Listview\Column(
+      $listview->columns[] = new \Papaya\UI\ListView\Column(
         new \Papaya\UI\Text\Translated('Date'), \Papaya\UI\Option\Align::CENTER
       );
 
@@ -409,7 +409,7 @@ class papaya_log extends base_db {
           2 => 'status-dialog-error',
           3 => 'items-page',
         );
-        $listitem = new \Papaya\UI\Listview\Item(
+        $listitem = new \Papaya\UI\ListView\Item(
           isset($itemImages[$msg['log_msgno']]) ? $itemImages[$msg['log_msgno']] : '',
           $msg['log_msg_short'],
           array(
@@ -424,8 +424,8 @@ class papaya_log extends base_db {
         } else {
           $logType = new \Papaya\UI\Text\Translated('Invalid logtype #%d', $msg['log_msgtype']);
         }
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Text($logType);
-        $listitem->subitems[] = new \Papaya\UI\Listview\SubItem\Date((int)$msg['log_time']);
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text($logType);
+        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Date((int)$msg['log_time']);
       }
       return $listview->getXML();
     }
