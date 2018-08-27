@@ -13,16 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Database;
+namespace Papaya\Database\Statement {
 
-/**
- * Papaya Database Object, superclass for classes with database access
- *
- * @package Papaya-Library
- * @subpackage Database
- */
-class BaseObject
-  implements \Papaya\Application\Access, Interfaces\Access {
+  class Formatted {
 
-  use Interfaces\Access\Delegation;
+    private $_sql;
+    private $_parameters;
+
+    public function __construct(\Papaya\Database\Access $databaseAccess, $sql, array $parameters = []) {
+      $this->setDatabaseAccess($databaseAccess);
+      $this->_sql = $sql;
+      $this->_parameters = $parameters;
+    }
+
+    public function __toString() {
+      return \vsprintf($this->_sql, $this->_parameters);
+    }
+  }
 }
