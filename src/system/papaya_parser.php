@@ -170,7 +170,7 @@ class papaya_parser extends base_db {
   * @return string
   */
   function parse($data, $lngId) {
-    \Papaya\Utility\File\Constraints::assertString($data);
+    \Papaya\Utility\Constraints::assertString($data);
     $this->data = $data;
     if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
       $this->lngId = $this->papaya()->administrationLanguage->id;
