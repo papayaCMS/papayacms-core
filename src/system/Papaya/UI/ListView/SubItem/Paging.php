@@ -15,6 +15,7 @@
 
 namespace Papaya\UI\ListView\SubItem {
 
+  use Papaya\UI;
   use Papaya\UI\ListView;
   use Papaya\XML;
 
@@ -33,7 +34,7 @@ namespace Papaya\UI\ListView\SubItem {
   class Paging extends ListView\SubItem {
 
     /**
-     * @var \Papaya\Ui\Paging\Count
+     * @var UI\Paging\Count
      */
     private $_paging;
     private $_pagingParameterName;
@@ -48,21 +49,21 @@ namespace Papaya\UI\ListView\SubItem {
       $subitem = $parent->appendElement(
         'subitem',
         array(
-          'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
+          'align' => UI\Option\Align::getString($this->getAlign())
         )
       );
       $subitem->append($this->paging());
     }
 
     /**
-     * @param \Papaya\Ui\Paging\Count|NULL $paging
-     * @return \Papaya\Ui\Paging\Count
+     * @param UI\Paging\Count|NULL $paging
+     * @return UI\Paging\Count
      */
-    public function paging(\Papaya\Ui\Paging\Count $paging = NULL) {
+    public function paging(UI\Paging\Count $paging = NULL) {
       if (NULL !== $paging) {
         $this->_paging = $paging;
       } elseif (NULL === $this->_paging) {
-        $this->_paging = new \Papaya\Ui\Paging\Count(
+        $this->_paging = new UI\Paging\Count(
           $this->_pagingParameterName,
           $this->papaya()->request->getParameter(
             (string)$this->_pagingParameterName,
