@@ -130,6 +130,7 @@ class Autoloader {
     'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   );
+  private static $_mapClassesReverse;
 
   private static $_mapParts = array(
     // Reserved Words
@@ -169,6 +170,7 @@ class Autoloader {
     'Xml' => 'XML',
     'Xslt' => 'XSLT'
   );
+  private static $_mapPartsReverse;
 
   /**
    *
@@ -200,6 +202,8 @@ class Autoloader {
           } else {
             class_alias($name, $alias);
           }
+        } elseif (FALSE !== strpos($name, '\\') && ($alias = self::convertToToOldClass($name))) {
+          class_alias($name, $alias);
         }
       }
     }
@@ -268,6 +272,33 @@ class Autoloader {
       return substr($result, 1);
     }
     return $className;
+  }
+
+  /**
+   *  Convert a new (namespaced class back to its old class name)
+   *
+   * @param string $className
+   * @return NULL|string
+   */
+  private static function convertToToOldClass($className) {
+    if (NULL === self::$_mapClassesReverse) {
+      self::$_mapClassesReverse = array_flip(self::$_mapClasses);
+    }
+    if (isset(self::$_mapClassesReverse[$className])) {
+      return self::$_mapClassesReverse[$className];
+    }
+    if (NULL === self::$_mapPartsReverse) {
+      self::$_mapPartsReverse = array_flip(self::$_mapParts);
+    }
+    $parts = explode('\\', $className);
+    $result = '';
+    foreach ($parts as $part) {
+      if (isset(self::$_mapPartsReverse[$part])) {
+        $part = self::$_mapPartsReverse[$part];
+      }
+      $result .= $part;
+    }
+    return $result ?: NULL;
   }
 
   /**
