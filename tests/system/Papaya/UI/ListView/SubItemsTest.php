@@ -35,30 +35,17 @@ class SubItemsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\ListView\SubItems::getListView
+   * @covers \Papaya\UI\ListView\SubItems::getListItem
    */
-  public function testGetListView() {
-    $listview = $this->createMock(\Papaya\UI\ListView::class);
-    $collection = $this
-      ->getMockBuilder(Items::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $collection
-      ->expects($this->once())
-      ->method('owner')
-      ->will($this->returnValue($listview));
+  public function testGetListItem() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Item $item */
     $item = $this
       ->getMockBuilder(Item::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $item
-      ->expects($this->once())
-      ->method('collection')
-      ->will($this->returnValue($collection));
     $subitems = new SubItems($item);
     $this->assertSame(
-      $listview, $subitems->getListView()
+      $item, $subitems->getListItem()
     );
 
   }

@@ -298,6 +298,21 @@ class CountTest extends \Papaya\TestCase {
     );
   }
 
+
+  /**
+   * @covers \Papaya\UI\Paging\Count::getCurrentPage
+   */
+  public function testGetCurrentOffsetTriggersCalculation() {
+    $paging = new Count('page', 100, 30);
+    $paging->papaya($this->mockPapaya()->application());
+    $this->assertEquals(
+      20, $paging->currentOffset
+    );
+    $this->assertAttributeSame(
+      TRUE, '_calculated', $paging
+    );
+  }
+
   /**
    * @covers \Papaya\UI\Paging\Count::getLastPage
    * @dataProvider provideLastPageCalculationData

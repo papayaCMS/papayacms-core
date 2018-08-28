@@ -22,11 +22,12 @@ namespace Papaya\UI\Paging;
  *
  * @property \Papaya\UI\Reference $reference
  * @property string|array $parameterName
- * @property integer $currentPage
- * @property integer $lastPage
- * @property integer $itemsCount
- * @property integer $itemsPerPage
- * @property integer $pageLimit
+ * @property int $currentPage
+ * @property int $currentOffset
+ * @property int $lastPage
+ * @property int $itemsCount
+ * @property int $itemsPerPage
+ * @property int $pageLimit
  */
 class Count extends \Papaya\UI\Control {
 
@@ -41,7 +42,7 @@ class Count extends \Papaya\UI\Control {
    *
    * @var \Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * The parameter name of the page parameter for the links
@@ -54,7 +55,7 @@ class Count extends \Papaya\UI\Control {
    * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
    * The minimum value is 3.
    *
-   * @var integer
+   * @var int
    */
   protected $_pageLimit = 11;
 
@@ -62,65 +63,65 @@ class Count extends \Papaya\UI\Control {
    * The maximum items on one page. The last page can contain less items.
    * The minimum value is 1.
    *
-   * @var integer
+   * @var int
    */
   protected $_itemsPerPage = 10;
 
   /**
    * The actual item count. If the value is less than 1 the buttons are hidden.
    *
-   * @var integer
+   * @var int
    */
   protected $_itemsCount = 0;
 
   /**
    * The current page number. Minimum and default value is 1.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  protected $_currentPage = NULL;
+  protected $_currentPage;
 
   /**
    * The minimum page value. This is caluclated using the button limit.
    * It changes with the current page.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  private $_minimumPage = NULL;
+  private $_minimumPage;
 
   /**
    * The maximum page value. This is caluclated using the button limit.
    * It changes with the current page.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  private $_maximumPage = NULL;
+  private $_maximumPage;
 
   /**
    * Current page minus 1.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  private $_previousPage = NULL;
+  private $_previousPage;
 
   /**
    * Current page plus 1.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  private $_nextPage = NULL;
+  private $_nextPage;
 
   /**
    * Last possible page value.
    *
-   * @var integer|NULL
+   * @var int|NULL
    */
-  private $_lastPage = NULL;
+  private $_lastPage;
 
   /**
    * Calculation status, allows to recalculated only if needed
    *
-   * @var boolean
+   * @var bool
    */
   private $_calculated = FALSE;
 
@@ -133,6 +134,7 @@ class Count extends \Papaya\UI\Control {
     'reference' => array('reference', 'reference'),
     'parameterName' => array('_parameterName', '_parameterName'),
     'currentPage' => array('getCurrentPage', 'setCurrentPage'),
+    'currentOffset' => array('getCurrentOffset'),
     'lastPage' => array('getLastPage'),
     'itemsCount' => array('_itemsCount', 'setItemsCount'),
     'itemsPerPage' => array('_itemsPerPage', 'setItemsPerPage'),
@@ -198,7 +200,7 @@ class Count extends \Papaya\UI\Control {
   public function appendTo(\Papaya\XML\Element $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
-      $list = $this->appendListElement($parent, $this->_itemsCount);
+      $list = $this->appendListElement($parent);
       $current = $this->getCurrentPage();
       if ($current > 2) {
         $this->appendPageElement($list, 1, self::LINK_FIRST);
@@ -207,7 +209,7 @@ class Count extends \Papaya\UI\Control {
         $this->appendPageElement($list, $current - 1, self::LINK_PREVIOUS);
       }
       for ($page = $this->_minimumPage; $page <= $this->_maximumPage; ++$page) {
-        $this->appendPageElement($list, $page, $page == $current ? self::LINK_SELECTED : NULL);
+        $this->appendPageElement($list, $page, (string)$page === (string)$current ? self::LINK_SELECTED : NULL);
       }
       if ($current < $this->_lastPage) {
         $this->appendPageElement($list, $current + 1, self::LINK_NEXT);
@@ -251,9 +253,9 @@ class Count extends \Papaya\UI\Control {
         $this->_xmlNames['attr-page'] => $page
       )
     );
-    if ($type == self::LINK_SELECTED) {
+    if ($type === self::LINK_SELECTED) {
       $item->setAttribute($this->_xmlNames['attr-selected'], $this->_xmlNames['attr-selected']);
-    } elseif (!empty($type)) {
+    } elseif (NULL !== $type || '' === (string)$type) {
       $item->setAttribute($this->_xmlNames['attr-type'], $type);
     }
     return $item;
@@ -266,10 +268,10 @@ class Count extends \Papaya\UI\Control {
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
     }
-    if (is_null($this->_reference)) {
+    if (NULL === $this->_reference) {
       $this->_reference = new \Papaya\UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
@@ -351,7 +353,18 @@ class Count extends \Papaya\UI\Control {
   }
 
   /**
-   * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
+   * Fetch the value from the request and trigger the calculation if needed. Return the
+   * current item offset.
+   *
+   * @return integer
+   */
+  public function getCurrentOffset() {
+    $this->calculate();
+    return ($this->_currentPage - 1) * $this->_itemsPerPage;
+  }
+
+  /**
+   * Resets the internal calculation result to NULL. This way they are calculated again if needed.
    */
   private function reset() {
     $this->_calculated = FALSE;

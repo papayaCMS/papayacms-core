@@ -37,7 +37,7 @@ class SubItems
    *
    * @var string
    */
-  protected $_tagName = '';
+  protected $_tagName;
 
   /**
    * Create object an set owner listview object.
@@ -56,15 +56,28 @@ class SubItems
    */
   public function owner($item = NULL) {
     \Papaya\Utility\Constraints::assertInstanceOfOrNull(Item::class, $item);
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
     return parent::owner($item);
   }
 
   /**
    * Return the listview the owner item is part of.
    *
-   * @return \Papaya\UI\ListView
+   * @return \Papaya\UI\ListView\Item|NULL
+   */
+  public function getListItem() {
+    return $this->hasOwner() ? $this->owner() : NULL;
+  }
+
+  /**
+   * Return the listview the owner item is part of.
+   *
+   * @return \Papaya\UI\ListView|NULL
    */
   public function getListView() {
-    return $this->owner()->collection()->owner();
+    if ($item = $this->getListItem()) {
+      return $item->getListView();
+    }
+    return NULL;
   }
 }

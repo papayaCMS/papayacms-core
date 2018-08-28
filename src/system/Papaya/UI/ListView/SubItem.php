@@ -26,21 +26,21 @@ abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
   /**
    * Alignment, if it is NULL, the column alignment is used, "left" is the default value.
    *
-   * @var NULL|integer
+   * @var NULL|int
    */
-  protected $_align = NULL;
+  protected $_align;
 
   /**
    * Specific parameters for a link
    *
    * @var array
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Set the alignment.
    *
-   * @param NULL|integer $align
+   * @param NULL|int $align
    */
   public function setAlign($align) {
     $this->_align = $align;
@@ -50,23 +50,47 @@ abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
    * Get the alignment, if the internal value is NULL. It will try to get the alignment from the
    * column. If the column is not available it will return "left".
    *
-   * @return integer
+   * @return int
    */
   public function getAlign() {
-    if (is_null($this->_align)) {
+    if (NULL === $this->_align) {
       $columnIndex = $this->index();
-      if ($this->hasCollection() &&
-        ($collection = $this->collection()) &&
-        $collection instanceof \Papaya\UI\ListView\SubItems &&
-        $collection->getListView()->columns()->has($columnIndex + 1)) {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return $collection->getListView()->columns()->get($columnIndex + 1)->getAlign();
-      } else {
-        return \Papaya\UI\Option\Align::LEFT;
+      if (
+        ($subItems = $this->getSubItems()) &&
+        ($listView = $subItems->getListView()) &&
+        $listView->columns()->has($columnIndex + 1) &&
+        ($column = $listView->columns()->get($columnIndex + 1))
+      ) {
+        /** @var Column $column */
+        return $column->getAlign();
       }
-    } else {
-      return $this->_align;
+      return \Papaya\UI\Option\Align::LEFT;
     }
+    return $this->_align;
+  }
+
+  /**
+   * @return NULL|\Papaya\UI\ListView\SubItems
+   */
+  private function getSubItems() {
+    if (
+      $this->hasCollection() &&
+      ($collection = $this->collection()) &&
+      $collection instanceof SubItems
+    ) {
+      return $collection;
+    }
+    return NULL;
+  }
+
+  /**
+   * @return NULL|\Papaya\UI\ListView\Item
+   */
+  public function getListItem() {
+    if ($subItems = $this->getSubItems()) {
+      return $subItems->getListItem();
+    }
+    return NULL;
   }
 
   /**
