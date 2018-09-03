@@ -56,6 +56,14 @@ class Factory implements \IteratorAggregate {
    */
   private static $_profiles;
 
+  private static $_renamed = [
+    'IsNotXml' => 'IsNotXML',
+    'IsUrl' => 'IsURL',
+    'IsUrlHost' => 'IsURLHost',
+    'IsUrlHttp' => 'IsURLWeb',
+    'IsXml' => 'IsXML'
+  ];
+
   /**
    * Returns an ArrayIterator for the available profiles. The
    * profiles need to be defined in the \Papaya\Filter interface.
@@ -110,9 +118,14 @@ class Factory implements \IteratorAggregate {
     $key = strtolower($name);
     $namespace = __CLASS__.'\\Profile\\';
     if (isset(self::$_profiles[$key])) {
-      return $namespace.\Papaya\Utility\Text\Identifier::toCamelCase(self::$_profiles[$key], TRUE);
+      $class = ucfirst(self::$_profiles[$key]);
+    } else {
+      $class = ucfirst($name);
     }
-    return $namespace.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
+    if (isset(self::$_renamed[$class])) {
+      $class = self::$_renamed[$class];
+    }
+    return $namespace.$class;
   }
 
   /**
@@ -161,7 +174,7 @@ class Factory implements \IteratorAggregate {
   /**
    * Get the filter using the specified profile, internal static call
    *
-   * @param $profile
+   * @param string|Factory\Profile $profile
    * @param bool $mandatory
    * @param mixed $options
    * @return \Papaya\Filter|\Papaya\Filter\LogicalOr
