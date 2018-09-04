@@ -69,7 +69,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    * @return PapayaContentPages
    */
   public function pages(PapayaContentPages $pages = NULL) {
-    if (isset($pages)) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
     }
     return $this->_pages;
@@ -82,9 +82,9 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    * @return PapayaUiReferencePage
    */
   public function reference(PapayaUiReferencePage $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (NULL == $this->_reference) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new PapayaUiReferencePage();
       $this->_reference->papaya($this->papaya());
     }
@@ -96,6 +96,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    * if configuration was provided.
    *
    * @see PapayaXmlAppendable::appendTo()
+   * @param \PapayaXmlElement $parent
    */
   public function appendTo(PapayaXmlElement $parent) {
     $teasers = $parent->appendElement('teasers');
@@ -114,7 +115,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
   private function appendTeaser(PapayaXmlElement $parent, $record) {
     if (!empty($record['module_guid'])) {
       $page = new PapayaUiContentPage(
-        $record['id'], $record['language_id'], $this->pages()->isPublic()
+        $pageData['id'], $pageData['language_id'], $this->pages()->isPublic()
       );
       $page->papaya($this->papaya());
       $page->assign($record);
