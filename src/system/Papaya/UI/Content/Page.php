@@ -35,25 +35,25 @@ class Page extends \Papaya\Application\BaseObject {
   /**
    * @var \Papaya\Content\Page
    */
-  private $_page = NULL;
+  private $_page;
   /**
    * @var Content\Page\Translation
    */
-  private $_translation = NULL;
+  private $_translation;
 
   /**
    * @var int
    */
-  private $_pageId = 0;
+  private $_pageId;
 
   /**
    * @var int|Content\Language|string
    */
-  private $_language = '';
+  private $_language;
   /**
    * @var bool
    */
-  private $_isPublic = TRUE;
+  private $_isPublic;
 
   /**
    * @var \Papaya\UI\Reference\Page
@@ -82,35 +82,28 @@ class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @param \Papaya\Content\Page $page
-   * @return \Papaya\Content\Page|\Papaya\Content\Page\Publication
+   * @return \Papaya\Content\Page|Content\Page\Publication
    */
   public function page(Content\Page $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (NULL == $this->_page) {
-      if ($this->isPublic()) {
-        $this->_page = new \Papaya\Content\Page\Publication();
-      } else {
-        $this->_page = new Content\Page();
-      }
+    } elseif (NULL === $this->_page) {
+      $this->_page = $this->isPublic() ? new Content\Page\Publication() : new Content\Page();
       $this->_page->activateLazyLoad($this->_pageId);
     }
     return $this->_page;
   }
 
   /**
-   * @param \Papaya\Content\Page\Translation $translation
-   * @return \Papaya\Content\Page\Publication\Translation|\Papaya\Content\Page\Translation
+   * @param Content\Page\Translation $translation
+   * @return Content\Page\Publication\Translation|Content\Page\Translation
    */
-  public function translation(\Papaya\Content\Page\Translation $translation = NULL) {
-    if (isset($translation)) {
+  public function translation(Content\Page\Translation $translation = NULL) {
+    if (NULL !== $translation) {
       $this->_translation = $translation;
-    } elseif (NULL == $this->_translation) {
-      if ($this->isPublic()) {
-        $this->_translation = new \Papaya\Content\Page\Publication\Translation();
-      } else {
-        $this->_translation = new \Papaya\Content\Page\Translation();
-      }
+    } elseif (NULL === $this->_translation) {
+      $this->_translation = $this->isPublic() ? new Content\Page\Publication\Translation()
+        : new Content\Page\Translation();
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(
           array('id' => $this->_pageId, 'language_id' => $language['id'])
@@ -141,7 +134,8 @@ class Page extends \Papaya\Application\BaseObject {
   public function getPageLanguage() {
     if ($this->_language instanceof Content\Language) {
       return $this->_language;
-    } elseif (isset($this->_language) && isset($this->papaya()->languages)) {
+    }
+    if (NULL !== $this->_language && isset($this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);
     }
     return NULL;
@@ -159,19 +153,13 @@ class Page extends \Papaya\Application\BaseObject {
    *
    * @param \Papaya\XML\Element $parent
    * @param array|\Papaya\BaseObject\Parameters $configuration
+   * @param array $viewData
    */
-  public function appendQuoteTo(\Papaya\XML\Element $parent, $configuration = []) {
+  public function appendQuoteTo(\Papaya\XML\Element $parent, $configuration = [], array $viewData = NULL) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
       if ($plugin) {
-        $reference = clone $this->reference();
-        $reference->setPageId($this->getPageId(), TRUE);
-        if (isset($configuration['query_string'])) {
-          $reference->setParameters(
-            \Papaya\Request\Parameters::createFromString($configuration['query_string'])
-          );
-        }
         $teaser = $parent->appendElement(
           'teaser',
           array(
@@ -179,7 +167,7 @@ class Page extends \Papaya\Application\BaseObject {
             'plugin-guid' => $moduleGuid,
             'plugin' => get_class($plugin),
             'view' => $this->translation()->viewName,
-            'href' => $reference->getRelative(),
+            'href' => $this->getPageHref($plugin, $configuration, $viewData),
             'published' => \Papaya\Utility\Date::timestampToString($this->translation()->modified),
             'created' => \Papaya\Utility\Date::timestampToString($this->translation()->created)
           )
@@ -216,5 +204,35 @@ class Page extends \Papaya\Application\BaseObject {
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
+  }
+
+  /**
+   * @param object $plugin
+   * @param array|\ArrayAccess $configuration
+   * @param array|null $viewData
+   * @return string
+   */
+  private function getPageHref($plugin, $configuration, array $viewData = NULL) {
+    $href = '';
+    if ($viewData) {
+      $reference = clone $this->reference();
+      $reference->setPageId($this->getPageId(), TRUE);
+      if (isset($configuration['query_string'])) {
+        $reference->setParameters(
+          \Papaya\Request\Parameters::createFromString($configuration['query_string'])
+        );
+      }
+      $href = $reference->get();
+      $validatedHref = FALSE;
+      if ($plugin instanceof \Papaya\Plugin\Addressable) {
+        $request = new \Papaya\Request($this->papaya()->options);
+        $request->load($reference->url());
+        $validatedHref = $plugin->validateURL($request);
+      }
+      if (is_string($validatedHref) && ('' !== $validatedHref)) {
+        $href = $validatedHref;
+      }
+    }
+    return $href;
   }
 }

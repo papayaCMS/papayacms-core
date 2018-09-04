@@ -35,7 +35,7 @@ class ConfigurationsTest extends \Papaya\TestCase {
             'viewmode_id' => '123',
             'viewlink_data' => 'DATA',
             'module_guid' => '123456789012345678901234567890ab',
-            'module_type' => 'page'
+            'module_type' => 'output'
           ),
           FALSE
         )
@@ -65,12 +65,12 @@ class ConfigurationsTest extends \Papaya\TestCase {
     );
     $this->assertEquals(
       array(
-        array(
+        '42|123|output' => array(
           'id' => '42',
           'mode_id' => 123,
           'options' => 'DATA',
           'module_guid' => '123456789012345678901234567890ab',
-          'type' => 'page'
+          'type' => 'output'
         )
       ),
       iterator_to_array($list)
