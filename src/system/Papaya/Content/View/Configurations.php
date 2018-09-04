@@ -42,6 +42,8 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    */
   protected $_tableName = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
 
+  protected $_identifierProperties = ['id', 'mode_id', 'type'];
+
   /**
    * @param array|string|int $filter
    * @param int|null $limit
@@ -50,7 +52,21 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $filter = \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter));
+    $prefix = " WHERE ";
+    if (isset($filter['mode_id'])) {
+      $conditionOutput = sprintf(' WHERE vl.viewmode_id = %d', $filter['mode_id']);
+      $conditionData = sprintf(' WHERE vl.datafilter_id = %d', $filter['mode_id']);
+      unset($filter['mode_id']);
+      $prefix = '';
+    } else {
+      $conditionOutput = $conditionData = '';
+    }
+    $conditionOutput = \Papaya\Utility\Text::escapeForPrintf(
+      $conditionOutput.$this->_compileCondition($filter, $prefix)
+    );
+    $conditionData = \Papaya\Utility\Text::escapeForPrintf(
+      $conditionData.$this->_compileCondition($filter, $prefix)
+    );
     $sql = "SELECT vl.view_id,
                     vl.viewmode_id,
                     vl.viewlink_data,
@@ -59,7 +75,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
                FROM %s vl
                JOIN %s vm ON (vm.viewmode_id = vl.viewmode_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter
+               $conditionOutput
             UNION
             SELECT vl.view_id,
                     vl.datafilter_id viewmode_id,
@@ -69,7 +85,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
                FROM %s vl
                JOIN %s vm ON (vm.datafilter_id = vl.datafilter_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter";
+               $conditionData";
     $parameters = array(
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_CONFIGURATIONS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_MODES),
@@ -78,6 +94,6 @@ class Configurations extends \Papaya\Database\Records\Lazy {
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTERS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES)
     );
-    return parent::_loadRecords($sql, $parameters, $limit, $offset);
+    return parent::_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 }

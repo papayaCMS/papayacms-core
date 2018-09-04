@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Content;
+
 /**
  * Build teaser list xml from a list of pages.
  *
@@ -22,29 +23,34 @@ namespace Papaya\UI\Content;
  */
 class Teasers extends \Papaya\UI\Control {
 
-  private $_pages = NULL;
-  private $_reference = NULL;
+  private $_pages;
+  private $_reference;
 
   /**
    * thumbnail width
    *
    * @var integer
    */
-  private $_width = 0;
+  private $_width;
 
   /**
    * thumbnail height
    *
    * @var integer
    */
-  private $_height = 0;
+  private $_height;
 
   /**
    * thumbnail resize mode (abs, max, min, mincrop)
    *
    * @var integer
    */
-  private $_resizeMode = 'max';
+  private $_resizeMode;
+
+  /**
+   * @var \Papaya\Content\Views
+   */
+  private $_viewConfigurations;
 
   /**
    * Create list, store pages and optional thumbnail configuration
@@ -70,10 +76,32 @@ class Teasers extends \Papaya\UI\Control {
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
     }
     return $this->_pages;
+  }
+
+  /**
+   * Getter/Setter for the view configurations
+   *
+   * @param \Papaya\Content\View\Configurations $viewConfigurations
+   * @return \Papaya\Content\View\Configurations
+   */
+  public function viewConfigurations(\Papaya\Content\View\Configurations $viewConfigurations = NULL) {
+    if (NULL !== $viewConfigurations) {
+      $this->_viewConfigurations = $viewConfigurations;
+    } elseif (NULL === $this->_viewConfigurations) {
+      $this->_viewConfigurations = new \Papaya\Content\View\Configurations();
+      $this->_viewConfigurations->papaya($this->papaya());
+      $viewIds = iterator_to_array(
+        new \Papaya\Iterator\ArrayMapper($this->pages(), 'viewmode_id'), FALSE
+      );
+      $this->_viewConfigurations->activateLazyLoad(
+        ['id' => $viewIds, 'mode_id' => $this->papaya()->request->modeId]
+      );
+    }
+    return $this->_viewConfigurations;
   }
 
   /**
@@ -83,9 +111,9 @@ class Teasers extends \Papaya\UI\Control {
    * @return \Papaya\UI\Reference\Page
    */
   public function reference(\Papaya\UI\Reference\Page $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (NULL == $this->_reference) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \Papaya\UI\Reference\Page();
       $this->_reference->papaya($this->papaya());
     }
@@ -97,6 +125,7 @@ class Teasers extends \Papaya\UI\Control {
    * if configuration was provided.
    *
    * @see \Papaya\XML\Appendable::appendTo()
+   * @param \Papaya\XML\Element $parent
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     $teasers = $parent->appendElement('teasers');
@@ -110,16 +139,20 @@ class Teasers extends \Papaya\UI\Control {
    * Instanciate plugin and fetch the teaser from it.
    *
    * @param \Papaya\XML\Element $parent
-   * @param array $record
+   * @param array $pageData
    */
-  private function appendTeaser(\Papaya\XML\Element $parent, $record) {
-    if (!empty($record['module_guid'])) {
-      $page = new \Papaya\UI\Content\Page(
-        $record['id'], $record['language_id'], $this->pages()->isPublic()
+  private function appendTeaser(\Papaya\XML\Element $parent, array $pageData) {
+    if (!empty($pageData['module_guid'])) {
+      $page = new Page(
+        $pageData['id'], $pageData['language_id'], $this->pages()->isPublic()
       );
       $page->papaya($this->papaya());
-      $page->assign($record);
-      $page->appendQuoteTo($parent);
+      $page->assign($pageData);
+      $page->appendQuoteTo(
+        $parent,
+        [],
+        $this->viewConfigurations()->offsetGet([[$pageData['view_id'], $pageData['viewmode_id']]])
+      );
     }
   }
 
@@ -130,7 +163,7 @@ class Teasers extends \Papaya\UI\Control {
    */
   private function appendThumbnails(\Papaya\XML\Element $parent) {
     if ($this->_width > 0 || $this->_height > 0) {
-      $thumbnails = new \Papaya\UI\Content\Teaser\Images(
+      $thumbnails = new Teaser\Images(
         $parent, $this->_width, $this->_height, $this->_resizeMode
       );
       $thumbnails->papaya($this->papaya());
