@@ -89,7 +89,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'module_guid' => '12345678901234567890123456789042',
           'content' => 'data',
           'created' => strtotime('2017-01-16T12:21Z'),
-          'modified' => strtotime('2017-01-16T12:21Z')
+          'modified' => strtotime('2017-01-16T12:21Z'),
+          'view_id' => 1,
+          'viewmode_id' => 1
         )
       )
     );
@@ -106,6 +108,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       ->will($this->returnValue($plugin));
 
     $teasers = new PapayaUiContentTeasers($pages);
+    $teasers->viewConfigurations($this->createMock(\PapayaContentViewConfigurations::class));
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -129,7 +132,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'module_guid' => '12345678901234567890123456789021',
           'content' => 'data',
           'created' => strtotime('2017-01-16T12:21Z'),
-          'modified' => strtotime('2017-01-16T12:21Z')
+          'modified' => strtotime('2017-01-16T12:21Z'),
+          'view_id' => 1,
+          'viewmode_id' => 1
         )
       )
     );
@@ -147,6 +152,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       ->will($this->returnValue($plugin));
 
     $teasers = new PapayaUiContentTeasers($pages);
+    $teasers->viewConfigurations($this->createMock(\PapayaContentViewConfigurations::class));
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -170,7 +176,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'module_guid' => '12345678901234567890123456789023',
           'content' => 'data',
           'created' => strtotime('2017-01-16T12:21Z'),
-          'modified' => strtotime('2017-01-16T12:21Z')
+          'modified' => strtotime('2017-01-16T12:21Z'),
+          'view_id' => 1,
+          'viewmode_id' => 1
         )
       )
     );
@@ -183,6 +191,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       ->will($this->returnValue(NULL));
 
     $teasers = new PapayaUiContentTeasers($pages);
+    $teasers->viewConfigurations($this->createMock(\PapayaContentViewConfigurations::class));
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
@@ -206,7 +215,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'module_guid' => '12345678901234567890123456789042',
           'content' => 'data',
           'created' => strtotime('2017-01-16T12:21Z'),
-          'modified' => strtotime('2017-01-16T12:21Z')
+          'modified' => strtotime('2017-01-16T12:21Z'),
+          'view_id' => 1,
+          'viewmode_id' => 1
         )
       )
     );
@@ -219,6 +230,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       ->will($this->returnValue(new PapayaUiContentTeasers_PagePluginMockClass()));
 
     $teasers = new PapayaUiContentTeasers($pages, 200, 100);
+    $teasers->viewConfigurations($this->createMock(\PapayaContentViewConfigurations::class));
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $date = PapayaUtilDate::timestampToString(strtotime('2017-01-16T12:21Z'));
@@ -230,8 +242,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           published='$date'
           page-id='42'
           plugin-guid='12345678901234567890123456789042'
-          plugin='PapayaUiContentTeasers_PagePluginMockClass'
-          href='http://www.test.tld/index.42.html'>
+          plugin='PapayaUiContentTeasers_PagePluginMockClass'>
           <title>sample title</title>
           <image>
             <img src='sample.png'/>

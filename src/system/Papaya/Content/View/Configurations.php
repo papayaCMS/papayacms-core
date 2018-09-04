@@ -1,21 +1,17 @@
 <?php
 /**
-* This object loads view records into a list.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Configurations.php 38488 2013-05-14 10:03:48Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This object loads view records into a list.
@@ -45,9 +41,31 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
   */
   protected $_tableName = PapayaContentTables::VIEW_CONFIGURATIONS;
 
+  protected $_identifierProperties = ['id', 'mode_id', 'type'];
+
+  /**
+   * @param array|string|int $filter
+   * @param int|null $limit
+   * @param int|null $offset
+   * @return bool
+   */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $filter = PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
+    $prefix = " WHERE ";
+    if (isset($filter['mode_id'])) {
+      $conditionOutput = sprintf(' WHERE vl.viewmode_id = %d', $filter['mode_id']);
+      $conditionData = sprintf(' WHERE vl.datafilter_id = %d', $filter['mode_id']);
+      unset($filter['mode_id']);
+      $prefix = '';
+    } else {
+      $conditionOutput = $conditionData = '';
+    }
+    $conditionOutput = \PapayaUtilString::escapeForPrintf(
+      $conditionOutput.$this->_compileCondition($filter, $prefix)
+    );
+    $conditionData = \PapayaUtilString::escapeForPrintf(
+      $conditionData.$this->_compileCondition($filter, $prefix)
+    );
     $sql = "SELECT vl.view_id,
                     vl.viewmode_id,
                     vl.viewlink_data,
@@ -56,7 +74,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
                FROM %s vl
                JOIN %s vm ON (vm.viewmode_id = vl.viewmode_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter
+               $conditionOutput
             UNION
             SELECT vl.view_id,
                     vl.datafilter_id viewmode_id,
@@ -66,7 +84,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
                FROM %s vl
                JOIN %s vm ON (vm.datafilter_id = vl.datafilter_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter";
+               $conditionData";
     $parameters = array(
       $databaseAccess->getTableName(PapayaContentTables::VIEW_CONFIGURATIONS),
       $databaseAccess->getTableName(PapayaContentTables::VIEW_MODES),
@@ -75,6 +93,6 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
       $databaseAccess->getTableName(PapayaContentTables::VIEW_DATAFILTERS),
       $databaseAccess->getTableName(PapayaContentTables::MODULES)
     );
-    return parent::_loadRecords($sql, $parameters, $limit, $offset);
+    return parent::_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 }

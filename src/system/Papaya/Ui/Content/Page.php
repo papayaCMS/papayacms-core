@@ -18,25 +18,25 @@ class PapayaUiContentPage extends PapayaObject {
   /**
    * @var PapayaContentPage
    */
-  private $_page = NULL;
+  private $_page;
   /**
    * @var PapayaContentPageTranslation
    */
-  private $_translation = NULL;
+  private $_translation;
 
   /**
    * @var int
    */
-  private $_pageId = 0;
+  private $_pageId;
 
   /**
    * @var int|PapayaContentLanguage|string
    */
-  private $_language = '';
+  private $_language;
   /**
    * @var bool
    */
-  private $_isPublic = TRUE;
+  private $_isPublic;
 
   /**
    * @var \PapayaUiReferencePage
@@ -55,7 +55,7 @@ class PapayaUiContentPage extends PapayaObject {
   }
 
   /**
-   * @param array|Traversable $data
+   * @param array|\Traversable $data
    */
   public function assign($data) {
     PapayaUtilConstraints::assertArrayOrTraversable($data);
@@ -143,18 +143,11 @@ class PapayaUiContentPage extends PapayaObject {
    * @param \PapayaXmlElement $parent
    * @param array|\PapayaObjectParameters $configuration
    */
-  public function appendQuoteTo(PapayaXmlElement $parent, $configuration = []) {
+  public function appendQuoteTo(PapayaXmlElement $parent, $configuration = [], array $viewData = NULL) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
       if ($plugin) {
-        $reference = clone $this->reference();
-        $reference->setPageId($this->getPageId(), TRUE);
-        if (isset($configuration['query_string'])) {
-          $reference->setParameters(
-            PapayaRequestParameters::createFromString($configuration['query_string'])
-          );
-        }
         $teaser = $parent->appendElement(
           'teaser',
           array(
@@ -162,9 +155,9 @@ class PapayaUiContentPage extends PapayaObject {
             'plugin-guid' => $moduleGuid,
             'plugin' => get_class($plugin),
             'view' => $this->translation()->viewName,
-            'href' => $reference->getRelative(),
-            'published' => PapayaUtilDate::timestampToString($this->translation()->modified),
-            'created' => PapayaUtilDate::timestampToString($this->translation()->created)
+            'href' => $this->getPageHref($plugin, $configuration, $viewData),
+            'published' => \PapayaUtilDate::timestampToString($this->translation()->modified),
+            'created' => \PapayaUtilDate::timestampToString($this->translation()->created)
           )
         );
         if ($plugin instanceof PapayaPluginQuoteable) {
@@ -199,5 +192,35 @@ class PapayaUiContentPage extends PapayaObject {
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
+  }
+
+  /**
+   * @param object $plugin
+   * @param array|\ArrayAccess $configuration
+   * @param array|null $viewData
+   * @return string
+   */
+  private function getPageHref($plugin, $configuration, array $viewData = NULL) {
+    $href = '';
+    if ($viewData) {
+      $reference = clone $this->reference();
+      $reference->setPageId($this->getPageId(), TRUE);
+      if (isset($configuration['query_string'])) {
+        $reference->setParameters(
+          \PapayaRequestParameters::createFromString($configuration['query_string'])
+        );
+      }
+      $href = $reference->get();
+      $validatedHref = FALSE;
+      if ($plugin instanceof \PapayaPluginAddressable) {
+        $request = new \PapayaRequest($this->papaya()->options);
+        $request->load($reference->url());
+        $validatedHref = $plugin->validateURL($request);
+      }
+      if (is_string($validatedHref) && ('' !== $validatedHref)) {
+        $href = $validatedHref;
+      }
+    }
+    return $href;
   }
 }

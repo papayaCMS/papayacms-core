@@ -21,29 +21,34 @@
 */
 class PapayaUiContentTeasers extends PapayaUiControl {
 
-  private $_pages = NULL;
-  private $_reference = NULL;
+  private $_pages;
+  private $_reference;
 
   /**
-  * thumbnail width
-  *
-  * @var integer
-  */
-  private $_width = 0;
+   * thumbnail width
+   *
+   * @var integer
+   */
+  private $_width;
 
   /**
-  * thumbnail height
-  *
-  * @var integer
-  */
-  private $_height = 0;
+   * thumbnail height
+   *
+   * @var integer
+   */
+  private $_height;
 
   /**
-  * thumbnail resize mode (abs, max, min, mincrop)
-  *
-  * @var integer
-  */
-  private $_resizeMode = 'max';
+   * thumbnail resize mode (abs, max, min, mincrop)
+   *
+   * @var integer
+   */
+  private $_resizeMode;
+
+  /**
+   * @var \PapayaContentViews
+   */
+  private $_viewConfigurations;
 
   /**
    * Create list, store pages and optional thumbnail configuration
@@ -73,6 +78,28 @@ class PapayaUiContentTeasers extends PapayaUiControl {
       $this->_pages = $pages;
     }
     return $this->_pages;
+  }
+
+  /**
+   * Getter/Setter for the view configurations
+   *
+   * @param \PapayaContentViewConfigurations $viewConfigurations
+   * @return \PapayaContentViewConfigurations
+   */
+  public function viewConfigurations(\PapayaContentViewConfigurations $viewConfigurations = NULL) {
+    if (NULL !== $viewConfigurations) {
+      $this->_viewConfigurations = $viewConfigurations;
+    } elseif (NULL === $this->_viewConfigurations) {
+      $this->_viewConfigurations = new \PapayaContentViewConfigurations();
+      $this->_viewConfigurations->papaya($this->papaya());
+      $viewIds = iterator_to_array(
+        new \PapayaIteratorArrayMapper($this->pages(), 'viewmode_id'), FALSE
+      );
+      $this->_viewConfigurations->activateLazyLoad(
+        ['id' => $viewIds, 'mode_id' => $this->papaya()->request->modeId]
+      );
+    }
+    return $this->_viewConfigurations;
   }
 
   /**
@@ -110,16 +137,20 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    * Instanciate plugin and fetch the teaser from it.
    *
    * @param PapayaXmlElement $parent
-   * @param array $record
+   * @param array $pageData
    */
-  private function appendTeaser(PapayaXmlElement $parent, $record) {
-    if (!empty($record['module_guid'])) {
+  private function appendTeaser(PapayaXmlElement $parent, array $pageData) {
+    if (!empty($pageData['module_guid'])) {
       $page = new PapayaUiContentPage(
         $pageData['id'], $pageData['language_id'], $this->pages()->isPublic()
       );
       $page->papaya($this->papaya());
-      $page->assign($record);
-      $page->appendQuoteTo($parent);
+      $page->assign($pageData);
+      $page->appendQuoteTo(
+        $parent,
+        [],
+        $this->viewConfigurations()->offsetGet([[$pageData['view_id'], $pageData['viewmode_id']]])
+      );
     }
   }
 
