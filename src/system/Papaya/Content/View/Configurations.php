@@ -22,6 +22,10 @@ namespace Papaya\Content\View;
  */
 class Configurations extends \Papaya\Database\Records\Lazy {
 
+  public const TYPE_OUTPUT = \Papaya\Plugin\Types::OUTPUT;
+  public const TYPE_FILTER = \Papaya\Plugin\Types::FILTER;
+  public const TYPE_IMPORT = \Papaya\Plugin\Types::IMPORT;
+
   /**
    * Map field names to more convenient property names
    *
@@ -35,14 +39,14 @@ class Configurations extends \Papaya\Database\Records\Lazy {
     'options' => 'viewlink_data'
   );
 
+  protected $_identifierProperties = ['id', 'mode_id', 'type'];
+
   /**
    * Table containing view informations
    *
    * @var string
    */
   protected $_tableName = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
-
-  protected $_identifierProperties = ['id', 'mode_id', 'type'];
 
   /**
    * @param array|string|int $filter
@@ -57,7 +61,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
       $conditionOutput = sprintf(' WHERE vl.viewmode_id = %d', $filter['mode_id']);
       $conditionData = sprintf(' WHERE vl.datafilter_id = %d', $filter['mode_id']);
       unset($filter['mode_id']);
-      $prefix = '';
+      $prefix = ' AND ';
     } else {
       $conditionOutput = $conditionData = '';
     }
