@@ -156,7 +156,7 @@ class Teasers extends \Papaya\UI\Control {
         $parent,
         [],
         $this->viewConfigurations()->offsetGet(
-          [[$pageData['view_id'], $pageData['viewmode_id'], \Papaya\Content\View\Configurations::TYPE_OUTPUT]]
+          [$pageData['view_id'], $pageData['viewmode_id'], \Papaya\Content\View\Configurations::TYPE_OUTPUT]
         )
       );
     }
