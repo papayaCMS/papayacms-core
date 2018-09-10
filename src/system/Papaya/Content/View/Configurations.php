@@ -21,9 +21,9 @@
 */
 class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
 
-  public const TYPE_OUTPUT = \PapayaPluginTypes::OUTPUT;
-  public const TYPE_FILTER = \PapayaPluginTypes::FILTER;
-  public const TYPE_IMPORT = \PapayaPluginTypes::IMPORT;
+  const TYPE_OUTPUT = \PapayaPluginTypes::OUTPUT;
+  const TYPE_FILTER = \PapayaPluginTypes::FILTER;
+  const TYPE_IMPORT = \PapayaPluginTypes::IMPORT;
 
   /**
   * Map field names to more convinient property names
