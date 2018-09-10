@@ -96,14 +96,18 @@ class PapayaUiContentTeasers extends PapayaUiControl {
         new \PapayaIteratorArrayMapper($this->pages(), 'viewmode_id'), FALSE
       );
       $this->_viewConfigurations->activateLazyLoad(
-        ['id' => $viewIds, 'mode_id' => $this->papaya()->request->modeId]
+        [
+          'id' => $viewIds,
+          'mode_id' => $this->papaya()->request->modeId,
+          'type' => \PapayaContentViewConfigurations::TYPE_OUTPUT
+        ]
       );
     }
     return $this->_viewConfigurations;
   }
 
   /**
-   * Getter/Setter for the template reference subobject used to generate links to the subpages
+   * Getter/Setter for the template reference subobject used to generate links to the pages
    *
    * @param PapayaUiReferencePage $reference
    * @return PapayaUiReferencePage
@@ -119,7 +123,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
   }
 
   /**
-   * Fetch teasers from plugins and append them to parent xml element. Append thumnbails
+   * Fetch teasers from plugins and append them to parent xml element. Append thumbnails
    * if configuration was provided.
    *
    * @see PapayaXmlAppendable::appendTo()
@@ -134,7 +138,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
   }
 
   /**
-   * Instanciate plugin and fetch the teaser from it.
+   * Instantiate plugin and fetch the teaser from it.
    *
    * @param PapayaXmlElement $parent
    * @param array $pageData
@@ -149,13 +153,15 @@ class PapayaUiContentTeasers extends PapayaUiControl {
       $page->appendQuoteTo(
         $parent,
         [],
-        $this->viewConfigurations()->offsetGet([[$pageData['view_id'], $pageData['viewmode_id']]])
+        $this->viewConfigurations()->offsetGet(
+          [[$pageData['view_id'], $pageData['viewmode_id'], \PapayaContentViewConfigurations::TYPE_OUTPUT]]
+        )
       );
     }
   }
 
   /**
-   * Append thumnbail xml for the generated teasers
+   * Append thumbnail xml for the generated teasers
    *
    * @param PapayaXmlElement $parent
    */

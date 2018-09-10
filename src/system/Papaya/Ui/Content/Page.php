@@ -68,9 +68,9 @@ class PapayaUiContentPage extends PapayaObject {
    * @return PapayaContentPage|PapayaContentPagePublication
    */
   public function page(PapayaContentPage $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (NULL == $this->_page) {
+    } elseif (NULL === $this->_page) {
       if ($this->isPublic()) {
         $this->_page = new PapayaContentPagePublication();
       } else {
@@ -86,9 +86,9 @@ class PapayaUiContentPage extends PapayaObject {
    * @return PapayaContentPagePublicationTranslation|PapayaContentPageTranslation
    */
   public function translation(PapayaContentPageTranslation $translation = NULL) {
-    if (isset($translation)) {
+    if (NULL !== $translation) {
       $this->_translation = $translation;
-    } elseif (NULL == $this->_translation) {
+    } elseif (NULL === $this->_translation) {
       if ($this->isPublic()) {
         $this->_translation = new PapayaContentPagePublicationTranslation();
       } else {
@@ -124,7 +124,8 @@ class PapayaUiContentPage extends PapayaObject {
   public function getPageLanguage() {
     if ($this->_language instanceof PapayaContentLanguage) {
       return $this->_language;
-    } elseif (isset($this->_language) && isset($this->papaya()->languages)) {
+    }
+    if (isset($this->_language, $this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);
     }
     return NULL;
@@ -142,6 +143,7 @@ class PapayaUiContentPage extends PapayaObject {
    *
    * @param \PapayaXmlElement $parent
    * @param array|\PapayaObjectParameters $configuration
+   * @param array|null $viewData
    */
   public function appendQuoteTo(PapayaXmlElement $parent, $configuration = [], array $viewData = NULL) {
     $moduleGuid = $this->translation()->moduleGuid;
@@ -215,7 +217,7 @@ class PapayaUiContentPage extends PapayaObject {
       if ($plugin instanceof \PapayaPluginAddressable) {
         $request = new \PapayaRequest($this->papaya()->options);
         $request->load($reference->url());
-        $validatedHref = $plugin->validateURL($request);
+        $validatedHref = $plugin->validateUrl($request);
       }
       if (is_string($validatedHref) && ('' !== $validatedHref)) {
         $href = $validatedHref;

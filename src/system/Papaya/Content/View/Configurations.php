@@ -21,6 +21,10 @@
 */
 class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
 
+  public const TYPE_OUTPUT = \PapayaPluginTypes::OUTPUT;
+  public const TYPE_FILTER = \PapayaPluginTypes::FILTER;
+  public const TYPE_IMPORT = \PapayaPluginTypes::IMPORT;
+
   /**
   * Map field names to more convinient property names
   *
@@ -56,7 +60,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
       $conditionOutput = sprintf(' WHERE vl.viewmode_id = %d', $filter['mode_id']);
       $conditionData = sprintf(' WHERE vl.datafilter_id = %d', $filter['mode_id']);
       unset($filter['mode_id']);
-      $prefix = '';
+      $prefix = ' AND ';
     } else {
       $conditionOutput = $conditionData = '';
     }
