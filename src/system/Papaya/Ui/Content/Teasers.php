@@ -154,7 +154,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
         $parent,
         [],
         $this->viewConfigurations()->offsetGet(
-          [[$pageData['view_id'], $pageData['viewmode_id'], \PapayaContentViewConfigurations::TYPE_OUTPUT]]
+          [$pageData['view_id'], $pageData['viewmode_id'], \PapayaContentViewConfigurations::TYPE_OUTPUT]
         )
       );
     }
