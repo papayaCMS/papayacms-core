@@ -95,7 +95,7 @@ class Teasers extends \Papaya\UI\Control {
       $this->_viewConfigurations = new \Papaya\Content\View\Configurations();
       $this->_viewConfigurations->papaya($this->papaya());
       $viewIds = iterator_to_array(
-        new \Papaya\Iterator\ArrayMapper($this->pages(), 'viewmode_id'), FALSE
+        new \Papaya\Iterator\ArrayMapper($this->pages(), 'view_id'), FALSE
       );
       $this->_viewConfigurations->activateLazyLoad(
         [
@@ -152,13 +152,14 @@ class Teasers extends \Papaya\UI\Control {
       );
       $page->papaya($this->papaya());
       $page->assign($pageData);
-      $page->appendQuoteTo(
-        $parent,
-        [],
-        $this->viewConfigurations()->offsetGet(
+      if ($pageData['viewmode_id'] === -1) {
+        $viewData = $this->viewConfigurations()->offsetGet(
           [$pageData['view_id'], $pageData['viewmode_id'], \Papaya\Content\View\Configurations::TYPE_OUTPUT]
-        )
-      );
+        );
+      } else {
+        $viewData = ['id' => -1, 'mode_id' => -1, 'type' => \Papaya\Content\View\Configurations::TYPE_OUTPUT];
+      }
+      $page->appendQuoteTo($parent, [], $viewData);
     }
   }
 
