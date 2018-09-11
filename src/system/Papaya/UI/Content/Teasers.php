@@ -152,7 +152,7 @@ class Teasers extends \Papaya\UI\Control {
       );
       $page->papaya($this->papaya());
       $page->assign($pageData);
-      if ($pageData['viewmode_id'] === -1) {
+      if (NULL !== $pageData['viewmode_id']) {
         $viewData = $this->viewConfigurations()->offsetGet(
           [$pageData['view_id'], $pageData['viewmode_id'], \Papaya\Content\View\Configurations::TYPE_OUTPUT]
         );
