@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes\Set;
+
+use \Papaya\Message;
+use \Papaya\UI;
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
  *
@@ -21,7 +24,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
  * @subpackage Administration
  */
 class Change
-  extends \Papaya\UI\Control\Command\Dialog\Database\Record {
+  extends UI\Control\Command\Dialog\Database\Record {
 
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
@@ -41,7 +44,7 @@ class Change
         $setId = 0;
       }
     }
-    $dialog = new \Papaya\UI\Dialog\Database\Save($this->record());
+    $dialog = new UI\Dialog\Database\Save($this->record());
     $dialog->papaya($this->papaya());
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
@@ -52,13 +55,13 @@ class Change
         'set_id' => $setId
       )
     );
-    $dialog->caption = new \Papaya\UI\Text\Translated($dialogCaption);
-    $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Input(
-      new \Papaya\UI\Text\Translated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
+    $dialog->caption = new UI\Text\Translated($dialogCaption);
+    $dialog->fields[] = $field = new UI\Dialog\Field\Input(
+      new UI\Text\Translated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
     );
     $field->setMandatory(TRUE);
-    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
-      new \Papaya\UI\Text\Translated($buttonCaption)
+    $dialog->buttons[] = new UI\Dialog\Button\Submit(
+      new UI\Text\Translated($buttonCaption)
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
     $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
@@ -69,12 +72,7 @@ class Change
    * Save data from dialog
    */
   public function callbackSaveValues() {
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_INFO,
-        'Theme set saved.'
-      )
-    );
+    $this->papaya()->messages->display(Message::SEVERITY_INFO, 'Theme set saved.');
   }
 
   /**
@@ -85,8 +83,8 @@ class Change
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_ERROR,
+      new Message\Display\Translated(
+        Message::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

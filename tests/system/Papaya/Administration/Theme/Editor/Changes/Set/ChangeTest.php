@@ -149,8 +149,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('display')
+      ->with(\Papaya\Message::SEVERITY_INFO, 'Theme set saved.');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);

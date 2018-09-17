@@ -116,7 +116,7 @@ class DialogTest extends \Papaya\TestCase {
     $dialogErrors
       ->expects($this->once())
       ->method('getSourceCaptions')
-      ->will($this->returnValue(array()));
+      ->will($this->returnValue(array('field')));
 
     $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
@@ -138,8 +138,8 @@ class DialogTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('display')
+      ->with(\Papaya\Message::SEVERITY_ERROR, 'Invalid input. Please check the field(s) "%s".', ['field']);
 
     $editor = new Dialog($pluginContent);
     $editor->papaya(

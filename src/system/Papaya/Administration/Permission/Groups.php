@@ -16,6 +16,7 @@
 namespace Papaya\Administration\Permission;
 
 use Papaya\Administration;
+use \Papaya\Iterator;
 
 /**
  * Constant and structure definitions for administration interface permission groups.
@@ -132,9 +133,10 @@ class Groups implements \IteratorAggregate {
    * First level are the group ids and titles. Second level are the permission ids and titles.
    *
    * @see \IteratorAggregate::getIterator()
+   * @return \Iterator
    */
   public function getIterator() {
-    return new \Papaya\Iterator\Tree\Details(
+    return new Iterator\Tree\Details(
       $this->_groups,
       $this->_groupedPermissions
     );
