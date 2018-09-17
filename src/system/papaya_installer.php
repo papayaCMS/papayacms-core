@@ -227,7 +227,7 @@ class papaya_installer extends base_db {
           'login' => $dialog->data['login']
         )
       );
-      if (trim($dialog->data['password']) != '') {
+      if ('' !== trim($dialog->data['password'])) {
         $this->sessionParams['installer_basic_options']['password_hash'] =
           $this->passwordApi()->getPasswordHash($dialog->data['password']);
       }
@@ -235,9 +235,8 @@ class papaya_installer extends base_db {
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->display(
         \Papaya\Message::SEVERITY_ERROR,
-        'Please check your intput in the following fields: '.implode(
-          ', ', $dialog->errors()->getSourceCaptions()
-        )
+        'Please check your input in the following fields: %s',
+        [implode(', ', $dialog->errors()->getSourceCaptions()]
       );
     }
     $this->layout->add($this->getXMLDefaults());

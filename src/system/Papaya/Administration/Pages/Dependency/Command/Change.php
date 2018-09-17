@@ -178,10 +178,8 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
    */
   public function handleExecutionSuccess($context) {
     $context->synchronizations->synchronizeDependency($context->dependency);
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_INFO, 'Dependency saved.'
-      )
+    $this->papaya()->messages->display(
+      \Papaya\Message::SEVERITY_INFO, 'Dependency saved.'
     );
   }
 
@@ -189,12 +187,10 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
    * Callback to dispatch a message to the user that here was an input error.
    */
   public function dispatchErrorMessage($context, \Papaya\UI\Dialog $dialog) {
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_ERROR,
-        'Invalid input. Please check the fields "%s".',
-        array(implode(', ', $dialog->errors()->getSourceCaptions()))
-      )
+    $this->papaya()->messages->display(
+      \Papaya\Message::SEVERITY_ERROR,
+      'Invalid input. Please check the following fields: "%s".',
+      [implode(', ', $dialog->errors()->getSourceCaptions())]
     );
   }
 }

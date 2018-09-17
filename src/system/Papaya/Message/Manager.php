@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Manager, central message manager, handles the dispatchers
  *
@@ -58,13 +59,12 @@ class Manager extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Display a message to the user
-   *
-   * @param $severity
-   * @param $text
+   * @param int $severity
+   * @param string $messageText
+   * @param array|NULL $parameters
    */
-  public function display($severity, $text) {
-    $this->dispatch(new Display($severity, $text));
+  public function display($severity, $messageText, array $parameters = NULL) {
+    $this->dispatch(new Display\Translated($severity, $messageText, $parameters ?: []));
   }
 
   /**
