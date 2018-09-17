@@ -155,29 +155,23 @@ class Dialog extends \Papaya\UI\Dialog {
       $this->_listview->builder(
         $builder = new \Papaya\UI\ListView\Items\Builder($this->users())
       );
-      $builder->callbacks()->onCreateItem = array($this, 'createUserItem');
+      $builder->callbacks()->onCreateItem = function(
+        /** @noinspection PhpUnusedParameterInspection */
+        $context, \Papaya\UI\ListView\Items $items, array $user
+      ) {
+        $items[] = new \Papaya\UI\ListView\Item(
+          'items-user',
+          empty($user['caption']) ? $user['email'] : $user['caption'],
+          array(
+            $this->_parameterNames['user'] => $user['id'],
+            $this->_parameterNames['filter'] => $this->data()->get('filter'),
+            $this->_parameterNames['page'] => $this->paging()->currentPage
+          ),
+          $this->parameters()->get($this->_parameterNames['user']) === $user['id']
+        );
+      };
     }
     return $this->_listview;
-  }
-
-  /**
-   * Create a listview item for a community user record.
-   *
-   * @param object $context
-   * @param \Papaya\UI\ListView\Items $items
-   * @param array $user
-   */
-  public function createUserItem($context, $items, $user) {
-    $items[] = new \Papaya\UI\ListView\Item(
-      'items-user',
-      empty($user['caption']) ? $user['email'] : $user['caption'],
-      array(
-        $this->_parameterNames['user'] => $user['id'],
-        $this->_parameterNames['filter'] => $this->data()->get('filter'),
-        $this->_parameterNames['page'] => $this->paging()->currentPage
-      ),
-      $this->parameters()->get($this->_parameterNames['user']) === $user['id']
-    );
   }
 
   /**
