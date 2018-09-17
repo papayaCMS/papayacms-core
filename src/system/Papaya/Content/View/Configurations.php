@@ -55,8 +55,8 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
    */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $prefix = " WHERE ";
-    if (array_key_exists('mode_id', $filter)) {
+    $prefix = ' WHERE ';
+    if (is_array($filter) && array_key_exists('mode_id', $filter)) {
       $conditionOutput = sprintf(' WHERE vl.viewmode_id = %d', $filter['mode_id']);
       $conditionData = sprintf(' WHERE vl.datafilter_id = %d', $filter['mode_id']);
       unset($filter['mode_id']);
