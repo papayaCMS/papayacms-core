@@ -79,21 +79,21 @@ class Synchronizations {
    *
    * @var \Papaya\UI\Icon\Collection
    */
-  private $_icons = NULL;
+  private $_icons;
 
   /**
    * Buffer variable for array(id => caption).
    *
    * @var array(integer => string)
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * Dependencies records list.
    *
    * @var \Papaya\Content\Page\Dependencies
    */
-  private $_dependencies = NULL;
+  private $_dependencies;
 
   /**
    * Create {@see \Papaya\UI\Icon\Collection} from definitions and return it.
@@ -101,7 +101,7 @@ class Synchronizations {
    * @return \Papaya\UI\Icon\Collection
    */
   public function getIcons() {
-    if (is_null($this->_icons)) {
+    if (NULL === $this->_icons) {
       $this->_icons = new \Papaya\UI\Icon\Collection;
       foreach ($this->_definitions as $synchronization => $data) {
         $this->_icons[$synchronization] = new \Papaya\UI\Icon(
@@ -120,7 +120,7 @@ class Synchronizations {
    * @return array
    */
   public function getList() {
-    if (is_null($this->_list)) {
+    if (NULL === $this->_list) {
       $this->_list = array();
       foreach ($this->_definitions as $synchronization => $data) {
         $this->_list[$synchronization] = new \Papaya\UI\Text\Translated($data['caption']);
@@ -136,9 +136,9 @@ class Synchronizations {
    * @return \Papaya\Content\Page\Dependencies
    */
   public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
-    if (isset($dependencies)) {
+    if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
-    } elseif (is_null($this->_dependencies)) {
+    } elseif (NULL === $this->_dependencies) {
       $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
@@ -159,8 +159,8 @@ class Synchronizations {
   }
 
   /**
-   * Get the targets for an given synchonization. The targets are dependent pages that
-   * are configured to be syncronized.
+   * Get the targets for an given synchronization. The targets are dependent pages that
+   * are configured to be synchronized.
    *
    * @param integer $originId
    * @param integer $synchronization
@@ -184,8 +184,9 @@ class Synchronizations {
    */
   public function synchronizeDependency(\Papaya\Content\Page\Dependency $dependency) {
     foreach ($this->_definitions as $synchronization => $data) {
-      if ($dependency->synchronization & $synchronization &&
-        $synchronization != \Papaya\Content\Page\Dependency::SYNC_PUBLICATION &&
+      if (
+        (int)$synchronization !== \Papaya\Content\Page\Dependency::SYNC_PUBLICATION &&
+        \Papaya\Utility\Bitwise::inBitmask($synchronization, $dependency->synchronization) &&
         ($action = $this->getAction($synchronization))) {
         $action->synchronize(array($dependency->id), $dependency->originId);
       }
@@ -201,12 +202,12 @@ class Synchronizations {
    */
   public function synchronizeAction($synchronizations, $originId, array $languages = NULL) {
     foreach ($this->_definitions as $identifier => $data) {
-      if ($synchronizations & $identifier) {
-        if ($targetIds = $this->getTargets($originId, $identifier)) {
-          if ($action = $this->getAction($identifier)) {
-            $action->synchronize($targetIds, $originId, $languages);
-          }
-        }
+      if (
+        \Papaya\Utility\Bitwise::inBitmask($identifier, $synchronizations) &&
+        ($targetIds = $this->getTargets($originId, $identifier)) &&
+        ($action = $this->getAction($identifier))
+      ) {
+        $action->synchronize($targetIds, $originId, $languages);
       }
     }
   }

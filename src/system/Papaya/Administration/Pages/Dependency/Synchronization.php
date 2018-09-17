@@ -29,5 +29,5 @@ interface Synchronization {
    * @param integer $originId
    * @param array|NULL $languages
    */
-  function synchronize(array $targetIds, $originId, array $languages = NULL);
+  public function synchronize(array $targetIds, $originId, array $languages = NULL);
 }

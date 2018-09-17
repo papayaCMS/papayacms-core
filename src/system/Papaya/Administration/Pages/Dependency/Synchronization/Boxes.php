@@ -29,14 +29,14 @@ class Boxes
    *
    * @var Boxes
    */
-  private $_boxes = NULL;
+  private $_boxes;
 
   /**
    * Page working copy object
    *
    * @var \Papaya\Content\Page\Work
    */
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Synchronize a dependency
@@ -62,7 +62,7 @@ class Boxes
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
-    $filter = $databaseAccess->getSqlCondition('topic_id', $targetIds);
+    $filter = $databaseAccess->getSqlCondition(['topic_id' => $targetIds]);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
     $parameters = array(
       $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
@@ -78,9 +78,9 @@ class Boxes
    * @return \Papaya\Content\Page\Boxes
    */
   public function boxes(\Papaya\Content\Page\Boxes $boxes = NULL) {
-    if (isset($boxes)) {
+    if (NULL !== $boxes) {
       $this->_boxes = $boxes;
-    } elseif (is_null($this->_boxes)) {
+    } elseif (NULL === $this->_boxes) {
       $this->_boxes = new \Papaya\Content\Page\Boxes();
     }
     return $this->_boxes;
@@ -93,9 +93,9 @@ class Boxes
    * @return \Papaya\Content\Page\Work
    */
   public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
+    } elseif (NULL === $this->_page) {
       $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;

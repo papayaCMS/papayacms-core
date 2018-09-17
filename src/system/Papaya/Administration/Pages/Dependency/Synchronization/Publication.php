@@ -23,9 +23,18 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
 class Publication
   implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
-  private $_publication = NULL;
-  private $_page = NULL;
-  private $_version = NULL;
+  /**
+   * @var \Papaya\Content\Page\Publication
+   */
+  private $_publication;
+  /**
+   * @var \Papaya\Content\Page\Work
+   */
+  private $_page;
+  /**
+   * @var \Papaya\Content\Page\Version
+   */
+  private $_version;
 
   /**
    * Synchronize a dependency, publish target pages
@@ -62,9 +71,9 @@ class Publication
    * @return \Papaya\Content\Page\Publication
    */
   public function publication(\Papaya\Content\Page\Publication $publication = NULL) {
-    if (isset($publication)) {
+    if (NULL !== $publication) {
       $this->_publication = $publication;
-    } elseif (is_null($this->_publication)) {
+    } elseif (NULL === $this->_publication) {
       $this->_publication = new \Papaya\Content\Page\Publication();
     }
     return $this->_publication;
@@ -77,9 +86,9 @@ class Publication
    * @return \Papaya\Content\Page\Work
    */
   public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
+    } elseif (NULL === $this->_page) {
       $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
@@ -92,9 +101,9 @@ class Publication
    * @return \Papaya\Content\Page\Version
    */
   public function version(\Papaya\Content\Page\Version $version = NULL) {
-    if (isset($version)) {
+    if (NULL !== $version) {
       $this->_version = $version;
-    } elseif (is_null($this->_version)) {
+    } elseif (NULL === $this->_version) {
       $this->_version = new \Papaya\Content\Page\Version();
     }
     return $this->_version;
@@ -104,7 +113,7 @@ class Publication
    * Fetch the needed version data (owner, message, change level).
    *
    * @param integer $pageId
-   * @return array
+   * @return array|FALSE
    */
   private function getVersionData($pageId) {
     $databaseAccess = $this->publication()->getDatabaseAccess();

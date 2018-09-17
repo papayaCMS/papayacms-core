@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Command;
-use Papaya\Administration\Pages\Dependency\Changer;
 
 /**
  * Add/save a page dependency.
@@ -41,7 +40,7 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
     $changer = $this->owner();
     $pageId = $changer->getPageId();
     $originId = $changer->getOriginId();
-    return (empty($originId) || $originId != $pageId);
+    return (empty($originId) || $originId !== $pageId);
   }
 
   /**
@@ -112,25 +111,30 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
    * @return bool
    */
   public function validateOriginAndSynchronizations($context, $record) {
-    if ($record->originId == $record->id) {
-      $context->originIdField->handleValidationFailure(
-        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
-      );
-      return FALSE;
-    } elseif ($record->isDependency($record->originId)) {
+    if ((int)$record->originId === (int)$record->id) {
       $context->originIdField->handleValidationFailure(
         new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
       );
       return FALSE;
     }
-    if (($record->synchronization & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
-      ($record->synchronization & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
-      if (!$this->compareViewModules($record)) {
-        $context->synchronizationField->handleValidationFailure(
-          new \Papaya\Filter\Exception\FailedCallback(array($this, 'compareViewModules'))
-        );
-        return FALSE;
-      }
+    if ($record->isDependency($record->originId)) {
+      $context->originIdField->handleValidationFailure(
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
+      );
+      return FALSE;
+    }
+    /** @noinspection NotOptimalIfConditionsInspection */
+    if (
+      (
+        \Papaya\Utility\Bitwise::inBitmask(\Papaya\Content\Page\Dependency::SYNC_VIEW, $record->synchronization) xor
+        \Papaya\Utility\Bitwise::inBitmask(\Papaya\Content\Page\Dependency::SYNC_CONTENT, $record->synchronization)
+      ) &&
+      !$this->compareViewModules($record)
+    ) {
+      $context->synchronizationField->handleValidationFailure(
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'compareViewModules'))
+      );
+      return FALSE;
     }
     return TRUE;
   }
@@ -143,11 +147,11 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
    */
   private function compareViewModules(\Papaya\Content\Page\Dependency $record) {
     $databaseAccess = $record->getDatabaseAccess();
-    $sql = "SELECT tt.lng_id, COUNT(DISTINCT v.module_guid) module_counter
+    $sql = 'SELECT tt.lng_id, COUNT(DISTINCT v.module_guid) module_counter
               FROM %s AS tt, %s AS v
              WHERE tt.topic_id IN (%d, %d)
                AND v.view_id = tt.view_id
-             GROUP BY tt.lng_id";
+             GROUP BY tt.lng_id';
     $parameters = array(
       $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEWS),
@@ -175,6 +179,8 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * Callback to dispatch a message to the user that the record was saved and trigger initial sync.
+   *
+   * @param object $context
    */
   public function handleExecutionSuccess($context) {
     $context->synchronizations->synchronizeDependency($context->dependency);
@@ -185,8 +191,14 @@ class Change extends \Papaya\UI\Control\Command\Dialog {
 
   /**
    * Callback to dispatch a message to the user that here was an input error.
+   *
+   * @param object $context
+   * @param \Papaya\UI\Dialog $dialog
    */
-  public function dispatchErrorMessage($context, \Papaya\UI\Dialog $dialog) {
+  public function dispatchErrorMessage(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, \Papaya\UI\Dialog $dialog
+  ) {
     $this->papaya()->messages->display(
       \Papaya\Message::SEVERITY_ERROR,
       'Invalid input. Please check the following fields: "%s".',

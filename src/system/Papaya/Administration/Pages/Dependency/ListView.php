@@ -62,7 +62,7 @@ class ListView extends \Papaya\UI\ListView {
    *
    * @var \Papaya\Content\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   public function __construct(
     $originPageId,
@@ -73,8 +73,8 @@ class ListView extends \Papaya\UI\ListView {
   ) {
     \Papaya\Utility\Constraints::assertInteger($originPageId);
     \Papaya\Utility\Constraints::assertInteger($currentPageId);
-    $this->_originPageId = $originPageId;
-    $this->_currentPageId = $currentPageId;
+    $this->_originPageId = (int)$originPageId;
+    $this->_currentPageId = (int)$currentPageId;
     $this->_dependencies = $dependencies;
     $this->_references = $references;
     $this->_synchronizations = $synchronizations;
@@ -127,7 +127,7 @@ class ListView extends \Papaya\UI\ListView {
         if (!empty($dependency['note'])) {
           $listitem->text = \Papaya\Utility\Text::truncate($dependency['note'], 60, TRUE);
         }
-        $listitem->selected = $dependency['id'] == $this->_currentPageId;
+        $listitem->selected = (int)$dependency['id'] === $this->_currentPageId;
         $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text('');
         $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Images(
           $this->_synchronizations->getIcons(),
@@ -159,9 +159,10 @@ class ListView extends \Papaya\UI\ListView {
         if (!empty($reference['note'])) {
           $listitem->text = \Papaya\Utility\Text::truncate($reference['note'], 60, TRUE);
         }
-        $listitem->selected = in_array(
+        $listitem->selected = \in_array(
           $this->parameters()->get('target_id'),
-          array($reference['source_id'], $reference['target_id'])
+          array($reference['source_id'], $reference['target_id']),
+          FALSE
         );
         $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
           'items-page',
@@ -203,9 +204,9 @@ class ListView extends \Papaya\UI\ListView {
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
-    } elseif (is_null($this->_pages)) {
+    } elseif (NULL === $this->_pages) {
       $this->_pages = new \Papaya\Content\Pages();
       $this->_pages->papaya($this->papaya());
     }

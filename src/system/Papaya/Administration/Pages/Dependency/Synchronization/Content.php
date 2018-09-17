@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use Papaya\Content\Page\Translations;
 
 /**
  * Synchronize view and content of the page working copy
@@ -57,9 +56,9 @@ class Content
    * @return \Papaya\Content\Page\Translations
    */
   public function translations(\Papaya\Content\Page\Translations $translations = NULL) {
-    if (isset($translations)) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
-    } elseif (is_null($this->_translations)) {
+    } elseif (NULL === $this->_translations) {
       $this->_translations = new \Papaya\Content\Page\Translations();
     }
     return $this->_translations;
@@ -109,11 +108,13 @@ class Content
     $result = array();
     foreach ($languageIds as $languageId) {
       foreach ($targetIds as $targetId) {
-        if (!(
-          isset($existing[$languageId]) &&
-          is_array($existing[$languageId]) &&
-          in_array($targetId, $existing[$languageId])
-        )) {
+        if (
+          !(
+            isset($existing[$languageId]) &&
+            \is_array($existing[$languageId]) &&
+            \in_array($targetId, $existing[$languageId], FALSE)
+          )
+        ) {
           $result[$languageId][] = $targetId;
         }
       }
@@ -135,21 +136,17 @@ class Content
   ) {
     foreach ($languages as $languageId) {
       $translation = $this->translations()->getTranslation($originId, $languageId);
+      $isExisting = isset($existing[$languageId]);
+      $isMissing = isset($missing[$languageId]);
       if ($translation->id > 0) {
-        if (isset($existing[$languageId])) {
-          if (!$this->updateTranslations($translation, $existing[$languageId])) {
-            return FALSE;
-          }
+        if ($isExisting && !$this->updateTranslations($translation, $existing[$languageId])) {
+          return FALSE;
         }
-        if (isset($missing[$languageId])) {
-          if (!$this->insertTranslations($translation, $missing[$languageId])) {
-            return FALSE;
-          }
+        if ($isMissing && !$this->insertTranslations($translation, $missing[$languageId])) {
+          return FALSE;
         }
-      } else {
-        if (isset($existing[$languageId])) {
-          $this->deleteTranslations($languageId, $existing[$languageId]);
-        }
+      } elseif ($isExisting) {
+        $this->deleteTranslations($languageId, $existing[$languageId]);
       }
     }
     return TRUE;

@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use Papaya\Content\Page\Work;
 
 /**
  * Synchronize properties of the page working copy
@@ -28,9 +27,9 @@ class Properties
   /**
    * Page database record object
    *
-   * @var Work
+   * @var \Papaya\Content\Page\Work
    */
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Synchronize a dependency
@@ -55,9 +54,9 @@ class Properties
    * @return \Papaya\Content\Page\Work
    */
   public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
+    } elseif (NULL === $this->_page) {
       $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;

@@ -28,7 +28,7 @@ class BoxesTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
-      ->with('topic_id', array(42))
+      ->with(['topic_id' => [42]])
       ->will($this->returnValue("topic_id = '42'"));
     $databaseAccess
       ->expects($this->once())

@@ -14,21 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use Papaya\Content\Page\Work;
-
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- * @link http://www.papaya-cms.com/
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
 
 class Access
   implements \Papaya\Administration\Pages\Dependency\Synchronization {
@@ -36,9 +21,9 @@ class Access
   /**
    * Page database record object
    *
-   * @var Work
+   * @var \Papaya\Content\Page\Work
    */
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Synchronize a dependency
@@ -62,9 +47,9 @@ class Access
    * @return \Papaya\Content\Page\Work
    */
   public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
+    } elseif (NULL === $this->_page) {
       $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;

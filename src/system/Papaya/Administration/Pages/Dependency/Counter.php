@@ -27,7 +27,7 @@ class Counter extends \Papaya\Database\BaseObject {
    *
    * @var integer
    */
-  private $_pageId = 0;
+  private $_pageId;
 
   /**
    * store loading status - for lazy loading
@@ -87,13 +87,13 @@ class Counter extends \Papaya\Database\BaseObject {
       'references' => 0
     );
     $sql = "SELECT 'dependencies' AS name, COUNT(*) counter
-              FROM %1\$s
-             WHERE topic_origin_id = %3\$d
+              FROM %1\\\$s
+             WHERE topic_origin_id = %3\\\$d
             UNION ALL
             SELECT 'references' AS name, COUNT(*) counter
-              FROM %2\$s
-             WHERE topic_source_id = %3\$d
-                OR topic_target_id = %3\$d";
+              FROM %2\\\$s
+             WHERE topic_source_id = %3\\\$d
+                OR topic_target_id = %3\\\$d";
     $parameters = array(
       $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
       $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),

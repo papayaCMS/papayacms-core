@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Command;
-use Papaya\Administration\Pages\Dependency\Changer;
 
 /**
  * Delete a page dependency.

@@ -14,12 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
-use Papaya\Administration\Pages\Dependency\ListView;
-use Papaya\Administration\Pages\Dependency\Synchronizations;
-use Papaya\Content\Page\Dependencies;
-use Papaya\Content\Page\Dependency;
-use Papaya\UI\Control\Command\Controller;
-use Papaya\UI\Toolbar;
 
 /**
  * Administration interface for changes on the dependencies of a page.
@@ -56,46 +50,53 @@ class Changer extends \Papaya\UI\Control\Interactive {
    *
    * @var \Papaya\Content\Page\Dependency
    */
-  private $_dependency = NULL;
+  private $_dependency;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var Dependencies
+   * @var \Papaya\Content\Page\Dependencies
    */
-  private $_dependencies = NULL;
+  private $_dependencies;
 
-  private $_reference = NULL;
+  /**
+   * @var \Papaya\Content\Page\Reference $_reference
+   */
+  private $_reference;
 
-  private $_references = NULL;
+
+  /**
+   * @var \Papaya\Content\Page\References $_references
+   */
+  private $_references;
 
   /**
    * Command controller for the needed actions
    *
    * @var \Papaya\UI\Control\Command\Controller
    */
-  private $_commands = NULL;
+  private $_commands;
 
   /**
    * Menu object, for buttons depending on the current status
    *
    * @var \Papaya\UI\Toolbar
    */
-  private $_menu = NULL;
+  private $_menu;
 
   /**
    * Dependencies listview
    *
    * @var ListView
    */
-  private $_listview = NULL;
+  private $_listview;
 
   /**
-   * Dependencies synchronization informations
+   * Dependencies synchronization information
    *
    * @var Synchronizations
    */
-  private $_synchronizations = NULL;
+  private $_synchronizations;
 
   /**
    * Return current page id
@@ -122,9 +123,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\Dependency
    */
   public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
-    if (isset($dependency)) {
+    if (NULL !== $dependency) {
       $this->_dependency = $dependency;
-    } elseif (is_null($this->_dependency)) {
+    } elseif (NULL === $this->_dependency) {
       $this->_dependency = new \Papaya\Content\Page\Dependency();
     }
     return $this->_dependency;
@@ -137,9 +138,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\Dependencies
    */
   public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
-    if (isset($dependencies)) {
+    if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
-    } elseif (is_null($this->_dependencies)) {
+    } elseif (NULL === $this->_dependencies) {
       $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
@@ -152,9 +153,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\Reference
    */
   public function reference(\Papaya\Content\Page\Reference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \Papaya\Content\Page\Reference();
     }
     return $this->_reference;
@@ -167,9 +168,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\References
    */
   public function references(\Papaya\Content\Page\References $references = NULL) {
-    if (isset($references)) {
+    if (NULL !== $references) {
       $this->_references = $references;
-    } elseif (is_null($this->_references)) {
+    } elseif (NULL === $this->_references) {
       $this->_references = new \Papaya\Content\Page\References();
     }
     return $this->_references;
@@ -208,14 +209,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * Initialize parameters and store them into properties.
    */
   public function prepare() {
-    $this->_pageId = $this->parameters()->get('page_id', 0, new \Papaya\Filter\IntegerValue(0));
+    $this->_pageId = (int)$this->parameters()->get('page_id', 0, new \Papaya\Filter\IntegerValue(0));
     if ($this->_pageId > 0) {
       if ($this->dependency()->load($this->_pageId)) {
         $this->_originId = (int)$this->dependency()->originId;
       } elseif ($this->dependency()->isOrigin($this->_pageId)) {
-        $this->_originId = (int)$this->_pageId;
+        $this->_originId = $this->_pageId;
       }
-      $this->_targetId = $this->parameters()->get('target_id', 0, new \Papaya\Filter\IntegerValue(0));
+      $this->_targetId = (int)$this->parameters()->get('target_id', 0, new \Papaya\Filter\IntegerValue(0));
       if ($this->_targetId > 0) {
         $this->reference()->load(
           array('source_id' => $this->_pageId, 'target_id' => $this->_targetId)
@@ -231,13 +232,13 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\UI\Control\Command\Controller
    */
   public function commands(\Papaya\UI\Control\Command\Controller $commands = NULL) {
-    if (isset($commands)) {
+    if (NULL !== $commands) {
       $this->_commands = $commands;
-    } elseif (is_null($this->_commands)) {
+    } elseif (NULL === $this->_commands) {
       $commands = new \Papaya\UI\Control\Command\Controller('cmd', 'dependency_show');
       $commands->owner($this);
-      $commands['dependency_show'] = new \Papaya\Administration\Pages\Dependency\Command\Change();
-      $commands['dependency_delete'] = new \Papaya\Administration\Pages\Dependency\Command\Delete();
+      $commands['dependency_show'] = new Command\Change();
+      $commands['dependency_delete'] = new Command\Delete();
       $commands['reference_change'] = new \Papaya\Administration\Pages\Reference\Command\Change();
       $commands['reference_delete'] = new \Papaya\Administration\Pages\Reference\Command\Delete();
       $this->_commands = $commands;
@@ -252,9 +253,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\UI\Toolbar
    */
   public function menu(\Papaya\UI\Toolbar $menu = NULL) {
-    if (isset($menu)) {
+    if (NULL !== $menu) {
       $this->_menu = $menu;
-    } elseif (is_null($this->_menu)) {
+    } elseif (NULL === $this->_menu) {
       $this->_menu = new \Papaya\UI\Toolbar();
     }
     return $this->_menu;
@@ -298,7 +299,7 @@ class Changer extends \Papaya\UI\Control\Interactive {
         array(
           'cmd' => 'reference_delete',
           'page_id' => $this->_pageId,
-          'target_id' => $this->reference()->sourceId == $this->_pageId
+          'target_id' => (int)$this->reference()->sourceId === $this->_pageId
             ? $this->reference()->targetId : $this->reference()->sourceId
         ),
         $this->parameterGroup()
@@ -309,14 +310,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the dependencies listview.
    *
-   * @param \Papaya\Administration\Pages\Dependency\ListView $listview
-   * @return \Papaya\Administration\Pages\Dependency\ListView
+   * @param ListView $listview
+   * @return ListView
    */
-  public function listview(\Papaya\Administration\Pages\Dependency\ListView $listview = NULL) {
-    if (isset($listview)) {
+  public function listview(ListView $listview = NULL) {
+    if (NULL !== $listview) {
       $this->_listview = $listview;
-    } elseif (is_null($this->_listview)) {
-      $this->_listview = new \Papaya\Administration\Pages\Dependency\ListView(
+    } elseif (NULL === $this->_listview) {
+      $this->_listview = new ListView(
         $this->getOriginId(),
         $this->getPageId(),
         $this->dependencies(),
@@ -330,17 +331,15 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the synchronizations list
    *
-   * @param \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations
-   * @return \Papaya\Administration\Pages\Dependency\Synchronizations
+   * @param Synchronizations $synchronizations
+   * @return Synchronizations
    */
-  public function synchronizations(
-    \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations = NULL
-  ) {
-    if (isset($synchronizations)) {
+  public function synchronizations(Synchronizations $synchronizations = NULL) {
+    if (NULL !== $synchronizations) {
       $this->_synchronizations = $synchronizations;
     }
-    if (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new \Papaya\Administration\Pages\Dependency\Synchronizations();
+    if (NULL === $this->_synchronizations) {
+      $this->_synchronizations = new Synchronizations();
     }
     return $this->_synchronizations;
   }

@@ -29,7 +29,7 @@ class Tags
    *
    * @var \Papaya\Content\Page\Tags
    */
-  private $_tags = NULL;
+  private $_tags;
 
   /**
    * Synchronize the tags of the page dependencies
@@ -62,9 +62,9 @@ class Tags
    * @return \Papaya\Content\Page\Tags
    */
   public function tags(\Papaya\Content\Page\Tags $tags = NULL) {
-    if (isset($tags)) {
+    if (NULL !== $tags) {
       $this->_tags = $tags;
-    } elseif (is_null($this->_tags)) {
+    } elseif (NULL === $this->_tags) {
       $this->_tags = new \Papaya\Content\Page\Tags();
     }
     return $this->_tags;
@@ -81,11 +81,9 @@ class Tags
     if ($this->tags()->clear($targetId)) {
       if (!empty($tagIds)) {
         return $this->tags()->insert($targetId, $tagIds);
-      } else {
-        return TRUE;
       }
-    } else {
-      return FALSE;
+      return TRUE;
     }
+    return FALSE;
   }
 }

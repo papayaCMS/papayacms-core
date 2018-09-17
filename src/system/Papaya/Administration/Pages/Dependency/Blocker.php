@@ -18,7 +18,7 @@ namespace Papaya\Administration\Pages\Dependency;
 /**
  * Check if the current page is a dependency and block edit page if it is set to sync.
  *
- * Show a information dialog if the syncronisation for this part is activated.
+ * Show a information dialog if the synchronisation for this part is activated.
  *
  * @package Papaya-Library
  * @subpackage Administration
@@ -30,49 +30,49 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    *
    * @var integer
    */
-  private $_pageId = 0;
+  private $_pageId;
 
   /**
    * Cached synchronized result
    *
    * @var NULL|array
    */
-  private $_synchronized = NULL;
+  private $_synchronized;
 
   /**
-   * Dependecy content object buffer
+   * Dependency content object buffer
    *
    * @var \Papaya\Content\Page\Dependency
    */
-  private $_dependency = NULL;
+  private $_dependency;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
    * @var \Papaya\Content\Page\Dependencies
    */
-  private $_dependencies = NULL;
+  private $_dependencies;
 
   /**
    * Buffer variable for the views list
    *
    * @var \Papaya\Content\Views
    */
-  private $_views = NULL;
+  private $_views;
 
   /**
    * Page information content buffer
    *
    * @var \Papaya\Content\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   /**
    * Dependency/Reference counter
    *
    * @var Counter
    */
-  private $_counter = NULL;
+  private $_counter;
 
   /**
    * Initialize object with page id and synchronisation element.
@@ -146,12 +146,14 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    * @param bool $reset
    */
   private function prepare($synchronization = NULL, $reset = FALSE) {
-    if (is_null($this->_synchronized) || $reset) {
+    if (NULL === $this->_synchronized || $reset) {
       $this->_synchronized = array();
       $this->dependency()->load($this->_pageId);
     }
-    if (isset($synchronization) &&
-      !isset($this->_synchronized[$synchronization])) {
+    if (
+      NULL !== $synchronization &&
+      !isset($this->_synchronized[$synchronization])
+    ) {
       $this->_synchronized[$synchronization] =
         (bool)($this->dependency()->synchronization & $synchronization);
     }
@@ -194,9 +196,9 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\Dependency
    */
   public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
-    if (isset($dependency)) {
+    if (NULL !== $dependency) {
       $this->_dependency = $dependency;
-    } elseif (is_null($this->_dependency)) {
+    } elseif (NULL === $this->_dependency) {
       $this->_dependency = new \Papaya\Content\Page\Dependency();
       $this->_dependency->papaya($this->papaya());
     }
@@ -210,9 +212,9 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Page\Dependencies
    */
   public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
-    if (isset($dependencies)) {
+    if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
-    } elseif (is_null($this->_dependencies)) {
+    } elseif (NULL === $this->_dependencies) {
       $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
@@ -225,9 +227,9 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Views
    */
   public function views(\Papaya\Content\Views $views = NULL) {
-    if (isset($views)) {
+    if (NULL !== $views) {
       $this->_views = $views;
-    } elseif (is_null($this->_views)) {
+    } elseif (NULL === $this->_views) {
       $this->_views = new \Papaya\Content\Views();
     }
     return $this->_views;
@@ -240,9 +242,9 @@ class Blocker extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
-    } elseif (is_null($this->_pages)) {
+    } elseif (NULL === $this->_pages) {
       $this->_pages = new \Papaya\Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
@@ -250,16 +252,16 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   }
 
   /**
-   * Provides countings of depended pages and references
+   * Provides count for depended pages and references
    *
-   * @param \Papaya\Administration\Pages\Dependency\Counter $counter
-   * @return \Papaya\Administration\Pages\Dependency\Counter
+   * @param Counter $counter
+   * @return Counter
    */
-  public function counter(\Papaya\Administration\Pages\Dependency\Counter $counter = NULL) {
-    if (isset($counter)) {
+  public function counter(Counter $counter = NULL) {
+    if (NULL !== $counter) {
       $this->_counter = $counter;
-    } elseif (is_null($this->_counter)) {
-      $this->_counter = new \Papaya\Administration\Pages\Dependency\Counter($this->_pageId);
+    } elseif (NULL === $this->_counter) {
+      $this->_counter = new Counter($this->_pageId);
       $this->_counter->papaya($this->papaya());
     }
     return $this->_counter;
