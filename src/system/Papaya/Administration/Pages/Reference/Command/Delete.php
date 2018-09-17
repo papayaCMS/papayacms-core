@@ -15,7 +15,9 @@
 
 namespace Papaya\Administration\Pages\Reference\Command;
 
-use Papaya\Administration\Pages\Dependency\Changer;
+use Papaya\Administration;
+use Papaya\Message;
+use Papaya\UI;
 
 /**
  * Delete a page reference.
@@ -24,32 +26,32 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @subpackage Administration
  */
 class Delete
-  extends \Papaya\UI\Control\Command\Dialog {
+  extends UI\Control\Command\Dialog {
 
   /**
    * Create confirmation dialog and assign callback for confirmation message.
    */
   public function createDialog() {
-    /** @var Changer $changer */
+    /** @var Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
-    $dialog = new \Papaya\UI\Dialog\Database\Delete(
+    $dialog = new UI\Dialog\Database\Delete(
       $reference = $changer->reference()
     );
-    $dialog->caption = new \Papaya\UI\Text\Translated('Delete');
+    $dialog->caption = new UI\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
       array(
         'cmd' => 'reference_delete',
         'page_id' => $changer->getPageId(),
-        'target_id' => $changer->getPageId() == $reference->sourceId
+        'target_id' => $changer->getPageId() === (int)$reference->sourceId
           ? $reference->targetId : $reference->sourceId
       )
     );
-    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
-      new \Papaya\UI\Text\Translated('Delete reference?'),
+    $dialog->fields[] = new UI\Dialog\Field\Information(
+      new UI\Text\Translated('Delete reference?'),
       'places-trash'
     );
-    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
+    $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'
@@ -62,8 +64,8 @@ class Delete
    */
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_INFO, 'Reference deleted.'
+      new Message\Display\Translated(
+        Message::SEVERITY_INFO, 'Reference deleted.'
       )
     );
   }

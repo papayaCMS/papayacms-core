@@ -28,14 +28,14 @@ class Ancestors extends \Papaya\UI\Control {
    *
    * @var \Papaya\Content\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   /**
    * Member variable for hierarchy menu subobject
    *
    * @var \Papaya\UI\Hierarchy\Menu
    */
-  private $_menu = NULL;
+  private $_menu;
 
   /**
    * Append ancestor menu xml to parent element, this will do nothing until ids are set.
@@ -77,9 +77,9 @@ class Ancestors extends \Papaya\UI\Control {
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
-    } elseif (is_null($this->_pages)) {
+    } elseif (NULL === $this->_pages) {
       $this->_pages = new \Papaya\Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
@@ -93,9 +93,9 @@ class Ancestors extends \Papaya\UI\Control {
    * @return \Papaya\UI\Hierarchy\Menu
    */
   public function menu(\Papaya\UI\Hierarchy\Menu $menu = NULL) {
-    if (isset($menu)) {
+    if (NULL !== $menu) {
       $this->_menu = $menu;
-    } elseif (is_null($this->_menu)) {
+    } elseif (NULL === $this->_menu) {
       $this->_menu = new \Papaya\UI\Hierarchy\Menu();
       $this->_menu->papaya($this->papaya());
     }
