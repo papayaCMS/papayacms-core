@@ -20,25 +20,23 @@ class DisplayTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Display::__construct
-   * @covers \Papaya\Message\Display::_isValidType
+   * @covers \Papaya\Message\Display::_isValidSeverity
    */
   public function testConstructor() {
     $message = new Display(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
-    $this->assertAttributeEquals(
+    $this->assertSame(
       \Papaya\Message::SEVERITY_WARNING,
-      '_type',
-      $message
+      $message->getSeverity()
     );
-    $this->assertAttributeEquals(
+    $this->assertSame(
       'Sample Message',
-      '_message',
-      $message
+      $message->getMessage()
     );
   }
 
   /**
    * @covers \Papaya\Message\Display::__construct
-   * @covers \Papaya\Message\Display::_isValidType
+   * @covers \Papaya\Message\Display::_isValidSeverity
    */
   public function testConstructorWithInvalidTypeExpectingException() {
     $this->expectException(\InvalidArgumentException::class);
