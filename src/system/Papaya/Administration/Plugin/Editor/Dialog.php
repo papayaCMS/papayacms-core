@@ -16,7 +16,6 @@
 namespace Papaya\Administration\Plugin\Editor;
 
 use \Papaya\Administration;
-use \Papaya\Message;
 use \Papaya\Plugin;
 use \Papaya\UI;
 use \Papaya\XML;
@@ -51,8 +50,7 @@ class Dialog extends Plugin\Editor {
         $this->getData()->assign($this->dialog()->data());
       }
     } elseif ($this->dialog()->isSubmitted()) {
-      $this->papaya()->messages->display(
-        Message::SEVERITY_ERROR,
+      $this->papaya()->messages->displayError(
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
       );

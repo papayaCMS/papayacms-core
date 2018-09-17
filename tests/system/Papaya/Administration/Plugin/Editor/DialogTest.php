@@ -138,8 +138,8 @@ class DialogTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('display')
-      ->with(\Papaya\Message::SEVERITY_ERROR, 'Invalid input. Please check the field(s) "%s".', ['field']);
+      ->method('displayError')
+      ->with('Invalid input. Please check the field(s) "%s".', ['field']);
 
     $editor = new Dialog($pluginContent);
     $editor->papaya(

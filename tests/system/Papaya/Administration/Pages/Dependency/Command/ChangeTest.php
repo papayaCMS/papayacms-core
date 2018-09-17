@@ -195,8 +195,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('displayWarning')
+      ->with($this->logicalNot($this->isEmpty()));
     $databaseResult = $this->createMock(\Papaya\Database\Result::class);
     $databaseResult
       ->expects($this->any())
@@ -303,8 +303,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('display')
-      ->with(\Papaya\Message::SEVERITY_INFO, 'Dependency saved.');
+      ->method('displayInfo')
+      ->with('Dependency saved.');
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -334,8 +334,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('display')
-      ->with(\Papaya\Message::SEVERITY_ERROR, 'Invalid input. Please check the following fields: "%s".', ['field']);
+      ->method('displayError')
+      ->with('Invalid input. Please check the following fields: "%s".', ['field']);
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

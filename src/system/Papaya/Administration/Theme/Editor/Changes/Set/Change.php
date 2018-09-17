@@ -15,7 +15,6 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Set;
 
-use \Papaya\Message;
 use \Papaya\UI;
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -72,7 +71,7 @@ class Change
    * Save data from dialog
    */
   public function callbackSaveValues() {
-    $this->papaya()->messages->display(Message::SEVERITY_INFO, 'Theme set saved.');
+    $this->papaya()->messages->displayInfo('Theme set saved.');
   }
 
   /**
@@ -82,12 +81,9 @@ class Change
    * @param \Papaya\UI\Dialog $dialog
    */
   public function callbackShowError($context, $dialog) {
-    $this->papaya()->messages->dispatch(
-      new Message\Display\Translated(
-        Message::SEVERITY_ERROR,
-        'Invalid input. Please check the field(s) "%s".',
-        array(implode(', ', $dialog->errors()->getSourceCaptions()))
-      )
+    $this->papaya()->messages->displayError(
+      'Invalid input. Please check the field(s) "%s".',
+      array(implode(', ', $dialog->errors()->getSourceCaptions()))
     );
   }
 }

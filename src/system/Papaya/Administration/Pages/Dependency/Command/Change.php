@@ -18,7 +18,6 @@ namespace Papaya\Administration\Pages\Dependency\Command;
 use \Papaya\Content;
 use \Papaya\Database;
 use \Papaya\Filter;
-use \Papaya\Message;
 use \Papaya\UI;
 use \Papaya\Utility;
 
@@ -168,14 +167,9 @@ class Change extends UI\Control\Command\Dialog {
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
       while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
         if ($row['module_counter'] > 1) {
-          $this->papaya()->messages->dispatch(
-            new Message\Display(
-              Message::SEVERITY_WARNING,
-              new UI\Text\Translated(
-                'Views with different modules found. Please change befor activating'.
-                ' synchronization or synchronize view and content.'
-              )
-            )
+          $this->papaya()->messages->displayWarning(
+            'Views with different modules found. Please change befor activating'.
+            ' synchronization or synchronize view and content.'
           );
           return FALSE;
         }
@@ -191,9 +185,7 @@ class Change extends UI\Control\Command\Dialog {
    */
   public function handleExecutionSuccess($context) {
     $context->synchronizations->synchronizeDependency($context->dependency);
-    $this->papaya()->messages->display(
-      Message::SEVERITY_INFO, 'Dependency saved.'
-    );
+    $this->papaya()->messages->displayInfo('Dependency saved.');
   }
 
   /**
@@ -206,8 +198,7 @@ class Change extends UI\Control\Command\Dialog {
     /** @noinspection PhpUnusedParameterInspection */
     $context, UI\Dialog $dialog
   ) {
-    $this->papaya()->messages->display(
-      Message::SEVERITY_ERROR,
+    $this->papaya()->messages->displayError(
       'Invalid input. Please check the following fields: "%s".',
       [implode(', ', $dialog->errors()->getSourceCaptions())]
     );

@@ -149,8 +149,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('display')
-      ->with(\Papaya\Message::SEVERITY_INFO, 'Theme set saved.');
+      ->method('displayInfo')
+      ->with('Theme set saved.');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
@@ -170,7 +170,7 @@ class ChangeTest extends \Papaya\TestCase {
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
-      ->will($this->returnValue(array()));
+      ->will($this->returnValue(array('field')));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
     $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
@@ -181,8 +181,8 @@ class ChangeTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('displayError')
+      ->with('Invalid input. Please check the field(s) "%s".', ['field']);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);

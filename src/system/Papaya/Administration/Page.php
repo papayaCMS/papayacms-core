@@ -15,10 +15,13 @@
 
 namespace Papaya\Administration;
 
+use \Papaya\Request;
+use \Papaya\UI;
+
 /**
  * Abstract superclass for an administration page.
  *
- * The administration page has thrre parts (content, navigation, information). The parts are executed
+ * The administration page has three parts (content, navigation, information). The parts are executed
  * one after another with the same parameters. Changes to the parameters of one part are assigned
  * to the next.
  *
@@ -44,7 +47,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
   private $_parts;
 
   /**
-   * @var \Papaya\UI\Toolbar
+   * @var UI\Toolbar
    */
   private $_toolbar;
 
@@ -106,9 +109,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    */
   public function execute() {
     if (!$this->validateAccess()) {
-      $this->papaya()->messages->display(
-        \Papaya\Message::SEVERITY_ERROR, 'Access forbidden.'
-      );
+      $this->papaya()->messages->displayError('Access forbidden.');
       return;
     }
     $parts = $this->parts();
@@ -118,8 +119,8 @@ abstract class Page extends \Papaya\Application\BaseObject {
       $value = $this->papaya()->session->getValue($parametersName);
       $parts->parameters()->merge(is_array($value) ? $value : array());
       $this->papaya()->request->setParameters(
-        \Papaya\Request::SOURCE_QUERY,
-        $this->papaya()->request->getParameters(\Papaya\Request::SOURCE_QUERY)->set(
+        Request::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(Request::SOURCE_QUERY)->set(
           $this->_parameterGroup, is_array($value) ? $value : array()
         )
       );
@@ -183,14 +184,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param \Papaya\UI\Toolbar $toolbar
-   * @return \Papaya\UI\Toolbar
+   * @param UI\Toolbar $toolbar
+   * @return UI\Toolbar
    */
-  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
+  public function toolbar(UI\Toolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new \Papaya\UI\Menu();
+      $this->_toolbar = new UI\Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }
