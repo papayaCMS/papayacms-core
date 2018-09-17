@@ -38,14 +38,14 @@ class Selector extends \Papaya\UI\Control\Interactive {
    *
    * @var \Papaya\Content\Languages
    */
-  private $_languages = NULL;
+  private $_languages;
 
   /**
    * Internal property for current language
    *
    * @var \Papaya\Content\Language
    */
-  private $_current = NULL;
+  private $_current;
 
   /**
    * Getter/Setter for a content languages record list.
@@ -54,10 +54,9 @@ class Selector extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\Content\Languages
    */
   public function languages(\Papaya\Content\Languages $languages = NULL) {
-    if (isset($languages)) {
+    if (NULL !== $languages) {
       $this->_languages = $languages;
-    }
-    if (is_null($this->_languages)) {
+    } elseif (NULL === $this->_languages) {
       $this->_languages = new \Papaya\Content\Languages();
     }
     return $this->_languages;
@@ -79,7 +78,7 @@ class Selector extends \Papaya\UI\Control\Interactive {
         return $this->getCurrent()->$name;
       case 'image' :
         $image = $this->getCurrent()->image;
-        return (empty($image)) ? '' : './pics/language/'.$image;
+        return empty($image) ? '' : './pics/language/'.$image;
     }
     throw new \LogicException(
       sprintf(
@@ -123,7 +122,7 @@ class Selector extends \Papaya\UI\Control\Interactive {
           'image' => $language['image']
         )
       );
-      if ($current->id == $id) {
+      if ((string)$current->id === (string)$id) {
         $link->setAttribute('selected', 'selected');
       }
     }
@@ -136,13 +135,11 @@ class Selector extends \Papaya\UI\Control\Interactive {
    * and the default interface language.
    *
    * If none of these are found a default language object containing data for English ist created.
-   *
-   * @return \Papaya\Content\Language
    */
   private function prepare() {
     $application = $this->papaya();
     $languages = NULL;
-    if (is_null($this->_current)) {
+    if (NULL === $this->_current) {
       $languages = $this->languages();
       $languages->loadByUsage(\Papaya\Content\Languages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
@@ -159,7 +156,7 @@ class Selector extends \Papaya\UI\Control\Interactive {
         $this->_current = $languages->getLanguageByCode($code);
       }
     }
-    if (is_null($this->_current) && isset($languages)) {
+    if (NULL === $this->_current && NULL !== $languages) {
       if ($language = $languages->getDefault()) {
         $this->_current = $language;
       } else {
