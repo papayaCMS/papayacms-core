@@ -107,9 +107,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
   public function execute() {
     if (!$this->validateAccess()) {
       $this->papaya()->messages->display(
-        \Papaya\Message::SEVERITY_ERROR, new \Papaya\UI\Text\Translated(
-           'Access forbidden.'
-         )
+        \Papaya\Message::SEVERITY_ERROR, 'Access forbidden.'
       );
       return;
     }
