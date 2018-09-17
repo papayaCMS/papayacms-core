@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SetTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Content\Theme\Set::_createMapping
+   * @covers \Papaya\Content\Theme\Skin::_createMapping
    */
   public function testCreateMapping() {
-    $themeSet = new Set();
+    $themeSet = new Skin();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
       \Papaya\Database\Record\Mapping::class,
@@ -34,10 +34,10 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::mapFieldToProperty
+   * @covers \Papaya\Content\Theme\Skin::mapFieldToProperty
    */
   public function testMapFieldToPropertyPassthru() {
-    $themeSet = new Set();
+    $themeSet = new Skin();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
@@ -49,10 +49,10 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::mapFieldToProperty
+   * @covers \Papaya\Content\Theme\Skin::mapFieldToProperty
    */
   public function testMapFieldToPropertyUnserialize() {
-    $themeSet = new Set();
+    $themeSet = new Skin();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
@@ -79,10 +79,10 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::mapPropertyToField
+   * @covers \Papaya\Content\Theme\Skin::mapPropertyToField
    */
   public function testMapPropertyToFieldPassthru() {
-    $themeSet = new Set();
+    $themeSet = new Skin();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
@@ -94,10 +94,10 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::mapPropertyToField
+   * @covers \Papaya\Content\Theme\Skin::mapPropertyToField
    */
   public function testMapPropertyToFieldSerialize() {
-    $themeSet = new Set();
+    $themeSet = new Skin();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertXmlStringEqualsXmlString(
@@ -116,7 +116,7 @@ class SetTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::getValuesXML
+   * @covers \Papaya\Content\Theme\Skin::getValuesXML
    */
   public function testGetValuesXml() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Structure $definition */
@@ -126,12 +126,12 @@ class SetTest extends \Papaya\TestCase {
       ->method('getXmlDocument')
       ->with(array())
       ->will($this->returnValue(new \Papaya\XML\Document));
-    $themeSet = new Set();
+    $themeSet = new Skin();
     $this->assertInstanceOf(\Papaya\XML\Document::class, $themeSet->getValuesXML($definition));
   }
 
   /**
-   * @covers \Papaya\Content\Theme\Set::setValuesXML
+   * @covers \Papaya\Content\Theme\Skin::setValuesXML
    */
   public function testSetValuesXml() {
     $document = new \Papaya\XML\Document();
@@ -143,7 +143,7 @@ class SetTest extends \Papaya\TestCase {
       ->method('getArray')
       ->with($this->isInstanceOf(\Papaya\XML\Element::class))
       ->will($this->returnValue(array('foo' => 'bar')));
-    $themeSet = new Set();
+    $themeSet = new Skin();
     $themeSet->setValuesXML($definition, $element);
     $this->assertEquals(array('foo' => 'bar'), $themeSet->values);
   }

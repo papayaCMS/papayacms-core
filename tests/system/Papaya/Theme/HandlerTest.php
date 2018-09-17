@@ -330,7 +330,7 @@ class HandlerTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Theme\Handler::getThemeSet
+   * @covers \Papaya\Theme\Handler::getThemeSkin
    */
   public function testGetThemeSetInPublicMode() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -353,12 +353,12 @@ class HandlerTest extends \Papaya\TestCase {
     );
     $this->assertEquals(
       '23',
-      $handler->getThemeSet()
+      $handler->getThemeSkin()
     );
   }
 
   /**
-   * @covers \Papaya\Theme\Handler::getThemeSet
+   * @covers \Papaya\Theme\Handler::getThemeSkin
    */
   public function testGetThemeSetInPreviewMode() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -397,7 +397,7 @@ class HandlerTest extends \Papaya\TestCase {
     );
     $this->assertEquals(
       '42',
-      $handler->getThemeSet()
+      $handler->getThemeSkin()
     );
   }
 

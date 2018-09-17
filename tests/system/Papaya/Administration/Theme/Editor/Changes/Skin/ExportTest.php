@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class ExportTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Export
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Export
    */
   public function testAppendTo() {
     $response = $this->createMock(\Papaya\Response::class);
@@ -31,7 +31,7 @@ class ExportTest extends \Papaya\TestCase {
     $response
       ->expects($this->once())
       ->method('sendHeader')
-      ->with('Content-Disposition: attachment; filename="theme set.xml"');
+      ->with('Content-Disposition: attachment; filename="theme skin.xml"');
     $response
       ->expects($this->once())
       ->method('setContentType')
@@ -60,8 +60,8 @@ class ExportTest extends \Papaya\TestCase {
       ->will($this->returnValue(/** @lang XML */
         '<theme/>'));
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -73,7 +73,7 @@ class ExportTest extends \Papaya\TestCase {
         $this->returnValueMap(
           array(
             array('theme', 'theme'),
-            array('title', 'set')
+            array('title', 'skin')
           )
         )
       );

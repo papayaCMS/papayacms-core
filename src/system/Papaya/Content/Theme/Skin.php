@@ -25,7 +25,7 @@ namespace Papaya\Content\Theme;
  * @property string $theme
  * @property array $values
  */
-class Set extends \Papaya\Database\Record {
+class Skin extends \Papaya\Database\Record {
 
   /**
    * Map field names to more convenient property names
@@ -44,7 +44,7 @@ class Set extends \Papaya\Database\Record {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
+  protected $_tableName = \Papaya\Content\Tables::THEME_SKINS;
 
   /**
    * @see \Papaya\Database\Records\Unbuffered::_createMapping()

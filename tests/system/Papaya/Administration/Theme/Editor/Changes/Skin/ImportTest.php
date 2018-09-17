@@ -13,20 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class ImportTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testCreateDialog() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
       $this->mockPapaya()->application(
@@ -52,10 +52,10 @@ class ImportTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_import"/>
+        <input type="hidden" name="cmd" value="skin_import"/>
         <input type="hidden" name="theme" value="themename"/>
-        <input type="hidden" name="set_id" value="0"/>
-        <input type="hidden" name="confirmation" value="ed3242472cac221a5561cc07245f38b4"/>
+        <input type="hidden" name="skin_id" value="0"/>
+        <input type="hidden" name="confirmation" value="26f3db711901a5e90466f71dad832a08"/>
         <input type="hidden" name="token"/>
         <field caption="File" class="DialogFieldFileTemporary" error="no" mandatory="yes">
           <input type="file" name="values[file]"/>
@@ -67,13 +67,13 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
-  public function testCreateDialogWithSelectedSet() {
+  public function testCreateDialogWithSelectedSkin() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
       $this->mockPapaya()->application(
@@ -81,7 +81,7 @@ class ImportTest extends \Papaya\TestCase {
           'request' => $this->mockPapaya()->request(
             array(
               'theme' => 'themename',
-              'set_id' => 42
+              'skin_id' => 42
             )
           )
         )
@@ -100,15 +100,15 @@ class ImportTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_import"/>
+        <input type="hidden" name="cmd" value="skin_import"/>
         <input type="hidden" name="theme" value="themename"/>
-        <input type="hidden" name="set_id" value="42"/>
-        <input type="hidden" name="confirmation" value="19a554e689a9367114447ffa7c40bfa3"/>
+        <input type="hidden" name="skin_id" value="42"/>
+        <input type="hidden" name="confirmation" value="57eb4c9c7deff8a7d5025395cd1ef83a"/>
         <input type="hidden" name="token"/>
         <field caption="File" class="DialogFieldFileTemporary" error="no" mandatory="yes">
           <input type="file" name="values[file]"/>
         </field>
-        <field caption="Replace current set." class="DialogFieldSelectRadio" error="no" mandatory="yes">
+        <field caption="Replace current skin." class="DialogFieldSelectRadio" error="no" mandatory="yes">
           <select name="values[confirm_replace]" type="radio">
             <option value="1">Yes</option><option value="0" selected="selected">No</option>
           </select>
@@ -120,13 +120,13 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testOnValidationSuccessWithoutTheme() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\File\Temporary $uploadField */
     $uploadField = $this
       ->getMockBuilder(\Papaya\UI\Dialog\Field\File\Temporary::class)
@@ -140,13 +140,13 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testOnValidationSuccessWithInvalidXml() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog\Field\File\Temporary $uploadField */
     $uploadField = $this->getUploadFieldFixture();
     $import = new Import($themeSet, $themeHandler);
@@ -161,7 +161,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testOnValidationSuccessWithValidXml() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -176,8 +176,8 @@ class ImportTest extends \Papaya\TestCase {
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(\Papaya\Content\Structure::class)));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('assign')
@@ -206,7 +206,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testOnValidationSuccessWithValidXmlNotSaved() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
@@ -216,8 +216,8 @@ class ImportTest extends \Papaya\TestCase {
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(\Papaya\Content\Structure::class)));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('assign')
@@ -245,7 +245,7 @@ class ImportTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Import
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Import
    */
   public function testOnValidationSuccessWithValidXmlImportingIntoExistingSet() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -260,8 +260,8 @@ class ImportTest extends \Papaya\TestCase {
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(\Papaya\Content\Structure::class)));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -283,7 +283,7 @@ class ImportTest extends \Papaya\TestCase {
           'request' => $this->mockPapaya()->request(
             array(
               'theme' => 'themename',
-              'set_id' => 42,
+              'skin_id' => 42,
               'values' => array('confirm_replace' => '1')
             )
           ),

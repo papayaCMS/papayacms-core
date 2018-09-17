@@ -130,7 +130,7 @@ class DialogTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array(
         'request' => $this->mockPapaya()->request(
-          array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
+          array('theme' => 'sample', 'skin_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
         )
       )
     );
@@ -146,8 +146,8 @@ class DialogTest extends \Papaya\TestCase {
       ->method('getDefinition')
       ->with('sample')
       ->will($this->returnValue($definition));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -177,7 +177,7 @@ class DialogTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array(
         'request' => $this->mockPapaya()->request(
-          array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
+          array('theme' => 'sample', 'skin_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
         )
       )
     );

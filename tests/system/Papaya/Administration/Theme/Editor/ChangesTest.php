@@ -64,7 +64,7 @@ class ChangesTest extends \Papaya\TestCase {
    */
   public function testThemeSetGetAfterSet() {
     $command = new Changes();
-    $command->themeSet($themeSet = $this->createMock(\Papaya\Content\Theme\Set::class));
+    $command->themeSet($themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class));
     $this->assertSame($themeSet, $command->themeSet());
   }
 
@@ -73,7 +73,7 @@ class ChangesTest extends \Papaya\TestCase {
    */
   public function testThemeSetGetImplicitCreate() {
     $command = new Changes();
-    $this->assertInstanceOf(\Papaya\Content\Theme\Set::class, $command->themeSet());
+    $this->assertInstanceOf(\Papaya\Content\Theme\Skin::class, $command->themeSet());
   }
 
   /**

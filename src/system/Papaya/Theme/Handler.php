@@ -127,11 +127,11 @@ class Handler extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Get the currently active theme set id
+   * Get the currently active theme skin id
    *
    * @return string
    */
-  public function getThemeSet() {
+  public function getThemeSkin() {
     $themeSet = 0;
     $isPreview = $this
       ->papaya()

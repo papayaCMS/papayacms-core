@@ -106,7 +106,7 @@ class WrapperTest extends \Papaya\TestCase {
    * @covers \Papaya\Theme\Wrapper::themeSet
    */
   public function testThemeSetGetAfterSet() {
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $wrapper = new Wrapper();
     $this->assertSame(
       $themeSet, $wrapper->themeSet($themeSet)
@@ -121,7 +121,7 @@ class WrapperTest extends \Papaya\TestCase {
     $wrapper = new Wrapper();
     $wrapper->papaya($application);
     $themeSet = $wrapper->themeSet();
-    $this->assertInstanceOf(\Papaya\Content\Theme\Set::class, $themeSet);
+    $this->assertInstanceOf(\Papaya\Content\Theme\Skin::class, $themeSet);
     $this->assertSame($application, $themeSet->papaya());
   }
 
@@ -238,7 +238,7 @@ class WrapperTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('getResult')
       ->will($this->returnValue('SUCCESS'));
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

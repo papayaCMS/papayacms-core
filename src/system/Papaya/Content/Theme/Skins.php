@@ -23,7 +23,7 @@ namespace Papaya\Content\Theme;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Sets extends \Papaya\Database\Records\Lazy {
+class Skins extends \Papaya\Database\Records\Lazy {
 
   /**
    * Map field names to more convinient property names
@@ -47,6 +47,6 @@ class Sets extends \Papaya\Database\Records\Lazy {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
+  protected $_tableName = \Papaya\Content\Tables::THEME_SKINS;
 
 }

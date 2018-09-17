@@ -16,7 +16,7 @@
 namespace Papaya\Administration\Theme\Editor;
 
 /**
- * Main part of the theme sets editor (dynamic values for a theme)
+ * Main part of the theme skins editor (dynamic values for a theme)
  *
  * @package Papaya-Library
  * @subpackage Administration
@@ -25,7 +25,7 @@ class Changes extends \Papaya\Administration\Page\Part {
 
   private $_commands = NULL;
   /**
-   * @var \Papaya\Content\Theme\Set
+   * @var \Papaya\Content\Theme\Skin
    */
   private $_themeSet = NULL;
 
@@ -50,21 +50,21 @@ class Changes extends \Papaya\Administration\Page\Part {
    * @return \Papaya\UI\Control\Command\Controller|\Papaya\UI\Control\Command
    */
   public function commands(\Papaya\UI\Control\Command $commands = NULL) {
-    if (isset($commands)) {
+    if (NULL !== $commands) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
       $this->_commands = new \Papaya\UI\Control\Command\Controller('cmd');
       $this->_commands->owner($this);
-      $this->_commands['set_edit'] =
-      $command = new Changes\Set\Change($this->themeSet());
-      $this->_commands['set_delete'] =
-      $command = new Changes\Set\Remove($this->themeSet());
-      $this->_commands['set_import'] =
-      $command = new Changes\Set\Import(
+      $this->_commands['skin_edit'] =
+      $command = new Changes\Skin\Change($this->themeSet());
+      $this->_commands['skin_delete'] =
+      $command = new Changes\Skin\Remove($this->themeSet());
+      $this->_commands['skin_import'] =
+      $command = new Changes\Skin\Import(
         $this->themeSet(), $this->themeHandler()
       );
-      $this->_commands['set_export'] =
-      $command = new Changes\Set\Export(
+      $this->_commands['skin_export'] =
+      $command = new Changes\Skin\Export(
         $this->themeSet(), $this->themeHandler()
       );
       $this->_commands['values_edit'] =
@@ -74,16 +74,16 @@ class Changes extends \Papaya\Administration\Page\Part {
   }
 
   /**
-   * The theme set the the database record wrapper object.
+   * The theme skin the the database record wrapper object.
    *
-   * @param \Papaya\Content\Theme\Set $themeSet
-   * @return \Papaya\Content\Theme\Set
+   * @param \Papaya\Content\Theme\Skin $themeSet
+   * @return \Papaya\Content\Theme\Skin
    */
-  public function themeSet(\Papaya\Content\Theme\Set $themeSet = NULL) {
-    if (isset($themeSet)) {
+  public function themeSet(\Papaya\Content\Theme\Skin $themeSet = NULL) {
+    if (NULL !== $themeSet) {
       $this->_themeSet = $themeSet;
     } elseif (NULL === $this->_themeSet) {
-      $this->_themeSet = new \Papaya\Content\Theme\Set();
+      $this->_themeSet = new \Papaya\Content\Theme\Skin();
     }
     return $this->_themeSet;
   }
@@ -96,7 +96,7 @@ class Changes extends \Papaya\Administration\Page\Part {
    * @return \Papaya\Theme\Handler
    */
   public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
-    if (isset($themeHandler)) {
+    if (NULL !== $themeHandler) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
       $this->_themeHandler = new \Papaya\Theme\Handler();

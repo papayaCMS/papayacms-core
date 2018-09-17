@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 use \Papaya\UI;
 /**
@@ -32,15 +32,15 @@ class Change
    * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
-    $setId = $this->parameters()->get('set_id', 0);
-    $dialogCaption = 'Add theme set';
+    $skinId = $this->parameters()->get('skin_id', 0);
+    $dialogCaption = 'Add theme skin';
     $buttonCaption = 'Add';
-    if ($setId > 0) {
-      if ($this->record()->load($setId)) {
-        $dialogCaption = 'Change theme set';
+    if ($skinId > 0) {
+      if ($this->record()->load($skinId)) {
+        $dialogCaption = 'Change theme skin';
         $buttonCaption = 'Save';
       } else {
-        $setId = 0;
+        $skinId = 0;
       }
     }
     $dialog = new UI\Dialog\Database\Save($this->record());
@@ -49,9 +49,9 @@ class Change
     $dialog->parameters($this->parameters());
     $dialog->hiddenFields()->merge(
       array(
-        'cmd' => 'set_edit',
+        'cmd' => 'skin_edit',
         'theme' => $this->parameters()->get('theme', ''),
-        'set_id' => $setId
+        'skin_id' => $skinId
       )
     );
     $dialog->caption = new UI\Text\Translated($dialogCaption);
@@ -71,7 +71,7 @@ class Change
    * Save data from dialog
    */
   public function callbackSaveValues() {
-    $this->papaya()->messages->displayInfo('Theme set saved.');
+    $this->papaya()->messages->displayInfo('Theme skin saved.');
   }
 
   /**

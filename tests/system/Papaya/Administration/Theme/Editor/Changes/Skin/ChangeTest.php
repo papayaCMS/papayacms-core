@@ -13,16 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class ChangeTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Change::createDialog
    */
-  public function testCreateDialogWithoutSetId() {
+  public function testCreateDialogWithoutSkinId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
@@ -33,7 +33,7 @@ class ChangeTest extends \Papaya\TestCase {
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
-        <title caption="Add theme set"/>
+        <title caption="Add theme skin"/>
         <options>
           <option name="USE_CONFIRMATION" value="yes"/>
           <option name="USE_TOKEN" value="no"/>
@@ -43,10 +43,10 @@ class ChangeTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_edit"/>
+        <input type="hidden" name="cmd" value="skin_edit"/>
         <input type="hidden" name="theme"/>
-        <input type="hidden" name="set_id" value="0"/>
-        <input type="hidden" name="confirmation" value="d65f67e66a51189011f2e41f9a30bfc4"/>
+        <input type="hidden" name="skin_id" value="0"/>
+        <input type="hidden" name="confirmation" value="7904e7ffd913c06f24a54db60013d4d9"/>
         <field caption="Title" class="DialogFieldInput" error="no" mandatory="yes">
           <input type="text" name="title" maxlength="200"/>
         </field>
@@ -57,9 +57,9 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Change::createDialog
    */
-  public function testCreateDialogWithSetIdLoadsRecord() {
+  public function testCreateDialogWithSkinIdLoadsRecord() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
@@ -69,14 +69,14 @@ class ChangeTest extends \Papaya\TestCase {
       ->will($this->returnValue(TRUE));
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('skin_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
-        <title caption="Change theme set"/>
+        <title caption="Change theme skin"/>
         <options>
           <option name="USE_CONFIRMATION" value="yes"/>
           <option name="USE_TOKEN" value="no"/>
@@ -86,10 +86,10 @@ class ChangeTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_edit"/>
+        <input type="hidden" name="cmd" value="skin_edit"/>
         <input type="hidden" name="theme"/>
-        <input type="hidden" name="set_id" value="42"/>
-        <input type="hidden" name="confirmation" value="22ca40c56566acdf383d9279d869454e"/>
+        <input type="hidden" name="skin_id" value="42"/>
+        <input type="hidden" name="confirmation" value="988a4f33f39918a11723b1729f1e8c21"/>
         <field caption="Title" class="DialogFieldInput" error="no" mandatory="yes">
           <input type="text" name="title" maxlength="200"/>
         </field>
@@ -100,9 +100,9 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Change::createDialog
    */
-  public function testCreateDialogWithSetIdLoadRecordFailed() {
+  public function testCreateDialogWithSkinIdLoadRecordFailed() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
@@ -112,14 +112,14 @@ class ChangeTest extends \Papaya\TestCase {
       ->will($this->returnValue(FALSE));
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('skin_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
-        <title caption="Add theme set"/>
+        <title caption="Add theme skin"/>
         <options>
           <option name="USE_CONFIRMATION" value="yes"/>
           <option name="USE_TOKEN" value="no"/>
@@ -129,10 +129,10 @@ class ChangeTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_edit"/>
+        <input type="hidden" name="cmd" value="skin_edit"/>
         <input type="hidden" name="theme"/>
-        <input type="hidden" name="set_id" value="0"/>
-        <input type="hidden" name="confirmation" value="d65f67e66a51189011f2e41f9a30bfc4"/>
+        <input type="hidden" name="skin_id" value="0"/>
+        <input type="hidden" name="confirmation" value="7904e7ffd913c06f24a54db60013d4d9"/>
         <field caption="Title" class="DialogFieldInput" error="no" mandatory="yes">
           <input type="text" name="title" maxlength="200"/>
         </field>
@@ -143,14 +143,14 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::callbackSaveValues
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('displayInfo')
-      ->with('Theme set saved.');
+      ->with('Theme skin saved.');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Change($record);
@@ -163,7 +163,7 @@ class ChangeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Change::callbackShowError
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Change::callbackShowError
    */
   public function testCallbackShowError() {
     $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);

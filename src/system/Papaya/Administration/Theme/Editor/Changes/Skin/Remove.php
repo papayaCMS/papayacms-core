@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
  *
@@ -30,34 +30,34 @@ class Remove
    * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
-    $setId = $this->parameters()->get('set_id', 0);
-    if ($setId > 0) {
-      $loaded = $this->record()->load($setId);
+    $skinId = $this->parameters()->get('skin_id', 0);
+    if ($skinId > 0) {
+      $loaded = $this->record()->load($skinId);
     } else {
       $loaded = FALSE;
     }
     $dialog = new \Papaya\UI\Dialog\Database\Delete($this->record());
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \Papaya\UI\Text\Translated('Delete theme set');
+    $dialog->caption = new \Papaya\UI\Text\Translated('Delete theme skin');
     if ($loaded) {
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
       $dialog->hiddenFields()->merge(
         array(
-          'cmd' => 'set_delete',
+          'cmd' => 'skin_delete',
           'theme' => $this->parameters()->get('theme', ''),
-          'set_id' => $setId
+          'skin_id' => $skinId
         )
       );
       $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
-        new \Papaya\UI\Text\Translated('Delete theme set'),
+        new \Papaya\UI\Text\Translated('Delete theme skin'),
         'places-trash'
       );
       $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
       $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-        \Papaya\Message::SEVERITY_INFO, 'Theme set not found.'
+        \Papaya\Message::SEVERITY_INFO, 'Theme skin not found.'
       );
     }
     return $dialog;
@@ -70,7 +70,7 @@ class Remove
     $this->papaya()->messages->dispatch(
       new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_INFO,
-        'Theme set deleted.'
+        'Theme skin deleted.'
       )
     );
   }

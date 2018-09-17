@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Theme;
 /**
- * Edit theme sets (dynamic values for a theme)
+ * Edit theme skins (dynamic values for a theme)
  *
  * @package Papaya-Library
  * @subpackage Administration

@@ -13,16 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class RemoveTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Remove::createDialog
    */
-  public function testCreateDialogWithoutSetId() {
+  public function testCreateDialogWithoutSkinId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Remove($record);
@@ -33,7 +33,7 @@ class RemoveTest extends \Papaya\TestCase {
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
-        <title caption="Delete theme set"/>
+        <title caption="Delete theme skin"/>
         <options>
           <option name="USE_CONFIRMATION" value="yes"/>
           <option name="USE_TOKEN" value="no"/>
@@ -45,7 +45,7 @@ class RemoveTest extends \Papaya\TestCase {
         </options>
         <input type="hidden" name="confirmation" value="true"/>
         <field class="DialogFieldMessage" error="no">
-          <message>Theme set not found.</message>
+          <message>Theme skin not found.</message>
         </field>
       </dialog-box>',
       $dialog->getXML()
@@ -53,9 +53,9 @@ class RemoveTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::createDialog
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Remove::createDialog
    */
-  public function testCreateDialogWithSetIdLoadsRecord() {
+  public function testCreateDialogWithSkinIdLoadsRecord() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $record
@@ -65,14 +65,14 @@ class RemoveTest extends \Papaya\TestCase {
       ->will($this->returnValue(TRUE));
     $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('skin_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
-        <title caption="Delete theme set"/>
+        <title caption="Delete theme skin"/>
         <options>
           <option name="USE_CONFIRMATION" value="yes"/>
           <option name="USE_TOKEN" value="no"/>
@@ -82,12 +82,12 @@ class RemoveTest extends \Papaya\TestCase {
           <option name="TOP_BUTTONS" value="no"/>
           <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>
-        <input type="hidden" name="cmd" value="set_delete"/>
+        <input type="hidden" name="cmd" value="skin_delete"/>
         <input type="hidden" name="theme"/>
-        <input type="hidden" name="set_id" value="42"/>
-        <input type="hidden" name="confirmation" value="e243360ba3bba3aeae4579dbede9fdda"/>
+        <input type="hidden" name="skin_id" value="42"/>
+        <input type="hidden" name="confirmation" value="6096472e1efc3277aa4f04ac03a32aa5"/>
         <field class="DialogFieldInformation" error="no">
-          <message>Delete theme set</message>
+          <message>Delete theme skin</message>
         </field>
         <button type="submit" align="right">Delete</button>
       </dialog-box>',
@@ -96,7 +96,7 @@ class RemoveTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Set\Remove::callbackDeleted
+   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);

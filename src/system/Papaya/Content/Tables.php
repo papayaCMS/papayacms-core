@@ -90,7 +90,7 @@ class Tables extends \Papaya\Application\BaseObject {
   const TAG_CATEGORY = 'tag_category';
   const TAG_CATEGORY_TRANSLATIONS = 'tag_category_trans';
 
-  const THEME_SETS = 'theme_sets';
+  const THEME_SKINS = 'theme_sets';
 
   /**
    * Return tablename with optional prefix.
@@ -102,7 +102,7 @@ class Tables extends \Papaya\Application\BaseObject {
   public function get($tableName, $prefix = TRUE) {
     if ($prefix && isset($this->papaya()->options)) {
       $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-      if ($prefixString != '' && 0 !== strpos($tableName, $prefixString.'_')) {
+      if ('' !== $prefixString && 0 !== strpos($tableName, $prefixString.'_')) {
         return $prefixString.'_'.$tableName;
       }
     }
@@ -232,7 +232,7 @@ class Tables extends \Papaya\Application\BaseObject {
     'PAPAYA_DB_TBL_DATAFILTER' => self::VIEW_DATAFILTERS,
     'PAPAYA_DB_TBL_DATAFILTER_LINKS' => self::VIEW_DATAFILTER_CONFIGURATIONS,
 
-    'PAPAYA_DB_TBL_THEME_SETS' => self::THEME_SETS,
+    'PAPAYA_DB_TBL_THEME_SETS' => self::THEME_SKINS,
 
     'PAPAYA_DB_TBL_LOCKING' => 'locking',
 

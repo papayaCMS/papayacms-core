@@ -173,15 +173,15 @@ class Wrapper extends \Papaya\Application\BaseObject {
   /**
    * Getter/setter for theme set database object including a implicit create
    *
-   * @param \Papaya\Content\Theme\Set $themeSet
-   * @return \Papaya\Content\Theme\Set
+   * @param \Papaya\Content\Theme\Skin $themeSet
+   * @return \Papaya\Content\Theme\Skin
    */
-  public function themeSet(\Papaya\Content\Theme\Set $themeSet = NULL) {
+  public function themeSet(\Papaya\Content\Theme\Skin $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     }
     if (is_null($this->_themeSet)) {
-      $this->_themeSet = new \Papaya\Content\Theme\Set();
+      $this->_themeSet = new \Papaya\Content\Theme\Skin();
       $this->_themeSet->papaya($this->papaya());
     }
     return $this->_themeSet;

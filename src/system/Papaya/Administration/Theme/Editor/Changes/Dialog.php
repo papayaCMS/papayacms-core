@@ -49,9 +49,9 @@ class Dialog
    * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
-    $setId = $this->parameters()->get('set_id', 0);
-    if ($setId > 0) {
-      $this->record()->load($setId);
+    $skinId = $this->parameters()->get('skin_id', 0);
+    if ($skinId > 0) {
+      $this->record()->load($skinId);
     }
     $dialog = new \Papaya\UI\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
@@ -63,7 +63,7 @@ class Dialog
         array(
           'cmd' => 'values_edit',
           'theme' => $this->parameters()->get('theme', ''),
-          'set_id' => $setId,
+          'skin_id' => $skinId,
           'page_identifier' => $this->parameters()->get('page_identifier', '')
         )
       );

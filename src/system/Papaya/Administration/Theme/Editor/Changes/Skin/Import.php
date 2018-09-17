@@ -13,10 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 /**
- * Import theme set values from an uploaded file
+ * Import theme skin values from an uploaded file
  *
  * @package Papaya-Library
  * @subpackage Administration
@@ -25,7 +25,7 @@ class Import
   extends \Papaya\UI\Control\Command\Dialog {
 
   /**
-   * @var \Papaya\Content\Theme\Set
+   * @var \Papaya\Content\Theme\Skin
    */
   private $_themeSet;
   /**
@@ -33,7 +33,7 @@ class Import
    */
   private $_themeHandler;
 
-  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Skin $themeSet, \Papaya\Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
@@ -45,7 +45,7 @@ class Import
    * @return \Papaya\UI\Dialog
    */
   public function createDialog() {
-    $setId = $this->parameters()->get('set_id', 0);
+    $skinId = $this->parameters()->get('skin_id', 0);
     $dialog = parent::createDialog();
     $dialog->caption = new \Papaya\UI\Text\Translated('Import');
     $dialog->setEncoding('multipart/form-data');
@@ -53,18 +53,18 @@ class Import
     $dialog->parameters($this->parameters());
     $dialog->hiddenFields()->merge(
       array(
-        'cmd' => 'set_import',
+        'cmd' => 'skin_import',
         'theme' => $this->parameters()->get('theme', ''),
-        'set_id' => $setId
+        'skin_id' => $skinId
       )
     );
     $dialog->fields[] = $uploadField = new \Papaya\UI\Dialog\Field\File\Temporary(
       new \Papaya\UI\Text\Translated('File'), 'values/file'
     );
     $uploadField->setMandatory(TRUE);
-    if ($setId > 0) {
+    if ($skinId > 0) {
       $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Select\Radio(
-        new \Papaya\UI\Text\Translated('Replace current set.'),
+        new \Papaya\UI\Text\Translated('Replace current skin.'),
         'values/confirm_replace',
         array(
           TRUE => new \Papaya\UI\Text\Translated('Yes'),
@@ -98,9 +98,9 @@ class Import
         if ($dom->documentElement) {
           /** @var \Papaya\XML\Element $documentElement */
           $documentElement = $dom->documentElement;
-          $setId = $this->parameters()->get('set_id', 0);
-          if ($setId > 0 && $this->parameters()->get('values/confirm_replace')) {
-            if ($this->_themeSet->load($setId)) {
+          $skinId = $this->parameters()->get('skin_id', 0);
+          if ($skinId > 0 && $this->parameters()->get('values/confirm_replace')) {
+            if ($this->_themeSet->load($skinId)) {
               $this->_themeSet->setValuesXML(
                 $this->_themeHandler->getDefinition($theme),
                 $documentElement

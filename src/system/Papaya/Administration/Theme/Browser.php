@@ -56,7 +56,7 @@ class Browser
    * @return \Papaya\UI\Dialog
    */
   public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
-    if (isset($dialog)) {
+    if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
       $this->_dialog = $dialog = new \Papaya\UI\Dialog();
@@ -101,7 +101,7 @@ class Browser
    * @return \Traversable
    */
   public function themes(\Traversable $themes = NULL) {
-    if (isset($themes)) {
+    if (NULL !== $themes) {
       $this->_themes = $themes;
     } elseif (NULL === $this->_themes) {
       $this->_themes = new \Papaya\Iterator\Caching(
@@ -133,7 +133,7 @@ class Browser
    * @return \Papaya\Theme\Handler
    */
   public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
-    if (isset($themeHandler)) {
+    if (NULL !== $themeHandler) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
       $this->_themeHandler = new \Papaya\Theme\Handler();

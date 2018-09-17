@@ -13,41 +13,46 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
+
+use \Papaya\Content;
+use \Papaya\Theme;
+use \Papaya\UI;
+use \Papaya\XML;
 
 /**
- * Import theme set values from an uploaded file
+ * Import theme skin values from an uploaded file
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
 class Export
-  extends \Papaya\UI\Control\Command {
+  extends UI\Control\Command {
 
   /**
-   * @var \Papaya\Content\Theme\Set
+   * @var Content\Theme\Skin
    */
-  private $_themeSet = NULL;
+  private $_themeSet;
 
   /**
-   * @var \Papaya\Theme\Handler
+   * @var Theme\Handler
    */
-  private $_themeHandler = NULL;
+  private $_themeHandler;
 
   /**
-   * @param \Papaya\Content\Theme\Set $themeSet
-   * @param \Papaya\Theme\Handler $themeHandler
+   * @param Content\Theme\Skin $themeSet
+   * @param Theme\Handler $themeHandler
    */
-  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
+  public function __construct(Content\Theme\Skin $themeSet, Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
 
   /**
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $this->_themeSet->load($this->parameters()->get('set_id', 0));
+  public function appendTo(XML\Element $parent) {
+    $this->_themeSet->load($this->parameters()->get('skin_id', 0));
     $themeName = $this->_themeSet['theme'];
     $response = $this->papaya()->response;
     $response->setStatus(200);
