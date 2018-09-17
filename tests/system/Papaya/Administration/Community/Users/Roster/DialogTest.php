@@ -171,14 +171,24 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Community\Users\Roster\Dialog::createUserItem
+   * @covers \Papaya\Administration\Community\Users\Roster\Dialog
    */
-  public function testCreateUserItem() {
+  public function testCreatesListItemForUser() {
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
+    $users
+      ->expects($this->any())
+      ->method('getIterator')
+      ->willReturn(
+        new \ArrayIterator(
+          [
+             ['id' => 42, 'caption' => 'test']
+          ]
+        )
+      );
+
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $dialog->createUserItem(
-      new \stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
-    );
+    $dialog->users($users);
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
@@ -229,14 +239,25 @@ class DialogTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Community\Users\Roster\Dialog::setParameterNameMapping
    */
   public function testSetParameterNameMapping() {
+    $users = $this->createMock(\Papaya\Content\Community\Users::class);
+    $users
+      ->expects($this->any())
+      ->method('getIterator')
+      ->willReturn(
+        new \ArrayIterator(
+          [
+             ['id' => 42, 'caption' => 'test']
+          ]
+        )
+      );
+
     $dialog = new Dialog();
+    $dialog->papaya($this->mockPapaya()->application());
+    $dialog->users($users);
     $dialog->setParameterNameMapping('user', 'surfer_id');
     $dialog->setParameterNameMapping('filter', 'search');
     $dialog->setParameterNameMapping('page', 'offset_page');
     $dialog->papaya($this->mockPapaya()->application());
-    $dialog->createUserItem(
-      new \stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
-    );
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
