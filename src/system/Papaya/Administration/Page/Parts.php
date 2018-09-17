@@ -34,25 +34,25 @@ class Parts
   const PART_NAVIGATION = 'navigation';
   const PART_INFORMATION = 'information';
 
-  private $_parts = array(
+  private $_parts = [
     self::PART_CONTENT => NULL,
     self::PART_NAVIGATION => NULL,
     self::PART_INFORMATION => NULL
-  );
+  ];
 
-  private $_buttonOrder = array(
+  private $_buttonOrder = [
     self::PART_NAVIGATION,
     self::PART_CONTENT,
     self::PART_INFORMATION
-  );
+  ];
 
-  private $_targets = array(
+  private $_targets = [
     self::PART_NAVIGATION => 'leftcol',
     self::PART_INFORMATION => 'rightcol'
-  );
+  ];
 
-  private $_toolbar = NULL;
-  private $_page = NULL;
+  private $_toolbar;
+  private $_page;
 
   /**
    * Create and store the $page object. The page object is used to create the parts
@@ -66,7 +66,15 @@ class Parts
 
   /**
    * @param string $name
-   * @return FALSE|\Papaya\Administration\Page\Part
+   * @return FALSE|Part
+   */
+  public function __isset($name) {
+    return isset($this->_parts[$name]);
+  }
+
+  /**
+   * @param string $name
+   * @return FALSE|Part
    */
   public function __get($name) {
     return $this->get($name);
@@ -74,7 +82,7 @@ class Parts
 
   /**
    * @param string $name
-   * @param \Papaya\Administration\Page\Part $part
+   * @param Part $part
    */
   public function __set($name, $part) {
     $this->set($name, $part);
@@ -84,7 +92,7 @@ class Parts
    * Get the specified part, create it if is is defined but does not exist yet.
    *
    * @param string $name
-   * @return FALSE|\Papaya\Administration\Page\Part
+   * @return FALSE|Part
    */
   public function get($name) {
     if (isset($this->_parts[$name])) {
@@ -97,10 +105,10 @@ class Parts
    * Set a page part object.
    *
    * @param string $name
-   * @param \Papaya\Administration\Page\Part $part
+   * @param Part $part
    * @throws \UnexpectedValueException
    */
-  public function set($name, \Papaya\Administration\Page\Part $part = NULL) {
+  public function set($name, Part $part = NULL) {
     if (!array_key_exists($name, $this->_parts)) {
       throw new \UnexpectedValueException(sprintf('Can not set unknown part "%s".', $name));
     }
@@ -113,7 +121,7 @@ class Parts
    *
    * @param $name
    * @throws \UnexpectedValueException
-   * @return \Papaya\Administration\Page\Part|FALSE
+   * @return Part|FALSE
    */
   public function create($name) {
     if (!array_key_exists($name, $this->_parts)) {
@@ -152,9 +160,9 @@ class Parts
    * @return \Papaya\UI\Toolbar\Composed
    */
   public function toolbar(\Papaya\UI\Toolbar\Composed $toolbar = NULL) {
-    if (isset($toolbar)) {
+    if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
-    } elseif (is_null($this->_toolbar)) {
+    } elseif (NULL === $this->_toolbar) {
       $this->_toolbar = new \Papaya\UI\Toolbar\Composed(
         array_merge($this->_buttonOrder, array_keys($this->_parts))
       );
@@ -197,7 +205,7 @@ class Parts
    *
    * @see \Iterator::current()
    * @see \Papaya\Administration\Page\Parts::get()
-   * @return FALSE|\Papaya\Administration\Page\Part
+   * @return FALSE|Part
    */
   public function current() {
     $part = $this->get($this->key());
@@ -225,6 +233,6 @@ class Parts
    */
   public function valid() {
     $key = $this->key();
-    return ($key !== NULL && $key !== FALSE);
+    return (NULL !== $key && FALSE !== $key);
   }
 }
