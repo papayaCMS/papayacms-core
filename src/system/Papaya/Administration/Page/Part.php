@@ -26,17 +26,17 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
   /**
    * @var \Papaya\UI\Control\Command
    */
-  private $_commands = NULL;
+  private $_commands;
 
   /**
    * @var \Papaya\UI\Toolbar\Collection
    */
-  private $_toolbar = NULL;
+  private $_toolbar;
 
   /**
    * @var \Papaya\Administration\Page
    */
-  private $_page = NULL;
+  private $_page;
 
   public function __construct(\Papaya\Administration\Page $page = NULL) {
     $this->_page = $page;
@@ -67,7 +67,7 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\UI\Control\Command
    */
   public function commands(\Papaya\UI\Control\Command $commands = NULL) {
-    if (isset($commands)) {
+    if (NULL !== $commands) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
       $this->_commands = $this->_createCommands();
@@ -97,12 +97,12 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    * @return \Papaya\UI\Toolbar\Collection
    */
   public function toolbar(\Papaya\UI\Toolbar\Collection $toolbar = NULL) {
-    if (isset($toolbar)) {
+    if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
       if (!$toolbar->elements || count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
-    } elseif (is_null($this->_toolbar)) {
+    } elseif (NULL === $this->_toolbar) {
       $this->_toolbar = $toolbar = new \Papaya\UI\Toolbar\Collection();
       $toolbar->papaya($this->papaya());
       $this->_initializeToolbar($toolbar);
