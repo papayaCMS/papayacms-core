@@ -15,6 +15,8 @@
 
 namespace Papaya\Administration\Page;
 
+use \Papaya\UI;
+
 /**
  * Manage the parts of a page. Each part is an interactive ui control. On iteration the parameters
  * are assigned to the part and fetched back from it.
@@ -156,14 +158,14 @@ class Parts
   /**
    * The toolbar is composed, so the navigation and the changes subobjects can add elements
    *
-   * @param \Papaya\UI\Toolbar\Composed $toolbar
-   * @return \Papaya\UI\Toolbar\Composed
+   * @param UI\Toolbar\Composed $toolbar
+   * @return UI\Toolbar\Composed
    */
-  public function toolbar(\Papaya\UI\Toolbar\Composed $toolbar = NULL) {
+  public function toolbar(UI\Toolbar\Composed $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new \Papaya\UI\Toolbar\Composed(
+      $this->_toolbar = new UI\Toolbar\Composed(
         array_merge($this->_buttonOrder, array_keys($this->_parts))
       );
       $this->_toolbar->papaya($this->papaya());

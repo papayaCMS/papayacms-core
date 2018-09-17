@@ -15,6 +15,10 @@
 
 namespace Papaya\Administration\Languages;
 
+use \Papaya\Content;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Language switch administration control, allows to access the current content language and
  * append links for available content languages.
@@ -26,38 +30,38 @@ namespace Papaya\Administration\Languages;
  * @subpackage Administration
  *
  * @property-read int $id currently selected language id (internal autoincrement)
- * @property-read string $identifier identifer used in urls (en, de, ...)
+ * @property-read string $identifier identifier used in urls (en, de, ...)
  * @property-read string $code language code (en-US, de-DE, ...)
  * @property-read string $image current language image including path
  * @property-read string $title current language title
  */
-class Selector extends \Papaya\UI\Control\Interactive {
+class Selector extends UI\Control\Interactive {
 
   /**
    * Internal property for language list
    *
-   * @var \Papaya\Content\Languages
+   * @var Content\Languages
    */
   private $_languages;
 
   /**
    * Internal property for current language
    *
-   * @var \Papaya\Content\Language
+   * @var Content\Language
    */
   private $_current;
 
   /**
    * Getter/Setter for a content languages record list.
    *
-   * @param \Papaya\Content\Languages $languages
-   * @return \Papaya\Content\Languages
+   * @param Content\Languages $languages
+   * @return Content\Languages
    */
-  public function languages(\Papaya\Content\Languages $languages = NULL) {
+  public function languages(Content\Languages $languages = NULL) {
     if (NULL !== $languages) {
       $this->_languages = $languages;
     } elseif (NULL === $this->_languages) {
-      $this->_languages = new \Papaya\Content\Languages();
+      $this->_languages = new Content\Languages();
     }
     return $this->_languages;
   }
@@ -81,8 +85,8 @@ class Selector extends \Papaya\UI\Control\Interactive {
         return empty($image) ? '' : './pics/language/'.$image;
     }
     throw new \LogicException(
-      sprintf(
-        'Can not find property %s::$%s', get_class($this), $name
+      \sprintf(
+        'Can not find property %s::$%s', \get_class($this), $name
       )
     );
   }
@@ -91,7 +95,7 @@ class Selector extends \Papaya\UI\Control\Interactive {
    * Get the currently selected content language. If no language is found, a default language
    * object is initialized.
    *
-   * @return \Papaya\Content\Language
+   * @return Content\Language
    */
   public function getCurrent() {
     $this->prepare();
@@ -101,17 +105,17 @@ class Selector extends \Papaya\UI\Control\Interactive {
   /**
    * Appends a <links> element with references for the different content languages.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
-      array('title' => new \Papaya\UI\Text\Translated('Content Language'))
+      array('title' => new UI\Text\Translated('Content Language'))
     );
     foreach ($this->languages() as $id => $language) {
-      $reference = new \Papaya\UI\Reference();
+      $reference = new UI\Reference();
       $reference->papaya($this->papaya());
       $reference->setParameters(array('language_select' => $id), 'lngsel');
       $link = $links->appendElement(
@@ -141,7 +145,7 @@ class Selector extends \Papaya\UI\Control\Interactive {
     $languages = NULL;
     if (NULL === $this->_current) {
       $languages = $this->languages();
-      $languages->loadByUsage(\Papaya\Content\Languages::FILTER_IS_CONTENT);
+      $languages->loadByUsage(Content\Languages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
         $this->_current = $languages->getLanguage($id);
       } elseif ($id = $application->session->values()->get(array($this, 'CONTENT_LANGUAGE'))) {
@@ -170,10 +174,10 @@ class Selector extends \Papaya\UI\Control\Interactive {
   /**
    * Create and return a language object with default (English) data.
    *
-   * @return \Papaya\Content\Language
+   * @return Content\Language
    */
   private function getDefault() {
-    $result = new \Papaya\Content\Language();
+    $result = new Content\Language();
     $result->assign(
       array(
         'id' => 1,

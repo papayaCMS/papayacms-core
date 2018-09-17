@@ -15,35 +15,39 @@
 
 namespace Papaya\Administration\Page;
 
+use \Papaya\Administration;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Administration page parts are interactive ui controls, with access to a toolbar.
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-abstract class Part extends \Papaya\UI\Control\Interactive {
+abstract class Part extends UI\Control\Interactive {
 
   /**
-   * @var \Papaya\UI\Control\Command
+   * @var UI\Control\Command
    */
   private $_commands;
 
   /**
-   * @var \Papaya\UI\Toolbar\Collection
+   * @var UI\Toolbar\Collection
    */
   private $_toolbar;
 
   /**
-   * @var \Papaya\Administration\Page
+   * @var Administration\Page
    */
   private $_page;
 
-  public function __construct(\Papaya\Administration\Page $page = NULL) {
+  public function __construct(Administration\Page $page = NULL) {
     $this->_page = $page;
   }
 
   /**
-   * @return \Papaya\Administration\Page
+   * @return Administration\Page
    */
   public function getPage() {
     return $this->_page;
@@ -53,9 +57,9 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    * Execute command controller and append output. Page parts are append in the order of
    * (Content -> Navigation -> Information). They share their parameters.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->append($this->commands());
   }
 
@@ -63,10 +67,10 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    * Getter/Setter for the commands subobject,
    * {@see \Papaya\Administration\Page\Part::_createCommands89} is called for lazy init
    *
-   * @param \Papaya\UI\Control\Command $commands
-   * @return \Papaya\UI\Control\Command
+   * @param UI\Control\Command $commands
+   * @return UI\Control\Command
    */
-  public function commands(\Papaya\UI\Control\Command $commands = NULL) {
+  public function commands(UI\Control\Command $commands = NULL) {
     if (NULL !== $commands) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
@@ -80,10 +84,10 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    *
    * @param string $name
    * @param string $default
-   * @return \Papaya\UI\Control\Command\Controller
+   * @return UI\Control\Command\Controller
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
-    $commands = new \Papaya\UI\Control\Command\Controller($name, $default);
+    $commands = new UI\Control\Command\Controller($name, $default);
     $commands->owner($this);
     return $commands;
   }
@@ -93,17 +97,17 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
    * after all page parts are appened. The order of the sets is different from the page parts
    * (Navigation -> Content -> Information).
    *
-   * @param \Papaya\UI\Toolbar\Collection $toolbar
-   * @return \Papaya\UI\Toolbar\Collection
+   * @param UI\Toolbar\Collection $toolbar
+   * @return UI\Toolbar\Collection
    */
-  public function toolbar(\Papaya\UI\Toolbar\Collection $toolbar = NULL) {
+  public function toolbar(UI\Toolbar\Collection $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
       if (!$toolbar->elements || count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = $toolbar = new \Papaya\UI\Toolbar\Collection();
+      $this->_toolbar = $toolbar = new UI\Toolbar\Collection();
       $toolbar->papaya($this->papaya());
       $this->_initializeToolbar($toolbar);
     }
@@ -113,8 +117,8 @@ abstract class Part extends \Papaya\UI\Control\Interactive {
   /**
    * Initialize the toolbar with buttons and other elements
    *
-   * @param \Papaya\UI\Toolbar\Collection $toolbar
+   * @param UI\Toolbar\Collection $toolbar
    */
-  protected function _initializeToolbar(\Papaya\UI\Toolbar\Collection $toolbar) {
+  protected function _initializeToolbar(UI\Toolbar\Collection $toolbar) {
   }
 }
