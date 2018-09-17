@@ -59,10 +59,79 @@ class ManagerTest extends \Papaya\TestCase {
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(Display::class));
+      ->with($this->isInstanceOf(Display\Translated::class));
     $manager = new Manager();
     $manager->addDispatcher($dispatcher);
     $manager->display(\Papaya\Message::SEVERITY_INFO, 'TEST');
+  }
+
+  /**
+   * @covers \Papaya\Message\Manager::displayInfo
+   */
+  public function testDisplayInfo() {
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */
+    $dispatcher = $this->createMock(Dispatcher::class);
+    $dispatcher
+      ->expects($this->once())
+      ->method('dispatch')
+      ->with(
+        $this->callback(
+          function(Display\Translated $message) {
+            return
+              \Papaya\Message::SEVERITY_INFO === $message->getSeverity() &&
+              'TEST' === $message->getMessage();
+          }
+        )
+      );
+    $manager = new Manager();
+    $manager->addDispatcher($dispatcher);
+    $manager->displayInfo('TEST');
+  }
+
+  /**
+   * @covers \Papaya\Message\Manager::displayWarning
+   */
+  public function testDisplayWarning() {
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */
+    $dispatcher = $this->createMock(Dispatcher::class);
+    $dispatcher
+      ->expects($this->once())
+      ->method('dispatch')
+      ->with(
+        $this->callback(
+          function(Display\Translated $message) {
+            return
+              \Papaya\Message::SEVERITY_WARNING === $message->getSeverity() &&
+              'TEST' === $message->getMessage();
+          }
+        )
+      );
+    $manager = new Manager();
+    $manager->addDispatcher($dispatcher);
+    $manager->displayWarning('TEST');
+  }
+
+  /**
+   * @covers \Papaya\Message\Manager::displayError
+   */
+  public function testDisplayError() {
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */
+    $dispatcher = $this->createMock(Dispatcher::class);
+    $dispatcher
+      ->expects($this->once())
+      ->method('dispatch')
+      ->with(
+        $this->callback(
+          function(Display\Translated $message) {
+            return
+              \Papaya\Message::SEVERITY_ERROR === $message->getSeverity() &&
+              'TEST' === $message->getMessage();
+          }
+        )
+      );
+    $manager = new Manager();
+    $manager->addDispatcher($dispatcher);
+    $manager->displayError('TEST');
   }
 
   /**

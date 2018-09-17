@@ -21,14 +21,14 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 class Display
-  implements \Papaya\Message\Displayable {
+  implements Displayable {
 
   /**
    * Message type
    *
    * @var integer
    */
-  protected $_type = \Papaya\Message::SEVERITY_INFO;
+  protected $_severity = \Papaya\Message::SEVERITY_INFO;
 
   /**
    * Message text
@@ -42,30 +42,30 @@ class Display
    *
    * @var array
    */
-  protected $_allowedTypes = array(
+  private $_possibleSeverities = array(
     \Papaya\Message::SEVERITY_INFO,
     \Papaya\Message::SEVERITY_WARNING,
     \Papaya\Message::SEVERITY_ERROR
   );
 
   /**
-   * @param integer $type
+   * @param integer $severity
    * @param string|\Papaya\UI\Text $message
    */
-  public function __construct($type, $message) {
-    $this->_isValidType($type);
-    $this->_type = $type;
+  public function __construct($severity, $message) {
+    $this->_isValidSeverity($severity);
+    $this->_severity = $severity;
     $this->_message = $message;
   }
 
   /**
    * check if the given type is valid for this kind of messages
    *
-   * @param int $type
+   * @param int $severity
    * @return bool
    */
-  protected function _isValidType($type) {
-    if (in_array($type, $this->_allowedTypes, FALSE)) {
+  private function _isValidSeverity($severity) {
+    if (in_array($severity, $this->_possibleSeverities, FALSE)) {
       return TRUE;
     }
     throw new \InvalidArgumentException('Invalid message type.');
@@ -77,7 +77,7 @@ class Display
    * @return integer
    */
   public function getType() {
-    return $this->_type;
+    return $this->_severity;
   }
 
   /**
@@ -86,7 +86,7 @@ class Display
    * @return integer
    */
   public function getSeverity() {
-    return $this->_type;
+    return $this->_severity;
   }
 
   /**
