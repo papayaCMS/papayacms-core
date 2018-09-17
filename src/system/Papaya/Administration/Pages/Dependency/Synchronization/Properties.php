@@ -15,6 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
+use \Papaya\Content\Page;
+
 /**
  * Synchronize properties of the page working copy
  *
@@ -27,7 +29,7 @@ class Properties
   /**
    * Page database record object
    *
-   * @var \Papaya\Content\Page\Work
+   * @var Page\Work
    */
   private $_page;
 
@@ -50,14 +52,14 @@ class Properties
   /**
    * Getter/Setter for the content page object
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Page\Work $page
+   * @return Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
+  public function page(Page\Work $page = NULL) {
     if (NULL !== $page) {
       $this->_page = $page;
     } elseif (NULL === $this->_page) {
-      $this->_page = new \Papaya\Content\Page\Work();
+      $this->_page = new Page\Work();
     }
     return $this->_page;
   }
@@ -65,11 +67,11 @@ class Properties
   /**
    * Update target translation properties
    *
-   * @param \Papaya\Content\Page\Translation $origin
+   * @param Page\Translation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
+  protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
@@ -89,11 +91,11 @@ class Properties
   /**
    * Update target page properties
    *
-   * @param \Papaya\Content\Page\Work $origin
+   * @param Page\Work $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
+  protected function updatePages(Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),

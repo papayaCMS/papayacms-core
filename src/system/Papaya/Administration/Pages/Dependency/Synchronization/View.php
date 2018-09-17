@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
+
+use \Papaya\Content\Page;
+
 /**
  * Synchronize view of the page working copy
  *
@@ -26,11 +29,11 @@ class View
   /**
    * Update content data of existing translations
    *
-   * @param \Papaya\Content\Page\Translation $origin
+   * @param Page\Translation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
+  protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),

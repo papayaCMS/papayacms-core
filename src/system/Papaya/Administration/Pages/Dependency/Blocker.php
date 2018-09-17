@@ -15,6 +15,10 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
+use \Papaya\Content;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Check if the current page is a dependency and block edit page if it is set to sync.
  *
@@ -23,7 +27,7 @@ namespace Papaya\Administration\Pages\Dependency;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Blocker extends \Papaya\UI\Control\Interactive {
+class Blocker extends UI\Control\Interactive {
 
   /**
    * current page id
@@ -42,28 +46,28 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Dependency content object buffer
    *
-   * @var \Papaya\Content\Page\Dependency
+   * @var Content\Page\Dependency
    */
   private $_dependency;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var \Papaya\Content\Page\Dependencies
+   * @var Content\Page\Dependencies
    */
   private $_dependencies;
 
   /**
    * Buffer variable for the views list
    *
-   * @var \Papaya\Content\Views
+   * @var Content\Views
    */
   private $_views;
 
   /**
    * Page information content buffer
    *
-   * @var \Papaya\Content\Pages
+   * @var Content\Pages
    */
   private $_pages;
 
@@ -87,10 +91,10 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Append the blocker message/goto dialog to the parent xml.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\UI\Dialog
+   * @param XML\Element $parent
+   * @return UI\Dialog
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $pageId = $this->dependency()->originId;
     $pages = $this->pages();
     $pages->load(
@@ -102,9 +106,9 @@ class Blocker extends \Papaya\UI\Control\Interactive {
     $pageTitle = isset($pages[$pageId])
       ? $pages[$pageId]['title'] : '[...]';
 
-    $dialog = new \Papaya\UI\Dialog();
+    $dialog = new UI\Dialog();
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \Papaya\UI\Text\Translated('Page dependency');
+    $dialog->caption = new UI\Text\Translated('Page dependency');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->options->useToken = FALSE;
     $dialog->hiddenFields->merge(
@@ -112,15 +116,15 @@ class Blocker extends \Papaya\UI\Control\Interactive {
         'page_id' => $pageId
       )
     );
-    $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
-      new \Papaya\UI\Text\Translated(
+    $dialog->fields[] = new UI\Dialog\Field\Information(
+      new UI\Text\Translated(
         'This part of the page is synchronized with page "%s #%d".',
         array($pageTitle, $pageId)
       ),
       'status-system-locked'
     );
-    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
-      new \Papaya\UI\Text\Translated('GoTo Origin Page')
+    $dialog->buttons[] = new UI\Dialog\Button\Submit(
+      new UI\Text\Translated('GoTo Origin Page')
     );
     $dialog->appendTo($parent);
     return $dialog;
@@ -173,13 +177,13 @@ class Blocker extends \Papaya\UI\Control\Interactive {
       $this->dependencies()->load($this->_pageId, $language)) {
       $viewIds = array();
       foreach ($this->dependencies() as $dependency) {
-        if (($dependency['synchronization'] & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
-          ($dependency['synchronization'] & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
+        if (($dependency['synchronization'] & Content\Page\Dependency::SYNC_VIEW) xor
+          ($dependency['synchronization'] & Content\Page\Dependency::SYNC_CONTENT)) {
           $viewIds[$dependency['id']] = $dependency['view_id'];
         }
       }
       $views = $this->views();
-      $views->load(array('id' => array_values($viewIds)));
+      $views->load(array('id' => \array_values($viewIds)));
       foreach ($viewIds as $pageId => $viewId) {
         if (isset($views[$viewId])) {
           $result[$pageId] = $views[$viewId];
@@ -192,14 +196,14 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Get/Set an object for the current dependency.
    *
-   * @param \Papaya\Content\Page\Dependency $dependency
-   * @return \Papaya\Content\Page\Dependency
+   * @param Content\Page\Dependency $dependency
+   * @return Content\Page\Dependency
    */
-  public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
+  public function dependency(Content\Page\Dependency $dependency = NULL) {
     if (NULL !== $dependency) {
       $this->_dependency = $dependency;
     } elseif (NULL === $this->_dependency) {
-      $this->_dependency = new \Papaya\Content\Page\Dependency();
+      $this->_dependency = new Content\Page\Dependency();
       $this->_dependency->papaya($this->papaya());
     }
     return $this->_dependency;
@@ -208,14 +212,14 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the dependencies list database object
    *
-   * @param \Papaya\Content\Page\Dependencies $dependencies
-   * @return \Papaya\Content\Page\Dependencies
+   * @param Content\Page\Dependencies $dependencies
+   * @return Content\Page\Dependencies
    */
-  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
+  public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
     if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
     } elseif (NULL === $this->_dependencies) {
-      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
+      $this->_dependencies = new Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
@@ -223,14 +227,14 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the views list database object
    *
-   * @param \Papaya\Content\Views $views
-   * @return \Papaya\Content\Views
+   * @param Content\Views $views
+   * @return Content\Views
    */
-  public function views(\Papaya\Content\Views $views = NULL) {
+  public function views(Content\Views $views = NULL) {
     if (NULL !== $views) {
       $this->_views = $views;
     } elseif (NULL === $this->_views) {
-      $this->_views = new \Papaya\Content\Views();
+      $this->_views = new Content\Views();
     }
     return $this->_views;
   }
@@ -238,14 +242,14 @@ class Blocker extends \Papaya\UI\Control\Interactive {
   /**
    * Access to the pages list, to load page information
    *
-   * @param \Papaya\Content\Pages $pages
-   * @return \Papaya\Content\Pages
+   * @param Content\Pages $pages
+   * @return Content\Pages
    */
-  public function pages(\Papaya\Content\Pages $pages = NULL) {
+  public function pages(Content\Pages $pages = NULL) {
     if (NULL !== $pages) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
-      $this->_pages = new \Papaya\Content\Pages();
+      $this->_pages = new Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

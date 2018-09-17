@@ -15,6 +15,10 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
+use \Papaya\Administration;
+use \Papaya\Content\Page;
+
+
 /**
  * Synchronize assigned tags of the page
  *
@@ -22,12 +26,12 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Tags
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
 
   /**
    * buffer variable for the page tags content object
    *
-   * @var \Papaya\Content\Page\Tags
+   * @var Page\Tags
    */
   private $_tags;
 
@@ -58,14 +62,14 @@ class Tags
   /**
    * Getter/Setter for the tags subobject
    *
-   * @param \Papaya\Content\Page\Tags $tags
-   * @return \Papaya\Content\Page\Tags
+   * @param Page\Tags $tags
+   * @return Page\Tags
    */
-  public function tags(\Papaya\Content\Page\Tags $tags = NULL) {
+  public function tags(Page\Tags $tags = NULL) {
     if (NULL !== $tags) {
       $this->_tags = $tags;
     } elseif (NULL === $this->_tags) {
-      $this->_tags = new \Papaya\Content\Page\Tags();
+      $this->_tags = new Page\Tags();
     }
     return $this->_tags;
   }

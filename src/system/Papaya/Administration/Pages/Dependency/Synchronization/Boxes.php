@@ -15,6 +15,9 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
+use \Papaya\Administration;
+use \Papaya\Content;
+
 /**
  * Synchronize box inheritance on the page workling copy and the page links
  *
@@ -22,7 +25,7 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Boxes
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
 
   /**
    * Page boxes list database object
@@ -34,7 +37,7 @@ class Boxes
   /**
    * Page working copy object
    *
-   * @var \Papaya\Content\Page\Work
+   * @var Content\Page\Work
    */
   private $_page;
 
@@ -64,24 +67,24 @@ class Boxes
     $databaseAccess = $this->page()->getDatabaseAccess();
     $filter = $databaseAccess->getSqlCondition(['topic_id' => $targetIds]);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
-    $parameters = array(
-      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
+    $parameters = [
+      $databaseAccess->getTableName(Content\Tables::PAGES),
       $status
-    );
+    ];
     return FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters);
   }
 
   /**
    * Getter/Setter for the  page boxes list database object
    *
-   * @param \Papaya\Content\Page\Boxes $boxes
-   * @return \Papaya\Content\Page\Boxes
+   * @param Content\Page\Boxes $boxes
+   * @return Content\Page\Boxes
    */
-  public function boxes(\Papaya\Content\Page\Boxes $boxes = NULL) {
+  public function boxes(Content\Page\Boxes $boxes = NULL) {
     if (NULL !== $boxes) {
       $this->_boxes = $boxes;
     } elseif (NULL === $this->_boxes) {
-      $this->_boxes = new \Papaya\Content\Page\Boxes();
+      $this->_boxes = new Content\Page\Boxes();
     }
     return $this->_boxes;
   }
@@ -89,14 +92,14 @@ class Boxes
   /**
    * Getter/Setter for the page working copy
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Content\Page\Work $page
+   * @return Content\Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
+  public function page(Content\Page\Work $page = NULL) {
     if (NULL !== $page) {
       $this->_page = $page;
     } elseif (NULL === $this->_page) {
-      $this->_page = new \Papaya\Content\Page\Work();
+      $this->_page = new Content\Page\Work();
     }
     return $this->_page;
   }

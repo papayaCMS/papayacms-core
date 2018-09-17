@@ -14,13 +14,16 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
+
+use \Papaya\Content;
+use \Papaya\Database;
 /**
  * Loads and returns the current counting of dependencies and references for an page id
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Counter extends \Papaya\Database\BaseObject {
+class Counter extends Database\BaseObject {
 
   /**
    * store page id
@@ -95,12 +98,12 @@ class Counter extends \Papaya\Database\BaseObject {
              WHERE topic_source_id = %3\\\$d
                 OR topic_target_id = %3\\\$d";
     $parameters = array(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),
+      $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(Content\Tables::PAGE_REFERENCES),
       $this->_pageId
     );
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
         $this->_amounts[$row['name']] = $row['counter'];
       }
       return $this->_loaded = TRUE;

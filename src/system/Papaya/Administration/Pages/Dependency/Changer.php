@@ -15,13 +15,19 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
+use \Papaya\Administration;
+use \Papaya\Content;
+use \Papaya\Filter;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Administration interface for changes on the dependencies of a page.
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Changer extends \Papaya\UI\Control\Interactive {
+class Changer extends UI\Control\Interactive {
 
   /**
    * Currently selected page
@@ -48,39 +54,39 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Buffer variable for the current dependency
    *
-   * @var \Papaya\Content\Page\Dependency
+   * @var Content\Page\Dependency
    */
   private $_dependency;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var \Papaya\Content\Page\Dependencies
+   * @var Content\Page\Dependencies
    */
   private $_dependencies;
 
   /**
-   * @var \Papaya\Content\Page\Reference $_reference
+   * @var Content\Page\Reference $_reference
    */
   private $_reference;
 
 
   /**
-   * @var \Papaya\Content\Page\References $_references
+   * @var Content\Page\References $_references
    */
   private $_references;
 
   /**
    * Command controller for the needed actions
    *
-   * @var \Papaya\UI\Control\Command\Controller
+   * @var UI\Control\Command\Controller
    */
   private $_commands;
 
   /**
    * Menu object, for buttons depending on the current status
    *
-   * @var \Papaya\UI\Toolbar
+   * @var UI\Toolbar
    */
   private $_menu;
 
@@ -119,14 +125,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the dependency database object
    *
-   * @param \Papaya\Content\Page\Dependency $dependency
-   * @return \Papaya\Content\Page\Dependency
+   * @param Content\Page\Dependency $dependency
+   * @return Content\Page\Dependency
    */
-  public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
+  public function dependency(Content\Page\Dependency $dependency = NULL) {
     if (NULL !== $dependency) {
       $this->_dependency = $dependency;
     } elseif (NULL === $this->_dependency) {
-      $this->_dependency = new \Papaya\Content\Page\Dependency();
+      $this->_dependency = new Content\Page\Dependency();
     }
     return $this->_dependency;
   }
@@ -134,14 +140,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the dependencies list database object
    *
-   * @param \Papaya\Content\Page\Dependencies $dependencies
-   * @return \Papaya\Content\Page\Dependencies
+   * @param Content\Page\Dependencies $dependencies
+   * @return Content\Page\Dependencies
    */
-  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
+  public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
     if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
     } elseif (NULL === $this->_dependencies) {
-      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
+      $this->_dependencies = new Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
@@ -149,14 +155,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the reference database object
    *
-   * @param \Papaya\Content\Page\Reference $reference
-   * @return \Papaya\Content\Page\Reference
+   * @param Content\Page\Reference $reference
+   * @return Content\Page\Reference
    */
-  public function reference(\Papaya\Content\Page\Reference $reference = NULL) {
+  public function reference(Content\Page\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\Content\Page\Reference();
+      $this->_reference = new Content\Page\Reference();
     }
     return $this->_reference;
   }
@@ -164,14 +170,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the references list database object
    *
-   * @param \Papaya\Content\Page\References $references
-   * @return \Papaya\Content\Page\References
+   * @param Content\Page\References $references
+   * @return Content\Page\References
    */
-  public function references(\Papaya\Content\Page\References $references = NULL) {
+  public function references(Content\Page\References $references = NULL) {
     if (NULL !== $references) {
       $this->_references = $references;
     } elseif (NULL === $this->_references) {
-      $this->_references = new \Papaya\Content\Page\References();
+      $this->_references = new Content\Page\References();
     }
     return $this->_references;
   }
@@ -179,9 +185,9 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Execute commands and append output to xml.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $this->prepare();
     if ($this->getPageId() > 0) {
       $this->appendButtons();
@@ -209,14 +215,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
    * Initialize parameters and store them into properties.
    */
   public function prepare() {
-    $this->_pageId = (int)$this->parameters()->get('page_id', 0, new \Papaya\Filter\IntegerValue(0));
+    $this->_pageId = (int)$this->parameters()->get('page_id', 0, new Filter\IntegerValue(0));
     if ($this->_pageId > 0) {
       if ($this->dependency()->load($this->_pageId)) {
         $this->_originId = (int)$this->dependency()->originId;
       } elseif ($this->dependency()->isOrigin($this->_pageId)) {
         $this->_originId = $this->_pageId;
       }
-      $this->_targetId = (int)$this->parameters()->get('target_id', 0, new \Papaya\Filter\IntegerValue(0));
+      $this->_targetId = (int)$this->parameters()->get('target_id', 0, new Filter\IntegerValue(0));
       if ($this->_targetId > 0) {
         $this->reference()->load(
           array('source_id' => $this->_pageId, 'target_id' => $this->_targetId)
@@ -228,19 +234,19 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for commands, define commands on implicit create.
    *
-   * @param \Papaya\UI\Control\Command\Controller $commands
-   * @return \Papaya\UI\Control\Command\Controller
+   * @param UI\Control\Command\Controller $commands
+   * @return UI\Control\Command\Controller
    */
-  public function commands(\Papaya\UI\Control\Command\Controller $commands = NULL) {
+  public function commands(UI\Control\Command\Controller $commands = NULL) {
     if (NULL !== $commands) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
-      $commands = new \Papaya\UI\Control\Command\Controller('cmd', 'dependency_show');
+      $commands = new UI\Control\Command\Controller('cmd', 'dependency_show');
       $commands->owner($this);
       $commands['dependency_show'] = new Command\Change();
       $commands['dependency_delete'] = new Command\Delete();
-      $commands['reference_change'] = new \Papaya\Administration\Pages\Reference\Command\Change();
-      $commands['reference_delete'] = new \Papaya\Administration\Pages\Reference\Command\Delete();
+      $commands['reference_change'] = new Administration\Pages\Reference\Command\Change();
+      $commands['reference_delete'] = new Administration\Pages\Reference\Command\Delete();
       $this->_commands = $commands;
     }
     return $this->_commands;
@@ -249,14 +255,14 @@ class Changer extends \Papaya\UI\Control\Interactive {
   /**
    * Getter/Setter for the menu (action/command buttons)
    *
-   * @param \Papaya\UI\Toolbar $menu
-   * @return \Papaya\UI\Toolbar
+   * @param UI\Toolbar $menu
+   * @return UI\Toolbar
    */
-  public function menu(\Papaya\UI\Toolbar $menu = NULL) {
+  public function menu(UI\Toolbar $menu = NULL) {
     if (NULL !== $menu) {
       $this->_menu = $menu;
     } elseif (NULL === $this->_menu) {
-      $this->_menu = new \Papaya\UI\Toolbar();
+      $this->_menu = new UI\Toolbar();
     }
     return $this->_menu;
   }
@@ -266,35 +272,35 @@ class Changer extends \Papaya\UI\Control\Interactive {
    */
   private function appendButtons() {
     if (in_array($this->parameters()->get('cmd'), array('reference_change', 'reference_delete'))) {
-      $this->menu()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+      $this->menu()->elements[] = $button = new UI\Toolbar\Button();
       $button->image = 'status-page-modified';
-      $button->caption = new \Papaya\UI\Text\Translated('Edit dependency');
+      $button->caption = new UI\Text\Translated('Edit dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_change', 'page_id' => $this->_pageId),
         $this->parameterGroup()
       );
     }
     if ($this->dependency()->id > 0) {
-      $this->menu()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+      $this->menu()->elements[] = $button = new UI\Toolbar\Button();
       $button->image = 'actions-page-delete';
-      $button->caption = new \Papaya\UI\Text\Translated('Delete dependency');
+      $button->caption = new UI\Text\Translated('Delete dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_delete', 'page_id' => $this->_pageId),
         $this->parameterGroup()
       );
     }
-    $this->menu()->elements[] = new \Papaya\UI\Toolbar\Separator();
-    $this->menu()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+    $this->menu()->elements[] = new UI\Toolbar\Separator();
+    $this->menu()->elements[] = $button = new UI\Toolbar\Button();
     $button->image = 'actions-link-add';
-    $button->caption = new \Papaya\UI\Text\Translated('Add reference');
+    $button->caption = new UI\Text\Translated('Add reference');
     $button->reference->setParameters(
       array('cmd' => 'reference_change', 'page_id' => $this->_pageId, 'target_id' => 0),
       $this->parameterGroup()
     );
     if ($this->reference()->sourceId > 0 && $this->reference()->targetId > 0) {
-      $this->menu()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
+      $this->menu()->elements[] = $button = new UI\Toolbar\Button();
       $button->image = 'actions-link-delete';
-      $button->caption = new \Papaya\UI\Text\Translated('Delete reference');
+      $button->caption = new UI\Text\Translated('Delete reference');
       $button->reference->setParameters(
         array(
           'cmd' => 'reference_delete',

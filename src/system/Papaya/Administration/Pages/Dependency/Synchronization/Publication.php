@@ -14,6 +14,10 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
+
+use \Papaya\Administration;
+use \Papaya\Content\Page;
+
 /**
  * Synchronize a publication to assigned target page. This is done duplicating the publish action.
  *
@@ -21,18 +25,18 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Publication
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
 
   /**
-   * @var \Papaya\Content\Page\Publication
+   * @var Page\Publication
    */
   private $_publication;
   /**
-   * @var \Papaya\Content\Page\Work
+   * @var Page\Work
    */
   private $_page;
   /**
-   * @var \Papaya\Content\Page\Version
+   * @var Page\Version
    */
   private $_version;
 
@@ -67,14 +71,14 @@ class Publication
    * Getter/Setter for publication page object. This is used to validate the origin
    * and fetch the publication period limits
    *
-   * @param \Papaya\Content\Page\Publication $publication
-   * @return \Papaya\Content\Page\Publication
+   * @param Page\Publication $publication
+   * @return Page\Publication
    */
-  public function publication(\Papaya\Content\Page\Publication $publication = NULL) {
+  public function publication(Page\Publication $publication = NULL) {
     if (NULL !== $publication) {
       $this->_publication = $publication;
     } elseif (NULL === $this->_publication) {
-      $this->_publication = new \Papaya\Content\Page\Publication();
+      $this->_publication = new Page\Publication();
     }
     return $this->_publication;
   }
@@ -82,14 +86,14 @@ class Publication
   /**
    * Getter/Setter for working copy page object. This is used to publish the target pages.
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Page\Work $page
+   * @return Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
+  public function page(Page\Work $page = NULL) {
     if (NULL !== $page) {
       $this->_page = $page;
     } elseif (NULL === $this->_page) {
-      $this->_page = new \Papaya\Content\Page\Work();
+      $this->_page = new Page\Work();
     }
     return $this->_page;
   }
@@ -97,14 +101,14 @@ class Publication
   /**
    * Getter/Setter for a page version object. This is used to create version for the target pages.
    *
-   * @param \Papaya\Content\Page\Version $version
-   * @return \Papaya\Content\Page\Version
+   * @param Page\Version $version
+   * @return Page\Version
    */
-  public function version(\Papaya\Content\Page\Version $version = NULL) {
+  public function version(Page\Version $version = NULL) {
     if (NULL !== $version) {
       $this->_version = $version;
     } elseif (NULL === $this->_version) {
-      $this->_version = new \Papaya\Content\Page\Version();
+      $this->_version = new Page\Version();
     }
     return $this->_version;
   }

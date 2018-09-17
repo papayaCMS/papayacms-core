@@ -15,6 +15,10 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
+use \Papaya\Administration;
+use \Papaya\Content\Page;
+use \Papaya\Utility;
+
 /**
  * Synchronize view and content of the page working copy
  *
@@ -22,14 +26,14 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Content
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
 
   /**
    * Translation records object
    *
-   * @var \Papaya\Content\Page\Translations
+   * @var Page\Translations
    */
-  private $_translations = NULL;
+  private $_translations;
 
   /**
    * Synchronize a dependency
@@ -42,7 +46,7 @@ class Content
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     $this->translations()->load($originId);
     if (empty($languages)) {
-      $languages = array_keys(\Papaya\Utility\Arrays::ensure($this->translations()));
+      $languages = array_keys(Utility\Arrays::ensure($this->translations()));
     }
     $existing = $this->getExistingTargetTranslations($targetIds, $languages);
     $missing = $this->getMissingTargetTranslations($targetIds, $languages, $existing);
@@ -52,14 +56,14 @@ class Content
   /**
    * Getter/Setter for the translation records list.
    *
-   * @param \Papaya\Content\Page\Translations $translations
-   * @return \Papaya\Content\Page\Translations
+   * @param Page\Translations $translations
+   * @return Page\Translations
    */
-  public function translations(\Papaya\Content\Page\Translations $translations = NULL) {
+  public function translations(Page\Translations $translations = NULL) {
     if (NULL !== $translations) {
       $this->_translations = $translations;
     } elseif (NULL === $this->_translations) {
-      $this->_translations = new \Papaya\Content\Page\Translations();
+      $this->_translations = new Page\Translations();
     }
     return $this->_translations;
   }
@@ -155,16 +159,16 @@ class Content
   /**
    * Update content data of existing translations
    *
-   * @param \Papaya\Content\Page\Translation $origin
+   * @param Page\Translation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
+  protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         array(
-          'topic_content' => \Papaya\Utility\Text\XML::serializeArray($origin->content),
+          'topic_content' => Utility\Text\XML::serializeArray($origin->content),
           'topic_trans_modified' => $origin->modified
         ),
         array(
@@ -177,11 +181,11 @@ class Content
   /**
    * Insert missing translations
    *
-   * @param \Papaya\Content\Page\Translation $origin
+   * @param Page\Translation $origin
    * @param $targetIds
    * @return boolean
    */
-  protected function insertTranslations(\Papaya\Content\Page\Translation $origin, $targetIds) {
+  protected function insertTranslations(Page\Translation $origin, $targetIds) {
     foreach ($targetIds as $targetId) {
       $target = clone $origin;
       $target->key()->clear();

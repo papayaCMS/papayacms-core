@@ -15,13 +15,18 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
+use \Papaya\Content;
+use \Papaya\UI;
+use \Papaya\XML;
+use \Papaya\Utility;
+
 /**
  * List view to show all dependencies for the specified origin page.
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-class ListView extends \Papaya\UI\ListView {
+class ListView extends UI\ListView {
   /**
    * Origin page id, this will be different from the current page id, if the current page id
    * is a dependency of this page id
@@ -46,7 +51,7 @@ class ListView extends \Papaya\UI\ListView {
   /**
    * List of database records
    *
-   * @var \Papaya\Content\Page\References
+   * @var Content\Page\References
    */
   private $_references;
 
@@ -60,19 +65,19 @@ class ListView extends \Papaya\UI\ListView {
   /**
    * A pages list, to fetch page informations
    *
-   * @var \Papaya\Content\Pages
+   * @var Content\Pages
    */
   private $_pages;
 
   public function __construct(
     $originPageId,
     $currentPageId,
-    \Papaya\Content\Page\Dependencies $dependencies,
-    \Papaya\Content\Page\References $references,
+    Content\Page\Dependencies $dependencies,
+    Content\Page\References $references,
     Synchronizations $synchronizations
   ) {
-    \Papaya\Utility\Constraints::assertInteger($originPageId);
-    \Papaya\Utility\Constraints::assertInteger($currentPageId);
+    Utility\Constraints::assertInteger($originPageId);
+    Utility\Constraints::assertInteger($currentPageId);
     $this->_originPageId = (int)$originPageId;
     $this->_currentPageId = (int)$currentPageId;
     $this->_dependencies = $dependencies;
@@ -87,66 +92,66 @@ class ListView extends \Papaya\UI\ListView {
     $pages = $this->pages();
     $pageTitle = isset($pages[$this->_originPageId])
       ? $pages[$this->_originPageId]['title'] : '[...]';
-    $this->caption = new \Papaya\UI\Text\Translated(
+    $this->caption = new UI\Text\Translated(
       'Dependent pages of page "%s #%d"', array($pageTitle, $this->_originPageId)
     );
-    $this->columns[] = new \Papaya\UI\ListView\Column(
-      new \Papaya\UI\Text\Translated('Page')
+    $this->columns[] = new UI\ListView\Column(
+      new UI\Text\Translated('Page')
     );
-    $this->columns[] = new \Papaya\UI\ListView\Column(
-      new \Papaya\UI\Text\Translated('GoTo'),
-      \Papaya\UI\Option\Align::CENTER
+    $this->columns[] = new UI\ListView\Column(
+      new UI\Text\Translated('GoTo'),
+      UI\Option\Align::CENTER
     );
-    $this->columns[] = new \Papaya\UI\ListView\Column(
-      new \Papaya\UI\Text\Translated('Synchronization'),
-      \Papaya\UI\Option\Align::CENTER
+    $this->columns[] = new UI\ListView\Column(
+      new UI\Text\Translated('Synchronization'),
+      UI\Option\Align::CENTER
     );
-    $this->columns[] = new \Papaya\UI\ListView\Column(
-      new \Papaya\UI\Text\Translated('Modified'),
-      \Papaya\UI\Option\Align::CENTER
+    $this->columns[] = new UI\ListView\Column(
+      new UI\Text\Translated('Modified'),
+      UI\Option\Align::CENTER
     );
     if (count($this->_dependencies) > 0) {
-      $this->items[] = $listitem = new \Papaya\UI\ListView\Item(
+      $this->items[] = $listitem = new UI\ListView\Item(
         'items-folder',
-        new \Papaya\UI\Text\Translated('Dependencies')
+        new UI\Text\Translated('Dependencies')
       );
-      $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
+      $listitem->subitems[] = new UI\ListView\SubItem\Image(
         'actions-go-superior',
-        new \Papaya\UI\Text\Translated('Go to origin page'),
+        new UI\Text\Translated('Go to origin page'),
         array('page_id' => $this->_originPageId)
       );
-      $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text('');
-      $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text('');
+      $listitem->subitems[] = new UI\ListView\SubItem\Text('');
+      $listitem->subitems[] = new UI\ListView\SubItem\Text('');
       foreach ($this->_dependencies as $dependency) {
-        $this->items[] = $listitem = new \Papaya\UI\ListView\Item(
+        $this->items[] = $listitem = new UI\ListView\Item(
           'items-page',
           $dependency['title'].' #'.$dependency['id'],
           array('page_id' => $dependency['id'])
         );
         $listitem->indentation = 1;
         if (!empty($dependency['note'])) {
-          $listitem->text = \Papaya\Utility\Text::truncate($dependency['note'], 60, TRUE);
+          $listitem->text = Utility\Text::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = (int)$dependency['id'] === $this->_currentPageId;
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text('');
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Images(
+        $listitem->subitems[] = new UI\ListView\SubItem\Text('');
+        $listitem->subitems[] = new UI\ListView\SubItem\Images(
           $this->_synchronizations->getIcons(),
           $dependency['synchronization'],
-          \Papaya\UI\ListView\SubItem\Images::VALIDATE_BITMASK
+          UI\ListView\SubItem\Images::VALIDATE_BITMASK
         );
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
+        $listitem->subitems[] = new UI\ListView\SubItem\Date(
           (int)$dependency['modified']
         );
       }
     }
     if (count($this->_references) > 0) {
-      $this->items[] = $listitem = new \Papaya\UI\ListView\Item(
+      $this->items[] = $listitem = new UI\ListView\Item(
         'items-folder',
-        new \Papaya\UI\Text\Translated('References')
+        new UI\Text\Translated('References')
       );
       $listitem->columnSpan = -1;
       foreach ($this->_references as $reference) {
-        $this->items[] = $listitem = new \Papaya\UI\ListView\Item(
+        $this->items[] = $listitem = new UI\ListView\Item(
           'items-link',
           $reference['title'].' #'.$reference['target_id'],
           array(
@@ -157,16 +162,16 @@ class ListView extends \Papaya\UI\ListView {
         );
         $listitem->indentation = 1;
         if (!empty($reference['note'])) {
-          $listitem->text = \Papaya\Utility\Text::truncate($reference['note'], 60, TRUE);
+          $listitem->text = Utility\Text::truncate($reference['note'], 60, TRUE);
         }
         $listitem->selected = \in_array(
           $this->parameters()->get('target_id'),
           array($reference['source_id'], $reference['target_id']),
           FALSE
         );
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Image(
+        $listitem->subitems[] = new UI\ListView\SubItem\Image(
           'items-page',
-          new \Papaya\UI\Text\Translated(
+          new UI\Text\Translated(
             'Go to page %s #%d', array($reference['title'], $reference['target_id'])
           ),
           array(
@@ -175,8 +180,8 @@ class ListView extends \Papaya\UI\ListView {
             'cmd' => 'reference_change'
           )
         );
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Text('');
-        $listitem->subitems[] = new \Papaya\UI\ListView\SubItem\Date(
+        $listitem->subitems[] = new UI\ListView\SubItem\Text('');
+        $listitem->subitems[] = new UI\ListView\SubItem\Date(
           (int)$reference['modified']
         );
       }
@@ -186,10 +191,10 @@ class ListView extends \Papaya\UI\ListView {
   /**
    * Append listview to parent element if it has records.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @param XML\Element $parent
+   * @return NULL|XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (count($this->_dependencies) > 0 || count($this->_references) > 0) {
       $this->prepare();
       return parent::appendTo($parent);
@@ -200,14 +205,14 @@ class ListView extends \Papaya\UI\ListView {
   /**
    * Access to the pages list, to load page informations
    *
-   * @param \Papaya\Content\Pages $pages
-   * @return \Papaya\Content\Pages
+   * @param Content\Pages $pages
+   * @return Content\Pages
    */
-  public function pages(\Papaya\Content\Pages $pages = NULL) {
+  public function pages(Content\Pages $pages = NULL) {
     if (NULL !== $pages) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
-      $this->_pages = new \Papaya\Content\Pages();
+      $this->_pages = new Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

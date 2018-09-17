@@ -15,13 +15,16 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
+use \Papaya\Administration;
+use \Papaya\Content;
+
 class Access
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
 
   /**
    * Page database record object
    *
-   * @var \Papaya\Content\Page\Work
+   * @var Content\Page\Work
    */
   private $_page;
 
@@ -43,14 +46,14 @@ class Access
   /**
    * Getter/Setter for the content page object
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Content\Page\Work $page
+   * @return Content\Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
+  public function page(Content\Page\Work $page = NULL) {
     if (NULL !== $page) {
       $this->_page = $page;
     } elseif (NULL === $this->_page) {
-      $this->_page = new \Papaya\Content\Page\Work();
+      $this->_page = new Content\Page\Work();
     }
     return $this->_page;
   }
@@ -58,14 +61,14 @@ class Access
   /**
    * Update target page permissions
    *
-   * @param \Papaya\Content\Page\Work $origin
+   * @param Content\Page\Work $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
+  protected function updatePages(Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
+        $databaseAccess->getTableName(Content\Tables::PAGES),
         array(
           'topic_modified' => $databaseAccess->getTimestamp(),
           'surfer_useparent' => $origin->inheritVisitorPermissions,
