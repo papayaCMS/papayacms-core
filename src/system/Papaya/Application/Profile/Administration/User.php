@@ -15,13 +15,15 @@
 
 namespace Papaya\Application\Profile\Administration;
 
+use Papaya\Application;
+
 /**
  * Application object profile for default options object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class User implements \Papaya\Application\Profile {
+class User implements Application\Profile {
 
   /**
    * Create the profile object and return it
