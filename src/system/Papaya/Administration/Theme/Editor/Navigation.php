@@ -16,6 +16,7 @@
 namespace Papaya\Administration\Theme\Editor;
 
 use Papaya\Content;
+use Papaya\Iterator;
 use Papaya\Theme;
 use Papaya\UI;
 use Papaya\XML;
@@ -114,8 +115,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
           )
         )
       );
-      $this->_listview->builder()->callbacks()->onCreateItem = [$this, 'callbackCreateItem'];
-      $this->_listview->builder()->callbacks()->onCreateItem->context = $builder;
+      $builder->callbacks()->onCreateItem = function($builder, $items, $element) {
+        $this->callbackCreateItem($builder, $items, $element);
+      };
+      $builder->callbacks()->onCreateItem->context = $builder;
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
     }
@@ -133,21 +136,22 @@ class Navigation extends \Papaya\Administration\Page\Part {
   private function createThemeList() {
     $themes = new Theme\Collection();
     $themes->papaya($this->papaya());
-    $themeIterator = new \Papaya\Iterator\Tree\Items(
-      $themes, \Papaya\Iterator\Tree\Items::ATTACH_TO_VALUES
+    $themeIterator = new Iterator\Tree\Items(
+      $themes, Iterator\Tree\Items::ATTACH_TO_VALUES
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
       $skins = new Content\Theme\Skins();
       $skins->activateLazyLoad(['theme' => $selectedTheme]);
-      $skinIterator = new \Papaya\Iterator\Tree\Items($skins);
+      $skinIterator = new Iterator\Tree\Items($skins);
       $selectedSet = $this->parameters()->get('skin_id', 0);
       if ($selectedSet > 0) {
         $skinIterator->attachItemIterator(
           $selectedSet,
-          new \Papaya\Iterator\Generator(
-            [$themes, 'getDefinition'],
-            [$selectedTheme]
+          new Iterator\Generator(
+            function() use ($themes, $selectedTheme) {
+              return $themes->getDefinition($selectedTheme);
+            }
           )
         );
       }
@@ -160,25 +164,23 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Callback to create the items, depending on the depth here are the theme and skin elements
    *
    * @param UI\ListView\Items\Builder $builder
-   * @param \Papaya\UI\ListView\Items $items
+   * @param UI\ListView\Items $items
    * @param mixed $element
-   * @param mixed $index
    * @return null|UI\ListView\Item
    */
-  public function callbackCreateItem($builder, $items, $element, $index) {
+  public function callbackCreateItem(UI\ListView\Items\Builder $builder, UI\ListView\Items $items, $element) {
     /* @noinspection PhpUndefinedMethodInspection */
     switch ($builder->getDataSource()->getDepth()) {
       case 0 :
-        $items[] = $item = $this->createThemeItem($element, $index);
+        $items[] = $item = $this->createThemeItem($element);
         return $item;
       case 1 :
-        $items[] = $item = $this->createSetItem($element, $index);
+        $items[] = $item = $this->createSetItem($element);
         return $item;
       case 2 :
-        $items[] = $item = $this->createPageItem($element, $index);
+        $items[] = $item = $this->createPageItem($element);
         return $item;
     }
-    return;
   }
 
   /**
