@@ -94,24 +94,4 @@ class RemoveTest extends \Papaya\TestCase {
       $dialog->getXML()
     );
   }
-
-  /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Skin\Remove::callbackDeleted
-   */
-  public function testCallbackDeleted() {
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
-    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
-    $command = new Remove($record);
-    $command->papaya(
-      $this->mockPapaya()->application(
-        array('messages' => $messages)
-      )
-    );
-    $command->callbackDeleted();
-  }
 }

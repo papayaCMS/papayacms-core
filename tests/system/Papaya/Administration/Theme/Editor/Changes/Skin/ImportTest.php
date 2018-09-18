@@ -167,8 +167,8 @@ class ImportTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('displayInfo')
+      ->with('Values imported.');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
     $themeHandler
@@ -251,8 +251,8 @@ class ImportTest extends \Papaya\TestCase {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
+      ->method('displayInfo')
+      ->with('Values imported.');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Theme\Handler $themeHandler */
     $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
     $themeHandler

@@ -22,6 +22,10 @@ namespace Papaya\UI\Dialog\Field;
  */
 class Message extends Information {
 
+  const SEVERITY_INFO = \Papaya\Message::SEVERITY_INFO;
+  const SEVERITY_WARNING = \Papaya\Message::SEVERITY_WARNING;
+  const SEVERITY_ERROR = \Papaya\Message::SEVERITY_ERROR;
+
   /**
    * Message image
    *

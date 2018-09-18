@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration;
 
-use Papaya\Administration\Permission\Groups;
+use \Papaya\Database;
 
 /**
  * Constant and structure definitions for administration interface permissions.
@@ -24,7 +24,7 @@ use Papaya\Administration\Permission\Groups;
  * @subpackage Administration
  */
 class Permissions
-  extends \Papaya\Database\Records\Lazy {
+  extends Database\Records\Lazy {
 
   const SYSTEM_SETTINGS = 25;
   const SYSTEM_PROTOCOL = 31;
@@ -38,7 +38,7 @@ class Permissions
   const SYSTEM_MIMETYPES_MANAGE = 45;
   const SYSTEM_MIMETYPES_EDIT = 46;
 
-  const SYSTEM_THEMESET_MANAGE = 51;  // current maximum
+  const SYSTEM_THEME_SKIN_MANAGE = 51;  // current maximum
 
   const USER_MANAGE = 4;
   const USER_GROUP_MANAGE = 5;
@@ -108,19 +108,21 @@ class Permissions
    *
    * @var array|NULL
    */
-  private static $_permissions = NULL;
+  private static $_permissions;
 
   /**
-   * @var Groups
+   * @var Permission\Groups
    */
-  private $_groups = NULL;
+  private $_groups;
 
   /**
    * Build an index of all permission constants using reflection
+   *
+   * @throws \ReflectionException
    */
   public function __construct() {
     // @codeCoverageIgnoreStart
-    if (NULL == self::$_permissions) {
+    if (NULL === self::$_permissions) {
       $reflection = new \ReflectionClass(__CLASS__);
       self::$_permissions = array_flip($reflection->getConstants());
     }
@@ -170,7 +172,7 @@ class Permissions
    * @return boolean
    */
   public function inGroup($permissionId, $groupId) {
-    return $this->groups()->getGroupId($permissionId) == $groupId;
+    return (int)$this->groups()->getGroupId($permissionId) === (int)$groupId;
   }
 
 
@@ -189,14 +191,14 @@ class Permissions
 
   /**
    *
-   * @param \Papaya\Administration\Permission\Groups $groups
-   * @return \Papaya\Administration\Permission\Groups
+   * @param Permission\Groups $groups
+   * @return Permission\Groups
    */
-  public function groups(\Papaya\Administration\Permission\Groups $groups = NULL) {
-    if (isset($groups)) {
+  public function groups(Permission\Groups $groups = NULL) {
+    if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new \Papaya\Administration\Permission\Groups();
+      $this->_groups = new Permission\Groups();
     }
     return $this->_groups;
   }

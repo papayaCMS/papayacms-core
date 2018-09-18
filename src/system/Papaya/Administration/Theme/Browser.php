@@ -15,22 +15,12 @@
 
 namespace Papaya\Administration\Theme;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- * @link http://www.papaya-cms.com/
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
+use \Papaya\Theme;
+use \Papaya\UI;
+use \Papaya\XML;
 
 class Browser
-  extends \Papaya\UI\Control {
+  extends UI\Control {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
@@ -39,28 +29,28 @@ class Browser
    */
   private $_themes;
   /**
-   * @var \Papaya\Theme\Handler
+   * @var Theme\Handler
    */
   private $_themeHandler;
   /**
-   * @var \Papaya\UI\Dialog
+   * @var UI\Dialog
    */
   private $_dialog;
 
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->append($this->dialog());
   }
 
   /**
-   * @param \Papaya\UI\Dialog $dialog
-   * @return \Papaya\UI\Dialog
+   * @param UI\Dialog $dialog
+   * @return UI\Dialog
    */
-  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
+  public function dialog(UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
-      $this->_dialog = $dialog = new \Papaya\UI\Dialog();
-      $dialog->caption = new \Papaya\UI\Text\Translated('Themes (%s)', [$this->_optionName]);
+      $this->_dialog = $dialog = new UI\Dialog();
+      $dialog->caption = new UI\Text\Translated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');
       $dialog->data()->merge(
@@ -75,23 +65,24 @@ class Browser
           'save' => 1
         ]
       );
-      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Collector(
+      $dialog->fields[] = new UI\Dialog\Field\Collector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new \Papaya\UI\Dialog\Field\ListView(
-        $listview = new \Papaya\UI\ListView()
+      $dialog->fields[] = new UI\Dialog\Field\ListView(
+        $listview = new UI\ListView()
       );
-      $listview->mode = \Papaya\UI\ListView::MODE_TILES;
-      $listview->builder($builder = new \Papaya\UI\ListView\Items\Builder($this->themes()));
+      $listview->mode = UI\ListView::MODE_TILES;
+      $listview->builder($builder = new UI\ListView\Items\Builder($this->themes()));
       $builder->callbacks()->onCreateItem = function (
-        $context, \Papaya\UI\ListView\Items $items, \Papaya\Theme\Definition $theme
+        /** @noinspection PhpUnusedParameterInspection */
+        $context, UI\ListView\Items $items, Theme\Definition $theme
       ) use ($dialog) {
-        $items[] = $item = new \Papaya\UI\ListView\Item\Radio(
+        $items[] = $item = new UI\ListView\Item\Radio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
+      $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Save'));
     }
     return $this->_dialog;
   }
@@ -111,16 +102,18 @@ class Browser
               \Papaya\Utility\File\Path::cleanup($this->themeHandler()->getLocalPath())
             ),
             function (\DirectoryIterator $fileInfo) {
-              if ($fileInfo->isDir() && !$fileInfo->isDot()) {
-                if (file_exists($fileInfo->getRealPath().'/theme.xml')) {
-                  return $this->themeHandler()->getDefinition($fileInfo->getBasename());
-                }
+              if (
+                $fileInfo->isDir() &&
+                !$fileInfo->isDot() &&
+                file_exists($fileInfo->getRealPath().'/theme.xml')
+              ) {
+                return $this->themeHandler()->getDefinition($fileInfo->getBasename());
               }
               return FALSE;
             }
           ),
           function ($theme) {
-            return $theme instanceof \Papaya\Theme\Definition;
+            return $theme instanceof Theme\Definition;
           }
         )
       );
@@ -129,21 +122,21 @@ class Browser
   }
 
   /**
-   * @param \Papaya\Theme\Handler|NULL $themeHandler
-   * @return \Papaya\Theme\Handler
+   * @param Theme\Handler|NULL $themeHandler
+   * @return Theme\Handler
    */
-  public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
+  public function themeHandler(Theme\Handler $themeHandler = NULL) {
     if (NULL !== $themeHandler) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new \Papaya\Theme\Handler();
+      $this->_themeHandler = new Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;
   }
 
   /**
-   * @return \Papaya\Theme\Definition
+   * @return Theme\Definition
    */
   public function getCurrent() {
     return $this->themeHandler()->getDefinition($this->dialog()->data->get($this->_optionName));
@@ -155,5 +148,4 @@ class Browser
   public function setCurrent($themeName) {
     $this->dialog()->data()->set($this->_optionName, (string)$themeName);
   }
-
 }

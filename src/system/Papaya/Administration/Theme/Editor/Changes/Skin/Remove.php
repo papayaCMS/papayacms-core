@@ -14,6 +14,9 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
+
+use \Papaya\UI;
+
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
  *
@@ -21,7 +24,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Skin;
  * @subpackage Administration
  */
 class Remove
-  extends \Papaya\UI\Control\Command\Dialog\Database\Record {
+  extends UI\Control\Command\Dialog\Database\Record {
 
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
@@ -36,9 +39,9 @@ class Remove
     } else {
       $loaded = FALSE;
     }
-    $dialog = new \Papaya\UI\Dialog\Database\Delete($this->record());
+    $dialog = new UI\Dialog\Database\Delete($this->record());
     $dialog->papaya($this->papaya());
-    $dialog->caption = new \Papaya\UI\Text\Translated('Delete theme skin');
+    $dialog->caption = new UI\Text\Translated('Delete theme skin');
     if ($loaded) {
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -49,29 +52,19 @@ class Remove
           'skin_id' => $skinId
         )
       );
-      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Information(
-        new \Papaya\UI\Text\Translated('Delete theme skin'),
+      $dialog->fields[] = new UI\Dialog\Field\Information(
+        new UI\Text\Translated('Delete theme skin'),
         'places-trash'
       );
-      $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Delete'));
-      $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
+      $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Delete'));
+      $this->callbacks()->onExecuteSuccessful = function() {
+        $this->papaya()->messages->displayInfo('Theme skin deleted.');
+      };
     } else {
-      $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-        \Papaya\Message::SEVERITY_INFO, 'Theme skin not found.'
+      $dialog->fields[] = new UI\Dialog\Field\Message(
+        UI\Dialog\Field\Message::SEVERITY_INFO, 'Theme skin not found.'
       );
     }
     return $dialog;
-  }
-
-  /**
-   * Show success message
-   */
-  public function callbackDeleted() {
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_INFO,
-        'Theme skin deleted.'
-      )
-    );
   }
 }

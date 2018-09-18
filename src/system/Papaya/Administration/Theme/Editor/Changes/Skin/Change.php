@@ -62,28 +62,18 @@ class Change
     $dialog->buttons[] = new UI\Dialog\Button\Submit(
       new UI\Text\Translated($buttonCaption)
     );
-    $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
-    $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
+    $this->callbacks()->onExecuteSuccessful = function() {
+      $this->papaya()->messages->displayInfo('Theme skin saved.');
+    };
+    $this->callbacks()->onExecuteFailed = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, UI\Dialog $dialog
+    ) {
+      $this->papaya()->messages->displayError(
+        'Invalid input. Please check the field(s) "%s".',
+        [implode(', ', $dialog->errors()->getSourceCaptions())]
+      );
+    };
     return $dialog;
-  }
-
-  /**
-   * Save data from dialog
-   */
-  public function callbackSaveValues() {
-    $this->papaya()->messages->displayInfo('Theme skin saved.');
-  }
-
-  /**
-   * Save data from dialog
-   *
-   * @param object $context
-   * @param \Papaya\UI\Dialog $dialog
-   */
-  public function callbackShowError($context, $dialog) {
-    $this->papaya()->messages->displayError(
-      'Invalid input. Please check the field(s) "%s".',
-      array(implode(', ', $dialog->errors()->getSourceCaptions()))
-    );
   }
 }

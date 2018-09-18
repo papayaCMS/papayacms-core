@@ -15,6 +15,11 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
+use \Papaya\Content;
+use \Papaya\Theme;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Import theme skin values from an uploaded file
  *
@@ -22,18 +27,18 @@ namespace Papaya\Administration\Theme\Editor\Changes\Skin;
  * @subpackage Administration
  */
 class Import
-  extends \Papaya\UI\Control\Command\Dialog {
+  extends UI\Control\Command\Dialog {
 
   /**
-   * @var \Papaya\Content\Theme\Skin
+   * @var Content\Theme\Skin
    */
   private $_themeSet;
   /**
-   * @var \Papaya\Theme\Handler
+   * @var Theme\Handler
    */
   private $_themeHandler;
 
-  public function __construct(\Papaya\Content\Theme\Skin $themeSet, \Papaya\Theme\Handler $themeHandler) {
+  public function __construct(Content\Theme\Skin $themeSet, Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
@@ -47,7 +52,7 @@ class Import
   public function createDialog() {
     $skinId = $this->parameters()->get('skin_id', 0);
     $dialog = parent::createDialog();
-    $dialog->caption = new \Papaya\UI\Text\Translated('Import');
+    $dialog->caption = new UI\Text\Translated('Import');
     $dialog->setEncoding('multipart/form-data');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
@@ -58,82 +63,76 @@ class Import
         'skin_id' => $skinId
       )
     );
-    $dialog->fields[] = $uploadField = new \Papaya\UI\Dialog\Field\File\Temporary(
-      new \Papaya\UI\Text\Translated('File'), 'values/file'
+    $dialog->fields[] = $uploadField = new UI\Dialog\Field\File\Temporary(
+      new UI\Text\Translated('File'), 'values/file'
     );
     $uploadField->setMandatory(TRUE);
     if ($skinId > 0) {
-      $dialog->fields[] = $field = new \Papaya\UI\Dialog\Field\Select\Radio(
-        new \Papaya\UI\Text\Translated('Replace current skin.'),
+      $dialog->fields[] = $field = new UI\Dialog\Field\Select\Radio(
+        new UI\Text\Translated('Replace current skin.'),
         'values/confirm_replace',
         array(
-          TRUE => new \Papaya\UI\Text\Translated('Yes'),
-          FALSE => new \Papaya\UI\Text\Translated('No')
+          TRUE => new UI\Text\Translated('Yes'),
+          FALSE => new UI\Text\Translated('No')
         )
       );
       $field->setDefaultValue(FALSE);
     }
-    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
-      new \Papaya\UI\Text\Translated('Upload')
+    $dialog->buttons[] = new UI\Dialog\Button\Submit(
+      new UI\Text\Translated('Upload')
     );
-    $this->callbacks()->onExecuteSuccessful = array($this, 'onValidationSuccess');
-    $this->callbacks()->onExecuteSuccessful->context = $uploadField;
+    $this->callbacks()->onExecuteSuccessful = function() use ($uploadField) {
+      return $this->onValidationSuccess($uploadField);
+    };
     return $dialog;
   }
 
   /**
-   * @param \Papaya\UI\Dialog\Field\File\Temporary $uploadField
+   * @param UI\Dialog\Field\File\Temporary $uploadField
    * @return bool
-   * @throws \Papaya\XML\Exception
    */
-  public function onValidationSuccess(\Papaya\UI\Dialog\Field\File\Temporary $uploadField) {
+  public function onValidationSuccess(UI\Dialog\Field\File\Temporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
-      $errors = new \Papaya\XML\Errors();
-      try {
-        $errors->activate();
-        $dom = new \Papaya\XML\Document();
-        $dom->load($file['temporary']);
-        if ($dom->documentElement) {
-          /** @var \Papaya\XML\Element $documentElement */
-          $documentElement = $dom->documentElement;
-          $skinId = $this->parameters()->get('skin_id', 0);
-          if ($skinId > 0 && $this->parameters()->get('values/confirm_replace')) {
-            if ($this->_themeSet->load($skinId)) {
+      $errors = new XML\Errors();
+      return $errors->encapsulate(
+        function() use ($file, $theme) {
+          $dom = new XML\Document();
+          $dom->load($file['temporary']);
+          if ($dom->documentElement) {
+            /** @var \Papaya\XML\Element $documentElement */
+            $documentElement = $dom->documentElement;
+            $skinId = $this->parameters()->get('skin_id', 0);
+            if ($skinId > 0 && $this->parameters()->get('values/confirm_replace')) {
+              if ($this->_themeSet->load($skinId)) {
+                $this->_themeSet->setValuesXML(
+                  $this->_themeHandler->getDefinition($theme),
+                  $documentElement
+                );
+              }
+            } else {
+              $this->_themeSet->assign(
+                array(
+                  'title' => new UI\Text\Translated('* Imported Set'),
+                  'theme' => $theme
+                )
+              );
               $this->_themeSet->setValuesXML(
                 $this->_themeHandler->getDefinition($theme),
                 $documentElement
               );
             }
-          } else {
-            $this->_themeSet->assign(
-              array(
-                'title' => new \Papaya\UI\Text\Translated('* Imported Set'),
-                'theme' => $theme
-              )
-            );
-            $this->_themeSet->setValuesXML(
-              $this->_themeHandler->getDefinition($theme),
-              $documentElement
-            );
+            if ($this->_themeSet->save()) {
+              $this->papaya()->messages->displayInfo('Values imported.');
+              return TRUE;
+            }
           }
-          if ($this->_themeSet->save()) {
-            $this->papaya()->messages->dispatch(
-              new \Papaya\Message\Display\Translated(
-                \Papaya\Message::SEVERITY_INFO,
-                'Values imported.'
-              )
-            );
-            return TRUE;
-          }
-        }
-        //@codeCoverageIgnoreStart
-      } catch (\Papaya\XML\Exception $e) {
-        $errors->emit();
-      }
-      //@codeCoverageIgnoreEnd
-      $errors->deactivate();
+          return FALSE;
+        },
+        NULL,
+        FALSE
+      );
     }
     return FALSE;
   }

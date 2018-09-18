@@ -244,66 +244,6 @@ class DialogTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackSaveValues
-   */
-  public function testCallbackSaveValues() {
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    $cache = $this->createMock(\Papaya\Cache\Service::class);
-    $cache
-      ->expects($this->once())
-      ->method('delete')
-      ->with('theme', '');
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
-    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
-    $command = new Dialog($record);
-    $command->papaya(
-      $this->mockPapaya()->application(
-        array('messages' => $messages)
-      )
-    );
-    $command->cache($cache);
-    $command->callbackSaveValues();
-  }
-
-  /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackShowError
-   */
-  public function testCallbackShowError() {
-    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
-    $errors
-      ->expects($this->once())
-      ->method('getSourceCaptions')
-      ->will($this->returnValue(array()));
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
-    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
-    $dialog
-      ->expects($this->once())
-      ->method('errors')
-      ->will($this->returnValue($errors));
-
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
-    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
-    $command = new Dialog($record);
-    $command->papaya(
-      $this->mockPapaya()->application(
-        array('messages' => $messages)
-      )
-    );
-    $command->callbackShowError(new \stdClass, $dialog);
-  }
-
-  /**
    * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::cache
    */
   public function testCacheGetAfterSet() {

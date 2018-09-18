@@ -14,7 +14,9 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes;
-use Papaya\Content\Structure;
+
+use \Papaya\Content;
+use \Papaya\UI;
 
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -23,7 +25,7 @@ use Papaya\Content\Structure;
  * @subpackage Administration
  */
 class Dialog
-  extends \Papaya\UI\Control\Command\Dialog\Database\Record {
+  extends UI\Control\Command\Dialog\Database\Record {
 
   /**
    * @var \Papaya\Content\Structure\Page
@@ -45,17 +47,16 @@ class Dialog
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \Papaya\UI\Control\Command\Dialog::createDialog()
-   * @return \Papaya\UI\Dialog
+   * @return UI\Dialog
    */
   public function createDialog() {
     $skinId = $this->parameters()->get('skin_id', 0);
     if ($skinId > 0) {
       $this->record()->load($skinId);
     }
-    $dialog = new \Papaya\UI\Dialog\Database\Save($this->record());
+    $dialog = new UI\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
-      $dialog->caption = new \Papaya\UI\Text\Translated('Dynamic Values: %s', array($page->title));
+      $dialog->caption = new UI\Text\Translated('Dynamic Values: %s', array($page->title));
       $dialog->options->topButtons = TRUE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -67,13 +68,13 @@ class Dialog
           'page_identifier' => $this->parameters()->get('page_identifier', '')
         )
       );
-      /** @var Structure\Group $group */
+      /** @var Content\Structure\Group $group */
       foreach ($page->groups() as $group) {
-        $fieldset = new \Papaya\UI\Dialog\Field\Group($group->title);
-        /** @var Structure\Value $value */
+        $fieldset = new UI\Dialog\Field\Group($group->title);
+        /** @var Content\Structure\Value $value */
         foreach ($group->values() as $value) {
           try {
-            $options = new \Papaya\UI\Dialog\Field\Factory\Options(
+            $options = new UI\Dialog\Field\Factory\Options(
               array(
                 'name' => 'values/'.$value->getIdentifier(),
                 'caption' => $value->title,
@@ -85,30 +86,40 @@ class Dialog
               $value->fieldType, $options
             );
             $field->setHint($value->hint);
-          } catch (\Papaya\UI\Dialog\Field\Factory\Exception $e) {
-            $fieldset->fields[] = new \Papaya\UI\Dialog\Field\Message(
-              \Papaya\Message::SEVERITY_ERROR, $e->getMessage()
+          } catch (UI\Dialog\Field\Factory\Exception $e) {
+            $fieldset->fields[] = new UI\Dialog\Field\Message(
+              UI\Dialog\Field\Message::SEVERITY_ERROR, $e->getMessage()
             );
           }
         }
         $dialog->fields[] = $fieldset;
       }
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-          \Papaya\Message::SEVERITY_ERROR,
-          new \Papaya\UI\Text\Translated('Invalid value definition!')
+        $dialog->fields[] = new UI\Dialog\Field\Message(
+          UI\Dialog\Field\Message::SEVERITY_ERROR,
+          new UI\Text\Translated('Invalid value definition!')
         );
       } else {
-        $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
-        $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
-        $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
+        $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Save'));
+        $this->callbacks()->onExecuteSuccessful = function() {
+          $this->papaya()->messages->displayInfo('Values saved.');
+          if ($cache = $this->cache()) {
+            $cache->delete('theme', $this->parameters()->get('theme', ''));
+          }
+        };
+        $this->callbacks()->onExecuteFailed = function() use ($dialog) {
+          $this->papaya()->messages->displayError(
+            'Invalid input. Please check the field(s) "%s".',
+            array(implode(', ', $dialog->errors()->getSourceCaptions()))
+          );
+        };
       }
     } else {
-      $dialog->caption = new \Papaya\UI\Text\Translated('Error');
+      $dialog->caption = new UI\Text\Translated('Error');
       if (0 === \count($dialog->fields)) {
-        $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-          \Papaya\Message::SEVERITY_ERROR,
-          new \Papaya\UI\Text\Translated('Theme page not found!')
+        $dialog->fields[] = new UI\Dialog\Field\Message(
+          UI\Dialog\Field\Message::SEVERITY_ERROR,
+          new UI\Text\Translated('Theme page not found!')
         );
       }
     }
@@ -116,43 +127,12 @@ class Dialog
   }
 
   /**
-   * Show success message and trigger cache delete
-   */
-  public function callbackSaveValues() {
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_INFO,
-        'Values saved.'
-      )
-    );
-    if ($cache = $this->cache()) {
-      $cache->delete('theme', $this->parameters()->get('theme', ''));
-    }
-  }
-
-  /**
-   * Save data from dialog
-   *
-   * @param object $context
-   * @param \Papaya\UI\Dialog $dialog
-   */
-  public function callbackShowError($context, $dialog) {
-    $this->papaya()->messages->dispatch(
-      new \Papaya\Message\Display\Translated(
-        \Papaya\Message::SEVERITY_ERROR,
-        'Invalid input. Please check the field(s) "%s".',
-        array(implode(', ', $dialog->errors()->getSourceCaptions()))
-      )
-    );
-  }
-
-  /**
    * Theme definition page to access the group and value definition of the selected page
    *
-   * @param Structure\Page $themePage
-   * @return Structure\Page
+   * @param Content\Structure\Page $themePage
+   * @return Content\Structure\Page
    */
-  public function themePage(Structure\Page $themePage = NULL) {
+  public function themePage(Content\Structure\Page $themePage = NULL) {
     if (NULL !== $themePage) {
       $this->_themePage = $themePage;
     } elseif (NULL === $this->_themePage) {

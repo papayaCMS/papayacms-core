@@ -15,6 +15,11 @@
 
 namespace Papaya\Administration\Theme\Editor;
 
+use \Papaya\Content;
+use \Papaya\Theme;
+use \Papaya\UI;
+use \Papaya\XML;
+
 /**
  * Main part of the theme skins editor (dynamic values for a theme)
  *
@@ -23,37 +28,37 @@ namespace Papaya\Administration\Theme\Editor;
  */
 class Changes extends \Papaya\Administration\Page\Part {
 
-  private $_commands = NULL;
+  private $_commands;
   /**
-   * @var \Papaya\Content\Theme\Skin
+   * @var Content\Theme\Skin
    */
-  private $_themeSet = NULL;
+  private $_themeSet;
 
   /**
-   * @var \Papaya\Theme\Handler
+   * @var Theme\Handler
    */
-  private $_themeHandler = NULL;
+  private $_themeHandler;
 
   /**
    * Append changes commands to parent xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->append($this->commands());
   }
 
   /**
    * Commands, actual actions
    *
-   * @param \Papaya\UI\Control\Command\Controller|\Papaya\UI\Control\Command $commands
-   * @return \Papaya\UI\Control\Command\Controller|\Papaya\UI\Control\Command
+   * @param UI\Control\Command\Controller|UI\Control\Command $commands
+   * @return UI\Control\Command\Controller|UI\Control\Command
    */
-  public function commands(\Papaya\UI\Control\Command $commands = NULL) {
+  public function commands(UI\Control\Command $commands = NULL) {
     if (NULL !== $commands) {
       $this->_commands = $commands;
-    } elseif (is_null($this->_commands)) {
-      $this->_commands = new \Papaya\UI\Control\Command\Controller('cmd');
+    } elseif (NULL === $this->_commands) {
+      $this->_commands = new UI\Control\Command\Controller('cmd');
       $this->_commands->owner($this);
       $this->_commands['skin_edit'] =
       $command = new Changes\Skin\Change($this->themeSet());
@@ -76,14 +81,14 @@ class Changes extends \Papaya\Administration\Page\Part {
   /**
    * The theme skin the the database record wrapper object.
    *
-   * @param \Papaya\Content\Theme\Skin $themeSet
-   * @return \Papaya\Content\Theme\Skin
+   * @param Content\Theme\Skin $themeSet
+   * @return Content\Theme\Skin
    */
-  public function themeSet(\Papaya\Content\Theme\Skin $themeSet = NULL) {
+  public function themeSet(Content\Theme\Skin $themeSet = NULL) {
     if (NULL !== $themeSet) {
       $this->_themeSet = $themeSet;
     } elseif (NULL === $this->_themeSet) {
-      $this->_themeSet = new \Papaya\Content\Theme\Skin();
+      $this->_themeSet = new Content\Theme\Skin();
     }
     return $this->_themeSet;
   }
@@ -92,14 +97,14 @@ class Changes extends \Papaya\Administration\Page\Part {
    * The theme handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param \Papaya\Theme\Handler $themeHandler
-   * @return \Papaya\Theme\Handler
+   * @param Theme\Handler $themeHandler
+   * @return Theme\Handler
    */
-  public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
+  public function themeHandler(Theme\Handler $themeHandler = NULL) {
     if (NULL !== $themeHandler) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new \Papaya\Theme\Handler();
+      $this->_themeHandler = new Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

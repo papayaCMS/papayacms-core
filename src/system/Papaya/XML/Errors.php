@@ -74,13 +74,13 @@ class Errors extends \Papaya\Application\BaseObject {
     try {
       $success = call_user_func_array(
         $callback,
-        isset($arguments) ? $arguments : array()
+        NULL !== $arguments ? $arguments : array()
       );
       if ($emitErrors) {
         $this->emit();
       }
       $this->deactivate();
-    } catch (\Papaya\XML\Exception $e) {
+    } catch (Exception $e) {
       if ($emitErrors) {
         $context = new \Papaya\Message\Context\Group();
         if ($e->getContextFile()) {
@@ -108,13 +108,13 @@ class Errors extends \Papaya\Application\BaseObject {
    * Dispatches messages for the libxml errors in the internal buffer.
    *
    * @param boolean $fatalOnly
-   * @throws \Papaya\XML\Exception
+   * @throws Exception
    */
   public function emit($fatalOnly = FALSE) {
     $errors = libxml_get_errors();
     foreach ($errors as $error) {
-      if ($error->level == LIBXML_ERR_FATAL) {
-        throw new \Papaya\XML\Exception($error);
+      if (LIBXML_ERR_FATAL === $error->level) {
+        throw new Exception($error);
       } elseif (!$fatalOnly && 0 !== strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()
@@ -130,7 +130,7 @@ class Errors extends \Papaya\Application\BaseObject {
   /**
    * @deprecated {@see self::emit()}
    * @param boolean $fatalOnly
-   * @throws \Papaya\XML\Exception
+   * @throws Exception
    */
   public function omit($fatalOnly = FALSE) {
     $this->emit($fatalOnly);

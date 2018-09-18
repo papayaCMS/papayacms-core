@@ -61,7 +61,7 @@ class Groups implements \IteratorAggregate {
     self::MISC => [
       Administration\Permissions::MESSAGES => 'Messages',
       Administration\Permissions::IMAGE_GENERATOR => 'Dynamic Images',
-      Administration\Permissions::SYSTEM_THEMESET_MANAGE => 'Manage Theme Sets',
+      Administration\Permissions::SYSTEM_THEME_SKIN_MANAGE => 'Manage Theme Sets',
       Administration\Permissions::SYSTEM_CACHE_CLEAR => 'Clear ouput cache'
     ],
     self::SYSTEM => [
