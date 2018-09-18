@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Button;
+
 /**
  * A simple submit button with a caption and without a name.
  *
@@ -31,7 +32,6 @@ namespace Papaya\UI\Dialog\Button;
  * @subpackage UI
  */
 class Submit extends \Papaya\UI\Dialog\Button {
-
   /**
    * Button caption
    *
@@ -43,7 +43,7 @@ class Submit extends \Papaya\UI\Dialog\Button {
    * Initialize object, set caption and alignment
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
   public function __construct($caption, $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT) {
     parent::__construct($align);
@@ -58,10 +58,10 @@ class Submit extends \Papaya\UI\Dialog\Button {
   public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'button',
-      array(
+      [
         'type' => 'submit',
-        'align' => ($this->_align == \Papaya\UI\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right'
-      ),
+        'align' => (\Papaya\UI\Dialog\Button::ALIGN_LEFT == $this->_align) ? 'left' : 'right'
+      ],
       (string)$this->_caption
     );
   }

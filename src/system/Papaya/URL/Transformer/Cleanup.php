@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\URL\Transformer;
+
 /**
  * Papaya URL Transformer Cleanup, parses a url, removes "./", "../" and "//" from it.
  *
@@ -21,7 +22,6 @@ namespace Papaya\URL\Transformer;
  * @subpackage URL
  */
 class Cleanup {
-
   /**
    * Remove relative paths from the url
    *
@@ -30,7 +30,7 @@ class Cleanup {
    */
   public function transform($target) {
     $result = '';
-    if ($url = parse_url($target)) {
+    if ($url = \parse_url($target)) {
       $url['path'] = empty($url['path']) ? '/' : $this->_calculateRealPath($url['path']);
       if (isset($url['host'])) {
         $result .= empty($url['scheme']) ? 'http://' : $url['scheme'].'://';
@@ -65,16 +65,16 @@ class Cleanup {
    */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
-    $leadingSlash = (0 === strpos($path, '/'));
-    $trailingSlash = ('/' === substr($path, -1));
+    $leadingSlash = (0 === \strpos($path, '/'));
+    $trailingSlash = ('/' === \substr($path, -1));
 
-    $pathElements = explode('/', $path);
-    $outputElements = array();
+    $pathElements = \explode('/', $path);
+    $outputElements = [];
     foreach ($pathElements as $element) {
       if ('..' === $element) {
-        if (count($outputElements) > 0) {
+        if (\count($outputElements) > 0) {
           // going one level up, we drop the last valid folder element
-          array_pop($outputElements);
+          \array_pop($outputElements);
         }
       } elseif ('.' !== $element && '' !== $element) {
         // ignoring same folder and empty elements, adding valid folders to output
@@ -83,7 +83,7 @@ class Cleanup {
     }
 
     $result = $leadingSlash ? '/' : '';
-    $result .= implode('/', $outputElements);
+    $result .= \implode('/', $outputElements);
     if ('/' !== $result && $trailingSlash) {
       $result .= '/';
     }

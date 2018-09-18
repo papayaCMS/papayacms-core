@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Media;
+
 /**
  * Papaya Media Storage Service Factory
  *
@@ -21,34 +22,32 @@ namespace Papaya\Media;
  * @subpackage Media-Storage
  */
 class Storage {
+  private static $_serviceObjects = [];
 
-  private static $_serviceObjects = array();
-
-  private static $_services = array('File', 'S3');
+  private static $_services = ['File', 'S3'];
 
   /**
    * get the service
    *
    * @param string $service
    * @param \Papaya\Configuration $configuration
-   * @param boolean $static optional, default value TRUE
+   * @param bool $static optional, default value TRUE
    * @throws \InvalidArgumentException
-   * @access public
    * @return \Papaya\Media\Storage\Service
    */
   public static function getService($service = '', $configuration = NULL, $static = TRUE) {
     if (empty($service)) {
-      $service = defined('PAPAYA_MEDIA_STORAGE_SERVICE')
+      $service = \defined('PAPAYA_MEDIA_STORAGE_SERVICE')
         ? PAPAYA_MEDIA_STORAGE_SERVICE : 'File';
     }
-    $service = ucfirst(strtolower($service));
-    if (in_array($service, self::$_services)) {
+    $service = \ucfirst(\strtolower($service));
+    if (\in_array($service, self::$_services)) {
       if ($static && isset(self::$_serviceObjects[$service])) {
         return self::$_serviceObjects[$service];
       }
       $class = __CLASS__.'\\Service\\'.$service;
       $object = new $class();
-      if (isset($configuration) && method_exists($object, 'setConfiguration')) {
+      if (isset($configuration) && \method_exists($object, 'setConfiguration')) {
         $object->setConfiguration($configuration);
       }
       if ($static) {

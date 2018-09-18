@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * This filter class checks a color.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Color implements \Papaya\Filter {
-
   /**
    * Pattern to check for a linebreak
    *
@@ -40,10 +40,10 @@ class Color implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_patternCheck, $value)) {
+    if (!\preg_match($this->_patternCheck, $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('color');
     }
     return TRUE;
@@ -60,7 +60,7 @@ class Color implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

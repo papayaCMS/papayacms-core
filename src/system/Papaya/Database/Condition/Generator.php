@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,13 +28,12 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Generator {
+  private $_mapping;
 
-  private $_mapping = NULL;
-  private $_databaseAccess = NULL;
+  private $_databaseAccess;
 
-  private $_functions = array(
+  private $_functions = [
     'equal' => 'isEqual',
     'notequal' => 'isNotEqual',
     'greater' => 'isGreaterThan',
@@ -44,10 +44,9 @@ class Generator {
     'match' => 'match',
     'match-boolean' => 'matchBoolean',
     'match-contains' => 'matchContains'
-  );
+  ];
 
   /**
-   *
    * @param \Papaya\Database\Interfaces\Access|\Papaya\Database\Access $parent
    * @param \Papaya\Database\Interfaces\Mapping $mapping
    * @throws \InvalidArgumentException
@@ -59,7 +58,7 @@ class Generator {
       $this->_databaseAccess = $parent;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid parent class %s in %s', get_class($parent), __METHOD__)
+        \sprintf('Invalid parent class %s in %s', \get_class($parent), __METHOD__)
       );
     }
     $this->_mapping = $mapping;
@@ -73,22 +72,22 @@ class Generator {
 
   private function appendConditions(\Papaya\Database\Condition\Group $group, $filter, $limit = 42) {
     foreach ($filter as $key => $value) {
-      if (preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
-        $condition = strtoLower($match['type']);
-        $field = FALSE !== strpos($match['fields'], ',') ? explode(',', $match['fields']) : $match['fields'];
+      if (\preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
+        $condition = \strtolower($match['type']);
+        $field = FALSE !== \strpos($match['fields'], ',') ? \explode(',', $match['fields']) : $match['fields'];
       } else {
-        $definition = explode(',', $key);
+        $definition = \explode(',', $key);
         $field = \Papaya\Utility\Arrays::get($definition, 0, '');
-        $condition = strtoLower(\Papaya\Utility\Arrays::get($definition, 1, 'equal'));
+        $condition = \strtolower(\Papaya\Utility\Arrays::get($definition, 1, 'equal'));
       }
-      if ($condition == 'and' && is_array($value)) {
+      if ('and' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalAnd(), $value, $limit - 1);
-      } elseif ($condition == 'or' && is_array($value)) {
+      } elseif ('or' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalOr(), $value, $limit - 1);
-      } elseif ($condition == 'not' && is_array($value)) {
+      } elseif ('not' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalNot(), $value, $limit - 1);
       } elseif (isset($this->_functions[$condition])) {
-        call_user_func(array($group, $this->_functions[$condition]), $field, $value);
+        \call_user_func([$group, $this->_functions[$condition]], $field, $value);
       }
     }
   }

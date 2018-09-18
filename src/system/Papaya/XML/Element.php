@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\XML;
+
 /**
  * Replacement for the DOMElement adding some shortcuts for easier use
  *
@@ -25,12 +26,11 @@ namespace Papaya\XML;
 class Element
   extends \DOMElement
   implements Node {
-
   /**
    * Append a object (with interface Papaya\XML\Appendable) to the element
    *
    * @param Appendable $object
-   * @return self|NULL
+   * @return self|null
    */
   public function append(Appendable $object) {
     return $object->appendTo($this);
@@ -44,7 +44,7 @@ class Element
    * @param string $content
    * @return self new element
    */
-  public function appendElement($name, array $attributes = array(), $content = NULL) {
+  public function appendElement($name, array $attributes = [], $content = NULL) {
     return $this->appendChild(
       $this->ownerDocument->createElement($name, $content, $attributes)
     );
@@ -70,7 +70,7 @@ class Element
    * @return self $this
    */
   public function appendXML($content) {
-    /** @noinspection PhpUndefinedMethodInspection */
+    /* @noinspection PhpUndefinedMethodInspection */
     return $this->ownerDocument->appendXML($content, $this);
   }
 
@@ -128,8 +128,8 @@ class Element
    * @see \DOMElement::setAttribute()
    */
   public function setAttribute($name, $value) {
-    if (isset($value) && $value !== '') {
-      if (FALSE !== strpos($name, ':')) {
+    if (isset($value) && '' !== $value) {
+      if (FALSE !== \strpos($name, ':')) {
         parent::setAttributeNS($this->ownerDocument->getNamespace($name), $name, (string)$value);
       } else {
         parent::setAttribute($name, (string)$value);

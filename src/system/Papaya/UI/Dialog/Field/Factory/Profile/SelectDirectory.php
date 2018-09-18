@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a select field for a subdirectory list.
  *
@@ -22,6 +23,5 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectDirectory
   extends \Papaya\UI\Dialog\Field\Factory\Profile\SelectFile {
-
   protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_DIRECTORIES;
 }

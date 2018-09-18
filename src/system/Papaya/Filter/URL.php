@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * This filter class checks an url.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class URL implements \Papaya\Filter {
-
   /**
    * Pattern to check for a linebreak
    *
@@ -52,10 +52,10 @@ class URL implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_patternCheck, $value)) {
+    if (!\preg_match($this->_patternCheck, $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('url');
     }
     return TRUE;
@@ -72,7 +72,7 @@ class URL implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

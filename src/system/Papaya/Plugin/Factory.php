@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * The PluginFactory is a superclass for specialized plguin factories. It allows to define
  * an array of name => guid pairs and access the plugin by the "local" name.
@@ -24,34 +25,33 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 abstract class Factory extends \Papaya\Application\BaseObject {
-
   /**
    * The plugin name => guid list.
    *
    * @var array(string=>string,...)
    */
-  protected $_plugins = array();
+  protected $_plugins = [];
 
   /**
    * Plugin options objects
    *
    * @var array
    */
-  private $_options = array();
+  private $_options = [];
 
   /**
    * plugin loader object
    *
    * @var \Papaya\Plugin\Loader
    */
-  private $_pluginLoader = NULL;
+  private $_pluginLoader;
 
   /**
    * An optional owner object, given to the plugin on create.
    *
-   * @var NULL|object
+   * @var null|object
    */
-  protected $_owner = NULL;
+  protected $_owner;
 
   /**
    * Initialize plugin factory and store the owner object.
@@ -68,7 +68,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * @return \Papaya\Plugin\Loader
    */
   public function loader(\Papaya\Plugin\Loader $pluginLoader = NULL) {
-    if ($pluginLoader !== NULL) {
+    if (NULL !== $pluginLoader) {
       $this->_pluginLoader = $pluginLoader;
     } elseif (NULL === $this->_pluginLoader) {
       $this->_pluginLoader = $this->papaya()->plugins;
@@ -80,10 +80,10 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * Validate if a guid for the given plugin name was defined.
    *
    * @param string $pluginName
-   * @return boolean
+   * @return bool
    */
   public function has($pluginName) {
-    return array_key_exists($pluginName, $this->_plugins);
+    return \array_key_exists($pluginName, $this->_plugins);
   }
 
   /**
@@ -91,8 +91,8 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    *
    * @throws \InvalidArgumentException
    * @param string $pluginName
-   * @param boolean $singleInstance
-   * @return NULL|object
+   * @param bool $singleInstance
+   * @return null|object
    */
   public function get($pluginName, $singleInstance = FALSE) {
     if ($this->has($pluginName)) {
@@ -101,9 +101,9 @@ abstract class Factory extends \Papaya\Application\BaseObject {
       );
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'InvalidArgumentException: "%s" does not know plugin "%s".',
-          get_class($this),
+          \get_class($this),
           $pluginName
         )
       );
@@ -116,7 +116,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    *
    * @throws \InvalidArgumentException
    * @param string $pluginName
-   * @return NULL|object
+   * @return null|object
    */
   public function __get($pluginName) {
     return $this->get($pluginName);
@@ -150,11 +150,11 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $pluginName
    * @param \Papaya\Configuration $options
-   * @return NULL|\Papaya\Configuration
+   * @return null|\Papaya\Configuration
    */
   public function options($pluginName, \Papaya\Configuration $options = NULL) {
     if ($this->has($pluginName)) {
-      if ($options !== NULL) {
+      if (NULL !== $options) {
         $this->_options[$pluginName] = $options;
       } elseif (!isset($this->_options[$pluginName])) {
         $this->_options[$pluginName] = $this
@@ -163,7 +163,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
       }
       return $this->_options[$pluginName];
     }
-    return NULL;
+    return;
   }
 
   /**

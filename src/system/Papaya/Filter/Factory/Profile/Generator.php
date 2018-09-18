@@ -23,7 +23,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class Generator extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    * @throws \ReflectionException
@@ -32,12 +31,12 @@ class Generator extends \Papaya\Filter\Factory\Profile {
    */
   public function getFilter() {
     $arguments = $this->options();
-    if (is_array($arguments)) {
-      $name = array_shift($arguments);
+    if (\is_array($arguments)) {
+      $name = \array_shift($arguments);
       $filterReflection = new \ReflectionClass($name);
       if ($filterReflection->isSubclassOf(\Papaya\Filter::class)) {
-        return call_user_func_array(
-          array($filterReflection, 'newInstance'),
+        return \call_user_func_array(
+          [$filterReflection, 'newInstance'],
           $arguments
         );
       }
@@ -46,4 +45,3 @@ class Generator extends \Papaya\Filter\Factory\Profile {
     throw new \Papaya\Filter\Factory\Exception\InvalidOptions(__CLASS__);
   }
 }
-

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating a filter for a server host name, optionally including a port
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class IsURLHost extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that chcks if the value is an empty one
  *
@@ -23,13 +24,12 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class NotNull implements \Papaya\Filter {
-
   /**
    * Check the value throw exception if value is not set
    *
    * @param string $value
    * @throws \Papaya\Filter\Exception\IsUndefined
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if (isset($value)) {

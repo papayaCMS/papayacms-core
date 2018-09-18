@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Navigation;
+
 /**
  * An navigation item for a list of navigation items.
  *
@@ -23,12 +24,13 @@ namespace Papaya\UI\Navigation;
  * @subpackage UI
  */
 abstract class Item extends \Papaya\UI\Control\Collection\Item {
+  private $_reference;
 
-  private $_reference = NULL;
   private $_selected = FALSE;
 
-  protected $_sourceValue = NULL;
-  protected $_sourceIndex = NULL;
+  protected $_sourceValue;
+
+  protected $_sourceIndex;
 
   /**
    * Create object, store the source the navigation element is for and its index in a list if
@@ -51,9 +53,9 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     $link = $parent->appendElement(
       'link',
-      array(
+      [
         'href' => $this->reference()->getRelative()
-      )
+      ]
     );
     if ($this->_selected) {
       $link->setAttribute('selected', 'selected');
@@ -65,8 +67,8 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the selected status. If it is set to true, an boolean attribute will be added
    * to the xml element
    *
-   * @param boolean|NULL $selected
-   * @return boolean
+   * @param bool|null $selected
+   * @return bool
    */
   public function selected($selected = NULL) {
     if (isset($selected)) {
@@ -85,7 +87,7 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
   public function reference(\Papaya\UI\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (\is_null($this->_reference)) {
       if ($this->hasCollection()) {
         /** @var \Papaya\UI\Navigation\Items $collection */
         $collection = $this->collection();

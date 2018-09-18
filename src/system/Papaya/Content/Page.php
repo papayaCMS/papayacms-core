@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Provide basic data encapsulation for the content page.
  *
@@ -51,13 +52,12 @@ namespace Papaya\Content;
  * @property-read int $unpublishedTranslations
  */
 class Page extends \Papaya\Database\Record\Lazy {
-
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // page id
     'id' => 'topic_id',
     // parent id
@@ -100,7 +100,7 @@ class Page extends \Papaya\Database\Record\Lazy {
     'expires_time' => 'topic_expirestime',
     // unpublished translations counter
     'unpublished_translations' => 'topic_unpublished_languages'
-  );
+  ];
 
   /**
    * Pages table name for sql queries
@@ -146,12 +146,12 @@ class Page extends \Papaya\Database\Record\Lazy {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = [
       $this, 'callbackMapValueFromFieldToProperty'
-    );
-    $mapping->callbacks()->onMapValueFromPropertyToField = array(
+    ];
+    $mapping->callbacks()->onMapValueFromPropertyToField = [
       $this, 'callbackMapValueFromPropertyToField'
-    );
+    ];
     return $mapping;
   }
 
@@ -165,7 +165,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @return mixed
    */
   public function callbackMapValueFromFieldToProperty(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, $property, $field, $value
   ) {
     switch ($property) {
@@ -175,7 +175,6 @@ class Page extends \Papaya\Database\Record\Lazy {
     }
     return $value;
   }
-
 
   /**
    * Serialize path and permissions field values
@@ -187,14 +186,14 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @return mixed
    */
   public function callbackMapValueFromPropertyToField(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, $property, $field, $value
   ) {
     switch ($property) {
       case 'parent_path' :
-        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? array() : $value);
+        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? [] : $value);
       case 'visitor_permissions' :
-        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? array() : $value);
+        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? [] : $value);
     }
     return $value;
   }
@@ -220,8 +219,8 @@ class Page extends \Papaya\Database\Record\Lazy {
 
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
-    $callbacks->onBeforeInsert = array($this, 'callbackOnBeforeInsert');
-    $callbacks->onBeforeUpdate = array($this, 'callbackOnBeforeUpdate');
+    $callbacks->onBeforeInsert = [$this, 'callbackOnBeforeInsert'];
+    $callbacks->onBeforeUpdate = [$this, 'callbackOnBeforeUpdate'];
     return $callbacks;
   }
 
@@ -229,7 +228,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @return bool
    */
   public function callbackOnBeforeUpdate() {
-    $this->modified = time();
+    $this->modified = \time();
     return TRUE;
   }
 
@@ -237,7 +236,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @return bool
    */
   public function callbackOnBeforeInsert() {
-    $this->modified = $this->created = time();
+    $this->modified = $this->created = \time();
     return TRUE;
   }
 }

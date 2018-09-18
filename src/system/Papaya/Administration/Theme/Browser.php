@@ -15,23 +15,24 @@
 
 namespace Papaya\Administration\Theme;
 
-use \Papaya\Theme;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 class Browser
   extends UI\Control {
-
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
   /**
    * @var \Traversable
    */
   private $_themes;
+
   /**
    * @var Theme\Handler
    */
   private $_themeHandler;
+
   /**
    * @var UI\Dialog
    */
@@ -73,8 +74,8 @@ class Browser
       );
       $listview->mode = UI\ListView::MODE_TILES;
       $listview->builder($builder = new UI\ListView\Items\Builder($this->themes()));
-      $builder->callbacks()->onCreateItem = function (
-        /** @noinspection PhpUnusedParameterInspection */
+      $builder->callbacks()->onCreateItem = function(
+        /* @noinspection PhpUnusedParameterInspection */
         $context, UI\ListView\Items $items, Theme\Definition $theme
       ) use ($dialog) {
         $items[] = $item = new UI\ListView\Item\Radio(
@@ -88,7 +89,7 @@ class Browser
   }
 
   /**
-   * @param \Traversable|NULL $themes
+   * @param \Traversable|null $themes
    * @return \Traversable
    */
   public function themes(\Traversable $themes = NULL) {
@@ -101,18 +102,18 @@ class Browser
             new \DirectoryIterator(
               \Papaya\Utility\File\Path::cleanup($this->themeHandler()->getLocalPath())
             ),
-            function (\DirectoryIterator $fileInfo) {
+            function(\DirectoryIterator $fileInfo) {
               if (
                 $fileInfo->isDir() &&
                 !$fileInfo->isDot() &&
-                file_exists($fileInfo->getRealPath().'/theme.xml')
+                \file_exists($fileInfo->getRealPath().'/theme.xml')
               ) {
                 return $this->themeHandler()->getDefinition($fileInfo->getBasename());
               }
               return FALSE;
             }
           ),
-          function ($theme) {
+          function($theme) {
             return $theme instanceof Theme\Definition;
           }
         )
@@ -122,7 +123,7 @@ class Browser
   }
 
   /**
-   * @param Theme\Handler|NULL $themeHandler
+   * @param Theme\Handler|null $themeHandler
    * @return Theme\Handler
    */
   public function themeHandler(Theme\Handler $themeHandler = NULL) {

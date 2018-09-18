@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A menu/toolbar element separator.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Toolbar;
  * @subpackage UI
  */
 class Separator extends Element {
-
   /**
    * Append the separator to the parent xml element
    *
@@ -42,7 +42,7 @@ class Separator extends Element {
     $previous = $index - 1;
     $next = $index + 1;
     if ($previous >= 0 &&
-      $next < count($this->collection())) {
+      $next < \count($this->collection())) {
       if (!$this->collection()->get($previous) instanceof self) {
         return TRUE;
       }

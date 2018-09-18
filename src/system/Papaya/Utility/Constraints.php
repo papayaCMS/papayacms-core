@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility;
+
 /**
  * Papaya Utilities implementing contraints
  *
@@ -23,7 +24,6 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Constraints {
-
   /**
    * Handle an assertion failure (throw the exception)
    *
@@ -35,10 +35,10 @@ class Constraints {
   protected static function createException($expected, $value, $message) {
     if (empty($message)) {
       return new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Unexpected value type: Expected "%s" but "%s" given.',
           $expected,
-          is_object($value) ? get_class($value) : gettype($value)
+          \is_object($value) ? \get_class($value) : \gettype($value)
         )
       );
     } else {
@@ -52,10 +52,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertArray($value, $message = '') {
-    if (is_array($value)) {
+    if (\is_array($value)) {
       return TRUE;
     }
     throw self::createException('array', $value, $message);
@@ -68,10 +68,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertArrayOrTraversable($value, $message = '') {
-    if (is_array($value)) {
+    if (\is_array($value)) {
       return TRUE;
     } elseif ($value instanceof \Traversable) {
       return TRUE;
@@ -85,10 +85,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertBoolean($value, $message = '') {
-    if (is_bool($value)) {
+    if (\is_bool($value)) {
       return TRUE;
     }
     throw self::createException('boolean', $value, $message);
@@ -100,10 +100,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertCallable($value, $message = '') {
-    if (is_callable($value)) {
+    if (\is_callable($value)) {
       return TRUE;
     }
     throw self::createException('callable', $value, $message);
@@ -116,10 +116,10 @@ class Constraints {
    * @param array $array
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertContains(array $array, $value, $message = '') {
-    if (in_array($value, $array)) {
+    if (\in_array($value, $array)) {
       return TRUE;
     }
     if (empty($message)) {
@@ -135,10 +135,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertFloat($value, $message = '') {
-    if (is_float($value)) {
+    if (\is_float($value)) {
       return TRUE;
     }
     throw self::createException('float', $value, $message);
@@ -150,10 +150,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertInteger($value, $message = '') {
-    if (is_integer($value)) {
+    if (\is_int($value)) {
       return TRUE;
     }
     throw self::createException('integer', $value, $message);
@@ -165,7 +165,7 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertNotEmpty($value, $message = '') {
     if (empty($value)) {
@@ -184,10 +184,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertNumber($value, $message = '') {
-    if (is_integer($value) || is_float($value)) {
+    if (\is_int($value) || \is_float($value)) {
       return TRUE;
     }
     throw self::createException('integer, float', $value, $message);
@@ -199,10 +199,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertObject($value, $message = '') {
-    if (is_object($value)) {
+    if (\is_object($value)) {
       return TRUE;
     }
     throw self::createException('object', $value, $message);
@@ -216,10 +216,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertObjectOrNull($value, $message = '') {
-    if (is_object($value) || is_null($value)) {
+    if (\is_object($value) || \is_null($value)) {
       return TRUE;
     }
     throw self::createException('object, NULL', $value, $message);
@@ -232,18 +232,18 @@ class Constraints {
    * @param array|string $expectedClass
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertInstanceOf($expectedClass, $value, $message = '') {
-    if (is_array($expectedClass) || $expectedClass instanceof \Traversable) {
-      $validated = array();
+    if (\is_array($expectedClass) || $expectedClass instanceof \Traversable) {
+      $validated = [];
       foreach ($expectedClass as $class) {
         if ($value instanceof $class) {
           return TRUE;
         }
         $validated[] = $class;
       }
-      throw self::createException(implode(', ', $validated), $value, $message);
+      throw self::createException(\implode(', ', $validated), $value, $message);
     } elseif ($value instanceof $expectedClass) {
       return TRUE;
     }
@@ -257,7 +257,7 @@ class Constraints {
    * @param array|string $expectedClass
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertInstanceOfOrNull($expectedClass, $value, $message = '') {
     if (NULL === $value) {
@@ -272,10 +272,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertResource($value, $message = '') {
-    if (is_resource($value)) {
+    if (\is_resource($value)) {
       return TRUE;
     }
     throw self::createException('resource', $value, $message);
@@ -287,10 +287,10 @@ class Constraints {
    * @throws \UnexpectedValueException
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
-   * @return TRUE
+   * @return true
    */
   public static function assertString($value, $message = '') {
-    if (is_string($value)) {
+    if (\is_string($value)) {
       return TRUE;
     }
     throw self::createException('string', $value, $message);

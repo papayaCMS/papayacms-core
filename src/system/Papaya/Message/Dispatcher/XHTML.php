@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Dispatcher;
+
 /**
  * Papaya Message Dispatcher XHTML, send out log messages as xhtml (just output to the browser)
  *
@@ -25,44 +26,43 @@ namespace Papaya\Message\Dispatcher;
 class XHTML
   extends \Papaya\Application\BaseObject
   implements \Papaya\Message\Dispatcher {
-
   /**
    * Options for header formatting (background color, text color, label)
    *
    * @var array
    */
-  private static $_MESSAGE_OPTIONS = array(
-    \Papaya\Message::SEVERITY_DEBUG => array(
+  private static $_MESSAGE_OPTIONS = [
+    \Papaya\Message::SEVERITY_DEBUG => [
       '#F0F0F0', '#000', 'Debug'
-    ),
-    \Papaya\Message::SEVERITY_INFO => array(
+    ],
+    \Papaya\Message::SEVERITY_INFO => [
       '#F0F0F0', '#000060', 'Information'
-    ),
-    \Papaya\Message::SEVERITY_NOTICE => array(
+    ],
+    \Papaya\Message::SEVERITY_NOTICE => [
       '#F0F0F0', '#000060', 'Notice'
-    ),
-    \Papaya\Message::SEVERITY_WARNING => array(
+    ],
+    \Papaya\Message::SEVERITY_WARNING => [
       '#FFCC33', '#000000', 'Warning'
-    ),
-    \Papaya\Message::SEVERITY_ERROR => array(
+    ],
+    \Papaya\Message::SEVERITY_ERROR => [
       '#CC0000', '#FFFFFF', 'Error'
-    ),
-    \Papaya\Message::SEVERITY_CRITICAL => array(
+    ],
+    \Papaya\Message::SEVERITY_CRITICAL => [
       '#CC0000', '#FFFFFF', 'Critical'
-    ),
-    \Papaya\Message::SEVERITY_ALERT => array(
+    ],
+    \Papaya\Message::SEVERITY_ALERT => [
       '#CC0000', '#FFFFFF', 'Alert'
-    ),
-    \Papaya\Message::SEVERITY_EMERGENCY => array(
+    ],
+    \Papaya\Message::SEVERITY_EMERGENCY => [
       '#CC0000', '#FFFFFF', 'Emergency'
-    ),
-  );
+    ],
+  ];
 
   /**
    * Output log message to browser using xhtml output
    *
    * @param \Papaya\Message $message
-   * @return boolean
+   * @return bool
    */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \Papaya\Message\Logable &&
@@ -70,7 +70,7 @@ class XHTML
       $this->outputClosers();
       print('<div class="debug" style="border: none; margin: 3em; padding: 0; font-size: 1em;">');
       $headerOptions = $this->getHeaderOptionsFromType($message->getSeverity());
-      printf(
+      \printf(
         '<h3 style="background-color: %s; color: %s; padding: 0.3em; margin: 0;">%s: %s</h3>',
         \Papaya\Utility\Text\XML::escapeAttribute($headerOptions[0]),
         \Papaya\Utility\Text\XML::escapeAttribute($headerOptions[1]),
@@ -108,7 +108,7 @@ class XHTML
   /**
    * Get header formating options and a label for the error message
    *
-   * @param integer $type
+   * @param int $type
    * @return array
    */
   public function getHeaderOptionsFromType($type) {

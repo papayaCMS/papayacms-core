@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for unsigned numbers with optional minimum/maximum length
  *
@@ -23,11 +24,10 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  */
 class Number extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -38,22 +38,22 @@ class Number extends \Papaya\UI\Dialog\Field\Input {
   /**
    * Minimum length
    *
-   * @var integer
+   * @var int
    */
-  protected $_minimumLength = NULL;
+  protected $_minimumLength;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Creates dialog field for date input with caption, name, default value and
@@ -62,9 +62,9 @@ class Number extends \Papaya\UI\Dialog\Field\Input {
    * @param string $caption
    * @param string $name
    * @param mixed $default optional, default NULL
-   * @param boolean $mandatory optional, default FALSE
-   * @param integer $minimumLength optional, default NULL
-   * @param integer $maximumLength optional, default NULL
+   * @param bool $mandatory optional, default FALSE
+   * @param int $minimumLength optional, default NULL
+   * @param int $maximumLength optional, default NULL
    * @throws \UnexpectedValueException
    */
   public function __construct(
@@ -75,15 +75,15 @@ class Number extends \Papaya\UI\Dialog\Field\Input {
     $minimumLength = NULL,
     $maximumLength = 1024
   ) {
-    if ($minimumLength !== NULL) {
-      if (!is_numeric($minimumLength) || $minimumLength <= 0) {
+    if (NULL !== $minimumLength) {
+      if (!\is_numeric($minimumLength) || $minimumLength <= 0) {
         throw new \UnexpectedValueException('Minimum length must be greater than 0.');
       }
     }
-    if (!is_numeric($maximumLength) || $maximumLength <= 0) {
+    if (!\is_numeric($maximumLength) || $maximumLength <= 0) {
       throw new \UnexpectedValueException('Maximum length must be greater than 0.');
     }
-    if ($minimumLength !== NULL && $minimumLength > $maximumLength) {
+    if (NULL !== $minimumLength && $minimumLength > $maximumLength) {
       throw new \UnexpectedValueException(
         'Maximum length must be greater than or equal to minimum length.'
       );

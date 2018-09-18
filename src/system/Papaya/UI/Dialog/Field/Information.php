@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A field that output a message inside the dialog
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Information extends \Papaya\UI\Dialog\Field {
-
   /**
    * Information text
    *
@@ -55,7 +55,7 @@ class Information extends \Papaya\UI\Dialog\Field {
   public function appendTo(\Papaya\XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(
-      'message', array(), (string)$this->_text
+      'message', [], (string)$this->_text
     );
     $image = empty($this->_image) ? '' : $this->papaya()->images[$this->_image];
     if (!empty($image)) {

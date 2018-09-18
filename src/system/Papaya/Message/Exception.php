@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Exception, message object representing a php exception. This allows to convert
  * any exception into an error log message.
@@ -23,7 +24,6 @@ namespace Papaya\Message;
  */
 class Exception
   extends \Papaya\Message\PHP {
-
   /**
    * Create object and set values from exception object
    *
@@ -37,9 +37,9 @@ class Exception
     parent::__construct();
     $this->setSeverity(E_USER_ERROR);
 
-    $this->_message = sprintf(
+    $this->_message = \sprintf(
       "Uncaught exception '%s' with message '%s' in '%s:%d'.",
-      get_class($exception),
+      \get_class($exception),
       $exception->getMessage(),
       $exception->getFile(),
       $exception->getLine()
@@ -47,7 +47,7 @@ class Exception
     $this
       ->_context
       ->append(
-        is_null($trace)
+        \is_null($trace)
           ? new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
           : $trace
       );

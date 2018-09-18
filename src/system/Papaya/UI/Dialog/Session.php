@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * A dialog that stores its data into the session.
  *
@@ -21,15 +22,14 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Session extends \Papaya\UI\Dialog {
-
-  private $_sessionIdentifier = NULL;
+  private $_sessionIdentifier;
 
   /**
    * The session identifier does not need to be a string,
    * read {@see \Papaya\Session\Values::_compileIdentifer()} for more information.
    *
    * @param mixed $sessionIdentifier
-   * @param object|NULL $owner
+   * @param object|null $owner
    */
   public function __construct($sessionIdentifier = NULL, $owner = NULL) {
     parent::__construct($owner);
@@ -39,11 +39,11 @@ class Session extends \Papaya\UI\Dialog {
   /**
    * Execute the dialog, load and save the session value.
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
     $data = $this->papaya()->session->getValue($this->_sessionIdentifier);
-    if (is_array($data) && !empty($data)) {
+    if (\is_array($data) && !empty($data)) {
       $this->data()->merge($data);
     }
     if (parent::execute()) {

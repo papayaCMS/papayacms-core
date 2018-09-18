@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an plugin with a teaser appendable to an DOM element. It
  * is provides an additional method to \Papaya\Plugin\Appendable to append a "quote"/short version
@@ -23,12 +24,11 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Quoteable {
-
   /**
    * Append short content (aka "quote") to the parent xml element.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @return null|\Papaya\XML\Element
    */
   public function appendQuoteTo(\Papaya\XML\Element $parent);
 }

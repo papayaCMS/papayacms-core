@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input\Media;
+
 /**
  * A single line input for an image (gif, png, jpeg) from the media database
  *
@@ -21,12 +22,10 @@ namespace Papaya\UI\Dialog\Field\Input\Media;
  * @subpackage UI
  */
 class Image extends \Papaya\UI\Dialog\Field\Input\Media\File {
-
   /**
    * Field type, used in template
    *
-   * @var boolean
+   * @var bool
    */
   protected $_type = 'media_image';
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Button;
+
 /**
  * A simple button with a caption and without a name. That links to the specified reference.
  *
@@ -31,7 +32,6 @@ namespace Papaya\UI\Dialog\Button;
  * @subpackage UI
  */
 class Link extends \Papaya\UI\Dialog\Button {
-
   /**
    * Button caption
    *
@@ -48,7 +48,7 @@ class Link extends \Papaya\UI\Dialog\Button {
    * Initialize object, set caption and alignment
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
   public function __construct($caption, $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT) {
     parent::__construct($align);
@@ -63,17 +63,17 @@ class Link extends \Papaya\UI\Dialog\Button {
   public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'button',
-      array(
+      [
         'type' => 'link',
-        'align' => ($this->_align == \Papaya\UI\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => (\Papaya\UI\Dialog\Button::ALIGN_LEFT == $this->_align) ? 'left' : 'right',
         'href' => $this->reference()
-      ),
+      ],
       (string)$this->_caption
     );
   }
 
   /**
-   * @param \Papaya\UI\Reference|NULL $reference
+   * @param \Papaya\UI\Reference|null $reference
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

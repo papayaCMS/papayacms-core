@@ -18,14 +18,14 @@ namespace Papaya\Plugin\Filter\Content;
 class Group
   extends \Papaya\Application\BaseObject
   implements \Papaya\Plugin\Filter\Content, \IteratorAggregate {
-
-  private $_filters = array();
+  private $_filters = [];
 
   /**
    * @var \Papaya\BaseObject\Parameters
    */
   private $_options;
-  private $_page = NULL;
+
+  private $_page;
 
   public function __construct($page) {
     \Papaya\Utility\Constraints::assertObject($page);
@@ -41,7 +41,7 @@ class Group
   }
 
   public function add($filterPlugin) {
-    $this->_filters[spl_object_hash($filterPlugin)] = $filterPlugin;
+    $this->_filters[\spl_object_hash($filterPlugin)] = $filterPlugin;
   }
 
   public function getIterator() {
@@ -53,15 +53,15 @@ class Group
     foreach ($this as $filter) {
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $filter->prepare($content, $this->_options);
-      } elseif (method_exists($filter, 'prepareFilterData')) {
-        if (method_exists($filter, 'initialize')) {
+      } elseif (\method_exists($filter, 'prepareFilterData')) {
+        if (\method_exists($filter, 'initialize')) {
           $bc = new \stdClass();
           $bc->parentObj = $this->getPage();
           $filter->initialize($bc);
         }
-        $data = array('text' => $content);
-        $filter->prepareFilterData($data, array('text'));
-        if (method_exists($filter, 'loadFilterData')) {
+        $data = ['text' => $content];
+        $filter->prepareFilterData($data, ['text']);
+        if (\method_exists($filter, 'loadFilterData')) {
           $filter->loadFilterData($data);
         }
       }
@@ -73,7 +73,7 @@ class Group
     foreach ($this as $filter) {
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
-      } elseif (method_exists($filter, 'applyFilterData')) {
+      } elseif (\method_exists($filter, 'applyFilterData')) {
         $result = \Papaya\Utility\Text\XML::repairEntities($filter->applyFilterData($result));
       }
     }
@@ -84,9 +84,9 @@ class Group
     foreach ($this as $filter) {
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $parent->append($filter);
-      } elseif (method_exists($filter, 'getFilterData')) {
+      } elseif (\method_exists($filter, 'getFilterData')) {
         $parent->appendXML(
-          $filter->getFilterData(\Papaya\Utility\Arrays::ensure(iterator_to_array($this->_options)))
+          $filter->getFilterData(\Papaya\Utility\Arrays::ensure(\iterator_to_array($this->_options)))
         );
       }
     }

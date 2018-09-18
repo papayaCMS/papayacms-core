@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Module;
+
 /**
  * This object loads module options different conditions.
  *
@@ -21,13 +22,12 @@ namespace Papaya\Content\Module;
  * @subpackage Content
  */
 class Options extends \Papaya\Database\Records {
-
-  protected $_fields = array(
+  protected $_fields = [
     'guid' => 'module_guid',
     'name' => 'moduleoption_name',
     'value' => 'moduleoption_value',
     'type' => 'moduleoption_type'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::MODULE_OPTIONS;
 
@@ -36,10 +36,9 @@ class Options extends \Papaya\Database\Records {
    *
    * @var array
    */
-  protected $_identifierProperties = array(
+  protected $_identifierProperties = [
     'guid', 'name'
-  );
-
+  ];
 
   /**
    * Add a callback to the mapping to be used after mapping
@@ -48,9 +47,9 @@ class Options extends \Papaya\Database\Records {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = array(
+    $mapping->callbacks()->onAfterMapping = [
       $this, 'callbackConvertValueByType'
-    );
+    ];
     return $mapping;
   }
 
@@ -58,14 +57,14 @@ class Options extends \Papaya\Database\Records {
    * The callback read the type field, and converts the value field depending on it.
    *
    * @param object $context
-   * @param integer $mode
+   * @param int $mode
    * @param array $values
    * @param array $record
    * @return array
    */
   public function callbackConvertValueByType($context, $mode, $values, $record) {
     $mapValue = (isset($values['type']) && isset($values['value']));
-    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
+    if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
       $result = $record;
       if ($mapValue) {
         switch ($values['type']) {
@@ -82,11 +81,11 @@ class Options extends \Papaya\Database\Records {
         switch ($values['type']) {
           case 'array' :
             if (empty($values['value'])) {
-              $result['value'] = array();
-            } elseif (substr($values['value'], 0, 1) == '<') {
+              $result['value'] = [];
+            } elseif ('<' == \substr($values['value'], 0, 1)) {
               $result['value'] = \Papaya\Utility\Text\XML::unserializeArray($values['value']);
             } else {
-              $result['value'] = @unserialize($values['value']);
+              $result['value'] = @\unserialize($values['value']);
             }
           break;
           default :

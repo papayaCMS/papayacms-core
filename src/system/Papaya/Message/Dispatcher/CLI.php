@@ -20,11 +20,11 @@ use Papaya\Message;
 class CLI
   extends \Papaya\Application\BaseObject
   implements Message\Dispatcher {
-
   const TARGET_STDOUT = 'stdout';
+
   const TARGET_STDERR = 'stderr';
 
-  private static $_SEVERITY_LABELS = array(
+  private static $_SEVERITY_LABELS = [
     Message::SEVERITY_DEBUG => 'Debug',
     Message::SEVERITY_INFO => 'Info',
     Message::SEVERITY_NOTICE => 'Notice',
@@ -33,7 +33,7 @@ class CLI
     Message::SEVERITY_CRITICAL => 'Critical',
     Message::SEVERITY_ALERT => 'Alert',
     Message::SEVERITY_EMERGENCY => 'Emergency'
-  );
+  ];
 
   /**
    * The PHP server API name
@@ -47,35 +47,35 @@ class CLI
    *
    * @var array(resource)
    */
-  private $_streams = array(
+  private $_streams = [
     self::TARGET_STDOUT => NULL,
     self::TARGET_STDERR => NULL
-  );
+  ];
 
   /**
    * Output log message to stdout
    *
    * @param Message $message
-   * @return boolean
+   * @return bool
    */
   public function dispatch(Message $message) {
     if ($message instanceof Message\Logable &&
       $this->allow()) {
       $label = $this->getLabelFromType($message->getSeverity());
-      $isError = in_array(
+      $isError = \in_array(
         $message->getSeverity(),
-        array(
+        [
           Message::SEVERITY_WARNING,
           Message::SEVERITY_ERROR,
           Message::SEVERITY_CRITICAL,
           Message::SEVERITY_ALERT,
           Message::SEVERITY_EMERGENCY
-        ),
+        ],
         FALSE
       );
-      fwrite(
+      \fwrite(
         $this->stream($isError ? self::TARGET_STDERR : self::TARGET_STDOUT),
-        sprintf(
+        \sprintf(
           "\n\n%s: %s %s\n",
           $label,
           $message->getMessage(),
@@ -98,7 +98,7 @@ class CLI
       $this->_phpSAPIName = $name;
     }
     if (NULL === $this->_phpSAPIName) {
-      $this->_phpSAPIName = strtolower(PHP_SAPI);
+      $this->_phpSAPIName = \strtolower(PHP_SAPI);
     }
     return $this->_phpSAPIName;
   }
@@ -111,7 +111,7 @@ class CLI
   }
 
   /**
-   * @param integer $type
+   * @param int $type
    * @return array
    */
   public function getLabelFromType($type) {
@@ -130,9 +130,9 @@ class CLI
    * @return resource
    */
   public function stream($target, $stream = NULL) {
-    if (!array_key_exists($target, $this->_streams)) {
+    if (!\array_key_exists($target, $this->_streams)) {
       throw new \InvalidArgumentException(
-        sprintf('Invalid output target "%s".', $target)
+        \sprintf('Invalid output target "%s".', $target)
       );
     }
     if (NULL !== $stream) {
@@ -140,7 +140,7 @@ class CLI
       $this->_streams[$target] = $stream;
     } elseif (NULL === $this->_streams[$target]) {
       $name = 'php://'.$target;
-      $this->_streams[$target] = fopen($name, 'wb');
+      $this->_streams[$target] = \fopen($name, 'wb');
     }
     return $this->_streams[$target];
   }

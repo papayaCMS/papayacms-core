@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a value is not enclosed in a list of values.
  *
@@ -21,22 +22,21 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class NotIncluded extends \Papaya\Filter\Exception {
-
   /**
    * The actual length of the value
    *
-   * @var string|int|float|boolean
+   * @var string|int|float|bool
    */
   private $_actualValue = 0;
 
   /**
    * Construct object with value information
    *
-   * @param string|int|float|boolean $actual
+   * @param string|int|float|bool $actual
    */
   public function __construct($actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to not enclosed in list of valid elements. Got "%s".',
         $actual
       )

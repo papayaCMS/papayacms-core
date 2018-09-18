@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Condition;
+
 /**
  * A command condition based on a value.
  *
@@ -21,28 +22,27 @@ namespace Papaya\UI\Control\Command\Condition;
  * @subpackage UI
  */
 class Value extends \Papaya\UI\Control\Command\Condition {
-
   /**
    * member variable to store the value
    *
-   * @var boolean
+   * @var bool
    */
   private $_value;
 
   /**
    * Create object and store callback.
    *
-   * @param boolean $value
+   * @param bool $value
    * @throws \InvalidArgumentException
    */
   public function __construct($value) {
-    $this->_value = (boolean)$value;
+    $this->_value = (bool)$value;
   }
 
   /**
    * Execute callback and return value.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return $this->_value;

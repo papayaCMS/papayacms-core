@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Content\Teaser;
+
 /**
  * Extract teaser image information from the given subtopic elements and creates a list
  * of scaled teaser image tags.
@@ -22,25 +23,24 @@ namespace Papaya\UI\Content\Teaser;
  * @subpackage UI-Content
  */
 class Images extends \Papaya\UI\Control {
-
   /**
    * thumbnail width
    *
-   * @var integer
+   * @var int
    */
   private $_width = 0;
 
   /**
    * thumbnail height
    *
-   * @var integer
+   * @var int
    */
   private $_height = 0;
 
   /**
    * thumbnail resize mode (abs, max, min, mincrop)
    *
-   * @var integer
+   * @var int
    */
   private $_resizeMode = 'max';
 
@@ -49,25 +49,25 @@ class Images extends \Papaya\UI\Control {
    *
    * @var \Papaya\XML\Element
    */
-  private $_teasers = NULL;
+  private $_teasers;
 
   /**
    * Xpath expressions used to find and iterate the teaser images
    *
    * @var array
    */
-  private $_pattern = array(
+  private $_pattern = [
     'teaser_images' => 'teaser/image//*[name() = "img" or local-name() = "media"]',
     'subtopic_images' => 'subtopic/image//*[name() = "img" or local-name() = "media"]',
     'page_id' => 'string(ancestor::subtopic/@no|ancestor::teaser/@page-id)'
-  );
+  ];
 
   /**
    * Create object and store given parameters
    *
    * @param \Papaya\XML\Element $teasers
-   * @param integer $width
-   * @param integer $height
+   * @param int $width
+   * @param int $height
    * @param string $resizeMode
    */
   public function __construct(\Papaya\XML\Element $teasers, $width, $height, $resizeMode = 'max') {
@@ -81,31 +81,31 @@ class Images extends \Papaya\UI\Control {
    * Append teaser thumbnail tags to given parent element.
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     /** @var \Papaya\XML\Document $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
-      array(
+      [
         'papaya' => 'http://www.papaya-cms.com/ns/papayacms'
-      )
+      ]
     );
     /** @var \Papaya\XML\Document $dom */
     $dom = $this->_teasers->ownerDocument;
     $images = $dom->xpath()->evaluate($this->_pattern['teaser_images'], $this->_teasers);
-    $names = array(
+    $names = [
       'list' => 'teaser-thumbnails',
       'item' => 'thumbnail',
       'attribute' => 'page-id'
-    );
+    ];
     if ($images->length < 1) {
       $images = $dom->xpath()->evaluate($this->_pattern['subtopic_images'], $this->_teasers);
-      $names = array(
+      $names = [
         'list' => 'subtopicthumbs',
         'item' => 'thumb',
         'attribute' => 'topic'
-      );
+      ];
     }
     if ($images->length > 0) {
       $thumbs = $parent->appendElement($names['list']);
@@ -114,18 +114,18 @@ class Images extends \Papaya\UI\Control {
         $thumbNode = $thumbs
           ->appendElement(
             $names['item'],
-            array(
+            [
               $names['attribute'] => $dom->xpath()->evaluate(
                 $this->_pattern['page_id'], $imageNode
               )
-            )
+            ]
           )
           ->appendElement(
             'papaya:media',
-            array(
+            [
               'src' => $imageNode->getAttribute('src'),
               'resize' => $this->_resizeMode
-            )
+            ]
           );
         if ($this->_width > 0) {
           $thumbNode->setAttribute('width', (int)$this->_width);
@@ -136,7 +136,6 @@ class Images extends \Papaya\UI\Control {
       }
       return $thumbs;
     }
-    return NULL;
+    return;
   }
-
 }

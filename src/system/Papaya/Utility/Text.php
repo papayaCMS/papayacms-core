@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility;
+
 /**
  * Papaya Utilities for Strings
  *
@@ -21,7 +22,6 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Text {
-
   /**
    * Truncate a string
    *
@@ -30,7 +30,7 @@ class Text {
    *
    * @param string $string
    * @param string $length
-   * @param boolean $cut Cut words
+   * @param bool $cut Cut words
    * @param string $suffix suffix string for truncated strings
    * @return string
    */
@@ -40,11 +40,11 @@ class Text {
     } else {
       $pattern = '(^(.{0,'.(int)$length.'})(?:$|\P{L}))us';
     }
-    if (preg_match($pattern, $string, $matches)) {
+    if (\preg_match($pattern, $string, $matches)) {
       if ($matches[1] == $string) {
         return $string;
       }
-      return \Papaya\Utility\Text\UTF8::ensure(chop($matches[1]).$suffix);
+      return \Papaya\Utility\Text\UTF8::ensure(\rtrim($matches[1]).$suffix);
     }
     return '';
   }
@@ -56,6 +56,6 @@ class Text {
    * @return string
    */
   public static function escapeForPrintf($string) {
-    return str_replace('%', '%%', $string);
+    return \str_replace('%', '%%', $string);
   }
 }

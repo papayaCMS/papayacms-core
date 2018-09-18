@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\URL\Transformer;
+
 /**
  * Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
  *
@@ -21,7 +22,6 @@ namespace Papaya\URL\Transformer;
  * @subpackage URL
  */
 class Relative {
-
   /**
    * Transforms a absolute url to a relative url.
    *
@@ -53,7 +53,7 @@ class Relative {
         return $path;
       }
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -61,12 +61,12 @@ class Relative {
    *
    * @param string $portOne
    * @param string $portTwo
-   * @return boolean
+   * @return bool
    */
   private function _comparePorts($portOne, $portTwo) {
     if ($portOne == $portTwo ||
-      ($portOne == '80' && empty($portTwo)) ||
-      ($portTwo == '80' && empty($portOne))) {
+      ('80' == $portOne && empty($portTwo)) ||
+      ('80' == $portTwo && empty($portOne))) {
       return TRUE;
     } else {
       return FALSE;
@@ -81,13 +81,13 @@ class Relative {
    * @return string
    */
   public function getRelativePath($currentPath, $targetPath) {
-    $parts = explode('/', $currentPath);
-    array_pop($parts);
-    $partCount = count($parts);
+    $parts = \explode('/', $currentPath);
+    \array_pop($parts);
+    $partCount = \count($parts);
     $strippedPart = '';
     for ($i = 1; $i < $partCount; ++$i) {
       $part = $parts[$i];
-      if (0 === strpos($targetPath.'/', $strippedPart.'/'.$part.'/')) {
+      if (0 === \strpos($targetPath.'/', $strippedPart.'/'.$part.'/')) {
         $strippedPart .= '/'.$part;
       } else {
         break;
@@ -95,10 +95,10 @@ class Relative {
     }
     $result = '';
     if ($partCount - $i > 0) {
-      $result = str_repeat('../', $partCount - $i);
+      $result = \str_repeat('../', $partCount - $i);
     }
-    $result .= substr($targetPath, strlen($strippedPart) + 1);
-    if ($result == '') {
+    $result .= \substr($targetPath, \strlen($strippedPart) + 1);
+    if ('' == $result) {
       return './';
     }
     return $result;

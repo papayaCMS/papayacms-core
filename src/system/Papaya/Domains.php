@@ -14,6 +14,7 @@
  */
 
 namespace Papaya;
+
 /**
  * Access and handle domain information for the current request
  *
@@ -21,28 +22,30 @@ namespace Papaya;
  * @subpackage Domains
  */
 class Domains extends Application\BaseObject {
+  /**
+   * @var array
+   */
+  private $_domains;
 
   /**
    * @var array
    */
-  private $_domains = NULL;
-  /**
-   * @var array
-   */
-  private $_domainsByRootId = NULL;
-  /**
-   * @var array
-   */
-  private $_domainsByName = NULL;
+  private $_domainsByRootId;
 
   /**
-   * @var boolean
+   * @var array
+   */
+  private $_domainsByName;
+
+  /**
+   * @var bool
    */
   private $_loaded = FALSE;
+
   /**
    * @var array
    */
-  private $_current = NULL;
+  private $_current;
 
   /**
    * Return domains with virtual roots for the given path of page ids.
@@ -52,7 +55,7 @@ class Domains extends Application\BaseObject {
    */
   public function getDomainsByPath(array $pageRootIds) {
     $this->loadLazy();
-    $result = array();
+    $result = [];
     foreach ($pageRootIds as $pageRootId) {
       if (isset($this->_domainsByRootId[$pageRootId])) {
         $result = \Papaya\Utility\Arrays::merge($result, $this->_domainsByRootId[$pageRootId]);
@@ -65,8 +68,8 @@ class Domains extends Application\BaseObject {
    * Return the domain that matches the given host
    *
    * @param string $host
-   * @param integer $scheme
-   * @return array|FALSE
+   * @param int $scheme
+   * @return array|false
    */
   public function getDomainByHost($host, $scheme) {
     $this->loadLazy();
@@ -77,7 +80,7 @@ class Domains extends Application\BaseObject {
         foreach ($this->_domainsByName[$name] as $domain) {
           if ($domain['scheme'] == $scheme) {
             return $domain;
-          } elseif ($domain['scheme'] == Utility\Server\Protocol::BOTH && !$result) {
+          } elseif (Utility\Server\Protocol::BOTH == $domain['scheme'] && !$result) {
             $result = $domain;
           }
         }
@@ -112,47 +115,47 @@ class Domains extends Application\BaseObject {
    * @return array
    */
   public function getHostVariants($host) {
-    $host = strtolower($host);
-    $hostParts = explode('.', $host);
+    $host = \strtolower($host);
+    $hostParts = \explode('.', $host);
     $result[] = '*';
     //does it have more then two parts?
-    if (is_array($hostParts) && count($hostParts) > 1) {
-      $hostParts = array_reverse($hostParts);
+    if (\is_array($hostParts) && \count($hostParts) > 1) {
+      $hostParts = \array_reverse($hostParts);
       //last to parts of the hostname to the buffer
       $buffer = $hostParts[0];
-      $tldLength = strlen($hostParts[0]);
-      for ($i = 1; $i < count($hostParts); $i++) {
+      $tldLength = \strlen($hostParts[0]);
+      for ($i = 1; $i < \count($hostParts); $i++) {
         //prefix hostname parts in buffer with a "*." and replace tld with *
         if ($i > 1) {
-          $result[] = '*.'.substr($buffer, 0, -1 * $tldLength).'*';
-          $result[] = $hostParts[$i].'.'.substr($buffer, 0, -1 * $tldLength).'*';
+          $result[] = '*.'.\substr($buffer, 0, -1 * $tldLength).'*';
+          $result[] = $hostParts[$i].'.'.\substr($buffer, 0, -1 * $tldLength).'*';
         }
         //prefix hostname parts in buffer with a "*."
         $result[] = '*.'.$buffer;
-        if ($i == 1) {
-          $result[] = $hostParts[$i].'.'.substr($buffer, 0, -1 * $tldLength).'*';
+        if (1 == $i) {
+          $result[] = $hostParts[$i].'.'.\substr($buffer, 0, -1 * $tldLength).'*';
         }
         //add hostname part to the buffer
         $buffer = $hostParts[$i].'.'.$buffer;
       }
     }
     $result[] = $host;
-    return array_reverse($result);
+    return \array_reverse($result);
   }
 
   /**
    * Lazy load the domain informations and create index array for fast access.
    *
-   * @param boolean $reset
+   * @param bool $reset
    */
   public function loadLazy($reset = FALSE) {
     if ($reset || !$this->_loaded) {
       $this->domains()->load();
       foreach ($this->domains() as $domainId => $domain) {
-        if ($domain['mode'] == \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN) {
+        if (\Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN == $domain['mode']) {
           $this->_domainsByRootId[(int)$domain['data']][$domainId] = $domain;
-        } elseif ($domain['mode'] == \Papaya\Content\Domain::MODE_DEFAULT ||
-          $domain['mode'] == \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE) {
+        } elseif (\Papaya\Content\Domain::MODE_DEFAULT == $domain['mode'] ||
+          \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE == $domain['mode']) {
           $this->_domainsByRootId[0][$domainId] = $domain;
         }
         $this->_domainsByName[$domain['host']][$domainId] = $domain;
@@ -170,7 +173,7 @@ class Domains extends Application\BaseObject {
   public function domains(\Papaya\Content\Domains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
-    } elseif (is_null($this->_domains)) {
+    } elseif (\is_null($this->_domains)) {
       $this->_domains = new \Papaya\Content\Domains();
       $this->_domains->papaya($this->papaya());
     }
@@ -180,7 +183,7 @@ class Domains extends Application\BaseObject {
   public function isStartPage(UI\Reference\Page $page) {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
-      $page->url()->getScheme() == 'https'
+      'https' == $page->url()->getScheme()
         ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP
     );
     $pageId = isset($targetDomain['options']['PAPAYA_PAGEID_DEFAULT']) ?

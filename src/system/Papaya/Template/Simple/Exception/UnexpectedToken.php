@@ -16,8 +16,6 @@
 namespace Papaya\Template\Simple\Exception;
 
 class UnexpectedToken extends \Papaya\Template\Simple\Exception\Parser {
-
-
   /**
    * The token encountered during the scan.
    *
@@ -32,14 +30,14 @@ class UnexpectedToken extends \Papaya\Template\Simple\Exception\Parser {
     $this->encounteredToken = $encounteredToken;
     $this->expectedTokens = $expectedTokens;
 
-    $expectedTokenStrings = array();
+    $expectedTokenStrings = [];
     foreach ($expectedTokens as $expectedToken) {
       $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(
       'Parse error: Found '.(string)$encounteredToken.
-      ' while one of '.implode(", ", $expectedTokenStrings).' was expected.'
+      ' while one of '.\implode(', ', $expectedTokenStrings).' was expected.'
     );
   }
 }

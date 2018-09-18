@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Plugin\Editor;
 
-use \Papaya\Administration;
-use \Papaya\Plugin;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Administration;
+use Papaya\Plugin;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * An PluginEditor implementation that build a dialog based on an array of field definitions
@@ -27,8 +27,8 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Dialog extends Plugin\Editor {
-
   private $_dialog;
+
   private $_onExecuteCallback;
 
   /**
@@ -52,7 +52,7 @@ class Dialog extends Plugin\Editor {
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->displayError(
         'Invalid input. Please check the field(s) "%s".',
-        array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
+        [\implode(', ', $this->dialog()->errors()->getSourceCaptions())]
       );
     }
     $parent->append($this->dialog());

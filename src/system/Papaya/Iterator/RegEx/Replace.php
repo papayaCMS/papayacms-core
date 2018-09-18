@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\RegEx;
+
 /**
  * This iterator allows convert the values on request using a preg_replace().
  *
@@ -21,17 +22,18 @@ namespace Papaya\Iterator\RegEx;
  * @subpackage Iterator
  */
 class Replace extends \Papaya\Iterator\Callback {
-
   /**
    * @var string
    */
   private $_pattern = '';
+
   /**
    * @var string
    */
   private $_replacement = '';
+
   /**
-   * @var integer
+   * @var int
    */
   private $_limit = -1;
 
@@ -41,13 +43,13 @@ class Replace extends \Papaya\Iterator\Callback {
    * @param \Traversable $iterator
    * @param string $pattern
    * @param string $replacement
-   * @param integer $limit
+   * @param int $limit
    */
   public function __construct(\Traversable $iterator, $pattern, $replacement, $limit = -1) {
     $this->_pattern = $pattern;
     $this->_replacement = $replacement;
     $this->_limit = $limit;
-    parent::__construct($iterator, array($this, 'replace'));
+    parent::__construct($iterator, [$this, 'replace']);
   }
 
   /**
@@ -57,6 +59,6 @@ class Replace extends \Papaya\Iterator\Callback {
    * @return string
    */
   public function replace($current) {
-    return preg_replace($this->_pattern, $this->_replacement, $current, $this->_limit);
+    return \preg_replace($this->_pattern, $this->_replacement, $current, $this->_limit);
   }
 }

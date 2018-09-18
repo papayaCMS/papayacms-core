@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,18 +28,16 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Contains extends \Papaya\Database\Condition\Element {
-
   public function __construct(
     Group $parent, $field, $value
   ) {
     $value = (string)$value;
-    $hasWildcards = (FALSE !== strpos($value, '*')) || (FALSE !== strpos($value, '?'));
+    $hasWildcards = (FALSE !== \strpos($value, '*')) || (FALSE !== \strpos($value, '?'));
     if (!$hasWildcards) {
       $value = '*'.$value.'*';
     }
-    $value = str_replace(['%', '*', '?'], ['%%', '%', '_'], $value);
+    $value = \str_replace(['%', '*', '?'], ['%%', '%', '_'], $value);
     parent::__construct($parent, $field, $value, 'LIKE');
   }
 }

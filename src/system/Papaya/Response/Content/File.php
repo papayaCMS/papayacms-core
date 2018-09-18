@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Response\Content;
+
 /**
  * Simple file response content
  *
@@ -23,7 +24,6 @@ namespace Papaya\Response\Content;
  * @subpackage Response
  */
 class File implements \Papaya\Response\Content {
-
   /**
    * string content buffer
    *
@@ -44,10 +44,10 @@ class File implements \Papaya\Response\Content {
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
-    return filesize($this->_filename);
+    return \filesize($this->_filename);
   }
 
   /**
@@ -56,7 +56,7 @@ class File implements \Papaya\Response\Content {
    * @return string
    */
   public function output() {
-    readfile($this->_filename);
+    \readfile($this->_filename);
   }
 
   /**
@@ -65,6 +65,6 @@ class File implements \Papaya\Response\Content {
    * @return string
    */
   public function __toString() {
-    return file_get_contents($this->_filename);
+    return \file_get_contents($this->_filename);
   }
 }

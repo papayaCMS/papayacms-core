@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
-use \Papaya\UI;
+use Papaya\UI;
 
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -25,7 +25,6 @@ use \Papaya\UI;
  */
 class Remove
   extends UI\Control\Command\Dialog\Database\Record {
-
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
@@ -46,11 +45,11 @@ class Remove
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
       $dialog->hiddenFields()->merge(
-        array(
+        [
           'cmd' => 'skin_delete',
           'theme' => $this->parameters()->get('theme', ''),
           'skin_id' => $skinId
-        )
+        ]
       );
       $dialog->fields[] = new UI\Dialog\Field\Information(
         new UI\Text\Translated('Delete theme skin'),

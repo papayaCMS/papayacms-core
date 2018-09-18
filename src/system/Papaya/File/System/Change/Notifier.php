@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\File\System\Change;
+
 /**
  * An filter iterator to filter an given iterator using a pcre pattern.
  *
@@ -24,13 +25,13 @@ namespace Papaya\File\System\Change;
  * @subpackage FileSystem
  */
 class Notifier {
-
   /**
    * File/directory was added
    *
    * @var string
    */
   const ACTION_ADD = 'A';
+
   /**
    * File/directory was modified, be aware that an rename should be a ACTION_REMOVE and
    * and ACTION_ADD
@@ -38,12 +39,14 @@ class Notifier {
    * @var string
    */
   const ACTION_MODIFIED = 'M';
+
   /**
    * File/directory was deleted
    *
    * @var string
    */
   const ACTION_DELETED = 'D';
+
   /**
    * Directory was cleared (all files/subdirectories were deleted)
    *
@@ -61,7 +64,7 @@ class Notifier {
   /**
    * @var \Papaya\File\System\Action
    */
-  private $_action = NULL;
+  private $_action;
 
   /**
    * Create object and store notification target
@@ -79,7 +82,7 @@ class Notifier {
    * @param string $target
    */
   public function setTarget($target) {
-    if (preg_match('(^https?://)', $target)) {
+    if (\preg_match('(^https?://)', $target)) {
       $this->_action = new \Papaya\File\System\Action\URL($target);
     } elseif (!empty($target)) {
       $this->_action = new \Papaya\File\System\Action\Script($target);
@@ -92,13 +95,13 @@ class Notifier {
    * Trigger the notification, if an action is set
    *
    * @param string $action
-   * @param string|NULL $file
+   * @param string|null $file
    * @param string $path
    */
   public function notify($action, $file = NULL, $path = NULL) {
-    $parameters = array(
+    $parameters = [
       'action' => $action
-    );
+    ];
     if (isset($file)) {
       $parameters['file'] = $file;
     }

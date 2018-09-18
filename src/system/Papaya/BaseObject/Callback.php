@@ -26,27 +26,26 @@ namespace Papaya\BaseObject;
  * @property callable $callback
  */
 class Callback {
-
   /**
    * Default return value, returned by execute if no php callback is set.
    *
    * @var mixed
    */
-  private $_defaultReturn = NULL;
+  private $_defaultReturn;
 
   /**
    * The wrapped php callback
    *
    * @var callable
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Context object, an instance of stdClass by default.
    *
    * @var object
    */
-  private $_context = NULL;
+  private $_context;
 
   /**
    * @var bool
@@ -72,11 +71,11 @@ class Callback {
    */
   public function execute() {
     if (isset($this->_callback)) {
-      $arguments = func_get_args();
+      $arguments = \func_get_args();
       if ($this->_addContext) {
-        array_unshift($arguments, $this->_context);
+        \array_unshift($arguments, $this->_context);
       }
-      return call_user_func_array($this->_callback, $arguments);
+      return \call_user_func_array($this->_callback, $arguments);
     } else {
       return $this->_defaultReturn;
     }
@@ -86,7 +85,7 @@ class Callback {
    * Check status of $defaultReturn, $callback and $context properties.
    *
    * @param $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     $property = $this->getPropertyName($name);
@@ -121,7 +120,7 @@ class Callback {
         $this->_defaultReturn = $value;
       break;
       case 'callback' :
-        if (is_null($value) || is_callable($value)) {
+        if (\is_null($value) || \is_callable($value)) {
           $this->_callback = $value;
         }
       break;
@@ -134,8 +133,8 @@ class Callback {
    * @param $name
    */
   public function __unset($name) {
-    if ($name == 'context') {
-      $this->_context = new \stdClass;
+    if ('context' == $name) {
+      $this->_context = new \stdClass();
       return;
     }
     $property = $this->getPropertyName($name);
@@ -157,7 +156,7 @@ class Callback {
         return '_'.$name;
     }
     throw new \UnexpectedValueException(
-      sprintf('Unknown property %s::$%s', __CLASS__, $name)
+      \sprintf('Unknown property %s::$%s', __CLASS__, $name)
     );
   }
 }

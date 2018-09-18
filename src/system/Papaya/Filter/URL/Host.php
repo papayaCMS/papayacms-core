@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\URL;
+
 /**
  * Papaya filter class validating a url host name
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\URL;
  * @subpackage Filter
  */
 class Host extends \Papaya\Filter\RegEx {
-
   /**
    * set pattern in superclass constructor
    */

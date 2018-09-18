@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message context containing simple plain text
  *
@@ -25,7 +26,6 @@ class Items
   \Papaya\Message\Context\Interfaces\Items,
   \Papaya\Message\Context\Interfaces\XHTML,
   \Papaya\Message\Context\Interfaces\Text {
-
   /**
    * List label/caption
    *
@@ -38,7 +38,7 @@ class Items
    *
    * @var array
    */
-  private $_items = array();
+  private $_items = [];
 
   /**
    * Create list context
@@ -70,7 +70,7 @@ class Items
    * @return string
    */
   public function asString() {
-    return implode("\n", $this->_items);
+    return \implode("\n", $this->_items);
   }
 
   /**
@@ -79,7 +79,7 @@ class Items
    * @return string
    */
   public function asXhtml() {
-    if (count($this->_items) > 0) {
+    if (\count($this->_items) > 0) {
       $result = '<ol>';
       foreach ($this->_items as $item) {
         $result .= '<li>'.\Papaya\Utility\Text\XML::escape($item).'</li>';

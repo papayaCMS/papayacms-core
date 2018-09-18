@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * Superclass for dialog elements
  *
@@ -24,7 +25,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 abstract class Element extends \Papaya\UI\Control\Collection\Item {
-
   /**
    * Collect filtered dialog input data into $this->_dialog->data()
    */
@@ -41,7 +41,7 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
    * compatible to PHPs parameter array syntax.
    *
    * @param string|array $key
-   * @param boolean $withGroup
+   * @param bool $withGroup
    * @return string
    */
   protected function _getParameterName($key, $withGroup = TRUE) {
@@ -71,9 +71,9 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
    */
   public function getDialog() {
     if ($this->hasDialog()) {
-      /** @noinspection PhpIncompatibleReturnTypeInspection */
+      /* @noinspection PhpIncompatibleReturnTypeInspection */
       return $this->collection()->owner();
     }
-    return NULL;
+    return;
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Phrases;
+
 /**
  * Grouped access to phrases. This is a factory for phrase objects. The methods create
  * objects with access to the translations engine. If needed the objects fetch the
@@ -23,8 +24,8 @@ namespace Papaya\Phrases;
  * @subpackage Phrases
  */
 class Group {
+  private $_phrases;
 
-  private $_phrases = NULL;
   private $_name = '';
 
   public function __construct(\Papaya\Phrases $phrases, $name) {
@@ -40,7 +41,7 @@ class Group {
    * @param array $arguments
    * @return \Papaya\UI\Text\Translated
    */
-  public function get($phrase, array $arguments = array()) {
+  public function get($phrase, array $arguments = []) {
     $result = new \Papaya\UI\Text\Translated(
       $phrase, $arguments, $this->_phrases, $this->_name
     );
@@ -59,5 +60,4 @@ class Group {
     );
     return $result;
   }
-
 }

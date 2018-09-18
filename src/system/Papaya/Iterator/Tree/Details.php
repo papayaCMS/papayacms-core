@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\Tree;
+
 /**
  * An iterator that attaches details from a second array or Traversable to the first.
  *
@@ -40,26 +41,25 @@ namespace Papaya\Iterator\Tree;
 class Details
   extends \IteratorIterator
   implements \RecursiveIterator {
-
   /**
    * @var array|\Traversable
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * @var array
    */
-  private $_tree = NULL;
+  private $_tree;
+
   /**
-   *
    * @var array
    */
-  private $_identifier = NULL;
+  private $_identifier;
 
   /**
    * @param array|\Traversable $main
    * @param array|\Traversable $details
-   * @param string|array|NULL $identifier
+   * @param string|array|null $identifier
    */
   public function __construct($main, $details, $identifier = NULL) {
     parent::__construct(new \Papaya\Iterator\TraversableIterator($main));
@@ -71,7 +71,7 @@ class Details
    * read access
    *
    * @param array|\Traversable $details
-   * @param string|array|NULL $identifier
+   * @param string|array|null $identifier
    */
   public function setDetails($details, $identifier = NULL) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($details);
@@ -87,7 +87,7 @@ class Details
    */
   private function getDetails() {
     if (!isset($this->_tree)) {
-      $this->_tree = array();
+      $this->_tree = [];
       foreach ($this->_list as $id => $element) {
         $identifier = $this->getIdentifier($element, $id);
         $this->_tree[$identifier][$id] = $element;
@@ -106,11 +106,11 @@ class Details
    */
   protected function getIdentifier($element, $key) {
     if (isset($this->_identifier)) {
-      $result = array();
+      $result = [];
       foreach (\Papaya\Utility\Arrays::ensure($this->_identifier) as $property) {
         $result[] = \Papaya\Utility\Arrays::get($element, $property, '');
       }
-      return implode('|', $result);
+      return \implode('|', $result);
     } else {
       return $key;
     }

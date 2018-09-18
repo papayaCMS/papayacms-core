@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Reference;
+
 /**
  * Papaya Interface Thumbnail Reference (Hyperlink Reference)
  *
@@ -21,13 +22,12 @@ namespace Papaya\UI\Reference;
  * @subpackage UI
  */
 class Thumbnail extends \Papaya\UI\Reference {
-
   /**
    * Page identification data
    *
    * @var array
    */
-  protected $_pageData = array(
+  protected $_pageData = [
     'title' => 'index',
     'media_id' => NULL,
     'version' => 0,
@@ -36,7 +36,7 @@ class Thumbnail extends \Papaya\UI\Reference {
     'thumbnail_params' => '',
     'extension' => '',
     'preview' => FALSE
-  );
+  ];
 
   /**
    * Static create function to allow fluent calls.
@@ -81,7 +81,7 @@ class Thumbnail extends \Papaya\UI\Reference {
       }
       return $result;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -105,8 +105,8 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setMediaId($mediaId) {
     $this->prepare();
-    if (!empty($mediaId) && preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
-      $this->_pageData['media_id'] = strtolower($mediaId);
+    if (!empty($mediaId) && \preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
+      $this->_pageData['media_id'] = \strtolower($mediaId);
     }
     return $this;
   }
@@ -114,7 +114,7 @@ class Thumbnail extends \Papaya\UI\Reference {
   /**
    * Set media version
    *
-   * @param integer $version
+   * @param int $version
    * @return self
    */
   public function setMediaVersion($version) {
@@ -133,7 +133,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setTitle($title) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
+    if (\preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
       $this->_pageData['title'] = (string)$title;
     }
     return $this;
@@ -147,7 +147,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setThumbnailMode($mode) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z]+$)D', $mode)) {
+    if (\preg_match('(^[a-zA-Z]+$)D', $mode)) {
       $this->_pageData['thumbnail_mode'] = (string)$mode;
     }
     return $this;
@@ -161,7 +161,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setThumbnailSize($size) {
     $this->prepare();
-    if (preg_match('(^\d+x\d+$)D', $size)) {
+    if (\preg_match('(^\d+x\d+$)D', $size)) {
       $this->_pageData['thumbnail_size'] = (string)$size;
     }
     return $this;
@@ -175,12 +175,12 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setThumbnailParameters($params) {
     $this->prepare();
-    if (is_array($params)) {
-      $this->_pageData['thumbnail_params'] = md5(serialize($params));
-    } elseif (preg_match('(^[a-fA-F\d]{32}$)D', $params)) {
+    if (\is_array($params)) {
+      $this->_pageData['thumbnail_params'] = \md5(\serialize($params));
+    } elseif (\preg_match('(^[a-fA-F\d]{32}$)D', $params)) {
       $this->_pageData['thumbnail_params'] = (string)$params;
     } else {
-      $this->_pageData['thumbnail_params'] = md5($params);
+      $this->_pageData['thumbnail_params'] = \md5($params);
     }
     return $this;
   }
@@ -193,8 +193,8 @@ class Thumbnail extends \Papaya\UI\Reference {
    */
   public function setExtension($extension) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
-      $this->_pageData['extension'] = strtolower($extension);
+    if (\preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
+      $this->_pageData['extension'] = \strtolower($extension);
     }
     return $this;
   }
@@ -217,7 +217,7 @@ class Thumbnail extends \Papaya\UI\Reference {
       (?:_(?P<thumbnail_params>[A-Fa-f\d]{32}))? # thumbnail parameters
       (?:\.(?P<thumbnail_format>[a-zA-Z\d]+))?
     $)Dix';
-    if (preg_match($pattern, $mediaUri, $matches)) {
+    if (\preg_match($pattern, $mediaUri, $matches)) {
       $this->setMediaId($matches['media_id']);
       if (!empty($matches['version']) && $matches['version'] > 0) {
         $this->setMediaVersion($matches['version']);
@@ -239,7 +239,7 @@ class Thumbnail extends \Papaya\UI\Reference {
   /**
    * Set preview mode
    *
-   * @param boolean $isPreview
+   * @param bool $isPreview
    * @return \Papaya\UI\Reference\Page
    */
   public function setPreview($isPreview) {

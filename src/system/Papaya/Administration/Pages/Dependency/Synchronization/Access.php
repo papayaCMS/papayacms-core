@@ -15,12 +15,11 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Administration;
-use \Papaya\Content;
+use Papaya\Administration;
+use Papaya\Content;
 
 class Access
   implements Administration\Pages\Dependency\Synchronization {
-
   /**
    * Page database record object
    *
@@ -32,8 +31,8 @@ class Access
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -63,20 +62,20 @@ class Access
    *
    * @param Content\Page\Work $origin
    * @param array $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function updatePages(Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(Content\Tables::PAGES),
-        array(
+        [
           'topic_modified' => $databaseAccess->getTimestamp(),
           'surfer_useparent' => $origin->inheritVisitorPermissions,
           'surfer_permids' => $origin->visitorPermissions
-        ),
-        array(
+        ],
+        [
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
 }

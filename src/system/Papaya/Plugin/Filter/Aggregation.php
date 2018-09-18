@@ -28,7 +28,6 @@ namespace Papaya\Plugin\Filter;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var Content\Records
    */
@@ -39,9 +38,8 @@ trait Aggregation {
    */
   private $_page;
 
-
   /**
-   * @param Content|NULL $filters
+   * @param Content|null $filters
    *
    * @return Content
    */

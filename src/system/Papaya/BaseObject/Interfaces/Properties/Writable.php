@@ -16,6 +16,5 @@
 namespace Papaya\BaseObject\Interfaces\Properties;
 
 interface Writable {
-
   public function __set($name, $value);
 }

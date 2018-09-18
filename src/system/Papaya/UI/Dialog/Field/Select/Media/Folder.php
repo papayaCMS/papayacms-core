@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select\Media;
+
 /**
  * A selection field displayed as radio boxes, only a single value can be selected.
  *
@@ -21,8 +22,7 @@ namespace Papaya\UI\Dialog\Field\Select\Media;
  * @subpackage UI
  */
 class Folder extends \Papaya\UI\Dialog\Field {
-
-  private $_folders = NULL;
+  private $_folders;
 
   public function __construct($caption, $name) {
     $this->setCaption($caption);
@@ -38,10 +38,10 @@ class Folder extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(
       'select',
-      array(
+      [
         'name' => $this->_getParameterName($this->getName()),
         'type' => 'dropdown',
-      )
+      ]
     );
     $iterator = new \RecursiveIteratorIterator(
       $this->mediaFolders(), \RecursiveIteratorIterator::SELF_FIRST
@@ -49,18 +49,17 @@ class Folder extends \Papaya\UI\Dialog\Field {
     foreach ($iterator as $folderId => $folder) {
       $caption = '';
       if ($iterator->getDepth() > 0) {
-        $caption .= str_repeat('  ', $iterator->getDepth() - 1).'->';
+        $caption .= \str_repeat('  ', $iterator->getDepth() - 1).'->';
       }
       $caption .= \Papaya\Utility\Arrays::get($folder, 'title', '');
       $option = $select->appendElement(
-        'option', array('value' => $folderId), $caption
+        'option', ['value' => $folderId], $caption
       );
       if ($folderId == $this->getCurrentValue()) {
         $option->setAttribute('selected', 'selected');
       }
     }
   }
-
 
   /**
    * Getter/Setter for the media folders data object, it implements \IteratorAggregate and

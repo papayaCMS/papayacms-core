@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - identifier normalization into different output formats
  *
@@ -24,7 +25,6 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class Identifier {
-
   /**
    * Create a underscore seperated, uppercase version of the identifier string.
    *
@@ -32,7 +32,7 @@ class Identifier {
    * @return string
    */
   public static function toUnderscoreUpper($string) {
-    return strtoupper(implode('_', self::toArray($string)));
+    return \strtoupper(\implode('_', self::toArray($string)));
   }
 
   /**
@@ -42,7 +42,7 @@ class Identifier {
    * @return string
    */
   public static function toUnderscoreLower($string) {
-    return implode('_', self::toArray($string));
+    return \implode('_', self::toArray($string));
   }
 
   /**
@@ -54,13 +54,13 @@ class Identifier {
    */
   public static function toCamelCase($string, $firstUpper = FALSE) {
     $parts = self::toArray($string);
-    $result = $firstUpper ? ucfirst($parts[0]) : $parts[0];
-    $count = count($parts);
+    $result = $firstUpper ? \ucfirst($parts[0]) : $parts[0];
+    $count = \count($parts);
     for ($i = 1; $i < $count; ++$i) {
-      if (preg_match('(^\d)', $parts[$i])) {
+      if (\preg_match('(^\d)', $parts[$i])) {
         $result .= '_'.$parts[$i];
       } else {
-        $result .= ucfirst($parts[$i]);
+        $result .= \ucfirst($parts[$i]);
       }
     }
     return $result;
@@ -79,13 +79,13 @@ class Identifier {
       (?:[_-][a-z\d]+)|
       (?:[A-Z]+(?![a-z\d]))
     )Sx';
-    if (preg_match_all($camelCasePattern, $string, $matches)) {
-      $result = array();
+    if (\preg_match_all($camelCasePattern, $string, $matches)) {
+      $result = [];
       foreach ($matches[0] as $part) {
-        $result[] = strtolower(ltrim($part, '_-'));
+        $result[] = \strtolower(\ltrim($part, '_-'));
       }
       return $result;
     }
-    return array(strtolower($string));
+    return [\strtolower($string)];
   }
 }

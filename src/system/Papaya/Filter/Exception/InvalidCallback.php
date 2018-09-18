@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a the callback is invalid.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class InvalidCallback extends Callback {
-
   /**
    * Construct object with callback informations
    *
@@ -29,7 +29,7 @@ class InvalidCallback extends Callback {
    */
   public function __construct($callback) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Invalid callback specified: "%s"',
         $this->callbackToString($callback)
       ),

@@ -62,9 +62,9 @@ class Image extends \Papaya\Template\Tag {
    * Constructor
    *
    * @param string $mediaPropertyString this is the string the dialog type image(?)
-   *                    contains like "32242...,max,200,300"
-   * @param integer $width optional, default value 0
-   * @param integer $height optional, default value 0
+   *                                    contains like "32242...,max,200,300"
+   * @param int $width optional, default value 0
+   * @param int $height optional, default value 0
    * @param string $alt optional, default value ''
    * @param string $resize optional, default value NULL
    * @param string $subTitle optional, default value ''
@@ -117,20 +117,20 @@ class Image extends \Papaya\Template\Tag {
   }
 
   private function parseImageData() {
-    if (preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
+    if (\preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
       $this->parseMediaTag($this->_mediaPropertyString);
     } elseif (
-    preg_match(
+    \preg_match(
       '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
       $this->_mediaPropertyString,
       $regs
     )
     ) {
       $this->_source = \papaya_strings::escapeHTMLChars($regs[1]);
-      if ($this->_width == 0 && isset($regs[4])) {
+      if (0 == $this->_width && isset($regs[4])) {
         $this->_width = (int)$regs[4];
       }
-      if ($this->_height == 0 && isset($regs[6])) {
+      if (0 == $this->_height && isset($regs[6])) {
         $this->_height = (int)$regs[6];
       }
       if (empty($this->_resize) && isset($regs[8])) {

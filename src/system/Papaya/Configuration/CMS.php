@@ -14,12 +14,13 @@
  */
 
 namespace Papaya\Configuration;
-/**
+
+/*
  * Define a default project name, using the http host name
  *
  * @var string
  */
-define(
+\define(
   'PAPAYA_CONFIGURATION_HOSTNAME',
   isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''
 );
@@ -32,13 +33,12 @@ define(
  * @subpackage Configuration
  */
 class CMS extends GlobalValues {
-
   /**
    * This is a list of all available options and their default values.
    *
    * @var array(string=>mixed)
    */
-  private $_cmsOptions = array(
+  private $_cmsOptions = [
     // base options (defined in configuration file)
     'PAPAYA_INCLUDE_PATH' => NULL,
     'PAPAYA_DB_URI' => NULL,
@@ -297,7 +297,7 @@ class CMS extends GlobalValues {
 
     // feature toggles
     'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => FALSE
-  );
+  ];
 
   /**
    * Create configuration object and initialize default option values
@@ -318,7 +318,7 @@ class CMS extends GlobalValues {
   /**
    * Load and define (fixate) all options
    *
-   * @return boolean
+   * @return bool
    */
   public function loadAndDefine() {
     if ($this->load()) {
@@ -379,15 +379,15 @@ class CMS extends GlobalValues {
     $this->set('PAPAYA_PATH_MEDIAFILES', $basePath.'media/files/');
     $this->set('PAPAYA_PATH_THUMBFILES', $basePath.'media/thumbs/');
 
-    if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
-      $templatePaths = array(
+    if ('' == $this->get('PAPAYA_PATH_TEMPLATES', '')) {
+      $templatePaths = [
         \Papaya\Utility\File\Path::getDocumentRoot().'/../templates/',
         $this->get('PAPAYA_PATH_DATA').'templates/'
-      );
+      ];
       foreach ($templatePaths as $templatePath) {
         $templatePath = \Papaya\Utility\File\Path::cleanup($templatePath);
         $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
-        if (file_exists($templatePath) && is_dir($templatePath)) {
+        if (\file_exists($templatePath) && \is_dir($templatePath)) {
           break;
         }
       }
@@ -413,8 +413,8 @@ class CMS extends GlobalValues {
   public function defineDatabaseTables() {
     $prefix = $this->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
     foreach (\Papaya\Content\Tables::getTables() as $tableConstant => $tableName) {
-      if (!defined($tableConstant)) {
-        define($tableConstant, $prefix.'_'.$tableName);
+      if (!\defined($tableConstant)) {
+        \define($tableConstant, $prefix.'_'.$tableName);
       }
     }
   }

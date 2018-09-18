@@ -25,7 +25,6 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 class Exception extends \Papaya\Exception {
-
   /**
    * The libxml error
    *
@@ -40,7 +39,7 @@ class Exception extends \Papaya\Exception {
    */
   public function __construct(\libXMLError $error) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Libxml processing error %d at line %d char %d: %s',
         $error->code,
         $error->line,
@@ -63,7 +62,7 @@ class Exception extends \Papaya\Exception {
   /**
    * Getter for the libxml error code
    *
-   * @return integer
+   * @return int
    */
   public function getErrorCode() {
     return $this->_error->code;
@@ -83,7 +82,7 @@ class Exception extends \Papaya\Exception {
    *
    * This is the line position in the loaded document, not in the php script.
    *
-   * @return integer
+   * @return int
    */
   public function getContextLine() {
     return (int)$this->_error->line;
@@ -94,7 +93,7 @@ class Exception extends \Papaya\Exception {
    *
    * This is the column position in the loaded document, not in the php script.
    *
-   * @return integer
+   * @return int
    */
   public function getContextColumn() {
     return (int)$this->_error->column;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 use Iterator;
 
 /**
@@ -24,9 +25,10 @@ use Iterator;
  * @subpackage Iterator
  */
 class Callback implements \OuterIterator {
-
   const MODIFY_VALUES = 1;
+
   const MODIFY_KEYS = 2;
+
   const MODIFY_BOTH = 3;
 
   /**
@@ -34,24 +36,26 @@ class Callback implements \OuterIterator {
    *
    * @var Iterator
    */
-  private $_iterator = NULL;
+  private $_iterator;
+
   /**
    * Element value convert function
    *
-   * @var Callable
+   * @var callable
    */
-  private $_callback = NULL;
+  private $_callback;
+
   /**
-   * @var integer
+   * @var int
    */
-  private $_target = NULL;
+  private $_target;
 
   /**
    * Create object and store arguments.
    *
    * @param \Traversable|array $iterator
    * @param \Callable $callback
-   * @param integer $target
+   * @param int $target
    */
   public function __construct(
     $iterator, $callback = NULL, $target = self::MODIFY_VALUES
@@ -61,9 +65,9 @@ class Callback implements \OuterIterator {
     $this->_iterator = ($iterator instanceof \Iterator)
       ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
     $this->_callback = $callback;
-    $this->_target = in_array(
+    $this->_target = \in_array(
       $target,
-      array(self::MODIFY_VALUES, self::MODIFY_KEYS, self::MODIFY_BOTH),
+      [self::MODIFY_VALUES, self::MODIFY_KEYS, self::MODIFY_BOTH],
       FALSE
     ) ? $target : self::MODIFY_VALUES;
   }
@@ -98,7 +102,7 @@ class Callback implements \OuterIterator {
    */
   public function current() {
     if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
-      return call_user_func(
+      return \call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
         $this->getInnerIterator()->key(),
@@ -116,7 +120,7 @@ class Callback implements \OuterIterator {
    */
   public function key() {
     if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
-      return call_user_func(
+      return \call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
         $this->getInnerIterator()->key(),
@@ -132,5 +136,4 @@ class Callback implements \OuterIterator {
   public function valid() {
     return $this->getInnerIterator()->valid();
   }
-
 }

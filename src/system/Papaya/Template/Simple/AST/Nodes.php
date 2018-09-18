@@ -18,8 +18,7 @@ namespace Papaya\Template\Simple\AST;
 class Nodes
   extends \Papaya\BaseObject\Collection
   implements \Papaya\Template\Simple\AST {
-
-  public function __construct(array $nodes = array()) {
+  public function __construct(array $nodes = []) {
     parent::__construct(Node::class);
     foreach ($nodes as $node) {
       $this[] = $node;

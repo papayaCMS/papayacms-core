@@ -24,7 +24,6 @@ use Papaya\Cache;
  * @subpackage Content
  */
 class Status extends \Papaya\Content\Page\Status {
-
   /**
    * Get status from page publication
    *
@@ -37,24 +36,24 @@ class Status extends \Papaya\Content\Page\Status {
    *
    * @var Cache\Service
    */
-  private $_cache = NULL;
+  private $_cache;
 
   /**
    * Cache the database result to avoid to many small queries for each page.
    *
-   * @param integer $id
+   * @param int $id
    * @return bool
    */
   public function load($id) {
     $expires = $this->papaya()->options->get('PAPAYA_CACHE_DATA_TIME', 0);
     if (($cache = $this->cache()) &&
       ($content = $cache->read('pages', 'status', $id, $expires))) {
-      $this->assign(unserialize($content));
+      $this->assign(\unserialize($content));
       return TRUE;
     }
     $result = parent::load($id);
     if ($cache) {
-      $cache->write('pages', 'status', $id, serialize($this->toArray()), $expires);
+      $cache->write('pages', 'status', $id, \serialize($this->toArray()), $expires);
     }
     return $result;
   }
@@ -63,13 +62,13 @@ class Status extends \Papaya\Content\Page\Status {
    * Getter/Setter for cache object, fetches the system data cache if not set.
    *
    * @param Cache\Service $cache
-   * @return FALSE|Cache\Service
+   * @return false|Cache\Service
    */
   public function cache(Cache\Service $cache = NULL) {
     if (NULL !== $cache) {
       $this->_cache = $cache;
     } elseif (NULL === $this->_cache) {
-      /** @noinspection PhpParamsInspection */
+      /* @noinspection PhpParamsInspection */
       $this->_cache = Cache::get(Cache::DATA, $this->papaya()->options);
     }
     return $this->_cache;

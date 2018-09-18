@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,11 +28,11 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Element {
+  private $_parent;
 
-  private $_parent = NULL;
   private $_field = '';
+
   private $_value = '';
 
   protected $_operator = '=';
@@ -65,18 +66,18 @@ class Element {
 
   public function getSql($silent = FALSE) {
     try {
-      if (is_array($this->_field)) {
+      if (\is_array($this->_field)) {
         $conditions = [];
         foreach ($this->_field as $field) {
           $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
-            array(
+            [
               $this->mapFieldName($field, $silent) => $this->_value
-            ),
+            ],
             NULL,
             $this->_operator
           );
         }
-        return ' ('.implode(' AND ', $conditions).') ';
+        return ' ('.\implode(' AND ', $conditions).') ';
       } else {
         return $this->getDatabaseAccess()->getSqlCondition(
           [
@@ -112,7 +113,7 @@ class Element {
     }
     if (empty($field)) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'Can not generate condition, given name "%s" could not be mapped to a field.',
           $name
         )

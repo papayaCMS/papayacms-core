@@ -22,28 +22,28 @@ namespace Papaya\UI\Content;
  * @subpackage UI-Content
  */
 class Teasers extends \Papaya\UI\Control {
-
   private $_pages;
+
   private $_reference;
 
   /**
    * thumbnail width
    *
-   * @var integer
+   * @var int
    */
   private $_width;
 
   /**
    * thumbnail height
    *
-   * @var integer
+   * @var int
    */
   private $_height;
 
   /**
    * thumbnail resize mode (abs, max, min, mincrop)
    *
-   * @var integer
+   * @var int
    */
   private $_resizeMode;
 
@@ -56,8 +56,8 @@ class Teasers extends \Papaya\UI\Control {
    * Create list, store pages and optional thumbnail configuration
    *
    * @param \Papaya\Content\Pages $pages
-   * @param integer $width
-   * @param integer $height
+   * @param int $width
+   * @param int $height
    * @param string $resizeMode
    */
   public function __construct(
@@ -94,14 +94,14 @@ class Teasers extends \Papaya\UI\Control {
     } elseif (NULL === $this->_viewConfigurations) {
       $this->_viewConfigurations = new \Papaya\Content\View\Configurations();
       $this->_viewConfigurations->papaya($this->papaya());
-      $viewIds = iterator_to_array(
+      $viewIds = \iterator_to_array(
         new \Papaya\Iterator\ArrayMapper($this->pages(), 'view_id'), FALSE
       );
       $this->_viewConfigurations->activateLazyLoad(
         [
           'id' => $viewIds,
           'mode_id' => $this->papaya()->request->modeId,
-          'type' =>  \Papaya\Content\View\Configurations::TYPE_OUTPUT
+          'type' => \Papaya\Content\View\Configurations::TYPE_OUTPUT
         ]
       );
     }

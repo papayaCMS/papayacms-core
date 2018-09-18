@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Collection;
+
 /**
  * A abstract superclass for collection items. This class provides access to the collection and
  * the position of the item in the collection.
@@ -22,11 +23,10 @@ namespace Papaya\UI\Control\Collection;
  * @subpackage UI
  */
 abstract class Item extends \Papaya\UI\Control {
-
   /**
    * Position of item in the collection
    *
-   * @var integer
+   * @var int
    */
   private $_index = 0;
 
@@ -35,7 +35,7 @@ abstract class Item extends \Papaya\UI\Control {
    *
    * @var \Papaya\UI\Control\Collection
    */
-  private $_collection = NULL;
+  private $_collection;
 
   /**
    * Return TRUE if the item is part of a collection.
@@ -56,7 +56,7 @@ abstract class Item extends \Papaya\UI\Control {
       $this->_collection = $collection;
       $this->papaya($collection->papaya());
     }
-    if (is_null($this->_collection)) {
+    if (\is_null($this->_collection)) {
       throw new \BadMethodCallException(
         'BadMethodCallException: Item ist not part of a collection.'
       );
@@ -67,9 +67,9 @@ abstract class Item extends \Papaya\UI\Control {
   /**
    * Getter/Setter for the index of the item in the collection.
    *
-   * @param integer|NULL $index
+   * @param int|null $index
    * @throws \UnexpectedValueException
-   * @return integer
+   * @return int
    */
   public function index($index = NULL) {
     if (isset($index) &&
@@ -79,7 +79,7 @@ abstract class Item extends \Papaya\UI\Control {
         $this->_index = $index;
       } else {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             'UnexpectedValueException: Index "%d" does not match the collection item.',
             $index
           )

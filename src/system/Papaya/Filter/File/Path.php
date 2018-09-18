@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\File;
+
 /**
  * Papaya filter class validating a file path/directory string
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\File;
  * @subpackage Filter
  */
 class Path extends \Papaya\Filter\RegEx {
-
   /**
    * set pattern in superclass constructor
    */

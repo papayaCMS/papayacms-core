@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Sequence;
+
 /**
  * Generator for a rndomized unique id hashed with md5().
  *
@@ -27,16 +28,15 @@ namespace Papaya\Database\Sequence;
  * @subpackage Database
  */
 class Md5 extends \Papaya\Database\Sequence {
-
   /**
    * Generate a random, unqiue id and use md5 to hash it
    *
    * @return string
    */
   public function create() {
-    return md5(
-      uniqid(
-        function_exists('mt_rand' ? mt_rand() : rand()),
+    return \md5(
+      \uniqid(
+        \function_exists('mt_rand' ? \mt_rand() : \rand()),
         TRUE
       )
     );

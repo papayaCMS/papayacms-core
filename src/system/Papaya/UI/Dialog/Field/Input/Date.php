@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for date and optional time
  *
@@ -23,13 +24,12 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  * @property float $step
  * @property-read int $includeTime
  */
 class Date extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -56,15 +56,15 @@ class Date extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory'),
-    'includeTime' => array('_includeTime'),
-    'step' => array('_step', '_step')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory'],
+    'includeTime' => ['_includeTime'],
+    'step' => ['_step', '_step']
+  ];
 
   /**
    * Creates dialog field for date input with caption, name, default value and
@@ -72,8 +72,8 @@ class Date extends \Papaya\UI\Dialog\Field\Input {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer $default
-   * @param boolean $mandatory
+   * @param int $default
+   * @param bool $mandatory
    * @param int $includeTime
    * @param float $step
    * @throws \UnexpectedValueException
@@ -88,12 +88,12 @@ class Date extends \Papaya\UI\Dialog\Field\Input {
     $step = 60.0
   ) {
     if (
-      $includeTime !== \Papaya\Filter\Date::DATE_NO_TIME &&
-      $includeTime !== \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
-      $includeTime !== \Papaya\Filter\Date::DATE_MANDATORY_TIME
+      \Papaya\Filter\Date::DATE_NO_TIME !== $includeTime &&
+      \Papaya\Filter\Date::DATE_OPTIONAL_TIME !== $includeTime &&
+      \Papaya\Filter\Date::DATE_MANDATORY_TIME !== $includeTime
     ) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
           \Papaya\Filter\Date::class
         )
@@ -106,7 +106,7 @@ class Date extends \Papaya\UI\Dialog\Field\Input {
     $this->_step = $step;
     parent::__construct($caption, $name, 19, $default);
     $this->setType(
-      $includeTime === \Papaya\Filter\Date::DATE_NO_TIME ? 'date' : 'datetime'
+      \Papaya\Filter\Date::DATE_NO_TIME === $includeTime ? 'date' : 'datetime'
     );
     $this->setMandatory($mandatory);
     $this->setFilter(

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * A list of list view items, used for the $items property of a {@see \Papaya\UI\ListView}
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\ListView;
  */
 class Items
   extends \Papaya\UI\Control\Collection {
-
   /**
    * Only {@see \Papaya\UI\ListView\Item} objects are allowed in this list
    *
@@ -42,9 +42,9 @@ class Items
    * A basic reference (link object) for the listview items. The reference object is cloned and
    * modified by the item using it's $actionParameters.
    *
-   * @var NULL|\Papaya\UI\Reference
+   * @var null|\Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * Create object an set owner listview object.
@@ -77,7 +77,7 @@ class Items
     if (isset($reference)) {
       $this->_reference = $reference;
     }
-    if (is_null($this->_reference)) {
+    if (\is_null($this->_reference)) {
       $this->_reference = $this->owner()->reference();
     }
     return $this->_reference;

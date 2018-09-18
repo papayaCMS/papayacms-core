@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility;
+
 /**
  * Provides some function to get random values
  *
@@ -21,17 +22,16 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Random {
-
   /**
    * Abstraction for PHPs rand and mt_rand functions, uses mt_rand if possible.
    *
-   * @param integer $min
-   * @param integer $max
-   * @return integer
+   * @param int $min
+   * @param int $max
+   * @return int
    */
   public static function rand($min = NULL, $max = NULL) {
-    $random = function_exists('mt_rand') ? 'mt_rand' : 'rand';
-    if (is_null($min)) {
+    $random = \function_exists('mt_rand') ? 'mt_rand' : 'rand';
+    if (\is_null($min)) {
       return $random();
     } else {
       return $random($min, $max);
@@ -44,6 +44,6 @@ class Random {
    * @return string
    */
   public static function getId() {
-    return uniqid(self::rand(), TRUE);
+    return \uniqid(self::rand(), TRUE);
   }
 }

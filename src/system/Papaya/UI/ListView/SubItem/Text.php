@@ -14,19 +14,19 @@
  */
 
 namespace Papaya\UI\ListView\SubItem;
+
 /**
  * A simple listview subitem displaying text.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property string|\Papaya\UI\Text $text
  * @property array $actionParameters
  * @property \Papaya\UI\Reference $reference
  */
 class Text extends \Papaya\UI\ListView\SubItem {
-
   /**
    * buffer for text variable
    *
@@ -39,24 +39,24 @@ class Text extends \Papaya\UI\ListView\SubItem {
    *
    * @var \Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * @var null
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'text' => array('_text', '_text'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'text' => ['_text', '_text'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Create subitem object, set text content and alignment.
@@ -80,9 +80,9 @@ class Text extends \Papaya\UI\ListView\SubItem {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
-    if (is_null($this->_reference)) {
+    if (\is_null($this->_reference)) {
       // directly return the reference, so it is possible to recognice if it was set.
-      /** @noinspection PhpUndefinedMethodInspection */
+      /* @noinspection PhpUndefinedMethodInspection */
       return $this->collection()->getListview()->reference();
     }
     return $this->_reference;
@@ -96,12 +96,12 @@ class Text extends \Papaya\UI\ListView\SubItem {
   public function appendTo(\Papaya\XML\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
+      ]
     );
     if (!empty($this->_actionParameters)) {
-      $subitem->appendElement('a', array('href' => $this->getURL()), (string)$this->_text);
+      $subitem->appendElement('a', ['href' => $this->getURL()], (string)$this->_text);
     } else {
       $subitem->appendText((string)$this->_text);
     }
@@ -121,7 +121,7 @@ class Text extends \Papaya\UI\ListView\SubItem {
     if (isset($this->_reference)) {
       $reference->setParameters($this->_actionParameters);
     } else {
-      /** @noinspection PhpUndefinedMethodInspection */
+      /* @noinspection PhpUndefinedMethodInspection */
       $reference->setParameters(
         $this->_actionParameters,
         $this->collection()->getListview()->parameterGroup()

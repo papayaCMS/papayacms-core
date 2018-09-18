@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a select field display the media database folders
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectMediaFolder
   extends Select {
-
   /**
    * @param array|\Traversable $elements
    * @return \Papaya\UI\Dialog\Field\Select\Media\Folder

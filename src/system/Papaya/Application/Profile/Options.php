@@ -22,7 +22,6 @@ namespace Papaya\Application\Profile;
  * @subpackage Application
  */
 class Options implements \Papaya\Application\Profile {
-
   /**
    * Create the profile object and return it
    *

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\File;
+
 /**
  * This wraps an stream resource into an line iterator.
  *
@@ -21,14 +22,16 @@ namespace Papaya\Iterator\File;
  * @subpackage Iterator
  */
 class Stream implements \Iterator {
-
   const TRIM_NONE = 0;
+
   const TRIM_RIGHT = 1;
 
   private $_stream;
+
   private $_trim;
 
   private $_line = -1;
+
   private $_current = FALSE;
 
   /**
@@ -47,8 +50,8 @@ class Stream implements \Iterator {
    * Close resource if the object is destroyed.
    */
   public function __destruct() {
-    if (is_resource($this->_stream)) {
-      fclose($this->_stream);
+    if (\is_resource($this->_stream)) {
+      \fclose($this->_stream);
       $this->_stream = NULL;
     }
   }
@@ -61,7 +64,7 @@ class Stream implements \Iterator {
    * @throws \InvalidArgumentException
    */
   private function setStream($stream) {
-    if (!is_resource($stream)) {
+    if (!\is_resource($stream)) {
       throw new \InvalidArgumentException('Provided file stream is invalid');
     }
     $this->_stream = $stream;
@@ -80,7 +83,7 @@ class Stream implements \Iterator {
    * Rewind the stream to the start and read first line
    */
   public function rewind() {
-    fseek($this->_stream, 0);
+    \fseek($this->_stream, 0);
     $this->_line = -1;
     $this->next();
   }
@@ -88,7 +91,7 @@ class Stream implements \Iterator {
   /**
    * return current line index
    *
-   * @return integer
+   * @return int
    */
   public function key() {
     return $this->_line;
@@ -97,12 +100,12 @@ class Stream implements \Iterator {
   /**
    * return current line content
    *
-   * @return string|FALSE
+   * @return string|false
    */
   public function current() {
     switch ($this->_trim) {
       case self::TRIM_RIGHT :
-        return rtrim($this->_current);
+        return \rtrim($this->_current);
       default :
         return $this->_current;
     }
@@ -112,8 +115,8 @@ class Stream implements \Iterator {
    * read next line and increase line index
    */
   public function next() {
-    if ($this->_line < 0 || $this->_current !== FALSE) {
-      $this->_current = fgets($this->_stream);
+    if ($this->_line < 0 || FALSE !== $this->_current) {
+      $this->_current = \fgets($this->_stream);
       ++$this->_line;
     }
   }

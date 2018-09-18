@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Theme;
+
 /**
  * Load a list of themes. The themes are subdirectories in a local directory.
  *
@@ -21,8 +22,7 @@ namespace Papaya\Theme;
  * @subpackage Theme
  */
 class Collection extends \Papaya\Application\BaseObject implements \IteratorAggregate {
-
-  private $_handler = NULL;
+  private $_handler;
 
   /**
    * Return an iterator for the theme list.
@@ -32,7 +32,7 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
   public function getIterator() {
     return new \Papaya\Iterator\Callback(
       new \Papaya\Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
-      array($this, 'callbackGetName')
+      [$this, 'callbackGetName']
     );
   }
 
@@ -43,7 +43,7 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * @return string
    */
   public function callbackGetName($element) {
-    return basename($element);
+    return \basename($element);
   }
 
   /**

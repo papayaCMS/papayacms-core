@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating an geo position value filter
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class IsGeoPosition extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */

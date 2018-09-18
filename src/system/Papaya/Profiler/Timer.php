@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler;
+
 /**
  * A stack of timings, it fetches a starting time at the moment the object is created.
  *
@@ -21,16 +22,15 @@ namespace Papaya\Profiler;
  * @subpackage Profiler
  */
 class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate {
-
   private $_start = 0;
 
-  private $_takes = array();
+  private $_takes = [];
 
   /**
    * Store current microtime
    */
   public function __construct() {
-    $this->_start = microtime(TRUE);
+    $this->_start = \microtime(TRUE);
   }
 
   /**
@@ -42,10 +42,10 @@ class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate
    * @param null $parameters
    */
   public function take($text, $parameters = NULL) {
-    $this->_takes[] = array(
-      'time' => microtime(TRUE),
-      'text' => array($text, $parameters)
-    );
+    $this->_takes[] = [
+      'time' => \microtime(TRUE),
+      'text' => [$text, $parameters]
+    ];
   }
 
   /**
@@ -54,23 +54,23 @@ class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate
    * @return \Traversable
    */
   public function getIterator() {
-    $result = array();
+    $result = [];
     $offset = $this->_start;
     foreach ($this->_takes as $take) {
-      if (isset($take['text'][1]) && is_array($take['text'][1])) {
-        $text = vsprintf($take['text'][0], $take['text'][1]);
+      if (isset($take['text'][1]) && \is_array($take['text'][1])) {
+        $text = \vsprintf($take['text'][0], $take['text'][1]);
       } elseif (isset($take['text'][1])) {
-        $text = sprintf($take['text'][0], $take['text'][1]);
+        $text = \sprintf($take['text'][0], $take['text'][1]);
       } else {
         $text = $take['text'][0];
       }
-      $result[] = array(
+      $result[] = [
         'time' => $take['time'] - $offset,
         'time_string' => \Papaya\Utility\Date::periodToString($take['time'] - $offset),
         'start' => $offset,
         'end' => $offset = $take['time'],
         'text' => $text
-      );
+      ];
     }
     return new \ArrayIterator($result);
   }

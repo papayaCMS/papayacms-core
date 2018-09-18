@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A dialog field with several buttons
  *
@@ -24,23 +25,21 @@ namespace Papaya\UI\Dialog\Field;
  * @property \Papaya\UI\Dialog\Buttons $buttons
  */
 class Buttons extends \Papaya\UI\Dialog\Field {
-
   /**
    * Grouped input buttons
    *
    * @var \Papaya\UI\Dialog\Buttons
    */
-  protected $_buttons = NULL;
+  protected $_buttons;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'buttons' => array('buttons', 'buttons')
-  );
-
+  protected $_declaredProperties = [
+    'buttons' => ['buttons', 'buttons']
+  ];
 
   /**
    * Group buttons getter/setter
@@ -55,7 +54,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
         $buttons->owner($this->collection()->owner());
       }
     }
-    if (is_null($this->_buttons)) {
+    if (\is_null($this->_buttons)) {
       $this->_buttons = new \Papaya\UI\Dialog\Buttons(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
@@ -66,7 +65,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Validate field group
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return TRUE;
@@ -75,7 +74,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Collect field group data
    *
-   * @return boolean
+   * @return bool
    */
   public function collect() {
     if (parent::collect() &&
@@ -92,7 +91,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
    * @param \Papaya\XML\Element $parent
    */
   public function appendTo(\Papaya\XML\Element $parent) {
-    if (isset($this->_buttons) && count($this->_buttons) > 0) {
+    if (isset($this->_buttons) && \count($this->_buttons) > 0) {
       $field = $this->_appendFieldTo($parent);
       $field
         ->appendElement('buttons')

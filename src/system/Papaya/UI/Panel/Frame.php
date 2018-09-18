@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Panel;
+
 /**
  * A panel containing an iframe showing an given reference.
  *
@@ -27,13 +28,12 @@ namespace Papaya\UI\Panel;
  * @property \Papaya\UI\Toolbars $toolbars
  */
 class Frame extends \Papaya\UI\Panel {
-
   /**
    * The url reference object.
    *
    * @var \Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * A name/identifier for the frame, that can be used in link targets.
@@ -54,13 +54,13 @@ class Frame extends \Papaya\UI\Panel {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', 'setCaption'),
-    'name' => array('_name', '_name'),
-    'height' => array('_height', '_height'),
-    'reference' => array('reference', 'reference'),
-    'toolbars' => array('toolbars', 'toolbars')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', 'setCaption'],
+    'name' => ['_name', '_name'],
+    'height' => ['_height', '_height'],
+    'reference' => ['reference', 'reference'],
+    'toolbars' => ['toolbars', 'toolbars']
+  ];
 
   /**
    * Initialize object and store parameters.
@@ -84,11 +84,11 @@ class Frame extends \Papaya\UI\Panel {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',
-      array(
+      [
         'id' => (string)$this->_name,
         'src' => $this->reference()->getRelative(),
         'height' => (string)$this->_height
-      )
+      ]
     );
     return $panel;
   }

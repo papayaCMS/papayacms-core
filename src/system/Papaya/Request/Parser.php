@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request;
+
 /**
  * Papaya Request Parser super class
  *
@@ -21,19 +22,18 @@ namespace Papaya\Request;
  * @subpackage Request
  */
 abstract class Parser extends \Papaya\Application\BaseObject {
-
   /**
    * parse request
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   abstract public function parse($url);
 
   /**
    * If a parser hast the "last" property, the loop is finished if it matches.
    *
-   * @return boolean
+   * @return bool
    */
   public function isLast() {
     return TRUE;

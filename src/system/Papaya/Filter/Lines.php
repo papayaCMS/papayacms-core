@@ -16,7 +16,6 @@
 namespace Papaya\Filter;
 
 class Lines implements \Papaya\Filter {
-
   /**
    * @var \Papaya\Filter
    */
@@ -30,11 +29,11 @@ class Lines implements \Papaya\Filter {
     $lines = [];
     foreach ($this->getLines((string)$value) as $line) {
       $line = $this->_filter->filter($line);
-      if ($line !== NULL && $line !== '') {
+      if (NULL !== $line && '' !== $line) {
         $lines[] = $line;
       }
     }
-    return implode("\n", $lines);
+    return \implode("\n", $lines);
   }
 
   public function validate($value) {
@@ -44,7 +43,7 @@ class Lines implements \Papaya\Filter {
   }
 
   private function getLines($string) {
-    if (preg_match_all('(^.+$)m', $string, $matches, PREG_PATTERN_ORDER)) {
+    if (\preg_match_all('(^.+$)m', $string, $matches, PREG_PATTERN_ORDER)) {
       return $matches[0];
     }
     return [];

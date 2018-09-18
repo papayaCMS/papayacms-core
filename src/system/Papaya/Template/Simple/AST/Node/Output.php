@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\AST\Node;
+
 /**
  * AST node containing an output.
  *
@@ -23,7 +24,6 @@ namespace Papaya\Template\Simple\AST\Node;
  * @property-read string $text
  */
 class Output extends \Papaya\Template\Simple\AST\Node {
-
   protected $_text = '';
 
   /**

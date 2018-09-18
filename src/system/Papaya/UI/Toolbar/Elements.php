@@ -14,15 +14,15 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A list of menu elements, used for the $elements property of a {@see \Papaya\UI\Menu}
  *
- * @property boolean $allowGroups
+ * @property bool $allowGroups
  * @package Papaya-Library
  * @subpackage UI
  */
 class Elements extends \Papaya\UI\Control\Collection {
-
   /**
    * Only {@see \Papaya\UI\Toolbar\Element} objects are allowed in this list
    *
@@ -33,7 +33,7 @@ class Elements extends \Papaya\UI\Control\Collection {
   /**
    * Allow group elements
    *
-   * @var boolean
+   * @var bool
    */
   protected $_allowGroups = TRUE;
 
@@ -42,9 +42,9 @@ class Elements extends \Papaya\UI\Control\Collection {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'allowGroups' => array('_allowGroups', '_allowGroups')
-  );
+  protected $_declaredProperties = [
+    'allowGroups' => ['_allowGroups', '_allowGroups']
+  ];
 
   /**
    * Create object and set owner.
@@ -68,9 +68,9 @@ class Elements extends \Papaya\UI\Control\Collection {
     if (!$this->_allowGroups &&
       $item instanceof \Papaya\UI\Toolbar\Group) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'InvalidArgumentException: Invalid item class "%s".',
-          get_class($item)
+          \get_class($item)
         )
       );
     }

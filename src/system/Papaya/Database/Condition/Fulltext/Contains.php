@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition\Fulltext;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Database\Condition\Fulltext;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Contains extends \Papaya\Database\Condition\Fulltext {
-
   /**
    * Get filters for a LIKE condition
    *
@@ -56,10 +55,10 @@ class Contains extends \Papaya\Database\Condition\Fulltext {
         $result .= $connector.'(';
         $s = '';
         foreach ($fields as $field) {
-          $result .= $s.sprintf(
+          $result .= $s.\sprintf(
               "(%s LIKE '%%%s%%')",
               $field,
-              addslashes($token['value'])
+              \addslashes($token['value'])
             );
           $s = ' OR ';
         }
@@ -70,10 +69,10 @@ class Contains extends \Papaya\Database\Condition\Fulltext {
         $result .= $connector.'(NOT(';
         $s = '';
         foreach ($fields as $field) {
-          $result .= $s.sprintf(
+          $result .= $s.\sprintf(
               "(%s LIKE '%%%s%%')",
               $field,
-              addslashes($token['value'])
+              \addslashes($token['value'])
             );
           $s = ' OR ';
         }
@@ -86,7 +85,7 @@ class Contains extends \Papaya\Database\Condition\Fulltext {
       }
     }
     if ($indent > 0) {
-      $result .= str_repeat("\n)", $indent);
+      $result .= \str_repeat("\n)", $indent);
     }
     return $result;
   }

@@ -15,11 +15,11 @@
 
 namespace Papaya\Administration\Pages\Dependency\Command;
 
-use \Papaya\Content;
-use \Papaya\Database;
-use \Papaya\Filter;
-use \Papaya\UI;
-use \Papaya\Utility;
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
 
 /**
  * Add/save a page dependency.
@@ -28,13 +28,12 @@ use \Papaya\Utility;
  * @subpackage Administration
  */
 class Change extends UI\Control\Command\Dialog {
-
   /**
    * create a condition that is used to activate the command execution
    */
   public function createCondition() {
     return new UI\Control\Command\Condition\Callback(
-      array($this, 'validatePageId')
+      [$this, 'validatePageId']
     );
   }
 
@@ -67,17 +66,17 @@ class Change extends UI\Control\Command\Dialog {
     $dialog->caption = new UI\Text\Translated('Page dependency');
     $dialog->parameterGroup('pagedep');
     $dialog->hiddenFields->merge(
-      array(
+      [
         'cmd' => 'edit_dependency',
         'id' => $pageId
-      )
+      ]
     );
     $dialog->hiddenValues->merge(
-      array(
-        'tt' => array(
+      [
+        'tt' => [
           'page_id' => $pageId
-        )
-      )
+        ]
+      ]
     );
     $dialog->fields[] = $originIdField = new UI\Dialog\Field\Input\Page(
       new UI\Text\Translated('Origin page'), 'origin_id', NULL, TRUE
@@ -97,14 +96,14 @@ class Change extends UI\Control\Command\Dialog {
     );
     $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Save'));
 
-    $dialog->callbacks()->onBeforeSave = array($this, 'validateOriginAndSynchronizations');
+    $dialog->callbacks()->onBeforeSave = [$this, 'validateOriginAndSynchronizations'];
     $dialog->callbacks()->onBeforeSave->context->originIdField = $originIdField;
     $dialog->callbacks()->onBeforeSave->context->synchronizationField = $synchronizationField;
 
-    $this->callbacks()->onExecuteSuccessful = array($this, 'handleExecutionSuccess');
+    $this->callbacks()->onExecuteSuccessful = [$this, 'handleExecutionSuccess'];
     $this->callbacks()->onExecuteSuccessful->context->synchronizations = $synchronizations;
     $this->callbacks()->onExecuteSuccessful->context->dependency = $record;
-    $this->callbacks()->onExecuteFailed = array($this, 'dispatchErrorMessage');
+    $this->callbacks()->onExecuteFailed = [$this, 'dispatchErrorMessage'];
 
     return $dialog;
   }
@@ -119,17 +118,17 @@ class Change extends UI\Control\Command\Dialog {
   public function validateOriginAndSynchronizations($context, $record) {
     if ((int)$record->originId === (int)$record->id) {
       $context->originIdField->handleValidationFailure(
-        new Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
+        new Filter\Exception\FailedCallback([$this, 'validateOrigin'])
       );
       return FALSE;
     }
     if ($record->isDependency($record->originId)) {
       $context->originIdField->handleValidationFailure(
-        new Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
+        new Filter\Exception\FailedCallback([$this, 'validateOrigin'])
       );
       return FALSE;
     }
-    /** @noinspection NotOptimalIfConditionsInspection */
+    /* @noinspection NotOptimalIfConditionsInspection */
     if (
       (
         Utility\Bitwise::inBitmask(Content\Page\Dependency::SYNC_VIEW, $record->synchronization) xor
@@ -138,7 +137,7 @@ class Change extends UI\Control\Command\Dialog {
       !$this->compareViewModules($record)
     ) {
       $context->synchronizationField->handleValidationFailure(
-        new Filter\Exception\FailedCallback(array($this, 'compareViewModules'))
+        new Filter\Exception\FailedCallback([$this, 'compareViewModules'])
       );
       return FALSE;
     }
@@ -158,12 +157,12 @@ class Change extends UI\Control\Command\Dialog {
              WHERE tt.topic_id IN (%d, %d)
                AND v.view_id = tt.view_id
              GROUP BY tt.lng_id';
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName(Content\Tables::PAGE_TRANSLATIONS),
       $databaseAccess->getTableName(Content\Tables::VIEWS),
       $record->id,
       $record->originId
-    );
+    ];
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
       while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
         if ($row['module_counter'] > 1) {
@@ -195,12 +194,12 @@ class Change extends UI\Control\Command\Dialog {
    * @param \Papaya\UI\Dialog $dialog
    */
   public function dispatchErrorMessage(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, UI\Dialog $dialog
   ) {
     $this->papaya()->messages->displayError(
       'Invalid input. Please check the following fields: "%s".',
-      [implode(', ', $dialog->errors()->getSourceCaptions())]
+      [\implode(', ', $dialog->errors()->getSourceCaptions())]
     );
   }
 }

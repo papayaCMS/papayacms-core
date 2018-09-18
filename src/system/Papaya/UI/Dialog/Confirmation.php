@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * Confirmation dialog control
  *
@@ -23,11 +24,10 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Confirmation extends \Papaya\UI\Dialog {
-
   /**
    * Dialog form method - should always be post for confirmation dialogs
    *
-   * @var NULL|integer
+   * @var null|int
    */
   protected $_method = self::METHOD_POST;
 
@@ -63,7 +63,7 @@ class Confirmation extends \Papaya\UI\Dialog {
   /**
    * Check if this dialog was submitted
    *
-   * @return boolean
+   * @return bool
    */
   public function isSubmitted() {
     if ($this->isPostRequest()) {
@@ -75,10 +75,10 @@ class Confirmation extends \Papaya\UI\Dialog {
   /**
    * Validate dialog (check the dialog token)
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
-    if (is_null($this->_executionResult)) {
+    if (\is_null($this->_executionResult)) {
       if ($this->isSubmitted()) {
         $this->_executionResult = $this->tokens()->validate(
           $this->parameters()->get('token'), $this->_owner
@@ -94,26 +94,26 @@ class Confirmation extends \Papaya\UI\Dialog {
    * Append dialog elements to dom
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element|void
+   * @return null|\Papaya\XML\Element|void
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     $dialog = $parent->appendElement(
       'confirmation-dialog',
-      array('action' => $this->action(), 'method' => 'post')
+      ['action' => $this->action(), 'method' => 'post']
     );
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
     $values = new \Papaya\Request\Parameters(
-      array(
+      [
         'confirmation' => $this->hiddenFields()->getCheckSum(),
         'token' => $this->tokens()->create($this->_owner)
-      )
+      ]
     );
     $this->appendHidden($dialog, $values, $this->parameterGroup());
-    $dialog->appendElement('message', array(), (string)$this->_message);
+    $dialog->appendElement('message', [], (string)$this->_message);
     $dialog->appendElement(
       'dialog-button',
-      array('type' => 'submit', 'caption' => (string)$this->_button)
+      ['type' => 'submit', 'caption' => (string)$this->_button]
     );
     $dialog->appendTo($parent);
     return $dialog;

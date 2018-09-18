@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Email;
+
 /**
  * An email consists of one or more parts, each part has indivdual headers an a content. The
  * content can be a list of other parts.
@@ -25,7 +26,6 @@ namespace Papaya\Email;
  * @property Content $content
  */
 class Part {
-
   /**
    * Internal variable for the headers subobject
    *
@@ -106,9 +106,9 @@ class Part {
         return $this->content();
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'LogicException: Unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
@@ -131,9 +131,9 @@ class Part {
         return;
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'LogicException: Unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );

@@ -24,13 +24,16 @@ namespace Papaya\Filter {
    * @subpackage Filter
    */
   class Identifier implements \Papaya\Filter {
-
     const CASE_INSENSITIVE = 0;
+
     const LOWERCASE = 1;
+
     const UPPERCASE = 2;
 
     private $_minimumLength;
+
     private $_maximumLength;
+
     private $_mode;
 
     /**
@@ -60,22 +63,22 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @param mixed|NULL $value
+     * @param mixed|null $value
      * @return bool|mixed|null|string|string[]
      */
     public function filter($value) {
-      $value = preg_replace('([^a-zA-Z\d_]+)', '', (string)$value);
+      $value = \preg_replace('([^a-zA-Z\d_]+)', '', (string)$value);
       if ($this->_maximumLength > 0) {
-        $value = substr($value, 0, $this->_maximumLength);
+        $value = \substr($value, 0, $this->_maximumLength);
       }
-      if (strlen($value) < $this->_minimumLength) {
-        return NULL;
+      if (\strlen($value) < $this->_minimumLength) {
+        return;
       }
-      if ($this->_mode === self::LOWERCASE) {
-        return strtolower($value);
+      if (self::LOWERCASE === $this->_mode) {
+        return \strtolower($value);
       }
-      if ($this->_mode === self::UPPERCASE) {
-        return strtoupper($value);
+      if (self::UPPERCASE === $this->_mode) {
+        return \strtoupper($value);
       }
       return $value;
     }
@@ -87,7 +90,7 @@ namespace Papaya\Filter {
      * @throws Exception\UnexpectedType
      */
     public function validate($value) {
-      if (!is_string($value)) {
+      if (!\is_string($value)) {
         throw new Exception\UnexpectedType('string');
       }
       switch ($this->_mode) {
@@ -101,8 +104,8 @@ namespace Papaya\Filter {
         $pattern = '(^[a-zA-Z\d_]{%d,%s}+$)D';
         break;
       }
-      $pattern = sprintf($pattern, $this->_minimumLength, $this->_maximumLength ?: '');
-      if (!preg_match($pattern, $value)) {
+      $pattern = \sprintf($pattern, $this->_minimumLength, $this->_maximumLength ?: '');
+      if (!\preg_match($pattern, $value)) {
         throw new Exception\InvalidValue($value);
       }
       return TRUE;

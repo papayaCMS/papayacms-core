@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select;
+
 /**
  * A select field with grouped options.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @subpackage UI
  */
 class Grouped extends \Papaya\UI\Dialog\Field\Select {
-
   /**
    * Set option groups and options.
    *
@@ -58,10 +58,10 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
   public function setValues($values) {
     \Papaya\Utility\Constraints::assertArray($values);
     $this->_values = $values;
-    $allowedValues = array();
+    $allowedValues = [];
     foreach ($values as $group) {
-      $groupValues = array_keys(isset($group['options']) ? $group['options'] : $group);
-      $allowedValues = array_merge($allowedValues, $groupValues);
+      $groupValues = \array_keys(isset($group['options']) ? $group['options'] : $group);
+      $allowedValues = \array_merge($allowedValues, $groupValues);
     }
     $this->setFilter(new \Papaya\Filter\ArrayElement($allowedValues));
   }
@@ -92,17 +92,16 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;
-      if (is_array($options) &&
-        count($options) > 0) {
+      if (\is_array($options) &&
+        \count($options) > 0) {
         $this->_appendOptions(
           $parent->appendElement(
             'group',
-            array('caption' => (string)$label)
+            ['caption' => (string)$label]
           ),
           $options
         );
       }
     }
   }
-
 }

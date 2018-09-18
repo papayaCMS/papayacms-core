@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical "OR" links between other filters
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class LogicalOr extends Logical {
-
   /**
    * Call validate() on subfilters, capture exceptions,
    * if a filter does not throw an exception break the loop and return TRUE.
@@ -42,7 +42,7 @@ class LogicalOr extends Logical {
         $filter->validate($value);
         return TRUE;
       } catch (\Papaya\Filter\Exception $e) {
-        if (is_null($firstException)) {
+        if (\is_null($firstException)) {
           $firstException = $e;
         }
       }
@@ -60,10 +60,10 @@ class LogicalOr extends Logical {
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $filterValue = $filter->filter($value);
-      if (!is_null($filterValue)) {
+      if (!\is_null($filterValue)) {
         return $filterValue;
       }
     }
-    return NULL;
+    return;
   }
 }

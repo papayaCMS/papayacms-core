@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A menu element set. This is a sublist of menu elements like buttons.
  *
@@ -26,22 +27,21 @@ namespace Papaya\UI\Toolbar;
  */
 class Collection
   extends Element {
-
   /**
    * Group elements collection
    *
-   * @var NULL|\Papaya\UI\Toolbar\Elements
+   * @var null|\Papaya\UI\Toolbar\Elements
    */
-  protected $_elements = NULL;
+  protected $_elements;
 
   /**
    * Declare properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'elements' => array('elements', 'elements')
-  );
+  protected $_declaredProperties = [
+    'elements' => ['elements', 'elements']
+  ];
 
   /**
    * Getter/setter for elements collection
@@ -54,7 +54,7 @@ class Collection
       $this->_elements = $elements;
       $this->_elements->owner($this);
     }
-    if (is_null($this->_elements)) {
+    if (\is_null($this->_elements)) {
       $this->_elements = new \Papaya\UI\Toolbar\Elements($this);
       $this->_elements->allowGroups = FALSE;
     }
@@ -65,10 +65,9 @@ class Collection
    * Append group and elements to the output xml.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     $this->elements()->appendTo($parent);
-    return NULL;
+    return;
   }
 }

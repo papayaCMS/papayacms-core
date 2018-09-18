@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\Visitor\Output;
+
 /**
  * Callbacks that are used by the simple template output visitor
  *
@@ -24,12 +25,11 @@ namespace Papaya\Template\Simple\Visitor\Output;
  * @method string onGetValue(string $nodeName)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onGetValue' => NULL
-      )
+      ]
     );
   }
 }

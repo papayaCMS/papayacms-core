@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating a filter for a  ISO 8601 datetime string
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class IsIsoDateTime extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */

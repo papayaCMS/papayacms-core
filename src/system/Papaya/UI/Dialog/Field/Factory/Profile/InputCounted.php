@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a generic input with an additional javascript based counter.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class InputCounted extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    * @return \Papaya\UI\Dialog\Field\Input

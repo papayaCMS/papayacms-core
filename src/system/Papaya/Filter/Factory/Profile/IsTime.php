@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating an time filter
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class IsTime extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */

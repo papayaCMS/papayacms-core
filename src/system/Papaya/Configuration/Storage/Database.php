@@ -23,7 +23,6 @@ namespace Papaya\Configuration\Storage;
  */
 class Database extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
-
   /**
    * Options database records list
    *
@@ -56,9 +55,9 @@ class Database extends \Papaya\Application\BaseObject
       isset($this->papaya()->response) &&
       $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)
     ) {
-      $message = str_replace(array('\r', '\n'), ' ', $exception->getMessage());
+      $message = \str_replace(['\r', '\n'], ' ', $exception->getMessage());
       $this->papaya()->response->sendHeader(
-        'X-Papaya-Error: '.get_class($exception).': '.$message
+        'X-Papaya-Error: '.\get_class($exception).': '.$message
       );
     }
   }
@@ -66,10 +65,10 @@ class Database extends \Papaya\Application\BaseObject
   /**
    * Load records from database
    *
-   * @return boolean
+   * @return bool
    */
   public function load() {
-    $this->records()->getDatabaseAccess()->errorHandler(array($this, 'handleError'));
+    $this->records()->getDatabaseAccess()->errorHandler([$this, 'handleError']);
     return $this->records()->load();
   }
 
@@ -79,7 +78,7 @@ class Database extends \Papaya\Application\BaseObject
    * @return \Iterator
    */
   public function getIterator() {
-    $options = array();
+    $options = [];
     foreach ($this->records() as $option) {
       $options[$option['name']] = $option['value'];
     }

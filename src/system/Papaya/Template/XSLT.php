@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template;
+
 /**
  * Papaya Template, using the XSLT engine to generate the output.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Template;
  * @subpackage Template
  */
 class XSLT extends \Papaya\Template {
-
   /**
    * @var string
    */
@@ -30,7 +30,7 @@ class XSLT extends \Papaya\Template {
   /**
    * @var \Papaya\Template\Engine\XSLT
    */
-  private $_engine = NULL;
+  private $_engine;
 
   public function __construct($xslFile = '') {
     if (!empty($xslFile)) {
@@ -69,7 +69,7 @@ class XSLT extends \Papaya\Template {
     } elseif (NULL === $this->_engine) {
       $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
       $this->_engine = $engine = new \Papaya\Template\Engine\XSLT();
-      $engine->useCache($preferred != 'xsl');
+      $engine->useCache('xsl' != $preferred);
     }
     return $this->_engine;
   }
@@ -78,7 +78,7 @@ class XSLT extends \Papaya\Template {
    * Parse data
    *
    * @param int $options
-   * @return string|FALSE parsed $result or message
+   * @return string|false parsed $result or message
    */
   public function parse($options = self::STRIP_XML_EMPTY_NAMESPACE) {
     $engine = $this->engine();
@@ -87,7 +87,7 @@ class XSLT extends \Papaya\Template {
     $engine->values($this->values()->document());
     return $this->clean(
       $this->errors()->encapsulate(
-        array($this, 'process'), array($engine)
+        [$this, 'process'], [$engine]
       ),
       $options
     );

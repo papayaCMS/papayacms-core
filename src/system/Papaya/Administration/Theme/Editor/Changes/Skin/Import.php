@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
-use \Papaya\Content;
-use \Papaya\Theme;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Import theme skin values from an uploaded file
@@ -28,11 +28,11 @@ use \Papaya\XML;
  */
 class Import
   extends UI\Control\Command\Dialog {
-
   /**
    * @var Content\Theme\Skin
    */
   private $_themeSet;
+
   /**
    * @var Theme\Handler
    */
@@ -57,11 +57,11 @@ class Import
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
     $dialog->hiddenFields()->merge(
-      array(
+      [
         'cmd' => 'skin_import',
         'theme' => $this->parameters()->get('theme', ''),
         'skin_id' => $skinId
-      )
+      ]
     );
     $dialog->fields[] = $uploadField = new UI\Dialog\Field\File\Temporary(
       new UI\Text\Translated('File'), 'values/file'
@@ -71,10 +71,10 @@ class Import
       $dialog->fields[] = $field = new UI\Dialog\Field\Select\Radio(
         new UI\Text\Translated('Replace current skin.'),
         'values/confirm_replace',
-        array(
+        [
           TRUE => new UI\Text\Translated('Yes'),
           FALSE => new UI\Text\Translated('No')
-        )
+        ]
       );
       $field->setDefaultValue(FALSE);
     }
@@ -113,10 +113,10 @@ class Import
               }
             } else {
               $this->_themeSet->assign(
-                array(
+                [
                   'title' => new UI\Text\Translated('* Imported Set'),
                   'theme' => $theme
-                )
+                ]
               );
               $this->_themeSet->setValuesXML(
                 $this->_themeHandler->getDefinition($theme),

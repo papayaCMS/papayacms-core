@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a value is not considered as float.
  *

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application;
+
 /**
  * Abstract class for Papaya Application Profile Collections
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application;
  * @subpackage Application
  */
 interface Profiles {
-
   /**
    * Get a collection of application object profiles
    *

@@ -14,12 +14,12 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * @package Papaya-Library
  * @subpackage Util
  */
 class Normalize {
-
   /**
    * Format http header names lowercase but each first char
    * (at string start or after a -) has to be uppercase
@@ -28,7 +28,7 @@ class Normalize {
    * @return string
    */
   public static function toHTTPHeaderName($string) {
-    $parts = explode('-', strtolower($string));
-    return implode('-', array_map('ucfirst', $parts));
+    $parts = \explode('-', \strtolower($string));
+    return \implode('-', \array_map('ucfirst', $parts));
   }
 }

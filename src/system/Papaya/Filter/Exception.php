@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Abstract superclass for filter exceptions
  *
@@ -23,5 +24,4 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 abstract class Exception extends \Papaya\Exception {
-
 }

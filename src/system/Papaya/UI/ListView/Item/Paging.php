@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\Item;
+
 /**
  * Provides several links to navigate mutiple pages of a list in a listview.
  *
@@ -22,28 +23,33 @@ namespace Papaya\UI\ListView\Item;
  *
  * @property \Papaya\UI\Reference $reference
  * @property string|array $parameterName
- * @property integer $currentPage
- * @property integer $currentOffset
- * @property integer $lastPage
- * @property integer $itemsCount
- * @property integer $itemsPerPage
- * @property integer $pageLimit
+ * @property int $currentPage
+ * @property int $currentOffset
+ * @property int $lastPage
+ * @property int $itemsCount
+ * @property int $itemsPerPage
+ * @property int $pageLimit
  * @property string $separator
  * @property string $image
- * @property integer $indentation
- * @property integer $columnSpan
- * @property boolean $selected
+ * @property int $indentation
+ * @property int $columnSpan
+ * @property bool $selected
  */
 abstract class Paging extends \Papaya\UI\ListView\Item {
-
   const MODE_PAGE = 1;
+
   const MODE_OFFSET = 2;
 
   protected $_mode = 0;
+
   protected $_itemsCount = 0;
+
   protected $_itemsPerPage = 10;
+
   protected $_currentPage = 0;
+
   protected $_pageLimit = 3;
+
   protected $_parameterName = 'page';
 
   protected $_image = 'items-table';
@@ -55,30 +61,30 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'subitems' => array('subitems', 'subitems'),
-    'image' => array('_image', '_image'),
-    'selected' => array('_selected', '_selected'),
-    'indentation' => array('_indentation', 'setIndentation'),
-    'columnSpan' => array('_columnSpan', '_columnSpan'),
-    'reference' => array('reference', 'reference'),
-    'parameterName' => array('_parameterName', '_parameterName'),
-    'currentPage' => array('getCurrentPage', 'setCurrentPage'),
-    'currentOffset' => array('getCurrentOffset', 'setCurrentOffset'),
-    'lastPage' => array('getLastPage'),
-    'itemsCount' => array('_itemsCount', 'setItemsCount'),
-    'itemsPerPage' => array('_itemsPerPage', 'setItemsPerPage'),
-    'pageLimit' => array('_pageLimit', 'setPageLimit'),
-    'separator' => array('_separator', '_separator'),
-  );
+  protected $_declaredProperties = [
+    'subitems' => ['subitems', 'subitems'],
+    'image' => ['_image', '_image'],
+    'selected' => ['_selected', '_selected'],
+    'indentation' => ['_indentation', 'setIndentation'],
+    'columnSpan' => ['_columnSpan', '_columnSpan'],
+    'reference' => ['reference', 'reference'],
+    'parameterName' => ['_parameterName', '_parameterName'],
+    'currentPage' => ['getCurrentPage', 'setCurrentPage'],
+    'currentOffset' => ['getCurrentOffset', 'setCurrentOffset'],
+    'lastPage' => ['getLastPage'],
+    'itemsCount' => ['_itemsCount', 'setItemsCount'],
+    'itemsPerPage' => ['_itemsPerPage', 'setItemsPerPage'],
+    'pageLimit' => ['_pageLimit', 'setPageLimit'],
+    'separator' => ['_separator', '_separator'],
+  ];
 
   /**
    * Create object and store properties
    *
    * @param string|array $parameterName
-   * @param integer $currentValue
-   * @param integer $itemsCount
-   * @param integer $mode
+   * @param int $currentValue
+   * @param int $itemsCount
+   * @param int $mode
    */
   public function __construct($parameterName, $currentValue, $itemsCount, $mode = self::MODE_PAGE) {
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
@@ -92,39 +98,39 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    *
    * @return array
    */
-  abstract function getPages();
+  abstract public function getPages();
 
   /**
    * Return the page that will be used for the image link
    *
-   * @return integer
+   * @return int
    */
-  abstract function getImagePage();
+  abstract public function getImagePage();
 
   /**
    * Append the listitem to the listview. The list item will only be added, if it contains page
    * links.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     $pages = $this->getPages();
-    if (count($pages) > 0) {
+    if (\count($pages) > 0) {
       $page = $this->getImagePage();
       $reference = clone $this->reference();
       $reference->getParameters()->set(
         (string)$this->_parameterName,
-        ($this->_mode == self::MODE_OFFSET) ? ($page - 1) * $this->_itemsPerPage : $page
+        (self::MODE_OFFSET == $this->_mode) ? ($page - 1) * $this->_itemsPerPage : $page
       );
       $itemNode = $parent->appendElement(
         'listitem',
-        array(
+        [
           'image' => $this->papaya()->images[(string)$this->_image],
           'href' => $reference->getRelative()
-        )
+        ]
       );
-      if ($this->_columnSpan != 0) {
+      if (0 != $this->_columnSpan) {
         $itemNode->setAttribute('span', $this->getColumnSpan());
       }
       if ((bool)$this->_selected) {
@@ -134,7 +140,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
       $this->subitems()->appendTo($itemNode);
       return $itemNode;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -161,23 +167,23 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Append a single page link to the caption xml element.
    *
    * @param \Papaya\XML\Element $parent
-   * @param integer $page
+   * @param int $page
    */
   public function appendPageLink(\Papaya\XML\Element $parent, $page) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,
-      ($this->_mode == self::MODE_OFFSET) ? ($page - 1) * $this->_itemsPerPage : $page
+      (self::MODE_OFFSET == $this->_mode) ? ($page - 1) * $this->_itemsPerPage : $page
     );
     $parent->appendElement(
-      'a', array('href' => $reference->getRelative()), $page
+      'a', ['href' => $reference->getRelative()], $page
     );
   }
 
   /**
    * The absolute count of items in the list. The minimum value is zero.
    *
-   * @param integer $itemsCount
+   * @param int $itemsCount
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
@@ -194,7 +200,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * The maximum count of items on one page. The last page can contain less items. The
    * minimum value is 1.
    *
-   * @param integer $itemsPerPage
+   * @param int $itemsPerPage
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
@@ -228,7 +234,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Depending on the mode set the current value as page or as offset value.
    *
    * @param $currentValue
-   * @return integer
+   * @return int
    */
   public function setCurrentValue($currentValue) {
     switch ($this->_mode) {
@@ -245,7 +251,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Set the current page value, fix it if it is outside the possible values.
    * The page value is based one 1.
    *
-   * @return integer
+   * @return int
    */
   public function getCurrentPage() {
     $lastPage = $this->getLastPage();
@@ -271,7 +277,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Return the current offset. This is an alternative represenation of the current page. It
    * is the index (based on zero) of the first item on this page.
    *
-   * @return integer
+   * @return int
    */
   public function getCurrentOffset() {
     return ($this->getCurrentPage() - 1) * $this->_itemsPerPage;
@@ -281,18 +287,18 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Set the current page using an offset. The offset it the index of the first item (bases on zero)
    * on a page.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function setCurrentOffset($offset) {
-    $this->setCurrentPage(floor($offset / $this->_itemsPerPage) + 1);
+    $this->setCurrentPage(\floor($offset / $this->_itemsPerPage) + 1);
   }
 
   /**
    * Return the last possible page depending on the item count.
    *
-   * @return integer
+   * @return int
    */
   public function getLastPage() {
-    return (int)ceil($this->_itemsCount / $this->_itemsPerPage);
+    return (int)\ceil($this->_itemsCount / $this->_itemsPerPage);
   }
 }

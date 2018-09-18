@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * A group of commands, one of the command ist executed depending on parameter value and
  * default command.
@@ -26,13 +27,12 @@ namespace Papaya\UI\Control\Command;
 class Controller
   extends \Papaya\UI\Control\Command
   implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * Array of command objects
    *
    * @var \Papaya\UI\Control\Command[]
    */
-  protected $_commands = array();
+  protected $_commands = [];
 
   /**
    * Parameter name
@@ -64,7 +64,7 @@ class Controller
    * Execute command and append output after validating the user permission
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     if (
@@ -76,13 +76,13 @@ class Controller
     ) {
       return $command->appendTo($parent);
     }
-    return NULL;
+    return;
   }
 
   /**
    * Get the current command, checking the parameter values and default command name.
    *
-   * @return NULL|\Papaya\UI\Control\Command
+   * @return null|\Papaya\UI\Control\Command
    */
   public function getCurrent() {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower(
@@ -94,7 +94,7 @@ class Controller
     if (isset($this->_commands[$this->_defaultCommand])) {
       return $this->_commands[$this->_defaultCommand];
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -144,10 +144,10 @@ class Controller
   /**
    * Countable interface: return command count
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_commands);
+    return \count($this->_commands);
   }
 
   /**
@@ -189,7 +189,7 @@ class Controller
    * Magic method, threat the command names as properties to read them.
    *
    * @param string $name
-   * @return NULL|\Papaya\UI\Control\Command
+   * @return null|\Papaya\UI\Control\Command
    */
   public function __get($name) {
     return $this->offsetGet($name);

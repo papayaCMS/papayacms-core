@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Exception;
+
 /**
  * Papaya database query exception, thrown on sql errors
  *
@@ -21,7 +22,6 @@ namespace Papaya\Database\Exception;
  * @subpackage Database
  */
 class Query extends \Papaya\Database\Exception {
-
   /**
    * Sent sql query
    *
@@ -33,8 +33,8 @@ class Query extends \Papaya\Database\Exception {
    * Initialize exception and store values.
    *
    * @param string $message
-   * @param integer $code
-   * @param integer $severity
+   * @param int $code
+   * @param int $severity
    * @param string $sql
    */
   public function __construct($message, $code = 0, $severity = NULL, $sql = '') {

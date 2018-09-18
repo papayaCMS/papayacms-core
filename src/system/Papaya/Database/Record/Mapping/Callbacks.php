@@ -44,14 +44,13 @@ namespace Papaya\Database\Record\Mapping;
  * @method mixed onMapValue(int $direction, string $propertyName, string $fieldName, mixed $value)
  * @method mixed onMapValueFromFieldToProperty(string $propertyName, string $fieldName, mixed $value)
  * @method mixed onMapValueFromPropertyToField(string $propertyName, string $fieldName, mixed $value)
- * @method string|NULL onGetFieldForProperty(string $propertyName, bool $withAlias = TRUE)
- * @method string|NULL onGetPropertyForField(string $fieldName)
+ * @method string|null onGetFieldForProperty(string $propertyName, bool $withAlias = TRUE)
+ * @method string|null onGetPropertyForField(string $fieldName)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onBeforeMapping' => NULL,
         'onBeforeMappingFieldsToProperties' => NULL,
         'onBeforeMappingPropertiesToFields' => NULL,
@@ -63,7 +62,7 @@ class Callbacks extends \Papaya\BaseObject\Callbacks {
         'onMapValueFromPropertyToField' => NULL,
         'onGetFieldForProperty' => NULL,
         'onGetPropertyForField' => NULL
-      )
+      ]
     );
   }
 }

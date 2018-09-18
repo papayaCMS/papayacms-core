@@ -27,11 +27,9 @@ namespace Papaya\Template\Engine\Values;
  * @subpackage Template
  */
 interface Loadable {
-
   /**
    * @param mixed $values
-   * @return FALSE|\Papaya\XML\Element|\Papaya\XML\Document
+   * @return false|\Papaya\XML\Element|\Papaya\XML\Document
    */
   public function load($values);
-
 }

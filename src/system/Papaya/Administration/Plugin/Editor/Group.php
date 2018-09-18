@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Plugin\Editor;
 
-use \Papaya\Iterator;
-use \Papaya\Plugin;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Iterator;
+use Papaya\Plugin;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * An PluginEditor implementation that combines several other dialogs,
@@ -30,9 +30,10 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Group extends Plugin\Editor {
-
   private $_editors = [];
+
   private $_toolbar;
+
   private $_indexParameterName;
 
   /**
@@ -56,7 +57,7 @@ class Group extends Plugin\Editor {
   }
 
   /**
-   * @param UI\Toolbar|NULL $toolbar
+   * @param UI\Toolbar|null $toolbar
    * @return UI\Toolbar
    */
   public function toolbar(UI\Toolbar $toolbar = NULL) {
@@ -69,8 +70,8 @@ class Group extends Plugin\Editor {
         $this->_indexParameterName,
         new Iterator\Callback(
           $this->_editors,
-          function ($data) {
-            return array('caption' => $data[1], 'image' => $data[2]);
+          function($data) {
+            return ['caption' => $data[1], 'image' => $data[2]];
           }
         )
       );

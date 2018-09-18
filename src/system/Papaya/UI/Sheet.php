@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * A sheet is a larger area to display richtext, like an email message or help texts
  *
@@ -21,23 +22,22 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 class Sheet extends Control {
-
   private $_title = '';
 
   /**
    * @var \Papaya\UI\Sheet\Subtitles
    */
-  private $_subtitles = NULL;
+  private $_subtitles;
 
   /**
    * @var \Papaya\XML\Document
    */
-  private $_document = NULL;
+  private $_document;
 
   /**
    * @var \Papaya\XML\Element|\Papaya\XML\Appendable
    */
-  private $_content = NULL;
+  private $_content;
 
   public function __construct() {
     $this->_document = new \Papaya\XML\Document();
@@ -47,10 +47,10 @@ class Sheet extends Control {
   public function appendTo(\Papaya\XML\Element $parent) {
     $sheet = $parent->appendElement('sheet');
     $title = (string)$this->_title;
-    if (!(empty($title) && count($this->subtitles()) == 0)) {
+    if (!(empty($title) && 0 == \count($this->subtitles()))) {
       $header = $sheet->appendElement('header');
       if (!empty($title)) {
-        $header->appendElement('title', array(), $title);
+        $header->appendElement('title', [], $title);
       }
       $header->append($this->subtitles());
     }
@@ -77,7 +77,7 @@ class Sheet extends Control {
    */
   public function subtitles($subtitles = NULL) {
     if (isset($subtitles)) {
-      if (is_array($subtitles)) {
+      if (\is_array($subtitles)) {
         $this->_subtitles = new \Papaya\UI\Sheet\Subtitles($subtitles);
       } else {
         \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\UI\Sheet\Subtitles::class, $subtitles);

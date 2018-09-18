@@ -22,14 +22,12 @@ namespace Papaya\Controller;
  * @subpackage Controller
  */
 class Image implements \Papaya\Controller {
-
   private $_imageGenerator;
 
   /**
    * Set image generator object
    *
    * @param \base_imagegenerator $imageGenerator
-   * @return void
    */
   public function setImageGenerator($imageGenerator) {
     $this->_imageGenerator = $imageGenerator;
@@ -41,7 +39,7 @@ class Image implements \Papaya\Controller {
    * @return \base_imagegenerator
    */
   public function getImageGenerator() {
-    if (is_null($this->_imageGenerator)) {
+    if (\is_null($this->_imageGenerator)) {
       $this->_imageGenerator = new \base_imagegenerator();
     }
     return $this->_imageGenerator;
@@ -53,7 +51,7 @@ class Image implements \Papaya\Controller {
    * @param \Papaya\Application|\Papaya\Application\CMS $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
-   * @return boolean|\Papaya\Controller
+   * @return bool|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,

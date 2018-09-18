@@ -22,7 +22,6 @@ namespace Papaya\Content;
  * @subpackage Theme
  */
 class Structure implements \IteratorAggregate {
-
   /**
    * @var Structure\Pages
    */
@@ -34,19 +33,19 @@ class Structure implements \IteratorAggregate {
    * @param string|\DOMElement $data
    */
   public function load($data) {
-    if (is_string($data)) {
-      $data = trim($data);
+    if (\is_string($data)) {
+      $data = \trim($data);
       if (empty($data)) {
         return;
       }
       $dom = new \Papaya\XML\Document();
-      if (0 === strpos($data, '<')) {
+      if (0 === \strpos($data, '<')) {
         $dom->loadXML($data);
       } else {
         $dom->load($data);
       }
       if (isset($dom->documentElement)) {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->pages()->load($dom->documentElement);
       }
     } elseif ($data instanceof \Papaya\XML\Element) {
@@ -82,7 +81,7 @@ class Structure implements \IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
-   * @return Structure\Page|NULL
+   * @return Structure\Page|null
    */
   public function getPage($identifier) {
     /** @var Structure\Page $page */
@@ -91,7 +90,7 @@ class Structure implements \IteratorAggregate {
         return $page;
       }
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -114,19 +113,19 @@ class Structure implements \IteratorAggregate {
         foreach ($group->values() as $value) {
           $current = '';
           if (isset($currentValues[$page->name][$group->name][$value->name])) {
-            $current = trim($currentValues[$page->name][$group->name][$value->name]);
+            $current = \trim($currentValues[$page->name][$group->name][$value->name]);
           }
           if (empty($current) || '0' === $current || 0 === $current) {
-            $current = trim($value->default);
+            $current = \trim($value->default);
           }
           if (!empty($current) || '0' === $current || 0 === $current) {
             $type = empty($value->type) ? 'text' : $value->type;
             if ('xhtml' === $type) {
               $groupNode
-                ->appendElement($value->name, array('type' => 'xhtml'))->appendXML($current);
+                ->appendElement($value->name, ['type' => 'xhtml'])->appendXML($current);
             } else {
               $groupNode
-                ->appendElement($value->name, array('type' => $type), $current);
+                ->appendElement($value->name, ['type' => $type], $current);
             }
           }
         }
@@ -142,7 +141,7 @@ class Structure implements \IteratorAggregate {
    * @return array
    */
   public function getArray(\Papaya\XML\Element $dataNode) {
-    $result = array();
+    $result = [];
     /** @var \Papaya\XML\Document $document */
     $document = $dataNode->ownerDocument;
     /** @var Structure\Page $page */
@@ -160,9 +159,9 @@ class Structure implements \IteratorAggregate {
                 $valueNode = $document->xpath()->evaluate($value->name, $groupNode)->item(0);
                 $type = empty($value->type) ? 'text' : $value->type;
                 if ('xhtml' === $type) {
-                  $current = trim($valueNode->saveFragment());
+                  $current = \trim($valueNode->saveFragment());
                 } else {
-                  $current = trim($valueNode->textContent);
+                  $current = \trim($valueNode->textContent);
                 }
                 if (!empty($current) || '0' === $current) {
                   $result[$page->name][$group->name][$value->name] = $current;

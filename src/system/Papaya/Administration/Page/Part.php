@@ -15,9 +15,9 @@
 
 namespace Papaya\Administration\Page;
 
-use \Papaya\Administration;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Administration;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Administration page parts are interactive ui controls, with access to a toolbar.
@@ -26,7 +26,6 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 abstract class Part extends UI\Control\Interactive {
-
   /**
    * @var UI\Control\Command
    */
@@ -103,7 +102,7 @@ abstract class Part extends UI\Control\Interactive {
   public function toolbar(UI\Toolbar\Collection $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
-      if (!$toolbar->elements || count($toolbar->elements) < 1) {
+      if (!$toolbar->elements || \count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (NULL === $this->_toolbar) {

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Textarea;
+
 /**
  * A textarea (multiline input) field, that will be replaced with an RTE using JavaScript
  *
@@ -21,9 +22,10 @@ namespace Papaya\UI\Dialog\Field\Textarea;
  * @subpackage UI
  */
 class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
-
   const RTE_DEFAULT = 'standard';
+
   const RTE_SIMPLE = 'simple';
+
   const RTE_INDIVIDUAL = 'individual';
 
   private $_rteMode = self::RTE_DEFAULT;
@@ -33,9 +35,9 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer $lines
+   * @param int $lines
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    * @param int|string $rteMode
    */
   public function __construct(
@@ -59,12 +61,12 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',
-      array(
+      [
         'type' => 'text',
         'name' => $this->_getParameterName($this->getName()),
         'lines' => $this->_lineCount,
         'data-rte' => $this->_rteMode
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }

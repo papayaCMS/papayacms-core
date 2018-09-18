@@ -22,15 +22,15 @@ namespace Papaya\Database;
  * @subpackage Database
  */
 class Manager extends \Papaya\Application\BaseObject {
-
   /**
    * @var \Papaya\Configuration $_configuration Configuration object
    */
-  private $_configuration = NULL;
+  private $_configuration;
+
   /**
    * @var array $_connectors list of created connectors
    */
-  private $_connectors = array();
+  private $_connectors = [];
 
   /**
    * get current configuration object
@@ -54,8 +54,8 @@ class Manager extends \Papaya\Application\BaseObject {
    * Create an database access instance and return it.
    *
    * @param object $owner
-   * @param string|NULL $readUri URI for read connection, use options if empty
-   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @param string|null $readUri URI for read connection, use options if empty
+   * @param string|null $writeUri URI for write connection, use $readUri if empty
    * @return \Papaya\Database\Access
    */
   public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
@@ -67,8 +67,8 @@ class Manager extends \Papaya\Application\BaseObject {
   /**
    * Get connector for given URIs, create if none exists
    *
-   * @param string|NULL $readUri URI for read connection, use options if empty
-   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @param string|null $readUri URI for read connection, use options if empty
+   * @param string|null $writeUri URI for write connection, use $readUri if empty
    * @return \db_simple
    */
   public function getConnector($readUri = NULL, $writeUri = NULL) {
@@ -77,10 +77,10 @@ class Manager extends \Papaya\Application\BaseObject {
     if (!isset($this->_connectors[$identifier])) {
       $connector = new \db_simple();
       $connector->papaya($this->papaya());
-      $connector->databaseURIs = array(
+      $connector->databaseURIs = [
         'read' => $readUri,
         'write' => $writeUri
-      );
+      ];
       $this->_connectors[$identifier] = $connector;
     }
     return $this->_connectors[$identifier];
@@ -90,8 +90,8 @@ class Manager extends \Papaya\Application\BaseObject {
    * Get connector for given URIs, existing connector will be overwritten
    *
    * @param \db_simple $connector connector object
-   * @param string|NULL $readUri URI for read connection, use options if empty
-   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @param string|null $readUri URI for read connection, use options if empty
+   * @param string|null $writeUri URI for write connection, use $readUri if empty
    * @return \db_simple
    */
   public function setConnector($connector, $readUri = NULL, $writeUri = NULL) {
@@ -116,16 +116,14 @@ class Manager extends \Papaya\Application\BaseObject {
     if (empty($writeUri)) {
       $writeUri = $readUri;
     }
-    return array(
+    return [
       $readUri,
       $writeUri
-    );
+    ];
   }
 
   /**
    * Close all open connections to database servers
-   *
-   * @return void
    */
   public function close() {
     /** @var \db_simple $connector */

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * A ui control for an icon, the icon can add itself to the output using a <glyph> element.
  *
@@ -28,13 +29,12 @@ namespace Papaya\UI;
  * @property \Papaya\UI\Reference $reference
  */
 class Icon extends Control {
-
   /**
    * internal reference object buffer
    *
-   * @var \Papaya\UI\Reference|NULL
+   * @var \Papaya\UI\Reference|null
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * image index or url
@@ -60,7 +60,7 @@ class Icon extends Control {
   /**
    * hide the icon/replace with empty element
    *
-   * @var boolean
+   * @var bool
    */
   protected $_visible = TRUE;
 
@@ -69,21 +69,21 @@ class Icon extends Control {
    *
    * @var array
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'image' => array('_image', '_image'),
-    'caption' => array('_caption', '_caption'),
-    'visible' => array('_visible', '_visible'),
-    'hint' => array('_hint', '_hint'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'image' => ['_image', '_image'],
+    'caption' => ['_caption', '_caption'],
+    'visible' => ['_visible', '_visible'],
+    'hint' => ['_hint', '_hint'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Create object and assign provided data
@@ -114,10 +114,10 @@ class Icon extends Control {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
         'glyph',
-        array(
+        [
           'src' => $this->getImageURL(),
           'caption' => (string)$this->_caption
-        )
+        ]
       );
       $hint = (string)$this->_hint;
       if (!empty($hint)) {
@@ -130,10 +130,10 @@ class Icon extends Control {
     } else {
       $glyph = $parent->appendElement(
         'glyph',
-        array(
+        [
           'src' => '-',
           'caption' => ''
-        )
+        ]
       );
     }
     return $glyph;
@@ -152,11 +152,11 @@ class Icon extends Control {
    * If action parameters were provided, return the reference for a link containing these
    * parameters in the query string
    *
-   * @return \Papaya\UI\Reference|NULL
+   * @return \Papaya\UI\Reference|null
    */
   public function getURL() {
     if (empty($this->_actionParameters)) {
-      return NULL;
+      return;
     } else {
       $reference = clone $this->reference();
       $reference->setParameters($this->_actionParameters);
@@ -174,7 +174,7 @@ class Icon extends Control {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
-    if (is_null($this->_reference)) {
+    if (\is_null($this->_reference)) {
       $this->_reference = new \Papaya\UI\Reference();
       $this->_reference->papaya($this->papaya());
     }

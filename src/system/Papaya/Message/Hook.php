@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Hook, interface for hooks that that capture php events
  *
@@ -21,7 +22,6 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 interface Hook {
-
   /**
    * Activate message hook, make it capture the php events
    */
@@ -32,4 +32,3 @@ interface Hook {
    */
   public function deactivate();
 }
-

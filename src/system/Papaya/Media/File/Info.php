@@ -16,9 +16,10 @@
 namespace Papaya\Media\File;
 
 abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAccess, \IteratorAggregate {
-
   private $_file;
+
   private $_properties;
+
   private $_originalFileName;
 
   public function __construct($file, $originalFileName = '') {
@@ -34,7 +35,7 @@ abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAcce
     return $this->_originalFileName;
   }
 
-  public function isSupported(array $fileProperties = array()) {
+  public function isSupported(array $fileProperties = []) {
     return TRUE;
   }
 
@@ -43,9 +44,9 @@ abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAcce
   }
 
   protected function fetchProperties() {
-    return array(
-      'filesize' => filesize($this->_file)
-    );
+    return [
+      'filesize' => \filesize($this->_file)
+    ];
   }
 
   private function getProperties() {
@@ -56,7 +57,7 @@ abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAcce
   }
 
   public function offsetExists($offset) {
-    return array_key_exists($offset, $this->getProperties());
+    return \array_key_exists($offset, $this->getProperties());
   }
 
   public function offsetGet($offset) {
@@ -64,11 +65,10 @@ abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAcce
   }
 
   public function offsetSet($offset, $value) {
-    throw new \BadMethodCallException(sprintf('Object %s is immutable.', static::class));
+    throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
   }
 
   public function offsetUnset($offset) {
-    throw new \BadMethodCallException(sprintf('Object %s is immutable.', static::class));
+    throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
   }
-
 }

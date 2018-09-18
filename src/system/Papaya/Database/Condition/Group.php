@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * @method Group logicalAnd()
  * @method Group logicalOr()
@@ -34,20 +35,21 @@ namespace Papaya\Database\Condition;
 class Group
   extends Element
   implements \IteratorAggregate, \Countable {
+  private $_conditions = [];
 
-  private $_conditions = array();
   private $_databaseAccess;
+
   private $_mapping;
 
-  private $_classes = array(
-    'isequal' => array(Element::class, '='),
-    'isnotequal' => array(Element::class, '!='),
-    'isnull' => array(Element::class, 'ISNULL'),
-    'isgreaterthan' => array(Element::class, '>'),
-    'isgreaterthanorequal' => array(Element::class, '>='),
-    'islessthan' => array(Element::class, '<'),
-    'islessthanorequal' => array(Element::class, '<=')
-  );
+  private $_classes = [
+    'isequal' => [Element::class, '='],
+    'isnotequal' => [Element::class, '!='],
+    'isnull' => [Element::class, 'ISNULL'],
+    'isgreaterthan' => [Element::class, '>'],
+    'isgreaterthanorequal' => [Element::class, '>='],
+    'islessthan' => [Element::class, '<'],
+    'islessthanorequal' => [Element::class, '<=']
+  ];
 
   /**
    * @param self|\Papaya\Database\Access|\Papaya\Database\Interfaces\Access $parent
@@ -66,7 +68,7 @@ class Group
       $this->_databaseAccess = $parent;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid parent class %s in %s', get_class($parent), __METHOD__)
+        \sprintf('Invalid parent class %s in %s', \get_class($parent), __METHOD__)
       );
     }
     $this->_mapping = $mapping;
@@ -92,7 +94,7 @@ class Group
   }
 
   public function __call($methodName, $arguments) {
-    $name = strtolower($methodName);
+    $name = \strtolower($methodName);
     switch ($name) {
       case 'logicaland' :
         $this->_conditions[] = $condition = new self($this, NULL, 'AND');
@@ -132,7 +134,7 @@ class Group
         }
     }
     throw new \BadMethodCallException(
-      sprintf('Invalid condition create method %s::%s().', get_class($this), $methodName)
+      \sprintf('Invalid condition create method %s::%s().', \get_class($this), $methodName)
     );
   }
 
@@ -141,7 +143,7 @@ class Group
   }
 
   public function count() {
-    return count($this->_conditions);
+    return \count($this->_conditions);
   }
 
   public function getSql($silent = FALSE) {
@@ -161,7 +163,7 @@ class Group
         $result .= $concatinator.$sql;
       }
     }
-    $result = substr($result, strlen($concatinator));
+    $result = \substr($result, \strlen($concatinator));
     if (empty($result)) {
       return '';
     } elseif ('NOT' === $this->_operator) {

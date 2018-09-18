@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Log, standard log message class
  *
@@ -22,7 +23,6 @@ namespace Papaya\Message;
  */
 class Log
   implements \Papaya\Message\Logable {
-
   /**
    * Message group
    */
@@ -31,7 +31,7 @@ class Log
   /**
    * Message type
    *
-   * @var integer
+   * @var int
    */
   protected $_type = \Papaya\Message::SEVERITY_INFO;
 
@@ -45,13 +45,13 @@ class Log
   /**
    * Message context
    *
-   * @var NULL|\Papaya\Message\Context\Group
+   * @var null|\Papaya\Message\Context\Group
    */
-  protected $_context = NULL;
+  protected $_context;
 
   /**
-   * @param integer $group
-   * @param integer $type
+   * @param int $group
+   * @param int $type
    * @param string $message
    */
   public function __construct($group, $type, $message) {
@@ -63,7 +63,7 @@ class Log
   /**
    * Get group of message (system, php, content, ...)
    *
-   * @return integer
+   * @return int
    */
   public function getGroup() {
     return $this->_group;
@@ -72,7 +72,7 @@ class Log
   /**
    * Get severity/type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getType() {
     return $this->_type;
@@ -81,7 +81,7 @@ class Log
   /**
    * Get severity of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getSeverity() {
     return $this->_type;
@@ -102,7 +102,7 @@ class Log
    * @return \Papaya\Message\Context\Group
    */
   public function context() {
-    if (is_null($this->_context)) {
+    if (\is_null($this->_context)) {
       $this->_context = new \Papaya\Message\Context\Group();
     }
     return $this->_context;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A field containing a listview control.
  *
@@ -21,13 +22,12 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class ListView extends \Papaya\UI\Dialog\Field {
-
   /**
    * listview object buffer
    *
    * @var \Papaya\UI\ListView
    */
-  private $_listview = NULL;
+  private $_listview;
 
   /**
    * Create object and assign needed values.

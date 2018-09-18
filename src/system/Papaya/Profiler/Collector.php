@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler;
+
 /**
  * Profiling data collector interface.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Profiler;
  * @subpackage Profiler
  */
 interface Collector {
-
   /**
    * Enable data collection
    */

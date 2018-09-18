@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - string functions for Javascript
  *
@@ -21,7 +22,6 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class Javascript {
-
   /**
    * Escape and quote javascript string
    *
@@ -30,12 +30,11 @@ class Javascript {
    * @return string
    */
   public static function quote($string, $quoteChar = "'") {
-    $result = str_replace(
-      array('\\', "\r", "\n", $quoteChar, '--'),
-      array('\\\\', "\\r", "\\n", '\\'.$quoteChar, '-'.$quoteChar.' + '.$quoteChar.'-'),
+    $result = \str_replace(
+      ['\\', "\r", "\n", $quoteChar, '--'],
+      ['\\\\', '\\r', '\\n', '\\'.$quoteChar, '-'.$quoteChar.' + '.$quoteChar.'-'],
       $string
     );
     return $quoteChar.$result.$quoteChar;
   }
-
 }

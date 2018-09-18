@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Root extends \Papaya\Database\Condition\Group {
-
   /**
    * @param string $method
    * @param array $arguments
@@ -37,11 +36,11 @@ class Root extends \Papaya\Database\Condition\Group {
    * @throws \LogicException
    */
   public function __call($method, $arguments) {
-    if (count($this) > 0) {
+    if (\count($this) > 0) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           '"%s" can only contain a single condition use logicalAnd() or logicalOr().',
-          get_class($this)
+          \get_class($this)
         )
       );
     }

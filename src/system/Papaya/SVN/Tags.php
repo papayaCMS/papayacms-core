@@ -16,13 +16,12 @@
 namespace Papaya\SVN;
 
 class Tags implements \IteratorAggregate, \Countable {
-
   /**
    * SVN client
    *
-   * @var \Papaya\SVN\Client|NULL
+   * @var \Papaya\SVN\Client|null
    */
-  private $_svnClient = NULL;
+  private $_svnClient;
 
   /**
    * Get/set the SVN client
@@ -34,7 +33,7 @@ class Tags implements \IteratorAggregate, \Countable {
     if (isset($client)) {
       $this->_svnClient = $client;
     }
-    if (is_null($this->_svnClient)) {
+    if (\is_null($this->_svnClient)) {
       $this->_svnClient = new \Papaya\SVN\Client\Extension();
     }
     return $this->_svnClient;
@@ -44,18 +43,21 @@ class Tags implements \IteratorAggregate, \Countable {
    * @var string
    */
   private $_tagDirectoryURL;
+
   /**
-   * @var integer
+   * @var int
    */
   private $_newerThanRevision;
+
   /**
-   * @var integer
+   * @var int
    */
   private $_highestRevisionSeen;
+
   /**
    * @var array of tag urls
    */
-  private $_newTags = NULL;
+  private $_newTags;
 
   /**
    * Find the tags in the $tagDirectoryURL that are newer than
@@ -63,7 +65,7 @@ class Tags implements \IteratorAggregate, \Countable {
    * the resulting object is accessed.
    *
    * @param string $tagDirectoryURL
-   * @param integer $newerThanRevision
+   * @param int $newerThanRevision
    */
   public function __construct($tagDirectoryURL, $newerThanRevision = 0) {
     \Papaya\Utility\Constraints::assertString($tagDirectoryURL);
@@ -76,7 +78,7 @@ class Tags implements \IteratorAggregate, \Countable {
   /**
    * Return the highest SVN revision seen while finding tags.
    *
-   * @return integer
+   * @return int
    */
   public function highestRevisionSeen() {
     $this->find();
@@ -87,10 +89,10 @@ class Tags implements \IteratorAggregate, \Countable {
    * Used to lazily do the actual work.
    */
   private function find() {
-    if (!is_null($this->_newTags)) {
+    if (!\is_null($this->_newTags)) {
       return;
     }
-    $this->_newTags = array();
+    $this->_newTags = [];
     $this->_tagDirectoryURL =
       \Papaya\Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryURL);
     $tagList = $this->svnClient()->ls($this->_tagDirectoryURL);
@@ -102,7 +104,7 @@ class Tags implements \IteratorAggregate, \Countable {
       if ($revision > $this->_highestRevisionSeen) {
         $this->_highestRevisionSeen = $revision;
       }
-      if ($tag['type'] === 'dir') {
+      if ('dir' === $tag['type']) {
         $tagURL = $this->_tagDirectoryURL.$tag['name'];
         $this->_newTags[] = $tagURL;
       }
@@ -122,11 +124,10 @@ class Tags implements \IteratorAggregate, \Countable {
   /**
    * Return the tag count.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
     $this->find();
-    return count($this->_newTags);
+    return \count($this->_newTags);
   }
-
 }

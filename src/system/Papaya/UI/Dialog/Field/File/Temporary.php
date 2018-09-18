@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\File;
+
 /**
  * A file input that moves the uploaded file to the temp directory an returns the path
  * to the temporary file.
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\File;
  * @subpackage UI
  */
 class Temporary extends \Papaya\UI\Dialog\Field {
-
   /**
    * An input field is always an single line text input field.
    *
@@ -59,10 +59,10 @@ class Temporary extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName())
-      )
+      ]
     );
   }
 

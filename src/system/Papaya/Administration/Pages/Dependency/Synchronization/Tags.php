@@ -15,9 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Administration;
-use \Papaya\Content\Page;
-
+use Papaya\Administration;
+use Papaya\Content\Page;
 
 /**
  * Synchronize assigned tags of the page
@@ -27,7 +26,6 @@ use \Papaya\Content\Page;
  */
 class Tags
   implements Administration\Pages\Dependency\Synchronization {
-
   /**
    * buffer variable for the page tags content object
    *
@@ -39,13 +37,13 @@ class Tags
    * Synchronize the tags of the page dependencies
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     if ($this->tags()->load($originId)) {
-      $tagIds = array();
+      $tagIds = [];
       foreach ($this->tags() as $tag) {
         $tagIds[] = $tag['id'];
       }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A menu/toolbar button with image and/or text.
  *
@@ -23,13 +24,12 @@ namespace Papaya\UI\Toolbar;
  * @property \Papaya\UI\Reference $reference
  * @property string|\Papaya\UI\Text $caption
  * @property string|\Papaya\UI\Text $hint
- * @property boolean $selected
+ * @property bool $selected
  * @property string $accessKey
  * @property string $target
  * @property string $image
  */
 class Button extends \Papaya\UI\Toolbar\Element {
-
   /**
    * Image or image index.  The button needs a cpation or/and an image.
    *
@@ -62,7 +62,7 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * If the button is selected/down
    *
-   * @var boolean
+   * @var bool
    */
   protected $_selected = FALSE;
 
@@ -78,15 +78,15 @@ class Button extends \Papaya\UI\Toolbar\Element {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'reference' => array('reference', 'reference'),
-    'image' => array('_image', '_image'),
-    'caption' => array('_caption', '_caption'),
-    'hint' => array('_hint', '_hint'),
-    'selected' => array('_selected', '_selected'),
-    'accessKey' => array('_accessKey', 'setAccessKey'),
-    'target' => array('_target', '_target')
-  );
+  protected $_declaredProperties = [
+    'reference' => ['reference', 'reference'],
+    'image' => ['_image', '_image'],
+    'caption' => ['_caption', '_caption'],
+    'hint' => ['_hint', '_hint'],
+    'selected' => ['_selected', '_selected'],
+    'accessKey' => ['_accessKey', 'setAccessKey'],
+    'target' => ['_target', '_target']
+  ];
 
   /**
    * Setter for access key character.
@@ -96,7 +96,7 @@ class Button extends \Papaya\UI\Toolbar\Element {
    */
   public function setAccessKey($key) {
     \Papaya\Utility\Constraints::assertString($key);
-    if (strlen($key) == 1) {
+    if (1 == \strlen($key)) {
       $this->_accessKey = $key;
     } else {
       throw new \InvalidArgumentException(
@@ -116,10 +116,10 @@ class Button extends \Papaya\UI\Toolbar\Element {
     if (!(empty($image) && empty($caption))) {
       $button = $parent->appendElement(
         'button',
-        array(
+        [
           'href' => $this->reference()->getRelative(),
           'target' => $this->_target
-        )
+        ]
       );
       if (!empty($image)) {
         $button->setAttribute('glyph', $image);

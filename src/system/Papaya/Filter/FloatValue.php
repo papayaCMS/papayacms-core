@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for a float numeric
  *
@@ -27,20 +28,19 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class FloatValue implements \Papaya\Filter {
-
   /**
    * Minimum float value
    *
    * @var float
    */
-  protected $_min = NULL;
+  protected $_min;
 
   /**
    * Maximum float value
    *
    * @var float
    */
-  protected $_max = NULL;
+  protected $_max;
 
   /**
    * Construct object and initialize minimum and maximum limits for the float value
@@ -49,10 +49,10 @@ class FloatValue implements \Papaya\Filter {
    * @param float $max
    */
   public function __construct($min = NULL, $max = NULL) {
-    if (!is_null($min)) {
+    if (!\is_null($min)) {
       $this->_min = $min;
     }
-    if (!is_null($max)) {
+    if (!\is_null($max)) {
       $this->_max = $max;
     }
   }
@@ -62,16 +62,16 @@ class FloatValue implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!is_numeric($value)) {
+    if (!\is_numeric($value)) {
       throw new \Papaya\Filter\Exception\NotNumeric($value);
     }
-    if (!is_null($this->_min) && $value < $this->_min) {
+    if (!\is_null($this->_min) && $value < $this->_min) {
       throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_min, $value);
     }
-    if (!is_null($this->_max) && $value > $this->_max) {
+    if (!\is_null($this->_max) && $value > $this->_max) {
       throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_max, $value);
     }
     return TRUE;
@@ -82,7 +82,7 @@ class FloatValue implements \Papaya\Filter {
    * into a float numeric before the validation. So only given limits are validated.
    *
    * @param string $value
-   * @return float|NULL
+   * @return float|null
    */
   public function filter($value) {
     $value = (float)$value;
@@ -91,6 +91,6 @@ class FloatValue implements \Papaya\Filter {
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
     }
-    return NULL;
+    return;
   }
 }

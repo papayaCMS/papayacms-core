@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
+
 /**
  * Use the all values provided in the constructor as cache condition data
  *
@@ -22,14 +23,13 @@ namespace Papaya\Cache\Identifier\Definition;
  */
 class Values
   implements \Papaya\Cache\Identifier\Definition {
-
   private $_values;
 
   /**
    * Just store all arguments into an private member variable
    */
   public function __construct() {
-    $this->_values = func_get_args();
+    $this->_values = \func_get_args();
   }
 
   /**
@@ -39,17 +39,17 @@ class Values
    * If no arguments whre stored, return TRUE.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return TRUE|array
+   * @return true|array
    */
   public function getStatus() {
-    return empty($this->_values) ? TRUE : array(get_class($this) => $this->_values);
+    return empty($this->_values) ? TRUE : [\get_class($this) => $this->_values];
   }
 
   /**
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_VARIABLES;

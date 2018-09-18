@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Text;
+
 /**
  * Papaya Interface String Translated, a string object that will be translated before usage
  *
@@ -27,15 +28,16 @@ namespace Papaya\UI\Text;
  * @subpackage UI
  */
 class Date extends \Papaya\UI\Text {
-
   const SHOW_DATE = 0;
+
   const SHOW_TIME = 1;
+
   const SHOW_SECONDS = 2;
 
   /**
    * Store timestamp
    *
-   * @var integer
+   * @var int
    */
   private $_timestamp;
 
@@ -44,7 +46,7 @@ class Date extends \Papaya\UI\Text {
   /**
    * create object and store timestamp
    *
-   * @param integer $timestamp
+   * @param int $timestamp
    * @param int $options
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {
@@ -66,7 +68,7 @@ class Date extends \Papaya\UI\Text {
       }
     }
     if (NULL === $this->_string) {
-      $this->_string = date($pattern, $this->_timestamp);
+      $this->_string = \date($pattern, $this->_timestamp);
     }
     return (string)$this->_string;
   }

@@ -16,7 +16,7 @@
 namespace Papaya\Administration\Permission;
 
 use Papaya\Administration;
-use \Papaya\Iterator;
+use Papaya\Iterator;
 
 /**
  * Constant and structure definitions for administration interface permission groups.
@@ -27,13 +27,18 @@ use \Papaya\Iterator;
  * @subpackage Administration
  */
 class Groups implements \IteratorAggregate {
-
   const UNKNOWN = 0;
+
   const MISC = 1;
+
   const PAGES = 2;
+
   const BOXES = 5;
+
   const SYSTEM = 3;
+
   const FILES = 4;
+
   const MODULES = 7;
 
   private $_groups = [
@@ -145,8 +150,8 @@ class Groups implements \IteratorAggregate {
   /**
    * get the group id for an given permission
    *
-   * @param integer $permissionId
-   * @return integer
+   * @param int $permissionId
+   * @return int
    */
   public function getGroupId($permissionId) {
     return isset($this->_index[$permissionId])

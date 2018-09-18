@@ -24,9 +24,10 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 abstract class Box extends \Papaya\Database\BaseObject\Record {
-
   const DELIVERY_MODE_STATIC = 0;
+
   const DELIVERY_MODE_ESI = 1;
+
   const DELIVERY_MODE_JAVASCRIPT = 2;
 
   /**
@@ -34,7 +35,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // box id
     'id' => 'box_id',
     // box group id
@@ -54,7 +55,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
     'expires_time' => 'box_expirestime',
     // unpublished translations counter
     'unpublished_translations' => 'box_unpublished_languages'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::BOXES;
 
@@ -63,7 +64,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
    *
    * @var Box\Translations
    */
-  protected $_translations = NULL;
+  protected $_translations;
 
   public function load($id) {
     if (parent::load($id)) {
@@ -85,7 +86,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
-    if (is_null($this->_translations)) {
+    if (\is_null($this->_translations)) {
       $this->_translations = new Box\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }

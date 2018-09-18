@@ -19,8 +19,8 @@ namespace Papaya\Message\Context {
     Interfaces\Items,
     Interfaces\Text,
     Interfaces\XHTML {
-
     private $_exception;
+
     private $_backtrace;
 
     public function __construct(\Exception $exception) {

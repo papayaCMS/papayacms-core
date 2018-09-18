@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A virtual dialog field, this will be part of the dialog but has no XML output. It can collect data
  * from a parameter depending on the filter.
@@ -22,13 +23,12 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Collector extends \Papaya\UI\Dialog\Field {
-
   /**
    * Initialize object, field name, default value and filter
    *
    * @param string $name
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    */
   public function __construct($name, $default, \Papaya\Filter $filter = NULL) {
     $this->setName($name);

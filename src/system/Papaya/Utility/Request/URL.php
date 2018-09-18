@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Request;
+
 /**
  * Static utility class to fetch the absolute request url.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Utility\Request;
  * @subpackage Util
  */
 class URL {
-
   /**
    * fetch the current request url from environment
    *
@@ -33,7 +33,7 @@ class URL {
     if (empty($host)) {
       return '';
     } else {
-      return sprintf(
+      return \sprintf(
         '%s://%s%s%s',
         \Papaya\Utility\Server\Protocol::get(),
         $host,

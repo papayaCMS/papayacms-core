@@ -34,7 +34,6 @@ namespace Papaya\Database\Source;
  * @property \Papaya\Request\Parameters $parameters
  */
 class Name {
-
   /**
    * Raw dsn string
    *
@@ -47,7 +46,7 @@ class Name {
    *
    * @var array
    */
-  private $_properties = array();
+  private $_properties = [];
 
   /**
    * Additional parameters
@@ -136,16 +135,16 @@ class Name {
         (?:[.]{1,2}(?:[/\\\\][^?<>/\\\\:*|]+)+) # relative file name
       )
     $)xD';
-    $queryStringStart = strpos($name, '?');
+    $queryStringStart = \strpos($name, '?');
     if ($queryStringStart > 0) {
-      $dsn = substr($name, 0, $queryStringStart - 1);
+      $dsn = \substr($name, 0, $queryStringStart - 1);
     } else {
       $dsn = $name;
     }
-    if (preg_match($patternServer, $dsn, $matches) ||
-      preg_match($patternFile, $dsn, $matches)) {
+    if (\preg_match($patternServer, $dsn, $matches) ||
+      \preg_match($patternFile, $dsn, $matches)) {
       $this->_name = $name;
-      $this->_properties = array(
+      $this->_properties = [
         'api' => $matches['api'],
         'platform' => $this->_getMatchValue($matches, 'platform', $matches['api']),
         'filename' => $this->_getMatchValue($matches, 'file'),
@@ -155,10 +154,10 @@ class Name {
         'port' => (int)$this->_getMatchValue($matches, 'port'),
         'socket' => $this->_getMatchValue($matches, 'socket'),
         'database' => $this->_getMatchValue($matches, 'database')
-      );
+      ];
       if ($queryStringStart > 0) {
         $query = new \Papaya\Request\Parameters\QueryString();
-        $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
+        $this->_parameters = $query->setString(\substr($name, $queryStringStart + 1))->values();
       } else {
         $this->_parameters = new \Papaya\Request\Parameters();
       }
@@ -188,7 +187,7 @@ class Name {
    * Check if a dsn property does exists (contains a value in this case)
    *
    * @param name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     if (empty($this->_properties[$name])) {
@@ -207,14 +206,14 @@ class Name {
    * @return mixed
    */
   public function __get($name) {
-    if (array_key_exists($name, $this->_properties)) {
+    if (\array_key_exists($name, $this->_properties)) {
       return $this->_properties[$name];
     }
     if ('parameters' === $name) {
       return $this->_parameters;
     }
     throw new \ErrorException(
-      sprintf('Undefined property: %s::$%s', __CLASS__, $name),
+      \sprintf('Undefined property: %s::$%s', __CLASS__, $name),
       0,
       0,
       __FILE__,
@@ -231,7 +230,7 @@ class Name {
    */
   public function __set($name, $value) {
     throw new \BadMethodCallException(
-      sprintf('Property %s::$%s is not writable.', __CLASS__, $name)
+      \sprintf('Property %s::$%s is not writable.', __CLASS__, $name)
     );
   }
 }

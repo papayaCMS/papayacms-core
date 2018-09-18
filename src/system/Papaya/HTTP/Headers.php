@@ -13,8 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-
 namespace Papaya\HTTP;
+
 /**
  * Papaya HTTP Client Headers - handles a list of http headers.
  *
@@ -26,13 +26,12 @@ namespace Papaya\HTTP;
  */
 class Headers
   implements \IteratorAggregate, \Countable, \ArrayAccess {
-
   /**
    * Internal header storage array
    *
    * @var array
    */
-  protected $_headers = array();
+  protected $_headers = [];
 
   /**
    * Create object and assign some standard values to the internal storage if provided.
@@ -69,26 +68,26 @@ class Headers
    * Countable Interface: returns the count of the unique headers. Headers with the same name but
    * different values will be counted only once.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_headers);
+    return \count($this->_headers);
   }
 
   /**
    * get a request http header value
    *
    * @param string $name
-   * @return string|array|NULL
+   * @return string|array|null
    */
   public function get($name) {
-    if (trim($name) != '') {
+    if ('' != \trim($name)) {
       $name = $this->normalizeName($name);
       if (!empty($this->_headers[$name])) {
         return $this->_headers[$name];
       }
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -96,21 +95,20 @@ class Headers
    *
    * @param string $name header name
    * @param string $value
-   * @param boolean $allowDuplicates optional, default value FALSE
-   * @access public
-   * @return boolean
+   * @param bool $allowDuplicates optional, default value FALSE
+   * @return bool
    */
   public function set($name, $value, $allowDuplicates = FALSE) {
-    if (trim($name) != '') {
+    if ('' != \trim($name)) {
       $name = $this->normalizeName($name);
       if ($allowDuplicates &&
         isset($this->_headers[$name])) {
         if (!empty($value)) {
           if (isset($this->_headers[$name]) &&
-            !is_array($this->_headers[$name])) {
-            $this->_headers[$name] = array(
+            !\is_array($this->_headers[$name])) {
+            $this->_headers[$name] = [
               $this->_headers[$name]
-            );
+            ];
           }
           $this->_headers[$name][] = $value;
           return TRUE;
@@ -131,19 +129,18 @@ class Headers
    * (at string start or after a -) has to be uppercase
    *
    * @param string $name
-   * @access public
    * @return string
    */
   protected function normalizeName($name) {
-    $parts = explode('-', strtolower($name));
-    return implode('-', array_map('ucfirst', $parts));
+    $parts = \explode('-', \strtolower($name));
+    return \implode('-', \array_map('ucfirst', $parts));
   }
 
   /**
    * ArrayAccess Interface: check if an heaer exists
    *
-   * @param integer $offset
-   * @return boolean
+   * @param int $offset
+   * @return bool
    */
   public function offsetExists($offset) {
     return isset($this->_headers[$this->normalizeName($offset)]);
@@ -152,8 +149,8 @@ class Headers
   /**
    * ArrayAccess Interface: get an header
    *
-   * @param integer $offset
-   * @return string|array|NULL
+   * @param int $offset
+   * @return string|array|null
    */
   public function offsetGet($offset) {
     return $this->get($offset);
@@ -162,7 +159,7 @@ class Headers
   /**
    * ArrayAccess Interface: set an header
    *
-   * @param integer $offset
+   * @param int $offset
    * @param mixed $value
    * @internal param $ string|array|NULL
    */
@@ -173,7 +170,7 @@ class Headers
   /**
    * ArrayAccess Interface: remove an header
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function offsetUnset($offset) {
     unset($this->_headers[$this->normalizeName($offset)]);
@@ -186,14 +183,14 @@ class Headers
    */
   public function __toString() {
     $result = '';
-    $lineBreaks = array("\r\n", "\n\r", "\r", "\n");
+    $lineBreaks = ["\r\n", "\n\r", "\r", "\n"];
     foreach ($this->_headers as $name => $value) {
-      if (is_array($value)) {
+      if (\is_array($value)) {
         foreach ($value as $subValue) {
-          $result .= str_replace($lineBreaks, ' ', $name.': '.$subValue)."\r\n";
+          $result .= \str_replace($lineBreaks, ' ', $name.': '.$subValue)."\r\n";
         }
       } else {
-        $result .= str_replace($lineBreaks, ' ', $name.': '.$value)."\r\n";
+        $result .= \str_replace($lineBreaks, ' ', $name.': '.$value)."\r\n";
       }
     }
     return $result;

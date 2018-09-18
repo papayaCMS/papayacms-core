@@ -22,40 +22,39 @@ namespace Papaya\Theme;
  * @subpackage Theme
  */
 class Wrapper extends \Papaya\Application\BaseObject {
-
   /**
    * @var Wrapper\URL
    */
-  private $_wrapperURL = NULL;
+  private $_wrapperURL;
 
   /**
    * Theme handler object, provides current theme and local path
    *
    * @var \Papaya\Theme\Handler
    */
-  private $_handler = NULL;
+  private $_handler;
 
   /**  *
    * @var \Papaya\Theme\Handler
    */
-  private $_themeSet = NULL;
+  private $_themeSet;
 
   /**
    * Theme group object, allows to read files from a group specified in theme.xml.
    *
    * @var Wrapper\Group
    */
-  private $_group = NULL;
+  private $_group;
 
   /**
    * @var \Papaya\Cache\Service
    */
-  private $_cacheService = NULL;
+  private $_cacheService;
 
   /**
    * @var \Papaya\Template\Engine
    */
-  private $_templateEngine = NULL;
+  private $_templateEngine;
 
   /**
    * Initialize object using a wrapper url object.
@@ -99,7 +98,6 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * public caching.
    *
    * In other cases the newly generated content will be returned.
-   *
    */
   public function getResponse() {
     $application = $this->papaya();
@@ -163,7 +161,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
     if (isset($handler)) {
       $this->_handler = $handler;
     }
-    if (is_null($this->_handler)) {
+    if (\is_null($this->_handler)) {
       $this->_handler = new \Papaya\Theme\Handler();
       $this->_handler->papaya($this->papaya());
     }
@@ -180,7 +178,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     }
-    if (is_null($this->_themeSet)) {
+    if (\is_null($this->_themeSet)) {
       $this->_themeSet = new \Papaya\Content\Theme\Skin();
       $this->_themeSet->papaya($this->papaya());
     }
@@ -197,8 +195,8 @@ class Wrapper extends \Papaya\Application\BaseObject {
     if (isset($service)) {
       $this->_cacheService = $service;
     }
-    if (is_null($this->_cacheService)) {
-      /** @noinspection PhpParamsInspection */
+    if (\is_null($this->_cacheService)) {
+      /* @noinspection PhpParamsInspection */
       $this->_cacheService = \Papaya\Cache::getService(
         $this->papaya()->options
       );
@@ -210,24 +208,24 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Compile file contents into a single output
    *
    * @param string $theme
-   * @param integer $themeSetId
+   * @param int $themeSetId
    * @param array $files
-   * @param boolean $compress use gzip compression
+   * @param bool $compress use gzip compression
    * @return string
    */
   public function getCompiledContent($theme, $themeSetId, $files, $compress) {
     $localPath = $this->handler()->getLocalThemePath($theme);
     $result = '';
-    $fileCount = count($files);
+    $fileCount = \count($files);
     foreach ($files as $fileName) {
       $localFile = $localPath.$fileName;
-      if (file_exists($localFile) &&
-        is_file($localFile) &&
-        is_readable($localFile)) {
+      if (\file_exists($localFile) &&
+        \is_file($localFile) &&
+        \is_readable($localFile)) {
         if ($fileCount > 1) {
           $result .= "\n/* Adding file: ".$fileName." */\n";
         }
-        $result .= file_get_contents($localFile);
+        $result .= \file_get_contents($localFile);
       } else {
         $result .= "\n/* Missing file: ".$fileName." */\n";
       }
@@ -243,14 +241,14 @@ class Wrapper extends \Papaya\Application\BaseObject {
       $engine->run();
       $result = $engine->getResult();
     }
-    return ($compress) ? gzencode($result) : $result;
+    return ($compress) ? \gzencode($result) : $result;
   }
 
   /**
    * Getter/Setter for the active template engine.
    *
    * @param \Papaya\Template\Engine $engine
-   * @return \Papaya\Template\Engine|NULL
+   * @return \Papaya\Template\Engine|null
    */
   public function templateEngine(\Papaya\Template\Engine $engine = NULL) {
     if (isset($engine)) {
@@ -295,20 +293,20 @@ class Wrapper extends \Papaya\Application\BaseObject {
         $files = $this->_wrapperURL->getFiles();
       }
       if ($allowDirectories) {
-        $pattern = '(^([a-z\d_-]+/)*[a-z\d._-]+\\.'.preg_quote($extension).'$)iS';
+        $pattern = '(^([a-z\d_-]+/)*[a-z\d._-]+\\.'.\preg_quote($extension).'$)iS';
       } else {
-        $pattern = '(^[a-z\d._-]+\\.'.preg_quote($extension).'$)iS';
+        $pattern = '(^[a-z\d._-]+\\.'.\preg_quote($extension).'$)iS';
       }
-      $result = array();
+      $result = [];
       foreach ($files as $fileIdentifier) {
         $fileName = $this->prepareFileName($fileIdentifier, '.'.$extension);
-        if (preg_match($pattern, $fileName)) {
+        if (\preg_match($pattern, $fileName)) {
           $result[] = $fileName;
         }
       }
-      return array_unique($result);
+      return \array_unique($result);
     }
-    return array();
+    return [];
   }
 
   /**
@@ -319,8 +317,8 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @return string
    */
   private function prepareFileName($fileIdentifier, $extension) {
-    $fileName = trim($fileIdentifier);
-    if (substr($fileName, 0 - strlen($extension)) != $extension) {
+    $fileName = \trim($fileIdentifier);
+    if (\substr($fileName, 0 - \strlen($extension)) != $extension) {
       $fileName .= $extension;
     }
     return $fileName;
@@ -332,19 +330,19 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @param int $themeSetId
    * @param array $files
    * @param string $mimetype
-   * @param boolean $compress
+   * @param bool $compress
    * @return string
    */
   public function getCacheIdentifier($themeSetId, $files, $mimetype, $compress = FALSE) {
     $options = $this->papaya()->options;
     $result = ($themeSetId > 0) ? $themeSetId.'_' : '';
-    $result .= implode(
+    $result .= \implode(
       '_',
-      array(
+      [
         $options->get('PAPAYA_WEBSITE_REVISION', 'dev'),
-        $mimetype == 'text/css' ? 'css' : 'js',
-        md5(serialize($files))
-      )
+        'text/css' == $mimetype ? 'css' : 'js',
+        \md5(\serialize($files))
+      ]
     );
     $result .= ($compress ? '.gz' : '');
     return $result;

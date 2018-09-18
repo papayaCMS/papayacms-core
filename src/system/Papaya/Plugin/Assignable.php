@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an plugin provides a list of traversable key => value list of
  * named attributes.
@@ -22,12 +23,10 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Assignable {
-
   /**
    * Return a traversable key => value list of attributes
    *
    * @return \Traversable
    */
   public function getAttributes();
-
 }

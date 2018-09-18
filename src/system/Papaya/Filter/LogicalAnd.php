@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical "and" links between other filters
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class LogicalAnd extends Logical {
-
   /**
    * Call validate() on each subfilter, the subfilter will throw an
    * exception and break the loop if the value is invalid.
@@ -52,7 +52,7 @@ class LogicalAnd extends Logical {
     foreach ($this->_filters as $filter) {
       $value = $filter->filter($value);
       if (NULL === $value) {
-        return NULL;
+        return;
       }
     }
     return $value;

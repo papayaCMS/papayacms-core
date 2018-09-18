@@ -23,11 +23,10 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectFile
   extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @var \Papaya\File\System\Factory
    */
-  private $_fileSystem = NULL;
+  private $_fileSystem;
 
   protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_FILES;
 
@@ -48,7 +47,7 @@ class SelectFile
       if (!$this->options()->mandatory) {
         $elements = new \Papaya\Iterator\Union(
           \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-          new \ArrayIterator(array('' => 'none')),
+          new \ArrayIterator(['' => 'none']),
           $elements
         );
       }
@@ -63,14 +62,14 @@ class SelectFile
         ),
         $this->options()->mandatory
       );
-      $field->callbacks()->getOptionCaption = array($this, 'callbackGetFilename');
+      $field->callbacks()->getOptionCaption = [$this, 'callbackGetFilename'];
       $field->setDefaultValue($this->options()->default);
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
       $field = new \Papaya\UI\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_ERROR,
         new \Papaya\UI\Text\Translated(
-          'Can not open directory "%s"', array($path)
+          'Can not open directory "%s"', [$path]
         )
       );
     }
@@ -98,9 +97,9 @@ class SelectFile
   private function getPath() {
     $parameters = $this->options()->parameters;
     $basePath = empty($parameters[0]) ? '' : (string)$parameters[0];
-    if (0 === strpos($basePath, 'callback:')) {
-      $callback = array($this->options()->context, substr($basePath, 9));
-      $path = call_user_func($callback);
+    if (0 === \strpos($basePath, 'callback:')) {
+      $callback = [$this->options()->context, \substr($basePath, 9)];
+      $path = \call_user_func($callback);
     } else {
       $path = new \Papaya\Configuration\Path(
         $basePath,

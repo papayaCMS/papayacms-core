@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for message string contexts
  *
@@ -24,11 +25,10 @@ namespace Papaya\Message\Context\Interfaces;
  */
 interface Items
   extends \Papaya\Message\Context\Interfaces\Labeled {
-
   /**
    * Get context as simple string, without formatting
    *
    * @return array
    */
-  function asArray();
+  public function asArray();
 }

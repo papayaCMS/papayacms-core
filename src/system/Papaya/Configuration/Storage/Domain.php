@@ -23,7 +23,6 @@ namespace Papaya\Configuration\Storage;
  */
 class Domain extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
-
   /**
    * member variable for the url scheme, set in constructor used in load()
    *
@@ -51,7 +50,7 @@ class Domain extends \Papaya\Application\BaseObject
    * @param string $hostURL
    */
   public function __construct($hostURL) {
-    if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostURL, $match)) {
+    if (\preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostURL, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ('https' === $match['scheme'])
         ? \Papaya\Utility\Server\Protocol::HTTPS : \Papaya\Utility\Server\Protocol::HTTP;
@@ -78,14 +77,14 @@ class Domain extends \Papaya\Application\BaseObject
   /**
    * Load domain record from database using the defined host name
    *
-   * @return boolean
+   * @return bool
    */
   public function load() {
     return $this->domain()->load(
-      array(
+      [
         'host' => $this->_host,
-        'scheme' => array(0, $this->_scheme)
-      )
+        'scheme' => [0, $this->_scheme]
+      ]
     );
   }
 
@@ -97,7 +96,7 @@ class Domain extends \Papaya\Application\BaseObject
   public function getIterator() {
     if (
       \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
-      is_array($this->domain()->options)
+      \is_array($this->domain()->options)
     ) {
       return new \ArrayIterator($this->domain()->options);
     }

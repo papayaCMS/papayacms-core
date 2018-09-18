@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes;
 
-use \Papaya\Content;
-use \Papaya\UI;
+use Papaya\Content;
+use Papaya\UI;
 
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -26,19 +26,21 @@ use \Papaya\UI;
  */
 class Dialog
   extends UI\Control\Command\Dialog\Database\Record {
-
   /**
    * @var \Papaya\Content\Structure\Page
    */
   private $_themePage;
+
   /**
    * @var \Papaya\Theme\Handler
    */
   private $_themeHandler;
+
   /**
    * @var \Papaya\UI\Dialog\Field\Factory
    */
   private $_fieldFactory;
+
   /**
    * @var \Papaya\Cache\Service
    */
@@ -56,17 +58,17 @@ class Dialog
     }
     $dialog = new UI\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
-      $dialog->caption = new UI\Text\Translated('Dynamic Values: %s', array($page->title));
+      $dialog->caption = new UI\Text\Translated('Dynamic Values: %s', [$page->title]);
       $dialog->options->topButtons = TRUE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
       $dialog->hiddenFields()->merge(
-        array(
+        [
           'cmd' => 'values_edit',
           'theme' => $this->parameters()->get('theme', ''),
           'skin_id' => $skinId,
           'page_identifier' => $this->parameters()->get('page_identifier', '')
-        )
+        ]
       );
       /** @var Content\Structure\Group $group */
       foreach ($page->groups() as $group) {
@@ -75,12 +77,12 @@ class Dialog
         foreach ($group->values() as $value) {
           try {
             $options = new UI\Dialog\Field\Factory\Options(
-              array(
+              [
                 'name' => 'values/'.$value->getIdentifier(),
                 'caption' => $value->title,
                 'default' => $value->default,
                 'parameters' => $value->fieldParameters
-              )
+              ]
             );
             $fieldset->fields[] = $field = $this->fieldFactory()->getField(
               $value->fieldType, $options
@@ -110,7 +112,7 @@ class Dialog
         $this->callbacks()->onExecuteFailed = function() use ($dialog) {
           $this->papaya()->messages->displayError(
             'Invalid input. Please check the field(s) "%s".',
-            array(implode(', ', $dialog->errors()->getSourceCaptions()))
+            [\implode(', ', $dialog->errors()->getSourceCaptions())]
           );
         };
       }
@@ -187,7 +189,7 @@ class Dialog
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
-      /** @noinspection PhpParamsInspection */
+      /* @noinspection PhpParamsInspection */
       $this->_cacheService = \Papaya\Cache::getService($this->papaya()->options);
     }
     return $this->_cacheService;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a "color" input.
  *
@@ -24,7 +25,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class Color extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * Create a color input field
    *

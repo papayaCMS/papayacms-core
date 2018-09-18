@@ -25,7 +25,6 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 class Errors extends \Papaya\Application\BaseObject {
-
   /**
    * @var bool
    */
@@ -36,27 +35,27 @@ class Errors extends \Papaya\Application\BaseObject {
    *
    * @var array
    */
-  private $_errorMapping = array(
+  private $_errorMapping = [
     LIBXML_ERR_NONE => \Papaya\Message::SEVERITY_INFO,
     LIBXML_ERR_WARNING => \Papaya\Message::SEVERITY_WARNING,
     LIBXML_ERR_ERROR => \Papaya\Message::SEVERITY_ERROR,
     LIBXML_ERR_FATAL => \Papaya\Message::SEVERITY_ERROR
-  );
+  ];
 
   /**
    * Activate the libxml internal error capturing (and clear the current buffer)
    */
   public function activate() {
-    $this->_savedStatus = libxml_use_internal_errors(TRUE);
-    libxml_clear_errors();
+    $this->_savedStatus = \libxml_use_internal_errors(TRUE);
+    \libxml_clear_errors();
   }
 
   /**
    * Deactivate the libxml internal error capturing (and clear the current buffer)
    */
   public function deactivate() {
-    libxml_clear_errors();
-    libxml_use_internal_errors($this->_savedStatus);
+    \libxml_clear_errors();
+    \libxml_use_internal_errors($this->_savedStatus);
   }
 
   /**
@@ -65,16 +64,16 @@ class Errors extends \Papaya\Application\BaseObject {
    * otherwise.
    *
    * @param callable $callback
-   * @param NULL|array $arguments
+   * @param null|array $arguments
    * @param bool $emitErrors
    * @return mixed
    */
   public function encapsulate($callback, array $arguments = NULL, $emitErrors = TRUE) {
     $this->activate();
     try {
-      $success = call_user_func_array(
+      $success = \call_user_func_array(
         $callback,
-        NULL !== $arguments ? $arguments : array()
+        NULL !== $arguments ? $arguments : []
       );
       if ($emitErrors) {
         $this->emit();
@@ -99,7 +98,7 @@ class Errors extends \Papaya\Application\BaseObject {
           $context
         );
       }
-      return NULL;
+      return;
     }
     return $success;
   }
@@ -107,15 +106,15 @@ class Errors extends \Papaya\Application\BaseObject {
   /**
    * Dispatches messages for the libxml errors in the internal buffer.
    *
-   * @param boolean $fatalOnly
+   * @param bool $fatalOnly
    * @throws Exception
    */
   public function emit($fatalOnly = FALSE) {
-    $errors = libxml_get_errors();
+    $errors = \libxml_get_errors();
     foreach ($errors as $error) {
       if (LIBXML_ERR_FATAL === $error->level) {
         throw new Exception($error);
-      } elseif (!$fatalOnly && 0 !== strpos($error->message, 'Namespace prefix papaya')) {
+      } elseif (!$fatalOnly && 0 !== \strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()
           ->messages
@@ -124,12 +123,12 @@ class Errors extends \Papaya\Application\BaseObject {
           );
       }
     }
-    libxml_clear_errors();
+    \libxml_clear_errors();
   }
 
   /**
    * @deprecated {@see self::emit()}
-   * @param boolean $fatalOnly
+   * @param bool $fatalOnly
    * @throws Exception
    */
   public function omit($fatalOnly = FALSE) {
@@ -147,7 +146,7 @@ class Errors extends \Papaya\Application\BaseObject {
     $message = new \Papaya\Message\Log(
       \Papaya\Message\Logable::GROUP_SYSTEM,
       $messageType,
-      sprintf(
+      \sprintf(
         '%d: %s in line %d at char %d',
         $error->code,
         $error->message,

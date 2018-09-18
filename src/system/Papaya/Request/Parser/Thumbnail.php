@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parser;
+
 /**
  * Papaya request parser for media database thumbnail links
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parser;
  * @subpackage Request
  */
 class Thumbnail extends \Papaya\Request\Parser {
-
   /**
    * PCRE pattern for thumbnail links
    *
@@ -45,11 +45,11 @@ class Thumbnail extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'thumbnail';
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;

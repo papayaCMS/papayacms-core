@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a select field that translates the elements of the given list.
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectTranslated
   extends Select {
-
   /**
    * Wrap elements in a string so they get translated
    *

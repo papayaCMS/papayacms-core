@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parser;
+
 /**
  * Papaya request parser for page links
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parser;
  * @subpackage Request
  */
 class Page extends \Papaya\Request\Parser {
-
   /**
   * PCRE pattern for page links
   *
@@ -44,11 +44,11 @@ class Page extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'page';
       $result['output_mode'] = $matches['mode'];
       if (!empty($matches['preview'])) {

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Provide data encapsulation for the configuration options.
  *
@@ -22,29 +23,28 @@ namespace Papaya\Content;
  */
 class Configuration
   extends \Papaya\Database\BaseObject\Records {
-
   /**
    * Map field names to value identifiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'opt_name' => 'name',
     'opt_value' => 'value'
-  );
+  ];
 
   /**
    * Load all options
    */
   public function load() {
     $sql =
-      /** @lang TEXT */
+      /* @lang TEXT */
       'SELECT opt_name, opt_value
          FROM %s
         ORDER BY opt_name';
-    $parameters = array(
+    $parameters = [
       $this->databaseGetTableName(\Papaya\Content\Tables::OPTIONS)
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'opt_name');
   }
 }

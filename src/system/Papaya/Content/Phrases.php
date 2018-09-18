@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Encapsulation for translated phrases (get text like system)
  *
@@ -21,24 +22,23 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Phrases extends \Papaya\Database\Records {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'p.phrase_id',
     'identifier' => 'p.phrase_text_lower',
     'text' => 'p.phrase_text',
     'translation' => 'pt.translation',
     'language_id' => 'pt.lng_id'
-  );
+  ];
 
   protected $_itemClass = Phrase::class;
 
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $databaseAccess = $this->getDatabaseAccess();
     if (isset($filter['group'])) {
       $group = $filter['group'];
@@ -52,14 +52,14 @@ class Phrases extends \Papaya\Database\Records {
       $sql .= \Papaya\Utility\Text::escapeForPrintf(
         $this->_compileCondition($filter, ' AND ').$this->_compileOrderBy()
       );
-      $parameters = array(
+      $parameters = [
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASES),
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUPS),
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUP_LINKS),
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
         \Papaya\Utility\Arrays::get($filter, 'language_id', 0),
         $group
-      );
+      ];
     } else {
       $sql = "SELECT $fields
                 FROM %s AS p
@@ -67,11 +67,11 @@ class Phrases extends \Papaya\Database\Records {
       $sql .= \Papaya\Utility\Text::escapeForPrintf(
         $this->_compileCondition($filter).$this->_compileOrderBy()
       );
-      $parameters = array(
+      $parameters = [
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASES),
         $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
         \Papaya\Utility\Arrays::get($filter, 'language_id', 0)
-      );
+      ];
     }
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }

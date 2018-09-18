@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for message string contexts
  *
@@ -24,20 +25,19 @@ namespace Papaya\Message\Context\Interfaces;
  */
 interface Table
   extends \Papaya\Message\Context\Interfaces\Items {
-
   /**
    * Get table column header if available
    *
-   * @return array|NULL
+   * @return array|null
    */
-  function getColumns();
+  public function getColumns();
 
   /**
    * Get the data row count
    *
-   * @return integer
+   * @return int
    */
-  function getRowCount();
+  public function getRowCount();
 
   /**
    * Get data row by position
@@ -45,5 +45,5 @@ interface Table
    * @param $position
    * @return array
    */
-  function getRow($position);
+  public function getRow($position);
 }

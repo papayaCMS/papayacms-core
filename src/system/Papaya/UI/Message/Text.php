@@ -14,38 +14,37 @@
  */
 
 namespace Papaya\UI\Message;
+
 /**
  * User message with an xml fragment as message content.
  *
  * The given string is append as a text node. If it contains xml the special chars will be escaped.
  *
- * @property integer $severity
+ * @property int $severity
  * @property string $event
- * @property boolean $occured
+ * @property bool $occured
  * @property string $content
  *
  * @package Papaya-Library
  * @subpackage UI
  */
 class Text extends \Papaya\UI\Message {
-
   private $_content = '';
 
-  protected $_declaredProperties = array(
-    'severity' => array('_severity', 'setSeverity'),
-    'event' => array('_event', 'setEvent'),
-    'occured' => array('_occured', 'setOccured'),
-    'content' => array('getContent', 'setContent')
-  );
-
+  protected $_declaredProperties = [
+    'severity' => ['_severity', 'setSeverity'],
+    'event' => ['_event', 'setEvent'],
+    'occured' => ['_occured', 'setOccured'],
+    'content' => ['getContent', 'setContent']
+  ];
 
   /**
    * Create object and store poroperties including the xml fragment string
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $event
    * @param string $content
-   * @param boolean $occured
+   * @param bool $occured
    */
   public function __construct($severity, $event, $content, $occured = FALSE) {
     parent::__construct($severity, $event, $occured);

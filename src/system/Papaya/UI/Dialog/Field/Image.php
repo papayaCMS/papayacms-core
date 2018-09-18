@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 use base_thumbnail;
 
 /**
@@ -30,7 +31,6 @@ use base_thumbnail;
  *  FOR A PARTICULAR PURPOSE.
  */
 class Image extends \Papaya\UI\Dialog\Field {
-
   /**
    * Message image
    *
@@ -62,18 +62,18 @@ class Image extends \Papaya\UI\Dialog\Field {
   /**
    * @var base_thumbnail
    */
-  protected $_thumbnail = NULL;
+  protected $_thumbnail;
 
   /**
    * @var \Papaya\UI\Reference\Thumbnail
    */
-  protected $_referenceThumbnail = NULL;
+  protected $_referenceThumbnail;
 
   /**
    * Create object and assign needed values
    *
    * @param string $fileId
-   * * @param string $caption
+   *                       * @param string $caption
    * @param int $width
    * @param int $height
    * @param string $mode
@@ -82,7 +82,7 @@ class Image extends \Papaya\UI\Dialog\Field {
     $fileId, $caption = NULL, $width = 100, $height = 100, $mode = 'max'
   ) {
     $this->_fileId = $fileId;
-    if (!is_null($caption)) {
+    if (!\is_null($caption)) {
       $this->setCaption($caption);
     }
     $this->_width = $width;
@@ -106,16 +106,15 @@ class Image extends \Papaya\UI\Dialog\Field {
       $this->_mode
     );
 
-
     $this->referenceThumbnail()->setThumbnailMode($this->_mode);
     $this->referenceThumbnail()->setThumbnailSize($this->_width.'x'.$this->_height);
     $this->referenceThumbnail()->setMediaUri($thumbnail);
 
     $image = $field->appendElement(
-      'image', array(
+      'image', [
         'src' => $this->referenceThumbnail()->get(),
         'mode' => $this->_mode
-      )
+      ]
     );
   }
 
@@ -127,8 +126,8 @@ class Image extends \Papaya\UI\Dialog\Field {
     if (isset($object)) {
       $this->_thumbnail = $object;
     } else {
-      if (is_null($this->_thumbnail)) {
-        $this->_thumbnail = new \base_thumbnail;
+      if (\is_null($this->_thumbnail)) {
+        $this->_thumbnail = new \base_thumbnail();
       }
     }
     return $this->_thumbnail;
@@ -142,8 +141,7 @@ class Image extends \Papaya\UI\Dialog\Field {
     if (isset($object)) {
       $this->_referenceThumbnail = $object;
     } else {
-      if (is_null($this->_referenceThumbnail)) {
-
+      if (\is_null($this->_referenceThumbnail)) {
         $this->_referenceThumbnail = new \Papaya\UI\Reference\Thumbnail();
         $this->_referenceThumbnail->setThumbnailMode($this->_mode);
         $this->_referenceThumbnail->setThumbnailSize($this->_width.'x'.$this->_height);

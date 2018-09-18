@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input\Media;
+
 /**
  * A single line input for a file from the media database
  *
@@ -21,11 +22,10 @@ namespace Papaya\UI\Dialog\Field\Input\Media;
  * @subpackage UI
  */
 class File extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
-   * @var boolean
+   * @var bool
    */
   protected $_type = 'media_file';
 
@@ -34,5 +34,4 @@ class File extends \Papaya\UI\Dialog\Field\Input {
     $this->setMandatory($mandatory);
     $this->setFilter(new \Papaya\Filter\Guid());
   }
-
 }

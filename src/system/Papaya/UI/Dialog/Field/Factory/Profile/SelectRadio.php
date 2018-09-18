@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a select field displayed as radio boxes.
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectRadio
   extends Select {
-
   /**
    * Create a select field displayed as radio boxes
    *

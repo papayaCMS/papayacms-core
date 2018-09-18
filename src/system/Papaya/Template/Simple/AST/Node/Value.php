@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\AST\Node;
+
 /**
  * AST node representing a node value placeholder with a default value
  *
@@ -24,8 +25,8 @@ namespace Papaya\Template\Simple\AST\Node;
  * @property-read string $default
  */
 class Value extends \Papaya\Template\Simple\AST\Node {
-
   protected $_name = '';
+
   protected $_default = '';
 
   /**

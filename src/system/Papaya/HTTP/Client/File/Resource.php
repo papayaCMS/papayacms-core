@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\HTTP\Client\File;
+
 /**
  * Papaya HTTP Client File Resource - handle file upload resource using a resource id
  *
@@ -21,8 +22,7 @@ namespace Papaya\HTTP\Client\File;
  * @subpackage HTTP-Client
  */
 class Resource extends \Papaya\HTTP\Client\File {
-
-  protected $_size = NULL;
+  protected $_size;
 
   /**
    * @param string $name
@@ -34,7 +34,7 @@ class Resource extends \Papaya\HTTP\Client\File {
   public function __construct($name, $fileName, $resource, $mimeType = '') {
     if (!empty($name) &&
       !empty($fileName) &&
-      is_resource($resource)) {
+      \is_resource($resource)) {
       $this->_name = $name;
       $this->_fileName = $fileName;
       $this->_resource = $resource;
@@ -49,13 +49,12 @@ class Resource extends \Papaya\HTTP\Client\File {
   /**
    * read file resource size and/or return it
    *
-   * @access public
-   * @return integer
+   * @return int
    */
   public function getSize() {
     if (!isset($this->_size)) {
       $this->_size = 0;
-      $stat = fstat($this->_resource);
+      $stat = \fstat($this->_resource);
       if (isset($stat['size'])) {
         $this->_size = (int)$stat['size'];
       }
@@ -67,20 +66,20 @@ class Resource extends \Papaya\HTTP\Client\File {
    * send file data
    *
    * @param \Papaya\HTTP\Client\Socket $socket
-   * @param boolean $chunked optional, default value FALSE
-   * @param integer $bufferSize optional, default value 0
+   * @param bool $chunked optional, default value FALSE
+   * @param int $bufferSize optional, default value 0
    * @throws \UnexpectedValueException
    */
   public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
-    if (is_resource($this->_resource)) {
+    if (\is_resource($this->_resource)) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {
           $bufferSize = $this->_bufferSize;
         }
         if ($chunked) {
-          while (!feof($this->_resource)) {
-            $data = fread($this->_resource, $bufferSize);
-            if ($data !== '') {
+          while (!\feof($this->_resource)) {
+            $data = \fread($this->_resource, $bufferSize);
+            if ('' !== $data) {
               $socket->writeChunk($data);
             }
           }
@@ -88,16 +87,16 @@ class Resource extends \Papaya\HTTP\Client\File {
         } else {
           $size = $this->getSize();
           $sent = 0;
-          while (!feof($this->_resource) && $size >= ($sent + $bufferSize)) {
-            $data = fread($this->_resource, $bufferSize);
-            if ($data !== '') {
+          while (!\feof($this->_resource) && $size >= ($sent + $bufferSize)) {
+            $data = \fread($this->_resource, $bufferSize);
+            if ('' !== $data) {
               $socket->write($data);
-              $sent += strlen($data);
+              $sent += \strlen($data);
             }
           }
           if ($size > $sent) {
             $bytesToSend = $size - $sent;
-            $data = fread($this->_resource, $bytesToSend);
+            $data = \fread($this->_resource, $bytesToSend);
             $socket->write($data);
           }
           $socket->write($this->_lineBreak);

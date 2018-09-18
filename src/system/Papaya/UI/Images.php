@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Papaya Interface Images, and encapsulation for image lists (used in administration interfaces)
  *
@@ -23,17 +24,17 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 class Images implements \ArrayAccess {
-
   /**
    * Ignore duplicates (keep existing)
    *
-   * @var integer
+   * @var int
    */
   const DUPLICATES_IGNORE = 0;
+
   /**
    * Overwrite duplicates (replace existing)
    *
-   * @var integer
+   * @var int
    */
   const DUPLICATES_OVERWRITE = 1;
 
@@ -42,7 +43,7 @@ class Images implements \ArrayAccess {
    *
    * @var array(string=>string)
    */
-  private $_images = array();
+  private $_images = [];
 
   /**
    * Initialize object and add images if provided
@@ -59,11 +60,11 @@ class Images implements \ArrayAccess {
    * Add images to internal list
    *
    * @param array(string=>string) $images
-   * @param integer $mode
+   * @param int $mode
    */
   public function add(array $images, $mode = self::DUPLICATES_IGNORE) {
     foreach ($images as $id => $image) {
-      if (!(isset($this->_images[$id]) && $mode == self::DUPLICATES_IGNORE)) {
+      if (!(isset($this->_images[$id]) && self::DUPLICATES_IGNORE == $mode)) {
         $this->_images[$id] = $image;
       }
     }
@@ -109,7 +110,7 @@ class Images implements \ArrayAccess {
    * @param mixed $value
    */
   public function offsetSet($offset, $value) {
-    $this->add(array($offset => $value), self::DUPLICATES_OVERWRITE);
+    $this->add([$offset => $value], self::DUPLICATES_OVERWRITE);
   }
 
   /**
@@ -118,6 +119,6 @@ class Images implements \ArrayAccess {
    * @param string $offset
    */
   public function offsetUnset($offset) {
-    $this->remove(array($offset));
+    $this->remove([$offset]);
   }
 }

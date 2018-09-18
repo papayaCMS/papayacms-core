@@ -16,7 +16,6 @@
 namespace Papaya\UI\ListView\Item;
 
 class Radio extends \Papaya\UI\ListView\Item {
-
   private $_fieldName = '';
 
   /**
@@ -26,7 +25,7 @@ class Radio extends \Papaya\UI\ListView\Item {
 
   private $_value = '';
 
-  private $_checked = NULL;
+  private $_checked;
 
   /**
    * @param string $image

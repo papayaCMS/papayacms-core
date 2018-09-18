@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * Create dialog fields using profile objects.
  *
@@ -25,11 +26,10 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Factory {
-
   /**
    * @var array
    */
-  private $_profiles = array();
+  private $_profiles = [];
 
   /**
    * Get the profile object for the given name.
@@ -80,7 +80,7 @@ class Factory {
       return __CLASS__.'\\Profile\\Input';
     }
     $class = __CLASS__.'\\Profile\\'.$name;
-    if (class_exists($class)) {
+    if (\class_exists($class)) {
       return $class;
     }
     throw new Factory\Exception\InvalidProfile($name);

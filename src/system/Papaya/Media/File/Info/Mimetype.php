@@ -16,35 +16,34 @@
 namespace Papaya\Media\File\Info;
 
 class Mimetype extends \Papaya\Media\File\Info {
-
   private $_fallbackMimeType = 'application/octet-stream';
 
   protected function fetchProperties() {
     $mimeType = $this->getMimeType();
-    return array(
+    return [
       'mimetype' => $mimeType
-    );
+    ];
   }
 
   private function getMimeType() {
     $file = $this->getFile();
-    if (!empty($file) && is_file($file)) {
+    if (!empty($file) && \is_file($file)) {
       if (
-        function_exists('mime_content_type') &&
-        is_callable('mime_content_type')
+        \function_exists('mime_content_type') &&
+        \is_callable('mime_content_type')
       ) {
-        return mime_content_type($file);
+        return \mime_content_type($file);
       }
-      if (extension_loaded('fileinfo')) {
-        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($fileInfo, $file);
-        finfo_close($fileInfo);
+      if (\extension_loaded('fileinfo')) {
+        $fileInfo = \finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = \finfo_file($fileInfo, $file);
+        \finfo_close($fileInfo);
         return $mimeType;
       }
 
       $fileCommand = $this->papaya()->options->get('PAPAYA_FILE_CMD_PATH', '/usr/bin/file');
-      $disabledFunctions = array_flip(
-        preg_split('/,\s*/', ini_get('disable_functions'))
+      $disabledFunctions = \array_flip(
+        \preg_split('/,\s*/', \ini_get('disable_functions'))
       );
       $neededFunctions = ['proc_open', 'escapeshellcmd', 'escapeshellarg'];
       foreach ($neededFunctions as $neededFunction) {
@@ -56,11 +55,11 @@ class Mimetype extends \Papaya\Media\File\Info {
       $mimeType = NULL;
       $null = NULL;
       $this->execCommand(
-        escapeshellcmd($fileCommand).' -i -b '.escapeshellarg($file), $mimeType, $null
+        \escapeshellcmd($fileCommand).' -i -b '.\escapeshellarg($file), $mimeType, $null
       );
       if (
         NULL === $mimeType &&
-        preg_match('(^([\w-\d]+/[\w-\d]+))', $mimeType, $matches)
+        \preg_match('(^([\w-\d]+/[\w-\d]+))', $mimeType, $matches)
       ) {
         return $matches[1];
       }
@@ -68,29 +67,28 @@ class Mimetype extends \Papaya\Media\File\Info {
     return $this->_fallbackMimeType;
   }
 
-
   private function execCommand($cmd, &$stdout, &$stderr) {
     $result = FALSE;
     $cachePath = $this->papaya()->options['PAPAYA_PATH_CACHE'];
-    $stdoutFile = tempnam($cachePath, "exec");
-    $stderrFile = tempnam($cachePath, "exec");
-    $descriptorSpec = array(
-      0 => array("pipe", "r"),
-      1 => array("file", $stdoutFile, "w"),
-      2 => array("file", $stderrFile, "w")
-    );
-    $procRes = proc_open($cmd, $descriptorSpec, $pipes);
+    $stdoutFile = \tempnam($cachePath, 'exec');
+    $stderrFile = \tempnam($cachePath, 'exec');
+    $descriptorSpec = [
+      0 => ['pipe', 'r'],
+      1 => ['file', $stdoutFile, 'w'],
+      2 => ['file', $stderrFile, 'w']
+    ];
+    $procRes = \proc_open($cmd, $descriptorSpec, $pipes);
 
-    if (is_resource($procRes)) {
-      fclose($pipes[0]);
+    if (\is_resource($procRes)) {
+      \fclose($pipes[0]);
 
-      $result = proc_close($procRes);
-      $stdout = file_get_contents($stdoutFile);
-      $stderr = file_get_contents($stderrFile);
+      $result = \proc_close($procRes);
+      $stdout = \file_get_contents($stdoutFile);
+      $stderr = \file_get_contents($stderrFile);
     }
 
-    unlink($stdoutFile);
-    unlink($stderrFile);
+    \unlink($stdoutFile);
+    \unlink($stderrFile);
     return $result;
   }
 }

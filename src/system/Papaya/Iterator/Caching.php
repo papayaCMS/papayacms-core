@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 /**
  * A CachingIterator that fills itself using a callback on first rewind or a class to getCache.
  *
@@ -21,15 +22,15 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Caching extends \CachingIterator {
+  private $_callback;
 
-  private $_callback = NULL;
   private $_cached = FALSE;
 
   /**
    * Create object and store innter iterator.
    *
    * @param \Traversable $iterator
-   * @param NULL|\Callable Callback
+   * @param null|\Callable Callback
    */
   public function __construct(\Traversable $iterator, $callback = NULL) {
     parent::__construct(
@@ -42,11 +43,11 @@ class Caching extends \CachingIterator {
   /**
    * Validate and store callback function
    *
-   * @param \Callable|NULL $callback
+   * @param \Callable|null $callback
    * @throws \InvalidArgumentException
    */
   public function setCallback($callback) {
-    if (is_null($callback) || is_callable($callback)) {
+    if (\is_null($callback) || \is_callable($callback)) {
       $this->_callback = $callback;
     } else {
       throw new \InvalidArgumentException(
@@ -58,7 +59,7 @@ class Caching extends \CachingIterator {
   /**
    * Get the current callback function
    *
-   * @return NULL|\Callable
+   * @return null|\Callable
    */
   public function getCallback() {
     return $this->_callback;
@@ -69,7 +70,7 @@ class Caching extends \CachingIterator {
    */
   public function getCache() {
     if (isset($this->_callback)) {
-      call_user_func($this->_callback);
+      \call_user_func($this->_callback);
     }
     parent::getCache();
     $this->_cached = TRUE;

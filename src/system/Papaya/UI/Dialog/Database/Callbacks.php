@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Database;
+
 /**
  * Callbacks that are used by the database dialogs.
  *
@@ -22,20 +23,19 @@ namespace Papaya\UI\Dialog\Database;
  *
  * @property \Papaya\BaseObject\Callback $onBeforeSave
  * @property \Papaya\BaseObject\Callback $onBeforeDelete
- * @method boolean onBeforeSave(\Papaya\Database\Interfaces\Record $record)
- * @method boolean onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
+ * @method bool onBeforeSave(\Papaya\Database\Interfaces\Record $record)
+ * @method bool onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   /**
    * Initialize object and set callback definition
    */
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onBeforeDelete' => TRUE,
         'onBeforeSave' => TRUE
-      )
+      ]
     );
   }
 }

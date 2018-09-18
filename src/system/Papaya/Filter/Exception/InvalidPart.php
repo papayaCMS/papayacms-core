@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if an invalid part is encountered.
  *
@@ -21,18 +22,17 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class InvalidPart extends \Papaya\Filter\Exception {
-
   /**
    * The constructor expects the number of the invalid part, its type and optionally a message
    * of the underlying exception.
    *
-   * @param integer $position
+   * @param int $position
    * @param string $type
    * @param string $message
    */
   public function __construct($position, $type, $message = '') {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Part number %d of type "%s" is invalid%s',
         $position,
         $type,

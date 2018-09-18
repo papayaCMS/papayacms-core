@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parameters;
+
 /**
  * Papaya Request Parameter validation, allows to validate a group of parameters
  * against an definition and access them in a filtered variant
@@ -23,7 +24,6 @@ namespace Papaya\Request\Parameters;
  */
 class Validator
   implements \ArrayAccess, \IteratorAggregate {
-
   /**
    * @var \Papaya\Request\Parameters
    */
@@ -32,20 +32,20 @@ class Validator
   /**
    * @var array
    */
-  private $_definitions = array();
+  private $_definitions = [];
 
   /**
    * @var array
    */
-  private $_values = array();
+  private $_values = [];
 
   /**
    * @var array
    */
-  private $_errors = array();
+  private $_errors = [];
 
   /**
-   * @var null|boolean
+   * @var null|bool
    */
   private $_validationResult;
 
@@ -56,7 +56,7 @@ class Validator
    */
   public function __construct(array $definitions, $parameters) {
     $this->setDefinitions($definitions);
-    if (is_array($parameters)) {
+    if (\is_array($parameters)) {
       $parameters = new \Papaya\Request\Parameters($parameters);
     }
     \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
@@ -71,23 +71,23 @@ class Validator
    */
   private function setDefinitions(array $definitions) {
     foreach ($definitions as $definition) {
-      $name = \Papaya\Utility\Arrays::get($definition, array('name', 0), NULL);
+      $name = \Papaya\Utility\Arrays::get($definition, ['name', 0], NULL);
       \Papaya\Utility\Constraints::assertNotEmpty(
         $name, 'Empty parameter name not allowed.'
       );
-      $default = \Papaya\Utility\Arrays::get($definition, array('default', 1), NULL);
+      $default = \Papaya\Utility\Arrays::get($definition, ['default', 1], NULL);
       if ($default instanceof \Papaya\Filter) {
         $filter = $default;
         $default = NULL;
       } else {
-        $filter = \Papaya\Utility\Arrays::get($definition, array('filter', 2), NULL);
+        $filter = \Papaya\Utility\Arrays::get($definition, ['filter', 2], NULL);
       }
       if (NULL !== $filter) {
         \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Filter::class, $filter);
       }
-      $this->_definitions[$name] = array(
+      $this->_definitions[$name] = [
         'default' => $default, 'filter' => $filter
-      );
+      ];
     }
   }
 
@@ -96,7 +96,7 @@ class Validator
    * and will store the result, repeated calls to the method will always return the
    * stored result from the first call
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     if (NULL === $this->_validationResult) {
@@ -129,7 +129,7 @@ class Validator
    */
   public function offsetExists($name) {
     $this->validate();
-    return array_key_exists($name, $this->_values);
+    return \array_key_exists($name, $this->_values);
   }
 
   /**
@@ -169,24 +169,24 @@ class Validator
       if (NULL === $value) {
         $value = $definition['default'];
       } elseif (NULL !== $definition['default']) {
-        if (is_array($definition['default'])) {
-          $value = is_array($value) ? $value : $definition['default'];
-        } elseif (is_object($definition['default'])) {
-          $value = is_string($value) ? $value : (string)$definition['default'];
+        if (\is_array($definition['default'])) {
+          $value = \is_array($value) ? $value : $definition['default'];
+        } elseif (\is_object($definition['default'])) {
+          $value = \is_string($value) ? $value : (string)$definition['default'];
         } else {
-          $type = gettype($definition['default']);
-          settype($value, $type);
+          $type = \gettype($definition['default']);
+          \settype($value, $type);
         }
       }
       if (isset($definition['filter'])) {
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $definition['filter']->validate($value);
       }
       $this->_values[$name] = $value;
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
-          'Can not set undefined parameter name %s[%s]', get_class($this), $name
+        \sprintf(
+          'Can not set undefined parameter name %s[%s]', \get_class($this), $name
         )
       );
     }
@@ -204,8 +204,8 @@ class Validator
       $this->_values[$name] = $this->_definitions[$name]['default'];
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
-          'Can not reset undefined parameter name %s[%s]', get_class($this), $name
+        \sprintf(
+          'Can not reset undefined parameter name %s[%s]', \get_class($this), $name
         )
       );
     }
@@ -230,5 +230,4 @@ class Validator
     $this->validate();
     return $this->_errors;
   }
-
 }

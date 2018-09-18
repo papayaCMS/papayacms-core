@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a generic input.
  *
@@ -24,7 +25,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class Input extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    * @return \Papaya\UI\Dialog\Field\Input

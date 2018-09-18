@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * A command that adds elements to a provided toolbar, this will not add elements to the DOM but
  * the papayaUI toolbar obkject.
@@ -22,7 +23,6 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 abstract class Toolbar extends \Papaya\UI\Control\Command {
-
   /**
    * @var \Papaya\UI\Toolbar\Elements
    */

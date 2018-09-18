@@ -14,28 +14,27 @@
  */
 
 namespace Papaya\Database\Record\Key;
+
 /**
  * An multiple field key that represents a link table index
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Fields.php 39197 2014-02-11 13:36:56Z weinert $
  */
 class Fields implements \Papaya\Database\Interfaces\Key {
-
   /**
    * the key values
    *
    * @var array
    */
-  private $_values = array();
+  private $_values = [];
 
   /**
    * Attached record for this key
    *
    * @var \Papaya\Database\Record
    */
-  private $_record = NULL;
+  private $_record;
 
   /**
    * Key table name
@@ -63,7 +62,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   /**
    * Provide information about the key
    *
-   * @var integer
+   * @var int
    * @return int
    */
   public function getQualities() {
@@ -79,7 +78,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   public function assign(array $data) {
     $result = FALSE;
     foreach ($data as $name => $value) {
-      if (array_key_exists($name, $this->_values)) {
+      if (\array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
         $result = TRUE;
       }
@@ -90,25 +89,25 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   /**
    * Validate if the record exists. This will require an query to the database.
    *
-   * @return boolean
+   * @return bool
    */
   public function exists() {
-    $filter = array();
+    $filter = [];
     $values = $this->getFilter();
     foreach ($this->_record->mapping()->mapPropertiesToFields($values, FALSE) as $field => $value) {
       if (isset($value)) {
         $filter[$field] = $value;
       }
     }
-    if (empty($filter) || count($filter) != count($values)) {
+    if (empty($filter) || \count($filter) != \count($values)) {
       return FALSE;
     }
     $databaseAccess = $this->_record->getDatabaseAccess();
     $condition = $databaseAccess->getSqlCondition($filter);
     $sql = "SELECT COUNT(*) FROM %s WHERE $condition";
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName($this->_tableName)
-    );
+    ];
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
       return $databaseResult->fetchField() > 0;
     }
@@ -119,7 +118,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * Clear the key values
    */
   public function clear() {
-    $this->_values = array();
+    $this->_values = [];
   }
 
   /**
@@ -128,7 +127,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * @return string
    */
   public function __toString() {
-    return implode('|', $this->_values);
+    return \implode('|', $this->_values);
   }
 
   /**
@@ -137,14 +136,14 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * @return array(string)
    */
   public function getProperties() {
-    return array_keys($this->_values);
+    return \array_keys($this->_values);
   }
 
   /**
    * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
    * fields
    *
-   * @param integer $for the action the filter ist fetched for
+   * @param int $for the action the filter ist fetched for
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {

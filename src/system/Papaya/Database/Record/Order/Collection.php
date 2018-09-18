@@ -24,14 +24,13 @@ namespace Papaya\Database\Record\Order;
 class Collection
   extends \Papaya\BaseObject\Collection
   implements \Papaya\Database\Interfaces\Order {
-
   /**
    * Setup item class limit and add all function arguments as items
    */
   public function __construct() {
     parent::__construct(\Papaya\Database\Interfaces\Order::class);
-    if (func_num_args() > 0) {
-      foreach (func_get_args() as $item) {
+    if (\func_num_args() > 0) {
+      foreach (\func_get_args() as $item) {
         $this->add($item);
       }
     }
@@ -49,7 +48,7 @@ class Collection
       foreach ($this as $item) {
         $result .= ', '.$item;
       }
-      return (string)substr($result, 2);
+      return (string)\substr($result, 2);
     }
     return '';
   }

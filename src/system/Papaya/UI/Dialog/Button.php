@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * Superclass for dialog buttons
  *
@@ -23,7 +24,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 abstract class Button extends \Papaya\UI\Dialog\Element {
-
   /**
    * Button alignment constant: right (default)
    */
@@ -37,14 +37,14 @@ abstract class Button extends \Papaya\UI\Dialog\Element {
   /**
    * Button alignment
    *
-   * @var integer
+   * @var int
    */
   protected $_align = self::ALIGN_RIGHT;
 
   /**
    * Initialize button object and set alignment
    *
-   * @param integer $align
+   * @param int $align
    */
   public function __construct($align = self::ALIGN_RIGHT) {
     $this->setAlign($align);
@@ -53,7 +53,7 @@ abstract class Button extends \Papaya\UI\Dialog\Element {
   /**
    * Set button alignment
    *
-   * @param integer $align
+   * @param int $align
    */
   public function setAlign($align) {
     $this->_align = $align;

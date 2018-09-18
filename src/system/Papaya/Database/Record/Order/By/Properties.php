@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Record\Order\By;
+
 /**
  * Define an order by using property names an a property-field-mapping
  *
@@ -22,7 +23,6 @@ namespace Papaya\Database\Record\Order\By;
  */
 class Properties
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
-
   /**
    * @var \Papaya\Database\Record\Order\Collection
    */

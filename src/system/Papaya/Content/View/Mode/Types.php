@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\View\Mode;
+
 /**
  * This object defines the possible view mode types. A view mode type socified a logical group
  * for a view mode. The current types are:
@@ -27,22 +28,23 @@ namespace Papaya\Content\View\Mode;
  * @subpackage Content
  */
 class Types implements \ArrayAccess, \IteratorAggregate {
-
   const PAGE = 'page';
+
   const FEED = 'feed';
+
   const HIDDEN = 'hidden';
 
-  private static $_typeCaptions = array(
+  private static $_typeCaptions = [
     self::PAGE => 'Page',
     self::FEED => 'Feed',
     self::HIDDEN => 'Hidden',
-  );
+  ];
 
   /**
    * Static function to validate if a type is valid withotu the need to create an object
    *
    * @param string $mode
-   * @return boolean
+   * @return bool
    */
   public static function exists($mode) {
     return isset(self::$_typeCaptions[$mode]);
@@ -64,7 +66,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    *
    * @see \ArrayAccess::offsetExists()
    * @param mixed $mode
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($mode) {
     return self::exists($mode);

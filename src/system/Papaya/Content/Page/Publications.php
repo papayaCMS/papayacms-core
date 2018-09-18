@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * This object loads public page data by different conditions.
  *
@@ -47,7 +48,7 @@ class Publications extends \Papaya\Content\Pages {
     $conditions = parent::_compileCondition($filter, $prefix);
     if (isset($filter['time'])) {
       $conditions .= empty($conditions) ? $prefix : ' AND ';
-      $conditions .= sprintf(
+      $conditions .= \sprintf(
         " ((t.published_from <= '%1\$d' AND t.published_to >= '%1\$d')
          OR t.published_to <= t.published_from)",
         (int)$filter['time']

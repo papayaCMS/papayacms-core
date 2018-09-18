@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\XML;
+
 /**
  * Define a interface of additional functions implemented in \Papaya\XML\Document and \Papaya\XML\Element.
  *
@@ -23,7 +24,7 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 interface Node {
-  public function appendElement($name, array $attributes = array(), $content = NULL);
+  public function appendElement($name, array $attributes = [], $content = NULL);
 
   public function appendXML($content);
 }

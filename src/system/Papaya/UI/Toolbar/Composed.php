@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A toolbar that consists of multiple sets of elements. The sets are not visisble in
  * the xml output.
@@ -26,20 +27,19 @@ namespace Papaya\UI\Toolbar;
  * @subpackage UI
  */
 class Composed extends \Papaya\UI\Control {
-
   /**
    * The internal set list
    *
    * @var \Papaya\UI\Toolbar\Collection[]
    */
-  private $_sets = array();
+  private $_sets = [];
 
   /**
    * Internal member variable vor the toolbar subobject.
    *
    * @var \Papaya\UI\Toolbar
    */
-  private $_toolbar = NULL;
+  private $_toolbar;
 
   /**
    * Create the control and sefine the available sets
@@ -57,7 +57,7 @@ class Composed extends \Papaya\UI\Control {
    * @throws \InvalidArgumentException
    */
   public function setNames(array $sets) {
-    $this->_sets = array();
+    $this->_sets = [];
     if (empty($sets)) {
       throw new \InvalidArgumentException('No sets defined');
     }
@@ -65,7 +65,7 @@ class Composed extends \Papaya\UI\Control {
       $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
       if (empty($name)) {
         throw new \InvalidArgumentException(
-          sprintf('Invalid set name "%s" in index "%s".', $name, $index)
+          \sprintf('Invalid set name "%s" in index "%s".', $name, $index)
         );
       }
       $this->_sets[$name] = NULL;
@@ -98,7 +98,7 @@ class Composed extends \Papaya\UI\Control {
   public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
-    } elseif (is_null($this->_toolbar)) {
+    } elseif (\is_null($this->_toolbar)) {
       $this->_toolbar = new \Papaya\UI\Toolbar();
       $this->_toolbar->papaya($this->papaya());
     }
@@ -109,11 +109,11 @@ class Composed extends \Papaya\UI\Control {
    * Return the toolbar set name is defined. The toolbar set does not need to exists at this point.
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    return array_key_exists($name, $this->_sets);
+    return \array_key_exists($name, $this->_sets);
   }
 
   /**
@@ -126,7 +126,7 @@ class Composed extends \Papaya\UI\Control {
    */
   public function __get($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (array_key_exists($name, $this->_sets)) {
+    if (\array_key_exists($name, $this->_sets)) {
       if (!isset($this->_sets[$name])) {
         $this->_sets[$name] = $set = new \Papaya\UI\Toolbar\Collection();
         $set->papaya($this->papaya());
@@ -149,7 +149,7 @@ class Composed extends \Papaya\UI\Control {
   public function __set($name, $value) {
     \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\UI\Toolbar\Collection::class, $value);
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (array_key_exists($name, $this->_sets)) {
+    if (\array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;
     } else {
       throw new \UnexpectedValueException(

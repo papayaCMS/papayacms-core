@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * /**
  * The options for a dialog object are encapsulated into a separate class, this allows
@@ -21,12 +22,12 @@ namespace Papaya\UI\Dialog;
  *
  * Not any dialog implementation has to use all options.
  *
- * @property boolean $useConfirmation a hidden field used to validate that the form was submitted
- * @property boolean $useToken use a token to protect the form against csrf
- * @property boolean $protectChanges activate javascript change protection
- * @property integer $captionStyle visibility/position of the field captions
- * @property boolean $topButtons show buttons at dialog top
- * @property boolean $bottomButtons show buttons at dialog bottom
+ * @property bool $useConfirmation a hidden field used to validate that the form was submitted
+ * @property bool $useToken use a token to protect the form against csrf
+ * @property bool $protectChanges activate javascript change protection
+ * @property int $captionStyle visibility/position of the field captions
+ * @property bool $topButtons show buttons at dialog top
+ * @property bool $bottomButtons show buttons at dialog bottom
  * @property string $dialogWidth larger dialogs have more space for captions
  *
  * @package Papaya-Library
@@ -34,25 +35,24 @@ namespace Papaya\UI\Dialog;
  */
 class Options
   extends \Papaya\BaseObject\Options\Defined {
-
   /**
    * Show no field captions
    *
-   * @var integer
+   * @var int
    */
   const CAPTION_NONE = 0;
 
   /**
    * Show field captions at the side of the fields
    *
-   * @var integer
+   * @var int
    */
   const CAPTION_SIDE = 1;
 
   /**
    * Show field captions on top of the fields
    *
-   * @var integer
+   * @var int
    */
   const CAPTION_TOP = 2;
 
@@ -102,26 +102,26 @@ class Options
    *
    * @var array
    */
-  protected $_definitions = array(
-    'USE_CONFIRMATION' => array(TRUE, FALSE),
-    'USE_TOKEN' => array(TRUE, FALSE),
-    'PROTECT_CHANGES' => array(TRUE, FALSE),
-    'CAPTION_STYLE' => array(self::CAPTION_NONE, self::CAPTION_SIDE, self::CAPTION_TOP),
-    'DIALOG_WIDTH' => array(self::SIZE_M, self::SIZE_S, self::SIZE_XS, self::SIZE_L),
-    'TOP_BUTTONS' => array(TRUE, FALSE),
-    'BOTTOM_BUTTONS' => array(TRUE, FALSE)
-  );
+  protected $_definitions = [
+    'USE_CONFIRMATION' => [TRUE, FALSE],
+    'USE_TOKEN' => [TRUE, FALSE],
+    'PROTECT_CHANGES' => [TRUE, FALSE],
+    'CAPTION_STYLE' => [self::CAPTION_NONE, self::CAPTION_SIDE, self::CAPTION_TOP],
+    'DIALOG_WIDTH' => [self::SIZE_M, self::SIZE_S, self::SIZE_XS, self::SIZE_L],
+    'TOP_BUTTONS' => [TRUE, FALSE],
+    'BOTTOM_BUTTONS' => [TRUE, FALSE]
+  ];
 
   /**
    * Dialog option values
    *
    * @var array
    */
-  protected $_options = array(
+  protected $_options = [
     'CAPTION_STYLE' => self::CAPTION_SIDE,
     'DIALOG_WIDTH' => self::SIZE_MEDIUM,
     'TOP_BUTTONS' => FALSE,
-  );
+  ];
 
   /**
    * Append options to an xml element
@@ -133,7 +133,7 @@ class Options
     foreach ($this as $name => $value) {
       $options->appendElement(
         'option',
-        array('name' => $name, 'value' => $this->_valueToString($value))
+        ['name' => $name, 'value' => $this->_valueToString($value)]
       );
     }
   }
@@ -145,7 +145,7 @@ class Options
    * @return string
    */
   private function _valueToString($value) {
-    if (is_bool($value)) {
+    if (\is_bool($value)) {
       return ($value) ? 'yes' : 'no';
     } else {
       return (string)$value;

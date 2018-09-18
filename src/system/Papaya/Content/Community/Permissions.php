@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Community;
+
 /**
  * Provide data encapsulation for the surfer permission records.
  *
@@ -21,20 +22,18 @@ namespace Papaya\Content\Community;
  * @subpackage Content
  */
 class Permissions extends \Papaya\Database\Records {
-
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'surferperm_id',
     'title' => 'surferperm_title',
     'active' => 'surferperm_active'
-  );
+  ];
 
-  protected $_orderByFields = array(
+  protected $_orderByFields = [
     'surferperm_title' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'surferperm_id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   protected $_identifierProperties = 'id';
 
   protected $_tableName = \Papaya\Content\Tables::COMMUNITY_PERMISSIONS;
-
 }

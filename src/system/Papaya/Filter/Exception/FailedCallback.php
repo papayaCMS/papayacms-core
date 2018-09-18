@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a the callback has failed (returned FALSE).
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class FailedCallback extends Callback {
-
   /**
    * Construct object with callback information
    *
@@ -29,7 +29,7 @@ class FailedCallback extends Callback {
    */
   public function __construct($callback) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Callback has failed: "%s"',
         $this->callbackToString($callback)
       ),

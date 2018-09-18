@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Element\Description;
+
 /**
  * Dialog element description item encapsulationing a simple link.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 class Link extends Item {
-
   private $_reference;
 
   /**
@@ -33,9 +33,9 @@ class Link extends Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       'link',
-      array(
+      [
         'href' => $this->reference()->getRelative()
-      )
+      ]
     );
   }
 

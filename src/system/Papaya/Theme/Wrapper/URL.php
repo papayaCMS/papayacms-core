@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Theme\Wrapper;
+
 /**
  * Extract theme wrapper data from an url object
  *
@@ -31,17 +32,16 @@ namespace Papaya\Theme\Wrapper;
  * @subpackage Theme
  */
 class URL {
-
   /**
    * @var \Papaya\URL
    */
-  private $_requestURL = NULL;
+  private $_requestURL;
 
-  private $_mimetypeIdentification = array(
+  private $_mimetypeIdentification = [
     'text/javascript' => '((/[^/]+)/js(\\.php)?$)',
     'text/css' => '((/[^/]+)/css(\\.php)?$)',
     'image/*' => '((/[^/]+)/image(\\.php)?$)',
-  );
+  ];
 
   /**
    * @var \Papaya\Request\Parameters
@@ -64,12 +64,12 @@ class URL {
   /**
    * Get mimetype from url path
    *
-   * @return string|NULL
+   * @return string|null
    */
   public function getMimetype() {
     $path = $this->_requestURL->getPath();
     foreach ($this->_mimetypeIdentification as $type => $pattern) {
-      if (preg_match($pattern, $path)) {
+      if (\preg_match($pattern, $path)) {
         return $type;
       }
     }
@@ -124,7 +124,7 @@ class URL {
    * @return array
    */
   public function getFiles() {
-    return explode(',', $this->parameters()->get('files'));
+    return \explode(',', $this->parameters()->get('files'));
   }
 
   /**
@@ -135,18 +135,16 @@ class URL {
    * @return string
    */
   public function getTheme() {
-    $path = strrchr(dirname($this->_requestURL->getPath()), '/');
-    return substr($path, 1);
+    $path = \strrchr(\dirname($this->_requestURL->getPath()), '/');
+    return \substr($path, 1);
   }
 
   /**
    * Return if subdirectores are allowed.
    *
-   * @return boolean
+   * @return bool
    */
   public function allowDirectories() {
     return 'yes' === $this->parameters()->get('rec', 'no');
   }
-
 }
-

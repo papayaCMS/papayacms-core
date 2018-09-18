@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple;
+
 /**
  * Abstract superclass for the template parser. The actual parsers for the different parsing states
  * extend this class.
@@ -22,13 +23,12 @@ namespace Papaya\Template\Simple;
  * @subpackage Template
  */
 abstract class Parser {
-
   /**
    * List of tokens from scanner
    *
    * @var array(\Papaya\Template\Simple\Scanner\Token)
    */
-  protected $_tokens = array();
+  protected $_tokens = [];
 
   /**
    * Construct a parser object taking the token list to operate on as
@@ -83,13 +83,13 @@ abstract class Parser {
    */
   protected function read($expectedTokens) {
     // Allow scalar token values for better readability
-    if (!is_array($expectedTokens)) {
-      return $this->read(array($expectedTokens));
+    if (!\is_array($expectedTokens)) {
+      return $this->read([$expectedTokens]);
     }
 
     foreach ($expectedTokens as $token) {
       if ($this->matchToken(0, $token)) {
-        return array_shift($this->_tokens);
+        return \array_shift($this->_tokens);
       }
     }
 
@@ -124,17 +124,17 @@ abstract class Parser {
    * @param int $position
    * @param bool $allowEndOfTokens
    * @throws \Papaya\Template\Simple\Exception
-   * @return \Papaya\Template\Simple\Scanner\Token|NULL
+   * @return \Papaya\Template\Simple\Scanner\Token|null
    */
   protected function lookahead($expectedTokens, $position = 0, $allowEndOfTokens = FALSE) {
     // Allow scalar token values for better readability
-    if (!is_array($expectedTokens)) {
-      return $this->lookahead(array($expectedTokens), $position, $allowEndOfTokens);
+    if (!\is_array($expectedTokens)) {
+      return $this->lookahead([$expectedTokens], $position, $allowEndOfTokens);
     }
 
     // If the the requested characters is not available on the tokenstream
     // and this state is allowed return a special ANY token
-    if ($allowEndOfTokens === TRUE && (!isset($this->_tokens[$position]))) {
+    if (TRUE === $allowEndOfTokens && (!isset($this->_tokens[$position]))) {
       return new Scanner\Token(Scanner\Token::ANY, 0, '');
     }
 
@@ -156,7 +156,7 @@ abstract class Parser {
    * @return bool
    */
   protected function endOfTokens($position = 0) {
-    return (count($this->_tokens) <= $position);
+    return (\count($this->_tokens) <= $position);
   }
 
   /**
@@ -176,20 +176,20 @@ abstract class Parser {
    * The method return TRUE if tokens were removed, otherwise FALSE.
    *
    * @param array|int|string $expectedTokens
-   * @param boolean
+   * @param bool
    * @return bool
    */
   protected function ignore($expectedTokens) {
     // Allow scalar token values for better readability
-    if (!is_array($expectedTokens)) {
-      return $this->ignore(array($expectedTokens));
+    if (!\is_array($expectedTokens)) {
+      return $this->ignore([$expectedTokens]);
     }
 
     // increase position until the end of the tokenstream is reached or
     // a non matching token is found
     $found = TRUE;
     $position = 0;
-    while (count($this->_tokens) > $position) {
+    while (\count($this->_tokens) > $position) {
       foreach ($expectedTokens as $token) {
         if ($found = $this->matchToken($position, $token)) {
           ++$position;
@@ -205,7 +205,7 @@ abstract class Parser {
 
     // remove the tokens from the stream
     if ($position > 0) {
-      array_splice($this->_tokens, 0, $position);
+      \array_splice($this->_tokens, 0, $position);
       return TRUE;
     } else {
       return FALSE;
@@ -248,7 +248,7 @@ abstract class Parser {
       return FALSE;
     }
 
-    if ($type === Scanner\Token::ANY) {
+    if (Scanner\Token::ANY === $type) {
       // A token has been found. We do not care which one it was
       return TRUE;
     }

@@ -23,11 +23,10 @@ namespace Papaya\Cache\Identifier\Definition;
  */
 class Group
   implements \Papaya\Cache\Identifier\Definition {
-
   /**
    * @var array(\Papaya\Cache\Identifier\Definition)
    */
-  private $_definitions = array();
+  private $_definitions = [];
 
   /**
    * Just store all arguments into an private member variable
@@ -35,7 +34,7 @@ class Group
    * @param \Papaya\Cache\Identifier\Definition,... $definition
    */
   public function __construct(\Papaya\Cache\Identifier\Definition $definition = NULL) {
-    foreach (func_get_args() as $definition) {
+    foreach (\func_get_args() as $definition) {
       $this->add($definition);
     }
   }
@@ -59,7 +58,7 @@ class Group
    * @return BooleanValue|array
    */
   public function getStatus() {
-    $result = array();
+    $result = [];
     /** @var \Papaya\Cache\Identifier\Definition $definition */
     foreach ($this->_definitions as $definition) {
       $data = $definition->getStatus();
@@ -70,14 +69,14 @@ class Group
       }
       $result[] = $data;
     }
-    return empty($result) ? TRUE : array(get_class($this) => $result);
+    return empty($result) ? TRUE : [\get_class($this) => $result];
   }
 
   /**
    * Compile a bitmask with all the source from the definitions.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
     $result = 0;

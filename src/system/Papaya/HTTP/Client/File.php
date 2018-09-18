@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\HTTP\Client;
+
 /**
  * Abstract class for file upload handling
  *
@@ -21,7 +22,6 @@ namespace Papaya\HTTP\Client;
  * @subpackage HTTP-Client
  */
 abstract class File {
-
   /**
    * linebreak chars
    *
@@ -32,7 +32,7 @@ abstract class File {
   /**
    * buffer size for read and send file data
    *
-   * @var integer
+   * @var int
    */
   protected $_bufferSize = 10240;
 
@@ -60,7 +60,7 @@ abstract class File {
   /**
    * file size
    *
-   * @var integer
+   * @var int
    */
   protected $_size = 0;
 
@@ -68,16 +68,15 @@ abstract class File {
    * abstract send function
    *
    * @param \Papaya\HTTP\Client\Socket $socket
-   * @param boolean $chunked optional, default value FALSE
-   * @param integer $bufferSize optional, default value 0
-   * @return void
+   * @param bool $chunked optional, default value FALSE
+   * @param int $bufferSize optional, default value 0
    */
   abstract public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0);
 
   /**
    * get file size property value
    *
-   * @return integer
+   * @return int
    */
   public function getSize() {
     return $this->_size;
@@ -103,7 +102,7 @@ abstract class File {
    * @return string
    */
   public function getHeaders() {
-    $result = sprintf(
+    $result = \sprintf(
       'Content-Disposition: form-data; name="%s"; filename="%s"'.$this->_lineBreak,
       $this->_name,
       $this->_fileName
@@ -122,10 +121,9 @@ abstract class File {
    * escape a header value (like the filename)
    *
    * @param $value
-   * @access public
    * @return string
    */
   protected function _escapeHeaderValue($value) {
-    return str_replace(array('\\', '"'), array('\\\\', '\\"'), $value);
+    return \str_replace(['\\', '"'], ['\\\\', '\\"'], $value);
   }
 }

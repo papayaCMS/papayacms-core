@@ -24,7 +24,6 @@ use Papaya\Application;
  * @subpackage Application
  */
 class User implements Application\Profile {
-
   /**
    * Create the profile object and return it
    *

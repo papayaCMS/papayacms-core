@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * Simple error collector for dialogs.
  *
@@ -23,13 +24,12 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Errors implements \IteratorAggregate, \Countable {
-
   /**
    * Error list
    *
    * @var array
    */
-  protected $_errors = array();
+  protected $_errors = [];
 
   /**
    * add a new error to the list.
@@ -38,26 +38,26 @@ class Errors implements \IteratorAggregate, \Countable {
    * @param object $source
    */
   public function add(\Exception $exception, $source = NULL) {
-    $this->_errors[] = array(
+    $this->_errors[] = [
       'exception' => $exception,
       'source' => $source,
-    );
+    ];
   }
 
   /**
    * clear internal error list.
    */
   public function clear() {
-    $this->_errors = array();
+    $this->_errors = [];
   }
 
   /**
    * Countable interface, return element count.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_errors);
+    return \count($this->_errors);
   }
 
   /**
@@ -70,7 +70,7 @@ class Errors implements \IteratorAggregate, \Countable {
   }
 
   public function getSourceCaptions() {
-    $result = array();
+    $result = [];
     foreach ($this->_errors as $error) {
       if (isset($error['source']) &&
         ($source = $error['source']) &&
@@ -83,5 +83,4 @@ class Errors implements \IteratorAggregate, \Countable {
     }
     return $result;
   }
-
 }

@@ -16,13 +16,10 @@
 namespace Papaya\Media\File\Info;
 
 class Basic extends \Papaya\Media\File\Info {
-
   protected function fetchProperties() {
     $fileName = $this->getFile();
-    return array(
-      'size' => filesize($fileName)
-    );
+    return [
+      'size' => \filesize($fileName)
+    ];
   }
-
-
 }

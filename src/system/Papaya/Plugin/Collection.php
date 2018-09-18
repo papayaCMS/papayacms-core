@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * The PluginLoaderList allows to to load module/plugin data using a list of guids.
  *
@@ -24,11 +25,10 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 class Collection extends \Papaya\Database\Records\Lazy {
-
   /**
    * @var array()
    */
-  protected $_fields = array(
+  protected $_fields = [
     'guid' => 'm.module_guid',
     'type' => 'm.module_type',
     'class' => 'm.module_class',
@@ -37,7 +37,7 @@ class Collection extends \Papaya\Database\Records\Lazy {
     'active' => 'm.module_active',
     'prefix' => 'mg.modulegroup_prefix',
     'classes' => 'mg.modulegroup_classes'
-  );
+  ];
 
   /**
    * Database table name containing plugins/modules
@@ -45,6 +45,7 @@ class Collection extends \Papaya\Database\Records\Lazy {
    * @var string
    */
   protected $_tablePlugins = 'modules';
+
   /**
    * Database table name containing plugin/module groups
    *
@@ -55,29 +56,29 @@ class Collection extends \Papaya\Database\Records\Lazy {
   /**
    * @var array
    */
-  protected $_identifierProperties = array('guid');
+  protected $_identifierProperties = ['guid'];
 
   /**
    * Load plugin data for the provided
    *
    * @param array $filter
-   * @param int|NULL $limit
+   * @param int|null $limit
    * @param int|null $offset
    * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields
               FROM %s AS m, %s AS mg
              WHERE mg.modulegroup_id = m.modulegroup_id";
     $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter, ' AND ').$this->_compileOrderBy()
     );
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName($this->_tablePlugins),
       $databaseAccess->getTableName($this->_tablePluginGroups)
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 

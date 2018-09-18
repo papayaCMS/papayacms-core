@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility;
+
 /**
  * Map values of an array into another array.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class ArrayMapper {
-
   /**
    * Target array uses teh same keys, the values are array elements, the subelement specified
    * by $indexName is used in the result.
@@ -40,7 +40,7 @@ class ArrayMapper {
    */
   public static function byIndex($array, $elementIndex = NULL, $keyIndex = NULL) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($array);
-    $result = array();
+    $result = [];
     foreach ($array as $key => $value) {
       if (isset($keyIndex)) {
         $key = \Papaya\Utility\Arrays::get($value, $keyIndex, NULL);

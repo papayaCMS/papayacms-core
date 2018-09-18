@@ -22,7 +22,6 @@ namespace Papaya\Cache\Service;
  * @subpackage Cache
  */
 class Memcache extends \Papaya\Cache\Service {
-
   /**
    * cache path configuration (servers and parameters)
    *
@@ -35,12 +34,12 @@ class Memcache extends \Papaya\Cache\Service {
    *
    * @var object
    */
-  private $_memcache = NULL;
+  private $_memcache;
 
   /**
    * memcache connection status
    *
-   * @var boolean
+   * @var bool
    */
   private $_connected = FALSE;
 
@@ -49,14 +48,14 @@ class Memcache extends \Papaya\Cache\Service {
    *
    * @var array
    */
-  protected $_localCache = array();
+  protected $_localCache = [];
 
   /**
    * process cache - cache create times
    *
    * @var array
    */
-  protected $_cacheCreated = array();
+  protected $_cacheCreated = [];
 
   /**
    * pattern that matches a singler server uri in configuration string
@@ -64,14 +63,13 @@ class Memcache extends \Papaya\Cache\Service {
    * @var string
    */
   private $_cachePathPattern =
-    /** @lang TEXT */
+    /* @lang TEXT */
     '(
       tcp://
       (?<host>[a-z\\d_.-]+)
       (?::(?<port>\\d+))?
       (?:\\?(?<params>[^,]+))?
     )ix';
-
 
   /**
    * pattern that matches the attributes for server connection in die query string part
@@ -86,10 +84,10 @@ class Memcache extends \Papaya\Cache\Service {
    *
    * @var array
    */
-  protected $_memcacheClasses = array(
+  protected $_memcacheClasses = [
     '\\Memcached',
     '\\Memcache'
-  );
+  ];
 
   /**
    * set the memcache object
@@ -103,7 +101,7 @@ class Memcache extends \Papaya\Cache\Service {
   /**
    * get memcache object instance
    *
-   * @return \memcache|\memcached|NULL|FALSE
+   * @return \memcache|\memcached|null|false
    */
   public function getMemcacheObject() {
     if (!isset($this->_memcache)) {
@@ -113,12 +111,12 @@ class Memcache extends \Papaya\Cache\Service {
   }
 
   /**
-   * @return FALSE|\memcache|\memcached
+   * @return false|\memcache|\memcached
    */
   protected function _createMemcacheObject() {
     foreach ($this->_memcacheClasses as $class) {
-      if (class_exists($class, FALSE)) {
-        return $this->_memcache = new $class;
+      if (\class_exists($class, FALSE)) {
+        return $this->_memcache = new $class();
       }
     }
     return FALSE;
@@ -132,9 +130,9 @@ class Memcache extends \Papaya\Cache\Service {
    */
   public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
     $this->_cachePath = $configuration['MEMCACHE_SERVERS'];
-    if (empty($this->_cachePath) && is_callable('ini_get')) {
-      $this->_cachePath = (ini_get('session.save_handler') == 'memcache')
-        ? ini_get('session.save_path') : '';
+    if (empty($this->_cachePath) && \is_callable('ini_get')) {
+      $this->_cachePath = ('memcache' == \ini_get('session.save_handler'))
+        ? \ini_get('session.save_path') : '';
     }
     return TRUE;
   }
@@ -142,9 +140,9 @@ class Memcache extends \Papaya\Cache\Service {
   /**
    * Check cache is usable
    *
-   * @param boolean $silent
+   * @param bool $silent
    * @throws \BadMethodCallException
-   * @return boolean
+   * @return bool
    */
   public function verify($silent = TRUE) {
     $valid = $this->setUp();
@@ -157,14 +155,14 @@ class Memcache extends \Papaya\Cache\Service {
   /**
    * Initialize connections to memcache servers
    *
-   * @return boolean
+   * @return bool
    */
   public function setUp() {
     if (($memcache = $this->getMemcacheObject()) &&
-      $memcache !== FALSE &&
+      FALSE !== $memcache &&
       !$this->_connected) {
       $servers = $this->getServersConfiguration();
-      if (count($servers) > 0) {
+      if (\count($servers) > 0) {
         $connected = FALSE;
         foreach ($servers as $server) {
           $connectedServer = $this->_connect($memcache, $server);
@@ -179,7 +177,7 @@ class Memcache extends \Papaya\Cache\Service {
         $memcache = $this->_memcache = FALSE;
       }
     }
-    if (isset($memcache) && $memcache !== FALSE) {
+    if (isset($memcache) && FALSE !== $memcache) {
       return $this->_connected = TRUE;
     } else {
       return FALSE;
@@ -191,7 +189,7 @@ class Memcache extends \Papaya\Cache\Service {
    *
    * @param \Memcache|\Memcached $memcache
    * @param array $server
-   * @return boolean
+   * @return bool
    */
   private function _connect($memcache, $server) {
     $result = FALSE;
@@ -221,19 +219,19 @@ class Memcache extends \Papaya\Cache\Service {
    * @return array Servers
    */
   public function getServersConfiguration() {
-    $servers = array();
-    if (preg_match_all($this->_cachePathPattern, $this->_cachePath, $matches, PREG_SET_ORDER)) {
+    $servers = [];
+    if (\preg_match_all($this->_cachePathPattern, $this->_cachePath, $matches, PREG_SET_ORDER)) {
       foreach ($matches as $match) {
-        $server = array(
+        $server = [
           'host' => $match['host'],
           'port' => isset($match['port']) ? (int)$match['port'] : NULL,
           'persistent' => NULL,
           'weight' => NULL,
           'timeout' => NULL,
           'retry_interval' => NULL
-        );
+        ];
         if (!empty($match['params'])) {
-          $hasParameters = preg_match_all(
+          $hasParameters = \preg_match_all(
             $this->_cacheAttrPattern, $match['params'], $subMatches, PREG_SET_ORDER
           );
           if ($hasParameters) {
@@ -255,13 +253,13 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $element
    * @param string $parameters
    * @param string $data Element data
-   * @param integer $expires Maximum age in seconds
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
     if ($this->setUp() &&
       ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
-      $time = time();
+      $time = \time();
       if ($this->_memcache->replace($cacheId, $time.':'.$data, $expires)) {
         return $cacheId;
       } else {
@@ -273,16 +271,15 @@ class Memcache extends \Papaya\Cache\Service {
     return FALSE;
   }
 
-
   /**
    * Read element from cache
    *
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return string|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->setUp() &&
@@ -301,9 +298,9 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->setUp() &&
@@ -311,7 +308,7 @@ class Memcache extends \Papaya\Cache\Service {
       if (isset($this->_localCache[$cacheId])) {
         return !empty($this->_localCache[$cacheId]);
       } else {
-        return (boolean)$this->_read($cacheId, $expires, $ifModifiedSince);
+        return (bool)$this->_read($cacheId, $expires, $ifModifiedSince);
       }
     }
     return FALSE;
@@ -323,9 +320,9 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return integer|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->verify() &&
@@ -345,12 +342,12 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @return integer
+   * @return int
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     $result = TRUE;
     $servers = $this->getServersConfiguration();
-    if (count($servers) > 0) {
+    if (\count($servers) > 0) {
       foreach ($servers as $server) {
         $memcache = $this->_createMemcacheObject();
         if ($this->_connect($memcache, $server)) {
@@ -373,18 +370,18 @@ class Memcache extends \Papaya\Cache\Service {
    * internal read item from cache - the item time is put to the top so we can extract and check it
    *
    * @param string $cacheId
-   * @param integer $expires
-   * @param integer $ifModifiedSince
-   * @return boolean
+   * @param int $expires
+   * @param int $ifModifiedSince
+   * @return bool
    */
   private function _read($cacheId, $expires, $ifModifiedSince) {
     $data = $this->_memcache->get($cacheId);
-    $headerEnd = strpos($data, ':');
+    $headerEnd = \strpos($data, ':');
     if ($headerEnd > 0) {
-      $created = (int)substr($data, 0, $headerEnd);
-      if (($created + $expires) > time()) {
-        if (is_null($ifModifiedSince) || $ifModifiedSince < $created) {
-          $this->_localCache[$cacheId] = substr($data, $headerEnd + 1);
+      $created = (int)\substr($data, 0, $headerEnd);
+      if (($created + $expires) > \time()) {
+        if (\is_null($ifModifiedSince) || $ifModifiedSince < $created) {
+          $this->_localCache[$cacheId] = \substr($data, $headerEnd + 1);
           $this->_cacheCreated[$cacheId] = $created;
           return TRUE;
         }

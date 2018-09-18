@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Reference;
+
 /**
  * papaya CMS
  *
@@ -28,8 +29,7 @@ namespace Papaya\UI\Reference;
  *  FOR A PARTICULAR PURPOSE.
  */
 class Factory extends \Papaya\Application\BaseObject {
-
-  private $_patterns = array(
+  private $_patterns = [
     'page' => '(
       ^
       (?:(?P<category_id>\\d+)\\.)? # category id
@@ -52,11 +52,11 @@ class Factory extends \Papaya\Application\BaseObject {
       (?P<fragment>[^\\s]+)?
       $
      )x'
-  );
+  ];
 
   public function byString($string) {
     foreach ($this->_patterns as $type => $pattern) {
-      if (preg_match($pattern, $string, $matches)) {
+      if (\preg_match($pattern, $string, $matches)) {
         switch ($type) {
           case 'page' :
             $reference = $this->createPageReference($matches);

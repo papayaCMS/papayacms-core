@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for a geographic position
  *
@@ -21,13 +22,12 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string $name
  * @property string|\Papaya\UI\Text $hint
  * @property string $defaultValue
- * @property boolean $mandatory
+ * @property bool $mandatory
  *
  * @package Papaya-Library
  * @subpackage UI
  */
 class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -40,21 +40,21 @@ class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Create field, set caption, name, defaultvalue and mandatory status
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer|NULL $default
-   * @param boolean $mandatory
+   * @param int|null $default
+   * @param bool $mandatory
    */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 100, $default);
@@ -63,5 +63,4 @@ class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
       new \Papaya\Filter\Geo\Position()
     );
   }
-
 }

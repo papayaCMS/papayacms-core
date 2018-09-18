@@ -27,13 +27,12 @@ namespace Papaya\CSV\Writer;
  * @method array onMapHeader
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
-        'onMapRow' => array(),
-        'onMapHeader' => array()
-      )
+      [
+        'onMapRow' => [],
+        'onMapHeader' => []
+      ]
     );
   }
 }

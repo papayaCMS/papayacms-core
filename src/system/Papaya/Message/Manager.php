@@ -24,13 +24,12 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Manager extends \Papaya\Application\BaseObject {
-
   /**
    * Internal list of message dispatchers
    *
    * @var array(\Papaya\Message\Dispatcher)
    */
-  private $_dispatchers = array();
+  private $_dispatchers = [];
 
   /**
    * List of php event hooks
@@ -63,7 +62,7 @@ class Manager extends \Papaya\Application\BaseObject {
   /**
    * @param int $severity
    * @param string $messageText
-   * @param array|NULL $parameters
+   * @param array|null $parameters
    */
   public function display($severity, $messageText, array $parameters = NULL) {
     $this->dispatch(new Display\Translated($severity, $messageText, $parameters ?: []));
@@ -71,7 +70,7 @@ class Manager extends \Papaya\Application\BaseObject {
 
   /**
    * @param string $messageText
-   * @param array|NULL $parameters
+   * @param array|null $parameters
    */
   public function displayInfo($messageText, array $parameters = NULL) {
     $this->display(Message::SEVERITY_INFO, $messageText, $parameters ?: []);
@@ -79,7 +78,7 @@ class Manager extends \Papaya\Application\BaseObject {
 
   /**
    * @param string $messageText
-   * @param array|NULL $parameters
+   * @param array|null $parameters
    */
   public function displayWarning($messageText, array $parameters = NULL) {
     $this->display(Message::SEVERITY_WARNING, $messageText, $parameters ?: []);
@@ -87,7 +86,7 @@ class Manager extends \Papaya\Application\BaseObject {
 
   /**
    * @param string $messageText
-   * @param array|NULL $parameters
+   * @param array|null $parameters
    */
   public function displayError($messageText, array $parameters = NULL) {
     $this->display(Message::SEVERITY_ERROR, $messageText, $parameters ?: []);
@@ -97,9 +96,9 @@ class Manager extends \Papaya\Application\BaseObject {
    * Log a message, if $context ist not an \Papaya\Message\Context\Data it will be encapsulated
    * into a \Papaya\Message\Context\Variable
    *
-   * @param integer $severity
-   * @param integer $group
-   * @param integer $text
+   * @param int $severity
+   * @param int $group
+   * @param int $text
    * @param mixed $context
    */
   public function log($severity, $group, $text, $context = NULL) {
@@ -123,8 +122,8 @@ class Manager extends \Papaya\Application\BaseObject {
     $message = new Log(
       Logable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
     );
-    if (func_num_args() > 0) {
-      $message->context()->append(new Context\Variable(func_get_args(), 5, 9999));
+    if (\func_num_args() > 0) {
+      $message->context()->append(new Context\Variable(\func_get_args(), 5, 9999));
     }
     $message
       ->context()
@@ -145,7 +144,7 @@ class Manager extends \Papaya\Application\BaseObject {
     \Papaya\Utility\Constraints::assertCallable($callback);
     $sandbox = new Sandbox($callback);
     $sandbox->papaya($this->papaya());
-    return array($sandbox, '__invoke');
+    return [$sandbox, '__invoke'];
   }
 
   /**
@@ -158,10 +157,10 @@ class Manager extends \Papaya\Application\BaseObject {
     if (NULL !== $hooks) {
       $this->_hooks = $hooks;
     } elseif (NULL === $this->_hooks) {
-      $this->_hooks = array(
+      $this->_hooks = [
         $exceptionsHook = new Hook\Exceptions($this),
         new Hook\Errors($this, $exceptionsHook),
-      );
+      ];
     }
     return $this->_hooks;
   }
@@ -175,8 +174,8 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param \Papaya\Configuration $options
    */
   public function setUp($options) {
-    Context\Runtime::setStartTime(microtime(TRUE));
-    error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
+    Context\Runtime::setStartTime(\microtime(TRUE));
+    \error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
     /** @var \Papaya\Message\Hook $hook */
     foreach ($this->hooks() as $hook) {
       $hook->activate();

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\XHTML;
+
 /**
  * A field that outputs a link inside the dialog.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\XHTML;
  * @subpackage UI
  */
 class Link extends \Papaya\UI\Dialog\Field {
-
   /**
    * Link url
    *
@@ -58,6 +58,6 @@ class Link extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $field
       ->appendElement('xhtml')
-      ->appendElement('a', array('href' => $this->_url), (string)$this->_urlCaption);
+      ->appendElement('a', ['href' => $this->_url], (string)$this->_urlCaption);
   }
 }

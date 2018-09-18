@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Php, superclass for log messages for php erorrs and exceptions
  *
@@ -24,11 +25,10 @@ namespace Papaya\Message;
  */
 abstract class PHP
   implements Logable {
-
   /**
    * Message type
    *
-   * @var integer
+   * @var int
    */
   protected $_type = \Papaya\Message::SEVERITY_ERROR;
 
@@ -42,7 +42,7 @@ abstract class PHP
   /**
    * Message context
    *
-   * @var NULL|Context\Group
+   * @var null|Context\Group
    */
   protected $_context;
 
@@ -51,7 +51,7 @@ abstract class PHP
    *
    * @var array
    */
-  private $_errors = array(
+  private $_errors = [
     E_ERROR => \Papaya\Message::SEVERITY_ERROR,
     E_USER_ERROR => \Papaya\Message::SEVERITY_ERROR,
     E_RECOVERABLE_ERROR => \Papaya\Message::SEVERITY_ERROR,
@@ -59,7 +59,7 @@ abstract class PHP
     E_USER_WARNING => \Papaya\Message::SEVERITY_WARNING,
     E_NOTICE => \Papaya\Message::SEVERITY_INFO,
     E_USER_NOTICE => \Papaya\Message::SEVERITY_INFO
-  );
+  ];
 
   /**
    * Create context subobject, too
@@ -71,7 +71,7 @@ abstract class PHP
   /**
    * Set type from severity
    *
-   * @param integer $severity
+   * @param int $severity
    */
   public function setSeverity($severity) {
     if (isset($this->_errors[$severity])) {
@@ -82,7 +82,7 @@ abstract class PHP
   /**
    * Get group of message (system, php, content, ...)
    *
-   * @return integer
+   * @return int
    */
   public function getGroup() {
     return Logable::GROUP_PHP;
@@ -91,7 +91,7 @@ abstract class PHP
   /**
    * Get type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getType() {
     return $this->_type;
@@ -100,7 +100,7 @@ abstract class PHP
   /**
    * Get type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getSeverity() {
     return $this->_type;

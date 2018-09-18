@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Session;
+
 /**
  * Papaya Session Id Handling, Read the session from different source, check if they exists in
  * different sources.
@@ -22,17 +23,22 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Id extends \Papaya\Application\BaseObject {
-
   const SOURCE_ANY = 0;
+
   const SOURCE_COOKIE = 1;
+
   const SOURCE_PATH = 2;
+
   const SOURCE_QUERY = 4;
+
   const SOURCE_BODY = 8;
+
   // SOURCE QUERY | SOURCE_BODY
   const SOURCE_PARAMETER = 12;
 
   private $_name = 'sid';
-  private $_id = NULL;
+
+  private $_id;
 
   private $_validationPattern = '([a-zA-Z\d,-]{20,40})';
 
@@ -88,13 +94,13 @@ class Id extends \Papaya\Application\BaseObject {
   /**
    * Test if the session id exists in any of the given sources.
    *
-   * @param integer $source
-   * @return boolean
+   * @param int $source
+   * @return bool
    */
   public function existsIn($source = self::SOURCE_ANY) {
     switch (TRUE) {
-      case ($source == self::SOURCE_ANY) :
-        return (boolean)$this->getId();
+      case (self::SOURCE_ANY == $source) :
+        return (bool)$this->getId();
       case (($source & self::SOURCE_COOKIE) && $this->_readCookie()) :
         return TRUE;
       case (($source & self::SOURCE_PATH) && $this->_readPath()) :
@@ -110,14 +116,14 @@ class Id extends \Papaya\Application\BaseObject {
   /**
    * Validate the syntax of a session id. Return id if valid, NULL if not.
    *
-   * @param string|NULL $id
-   * @return NULL|string
+   * @param string|null $id
+   * @return null|string
    */
   public function validate($id) {
-    if (preg_match($this->_validationPattern, $id)) {
+    if (\preg_match($this->_validationPattern, $id)) {
       return $id;
     } else {
-      return NULL;
+      return;
     }
   }
 
@@ -133,7 +139,7 @@ class Id extends \Papaya\Application\BaseObject {
     if ($id && $this->_isCookieUnique()) {
       return $this->validate($id);
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -145,14 +151,14 @@ class Id extends \Papaya\Application\BaseObject {
     $parameter = $this->papaya()->request->getParameter(
       'session', '', NULL, \Papaya\Request::SOURCE_PATH
     );
-    if (0 === strpos($parameter, $this->_name)) {
-      $id = substr($parameter, strlen($this->_name));
+    if (0 === \strpos($parameter, $this->_name)) {
+      $id = \substr($parameter, \strlen($this->_name));
       return $this->validate($id);
-    } elseif ($this->_name != 'sid' && 0 === strpos($parameter, 'sid')) {
-      $id = substr($parameter, 3);
+    } elseif ('sid' != $this->_name && 0 === \strpos($parameter, 'sid')) {
+      $id = \substr($parameter, 3);
       return $this->validate($id);
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -189,14 +195,14 @@ class Id extends \Papaya\Application\BaseObject {
    *
    * If no cookie is providied the method will return TRUE, too.
    *
-   * @return boolean
+   * @return bool
    */
   public function _isCookieUnique() {
-    $pattern = '((?:^|;\s*)'.preg_quote($this->_name).'=(?<sid>[^\s;=]+))';
+    $pattern = '((?:^|;\s*)'.\preg_quote($this->_name).'=(?<sid>[^\s;=]+))';
     if (!empty($_SERVER['HTTP_COOKIE']) &&
-      substr_count($_SERVER['HTTP_COOKIE'], $this->_name.'=') > 1 &&
-      preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_PATTERN_ORDER)) {
-      if (count(array_unique($cookieMatches['sid'])) > 1) {
+      \substr_count($_SERVER['HTTP_COOKIE'], $this->_name.'=') > 1 &&
+      \preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_PATTERN_ORDER)) {
+      if (\count(\array_unique($cookieMatches['sid'])) > 1) {
         return FALSE;
       }
     }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Email;
+
 /**
  * A single Email address, including properties for the parts and string casting.
  *
@@ -25,7 +26,6 @@ namespace Papaya\Email;
  * @property string $name
  */
 class Address {
-
   /**
    * Recipient name
    *
@@ -69,7 +69,7 @@ class Address {
    * @param $address
    */
   protected function setAddress($address) {
-    if (preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
+    if (\preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
       $this->_name = $matches[1];
       $this->_email = $matches[2];
     } else {
@@ -118,7 +118,7 @@ class Address {
         return;
     }
     throw new \InvalidArgumentException(
-      sprintf('InvalidArgumentException: Unknown property "%s".', $name)
+      \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
 
@@ -139,7 +139,7 @@ class Address {
         return $this->__toString();
     }
     throw new \InvalidArgumentException(
-      sprintf('InvalidArgumentException: Unknown property "%s".', $name)
+      \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
 }

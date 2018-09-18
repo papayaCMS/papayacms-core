@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Theme;
+
 /**
  * Load/save a the theme set main record (contains name and id)
  *
@@ -26,18 +27,17 @@ namespace Papaya\Content\Theme;
  * @property array $values
  */
 class Skin extends \Papaya\Database\Record {
-
   /**
    * Map field names to more convenient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'themeset_id',
     'title' => 'themeset_title',
     'theme' => 'theme_name',
     'values' => 'themeset_values'
-  );
+  ];
 
   /**
    * Table containing view informations
@@ -53,12 +53,12 @@ class Skin extends \Papaya\Database\Record {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = [
       $this, 'mapFieldToProperty'
-    );
-    $mapping->callbacks()->onMapValueFromPropertyToField = array(
+    ];
+    $mapping->callbacks()->onMapValueFromPropertyToField = [
       $this, 'mapPropertyToField'
-    );
+    ];
     return $mapping;
   }
 
@@ -70,10 +70,9 @@ class Skin extends \Papaya\Database\Record {
    * @param string $field
    * @param mixed $value
    * @return mixed
-   *
    */
   public function mapFieldToProperty(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
@@ -92,7 +91,7 @@ class Skin extends \Papaya\Database\Record {
    * @return mixed
    */
   public function mapPropertyToField(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
@@ -108,7 +107,7 @@ class Skin extends \Papaya\Database\Record {
    * @return \Papaya\XML\Document
    */
   public function getValuesXML(\Papaya\Content\Structure $definition) {
-    return $definition->getXMLDocument(isset($this->values) ? $this->values : array());
+    return $definition->getXMLDocument(isset($this->values) ? $this->values : []);
   }
 
   /**

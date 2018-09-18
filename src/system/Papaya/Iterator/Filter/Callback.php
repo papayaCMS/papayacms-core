@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\Filter;
+
 /**
  * An filter iterator to filter an given iterator using a callback function.
  *
@@ -23,8 +24,7 @@ namespace Papaya\Iterator\Filter;
  * @subpackage Iterator
  */
 class Callback extends \FilterIterator {
-
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Create filter iterator and store values, if the provided Iterator is only a
@@ -51,7 +51,6 @@ class Callback extends \FilterIterator {
     $this->_callback = $callback;
   }
 
-
   /**
    * return stored the callback
    *
@@ -64,10 +63,10 @@ class Callback extends \FilterIterator {
   /**
    * Use the callback to validate an element
    *
-   * @return boolean
+   * @return bool
    */
   public function accept() {
-    return call_user_func(
+    return \call_user_func(
       $this->_callback,
       $this->getInnerIterator()->current(),
       $this->getInnerIterator()->key()

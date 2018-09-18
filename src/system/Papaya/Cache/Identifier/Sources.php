@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier;
+
 /**
  * An class to get the sources in a more readable way
  *
@@ -21,14 +22,13 @@ namespace Papaya\Cache\Identifier;
  * @subpackage Plugins
  */
 class Sources implements \IteratorAggregate {
-
-  private $_names = array(
+  private $_names = [
     Definition::SOURCE_URL => 'URL',
     Definition::SOURCE_REQUEST => 'Request',
     Definition::SOURCE_SESSION => 'Session',
     Definition::SOURCE_DATABASE => 'Database',
     Definition::SOURCE_VARIABLES => 'Variables'
-  );
+  ];
 
   private $_sources = 0;
 
@@ -38,7 +38,7 @@ class Sources implements \IteratorAggregate {
   }
 
   public function __toString() {
-    return implode(', ', $this->toArray());
+    return \implode(', ', $this->toArray());
   }
 
   /**
@@ -49,7 +49,7 @@ class Sources implements \IteratorAggregate {
   }
 
   private function toArray() {
-    $result = array();
+    $result = [];
     foreach ($this->_names as $source => $name) {
       if (\Papaya\Utility\Bitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
@@ -57,5 +57,4 @@ class Sources implements \IteratorAggregate {
     }
     return $result;
   }
-
 }

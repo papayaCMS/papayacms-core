@@ -16,7 +16,6 @@
 namespace Papaya\Plugin\Editable;
 
 abstract class Data extends \Papaya\BaseObject\Parameters {
-
   /**
    * @var \Papaya\Plugin\Editor
    */
@@ -42,7 +41,7 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
         $this->_editor = $this->callbacks()->onCreateEditor($this);
         if (!($this->_editor instanceof \Papaya\Plugin\Editor)) {
           throw new \LogicException(
-            sprintf(
+            \sprintf(
               'Callback did not return a valid %s instance.',
               \Papaya\Plugin\Editor::class
             )

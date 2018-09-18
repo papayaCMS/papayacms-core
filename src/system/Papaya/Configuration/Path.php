@@ -22,11 +22,14 @@ namespace Papaya\Configuration;
  * @subpackage Configuration
  */
 class Path extends \Papaya\Application\BaseObject {
-
   const PATH_THEMES = 'theme';
+
   const PATH_THEME_CURRENT = 'current_theme';
+
   const PATH_INSTALLATION = 'page';
+
   const PATH_ADMINISTRATION = 'admin';
+
   const PATH_UPLOAD = 'upload';
 
   /**
@@ -42,7 +45,7 @@ class Path extends \Papaya\Application\BaseObject {
   /**
    * @var \Papaya\Theme\Handler
    */
-  private $_themeHandler = NULL;
+  private $_themeHandler;
 
   /**
    * Create a system path object (that depends on configuration)
@@ -120,18 +123,18 @@ class Path extends \Papaya\Application\BaseObject {
    * validate if somthing is an identifer for a system path
    *
    * @param string $identifier
-   * @return boolean
+   * @return bool
    */
   public static function isIdentifier($identifier) {
-    return in_array(
+    return \in_array(
       $identifier,
-      array(
+      [
         self::PATH_THEMES,
         self::PATH_THEME_CURRENT,
         self::PATH_INSTALLATION,
         self::PATH_ADMINISTRATION,
         self::PATH_UPLOAD
-      )
+      ]
     );
   }
 }

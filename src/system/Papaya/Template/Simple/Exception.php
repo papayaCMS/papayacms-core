@@ -16,5 +16,4 @@
 namespace Papaya\Template\Simple;
 
 abstract class Exception extends \Papaya\Exception {
-
 }

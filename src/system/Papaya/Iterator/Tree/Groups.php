@@ -22,26 +22,25 @@ namespace Papaya\Iterator\Tree;
  * @subpackage Iterator
  */
 class Groups implements \RecursiveIterator {
-
   /**
    * @var \Iterator
    */
-  private $_iterator = NULL;
+  private $_iterator;
 
   /**
    * @var array
    */
-  private $_tree = NULL;
+  private $_tree;
 
   /**
    * @var array
    */
-  private $_positions = array();
+  private $_positions = [];
 
   /**
    * @var array
    */
-  private $_children = array();
+  private $_children = [];
 
   /**
    * Store item traversable and callback function for group generation
@@ -61,24 +60,24 @@ class Groups implements \RecursiveIterator {
    * @throws \LogicException
    */
   private function prepareGroupsLazy() {
-    if (is_null($this->_tree)) {
-      $this->_tree = array();
-      $this->_positions = array();
-      $this->_children = array();
+    if (\is_null($this->_tree)) {
+      $this->_tree = [];
+      $this->_positions = [];
+      $this->_children = [];
       foreach ($this->_iterator as $key => $item) {
-        $group = call_user_func($this->_callback, $item, $key);
+        $group = \call_user_func($this->_callback, $item, $key);
         if (!isset($group)) {
           $this->_tree[$key] = $item;
           continue;
-        } elseif (is_scalar($group)) {
+        } elseif (\is_scalar($group)) {
           $groupKey = $group;
         } else {
-          $groupKey = md5(serialize($group));
+          $groupKey = \md5(\serialize($group));
         }
         if (isset($this->_positions[$groupKey])) {
           $position = $this->_positions[$groupKey];
         } else {
-          $position = count($this->_tree);
+          $position = \count($this->_tree);
           $this->_tree[$position] = $group;
           $this->_positions[$groupKey] = $position;
         }
@@ -94,7 +93,7 @@ class Groups implements \RecursiveIterator {
    */
   public function rewind() {
     $this->prepareGroupsLazy();
-    reset($this->_tree);
+    \reset($this->_tree);
   }
 
   /**
@@ -104,7 +103,7 @@ class Groups implements \RecursiveIterator {
    */
   public function next() {
     $this->prepareGroupsLazy();
-    next($this->_tree);
+    \next($this->_tree);
   }
 
   /**
@@ -113,31 +112,31 @@ class Groups implements \RecursiveIterator {
    */
   public function current() {
     $this->prepareGroupsLazy();
-    return current($this->_tree);
+    return \current($this->_tree);
   }
 
   /**
    * @see \RecursiveIterator::key()
-   * @return integer
+   * @return int
    */
   public function key() {
     $this->prepareGroupsLazy();
-    return key($this->_tree);
+    return \key($this->_tree);
   }
 
   /**
    * @see \RecursiveIterator::valid()
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     $this->prepareGroupsLazy();
     $key = $this->key();
-    return ($key !== NULL && $key !== FALSE);
+    return (NULL !== $key && FALSE !== $key);
   }
 
   /**
    * @see \RecursiveIterator::hasChildren()
-   * @return boolean
+   * @return bool
    */
   public function hasChildren() {
     return isset($this->_children[$this->key()]);
@@ -150,7 +149,7 @@ class Groups implements \RecursiveIterator {
   public function getChildren() {
     $key = $this->key();
     return new \Papaya\Iterator\Tree\Items(
-      isset($this->_children[$key]) ? $this->_children[$key] : array()
+      isset($this->_children[$key]) ? $this->_children[$key] : []
     );
   }
 }

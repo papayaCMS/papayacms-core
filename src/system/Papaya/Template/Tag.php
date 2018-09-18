@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template;
+
 /**
  * papaya CMS
  *
@@ -28,7 +29,6 @@ namespace Papaya\Template;
  *  FOR A PARTICULAR PURPOSE.
  */
 abstract class Tag implements \Papaya\XML\Appendable {
-
   /**
    * Compile output xml for the user interface element.
    *

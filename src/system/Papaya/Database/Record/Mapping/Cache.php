@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Record\Mapping;
+
 /**
  * Mapper object to convert a database fields into object properties and back. It caches the
  * results of functions call to the orginal mapping class and the callback functions.
@@ -24,20 +25,20 @@ namespace Papaya\Database\Record\Mapping;
  * @subpackage Database
  */
 class Cache implements \Papaya\Database\Interfaces\Mapping {
-
   /**
    * @var \Papaya\Database\Interfaces\Mapping
    */
   private $_mapping;
+
   /**
    * @var \Papaya\BaseObject\Callback[]
    */
-  private $_callbacks = array();
+  private $_callbacks = [];
 
   /**
    * @var array
    */
-  private $_results = array();
+  private $_results = [];
 
   public function __construct(\Papaya\Database\Interfaces\Mapping $mapping) {
     $this->_mapping = $mapping;
@@ -58,7 +59,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    */
   public function mapFieldsToProperties(array $record) {
     $callbacks = $this->_callbacks;
-    $values = array();
+    $values = [];
     if (isset($callbacks['onBeforeMappingFieldsToProperties'])) {
       /** @noinspection PhpUndefinedMethodInspection */
       $values = $callbacks['onBeforeMappingFieldsToProperties']->execute(
@@ -112,7 +113,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->_callbacks;
-    $record = array();
+    $record = [];
     if (isset($callbacks['onBeforeMappingPropertiesToFields'])) {
       /** @noinspection PhpUndefinedMethodInspection */
       $record = $callbacks['onBeforeMappingPropertiesToFields']->execute(
@@ -186,7 +187,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Get the property name for a field
    *
    * @param $field
-   * @return string|FALSE
+   * @return string|false
    */
   public function getProperty($field) {
     if (!isset($this->_results['getProperty'][$field])) {
@@ -195,13 +196,12 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
     return $this->_results['getProperty'][$field];
   }
 
-
   /**
    * Get the field name for a property
    *
    * @param $property
    * @param bool $withAlias
-   * @return string|FALSE
+   * @return string|false
    */
   public function getField($property, $withAlias = TRUE) {
     if (!isset($this->_results['getField'][$property][$withAlias])) {

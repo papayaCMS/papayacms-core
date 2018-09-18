@@ -14,6 +14,7 @@
  */
 
 namespace Papaya;
+
 /**
  * Papaya caching interface with flexible services
  *
@@ -21,9 +22,10 @@ namespace Papaya;
  * @subpackage Cache
  */
 class Cache {
-
   const OUTPUT = 'main';
+
   const DATA = 'data';
+
   const IMAGES = 'images';
 
   /**
@@ -31,13 +33,13 @@ class Cache {
    *
    * @var array(string=>\Papaya\Cache\Service)
    */
-  private static $_serviceObjects = array();
+  private static $_serviceObjects = [];
 
   /**
    * Get papaya caching service object
    *
    * @param \Papaya\Configuration $configuration
-   * @param boolean $static remember service object an return at second request
+   * @param bool $static remember service object an return at second request
    * @throws \UnexpectedValueException
    * @return \Papaya\Cache\Service
    */
@@ -48,8 +50,8 @@ class Cache {
       return self::$_serviceObjects[$configurationId];
     }
     if (!empty($configuration['SERVICE'])) {
-      $class = 'Papaya\\Cache\\Service\\'.ucfirst($configuration['SERVICE']);
-      if (class_exists($class)) {
+      $class = 'Papaya\\Cache\\Service\\'.\ucfirst($configuration['SERVICE']);
+      if (\class_exists($class)) {
         $object = new $class($configuration);
         if ($static) {
           return self::$_serviceObjects[$configurationId] = $object;
@@ -58,7 +60,7 @@ class Cache {
         }
       } else {
         throw new \UnexpectedValueException(
-          sprintf('Unknown cache service "%s".', $class)
+          \sprintf('Unknown cache service "%s".', $class)
         );
       }
     } else {
@@ -77,14 +79,14 @@ class Cache {
     if (!($configuration instanceof Cache\Configuration)) {
       $result = new Cache\Configuration();
       $result->assign(
-        array(
+        [
           'SERVICE' => $configuration->get('PAPAYA_CACHE_SERVICE', 'file'),
           'FILESYSTEM_PATH' => $configuration->get('PAPAYA_PATH_CACHE'),
           'FILESYSTEM_DISABLE_CLEAR' =>
-            $configuration->get('PAPAYA_CACHE_DISABLE_FILE_DELETE'),
+          $configuration->get('PAPAYA_CACHE_DISABLE_FILE_DELETE'),
           'FILESYSTEM_NOTIFIER_SCRIPT' => $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
           'MEMCACHE_SERVERS' => $configuration->get('PAPAYA_CACHE_MEMCACHE_SERVERS'),
-        )
+        ]
       );
       return $result;
     }
@@ -97,7 +99,7 @@ class Cache {
    * @param string $for
    * @param \Papaya\Configuration $globalConfiguration
    * @param bool $static
-   * @return FALSE|\Papaya\Cache\Service
+   * @return false|\Papaya\Cache\Service
    */
   public static function get($for, $globalConfiguration, $static = TRUE) {
     switch ($for) {
@@ -105,16 +107,16 @@ class Cache {
         if ($globalConfiguration->get('PAPAYA_CACHE_DATA', FALSE)) {
           $configuration = new Cache\Configuration();
           $configuration->assign(
-            array(
+            [
               'SERVICE' =>
-                $globalConfiguration->get('PAPAYA_CACHE_DATA_SERVICE', 'file'),
+              $globalConfiguration->get('PAPAYA_CACHE_DATA_SERVICE', 'file'),
               'FILESYSTEM_PATH' =>
-                $globalConfiguration->get('PAPAYA_PATH_CACHE'),
+              $globalConfiguration->get('PAPAYA_PATH_CACHE'),
               'FILESYSTEM_NOTIFIER_SCRIPT' =>
-                $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
+              $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
               'MEMCACHE_SERVERS' =>
-                $globalConfiguration->get('PAPAYA_CACHE_DATA_MEMCACHE_SERVERS'),
-            )
+              $globalConfiguration->get('PAPAYA_CACHE_DATA_MEMCACHE_SERVERS'),
+            ]
           );
           return self::getService($configuration, $static);
         }
@@ -123,16 +125,16 @@ class Cache {
         if ($globalConfiguration->get('PAPAYA_CACHE_IMAGES', FALSE)) {
           $configuration = new Cache\Configuration();
           $configuration->assign(
-            array(
+            [
               'SERVICE' =>
-                $globalConfiguration->get('PAPAYA_CACHE_IMAGES_SERVICE', 'file'),
+              $globalConfiguration->get('PAPAYA_CACHE_IMAGES_SERVICE', 'file'),
               'FILESYSTEM_PATH' =>
-                $globalConfiguration->get('PAPAYA_PATH_CACHE'),
+              $globalConfiguration->get('PAPAYA_PATH_CACHE'),
               'FILESYSTEM_NOTIFIER_SCRIPT' =>
-                $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
+              $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
               'MEMCACHE_SERVERS' =>
-                $globalConfiguration->get('PAPAYA_CACHE_IMAGES_MEMCACHE_SERVERS'),
-            )
+              $globalConfiguration->get('PAPAYA_CACHE_IMAGES_MEMCACHE_SERVERS'),
+            ]
           );
           return self::getService($configuration, $static);
         }
@@ -147,6 +149,6 @@ class Cache {
    * Unset all stored static cache objects
    */
   public static function reset() {
-    self::$_serviceObjects = array();
+    self::$_serviceObjects = [];
   }
 }

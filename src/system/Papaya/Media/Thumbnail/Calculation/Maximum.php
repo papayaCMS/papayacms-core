@@ -14,11 +14,14 @@
  */
 
 namespace Papaya\Media\Thumbnail\Calculation;
-class Maximum {
 
+class Maximum {
   private $_width;
+
   private $_height;
+
   private $_maximumWidth;
+
   private $_maximumHeight;
 
   public function __construct($width, $height, $maximumWidth, $maximumHeight) {
@@ -34,9 +37,9 @@ class Maximum {
     $targetWidth = $this->_maximumWidth;
     $targetHeight = $this->_maximumHeight;
     if ($factorX >= $factorY) {
-      $targetHeight = round($this->_height / $factorX);
+      $targetHeight = \round($this->_height / $factorX);
     } else {
-      $targetWidth = round($this->_width / $factorY);
+      $targetWidth = \round($this->_width / $factorY);
     }
     return [$targetWidth, $targetHeight];
   }

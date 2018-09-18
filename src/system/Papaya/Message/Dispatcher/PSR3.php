@@ -27,17 +27,23 @@ use Papaya\Message;
 class PSR3
   extends \Papaya\Application\BaseObject
   implements Message\Dispatcher {
-
   const LEVEL_DEBUG = 0;
+
   const LEVEL_INFO = 0;
+
   const LEVEL_NOTICE = 0;
+
   const LEVEL_WARNING = 0;
+
   const LEVEL_ERROR = 0;
+
   const LEVEL_CRITICAL = 0;
+
   const LEVEL_ALERT = 0;
+
   const LEVEL_EMERGENCY = 0;
 
-  private static $_SEVERITY_LEVELS = array(
+  private static $_SEVERITY_LEVELS = [
     Message::SEVERITY_DEBUG => \Psr\Log\LogLevel::DEBUG,
     Message::SEVERITY_INFO => \Psr\Log\LogLevel::INFO,
     Message::SEVERITY_NOTICE => \Psr\Log\LogLevel::NOTICE,
@@ -46,9 +52,10 @@ class PSR3
     Message::SEVERITY_CRITICAL => \Psr\Log\LogLevel::CRITICAL,
     Message::SEVERITY_ALERT => \Psr\Log\LogLevel::ALERT,
     Message::SEVERITY_EMERGENCY => \Psr\Log\LogLevel::EMERGENCY
-  );
+  ];
 
   private $_logger;
+
   private $_enabled = TRUE;
 
   public function __construct(\Psr\Log\LoggerInterface $logger = NULL) {
@@ -59,7 +66,7 @@ class PSR3
    * Send log message to browser using the Wildfire protocol if possible
    *
    * @param Message $message
-   * @return boolean
+   * @return bool
    * @throws \InvalidArgumentException
    */
   public function dispatch(Message $message) {
@@ -84,7 +91,7 @@ class PSR3
         isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
           ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : \Psr\Log\LogLevel::DEBUG,
         $message->getMessage(),
-        $this->getContextAsArray($message->context()) ?: array()
+        $this->getContextAsArray($message->context()) ?: []
       );
     } catch (\Exception $e) {
       $this->_enabled = FALSE;
@@ -120,7 +127,7 @@ class PSR3
             if (isset($lists[$label])) {
               $result[$label][] = $value;
             } else {
-              $result[$label] = array($result[$label], $value);
+              $result[$label] = [$result[$label], $value];
               $lists[$label] = TRUE;
             }
           } else {

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\File\System\Action;
+
 /**
  * Read an url to trigger an remote script
  *
@@ -21,7 +22,6 @@ namespace Papaya\File\System\Action;
  * @subpackage FileSystem
  */
 class URL implements \Papaya\File\System\Action {
-
   private $_url;
 
   public function __construct($url) {
@@ -34,12 +34,12 @@ class URL implements \Papaya\File\System\Action {
    * @param array $parameters
    * @return bool
    */
-  public function execute(array $parameters = array()) {
+  public function execute(array $parameters = []) {
     $queryString = '';
     foreach ($parameters as $name => $value) {
-      $queryString .= '&'.urlencode($name).'='.urlencode($value);
+      $queryString .= '&'.\urlencode($name).'='.\urlencode($value);
     }
-    return $this->fetch($this->_url.'?'.substr($queryString, 1));
+    return $this->fetch($this->_url.'?'.\substr($queryString, 1));
   }
 
   /**
@@ -50,6 +50,6 @@ class URL implements \Papaya\File\System\Action {
    * @codeCoverageIgnore
    */
   protected function fetch($url) {
-    return (boolean)file_get_contents($url);
+    return (bool)\file_get_contents($url);
   }
 }

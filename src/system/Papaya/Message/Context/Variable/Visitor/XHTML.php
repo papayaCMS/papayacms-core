@@ -23,7 +23,6 @@ namespace Papaya\Message\Context\Variable\Visitor;
  */
 class XHTML
   extends \Papaya\Message\Context\Variable\Visitor {
-
   /**
    * Suffix for truncated string values
    *
@@ -34,25 +33,25 @@ class XHTML
   /**
    * @var \DOMDocument
    */
-  private $_document = NULL;
+  private $_document;
 
   /**
    * @var \DOMElement
    */
-  private $_currentNode = NULL;
+  private $_currentNode;
 
   /**
    * Handle a stack of nodes representing the indentation
    *
    * @var array
    */
-  private $_indentStack = array();
+  private $_indentStack = [];
 
   /**
    * Construct visitor object and set recursion depth and string length
    *
-   * @param integer $depth
-   * @param integer $stringLength
+   * @param int $depth
+   * @param int $stringLength
    */
   public function __construct($depth, $stringLength) {
     parent::__construct($depth, $stringLength);
@@ -79,7 +78,7 @@ class XHTML
    * @param array $array
    */
   public function visitArray(array $array) {
-    $elementCount = count($array);
+    $elementCount = \count($array);
     $listNode = $this->_createListNode();
     $this->_addTypeNode($listNode, 'array');
     $this->_addText($listNode, '(');
@@ -90,7 +89,7 @@ class XHTML
         foreach ($array as $index => $element) {
           $keyNode = $this->_createListNode();
           $this->_addText($keyNode, '[');
-          $this->_addValueNode($keyNode, is_string($index) ? 'string' : 'number', $index);
+          $this->_addValueNode($keyNode, \is_string($index) ? 'string' : 'number', $index);
           $this->_addText($keyNode, ']=>');
           $this->visitVariable($element);
         }
@@ -118,7 +117,7 @@ class XHTML
   /**
    * Visit an integer variable
    *
-   * @param integer $integer
+   * @param int $integer
    */
   public function visitInteger($integer) {
     $listNode = $this->_createListNode();
@@ -144,7 +143,7 @@ class XHTML
   /**
    * Visit a NULL variable
    *
-   * @param NULL $null
+   * @param null $null
    */
   public function visitNull($null) {
     $listNode = $this->_createListNode();
@@ -159,7 +158,7 @@ class XHTML
   public function visitObject($object) {
     $listNode = $this->_createListNode();
     $reflection = new \ReflectionObject($object);
-    $hash = spl_object_hash($object);
+    $hash = \spl_object_hash($object);
     $isRecursion = $this->_isObjectRecursion($hash);
     $isDuplicate = $this->_isObjectDuplicate($hash);
     $this->_pushObjectStack($hash);
@@ -172,7 +171,7 @@ class XHTML
     } elseif ($isDuplicate) {
       $this->_addValueNode($listNode, 'string', '...object duplication...');
     } elseif ($this->_increaseIndent($listNode)) {
-      $values = array_merge((array)$reflection->getStaticProperties(), (array)$object);
+      $values = \array_merge((array)$reflection->getStaticProperties(), (array)$object);
       foreach ($reflection->getProperties() as $property) {
         $propertyName = $property->getName();
         $visibility = '';
@@ -190,7 +189,7 @@ class XHTML
         $this->_addText($keyNode, '[');
         $this->_addValueNode($keyNode, 'string', $visibility.$propertyName);
         $this->_addText($keyNode, ']=>');
-        if (array_key_exists($propertyName, $values)) {
+        if (\array_key_exists($propertyName, $values)) {
           $this->visitVariable($values[$propertyName]);
         } elseif ($property->isProtected()) {
           $protectedName = "\0*\0".$propertyName;
@@ -227,9 +226,9 @@ class XHTML
    * @param string $string
    */
   public function visitString($string) {
-    $length = strlen($string);
-    if (strlen($string) > $this->_stringLength) {
-      $value = substr($string, 0, $this->_stringLength).$this->_truncateSuffix;
+    $length = \strlen($string);
+    if (\strlen($string) > $this->_stringLength) {
+      $value = \substr($string, 0, $this->_stringLength).$this->_truncateSuffix;
     } else {
       $value = $string;
     }
@@ -297,12 +296,12 @@ class XHTML
    * Increase indent, add a new list to document, set parent node for list items
    *
    * @param \DOMElement $targetNode parent/position of the new list
-   * @return boolean return FALSE if identation limit is reached
+   * @return bool return FALSE if identation limit is reached
    */
   protected function _increaseIndent(\DOMElement $targetNode) {
-    if (count($this->_indentStack) < ($this->_depth - 1)) {
+    if (\count($this->_indentStack) < ($this->_depth - 1)) {
       $this->_indentStack[] = $this->_document->createElement('ul');
-      $this->_currentNode = end($this->_indentStack);
+      $this->_currentNode = \end($this->_indentStack);
       $targetNode->appendChild($this->_currentNode);
       return TRUE;
     }
@@ -313,7 +312,7 @@ class XHTML
    * Decrease indent, remove node from indent stack, set parent node for list items
    */
   protected function _decreaseIndent() {
-    array_splice($this->_indentStack, -1);
-    $this->_currentNode = end($this->_indentStack);
+    \array_splice($this->_indentStack, -1);
+    $this->_currentNode = \end($this->_indentStack);
   }
 }

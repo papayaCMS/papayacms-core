@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Session;
+
 /**
  * Session persistance for request parameters
  *
@@ -21,25 +22,24 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Parameters extends \Papaya\Application\BaseObject {
-
   /**
    * A group identifer for the session data, if an object is provided, it's classname will be used.
    *
    * @var object|string
    */
-  private $_group = NULL;
+  private $_group;
 
   /**
    * @var \Papaya\Request\Parameters
    */
-  private $_parameters = NULL;
+  private $_parameters;
 
   /**
    * Session values
    *
    * @var \Papaya\Session\Values
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * Initialize object, set a group and the parameters object. The group can be an string or
@@ -66,7 +66,7 @@ class Parameters extends \Papaya\Application\BaseObject {
    *
    * @param string|array $name
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    * @param array|string $dependencies
    * @return mixed
    */
@@ -133,7 +133,7 @@ class Parameters extends \Papaya\Application\BaseObject {
   public function values(\Papaya\Session\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
-    } elseif (is_null($this->_values)) {
+    } elseif (\is_null($this->_values)) {
       $this->_values = $this->papaya()->session->values;
     }
     return $this->_values;
@@ -147,6 +147,6 @@ class Parameters extends \Papaya\Application\BaseObject {
    */
   private function getIdentifier($parameterName) {
     $name = new \Papaya\Request\Parameters\Name($parameterName);
-    return array($this->_group, $name->getString());
+    return [$this->_group, $name->getString()];
   }
 }

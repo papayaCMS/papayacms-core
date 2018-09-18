@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\XSLT;
+
 /**
  * Papaya XSLT template handler class
  *
@@ -21,7 +22,6 @@ namespace Papaya\Template\XSLT;
  * @subpackage Template
  */
 class Handler extends \Papaya\Application\BaseObject {
-
   /**
    * Get absolute local file path to current template directory
    *
@@ -66,7 +66,6 @@ class Handler extends \Papaya\Application\BaseObject {
    * Set preview template (saved in session)
    *
    * @param string $templateName
-   * @return void
    */
   public function setTemplatePreview($templateName) {
     $this
@@ -78,8 +77,6 @@ class Handler extends \Papaya\Application\BaseObject {
 
   /**
    * Remove preview template (saved in session)
-   *
-   * @return void
    */
   public function removeTemplatePreview() {
     $this

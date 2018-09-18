@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\BaseObject\Options;
+
 /**
  * A options list if a list of name => value pairs. The names consists of letters and
  * underscores (the first char can not be an underscore). Lowercase letters, will be converted
@@ -29,19 +30,18 @@ namespace Papaya\BaseObject\Options;
  */
 class Collection
   implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * Options storage
    *
    * @var array
    */
-  protected $_options = array();
+  protected $_options = [];
 
   /**
    * Constrcutor: create object with optional default data
    */
   public function __construct(array $options = NULL) {
-    if (is_array($options)) {
+    if (\is_array($options)) {
       foreach ($options as $name => $value) {
         $this->offsetSet($name, $value);
       }
@@ -56,18 +56,18 @@ class Collection
    * @return string
    */
   protected function _prepareName($name) {
-    if (preg_match('(^[a-z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
+    if (\preg_match('(^[a-z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
       $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
-      if (preg_match_all($camelCasePattern, $name, $matches)) {
-        $name = implode('_', $matches[0]);
+      if (\preg_match_all($camelCasePattern, $name, $matches)) {
+        $name = \implode('_', $matches[0]);
       }
     }
-    $name = strToUpper($name);
-    if (preg_match('(^[A-Z]+[A-Z_]+$)DS', $name)) {
+    $name = \strtoupper($name);
+    if (\preg_match('(^[A-Z]+[A-Z_]+$)DS', $name)) {
       return $name;
     }
     throw new \InvalidArgumentException(
-      sprintf('Invalid option name "%s".', $name)
+      \sprintf('Invalid option name "%s".', $name)
     );
   }
 
@@ -98,7 +98,7 @@ class Collection
    * @return bool
    */
   protected function _exists($name) {
-    return array_key_exists($name, $this->_options);
+    return \array_key_exists($name, $this->_options);
   }
 
   /**
@@ -121,16 +121,16 @@ class Collection
    */
   public function offsetSet($name, $value) {
     $name = $this->_prepareName($name);
-    if (is_scalar($value)) {
+    if (\is_scalar($value)) {
       $this->_write($name, $value);
-    } elseif (is_null($value)) {
-      if (array_key_exists($name, $this->_options)) {
+    } elseif (\is_null($value)) {
+      if (\array_key_exists($name, $this->_options)) {
         unset($this->_options[$name]);
       }
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
-          'Option value must be a skalar: "%s" given.', gettype($value)
+        \sprintf(
+          'Option value must be a skalar: "%s" given.', \gettype($value)
         )
       );
     }
@@ -158,10 +158,10 @@ class Collection
   /**
    * Countable interface: return options count
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_options);
+    return \count($this->_options);
   }
 
   /**

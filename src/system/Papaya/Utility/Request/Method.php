@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Request;
+
 /**
  * Static utility class to fetch the request method. Includes several validation shortcut method
  * for the most used request methods.
@@ -22,45 +23,45 @@ namespace Papaya\Utility\Request;
  * @subpackage Util
  */
 class Method {
-
   const FORMAT_UPPERCASE = 0;
+
   const FORMAT_LOWERCASE = 1;
 
   /**
    * fetch the current request method from environment
    *
-   * @param integer $format
+   * @param int $format
    * @return string
    */
   public static function get($format = self::FORMAT_LOWERCASE) {
     $method = empty($_SERVER['REQUEST_METHOD']) ? 'GET' : $_SERVER['REQUEST_METHOD'];
-    return $format ? strtolower($method) : strtoupper($method);
+    return $format ? \strtolower($method) : \strtoupper($method);
   }
 
   /**
    * Validation shortcut to check if the request method is GET
    *
-   * @return boolean
+   * @return bool
    */
   public static function isGet() {
-    return self::get() == 'get';
+    return 'get' == self::get();
   }
 
   /**
    * Validation shortcut to check if the request method is POST
    *
-   * @return boolean
+   * @return bool
    */
   public static function isPost() {
-    return self::get() == 'post';
+    return 'post' == self::get();
   }
 
   /**
    * Validation shortcut to check if the request method is PUT
    *
-   * @return boolean
+   * @return bool
    */
   public static function isPut() {
-    return self::get() == 'put';
+    return 'put' == self::get();
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Reference;
+
 /**
  * Papaya Interface Page Reference (Hyperlink Reference)
  *
@@ -21,13 +22,12 @@ namespace Papaya\UI\Reference;
  * @subpackage UI
  */
 class Page extends \Papaya\UI\Reference {
-
   /**
    * Page identification data
    *
    * @var array
    */
-  protected $_pageData = array(
+  protected $_pageData = [
     'title' => 'index',
     'category_id' => 0,
     'id' => 0,
@@ -35,7 +35,7 @@ class Page extends \Papaya\UI\Reference {
     'mode' => 'html',
     'preview' => FALSE,
     'preview_time' => 0
-  );
+  ];
 
   private $_pageReferences;
 
@@ -112,8 +112,8 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Set page id
    *
-   * @param integer $pageId
-   * @param boolean $autoConfigure
+   * @param int $pageId
+   * @param bool $autoConfigure
    * @return self
    */
   public function setPageId($pageId, $autoConfigure = TRUE) {
@@ -130,7 +130,7 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Get page id
    *
-   * @return integer
+   * @return int
    */
   public function getPageId() {
     return $this->_pageData['id'];
@@ -144,7 +144,7 @@ class Page extends \Papaya\UI\Reference {
    */
   public function setPageTitle($pageTitle) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z\d_-]+$)D', $pageTitle)) {
+    if (\preg_match('(^[a-zA-Z\d_-]+$)D', $pageTitle)) {
       $this->_pageData['title'] = (string)$pageTitle;
     } else {
       $pageTitle = \Papaya\Utility\File::normalizeName($pageTitle, 100, $this->getPageLanguage());
@@ -168,12 +168,12 @@ class Page extends \Papaya\UI\Reference {
    * Set page language identifier
    *
    * @param string $languageIdentifier
-   * @param boolean $autoConfigure
+   * @param bool $autoConfigure
    * @return self
    */
   public function setPageLanguage($languageIdentifier, $autoConfigure = TRUE) {
     $this->prepare();
-    if (preg_match('(^[a-z]{2,6}$)D', $languageIdentifier)) {
+    if (\preg_match('(^[a-z]{2,6}$)D', $languageIdentifier)) {
       $this->_pageData['language'] = (string)$languageIdentifier;
       if ($this->_pageData['id'] > 0) {
         if ($autoConfigure && isset($this->papaya()->pageReferences)) {
@@ -191,7 +191,7 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Set category id
    *
-   * @param integer $categoryId
+   * @param int $categoryId
    * @return self
    */
   public function setCategoryId($categoryId) {
@@ -210,7 +210,7 @@ class Page extends \Papaya\UI\Reference {
    */
   public function setOutputMode($outputMode) {
     $this->prepare();
-    if (preg_match('(^[a-z]{1,20}$)D', $outputMode)) {
+    if (\preg_match('(^[a-z]{1,20}$)D', $outputMode)) {
       $this->_pageData['mode'] = (string)$outputMode;
     }
     return $this;
@@ -228,8 +228,8 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Set preview mode and time
    *
-   * @param boolean $isPreview
-   * @param integer $previewTime optional, default value 0
+   * @param bool $isPreview
+   * @param int $previewTime optional, default value 0
    * @return self
    */
   public function setPreview($isPreview, $previewTime = NULL) {

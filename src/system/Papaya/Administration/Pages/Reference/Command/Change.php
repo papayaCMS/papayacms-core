@@ -26,7 +26,6 @@ use Papaya\UI;
  * @subpackage Administration
  */
 class Change extends UI\Control\Command\Dialog {
-
   /**
    * Create the add/edit dialog and assign callbacks.
    *
@@ -49,26 +48,26 @@ class Change extends UI\Control\Command\Dialog {
 
     $dialog->caption = new UI\Text\Translated('Page reference');
     $dialog->data->merge(
-      array(
+      [
         'source_id' => $pageId,
         'target_id' => $targetId
-      )
+      ]
     );
     $dialog->parameterGroup('pageref');
     $dialog->hiddenFields->merge(
-      array(
+      [
         'cmd' => 'reference_change',
         'source_id' => $pageId
-      )
+      ]
     );
     $dialog->hiddenValues->merge(
-      array(
-        'tt' => array(
+      [
+        'tt' => [
           'cmd' => 'reference_change',
           'page_id' => $pageId,
           'target_id' => $targetId
-        )
-      )
+        ]
+      ]
     );
 
     $dialog->fields[] = $targetIdField = new UI\Dialog\Field\Input\Page(
@@ -79,11 +78,11 @@ class Change extends UI\Control\Command\Dialog {
     );
     $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Save'));
 
-    $dialog->callbacks()->onBeforeSave = array($this, 'validateTarget');
+    $dialog->callbacks()->onBeforeSave = [$this, 'validateTarget'];
     $dialog->callbacks()->onBeforeSave->context->targetIdField = $targetIdField;
 
-    $this->callbacks()->onExecuteSuccessful = array($this, 'dispatchSavedMessage');
-    $this->callbacks()->onExecuteFailed = array($this, 'dispatchErrorMessage');
+    $this->callbacks()->onExecuteSuccessful = [$this, 'dispatchSavedMessage'];
+    $this->callbacks()->onExecuteFailed = [$this, 'dispatchErrorMessage'];
 
     return $dialog;
   }
@@ -99,13 +98,13 @@ class Change extends UI\Control\Command\Dialog {
   public function validateTarget($context, Content\Page\Reference $record) {
     list($sourceId, $targetId) = $this->sortAsc($record->sourceId, $record->targetId);
     $currentKey = $record->key()->getProperties();
-    /** @noinspection TypeUnsafeComparisonInspection */
+    /* @noinspection TypeUnsafeComparisonInspection */
     if (
-      $currentKey != array('source_id' => $sourceId, 'target_id' => $targetId) &&
+      $currentKey != ['source_id' => $sourceId, 'target_id' => $targetId] &&
       $record->exists($sourceId, $targetId)
     ) {
       $context->targetIdField->handleValidationFailure(
-        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
+        new \Papaya\Filter\Exception\FailedCallback([$this, 'validateOrigin'])
       );
       return FALSE;
     }
@@ -115,15 +114,15 @@ class Change extends UI\Control\Command\Dialog {
   /**
    * sort two numbers ascending.
    *
-   * @param integer $idOne
-   * @param integer $idTwo
+   * @param int $idOne
+   * @param int $idTwo
    * @return array
    */
   private function sortAsc($idOne, $idTwo) {
     if ((int)$idOne > (int)$idTwo) {
-      return array($idTwo, $idOne);
+      return [$idTwo, $idOne];
     }
-    return array($idOne, $idTwo);
+    return [$idOne, $idTwo];
   }
 
   /**
@@ -144,14 +143,14 @@ class Change extends UI\Control\Command\Dialog {
    * @param \Papaya\UI\Dialog $dialog
    */
   public function dispatchErrorMessage(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $context, UI\Dialog $dialog
   ) {
     $this->papaya()->messages->dispatch(
       new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
-        array(implode(', ', $dialog->errors()->getSourceCaptions()))
+        [\implode(', ', $dialog->errors()->getSourceCaptions())]
       )
     );
   }

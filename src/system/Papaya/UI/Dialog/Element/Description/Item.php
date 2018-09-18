@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Element\Description;
+
 /**
  * Dialog element description item superclass.
  *
@@ -21,5 +22,4 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 abstract class Item extends \Papaya\UI\Control\Collection\Item {
-
 }

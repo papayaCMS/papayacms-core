@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * A listview gui control.
  *
@@ -28,9 +29,10 @@ namespace Papaya\UI;
  * @property \Papaya\UI\Reference $reference
  */
 class ListView extends Control\Interactive {
-
   const MODE_DETAILS = 'details';
+
   const MODE_TILES = 'tiles';
+
   const MODE_THUMBNAILS = 'thumbnails';
 
   /**
@@ -38,7 +40,7 @@ class ListView extends Control\Interactive {
    *
    * @var \Papaya\UI\ListView\Items
    */
-  private $_items = NULL;
+  private $_items;
 
   /**
    * Object buffer for listview items builder (is this is set before the actual items are
@@ -46,13 +48,13 @@ class ListView extends Control\Interactive {
    *
    * @var \Papaya\UI\ListView\Items
    */
-  private $_builder = NULL;
+  private $_builder;
 
   /**
    * Defines if the builder should be used to fill the items on next access. This
    * will be set to true if an builder is assigned and back to false after the builder was called.
    *
-   * @var boolean
+   * @var bool
    */
   private $_useBuilder = FALSE;
 
@@ -61,14 +63,14 @@ class ListView extends Control\Interactive {
    *
    * @var \Papaya\UI\ListView\Columns
    */
-  private $_columns = NULL;
+  private $_columns;
 
   /**
    * Helper object to manage the four toolbars for the different positions.
    *
    * @var \Papaya\UI\Toolbars
    */
-  private $_toolbars = NULL;
+  private $_toolbars;
 
   /**
    * List view caption/title
@@ -89,34 +91,34 @@ class ListView extends Control\Interactive {
    *
    * @var \Papaya\UI\Reference
    */
-  private $_reference = NULL;
+  private $_reference;
 
   /**
    * Declared public properties, see property annotaiton of the class for documentation.
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'columns' => array('columns', 'columns'),
-    'items' => array('items', 'items'),
-    'toolbars' => array('toolbars', 'toolbars'),
-    'caption' => array('_caption', '_caption'),
-    'mode' => array('_mode', 'setMode'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'columns' => ['columns', 'columns'],
+    'items' => ['items', 'items'],
+    'toolbars' => ['toolbars', 'toolbars'],
+    'caption' => ['_caption', '_caption'],
+    'mode' => ['_mode', 'setMode'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Append listview output to parent element.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     $listview = $parent->appendElement('listview');
     if (!empty($this->_caption)) {
       $listview->setAttribute('title', (string)$this->_caption);
     }
-    if ($this->mode != self::MODE_DETAILS) {
+    if (self::MODE_DETAILS != $this->mode) {
       $listview->setAttribute('mode', $this->mode);
     }
     $this->toolbars()->appendTo($listview);
@@ -134,11 +136,11 @@ class ListView extends Control\Interactive {
   public function items(\Papaya\UI\ListView\Items $items = NULL) {
     if (isset($items)) {
       $this->_items = $items;
-    } elseif (is_null($this->_items)) {
+    } elseif (\is_null($this->_items)) {
       $this->_items = new \Papaya\UI\ListView\Items($this);
       $this->_items->papaya($this->papaya());
     }
-    if ($this->_useBuilder && count($this->_items) == 0) {
+    if ($this->_useBuilder && 0 == \count($this->_items)) {
       $this->_useBuilder = FALSE;
       $this->builder()->fill($this->_items);
     }
@@ -150,7 +152,7 @@ class ListView extends Control\Interactive {
    * add some items from a data source for example.
    *
    * @param \Papaya\UI\ListView\Items\Builder $builder
-   * @return NULL|\Papaya\UI\ListView\Items\Builder
+   * @return null|\Papaya\UI\ListView\Items\Builder
    */
   public function builder(\Papaya\UI\ListView\Items\Builder $builder = NULL) {
     if (isset($builder)) {
@@ -170,7 +172,7 @@ class ListView extends Control\Interactive {
     if (isset($columns)) {
       $this->_columns = $columns;
     }
-    if (is_null($this->_columns)) {
+    if (\is_null($this->_columns)) {
       $this->_columns = new \Papaya\UI\ListView\Columns($this);
       $this->_columns->papaya($this->papaya());
     }
@@ -187,7 +189,7 @@ class ListView extends Control\Interactive {
     if (isset($toolbars)) {
       $this->_toolbars = $toolbars;
     }
-    if (is_null($this->_toolbars)) {
+    if (\is_null($this->_toolbars)) {
       $this->_toolbars = new \Papaya\UI\Toolbars($this);
       $this->_toolbars->papaya($this->papaya());
     }
@@ -207,7 +209,7 @@ class ListView extends Control\Interactive {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
-    if (is_null($this->_reference)) {
+    if (\is_null($this->_reference)) {
       $this->_reference = new \Papaya\UI\Reference();
       $this->_reference->papaya($this->papaya());
     }

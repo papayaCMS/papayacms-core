@@ -26,11 +26,10 @@ namespace Papaya\BaseObject\Text;
  * @subpackage Objects
  */
 class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * @var \ArrayObject
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * @var int|string
@@ -43,7 +42,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @param mixed $values
    * @param int|string $defaultOffset
    */
-  public function __construct($values = array(), $defaultOffset = 0) {
+  public function __construct($values = [], $defaultOffset = 0) {
     $this->_defaultOffset = $defaultOffset;
     $this->assign($values);
   }
@@ -55,8 +54,8 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @param mixed $values
    */
   public function assign($values) {
-    $this->_values = new \ArrayObject;
-    if (is_array($values) || $values instanceof \Traversable) {
+    $this->_values = new \ArrayObject();
+    if (\is_array($values) || $values instanceof \Traversable) {
       foreach ($values as $key => $value) {
         $this->_values[$key] = (string)$value;
       }
@@ -118,7 +117,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @see \Countable::count()
    */
   public function count() {
-    return count($this->_values);
+    return \count($this->_values);
   }
 
   /**

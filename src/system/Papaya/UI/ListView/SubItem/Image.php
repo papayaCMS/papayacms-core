@@ -14,26 +14,27 @@
  */
 
 namespace Papaya\UI\ListView\SubItem;
+
 /**
  * A simple listview subitem displaying an image.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property string $image
  * @property string|\Papaya\UI\Text $hint
  * @property array $actionParameters
  * @property \Papaya\UI\Reference $reference
  */
 class Image extends Text {
-
   /**
    * buffer for image index or filename
    *
    * @var string
    */
   protected $_image = '';
+
   /**
    * buffer for text variable
    *
@@ -46,20 +47,20 @@ class Image extends Text {
    *
    * @var \Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'image' => array('_image', '_image'),
-    'hint' => array('_hint', '_hint'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'image' => ['_image', '_image'],
+    'hint' => ['_hint', '_hint'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Create subitem object, set text content and alignment.
@@ -82,17 +83,17 @@ class Image extends Text {
   public function appendTo(\Papaya\XML\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
+      ]
     );
     if (!empty($this->_image)) {
       $glyph = $subitem->appendElement(
         'glyph',
-        array(
+        [
           'src' => $this->papaya()->images[(string)$this->_image],
           'hint' => (string)$this->_hint
-        )
+        ]
       );
       if (!empty($this->_actionParameters)) {
         $glyph->setAttribute('href', $this->getURL());

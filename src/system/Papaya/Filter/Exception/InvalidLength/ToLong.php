@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception\InvalidLength;
+
 /**
  * This exception is thrown if a value is to long.
  *
@@ -21,16 +22,15 @@ namespace Papaya\Filter\Exception\InvalidLength;
  * @subpackage Filter
  */
 class ToLong extends \Papaya\Filter\Exception\InvalidLength {
-
   /**
    * Construct object with length information
    *
-   * @param integer $expected
-   * @param integer $actual
+   * @param int $expected
+   * @param int $actual
    */
   public function __construct($expected, $actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to long. Expecting a maximum of %d bytes, got %d.',
         $expected,
         $actual

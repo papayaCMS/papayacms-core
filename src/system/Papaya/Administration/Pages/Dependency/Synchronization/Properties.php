@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Content\Page;
+use Papaya\Content\Page;
 
 /**
  * Synchronize properties of the page working copy
@@ -25,7 +25,6 @@ use \Papaya\Content\Page;
  */
 class Properties
   extends Content {
-
   /**
    * Page database record object
    *
@@ -37,8 +36,8 @@ class Properties
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -69,22 +68,22 @@ class Properties
    *
    * @param Page\Translation $origin
    * @param array $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
-        array(
+        [
           'topic_title' => $origin->title,
           'meta_title' => $origin->metaTitle,
           'meta_keywords' => $origin->metaKeywords,
           'meta_descr' => $origin->metaDescription
-        ),
-        array(
+        ],
+        [
           'lng_id' => $origin->languageId,
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
 
@@ -93,13 +92,13 @@ class Properties
    *
    * @param Page\Work $origin
    * @param array $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function updatePages(Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
-        array(
+        [
           'topic_modified' => $databaseAccess->getTimestamp(),
           'topic_mainlanguage' => $origin->defaultLanguage,
           'linktype_id' => $origin->linkType,
@@ -110,11 +109,10 @@ class Properties
           'topic_cachetime' => $origin->cacheTime,
           'topic_expiresmode' => $origin->expiresMode,
           'topic_expirestime' => $origin->expiresTime
-        ),
-        array(
+        ],
+        [
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
-
 }

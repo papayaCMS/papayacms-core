@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an object is a plugin appendable to an DOM element. This
  * extends \Papaya\XML\Appendable to provide the additional information that it is an content plugin.
@@ -22,5 +23,4 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Appendable extends \Papaya\XML\Appendable {
-
 }

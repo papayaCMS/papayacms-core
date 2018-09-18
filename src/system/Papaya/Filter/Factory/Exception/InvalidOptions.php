@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Exception;
+
 /**
  * Exception: options invalid for the profile class
  *
@@ -21,14 +22,12 @@ namespace Papaya\Filter\Factory\Exception;
  * @subpackage Filter
  */
 class InvalidOptions extends \Papaya\Filter\Factory\Exception {
-
   /**
    * @param string $name
    */
   public function __construct($name) {
     parent::__construct(
-      sprintf('Invalid options in filter profile class: "%s".', $name)
+      \sprintf('Invalid options in filter profile class: "%s".', $name)
     );
   }
-
 }

@@ -23,7 +23,6 @@ namespace Papaya\Database\Record\Order\By;
  */
 class Fields
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
-
   /**
    * @var \Papaya\Database\Record\Order\Collection
    */

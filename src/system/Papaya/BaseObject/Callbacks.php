@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\BaseObject;
+
 /**
  * A list of callbacks, this can be used in another object to allow the user to set
  * callbacks for different events inside the object.
@@ -22,20 +23,19 @@ namespace Papaya\BaseObject;
  * @subpackage UI
  */
 class Callbacks implements \IteratorAggregate {
-
   /**
    * List of callbacks
    *
    * @var \Papaya\BaseObject\Callback[]
    */
-  private $_callbacks = array();
+  private $_callbacks = [];
 
   /**
    * List of callback defaults
    *
    * @var array(string=>mixed)
    */
-  private $_defaults = array();
+  private $_defaults = [];
 
   /**
    * @var bool
@@ -64,14 +64,14 @@ class Callbacks implements \IteratorAggregate {
    * @param array $definitions
    */
   protected function defineCallbacks(array $definitions) {
-    if (count($definitions) < 1) {
+    if (\count($definitions) < 1) {
       throw new \LogicException('No callback definitions provided.');
     }
-    $this->_callbacks = array();
+    $this->_callbacks = [];
     foreach ($definitions as $name => $defaultReturn) {
-      if (method_exists($this, $name)) {
+      if (\method_exists($this, $name)) {
         throw new \LogicException(
-          sprintf(
+          \sprintf(
             'Method "%s" does already exists and can not be defined as a callback.',
             $name
           )
@@ -86,7 +86,7 @@ class Callbacks implements \IteratorAggregate {
    * Allows to check if a php callback is available for the given name.
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     return isset($this->_callbacks[$name]->callback);
@@ -108,20 +108,20 @@ class Callbacks implements \IteratorAggregate {
    * If it is a PHP callback it will be assigned to the \Papaya\BaseObject\Callback instance.
    *
    * @param string $name
-   * @param NULL|Callback|\Callback $callback
+   * @param null|callback|\Callback $callback
    * @throws \InvalidArgumentException
    */
   public function __set($name, $callback) {
     $this->validateName($name);
-    if (is_null($callback)) {
+    if (\is_null($callback)) {
       $this->_callbacks[$name] = new Callback($this->_defaults[$name], $this->_addContext);
     } elseif ($callback instanceof Callback) {
       $this->_callbacks[$name] = $callback;
-    } elseif (is_callable($callback)) {
+    } elseif (\is_callable($callback)) {
       $this->_callbacks[$name]->callback = $callback;
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument $callback must be a callable or an instance of %s.',
           Callback::class
         )
@@ -147,7 +147,7 @@ class Callbacks implements \IteratorAggregate {
    */
   public function __call($name, $arguments) {
     $this->validateName($name);
-    return call_user_func_array(array($this->_callbacks[$name], 'execute'), $arguments);
+    return \call_user_func_array([$this->_callbacks[$name], 'execute'], $arguments);
   }
 
   /**
@@ -159,7 +159,7 @@ class Callbacks implements \IteratorAggregate {
   private function validateName($name) {
     if (!isset($this->_callbacks[$name])) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'Invalid callback name: %s.', $name
         )
       );

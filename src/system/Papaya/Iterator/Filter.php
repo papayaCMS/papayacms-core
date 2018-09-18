@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 /**
  * An filter iterator to filter an given iterator using a papaya filter object.
  *
@@ -21,12 +22,14 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Filter extends \FilterIterator {
-
   const FILTER_VALUES = 1;
+
   const FILTER_KEYS = 2;
+
   const FILTER_BOTH = 3;
 
   private $_filter = '';
+
   private $_target = self::FILTER_VALUES;
 
   /**
@@ -34,8 +37,8 @@ class Filter extends \FilterIterator {
    *
    * @param \Iterator $iterator
    * @param string $pattern
-   * @param integer $offset
-   * @param integer $target
+   * @param int $offset
+   * @param int $target
    */
   public function __construct(
     \Iterator $iterator, \Papaya\Filter $filter, $target = self::FILTER_VALUES
@@ -48,7 +51,7 @@ class Filter extends \FilterIterator {
   /**
    * Validate the current item and/or key using the filter object.
    *
-   * @return boolean
+   * @return bool
    */
   public function accept() {
     if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
@@ -90,7 +93,7 @@ class Filter extends \FilterIterator {
    * Match pattern against a value (key or current). The value will be casted to string
    *
    * @param mixed $value
-   * @return boolean
+   * @return bool
    */
   private function isMatch($value) {
     try {

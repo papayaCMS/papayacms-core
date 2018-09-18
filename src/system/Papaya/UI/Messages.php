@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * A list object that is used to output user messages into xml.
  *
@@ -24,7 +25,6 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appendable {
-
   /**
    * create list object and store child superclass limit
    */
@@ -36,7 +36,7 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appe
    * If the list contains items, append them and return the list xml element.
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     if (!$this->isEmpty()) {
@@ -46,7 +46,7 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appe
       }
       return $list;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -60,7 +60,7 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appe
       $dom = new \Papaya\XML\Document();
       $root = $dom->appendElement('root');
       $this->appendTo($root);
-      /** @noinspection PhpUndefinedMethodInspection */
+      /* @noinspection PhpUndefinedMethodInspection */
       return $root->firstChild->saveXML();
     }
     return '';

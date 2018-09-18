@@ -15,9 +15,9 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Administration;
-use \Papaya\Content\Page;
-use \Papaya\Utility;
+use Papaya\Administration;
+use Papaya\Content\Page;
+use Papaya\Utility;
 
 /**
  * Synchronize view and content of the page working copy
@@ -27,7 +27,6 @@ use \Papaya\Utility;
  */
 class Content
   implements Administration\Pages\Dependency\Synchronization {
-
   /**
    * Translation records object
    *
@@ -39,14 +38,14 @@ class Content
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     $this->translations()->load($originId);
     if (empty($languages)) {
-      $languages = array_keys(Utility\Arrays::ensure($this->translations()));
+      $languages = \array_keys(Utility\Arrays::ensure($this->translations()));
     }
     $existing = $this->getExistingTargetTranslations($targetIds, $languages);
     $missing = $this->getMissingTargetTranslations($targetIds, $languages, $existing);
@@ -78,18 +77,18 @@ class Content
   protected function getExistingTargetTranslations(array $targetIds, array $languageIds) {
     $databaseAccess = $this->translations()->getDatabaseAccess();
     $filter = $databaseAccess->getSqlCondition(
-      array(
+      [
         'topic_id' => $targetIds,
         'lng_id' => $languageIds
-      )
+      ]
     );
     $sql = "SELECT topic_id, lng_id
               FROM %s
              WHERE $filter";
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS)
-    );
-    $result = array();
+    ];
+    $result = [];
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
       while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         $result[$row['lng_id']][] = $row['topic_id'];
@@ -109,7 +108,7 @@ class Content
   protected function getMissingTargetTranslations(
     array $targetIds, array $languageIds, array $existing
   ) {
-    $result = array();
+    $result = [];
     foreach ($languageIds as $languageId) {
       foreach ($targetIds as $targetId) {
         if (
@@ -129,11 +128,11 @@ class Content
   /**
    * Load each translation of the current page and sync them with the target pages.
    *
-   * @param integer $originId
+   * @param int $originId
    * @param array $languages
    * @param array $existing
    * @param array $missing
-   * @return boolean
+   * @return bool
    */
   public function synchronizeTranslations(
     $originId, array $languages, array $existing, array $missing
@@ -161,20 +160,20 @@ class Content
    *
    * @param Page\Translation $origin
    * @param array $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
-        array(
+        [
           'topic_content' => Utility\Text\XML::serializeArray($origin->content),
           'topic_trans_modified' => $origin->modified
-        ),
-        array(
+        ],
+        [
           'lng_id' => $origin->languageId,
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
 
@@ -183,7 +182,7 @@ class Content
    *
    * @param Page\Translation $origin
    * @param $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function insertTranslations(Page\Translation $origin, $targetIds) {
     foreach ($targetIds as $targetId) {
@@ -200,18 +199,18 @@ class Content
   /**
    * Delete deprecated translations
    *
-   * @param array|integer $languageId
-   * @param integer $targetId
-   * @return boolean
+   * @param array|int $languageId
+   * @param int $targetId
+   * @return bool
    */
   protected function deleteTranslations($languageId, $targetId) {
     $databaseAccess = $this->translations()->getDatabaseAccess();
     return FALSE !== $databaseAccess->deleteRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
-        array(
+        [
           'lng_id' => $languageId,
           'topic_id' => $targetId
-        )
+        ]
       );
   }
 }

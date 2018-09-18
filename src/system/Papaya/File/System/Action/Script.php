@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\File\System\Action;
+
 /**
  * Execute a local script
  *
@@ -21,7 +22,6 @@ namespace Papaya\File\System\Action;
  * @subpackage FileSystem
  */
 class Script implements \Papaya\File\System\Action {
-
   private $_script;
 
   public function __construct($script) {
@@ -33,14 +33,13 @@ class Script implements \Papaya\File\System\Action {
    *
    * @param array $parameters
    */
-  public function execute(array $parameters = array()) {
-    $arguments = array();
+  public function execute(array $parameters = []) {
+    $arguments = [];
     foreach ($parameters as $name => $value) {
       $arguments['--'.$name] = $value;
     }
     $this->executeCommand($this->_script, $arguments);
   }
-
 
   /**
    * Execute a shell command
@@ -50,14 +49,14 @@ class Script implements \Papaya\File\System\Action {
    * @codeCoverageIgnore
    */
   protected function executeCommand($command, $arguments) {
-    if (is_callable('pcntl_exec')) {
+    if (\is_callable('pcntl_exec')) {
       pcntl_exec($command, $arguments);
     } else {
-      $command = escapeshellcmd($command);
+      $command = \escapeshellcmd($command);
       foreach ($arguments as $name => $value) {
-        $command .= ' '.escapeshellarg($name.'='.$value);
+        $command .= ' '.\escapeshellarg($name.'='.$value);
       }
-      exec($command);
+      \exec($command);
     }
   }
 }

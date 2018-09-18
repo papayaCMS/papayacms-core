@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * Provide data encapsulation for the content page translation details.
  *
@@ -22,29 +23,28 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id
- * @property integer $languageId
+ * @property int $id
+ * @property int $languageId
  * @property string $title
  * @property array $content
- * @property-read integer $created
- * @property-read integer $modified
+ * @property-read int $created
+ * @property-read int $modified
  * @property string $metaTitle
  * @property string $metaKeywords
  * @property string $metaDescription
- * @property integer $viewId
+ * @property int $viewId
  * @property-read string $viewTitle
  * @property-read string $viewName
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
 class Translation extends \Papaya\Database\Record\Lazy {
-
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'tt.topic_id',
     'language_id' => 'tt.lng_id',
     'title' => 'tt.topic_title',
@@ -57,21 +57,22 @@ class Translation extends \Papaya\Database\Record\Lazy {
     'view_id' => 'tt.view_id',
     'view_name' => 'v.view_name',
     'module_guid' => 'v.module_guid'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
+
   protected $_tableAlias = 'tt';
 
   protected $_tableNameViews = \Papaya\Content\Tables::VIEWS;
 
   public function load($filter) {
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s AS tt, %s AS v WHERE v.view_id = tt.view_id ";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter, "AND"));
-    $parameters = array(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter, 'AND'));
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $this->getDatabaseAccess()->getTableName($this->_tableNameViews)
-    );
+    ];
     return $this->_loadRecord($sql, $parameters);
   }
 
@@ -82,12 +83,12 @@ class Translation extends \Papaya\Database\Record\Lazy {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = [
       $this, 'callbackMapValueFromFieldToProperty'
-    );
-    $mapping->callbacks()->onMapValueFromPropertyToField = array(
+    ];
+    $mapping->callbacks()->onMapValueFromPropertyToField = [
       $this, 'callbackMapValueFromPropertyToField'
-    );
+    ];
     return $mapping;
   }
 
@@ -120,7 +121,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
       case 'content' :
-        return \Papaya\Utility\Text\XML::serializeArray(empty($value) ? array() : $value);
+        return \Papaya\Utility\Text\XML::serializeArray(empty($value) ? [] : $value);
     }
     return $value;
   }
@@ -129,7 +130,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
     return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
-      array('id', 'language_id')
+      ['id', 'language_id']
     );
   }
 
@@ -141,12 +142,12 @@ class Translation extends \Papaya\Database\Record\Lazy {
   }
 
   public function _insertRecord() {
-    $this['created'] = $this['modified'] = time();
+    $this['created'] = $this['modified'] = \time();
     return parent::_insertRecord();
   }
 
   public function _updateRecord() {
-    $this['modified'] = time();
+    $this['modified'] = \time();
     return parent::_updateRecord();
   }
 }

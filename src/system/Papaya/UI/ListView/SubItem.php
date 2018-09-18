@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * A subitem is additional data, attached to an listview item. They are displayed as additional
  * columns in the most cases.
@@ -22,25 +23,24 @@ namespace Papaya\UI\ListView;
  * @subpackage UI
  */
 abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
-
   /**
    * Alignment, if it is NULL, the column alignment is used, "left" is the default value.
    *
-   * @var NULL|integer
+   * @var null|int
    */
-  protected $_align = NULL;
+  protected $_align;
 
   /**
    * Specific parameters for a link
    *
    * @var array
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Set the alignment.
    *
-   * @param NULL|integer $align
+   * @param null|int $align
    */
   public function setAlign($align) {
     $this->_align = $align;
@@ -50,16 +50,16 @@ abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
    * Get the alignment, if the internal value is NULL. It will try to get the alignment from the
    * column. If the column is not available it will return "left".
    *
-   * @return integer
+   * @return int
    */
   public function getAlign() {
-    if (is_null($this->_align)) {
+    if (\is_null($this->_align)) {
       $columnIndex = $this->index();
       if ($this->hasCollection() &&
         ($collection = $this->collection()) &&
         $collection instanceof \Papaya\UI\ListView\SubItems &&
         $collection->getListView()->columns()->has($columnIndex + 1)) {
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return $collection->getListView()->columns()->get($columnIndex + 1)->getAlign();
       } else {
         return \Papaya\UI\Option\Align::LEFT;

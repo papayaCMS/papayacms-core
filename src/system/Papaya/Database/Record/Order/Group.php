@@ -23,7 +23,6 @@ namespace Papaya\Database\Record\Order;
  */
 class Group
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
-
   private $_lists;
 
   /**
@@ -31,7 +30,7 @@ class Group
    */
   public function __construct() {
     $this->_lists = new \Papaya\Iterator\Union();
-    foreach (func_get_args() as $list) {
+    foreach (\func_get_args() as $list) {
       $this->add($list);
     }
   }
@@ -43,7 +42,7 @@ class Group
    */
   public function add(\Papaya\Database\Interfaces\Order $list) {
     $this->remove($list);
-    /** @noinspection PhpParamsInspection */
+    /* @noinspection PhpParamsInspection */
     $this->_lists->attachIterator($list);
   }
 
@@ -53,7 +52,7 @@ class Group
    * @param \Papaya\Database\Interfaces\Order $list
    */
   public function remove(\Papaya\Database\Interfaces\Order $list) {
-    /** @noinspection PhpParamsInspection */
+    /* @noinspection PhpParamsInspection */
     $this->_lists->detachIterator($list);
   }
 
@@ -78,6 +77,6 @@ class Group
     foreach ($this as $item) {
       $result .= ', '.$item;
     }
-    return (string)substr($result, 2);
+    return (string)\substr($result, 2);
   }
 }

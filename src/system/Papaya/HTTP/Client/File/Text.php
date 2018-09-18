@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\HTTP\Client\File;
+
 /**
  * Papaya HTTP Client File String - handle file upload resource using a data string
  *
@@ -21,13 +22,13 @@ namespace Papaya\HTTP\Client\File;
  * @subpackage HTTP-Client
  */
 class Text extends \Papaya\HTTP\Client\File {
-
   /**
    * data size
    *
-   * @var NULL|Integer
+   * @var null|int
    */
-  protected $_size = NULL;
+  protected $_size;
+
   /**
    * content
    *
@@ -42,12 +43,11 @@ class Text extends \Papaya\HTTP\Client\File {
    * @param string $fileName
    * @param string $data
    * @param string $mimeType optional, default value ''
-   * @access public
    */
   public function __construct($name, $fileName, $data, $mimeType = '') {
     if (!empty($name) &&
       !empty($fileName) &&
-      is_string($data) &&
+      \is_string($data) &&
       !empty($data)) {
       $this->_name = $name;
       $this->_fileName = $fileName;
@@ -56,19 +56,18 @@ class Text extends \Papaya\HTTP\Client\File {
         $this->_mimeType = $mimeType;
       }
     } else {
-      trigger_error('Invalid configuration for element: '.$name, E_USER_WARNING);
+      \trigger_error('Invalid configuration for element: '.$name, E_USER_WARNING);
     }
   }
 
   /**
    * set data string size and/or return it
    *
-   * @access public
-   * @return integer
+   * @return int
    */
   public function getSize() {
     if (!isset($this->_size)) {
-      $this->_size = strlen($this->_data);
+      $this->_size = \strlen($this->_data);
     }
     return $this->_size;
   }
@@ -77,13 +76,11 @@ class Text extends \Papaya\HTTP\Client\File {
    * send file data
    *
    * @param \Papaya\HTTP\Client\Socket $socket
-   * @param boolean $chunked optional, default value FALSE
-   * @param integer $bufferSize optional, default value 0
-   * @access public
-   * @return void
+   * @param bool $chunked optional, default value FALSE
+   * @param int $bufferSize optional, default value 0
    */
   public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
-    if (is_string($this->_data) && $this->getSize() > 0) {
+    if (\is_string($this->_data) && $this->getSize() > 0) {
       if ($socket->isActive()) {
         if ($chunked) {
           $socket->writeChunk($this->_data);

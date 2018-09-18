@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Filter class making an encapsulated filter optional, allowing empty values
  *
@@ -21,9 +22,9 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Optional implements \Papaya\Filter {
+  private $_innerFilter;
 
-  private $_innerFilter = NULL;
-  private $_filter = NULL;
+  private $_filter;
 
   /**
    * Store inner filter object

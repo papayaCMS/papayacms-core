@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Exception, message object representing a php exception. This allows to convert
  * any exception into an error log message.
@@ -22,8 +23,7 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 class Sandbox extends \Papaya\Application\BaseObject {
-
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Create object and set values from exception object
@@ -45,8 +45,8 @@ class Sandbox extends \Papaya\Application\BaseObject {
   public function __invoke() {
     $result = NULL;
     try {
-      $arguments = func_num_args() > 0 ? func_get_args() : array();
-      $result = call_user_func_array($this->_callback, $arguments);
+      $arguments = \func_num_args() > 0 ? \func_get_args() : [];
+      $result = \call_user_func_array($this->_callback, $arguments);
     } catch (\ErrorException $e) {
       $this->papaya()->messages->dispatch(new \Papaya\Message\PHP\Exception($e));
     } catch (\Exception $e) {

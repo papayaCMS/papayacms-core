@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Link;
+
 /**
  * This object loads link type data into a list.
  *
@@ -21,8 +22,7 @@ namespace Papaya\Content\Link;
  * @subpackage Content
  */
 class Types extends \Papaya\Database\Records\Lazy {
-
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'linktype_id',
     'name' => 'linktype_name',
     'is_visisble' => 'linktype_is_visisble',
@@ -30,15 +30,15 @@ class Types extends \Papaya\Database\Records\Lazy {
     'target' => 'linktype_target',
     'is_popup' => 'linktype_popup',
     'popup_options' => 'linktype_popup_config'
-  );
+  ];
 
   protected $_tableName = 'linktypes';
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
-  protected $_orderByFields = array(
+  protected $_orderByFields = [
     'name' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   /**
    * Here are some default link types that does not need to be stored in the database,
@@ -49,26 +49,26 @@ class Types extends \Papaya\Database\Records\Lazy {
   protected function getResultIterator() {
     return new \Papaya\Iterator\Union(
       new \ArrayIterator(
-        array(
-          array(
+        [
+          [
             'id' => 1,
             'name' => 'visible',
             'is_visisble' => TRUE,
             'class' => '',
             'target' => '_self',
             'is_popup' => FALSE,
-            'popup_options' => array()
-          ),
-          array(
+            'popup_options' => []
+          ],
+          [
             'id' => 2,
             'name' => 'hidden',
             'is_visisble' => FALSE,
             'class' => '',
             'target' => '_self',
             'is_popup' => FALSE,
-            'popup_options' => array()
-          )
-        )
+            'popup_options' => []
+          ]
+        ]
       ),
       parent::getResultIterator()
     );
@@ -81,12 +81,12 @@ class Types extends \Papaya\Database\Records\Lazy {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = [
       $this, 'mapFieldToProperty'
-    );
-    $mapping->callbacks()->onMapValueFromPropertyToField = array(
+    ];
+    $mapping->callbacks()->onMapValueFromPropertyToField = [
       $this, 'mapPropertyToField'
-    );
+    ];
     return $mapping;
   }
 
@@ -100,7 +100,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    * @return mixed
    */
   public function mapFieldToProperty($context, $property, $field, $value) {
-    if ($property == 'popup_options') {
+    if ('popup_options' == $property) {
       return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
     }
     return $value;
@@ -116,7 +116,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    * @return mixed
    */
   public function mapPropertyToField($context, $property, $field, $value) {
-    if ($property == 'popup_options') {
+    if ('popup_options' == $property) {
       return \Papaya\Utility\Text\XML::serializeArray((array)$value);
     }
     return $value;

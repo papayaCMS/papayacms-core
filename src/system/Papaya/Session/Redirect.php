@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Session;
+
 /**
  * Papaya Session Redirect, special response object for session redirects (needed to add/remove)
  * the session id to the url if the cookie is not available
@@ -22,25 +23,27 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Redirect extends \Papaya\Response {
-
   /**
    * session name - used as parameter name, too.
    *
    * @var string
    */
   private $_sessionName = 'sid';
+
   /**
    * session id, can be empty
    *
    * @var string
    */
   private $_sessionId = '';
+
   /**
    * transportation target for the session id parameter
    *
-   * @var integer
+   * @var int
    */
   private $_transport = 0;
+
   /**
    * redirect reason (for debugging), creates an custom http header
    *
@@ -53,14 +56,14 @@ class Redirect extends \Papaya\Response {
    *
    * @var \Papaya\URL
    */
-  private $_url = NULL;
+  private $_url;
 
   /**
    * Initialize object and store parameters for later use
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param integer $transport
+   * @param int $transport
    * @param string $reason
    */
   public function __construct($sessionName, $sessionId = '', $transport = 0, $reason = 'session') {
@@ -80,7 +83,7 @@ class Redirect extends \Papaya\Response {
     if (isset($url)) {
       $this->_url = $url;
     }
-    if (is_null($this->_url)) {
+    if (\is_null($this->_url)) {
       $this->_url = clone $this->papaya()->request->getURL();
     }
     return $this->_url;
@@ -118,7 +121,7 @@ class Redirect extends \Papaya\Response {
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param boolean $include Include session id in query string
+   * @param bool $include Include session id in query string
    */
   private function _setQueryParameter($sessionName, $sessionId, $include) {
     $application = $this->papaya();
@@ -140,15 +143,15 @@ class Redirect extends \Papaya\Response {
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param boolean $include Include session id in query string
+   * @param bool $include Include session id in query string
    */
   private function _setPathParameter($sessionName, $sessionId, $include) {
     $url = $this->url();
     $pattern = '(^/sid[^/]+)';
     $replacement = ($include && !empty($sessionId)) ? '/'.$sessionName.$sessionId : '';
     $path = $url->getPath();
-    if (preg_match($pattern, $path)) {
-      $url->setPath(preg_replace($pattern, $replacement, $path));
+    if (\preg_match($pattern, $path)) {
+      $url->setPath(\preg_replace($pattern, $replacement, $path));
     } elseif ($include) {
       $url->setPath($replacement.$path);
     }

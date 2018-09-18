@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition\Fulltext;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Database\Condition\Fulltext;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Boolean extends \Papaya\Database\Condition\Fulltext {
-
   /**
    * Get filters for MySQL MATCH command
    *
@@ -39,21 +38,21 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
    */
   protected function getFulltextCondition(\Papaya\Parser\Search\Text $tokens, array $fields) {
     $result = '';
-    $fieldGroups = array();
+    $fieldGroups = [];
     foreach ($fields as $field) {
-      if (FALSE !== strpos($field, '.')) {
-        $table = substr($field, 0, strpos($field, '.'));
+      if (FALSE !== \strpos($field, '.')) {
+        $table = \substr($field, 0, \strpos($field, '.'));
       } else {
         $table = '';
       }
       $fieldGroups[$table][] = $field;
     }
-    $fieldGroups = array_values($fieldGroups);
-    for ($i = 0, $c = count($fieldGroups); $i < $c; $i++) {
+    $fieldGroups = \array_values($fieldGroups);
+    for ($i = 0, $c = \count($fieldGroups); $i < $c; $i++) {
       if ($i > 0) {
-        $result .= 'OR '.$this->getBooleanFilterLine($tokens, implode(',', $fieldGroups[$i]));
+        $result .= 'OR '.$this->getBooleanFilterLine($tokens, \implode(',', $fieldGroups[$i]));
       } else {
-        $result .= $this->getBooleanFilterLine($tokens, implode(',', $fieldGroups[$i]));
+        $result .= $this->getBooleanFilterLine($tokens, \implode(',', $fieldGroups[$i]));
       }
     }
     return $result;
@@ -64,7 +63,6 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
    *
    * @param \Papaya\Parser\Search\Text $tokens
    * @param string $fieldString
-   * @access public
    * @return string
    */
   private function getBooleanFilterLine(\Papaya\Parser\Search\Text $tokens, $fieldString) {
@@ -84,16 +82,16 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
         break;
       case '+':
         if ($token['quotes']) {
-          $matchString .= ' +"'.addslashes($token['value']).'"';
+          $matchString .= ' +"'.\addslashes($token['value']).'"';
         } else {
-          $matchString .= ' +'.addslashes($token['value']);
+          $matchString .= ' +'.\addslashes($token['value']);
         }
         break;
       case '-':
         if ($token['quotes']) {
-          $matchString .= ' -"'.addslashes($token['value']).'"';
+          $matchString .= ' -"'.\addslashes($token['value']).'"';
         } else {
-          $matchString .= ' -'.addslashes($token['value']);
+          $matchString .= ' -'.\addslashes($token['value']);
         }
         break;
       case ':':
@@ -101,9 +99,9 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
       }
     }
     if ($indent > 0) {
-      $matchString .= str_repeat(' )', $indent);
+      $matchString .= \str_repeat(' )', $indent);
     }
-    return sprintf(
+    return \sprintf(
       "(MATCH (%s) AGAINST ('%s' IN BOOLEAN MODE))", $fieldString, $matchString
     );
   }

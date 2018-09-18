@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Like extends \Papaya\Database\Condition\Element {
-
   private $_value;
 
   public function __construct(
@@ -40,44 +39,44 @@ class Like extends \Papaya\Database\Condition\Element {
   }
 
   public function getSql($silent = FALSE) {
-    $values = is_array($this->_value) ? $this->_value : array($this->_value);
+    $values = \is_array($this->_value) ? $this->_value : [$this->_value];
     $likeValues = [];
     $inValues = [];
     foreach ($values as $value) {
-      $hasWildcards = preg_match('([*?])', $value);
+      $hasWildcards = \preg_match('([*?])', $value);
       if ($hasWildcards) {
-        $likeValues[] = str_replace(['%', '*', '?'], ['%%', '%', '_'], $value);
+        $likeValues[] = \str_replace(['%', '*', '?'], ['%%', '%', '_'], $value);
       } else {
         $inValues[] = (string)$value;
       }
     }
     try {
       $fields = $this->getField();
-      if (!is_array($fields)) {
-        $fields = array($fields);
+      if (!\is_array($fields)) {
+        $fields = [$fields];
       }
       $conditions = [];
       foreach ($fields as $field) {
-        if (count($inValues) > 0) {
+        if (\count($inValues) > 0) {
           $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
-            array(
+            [
               $this->mapFieldName($field) => $inValues
-            ),
+            ],
             NULL,
             '='
           );
         }
-        if (count($likeValues) > 0) {
+        if (\count($likeValues) > 0) {
           $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
-            array(
+            [
               $this->mapFieldName($field) => $likeValues
-            ),
+            ],
             NULL,
             'LIKE'
           );
         }
       }
-      return ' ('.implode(' OR ', $conditions).') ';
+      return ' ('.\implode(' OR ', $conditions).') ';
     } catch (\LogicException $e) {
       if (!$silent) {
         throw $e;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A hidden dialog field, this will be part of the dialog but not visible. The main
  * difference to the hiddenFields property of the dialog object is that this field changes the data
@@ -23,13 +24,12 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Hidden extends \Papaya\UI\Dialog\Field {
-
   /**
    * Initialize object, field name, default value and filter
    *
    * @param string $name
-   * @param integer $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param int $default
+   * @param \Papaya\Filter|null $filter
    */
   public function __construct($name, $default, \Papaya\Filter $filter = NULL) {
     $this->setName($name);
@@ -47,19 +47,19 @@ class Hidden extends \Papaya\UI\Dialog\Field {
   public function appendTo(\Papaya\XML\Element $parent) {
     $field = $parent->appendElement(
       'field',
-      array(
+      [
         'class' => $this->_getFieldClass()
-      )
+      ]
     );
-    if ($this->getId() !== '') {
+    if ('' !== $this->getId()) {
       $field->setAttribute('id', $this->getId());
     }
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => 'hidden',
         'name' => $this->_getParameterName($this->getName())
-      ),
+      ],
       $this->getCurrentValue()
     );
   }

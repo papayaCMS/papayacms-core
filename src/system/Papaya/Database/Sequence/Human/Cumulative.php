@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Sequence\Human;
+
 /**
  * Class generating human readable sequence strings with ascending length. The
  * module produces some ids that will be tried against the database and have
@@ -30,14 +31,13 @@ namespace Papaya\Database\Sequence\Human;
  * @subpackage Database
  */
 class Cumulative extends \Papaya\Database\Sequence\Human {
-
   /**
-   * @var integer minimum length.
+   * @var int minimum length.
    */
   private $_minimumLength = 2;
 
   /**
-   * @var integer maximum length.
+   * @var int maximum length.
    */
   private $_maximumLength = 32;
 
@@ -71,7 +71,7 @@ class Cumulative extends \Papaya\Database\Sequence\Human {
    * @return string
    */
   public function create() {
-    $result = $this->getRandomCharacters(round($this->_cumulativeLength));
+    $result = $this->getRandomCharacters(\round($this->_cumulativeLength));
     if ($this->_cumulativeLength < $this->_maximumLength) {
       $this->_cumulativeLength += $this->_cumulativeStep;
     }
@@ -82,7 +82,7 @@ class Cumulative extends \Papaya\Database\Sequence\Human {
    * Create several ids with increasing length. It start at minimum lenght and increases
    * the length so that tha last element always is one of maximum length.
    *
-   * @param integer $count
+   * @param int $count
    * @return array
    */
   protected function createIdentifiers($count) {

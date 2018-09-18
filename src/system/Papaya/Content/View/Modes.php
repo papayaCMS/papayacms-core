@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\View;
+
 /**
  * This object loads the defined output modes for a papaya installation.
  *
@@ -21,16 +22,15 @@ namespace Papaya\Content\View;
  * @subpackage Content
  */
 class Modes extends \Papaya\Database\Records\Lazy {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'extension' => 'viewmode_ext',
     'type' => 'viewmode_type'
-  );
+  ];
 
   /**
    * Table containing domain informations
@@ -39,5 +39,5 @@ class Modes extends \Papaya\Database\Records\Lazy {
    */
   protected $_tableName = \Papaya\Content\Tables::VIEW_MODES;
 
-  protected $_identifierProperties = array('extension');
+  protected $_identifierProperties = ['extension'];
 }

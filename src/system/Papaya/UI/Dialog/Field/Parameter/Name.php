@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Parameter;
+
 /**
  * papaya CMS
  *
@@ -28,11 +29,11 @@ namespace Papaya\UI\Dialog\Field\Parameter;
  *  FOR A PARTICULAR PURPOSE.
  */
 class Name {
-
   /**
-   * @var \Papaya\UI\Dialog|NULL
+   * @var \Papaya\UI\Dialog|null
    */
   private $_dialog;
+
   /**
    * @var string|array
    */
@@ -40,7 +41,7 @@ class Name {
 
   /**
    * @param $fieldName
-   * @param \Papaya\UI\Dialog|NULL $dialog
+   * @param \Papaya\UI\Dialog|null $dialog
    */
   public function __construct($fieldName, \Papaya\UI\Dialog $dialog = NULL) {
     $this->_dialog = $dialog;
@@ -70,5 +71,4 @@ class Name {
   public function __toString() {
     return $this->get();
   }
-
 }

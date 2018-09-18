@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A field that outputs xhtml inside the dialog.
  *
@@ -21,15 +22,14 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class XHTML extends \Papaya\UI\Dialog\Field {
-
   /**
    * XHTML content
    *
    * @var string
    */
-  private $_content = NULL;
+  private $_content;
 
-  private $_dom = NULL;
+  private $_dom;
 
   /**
    * Create object and assign needed values.
@@ -53,12 +53,12 @@ class XHTML extends \Papaya\UI\Dialog\Field {
     if (isset($content)) {
       if ($content instanceof \Papaya\XML\Element) {
         $this->_content = $content;
-      } elseif (is_string($content) || $content instanceof \Papaya\UI\Text) {
+      } elseif (\is_string($content) || $content instanceof \Papaya\UI\Text) {
         $this->content()->appendXML((string)$content);
       } else {
         throw new \InvalidArgumentException('Content must be string or valid xml element object');
       }
-    } elseif (is_null($this->_content)) {
+    } elseif (\is_null($this->_content)) {
       $this->_dom = new \Papaya\XML\Document();
       $this->_content = $this->_dom->appendElement('xhtml');
     }

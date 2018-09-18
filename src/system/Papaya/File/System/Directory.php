@@ -22,9 +22,10 @@ namespace Papaya\File\System;
  * @subpackage FileSystem
  */
 class Directory {
-
   const FETCH_FILES = 1;
+
   const FETCH_DIRECTORIES = 2;
+
   const FETCH_FILES_AND_DIRECTORIES = 3;
 
   private $_path = '';
@@ -49,35 +50,35 @@ class Directory {
   /**
    * Does the directory exists?
    *
-   * @return boolean
+   * @return bool
    */
   public function exists() {
-    return file_exists($this->_path) && is_dir($this->_path);
+    return \file_exists($this->_path) && \is_dir($this->_path);
   }
 
   /**
    * Is the directory readable?
    *
-   * @return boolean
+   * @return bool
    */
   public function isReadable() {
-    return $this->exists() && is_readable($this->_path);
+    return $this->exists() && \is_readable($this->_path);
   }
 
   /**
    * Is the directory writeable?
    *
-   * @return boolean
+   * @return bool
    */
   public function isWriteable() {
-    return $this->exists() && is_writeable($this->_path);
+    return $this->exists() && \is_writable($this->_path);
   }
 
   /**
    * Get file list, ignorefiles starting with a dot, by default
    *
    * @param string $filter
-   * @param integer $type
+   * @param int $type
    * @return \Traversable
    */
   public function getEntries($filter = '(^[^.])', $type = self::FETCH_FILES_AND_DIRECTORIES) {
@@ -91,12 +92,12 @@ class Directory {
     switch ($type) {
       case self::FETCH_FILES :
         $result = new \Papaya\Iterator\Filter\Callback(
-          $result, array($this, 'callbackFileInfoIsFile')
+          $result, [$this, 'callbackFileInfoIsFile']
         );
       break;
       case self::FETCH_DIRECTORIES :
         $result = new \Papaya\Iterator\Filter\Callback(
-          $result, array($this, 'callbackFileInfoIsDirectory')
+          $result, [$this, 'callbackFileInfoIsDirectory']
         );
       break;
     }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application;
+
 /**
  * Interface definition for Papaya Application Profiles
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application;
  * @subpackage Application
  */
 interface Profile {
-
   /**
    * Create the profile object and return it
    *

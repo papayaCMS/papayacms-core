@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Dialog;
+
 /**
  * Callbacks that are used by the dialog command
  *
@@ -23,22 +24,21 @@ namespace Papaya\UI\Control\Command\Dialog;
  * @property \Papaya\BaseObject\Callback onCreateDialog
  * @property \Papaya\BaseObject\Callback onExecuteSuccessful
  * @property \Papaya\BaseObject\Callback onExecuteFailed
- * @method boolean onCreateDialog(\Papaya\UI\Dialog $dialog)
- * @method boolean onExecuteSuccessful(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
- * @method boolean onExecuteFailed(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
+ * @method bool onCreateDialog(\Papaya\UI\Dialog $dialog)
+ * @method bool onExecuteSuccessful(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
+ * @method bool onExecuteFailed(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   /**
    * Initialize object and set callback definition
    */
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onCreateDialog' => NULL,
         'onExecuteSuccessful' => NULL,
         'onExecuteFailed' => NULL
-      )
+      ]
     );
   }
 }

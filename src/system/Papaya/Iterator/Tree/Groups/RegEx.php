@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\Tree\Groups;
+
 /**
  * An iterator that group items using a regex match
  *
@@ -21,11 +22,12 @@ namespace Papaya\Iterator\Tree\Groups;
  * @subpackage Iterator
  */
 class RegEx extends \Papaya\Iterator\Tree\Groups {
-
   const GROUP_VALUES = 1;
+
   const GROUP_KEYS = 2;
 
   private $_pattern = '';
+
   private $_subMatch = 0;
 
   /**
@@ -35,7 +37,7 @@ class RegEx extends \Papaya\Iterator\Tree\Groups {
    * @param int $target
    */
   public function __construct($traversable, $pattern, $subMatch = 0, $target = self::GROUP_VALUES) {
-    parent::__construct($traversable, array($this, 'callbackMatchGroup'));
+    parent::__construct($traversable, [$this, 'callbackMatchGroup']);
     $this->_pattern = $pattern;
     $this->_subMatch = $subMatch;
     $this->_target = $target;
@@ -45,11 +47,11 @@ class RegEx extends \Papaya\Iterator\Tree\Groups {
    * Match element and return match, if nothing was matching return the element as group.
    *
    * @param mixed $element
-   * @param int|boolean|float|string $index
-   * @return NULL|string
+   * @param int|bool|float|string $index
+   * @return null|string
    */
   public function callbackMatchGroup($element, $index) {
-    if ($this->_target == self::GROUP_KEYS) {
+    if (self::GROUP_KEYS == $this->_target) {
       return $this->matchValue($index);
     } else {
       return $this->matchValue($element);
@@ -60,14 +62,14 @@ class RegEx extends \Papaya\Iterator\Tree\Groups {
    * Get the group string from the value
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   private function matchValue($value) {
-    $matches = array();
-    if (preg_match($this->_pattern, (string)$value, $matches) &&
+    $matches = [];
+    if (\preg_match($this->_pattern, (string)$value, $matches) &&
       !empty($matches[$this->_subMatch])) {
       return $matches[$this->_subMatch];
     }
-    return NULL;
+    return;
   }
 }

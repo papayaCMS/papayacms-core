@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parser;
+
 /**
  * Papaya request parser for default page links (no page id)
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parser;
  * @subpackage Request
  */
 class Start extends \Papaya\Request\Parser {
-
   /**
    * PCRE pattern
    *
@@ -41,18 +41,18 @@ class Start extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   public function parse($url) {
     if ($url->getPath() == $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')) {
-      return array(
+      return [
         'mode' => 'page',
         'is_startpage' => TRUE,
         'output_mode' => 'html',
         'preview' => FALSE
-      );
-    } elseif (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+      ];
+    } elseif (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'page';
       $result['is_startpage'] = TRUE;
       $result['output_mode'] = $matches['mode'];

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Streamwrapper\S3;
+
 /**
  * Papaya Streamwrapper Signature for Amazon S3
  *
@@ -21,19 +22,20 @@ namespace Papaya\Streamwrapper\S3;
  * @subpackage Streamwrapper
  */
 class Signature {
-
   /**
    * resource data
    *
    * @var array
    */
   private $_resource;
+
   /**
    * http method
    *
    * @var string
    */
   private $_method;
+
   /**
    * http headers
    *
@@ -69,7 +71,7 @@ class Signature {
     $signatureData .= $this->_headers['Date']."\n";
     // amz headers
     if (!empty($this->_headers['x-amz-acl'])) {
-      $signatureData .= 'x-amz-acl:'.strtolower(trim($this->_headers['x-amz-acl']))."\n";
+      $signatureData .= 'x-amz-acl:'.\strtolower(\trim($this->_headers['x-amz-acl']))."\n";
     }
     $signatureData .= '/'.$this->_resource['bucket'].'/'.$this->_resource['object'];
     return $signatureData;
@@ -81,17 +83,17 @@ class Signature {
    * @return string
    */
   private function _getSignature() {
-    $key = str_pad($this->_resource['secret'], 64, chr(0));
-    $accessKey = array(
-      'inner' => (substr($key, 0, 64) ^ str_repeat(chr(0x36), 64)),
-      'outer' => (substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64))
-    );
-    return base64_encode(
-      pack(
+    $key = \str_pad($this->_resource['secret'], 64, \chr(0));
+    $accessKey = [
+      'inner' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64)),
+      'outer' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64))
+    ];
+    return \base64_encode(
+      \pack(
         'H*',
-        sha1(
-          $accessKey['outer'].pack(
-            'H40', sha1($accessKey['inner'].$this->_getSignatureData())
+        \sha1(
+          $accessKey['outer'].\pack(
+            'H40', \sha1($accessKey['inner'].$this->_getSignatureData())
           )
         )
       )

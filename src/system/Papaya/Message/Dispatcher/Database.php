@@ -29,8 +29,7 @@ use Papaya\Message;
 class Database
   extends \Papaya\Database\BaseObject
   implements Message\Dispatcher {
-
-  private static $_SEVERITY_TYPES = array(
+  private static $_SEVERITY_TYPES = [
     Message::SEVERITY_DEBUG => 3,
     Message::SEVERITY_INFO => 0,
     Message::SEVERITY_NOTICE => 0,
@@ -39,7 +38,7 @@ class Database
     Message::SEVERITY_CRITICAL => 2,
     Message::SEVERITY_ALERT => 2,
     Message::SEVERITY_EMERGENCY => 2
-  );
+  ];
 
   /**
    * Name of logging table
@@ -51,7 +50,7 @@ class Database
   /**
    * Used to prevent DB errors from recursion
    *
-   * @var boolean
+   * @var bool
    */
   protected $_preventMessageRecursion = FALSE;
 
@@ -59,7 +58,7 @@ class Database
    * Log messages to database
    *
    * @param Message $message
-   * @return boolean
+   * @return bool
    */
   public function dispatch(Message $message) {
     if ($message instanceof Message\Logable) {
@@ -104,8 +103,8 @@ class Database
     }
     $cookies = ($message instanceof Message\PHP\Error && !empty($_SERVER['HTTP_COOKIE']))
       ? $_SERVER['HTTP_COOKIE'] : '';
-    $values = array(
-      'log_time' => time(),
+    $values = [
+      'log_time' => \time(),
       'log_msgtype' => $message->getGroup(),
       'log_msgno' => isset(self::$_SEVERITY_TYPES[$message->getSeverity()]) ? self::$_SEVERITY_TYPES[$message->getSeverity()] : 0,
       'log_msg_short' => $message->getMessage(),
@@ -117,7 +116,7 @@ class Database
       'log_msg_from_ip' => empty($_SERVER['REMOTE_ADDR']) ? '' : $_SERVER['REMOTE_ADDR'],
       'log_version_papaya' => $options->get('PAPAYA_VERSION_STRING', ''),
       'log_version_project' => $options->get('PAPAYA_WEBSITE_REVISION', '')
-    );
+    ];
     if ($this->papaya()->hasObject('AdministrationUser', FALSE) &&
       $this->papaya()->administrationUser->isLoggedIn()) {
       $values['user_id'] = $this->papaya()->administrationUser->getUserId();

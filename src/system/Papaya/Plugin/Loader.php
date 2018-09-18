@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * The PluginLoader allows to to get module/plugin objects by guid.
  *
@@ -28,7 +29,6 @@ namespace Papaya\Plugin;
  * @property Option\Groups $options
  */
 class Loader extends \Papaya\Application\BaseObject {
-
   /**
    * Database access to plugin data
    *
@@ -48,7 +48,7 @@ class Loader extends \Papaya\Application\BaseObject {
    *
    * @var array
    */
-  private $_instances = array();
+  private $_instances = [];
 
   /**
    * define plugins and options as readable properties
@@ -65,7 +65,7 @@ class Loader extends \Papaya\Application\BaseObject {
         return $this->options();
     }
     throw new \LogicException(
-      sprintf('Can not read unknown property %s::$%s', get_class($this), $name)
+      \sprintf('Can not read unknown property %s::$%s', \get_class($this), $name)
     );
   }
 
@@ -101,7 +101,7 @@ class Loader extends \Papaya\Application\BaseObject {
         return;
     }
     throw new \LogicException(
-      sprintf('Can not write unknown property %s::$%s', get_class($this), $name)
+      \sprintf('Can not write unknown property %s::$%s', \get_class($this), $name)
     );
   }
 
@@ -118,7 +118,7 @@ class Loader extends \Papaya\Application\BaseObject {
     if (NULL === $this->_plugins) {
       $this->_plugins = new Collection();
       $this->_plugins->activateLazyLoad(
-        array('active' => TRUE)
+        ['active' => TRUE]
       );
     }
     return $this->_plugins;
@@ -145,7 +145,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * queries means better performance. The system will now always load all plugins descriptions.
    *
    * @deprecated
-   * @return TRUE
+   * @return true
    */
   public function preload() {
     return TRUE;
@@ -155,7 +155,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Check if the data for a given plugin guid is available.
    *
    * @param string $guid
-   * @return boolean
+   * @return bool
    */
   public function has($guid) {
     $plugins = $this->plugins();
@@ -172,9 +172,9 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param string $guid
    * @param object $parent
    * @param array $data
-   * @param boolean $singleInstance Plugin object should be created once,
-   *   additional call will return the first instance.
-   * @return \Object|NULL
+   * @param bool $singleInstance Plugin object should be created once,
+   *                             additional call will return the first instance.
+   * @return \Object|null
    */
   public function get($guid, $parent = NULL, $data = NULL, $singleInstance = FALSE) {
     $plugins = $this->plugins();
@@ -186,7 +186,7 @@ class Loader extends \Papaya\Application\BaseObject {
       $this->configure($plugin, $data);
       return $plugin;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -194,16 +194,16 @@ class Loader extends \Papaya\Application\BaseObject {
    *
    * @deprecated
    * @param string $guid
-   * @param \Object|NULL $parent
+   * @param \Object|null $parent
    * @param array $data
    * @param string $class
    * @param string $file
    * @param bool $singleton Plugin object should be created once,
-   *   additional calls will return the first instance.
-   * @return \Object|NULL
+   *                        additional calls will return the first instance.
+   * @return \Object|null
    */
   public function getPluginInstance(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $guid,
     $parent = NULL,
     $data = NULL,
@@ -245,8 +245,8 @@ class Loader extends \Papaya\Application\BaseObject {
       \Papaya\Autoloader::registerPath($pluginData['prefix'], $path);
     }
     if (!empty($pluginData['classes'])) {
-      $path = substr($this->getPluginPath($pluginData['path']), 0, -1);
-      /** @noinspection PhpIncludeInspection */
+      $path = \substr($this->getPluginPath($pluginData['path']), 0, -1);
+      /* @noinspection PhpIncludeInspection */
       if (
         !\Papaya\Autoloader::hasClassMap($path) &&
         ($classMap = include $path.'/'.$pluginData['classes'])
@@ -260,25 +260,25 @@ class Loader extends \Papaya\Application\BaseObject {
    * Prepares and includes a plugin file.
    *
    * @param array $pluginData
-   * @return boolean
+   * @return bool
    */
   private function preparePluginFile(array $pluginData) {
     $this->prepareAutoloader($pluginData);
-    if (!class_exists($pluginData['class'], TRUE)) {
+    if (!\class_exists($pluginData['class'], TRUE)) {
       $fileName = $this->getPluginPath($pluginData['path']).$pluginData['file'];
-      /** @noinspection PhpIncludeInspection */
-      /** @noinspection UsingInclusionOnceReturnValueInspection */
+      /* @noinspection PhpIncludeInspection */
+      /* @noinspection UsingInclusionOnceReturnValueInspection */
       if (
         !(
-          file_exists($fileName) &&
-          is_readable($fileName) &&
+          \file_exists($fileName) &&
+          \is_readable($fileName) &&
           include_once $fileName
         )
       ) {
         $logMessage = new \Papaya\Message\Log(
           \Papaya\Message\Logable::GROUP_MODULES,
           \Papaya\Message::SEVERITY_ERROR,
-          sprintf('Can not include module file "%s"', $fileName)
+          \sprintf('Can not include module file "%s"', $fileName)
         );
         $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
         if ($this->papaya()->messages) {
@@ -286,11 +286,11 @@ class Loader extends \Papaya\Application\BaseObject {
         }
         return FALSE;
       }
-      if (!class_exists($pluginData['class'], FALSE)) {
+      if (!\class_exists($pluginData['class'], FALSE)) {
         $logMessage = new \Papaya\Message\Log(
           \Papaya\Message\Logable::GROUP_MODULES,
           \Papaya\Message::SEVERITY_ERROR,
-          sprintf('Can not find module class "%s"', $pluginData['class'])
+          \sprintf('Can not find module class "%s"', $pluginData['class'])
         );
         $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
         if ($this->papaya()->messages) {
@@ -308,21 +308,21 @@ class Loader extends \Papaya\Application\BaseObject {
    *
    * @param string $path
    * @throws
-   * @return string|FALSE
+   * @return string|false
    */
   private function getPluginPath($path = '') {
-    if (preg_match('(^(?:/|[a-zA-Z]:))', $path)) {
+    if (\preg_match('(^(?:/|[a-zA-Z]:))', $path)) {
       return $path;
     }
-    $map = array(
+    $map = [
       'vendor:' => \Papaya\Utility\File\Path::getVendorPath(),
       'src:' => \Papaya\Utility\File\Path::getSourcePath()
-    );
+    ];
     $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', \Papaya\Utility\File\Path::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
-      if (0 === strpos($path, $prefix)) {
+      if (0 === \strpos($path, $prefix)) {
         $basePath = $documentRoot.$mapPath;
-        $relativePath = substr($path, strlen($prefix));
+        $relativePath = \substr($path, \strlen($prefix));
         return \Papaya\Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
@@ -341,9 +341,9 @@ class Loader extends \Papaya\Application\BaseObject {
    * in an internal list. A second call will return the stored object.
    *
    * @param array $pluginData
-   * @param \Object|NULL $parent
-   * @param boolean $singleInstance
-   * @return \Object|NULL
+   * @param \Object|null $parent
+   * @param bool $singleInstance
+   * @return \Object|null
    */
   private function createObject(array $pluginData, $parent, $singleInstance = FALSE) {
     if ($singleInstance &&
@@ -354,7 +354,7 @@ class Loader extends \Papaya\Application\BaseObject {
     if ($result instanceof \Papaya\Application\Access) {
       $result->papaya($this->papaya());
     }
-    /** @noinspection PhpUndefinedFieldInspection */
+    /* @noinspection PhpUndefinedFieldInspection */
     $result->guid = $pluginData['guid'];
     if ($singleInstance) {
       $this->_instances[$pluginData['guid']] = $result;
@@ -371,13 +371,13 @@ class Loader extends \Papaya\Application\BaseObject {
   public function configure($plugin, $data) {
     \Papaya\Utility\Constraints::assertObject($plugin);
     if ($plugin instanceof Editable) {
-      if (is_array($data) || $data instanceof \Traversable) {
+      if (\is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
-      } elseif (is_string($data)) {
+      } elseif (\is_string($data)) {
         $plugin->content()->setXML($data);
       }
-    } elseif (!empty($data) && method_exists($plugin, 'setData')) {
-      if (is_array($data) || $data instanceof \Traversable) {
+    } elseif (!empty($data) && \method_exists($plugin, 'setData')) {
+      if (\is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
           \Papaya\Utility\Text\XML::serializeArray(
             \Papaya\Utility\Arrays::ensure($data)

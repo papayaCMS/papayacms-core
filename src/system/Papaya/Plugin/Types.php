@@ -16,7 +16,9 @@ namespace Papaya\Plugin {
 
   interface Types {
     const PAGE = 'page';
+
     const BOX = 'box';
+
     const IMAGE = 'image';
 
     const CONNECTOR = 'connector';
@@ -24,14 +26,19 @@ namespace Papaya\Plugin {
     const ALIAS = 'alias';
 
     const OUTPUT = 'output';
+
     const IMPORT = 'import';
+
     const FILTER = 'datafilter';
 
     const ADMINISTRATION = 'admin';
+
     const ADMINISTRATION_PARSER = 'parser';
 
     const DATE = 'date';
+
     const TIME = 'time';
+
     const CRON_JOB = 'cronjob';
 
     const LOGGER = 'logger';

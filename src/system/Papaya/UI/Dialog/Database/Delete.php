@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Database;
+
 /**
  * A dialog that can delete a record from a database table using a
  * {@see \Papaya\Database\BaseObject\Record} object.
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Database;
  * @subpackage UI
  */
 class Delete extends \Papaya\UI\Dialog\Database {
-
   /**
    * If the dialog is successfully executed the records is deleted.
    *
@@ -31,7 +31,7 @@ class Delete extends \Papaya\UI\Dialog\Database {
    *
    * To delete the record the method delete() of the record is called.
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
     if (parent::execute()) {
@@ -47,12 +47,12 @@ class Delete extends \Papaya\UI\Dialog\Database {
    * If the dialog was executed, block the dialog output.
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     if (!$this->_executionResult) {
       return parent::appendTo($parent);
     }
-    return NULL;
+    return;
   }
 }

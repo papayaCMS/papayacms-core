@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Controller;
+
 /**
  * Papaya controller callback encapsulate one function to be used as a controller
  *
@@ -23,11 +24,10 @@ namespace Papaya\Controller;
  * @subpackage Controller
  */
 class Callback implements \Papaya\Controller {
-
   /**
    * @var callable
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Create an object list for \Papaya\Controller instances, add all arguments as

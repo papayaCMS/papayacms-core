@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Variable\Visitor;
+
 /**
  * Visitor to convert a variable into a plain text string dump
  *
@@ -22,11 +23,10 @@ namespace Papaya\Message\Context\Variable\Visitor;
  */
 class Text
   extends \Papaya\Message\Context\Variable\Visitor {
-
   /**
    * internal indent counter
    *
-   * @var integer
+   * @var int
    */
   protected $_indent = 0;
 
@@ -66,10 +66,10 @@ class Text
    * @param string $line
    */
   private function _addLine($line) {
-    if ($this->_variableString != '') {
+    if ('' != $this->_variableString) {
       $this->_variableString .= "\n";
     }
-    $this->_variableString .= str_repeat($this->_indentString, $this->_indent).$line;
+    $this->_variableString .= \str_repeat($this->_indentString, $this->_indent).$line;
   }
 
   /**
@@ -83,12 +83,12 @@ class Text
    * @param array $array
    */
   public function visitArray(array $array) {
-    $count = count($array);
-    $this->_addLine(sprintf('array(%d) {', $count));
+    $count = \count($array);
+    $this->_addLine(\sprintf('array(%d) {', $count));
     if ($count > 0) {
       if ($this->_increaseIndent()) {
         foreach ($array as $index => $element) {
-          $this->_addLine(sprintf('[%s]=>', $index));
+          $this->_addLine(\sprintf('[%s]=>', $index));
           $this->visitVariable($element);
         }
         $this->_decreaseIndent();
@@ -108,7 +108,7 @@ class Text
    */
   public function visitBoolean($boolean) {
     $this->_addLine(
-      sprintf('bool(%s)', $boolean ? 'true' : 'false')
+      \sprintf('bool(%s)', $boolean ? 'true' : 'false')
     );
   }
 
@@ -117,11 +117,11 @@ class Text
    *
    * int(n)
    *
-   * @param integer $integer
+   * @param int $integer
    */
   public function visitInteger($integer) {
     $this->_addLine(
-      sprintf('int(%d)', $integer)
+      \sprintf('int(%d)', $integer)
     );
   }
 
@@ -134,7 +134,7 @@ class Text
    */
   public function visitFloat($float) {
     $this->_addLine(
-      sprintf('float(%s)', (string)$float)
+      \sprintf('float(%s)', (string)$float)
     );
   }
 
@@ -143,7 +143,7 @@ class Text
    *
    * NULL
    *
-   * @param NULL $null
+   * @param null $null
    */
   public function visitNull($null) {
     $this->_addLine('NULL');
@@ -156,19 +156,19 @@ class Text
    */
   public function visitObject($object) {
     $reflection = new \ReflectionObject($object);
-    $hash = spl_object_hash($object);
+    $hash = \spl_object_hash($object);
     $isRecursion = $this->_isObjectRecursion($hash);
     $isDuplicate = $this->_isObjectDuplicate($hash);
     $this->_pushObjectStack($hash);
     $this->_addLine(
-      sprintf('object(%s) #%s {', $reflection->getName(), $this->_getObjectIndex($hash))
+      \sprintf('object(%s) #%s {', $reflection->getName(), $this->_getObjectIndex($hash))
     );
     if ($isRecursion) {
       $this->_addLine($this->_indentString.'...object recursion...');
     } elseif ($isDuplicate) {
       $this->_addLine($this->_indentString.'...object duplication...');
     } elseif ($this->_increaseIndent()) {
-      $values = array_merge((array)$reflection->getStaticProperties(), (array)$object);
+      $values = \array_merge((array)$reflection->getStaticProperties(), (array)$object);
       foreach ($reflection->getProperties() as $property) {
         $propertyName = $property->getName();
         $visibility = '';
@@ -182,8 +182,8 @@ class Text
         } else {
           $visibility .= 'public:';
         }
-        $this->_addLine(sprintf('[%s%s]=>', $visibility, $propertyName));
-        if (array_key_exists($propertyName, $values)) {
+        $this->_addLine(\sprintf('[%s%s]=>', $visibility, $propertyName));
+        if (\array_key_exists($propertyName, $values)) {
           $this->visitVariable($values[$propertyName]);
         } elseif ($property->isProtected()) {
           $protectedName = "\0*\0".$propertyName;
@@ -210,7 +210,7 @@ class Text
    */
   public function visitResource($resource) {
     $this->_addLine(
-      sprintf('resource(#%d)', (integer)$resource)
+      \sprintf('resource(#%d)', (int)$resource)
     );
   }
 
@@ -223,9 +223,9 @@ class Text
    * @param string $string
    */
   public function visitString($string) {
-    $length = strlen($string);
-    if (strlen($string) > $this->_stringLength) {
-      $value = substr($string, 0, $this->_stringLength).$this->_truncateSuffix;
+    $length = \strlen($string);
+    if (\strlen($string) > $this->_stringLength) {
+      $value = \substr($string, 0, $this->_stringLength).$this->_truncateSuffix;
     } else {
       $value = $string;
     }
@@ -235,7 +235,7 @@ class Text
   /**
    * Increase indent, return FALSE if recusion limit is reached
    *
-   * @return boolean
+   * @return bool
    */
   protected function _increaseIndent() {
     if ($this->_indent < ($this->_depth - 1)) {
@@ -248,8 +248,6 @@ class Text
 
   /**
    * Decrease indent, throw an exception if indent whould be negative
-   *
-   * @return void
    */
   protected function _decreaseIndent() {
     $this->_indent--;

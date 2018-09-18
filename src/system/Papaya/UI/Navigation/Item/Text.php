@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Navigation\Item;
+
 /**
  * An navigation item with a caption text.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Navigation\Item;
  * @subpackage UI
  */
 class Text extends \Papaya\UI\Navigation\Item {
-
   /**
    * Use the parent method to create and append to xml element not. Set the text content
    * for the create xml element using the source member variable.

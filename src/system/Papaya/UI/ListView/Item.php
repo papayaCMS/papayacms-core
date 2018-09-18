@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * A list view item represent one data line of the {@see \Papaya\UI\ListView}.
  *
@@ -23,28 +24,27 @@ namespace Papaya\UI\ListView;
  * @property string $image
  * @property string|\Papaya\UI\Text $caption
  * @property string|\Papaya\UI\Text $text
- * @property NULL|array $actionParameters
- * @property integer $indentation
- * @property integer $columnSpan
- * @property boolean $selected
- * @property boolean $emphased
+ * @property null|array $actionParameters
+ * @property int $indentation
+ * @property int $columnSpan
+ * @property bool $selected
+ * @property bool $emphased
  * @property \Papaya\UI\ListView\SubItems $subitems
  * @property \Papaya\UI\Reference $reference
  * @property \Papaya\UI\ListView\Item\Node $node
  */
 class Item extends \Papaya\UI\Control\Collection\Item {
-
   /**
    * Subitems collection
    *
    * @var \Papaya\UI\ListView\SubItems
    */
-  protected $_subitems = NULL;
+  protected $_subitems;
 
   /**
    * @var \Papaya\UI\ListView\Item\Node
    */
-  private $_node = NULL;
+  private $_node;
 
   /**
    * Image index or url
@@ -77,35 +77,35 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Parameters for the standard link (on caption and image)
    *
-   * @var NULL|array
+   * @var null|array
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Reference object
    *
-   * @var NULL|\Papaya\UI\Reference
+   * @var null|\Papaya\UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * listview items can be indented, the property stpres the level of indentation
    *
-   * @var integer indentation
+   * @var int indentation
    */
   protected $_indentation = 0;
 
   /**
    * listview items can be emphased, meaning the title will have a different formatting
    *
-   * @var integer indentation
+   * @var int indentation
    */
   protected $_emphased = FALSE;
 
   /**
    * Listitems can span subitem columns, -1 means that is will span all columns
    *
-   * @var integer
+   * @var int
    */
   protected $_columnSpan = 0;
 
@@ -114,19 +114,19 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'subitems' => array('subitems', 'subitems'),
-    'node' => array('node', 'node'),
-    'caption' => array('_caption', '_caption'),
-    'text' => array('_text', '_text'),
-    'image' => array('_image', '_image'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-    'selected' => array('_selected', '_selected'),
-    'indentation' => array('_indentation', 'setIndentation'),
-    'emphased' => array('_emphased', '_emphased'),
-    'columnSpan' => array('_columnSpan', '_columnSpan'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'subitems' => ['subitems', 'subitems'],
+    'node' => ['node', 'node'],
+    'caption' => ['_caption', '_caption'],
+    'text' => ['_text', '_text'],
+    'image' => ['_image', '_image'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+    'selected' => ['_selected', '_selected'],
+    'indentation' => ['_indentation', 'setIndentation'],
+    'emphased' => ['_emphased', '_emphased'],
+    'columnSpan' => ['_columnSpan', '_columnSpan'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Create object and store intialization values.
@@ -148,7 +148,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Set the action parameters for the item link. The values will be merge with the listview default
    * link and used the validate if the item ist selected.
    *
-   * @param array|NULL $actionParameters
+   * @param array|null $actionParameters
    */
   protected function setActionParameters(array $actionParameters = NULL) {
     $this->_actionParameters = $actionParameters;
@@ -157,7 +157,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Set the indentation level of the listview item.
    *
-   * @param integer $indentation
+   * @param int $indentation
    * @throws \InvalidArgumentException
    */
   protected function setIndentation($indentation) {
@@ -217,7 +217,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
       $this->_subitems = $subitems;
       $this->_subitems->owner($this);
     }
-    if (is_null($this->_subitems)) {
+    if (\is_null($this->_subitems)) {
       $this->_subitems = new \Papaya\UI\ListView\SubItems($this);
     }
     return $this->_subitems;
@@ -233,7 +233,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   public function reference(\Papaya\UI\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (\is_null($this->_reference)) {
       if ($this->hasCollection()) {
         $this->_reference = clone $this->collection()->reference();
         $this->_reference->setParameters(
@@ -259,9 +259,9 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     $itemNode = $parent->appendElement(
       'listitem',
-      array(
+      [
         'title' => (string)$this->_caption,
-      )
+      ]
     );
     $image = $this->papaya()->images[(string)$this->_image];
     if (!empty($image)) {
@@ -276,7 +276,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
     if ($this->_indentation > 0) {
       $itemNode->setAttribute('indent', $this->_indentation);
     }
-    if ($this->_columnSpan != 0) {
+    if (0 != $this->_columnSpan) {
       $itemNode->setAttribute('span', $this->getColumnSpan());
     }
     if ((bool)$this->_selected) {
@@ -293,11 +293,11 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Read column count from listview or object member
    *
-   * @return integer
+   * @return int
    */
   protected function getColumnSpan() {
     if ($this->_columnSpan < 0) {
-      return count($this->getListView()->columns());
+      return \count($this->getListView()->columns());
     } else {
       return $this->_columnSpan;
     }

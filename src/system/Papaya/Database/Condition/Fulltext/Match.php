@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition\Fulltext;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Database\Condition\Fulltext;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 class Match extends \Papaya\Database\Condition\Fulltext {
-
   /**
    * Get filters for MySQL MATCH command
    *
@@ -39,21 +38,21 @@ class Match extends \Papaya\Database\Condition\Fulltext {
    */
   protected function getFulltextCondition(\Papaya\Parser\Search\Text $tokens, array $fields) {
     $result = '';
-    $fieldGroups = array();
+    $fieldGroups = [];
     foreach ($fields as $field) {
-      if (FALSE !== strpos($field, '.')) {
-        $table = substr($field, 0, strpos($field, '.'));
+      if (FALSE !== \strpos($field, '.')) {
+        $table = \substr($field, 0, \strpos($field, '.'));
       } else {
         $table = '';
       }
       $fieldGroups[$table][] = $field;
     }
-    $fieldGroups = array_values($fieldGroups);
-    for ($i = 0, $c = count($fieldGroups); $i < $c; $i++) {
+    $fieldGroups = \array_values($fieldGroups);
+    for ($i = 0, $c = \count($fieldGroups); $i < $c; $i++) {
       if ($i > 0) {
-        $result .= ' OR '.$this->getMatchFilterLine($tokens, implode(',', $fieldGroups[$i]));
+        $result .= ' OR '.$this->getMatchFilterLine($tokens, \implode(',', $fieldGroups[$i]));
       } else {
-        $result .= $this->getMatchFilterLine($tokens, implode(',', $fieldGroups[$i]));
+        $result .= $this->getMatchFilterLine($tokens, \implode(',', $fieldGroups[$i]));
       }
     }
     return $result;
@@ -82,20 +81,20 @@ class Match extends \Papaya\Database\Condition\Fulltext {
         $result .= ')';
         break;
       case '+':
-        $result .= sprintf(
+        $result .= \sprintf(
           "%s(MATCH (%s) AGAINST ('%s'))",
           $connector,
           $fieldString,
-          addslashes($token['value'])
+          \addslashes($token['value'])
         );
         $connector = ' AND ';
         break;
       case '-':
-        $result .= sprintf(
+        $result .= \sprintf(
           "%s(NOT(MATCH (%s) AGAINST ('%s')))",
           $connector,
           $fieldString,
-          addslashes($token['value'])
+          \addslashes($token['value'])
         );
         $connector = ' AND';
         break;
@@ -105,7 +104,7 @@ class Match extends \Papaya\Database\Condition\Fulltext {
       }
     }
     if ($indent > 0) {
-      $result .= str_repeat(')', $indent);
+      $result .= \str_repeat(')', $indent);
     }
     return $result;
   }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\SubItem;
+
 /**
  * A simple listview subitem displaying date time.
  *
@@ -25,9 +26,10 @@ namespace Papaya\UI\ListView\SubItem;
  * @property int $timestamp
  */
 class Date extends \Papaya\UI\ListView\SubItem {
-
   const SHOW_DATE = \Papaya\UI\Text\Date::SHOW_DATE;
+
   const SHOW_TIME = \Papaya\UI\Text\Date::SHOW_TIME;
+
   const SHOW_SECONDS = \Papaya\UI\Text\Date::SHOW_SECONDS;
 
   /**
@@ -45,11 +47,11 @@ class Date extends \Papaya\UI\ListView\SubItem {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'timestamp' => array('_timestamp', '_timestamp'),
-    'options' => array('_options', '_options')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'timestamp' => ['_timestamp', '_timestamp'],
+    'options' => ['_options', '_options']
+  ];
 
   /**
    * Create subitem object, set text content and alignment.
@@ -73,9 +75,9 @@ class Date extends \Papaya\UI\ListView\SubItem {
   public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'subitem',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      ),
+      ],
       (string)(
       $this->_timestamp > 0 ? new \Papaya\UI\Text\Date($this->_timestamp, $this->_options) : ''
       )

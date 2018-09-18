@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Box;
+
 /**
  * Provide data encapsulation for the content box translation details.
  *
@@ -22,26 +23,25 @@ namespace Papaya\Content\Box;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $boxId
- * @property integer $languageId
+ * @property int $boxId
+ * @property int $languageId
  * @property string $title
  * @property array $content
- * @property-read integer $created
- * @property-read integer $modified
- * @property integer $viewId
+ * @property-read int $created
+ * @property-read int $modified
+ * @property int $viewId
  * @property-read string $viewTitle
  * @property-read string $viewName
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
 class Translation extends \Papaya\Database\BaseObject\Record {
-
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'box_id' => 'box_id',
     'language_id' => 'lng_id',
     'title' => 'box_title',
@@ -53,7 +53,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
     'view_name' => 'view_name',
     'module_guid' => 'module_guid',
     'module_title' => 'module_title'
-  );
+  ];
 
   protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_TRANSLATIONS;
 
@@ -61,11 +61,11 @@ class Translation extends \Papaya\Database\BaseObject\Record {
    * Load box translation details
    *
    * @param mixed $filter
-   * @return array|bool|NULL
+   * @return array|bool|null
    * @internal param $array ($boxId, $languageId) $filter
    */
   public function load($filter) {
-    $sql = "SELECT t.box_id, t.box_title, t.box_data, t.lng_id,
+    $sql = 'SELECT t.box_id, t.box_title, t.box_data, t.lng_id,
                    t.box_trans_created, t.box_trans_modified,
                    t.view_id, v.view_title, v.view_name,
                    m.module_guid, m.module_title
@@ -73,15 +73,15 @@ class Translation extends \Papaya\Database\BaseObject\Record {
               LEFT OUTER JOIN %s v ON v.view_id = t.view_id
               LEFT OUTER JOIN %s m ON m.module_guid = v.module_guid
              WHERE t.box_id = %d
-               AND t.lng_id = %d";
-    $parameters = array(
+               AND t.lng_id = %d';
+    $parameters = [
       $this->databaseGetTableName($this->_tableNameBoxTranslations),
       $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
       (int)$filter[0],
       (int)$filter[1]
-    );
-    return $this->_loadRecord($sql, $parameters, array($this, 'convertBoxRecordToValues'));
+    ];
+    return $this->_loadRecord($sql, $parameters, [$this, 'convertBoxRecordToValues']);
   }
 
   /**
@@ -101,25 +101,24 @@ class Translation extends \Papaya\Database\BaseObject\Record {
     return $values;
   }
 
-
   /**
    * Save (insert or update) box translation record.
    *
    * This method check if the record exists and calls the nessesary private method.
    *
-   * @return boolean
+   * @return bool
    */
   public function save() {
     if ($this->boxId > 0 && $this->languageId > 0) {
-      $sql = "SELECT COUNT(*)
+      $sql = 'SELECT COUNT(*)
                 FROM %s
                WHERE box_id = %d
-                 AND lng_id = %d";
-      $parameters = array(
+                 AND lng_id = %d';
+      $parameters = [
         $this->databaseGetTableName($this->_tableNameBoxTranslations),
         (int)$this->boxId,
         (int)$this->languageId
-      );
+      ];
       if ($res = $this->databaseQueryFmt($sql, $parameters)) {
         if ($res->fetchField() > 0) {
           return $this->_update();
@@ -134,19 +133,19 @@ class Translation extends \Papaya\Database\BaseObject\Record {
   /**
    * Insert a new translation record into database table
    *
-   * @return boolean
+   * @return bool
    */
   private function _insert() {
-    $data = array(
+    $data = [
       'box_id' => (int)$this->boxId,
       'lng_id' => (int)$this->languageId,
       'box_title' => (string)$this->title,
-      'box_data' => is_array($this->content)
+      'box_data' => \is_array($this->content)
         ? \Papaya\Utility\Text\XML::serializeArray($this->content) : '',
-      'box_trans_created' => time(),
-      'box_trans_modified' => time(),
+      'box_trans_created' => \time(),
+      'box_trans_modified' => \time(),
       'view_id' => (int)(string)$this->viewId
-    );
+    ];
     return FALSE !== $this->databaseInsertRecord(
         $this->databaseGetTableName($this->_tableNameBoxTranslations),
         NULL,
@@ -157,20 +156,20 @@ class Translation extends \Papaya\Database\BaseObject\Record {
   /**
    * Update an existing translation record in the database table
    *
-   * @return boolean
+   * @return bool
    */
   private function _update() {
-    $filter = array(
+    $filter = [
       'box_id' => (int)$this->boxId,
       'lng_id' => (int)$this->languageId
-    );
-    $data = array(
+    ];
+    $data = [
       'box_title' => (string)$this->title,
-      'box_data' => is_array($this->content)
+      'box_data' => \is_array($this->content)
         ? \Papaya\Utility\Text\XML::serializeArray($this->content) : '',
-      'box_trans_modified' => time(),
+      'box_trans_modified' => \time(),
       'view_id' => (int)(string)$this->viewId
-    );
+    ];
     return FALSE !== $this->databaseUpdateRecord(
         $this->databaseGetTableName($this->_tableNameBoxTranslations),
         $data,

@@ -22,7 +22,6 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class XML {
-
   /**
    * Escape XML meta chars in string
    *
@@ -30,7 +29,7 @@ class XML {
    * @return string
    */
   public static function escape($string) {
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    return \htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
   }
 
   /**
@@ -40,7 +39,7 @@ class XML {
    * @return string
    */
   public static function unescape($string) {
-    return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+    return \html_entity_decode($string, ENT_QUOTES, 'UTF-8');
   }
 
   /**
@@ -50,10 +49,10 @@ class XML {
    * @return string
    */
   public static function escapeAttribute($string) {
-    return str_replace(
-      array("\r", "\n"),
-      array('&#13;', '&#10;'),
-      htmlspecialchars($string, ENT_QUOTES, 'UTF-8')
+    return \str_replace(
+      ["\r", "\n"],
+      ['&#13;', '&#10;'],
+      \htmlspecialchars($string, ENT_QUOTES, 'UTF-8')
     );
   }
 
@@ -66,25 +65,24 @@ class XML {
   public static function repairEntities($string) {
     static $translations = NULL;
     if (!isset($translations)) {
-      $translations = array_flip(
-        version_compare(PHP_VERSION, '>', '5.2')
-          ? get_html_translation_table(HTML_ENTITIES, ENT_COMPAT, 'UTF-8')
-          : get_html_translation_table(HTML_ENTITIES)
+      $translations = \array_flip(
+        \version_compare(PHP_VERSION, '>', '5.2')
+          ? \get_html_translation_table(HTML_ENTITIES, ENT_COMPAT, 'UTF-8')
+          : \get_html_translation_table(HTML_ENTITIES)
       );
     }
     $result = $string;
-    $result = preg_replace(
+    $result = \preg_replace(
       '/\&((amp)|(quot)|([gl]t)|(#((\d+)|(x[a-fA-F\d]{2,4}))))\;/i',
       '#||\\1||#',
       $result
     );
-    $result = strtr($result, is_array($translations) ? $translations : array());
-    $result = str_replace('&', '&amp;', $result);
-    $result = preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
-    $result = str_replace('&amp;amp;', '&amp;', $result);
+    $result = \strtr($result, \is_array($translations) ? $translations : []);
+    $result = \str_replace('&', '&amp;', $result);
+    $result = \preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
+    $result = \str_replace('&amp;amp;', '&amp;', $result);
     return \Papaya\Utility\Text\UTF8::ensure($result);
   }
-
 
   /**
    * Serialize an php array (including array elements) into a xml string
@@ -98,7 +96,7 @@ class XML {
     $root = $dom->createElement($tagName);
     $root->setAttribute('version', '2');
     $dom->appendChild($root);
-    if (is_array($array)) {
+    if (\is_array($array)) {
       self::_serializeSubArray($dom->documentElement, $tagName, $array);
     }
     return $dom->saveXML($dom->documentElement);
@@ -113,8 +111,8 @@ class XML {
    */
   private static function _serializeSubArray($parent, $tagName, $array) {
     foreach ($array as $name => $value) {
-      if (trim($name) != '') {
-        if (isset($value) && is_array($value)) {
+      if ('' != \trim($name)) {
+        if (isset($value) && \is_array($value)) {
           $childNode = $parent->ownerDocument->createElement($tagName.'-list');
           $childNode->setAttribute('name', \Papaya\Utility\Text\UTF8::ensure($name));
           self::_serializeSubArray($childNode, $tagName, $value);
@@ -138,28 +136,28 @@ class XML {
    * @return array
    */
   public static function unserializeArray($xml) {
-    $result = array();
+    $result = [];
     if (empty($xml)) {
       return $result;
     }
-    if (FALSE === strpos($xml, ' version="2">')) {
+    if (FALSE === \strpos($xml, ' version="2">')) {
       $xml = \Papaya\Utility\Text\UTF8::ensure(
-        preg_replace_callback(
+        \preg_replace_callback(
           '(&\\#(
             (?:1(?:2[6-9]|[3-9][0-9]))
             |
             (?:2(?:[01][0-9]|2[0-7]))
            );)x',
-          array('Papaya\Utility\Text\XML', 'decodeOldEntitiesToUtf8'),
+          ['Papaya\Utility\Text\XML', 'decodeOldEntitiesToUtf8'],
           $xml
         )
       );
     }
     $dom = new \DOMDocument('1.0', 'UTF-8');
-    $errorUsage = libxml_use_internal_errors(TRUE);
+    $errorUsage = \libxml_use_internal_errors(TRUE);
     if ($dom->loadXML($xml)) {
       $version = $dom->documentElement->getAttribute('version');
-      if (version_compare($version, '2', '>=')) {
+      if (\version_compare($version, '2', '>=')) {
         self::_unserializeArrayFromNode(
           $dom->documentElement->nodeName, $dom->documentElement, $result
         );
@@ -168,14 +166,14 @@ class XML {
           $dom->documentElement->nodeName,
           $dom->documentElement,
           $result,
-          function ($value) {
+          function($value) {
             return self::unescape($value);
           }
         );
       }
     }
-    libxml_clear_errors();
-    libxml_use_internal_errors($errorUsage);
+    \libxml_clear_errors();
+    \libxml_use_internal_errors($errorUsage);
     return $result;
   }
 
@@ -186,7 +184,7 @@ class XML {
    * @return string
    */
   public static function decodeOldEntitiesToUtf8($match) {
-    return (isset($match[1])) ? chr($match[1]) : $match[0];
+    return (isset($match[1])) ? \chr($match[1]) : $match[0];
   }
 
   /**
@@ -207,12 +205,12 @@ class XML {
           isset($childNode->nodeName)) {
           $name = $childNode->getAttribute('name');
           if ($childNode->nodeName == $tagName.'-list') {
-            $array[$name] = array();
+            $array[$name] = [];
             self::_unserializeArrayFromNode(
               $tagName, $childNode, $array[$name], $valueCallback
             );
           } elseif (isset($valueCallback)) {
-            $array[$name] = call_user_func($valueCallback, $childNode->nodeValue);
+            $array[$name] = \call_user_func($valueCallback, $childNode->nodeValue);
           } else {
             $array[$name] = $childNode->nodeValue;
           }
@@ -227,7 +225,7 @@ class XML {
    * Empty elements like img or br get deleted.
    *
    * @param \DOMElement $sourceNode
-   * @param integer $length
+   * @param int $length
    * @return \DOMElement
    */
   public static function truncate(\DOMElement $sourceNode, $length) {
@@ -244,7 +242,7 @@ class XML {
    *
    * @param \DOMElement $sourceNode
    * @param \DOMElement $targetNode
-   * @param integer $length
+   * @param int $length
    * @return int
    */
   private static function _truncateChildNodes(
@@ -262,7 +260,7 @@ class XML {
         case XML_CDATA_SECTION_NODE :
         case XML_TEXT_NODE :
           $nodeText = $childNode->textContent;
-          $nodeLength = strlen($nodeText);
+          $nodeLength = \strlen($nodeText);
           if ($nodeLength <= $length) {
             $targetNode->appendChild(
               $targetNode->ownerDocument->createTextNode($nodeText)
@@ -270,7 +268,7 @@ class XML {
             $length -= $nodeLength;
           } else {
             $nodeText = \Papaya\Utility\Text::truncate($nodeText, $length, FALSE);
-            if ($nodeText != '') {
+            if ('' != $nodeText) {
               $targetNode->appendChild(
                 $targetNode->ownerDocument->createTextNode($nodeText)
               );
@@ -299,7 +297,7 @@ class XML {
     } else {
       $targetNode = $targetParent->ownerDocument->importNode($sourceNode, FALSE);
     }
-    /** @var \DOMElement $targetNode */
+    /* @var \DOMElement $targetNode */
     foreach ($sourceNode->attributes as $attribute) {
       $targetNode->setAttribute($attribute->name, $attribute->value);
     }
@@ -312,12 +310,12 @@ class XML {
    *
    * @param string $name
    * @throws \UnexpectedValueException
-   * @return TRUE
+   * @return true
    */
   public static function isQName($name) {
     if (empty($name)) {
       throw new \UnexpectedValueException('Invalid QName: QName is empty.');
-    } elseif (FALSE !== ($position = strpos($name, ':'))) {
+    } elseif (FALSE !== ($position = \strpos($name, ':'))) {
       self::isNCName($name, 0, $position);
       self::isNCName($name, $position + 1);
       return TRUE;
@@ -330,8 +328,8 @@ class XML {
    * Validate if the given string is a valid nc name (namespace or element name)
    *
    * @param string $name
-   * @param integer $offset Offset of NCName part in QName
-   * @param integer $length Length of NCName part in QName
+   * @param int $offset Offset of NCName part in QName
+   * @param int $length Length of NCName part in QName
    * @return bool
    * @throws \UnexpectedValueException
    */
@@ -346,9 +344,9 @@ class XML {
       $nameStartChar.
       '\\.\\d\\x{B7}\\x{300}-\\x{36F}\\x{203F}-\\x{2040}';
     if ($length > 0) {
-      $namePart = substr($name, $offset, $length);
+      $namePart = \substr($name, $offset, $length);
     } elseif ($offset > 0) {
-      $namePart = substr($name, $offset);
+      $namePart = \substr($name, $offset);
     } else {
       $namePart = $name;
     }
@@ -356,13 +354,13 @@ class XML {
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Missing QName part.'
       );
-    } elseif (preg_match('([^'.$nameChar.'-])u', $namePart, $match, PREG_OFFSET_CAPTURE)) {
+    } elseif (\preg_match('([^'.$nameChar.'-])u', $namePart, $match, PREG_OFFSET_CAPTURE)) {
       //invalid bytes and whitespaces
       $position = (int)$match[0][1];
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.($offset + $position).'.'
       );
-    } elseif (preg_match('(^[^'.$nameStartChar.'])u', $namePart)) {
+    } elseif (\preg_match('(^[^'.$nameStartChar.'])u', $namePart)) {
       //first char is a little more limited
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.$offset.'.'
@@ -378,7 +376,7 @@ class XML {
    * @return string
    */
   public static function removeControlCharacters($string) {
-    return preg_replace(
+    return \preg_replace(
       '([^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+)u',
       '',
       $string

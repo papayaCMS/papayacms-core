@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\SubItem;
+
 /**
  * An listview subitem with a checkbox element.
  *
@@ -21,11 +22,11 @@ namespace Papaya\UI\ListView\SubItem;
  * @subpackage UI
  */
 class Checkbox extends \Papaya\UI\ListView\SubItem {
-
   /**
    * @var \Papaya\Request\Parameters\Name
    */
   private $_parameterName;
+
   /**
    * @var \Papaya\UI\Dialog
    */
@@ -50,9 +51,9 @@ class Checkbox extends \Papaya\UI\ListView\SubItem {
   public function appendTo(\Papaya\XML\Element $parent) {
     $item = $parent->appendElement(
       'subitem',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
+      ]
     );
     $parameterName = clone $this->_parameterName;
     if ($group = $this->_dialog->parameterGroup()) {
@@ -60,11 +61,11 @@ class Checkbox extends \Papaya\UI\ListView\SubItem {
     }
     $checkbox = $item->appendElement(
       'input',
-      array(
+      [
         'type' => 'checkbox',
         'name' => (string)$parameterName.'[]',
         'value' => (string)$this->_value
-      )
+      ]
     );
     if ($this->isSelected()) {
       $checkbox->setAttribute('checked', 'checked');
@@ -77,6 +78,6 @@ class Checkbox extends \Papaya\UI\ListView\SubItem {
     } else {
       $currentValues = $this->_dialog->data()->get($this->_parameterName, []);
     }
-    return (in_array($this->_value, $currentValues));
+    return (\in_array($this->_value, $currentValues));
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * This filter class checks a date with optional time in human-readable format.
  *
@@ -47,16 +48,16 @@ class Date implements \Papaya\Filter {
    *
    * @staticvar array
    */
-  private static $timeConstants = array(
+  private static $timeConstants = [
     self::DATE_NO_TIME,
     self::DATE_OPTIONAL_TIME,
     self::DATE_MANDATORY_TIME
-  );
+  ];
 
   /**
    * Include a time?
    *
-   * @var boolean
+   * @var bool
    */
   private $_includeTime = self::DATE_NO_TIME;
 
@@ -70,14 +71,14 @@ class Date implements \Papaya\Filter {
   /**
    * Constructor
    *
-   * @param integer $includeTime optional, default self::DATE_NO_TIME
+   * @param int $includeTime optional, default self::DATE_NO_TIME
    * @param float $step optional, default 1.0
    * @throws \UnexpectedValueException
    */
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
-    if (!in_array($includeTime, self::$timeConstants)) {
+    if (!\in_array($includeTime, self::$timeConstants)) {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
           __CLASS__
         )
@@ -96,17 +97,17 @@ class Date implements \Papaya\Filter {
    * @param string $value
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-   * @return boolean
+   * @return bool
    */
   public function validate($value) {
     if ($this->_includeTime > self::DATE_NO_TIME) {
-      $elements = preg_split('([T ])', $value);
-      if (count($elements) > 2 ||
-        ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
+      $elements = \preg_split('([T ])', $value);
+      if (\count($elements) > 2 ||
+        (self::DATE_MANDATORY_TIME == $this->_includeTime && 2 != \count($elements))) {
         throw new \Papaya\Filter\Exception\UnexpectedType('Wrong number of elements in date/time string.');
       }
       $date = $elements[0];
-      if (count($elements) > 1) {
+      if (\count($elements) > 1) {
         $time = $elements[1];
       }
     } else {
@@ -117,14 +118,14 @@ class Date implements \Papaya\Filter {
       (?P<month>\d{2})-
       (?P<day>\d{2})
     $)Dx';
-    if (!preg_match($patternDateISO, $date, $matches)) {
+    if (!\preg_match($patternDateISO, $date, $matches)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('Invalid date format.');
     }
-    $daysPerMonth = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+    $daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     $year = $matches['year'];
     $month = $matches['month'];
     $day = $matches['day'];
-    if (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0) {
+    if ((0 == $year % 4 && 0 != $year % 100) || 0 == $year % 400) {
       $daysPerMonth[1] = 29;
     }
     if ($month > 12) {
@@ -148,10 +149,10 @@ class Date implements \Papaya\Filter {
    */
   public function filter($value) {
     try {
-      $this->validate(trim($value));
+      $this->validate(\trim($value));
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
-    return trim($value);
+    return \trim($value);
   }
 }

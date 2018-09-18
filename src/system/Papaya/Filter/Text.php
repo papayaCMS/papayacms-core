@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for validate text optionally including digits
  *
@@ -21,20 +22,21 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Text implements \Papaya\Filter {
-
   const ALLOW_SPACES = 1;
+
   const ALLOW_LINES = 2;
+
   const ALLOW_DIGITS = 4;
 
   /**
-   * @var integer
+   * @var int
    */
   private $_options = self::ALLOW_SPACES;
 
   /**
    * Create object and store options to match additional character groups
    *
-   * @param integer $options
+   * @param int $options
    */
   public function __construct($options = self::ALLOW_SPACES) {
     $this->_options = $options;
@@ -67,35 +69,33 @@ class Text implements \Papaya\Filter {
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (is_array($value)) {
+    if (\is_array($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
-    if (trim($value) == '') {
+    if ('' == \trim($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     }
     $pattern = $this->getPattern();
-    if (preg_match($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
+    if (\preg_match($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
       throw new \Papaya\Filter\Exception\InvalidCharacter($value, $matches[0][1]);
     }
     return TRUE;
   }
 
-
   /**
    * Remove all invalid characters from the value, return NULL if the value is empty after that
    *
-   * @param mixed|NULL $value
-   * @return string|NULL
+   * @param mixed|null $value
+   * @return string|null
    */
   public function filter($value) {
-    if (is_array($value)) {
-      return NULL;
+    if (\is_array($value)) {
+      return;
     }
-    $value = preg_replace($this->getPattern(), '', $value);
+    $value = \preg_replace($this->getPattern(), '', $value);
     return empty($value) ? NULL : $value;
   }
-
 }

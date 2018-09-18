@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select;
+
 /**
  * A selection field displayed as checkboxes, mutiple values can be selected.
  *
@@ -23,7 +24,6 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @subpackage UI
  */
 class Bitmask extends \Papaya\UI\Dialog\Field\Select {
-
   /**
    * type of the select control, used in the xslt template
    *
@@ -48,11 +48,11 @@ class Bitmask extends \Papaya\UI\Dialog\Field\Select {
   protected function _createFilter() {
     $values = $this->getValues();
     if ($values instanceof \RecursiveIterator) {
-      $values = iterator_to_array(new \RecursiveIteratorIterator($values));
+      $values = \iterator_to_array(new \RecursiveIteratorIterator($values));
     } elseif ($values instanceof \Traversable) {
-      $values = iterator_to_array($values);
+      $values = \iterator_to_array($values);
     }
-    return new \Papaya\Filter\Bitmask(array_keys($values));
+    return new \Papaya\Filter\Bitmask(\array_keys($values));
   }
 
   /**
@@ -83,7 +83,7 @@ class Bitmask extends \Papaya\UI\Dialog\Field\Select {
         $bits = $this->collection()->owner()->parameters()->get($name);
         $bitmask = 0;
         foreach ($bits as $bit) {
-          if (array_key_exists($bit, $this->_values)) {
+          if (\array_key_exists($bit, $this->_values)) {
             $bitmask |= (int)$bit;
           }
         }

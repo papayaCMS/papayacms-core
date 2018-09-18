@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profile for a "captcha" field.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class Captcha extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * Create a color input field
    *

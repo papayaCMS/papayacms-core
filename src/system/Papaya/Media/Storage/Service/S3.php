@@ -22,7 +22,6 @@ namespace Papaya\Media\Storage\Service;
  * @subpackage Media-Storage
  */
 class S3 extends \Papaya\Media\Storage\Service {
-
   /**
    * Amazon S3 bucket name
    *
@@ -40,14 +39,14 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * subdirectory levels to avoid to many files in one directory
    *
-   * @var integer $_storageDirectoryDepth
+   * @var int $_storageDirectoryDepth
    */
   private $_storageDirectoryDepth = 1;
 
   /**
    * how long is the status cache valid (in seconds)
    *
-   * @var integer $_storageCacheExpire
+   * @var int $_storageCacheExpire
    */
   private $_storageCacheExpire = 86400;
 
@@ -74,7 +73,6 @@ class S3 extends \Papaya\Media\Storage\Service {
    * Set the storage configuration values.
    *
    * @param \Papaya\Configuration $configuration
-   * @return void
    */
   public function setConfiguration($configuration) {
     $this->_storageBucket = $configuration->get(
@@ -87,7 +85,7 @@ class S3 extends \Papaya\Media\Storage\Service {
       'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', $this->_storageDirectory
     );
     if (!empty($this->_storageDirectory)) {
-      $lastChar = substr($this->_storageDirectory, -1);
+      $lastChar = \substr($this->_storageDirectory, -1);
       if ('/' !== $lastChar) {
         $this->_storageDirectory .= '/';
       }
@@ -113,7 +111,6 @@ class S3 extends \Papaya\Media\Storage\Service {
    * Set the used HTTP client object.
    *
    * @param \Papaya\HTTP\Client $client
-   * @return void
    */
   public function setHTTPClient($client) {
     $this->_handler->setHTTPClient($client);
@@ -138,7 +135,7 @@ class S3 extends \Papaya\Media\Storage\Service {
   private function _getStorageObject($storageGroup, $storageId) {
     $result = $this->_storageDirectory.$storageGroup;
     for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
-      $result .= '/'.substr($storageId, $offset, 1);
+      $result .= '/'.\substr($storageId, $offset, 1);
     }
     return $result.'/'.$storageId;
   }
@@ -147,7 +144,6 @@ class S3 extends \Papaya\Media\Storage\Service {
    * Set the used handler object.
    *
    * @param \Papaya\Media\Storage\Service\S3\Handler $handler
-   * @return void
    */
   public function setHandler(\Papaya\Media\Storage\Service\S3\Handler $handler) {
     $this->_handler = $handler;
@@ -179,19 +175,19 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @return array
    */
   public function browse($storageGroup, $startsWith = '') {
-    $result = array();
+    $result = [];
     $client = $this->_handler->setUpRequest(
       $this->_getBucketURL(),
       'GET',
-      array(
+      [
         'prefix' => $storageGroup.'/'.$startsWith
-      )
+      ]
     );
     $response = $this->_doXMLRequest($client);
-    $offset = strlen($storageGroup) + 1;
-    /** @noinspection ForeachSourceInspection */
+    $offset = \strlen($storageGroup) + 1;
+    /* @noinspection ForeachSourceInspection */
     foreach ($response->evaluate('//aws:Key') as $file) {
-      $result[] = substr($file->nodeValue, $offset);
+      $result[] = \substr($file->nodeValue, $offset);
     }
     return $result;
   }
@@ -211,7 +207,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     if (200 === $client->getResponseStatus()) {
       return $client->getResponseData();
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -226,7 +222,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     if ($this->isPublic($storageGroup, $storageId, $mimeType)) {
       return $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId);
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -234,15 +230,15 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return array|FALSE array('filename' => string, 'is_temporary' => boolean)
+   * @return array|false array('filename' => string, 'is_temporary' => boolean)
    */
   public function getLocalFile($storageGroup, $storageId) {
-    $tempDirectory = (0 === strpos(PHP_OS, 'WIN')) ? 'c:\tmp' : '/tmp';
-    if (function_exists('sys_get_temp_dir')) {
-      $tempDirectory = sys_get_temp_dir();
+    $tempDirectory = (0 === \strpos(PHP_OS, 'WIN')) ? 'c:\tmp' : '/tmp';
+    if (\function_exists('sys_get_temp_dir')) {
+      $tempDirectory = \sys_get_temp_dir();
     }
-    $localFile = tempnam($tempDirectory, 'papayaMedia');
-    if ($fh = fopen($localFile, 'wb')) {
+    $localFile = \tempnam($tempDirectory, 'papayaMedia');
+    if ($fh = \fopen($localFile, 'wb')) {
       $client = $this->_handler->setUpRequest(
         $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId)
       );
@@ -250,13 +246,13 @@ class S3 extends \Papaya\Media\Storage\Service {
       if (200 === $client->getResponseStatus()) {
         $socket = $client->getSocket();
         while (!$socket->eof()) {
-          fwrite($fh, $socket->read());
+          \fwrite($fh, $socket->read());
         }
-        fclose($fh);
-        return array(
+        \fclose($fh);
+        return [
           'filename' => $localFile,
           'is_temporary' => TRUE
-        );
+        ];
       }
     }
     return FALSE;
@@ -267,29 +263,28 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param integer $rangeFrom
-   * @param integer $rangeTo
-   * @param integer $bufferSize
-   * @return void
+   * @param int $rangeFrom
+   * @param int $rangeTo
+   * @param int $bufferSize
    */
   public function output(
     $storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0, $bufferSize = 2048
   ) {
     if ($rangeFrom > 0 && $rangeTo > 0) {
-      $headers = array(
+      $headers = [
         'Range' => 'bytes='.$rangeFrom.'-'.$rangeTo
-      );
+      ];
     } elseif ($rangeFrom) {
-      $headers = array(
+      $headers = [
         'Range' => 'bytes='.$rangeFrom.'-'
-      );
+      ];
     } else {
-      $headers = array();
+      $headers = [];
     }
     $client = $this->_handler->setUpRequest(
       $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'GET',
-      array(),
+      [],
       $headers
     );
     $client->send();
@@ -305,25 +300,24 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * Save object into storage
    *
-   * @access private
    * @param string $storageGroup
    * @param string $storageId
    * @param \Papaya\HTTP\Client\File $resource
    * @param string $mimeType
-   * @param boolean $isPublic
-   * @return boolean
+   * @param bool $isPublic
+   * @return bool
    */
   private function _storeResource(
     $storageGroup, $storageId, $resource, $mimeType, $isPublic
   ) {
-    $headers = array(
+    $headers = [
       'Content-Type' => $mimeType,
       'x-amz-acl' => $isPublic ? 'public-read' : 'private'
-    );
+    ];
     $client = $this->_handler->setUpRequest(
       $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'PUT',
-      array(),
+      [],
       $headers
     );
     $client->addRequestFile($resource);
@@ -338,8 +332,8 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param mixed $content data string or resource id
    * @param string $mimeType
-   * @param boolean $isPublic
-   * @return boolean
+   * @param bool $isPublic
+   * @return bool
    * @throws \InvalidArgumentException
    */
   public function store(
@@ -349,7 +343,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     $mimeType = 'application/octet-stream',
     $isPublic = FALSE
   ) {
-    if (is_resource($content)) {
+    if (\is_resource($content)) {
       $resource = new \Papaya\HTTP\Client\File\Resource('filedata', 'file.dat', $content, $mimeType);
     } else {
       $resource = new \Papaya\HTTP\Client\File\Text('filedata', 'file.dat', $content, $mimeType);
@@ -364,8 +358,8 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param string $filename
    * @param string $mimeType
-   * @param boolean $isPublic
-   * @return boolean
+   * @param bool $isPublic
+   * @return bool
    * @throws \LogicException
    */
   public function storeLocalFile(
@@ -380,7 +374,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return boolean
+   * @return bool
    */
   public function remove($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
@@ -396,7 +390,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return boolean
+   * @return bool
    */
   public function exists($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
@@ -422,10 +416,10 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
-   * @return boolean $isPublic
+   * @return bool $isPublic
    */
   public function isPublic($storageGroup, $storageId, $mimeType) {
-    $cacheParameters = array($storageId, $mimeType);
+    $cacheParameters = [$storageId, $mimeType];
     if (
       ($cache = $this->cache()) &&
       (
@@ -473,26 +467,26 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param boolean $isPublic
+   * @param bool $isPublic
    * @param string $mimeType
-   * @return boolean file is now in target status
+   * @return bool file is now in target status
    */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
     $client = $this->_handler->setUpRequest(
       $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'PUT',
-      array(),
-      array(
+      [],
+      [
         'x-amz-acl' => $isPublic ? 'public-read' : 'private',
         'x-amz-copy-source' => '/'.$this->_storageBucket.'/'
           .$this->_getStorageObject($storageGroup, $storageId),
         'x-amz-metadata-directive' => 'REPLACE',
         'Content-Type' => $mimeType
-      )
+      ]
     );
     $client->send();
     if (200 === $client->getResponseStatus()) {
-      $cacheParameters = array($storageId, $mimeType);
+      $cacheParameters = [$storageId, $mimeType];
       if ($cache = $this->cache()) {
         $cache->write(
           $this->_statusCacheName,

@@ -16,6 +16,5 @@
 namespace Papaya\Template\Simple;
 
 interface AST {
-
   public function accept(\Papaya\Template\Simple\Visitor $visitor);
 }

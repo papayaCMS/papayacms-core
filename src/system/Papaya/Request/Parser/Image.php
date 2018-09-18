@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parser;
+
 /**
  * Papaya request parser for dynamic image links
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parser;
  * @subpackage Request
  */
 class Image extends \Papaya\Request\Parser {
-
   /**
    * PCRE pattern for thumbnail links
    *
@@ -41,11 +41,11 @@ class Image extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'image';
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya;
+
 /**
  * Papaya base object superclass
  *
@@ -21,7 +22,6 @@ namespace Papaya;
  * @subpackage Controller
  */
 interface Controller {
-
   /**
    * Execute controller
    *
@@ -33,12 +33,11 @@ interface Controller {
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
-   * @return boolean|self
+   * @return bool|self
    */
   public function execute(
     \Papaya\Application $application,
     \Papaya\Request &$request,
     \Papaya\Response &$response
   );
-
 }

@@ -14,22 +14,21 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * Load status informations about a page.
  *
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id
- * @property integer $sessionMode
+ * @property int $id
+ * @property int $sessionMode
  */
 class Status extends \Papaya\Database\Record {
-
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'topic_id',
     'sessionMode' => 'topic_sessionmode'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::PAGES;
-
 }

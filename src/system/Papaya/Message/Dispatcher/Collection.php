@@ -27,7 +27,6 @@ namespace Papaya\Message\Dispatcher {
   class Collection
     extends \Papaya\BaseObject\Collection
     implements Message\Dispatcher {
-
     public function __construct() {
       parent::__construct(Message\Dispatcher::class);
     }
@@ -44,4 +43,3 @@ namespace Papaya\Message\Dispatcher {
     }
   }
 }
-

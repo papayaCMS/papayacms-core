@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A simple single line input field with a caption.
  *
@@ -24,23 +25,22 @@ namespace Papaya\UI\Dialog\Field;
  * @property \Papaya\UI\Dialog\Fields $fields
  */
 class Group extends \Papaya\UI\Dialog\Field {
-
   /**
    * Grouped input fields
    *
    * @var \Papaya\UI\Dialog\Fields
    */
-  protected $_fields = NULL;
+  protected $_fields;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'fields' => array('fields', 'fields')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'fields' => ['fields', 'fields']
+  ];
 
   /**
    * Initialize object, set caption, field name and maximum length
@@ -64,7 +64,7 @@ class Group extends \Papaya\UI\Dialog\Field {
         $fields->owner($this->collection()->owner());
       }
     }
-    if (is_null($this->_fields)) {
+    if (\is_null($this->_fields)) {
       $this->_fields = new \Papaya\UI\Dialog\Fields(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
@@ -75,7 +75,7 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Validate field group
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     if (isset($this->_validationResult)) {
@@ -92,7 +92,7 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Collect field group data
    *
-   * @return boolean
+   * @return bool
    */
   public function collect() {
     if (parent::collect() &&
@@ -109,12 +109,12 @@ class Group extends \Papaya\UI\Dialog\Field {
    * @param \Papaya\XML\Element $parent
    */
   public function appendTo(\Papaya\XML\Element $parent) {
-    if (isset($this->_fields) && count($this->_fields) > 0) {
+    if (isset($this->_fields) && \count($this->_fields) > 0) {
       $group = $parent->appendElement(
         'field-group',
-        array(
+        [
           'caption' => $this->getCaption()
-        )
+        ]
       );
       $id = $this->getId();
       if (!empty($id)) {
@@ -132,7 +132,7 @@ class Group extends \Papaya\UI\Dialog\Field {
    */
   public function collection(\Papaya\UI\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
-    if ($collection != NULL && $collection->hasOwner()) {
+    if (NULL != $collection && $collection->hasOwner()) {
       $this->fields()->owner($collection->owner());
     }
     return $result;

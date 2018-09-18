@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message context containing simple plain text
  *
@@ -23,7 +24,6 @@ namespace Papaya\Message\Context;
 class Text
   implements
   \Papaya\Message\Context\Interfaces\Text {
-
   /**
    * data buffer
    *

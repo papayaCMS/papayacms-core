@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message context containing the informations about the memory consumption
  *
@@ -23,30 +24,31 @@ namespace Papaya\Message\Context;
 class Memory
   implements
   \Papaya\Message\Context\Interfaces\Text {
-
   /**
    * Class variable to remember last memory usage status and calculate differences
    *
-   * @var integer
+   * @var int
    */
   private static $_previousUsage = 0;
 
   /**
    * Current usage (set in constructor)
    *
-   * @var integer
+   * @var int
    */
   protected $_currentUsage = 0;
+
   /**
    * Peak usage (set in constructor)
    *
-   * @var integer
+   * @var int
    */
   protected $_peakUsage = 0;
+
   /**
    * Usage difference, calculate in @see \Papaya\Message\Context\Memory::_setMemoryUsage()
    *
-   * @var integer
+   * @var int
    */
   protected $_diffUsage = 0;
 
@@ -54,11 +56,11 @@ class Memory
    * Create object, get memory usage
    */
   public function __construct() {
-    if (function_exists('memory_get_usage')) {
-      $realUsage = version_compare(PHP_VERSION, '5.2', '>');
+    if (\function_exists('memory_get_usage')) {
+      $realUsage = \version_compare(PHP_VERSION, '5.2', '>');
       $this->setMemoryUsage(
-        $realUsage ? memory_get_usage(TRUE) : memory_get_usage(),
-        $realUsage ? memory_get_peak_usage(TRUE) : memory_get_peak_usage()
+        $realUsage ? \memory_get_usage(TRUE) : \memory_get_usage(),
+        $realUsage ? \memory_get_peak_usage(TRUE) : \memory_get_peak_usage()
       );
     }
   }
@@ -69,13 +71,13 @@ class Memory
   public function asString() {
     $result = '';
     if ($this->_currentUsage > 0 || $this->_peakUsage > 0) {
-      $result .= 'Memory Usage: '.number_format($this->_currentUsage, 0, '.', ',').' bytes';
+      $result .= 'Memory Usage: '.\number_format($this->_currentUsage, 0, '.', ',').' bytes';
       if ($this->_diffUsage >= 0) {
-        $result .= ' (+'.number_format($this->_diffUsage, 0, '.', ',').' bytes)';
+        $result .= ' (+'.\number_format($this->_diffUsage, 0, '.', ',').' bytes)';
       } else {
-        $result .= ' (-'.number_format($this->_diffUsage * -1, 0, '.', ',').' bytes)';
+        $result .= ' (-'.\number_format($this->_diffUsage * -1, 0, '.', ',').' bytes)';
       }
-      $result .= " | Peak Usage: ".number_format($this->_peakUsage, 0, '.', ',').' Bytes';
+      $result .= ' | Peak Usage: '.\number_format($this->_peakUsage, 0, '.', ',').' Bytes';
     }
     return $result;
   }
@@ -83,8 +85,8 @@ class Memory
   /**
    * Set memory usages, calculate difference to last call of this function
    *
-   * @param integer $current
-   * @param integer $peak
+   * @param int $current
+   * @param int $peak
    */
   public function setMemoryUsage($current, $peak) {
     $this->_currentUsage = $current;
@@ -96,7 +98,7 @@ class Memory
   /**
    * Remember memory usage for difference calculation
    *
-   * @param integer $current
+   * @param int $current
    */
   public function rememberMemoryUsage($current) {
     self::$_previousUsage = $current;

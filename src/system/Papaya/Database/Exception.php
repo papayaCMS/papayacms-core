@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database;
+
 /**
  * Papaya database exception main class
  *
@@ -21,39 +22,38 @@ namespace Papaya\Database;
  * @subpackage Database
  */
 class Exception extends \Papaya\Exception {
-
   /**
    * Severity information
    *
-   * @var integer
+   * @var int
    */
   const SEVERITY_INFO = 1;
 
   /**
    * Severity warning
    *
-   * @var integer
+   * @var int
    */
   const SEVERITY_WARNING = 2;
 
   /**
    * Severity error
    *
-   * @var integer
+   * @var int
    */
   const SEVERITY_ERROR = 3;
 
   /**
    * Severtiy of this exception
    *
-   * @var integer
+   * @var int
    */
   private $_severity = self::SEVERITY_ERROR;
 
   /**
    * @param string $message
-   * @param integer $code
-   * @param integer|NULL $severity
+   * @param int $code
+   * @param int|null $severity
    */
   public function __construct($message, $code = 0, $severity = NULL) {
     parent::__construct($message, $code);

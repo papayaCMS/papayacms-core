@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Geo;
+
 /**
  * Papaya filter class validating a geo position string
  *
@@ -24,7 +25,6 @@ namespace Papaya\Filter\Geo;
  * @subpackage Filter
  */
 class Position extends \Papaya\Filter\RegEx {
-
   /**
    * set pattern in superclass constructor
    */

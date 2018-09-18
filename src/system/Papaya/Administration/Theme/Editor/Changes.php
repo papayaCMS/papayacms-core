@@ -15,10 +15,9 @@
 
 namespace Papaya\Administration\Theme\Editor;
 
-use \Papaya\Content;
-use \Papaya\Theme;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\Theme;
+use Papaya\UI;
 
 /**
  * Main part of the theme skins editor (dynamic values for a theme)
@@ -27,8 +26,8 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Changes extends \Papaya\Administration\Page\Part {
-
   private $_commands;
+
   /**
    * @var Content\Theme\Skin
    */

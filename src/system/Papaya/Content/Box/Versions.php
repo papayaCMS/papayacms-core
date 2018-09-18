@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Box;
+
 /**
  * Provide data encapsulation for the content box version list. The versions are created if
  * a box is published. They are not changeable.
@@ -25,19 +26,18 @@ namespace Papaya\Content\Box;
  * @subpackage Content
  */
 class Versions extends \Papaya\Database\BaseObject\Records {
-
   /**
    * Map field names to value identifiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'version_id' => 'id',
     'version_time' => 'created',
     'version_author_id' => 'owner',
     'version_message' => 'message',
     'box_id' => 'box_id'
-  );
+  ];
 
   /**
    * Version table name
@@ -49,29 +49,29 @@ class Versions extends \Papaya\Database\BaseObject\Records {
   /**
    * Load version list informations
    *
-   * @param integer $boxId
-   * @param NULL|integer $limit maximum records returned
-   * @param NULL|integer $offset start offset for limited results
-   * @return boolean
+   * @param int $boxId
+   * @param null|int $limit maximum records returned
+   * @param null|int $offset start offset for limited results
+   * @return bool
    */
   public function load($boxId, $limit = NULL, $offset = NULL) {
-    $sql = "SELECT version_id, version_time, version_author_id, version_message,
+    $sql = 'SELECT version_id, version_time, version_author_id, version_message,
                    box_id
               FROM %s
              WHERE box_id = %d
-             ORDER BY version_time DESC";
-    $parameters = array(
+             ORDER BY version_time DESC';
+    $parameters = [
       $this->databaseGetTableName($this->_versionsTableName),
       (int)$boxId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'version_id', $limit, $offset);
   }
 
   /**
    * Create a new version record object and load the specified version data
    *
-   * @param integer $versionId
-   * @return \Papaya\Content\Box\Version|NULL
+   * @param int $versionId
+   * @return \Papaya\Content\Box\Version|null
    */
   public function getVersion($versionId) {
     $result = new \Papaya\Content\Box\Version();

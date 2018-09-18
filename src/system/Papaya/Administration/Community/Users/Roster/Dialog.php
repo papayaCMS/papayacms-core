@@ -26,24 +26,27 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage Administration
  *
- * @property integer $usersPerPage
- * @property integer $pagingButtonsLimit
+ * @property int $usersPerPage
+ * @property int $pagingButtonsLimit
  */
 class Dialog extends UI\Dialog {
-
   private $_listview;
+
   private $_paging;
+
   private $_reference;
 
   private $_users;
 
-  private $_parameterNames = array(
+  private $_parameterNames = [
     'user' => 'user_id',
     'page' => 'page',
     'filter' => 'filter',
     'reset' => 'filter-reset'
-  );
+  ];
+
   protected $_usersPerPage = 20;
+
   protected $_pagingButtonsLimit = 5;
 
   /**
@@ -51,19 +54,19 @@ class Dialog extends UI\Dialog {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('caption', 'caption'),
-    'image' => array('_image', '_image'),
-    'fields' => array('fields', 'fields'),
-    'buttons' => array('buttons', 'buttons'),
-    'hiddenFields' => array('hiddenFields', 'hiddenFields'),
-    'hiddenValues' => array('hiddenValues', 'hiddenValues'),
-    'data' => array('data', 'data'),
-    'options' => array('options', 'options'),
-    'description' => array('description', 'description'),
-    'usersPerPage' => array('_usersPerPage', '_usersPerPage'),
-    'pagingButtonsLimit' => array('_pagingButtonsLimit', '_pagingButtonsLimit')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['caption', 'caption'],
+    'image' => ['_image', '_image'],
+    'fields' => ['fields', 'fields'],
+    'buttons' => ['buttons', 'buttons'],
+    'hiddenFields' => ['hiddenFields', 'hiddenFields'],
+    'hiddenValues' => ['hiddenValues', 'hiddenValues'],
+    'data' => ['data', 'data'],
+    'options' => ['options', 'options'],
+    'description' => ['description', 'description'],
+    'usersPerPage' => ['_usersPerPage', '_usersPerPage'],
+    'pagingButtonsLimit' => ['_pagingButtonsLimit', '_pagingButtonsLimit']
+  ];
 
   /**
    * Set options and create dialog fields
@@ -97,7 +100,7 @@ class Dialog extends UI\Dialog {
   /**
    * Execute the dialog and load the community user records.
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
     if ($result = parent::execute()) {
@@ -108,16 +111,16 @@ class Dialog extends UI\Dialog {
       $filter = $this->data()->get($this->_parameterNames['filter']);
       $page = $this->parameters()->get($this->_parameterNames['page'], 1);
       $this->users()->load(
-        array('filter' => $filter),
+        ['filter' => $filter],
         $this->_usersPerPage,
         $page * $this->_usersPerPage - $this->_usersPerPage
       );
       $this->paging()->reference()->getParameters()->merge(
-        array(
-          $this->parameterGroup() => array(
+        [
+          $this->parameterGroup() => [
             $this->_parameterNames['filter'] => $filter
-          )
-        )
+          ]
+        ]
       );
       $this->paging()->itemsCount = (int)$this->users()->absCount();
       $this->paging()->currentPage = $this->parameters()->get('page');
@@ -160,17 +163,17 @@ class Dialog extends UI\Dialog {
         $builder = new UI\ListView\Items\Builder($this->users())
       );
       $builder->callbacks()->onCreateItem = function(
-        /** @noinspection PhpUnusedParameterInspection */
+        /* @noinspection PhpUnusedParameterInspection */
         $context, UI\ListView\Items $items, array $user
       ) {
         $items[] = new UI\ListView\Item(
           'items-user',
           empty($user['caption']) ? $user['email'] : $user['caption'],
-          array(
+          [
             $this->_parameterNames['user'] => $user['id'],
             $this->_parameterNames['filter'] => $this->data()->get('filter'),
             $this->_parameterNames['page'] => $this->paging()->currentPage
-          ),
+          ],
           $this->parameters()->get($this->_parameterNames['user']) === $user['id']
         );
       };
@@ -189,7 +192,7 @@ class Dialog extends UI\Dialog {
       $this->_paging = $paging;
     } elseif (NULL === $this->_paging) {
       $this->_paging = new UI\Toolbar\Paging(
-        array($this->parameterGroup(), $this->_parameterNames['page']), 1
+        [$this->parameterGroup(), $this->_parameterNames['page']], 1
       );
       $this->_paging->papaya($this->papaya());
       $this->_paging->reference(clone $this->reference());
@@ -226,7 +229,7 @@ class Dialog extends UI\Dialog {
   public function setParameterNameMapping($identifier, $name) {
     if (!isset($this->_parameterNames[$identifier])) {
       throw new \InvalidArgumentException(
-        sprintf('Unknown parameter identifier "%s".', $identifier)
+        \sprintf('Unknown parameter identifier "%s".', $identifier)
       );
     }
     Utility\Constraints::assertNotEmpty($name);

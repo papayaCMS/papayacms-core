@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Textarea;
+
 /**
  * A textarea (multiline input) field, that will use the filter on each line
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Textarea;
  * @subpackage UI
  */
 class Lines extends \Papaya\UI\Dialog\Field\Textarea {
-
   protected $_type = 'lines';
 
   public function __construct(
@@ -45,11 +45,11 @@ class Lines extends \Papaya\UI\Dialog\Field\Textarea {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName()),
         'lines' => $this->_lineCount
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }

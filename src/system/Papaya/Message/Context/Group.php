@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message string context containing a group of other context objects
  *
@@ -29,13 +30,12 @@ class Group
   Interfaces\XHTML,
   \Iterator,
   \Countable {
-
   /**
    * context group elements
    *
    * @var array
    */
-  private $_elements = array();
+  private $_elements = [];
 
   /**
    * Append a new context element to group
@@ -65,7 +65,7 @@ class Group
         $result .= "\n\n".\Papaya\Utility\Text\HTML::stripTags($element->asXhtml());
       }
     }
-    return substr($result, 2);
+    return \substr($result, 2);
   }
 
   /**
@@ -81,7 +81,7 @@ class Group
       if ($element instanceof Interfaces\XHTML) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof Interfaces\Text) {
-        $result .= str_replace(
+        $result .= \str_replace(
           "\n", "\n<br />", \Papaya\Utility\Text\XML::escape($element->asString())
         );
       }
@@ -92,44 +92,42 @@ class Group
 
   /**
    * Iterator: Rewind position
-   *
-   * @return void
    */
   public function rewind() {
-    reset($this->_elements);
+    \reset($this->_elements);
   }
 
   /**
    * Iterator: Get current element value
    *
-   * @return FALSE|Data
+   * @return false|Data
    */
   public function current() {
-    return current($this->_elements);
+    return \current($this->_elements);
   }
 
   /**
    * Iterator: Get current element key
    *
-   * @return integer|NULL
+   * @return int|null
    */
   public function key() {
-    return key($this->_elements);
+    return \key($this->_elements);
   }
 
   /**
    * Iterator: Move position to next element
    *
-   * @return FALSE|Data
+   * @return false|Data
    */
   public function next() {
-    return next($this->_elements);
+    return \next($this->_elements);
   }
 
   /**
    * Iterator: Check if current position hold a valid element
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     return FALSE !== $this->current();
@@ -138,9 +136,9 @@ class Group
   /**
    * Countable: return number of elements
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_elements);
+    return \count($this->_elements);
   }
 }

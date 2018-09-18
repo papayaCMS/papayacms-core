@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * This object loads the defined domains for a papaya installation.
  *
@@ -21,13 +22,12 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Domains extends \Papaya\Database\Records {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'domain_id',
     'host' => 'domain_hostname',
     'scheme' => 'domain_protocol',
@@ -36,7 +36,7 @@ class Domains extends \Papaya\Database\Records {
     'mode' => 'domain_mode',
     'data' => 'domain_data',
     'options' => 'domain_options'
-  );
+  ];
 
   /**
    * Table containing domain information
@@ -45,7 +45,7 @@ class Domains extends \Papaya\Database\Records {
    */
   protected $_tableName = \Papaya\Content\Tables::DOMAINS;
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
   /**
    * Attach callbacks for serialized field values
@@ -54,12 +54,11 @@ class Domains extends \Papaya\Database\Records {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = [
       $this, 'callbackMapValueFromFieldToProperty'
-    );
+    ];
     return $mapping;
   }
-
 
   /**
    * Deserialize path and permissions field values

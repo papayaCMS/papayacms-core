@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input\Media;
+
 /**
  * A single line input for a resized image (gif, png, jpeg) from the media database
  *
@@ -21,11 +22,10 @@ namespace Papaya\UI\Dialog\Field\Input\Media;
  * @subpackage UI
  */
 class ImageResized extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
-   * @var boolean
+   * @var bool
    */
   protected $_type = 'media_image_resized';
 
@@ -34,7 +34,7 @@ class ImageResized extends \Papaya\UI\Dialog\Field\Input {
     $this->setMandatory($mandatory);
     $this->setFilter(
       new \Papaya\Filter\Arguments(
-        array(
+        [
           new \Papaya\Filter\Guid(),
           new \Papaya\Filter\LogicalOr(
             new \Papaya\Filter\EmptyValue(),
@@ -46,11 +46,10 @@ class ImageResized extends \Papaya\UI\Dialog\Field\Input {
           ),
           new \Papaya\Filter\LogicalOr(
             new \Papaya\Filter\EmptyValue(),
-            new \Papaya\Filter\ArrayElement(array('abs', 'max', 'min', 'mincrop'))
+            new \Papaya\Filter\ArrayElement(['abs', 'max', 'min', 'mincrop'])
           )
-        )
+        ]
       )
     );
   }
-
 }

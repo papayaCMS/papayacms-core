@@ -23,25 +23,25 @@ namespace Papaya\UI\Dialog\Database;
  * @subpackage UI
  */
 class Record extends \Papaya\UI\Dialog {
-
   /**
-   * @var integer
+   * @var int
    */
   const ACTION_NONE = 0;
+
   /**
-   * @var integer
+   * @var int
    */
   const ACTION_INSERT = 1;
 
   /**
-   * @var integer
+   * @var int
    */
   const ACTION_UPDATE = 2;
 
   /**
    * Dialog form method
    *
-   * @var NULL|integer
+   * @var null|int
    */
   protected $_method = \Papaya\UI\Dialog::METHOD_MIXED;
 
@@ -50,7 +50,7 @@ class Record extends \Papaya\UI\Dialog {
    *
    * @var \Papaya\Database\Access $_databaseAccessObject
    */
-  private $_databaseAccessObject = NULL;
+  private $_databaseAccessObject;
 
   /**
    * Database table
@@ -74,26 +74,26 @@ class Record extends \Papaya\UI\Dialog {
    *
    * @var array
    */
-  protected $_columns = array();
+  protected $_columns = [];
 
   /**
    * Callback to check permissions
    *
    * @var callable $_callbackPermissions
    */
-  protected $_callbackPermissions = NULL;
+  protected $_callbackPermissions;
 
   /**
    * Was the database action an insert or update.
    *
-   * @var integer
+   * @var int
    */
   protected $_databaseAction = 0;
 
   /**
    * Will the database action be an insert or update.
    *
-   * @var integer
+   * @var int
    */
   protected $_databaseActionNext = 1;
 
@@ -115,7 +115,7 @@ class Record extends \Papaya\UI\Dialog {
   /**
    * Execute dialog an trigger database action if necessary
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
     $identifier = $this->_getIdentifierValue($this->_identifierColumn);
@@ -123,24 +123,24 @@ class Record extends \Papaya\UI\Dialog {
     if (parent::execute()) {
       try {
         if (empty($identifier)) {
-          /** @noinspection PhpDeprecationInspection */
+          /* @noinspection PhpDeprecationInspection */
           if ($this->checkRecordPermission(self::ACTION_INSERT)) {
             if ($newId = $this->_insert()) {
               $this->hiddenFields()->set($this->_identifierColumn, $newId);
-              /** @noinspection PhpDeprecationInspection */
+              /* @noinspection PhpDeprecationInspection */
               $this->_databaseAction = self::ACTION_INSERT;
-              /** @noinspection PhpDeprecationInspection */
+              /* @noinspection PhpDeprecationInspection */
               $this->_databaseActionNext = self::ACTION_UPDATE;
               return TRUE;
             }
           }
         } else {
-          /** @noinspection PhpDeprecationInspection */
+          /* @noinspection PhpDeprecationInspection */
           $this->_databaseActionNext = self::ACTION_UPDATE;
-          $filter = array($this->_identifierColumn => $identifier);
-          /** @noinspection PhpDeprecationInspection */
+          $filter = [$this->_identifierColumn => $identifier];
+          /* @noinspection PhpDeprecationInspection */
           if ($this->checkRecordPermission(self::ACTION_UPDATE, $filter)) {
-            /** @noinspection PhpDeprecationInspection */
+            /* @noinspection PhpDeprecationInspection */
             $this->_databaseAction = self::ACTION_UPDATE;
             return $this->_update($identifier);
           }
@@ -150,7 +150,7 @@ class Record extends \Papaya\UI\Dialog {
     } elseif (!empty($identifier) &&
       ($data = $this->_load($identifier))) {
       $this->hiddenFields()->set($this->_identifierColumn, $identifier);
-      /** @noinspection PhpDeprecationInspection */
+      /* @noinspection PhpDeprecationInspection */
       $this->_databaseActionNext = self::ACTION_UPDATE;
       foreach ($data as $field => $value) {
         $this->data()->set($field, $value);
@@ -179,7 +179,7 @@ class Record extends \Papaya\UI\Dialog {
   /**
    * Get the database action that was executed.
    *
-   * @param integer
+   * @param int
    * @return int
    */
   public function getDatabaseAction() {
@@ -189,7 +189,7 @@ class Record extends \Papaya\UI\Dialog {
   /**
    * Get the database action that will be executed if the dialog is submitted.
    *
-   * @param integer
+   * @param int
    * @return int
    */
   public function getDatabaseActionNext() {
@@ -213,9 +213,9 @@ class Record extends \Papaya\UI\Dialog {
    * @param array $filter
    * @return bool|mixed
    */
-  public function checkRecordPermission($action, array $filter = array()) {
+  public function checkRecordPermission($action, array $filter = []) {
     if (isset($this->_callbackPermissions)) {
-      return call_user_func($this->_callbackPermissions, $action, $this->_table, $filter);
+      return \call_user_func($this->_callbackPermissions, $action, $this->_table, $filter);
     }
     return TRUE;
   }
@@ -235,7 +235,7 @@ class Record extends \Papaya\UI\Dialog {
    * @return \Papaya\Database\Access
    */
   public function getDatabaseAccess() {
-    if (is_null($this->_databaseAccessObject)) {
+    if (\is_null($this->_databaseAccessObject)) {
       $this->_databaseAccessObject = new \Papaya\Database\Access($this);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
@@ -244,18 +244,18 @@ class Record extends \Papaya\UI\Dialog {
 
   /**
    * @param $identifier
-   * @return FALSE|array
+   * @return false|array
    */
   protected function _load($identifier) {
     return $this->getDatabaseAccess()->loadRecord(
-      $this->_table, array_keys($this->_columns), array($this->_identifierColumn => $identifier)
+      $this->_table, \array_keys($this->_columns), [$this->_identifierColumn => $identifier]
     );
   }
 
   /**
    * Insert data as new record into the database table.
    *
-   * @return string|integer New identifier
+   * @return string|int New identifier
    */
   protected function _insert() {
     return $this->getDatabaseAccess()->insertRecord(
@@ -266,12 +266,12 @@ class Record extends \Papaya\UI\Dialog {
   /**
    * Update record data in database table.
    *
-   * @param string|integer $identifier
+   * @param string|int $identifier
    * @return bool
    */
   protected function _update($identifier) {
     $this->getDatabaseAccess()->updateRecord(
-      $this->_table, $this->_compileRecord(), array($this->_identifierColumn => $identifier)
+      $this->_table, $this->_compileRecord(), [$this->_identifierColumn => $identifier]
     );
     return TRUE;
   }
@@ -283,7 +283,7 @@ class Record extends \Papaya\UI\Dialog {
    * @see \Papaya\UI\Dialog\Database\Record::_update
    */
   private function _compileRecord() {
-    $data = array();
+    $data = [];
     foreach ($this->_columns as $field => $filter) {
       if ($field != $this->_identifierColumn) {
         $value = $this->data()->get($field);

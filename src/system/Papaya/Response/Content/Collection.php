@@ -22,7 +22,6 @@ namespace Papaya\Response\Content;
  * @subpackage Response
  */
 class Collection implements \Papaya\Response\Content {
-
   /**
    * string content buffer
    *
@@ -44,7 +43,7 @@ class Collection implements \Papaya\Response\Content {
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
     return -1;
@@ -58,7 +57,7 @@ class Collection implements \Papaya\Response\Content {
   public function output() {
     foreach ($this->_traversable as $line) {
       echo $line.$this->_lineEnd;
-      flush();
+      \flush();
     }
   }
 }

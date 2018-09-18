@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A simple single line input field with a caption.
  *
@@ -21,11 +22,10 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Input extends \Papaya\UI\Dialog\Field {
-
   /**
    * Field maximum input length
    *
-   * @var integer
+   * @var int
    */
   protected $_maximumLength = 0;
 
@@ -45,9 +45,9 @@ class Input extends \Papaya\UI\Dialog\Field {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer $length
+   * @param int $length
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    */
   public function __construct(
     $caption,
@@ -68,7 +68,7 @@ class Input extends \Papaya\UI\Dialog\Field {
   /**
    * Set the maximum field length of this element.
    *
-   * @param integer $maximumLength
+   * @param int $maximumLength
    */
   public function setMaximumLength($maximumLength) {
     \Papaya\Utility\Constraints::assertInteger($maximumLength);
@@ -114,11 +114,11 @@ class Input extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->getType(),
         'name' => $this->_getParameterName($this->getName()),
         'maxlength' => $this->_maximumLength
-      ),
+      ],
       $this->getCurrentValue()
     );
   }

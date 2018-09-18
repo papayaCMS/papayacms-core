@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A field that output a message inside the dialog
  *
@@ -21,9 +22,10 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Message extends Information {
-
   const SEVERITY_INFO = \Papaya\Message::SEVERITY_INFO;
+
   const SEVERITY_WARNING = \Papaya\Message::SEVERITY_WARNING;
+
   const SEVERITY_ERROR = \Papaya\Message::SEVERITY_ERROR;
 
   /**
@@ -31,11 +33,11 @@ class Message extends Information {
    *
    * @var string[]
    */
-  private static $_images = array(
+  private static $_images = [
     \Papaya\Message::SEVERITY_INFO => 'status-dialog-information',
     \Papaya\Message::SEVERITY_WARNING => 'status-dialog-warning',
     \Papaya\Message::SEVERITY_ERROR => 'status-dialog-error'
-  );
+  ];
 
   /**
    * Create object and assign needed values

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\AST;
+
 /**
  * papaya CMS
  *
@@ -28,7 +29,6 @@ namespace Papaya\Template\Simple\AST;
  *  FOR A PARTICULAR PURPOSE.
  */
 abstract class Node implements \Papaya\Template\Simple\AST {
-
   /**
    * Read private properties stored in constructor
    *
@@ -38,11 +38,11 @@ abstract class Node implements \Papaya\Template\Simple\AST {
    */
   public function __get($name) {
     $property = '_'.$name;
-    if (property_exists($this, $property)) {
+    if (\property_exists($this, $property)) {
       return $this->$property;
     }
     throw new \LogicException(
-      sprintf('Unknown property: %s::$%s', get_class($this), $name)
+      \sprintf('Unknown property: %s::$%s', \get_class($this), $name)
     );
   }
 

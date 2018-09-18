@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Abstract superclass implementing basic features for user interface control.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 abstract class Control extends Control\Part {
-
   /**
    * Compile output xml for the user interface element.
    *

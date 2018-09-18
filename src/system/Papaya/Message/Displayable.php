@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Interface for messages that need to be shown to the user.
  *
@@ -21,5 +22,4 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 interface Displayable extends \Papaya\Message {
-
 }

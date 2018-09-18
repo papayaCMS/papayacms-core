@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Administration\Theme;
+
 /**
  * Edit theme skins (dynamic values for a theme)
  *
@@ -21,7 +22,6 @@ namespace Papaya\Administration\Theme;
  * @subpackage Administration
  */
 class Editor extends \Papaya\Administration\Page {
-
   protected $_parameterGroup = 'theme';
 
   protected function createContent() {

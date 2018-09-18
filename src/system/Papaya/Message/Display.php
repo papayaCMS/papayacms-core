@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Papaya Message Display, simple message displayed to the user
  *
@@ -22,11 +23,10 @@ namespace Papaya\Message;
  */
 class Display
   implements Displayable {
-
   /**
    * Message type
    *
-   * @var integer
+   * @var int
    */
   protected $_severity = \Papaya\Message::SEVERITY_INFO;
 
@@ -42,14 +42,14 @@ class Display
    *
    * @var array
    */
-  private $_possibleSeverities = array(
+  private $_possibleSeverities = [
     \Papaya\Message::SEVERITY_INFO,
     \Papaya\Message::SEVERITY_WARNING,
     \Papaya\Message::SEVERITY_ERROR
-  );
+  ];
 
   /**
-   * @param integer $severity
+   * @param int $severity
    * @param string|\Papaya\UI\Text $message
    */
   public function __construct($severity, $message) {
@@ -65,7 +65,7 @@ class Display
    * @return bool
    */
   private function _isValidSeverity($severity) {
-    if (in_array($severity, $this->_possibleSeverities, FALSE)) {
+    if (\in_array($severity, $this->_possibleSeverities, FALSE)) {
       return TRUE;
     }
     throw new \InvalidArgumentException('Invalid message type.');
@@ -74,7 +74,7 @@ class Display
   /**
    * Get type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getType() {
     return $this->_severity;
@@ -83,7 +83,7 @@ class Display
   /**
    * Get type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getSeverity() {
     return $this->_severity;

@@ -14,10 +14,11 @@
  */
 
 namespace Papaya\Session;
+
 /**
  * Papaya Session Options, encapsulates storage und validation of session options
  *
- * @property integer $fallback
+ * @property int $fallback
  * @property string $cache
  *
  * @package Papaya-Library
@@ -25,39 +26,38 @@ namespace Papaya\Session;
  */
 class Options
   extends \Papaya\BaseObject\Options\Defined {
-
   /**
    * Fallback mode: only use cookie, no fallback
    *
-   * @var integer
+   * @var int
    */
   const FALLBACK_NONE = 0;
 
   /**
    * Fallback mode: use parameters (query stirng or request body) if no cookie is available.
    *
-   * @var integer
+   * @var int
    */
   const FALLBACK_PARAMETER = 1;
 
   /**
    * Fallback mode: use path rewrite (put the sid like a path directly behind the host).
    *
-   * @var integer
+   * @var int
    */
   const FALLBACK_REWRITE = 2;
 
   /**
    * Cache mode: no cache, no caching at all
    *
-   * @var integer
+   * @var int
    */
   const CACHE_NONE = 'nocache';
 
   /**
    * Cache mode: private, caching only in the browser (for a single user)
    *
-   * @var integer
+   * @var int
    */
   const CACHE_PRIVATE = 'private';
 
@@ -69,18 +69,18 @@ class Options
    *
    * @var array
    */
-  protected $_definitions = array(
-    'FALLBACK' => array(self::FALLBACK_NONE, self::FALLBACK_PARAMETER, self::FALLBACK_REWRITE),
-    'CACHE' => array(self::CACHE_NONE, self::CACHE_PRIVATE)
-  );
+  protected $_definitions = [
+    'FALLBACK' => [self::FALLBACK_NONE, self::FALLBACK_PARAMETER, self::FALLBACK_REWRITE],
+    'CACHE' => [self::CACHE_NONE, self::CACHE_PRIVATE]
+  ];
 
   /**
    * Dialog option values
    *
    * @var array
    */
-  protected $_options = array(
+  protected $_options = [
     'FALLBACK' => self::FALLBACK_REWRITE,
     'CACHE' => self::CACHE_PRIVATE
-  );
+  ];
 }

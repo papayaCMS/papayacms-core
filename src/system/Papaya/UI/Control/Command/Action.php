@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * A command that executes an action depending on a specific set of parameters
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 class Action extends \Papaya\UI\Control\Command {
-
   /**
    * Dialog object
    *
@@ -69,7 +69,7 @@ class Action extends \Papaya\UI\Control\Command {
   /**
    * Create parameters validator using the "getDefintion()" callback
    *
-   * @param array|NULL $definitions
+   * @param array|null $definitions
    * @return \Papaya\Request\Parameters\Validator
    */
   protected function _createData(array $definitions = NULL) {

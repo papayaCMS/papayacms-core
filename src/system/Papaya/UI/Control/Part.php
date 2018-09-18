@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control;
+
 /**
  * Abstract superclass implementing basic features for user interface control parts.
  *
@@ -23,7 +24,6 @@ namespace Papaya\UI\Control;
 abstract class Part
   extends \Papaya\Application\BaseObject
   implements \Papaya\XML\Appendable {
-
   /**
    * Allows to declare dynamic properties with optional getter/setter methods. The read and write
    * options can be methods or properties. If no write option is provided the property is read only.
@@ -34,8 +34,7 @@ abstract class Part
    *
    * @var array
    */
-  protected $_declaredProperties = array();
-
+  protected $_declaredProperties = [];
 
   /**
    * Validate dynamic property against the declared properties array. Call getter method or read
@@ -51,24 +50,24 @@ abstract class Part
       isset($this->_declaredProperties[$name][0])
     ) {
       $read = $this->_declaredProperties[$name][0];
-      if (method_exists($this, $read)) {
+      if (\method_exists($this, $read)) {
         return $this->$read();
-      } elseif (isset($this->$read) || property_exists(get_class($this), $read)) {
+      } elseif (isset($this->$read) || \property_exists(\get_class($this), $read)) {
         return $this->$read;
       } else {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             'Invalid declaration: Can not read property "%s::$%s".',
-            get_class($this),
+            \get_class($this),
             $name
           )
         );
       }
     }
     throw new \UnexpectedValueException(
-      sprintf(
+      \sprintf(
         'Can not read unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
@@ -86,17 +85,17 @@ abstract class Part
     if (isset($this->_declaredProperties[$name]) &&
       isset($this->_declaredProperties[$name][1])) {
       $write = $this->_declaredProperties[$name][1];
-      if (method_exists($this, $write)) {
+      if (\method_exists($this, $write)) {
         $this->$write($value);
         return;
-      } elseif (isset($this->$write) || property_exists(get_class($this), $write)) {
+      } elseif (isset($this->$write) || \property_exists(\get_class($this), $write)) {
         $this->$write = $value;
         return;
       } else {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             'Invalid declaration: Can not write property "%s::$%s".',
-            get_class($this),
+            \get_class($this),
             $name
           )
         );
@@ -104,17 +103,17 @@ abstract class Part
     } elseif (isset($this->_declaredProperties[$name]) &&
       isset($this->_declaredProperties[$name][0])) {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Invalid declaration: Can not write readonly property "%s::$%s".',
-          get_class($this),
+          \get_class($this),
           $name
         )
       );
     }
     throw new \UnexpectedValueException(
-      sprintf(
+      \sprintf(
         'Can not write unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );

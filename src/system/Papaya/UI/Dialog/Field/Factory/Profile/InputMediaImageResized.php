@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profile for a media image selection field with resize arguments.
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class InputMediaImageResized
   extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    * @return \Papaya\UI\Dialog\Field\Input\Media\ImageResized

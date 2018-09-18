@@ -14,13 +14,14 @@
  */
 
 namespace Papaya\Response;
+
 /**
  * @package Papaya-Library
  * @subpackage Response
  */
 class Redirect extends \Papaya\Response {
-
   private $_location = '';
+
   private $_reason = '';
 
   /**
@@ -40,7 +41,7 @@ class Redirect extends \Papaya\Response {
       if (!empty($this->_reason)) {
         $headers['X-Papaya-Status'] = $this->_reason;
       }
-      $headers['Expires'] = gmdate('D, d M Y H:i:s', (time() - 31536000)).' GMT';
+      $headers['Expires'] = \gmdate('D, d M Y H:i:s', (\time() - 31536000)).' GMT';
       $headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
       $headers['Pragma'] = 'no-cache';
       $headers['Location'] = $this->_location;

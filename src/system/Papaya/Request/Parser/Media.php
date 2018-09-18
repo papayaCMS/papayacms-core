@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parser;
+
 /**
  * Papaya request parser for media database links
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parser;
  * @subpackage Request
  */
 class Media extends \Papaya\Request\Parser {
-
   /**
    * PCRE pattern for media and download links
    *
@@ -42,15 +42,15 @@ class Media extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
-      if ($matches['mode'] == 'thumb') {
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
+      if ('thumb' == $matches['mode']) {
         $result['mode'] = 'media';
       } else {
-        $result['mode'] = strtolower($matches['mode']);
+        $result['mode'] = \strtolower($matches['mode']);
       }
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;

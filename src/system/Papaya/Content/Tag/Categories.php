@@ -16,42 +16,36 @@
 namespace Papaya\Content\Tag;
 
 /**
- *
- */
-
-
-/**
  * This object loads page data by different conditions.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
 class Categories extends \Papaya\Database\Records\Tree {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'c.category_id',
     'parent_id' => 'c.parent_id',
     'ancestors' => 'c.parent_path',
     'language_id' => 'ct.lng_id',
     'title' => 'ct.category_title',
     'description' => 'ct.category_description'
-  );
+  ];
 
-  protected $_orderByProperties = array(
+  protected $_orderByProperties = [
     'title' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   /**
    * Load records from the defined table. This method can be overloaded to define an own sql.
    *
    * @param mixed $filter If it is an scalar the value will be used for the id property.
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
@@ -60,7 +54,7 @@ class Categories extends \Papaya\Database\Records\Tree {
       $languageId = (int)$filter['language_id'];
       unset($filter['language_id']);
     }
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $sql =
       "SELECT $fields 
          FROM %s AS c 
@@ -68,11 +62,11 @@ class Categories extends \Papaya\Database\Records\Tree {
     $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY),
       $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY_TRANSLATIONS),
       $languageId
-    );
-    return $this->_loadRecords($sql, $parameters, $limit, $offset, array('id'));
+    ];
+    return $this->_loadRecords($sql, $parameters, $limit, $offset, ['id']);
   }
 }

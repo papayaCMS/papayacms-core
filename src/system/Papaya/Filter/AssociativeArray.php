@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for an array with specific elements. It validates the specified elements
  * in the array.
@@ -24,13 +25,12 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class AssociativeArray implements \Papaya\Filter {
-
   /**
    * Filters for each array element
    *
-   * @var integer
+   * @var int
    */
-  private $_filters = array();
+  private $_filters = [];
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
@@ -48,7 +48,7 @@ class AssociativeArray implements \Papaya\Filter {
         $this->_filters[$name] = $filter;
       } else {
         throw new \InvalidArgumentException(
-          sprintf('Invalid filter definition for element "%s".', $name)
+          \sprintf('Invalid filter definition for element "%s".', $name)
         );
       }
     }
@@ -59,10 +59,10 @@ class AssociativeArray implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param mixed $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!is_array($value)) {
+    if (!\is_array($value)) {
       throw new Exception\UnexpectedType('array');
     }
     foreach ($value as $name => $subValue) {
@@ -78,11 +78,11 @@ class AssociativeArray implements \Papaya\Filter {
    * Use the filter for each element. Build a result of the filtered values that are not NULL
    *
    * @param mixed $value
-   * @return array|NULL
+   * @return array|null
    */
   public function filter($value) {
-    if (!is_array($value)) {
-      return NULL;
+    if (!\is_array($value)) {
+      return;
     }
     $result = [];
     foreach ($value as $name => $subValue) {

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
+
 /**
  * Use the all values provided in the constructor as cache condition data
  *
@@ -22,22 +23,21 @@ namespace Papaya\Cache\Identifier\Definition;
  */
 class URL
   implements \Papaya\Cache\Identifier\Definition {
-
   /**
    * Use the current request url as cache definition parameter
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return TRUE|array
+   * @return true|array
    */
   public function getStatus() {
-    return array(get_class($this) => \Papaya\Utility\Request\URL::get());
+    return [\get_class($this) => \Papaya\Utility\Request\URL::get()];
   }
 
   /**
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_URL;

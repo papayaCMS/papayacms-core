@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 /**
  * This iterator allows to iterate over several given inner iterators. In other words
  * it combines the elements of multiple iterators.
@@ -24,14 +25,15 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Union implements \OuterIterator {
-
   const MIT_NEED_ANY = 0;
+
   const MIT_KEYS_NUMERIC = 0;
+
   const MIT_KEYS_ASSOC = 2;
 
   const MIT_FLAGS_DEFAULT = 0;
 
-  private $_iterators = array();
+  private $_iterators = [];
 
   private $_position = 0;
 
@@ -42,22 +44,22 @@ class Union implements \OuterIterator {
    *
    * All parameters are optional, and you can give as many iterators you like directly.
    *
-   * @param integer $flags
+   * @param int $flags
    * @param \Traversable|array ...$iterator
    */
   public function __construct($flags = NULL) {
-    $iterators = func_get_args();
-    if (isset($flags) && !($flags instanceof \Traversable || is_array($flags))) {
-      array_shift($iterators);
+    $iterators = \func_get_args();
+    if (isset($flags) && !($flags instanceof \Traversable || \is_array($flags))) {
+      \array_shift($iterators);
       $this->setFlags($flags);
     }
-    call_user_func_array(array($this, 'attachIterators'), $iterators);
+    \call_user_func_array([$this, 'attachIterators'], $iterators);
   }
 
   /**
    * Return internal flags
    *
-   * @return integer
+   * @return int
    */
   public function getFlags() {
     return $this->_flags;
@@ -67,7 +69,7 @@ class Union implements \OuterIterator {
    * Set internal flags
    *
    * @param $flags
-   * @return integer
+   * @return int
    */
   public function setFlags($flags) {
     \Papaya\Utility\Constraints::assertInteger($flags);
@@ -77,10 +79,10 @@ class Union implements \OuterIterator {
   /**
    * Return how many iterators are attached
    *
-   * @return integer
+   * @return int
    */
   public function countIterators() {
-    return count($this->_iterators);
+    return \count($this->_iterators);
   }
 
   /**
@@ -89,7 +91,7 @@ class Union implements \OuterIterator {
    * @param \Traversable,... $iterator
    */
   public function attachIterators() {
-    foreach (func_get_args() as $iterator) {
+    foreach (\func_get_args() as $iterator) {
       $this->attachIterator($iterator);
     }
   }
@@ -108,10 +110,10 @@ class Union implements \OuterIterator {
    * Validate if an interator is attached.
    *
    * @param \Traversable|array $iterator
-   * @return boolean
+   * @return bool
    */
   public function containsIterator($iterator) {
-    return array_key_exists($this->getIteratorIdentifier($iterator), $this->_iterators);
+    return \array_key_exists($this->getIteratorIdentifier($iterator), $this->_iterators);
   }
 
   /**
@@ -121,7 +123,7 @@ class Union implements \OuterIterator {
    */
   public function detachIterator($iterator) {
     $identifier = $this->getIteratorIdentifier($iterator);
-    if (array_key_exists($identifier, $this->_iterators)) {
+    if (\array_key_exists($identifier, $this->_iterators)) {
       unset($this->_iterators[$identifier]);
     }
   }
@@ -130,7 +132,7 @@ class Union implements \OuterIterator {
    * Return the currently activ inner iterator
    */
   public function getInnerIterator() {
-    return current($this->_iterators);
+    return \current($this->_iterators);
   }
 
   /**
@@ -138,7 +140,7 @@ class Union implements \OuterIterator {
    */
   public function rewind() {
     $this->_position = -1;
-    $iterator = reset($this->_iterators);
+    $iterator = \reset($this->_iterators);
     if (($iterator instanceof \Iterator)) {
       $iterator->rewind();
       if ($iterator->valid()) {
@@ -168,7 +170,7 @@ class Union implements \OuterIterator {
    * @return mixed
    */
   public function key() {
-    if (($this->getFlags() & self::MIT_KEYS_ASSOC) === self::MIT_KEYS_ASSOC) {
+    if (self::MIT_KEYS_ASSOC === ($this->getFlags() & self::MIT_KEYS_ASSOC)) {
       $iterator = $this->getInnerIterator();
       return ($iterator instanceof \Iterator) ? $iterator->key() : NULL;
     } else {
@@ -201,7 +203,7 @@ class Union implements \OuterIterator {
         $this->_position++;
         return;
       }
-      $iterator = next($this->_iterators);
+      $iterator = \next($this->_iterators);
       if ($iterator instanceof \Iterator) {
         $iterator->rewind();
       }
@@ -220,6 +222,6 @@ class Union implements \OuterIterator {
    */
   private function getIteratorIdentifier($iterator) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
-    return is_array($iterator) ? md5(serialize($iterator)) : spl_object_hash($iterator);
+    return \is_array($iterator) ? \md5(\serialize($iterator)) : \spl_object_hash($iterator);
   }
 }

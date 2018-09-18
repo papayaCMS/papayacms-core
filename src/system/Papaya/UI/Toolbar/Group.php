@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * A menu element group. This is a sublist of menu elements like buttons with an group caption.
  *
@@ -25,7 +26,6 @@ namespace Papaya\UI\Toolbar;
  */
 class Group
   extends \Papaya\UI\Toolbar\Collection {
-
   /**
    * A caption for the group
    *
@@ -38,10 +38,10 @@ class Group
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', '_caption'),
-    'elements' => array('elements', 'elements')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', '_caption'],
+    'elements' => ['elements', 'elements']
+  ];
 
   /**
    * Create object and store group caption
@@ -56,19 +56,19 @@ class Group
    * Append group and elements to the output xml.
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
-    if (count($this->elements()) > 0) {
+    if (\count($this->elements()) > 0) {
       $group = $parent->appendElement(
         'group',
-        array(
+        [
           'title' => (string)$this->_caption
-        )
+        ]
       );
       $this->elements()->appendTo($group);
       return $group;
     }
-    return NULL;
+    return;
   }
 }

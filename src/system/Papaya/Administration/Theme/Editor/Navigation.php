@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Theme\Editor;
 
-use \Papaya\Content;
-use \Papaya\Theme;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Navigation part of the theme skins editor (dynamic values for a theme)
@@ -27,11 +27,10 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Navigation extends \Papaya\Administration\Page\Part {
-
   /**
    * @var UI\ListView
    */
-  private $_listview = NULL;
+  private $_listview;
 
   /**
    * Append navigation to parent xml element
@@ -46,11 +45,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
       $button->caption = new UI\Text\Translated('Add skin');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
-        array(
+        [
           'cmd' => 'skin_edit',
           'theme' => $themeName,
           'skin_id' => 0
-        ),
+        ],
         $this->parameterGroup()
       );
       if (0 < $skinId) {
@@ -58,11 +57,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $button->caption = new UI\Text\Translated('Delete skin');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
-          array(
+          [
             'cmd' => 'skin_delete',
             'theme' => $themeName,
             'skin_id' => $skinId
-          ),
+          ],
           $this->parameterGroup()
         );
       }
@@ -70,11 +69,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
       $button->caption = new UI\Text\Translated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
-        array(
+        [
           'cmd' => 'skin_import',
           'theme' => $themeName,
           'skin_id' => $skinId
-        ),
+        ],
         $this->parameterGroup()
       );
       if (0 < $skinId) {
@@ -82,11 +81,11 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $button->caption = new UI\Text\Translated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(
-          array(
+          [
             'cmd' => 'skin_export',
             'theme' => $themeName,
             'skin_id' => $skinId
-          ),
+          ],
           $this->parameterGroup()
         );
       }
@@ -115,7 +114,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
           )
         )
       );
-      $this->_listview->builder()->callbacks()->onCreateItem = array($this, 'callbackCreateItem');
+      $this->_listview->builder()->callbacks()->onCreateItem = [$this, 'callbackCreateItem'];
       $this->_listview->builder()->callbacks()->onCreateItem->context = $builder;
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
@@ -140,15 +139,15 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
       $skins = new Content\Theme\Skins();
-      $skins->activateLazyLoad(array('theme' => $selectedTheme));
+      $skins->activateLazyLoad(['theme' => $selectedTheme]);
       $skinIterator = new \Papaya\Iterator\Tree\Items($skins);
       $selectedSet = $this->parameters()->get('skin_id', 0);
       if ($selectedSet > 0) {
         $skinIterator->attachItemIterator(
           $selectedSet,
           new \Papaya\Iterator\Generator(
-            array($themes, 'getDefinition'),
-            array($selectedTheme)
+            [$themes, 'getDefinition'],
+            [$selectedTheme]
           )
         );
       }
@@ -167,7 +166,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * @return null|UI\ListView\Item
    */
   public function callbackCreateItem($builder, $items, $element, $index) {
-    /** @noinspection PhpUndefinedMethodInspection */
+    /* @noinspection PhpUndefinedMethodInspection */
     switch ($builder->getDataSource()->getDepth()) {
       case 0 :
         $items[] = $item = $this->createThemeItem($element, $index);
@@ -179,7 +178,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
         $items[] = $item = $this->createPageItem($element, $index);
         return $item;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -192,10 +191,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $item = new UI\ListView\Item('items-theme', (string)$element);
     $item->papaya($this->papaya());
     $item->reference->setParameters(
-      array(
+      [
         'cmd' => 'theme_show',
         'theme' => $element
-      ),
+      ],
       $this->parameterGroup()
     );
     $item->selected = (
@@ -216,15 +215,15 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $item->papaya($this->papaya());
     $item->indentation = 1;
     $item->reference->setParameters(
-      array(
+      [
         'cmd' => 'skin_edit',
         'theme' => $element['theme'],
         'skin_id' => $element['id']
-      ),
+      ],
       $this->parameterGroup()
     );
     $item->selected =
-      ($this->parameters()->get('page_identifier', '') == '') &&
+      ('' == $this->parameters()->get('page_identifier', '')) &&
       $this->parameters()->get('skin_id', 0) == $element['id'];
     return $item;
   }
@@ -240,12 +239,12 @@ class Navigation extends \Papaya\Administration\Page\Part {
     $item->papaya($this->papaya());
     $item->indentation = 2;
     $item->reference->setParameters(
-      array(
+      [
         'cmd' => 'values_edit',
         'theme' => $this->parameters()->get('theme', ''),
         'skin_id' => $this->parameters()->get('skin_id', 0),
         'page_identifier' => $element->getIdentifier()
-      ),
+      ],
       $this->parameterGroup()
     );
     $item->selected = $this->parameters()->get('page_identifier', '') == $element->getIdentifier();

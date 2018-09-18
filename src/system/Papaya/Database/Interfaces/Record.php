@@ -21,7 +21,6 @@ interface Record
   \Papaya\BaseObject\Interfaces\Properties,
   \ArrayAccess,
   \IteratorAggregate {
-
   public function assign($data);
 
   public function toArray();
@@ -32,4 +31,3 @@ interface Record
 
   public function delete();
 }
-

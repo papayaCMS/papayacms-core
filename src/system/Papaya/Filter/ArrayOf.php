@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that validates an array and optionally each element of the array
  *
@@ -23,18 +24,17 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class ArrayOf implements \Papaya\Filter {
-
   /**
    * elements filter
    *
-   * @var \Papaya\Filter|NULL
+   * @var \Papaya\Filter|null
    */
-  private $_elementFilter = NULL;
+  private $_elementFilter;
 
   /**
    * Construct object and filter for the elements
    *
-   * @param \Papaya\Filter|NULL $elementFilter
+   * @param \Papaya\Filter|null $elementFilter
    */
   public function __construct(\Papaya\Filter $elementFilter = NULL) {
     $this->_elementFilter = $elementFilter;
@@ -45,10 +45,10 @@ class ArrayOf implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!(is_array($value) && count($value) > 0)) {
+    if (!(\is_array($value) && \count($value) > 0)) {
       throw new Exception\IsEmpty();
     }
     if (isset($this->_elementFilter)) {
@@ -64,13 +64,13 @@ class ArrayOf implements \Papaya\Filter {
    * filtering them.
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
     $result = NULL;
-    if (is_array($value) && !empty($value)) {
+    if (\is_array($value) && !empty($value)) {
       if (isset($this->_elementFilter)) {
-        $result = array();
+        $result = [];
         foreach ($value as $key => $element) {
           if (NULL !== ($elementValue = $this->_elementFilter->filter($element))) {
             $result[$key] = $elementValue;

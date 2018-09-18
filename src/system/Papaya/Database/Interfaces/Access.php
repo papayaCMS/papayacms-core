@@ -16,7 +16,6 @@
 namespace Papaya\Database\Interfaces;
 
 interface Access {
-
   /**
    * @return \Papaya\Database\Access
    */

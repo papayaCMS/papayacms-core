@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message context containing a variable
  *
@@ -26,11 +27,10 @@ class Variable
   implements
   Interfaces\Text,
   Interfaces\XHTML {
-
   /**
    * The depth defines the recursion depth for the variable output
    *
-   * @var integer
+   * @var int
    */
   private $_depth = 3;
 
@@ -39,12 +39,12 @@ class Variable
    *
    * @var array
    */
-  private $_variable = NULL;
+  private $_variable;
 
   /**
    * Shorten string values to n bytes
    *
-   * @var integer
+   * @var int
    */
   private $_stringLength = 30;
 
@@ -52,7 +52,7 @@ class Variable
    * Create variable context
    *
    * @param mixed $variable
-   * @param integer $depth variable output depth
+   * @param int $depth variable output depth
    * @param int $length
    */
   public function __construct($variable, $depth = 3, $length = 30) {
@@ -64,11 +64,11 @@ class Variable
   /**
    * Check and set the depth. It must be greater then zero.
    *
-   * @param integer $depth
+   * @param int $depth
    * @throws \InvalidArgumentException
    */
   public function setDepth($depth) {
-    if (!is_int($depth) || $depth < 1) {
+    if (!\is_int($depth) || $depth < 1) {
       throw new \InvalidArgumentException('$depth must be an integer greater zero.');
     }
     $this->_depth = $depth;
@@ -77,7 +77,7 @@ class Variable
   /**
    * Return the maximum recursion depth stored in the private property, used for additional visitors
    *
-   * @return integer
+   * @return int
    */
   public function getDepth() {
     return $this->_depth;
@@ -86,11 +86,11 @@ class Variable
   /**
    * Check and set the depth. It must be greater then zero.
    *
-   * @param integer $length
+   * @param int $length
    * @throws \InvalidArgumentException
    */
   public function setStringLength($length) {
-    if (!is_int($length) || $length < 0) {
+    if (!\is_int($length) || $length < 0) {
       throw new \InvalidArgumentException('$length must be an integer greater or equal zero.');
     }
     $this->_stringLength = $length;
@@ -99,7 +99,7 @@ class Variable
   /**
    * Return the string length stored in the private property, used for additional visitors
    *
-   * @return integer
+   * @return int
    */
   public function getStringLength() {
     return $this->_stringLength;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that uses validates and array of bits agains a list and converts into
  * a single bitmask value.
@@ -22,13 +23,12 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Bitmask implements \Papaya\Filter {
-
   /**
    * List of valid bits
    *
    * @var array(integer)
    */
-  protected $_bits = array();
+  protected $_bits = [];
 
   /**
    * Initialize object and store bit list
@@ -45,17 +45,17 @@ class Bitmask implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if (empty($value)) {
       return TRUE;
-    } elseif (preg_match('(^[+-]?\d+$)D', $value)) {
+    } elseif (\preg_match('(^[+-]?\d+$)D', $value)) {
       $bits = (int)$value;
       foreach ($this->_bits as $bit) {
         $bits &= ~$bit;
       }
-      if ($bits === 0) {
+      if (0 === $bits) {
         return TRUE;
       }
       throw new \Papaya\Filter\Exception\InvalidValue($value);
@@ -67,7 +67,7 @@ class Bitmask implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     $value = (int)$value;
@@ -75,7 +75,7 @@ class Bitmask implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

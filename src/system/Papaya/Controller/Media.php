@@ -22,7 +22,6 @@ namespace Papaya\Controller;
  * @subpackage Controller
  */
 class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller {
-
   /**
    * @var \base_mediadb
    */
@@ -34,10 +33,10 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
-   * @return boolean|\Papaya\Controller
+   * @return bool|\Papaya\Controller
    */
   public function execute(
-    /** @noinspection ReferencingObjectsInspection */
+    /* @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
     \Papaya\Request &$request,
     \Papaya\Response &$response
@@ -71,7 +70,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Determine if the current surfer has the permission to retrieve the requested file.
    *
    * @param array $file
-   * @return boolean
+   * @return bool
    */
   protected function _outputPublicFile($file) {
     $folderPermissions = $this->getMediaDatabase()->getFolderPermissions($file['folder_id']);
@@ -84,7 +83,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
     if (isset($folderPermissions['surfer_view'])) {
       $surfer = $this->papaya()->getObject('Surfer');
       // the surfer has one of the folder permissions
-      if ($surfer->hasOnePermOf(array_keys($folderPermissions['surfer_view']))) {
+      if ($surfer->hasOnePermOf(\array_keys($folderPermissions['surfer_view']))) {
         $this->_outputFile($file);
         return TRUE;
       }
@@ -118,13 +117,13 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
     $session->close();
     \papaya_file_delivery::outputFile($file['fileName'], $file);
   }
+
   // @codeCoverageIgnoreEnd
 
   /**
    * Set media database object
    *
    * @param \base_mediadb $mediaDatabase
-   * @return void
    */
   public function setMediaDatabase($mediaDatabase) {
     $this->_mediaDatabase = $mediaDatabase;

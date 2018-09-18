@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An abstract superclass for plugin content editors. They need access to the plugin,
  * so it is stored in a buffer variable.
@@ -22,7 +23,6 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 abstract class Editor extends \Papaya\UI\Control\Interactive {
-
   /**
    * @var Editable\Data
    */
@@ -76,5 +76,4 @@ abstract class Editor extends \Papaya\UI\Control\Interactive {
     }
     return $this->_context;
   }
-
 }

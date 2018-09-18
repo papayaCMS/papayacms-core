@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select;
+
 /**
  * A selection field displayed as radio boxes, only a single value can be selected.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @subpackage UI
  */
 class Radio extends \Papaya\UI\Dialog\Field\Select {
-
   /**
    * type of the select control, used in the xslt template
    *

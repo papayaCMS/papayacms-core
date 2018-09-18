@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Define a series of class constants for options, needed by different content objects.
  *
@@ -21,62 +22,66 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 interface Options {
-
   /**
    * Permission inheritance, use only own permission defined for this page
    *
-   * @var integer
+   * @var int
    */
   const INHERIT_PERMISSIONS_OWN = 1;
+
   /**
    * Permission inheritance, use only inherited permission for this page
    *
-   * @var integer
+   * @var int
    */
   const INHERIT_PERMISSIONS_PARENT = 2;
+
   /**
    * Permission inheritance, add own permission of this page to inherited ones
    *
-   * @var integer
+   * @var int
    */
   const INHERIT_PERMISSIONS_ADDITIONAL = 3;
 
   /**
    * Cache/Expires mode, use system option value
    *
-   * @var integer
+   * @var int
    */
   const CACHE_SYSTEM = 1;
+
   /**
    * Cache/Expires mode, use special value defined for this page
    *
-   * @var integer
+   * @var int
    */
   const CACHE_INDIVIDUAL = 2;
+
   /**
    * Cache/Expires mode, no caching
    *
-   * @var integer
+   * @var int
    */
   const CACHE_NONE = 0;
 
   /**
    * URL scheme, use system option PAPAYA_DEFAULT_PROTOCOL
    *
-   * @var integer
+   * @var int
    */
   const SCHEME_SYSTEM = 0;
+
   /**
    * URL scheme, allow only http
    *
-   * @var integer
+   * @var int
    */
   const SCHEME_HTTP = 1;
+
   /**
    * URL scheme, allow only https
    *
-   * @var integer
+   * @var int
    */
   const SCHEME_HTTPS = 2;
-
 }

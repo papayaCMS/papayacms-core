@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\SubItem;
+
 /**
  * An empty listview subitem.
  *
@@ -23,7 +24,6 @@ namespace Papaya\UI\ListView\SubItem;
  * @subpackage UI
  */
 class EmptyValue extends \Papaya\UI\ListView\SubItem {
-
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element
    *

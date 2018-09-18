@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Theme;
+
 /**
  * Papaya theme handler class
  *
@@ -21,7 +22,6 @@ namespace Papaya\Theme;
  * @subpackage Theme
  */
 class Handler extends \Papaya\Application\BaseObject {
-
   /**
    * Get url for theme files, is $themeName is empty the current theme is used.
    *
@@ -157,7 +157,6 @@ class Handler extends \Papaya\Application\BaseObject {
    * Set preview theme (saved in session)
    *
    * @param string $themeName
-   * @return void
    */
   public function setThemePreview($themeName) {
     $this
@@ -169,8 +168,6 @@ class Handler extends \Papaya\Application\BaseObject {
 
   /**
    * Remove preview theme (saved in session)
-   *
-   * @return void
    */
   public function removeThemePreview() {
     $this

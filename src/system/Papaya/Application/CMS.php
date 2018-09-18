@@ -37,5 +37,4 @@ namespace Papaya\Application;
  * @property \Papaya\Phrases $phrases
  */
 abstract class CMS extends \Papaya\Application {
-
 }

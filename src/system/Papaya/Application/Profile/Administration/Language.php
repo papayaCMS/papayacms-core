@@ -15,8 +15,8 @@
 
 namespace Papaya\Application\Profile\Administration;
 
-use Papaya\Application;
 use Papaya\Administration\Languages\Selector as LanguageToggle;
+use Papaya\Application;
 
 /**
  * Application object profile for the content language switcher
@@ -25,7 +25,6 @@ use Papaya\Administration\Languages\Selector as LanguageToggle;
  * @subpackage Application
  */
 class Language implements Application\Profile {
-
   /**
    * Create the profile object and return it
    *

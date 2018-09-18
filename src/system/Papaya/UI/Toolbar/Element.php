@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * Superclass for menu elements. All menu elements must be children of this class.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Toolbar;
  * @subpackage UI
  */
 abstract class Element extends \Papaya\UI\Control\Collection\Item {
-
   /**
    * reference (link) object
    *

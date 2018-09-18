@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * This object loads view records into a list.
  *
@@ -21,20 +22,19 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Views extends \Papaya\Database\Records\Lazy {
-
   /**
    * Map field names to more convenient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'v.view_id',
     'title' => 'v.view_title',
     'name' => 'v.view_name',
     'module_id' => 'v.module_guid',
     'module_type' => 'm.module_type',
     'checksum' => 'v.view_checksum'
-  );
+  ];
 
   /**
    * Table containing view informations
@@ -50,31 +50,31 @@ class Views extends \Papaya\Database\Records\Lazy {
    */
   protected $_tableNameModules = Tables::MODULES;
 
-  protected $_orderByProperties = array(
+  protected $_orderByProperties = [
     'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   /**
    * Load view records
    *
    * @param array $filter
-   * @param NULL|integer $limit
-   * @param NULL|integer $offset
-   * @return boolean
+   * @param null|int $limit
+   * @param null|int $offset
+   * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields
               FROM %s AS v
               JOIN %s AS m ON (m.module_guid = v.module_guid)
-              ".$this->_compileCondition($filter)."
-              ".$this->_compileOrderBy();
-    $parameters = array(
+              ".$this->_compileCondition($filter).'
+              '.$this->_compileOrderBy();
+    $parameters = [
       $databaseAccess->getTableName($this->_tableName),
       $databaseAccess->getTableName($this->_tableNameModules)
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, 'id');
   }
 }

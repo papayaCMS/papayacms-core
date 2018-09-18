@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * Superclass for dialog fields
  *
@@ -26,7 +27,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 abstract class Field extends Element {
-
   /**
    * Field caption
    *
@@ -44,9 +44,9 @@ abstract class Field extends Element {
   /**
    * Field description
    *
-   * @var NULL|Element\Description
+   * @var null|Element\Description
    */
-  private $_description = NULL;
+  private $_description;
 
   /**
    * Field name
@@ -67,19 +67,19 @@ abstract class Field extends Element {
    *
    * @var mixed
    */
-  private $_defaultValue = NULL;
+  private $_defaultValue;
 
   /**
    * field disabled status
    *
-   * @var boolean
+   * @var bool
    */
   private $_disabled = FALSE;
 
   /**
    * field mandatory status
    *
-   * @var boolean
+   * @var bool
    */
   private $_mandatory = FALSE;
 
@@ -88,21 +88,21 @@ abstract class Field extends Element {
    *
    * @var \Papaya\Filter
    */
-  private $_filter = NULL;
+  private $_filter;
 
   /**
    * Cached validation result
    *
-   * @var NULL|Boolean
+   * @var null|bool
    */
-  protected $_validationResult = NULL;
+  protected $_validationResult;
 
   /**
    * Validation execption
    *
-   * @var NULL|\Papaya\Filter\Exception
+   * @var null|\Papaya\Filter\Exception
    */
-  protected $_exception = NULL;
+  protected $_exception;
 
   /**
    * Set caption for this field, this can be a label or a title or something different depending
@@ -115,13 +115,13 @@ abstract class Field extends Element {
    * @throws \UnexpectedValueException
    */
   public function setCaption($caption) {
-    if (is_string($caption) || $caption instanceof \Papaya\UI\Text) {
+    if (\is_string($caption) || $caption instanceof \Papaya\UI\Text) {
       $this->_caption = $caption;
     } else {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Unexpected value type: Expected "string" or "Papaya\UI\Text" but "%s" given.',
-          is_object($caption) ? get_class($caption) : gettype($caption)
+          \is_object($caption) ? \get_class($caption) : \gettype($caption)
         )
       );
     }
@@ -147,13 +147,13 @@ abstract class Field extends Element {
    * @throws \UnexpectedValueException
    */
   public function setHint($hint) {
-    if (is_string($hint) || $hint instanceof \Papaya\UI\Text) {
+    if (\is_string($hint) || $hint instanceof \Papaya\UI\Text) {
       $this->_hint = $hint;
     } else {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Unexpected value type: Expected "string" or "Papaya\UI\Text" but "%s" given.',
-          is_object($hint) ? get_class($hint) : gettype($hint)
+          \is_object($hint) ? \get_class($hint) : \gettype($hint)
         )
       );
     }
@@ -243,7 +243,7 @@ abstract class Field extends Element {
    * In the default implementation, disabled field will ignore request parameter values
    * (only read the default value and data) and output a status field.
    *
-   * @param boolean $disabled
+   * @param bool $disabled
    */
   public function setDisabled($disabled) {
     $this->_disabled = (bool)$disabled;
@@ -262,7 +262,7 @@ abstract class Field extends Element {
    * Set a mandatory status for the field, this will be used in to define the actual filter object
    * returned by getFilter and the xml output.
    *
-   * @param boolean $mandatory
+   * @param bool $mandatory
    */
   public function setMandatory($mandatory) {
     $this->_mandatory = (bool)$mandatory;
@@ -294,7 +294,7 @@ abstract class Field extends Element {
    *
    * Filter objects are used to check and filter user inputs
    *
-   * @return NULL|\Papaya\Filter
+   * @return null|\Papaya\Filter
    */
   public function getFilter() {
     if ($this->_mandatory && NULL !== $this->_filter) {
@@ -303,7 +303,7 @@ abstract class Field extends Element {
     if (NULL !== $this->_filter) {
       return new \Papaya\Filter\LogicalOr($this->_filter, new \Papaya\Filter\EmptyValue());
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -325,7 +325,7 @@ abstract class Field extends Element {
   /**
    * Validate dialog input for this field
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     if (NULL !== $this->_validationResult) {
@@ -337,8 +337,8 @@ abstract class Field extends Element {
   /**
    * Validate current value against the filter object if it is here.
    *
-   * @param \Papaya\Filter|NULL $filter
-   * @return boolean
+   * @param \Papaya\Filter|null $filter
+   * @return bool
    */
   protected function _validateFilter($filter) {
     if (isset($filter) && $filter instanceof \Papaya\Filter) {
@@ -388,14 +388,14 @@ abstract class Field extends Element {
       if ($filter = $this->getFilter()) {
         $value = $filter->filter($this->getCurrentValue());
         $this->collection()->owner()->data()->set(
-          $name, is_null($value) ? $this->getDefaultValue() : $value
+          $name, \is_null($value) ? $this->getDefaultValue() : $value
         );
       } elseif (NULL !== $this->getDefaultValue()) {
         $value = $this->getCurrentValue();
-        if (is_object($this->getDefaultValue())) {
+        if (\is_object($this->getDefaultValue())) {
           $value = (string)$value;
         } else {
-          settype($value, gettype($this->getDefaultValue()));
+          \settype($value, \gettype($this->getDefaultValue()));
         }
         $this->collection()->owner()->data()->set($name, $value);
       } else {
@@ -447,7 +447,7 @@ abstract class Field extends Element {
     }
     $field = $parent->appendElement(
       'field',
-      array(
+      [
         'caption' => $this->getCaption(),
         'class' => $this->_getFieldClass(),
         'error' => $isValid ? 'no' : 'yes',
@@ -455,7 +455,7 @@ abstract class Field extends Element {
         'id' => $this->getId(),
         'disabled' => $this->getDisabled() ? 'yes' : '',
         'mandatory' => $this->getMandatory() ? 'yes' : ''
-      )
+      ]
     );
     $this->description()->appendTo($field);
     return $field;
@@ -468,9 +468,9 @@ abstract class Field extends Element {
    * @return string
    */
   protected function _getFieldClass($prefix = 'PapayaUI') {
-    $class = str_replace('\\', '', get_class($this));
-    if (0 === strpos($class, $prefix)) {
-      $class = substr($class, strlen($prefix));
+    $class = \str_replace('\\', '', \get_class($this));
+    if (0 === \strpos($class, $prefix)) {
+      $class = \substr($class, \strlen($prefix));
     }
     return $class;
   }

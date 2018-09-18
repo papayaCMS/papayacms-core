@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Controller;
+
 /**
  * Papaya Controller Factory, a class to create special controllers more simple
  *
@@ -21,13 +22,12 @@ namespace Papaya\Controller;
  * @subpackage Controller
  */
 class Factory {
-
   /**
    * Get error controller to return.
    *
    * If a template file is provided a \Papaya\Controller\Error\File is created.
    *
-   * @param integer $status
+   * @param int $status
    * @param string $errorIdentifier
    * @param string $errorMessage
    * @param string $templateFile

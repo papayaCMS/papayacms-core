@@ -14,59 +14,65 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * Provide data encapsulation for the dependency of content page.
  *
  * Allows to edit the pages. It contains no validation, only the database access
  * encapsulation.
  *
- * @property integer $id page id - this page will be defined as a dependency
- * @property integer $originId page id - this page will be the origin of the defined dependency
+ * @property int $id page id - this page will be defined as a dependency
+ * @property int $originId page id - this page will be the origin of the defined dependency
  * @property string $note - a small text describing the dependency
- * @property integer $synchronization bitmask of the synchronization elements
+ * @property int $synchronization bitmask of the synchronization elements
  */
 class Dependency extends \Papaya\Database\Record {
-
   /**
    * Sync page properties: title, meta information, ...
    *
-   * @var integer
+   * @var int
    */
   const SYNC_PROPERTIES = 1;
+
   /**
    * Sync page content xml
    *
-   * @var integer
+   * @var int
    */
   const SYNC_CONTENT = 2;
+
   /**
    * Sync page view
    *
-   * @var integer
+   * @var int
    */
   const SYNC_VIEW = 64;
+
   /**
    * Sync boxes: mode and box links
    *
-   * @var integer
+   * @var int
    */
   const SYNC_BOXES = 4;
+
   /**
    * Sync tags
    *
-   * @var integer
+   * @var int
    */
   const SYNC_TAGS = 8;
+
   /**
    * Sync visitor access properties
    *
-   * @var integer
+   * @var int
    */
   const SYNC_ACCESS = 16;
+
   /**
    * Sync publication: duplicate publication action on all dependencies if origin is published.
    *
-   * @var integer
+   * @var int
    */
   const SYNC_PUBLICATION = 32;
 
@@ -75,7 +81,7 @@ class Dependency extends \Papaya\Database\Record {
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // page id / clone id
     'id' => 'topic_id',
     // origin id
@@ -84,7 +90,7 @@ class Dependency extends \Papaya\Database\Record {
     'synchronization' => 'topic_synchronization',
     // some infos about the dependency (for editors)
     'note' => 'topic_note'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::PAGE_DEPENDENCIES;
 
@@ -97,7 +103,7 @@ class Dependency extends \Papaya\Database\Record {
     return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
-      array('id')
+      ['id']
     );
   }
 
@@ -129,15 +135,15 @@ class Dependency extends \Papaya\Database\Record {
   /**
    * Check if the given page id already has a dependency deifnition. This is used to avoid chaining.
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   * @return bool
    */
   public function isDependency($pageId) {
     $sql = "SELECT COUNT(*) FROM %s WHERE topic_id = '%d'";
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $pageId
-    );
+    ];
     if ($res = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
       return $res->fetchField() > 0;
     }
@@ -147,15 +153,15 @@ class Dependency extends \Papaya\Database\Record {
   /**
    * Check if the given page id is the origin of one or more dependencies.
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   * @return bool
    */
   public function isOrigin($pageId) {
     $sql = "SELECT COUNT(*) FROM %s WHERE topic_origin_id = '%d'";
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $pageId
-    );
+    ];
     if ($res = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
       return $res->fetchField() > 0;
     }

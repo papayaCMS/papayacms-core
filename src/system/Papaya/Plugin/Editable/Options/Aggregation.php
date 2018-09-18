@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Editable\Options;
+
 /**
  * This a standard implementation for editable plugin options. It
  * makes implements the \Papaya\Plugin\Editable interface and
@@ -25,7 +26,6 @@ namespace Papaya\Plugin\Editable\Options;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var \Papaya\Plugin\Editable\Content
    */
@@ -45,7 +45,7 @@ trait Aggregation {
       $this->_options = new \Papaya\Plugin\Editable\Options(
         new \Papaya\Plugin\Options($this->getPluginGuid())
       );
-      $this->_options->callbacks()->onCreateEditor = function ($context, \Papaya\Plugin\Editable\Options $content) {
+      $this->_options->callbacks()->onCreateEditor = function($context, \Papaya\Plugin\Editable\Options $content) {
         return $this->createOptionsEditor($content);
       };
     }

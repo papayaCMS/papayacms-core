@@ -16,7 +16,6 @@
 namespace Papaya\XML;
 
 interface Appendable {
-
   /**
    * Create dom node structure of the given object and append it to the given xml
    * element node.

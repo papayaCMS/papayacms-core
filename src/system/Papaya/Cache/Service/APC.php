@@ -22,20 +22,19 @@ namespace Papaya\Cache\Service;
  * @subpackage Cache
  */
 class APC extends \Papaya\Cache\Service {
-
   /**
    * process cache - to avoid double requests
    *
    * @var array
    */
-  protected $_localCache = array();
+  protected $_localCache = [];
 
   /**
    * process cache - cache create times
    *
    * @var array
    */
-  protected $_cacheCreated = array();
+  protected $_cacheCreated = [];
 
   /**
    * APC object
@@ -49,7 +48,7 @@ class APC extends \Papaya\Cache\Service {
    * one.
    *
    * @param \Papaya\Cache\Configuration $configuration
-   * @return boolean
+   * @return bool
    */
   public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
     return TRUE;
@@ -58,9 +57,9 @@ class APC extends \Papaya\Cache\Service {
   /**
    * check if APC is here
    *
-   * @param boolean $silent
+   * @param bool $silent
    * @throws \LogicException
-   * @return boolean
+   * @return bool
    */
   public function verify($silent = TRUE) {
     $valid = $this->getAPCObject()->available();
@@ -98,20 +97,19 @@ class APC extends \Papaya\Cache\Service {
    * @param string $element
    * @param string $parameters
    * @param string $data Element data
-   * @param integer $expires Maximum age in seconds
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
     if (
       $this->verify() &&
       ($cacheId = $this->getCacheIdentifier($group, $element, $parameters)) &&
-      $this->getAPCObject()->store($cacheId, array(time(), $data), $expires)
+      $this->getAPCObject()->store($cacheId, [\time(), $data], $expires)
     ) {
       return $cacheId;
     }
     return FALSE;
   }
-
 
   /**
    * Read element from cache
@@ -119,9 +117,9 @@ class APC extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return string|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
@@ -139,16 +137,16 @@ class APC extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
       if (isset($this->_localCache[$cacheId])) {
         return !empty($this->_localCache[$cacheId]);
       }
-      return (boolean)$this->_read($cacheId, $expires, $ifModifiedSince);
+      return (bool)$this->_read($cacheId, $expires, $ifModifiedSince);
     }
     return FALSE;
   }
@@ -159,9 +157,9 @@ class APC extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return integer|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->verify() && ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
@@ -181,7 +179,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @return integer
+   * @return int
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     if ($this->verify()) {
@@ -198,13 +196,13 @@ class APC extends \Papaya\Cache\Service {
    * @param $cacheId
    * @param $expires
    * @param $ifModifiedSince
-   * @return boolean
+   * @return bool
    */
   private function _read($cacheId, $expires, $ifModifiedSince) {
     $cache = $this->getAPCObject()->fetch($cacheId);
-    if (is_array($cache) && 2 === count($cache)) {
+    if (\is_array($cache) && 2 === \count($cache)) {
       $created = (int)$cache[0];
-      if (($created + $expires) > time()) {
+      if (($created + $expires) > \time()) {
         if (NULL === $ifModifiedSince || $ifModifiedSince < $created) {
           $this->_cacheCreated[$cacheId] = $created;
           $this->_localCache[$cacheId] = $cache[1];

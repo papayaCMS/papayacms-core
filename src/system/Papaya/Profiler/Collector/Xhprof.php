@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler\Collector;
+
 /**
  * Profiling data collector for XHProf.
  *
@@ -21,11 +22,10 @@ namespace Papaya\Profiler\Collector;
  * @subpackage Profiler
  */
 class Xhprof implements \Papaya\Profiler\Collector {
-
   /**
    * Store if it is currently enabled (data is collected)
    *
-   * @var boolean
+   * @var bool
    */
   private $_enabled = FALSE;
 
@@ -33,10 +33,10 @@ class Xhprof implements \Papaya\Profiler\Collector {
    * Enable data collection
    */
   public function enable() {
-    if (!$this->_enabled && extension_loaded('xhprof')) {
+    if (!$this->_enabled && \extension_loaded('xhprof')) {
       // @codeCoverageIgnoreStart
-      /** @noinspection PhpUndefinedFunctionInspection */
-      /** @noinspection PhpUndefinedConstantInspection */
+      /* @noinspection PhpUndefinedFunctionInspection */
+      /* @noinspection PhpUndefinedConstantInspection */
       xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY + XHPROF_FLAGS_NO_BUILTINS);
       $this->_enabled = TRUE;
     }
@@ -50,13 +50,13 @@ class Xhprof implements \Papaya\Profiler\Collector {
    * @return NULL|array()
    */
   public function disable() {
-    if ($this->_enabled && extension_loaded('xhprof')) {
+    if ($this->_enabled && \extension_loaded('xhprof')) {
       // @codeCoverageIgnoreStart
       $this->_enabled = FALSE;
-      /** @noinspection PhpUndefinedFunctionInspection */
+      /* @noinspection PhpUndefinedFunctionInspection */
       return xhprof_disable();
       // @codeCoverageIgnoreEnd
     }
-    return NULL;
+    return;
   }
 }

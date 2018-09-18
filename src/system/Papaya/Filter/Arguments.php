@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for an list of arguments joined by a defined separator character
  *
@@ -21,18 +22,17 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Arguments implements \Papaya\Filter {
-
   /**
    * The filters for the arguments
    *
-   * @var integer|string
+   * @var int|string
    */
-  private $_filters = array();
+  private $_filters = [];
 
   /**
    * Separator character
    *
-   * @var integer
+   * @var int
    */
   private $_separator = ',';
 
@@ -45,7 +45,7 @@ class Arguments implements \Papaya\Filter {
    * @param string $separator
    */
   public function __construct(array $argumentFilters, $separator = ',') {
-    $this->_filters = array_values($argumentFilters);
+    $this->_filters = \array_values($argumentFilters);
     $this->_separator = $separator;
   }
 
@@ -54,15 +54,15 @@ class Arguments implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if (empty($value)) {
       throw new Exception\IsEmpty();
     }
-    $value = explode($this->_separator, $value);
-    if (count($value) > count($this->_filters)) {
-      throw new Exception\InvalidCount(count($this->_filters), count($value), 'array');
+    $value = \explode($this->_separator, $value);
+    if (\count($value) > \count($this->_filters)) {
+      throw new Exception\InvalidCount(\count($this->_filters), \count($value), 'array');
     }
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $index => $filter) {
@@ -77,20 +77,20 @@ class Arguments implements \Papaya\Filter {
    * If a submatch identifier is available, it returns the submatch.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
-      $value = explode($this->_separator, $value);
-      $result = array();
+      $value = \explode($this->_separator, $value);
+      $result = [];
       /** @var \Papaya\Filter $filter */
       foreach ($this->_filters as $index => $filter) {
         $result[] = $filter->filter(isset($value[$index]) ? $value[$index] : '');
       }
-      return implode($this->_separator, $result);
+      return \implode($this->_separator, $result);
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

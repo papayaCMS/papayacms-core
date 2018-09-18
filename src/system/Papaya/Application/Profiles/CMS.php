@@ -24,7 +24,6 @@ use Papaya\Application\Profile;
  * @subpackage Application
  */
 class CMS implements \Papaya\Application\Profiles {
-
   /**
    * Get a collection of application object profiles
    *
@@ -32,7 +31,7 @@ class CMS implements \Papaya\Application\Profiles {
    * @return array
    */
   public function getProfiles($application) {
-    $profiles = array();
+    $profiles = [];
     $profiles['Database'] = new Profile\Database();
     $profiles['Images'] = new Profile\Images();
     $profiles['Languages'] = new Profile\Languages();

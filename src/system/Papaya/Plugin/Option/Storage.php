@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Option;
+
 /**
  * This configuration storage load the module option records using
  * {@see \Papaya\Content\Module\Options} by the module guid and maps them into an associative array.
@@ -23,8 +24,8 @@ namespace Papaya\Plugin\Option;
  */
 class Storage extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
-
   private $_guid;
+
   private $_options;
 
   /**
@@ -39,10 +40,10 @@ class Storage extends \Papaya\Application\BaseObject
   /**
    * Load module options from database
    *
-   * @return boolean
+   * @return bool
    */
   public function load() {
-    return $this->options()->load(array('guid' => $this->_guid));
+    return $this->options()->load(['guid' => $this->_guid]);
   }
 
   /**
@@ -51,7 +52,7 @@ class Storage extends \Papaya\Application\BaseObject
    * @return array
    */
   public function getIterator() {
-    $result = array();
+    $result = [];
     foreach ($this->options() as $option) {
       $result[$option['name']] = $option['value'];
     }
@@ -67,7 +68,7 @@ class Storage extends \Papaya\Application\BaseObject
   public function options(\Papaya\Content\Module\Options $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
-    } elseif (is_null($this->_options)) {
+    } elseif (\is_null($this->_options)) {
       $this->_options = new \Papaya\Content\Module\Options();
     }
     return $this->_options;

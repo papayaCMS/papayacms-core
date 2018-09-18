@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Administration;
-use \Papaya\Content\Page;
+use Papaya\Administration;
+use Papaya\Content\Page;
 
 /**
  * Synchronize a publication to assigned target page. This is done duplicating the publish action.
@@ -26,15 +26,16 @@ use \Papaya\Content\Page;
  */
 class Publication
   implements Administration\Pages\Dependency\Synchronization {
-
   /**
    * @var Page\Publication
    */
   private $_publication;
+
   /**
    * @var Page\Work
    */
   private $_page;
+
   /**
    * @var Page\Version
    */
@@ -44,8 +45,8 @@ class Publication
    * Synchronize a dependency, publish target pages
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -116,8 +117,8 @@ class Publication
   /**
    * Fetch the needed version data (owner, message, change level).
    *
-   * @param integer $pageId
-   * @return array|FALSE
+   * @param int $pageId
+   * @return array|false
    */
   private function getVersionData($pageId) {
     $databaseAccess = $this->publication()->getDatabaseAccess();
@@ -125,17 +126,17 @@ class Publication
               FROM %s
              WHERE topic_id = '%d'
              ORDER BY version_time DESC";
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_VERSIONS),
       $pageId
-    );
+    ];
     if (($databaseResult = $databaseAccess->queryFmt($sql, $parameters, 1)) &&
       ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC))) {
-      return array(
+      return [
         'owner' => $row['version_author_id'],
         'message' => $row['version_message'],
         'level' => $row['topic_change_level']
-      );
+      ];
     }
     return FALSE;
   }

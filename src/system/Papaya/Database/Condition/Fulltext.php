@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Condition;
+
 /**
  * papaya CMS
  *
@@ -27,18 +28,18 @@ namespace Papaya\Database\Condition;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 abstract class Fulltext {
+  private $_parent;
 
-  private $_parent = NULL;
   protected $_fields = '';
+
   protected $_searchFor = '';
 
   public function __construct(
     Group $parent, $fields = '', $searchFor
   ) {
     $this->_parent = $parent;
-    $this->_fields = is_array($fields) ? $fields : [$fields];
+    $this->_fields = \is_array($fields) ? $fields : [$fields];
     $this->_searchFor = $searchFor;
   }
 
@@ -64,7 +65,7 @@ abstract class Fulltext {
   public function getSql($silent = FALSE) {
     try {
       $tokens = new \Papaya\Parser\Search\Text($this->_searchFor);
-      return $this->getFullTextCondition($tokens, array_map([$this, 'mapFieldName'], $this->_fields));
+      return $this->getFullTextCondition($tokens, \array_map([$this, 'mapFieldName'], $this->_fields));
     } catch (\LogicException $e) {
       if (!$silent) {
         throw $e;
@@ -91,7 +92,7 @@ abstract class Fulltext {
     }
     if (empty($field)) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'Can not generate condition, given name "%s" could not be mapped to a field.',
           $name
         )

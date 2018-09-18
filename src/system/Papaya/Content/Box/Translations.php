@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Box;
+
 /**
  * Provide data encapsulation for the content box translations list.
  *
@@ -24,42 +25,41 @@ namespace Papaya\Content\Box;
  * @subpackage Content
  */
 class Translations extends \Papaya\Database\BaseObject\Records {
-
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'box_id' => 'id',
     'lng_id' => 'language_id',
     'box_title' => 'title',
     'box_trans_modified' => 'modified',
     'box_trans_published' => 'published',
     'view_title' => 'view'
-  );
+  ];
 
   /**
    * Load translation list informations
    *
    * @param int $boxId
-   * @return boolean
+   * @return bool
    */
   public function load($boxId) {
-    $sql = "SELECT tt.box_id, tt.lng_id, tt.box_trans_modified,
+    $sql = 'SELECT tt.box_id, tt.lng_id, tt.box_trans_modified,
                    tt.box_title, ttp.box_trans_modified as box_trans_published,
                    v.view_title
               FROM %s tt
               LEFT OUTER JOIN %s ttp
                 ON (ttp.box_id = tt.box_id AND ttp.lng_id = tt.lng_id)
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
-             WHERE tt.box_id = %d";
-    $parameters = array(
+             WHERE tt.box_id = %d';
+    $parameters = [
       $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
       $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
       $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$boxId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
   }
 
@@ -67,14 +67,14 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * Get a detail object for a single translation to edit it.
    *
    * @param int $boxId
-   * @param integer $languageId
+   * @param int $languageId
    * @internal param int $pageId
    * @return Translation
    */
   public function getTranslation($boxId, $languageId) {
     $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
-    $result->load(array($boxId, $languageId));
+    $result->load([$boxId, $languageId]);
     return $result;
   }
 }

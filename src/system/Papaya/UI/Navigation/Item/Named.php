@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Navigation\Item;
+
 /**
  * An navigation item with a name attribute. Used for specific navigation items, that need
  * individual handling in the template.
@@ -24,7 +25,6 @@ namespace Papaya\UI\Navigation\Item;
  * @subpackage UI
  */
 class Named extends \Papaya\UI\Navigation\Item {
-
   /**
    * Use the parent method to create and append to xml element not. Set an attribute name
    * for the create xml element using the member variable.

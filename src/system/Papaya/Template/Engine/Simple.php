@@ -26,12 +26,13 @@ namespace Papaya\Template\Engine;
  * @subpackage Template
  */
 class Simple extends \Papaya\Template\Engine {
-
   private $_template = '';
+
   private $_templateFile = FALSE;
 
-  private $_ast = NULL;
-  private $_visitor = NULL;
+  private $_ast;
+
+  private $_visitor;
 
   /**
    * Prepare template engine if needed
@@ -71,10 +72,10 @@ class Simple extends \Papaya\Template\Engine {
    * @return mixed
    */
   public function callbackGetValue($context, $expression) {
-    if (0 === strpos($expression, 'xpath(')) {
-      $expression = 'string('.substr($expression, 6, -1).')';
+    if (0 === \strpos($expression, 'xpath(')) {
+      $expression = 'string('.\substr($expression, 6, -1).')';
     } else {
-      $expression = 'string('.str_replace('.', '/', strtolower($expression)).')';
+      $expression = 'string('.\str_replace('.', '/', \strtolower($expression)).')';
     }
     return $this->values()->xpath()->evaluate($expression, $this->getContext());
   }
@@ -86,15 +87,15 @@ class Simple extends \Papaya\Template\Engine {
    * @throws \InvalidArgumentException
    */
   public function setTemplateFile($fileName) {
-    if (file_exists($fileName) &&
-      is_file($fileName) &&
-      is_readable($fileName)) {
-      $this->_template = file_get_contents($fileName);
+    if (\file_exists($fileName) &&
+      \is_file($fileName) &&
+      \is_readable($fileName)) {
+      $this->_template = \file_get_contents($fileName);
       $this->_templateFile = $fileName;
       $this->_ast = NULL;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('File "%s" not found or not readable.', $fileName)
+        \sprintf('File "%s" not found or not readable.', $fileName)
       );
     }
   }
@@ -120,7 +121,7 @@ class Simple extends \Papaya\Template\Engine {
     if (isset($ast)) {
       $this->_ast = $ast;
     } elseif (NULL === $this->_ast) {
-      $tokens = array();
+      $tokens = [];
       $scanner = new \Papaya\Template\Simple\Scanner(
         new \Papaya\Template\Simple\Scanner\Status\CSS()
       );
@@ -142,7 +143,7 @@ class Simple extends \Papaya\Template\Engine {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {
       $this->_visitor = new \Papaya\Template\Simple\Visitor\Output();
-      $this->_visitor->callbacks()->onGetValue = array($this, 'callbackGetValue');
+      $this->_visitor->callbacks()->onGetValue = [$this, 'callbackGetValue'];
     }
     return $this->_visitor;
   }

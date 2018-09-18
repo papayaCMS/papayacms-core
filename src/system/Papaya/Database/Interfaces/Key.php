@@ -16,11 +16,12 @@
 namespace Papaya\Database\Interfaces;
 
 interface Key {
-
   const DATABASE_PROVIDED = 1;
+
   const CLIENT_GENERATED = 2;
 
   const ACTION_FILTER = 1;
+
   const ACTION_CREATE = 2;
 
   public function clear();

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
  * callbacks are executed.
@@ -22,7 +23,6 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 class Dialog extends \Papaya\UI\Control\Command {
-
   /**
    * Dialog object
    *
@@ -45,14 +45,14 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * Hide dialog after it was executed successfully.
    *
-   * @var boolean
+   * @var bool
    */
   private $_hideAfterSuccess = FALSE;
 
   /**
    * Reset dialog after it was executed successfully. Ignored if hideAfterSuccess is TRUE.
    *
-   * @var boolean
+   * @var bool
    */
   private $_resetAfterSuccess = FALSE;
 
@@ -149,8 +149,8 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Getter/Setter for the hide dialog option. If it is set to TRUE the dialog will be hidden
    * (aka not added to the DOM) if it was executed successfully.
    *
-   * @param NULL|boolean $hide
-   * @return boolean
+   * @param null|bool $hide
+   * @return bool
    */
   public function hideAfterSuccess($hide = NULL) {
     if (NULL !== $hide) {
@@ -165,8 +165,8 @@ class Dialog extends \Papaya\UI\Control\Command {
    *
    * Ignored if the hide after success option is active.
    *
-   * @param NULL|boolean $reset
-   * @return boolean
+   * @param null|bool $reset
+   * @return bool
    */
   public function resetAfterSuccess($reset = NULL) {
     if (NULL !== $reset) {

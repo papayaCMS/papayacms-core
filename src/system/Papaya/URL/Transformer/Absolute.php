@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\URL\Transformer;
+
 /**
  * Papaya URL Transformer, calculates new absolute url from an absolute url and a relative url
  *
@@ -21,7 +22,6 @@ namespace Papaya\URL\Transformer;
  * @subpackage URL
  */
 class Absolute {
-
   /**
    * Calculates an absolute url from a url and a (possibly relative) path
    *
@@ -31,15 +31,15 @@ class Absolute {
    */
   public function transform(\Papaya\URL $currentURL, $target) {
     $result = NULL;
-    if (($url = parse_url($target)) && isset($url['host'])) {
+    if (($url = \parse_url($target)) && isset($url['host'])) {
       return $target;
     }
-    if (0 === strpos($target, '/')) {
+    if (0 === \strpos($target, '/')) {
       $newPath = $target;
     } else {
       $currentPath = $currentURL->getPath();
       // remove any potential trailing file name from the path
-      $basePath = substr($currentPath, 0, strrpos($currentPath, '/'));
+      $basePath = \substr($currentPath, 0, \strrpos($currentPath, '/'));
       $newPath = $basePath.'/'.$target;
     }
     if (!empty($newPath)) {
@@ -56,30 +56,29 @@ class Absolute {
    */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
-    $leadingSlash = ($path{0} == '/');
-    $trailingSlash = (substr($path, -1) == '/');
+    $leadingSlash = ('/' == $path{0});
+    $trailingSlash = ('/' == \substr($path, -1));
 
-    $pathElements = explode('/', $path);
-    $outputElements = array();
+    $pathElements = \explode('/', $path);
+    $outputElements = [];
     foreach ($pathElements as $element) {
-      if ($element == '..') {
-        if (count($outputElements) > 0) {
+      if ('..' == $element) {
+        if (\count($outputElements) > 0) {
           // going one level up, we drop the last valid folder element
-          array_pop($outputElements);
+          \array_pop($outputElements);
         }
-      } elseif ($element != '.' && $element != '') {
+      } elseif ('.' != $element && '' != $element) {
         // ignoring same folder and empty elements, adding valid folders to output
         $outputElements[] = $element;
       }
     }
 
     $result = ($leadingSlash) ? '/' : '';
-    $result .= implode('/', $outputElements);
-    if ($result != '/' && $trailingSlash) {
+    $result .= \implode('/', $outputElements);
+    if ('/' != $result && $trailingSlash) {
       $result .= '/';
     }
 
     return $result;
   }
-
 }

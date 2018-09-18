@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities for UTF-8 strings
  *
@@ -21,16 +22,18 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class UTF8 {
-
   const EXT_UNKNOWN = 0;
+
   const EXT_PCRE = -1;
+
   const EXT_INTL = 1;
+
   const EXT_MBSTRING = 2;
 
   /**
    * The used unicode extension is chached
    *
-   * @var integer
+   * @var int
    */
   private static $extension = 0;
 
@@ -41,7 +44,6 @@ class UTF8 {
    *
    * @param $string
    * @internal param string $str
-   * @access public
    * @return string
    */
   public static function ensure($string) {
@@ -58,12 +60,12 @@ class UTF8 {
      )
      |([^\\x00-\\x7F]) # latin 1 upper
     )x';
-    return preg_replace_callback(
+    return \preg_replace_callback(
       $pattern,
-      function ($charMatch) {
+      function($charMatch) {
         if (isset($charMatch[2]) && '' !== $charMatch[2]) {
-          $c = ord($charMatch[2]);
-          return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
+          $c = \ord($charMatch[2]);
+          return \chr(0xC0 | $c >> 6).\chr(0x80 | $c & 0x3F);
         }
         return $charMatch[1];
       },
@@ -75,18 +77,18 @@ class UTF8 {
    * Return a codepoint for a given utf 8 encoded character
    *
    * @param string $character
-   * @return integer|FALSE
+   * @return int|false
    */
   public static function getCodepoint($character) {
-    $cp = array(
+    $cp = [
       0, 0, 0, 0
-    );
-    $length = strlen($character);
+    ];
+    $length = \strlen($character);
     if ($length > 4) {
       return FALSE;
     }
     for ($i = $length - 1; $i >= 0; --$i) {
-      $cp[$i] = ord($character[$i]);
+      $cp[$i] = \ord($character[$i]);
     }
     //single byte utf-8
     if ($cp[0] >= 0 && $cp[0] <= 127) {
@@ -111,57 +113,57 @@ class UTF8 {
    * Get string length of an utf-8 string (works only on utf-8 strings)
    *
    * @param string $string
-   * @return integer
+   * @return int
    */
   public static function length($string) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        return grapheme_strlen($string);
+        return \grapheme_strlen($string);
       case self::EXT_MBSTRING :
-        return mb_strlen($string, 'utf-8');
+        return \mb_strlen($string, 'utf-8');
     }
-    $string = preg_replace('(.)su', '.', $string);
-    return strlen($string);
+    $string = \preg_replace('(.)su', '.', $string);
+    return \strlen($string);
   }
 
   /**
    * Copy a part of an utf-8 string (works only on utf-8 strings)
    *
    * @param string $string
-   * @param integer $start
-   * @param NULL|integer $length
+   * @param int $start
+   * @param null|int $length
    * @return string
    */
   public static function copy($string, $start, $length = NULL) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        if (is_null($length)) {
-          return grapheme_substr($string, $start);
+        if (\is_null($length)) {
+          return \grapheme_substr($string, $start);
         } elseif ($length > 0) {
           if ($start >= 0) {
             $possibleLength = self::length($string) - $start;
           } else {
-            $possibleLength = abs($start);
+            $possibleLength = \abs($start);
           }
           if ($possibleLength < $length) {
             $length = $possibleLength;
           }
         }
-        return grapheme_substr($string, $start, $length);
+        return \grapheme_substr($string, $start, $length);
       case self::EXT_MBSTRING :
-        if (is_null($length)) {
+        if (\is_null($length)) {
           $length = self::length($string);
         }
-        if ($length == 0) {
+        if (0 == $length) {
           return '';
         }
-        return mb_substr($string, $start, $length, 'utf-8');
+        return \mb_substr($string, $start, $length, 'utf-8');
     }
     $stringLength = self::length($string);
     if ($start < 0) {
       $start = $stringLength + $start;
     }
-    if (is_null($length)) {
+    if (\is_null($length)) {
       $length = $stringLength;
     } elseif ($length < 0) {
       $length = $stringLength + $length - $start;
@@ -170,7 +172,7 @@ class UTF8 {
       return '';
     }
     $pattern = '(.{'.((int)$start).'}(.{1,'.((int)$length).'}))su';
-    if (preg_match($pattern, $string, $match)) {
+    if (\preg_match($pattern, $string, $match)) {
       return $match[1];
     }
     return '';
@@ -181,18 +183,18 @@ class UTF8 {
    *
    * @param string $haystack
    * @param string $needle
-   * @param integer $offset
-   * @return FALSE|integer
+   * @param int $offset
+   * @return false|int
    */
   public static function position($haystack, $needle, $offset = 0) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        return grapheme_strpos($haystack, $needle, $offset);
+        return \grapheme_strpos($haystack, $needle, $offset);
       case self::EXT_MBSTRING :
-        return mb_strpos($haystack, $needle, $offset, 'utf-8');
+        return \mb_strpos($haystack, $needle, $offset, 'utf-8');
     }
-    if (FALSE !== ($position = strpos($haystack, $needle, $offset))) {
-      return self::length(substr($haystack, 0, $position));
+    if (FALSE !== ($position = \strpos($haystack, $needle, $offset))) {
+      return self::length(\substr($haystack, 0, $position));
     }
     return FALSE;
   }
@@ -200,19 +202,19 @@ class UTF8 {
   public static function toLowerCase($string) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        if (class_exists('Transliterator', FALSE)) {
+        if (\class_exists('Transliterator', FALSE)) {
           return \Transliterator::create('Any-Lower')->transliterate($string);
-        } elseif (extension_loaded('mbstring')) {
-          return mb_strtolower($string, 'utf-8');
+        } elseif (\extension_loaded('mbstring')) {
+          return \mb_strtolower($string, 'utf-8');
         }
       break;
       case self::EXT_MBSTRING :
-        return mb_strtolower($string, 'utf-8');
+        return \mb_strtolower($string, 'utf-8');
     }
-    return preg_replace_callback(
+    return \preg_replace_callback(
       '([A-Z]+)u',
-      function ($match) {
-        return strtolower($match[0]);
+      function($match) {
+        return \strtolower($match[0]);
       },
       $string
     );
@@ -221,19 +223,19 @@ class UTF8 {
   public static function toUpperCase($string) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        if (class_exists('Transliterator', FALSE)) {
+        if (\class_exists('Transliterator', FALSE)) {
           return \T\ransliterator::create('Any-Upper')->transliterate($string);
-        } elseif (extension_loaded('mbstring')) {
-          return mb_strtoupper($string, 'utf-8');
+        } elseif (\extension_loaded('mbstring')) {
+          return \mb_strtoupper($string, 'utf-8');
         }
       break;
       case self::EXT_MBSTRING :
-        return mb_strtoupper($string, 'utf-8');
+        return \mb_strtoupper($string, 'utf-8');
     }
-    return preg_replace_callback(
+    return \preg_replace_callback(
       '([a-z]+)u',
-      function ($match) {
-        return strtoupper($match[0]);
+      function($match) {
+        return \strtoupper($match[0]);
       },
       $string
     );
@@ -243,17 +245,17 @@ class UTF8 {
    * Determine which extension is available and should be used for utf-8 operations.
    * Preference is ext/intl, ext/mbstring and fallback
    *
-   * @return integer
+   * @return int
    */
   public static function getExtension() {
-    if (self::$extension == self::EXT_UNKNOWN) {
+    if (self::EXT_UNKNOWN == self::$extension) {
       self::$extension = self::EXT_PCRE;
-      $extensions = array(
+      $extensions = [
         self::EXT_INTL => 'intl',
         self::EXT_MBSTRING => 'mbstring'
-      );
+      ];
       foreach ($extensions as $extension => $name) {
-        if (extension_loaded($name)) {
+        if (\extension_loaded($name)) {
           self::$extension = $extension;
           break;
         }
@@ -265,7 +267,7 @@ class UTF8 {
   /**
    * Define the extension that should be used for utf-8 operations
    *
-   * @param integer $extension
+   * @param int $extension
    */
   public static function setExtension($extension) {
     self::$extension = (int)$extension;

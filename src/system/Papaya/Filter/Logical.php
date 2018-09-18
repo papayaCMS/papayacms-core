@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical links between other Filters
  *
@@ -24,13 +25,12 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 abstract class Logical implements \Papaya\Filter {
-
   /**
    * Filter list
    *
    * @var array(\Papaya\Filter)
    */
-  protected $_filters = array();
+  protected $_filters = [];
 
   /**
    * Construct object and initialize subfilter objects
@@ -40,7 +40,7 @@ abstract class Logical implements \Papaya\Filter {
    * @throws \InvalidArgumentException
    */
   public function __construct() {
-    $this->_setFilters(func_get_args());
+    $this->_setFilters(\func_get_args());
   }
 
   /**
@@ -48,29 +48,28 @@ abstract class Logical implements \Papaya\Filter {
    *
    * @param \Papaya\Filter[] $filters
    * @throws \InvalidArgumentException
-   * @return void
    */
   protected function _setFilters($filters) {
-    if (is_array($filters) &&
-      count($filters) > 1) {
+    if (\is_array($filters) &&
+      \count($filters) > 1) {
       foreach ($filters as $filter) {
         if ($filter instanceof \Papaya\Filter) {
           $this->_filters[] = $filter;
-        } elseif (is_scalar($filter)) {
+        } elseif (\is_scalar($filter)) {
           $this->_filters[] = new Equals($filter);
         } else {
           throw new \InvalidArgumentException(
-            sprintf(
+            \sprintf(
               'Only %1$s classes expected: "%2$s" found.',
               \Papaya\Filter::class,
-              is_object($filter) ? get_class($filter) : gettype($filter)
+              \is_object($filter) ? \get_class($filter) : \gettype($filter)
             )
           );
         }
       }
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           '%1$s needs at least two other %2$s classes.',
           static::class,
           \Papaya\Filter::class

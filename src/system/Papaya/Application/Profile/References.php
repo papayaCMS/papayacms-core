@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application\Profile;
+
 /**
  * Application object profile for references factory
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application\Profile;
  * @subpackage Application
  */
 class References implements \Papaya\Application\Profile {
-
   /**
    * Create the profile object and return it
    *

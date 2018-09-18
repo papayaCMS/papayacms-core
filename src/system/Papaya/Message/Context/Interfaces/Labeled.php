@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for an addition label for contexts.
  *
@@ -25,11 +26,10 @@ namespace Papaya\Message\Context\Interfaces;
  */
 interface Labeled
   extends \Papaya\Message\Context\Data {
-
   /**
    * Get label for the context
    *
    * @return string
    */
-  function getLabel();
+  public function getLabel();
 }

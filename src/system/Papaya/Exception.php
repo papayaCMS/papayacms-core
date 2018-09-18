@@ -22,5 +22,4 @@ namespace Papaya;
  * @subpackage Base
  */
 abstract class Exception extends \Exception {
-
 }

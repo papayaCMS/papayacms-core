@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for using a pcre pattern
  *
@@ -21,17 +22,17 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class RegEx implements \Papaya\Filter {
-
   /**
    * Minimum password length
    *
-   * @var integer
+   * @var int
    */
   private $_pattern = 0;
+
   /**
    * Maximum password length
    *
-   * @var integer|string
+   * @var int|string
    */
   private $_subMatch = 0;
 
@@ -41,7 +42,7 @@ class RegEx implements \Papaya\Filter {
    * The submatch identifier can be a string (named subpattern) or an integer (index)
    *
    * @param string $pattern
-   * @param integer|string $subMatch
+   * @param int|string $subMatch
    */
   public function __construct($pattern, $subMatch = 0) {
     $this->_pattern = $pattern;
@@ -53,10 +54,10 @@ class RegEx implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_pattern, $value)) {
+    if (!\preg_match($this->_pattern, $value)) {
       throw new Exception\RegEx\NoMatch($this->_pattern);
     }
     return TRUE;
@@ -68,12 +69,12 @@ class RegEx implements \Papaya\Filter {
    * If a submatch identifier is available, it returns the submatch.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
-    if (preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
+    if (\preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
       return $matches[$this->_subMatch];
     }
-    return NULL;
+    return;
   }
 }

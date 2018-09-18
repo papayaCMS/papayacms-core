@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * This filter class checks for linebreaks and filters them out.
  *
@@ -24,7 +25,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class NoLinebreak implements \Papaya\Filter {
-
   /**
    * Pattern to check for a linebreak
    *
@@ -44,10 +44,10 @@ class NoLinebreak implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (preg_match($this->_patternCheck, $value, $match, PREG_OFFSET_CAPTURE)) {
+    if (\preg_match($this->_patternCheck, $value, $match, PREG_OFFSET_CAPTURE)) {
       throw new \Papaya\Filter\Exception\InvalidCharacter($value, $match[0][1]);
     }
     return TRUE;
@@ -60,6 +60,6 @@ class NoLinebreak implements \Papaya\Filter {
    * @return string
    */
   public function filter($value) {
-    return preg_replace($this->_patternFilter, ' ', $value);
+    return \preg_replace($this->_patternFilter, ' ', $value);
   }
 }

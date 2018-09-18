@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Navigation;
+
 /**
  * An navigation items list.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Navigation;
  * @subpackage UI
  */
 class Items extends \Papaya\UI\Control\Collection {
-
   private $_reference;
 
   /**

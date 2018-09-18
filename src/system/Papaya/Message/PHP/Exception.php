@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\PHP;
+
 /**
  * Papaya Message Hook Exception, capture exceptions and handle them
  *
@@ -22,7 +23,6 @@ namespace Papaya\Message\PHP;
  */
 class Exception
   extends \Papaya\Message\PHP {
-
   /**
    * Create object and set values from erorr exception object
    *

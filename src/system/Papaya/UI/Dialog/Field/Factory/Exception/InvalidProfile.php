@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Exception;
+
 /**
  * The profile name is invalid, no mapping or profile class was found.
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Exception;
  */
 class InvalidProfile
   extends \Papaya\UI\Dialog\Field\Factory\Exception {
-
   /**
    * Create exception with compiled message
    *
@@ -30,7 +30,7 @@ class InvalidProfile
    */
   public function __construct($profileName) {
     parent::__construct(
-      sprintf('Invalid field factory profile name "%s".', $profileName)
+      \sprintf('Invalid field factory profile name "%s".', $profileName)
     );
   }
 }

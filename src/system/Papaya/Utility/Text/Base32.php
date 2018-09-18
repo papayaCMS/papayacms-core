@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities for encoding/decoding base32
  *
@@ -21,8 +22,7 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class Base32 {
-
-  private static $_encodingTable = array(
+  private static $_encodingTable = [
     '00000' => 'a',
     '00001' => 'b',
     '00010' => 'c',
@@ -55,9 +55,9 @@ class Base32 {
     '11101' => '5',
     '11110' => '6',
     '11111' => '7'
-  );
+  ];
 
-  private static $_decodingTable = array(
+  private static $_decodingTable = [
     'a' => '00000',
     'b' => '00001',
     'c' => '00010',
@@ -90,7 +90,7 @@ class Base32 {
     '5' => '11101',
     '6' => '11110',
     '7' => '11111'
-  );
+  ];
 
   /**
    * encode a binary string using base32 encoding
@@ -104,23 +104,23 @@ class Base32 {
     $result = '';
     $binary = '';
     //get binary encoded string
-    $count = strlen($bytes);
+    $count = \strlen($bytes);
     for ($i = 0; $i < $count; ++$i) {
-      $binary .= str_pad(decbin(ord($bytes[$i])), 8, '0', STR_PAD_LEFT);
+      $binary .= \str_pad(\decbin(\ord($bytes[$i])), 8, '0', STR_PAD_LEFT);
     }
     //pad value to a multiple of 5
-    $bytePadding = strlen($binary) % 5;
+    $bytePadding = \strlen($binary) % 5;
     if ($bytePadding > 0) {
-      $binary = str_pad($binary, strlen($binary) + 5 - $bytePadding, '0', STR_PAD_RIGHT);
+      $binary = \str_pad($binary, \strlen($binary) + 5 - $bytePadding, '0', STR_PAD_RIGHT);
     }
     //get the base32 encoded string
-    $count = strlen($binary);
+    $count = \strlen($binary);
     for ($i = 0; $i < $count; $i += 5) {
-      $result .= self::$_encodingTable[substr($binary, $i, 5)];
+      $result .= self::$_encodingTable[\substr($binary, $i, 5)];
     }
-    $paddingLength = strlen($result) % 8;
+    $paddingLength = \strlen($result) % 8;
     if ($padding && $paddingLength > 0) {
-      return $result.str_repeat('=', 8 - $paddingLength);
+      return $result.\str_repeat('=', 8 - $paddingLength);
     } else {
       return $result;
     }
@@ -134,13 +134,13 @@ class Base32 {
    * @return string
    */
   public static function decode($encodedString) {
-    $encodedString = rtrim($encodedString, '=');
+    $encodedString = \rtrim($encodedString, '=');
     $result = '';
     $binary = '';
-    $count = strlen($encodedString);
-    if (in_array($count % 8, array(1, 3, 6))) {
+    $count = \strlen($encodedString);
+    if (\in_array($count % 8, [1, 3, 6])) {
       throw new \OutOfBoundsException(
-        sprintf(
+        \sprintf(
           'Invalid input string length for %s::%s',
           __CLASS__,
           __METHOD__
@@ -153,7 +153,7 @@ class Base32 {
         $binary .= self::$_decodingTable[$char];
       } else {
         throw new \OutOfBoundsException(
-          sprintf(
+          \sprintf(
             'Invalid char in input string for %s::%s',
             __CLASS__,
             __METHOD__
@@ -161,10 +161,10 @@ class Base32 {
         );
       }
     }
-    $count = strlen($binary);
-    if (substr_count(substr($binary, $count - ($count % 8)), 1) > 0) {
+    $count = \strlen($binary);
+    if (\substr_count(\substr($binary, $count - ($count % 8)), 1) > 0) {
       throw new \OutOfBoundsException(
-        sprintf(
+        \sprintf(
           'Invalid padding chars in input string for %s::%s',
           __CLASS__,
           __METHOD__
@@ -172,7 +172,7 @@ class Base32 {
       );
     }
     for ($i = 0; $i <= ($count - 8); $i += 8) {
-      $result .= chr(bindec(substr($binary, $i, 8)));
+      $result .= \chr(\bindec(\substr($binary, $i, 8)));
     }
     return $result;
   }

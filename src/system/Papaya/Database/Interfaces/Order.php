@@ -16,8 +16,8 @@
 namespace Papaya\Database\Interfaces;
 
 interface Order {
-
   const ASCENDING = 0;
+
   const DESCENDING = 1;
 
   public function __toString();

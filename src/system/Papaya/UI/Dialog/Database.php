@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * A dialog superclass for dialogs that execute database actions on
  * {@see \Papaya\Database\BaseObject\Record} instances
@@ -22,20 +23,19 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 abstract class Database extends \Papaya\UI\Dialog {
-
   /**
    * Attached database callbacks object
    *
    * @var \Papaya\Database\BaseObject\Record
    */
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   /**
    * Attached database record object
    *
    * @var \Papaya\Database\Interfaces\Record
    */
-  private $_record = NULL;
+  private $_record;
 
   /**
    * Create dialog and attach a record to it.
@@ -74,7 +74,7 @@ abstract class Database extends \Papaya\UI\Dialog {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     }
-    if (is_null($this->_callbacks)) {
+    if (\is_null($this->_callbacks)) {
       $this->_callbacks = new \Papaya\UI\Dialog\Database\Callbacks();
     }
     return $this->_callbacks;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Cacheable;
+
 /**
  * Define the plugin output as cacheable. A cache definition allows to get
  * the cache values, but also the sources the are from.
@@ -22,7 +23,6 @@ namespace Papaya\Plugin\Cacheable;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var \Papaya\Cache\Identifier\Definition
    */

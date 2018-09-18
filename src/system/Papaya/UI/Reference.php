@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Papaya Interface Reference (Hyperlink Reference)
  *
@@ -21,27 +22,26 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 class Reference extends \Papaya\Application\BaseObject {
-
   /**
    * URL group separator
    *
    * @var string
    */
-  private $_parameterGroupSeparator = NULL;
+  private $_parameterGroupSeparator;
 
   /**
    * parameters list
    *
    * @var \Papaya\Request\Parameters
    */
-  private $_parametersObject = NULL;
+  private $_parametersObject;
 
   /**
    * Internal url object
    *
    * @var \Papaya\URL
    */
-  private $_url = NULL;
+  private $_url;
 
   /**
    * Base web path
@@ -72,8 +72,8 @@ class Reference extends \Papaya\Application\BaseObject {
    * Other object can mark an reference as valid or invalid after testing it. An invalid reference
    * will return an empty string as url (get() and getRelative()).
    *
-   * @param boolean $isValid
-   * @return boolean
+   * @param bool $isValid
+   * @return bool
    */
   public function valid($isValid = NULL) {
     if (isset($isValid)) {
@@ -105,7 +105,7 @@ class Reference extends \Papaya\Application\BaseObject {
    */
   protected function prepare() {
     if (!isset($this->_url)) {
-      /** @noinspection PhpParamsInspection */
+      /* @noinspection PhpParamsInspection */
       $this->load(
         $this->papaya()->request
       );
@@ -115,7 +115,7 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Get the reference string relative to the current request url
    *
-   * @param \Papaya\URL|NULL $currentURL
+   * @param \Papaya\URL|null $currentURL
    * @param bool $includeQueryString
    * @return string
    */
@@ -132,7 +132,7 @@ class Reference extends \Papaya\Application\BaseObject {
       isset($currentURL) ? $currentURL : new \Papaya\URL\Current(),
       $this->url()
     );
-    return is_null($relative) ? $this->get() : $relative;
+    return \is_null($relative) ? $this->get() : $relative;
   }
 
   /**
@@ -158,7 +158,7 @@ class Reference extends \Papaya\Application\BaseObject {
       return '';
     }
     return $this->cleanupPath($this->url()
-        ->getPathURL(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
+      ->getPathURL(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
   }
 
   /**
@@ -168,8 +168,8 @@ class Reference extends \Papaya\Application\BaseObject {
    */
   protected function cleanupPath($path, $forPublic = FALSE) {
     $sessionParameterName = isset($this->papaya()->session) ? $this->papaya()->session->name : 'sid';
-    if ($forPublic && $sessionParameterName !== '') {
-      return preg_replace('(/'.preg_quote($sessionParameterName, '(').'[^/?#]+)', '', $path);
+    if ($forPublic && '' !== $sessionParameterName) {
+      return \preg_replace('(/'.\preg_quote($sessionParameterName, '(').'[^/?#]+)', '', $path);
     }
     return $path;
   }
@@ -196,8 +196,8 @@ class Reference extends \Papaya\Application\BaseObject {
    */
   public function load(\Papaya\Request $request) {
     $url = $request->getURL();
-    $this->_url = clone (($url instanceof \Papaya\URL) ? $url : new \Papaya\URL);
-    if (is_null($this->_parameterGroupSeparator)) {
+    $this->_url = clone (($url instanceof \Papaya\URL) ? $url : new \Papaya\URL());
+    if (\is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }
     $this->setBasePath($request->getBasePath());
@@ -212,9 +212,9 @@ class Reference extends \Papaya\Application\BaseObject {
    * @return self
    */
   public function setParameterGroupSeparator($separator) {
-    if ($separator == '') {
+    if ('' == $separator) {
       $this->_parameterGroupSeparator = '[]';
-    } elseif (in_array($separator, array('[]', ',', ':', '/', '*', '!'))) {
+    } elseif (\in_array($separator, ['[]', ',', ':', '/', '*', '!'])) {
       $this->_parameterGroupSeparator = $separator;
     } else {
       throw new \InvalidArgumentException(
@@ -240,7 +240,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Set several parameters at once
    *
    * @param array|\Papaya\Request\Parameters $parameters
-   * @param string|NULL $parameterGroup
+   * @param string|null $parameterGroup
    * @return self
    */
   public function setParameters($parameters, $parameterGroup = NULL) {
@@ -248,15 +248,15 @@ class Reference extends \Papaya\Application\BaseObject {
       $this->_parametersObject = new \Papaya\Request\Parameters();
     }
     if (
-      is_array($parameters) ||
+      \is_array($parameters) ||
       $parameters instanceof \Papaya\Request\Parameters
     ) {
-      if (NULL !== $parameterGroup && '' !== trim($parameterGroup)) {
+      if (NULL !== $parameterGroup && '' !== \trim($parameterGroup)) {
         $this->_parametersObject->merge(
-          array(
+          [
             $parameterGroup => $parameters instanceof \Papaya\Request\Parameters
               ? $parameters->toArray() : $parameters
-          )
+          ]
         );
       } else {
         $this->_parametersObject->merge($parameters);
@@ -307,8 +307,8 @@ class Reference extends \Papaya\Application\BaseObject {
    * @return self
    */
   public function setFragment($fragment) {
-    if (0 === strpos($fragment, '#')) {
-      $fragment = substr($fragment, 1);
+    if (0 === \strpos($fragment, '#')) {
+      $fragment = \substr($fragment, 1);
     }
     $this->url()->setFragment($fragment);
     return $this;
@@ -333,21 +333,20 @@ class Reference extends \Papaya\Application\BaseObject {
     if (NULL !== $this->_parametersObject) {
       return $this->_parametersObject->getList($this->_parameterGroupSeparator);
     }
-    return array();
+    return [];
   }
 
   /**
    * Set web base path
    *
    * @param string $path
-   * @access public
    * @return self
    */
   public function setBasePath($path) {
-    if (0 !== strpos($path, '/')) {
+    if (0 !== \strpos($path, '/')) {
       $path = '/'.$path;
     }
-    if ('/' !== substr($path, -1)) {
+    if ('/' !== \substr($path, -1)) {
       $path .= '/';
     }
     $this->_basePath = $path;

@@ -15,9 +15,9 @@
 
 namespace Papaya\Administration\Plugin\Editor;
 
-use \Papaya\Plugin;
-use \Papaya\UI;
-use \Papaya\Utility;
+use Papaya\Plugin;
+use Papaya\UI;
+use Papaya\Utility;
 
 /**
  * An PluginEditor implementation that build a dialog based on an array of field definitions
@@ -26,7 +26,6 @@ use \Papaya\Utility;
  * @subpackage Administration
  */
 class Fields extends Dialog {
-
   private $_fields;
 
   private $_builder;

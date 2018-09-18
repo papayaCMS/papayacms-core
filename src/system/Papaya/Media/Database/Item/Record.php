@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Media\Database\Item;
+
 /**
  * Papaya Media Database Item Record
  *
@@ -21,23 +22,22 @@ namespace Papaya\Media\Database\Item;
  * @subpackage Media-Database
  */
 class Record extends \Papaya\Database\BaseObject\Record {
-
   /**
    * Fields (accessible using dynamic properties)
    *
    * @var array
    */
-  protected $_fields = array(
+  protected $_fields = [
     'media_id', 'folder_id', 'surfer_id',
     'file_name', 'file_date', 'file_size',
     'media_width', 'media_height'
-  );
+  ];
 
   /**
    * Load item from database
    *
    * @param string $mediaId
-   * @return boolean
+   * @return bool
    */
   public function load($mediaId) {
     $sql = "SELECT f.file_id, f.folder_id, f.surfer_id, f.file_name, f.file_date,
@@ -48,11 +48,11 @@ class Record extends \Papaya\Database\BaseObject\Record {
               FROM %s f
               LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
              WHERE f.file_id = '%s'";
-    $params = array(
+    $params = [
       $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_FILES),
       $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_MIMETYPES),
       $mediaId
-    );
+    ];
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->_values = $row;
@@ -72,4 +72,3 @@ class Record extends \Papaya\Database\BaseObject\Record {
     return FALSE;
   }
 }
-

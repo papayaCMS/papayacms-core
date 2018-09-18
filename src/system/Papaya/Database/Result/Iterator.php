@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Result;
+
 /**
  * Papaya Database Result Iterator, allows to iterate on an object implementing \Papaya\Database\Result
  *
@@ -23,18 +24,21 @@ namespace Papaya\Database\Result;
  * @subpackage Database
  */
 class Iterator implements \Iterator {
-
   private $_databaseResult;
+
   private $_mapping;
+
   private $_fetchMode;
+
   private $_current;
+
   private $_offset = -1;
 
   /**
    * Create object, store result object and fetch mode
    *
    * @param \Papaya\Database\Result $databaseResult
-   * @param integer $mode
+   * @param int $mode
    */
   public function __construct(
     \Papaya\Database\Result $databaseResult = NULL, $mode = \Papaya\Database\Result::FETCH_ASSOC
@@ -99,7 +103,7 @@ class Iterator implements \Iterator {
    * Fetch the next record and store it in the object
    */
   public function next() {
-    if ($this->_offset < 0 || is_array($this->_current)) {
+    if ($this->_offset < 0 || \is_array($this->_current)) {
       $this->_current = $this->_databaseResult->fetchRow($this->_fetchMode);
       ++$this->_offset;
     }
@@ -109,6 +113,6 @@ class Iterator implements \Iterator {
    * Check if a valid record was fetched
    */
   public function valid() {
-    return is_array($this->_current);
+    return \is_array($this->_current);
   }
 }

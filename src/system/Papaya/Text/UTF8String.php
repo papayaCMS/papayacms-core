@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Text;
+
 /**
  * papaya CMS
  *
@@ -28,50 +29,54 @@ namespace Papaya\Text;
  *  FOR A PARTICULAR PURPOSE.
  */
 class UTF8String implements \Iterator, \ArrayAccess {
-
   const MODE_INTL = 1;
+
   const MODE_ICONV = 2;
+
   const MODE_MBSTRING = 3;
 
   /**
    * @var array list of possible modes and the needed php extension
    */
-  private $_extensions = array(
+  private $_extensions = [
     self::MODE_INTL => 'intl',
     self::MODE_MBSTRING => 'mbstring',
     self::MODE_ICONV => 'iconv'
-  );
+  ];
 
   /**
    * @var string Internal string buffer
    */
   private $_string = '';
+
   /**
    * @var int string character length buffer (cached)
    */
   private $_length = 0;
+
   /**
-   * @var integer used unicode mode
+   * @var int used unicode mode
    */
-  private $_mode = NULL;
+  private $_mode;
 
   /**
    * @var int iterator position
    */
   private $_position = -1;
+
   /**
    * @var null current iterator character
    */
-  private $_current = NULL;
+  private $_current;
 
   /**
    * @var array allowed modes
    */
-  private $_allowModes = array(
+  private $_allowModes = [
     self::MODE_INTL,
     self::MODE_MBSTRING,
     self::MODE_ICONV
-  );
+  ];
 
   /**
    * Encapsulate string into unicode object
@@ -112,12 +117,12 @@ class UTF8String implements \Iterator, \ArrayAccess {
   public function indexOf($needle, $offset = 0) {
     switch ($this->getMode()) {
       case self::MODE_ICONV :
-        return iconv_strpos($this->_string, (string)$needle, $offset, 'utf-8');
+        return \iconv_strpos($this->_string, (string)$needle, $offset, 'utf-8');
       case self::MODE_MBSTRING :
-        return mb_strpos($this->_string, (string)$needle, $offset, 'utf-8');
+        return \mb_strpos($this->_string, (string)$needle, $offset, 'utf-8');
       case self::MODE_INTL :
       default :
-        return grapheme_strpos($this->_string, (string)$needle, $offset);
+        return \grapheme_strpos($this->_string, (string)$needle, $offset);
       // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
@@ -136,12 +141,12 @@ class UTF8String implements \Iterator, \ArrayAccess {
     switch ($this->getMode()) {
       case self::MODE_ICONV :
         $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
-        return iconv_strrpos($string, (string)$needle, 'utf-8');
+        return \iconv_strrpos($string, (string)$needle, 'utf-8');
       case self::MODE_MBSTRING :
-        return mb_strrpos($string, (string)$needle, 0, 'utf-8');
+        return \mb_strrpos($string, (string)$needle, 0, 'utf-8');
       case self::MODE_INTL :
       default :
-        return grapheme_strrpos($string, (string)$needle);
+        return \grapheme_strrpos($string, (string)$needle);
       // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
@@ -155,7 +160,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    */
   public function charAt($index) {
     $char = $this->_getSubStr($index, 1);
-    return ($char !== FALSE) ? $char : NULL;
+    return (FALSE !== $char) ? $char : NULL;
   }
 
   /**
@@ -172,7 +177,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
   /**
    * Set the allowed mode (the used library). You can provide a list of allowed modes.
    *
-   * @param integer|array $mode
+   * @param int|array $mode
    * @return int
    */
   public function setMode($mode) {
@@ -193,7 +198,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
     if (NULL === $this->_mode) {
       foreach ($this->_allowModes as $mode) {
         if (isset($this->_extensions[$mode]) &&
-          extension_loaded($this->_extensions[$mode])) {
+          \extension_loaded($this->_extensions[$mode])) {
           return $this->_mode = $mode;
         }
       }
@@ -205,14 +210,14 @@ class UTF8String implements \Iterator, \ArrayAccess {
   private function _getLength($string) {
     switch ($this->getMode()) {
       case self::MODE_ICONV :
-        return iconv_strlen($string, 'utf-8');
+        return \iconv_strlen($string, 'utf-8');
       break;
       case self::MODE_MBSTRING :
-        return mb_strlen($string, 'utf-8');
+        return \mb_strlen($string, 'utf-8');
       break;
       case self::MODE_INTL :
       default :
-        return grapheme_strlen($string);
+        return \grapheme_strlen($string);
       break;
       // @codeCoverageIgnoreStart
     }
@@ -223,32 +228,32 @@ class UTF8String implements \Iterator, \ArrayAccess {
     static $lengthBug = NULL;
     switch ($this->getMode()) {
       case self::MODE_ICONV :
-        return iconv_substr(
+        return \iconv_substr(
           $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
         );
       case self::MODE_MBSTRING :
-        return mb_substr(
+        return \mb_substr(
           $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
         );
       case self::MODE_INTL :
       default :
         if (NULL === $lengthBug) {
-          $lengthBug = version_compare(PHP_VERSION, '5.4', '>=');
+          $lengthBug = \version_compare(PHP_VERSION, '5.4', '>=');
         }
         // @codeCoverageIgnoreStart
         if (NULL === $length) {
-          return grapheme_substr($this->_string, $start);
+          return \grapheme_substr($this->_string, $start);
         } elseif ($lengthBug && $length > 0) {
           if ($start >= 0) {
             $possibleLength = $this->length() - $start;
           } else {
-            $possibleLength = abs($start);
+            $possibleLength = \abs($start);
           }
           if ($possibleLength < $length) {
             $length = $possibleLength;
           }
         }
-        return grapheme_substr($this->_string, $start, $length);
+        return \grapheme_substr($this->_string, $start, $length);
     }
     // @codeCoverageIgnoreEnd
   }
@@ -283,7 +288,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
   }
 
   public function offsetSet($offset, $char) {
-    if ($this->_getLength($char) != 1) {
+    if (1 != $this->_getLength($char)) {
       throw new \LogicException('Invalid character: '.$char);
     }
     $this->_string = $this->_getSubStr(0, $offset).$char.$this->_getSubStr($offset + 1);

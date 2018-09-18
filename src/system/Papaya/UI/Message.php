@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Abstract/Basic superclass for the user messages.
  *
@@ -27,41 +28,45 @@ namespace Papaya\UI;
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $severity
- * @property boolean $occured
+ * @property int $severity
+ * @property bool $occured
  * @property string|\Papaya\UI\Text $event
  */
 abstract class Message
   extends Control {
-
   const SEVERITY_INFORMATION = 0;
+
   const SEVERITY_WARNING = 1;
+
   const SEVERITY_ERROR = 2;
+
   const SEVERITY_CONFIRMATION = 3;
 
-  private $_tagNames = array(
+  private $_tagNames = [
     self::SEVERITY_INFORMATION => 'information',
     self::SEVERITY_WARNING => 'warning',
     self::SEVERITY_ERROR => 'error',
     self::SEVERITY_CONFIRMATION => 'confirmation'
-  );
+  ];
 
   protected $_severity = self::SEVERITY_INFORMATION;
+
   protected $_event = '';
+
   protected $_occured = FALSE;
 
-  protected $_declaredProperties = array(
-    'severity' => array('_severity', 'setSeverity'),
-    'event' => array('_event', 'setEvent'),
-    'occured' => array('_occured', 'setOccured')
-  );
+  protected $_declaredProperties = [
+    'severity' => ['_severity', 'setSeverity'],
+    'event' => ['_event', 'setEvent'],
+    'occured' => ['_occured', 'setOccured']
+  ];
 
   /**
    * Create object and store basic properties
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $event
-   * @param boolean $occured
+   * @param bool $occured
    */
   public function __construct($severity, $event, $occured = FALSE) {
     $this->setSeverity($severity);
@@ -78,10 +83,10 @@ abstract class Message
   protected function appendMessageElement(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
-      array(
+      [
         'event' => $this->event,
         'occured' => $this->occured ? 'yes' : 'no'
-      )
+      ]
     );
   }
 
@@ -89,11 +94,11 @@ abstract class Message
    * Validate and set the message severity.
    *
    * @throws \InvalidArgumentException
-   * @param integer $severity
+   * @param int $severity
    */
   public function setSeverity($severity) {
     \Papaya\Utility\Constraints::assertInteger($severity);
-    if (!array_key_exists($severity, $this->_tagNames)) {
+    if (!\array_key_exists($severity, $this->_tagNames)) {
       throw new \InvalidArgumentException('Invalid severity for message.');
     }
     $this->_severity = $severity;
@@ -113,16 +118,16 @@ abstract class Message
   /**
    * Validate and set the message occured status.
    *
-   * @param boolean $occured
+   * @param bool $occured
    */
   public function setOccured($occured) {
-    $this->_occured = (boolean)$occured;
+    $this->_occured = (bool)$occured;
   }
 
   /**
    * Get the tag name. The xml element name depends on the severity.
    *
-   * @param integer $severity
+   * @param int $severity
    * @return string
    */
   protected function getTagName($severity) {

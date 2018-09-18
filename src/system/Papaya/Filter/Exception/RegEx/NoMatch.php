@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception\RegEx;
+
 /**
  * This exception is thrown if a value does not match a given pcre pattern.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception\RegEx;
  * @subpackage Filter
  */
 class NoMatch extends \Papaya\Filter\Exception {
-
   /**
    * Pcre pattern used for validation
    *
@@ -37,7 +37,7 @@ class NoMatch extends \Papaya\Filter\Exception {
   public function __construct($pattern) {
     $this->_pattern = $pattern;
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value does not match pattern "%s"',
         $pattern
       )

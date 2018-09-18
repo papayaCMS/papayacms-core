@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * Subitems are additional data, attached to an listview item. They are displayed as additional
  * columns in the most cases.
@@ -23,7 +24,6 @@ namespace Papaya\UI\ListView;
  */
 class SubItems
   extends \Papaya\UI\Control\Collection {
-
   /**
    * Only {@see \Papaya\Ui\ListView\SubItem} objects are allowed in this list
    *

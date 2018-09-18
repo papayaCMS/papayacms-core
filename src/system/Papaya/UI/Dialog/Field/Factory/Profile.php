@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory;
+
 /**
  * Abstract superclass for field factory profiles.
  *
@@ -24,11 +25,10 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @subpackage UI
  */
 abstract class Profile {
-
   /**
    * @var Options
    */
-  private $_options = NULL;
+  private $_options;
 
   /**
    * Create the field and return it. Throw an exception if something goes wrong

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Dialog\Plugin;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execution
  * callbacks are executed. This class adds read and write the data to an plugin content object
@@ -22,7 +23,6 @@ namespace Papaya\UI\Control\Command\Dialog\Plugin;
  * @subpackage UI
  */
 class Content extends \Papaya\UI\Control\Command\Dialog {
-
   private $_content;
 
   /**

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * A command that executes a list of other commands. This can be used to combine separate commands
  * into a single one.
@@ -24,19 +25,18 @@ namespace Papaya\UI\Control\Command;
 class Collection
   extends \Papaya\UI\Control\Command
   implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * List of commands
    *
    * @var array
    */
-  private $_commands = array();
+  private $_commands = [];
 
   /**
    * Create object, assign all arguments as commands to the internal list.
    */
   public function __construct() {
-    foreach (func_get_args() as $command) {
+    foreach (\func_get_args() as $command) {
       $this->offsetSet(NULL, $command);
     }
   }
@@ -76,7 +76,7 @@ class Collection
   /**
    * ArrayAccess interface: validate if command with the offset is set.
    *
-   * @param integer $offset
+   * @param int $offset
    * @return bool
    */
   public function offsetExists($offset) {
@@ -86,7 +86,7 @@ class Collection
   /**
    * ArrayAccess interface: get command at given offset.
    *
-   * @param integer $offset
+   * @param int $offset
    * @return \Papaya\UI\Control\Command
    */
   public function offsetGet($offset) {
@@ -96,19 +96,19 @@ class Collection
   /**
    * ArrayAccess interface: add/replace command
    *
-   * @param integer $offset
+   * @param int $offset
    * @param \Papaya\UI\Control\Command $command
    * @throws \UnexpectedValueException
    */
   public function offsetSet($offset, $command) {
     if ($command instanceof \Papaya\UI\Control\Command) {
       $this->_commands[$offset] = $command;
-      $this->_commands = array_values($this->_commands);
+      $this->_commands = \array_values($this->_commands);
     } else {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Expected instance of "Papaya\UI\Control\Command" but "%s" was given.',
-          is_object($command) ? get_class($command) : gettype($command)
+          \is_object($command) ? \get_class($command) : \gettype($command)
         )
       );
     }
@@ -117,20 +117,20 @@ class Collection
   /**
    * ArrayAccess interface: remove command at given offset.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function offsetUnset($offset) {
     unset($this->_commands[$offset]);
-    $this->_commands = array_values($this->_commands);
+    $this->_commands = \array_values($this->_commands);
   }
 
   /**
    * Countable interface: get command count.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_commands);
+    return \count($this->_commands);
   }
 
   /**

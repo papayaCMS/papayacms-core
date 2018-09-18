@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Message string context containing a file
  *
@@ -27,17 +28,18 @@ class File
   \Papaya\Message\Context\Interfaces\Items,
   \Papaya\Message\Context\Interfaces\Text,
   \Papaya\Message\Context\Interfaces\XHTML {
-
   protected $_fileName = '';
+
   protected $_line = 0;
+
   protected $_column = 0;
 
   /**
    * Create file contents by name and optional position
    *
    * @param string $fileName
-   * @param integer $line
-   * @param integer $column
+   * @param int $line
+   * @param int $column
    */
   public function __construct($fileName, $line = 0, $column = 0) {
     $this->_fileName = $fileName;
@@ -51,10 +53,10 @@ class File
    * Validate if the given file is readable
    *
    * @param string $fileName
-   * @return boolean
+   * @return bool
    */
   public function readable($fileName) {
-    if (file_exists($fileName) && is_file($fileName) && is_readable($fileName)) {
+    if (\file_exists($fileName) && \is_file($fileName) && \is_readable($fileName)) {
       return TRUE;
     }
     return FALSE;
@@ -67,10 +69,10 @@ class File
    */
   public function asArray() {
     if ($this->readable($this->_fileName)) {
-      $lines = file($this->_fileName);
-      return array_map('chop', $lines);
+      $lines = \file($this->_fileName);
+      return \array_map('chop', $lines);
     }
-    return array();
+    return [];
   }
 
   /**
@@ -81,23 +83,23 @@ class File
   public function asXhtml() {
     $result = '';
     if ($this->readable($this->_fileName)) {
-      $lines = file($this->_fileName);
-      if (count($lines) > 0) {
+      $lines = \file($this->_fileName);
+      if (\count($lines) > 0) {
         $result .= '<ol class="file" style="white-space: pre; font-family: monospace;">';
         foreach ($lines as $index => $line) {
-          $line = chop($line, "\r\n");
+          $line = \rtrim($line, "\r\n");
           if ($index == ($this->_line - 1)) {
             $split = ($this->_column - 1) > 0 ? $this->_column - 1 : 0;
-            $offsetContent = substr($line, 0, $split);
-            $highlightContent = substr($line, $split);
-            $result .= sprintf(
+            $offsetContent = \substr($line, 0, $split);
+            $highlightContent = \substr($line, $split);
+            $result .= \sprintf(
               '<li style="list-style-position: outside;">'.
               '<strong>%s<em>%s</em></strong></li>',
               \Papaya\Utility\Text\XML::escape($offsetContent),
               \Papaya\Utility\Text\XML::escape($highlightContent)
             );
           } else {
-            $result .= sprintf(
+            $result .= \sprintf(
               '<li style="list-style-position: outside;">%s</li>',
               \Papaya\Utility\Text\XML::escape($line)
             );
@@ -116,7 +118,7 @@ class File
    */
   public function asString() {
     if ($this->readable($this->_fileName)) {
-      return file_get_contents($this->_fileName);
+      return \file_get_contents($this->_fileName);
     } else {
       return '';
     }

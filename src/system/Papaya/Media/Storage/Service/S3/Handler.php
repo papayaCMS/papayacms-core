@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Media\Storage\Service\S3;
+
 /**
  * Amazon S3 based storage service for Papaya Media Storage
  *
@@ -21,13 +22,12 @@ namespace Papaya\Media\Storage\Service\S3;
  * @subpackage Media-Storage
  */
 class Handler {
-
   /**
    * http client object
    *
    * @var \Papaya\HTTP\Client
    */
-  private $_client = NULL;
+  private $_client;
 
   /**
    * Amazon S3 access key id
@@ -41,7 +41,7 @@ class Handler {
    *
    * @var array
    */
-  private $_storageAccessKey = array();
+  private $_storageAccessKey = [];
 
   /**
    * Constructor - set configuration if provided
@@ -49,7 +49,7 @@ class Handler {
    * @param \Papaya\Configuration $configuration
    */
   public function __construct($configuration = NULL) {
-    if (isset($configuration) && is_object($configuration)) {
+    if (isset($configuration) && \is_object($configuration)) {
       $this->setConfiguration($configuration);
     }
   }
@@ -58,7 +58,6 @@ class Handler {
    * Set the used HTTP client object.
    *
    * @param \Papaya\HTTP\Client $client
-   * @return void
    */
   public function setHTTPClient(\Papaya\HTTP\Client $client) {
     $this->_client = $client;
@@ -82,8 +81,6 @@ class Handler {
 
   /**
    * Initialize HTTP client, create instance if not already exists, reset current instance
-   *
-   * @return void
    */
   public function initHTTPClient() {
     if (!isset($this->_client)) {
@@ -102,7 +99,7 @@ class Handler {
    * @return \Papaya\HTTP\Client
    */
   public function setUpRequest(
-    $url, $method = 'GET', $parameters = array(), $headers = array()
+    $url, $method = 'GET', $parameters = [], $headers = []
   ) {
     $this->initHTTPClient();
     $this->_client->setMethod($method);
@@ -117,7 +114,7 @@ class Handler {
     }
     $this->_client->setHeader(
       'Date',
-      gmdate(DATE_RFC1123)
+      \gmdate(DATE_RFC1123)
     );
     $this->_client->setHeader(
       'Authorization',
@@ -142,15 +139,15 @@ class Handler {
     // date
     $signatureData .= $this->_client->getHeader('Date')."\n";
     // amz headers
-    $amzHeaders = array(
+    $amzHeaders = [
       'x-amz-acl',
       'x-amz-copy-source',
       'x-amz-metadata-directive'
-    );
+    ];
     foreach ($amzHeaders as $amzHeader) {
       $headerValue = $this->_client->getHeader($amzHeader);
       if (!empty($headerValue)) {
-        $signatureData .= strtolower(trim($amzHeader)).':'.trim($headerValue)."\n";
+        $signatureData .= \strtolower(\trim($amzHeader)).':'.\trim($headerValue)."\n";
       }
     }
     // path is the request URI from first / up to the query string
@@ -161,9 +158,9 @@ class Handler {
       (?:/(?P<path>(?:[^?]*)?))?
       (?P<queryString>(?:\\?.*)?)$
     )x';
-    $result = preg_match($urlPattern, $url, $matches);
+    $result = \preg_match($urlPattern, $url, $matches);
     if (1 !== $result) {
-      trigger_error(
+      \trigger_error(
         'Can not parse URL to Amazon S3.',
         E_USER_WARNING
       );
@@ -173,28 +170,26 @@ class Handler {
     if (!empty($matches['path'])) {
       $signatureData .= '/'.$matches['path'];
     }
-    if ($matches['queryString'] === '?acl') {
+    if ('?acl' === $matches['queryString']) {
       $signatureData .= $matches['queryString'];
     }
     return $signatureData;
   }
-
 
   /**
    * The storage key setter creates and sets the two parts of the storage key
    * needed to create the signature.
    *
    * @param string $key
-   * @return void
    */
   private function _setStorageKey($key) {
-    if (strlen($key) < 64) {
-      $key = str_pad($key, 64, chr(0));
+    if (\strlen($key) < 64) {
+      $key = \str_pad($key, 64, \chr(0));
     }
-    $this->_storageAccessKey = array(
-      'inner' => (substr($key, 0, 64) ^ str_repeat(chr(0x36), 64)),
-      'outer' => (substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64))
-    );
+    $this->_storageAccessKey = [
+      'inner' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64)),
+      'outer' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64))
+    ];
   }
 
   /**
@@ -204,12 +199,12 @@ class Handler {
    * @return string
    */
   private function _getSignature($data) {
-    return base64_encode(
-      pack(
+    return \base64_encode(
+      \pack(
         'H*',
-        sha1(
-          $this->_storageAccessKey['outer'].pack(
-            'H40', sha1($this->_storageAccessKey['inner'].$data)
+        \sha1(
+          $this->_storageAccessKey['outer'].\pack(
+            'H40', \sha1($this->_storageAccessKey['inner'].$data)
           )
         )
       )

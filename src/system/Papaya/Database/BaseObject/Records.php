@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\BaseObject;
+
 /**
  * Papaya Database Record List, a list of records from a database.
  *
@@ -25,11 +26,10 @@ namespace Papaya\Database\BaseObject;
 abstract class Records
   extends \Papaya\Database\BaseObject
   implements \IteratorAggregate, \Countable {
-
   /**
    * Absolute record count (for paging)
    *
-   * @var integer
+   * @var int
    */
   protected $_recordCount = 0;
 
@@ -38,14 +38,14 @@ abstract class Records
    *
    * @var array(array())
    */
-  protected $_records = array();
+  protected $_records = [];
 
   /**
    * Map fields to application names
    *
    * @var array($fieldName => $name)
    */
-  protected $_fieldMapping = array();
+  protected $_fieldMapping = [];
 
   /**
    * IteratorAggregate interface: Get a ArrayIterator for the records
@@ -59,17 +59,17 @@ abstract class Records
   /**
    * Countable interface: Get count of loaded records
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_records);
+    return \count($this->_records);
   }
 
   /**
    * Get count without limits, returns {@see \Papaya\Database\BaseObject\Collection::count()} if
    * this value is larger.
    *
-   * @return integer
+   * @return int
    */
   public function countAll() {
     $current = $this->count();
@@ -81,8 +81,8 @@ abstract class Records
    *
    * Returns NULL if the offset is invalid.
    *
-   * @param string|integer $offset
-   * @return array|NULL
+   * @param string|int $offset
+   * @return array|null
    */
   public function item($offset) {
     return (isset($this->_records[$offset])) ? $this->_records[$offset] : NULL;
@@ -91,13 +91,13 @@ abstract class Records
   /**
    * Get an item by its position in the records array
    *
-   * @param integer $position
+   * @param int $position
    * @return array
    */
   public function itemAt($position) {
-    $list = array_values($this->_records);
+    $list = \array_values($this->_records);
     if ($position < 0) {
-      $position = count($list) + $position;
+      $position = \count($list) + $position;
     }
     return (isset($list[$position])) ? $list[$position] : NULL;
   }
@@ -109,17 +109,17 @@ abstract class Records
    * @return array
    */
   public function assign($data) {
-    $this->_records = array();
+    $this->_records = [];
     foreach (\Papaya\Utility\Arrays::ensure($data) as $id => $row) {
-      $record = array();
+      $record = [];
       foreach ($row as $field => $value) {
-        if (in_array($field, $this->_fieldMapping)) {
+        if (\in_array($field, $this->_fieldMapping)) {
           $record[$field] = $value;
         }
       }
       $this->_records[$id] = $record;
     }
-    $this->_recordCount = count($this->_records);
+    $this->_recordCount = \count($this->_records);
   }
 
   /**
@@ -129,15 +129,15 @@ abstract class Records
    *
    * @param string $sql
    * @param array $parameters
-   * @param string|NULL $idField
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
-   * @return boolean TRUE on success otherwise FALSE
+   * @param string|null $idField
+   * @param int|null $limit
+   * @param int|null $offset
+   * @return bool TRUE on success otherwise FALSE
    */
   protected function _loadRecords(
     $sql, $parameters, $idField = NULL, $limit = NULL, $offset = NULL
   ) {
-    $this->_records = array();
+    $this->_records = [];
     $this->_recordCount = 0;
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters, $limit, $offset)) {
       $this->_fetchRecords($databaseResult, $idField);
@@ -155,9 +155,9 @@ abstract class Records
    * @param string $idField
    */
   protected function _fetchRecords($databaseResult, $idField = '') {
-    $this->_records = array();
+    $this->_records = [];
     while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
-      $record = array();
+      $record = [];
       foreach ($row as $field => $value) {
         if (!empty($this->_fieldMapping[$field])) {
           $record[$this->_fieldMapping[$field]] = $value;

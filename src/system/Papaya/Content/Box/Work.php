@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Box;
+
 /**
  * Provide data encapsulation for the content box working copy.
  *
@@ -23,27 +24,26 @@ namespace Papaya\Content\Box;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id box id
- * @property integer $groupId box group id
+ * @property int $id box id
+ * @property int $groupId box group id
  * @property string $name administration interface box name
- * @property integer $created box creation timestamp
- * @property integer $modified last modification timestamp
- * @property integer $cacheMode box content cache mode (system, none, own)
- * @property integer $cacheTime box content cache time, if mode == own
- * @property integer $unpublishedTranslations internal counter for unpublished translations
+ * @property int $created box creation timestamp
+ * @property int $modified last modification timestamp
+ * @property int $cacheMode box content cache mode (system, none, own)
+ * @property int $cacheTime box content cache time, if mode == own
+ * @property int $unpublishedTranslations internal counter for unpublished translations
  */
 class Work extends \Papaya\Content\Box {
-
   /**
    * Save box to database
    *
-   * @return integer|boolean
+   * @return int|bool
    */
   public function save() {
     if (empty($this['id'])) {
-      $this['created'] = $this['modified'] = time();
+      $this['created'] = $this['modified'] = \time();
     } else {
-      $this['modified'] = time();
+      $this['modified'] = \time();
     }
     return parent::save();
   }
@@ -63,9 +63,9 @@ class Work extends \Papaya\Content\Box {
    * Publish the box and it's translations (depending on the $languageIds
    *
    * @param array $languageIds
-   * @param integer $publishedFrom
-   * @param integer $publishedTo
-   * @return boolean
+   * @param int $publishedFrom
+   * @param int $publishedTo
+   * @return bool
    */
   public function publish(array $languageIds = NULL, $publishedFrom = 0, $publishedTo = 0) {
     if ($this->id > 0) {
@@ -85,7 +85,7 @@ class Work extends \Papaya\Content\Box {
    *
    * @param \Papaya\Content\Box\Publication $publication
    * @param array $languageIds
-   * @return boolean
+   * @return bool
    */
   private function _publishTranslations(
     \Papaya\Content\Box\Publication $publication, array $languageIds = NULL
@@ -93,14 +93,14 @@ class Work extends \Papaya\Content\Box {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(
         $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
-        array(
+        [
           'box_id' => $this->id,
           'lng_id' => $languageIds
-        )
+        ]
       );
       if (FALSE !== $deleted) {
-        $filter = str_replace('%', '%%', $this->databaseGetSqlCondition('lng_id', $languageIds));
-        $now = time();
+        $filter = \str_replace('%', '%%', $this->databaseGetSqlCondition('lng_id', $languageIds));
+        $now = \time();
         $sql = "INSERT INTO %s
                        (box_id, lng_id, box_title, box_data, view_id,
                         box_trans_created, box_trans_modified)
@@ -108,21 +108,21 @@ class Work extends \Papaya\Content\Box {
                        t.box_trans_created, '%d'
                   FROM %s t
                  WHERE t.box_id = %d AND $filter";
-        $parameters = array(
+        $parameters = [
           $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
           $now,
           $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
           $this->id
-        );
+        ];
         if (FALSE !== $this->databaseQueryFmt($sql, $parameters)) {
           $publication->load($this->id);
           $this->unpublishedTranslations =
-            count($this->translations()) - count($publication->translations());
-          $data = array(
+            \count($this->translations()) - \count($publication->translations());
+          $data = [
             'box_unpublished_languages' => $this->unpublishedTranslations
-          );
+          ];
           return FALSE !== $this->databaseUpdateRecord(
-              $this->databaseGetTableName($this->_tableName), $data, array('box_id' => $this->id)
+              $this->databaseGetTableName($this->_tableName), $data, ['box_id' => $this->id]
             );
         }
       }

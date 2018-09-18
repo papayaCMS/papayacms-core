@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\URL;
+
 /**
  * Papaya filter class validating a url host name
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\URL;
  * @subpackage Filter
  */
 class Web extends \Papaya\Filter\URL {
-
   /**
    * @see \Papaya\Filter::validate()
    */
@@ -43,7 +43,7 @@ class Web extends \Papaya\Filter\URL {
    * @return string
    */
   private function prepare($value) {
-    if (!empty($value) && !preg_match('(^https?://)', $value)) {
+    if (!empty($value) && !\preg_match('(^https?://)', $value)) {
       return 'http://'.$value;
     }
     return $value;

@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency\Command;
 
-use \Papaya\Message;
-use \Papaya\UI;
+use Papaya\Message;
+use Papaya\UI;
 
 /**
  * Delete a page dependency.
@@ -26,7 +26,6 @@ use \Papaya\UI;
  */
 class Delete
   extends UI\Control\Command\Dialog {
-
   /**
    * Create confirmation dialog and assign callback for confirmation message.
    */
@@ -37,10 +36,10 @@ class Delete
     $dialog->caption = new UI\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
-      array(
+      [
         'cmd' => 'dependency_delete',
         'page_id' => $changer->getPageId()
-      )
+      ]
     );
     $dialog->fields[] = new UI\Dialog\Field\Information(
       new UI\Text\Translated('Delete dependency?'),
@@ -48,9 +47,9 @@ class Delete
     );
     $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Delete'));
 
-    $this->callbacks()->onExecuteSuccessful = array(
+    $this->callbacks()->onExecuteSuccessful = [
       $this, 'dispatchDeleteMessage'
-    );
+    ];
     return $dialog;
   }
 

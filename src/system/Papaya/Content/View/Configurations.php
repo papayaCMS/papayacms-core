@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\View;
+
 /**
  * This object loads view records into a list.
  *
@@ -21,9 +22,10 @@ namespace Papaya\Content\View;
  * @subpackage Content
  */
 class Configurations extends \Papaya\Database\Records\Lazy {
-
   const TYPE_OUTPUT = \Papaya\Plugin\Types::OUTPUT;
+
   const TYPE_FILTER = \Papaya\Plugin\Types::FILTER;
+
   const TYPE_IMPORT = \Papaya\Plugin\Types::IMPORT;
 
   /**
@@ -31,13 +33,13 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'vl.view_id',
     'mode_id' => 'viewmode_id',
     'module_guid' => 'module_guid',
     'type' => 'm.module_type',
     'options' => 'viewlink_data'
-  );
+  ];
 
   protected $_identifierProperties = ['id', 'mode_id', 'type'];
 
@@ -54,7 +56,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    * @param int|null $offset
    * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $prefix = ' WHERE ';
     if (\is_array($filter) && \array_key_exists('mode_id', $filter)) {
@@ -90,14 +92,14 @@ class Configurations extends \Papaya\Database\Records\Lazy {
                JOIN %s vm ON (vm.datafilter_id = vl.datafilter_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
                $conditionData";
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_CONFIGURATIONS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_MODES),
       $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES),
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTERS),
       $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES)
-    );
+    ];
     return parent::_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 }

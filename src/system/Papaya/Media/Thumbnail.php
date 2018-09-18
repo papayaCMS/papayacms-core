@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Media;
+
 class Thumbnail {
-
-
 }

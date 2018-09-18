@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * A list of list view columns, used for the $columns property of a {@see \Papaya\UI\ListView}
  *
@@ -22,7 +23,6 @@ namespace Papaya\UI\ListView;
  */
 class Columns
   extends \Papaya\UI\Control\Collection {
-
   /**
    * Only {@see \Papaya\UI\ListView\Column} objects are allowed in this list
    *

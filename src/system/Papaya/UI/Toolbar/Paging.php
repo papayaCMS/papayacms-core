@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Toolbar;
+
 /**
  * Provides several buttons to navigate mutiple pages of a list.
  *
@@ -22,16 +23,16 @@ namespace Papaya\UI\Toolbar;
  *
  * @property \Papaya\UI\Reference $reference
  * @property string|array $parameterName
- * @property integer $currentPage
- * @property integer $currentOffset
- * @property integer $lastPage
- * @property integer $itemsCount
- * @property integer $itemsPerPage
- * @property integer $buttonLimit
+ * @property int $currentPage
+ * @property int $currentOffset
+ * @property int $lastPage
+ * @property int $itemsCount
+ * @property int $itemsPerPage
+ * @property int $buttonLimit
  */
 class Paging extends Element {
-
   const MODE_PAGE = 0;
+
   const MODE_OFFSET = 1;
 
   protected $_mode = self::MODE_PAGE;
@@ -40,7 +41,7 @@ class Paging extends Element {
    * Limits the maximum count of page buttons. First/Last and Previous/Next are not included.
    * The minimum value is 3.
    *
-   * @var integer
+   * @var int
    */
   protected $_buttonLimit = 11;
 
@@ -48,14 +49,14 @@ class Paging extends Element {
    * The maximum items on one page. The last page can contain less items.
    * The minimum value is 1.
    *
-   * @var integer
+   * @var int
    */
   protected $_itemsPerPage = 10;
 
   /**
    * The actual item count. If the value is less than 1 the buttons are hidden.
    *
-   * @var integer
+   * @var int
    */
   protected $_itemsCount = 0;
 
@@ -64,74 +65,74 @@ class Paging extends Element {
    *
    * @var string|array
    */
-  protected $_parameterName = NULL;
+  protected $_parameterName;
 
   /**
    * The current page number. Minimum and default value is 1.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  protected $_currentPage = NULL;
+  protected $_currentPage;
 
   /**
    * The minimum page value. This is caluclated using the button limit.
    * It changes with the current page.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  private $_minimumPage = NULL;
+  private $_minimumPage;
 
   /**
    * The maximum page value. This is caluclated using the button limit.
    * It changes with the current page.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  private $_maximumPage = NULL;
+  private $_maximumPage;
 
   /**
    * Current page minus 1.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  private $_previousPage = NULL;
+  private $_previousPage;
 
   /**
    * Current page plus 1.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  private $_nextPage = NULL;
+  private $_nextPage;
 
   /**
    * Last possible page value.
    *
-   * @var integer|NULL
+   * @var int|null
    */
-  private $_lastPage = NULL;
+  private $_lastPage;
 
   /**
    * Declare public properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'reference' => array('reference', 'reference'),
-    'parameterName' => array('_parameterName', 'parameterName'),
-    'currentPage' => array('getCurrentPage', 'setCurrentPage'),
-    'currentOffset' => array('getCurrentOffset', 'setCurrentOffset'),
-    'lastPage' => array('getLastPage'),
-    'itemsCount' => array('_itemsCount', 'setItemsCount'),
-    'itemsPerPage' => array('_itemsPerPage', 'setItemsPerPage'),
-    'buttonLimit' => array('_buttonLimit', 'setButtonLimit'),
-  );
+  protected $_declaredProperties = [
+    'reference' => ['reference', 'reference'],
+    'parameterName' => ['_parameterName', 'parameterName'],
+    'currentPage' => ['getCurrentPage', 'setCurrentPage'],
+    'currentOffset' => ['getCurrentOffset', 'setCurrentOffset'],
+    'lastPage' => ['getLastPage'],
+    'itemsCount' => ['_itemsCount', 'setItemsCount'],
+    'itemsPerPage' => ['_itemsPerPage', 'setItemsPerPage'],
+    'buttonLimit' => ['_buttonLimit', 'setButtonLimit'],
+  ];
 
   /**
    * Create object and store parameter name and items count.
    *
    * @param string|array $parameterName
-   * @param integer $itemsCount
-   * @param integer $mode
+   * @param int $itemsCount
+   * @param int $mode
    */
   public function __construct($parameterName, $itemsCount, $mode = self::MODE_PAGE) {
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
@@ -142,7 +143,7 @@ class Paging extends Element {
   /**
    * The absolute count of items in the list. The minimum value is zero.
    *
-   * @param integer $itemsCount
+   * @param int $itemsCount
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
@@ -160,7 +161,7 @@ class Paging extends Element {
    * The maximum count of items on one page. The last page can contain less items. The
    * minimum value is 1.
    *
-   * @param integer $itemsPerPage
+   * @param int $itemsPerPage
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
@@ -178,7 +179,7 @@ class Paging extends Element {
    * The maximum count of page button without first, previous, next and last. The
    * Minimum value is 3. I suggest only odd values for this option.
    *
-   * @param integer $buttonLimit
+   * @param int $buttonLimit
    * @throws \UnexpectedValueException
    */
   public function setButtonLimit($buttonLimit) {
@@ -196,11 +197,11 @@ class Paging extends Element {
    * Fetch the value from the request and trigger the calculation if needed. Return the current page.
    * The page value is based one 1.
    *
-   * @return integer
+   * @return int
    */
   public function getCurrentPage() {
     $this->getCurrentPageParameter(TRUE);
-    if (is_null($this->_lastPage)) {
+    if (\is_null($this->_lastPage)) {
       $this->calculate();
     }
     return $this->_currentPage;
@@ -210,10 +211,10 @@ class Paging extends Element {
    * Fetch the current page parameter from request or property. This will not trigger the
    * caluclation.
    *
-   * @return integer
+   * @return int
    */
   private function getCurrentPageParameter() {
-    if (is_null($this->_currentPage)) {
+    if (\is_null($this->_currentPage)) {
       switch ($this->_mode) {
         case self::MODE_OFFSET :
           $this->setCurrentOffset(
@@ -237,7 +238,7 @@ class Paging extends Element {
   /**
    * Change the current page. This will reset the current caclulation results.
    *
-   * @param integer $page
+   * @param int $page
    */
   public function setCurrentPage($page) {
     $this->_currentPage = $page;
@@ -248,7 +249,7 @@ class Paging extends Element {
    * Return the current offset. This is an alternative represenation of the current page. It
    * is the index (based on zero) of the first item on this page.
    *
-   * @return integer
+   * @return int
    */
   public function getCurrentOffset() {
     return ($this->getCurrentPage() - 1) * $this->_itemsPerPage;
@@ -258,10 +259,10 @@ class Paging extends Element {
    * Set the current page using an offset. The offset it the index of the first item (bases on zero)
    * on a page.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function setCurrentOffset($offset) {
-    $this->setCurrentPage(floor($offset / $this->_itemsPerPage) + 1);
+    $this->setCurrentPage(\floor($offset / $this->_itemsPerPage) + 1);
     $this->reset();
   }
 
@@ -294,10 +295,10 @@ class Paging extends Element {
         );
         $button = $parent->appendElement(
           'button',
-          array(
+          [
             'title' => $page,
             'href' => $reference->getRelative()
-          )
+          ]
         );
         if ($page == $current) {
           $button->setAttribute('down', 'down');
@@ -319,8 +320,8 @@ class Paging extends Element {
   /**
    * If offset mode is used convert page to offset.
    *
-   * @param integer $page
-   * @return integer
+   * @param int $page
+   * @return int
    */
   private function preparePagingParameter($page) {
     switch ($this->_mode) {
@@ -336,7 +337,7 @@ class Paging extends Element {
    * page. The are only shown if needed.
    *
    * @param \Papaya\XML\Element $parent
-   * @param integer $page
+   * @param int $page
    * @param string $image
    * @param string|\Papaya\UI\Text $hint
    */
@@ -348,11 +349,11 @@ class Paging extends Element {
     );
     $parent->appendElement(
       'button',
-      array(
+      [
         'glyph' => $this->papaya()->images[(string)$image],
         'hint' => (string)$hint,
         'href' => $reference->getRelative()
-      )
+      ]
     );
   }
 
@@ -379,7 +380,7 @@ class Paging extends Element {
     if ($currentPage > $lastPage) {
       $currentPage = $lastPage;
     }
-    $minimumPage = $currentPage - (int)floor($this->_buttonLimit / 2);
+    $minimumPage = $currentPage - (int)\floor($this->_buttonLimit / 2);
     if ($minimumPage + $this->_buttonLimit > $lastPage) {
       $minimumPage = $lastPage - $this->_buttonLimit + 1;
     }
@@ -401,9 +402,9 @@ class Paging extends Element {
   /**
    * Get the last possible page number.
    *
-   * @return integer
+   * @return int
    */
   public function getLastPage() {
-    return (int)ceil($this->_itemsCount / $this->_itemsPerPage);
+    return (int)\ceil($this->_itemsCount / $this->_itemsPerPage);
   }
 }

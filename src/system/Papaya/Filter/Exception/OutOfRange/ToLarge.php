@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception\OutOfRange;
+
 /**
  * This exception is thrown if a value is to small.
  *
@@ -21,16 +22,15 @@ namespace Papaya\Filter\Exception\OutOfRange;
  * @subpackage Filter
  */
 class ToLarge extends \Papaya\Filter\Exception\OutOfRange {
-
   /**
    * Construct object with length informations
    *
-   * @param integer|float $expected
-   * @param integer|float $actual
+   * @param int|float $expected
+   * @param int|float $actual
    */
   public function __construct($expected, $actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to large. Expecting a maximum of "%s", got "%s".',
         $expected,
         $actual

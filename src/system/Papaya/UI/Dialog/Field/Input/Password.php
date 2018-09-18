@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for password - the characters are not shown and the value is never read from
  * data() - only from parameters
@@ -22,7 +23,6 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @subpackage UI
  */
 class Password extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -35,8 +35,8 @@ class Password extends \Papaya\UI\Dialog\Field\Input {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer $length
-   * @param \Papaya\Filter|NULL $filter
+   * @param int $length
+   * @param \Papaya\Filter|null $filter
    * @internal param mixed $default
    */
   public function __construct($caption, $name, $length = 1024, \Papaya\Filter $filter = NULL) {
@@ -69,6 +69,6 @@ class Password extends \Papaya\UI\Dialog\Field\Input {
         return $this->collection()->owner()->parameters()->get($name);
       }
     }
-    return NULL;
+    return;
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Defines the tables used by the \Papaya\Content\* classes. Allows to prefix the
  * current table name with the defined table prefix.
@@ -22,72 +23,114 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Tables extends \Papaya\Application\BaseObject {
-
   const OPTIONS = 'options';
 
   const LANGUAGES = 'lng';
 
   const PHRASES = 'phrase';
+
   const PHRASE_GROUPS = 'phrase_module';
+
   const PHRASE_GROUP_LINKS = 'phrase_relmod';
+
   const PHRASE_TRANSLATIONS = 'phrase_trans';
+
   const PHRASE_LOG = 'phrase_log';
 
   const VIEWS = 'views';
+
   const VIEW_CONFIGURATIONS = 'viewlinks';
+
   const VIEW_MODES = 'viewmodes';
+
   const VIEW_DATAFILTER_CONFIGURATIONS = 'datafilter_links';
+
   const VIEW_DATAFILTERS = 'datafilter';
 
   const MODULES = 'modules';
+
   const MODULE_GROUPS = 'modulegroups';
+
   const MODULE_OPTIONS = 'moduleoptions';
 
   const AUTHENTICATION_USERS = 'auth_user';
+
   const AUTHENTICATION_USER_GROUP_LINKS = 'auth_link';
+
   const AUTHENTICATION_USER_OPTIONS = 'auth_useropt';
+
   const AUTHENTICATION_GROUPS = 'auth_groups';
+
   const AUTHENTICATION_PERMISSIONS = 'auth_perm';
+
   const AUTHENTICATION_MODULE_PERMISSIONS = 'auth_modperm';
+
   const AUTHENTICATION_MODULE_PERMISSION_LINKS = 'auth_modperm_link';
+
   const AUTHENTICATION_LOGIN_TRIES = 'auth_try';
+
   const AUTHENTICATION_LOGIN_IPS = 'auth_ip';
 
   const COMMUNITY_USER = 'surfer';
+
   const COMMUNITY_GROUPS = 'surfergroups';
+
   const COMMUNITY_GROUP_PERMISSIONS = 'surferlinks';
+
   const COMMUNITY_PERMISSIONS = 'surferperm';
 
   const DOMAINS = 'domains';
+
   const DOMAIN_GROUPS = 'domain_groups';
 
   const PAGES = 'topic';
+
   const PAGE_TRANSLATIONS = 'topic_trans';
+
   const PAGE_PUBLICATIONS = 'topic_public';
+
   const PAGE_PUBLICATION_TRANSLATIONS = 'topic_public_trans';
+
   const PAGE_VERSIONS = 'topic_versions';
+
   const PAGE_VERSION_TRANSLATIONS = 'topic_versions_trans';
+
   const PAGE_DEPENDENCIES = 'topic_dependencies';
+
   const PAGE_REFERENCES = 'topic_references';
+
   const PAGE_BOXES = 'boxlinks';
 
   const BOXES = 'box';
+
   const BOX_TRANSLATIONS = 'box_trans';
+
   const BOX_PUBLICATIONS = 'box_public';
+
   const BOX_PUBLICATION_TRANSLATIONS = 'box_public_trans';
+
   const BOX_VERSIONS = 'box_versions';
+
   const BOX_VERSION_TRANSLATIONS = 'box_versions_trans';
 
   const MEDIA_FILES = 'mediadb_files';
+
   const MEDIA_FILE_TRANSLATIONS = 'mediadb_files_trans';
+
   const MEDIA_FOLDERS = 'mediadb_folders';
+
   const MEDIA_FOLDER_TRANSLATIONS = 'mediadb_folders_trans';
+
   const MEDIA_MIMETYPES = 'mediadb_mimetypes';
 
   const TAGS = 'tag';
+
   const TAG_TRANSLATIONS = 'tag_trans';
+
   const TAG_LINKS = 'tag_links';
+
   const TAG_CATEGORY = 'tag_category';
+
   const TAG_CATEGORY_TRANSLATIONS = 'tag_category_trans';
 
   const THEME_SKINS = 'theme_sets';
@@ -96,13 +139,13 @@ class Tables extends \Papaya\Application\BaseObject {
    * Return tablename with optional prefix.
    *
    * @param string $tableName
-   * @param boolean $prefix
+   * @param bool $prefix
    * @return string
    */
   public function get($tableName, $prefix = TRUE) {
     if ($prefix && isset($this->papaya()->options)) {
       $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-      if ('' !== $prefixString && 0 !== strpos($tableName, $prefixString.'_')) {
+      if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString.'_')) {
         return $prefixString.'_'.$tableName;
       }
     }
@@ -129,13 +172,12 @@ class Tables extends \Papaya\Application\BaseObject {
    * @var array(string=>string)
    */
 
-
   /**
    * Papaya database tables
    *
    * @var array $tables
    */
-  public static $tableConstants = array(
+  public static $tableConstants = [
     'PAPAYA_DB_TBL_AUTHUSER' => self::AUTHENTICATION_USERS,
     'PAPAYA_DB_TBL_AUTHGROUPS' => self::AUTHENTICATION_GROUPS,
     'PAPAYA_DB_TBL_AUTHLINK' => self::AUTHENTICATION_USER_GROUP_LINKS,
@@ -242,5 +284,5 @@ class Tables extends \Papaya\Application\BaseObject {
     'PAPAYA_DB_TBL_SPAM_REFERENCES' => 'spamreferences',
     'PAPAYA_DB_TBL_SPAM_WORDS' => 'spamwords',
     'PAPAYA_DB_TBL_SPAM_CATEGORIES' => 'spamcategories'
-  );
+  ];
 }

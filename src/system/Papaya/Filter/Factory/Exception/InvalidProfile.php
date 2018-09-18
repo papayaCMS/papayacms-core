@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Exception;
+
 /**
  * Exception: invalid filter factory profile name/profile not found.
  *
@@ -21,14 +22,12 @@ namespace Papaya\Filter\Factory\Exception;
  * @subpackage Filter
  */
 class InvalidProfile extends \Papaya\Filter\Factory\Exception {
-
   /**
    * @param string $name
    */
   public function __construct($name) {
     parent::__construct(
-      sprintf('Invalid or unknown filter factory profile: "%s".', $name)
+      \sprintf('Invalid or unknown filter factory profile: "%s".', $name)
     );
   }
-
 }

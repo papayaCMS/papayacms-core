@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Structure;
+
 /**
  * papaya CMS
  *
@@ -27,9 +28,7 @@ namespace Papaya\Content\Structure;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 abstract class Node extends \Papaya\Application\BaseObject {
-
   /**
    * @var array
    */
@@ -50,15 +49,15 @@ abstract class Node extends \Papaya\Application\BaseObject {
 
   public function __get($name) {
     $getter = 'get'.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
-    if (method_exists($this, $getter)) {
-      return call_user_func(array($this, $getter));
-    } elseif (array_key_exists($name, $this->_properties)) {
+    if (\method_exists($this, $getter)) {
+      return \call_user_func([$this, $getter]);
+    } elseif (\array_key_exists($name, $this->_properties)) {
       return $this->_properties[$name];
     }
     throw new \UnexpectedValueException(
-      sprintf(
+      \sprintf(
         'Can not read unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
@@ -66,21 +65,21 @@ abstract class Node extends \Papaya\Application\BaseObject {
 
   public function __set($name, $value) {
     $setter = 'set'.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
-    if (method_exists($this, $setter)) {
-      call_user_func(array($this, $setter), $value);
+    if (\method_exists($this, $setter)) {
+      \call_user_func([$this, $setter], $value);
     } else {
       $this->setValue($name, $value);
     }
   }
 
   protected function setValue($name, $value) {
-    if (array_key_exists($name, $this->_properties)) {
+    if (\array_key_exists($name, $this->_properties)) {
       $this->_properties[$name] = $value;
     } else {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Can not write unknown property "%s::$%s".',
-          get_class($this),
+          \get_class($this),
           $name
         )
       );
@@ -91,5 +90,4 @@ abstract class Node extends \Papaya\Application\BaseObject {
     \Papaya\Utility\Text\XML::isQName($name);
     $this->_properties['name'] = $name;
   }
-
 }

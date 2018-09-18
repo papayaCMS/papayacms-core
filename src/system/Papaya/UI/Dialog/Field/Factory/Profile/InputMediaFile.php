@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profile for a media file selection field.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class InputMediaFile extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    * @return \Papaya\UI\Dialog\Field\Input\Media\File

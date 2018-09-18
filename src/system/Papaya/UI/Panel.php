@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Abstract superclass for controls inside a panel.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 abstract class Panel extends Control {
-
   /**
    * Panel caption/title
    *
@@ -34,7 +34,7 @@ abstract class Panel extends Control {
    *
    * @var \Papaya\UI\Toolbars
    */
-  protected $_toolbars = NULL;
+  protected $_toolbars;
 
   /**
    * Append panel to output xml
@@ -76,5 +76,4 @@ abstract class Panel extends Control {
     }
     return $this->_toolbars;
   }
-
 }

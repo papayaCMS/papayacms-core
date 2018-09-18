@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * This object loads module/plugin records into a list.
  *
@@ -21,13 +22,12 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Modules extends \Papaya\Database\Records\Lazy {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'module_guid',
     'type' => 'module_type',
     'group_id' => 'modulegroup_id',
@@ -40,7 +40,7 @@ class Modules extends \Papaya\Database\Records\Lazy {
     'use_filter' => 'module_useoutputfilter',
     'is_active' => 'module_active',
     'title_original' => 'module_title_org'
-  );
+  ];
 
   /**
    * Table containing module/plugin informations
@@ -49,11 +49,11 @@ class Modules extends \Papaya\Database\Records\Lazy {
    */
   protected $_tableName = \Papaya\Content\Tables::MODULES;
 
-  protected $_orderByProperties = array(
+  protected $_orderByProperties = [
     'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'title_original' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 }

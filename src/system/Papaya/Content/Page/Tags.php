@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * Provide data encapsulation for the content page tag/label list.
  *
@@ -24,7 +25,6 @@ namespace Papaya\Content\Page;
  * @subpackage Content
  */
 class Tags extends \Papaya\Database\BaseObject\Records {
-
   /**
    * All tag links are saved into one table, the type specified the link group
    *
@@ -37,7 +37,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    *
    * @var array(string=>string)
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'link_id' => 'page_id',
     'link_priority' => 'priority',
     'tag_id' => 'id',
@@ -46,22 +46,22 @@ class Tags extends \Papaya\Database\BaseObject\Records {
     'tag_description' => 'description',
     'tag_char' => 'char',
     'category_name' => 'category'
-  );
+  ];
 
   /**
-  * Load list of tags for a page, load titles, media ids and descriptions if language is provided
-  *
-  * @param integer $pageId
-  * @param integer $languageId
-  * @param array $categoryIds
-  * @return boolean
-  */
+   * Load list of tags for a page, load titles, media ids and descriptions if language is provided
+   *
+   * @param int $pageId
+   * @param int $languageId
+   * @param array $categoryIds
+   * @return bool
+   */
   public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
     $categoryCondition = '';
     if ($categoryIds) {
       $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
         ' AND '.$this->databaseGetSqlCondition(
-          array('t.category_id' => $categoryIds)
+          ['t.category_id' => $categoryIds]
         )
       );
     }
@@ -76,7 +76,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
                AND tl.link_id = '%d'
                 $categoryCondition
              ORDER BY tl.link_priority, tt.tag_title";
-    $parameters = array(
+    $parameters = [
       $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
       $this->databaseGetTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
       $languageId,
@@ -84,23 +84,23 @@ class Tags extends \Papaya\Database\BaseObject\Records {
       $this->databaseGetTableName(\Papaya\Content\Tables::TAG_CATEGORY),
       $this->_linkType,
       $pageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'tag_id');
   }
 
   /**
    * Remove all tags for a specified page id.
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   * @return bool
    */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
         $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
-        array(
+        [
           'link_type' => $this->_linkType,
           'link_id' => $pageId
-        )
+        ]
       );
   }
 
@@ -109,16 +109,16 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $pageId
    * @param array $tagIds
-   * @return boolean
+   * @return bool
    */
   public function insert($pageId, array $tagIds) {
-    $data = array();
+    $data = [];
     foreach ($tagIds as $tagId) {
-      $data[] = array(
+      $data[] = [
         'link_type' => $this->_linkType,
         'link_id' => $pageId,
         'tag_id' => $tagId
-      );
+      ];
     }
     return FALSE !== $this->databaseInsertRecords(
         $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),

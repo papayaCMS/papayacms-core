@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Dialog\Database;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
  * callbacks are executed. This class adds record handling.
@@ -22,8 +23,8 @@ namespace Papaya\UI\Control\Command\Dialog\Database;
  * @subpackage UI
  */
 class Record extends \Papaya\UI\Control\Command\Dialog {
-
   const ACTION_SAVE = 'save';
+
   const ACTION_DELETE = 'delete';
 
   private $_record;

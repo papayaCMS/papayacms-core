@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory;
+
 /**
  * Superclass for papaya filter factory profiles, definition how a filter is created
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory;
  * @subpackage Filter
  */
 abstract class Profile {
-
   /**
    * @var mixed
    */

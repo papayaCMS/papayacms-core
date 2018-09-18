@@ -28,27 +28,26 @@ namespace Papaya;
 class Configuration
   extends Application\BaseObject
   implements \IteratorAggregate, \ArrayAccess {
-
   /**
    * Internal options array
    *
    * @var array
    */
-  protected $_options = array();
+  protected $_options = [];
 
   /**
    * Storage object, used to load/save the options.
    *
    * @var \Papaya\Configuration\Storage
    */
-  private $_storage = NULL;
+  private $_storage;
 
   /**
    * An hash identifying the options status.
    *
-   * @var string|NULL
+   * @var string|null
    */
-  private $_hash = NULL;
+  private $_hash;
 
   /**
    * Create object and defined the given options.
@@ -67,10 +66,10 @@ class Configuration
    */
   protected function defineOptions(array $options) {
     foreach ($options as $name => $default) {
-      if (!is_scalar($default) && !is_null($default)) {
+      if (!\is_scalar($default) && !\is_null($default)) {
         $name = Utility\Text\Identifier::toUnderscoreUpper($name);
         throw new \UnexpectedValueException(
-          sprintf('Default value for option "%s" is not a scalar.', $name)
+          \sprintf('Default value for option "%s" is not a scalar.', $name)
         );
       } else {
         $this->_options[$name] = $default;
@@ -80,12 +79,10 @@ class Configuration
 
   /**
    * compile and return and hash from the currently defined option values.
-   *
-   *
    */
   public function getHash() {
-    if (is_null($this->_hash)) {
-      $this->_hash = md5(serialize($this->_options));
+    if (\is_null($this->_hash)) {
+      $this->_hash = \md5(\serialize($this->_options));
     }
     return $this->_hash;
   }
@@ -105,7 +102,7 @@ class Configuration
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
-    if (array_key_exists($name, $this->_options)) {
+    if (\array_key_exists($name, $this->_options)) {
       return $this->filter($this->_options[$name], $default, $filter);
     } else {
       return $default;
@@ -125,8 +122,8 @@ class Configuration
       $value = $filter->filter($value);
     }
     if (isset($value)) {
-      if (isset($default) && is_scalar($default)) {
-        settype($value, gettype($default));
+      if (isset($default) && \is_scalar($default)) {
+        \settype($value, \gettype($default));
       }
       return $value;
     } else {
@@ -156,7 +153,7 @@ class Configuration
   public function set($name, $value) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if ($this->has($name) &&
-      array_key_exists($name, $this->_options) &&
+      \array_key_exists($name, $this->_options) &&
       ($this->_options[$name] !== $value)) {
       $this->_options[$name] = $this->filter($value, $this->_options[$name]);
       $this->_hash = NULL;
@@ -172,7 +169,7 @@ class Configuration
    */
   public function has($name) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
-    return array_key_exists($name, $this->_options);
+    return \array_key_exists($name, $this->_options);
   }
 
   /**
@@ -214,7 +211,7 @@ class Configuration
   public function storage(\Papaya\Configuration\Storage $storage = NULL) {
     if (isset($storage)) {
       $this->_storage = $storage;
-    } elseif (is_null($this->_storage)) {
+    } elseif (\is_null($this->_storage)) {
       throw new \LogicException('No storage assigned to configuration.');
     }
     return $this->_storage;
@@ -225,7 +222,7 @@ class Configuration
    *
    * @see self::has()
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     return $this->has($name);
@@ -258,7 +255,7 @@ class Configuration
    *
    * @see self::has()
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($name) {
     return $this->has($name);
@@ -307,6 +304,6 @@ class Configuration
    * @return \Iterator
    */
   public function getIterator() {
-    return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
+    return new \Papaya\Configuration\Iterator(\array_keys($this->_options), $this);
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Condition;
+
 /**
  * A command condition based on a callback.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Control\Command\Condition;
  * @subpackage UI
  */
 class Callback extends \Papaya\UI\Control\Command\Condition {
-
   /**
    * member variable to store the callback
    *
@@ -36,7 +36,7 @@ class Callback extends \Papaya\UI\Control\Command\Condition {
    * @throws \InvalidArgumentException
    */
   public function __construct($callback) {
-    if (!is_callable($callback)) {
+    if (!\is_callable($callback)) {
       throw new \InvalidArgumentException(
         'InvalidArgumentException: provided $callback is not callable.'
       );
@@ -47,9 +47,9 @@ class Callback extends \Papaya\UI\Control\Command\Condition {
   /**
    * Execute callback and return value.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
-    return (boolean)call_user_func($this->_callback);
+    return (bool)\call_user_func($this->_callback);
   }
 }

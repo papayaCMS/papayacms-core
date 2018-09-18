@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 /**
  * An file system iterator encapsulating the glob() function
  *
@@ -21,10 +22,11 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Glob implements \IteratorAggregate, \Countable {
-
   private $_path = '';
+
   private $_flags = 0;
-  private $_files = NULL;
+
+  private $_files;
 
   /**
    * Create object and store path and flags.
@@ -39,7 +41,7 @@ class Glob implements \IteratorAggregate, \Countable {
    * GLOB_ERR - Stop on read errors (like unreadable directories), by default errors are ignored.
    *
    * @param string $path
-   * @param integer $flags
+   * @param int $flags
    */
   public function __construct($path, $flags = 0) {
     $this->_path = $path;
@@ -49,7 +51,7 @@ class Glob implements \IteratorAggregate, \Countable {
   /**
    * Set the flags
    *
-   * @param integer $flags
+   * @param int $flags
    */
   public function setFlags($flags) {
     $this->_flags = $flags;
@@ -66,7 +68,7 @@ class Glob implements \IteratorAggregate, \Countable {
   /**
    * Get the currently set flags
    *
-   * @return integer
+   * @return int
    */
   public function getFlags() {
     return $this->_flags;
@@ -79,9 +81,9 @@ class Glob implements \IteratorAggregate, \Countable {
    * @return array
    */
   private function getFilesLazy() {
-    if (is_null($this->_files)) {
-      $this->_files = array();
-      foreach (glob($this->_path, $this->_flags) as $file) {
+    if (\is_null($this->_files)) {
+      $this->_files = [];
+      foreach (\glob($this->_path, $this->_flags) as $file) {
         $this->_files[] = $file;
       }
     }
@@ -101,6 +103,6 @@ class Glob implements \IteratorAggregate, \Countable {
    * Return the file count.
    */
   public function count() {
-    return count($this->getFilesLazy());
+    return \count($this->getFilesLazy());
   }
 }

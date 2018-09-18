@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler\Storage;
+
 /**
  * Stores the Xhrof profiling data into a file usable by the standard report app.
  *
@@ -21,8 +22,8 @@ namespace Papaya\Profiler\Storage;
  * @subpackage Profiler
  */
 class File implements \Papaya\Profiler\Storage {
-
   private $_suffix = 'xhprof';
+
   private $_directory = '/tmp/';
 
   /**
@@ -48,7 +49,7 @@ class File implements \Papaya\Profiler\Storage {
   public function saveRun($data, $type) {
     $id = $this->getId();
     $file = $this->getFilename($id, $type);
-    file_put_contents($file, serialize($data));
+    \file_put_contents($file, \serialize($data));
     return $id;
   }
 
@@ -70,7 +71,7 @@ class File implements \Papaya\Profiler\Storage {
    * @return string
    */
   protected function getId() {
-    return uniqid('papaya', TRUE);
+    return \uniqid('papaya', TRUE);
   }
 
   /**
@@ -87,11 +88,11 @@ class File implements \Papaya\Profiler\Storage {
       );
     }
     $directory = \Papaya\Utility\File\Path::cleanup($directory);
-    if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
+    if (\file_exists($directory) && \is_dir($directory) && \is_readable($directory)) {
       return $directory;
     }
     throw new \UnexpectedValueException(
-      sprintf('Profiling directory "%s" is not writeable.', $directory)
+      \sprintf('Profiling directory "%s" is not writeable.', $directory)
     );
   }
 
@@ -103,11 +104,11 @@ class File implements \Papaya\Profiler\Storage {
    * @return string
    */
   private function prepareSuffix($suffix) {
-    if (preg_match('(^[a-z\d]+$)D', $suffix)) {
+    if (\preg_match('(^[a-z\d]+$)D', $suffix)) {
       return $suffix;
     } else {
       throw new \UnexpectedValueException(
-        sprintf('Invalid profiling file suffix "%s"', $suffix)
+        \sprintf('Invalid profiling file suffix "%s"', $suffix)
       );
     }
   }

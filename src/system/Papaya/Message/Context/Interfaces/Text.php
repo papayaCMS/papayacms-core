@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for message string contexts
  *
@@ -24,12 +25,10 @@ namespace Papaya\Message\Context\Interfaces;
  */
 interface Text
   extends \Papaya\Message\Context\Data {
-
   /**
    * Get context as simple string, without formatting
    *
    * return @string
    */
-  function asString();
-
+  public function asString();
 }

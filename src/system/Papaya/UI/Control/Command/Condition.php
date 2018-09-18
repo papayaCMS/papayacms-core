@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command;
+
 /**
  * Abstract superclass for ui command condition, allow to specify conditions that hav to
  * be fullfilled to execute the command.
@@ -22,7 +23,6 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 abstract class Condition extends \Papaya\Application\BaseObject {
-
   /**
    * The command of the condition.
    *
@@ -33,7 +33,7 @@ abstract class Condition extends \Papaya\Application\BaseObject {
   /**
    * Validate needs to be implemented in chzild classes.
    *
-   * @return boolean
+   * @return bool
    */
   abstract public function validate();
 
@@ -53,9 +53,9 @@ abstract class Condition extends \Papaya\Application\BaseObject {
       $this->papaya($command->papaya());
     } elseif (NULL === $this->_command) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'LogicException: Instance of "%s" has no command assigned.',
-          get_class($this)
+          \get_class($this)
         )
       );
     }
@@ -65,7 +65,7 @@ abstract class Condition extends \Papaya\Application\BaseObject {
   /**
    * Validate if an command object is assigned
    *
-   * @return boolean
+   * @return bool
    */
   public function hasCommand() {
     return NULL !== $this->_command;

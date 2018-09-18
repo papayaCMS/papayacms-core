@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Option;
+
 /**
  * Generic definition and handling for alignment attribute values.
  *
@@ -21,23 +22,24 @@ namespace Papaya\UI\Option;
  * @subpackage UI
  */
 class Align {
-
   /**
    * Alignment left
    *
-   * @var integer
+   * @var int
    */
   const LEFT = 0;
+
   /**
    * Alignment center
    *
-   * @var integer
+   * @var int
    */
   const CENTER = 1;
+
   /**
    * Alignment right
    *
-   * @var integer
+   * @var int
    */
   const RIGHT = 2;
 
@@ -46,17 +48,17 @@ class Align {
    *
    * @var array
    */
-  private static $_alignAttributes = array(
+  private static $_alignAttributes = [
     self::LEFT => 'left',
     self::CENTER => 'center',
     self::RIGHT => 'right'
-  );
+  ];
 
   /**
    * Get the string representation of the alignment value for a xml attribute. If the align
    * argument is invalid it will return "left".
    *
-   * @param integer $align
+   * @param int $align
    * @return string
    */
   public static function getString($align) {
@@ -72,9 +74,9 @@ class Align {
    * An individual message for the exception can be provided, too.
    *
    * @throws \InvalidArgumentException
-   * @param integer $align
+   * @param int $align
    * @param string $message
-   * @return TRUE
+   * @return true
    */
   public static function validate($align, $message = NULL) {
     if (isset(self::$_alignAttributes[$align])) {
@@ -83,7 +85,7 @@ class Align {
       throw new \InvalidArgumentException($message);
     } else {
       throw new \InvalidArgumentException(
-        sprintf('InvalidArgumentException: Invalid align value "%d".', $align)
+        \sprintf('InvalidArgumentException: Invalid align value "%d".', $align)
       );
     }
   }

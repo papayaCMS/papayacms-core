@@ -15,8 +15,9 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
-use \Papaya\Content;
-use \Papaya\Database;
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Loads and returns the current counting of dependencies and references for an page id
  *
@@ -24,18 +25,17 @@ use \Papaya\Database;
  * @subpackage Administration
  */
 class Counter extends Database\BaseObject {
-
   /**
    * store page id
    *
-   * @var integer
+   * @var int
    */
   private $_pageId;
 
   /**
    * store loading status - for lazy loading
    *
-   * @var boolean
+   * @var bool
    */
   private $_loaded = FALSE;
 
@@ -44,15 +44,15 @@ class Counter extends Database\BaseObject {
    *
    * @var array('dependencies' => integer,'references' => integer)
    */
-  protected $_amounts = array(
+  protected $_amounts = [
     'dependencies' => 0,
     'references' => 0
-  );
+  ];
 
   /**
    * Create object, validate page id argument and store it
    *
-   * @param integer $pageId
+   * @param int $pageId
    */
   public function __construct($pageId) {
     \Papaya\Utility\Constraints::assertInteger($pageId);
@@ -62,7 +62,7 @@ class Counter extends Database\BaseObject {
   /**
    * Return dependencies count for current page. Triggers lazy loading.
    *
-   * @return integer
+   * @return int
    */
   public function getDependencies() {
     $this->lazyLoad();
@@ -72,7 +72,7 @@ class Counter extends Database\BaseObject {
   /**
    * Return references count for current page. Triggers lazy loading.
    *
-   * @return integer
+   * @return int
    */
   public function getReferences() {
     $this->lazyLoad();
@@ -82,13 +82,13 @@ class Counter extends Database\BaseObject {
   /**
    * Load countings for dependencies and references from database
    *
-   * @return integer
+   * @return int
    */
   public function load() {
-    $this->_amounts = array(
+    $this->_amounts = [
       'dependencies' => 0,
       'references' => 0
-    );
+    ];
     $sql = "SELECT 'dependencies' AS name, COUNT(*) counter
               FROM %1\\\$s
              WHERE topic_origin_id = %3\\\$d
@@ -97,11 +97,11 @@ class Counter extends Database\BaseObject {
               FROM %2\\\$s
              WHERE topic_source_id = %3\\\$d
                 OR topic_target_id = %3\\\$d";
-    $parameters = array(
+    $parameters = [
       $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
       $this->databaseGetTableName(Content\Tables::PAGE_REFERENCES),
       $this->_pageId
-    );
+    ];
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters)) {
       while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
         $this->_amounts[$row['name']] = $row['counter'];
@@ -133,7 +133,7 @@ class Counter extends Database\BaseObject {
   public function getLabel($separator = '/', $prefix = ' (', $suffix = ')') {
     $this->lazyLoad();
     $result = '';
-    if (array_sum($this->_amounts) > 0) {
+    if (\array_sum($this->_amounts) > 0) {
       $result .= $prefix;
       if ($this->_amounts['dependencies'] > 0) {
         $result .= $this->_amounts['dependencies'];

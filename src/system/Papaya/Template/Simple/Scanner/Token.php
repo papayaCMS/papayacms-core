@@ -14,41 +14,46 @@
  */
 
 namespace Papaya\Template\Simple\Scanner;
+
 /**
  * Scanner token of papaya simple template sytem.
  *
  * @package Papaya-Library
  * @subpackage Template
  *
- * @property-read integer $type
- * @property-read integer $offset
- * @property-read integer $length
+ * @property-read int $type
+ * @property-read int $offset
+ * @property-read int $length
  * @property-read string $content
  */
 class Token {
-
   const ANY = -1;
 
   const TEXT = 1;
+
   const WHITESPACE = 2;
 
   const COMMENT_START = 10;
+
   const COMMENT_END = 11;
 
   const VALUE_NAME = 20;
+
   const VALUE_DEFAULT = 21;
 
   private static $_tokenNames = NULL;
 
   private $_offset = 0;
+
   private $_type = self::TEXT;
+
   private $_content = '';
 
   /**
    * Validate constrcutor arguments and store them
    *
-   * @param integer $type
-   * @param integer $offset
+   * @param int $type
+   * @param int $offset
    * @param string $content
    * @throws \InvalidArgumentException
    */
@@ -59,7 +64,7 @@ class Token {
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Unknown token type "%d"', $type
         )
       );
@@ -78,7 +83,7 @@ class Token {
     // @codeCoverageIgnoreStart
     if (NULL == self::$_tokenNames) {
       $reflection = new \ReflectionClass(__CLASS__);
-      self::$_tokenNames = array_flip($reflection->getConstants());
+      self::$_tokenNames = \array_flip($reflection->getConstants());
     }
     // @codeCoverageIgnoreEnd
     return self::$_tokenNames;
@@ -95,13 +100,13 @@ class Token {
   /**
    * Return the type as a string, return NULL if it is an invalid type.
    *
-   * @param integer $type
-   * @return string|NULL
+   * @param int $type
+   * @return string|null
    */
   public static function getTypeString($type) {
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
-      return NULL;
+      return;
     }
     return $tokenTypes[$type];
   }
@@ -122,10 +127,10 @@ class Token {
       case 'content' :
         return $this->_content;
       case 'length' :
-        return strlen($this->_content);
+        return \strlen($this->_content);
     }
     throw new \LogicException(
-      sprintf('Unknown property: %s::$%s', __CLASS__, $name)
+      \sprintf('Unknown property: %s::$%s', __CLASS__, $name)
     );
   }
 

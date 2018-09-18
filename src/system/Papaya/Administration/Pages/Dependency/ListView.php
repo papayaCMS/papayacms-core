@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
-use \Papaya\Content;
-use \Papaya\UI;
-use \Papaya\XML;
-use \Papaya\Utility;
+use Papaya\Content;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
 
 /**
  * List view to show all dependencies for the specified origin page.
@@ -31,13 +31,14 @@ class ListView extends UI\ListView {
    * Origin page id, this will be different from the current page id, if the current page id
    * is a dependency of this page id
    *
-   * @var integer
+   * @var int
    */
   private $_originPageId;
+
   /**
    * Current page id, this can be the page of an existing page dependency or of the selected page
    *
-   * @var integer
+   * @var int
    */
   private $_currentPageId;
 
@@ -93,7 +94,7 @@ class ListView extends UI\ListView {
     $pageTitle = isset($pages[$this->_originPageId])
       ? $pages[$this->_originPageId]['title'] : '[...]';
     $this->caption = new UI\Text\Translated(
-      'Dependent pages of page "%s #%d"', array($pageTitle, $this->_originPageId)
+      'Dependent pages of page "%s #%d"', [$pageTitle, $this->_originPageId]
     );
     $this->columns[] = new UI\ListView\Column(
       new UI\Text\Translated('Page')
@@ -110,7 +111,7 @@ class ListView extends UI\ListView {
       new UI\Text\Translated('Modified'),
       UI\Option\Align::CENTER
     );
-    if (count($this->_dependencies) > 0) {
+    if (\count($this->_dependencies) > 0) {
       $this->items[] = $listitem = new UI\ListView\Item(
         'items-folder',
         new UI\Text\Translated('Dependencies')
@@ -118,7 +119,7 @@ class ListView extends UI\ListView {
       $listitem->subitems[] = new UI\ListView\SubItem\Image(
         'actions-go-superior',
         new UI\Text\Translated('Go to origin page'),
-        array('page_id' => $this->_originPageId)
+        ['page_id' => $this->_originPageId]
       );
       $listitem->subitems[] = new UI\ListView\SubItem\Text('');
       $listitem->subitems[] = new UI\ListView\SubItem\Text('');
@@ -126,7 +127,7 @@ class ListView extends UI\ListView {
         $this->items[] = $listitem = new UI\ListView\Item(
           'items-page',
           $dependency['title'].' #'.$dependency['id'],
-          array('page_id' => $dependency['id'])
+          ['page_id' => $dependency['id']]
         );
         $listitem->indentation = 1;
         if (!empty($dependency['note'])) {
@@ -144,7 +145,7 @@ class ListView extends UI\ListView {
         );
       }
     }
-    if (count($this->_references) > 0) {
+    if (\count($this->_references) > 0) {
       $this->items[] = $listitem = new UI\ListView\Item(
         'items-folder',
         new UI\Text\Translated('References')
@@ -154,11 +155,11 @@ class ListView extends UI\ListView {
         $this->items[] = $listitem = new UI\ListView\Item(
           'items-link',
           $reference['title'].' #'.$reference['target_id'],
-          array(
+          [
             'page_id' => $reference['source_id'],
             'target_id' => $reference['target_id'],
             'cmd' => 'reference_change'
-          )
+          ]
         );
         $listitem->indentation = 1;
         if (!empty($reference['note'])) {
@@ -166,19 +167,19 @@ class ListView extends UI\ListView {
         }
         $listitem->selected = \in_array(
           $this->parameters()->get('target_id'),
-          array($reference['source_id'], $reference['target_id']),
+          [$reference['source_id'], $reference['target_id']],
           FALSE
         );
         $listitem->subitems[] = new UI\ListView\SubItem\Image(
           'items-page',
           new UI\Text\Translated(
-            'Go to page %s #%d', array($reference['title'], $reference['target_id'])
+            'Go to page %s #%d', [$reference['title'], $reference['target_id']]
           ),
-          array(
+          [
             'page_id' => $reference['target_id'],
             'target_id' => $reference['source_id'],
             'cmd' => 'reference_change'
-          )
+          ]
         );
         $listitem->subitems[] = new UI\ListView\SubItem\Text('');
         $listitem->subitems[] = new UI\ListView\SubItem\Date(
@@ -192,14 +193,14 @@ class ListView extends UI\ListView {
    * Append listview to parent element if it has records.
    *
    * @param XML\Element $parent
-   * @return NULL|XML\Element
+   * @return null|XML\Element
    */
   public function appendTo(XML\Element $parent) {
-    if (count($this->_dependencies) > 0 || count($this->_references) > 0) {
+    if (\count($this->_dependencies) > 0 || \count($this->_references) > 0) {
       $this->prepare();
       return parent::appendTo($parent);
     }
-    return NULL;
+    return;
   }
 
   /**

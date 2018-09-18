@@ -26,7 +26,6 @@ namespace Papaya\Template\Engine;
  * @subpackage Template
  */
 class XSLT extends \Papaya\Template\Engine {
-
   /**
    * Transformation result buffer
    *
@@ -51,7 +50,7 @@ class XSLT extends \Papaya\Template\Engine {
   /**
    * Allow to use ext/xslcache e.g. cached xslt bytecode
    *
-   * @var boolean
+   * @var bool
    */
   private $_useCache = TRUE;
 
@@ -88,14 +87,14 @@ class XSLT extends \Papaya\Template\Engine {
    */
   public function setTemplateFile($fileName) {
     if (
-      file_exists($fileName) &&
-      is_file($fileName) &&
-      is_readable($fileName)
+      \file_exists($fileName) &&
+      \is_file($fileName) &&
+      \is_readable($fileName)
     ) {
       $this->_templateFile = $fileName;
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'File "%s" not found or not readable.', $fileName
         )
       );
@@ -108,12 +107,12 @@ class XSLT extends \Papaya\Template\Engine {
    *
    * The function will return TRUE if the cache will be used.
    *
-   * @param boolean|NULL $use
-   * @return boolean
+   * @param bool|null $use
+   * @return bool
    */
   public function useCache($use = NULL) {
     if (NULL !== $use) {
-      if ($use && class_exists('XsltCache', FALSE)) {
+      if ($use && \class_exists('XsltCache', FALSE)) {
         $this->_useCache = TRUE;
       } else {
         $this->_useCache = FALSE;
@@ -133,7 +132,7 @@ class XSLT extends \Papaya\Template\Engine {
    * @param \XsltCache|\XsltProcessor $processor
    */
   public function setProcessor($processor) {
-    \Papaya\Utility\Constraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
+    \Papaya\Utility\Constraints::assertInstanceOf(['XsltProcessor', 'XsltCache'], $processor);
     $this->_processor = $processor;
   }
 
@@ -145,13 +144,13 @@ class XSLT extends \Papaya\Template\Engine {
   public function getProcessor() {
     if (NULL === $this->_processor) {
       if ($this->_useCache &&
-        class_exists('XsltCache', FALSE)) {
+        \class_exists('XsltCache', FALSE)) {
         $this->_processor = new \XsltCache();
       } else {
         $this->_processor = new \XsltProcessor();
       }
       $this->_processor->registerPHPFunctions(
-        array(__CLASS__.'::parseXML')
+        [__CLASS__.'::parseXML']
       );
     }
     return $this->_processor;
@@ -182,7 +181,7 @@ class XSLT extends \Papaya\Template\Engine {
    * Load xsl file into processor
    *
    * @throws \Papaya\XML\Exception
-   * @return TRUE
+   * @return true
    */
   public function prepare() {
     $errors = $this->getErrorHandler();
@@ -221,10 +220,10 @@ class XSLT extends \Papaya\Template\Engine {
     $errors->activate();
     foreach ($this->parameters as $name => $value) {
       if (
-        FALSE !== strpos($value, '"') &&
-        FALSE !== strpos($value, "'")
+        FALSE !== \strpos($value, '"') &&
+        FALSE !== \strpos($value, "'")
       ) {
-        $value = str_replace("'", "\xE2\x80\x99", $value);
+        $value = \str_replace("'", "\xE2\x80\x99", $value);
       }
       $this->_processor->setParameter('', $name, $value);
     }
@@ -261,12 +260,12 @@ class XSLT extends \Papaya\Template\Engine {
   public static function parseXML($xmlString) {
     $errors = new \Papaya\Xml\Errors();
     return $errors->encapsulate(
-      function ($xmlString) {
+      function($xmlString) {
         $document = new \Papaya\XML\Document();
         $document->loadXML($xmlString);
         return $document;
       },
-      array($xmlString),
+      [$xmlString],
       FALSE
     );
   }

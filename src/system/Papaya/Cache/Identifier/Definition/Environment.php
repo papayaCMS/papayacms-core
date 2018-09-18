@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
+
 /**
  * Request parameters are used to create cache condition data.
  *
@@ -22,7 +23,6 @@ namespace Papaya\Cache\Identifier\Definition;
  */
 class Environment
   implements \Papaya\Cache\Identifier\Definition {
-
   private $_name;
 
   /**
@@ -40,19 +40,19 @@ class Environment
    * If the environment variable is empty, it is not relevant for the cache identifier so return
    * TRUE. In all other cases return the name of the variable and the value
    *
-   * @return TRUE|array
+   * @return true|array
    */
   public function getStatus() {
     return empty($_SERVER[$this->_name])
       ? TRUE
-      : array(get_class($this) => array($this->_name => $_SERVER[$this->_name]));
+      : [\get_class($this) => [$this->_name => $_SERVER[$this->_name]]];
   }
 
   /**
    * Any kind of data from the request environment
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_REQUEST;

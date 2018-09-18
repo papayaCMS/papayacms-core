@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI;
+
 /**
  * Papaya Interface String, an object representing a text for interface usage.
  *
@@ -24,7 +25,6 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 class Text extends \Papaya\Application\BaseObject {
-
   /**
    * String pattern
    *
@@ -37,14 +37,14 @@ class Text extends \Papaya\Application\BaseObject {
    *
    * @var array
    */
-  protected $_values = array();
+  protected $_values = [];
 
   /**
    * Buffered/cached result string
    *
    * @var string
    */
-  protected $_string = NULL;
+  protected $_string;
 
   /**
    * Create object and store arguments into variables
@@ -52,7 +52,7 @@ class Text extends \Papaya\Application\BaseObject {
    * @param $pattern
    * @param $values
    */
-  public function __construct($pattern, array $values = array()) {
+  public function __construct($pattern, array $values = []) {
     \Papaya\Utility\Constraints::assertString($pattern);
     \Papaya\Utility\Constraints::assertNotEmpty($pattern);
     $this->_pattern = $pattern;
@@ -65,7 +65,7 @@ class Text extends \Papaya\Application\BaseObject {
    * return string
    */
   public function __toString() {
-    if (is_null($this->_string)) {
+    if (\is_null($this->_string)) {
       $this->_string = $this->compile($this->_pattern, $this->_values);
     }
     return $this->_string;
@@ -79,8 +79,8 @@ class Text extends \Papaya\Application\BaseObject {
    * @return string
    */
   protected function compile($pattern, $values) {
-    if (count($values) > 0) {
-      return vsprintf($pattern, $values);
+    if (\count($values) > 0) {
+      return \vsprintf($pattern, $values);
     } else {
       return $pattern;
     }

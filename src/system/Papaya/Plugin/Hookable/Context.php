@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Hookable;
+
 /**
  * An context for an hookable plugin. Meaning that the current object provides context data
  * to the plugin. Like itself or another object and data in an parameters object
@@ -22,21 +23,21 @@ namespace Papaya\Plugin\Hookable;
  * @subpackage Plugins
  */
 class Context {
+  /**
+   * @var null|object
+   */
+  private $_parent;
 
   /**
-   * @var NULL|object
+   * @var null|\Papaya\Plugin\Editable\Content
    */
-  private $_parent = NULL;
-  /**
-   * @var NULL|\Papaya\Plugin\Editable\Content
-   */
-  private $_data = NULL;
+  private $_data;
 
   /**
    * Create the context with data
    *
    * @param object $parent
-   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
+   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|null $data
    */
   public function __construct($parent = NULL, $data = NULL) {
     if (isset($parent)) {
@@ -55,10 +56,8 @@ class Context {
     return isset($this->_parent);
   }
 
-
   /**
    * Return the parent object if it was provided
-   *
    */
   public function getParent() {
     if (NULL === $this->_parent) {
@@ -72,7 +71,7 @@ class Context {
    * be set a new context data, if an array or \Traversable ist provided a new editable content will be created an the
    * data assigned.
    *
-   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
+   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|null $data
    * @return \Papaya\Plugin\Editable\Content
    */
   public function data($data = NULL) {

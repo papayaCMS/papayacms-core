@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Community;
+
 /**
  * Provide data encapsulation for the  surfer user records.
  *
@@ -21,8 +22,7 @@ namespace Papaya\Content\Community;
  * @subpackage Content
  */
 class Users extends \Papaya\Database\Records {
-
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'surfer_id',
     'group_id' => 'surfergroup_id',
     'handle' => 'surfer_handle',
@@ -31,13 +31,13 @@ class Users extends \Papaya\Database\Records {
     'surname' => 'surfer_surname',
     'email' => 'surfer_email',
     'status' => 'surfer_status'
-  );
+  ];
 
-  protected $_orderByFields = array(
+  protected $_orderByFields = [
     'surfer_surname' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'surfer_givenname' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'surfer_email' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::COMMUNITY_USER;
 
@@ -48,16 +48,16 @@ class Users extends \Papaya\Database\Records {
    * @param string $prefix
    * @return string
    */
-  public function _compileCondition($filter, $prefix = " WHERE ") {
+  public function _compileCondition($filter, $prefix = ' WHERE ') {
     if (!isset($filter['filter'])) {
       return parent::_compileCondition($filter, $prefix);
     } else {
       $search = "'%".$this->getDatabaseAccess()->escapeString($filter['filter'])."%'";
-      $condition = sprintf(
+      $condition = \sprintf(
         '(surfer_givenname LIKE %1$s OR surfer_surname LIKE %1$s OR surfer_email LIKE %1$s)',
         $search
       );
-      return $prefix.$condition.parent::_compileCondition($filter, " AND ");
+      return $prefix.$condition.parent::_compileCondition($filter, ' AND ');
     }
   }
 
@@ -68,9 +68,9 @@ class Users extends \Papaya\Database\Records {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMappingFieldsToProperties = array(
+    $mapping->callbacks()->onAfterMappingFieldsToProperties = [
       $this, 'callbackAfterMappingFieldsToProperties'
-    );
+    ];
     return $mapping;
   }
 

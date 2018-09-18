@@ -15,7 +15,8 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
-use \Papaya\UI;
+use Papaya\UI;
+
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
  *
@@ -24,7 +25,6 @@ use \Papaya\UI;
  */
 class Change
   extends UI\Control\Command\Dialog\Database\Record {
-
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
@@ -48,11 +48,11 @@ class Change
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());
     $dialog->hiddenFields()->merge(
-      array(
+      [
         'cmd' => 'skin_edit',
         'theme' => $this->parameters()->get('theme', ''),
         'skin_id' => $skinId
-      )
+      ]
     );
     $dialog->caption = new UI\Text\Translated($dialogCaption);
     $dialog->fields[] = $field = new UI\Dialog\Field\Input(
@@ -66,12 +66,12 @@ class Change
       $this->papaya()->messages->displayInfo('Theme skin saved.');
     };
     $this->callbacks()->onExecuteFailed = function(
-      /** @noinspection PhpUnusedParameterInspection */
+      /* @noinspection PhpUnusedParameterInspection */
       $context, UI\Dialog $dialog
     ) {
       $this->papaya()->messages->displayError(
         'Invalid input. Please check the field(s) "%s".',
-        [implode(', ', $dialog->errors()->getSourceCaptions())]
+        [\implode(', ', $dialog->errors()->getSourceCaptions())]
       );
     };
     return $dialog;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Condition;
+
 /**
  * A command condition testing a request parameter.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Control\Command\Condition;
  * @subpackage UI
  */
 class Parameter extends \Papaya\UI\Control\Command\Condition {
-
   /**
    * The parameter name
    *
@@ -51,7 +51,7 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
    * Validate the condition by fetch the parameter value and filtering it. If it is not NULL
    * it is a usable value.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return NULL !== $this->_filter->filter(

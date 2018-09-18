@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that validates if all values in a given are in another predefined list
  *
@@ -26,11 +27,10 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class ArrayValues implements \Papaya\Filter {
-
   /**
    * elements list
    *
-   * @var integer
+   * @var int
    */
   private $_list;
 
@@ -49,14 +49,14 @@ class ArrayValues implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param mixed $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!is_array($value)) {
+    if (!\is_array($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('array');
     }
     foreach ($value as $element) {
-      if (!in_array($element, $this->_list, FALSE)) {
+      if (!\in_array($element, $this->_list, FALSE)) {
         throw new \Papaya\Filter\Exception\NotIncluded($element);
       }
     }
@@ -70,9 +70,9 @@ class ArrayValues implements \Papaya\Filter {
    * @return array
    */
   public function filter($value) {
-    $result = array();
+    $result = [];
     foreach ((array)$value as $element) {
-      $index = array_search($element, $this->_list, FALSE);
+      $index = \array_search($element, $this->_list, FALSE);
       if (0 === $index || $index > 0) {
         $result[] = $this->_list[$index];
       }

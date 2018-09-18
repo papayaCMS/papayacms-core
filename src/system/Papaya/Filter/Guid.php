@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for using a guid - a 16byte hexadecimal string
  *
@@ -21,9 +22,7 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Guid extends \Papaya\Filter\RegEx {
-
   public function __construct() {
     parent::__construct('(^[a-f-A-F\d]{32}$)D');
   }
-
 }

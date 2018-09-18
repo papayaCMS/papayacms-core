@@ -14,64 +14,77 @@
  */
 
 namespace Papaya\UI\Link;
+
 /**
  * An control part that append link attributes like class, target and a popup configuration to
  * an parent xml element.
  *
  * @property string $class
  * @property string $target
- * @property boolean $isPopup
+ * @property bool $isPopup
  * @property string $popupWidth
  * @property string $popupHeight
  * @property string $popupTop
  * @property string $popupLeft
- * @property integer $popupOptions
+ * @property int $popupOptions
  *
  * @package Papaya-Library
  * @subpackage UI
  */
 class Attributes extends \Papaya\UI\Control\Part {
-
   const OPTION_RESIZEABLE = 1;
+
   const OPTION_SCROLLBARS_AUTO = 2;
+
   const OPTION_SCROLLBARS_ALWAYS = 4;
+
   const OPTION_SCROLLBARS_NEVER = 8;
+
   const OPTION_TOOLBAR = 16;
+
   const OPTION_MENUBAR = 32;
+
   const OPTION_LOCATIONBAR = 64;
+
   const OPTION_STATUSBAR = 128;
 
   protected $_class = '';
+
   protected $_target = '_self';
 
   protected $_isPopup = FALSE;
+
   protected $_popupWidth = '50%';
+
   protected $_popupHeight = '50%';
+
   protected $_popupTop;
+
   protected $_popupLeft;
+
   protected $_popupOptions = self::OPTION_SCROLLBARS_NEVER;
 
-  private $_attributeNames = array(
+  private $_attributeNames = [
     'class' => 'class',
     'target' => 'target',
     'popup' => 'data-popup'
-  );
+  ];
 
-  protected $_declaredProperties = array(
-    'class' => array('_class', '_class'),
-    'target' => array('_target', '_target'),
-    'isPopup' => array('isPopup'),
-    'popupWidth' => array('_popupWidth', '_popupWidth'),
-    'popupHeight' => array('_popupHeight', '_popupHeight'),
-    'popupTop' => array('_popupTop', '_popupTop'),
-    'popupLeft' => array('_popupLeft', '_popupLeft'),
-    'popupOptions' => array('_popupOptions', 'setPopupOptions')
-  );
+  protected $_declaredProperties = [
+    'class' => ['_class', '_class'],
+    'target' => ['_target', '_target'],
+    'isPopup' => ['isPopup'],
+    'popupWidth' => ['_popupWidth', '_popupWidth'],
+    'popupHeight' => ['_popupHeight', '_popupHeight'],
+    'popupTop' => ['_popupTop', '_popupTop'],
+    'popupLeft' => ['_popupLeft', '_popupLeft'],
+    'popupOptions' => ['_popupOptions', 'setPopupOptions']
+  ];
 
   /**
    * Return true if the attribute contain a popup configuration
    *
-   * @return boolean
+   * @return bool
    */
   public function isPopup() {
     return $this->_isPopup;
@@ -90,11 +103,11 @@ class Attributes extends \Papaya\UI\Control\Part {
    * Set the basic data for a popup
    *
    * @param string $target
-   * @param string|integer $width
-   * @param string|integer $height
-   * @param string|integer $top
-   * @param string|integer $left
-   * @param integer $options
+   * @param string|int $width
+   * @param string|int $height
+   * @param string|int $top
+   * @param string|int $left
+   * @param int $options
    */
   public function setPopup($target, $width, $height, $top = NULL, $left = NULL, $options = NULL) {
     $this->_isPopup = TRUE;
@@ -112,7 +125,7 @@ class Attributes extends \Papaya\UI\Control\Part {
    * Validate and set the popup options bitmask. This will throw an exception if
    * more then one scrollbars option is set.
    *
-   * @param integer $options
+   * @param int $options
    * @throws \InvalidArgumentException
    */
   public function setPopupOptions($options) {
@@ -135,10 +148,10 @@ class Attributes extends \Papaya\UI\Control\Part {
    * @return array
    */
   public function getPopupOptionsArray() {
-    $data = array(
+    $data = [
       'width' => $this->_popupWidth,
       'height' => $this->_popupHeight
-    );
+    ];
     if (NULL !== $this->_popupTop) {
       $data['top'] = $this->_popupTop;
     }
@@ -178,7 +191,7 @@ class Attributes extends \Papaya\UI\Control\Part {
     }
     if ($this->isPopup()) {
       $parent->setAttribute(
-        $this->_attributeNames['popup'], json_encode($this->getPopupOptionsArray())
+        $this->_attributeNames['popup'], \json_encode($this->getPopupOptionsArray())
       );
     }
     return $parent;

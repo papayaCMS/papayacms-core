@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parameter;
+
 /**
  * Encapsulate an uploaded file.
  *
@@ -21,14 +22,13 @@ namespace Papaya\Request\Parameter;
  * @subpackage Request
  */
 class File implements \ArrayAccess, \IteratorAggregate {
-
-  private $_values = array(
+  private $_values = [
     'temporary' => NULL,
     'name' => '',
     'type' => 'application/octet-stream',
     'size' => 0,
     'error' => 0
-  );
+  ];
 
   /**
    * @var \Papaya\Request\Parameters\Name
@@ -37,7 +37,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
 
   private $_loaded = FALSE;
 
-  private $_fileSystem = NULL;
+  private $_fileSystem;
 
   /**
    * Create file object, provide name and group
@@ -76,7 +76,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
   /**
    * Return TRUE if here is an temporary uploaded file
    *
-   * @return boolean
+   * @return bool
    */
   public function isValid() {
     $this->lazyFetch();
@@ -98,11 +98,11 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @see \ArrayAccess::offsetExists()
    */
   public function offsetExists($offset) {
-    if ($offset == 'temporary') {
+    if ('temporary' == $offset) {
       $this->lazyFetch();
       return isset($this->_values['temporary']);
     }
-    return array_key_exists($offset, $this->_values);
+    return \array_key_exists($offset, $this->_values);
   }
 
   /**
@@ -138,7 +138,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    */
   private function lazyFetch() {
     if (!$this->_loaded) {
-      if (count($this->getName())) {
+      if (\count($this->getName())) {
         $temporaryFile = $this->fetchValue('tmp_name');
         if (!empty($temporaryFile) &&
           $this->fileSystem()->getFile($temporaryFile)->isUploadedFile()) {
@@ -158,7 +158,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
   private function fetchValue($key, $default = NULL) {
     $name = clone $this->getName();
     $name->insertBefore(1, $key);
-    return \Papaya\Utility\Arrays::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
+    return \Papaya\Utility\Arrays::getRecursive($_FILES, \iterator_to_array($name, FALSE), $default);
   }
 
   /**

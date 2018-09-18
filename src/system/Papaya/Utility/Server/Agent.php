@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Server;
+
 /**
  * Static utility Class to identify robots by useragent strings
  *
@@ -21,22 +22,21 @@ namespace Papaya\Utility\Server;
  * @subpackage Util
  */
 class Agent {
-
   /**
    * If it contains one of these substrings it is not an robot
    *
    * @var array
    */
-  private static $_agents = array(
+  private static $_agents = [
     'Lynx', 'FirePHP'
-  );
+  ];
 
   /**
    * If it contains one of these substrings it is an robot
    *
    * @var array
    */
-  private static $_robots = array(
+  private static $_robots = [
     ':robot', 'AOLpress', 'ASPSeek', 'ASPseek', 'Anonymouse.org', 'Ask Jeeves',
     'AvantGo', 'BSDSeek', 'BilgiBot', 'Bimbot', 'BladeRunner', 'Blaiz-Bee',
     'BlitzBOT', 'BlogBot', 'Bloglines', 'Bookmark-Manager', 'Bot42', 'CCC-178_8',
@@ -105,12 +105,12 @@ class Agent {
     'webcollage', 'webmeasurement-bot', 'www.adressendeutschland.de',
     'www.anonymous.com', 'www.walhello.com', 'wwwster', 'yacy.net', 'yahoo.com',
     'zero-knowledge', 'flash mediaserver'
-  );
+  ];
 
   /**
    * Cache for robot identifications (true/false)
    */
-  private static $_cache = array();
+  private static $_cache = [];
 
   /**
    * Fetch the user agent from $_SERVER['HTTP_USER_AGENT'].
@@ -132,8 +132,8 @@ class Agent {
    * for the checks.
    *
    * @param string $userAgent
-   * @param boolean $useCache
-   * @param boolean
+   * @param bool $useCache
+   * @param bool
    * @return bool
    */
   public static function isRobot($userAgent = '', $useCache = TRUE) {
@@ -156,7 +156,7 @@ class Agent {
    * robots.
    *
    * @param string $userAgent
-   * @param boolean
+   * @param bool
    * @return bool
    */
   private static function _checkAgentIsRobot($userAgent) {
@@ -171,11 +171,11 @@ class Agent {
    *
    * @param string $userAgent
    * @param array $list
-   * @return boolean
+   * @return bool
    */
   private static function _checkAgainstList($userAgent, $list) {
     foreach ($list as $pattern) {
-      if (strpos($userAgent, $pattern) !== FALSE) {
+      if (FALSE !== \strpos($userAgent, $pattern)) {
         return TRUE;
       }
     }

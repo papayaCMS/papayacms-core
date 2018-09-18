@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\Filter;
+
 /**
  * An filter iterator to filter an given iterator using a pcre pattern.
  *
@@ -24,13 +25,16 @@ namespace Papaya\Iterator\Filter;
  * @subpackage Iterator
  */
 class RegEx extends \FilterIterator {
-
   const FILTER_VALUES = 1;
+
   const FILTER_KEYS = 2;
+
   const FILTER_BOTH = 3;
 
   private $_pattern = '';
+
   private $_offset = 0;
+
   private $_target = self::FILTER_VALUES;
 
   /**
@@ -38,8 +42,8 @@ class RegEx extends \FilterIterator {
    *
    * @param \Iterator $iterator
    * @param string $pattern
-   * @param integer $offset
-   * @param integer $target
+   * @param int $offset
+   * @param int $target
    */
   public function __construct(
     \Iterator $iterator, $pattern, $offset = 0, $target = self::FILTER_VALUES
@@ -56,7 +60,7 @@ class RegEx extends \FilterIterator {
   /**
    * Validate the current item and/or key using the regex pattern.
    *
-   * @return boolean
+   * @return bool
    */
   public function accept() {
     if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
@@ -77,7 +81,7 @@ class RegEx extends \FilterIterator {
    * @return int
    */
   private function isMatch($value) {
-    $matches = array();
-    return preg_match($this->_pattern, (string)$value, $matches, 0, $this->_offset);
+    $matches = [];
+    return \preg_match($this->_pattern, (string)$value, $matches, 0, $this->_offset);
   }
 }

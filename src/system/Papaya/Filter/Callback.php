@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that uses a callback function to validate the value
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Callback implements \Papaya\Filter {
-
   /**
    * callback function or method
    *
@@ -34,7 +34,7 @@ class Callback implements \Papaya\Filter {
    *
    * @var string
    */
-  private $_arguments = array();
+  private $_arguments = [];
 
   /**
    * Construct object and initialize function name and optional arguments.
@@ -46,7 +46,7 @@ class Callback implements \Papaya\Filter {
    * @param \Callback $callback
    * @param array $arguments
    */
-  public function __construct($callback, array $arguments = array()) {
+  public function __construct($callback, array $arguments = []) {
     $this->_callback = $callback;
     $this->_arguments = $arguments;
   }
@@ -57,13 +57,13 @@ class Callback implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     $this->_isCallback($this->_callback);
     $arguments = $this->_arguments;
-    array_unshift($arguments, $value);
-    if (!call_user_func_array($this->_callback, $arguments)) {
+    \array_unshift($arguments, $value);
+    if (!\call_user_func_array($this->_callback, $arguments)) {
       throw new \Papaya\Filter\Exception\FailedCallback($this->_callback);
     }
     return TRUE;
@@ -73,14 +73,14 @@ class Callback implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 
@@ -91,7 +91,7 @@ class Callback implements \Papaya\Filter {
    * @throws \Papaya\Filter\Exception\InvalidCallback
    */
   public function _isCallback($callback) {
-    if (!is_callable($callback)) {
+    if (!\is_callable($callback)) {
       throw new \Papaya\Filter\Exception\InvalidCallback($callback);
     }
   }

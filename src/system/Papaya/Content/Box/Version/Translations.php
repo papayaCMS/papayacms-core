@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Box\Version;
+
 /**
  * Provide data encapsulation for the content box version translations list.
  *
@@ -24,55 +25,53 @@ namespace Papaya\Content\Box\Version;
  * @subpackage Content
  */
 class Translations extends \Papaya\Database\BaseObject\Records {
-
-
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'box_id' => 'id',
     'lng_id' => 'language_id',
     'box_title' => 'title',
     'box_trans_modified' => 'modified',
     'view_title' => 'view'
-  );
+  ];
 
   protected $_translationsTableName = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
 
   /**
    * Load translation list informations
    *
-   * @param integer $boxId
-   * @return boolean
+   * @param int $boxId
+   * @return bool
    */
   public function load($boxId) {
-    $sql = "SELECT bt.box_id, bt.lng_id, bt.box_trans_modified,
+    $sql = 'SELECT bt.box_id, bt.lng_id, bt.box_trans_modified,
                    bt.topic_title,
                    v.view_title
               FROM %s bt
               LEFT OUTER JOIN %s v ON (v.view_id = bt.view_id)
-             WHERE tt.box_id = %d";
-    $parameters = array(
+             WHERE tt.box_id = %d';
+    $parameters = [
       $this->databaseGetTableName($this->_translationsTableName),
       $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$boxId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
   }
 
   /**
    * Get a detail object for a single translation.
    *
-   * @param integer $boxId
-   * @param integer $languageId
+   * @param int $boxId
+   * @param int $languageId
    * @return \Papaya\Content\Box\Translation
    */
   public function getTranslation($boxId, $languageId) {
     $result = new \Papaya\Content\Box\Version\Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
-    $result->load(array($boxId, $languageId));
+    $result->load([$boxId, $languageId]);
     return $result;
   }
 }

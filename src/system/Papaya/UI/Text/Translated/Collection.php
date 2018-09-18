@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Text\Translated;
+
 /**
  * A list of string (objects) that will be translated if cast to string.
  *
@@ -26,30 +27,29 @@ namespace Papaya\UI\Text\Translated;
 class Collection
   extends \IteratorIterator
   implements \Papaya\Application\Access {
-
   /**
    * @var \Papaya\Phrases
    */
-  private $_phrases = NULL;
+  private $_phrases;
 
   /**
    * @var string
    */
-  private $_phrasesGroupName = NULL;
+  private $_phrasesGroupName;
 
   /**
    * Application object
    *
    * @var string
    */
-  protected $_applicationObject = NULL;
+  protected $_applicationObject;
 
   /**
    * Create object and store traversable as iterator
    *
    * @param array|\Traversable $traversable
    * @param \Papaya\Phrases $phrases
-   * @param NULL $groupName
+   * @param null $groupName
    */
   public function __construct($traversable, \Papaya\Phrases $phrases = NULL, $groupName = NULL) {
     parent::__construct(new \Papaya\Iterator\TraversableIterator($traversable));
@@ -66,7 +66,7 @@ class Collection
   public function current() {
     $current = new \Papaya\UI\Text\Translated(
       (string)parent::current(),
-      array(),
+      [],
       $this->_phrases,
       $this->_phrasesGroupName
     );

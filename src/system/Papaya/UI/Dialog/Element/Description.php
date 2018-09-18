@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Element;
+
 /**
  * Superclass for dialog element description. In the most cases this is a separate page opened
  * directly or in an popup, so it needs a reference
@@ -26,7 +27,6 @@ namespace Papaya\UI\Dialog\Element;
  * @codeCoverageIgnore
  */
 class Description extends \Papaya\UI\Control\Collection {
-
   protected $_itemClass = Description\Item::class;
 
   protected $_tagName = 'description';

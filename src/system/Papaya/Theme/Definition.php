@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Theme;
+
 /**
  * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
  *
@@ -30,13 +31,12 @@ namespace Papaya\Theme;
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
 class Definition extends \Papaya\Content\Structure {
-
   /**
    * Theme data
    *
    * @var array
    */
-  private $_properties = array(
+  private $_properties = [
     'name' => '',
     'title' => '',
     'version' => '',
@@ -44,17 +44,17 @@ class Definition extends \Papaya\Content\Structure {
     'author' => '',
     'description' => '',
     'template_path' => ''
-  );
+  ];
 
   /**
    * Theme thunbnails
    *
    * @var array
    */
-  private $_thumbnails = array(
+  private $_thumbnails = [
     'medium' => '',
     'large' => ''
-  );
+  ];
 
   /**
    * Load theme data from an xml file
@@ -65,7 +65,7 @@ class Definition extends \Papaya\Content\Structure {
     $dom = new \Papaya\XML\Document();
     $dom->load($location);
     $xpath = $dom->xpath();
-    $this->_properties['name'] = basename(dirname($location));
+    $this->_properties['name'] = \basename(\dirname($location));
     $this->_properties['title'] = $xpath->evaluate('string(/papaya-theme/name)');
     $this->_properties['version'] = $xpath->evaluate('string(/papaya-theme/version/@number)');
     $this->_properties['version_date'] = $xpath->evaluate('string(/papaya-theme/version/@date)');
@@ -97,16 +97,15 @@ class Definition extends \Papaya\Content\Structure {
     $identifier = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
-    } elseif ($identifier == 'thumbnails') {
+    } elseif ('thumbnails' == $identifier) {
       return $this->_thumbnails;
     }
     throw new \UnexpectedValueException(
-      sprintf(
+      \sprintf(
         'Can not read unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
   }
-
 }

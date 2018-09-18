@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for that displays the maximum character left to input using javascript.
  *
@@ -21,12 +22,10 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @subpackage UI
  */
 class Counted extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
    * @var string
    */
   protected $_type = 'counted';
-
 }

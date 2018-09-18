@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A select field (dropdown) based on a list of values, one value can be selected
  *
@@ -21,8 +22,8 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Select extends \Papaya\UI\Dialog\Field {
-
   const VALUE_USE_KEY = 0;
+
   const VALUE_USE_CAPTION = 1;
 
   private $_valueMode = self::VALUE_USE_KEY;
@@ -39,7 +40,7 @@ class Select extends \Papaya\UI\Dialog\Field {
    *
    * @var array
    */
-  protected $_values = array();
+  protected $_values = [];
 
   /**
    * type of the select control, used in the xslt template
@@ -78,7 +79,7 @@ class Select extends \Papaya\UI\Dialog\Field {
   /**
    * Set the value mode, allow to use keys or captions, this will reset the filter, too.
    *
-   * @param integer $mode
+   * @param int $mode
    */
   public function setValueMode($mode) {
     \Papaya\Utility\Constraints::assertInteger($mode);
@@ -89,7 +90,7 @@ class Select extends \Papaya\UI\Dialog\Field {
   /**
    * Return the current value mode
    *
-   * @return integer
+   * @return int
    */
   public function getValueMode() {
     return $this->_valueMode;
@@ -123,7 +124,7 @@ class Select extends \Papaya\UI\Dialog\Field {
     if ($values instanceof \RecursiveIterator) {
       $values = new \RecursiveIteratorIterator($values);
     }
-    if ($this->getValueMode() === self::VALUE_USE_KEY) {
+    if (self::VALUE_USE_KEY === $this->getValueMode()) {
       return new \Papaya\Filter\ArrayKey($values);
     }
     return new \Papaya\Filter\ArrayElement($values);
@@ -154,10 +155,10 @@ class Select extends \Papaya\UI\Dialog\Field {
   protected function _appendSelect(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       'select',
-      array(
+      [
         'name' => $this->_getParameterName($this->getName()),
         'type' => $this->_type,
-      )
+      ]
     );
   }
 
@@ -193,7 +194,7 @@ class Select extends \Papaya\UI\Dialog\Field {
     $caption = empty($caption) ? (string)$option : $caption;
     return $parent->appendElement(
       'group',
-      array('caption' => $caption)
+      ['caption' => $caption]
     );
   }
 
@@ -209,12 +210,12 @@ class Select extends \Papaya\UI\Dialog\Field {
   protected function _appendOption(\Papaya\XML\Element $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
-    $value = ($this->getValueMode() === self::VALUE_USE_KEY) ? $index : $caption;
+    $value = (self::VALUE_USE_KEY === $this->getValueMode()) ? $index : $caption;
     $node = $parent->appendElement(
       'option',
-      array(
+      [
         'value' => (string)$value
-      ),
+      ],
       $caption
     );
     if ($this->_isOptionSelected($this->getCurrentValue(), $value)) {
@@ -224,7 +225,7 @@ class Select extends \Papaya\UI\Dialog\Field {
     if (!empty($data)) {
       foreach ($data as $name => $attrValue) {
         $node->setAttribute(
-          'data-'.$name, is_scalar($attrValue) ? $attrValue : json_encode($attrValue)
+          'data-'.$name, \is_scalar($attrValue) ? $attrValue : \json_encode($attrValue)
         );
       }
     }

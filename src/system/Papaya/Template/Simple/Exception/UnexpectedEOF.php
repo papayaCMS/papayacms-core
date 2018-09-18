@@ -16,18 +16,17 @@
 namespace Papaya\Template\Simple\Exception;
 
 class UnexpectedEOF extends \Papaya\Template\Simple\Exception\Parser {
-
   public function __construct(array $expectedTokens) {
     $this->expectedTokens = $expectedTokens;
 
-    $expectedTokenStrings = array();
+    $expectedTokenStrings = [];
     foreach ($expectedTokens as $expectedToken) {
       $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(
       'Parse error: Unexpected end of file was found while one of '.
-      implode(", ", $expectedTokenStrings).' was expected.'
+      \implode(', ', $expectedTokenStrings).' was expected.'
     );
   }
 }

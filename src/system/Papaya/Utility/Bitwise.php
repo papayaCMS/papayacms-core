@@ -14,19 +14,19 @@
  */
 
 namespace Papaya\Utility;
-class Bitwise {
 
+class Bitwise {
   public static function inBitmask($bit, $bitmask) {
     return ($bitmask & $bit) === (int)$bit;
   }
 
   /**
-   * @param integer ,... $bit
+   * @param int ,... $bit
    * @return int
    */
   public static function union() {
     $result = 0;
-    foreach (func_get_args() as $bit) {
+    foreach (\func_get_args() as $bit) {
       $result |= $bit;
     }
     return $result;

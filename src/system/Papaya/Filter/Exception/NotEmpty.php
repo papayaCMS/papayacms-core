@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a value is not considered empty.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class NotEmpty extends \Papaya\Filter\Exception {
-
   /**
    * Construct object with value informations
    *
@@ -29,9 +29,9 @@ class NotEmpty extends \Papaya\Filter\Exception {
    */
   public function __construct($actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to not empty. Got "%s".',
-        is_array($actual) ? 'array' : $actual
+        \is_array($actual) ? 'array' : $actual
       )
     );
   }

@@ -23,29 +23,29 @@ namespace Papaya\Database\Record\Order;
  */
 class Field
   implements \Papaya\Database\Interfaces\Order {
-
   /**
    * @var string
    */
   private $_field;
+
   /**
-   * @var integer
+   * @var int
    */
   private $_direction;
 
   /**
    * @var array
    */
-  private $_directions = array(
+  private $_directions = [
     self::ASCENDING => 'ASC',
     self::DESCENDING => 'DESC'
-  );
+  ];
 
   /**
    * Create object store field name and order by direction
    *
    * @param string $field
-   * @param integer $direction
+   * @param int $direction
    */
   public function __construct($field, $direction = self::ASCENDING) {
     \Papaya\Utility\Constraints::assertNotEmpty($field);
@@ -65,7 +65,7 @@ class Field
   /**
    * Get sql identifier string for the order by direction (ASC or DESC)
    *
-   * @param integer $direction
+   * @param int $direction
    * @return string
    */
   protected function getDirectionString($direction) {

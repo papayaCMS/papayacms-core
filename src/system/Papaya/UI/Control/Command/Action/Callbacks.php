@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Action;
+
 /**
  * Callbacks that are used by the action command
  *
@@ -28,17 +29,16 @@ namespace Papaya\UI\Control\Command\Action;
  * @method array getDefinition()
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   /**
    * Initialize object and set callback definition
    */
   public function __construct() {
     parent::__construct(
-      array(
-        'getDefinition' => array(),
+      [
+        'getDefinition' => [],
         'onValidationSuccessful' => NULL,
         'onValidationFailed' => NULL
-      )
+      ]
     );
   }
 }

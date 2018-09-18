@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Streamwrapper\S3;
+
 /**
  * Papaya Streamwrapper Amazon S3 Papaya\Theme\Handler
  *
@@ -21,26 +22,24 @@ namespace Papaya\Streamwrapper\S3;
  * @subpackage Streamwrapper
  */
 class Handler {
-
   /**
    * HTTP client object
    *
    * @var \Papaya\HTTP\Client
    */
-  private $_client = NULL;
+  private $_client;
 
   /**
    * Temporary file that will on close be written to S3
    *
    * @var resource
    */
-  private $_temporaryFile = NULL;
+  private $_temporaryFile;
 
   /**
    * Set HTTP client object
    *
    * @param \Papaya\HTTP\Client $client
-   * @return void
    */
   public function setHTTPClient(\Papaya\HTTP\Client $client) {
     $this->_client = $client;
@@ -65,11 +64,11 @@ class Handler {
    * @param string $method
    * @param string $url
    * @param array $headers
-   * @param integer $options
+   * @param int $options
    * @param array $arguments for the http request
-   * @return NULL|\Papaya\HTTP\Client
+   * @return null|\Papaya\HTTP\Client
    */
-  private function _sendRequest($method, $url, $headers, $options, $arguments = array()) {
+  private function _sendRequest($method, $url, $headers, $options, $arguments = []) {
     $client = $this->getHTTPClient();
     $client->setMethod($method);
     $client->setURL($url);
@@ -81,7 +80,7 @@ class Handler {
     }
     $client->send();
     $status = $client->getResponseStatus();
-    if (in_array($status, array(200, 204, 206))) {
+    if (\in_array($status, [200, 204, 206])) {
       return $client;
     } else {
       $client->close();
@@ -90,20 +89,20 @@ class Handler {
           case 404 :
           break;
           case 403 :
-            trigger_error(
+            \trigger_error(
               'Invalid Amazon S3 permissions',
               E_USER_WARNING
             );
           break;
           default :
-            trigger_error(
+            \trigger_error(
               'Unexpected response status: '.$status,
               E_USER_WARNING
             );
           break;
         }
       }
-      return NULL;
+      return;
     }
   }
 
@@ -111,15 +110,15 @@ class Handler {
    * Get informations about a file resource
    *
    * @param array $location
-   * @param integer $options
-   * @return array|NULL
+   * @param int $options
+   * @return array|null
    */
   public function getFileInformations($location, $options) {
-    $headers = array(
-      'Date' => gmdate(DATE_RFC1123),
+    $headers = [
+      'Date' => \gmdate(DATE_RFC1123),
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
-    );
+    ];
     $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'HEAD', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
@@ -132,14 +131,14 @@ class Handler {
       $contentType = $client->getResponseHeader('Content-Type');
       $client->close();
       if ('application/x-directory' !== $contentType) {
-        return array(
+        return [
           'size' => $client->getResponseHeader('Content-Length'),
-          'modified' => strtotime($client->getResponseHeader('Last-Modified')),
+          'modified' => \strtotime($client->getResponseHeader('Last-Modified')),
           'mode' => 0100006
-        );
+        ];
       }
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -148,16 +147,16 @@ class Handler {
    * @param array $location
    * @param int $position
    * @param int $count
-   * @param integer $options
-   * @return array|NULL
+   * @param int $options
+   * @return array|null
    */
   public function readFileContent($location, $position, $count, $options) {
-    $headers = array(
-      'Date' => gmdate(DATE_RFC1123),
+    $headers = [
+      'Date' => \gmdate(DATE_RFC1123),
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive',
       'Range' => 'bytes='.$position.'-'.($position + $count - 1)
-    );
+    ];
     $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
@@ -169,48 +168,48 @@ class Handler {
     if ($client) {
       $rangeHeader = $client->getResponseHeader('Content-Range');
       $pattern = '(^bytes (\d+)-(\d+)/(\d+)$)';
-      $return = preg_match($pattern, $rangeHeader, $range);
+      $return = \preg_match($pattern, $rangeHeader, $range);
       if (1 !== $return) {
         $client->close();
         if ($options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Missing Content-Range header in response from amazon S3.',
             E_USER_WARNING
           );
         }
-        return NULL;
+        return;
       }
       $size = $range[3];
-      $stat = array(
+      $stat = [
         'size' => (int)$size,
-        'modified' => strtotime($client->getResponseHeader('Last-Modified')),
+        'modified' => \strtotime($client->getResponseHeader('Last-Modified')),
         'mode' => 0100006
-      );
-      return array($client->getResponseData(), $stat);
+      ];
+      return [$client->getResponseData(), $stat];
     } elseif ($options & STREAM_REPORT_ERRORS) {
-      trigger_error(
+      \trigger_error(
         'Can not find amazon resource.',
         E_USER_WARNING
       );
     }
-    return NULL;
+    return;
   }
 
   /**
    * Open file for writing
    *
    * @param array $location
-   * @param integer $options
+   * @param int $options
    * @param string $mimeType
    * @internal param string $data
-   * @return boolean success
+   * @return bool success
    */
   public function openWriteFile($location, $options, $mimeType = 'application/octet-stream') {
-    $headers = array(
-      'Date' => gmdate(DATE_RFC1123),
+    $headers = [
+      'Date' => \gmdate(DATE_RFC1123),
       'Content-Type' => $mimeType,
       'Connection' => 'close',
-    );
+    ];
     $method = 'PUT';
     $signature = new \Papaya\Streamwrapper\S3\Signature(
       $location,
@@ -226,11 +225,11 @@ class Handler {
     foreach ($headers as $key => $value) {
       $client->setHeader($key, $value);
     }
-    $this->_temporaryFile = tmpfile();
-    $result = is_resource($this->_temporaryFile);
+    $this->_temporaryFile = \tmpfile();
+    $result = \is_resource($this->_temporaryFile);
     if (TRUE !== $result && $options & STREAM_REPORT_ERRORS) {
       // @codeCoverageIgnoreStart
-      trigger_error(
+      \trigger_error(
         'Failed to create temporary file.',
         E_USER_WARNING
       );
@@ -242,47 +241,46 @@ class Handler {
   /**
    * Write $data to file
    *
-   * @param integer $options
+   * @param int $options
    * @param string $data
-   * @return integer amount of bytes written
+   * @return int amount of bytes written
    */
   public function writeFileContent($options, $data) {
-    return fwrite($this->_temporaryFile, $data);
+    return \fwrite($this->_temporaryFile, $data);
   }
 
   /**
    * Close file for writing
    *
-   * @param integer $options
-   * @return void
+   * @param int $options
    */
   public function closeWriteFile($options) {
     $client = $this->_client;
-    fseek($this->_temporaryFile, 0);
+    \fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new \Papaya\HTTP\Client\File\Resource("file", "file", $this->_temporaryFile)
+      new \Papaya\HTTP\Client\File\Resource('file', 'file', $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();
     $client->close();
-    if (!in_array($status, array(200))
+    if (!\in_array($status, [200])
       && ($options & STREAM_REPORT_ERRORS)) {
       switch ($status) {
         case 403 :
-          trigger_error(
+          \trigger_error(
             'Invalid Amazon S3 permissions',
             E_USER_WARNING
           );
         break;
         default :
-          trigger_error(
+          \trigger_error(
             'Unexpected response status: '.$status,
             E_USER_WARNING
           );
         break;
       }
     }
-    fclose($this->_temporaryFile);
+    \fclose($this->_temporaryFile);
   }
 
   /**
@@ -290,14 +288,14 @@ class Handler {
    *
    * @param array $location
    * @param int $options
-   * @return boolean success
+   * @return bool success
    */
   public function removeFile($location, $options) {
-    $headers = array(
-      'Date' => gmdate(DATE_RFC1123),
+    $headers = [
+      'Date' => \gmdate(DATE_RFC1123),
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive',
-    );
+    ];
     $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'DELETE', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
@@ -324,28 +322,28 @@ class Handler {
    *   are hard coded.
    *
    * @param array $location
-   * @param integer $options
-   * @param integer $maxKeys Limit the number of results, default 1
+   * @param int $options
+   * @param int $maxKeys Limit the number of results, default 1
    * @param string $startMarker Start output lexicographically after this, default ''
-   * @return array|NULL associative array $result
+   * @return array|null associative array $result
    */
   public function getDirectoryInformations($location, $options, $maxKeys = 1, $startMarker = '') {
-    $headers = array(
-      'Date' => gmdate(DATE_RFC1123),
+    $headers = [
+      'Date' => \gmdate(DATE_RFC1123),
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
-    );
-    if (substr($location['object'], -1) == '/') {
+    ];
+    if ('/' == \substr($location['object'], -1)) {
       $path = $location['object'];
     } else {
       $path = $location['object'].'/';
     }
-    $arguments = array(
+    $arguments = [
       'prefix' => $path,
       'marker' => $path.$startMarker,
       'max-keys' => (int)$maxKeys,
       'delimiter' => '/'
-    );
+    ];
     $location['object'] = '';
     $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
@@ -369,30 +367,30 @@ class Handler {
         '//s3:Contents/s3:Key | //s3:CommonPrefixes/s3:Prefix'
       );
       if ($items->length > 0) {
-        $contents = array();
-        $prefixLength = strlen($path);
+        $contents = [];
+        $prefixLength = \strlen($path);
         foreach ($items as $item) {
-          if (substr($item->nodeValue, -1) == '/') {
-            $value = substr($item->nodeValue, $prefixLength, -1);
+          if ('/' == \substr($item->nodeValue, -1)) {
+            $value = \substr($item->nodeValue, $prefixLength, -1);
           } else {
-            $value = substr($item->nodeValue, $prefixLength);
+            $value = \substr($item->nodeValue, $prefixLength);
           }
-          if ($value !== '$') {
+          if ('$' !== $value) {
             $contents[] = $value;
           }
         }
-        $contents = array_unique($contents);
-        return array(
+        $contents = \array_unique($contents);
+        return [
           'size' => 0,
           'modified' => 0,
           'mode' => 040006,
           'contents' => $contents,
           'moreContent' => $moreContent,
           'startMarker' => $startMarker,
-        );
+        ];
       }
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -409,5 +407,4 @@ class Handler {
     $query->registerNamespace('s3', 'http://s3.amazonaws.com/doc/2006-03-01/');
     return $query->evaluate($xpath);
   }
-
 }

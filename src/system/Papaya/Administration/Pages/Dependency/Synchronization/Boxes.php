@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Administration;
-use \Papaya\Content;
+use Papaya\Administration;
+use Papaya\Content;
 
 /**
  * Synchronize box inheritance on the page workling copy and the page links
@@ -26,7 +26,6 @@ use \Papaya\Content;
  */
 class Boxes
   implements Administration\Pages\Dependency\Synchronization {
-
   /**
    * Page boxes list database object
    *
@@ -45,8 +44,8 @@ class Boxes
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     if ($this->page()->load($originId)) {

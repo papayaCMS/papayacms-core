@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request;
+
 /**
  * Papaya Request Parameters Handling
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request;
  * @subpackage Request
  */
 class Parameters extends \Papaya\BaseObject\Parameters {
-
   public static function createFromString($queryString) {
     $queryParameters = new Parameters\QueryString();
     $queryParameters->setString($queryString);
@@ -40,7 +40,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
     $result = new self();
     if (isset($this[$groupName])) {
       $value = $this[$groupName];
-      if (is_array($value) || $value instanceof \Traversable) {
+      if (\is_array($value) || $value instanceof \Traversable) {
         $result->merge($this[$groupName]);
       }
     }
@@ -70,7 +70,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @return $this
    */
   public function set($offsets, $value = NULL) {
-    if (is_array($offsets) || $offsets instanceof \Traversable) {
+    if (\is_array($offsets) || $offsets instanceof \Traversable) {
       foreach ($offsets as $offset => $element) {
         $this[$offset] = $element;
       }
@@ -88,8 +88,8 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @return $this
    */
   public function remove($offsets) {
-    if (!(is_array($offsets) || $offsets instanceof \Traversable)) {
-      $offsets = array($offsets);
+    if (!(\is_array($offsets) || $offsets instanceof \Traversable)) {
+      $offsets = [$offsets];
     }
     foreach ($offsets as $offset) {
       unset($this[$offset]);
@@ -114,7 +114,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @return array|string
    */
   private function _parseParameterName($name, $groupSeparator = '') {
-    $parts = new Parameters\Name(str_replace('.', '_', $name), $groupSeparator);
+    $parts = new Parameters\Name(\str_replace('.', '_', $name), $groupSeparator);
     return $parts->getArray();
   }
 
@@ -122,22 +122,22 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * Prepare parameters, make sure it is utf8 and strip slashes if needed
    *
    * @param string|array|bool $parameter
-   * @param boolean $stripSlashes
-   * @param integer $recursion
+   * @param bool $stripSlashes
+   * @param int $recursion
    * @return array|string
    */
   public function prepareParameter($parameter, $stripSlashes = FALSE, $recursion = 42) {
-    if (is_array($parameter) && $recursion > 0) {
+    if (\is_array($parameter) && $recursion > 0) {
       foreach ($parameter as $name => $value) {
         $parameter[$name] = $this->prepareParameter($value, $stripSlashes, $recursion - 1);
       }
       return $parameter;
     }
-    if (is_bool($parameter)) {
+    if (\is_bool($parameter)) {
       return $parameter;
     }
     if ($stripSlashes) {
-      $parameter = stripslashes($parameter);
+      $parameter = \stripslashes($parameter);
     }
     return \Papaya\Utility\Text\UTF8::ensure($parameter);
   }
@@ -173,7 +173,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    */
   public function getList($groupSeparator = '[]') {
     $result = $this->flattenArray((array)$this, $groupSeparator);
-    uksort($result, 'strnatcasecmp');
+    \uksort($result, 'strnatcasecmp');
     return $result;
   }
 
@@ -183,11 +183,11 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @param array $parameters
    * @param string $groupSeparator
    * @param string $prefix
-   * @param integer $maxRecursions
+   * @param int $maxRecursions
    * @return array
    */
   private function flattenArray($parameters, $groupSeparator, $prefix = '', $maxRecursions = 42) {
-    $result = array();
+    $result = [];
     foreach ($parameters as $name => $value) {
       if (empty($prefix)) {
         $fullName = $name;
@@ -196,7 +196,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
       } else {
         $fullName = $prefix.$groupSeparator.$name;
       }
-      if (is_array($value)) {
+      if (\is_array($value)) {
         $result = \Papaya\Utility\Arrays::merge(
           $result, $this->flattenArray($value, $groupSeparator, $fullName, $maxRecursions - 1)
         );
@@ -210,7 +210,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
   /**
    * ArrayAccess Interface: set value
    *
-   * @param string|integer $offset
+   * @param string|int $offset
    * @param mixed $value
    */
   public function offsetSet($offset, $value) {
@@ -220,7 +220,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
   /**
    * ArrayAccess Interface: check if index exists
    *
-   * @param string|integer $offset
+   * @param string|int $offset
    * @return bool
    */
   public function offsetExists($offset) {
@@ -230,7 +230,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
   /**
    * ArrayAccess Interface: remove value
    *
-   * @param string|integer $offset
+   * @param string|int $offset
    */
   public function offsetUnset($offset) {
     parent::offsetUnset($this->_parseParameterName($offset));
@@ -241,13 +241,13 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    *
    * If the value is an array, it will return a new instance of itself containing the array.
    *
-   * @param string|integer $offset
+   * @param string|int $offset
    * @internal param mixed $value
    * @return mixed|self
    */
   public function offsetGet($offset) {
     $result = parent::offsetGet($this->_parseParameterName($offset));
-    if (is_array($result)) {
+    if (\is_array($result)) {
       return new self($result);
     }
     return $result;
@@ -256,9 +256,9 @@ class Parameters extends \Papaya\BaseObject\Parameters {
   /**
    * Check if the object contains data at all.
    *
-   * @return boolean
+   * @return bool
    */
   public function isEmpty() {
-    return count($this) < 1;
+    return \count($this) < 1;
   }
 }

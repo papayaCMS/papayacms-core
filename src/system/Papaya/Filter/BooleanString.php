@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter that interprets an string as boolean value, mapping several string and
  * casting others.
@@ -23,8 +24,7 @@ namespace Papaya\Filter;
  */
 class BooleanString
   implements \Papaya\Filter {
-
-  private $_mapping = array(
+  private $_mapping = [
     '+' => TRUE,
     'y' => TRUE,
     'yes' => TRUE,
@@ -37,7 +37,7 @@ class BooleanString
     'f' => FALSE,
     'false' => FALSE,
     '0' => FALSE
-  );
+  ];
 
   private $_castEmptyString = FALSE;
 
@@ -58,7 +58,7 @@ class BooleanString
    *
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if (NULL === $this->filter($value)) {
@@ -72,23 +72,23 @@ class BooleanString
    * or a missing value. This is depending on the $castEmptyString constructor argument.
    *
    * @param mixed $value
-   * @return boolean|NULL
+   * @return bool|null
    */
   public function filter($value) {
     if (!isset($value)) {
-      return NULL;
-    } elseif (is_bool($value)) {
+      return;
+    } elseif (\is_bool($value)) {
       return $value;
-    } elseif (is_integer($value)) {
-      return (boolean)$value;
+    } elseif (\is_int($value)) {
+      return (bool)$value;
     }
-    $normalized = trim(strtoLower($value));
-    if (!$this->_castEmptyString && $normalized === '') {
-      return NULL;
+    $normalized = \trim(\strtolower($value));
+    if (!$this->_castEmptyString && '' === $normalized) {
+      return;
     }
     if (isset($this->_mapping[$normalized])) {
       return $this->_mapping[$normalized];
     }
-    return (boolean)$normalized;
+    return (bool)$normalized;
   }
 }

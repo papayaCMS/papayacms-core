@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler;
+
 /**
  * Interface for profiler storage objects.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Profiler;
  * @subpackage Profiler
  */
 interface Storage {
-
   /**
    * Save profiling data run
    *

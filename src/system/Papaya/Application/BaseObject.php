@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application;
+
 /**
  * Papaya Object - papaya basic object
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application;
  * @subpackage Objects
  */
 abstract class BaseObject implements Access {
-
   use Access\Aggregation;
 
   /**

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Controller\Error;
+
 /**
  * Papaya Controller class for error pages with template file
  *
@@ -21,19 +22,18 @@ namespace Papaya\Controller\Error;
  * @subpackage Controller
  */
 class File extends \Papaya\Controller\Error {
-
   /**
    * Set template data from file
    *
    * @param string $fileName
-   * @return boolean
+   * @return bool
    */
   public function setTemplateFile($fileName) {
     if (!empty($fileName) &&
-      file_exists($fileName) &&
-      is_file($fileName) &&
-      is_readable($fileName)) {
-      $this->_template = file_get_contents($fileName);
+      \file_exists($fileName) &&
+      \is_file($fileName) &&
+      \is_readable($fileName)) {
+      $this->_template = \file_get_contents($fileName);
       return TRUE;
     }
     return FALSE;

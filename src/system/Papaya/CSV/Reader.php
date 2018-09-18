@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\CSV;
+
 /**
  * CSV reader class
  *
@@ -21,18 +22,17 @@ namespace Papaya\CSV;
  * @subpackage CSV
  */
 class Reader {
-
   /**
    * Maximum file size
    *
-   * @var integer
+   * @var int
    */
   private $_maxFileSize = 0;
 
   /**
    * Maximum line size
    *
-   * @var integer
+   * @var int
    */
   private $_maxLineSize = 32000;
 
@@ -41,7 +41,7 @@ class Reader {
    *
    * @var string
    */
-  private $_fileName = NULL;
+  private $_fileName;
 
   /**
    * Initialize reader object and set file name.
@@ -57,7 +57,7 @@ class Reader {
   /**
    * Set a byte maximum for the allowed file size.
    *
-   * @param integer $size
+   * @param int $size
    */
   public function setMaximumFileSize($size) {
     \Papaya\Utility\Constraints::assertInteger($size);
@@ -67,7 +67,7 @@ class Reader {
   /**
    * Set the maximum count of bytes readed for a line.
    *
-   * @param integer $size
+   * @param int $size
    */
   public function setMaximumLineSize($size) {
     \Papaya\Utility\Constraints::assertInteger($size);
@@ -79,18 +79,18 @@ class Reader {
    *
    * Throws differenc exceptions depending on the error.
    *
-   * @param boolean $allowLocal
-   * @return TRUE
+   * @param bool $allowLocal
+   * @return true
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \LengthException
    */
   public function isValid($allowLocal = FALSE) {
-    if (file_exists($this->_fileName) &&
-      is_file($this->_fileName) &&
-      is_readable($this->_fileName)) {
-      if ($allowLocal || is_uploaded_file($this->_fileName)) {
-        $fileSize = filesize($this->_fileName);
+    if (\file_exists($this->_fileName) &&
+      \is_file($this->_fileName) &&
+      \is_readable($this->_fileName)) {
+      if ($allowLocal || \is_uploaded_file($this->_fileName)) {
+        $fileSize = \filesize($this->_fileName);
         if ($fileSize <= 0) {
           throw new \LengthException('File is empty.');
         } elseif ($this->_maxFileSize > 0 && $fileSize > $this->_maxFileSize) {
@@ -112,8 +112,8 @@ class Reader {
    *
    * The $offset parameter is a byte offset. It will be set to the new offset after the execution.
    *
-   * @param integer $offset byte offset to start reading, new offset after reading
-   * @param integer $limit maximum lines to read
+   * @param int $offset byte offset to start reading, new offset after reading
+   * @param int $limit maximum lines to read
    * @return array|null
    */
   public function fetchAssoc(&$offset, $limit = 0) {
@@ -121,29 +121,29 @@ class Reader {
       $style = $this->_getStyle($fh);
       list($titles) = $this->_readLine($fh, $style['separator'], $style['enclosure']);
       if ($offset > 0) {
-        fseek($fh, $offset, SEEK_SET);
+        \fseek($fh, $offset, SEEK_SET);
       }
-      $result = array();
+      $result = [];
       while (TRUE) {
         if ($data = $this->_readLine($fh, $style['separator'], $style['enclosure'])) {
           $offset = $data[1];
-          $row = array();
+          $row = [];
           foreach ($data[0] as $i => $content) {
             $row[$titles[$i]] = $content;
           }
           $result[] = $row;
-          if ($limit > 0 && count($result) >= $limit) {
-            fclose($fh);
+          if ($limit > 0 && \count($result) >= $limit) {
+            \fclose($fh);
             return $result;
           }
         } else {
           break;
         }
       }
-      fclose($fh);
+      \fclose($fh);
       return $result;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -152,7 +152,7 @@ class Reader {
    * @return \Resource
    */
   protected function _getFileResource() {
-    return fopen($this->_fileName, 'r');
+    return \fopen($this->_fileName, 'r');
   }
 
   /**
@@ -162,22 +162,22 @@ class Reader {
    * @return array
    */
   protected function _getStyle($fh) {
-    $result = array(
+    $result = [
       'separator' => ',',
       'enclosure' => '"',
-    );
-    fgets($fh, $this->_maxLineSize);
+    ];
+    \fgets($fh, $this->_maxLineSize);
     // better take the second line
-    $line = fgets($fh, $this->_maxLineSize);
-    $separator = self::_getFirstCharacter($line, array(',', ';', "\t"));
-    if (isset($separator) && $separator != '') {
+    $line = \fgets($fh, $this->_maxLineSize);
+    $separator = self::_getFirstCharacter($line, [',', ';', "\t"]);
+    if (isset($separator) && '' != $separator) {
       $result['separator'] = $separator;
     }
-    $enclosure = self::_getFirstCharacter($line, array('"', "'"));
-    if (isset($enclosure) && $enclosure != '') {
+    $enclosure = self::_getFirstCharacter($line, ['"', "'"]);
+    if (isset($enclosure) && '' != $enclosure) {
       $result['enclosure'] = $enclosure;
     }
-    fseek($fh, 0, SEEK_SET);
+    \fseek($fh, 0, SEEK_SET);
     return $result;
   }
 
@@ -190,17 +190,17 @@ class Reader {
    */
   protected function _getFirstCharacter($string, $characters) {
     foreach ($characters as $char) {
-      $position = strpos($string, $char);
+      $position = \strpos($string, $char);
       // if string doesn't contain char, 0 is returned -> check if str[0] is char
       if ($position > 0 || $string[0] == $char) {
         $charPos[$position] = $char;
       }
     }
-    if (isset($charPos) && is_array($charPos) && count($charPos) > 0) {
+    if (isset($charPos) && \is_array($charPos) && \count($charPos) > 0) {
       // order chars by position
-      ksort($charPos);
+      \ksort($charPos);
       // result is char with lowest position
-      $result = (string)array_shift($charPos);
+      $result = (string)\array_shift($charPos);
       return $result;
     }
     return '';
@@ -215,56 +215,56 @@ class Reader {
    * @return array(array,integer)
    */
   protected function _readLine($fh, $delimiter, $enclosure) {
-    $delimiter = preg_quote($delimiter);
-    $enclosure = preg_quote($enclosure);
-    $escape = preg_quote($enclosure);
-    $prefix = "(?:^)";
+    $delimiter = \preg_quote($delimiter);
+    $enclosure = \preg_quote($enclosure);
+    $escape = \preg_quote($enclosure);
+    $prefix = '(?:^)';
     $postfix = "(?:$delimiter|$)";
     $quotedValue = "(?:$enclosure((?:[^$enclosure]|$escape$enclosure)*)$enclosure)";
     $unquotedValue = "([^$delimiter$enclosure]*)";
     $pattern = "($prefix(?:$quotedValue|$unquotedValue)$postfix)S";
 
     $buffer = '';
-    $result = array();
+    $result = [];
     $offset = 0;
     do {
-      $tmpBuffer = fgets($fh, $this->_maxLineSize);
-      if ($tmpBuffer === FALSE) {
+      $tmpBuffer = \fgets($fh, $this->_maxLineSize);
+      if (FALSE === $tmpBuffer) {
         /* most likely EOF, but may be any error
            e.g. the csv may be invalid */
         return FALSE;
       }
 
       // strip a newline at the end that is not part of any data
-      $bufferLength = strlen($tmpBuffer);
+      $bufferLength = \strlen($tmpBuffer);
       $lineEnd = "\n";
       if ("\n" === $tmpBuffer[$bufferLength - 1]) {
         if ($bufferLength > 1 && "\r" === $tmpBuffer[$bufferLength - 2]) {
-          $buffer .= substr($tmpBuffer, 0, $bufferLength - 2);
+          $buffer .= \substr($tmpBuffer, 0, $bufferLength - 2);
           $lineEnd = "\r\n";
         } else {
-          $buffer .= substr($tmpBuffer, 0, $bufferLength - 1);
+          $buffer .= \substr($tmpBuffer, 0, $bufferLength - 1);
         }
       } else {
         $buffer .= $tmpBuffer;
       }
-      $bufferLength = strlen($buffer);
+      $bufferLength = \strlen($buffer);
 
       /* no error checking for an invalid pattern,
          that should already result in a notice */
-      while (1 === preg_match($pattern, substr($buffer, $offset), $matches, PREG_OFFSET_CAPTURE) &&
+      while (1 === \preg_match($pattern, \substr($buffer, $offset), $matches, PREG_OFFSET_CAPTURE) &&
         $offset < $bufferLength) {
         if (empty($matches[1][0]) && isset($matches[2][0])) {
           $result[] = $matches[2][0];
         } else {
-          $result[] = preg_replace("($escape(.))", '$1', $matches[1][0]);
+          $result[] = \preg_replace("($escape(.))", '$1', $matches[1][0]);
         }
-        $offset += strlen($matches[0][0]);
+        $offset += \strlen($matches[0][0]);
       }
       // put the newline back we earlier removed
       $buffer .= $lineEnd;
       // also get the next line if this line can not be fully consumed
     } while ($offset < $bufferLength);
-    return array($result, ftell($fh));
+    return [$result, \ftell($fh)];
   }
 }

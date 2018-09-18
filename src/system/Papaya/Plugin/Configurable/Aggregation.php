@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Configurable;
+
 /**
  * This a standard implementation for a configurable plugin. It
  * add a configuration() getter/setter method to the plugin.
@@ -24,12 +25,10 @@ namespace Papaya\Plugin\Configurable;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var \Papaya\BaseObject\Parameters
    */
   private $_configuration;
-
 
   /**
    * The configuration is an {@see ArrayObject} containing options that can affect the

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select;
+
 /**
  * A selection field displaing the available languages
  *
@@ -21,8 +22,8 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @subpackage UI
  */
 class Language extends \Papaya\UI\Dialog\Field\Select {
-
   const OPTION_ALLOW_ANY = 1;
+
   const OPTION_USE_IDENTIFIER = 2;
 
   public function __construct(
@@ -33,7 +34,7 @@ class Language extends \Papaya\UI\Dialog\Field\Select {
       $languages = $this->papaya()->languages;
     }
     // @codeCoverageIgnoreEnd
-    $items = array();
+    $items = [];
     if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
       foreach ($languages as $language) {
         $items[$language['identifier']] = $language;
@@ -46,7 +47,7 @@ class Language extends \Papaya\UI\Dialog\Field\Select {
     if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
       $values = new \Papaya\Iterator\Union(
         \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-        array($any => new \Papaya\UI\Text\Translated('Any')),
+        [$any => new \Papaya\UI\Text\Translated('Any')],
         $items
       );
     } else {
@@ -56,12 +57,12 @@ class Language extends \Papaya\UI\Dialog\Field\Select {
   }
 
   public function appendTo(\Papaya\XML\Element $parent) {
-    $this->callbacks()->getOptionCaption = array($this, 'callbackGetLanguageCaption');
+    $this->callbacks()->getOptionCaption = [$this, 'callbackGetLanguageCaption'];
     return parent::appendTo($parent);
   }
 
   public function callbackGetLanguageCaption($context, $language) {
-    if (is_array($language)) {
+    if (\is_array($language)) {
       return $language['title'].' ('.$language['code'].')';
     } else {
       return (string)$language;

@@ -15,9 +15,9 @@
 
 namespace Papaya\Administration\Languages;
 
-use \Papaya\Content;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Language switch administration control, allows to access the current content language and
@@ -36,7 +36,6 @@ use \Papaya\XML;
  * @property-read string $title current language title
  */
 class Selector extends UI\Control\Interactive {
-
   /**
    * Internal property for language list
    *
@@ -112,19 +111,19 @@ class Selector extends UI\Control\Interactive {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
-      array('title' => new UI\Text\Translated('Content Language'))
+      ['title' => new UI\Text\Translated('Content Language')]
     );
     foreach ($this->languages() as $id => $language) {
       $reference = new UI\Reference();
       $reference->papaya($this->papaya());
-      $reference->setParameters(array('language_select' => $id), 'lngsel');
+      $reference->setParameters(['language_select' => $id], 'lngsel');
       $link = $links->appendElement(
         'link',
-        array(
+        [
           'href' => $reference->getRelative(),
           'title' => $language['title'],
           'image' => $language['image']
-        )
+        ]
       );
       if ((string)$current->id === (string)$id) {
         $link->setAttribute('selected', 'selected');
@@ -148,7 +147,7 @@ class Selector extends UI\Control\Interactive {
       $languages->loadByUsage(Content\Languages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
         $this->_current = $languages->getLanguage($id);
-      } elseif ($id = $application->session->values()->get(array($this, 'CONTENT_LANGUAGE'))) {
+      } elseif ($id = $application->session->values()->get([$this, 'CONTENT_LANGUAGE'])) {
         $this->_current = $languages->getLanguage($id);
       } elseif (isset($application->administrationUser->options['PAPAYA_CONTENT_LANGUAGE'])) {
         $this->_current = $languages->getLanguage(
@@ -167,7 +166,7 @@ class Selector extends UI\Control\Interactive {
         $this->_current = $this->getDefault();
       }
     } else {
-      $application->session->values()->set(array($this, 'CONTENT_LANGUAGE'), $this->_current->id);
+      $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
     }
   }
 
@@ -179,7 +178,7 @@ class Selector extends UI\Control\Interactive {
   private function getDefault() {
     $result = new Content\Language();
     $result->assign(
-      array(
+      [
         'id' => 1,
         'identifier' => 'en',
         'code' => 'en-US',
@@ -187,7 +186,7 @@ class Selector extends UI\Control\Interactive {
         'image' => 'us.gif',
         'is_content' => 1,
         'is_interface' => 1
-      )
+      ]
     );
     return $result;
   }

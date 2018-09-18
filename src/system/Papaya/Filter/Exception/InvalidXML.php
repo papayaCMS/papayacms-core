@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * A range exception is thrown if a value is not a valid xml fragment.
  *
@@ -21,12 +22,10 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class InvalidXML extends \Papaya\Filter\Exception {
-
   /**
    * @param \Papaya\XML\Exception $e
    */
   public function __construct(\Papaya\XML\Exception $e) {
     parent::__construct($e->getMessage());
   }
-
 }

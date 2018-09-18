@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Session;
+
 /**
  * Wrapper class for php session functions. Allow to access them using oop.
  *
@@ -23,7 +24,6 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Wrapper {
-
   /**
    * Register a {@see \Papaya\Session\Handler} object, or more specific its methods in
    * {@see session_set_save_handler}.
@@ -33,18 +33,18 @@ class Wrapper {
    * @return bool
    */
   public function registerHandler($handler) {
-    if (!class_exists($handler)) {
+    if (!\class_exists($handler)) {
       throw new \InvalidArgumentException(
-        sprintf('Invalid session handler class "%s".', $handler)
+        \sprintf('Invalid session handler class "%s".', $handler)
       );
     }
-    return session_set_save_handler(
-      array($handler, 'open'),
-      array($handler, 'close'),
-      array($handler, 'read'),
-      array($handler, 'write'),
-      array($handler, 'destroy'),
-      array($handler, 'gc')
+    return \session_set_save_handler(
+      [$handler, 'open'],
+      [$handler, 'close'],
+      [$handler, 'read'],
+      [$handler, 'write'],
+      [$handler, 'destroy'],
+      [$handler, 'gc']
     );
   }
 
@@ -57,7 +57,7 @@ class Wrapper {
    * @return string
    */
   public function getId() {
-    return session_id();
+    return \session_id();
   }
 
   /**
@@ -70,7 +70,7 @@ class Wrapper {
    * @return string
    */
   public function setId($sessionId) {
-    return session_id($sessionId);
+    return \session_id($sessionId);
   }
 
   /**
@@ -80,7 +80,7 @@ class Wrapper {
    * @return string
    */
   public function getName() {
-    return session_name();
+    return \session_name();
   }
 
   /**
@@ -93,17 +93,17 @@ class Wrapper {
    * @return string
    */
   public function setName($sessionName) {
-    return session_name($sessionName);
+    return \session_name($sessionName);
   }
 
   /**
    * Start the session, create/loads the session.
    *
    * @see session_start()
-   * @return boolean
+   * @return bool
    */
   public function start() {
-    return session_start();
+    return \session_start();
   }
 
   /**
@@ -114,7 +114,7 @@ class Wrapper {
    * @see session_write_close()
    */
   public function writeClose() {
-    session_write_close();
+    \session_write_close();
   }
 
   /**
@@ -122,10 +122,10 @@ class Wrapper {
    * logins.
    *
    * @see session_regenerate_id()
-   * @return boolean
+   * @return bool
    */
   public function regenerateId() {
-    return session_regenerate_id(TRUE);
+    return \session_regenerate_id(TRUE);
   }
 
   /**
@@ -135,9 +135,9 @@ class Wrapper {
    * @see session_destroy()
    */
   public function destroy() {
-    session_unset();
-    session_destroy();
-    $_SESSION = array();
+    \session_unset();
+    \session_destroy();
+    $_SESSION = [];
   }
 
   /**
@@ -147,7 +147,7 @@ class Wrapper {
    * @return array
    */
   public function getCookieParameters() {
-    return session_get_cookie_params();
+    return \session_get_cookie_params();
   }
 
   /**
@@ -158,10 +158,10 @@ class Wrapper {
    */
   public function setCookieParameters(array $cookieParameters) {
     if (PHP_VERSION_ID >= 70300) {
-      /** @noinspection PhpParamsInspection */
-      session_set_cookie_params($cookieParameters);
+      /* @noinspection PhpParamsInspection */
+      \session_set_cookie_params($cookieParameters);
     } else {
-      session_set_cookie_params(
+      \session_set_cookie_params(
         $cookieParameters['lifetime'],
         $cookieParameters['path'],
         $cookieParameters['domain'],
@@ -178,7 +178,7 @@ class Wrapper {
    * @return string
    */
   public function getCacheLimiter() {
-    return session_cache_limiter();
+    return \session_cache_limiter();
   }
 
   /**
@@ -189,6 +189,6 @@ class Wrapper {
    * @return string
    */
   public function setCacheLimiter($cacheLimiter) {
-    return session_cache_limiter($cacheLimiter);
+    return \session_cache_limiter($cacheLimiter);
   }
 }

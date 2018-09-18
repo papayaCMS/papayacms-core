@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Sheet;
+
 /**
  * A single subtitle element for a sheet
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Sheet;
  * @subpackage UI
  */
 class Subtitle extends \Papaya\UI\Control\Collection\Item {
-
   private $_text = '';
 
   /**
@@ -32,6 +32,6 @@ class Subtitle extends \Papaya\UI\Control\Collection\Item {
   }
 
   public function appendTo(\Papaya\XML\Element $parent) {
-    return $parent->appendElement('subtitle', array(), (string)$this->_text);
+    return $parent->appendElement('subtitle', [], (string)$this->_text);
   }
 }

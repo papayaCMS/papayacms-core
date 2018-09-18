@@ -23,19 +23,21 @@ namespace Papaya\UI\Paging;
  *
  * @property \Papaya\UI\Reference $reference
  * @property string|array $parameterName
- * @property integer $currentStepSize
+ * @property int $currentStepSize
  * @property array|\Traversable $stepSizes
- * @property integer $itemsCount
- * @property integer $itemsPerPage
- * @property integer $pageLimit
+ * @property int $itemsCount
+ * @property int $itemsPerPage
+ * @property int $pageLimit
  */
 class Steps extends \Papaya\UI\Control {
-
   const USE_KEYS = 0;
+
   const USE_VALUES = 1;
 
-  private $_reference = NULL;
-  private $_stepSizes = array();
+  private $_reference;
+
+  private $_stepSizes = [];
+
   private $_mode = self::USE_VALUES;
 
   /**
@@ -48,7 +50,7 @@ class Steps extends \Papaya\UI\Control {
   /**
    * The current step size
    *
-   * @var string|integer
+   * @var string|int
    */
   protected $_currentStepSize = 0;
 
@@ -57,32 +59,32 @@ class Steps extends \Papaya\UI\Control {
    *
    * @var array
    */
-  protected $_xmlNames = array(
+  protected $_xmlNames = [
     'list' => 'paging-steps',
     'item' => 'step-size',
     'attr-href' => 'href',
     'attr-selected' => 'selected'
-  );
+  ];
 
   /**
    * Declare public properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'reference' => array('reference', 'reference'),
-    'parameterName' => array('_parameterName', '_parameterName'),
-    'currentStepSize' => array('_currentStepSize', '_currentStepSize'),
-    'stepSizes' => array('getStepSizes', 'setStepSizes'),
-    'mode' => array('_mode', '_mode')
-  );
+  protected $_declaredProperties = [
+    'reference' => ['reference', 'reference'],
+    'parameterName' => ['_parameterName', '_parameterName'],
+    'currentStepSize' => ['_currentStepSize', '_currentStepSize'],
+    'stepSizes' => ['getStepSizes', 'setStepSizes'],
+    'mode' => ['_mode', '_mode']
+  ];
 
   /**
    * create object, stores stepSizes list and mode
    *
    *
    * @param string $parameterName
-   * @param string|integer $currentStepSize
+   * @param string|int $currentStepSize
    * @param \Traversable|array $stepSizes
    */
   public function __construct($parameterName, $currentStepSize, $stepSizes) {
@@ -100,14 +102,14 @@ class Steps extends \Papaya\UI\Control {
   public function appendTo(\Papaya\XML\Element $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
-      $parameterValue = $this->_mode == self::USE_KEYS ? $key : (string)$stepSize;
+      $parameterValue = self::USE_KEYS == $this->_mode ? $key : (string)$stepSize;
       $reference = clone $this->reference();
       $reference->getParameters()->set($this->_parameterName, $parameterValue);
       $stepSizeNode = $list->appendElement(
         $this->_xmlNames['item'],
-        array(
+        [
           $this->_xmlNames['attr-href'] => $reference->getRelative()
-        ),
+        ],
         (string)$stepSize
       );
       if ($parameterValue == $this->_currentStepSize) {
@@ -127,12 +129,12 @@ class Steps extends \Papaya\UI\Control {
    */
   public function setXMLNames(array $names) {
     foreach ($names as $element => $name) {
-      if (array_key_exists($element, $this->_xmlNames) &&
-        preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
+      if (\array_key_exists($element, $this->_xmlNames) &&
+        \preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
         $this->_xmlNames[$element] = $name;
       } else {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             'Invalid/unknown xml name element "%s" with value "%s".',
             $element,
             $name
@@ -170,7 +172,7 @@ class Steps extends \Papaya\UI\Control {
   public function reference(\Papaya\UI\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (\is_null($this->_reference)) {
       $this->_reference = new \Papaya\UI\Reference();
       $this->_reference->papaya($this->papaya());
     }

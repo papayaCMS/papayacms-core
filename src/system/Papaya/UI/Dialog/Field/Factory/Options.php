@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory;
+
 /**
  * Field factory option for profiles.
  *
@@ -27,8 +28,8 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @property string $caption field caption
  * @property string $hint field info/hint
  * @property mixed $default field default value
- * @property boolean $mandatory mandatory field status
- * @property boolean $disabled disabled field status
+ * @property bool $mandatory mandatory field status
+ * @property bool $disabled disabled field status
  * @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
  * @property mixed $parameters an individual parameters value
  * @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
@@ -40,9 +41,7 @@ class Options implements \ArrayAccess {
    *
    * @var array
    */
-  private
-    /** @noinspection PropertyCanBeStaticInspection */
-    $_definition = array(
+  private $_definition = [
     'name' => '',
     'caption' => '',
     'hint' => '',
@@ -52,7 +51,7 @@ class Options implements \ArrayAccess {
     'validation' => NULL,
     'parameters' => NULL,
     'context' => NULL
-  );
+  ];
 
   /**
    * Buffer for the current option values, if the value here is NULL or not set, use the
@@ -60,15 +59,15 @@ class Options implements \ArrayAccess {
    *
    * @var array
    */
-  private $_values = array();
+  private $_values = [];
 
   /**
    * @var \Papaya\Filter\Factory
    */
   private $_filterFactory;
 
-
   /** @noinspection ArrayTypeOfParameterByDefaultValueInspection */
+
   /**
    * Create object and assign values from the provided Traversable or array.
    *
@@ -77,7 +76,7 @@ class Options implements \ArrayAccess {
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __construct(
-    $values = array()
+    $values = []
   ) {
     $this->assign($values);
   }
@@ -111,7 +110,6 @@ class Options implements \ArrayAccess {
    * Magic Method, return the option value
    *
    * @param string $name
-   * @return NULL
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __get($name) {
@@ -193,12 +191,12 @@ class Options implements \ArrayAccess {
    * Validate if the option name is valid, if $silent is FALSE and exception is thrown.
    *
    * @param string $name
-   * @param boolean $silent
+   * @param bool $silent
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
-   * @return boolean
+   * @return bool
    */
   private function exists($name, $silent = FALSE) {
-    if (array_key_exists($name, $this->_definition)) {
+    if (\array_key_exists($name, $this->_definition)) {
       return TRUE;
     }
     if ($silent) {
@@ -229,7 +227,7 @@ class Options implements \ArrayAccess {
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    * @param string $name
    * @param mixed $value
-   * @param boolean $silent
+   * @param bool $silent
    */
   private function set($name, $value, $silent = FALSE) {
     if ($this->exists($name, $silent)) {
@@ -263,11 +261,11 @@ class Options implements \ArrayAccess {
       return $this->mandatory ? new \Papaya\Filter\NotEmpty() : NULL;
     }
     $factory = $this->filterFactory();
-    if (is_array($validation) || $validation instanceof \Closure) {
+    if (\is_array($validation) || $validation instanceof \Closure) {
       $result = $factory->getFilter('generator', $this->mandatory, $validation);
-    } elseif (class_exists($validation)) {
-      $result = $factory->getFilter('generator', $this->mandatory, array($validation));
-    } elseif (preg_match('(^[^a-zA-Z])', $validation)) {
+    } elseif (\class_exists($validation)) {
+      $result = $factory->getFilter('generator', $this->mandatory, [$validation]);
+    } elseif (\preg_match('(^[^a-zA-Z])', $validation)) {
       $result = $factory->getFilter('regex', $this->mandatory, $validation);
     } else {
       $result = $factory->getFilter($validation, $this->mandatory);

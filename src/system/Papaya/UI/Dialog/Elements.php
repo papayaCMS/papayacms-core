@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * A list of dialog elements
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 abstract class Elements extends \Papaya\UI\Control\Collection {
-
   /**
    * Only \Papaya\UI\Dialog\Element objects are allows in this list
    *

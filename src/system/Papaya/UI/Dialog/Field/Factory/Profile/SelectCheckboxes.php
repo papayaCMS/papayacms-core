@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a select field displayed as checkboxes. Beaucser of the
  * nature of this field type, multiple selection are possible
@@ -23,7 +24,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectCheckboxes
   extends Select {
-
   /**
    * Create a select field displayed as checkboxes
    *

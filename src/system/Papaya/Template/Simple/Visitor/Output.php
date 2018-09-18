@@ -16,10 +16,9 @@
 namespace Papaya\Template\Simple\Visitor;
 
 class Output extends \Papaya\Template\Simple\Visitor {
-
   private $_buffer = '';
 
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   public function clear() {
     $this->_buffer = '';
@@ -49,5 +48,4 @@ class Output extends \Papaya\Template\Simple\Visitor {
       $this->_buffer .= (string)$node->default;
     }
   }
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for xml strings.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class XML implements \Papaya\Filter {
-
   /**
    * @var bool
    */
@@ -41,10 +41,10 @@ class XML implements \Papaya\Filter {
    * @param string $value
    * @throws \Papaya\Filter\Exception\InvalidXML
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    $value = trim($value);
+    $value = \trim($value);
     if (empty($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     }
@@ -76,7 +76,7 @@ class XML implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parameters;
+
 /**
  * Decode a query string into an array or encode an array into an query string
  *
@@ -21,7 +22,6 @@ namespace Papaya\Request\Parameters;
  * @subpackage Request
  */
 class QueryString {
-
   /**
    * Additional group separator ([] is always supported)
    *
@@ -34,7 +34,7 @@ class QueryString {
    *
    * @var \Papaya\Request\Parameters
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * Initialize object and set group separator.
@@ -52,13 +52,13 @@ class QueryString {
    * @param string $groupSeparator
    */
   public function setSeparator($groupSeparator) {
-    if (in_array($groupSeparator, array(',', ':', '/', '*', '!'))) {
+    if (\in_array($groupSeparator, [',', ':', '/', '*', '!'])) {
       $this->_separator = $groupSeparator;
-    } elseif (in_array($groupSeparator, array('', '[]'))) {
+    } elseif (\in_array($groupSeparator, ['', '[]'])) {
       $this->_separator = '';
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid separator value "%s".', $groupSeparator)
+        \sprintf('Invalid separator value "%s".', $groupSeparator)
       );
     }
   }
@@ -73,7 +73,7 @@ class QueryString {
     if (isset($values)) {
       $this->_values = $values;
     }
-    if (is_null($this->_values)) {
+    if (\is_null($this->_values)) {
       $this->_values = new \Papaya\Request\Parameters();
     }
     return $this->_values;
@@ -83,7 +83,7 @@ class QueryString {
    * Set the query string (parse into values)
    *
    * @param string $queryString
-   * @param boolean $stripSlashes
+   * @param bool $stripSlashes
    * @return self
    */
   public function setString($queryString, $stripSlashes = FALSE) {
@@ -107,18 +107,18 @@ class QueryString {
    * Load parameters from urlencoded string (query string)
    *
    * @param string $queryString
-   * @param boolean $stripSlashes
+   * @param bool $stripSlashes
    */
   private function _decode($queryString, $stripSlashes = FALSE) {
     if (!empty($queryString)) {
-      $parts = explode('&', $queryString);
+      $parts = \explode('&', $queryString);
       foreach ($parts as $part) {
-        if (FALSE !== ($pos = strpos($part, '='))) {
-          $name = urldecode(substr($part, 0, $pos));
-          $value = urldecode(substr($part, $pos + 1));
+        if (FALSE !== ($pos = \strpos($part, '='))) {
+          $name = \urldecode(\substr($part, 0, $pos));
+          $value = \urldecode(\substr($part, $pos + 1));
           $this->_values->set($name, $this->_prepare($value, $stripSlashes), $this->_separator);
         } else {
-          $name = urldecode($part);
+          $name = \urldecode($part);
           $this->_values->set($name, TRUE, $this->_separator);
         }
       }
@@ -129,12 +129,12 @@ class QueryString {
    * Prepare parameters, make sure it is utf8 and strip slashes if needed
    *
    * @param string|array $parameter
-   * @param boolean $stripSlashes
+   * @param bool $stripSlashes
    * @return array|string
    */
   private function _prepare($parameter, $stripSlashes = FALSE) {
     if ($stripSlashes) {
-      $parameter = stripslashes($parameter);
+      $parameter = \stripslashes($parameter);
     }
     return \Papaya\Utility\Text\UTF8::ensure($parameter);
   }
@@ -144,32 +144,32 @@ class QueryString {
    *
    * @param string $prefix
    * @param array $parameters
-   * @param integer $maxRecursions
+   * @param int $maxRecursions
    * @return string
    */
   private function _encode($prefix, $parameters, $maxRecursions = 10) {
     $result = '';
-    if (is_array($parameters)) {
-      uksort($parameters, 'strnatcasecmp');
+    if (\is_array($parameters)) {
+      \uksort($parameters, 'strnatcasecmp');
       foreach ($parameters as $name => $value) {
         if (empty($prefix)) {
-          $fullName = urlencode($name);
-        } elseif ($this->_separator == '[]' || empty($this->_separator)) {
-          $fullName = $prefix.'['.urlencode($name).']';
+          $fullName = \urlencode($name);
+        } elseif ('[]' == $this->_separator || empty($this->_separator)) {
+          $fullName = $prefix.'['.\urlencode($name).']';
         } else {
-          $fullName = $prefix.$this->_separator.urlencode($name);
+          $fullName = $prefix.$this->_separator.\urlencode($name);
         }
-        if (is_array($value) && !empty($value)) {
+        if (\is_array($value) && !empty($value)) {
           $result .= '&'.$this->_encode(
               $fullName, $value, $maxRecursions - 1
             );
-        } elseif (is_scalar($value)) {
-          $result .= '&'.$fullName.'='.urlencode($value);
-        } elseif (is_object($value) && method_exists($value, '__toString')) {
-          $result .= '&'.$fullName.'='.urlencode((string)$value);
+        } elseif (\is_scalar($value)) {
+          $result .= '&'.$fullName.'='.\urlencode($value);
+        } elseif (\is_object($value) && \method_exists($value, '__toString')) {
+          $result .= '&'.$fullName.'='.\urlencode((string)$value);
         }
       }
     }
-    return substr($result, 1);
+    return \substr($result, 1);
   }
 }

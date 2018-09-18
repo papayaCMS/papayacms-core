@@ -22,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Before implements \Papaya\Filter {
-
   /**
    * @var \Papaya\Filter
    */

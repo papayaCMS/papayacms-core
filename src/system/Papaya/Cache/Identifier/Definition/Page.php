@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
+
 /**
  * Use page and category ids as cache identifier conditions
  *
@@ -23,7 +24,6 @@ namespace Papaya\Cache\Identifier\Definition;
 class Page
   extends \Papaya\Application\BaseObject
   implements \Papaya\Cache\Identifier\Definition {
-
   /**
    * Return data for the specified page
    *
@@ -37,7 +37,7 @@ class Page
     if ($isPreview) {
       return FALSE;
     }
-    $data = array(
+    $data = [
       'scheme' => \Papaya\Utility\Server\Protocol::get(),
       'host' => \Papaya\Utility\Server\Name::get(),
       'port' => \Papaya\Utility\Server\Port::get(),
@@ -56,15 +56,15 @@ class Page
         NULL,
         \Papaya\Request::SOURCE_PATH
       )
-    );
-    return empty($data) ? TRUE : array(get_class($this) => $data);
+    ];
+    return empty($data) ? TRUE : [\get_class($this) => $data];
   }
 
   /**
    * page id and category id are from the url path.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_URL;

@@ -26,16 +26,15 @@ namespace Papaya\XML;
 class Document
   extends \DOMDocument
   implements Node {
-
   /**
    * @var \Papaya\XML\Xpath
    */
-  private $_xpath = NULL;
+  private $_xpath;
 
   /**
    * @var array
    */
-  private $_namespaces = array();
+  private $_namespaces = [];
 
   /**
    * Namespace prefixes starting with the letters 'xml' are reserved by the w3c and
@@ -43,10 +42,10 @@ class Document
    *
    * @var array
    */
-  private $_reservedNamespaces = array(
+  private $_reservedNamespaces = [
     'xml' => 'http://www.w3.org/XML/1998/namespace',
     'xmlns' => 'http://www.w3.org/2000/xmlns/'
-  );
+  ];
 
   /**
    * @var bool
@@ -68,7 +67,7 @@ class Document
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
     $this->registerNodeClass(\DOMElement::class, \Papaya\XML\Element::class);
-    $this->_canDisableEntityLoader = function_exists('libxml_disable_entity_loader');
+    $this->_canDisableEntityLoader = \function_exists('libxml_disable_entity_loader');
   }
 
   /**
@@ -78,7 +77,7 @@ class Document
    * @return \DOMXpath
    */
   public function xpath() {
-    if (is_null($this->_xpath) || $this->_xpath->document != $this) {
+    if (\is_null($this->_xpath) || $this->_xpath->document != $this) {
       $this->_xpath = new \Papaya\XML\Xpath($this);
       foreach ($this->_namespaces as $prefix => $namespace) {
         $this->_xpath->registerNamespace($prefix, $namespace);
@@ -113,7 +112,7 @@ class Document
       isset($this->_reservedNamespaces[$prefix]) &&
       !$this->_reservedNamespaces[$prefix] == $namespace) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'XML prefix "%s" is reserved for the namespace "%s".',
           $prefix,
           $this->_reservedNamespaces[$prefix]
@@ -135,8 +134,8 @@ class Document
    * @return string
    */
   public function getNamespace($prefix) {
-    if (FALSE !== ($position = strpos($prefix, ':'))) {
-      $prefix = substr($prefix, 0, $position);
+    if (FALSE !== ($position = \strpos($prefix, ':'))) {
+      $prefix = \substr($prefix, 0, $position);
     }
     if (isset($this->_reservedNamespaces[$prefix])) {
       return $this->_reservedNamespaces[$prefix];
@@ -155,7 +154,7 @@ class Document
    * @param string $content
    * @return \Papaya\XML\Element new element
    */
-  public function appendElement($name, array $attributes = array(), $content = NULL) {
+  public function appendElement($name, array $attributes = [], $content = NULL) {
     return $this->appendChild($this->createElement($name, $content, $attributes));
   }
 
@@ -176,7 +175,7 @@ class Document
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
-    $content = sprintf(
+    $content = \sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
       \Papaya\Utility\Text\XML::removeControlCharacters(\Papaya\Utility\Text\UTF8::ensure($content))
     );
@@ -184,7 +183,7 @@ class Document
     if ($fragment->firstChild) {
       if ($target->ownerDocument instanceof self) {
         foreach ($fragment->firstChild->childNodes as $node) {
-          /** @var \DOMNode $node */
+          /* @var \DOMNode $node */
           $target->appendChild($node->cloneNode(TRUE));
         }
       } else {
@@ -204,17 +203,17 @@ class Document
    *
    * @see \DOMDocument::createElement()
    * @param string $name
-   * @param string|NULL $value
-   * @param array|NULL $attributes
+   * @param string|null $value
+   * @param array|null $attributes
    * @return \Papaya\XML\Element
    */
   public function createElement($name, $value = NULL, array $attributes = NULL) {
-    if (FALSE !== strpos($name, ':')) {
+    if (FALSE !== \strpos($name, ':')) {
       $node = $this->createElementNS($this->getNamespace($name), $name);
     } else {
       $node = parent::createElement($name);
     }
-    if (!is_null($value)) {
+    if (!\is_null($value)) {
       $node->appendChild($this->createTextNode($value));
     }
     if (!empty($attributes)) {
@@ -233,16 +232,16 @@ class Document
    *
    * @see \DOMDocument::createElement()
    * @param string $name
-   * @param string|NULL $value
+   * @param string|null $value
    * @return \DOMAttribute
    */
   public function createAttribute($name, $value = NULL) {
-    if (FALSE !== strpos($name, ':')) {
+    if (FALSE !== \strpos($name, ':')) {
       $node = $this->createAttributeNS($this->getNamespace($name), $name);
     } else {
       $node = parent::createAttribute($name);
     }
-    if (!is_null($value)) {
+    if (!\is_null($value)) {
       $node->value = $value;
     }
     return $node;
@@ -259,7 +258,7 @@ class Document
    * @return \Papaya\XML\Element new node
    */
   public static function createElementNode(
-    self $document, $name, array $attributes = array(), $content = NULL
+    self $document, $name, array $attributes = [], $content = NULL
   ) {
     return $document->createElement($name, $content, $attributes);
   }
@@ -267,7 +266,7 @@ class Document
   /**
    * Get/set the entry loader status
    *
-   * @param boolean $status
+   * @param bool $status
    * @return bool|null
    */
   public function activateEntityLoader($status = NULL) {
@@ -284,10 +283,10 @@ class Document
    */
   public function loadXML($source, $options = 0) {
     $status = ($this->_canDisableEntityLoader)
-      ? libxml_disable_entity_loader(!$this->_activateEntityLoader) : FALSE;
+      ? \libxml_disable_entity_loader(!$this->_activateEntityLoader) : FALSE;
     $result = parent::loadXML($source, $options);
     if ($this->_canDisableEntityLoader) {
-      libxml_disable_entity_loader($status);
+      \libxml_disable_entity_loader($status);
     }
     return $result;
   }
@@ -299,7 +298,7 @@ class Document
     $errors = new \Papaya\XML\Errors();
     $dom = new self();
     $success = $errors->encapsulate(
-      array($dom, 'loadXML'), array($xmlString), !$silent
+      [$dom, 'loadXML'], [$xmlString], !$silent
     );
     return ($success) ? $dom : NULL;
   }

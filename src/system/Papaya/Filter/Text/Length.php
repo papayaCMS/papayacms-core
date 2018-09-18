@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Text;
+
 /**
  * Papaya filter class for an string length
  *
@@ -27,25 +28,25 @@ namespace Papaya\Filter\Text;
  * @subpackage Filter
  */
 class Length implements \Papaya\Filter {
-
   /**
    * Minimum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_minimum = NULL;
+  private $_minimum;
+
   /**
    * Maximum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_maximum = NULL;
+  private $_maximum;
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
-   * @param integer|NULL $minimum
-   * @param integer|NULL $maximum
+   * @param int|null $minimum
+   * @param int|null $maximum
    * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
@@ -67,10 +68,10 @@ class Length implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (is_array($value)) {
+    if (\is_array($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
     $length = \Papaya\Utility\Text\UTF8::length((string)$value);
@@ -88,13 +89,13 @@ class Length implements \Papaya\Filter {
    * the maximum return a substring.
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
-    $value = is_array($value) ? '' : (string)$value;
+    $value = \is_array($value) ? '' : (string)$value;
     $length = \Papaya\Utility\Text\UTF8::length($value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
-      return NULL;
+      return;
     }
     if (isset($this->_maximum) && $length > $this->_maximum) {
       return \Papaya\Utility\Text\UTF8::copy($value, 0, $this->_maximum);

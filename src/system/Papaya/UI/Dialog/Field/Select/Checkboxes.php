@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Select;
+
 /**
  * A selection field displayed as checkboxes, multiple values can be selected.
  *
@@ -23,7 +24,6 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @subpackage UI
  */
 class Checkboxes extends \Papaya\UI\Dialog\Field\Select {
-
   /**
    * type of the select control, used in the xslt template
    *
@@ -39,7 +39,7 @@ class Checkboxes extends \Papaya\UI\Dialog\Field\Select {
    * @return bool
    */
   protected function _isOptionSelected($currentValue, $optionValue) {
-    return in_array($optionValue, (array)$currentValue);
+    return \in_array($optionValue, (array)$currentValue);
   }
 
   /**
@@ -62,9 +62,9 @@ class Checkboxes extends \Papaya\UI\Dialog\Field\Select {
   public function getCurrentValue() {
     $dialog = $this->getDialog();
     if ($dialog && $dialog->isSubmitted()) {
-      return $dialog->parameters()->get($this->getName(), array());
+      return $dialog->parameters()->get($this->getName(), []);
     }
     $result = parent::getCurrentValue();
-    return is_array($result) ? $result : array();
+    return \is_array($result) ? $result : [];
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\Scanner;
+
 /**
  * Abstract superclass for status objects used by the simple template scanner
  *
@@ -25,7 +26,7 @@ abstract class Status {
    * Try to get token in buffer at offset position.
    *
    * @param string $buffer
-   * @param integer $offset
+   * @param int $offset
    * @return \Papaya\Template\Simple\Scanner\Token
    */
   abstract public function getToken($buffer, $offset);
@@ -34,10 +35,10 @@ abstract class Status {
    * Check if token ends status
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
-   * @return boolean
+   * @return bool
    */
   public function isEndToken(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $token
   ) {
     return FALSE;
@@ -47,25 +48,25 @@ abstract class Status {
    * Get new (sub)status if needed.
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
-   * @return self|NULL
+   * @return self|null
    */
   public function getNewStatus(
-    /** @noinspection PhpUnusedParameterInspection */
+    /* @noinspection PhpUnusedParameterInspection */
     $token
   ) {
-    return NULL;
+    return;
   }
 
   /**
    * Checks if the given offset position matches the pattern.
    *
    * @param string $buffer
-   * @param integer $offset
+   * @param int $offset
    * @param string $pattern
-   * @return string|NULL
+   * @return string|null
    */
   protected function matchPattern($buffer, $offset, $pattern) {
-    $found = preg_match(
+    $found = \preg_match(
       $pattern, $buffer, $match, PREG_OFFSET_CAPTURE, $offset
     );
     if ($found &&
@@ -74,7 +75,7 @@ abstract class Status {
       $match[0][1] === $offset) {
       return $match[0][0];
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -82,10 +83,10 @@ abstract class Status {
    * list is an array with the patterns as keys and token types as values.
    *
    * @param string $buffer
-   * @param integer $offset
+   * @param int $offset
    * @param array $patterns
    * @internal param array $pattern
-   * @return \Papaya\Template\Simple\Scanner\Token|NULL
+   * @return \Papaya\Template\Simple\Scanner\Token|null
    */
   protected function matchPatterns($buffer, $offset, $patterns) {
     foreach ($patterns as $pattern => $tokenType) {
@@ -94,6 +95,6 @@ abstract class Status {
         return new \Papaya\Template\Simple\Scanner\Token($tokenType, $offset, $tokenContent);
       }
     }
-    return NULL;
+    return;
   }
 }

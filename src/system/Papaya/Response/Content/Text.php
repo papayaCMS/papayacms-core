@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Response\Content;
+
 /**
  * Simple string response content
  *
@@ -23,7 +24,6 @@ namespace Papaya\Response\Content;
  * @subpackage Response
  */
 class Text implements \Papaya\Response\Content {
-
   /**
    * string content buffer
    *
@@ -44,10 +44,10 @@ class Text implements \Papaya\Response\Content {
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
-    return strlen($this->_content);
+    return \strlen($this->_content);
   }
 
   /**

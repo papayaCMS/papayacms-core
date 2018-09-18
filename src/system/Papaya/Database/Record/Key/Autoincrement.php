@@ -14,15 +14,14 @@
  */
 
 namespace Papaya\Database\Record\Key;
+
 /**
  * An single field autoincrement key
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Autoincrement.php 39197 2014-02-11 13:36:56Z weinert $
  */
 class Autoincrement implements \Papaya\Database\Interfaces\Key {
-
   /**
    * the property name
    *
@@ -33,14 +32,14 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
   /**
    * the current field value
    *
-   * @var NULL|integer
+   * @var null|int
    */
-  private $_value = NULL;
+  private $_value;
 
   /**
    * Create object and set the identifier property, the default
    *
-   * @var NULL|integer
+   * @var null|int
    */
   public function __construct($property = 'id') {
     $this->_property = $property;
@@ -49,7 +48,7 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
   /**
    * Provide information if the key is autoincrement
    *
-   * @return integer
+   * @return int
    */
   public function getQualities() {
     return \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED;
@@ -77,7 +76,7 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
    *
    * The key is provided by the database so it should always exists if it is set.
    *
-   * @return boolean
+   * @return bool
    */
   public function exists() {
     return isset($this->_value);
@@ -105,17 +104,17 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
    * @return array(string)
    */
   public function getProperties() {
-    return array($this->_property);
+    return [$this->_property];
   }
 
   /**
    * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
    * fields
    *
-   * @param integer $for the action the filter ist fetched for
+   * @param int $for the action the filter ist fetched for
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {
-    return array($this->_property => $this->_value);
+    return [$this->_property => $this->_value];
   }
 }

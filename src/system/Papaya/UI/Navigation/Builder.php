@@ -24,25 +24,27 @@ namespace Papaya\UI\Navigation;
  * @subpackage UI
  */
 class Builder extends \Papaya\UI\Control {
-
   /**
    * member variable for the source
    *
    * @var array|\Traversable
    */
-  private $_elements = array();
+  private $_elements = [];
+
   /**
    * member variable for the links
    *
    * @var \Papaya\UI\Navigation\Items
    */
   private $_items;
+
   /**
    * member variable for the callbacks
    *
    * @var Builder\Callbacks
    */
   private $_callbacks;
+
   /**
    * member variable for the navigation item class while using default creation
    *
@@ -59,9 +61,9 @@ class Builder extends \Papaya\UI\Control {
    */
   public function __construct($elements, $itemClass = Item\Text::class) {
     $this->elements($elements);
-    if (!is_subclass_of($itemClass, \Papaya\UI\Navigation\Item::class)) {
+    if (!\is_subclass_of($itemClass, \Papaya\UI\Navigation\Item::class)) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Class "%s" is not an subclass of "%s".',
           $itemClass,
           \Papaya\UI\Navigation\Item::class

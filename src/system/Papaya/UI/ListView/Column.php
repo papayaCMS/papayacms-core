@@ -14,17 +14,17 @@
  */
 
 namespace Papaya\UI\ListView;
+
 /**
  * A list view column represent one part of the column header in a {@see \Papaya\UI\ListView}.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property string|\Papaya\UI\Text $caption
  */
 class Column extends \Papaya\UI\Control\Collection\Item {
-
   /**
    * Current caption value
    *
@@ -35,7 +35,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   /**
    * Current alignment value
    *
-   * @var integer
+   * @var int
    */
   protected $_align = \Papaya\UI\Option\Align::LEFT;
 
@@ -44,16 +44,16 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'caption' => array('_caption', '_caption')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'caption' => ['_caption', '_caption']
+  ];
 
   /**
    * Initialize object and set standard values.
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
   public function __construct($caption, $align = \Papaya\UI\Option\Align::LEFT) {
     $this->_caption = $caption;
@@ -64,7 +64,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    * Set the alignment if it is valid throw an exception if not.
    *
    * @throws \InvalidArgumentException
-   * @param integer $align
+   * @param int $align
    */
   public function setAlign($align) {
     \Papaya\UI\Option\Align::validate($align);
@@ -74,7 +74,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   /**
    * Read the current alignment
    *
-   * @return integer
+   * @return int
    */
   public function getAlign() {
     return $this->_align;
@@ -88,9 +88,9 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     $parent->appendElement(
       'col',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->_align)
-      ),
+      ],
       (string)$this->_caption
     );
   }

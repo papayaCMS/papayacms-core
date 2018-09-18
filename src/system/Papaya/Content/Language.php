@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content;
+
 /**
  * Provide data encapsulation for a language record.
  *
@@ -22,22 +23,21 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id
+ * @property int $id
  * @property string $identifier
  * @property string $code
  * @property string $title
  * @property string $image
- * @property integer $isInterface
- * @property integer $isContent
+ * @property int $isInterface
+ * @property int $isContent
  */
 class Language extends \Papaya\Database\Record\Lazy {
-
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'lng_id',
     'identifier' => 'lng_ident',
     'code' => 'lng_short',
@@ -45,7 +45,7 @@ class Language extends \Papaya\Database\Record\Lazy {
     'image' => 'lng_glyph',
     'is_interface' => 'is_interface_lng',
     'is_content' => 'is_content_lng'
-  );
+  ];
 
   protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
 

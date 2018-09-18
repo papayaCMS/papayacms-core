@@ -16,21 +16,20 @@
 namespace Papaya\Content\Media;
 
 class Folders extends \Papaya\Database\Records\Tree {
-
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'folder_id',
     'parent_id' => 'parent_id',
     'ancestors' => 'parent_path',
     'language_id' => 'lng_id',
     'title' => 'folder_name'
-  );
+  ];
 
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty =
-      array($this, 'callbackMapValueFromFieldToProperty');
+      [$this, 'callbackMapValueFromFieldToProperty'];
     $mapping->callbacks()->onGetFieldForProperty =
-      array($this, 'callbackGetFieldForProperty');
+      [$this, 'callbackGetFieldForProperty'];
     return $mapping;
   }
 
@@ -51,7 +50,7 @@ class Folders extends \Papaya\Database\Records\Tree {
           return 'f.'.$this->_fields[$property];
         }
     }
-    return NULL;
+    return;
   }
 
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
@@ -67,12 +66,11 @@ class Folders extends \Papaya\Database\Records\Tree {
     $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDERS),
       $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDER_TRANSLATIONS),
       $languageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
-
 }

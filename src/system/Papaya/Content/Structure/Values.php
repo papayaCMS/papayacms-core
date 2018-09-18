@@ -25,7 +25,6 @@ namespace Papaya\Content\Structure;
  * @subpackage Content
  */
 class Values extends \Papaya\BaseObject\Collection {
-
   private $_group;
 
   public function __construct(Group $group) {
@@ -61,7 +60,7 @@ class Values extends \Papaya\BaseObject\Collection {
       } else {
         $parameterNodes = $document->xpath()->evaluate('field-parameter', $node);
         if ($parameterNodes->length > 0) {
-          $fieldParameters = array();
+          $fieldParameters = [];
           /** @var \Papaya\XML\Element $parameterNode */
           foreach ($parameterNodes as $parameterNode) {
             $key = $parameterNode->getAttribute('key');

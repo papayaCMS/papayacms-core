@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * A list of dialog buttons
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Buttons extends Elements {
-
   /**
    * Only \Papaya\UI\Dialog\Button objects are allows in this list
    *

@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
-use \Papaya\Content\Page;
+use Papaya\Content\Page;
 
 /**
  * Synchronize view of the page working copy
@@ -25,26 +25,25 @@ use \Papaya\Content\Page;
  */
 class View
   extends Content {
-
   /**
    * Update content data of existing translations
    *
    * @param Page\Translation $origin
    * @param array $targetIds
-   * @return boolean
+   * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
-        array(
+        [
           'view_id' => $origin->viewId,
           'topic_trans_modified' => $origin->modified
-        ),
-        array(
+        ],
+        [
           'lng_id' => $origin->languageId,
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
 }

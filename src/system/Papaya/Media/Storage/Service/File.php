@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Media\Storage\Service;
+
 /**
  * File based storage service for papaya
  *
@@ -21,7 +22,6 @@ namespace Papaya\Media\Storage\Service;
  * @subpackage Media-Storage
  */
 class File extends \Papaya\Media\Storage\Service {
-
   /**
    * base storage directory - will contain subdirectories for each storage group
    *
@@ -32,7 +32,7 @@ class File extends \Papaya\Media\Storage\Service {
   /**
    * subdirectory levels to avoid to many files in one directory
    *
-   * @var integer $_storageDirectoryDepth
+   * @var int $_storageDirectoryDepth
    */
   private $_storageDirectoryDepth = 1;
 
@@ -60,12 +60,12 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @var array $_mimeTypeToExtension
    */
-  private $_mimeTypeToExtension = array(
+  private $_mimeTypeToExtension = [
     'image/png' => 'png',
     'image/jpeg' => 'jpg',
     'image/gif' => 'gif',
     'application/x-shockwave-flash' => 'swf'
-  );
+  ];
 
   /**
    * set the base storage directory and other configuration values
@@ -83,31 +83,31 @@ class File extends \Papaya\Media\Storage\Service {
       'PAPAYA_MEDIA_PUBLIC_DIRECTORY', $this->_publicDirectory
     );
     if (!empty($this->_publicDirectory) &&
-      !is_dir($this->_publicDirectory)) {
+      !\is_dir($this->_publicDirectory)) {
       $this->_publicDirectory = '';
     }
     $this->_publicURL = $configuration->get(
       'PAPAYA_MEDIA_PUBLIC_URL', $this->_publicURL
     );
-    if (substr($this->_publicDirectory, -1) == '/') {
-      $this->_publicDirectory = substr($this->_publicDirectory, 0, -1);
+    if ('/' == \substr($this->_publicDirectory, -1)) {
+      $this->_publicDirectory = \substr($this->_publicDirectory, 0, -1);
     }
   }
 
   /**
    * check that the base storage directory exists
    *
-   * @return boolean
+   * @return bool
    */
   protected function _verifyConfiguration() {
     if (!empty($this->_storageDirectory) &&
-      is_dir($this->_storageDirectory) &&
-      is_readable($this->_storageDirectory) &&
-      is_writeable($this->_storageDirectory)) {
-      $lastChar = substr($this->_storageDirectory, -1);
-      if ($lastChar == '/' ||
-        $lastChar == DIRECTORY_SEPARATOR) {
-        $this->_storageDirectory = substr($this->_storageDirectory, 0, -1);
+      \is_dir($this->_storageDirectory) &&
+      \is_readable($this->_storageDirectory) &&
+      \is_writable($this->_storageDirectory)) {
+      $lastChar = \substr($this->_storageDirectory, -1);
+      if ('/' == $lastChar ||
+        DIRECTORY_SEPARATOR == $lastChar) {
+        $this->_storageDirectory = \substr($this->_storageDirectory, 0, -1);
       }
       return TRUE;
     }
@@ -119,31 +119,31 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $path
    * @param string $storageId
-   * @param boolean $createPath
-   * @return string|NULL
+   * @param bool $createPath
+   * @return string|null
    */
   private function _getFileLocation($path, $storageId, $createPath) {
     $result = NULL;
-    if (strlen($storageId) > $this->_storageDirectoryDepth) {
+    if (\strlen($storageId) > $this->_storageDirectoryDepth) {
       $oldMask = NULL;
       $result = $path;
       if (!$this->_ensureLocalDirectory($result, $createPath, $oldMask)) {
-        return NULL;
+        return;
       }
       for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
-        $result .= DIRECTORY_SEPARATOR.substr($storageId, $offset, 1);
+        $result .= DIRECTORY_SEPARATOR.\substr($storageId, $offset, 1);
         if (!$this->_ensureLocalDirectory($result, $createPath, $oldMask)) {
-          return NULL;
+          return;
         }
       }
       if (isset($oldMask)) {
-        umask($oldMask);
+        \umask($oldMask);
       }
     }
     if ($result) {
       return $result.DIRECTORY_SEPARATOR.$storageId;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -151,17 +151,17 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $directory
    * @param $createDirectory
-   * @param integer $oldMask
-   * @return FALSE
+   * @param int $oldMask
+   * @return false
    */
   private function _ensureLocalDirectory($directory, $createDirectory, &$oldMask) {
-    if (file_exists($directory) && is_dir($directory)) {
+    if (\file_exists($directory) && \is_dir($directory)) {
       return TRUE;
     } elseif ($createDirectory) {
-      if (is_null($oldMask)) {
-        $oldMask = umask(0);
+      if (\is_null($oldMask)) {
+        $oldMask = \umask(0);
       }
-      return @mkdir($directory, 0777);
+      return @\mkdir($directory, 0777);
     } else {
       return FALSE;
     }
@@ -172,8 +172,8 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param boolean $createPath
-   * @return string|NULL
+   * @param bool $createPath
+   * @return string|null
    */
   private function _getStorageFilename($storageGroup, $storageId, $createPath) {
     return $this->_getFileLocation(
@@ -192,12 +192,12 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
-   * @param boolean $createPath
-   * @return string|NULL
+   * @param bool $createPath
+   * @return string|null
    */
   private function _getPublicFilename($storageGroup, $storageId, $mimeType, $createPath) {
     if (empty($this->_publicDirectory)) {
-      return NULL;
+      return;
     }
     $result = $this->_getFileLocation(
       $this->_publicDirectory.DIRECTORY_SEPARATOR.$storageGroup,
@@ -223,8 +223,8 @@ class File extends \Papaya\Media\Storage\Service {
       return '';
     }
     $extension = '.'.$this->_mimeTypeToExtension[$mimeType];
-    $extensionLength = strlen($extension);
-    if (substr($storageId, -1 * $extensionLength, $extensionLength) !== $extension) {
+    $extensionLength = \strlen($extension);
+    if (\substr($storageId, -1 * $extensionLength, $extensionLength) !== $extension) {
       return $extension;
     }
     return '';
@@ -234,14 +234,14 @@ class File extends \Papaya\Media\Storage\Service {
    * check if a storage file exists and is read-/writeable
    *
    * @param string $storageFilename
-   * @return boolean
+   * @return bool
    */
   private function _existLocalFile($storageFilename) {
     if (!empty($storageFilename) &&
-      file_exists($storageFilename) &&
-      is_file($storageFilename) &&
-      is_readable($storageFilename) &&
-      is_writeable($storageFilename)) {
+      \file_exists($storageFilename) &&
+      \is_file($storageFilename) &&
+      \is_readable($storageFilename) &&
+      \is_writable($storageFilename)) {
       return TRUE;
     }
     return FALSE;
@@ -255,21 +255,21 @@ class File extends \Papaya\Media\Storage\Service {
    * @return array(string) files
    */
   private function _browseDirectory($path, $startsWith = '') {
-    $result = array();
-    $directories = glob($path.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
-    if (is_array($directories)) {
+    $result = [];
+    $directories = \glob($path.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+    if (\is_array($directories)) {
       foreach ($directories as $directory) {
-        $result = array_merge(
+        $result = \array_merge(
           $result,
           $this->_browseDirectory($directory, $startsWith)
         );
       }
     }
-    $files = glob($path.DIRECTORY_SEPARATOR.$startsWith.'*');
-    if (is_array($files)) {
+    $files = \glob($path.DIRECTORY_SEPARATOR.$startsWith.'*');
+    if (\is_array($files)) {
       foreach ($files as $file) {
-        if (is_file($file)) {
-          $result[] = substr($file, strlen($path) + 1);
+        if (\is_file($file)) {
+          $result[] = \substr($file, \strlen($path) + 1);
         }
       }
     }
@@ -285,12 +285,12 @@ class File extends \Papaya\Media\Storage\Service {
    */
   public function browse($storageGroup, $startsWith = '') {
     $storagePath = $this->_storageDirectory.DIRECTORY_SEPARATOR.$storageGroup;
-    if (file_exists($storagePath) &&
-      is_dir($storagePath) &&
-      is_readable($storagePath)) {
+    if (\file_exists($storagePath) &&
+      \is_dir($storagePath) &&
+      \is_readable($storagePath)) {
       return $this->_browseDirectory($storagePath, $startsWith);
     }
-    return array();
+    return [];
   }
 
   /**
@@ -300,23 +300,23 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param resource|string $content
    * @param string $mimeType
-   * @param boolean $isPublic
-   * @return boolean
+   * @param bool $isPublic
+   * @return bool
    */
   public function store(
     $storageGroup, $storageId, $content, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
     if ($this->_verifyConfiguration()) {
       $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, TRUE);
-      if ($storageFilename && $fh = fopen($storageFilename, 'w')) {
-        if (is_resource($content)) {
-          while (!feof($content)) {
-            fwrite($fh, fread($content, 512000));
+      if ($storageFilename && $fh = \fopen($storageFilename, 'w')) {
+        if (\is_resource($content)) {
+          while (!\feof($content)) {
+            \fwrite($fh, \fread($content, 512000));
           }
         } else {
-          fwrite($fh, $content);
+          \fwrite($fh, $content);
         }
-        fclose($fh);
+        \fclose($fh);
         $this->setPublic($storageGroup, $storageId, $isPublic, $mimeType);
         return TRUE;
       }
@@ -331,15 +331,15 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param string $filename
    * @param string $mimeType
-   * @param boolean $isPublic
-   * @return boolean
+   * @param bool $isPublic
+   * @return bool
    */
   public function storeLocalFile(
     $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
     if ($this->_verifyConfiguration()) {
       $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, TRUE);
-      if ($storageFilename && copy($filename, $storageFilename)) {
+      if ($storageFilename && \copy($filename, $storageFilename)) {
         $this->setPublic($storageGroup, $storageId, $isPublic, $mimeType);
         return TRUE;
       }
@@ -352,12 +352,12 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return boolean
+   * @return bool
    */
   public function remove($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
-      return unlink($storageFilename);
+      return \unlink($storageFilename);
     }
     return FALSE;
   }
@@ -367,7 +367,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return boolean
+   * @return bool
    */
   public function exists($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
@@ -382,14 +382,14 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @return string|NULL
+   * @return string|null
    */
   public function get($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
-      return file_get_contents($storageFilename);
+      return \file_get_contents($storageFilename);
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -397,10 +397,10 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param integer $rangeFrom
-   * @param integer $rangeTo
-   * @param integer $bufferSize
-   * @return boolean
+   * @param int $rangeFrom
+   * @param int $rangeTo
+   * @param int $bufferSize
+   * @return bool
    */
   public function output(
     $storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0, $bufferSize = 1024
@@ -410,9 +410,9 @@ class File extends \Papaya\Media\Storage\Service {
       if ($rangeFrom > 0 && $rangeTo > 0) {
         $length = $rangeTo - $rangeFrom + 1;
       } elseif ($rangeFrom) {
-        $length = filesize($storageFilename) - $rangeFrom;
+        $length = \filesize($storageFilename) - $rangeFrom;
       } else {
-        $length = filesize($storageFilename);
+        $length = \filesize($storageFilename);
       }
       return $this->_outputLocalFile(
         $storageFilename, $rangeFrom, $length, $bufferSize
@@ -424,25 +424,24 @@ class File extends \Papaya\Media\Storage\Service {
   /**
    * Ouutput range of local file
    *
-   * @access protected
    * @param string $fileName
-   * @param integer $rangeFrom
-   * @param integer $length
-   * @param integer $bufferSize
-   * @return boolean
+   * @param int $rangeFrom
+   * @param int $length
+   * @param int $bufferSize
+   * @return bool
    */
   protected function _outputLocalFile($fileName, $rangeFrom, $length, $bufferSize) {
-    if ($fh = fopen($fileName, 'r')) {
+    if ($fh = \fopen($fileName, 'r')) {
       if ($rangeFrom > 0) {
-        fseek($fh, $rangeFrom);
+        \fseek($fh, $rangeFrom);
       }
       for ($i = $length; $i > $bufferSize; $i -= $bufferSize) {
-        echo fread($fh, $bufferSize);
+        echo \fread($fh, $bufferSize);
       }
       if ($i > 0) {
-        echo fread($fh, $i);
+        echo \fread($fh, $i);
       }
-      fclose($fh);
+      \fclose($fh);
       return TRUE;
     }
     return FALSE;
@@ -463,7 +462,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
-   * @return boolean $isPublic
+   * @return bool $isPublic
    */
   public function isPublic($storageGroup, $storageId, $mimeType) {
     if ($this->allowPublic()) {
@@ -482,9 +481,9 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param boolean $isPublic
+   * @param bool $isPublic
    * @param string $mimeType
-   * @return boolean file is now in target status
+   * @return bool file is now in target status
    */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
     $publicFilename = $this->_getPublicFilename(
@@ -502,13 +501,13 @@ class File extends \Papaya\Media\Storage\Service {
       } else {
         $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
         if ($this->_existLocalFile($storageFilename) &&
-          !file_exists($publicFilename)) {
-          return @symlink($storageFilename, $publicFilename);
+          !\file_exists($publicFilename)) {
+          return @\symlink($storageFilename, $publicFilename);
         }
       }
     } else {
       if ($this->_existLocalFile($publicFilename)) {
-        return unlink($publicFilename);
+        return \unlink($publicFilename);
       } else {
         return TRUE;
       }
@@ -528,12 +527,12 @@ class File extends \Papaya\Media\Storage\Service {
   public function getLocalFile($storageGroup, $storageId) {
     $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
     if ($this->_existLocalFile($storageFilename)) {
-      return array(
+      return [
         'filename' => $storageFilename,
         'is_temporary' => FALSE
-      );
+      ];
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -542,21 +541,21 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
-   * @return string|NULL
+   * @return string|null
    */
   public function getURL($storageGroup, $storageId, $mimeType) {
-    if (strlen($storageId) > $this->_storageDirectoryDepth) {
+    if (\strlen($storageId) > $this->_storageDirectoryDepth) {
       $publicFilename = $this->_getPublicFilename(
         $storageGroup, $storageId, $mimeType, FALSE
       );
       if ($this->_existLocalFile($publicFilename)) {
         $result = $this->_publicURL.$storageGroup;
         for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
-          $result .= '/'.substr($storageId, $offset, 1);
+          $result .= '/'.\substr($storageId, $offset, 1);
         }
         return $result.'/'.$storageId.$this->_getPublicExtension($storageId, $mimeType);
       }
     }
-    return NULL;
+    return;
   }
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request;
+
 /**
  * Encapsulation for the raw request content.
  *
@@ -24,16 +25,17 @@ namespace Papaya\Request;
  * @subpackage Request
  */
 class Content {
-
   const STREAM_PHP_INPUT = 'php://input';
 
-  private $_stream = NULL;
-  private $_contents = NULL;
-  private $_length = NULL;
+  private $_stream;
+
+  private $_contents;
+
+  private $_length;
 
   /**
-   * @param resource|NULL $stream
-   * @param int|NULL $length
+   * @param resource|null $stream
+   * @param int|null $length
    */
   public function __construct($stream = NULL, $length = NULL) {
     $this->_stream = $stream;
@@ -46,10 +48,10 @@ class Content {
    * @return string
    */
   public function get() {
-    if (is_null($this->_contents)) {
+    if (\is_null($this->_contents)) {
       $this->_contents = isset($this->_stream)
-        ? stream_get_contents($this->_stream)
-        : file_get_contents(self::STREAM_PHP_INPUT);
+        ? \stream_get_contents($this->_stream)
+        : \file_get_contents(self::STREAM_PHP_INPUT);
     }
     return $this->_contents;
   }

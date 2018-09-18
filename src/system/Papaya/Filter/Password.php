@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for a password
  *
@@ -25,25 +26,25 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Password implements \Papaya\Filter {
-
   /**
    * Minimum password length
    *
-   * @var integer
+   * @var int
    */
   private $_minimumLength = 0;
+
   /**
    * Maximum password length
    *
-   * @var integer
+   * @var int
    */
   private $_maximumLength = 0;
 
   /**
    * Construct object and initilize password length limits
    *
-   * @param integer $minimum
-   * @param integer $maximum
+   * @param int $minimum
+   * @param int $maximum
    */
   public function __construct($minimum = 8, $maximum = 60) {
     $this->_minimumLength = $minimum;
@@ -55,18 +56,18 @@ class Password implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    $length = strlen($value);
+    $length = \strlen($value);
     if ($length < $this->_minimumLength) {
       throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimumLength, $length);
     }
     if ($length > $this->_maximumLength) {
       throw new \Papaya\Filter\Exception\InvalidLength\ToLong($this->_maximumLength, $length);
     }
-    preg_match_all('(\PL)u', $value, $matches);
-    if (!(isset($matches[0]) && count($matches[0]) > 1)) {
+    \preg_match_all('(\PL)u', $value, $matches);
+    if (!(isset($matches[0]) && \count($matches[0]) > 1)) {
       throw new \Papaya\Filter\Exception\Password\Weak();
     }
     return TRUE;
@@ -76,14 +77,14 @@ class Password implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

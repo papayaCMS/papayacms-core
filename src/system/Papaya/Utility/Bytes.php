@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility;
+
 /**
  * A bunch of bytes related utility functions.
  *
@@ -21,8 +22,7 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Bytes {
-
-  private static $_exponents = array(
+  private static $_exponents = [
     'YB' => 8,
     'ZB' => 7,
     'EB' => 6,
@@ -32,9 +32,9 @@ class Bytes {
     'MB' => 2,
     'kB' => 1,
     'B' => 0,
-  );
+  ];
 
-  private static $_mapping = array(
+  private static $_mapping = [
     'b' => 'B', 'bytes' => 'B',
     'kb' => 'kB', 'k' => 'kB', 'kilo' => 'kB',
     'mb' => 'MB', 'm' => 'MB', 'mega' => 'MB',
@@ -44,12 +44,12 @@ class Bytes {
     'eb' => 'EB', 'e' => 'EB', 'exa' => 'EB',
     'zb' => 'ZB', 'z' => 'ZB', 'zeta' => 'ZB',
     'yb' => 'YB', 'y' => 'YB', 'yota' => 'YB',
-  );
+  ];
 
   /**
    * Format a given bytes value into a human readable string
    *
-   * @param integer $bytes
+   * @param int $bytes
    * @param int $decimals
    * @param string $decimalSeparator
    * @return string
@@ -59,29 +59,29 @@ class Bytes {
     $size = $bytes;
     foreach (self::$_exponents as $unit => $exponent) {
       if ($exponent > 0) {
-        $factor = pow(1024, $exponent);
+        $factor = \pow(1024, $exponent);
         if ($bytes > $factor) {
           $size = $bytes / $factor;
           break;
         }
       } else {
-        return round($bytes).' '.$unit;
+        return \round($bytes).' '.$unit;
       }
     }
-    return number_format($size, $decimals, $decimalSeparator, '').' '.$unit;
+    return \number_format($size, $decimals, $decimalSeparator, '').' '.$unit;
   }
 
   /**
    * Convert a string containing a unit into an integer
    *
    * @param string $string
-   * @return integer
+   * @return int
    */
   public static function fromString($string) {
-    $string = trim($string);
-    if (preg_match('((?P<size>[\d.,]+)\s*(?P<unit>[a-z]*))i', $string, $matches)) {
+    $string = \trim($string);
+    if (\preg_match('((?P<size>[\d.,]+)\s*(?P<unit>[a-z]*))i', $string, $matches)) {
       $size = \Papaya\Utility\Arrays::get($matches, 'size', 0);
-      $unit = strtolower(\Papaya\Utility\Arrays::get($matches, 'unit', ''));
+      $unit = \strtolower(\Papaya\Utility\Arrays::get($matches, 'unit', ''));
     } else {
       $size = $string;
       $unit = '';
@@ -92,7 +92,7 @@ class Bytes {
       $exponent = 0;
     }
     if ($exponent > 0) {
-      return (int)$size * pow(1024, $exponent);
+      return (int)$size * \pow(1024, $exponent);
     }
     return (int)$size;
   }

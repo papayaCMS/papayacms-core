@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for message string contexts
  *
@@ -24,12 +25,10 @@ namespace Papaya\Message\Context\Interfaces;
  */
 interface XHTML
   extends \Papaya\Message\Context\Data {
-
   /**
    * Get context as xhtml string
    *
    * @return string
    */
-  function asXhtml();
-
+  public function asXhtml();
 }

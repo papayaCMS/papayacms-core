@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for an string length
  *
@@ -27,19 +28,19 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Length implements \Papaya\Filter {
-
   /**
    * Minimum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_minimum = NULL;
+  private $_minimum;
+
   /**
    * Maximum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_maximum = NULL;
+  private $_maximum;
 
   /**
    * @var bool use sttring as utf-8 and return the codepoint count
@@ -49,8 +50,8 @@ class Length implements \Papaya\Filter {
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
-   * @param integer|NULL $minimum
-   * @param integer|NULL $maximum
+   * @param int|null $minimum
+   * @param int|null $maximum
    * @param bool $isUTF8
    * @throws \RangeException
    */
@@ -70,7 +71,7 @@ class Length implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if ($this->_isUTF8) {
@@ -79,7 +80,7 @@ class Length implements \Papaya\Filter {
       );
       $length = $string->length();
     } else {
-      $length = strlen($value);
+      $length = \strlen($value);
     }
     if (isset($this->_minimum) && $length < $this->_minimum) {
       throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimum, $value);
@@ -94,7 +95,7 @@ class Length implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     $value = \Papaya\Utility\Text\UTF8::ensure($value);
@@ -102,7 +103,7 @@ class Length implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

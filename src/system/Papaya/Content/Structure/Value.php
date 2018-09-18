@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Structure;
+
 /**
  * Content structure value element
  *
@@ -32,7 +33,6 @@ namespace Papaya\Content\Structure;
  * @property mixed $fieldParameters
  */
 class Value extends Node {
-
   private $_group;
 
   /**
@@ -42,7 +42,7 @@ class Value extends Node {
    */
   public function __construct(Group $group) {
     parent::__construct(
-      array(
+      [
         'name' => 'value',
         'title' => '',
         'type' => 'text',
@@ -50,7 +50,7 @@ class Value extends Node {
         'hint' => '',
         'fieldType' => '',
         'fieldParameters' => ''
-      )
+      ]
     );
     $this->_group = $group;
   }

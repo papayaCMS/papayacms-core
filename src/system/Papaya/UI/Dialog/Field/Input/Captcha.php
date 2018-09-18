@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * An image captcha input field
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @subpackage UI
  */
 class Captcha extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -39,9 +39,9 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
   /**
    * Buffer for the captcha status
    *
-   * @var boolean|NULL
+   * @var bool|null
    */
-  private $_isCaptchaValid = NULL;
+  private $_isCaptchaValid;
 
   /**
    * Creates dialog field for
@@ -79,22 +79,22 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
     $identifier = $this->createCaptchaIdentifier();
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->getType(),
         'name' => $this->_getParameterName($this->getName().'['.$identifier.']', TRUE),
-      )
+      ]
     );
     $reference = new \Papaya\UI\Reference(clone $this->papaya()->request->getURL());
     $reference->setRelative($this->_captchaImage.'.image.jpg');
-    $reference->setParameters(array('img' => array('identifier' => $identifier)));
-    $field->appendElement('image', array('src' => $reference->getRelative()));
+    $reference->setParameters(['img' => ['identifier' => $identifier]]);
+    $field->appendElement('image', ['src' => $reference->getRelative()]);
     return $field;
   }
 
   /**
    * Fetch the current value
    *
-   * @return boolean
+   * @return bool
    */
   public function getCurrentValue() {
     if ($this->hasCollection() &&
@@ -109,16 +109,16 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
    * the captcha if it matches. Store the value in an internal member variable, because
    * of the invalidation, the validation can not be repeated.
    *
-   * @return boolean
+   * @return bool
    */
   private function validateCaptcha() {
     if (NULL === $this->_isCaptchaValid) {
       $token = $this->collection()->owner()->parameters()->get(
-        $this->getName(), array()
+        $this->getName(), []
       );
       if (!empty($token)) {
-        $value = reset($token);
-        $identifier = key($token);
+        $value = \reset($token);
+        $identifier = \key($token);
         $captchas = $this->papaya()->session->getValue('PAPAYA_SESS_CAPTCHA', []);
         if (isset($captchas[$identifier]) && ($captchas[$identifier] == $value)) {
           unset($captchas[$identifier]);
@@ -138,6 +138,6 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
    * @return string
    */
   public function createCaptchaIdentifier() {
-    return md5(\Papaya\Utility\Random::getId());
+    return \md5(\Papaya\Utility\Random::getId());
   }
 }

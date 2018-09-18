@@ -19,5 +19,4 @@ interface Properties
   extends
     Properties\Readable,
     Properties\Writable {
-
 }

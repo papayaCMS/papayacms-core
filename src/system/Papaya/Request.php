@@ -25,58 +25,59 @@ namespace Papaya;
  * @property \Papaya\Content\View\Mode $mode
  * @property-read URL $url
  * @property-read string $method
- * @property-read boolean $allowCompression
- * @property-read integer $pageId
- * @property-read integer $languageId
+ * @property-read bool $allowCompression
+ * @property-read int $pageId
+ * @property-read int $languageId
  * @property-read string $languageIdentifier
- * @property-read integer $modeId
- * @property-read boolean $isPreview
+ * @property-read int $modeId
+ * @property-read bool $isPreview
  * @property-read \Papaya\Request\Content $content
  * @property-read int $contentLength
  */
 class Request
   extends Application\BaseObject
   implements BaseObject\Interfaces\Properties {
-
   /**
    * Paramter source type: url path
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_PATH = 1;
+
   /**
    * Paramter source type: query string
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_QUERY = 2;
+
   /**
    * Paramter source type: request body ($_POST)
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_BODY = 4;
 
   /**
    * Paramter source group: body, query, path (in this priority)
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_ALL = 7;
 
   /**
    * Paramter source type: cookie (not included in SOURCE_ALL)
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_COOKIE = 8;
 
   /**
    * allowed request methods
    */
-  private static $_allowedMethods = array(
+  private static $_allowedMethods = [
     'get', 'post', 'put', 'delete'
-  );
+  ];
 
   /**
    * separator for query string parameter groups
@@ -84,6 +85,7 @@ class Request
    * @var string
    */
   private $_separator = ':';
+
   /**
    * cms installation path
    *
@@ -96,48 +98,51 @@ class Request
    *
    * @var array
    */
-  private $_parsers = array();
+  private $_parsers = [];
+
   /**
    * Request url object
    *
    * @var URL
    */
-  private $_url = NULL;
+  private $_url;
+
   /**
    * Request url object
    *
    * @var URL
    */
-  private $_language = NULL;
+  private $_language;
 
   private $_mode;
+
   /**
    * Request path parameter data
    *
    * @var array
    */
-  private $_pathData = array();
+  private $_pathData = [];
 
   /**
    * internal cache for parameter objects
    *
    * @var array
    */
-  private $_parameterCache = array();
+  private $_parameterCache = [];
 
   /**
    * Does the client that sent the request allow gzip compression of the response.
    *
-   * @var boolean|NULL
+   * @var bool|null
    */
-  private $_allowCompression = NULL;
+  private $_allowCompression;
 
   /**
    * Access to the raw request content
    *
    * @var \Papaya\Request\Content
    */
-  private $_content = NULL;
+  private $_content;
 
   /**
    * Create object and set options if given.
@@ -188,15 +193,15 @@ class Request
           'preview', FALSE, NULL, self::SOURCE_PATH
         );
       case 'isAdministration' :
-        return defined('PAPAYA_ADMIN_PAGE') && constant('PAPAYA_ADMIN_PAGE');
+        return \defined('PAPAYA_ADMIN_PAGE') && \constant('PAPAYA_ADMIN_PAGE');
       case 'content' :
         return $this->content();
       case 'contentLength' :
         return $this->content()->length();
     }
     throw new \LogicException(
-      sprintf(
-        'Property %s::$%s can not be changed', get_class($this), $name
+      \sprintf(
+        'Property %s::$%s can not be changed', \get_class($this), $name
       )
     );
   }
@@ -219,8 +224,8 @@ class Request
         return;
     }
     throw new \LogicException(
-      sprintf(
-        'Property %s::$%s can not be changed', get_class($this), $name
+      \sprintf(
+        'Property %s::$%s can not be changed', \get_class($this), $name
       )
     );
   }
@@ -238,7 +243,7 @@ class Request
   /**
    * get the attached url object
    *
-   * @return URL|NULL
+   * @return URL|null
    */
   public function getURL() {
     if (NULL === $this->_url) {
@@ -261,11 +266,11 @@ class Request
       $this->_language->papaya($this->papaya());
       if ($identifier = $this->getParameter('language', '', NULL, self::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(
-          array('identifier' => $identifier)
+          ['identifier' => $identifier]
         );
       } elseif ($id = $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 0)) {
         $this->_language->activateLazyLoad(
-          array('id' => $id)
+          ['id' => $id]
         );
       }
     }
@@ -289,17 +294,17 @@ class Request
       );
       if ('xml' === $extension) {
         $this->_mode->assign(
-          array(
+          [
             'id' => -1,
             'extension' => 'xml',
             'type' => 'page',
             'charset' => 'utf-8',
             'content_type' => 'application/xml'
-          )
+          ]
         );
       } else {
         $this->_mode->activateLazyLoad(
-          array('extension' => $extension)
+          ['extension' => $extension]
         );
       }
     }
@@ -323,9 +328,9 @@ class Request
    * @return string
    */
   public function setParameterGroupSeparator($separator) {
-    if ($separator == '') {
+    if ('' == $separator) {
       $this->_separator = '[]';
-    } elseif (in_array($separator, array('[]', ',', ':', '/', '*', '!'))) {
+    } elseif (\in_array($separator, ['[]', ',', ':', '/', '*', '!'])) {
       $this->_separator = $separator;
     } else {
       throw new \InvalidArgumentException(
@@ -334,7 +339,6 @@ class Request
     }
     return $this;
   }
-
 
   /**
    * get base web path (without file name)
@@ -350,12 +354,10 @@ class Request
 
   /**
    * Initialize request parsers if not already done
-   *
-   * @return void
    */
   private function _initParsers() {
     if (empty($this->_parsers)) {
-      $this->_parsers = array(
+      $this->_parsers = [
         new Request\Parser\Session(),
         new Request\Parser\File(),
         new Request\Parser\System(),
@@ -365,7 +367,7 @@ class Request
         new Request\Parser\Image(),
         new Request\Parser\Wrapper(),
         new Request\Parser\Start()
-      );
+      ];
       /** @var \Papaya\Request\Parser $parser */
       foreach ($this->_parsers as $parser) {
         $parser->papaya($this->papaya());
@@ -377,7 +379,6 @@ class Request
    * Set request parsers
    *
    * @param array $parsers
-   * @return void
    */
   public function setParsers($parsers) {
     $this->_parsers = $parsers;
@@ -387,12 +388,12 @@ class Request
    * Load and parse request
    *
    * @param URL $url
-   * @return boolean
+   * @return bool
    */
   public function load(URL $url) {
     $this->_url = $url;
     $this->_initParsers();
-    $this->_pathData = array();
+    $this->_pathData = [];
     foreach ($this->_parsers as $parser) {
       /** @var \Papaya\Request\Parser $parser */
       if ($requestData = $parser->parse($url)) {
@@ -411,10 +412,10 @@ class Request
   /**
    * return current magic quotes status
    *
-   * @return boolean
+   * @return bool
    */
   public function getMagicQuotesStatus() {
-    return (get_magic_quotes_gpc() || get_magic_quotes_runtime());
+    return (\get_magic_quotes_gpc() || \get_magic_quotes_runtime());
   }
 
   /**
@@ -475,7 +476,7 @@ class Request
   public function loadParameters($sources = self::SOURCE_ALL) {
     if (!isset($this->_parameterCache[$sources])) {
       $parameters = new Request\Parameters();
-      if ($sources === self::SOURCE_COOKIE) {
+      if (self::SOURCE_COOKIE === $sources) {
         return $this->_loadParametersForSource(self::SOURCE_COOKIE);
       }
       if (self::SOURCE_PATH & $sources) {
@@ -504,7 +505,7 @@ class Request
   /**
    * Get a parameters object containing all parameters from the given sources
    *
-   * @param integer $sources
+   * @param int $sources
    * @return \Papaya\Request\Parameters
    */
   public function getParameters($sources = self::SOURCE_ALL) {
@@ -517,7 +518,7 @@ class Request
    * @param string $name
    * @param mixed $defaultValue
    * @param \Papaya\Filter $filter
-   * @param integer $sources
+   * @param int $sources
    * @return mixed
    */
   public function getParameter(
@@ -531,7 +532,7 @@ class Request
    * Get a group
    *
    * @param string $name
-   * @param integer $sources
+   * @param int $sources
    * @return \Papaya\Request\Parameters
    */
   public function getParameterGroup($name, $sources = self::SOURCE_ALL) {
@@ -542,31 +543,30 @@ class Request
   /**
    * Set parameters object for a source. This resets all merged parameter caches
    *
-   * @param integer $source
+   * @param int $source
    * @param \Papaya\Request\Parameters $parameters
    * @throws \InvalidArgumentException
-   * @return void
    */
   public function setParameters($source, $parameters) {
-    $validSources = array(
+    $validSources = [
       self::SOURCE_PATH,
       self::SOURCE_QUERY,
       self::SOURCE_BODY,
       self::SOURCE_COOKIE
-    );
+    ];
     if (
       $parameters instanceof Request\Parameters &&
-      in_array($source, $validSources, TRUE)
+      \in_array($source, $validSources, TRUE)
     ) {
       $this->_parameterCache[$source] = $parameters;
       foreach ($this->_parameterCache as $cachedSource => $cachedParameters) {
-        if (!in_array($cachedSource, $validSources, TRUE)) {
+        if (!\in_array($cachedSource, $validSources, TRUE)) {
           unset($this->_parameterCache[$cachedSource]);
         }
       }
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Only %1$s::SOURCE_* constants allowed.', __CLASS__
         )
       );
@@ -579,8 +579,8 @@ class Request
    * @return string
    */
   public function getMethod() {
-    $method = empty($_SERVER['REQUEST_METHOD']) ? '' : strtolower($_SERVER['REQUEST_METHOD']);
-    if (in_array($method, self::$_allowedMethods)) {
+    $method = empty($_SERVER['REQUEST_METHOD']) ? '' : \strtolower($_SERVER['REQUEST_METHOD']);
+    if (\in_array($method, self::$_allowedMethods)) {
       return $method;
     } else {
       return 'get';
@@ -592,21 +592,21 @@ class Request
    *
    * The value will be cached into $_allowCompression for optimization.
    *
-   * @return boolean
+   * @return bool
    */
   public function allowCompression() {
     if (NULL === $this->_allowCompression) {
       $this->_allowCompression = FALSE;
       if (
         (isset($_SERVER['SERVER_PROTOCOL']) && 'HTTP/1.0' === $_SERVER['SERVER_PROTOCOL']) ||
-        !function_exists('gzencode') ||
-        ini_get('zlib.output_compression')
+        !\function_exists('gzencode') ||
+        \ini_get('zlib.output_compression')
       ) {
         return $this->_allowCompression;
       }
       if (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
-        $encodings = preg_split('(\s*,\s*)', strtolower(trim($_SERVER['HTTP_ACCEPT_ENCODING'])));
-        if (in_array('gzip', $encodings, TRUE) || in_array('x-gzip', $encodings, TRUE)) {
+        $encodings = \preg_split('(\s*,\s*)', \strtolower(\trim($_SERVER['HTTP_ACCEPT_ENCODING'])));
+        if (\in_array('gzip', $encodings, TRUE) || \in_array('x-gzip', $encodings, TRUE)) {
           $this->_allowCompression = TRUE;
         }
       }
@@ -620,14 +620,14 @@ class Request
    * @return bool
    */
   public function allowEsi() {
-    $headerNames = array('X_PAPAYA_ESI', 'HTTP_X_PAPAYA_ESI');
+    $headerNames = ['X_PAPAYA_ESI', 'HTTP_X_PAPAYA_ESI'];
     $header = NULL;
     foreach ($headerNames as $name) {
       if (isset($_SERVER[$name])) {
         $header = $_SERVER[$name];
       }
     }
-    return (isset($header) && strtolower($header) === 'yes');
+    return (isset($header) && 'yes' === \strtolower($header));
   }
 
   /**
@@ -645,7 +645,7 @@ class Request
         '"'.$cacheId.'"' === $_SERVER['HTTP_IF_NONE_MATCH']
       )
     ) {
-      $modifiedSince = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+      $modifiedSince = \strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
       if ($lastModified > 0 && $lastModified <= $modifiedSince) {
         return TRUE;
       }
@@ -669,4 +669,3 @@ class Request
     return $this->_content;
   }
 }
-

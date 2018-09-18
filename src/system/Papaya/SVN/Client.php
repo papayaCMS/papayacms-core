@@ -16,6 +16,5 @@
 namespace Papaya\SVN;
 
 interface Client {
-
-  function ls($url);
+  public function ls($url);
 }

@@ -16,55 +16,53 @@
 namespace Papaya;
 
 /**
-* Papaya Application - object registry with profiles
-* @package Papaya-Library
-* @subpackage Application
-*/
+ * Papaya Application - object registry with profiles
+ * @package Papaya-Library
+ * @subpackage Application
+ */
 class Application implements \ArrayAccess {
-
   /**
-  * Duplicate profiles trigger an error
-  * @var int
-  */
+   * Duplicate profiles trigger an error
+   * @var int
+   */
   const DUPLICATE_ERROR = 0;
 
   /**
-  * Ignore duplicate profiles
-  * @var int
-  */
+   * Ignore duplicate profiles
+   * @var int
+   */
   const DUPLICATE_IGNORE = 1;
 
   /**
-  * Overwrite duplicate profiles
-  * @var int
-  */
+   * Overwrite duplicate profiles
+   * @var int
+   */
   const DUPLICATE_OVERWRITE = 2;
 
   /**
-  * Class variable for singleton instance
-  * @var \Papaya\Application
-  */
+   * Class variable for singleton instance
+   * @var \Papaya\Application
+   */
   private static $instance = NULL;
 
+  /**
+   * Profile objects
+   * @var array
+   */
+  private $_profiles = [];
 
   /**
-  * Profile objects
-  * @var array
-  */
-  private $_profiles = array();
+   * Objects
+   * @var array(object)
+   */
+  private $_objects = [];
 
   /**
-  * Objects
-  * @var array(object)
-  */
-  private  $_objects = array();
-
-  /**
-  * Create a new instance of this class or return existing one (singleton)
-  *
-  * @param boolean $reset
-  * @return \Papaya\Application Instance of Application Object
-  */
+   * Create a new instance of this class or return existing one (singleton)
+   *
+   * @param bool $reset
+   * @return \Papaya\Application Instance of Application Object
+   */
   public static function getInstance($reset = FALSE) {
     if ($reset || NULL === self::$instance) {
       self::$instance = new self();
@@ -73,12 +71,11 @@ class Application implements \ArrayAccess {
   }
 
   /**
-  * Register a collection of profiles
-  *
-  * @param \Papaya\Application\Profiles $profiles
-  * @param integer $duplicationMode
-  * @return void
-  */
+   * Register a collection of profiles
+   *
+   * @param \Papaya\Application\Profiles $profiles
+   * @param int $duplicationMode
+   */
   public function registerProfiles(
     Application\Profiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
   ) {
@@ -92,29 +89,29 @@ class Application implements \ArrayAccess {
    *
    * @param string $identifier
    * @param \Papaya\Application\Profile|callable $profile
-   * @param integer $duplicationMode
+   * @param int $duplicationMode
    * @throws \InvalidArgumentException
    */
   public function registerProfile(
     $identifier, $profile, $duplicationMode = self::DUPLICATE_ERROR
   ) {
-    if (!($profile instanceof Application\Profile || is_callable($profile))) {
+    if (!($profile instanceof Application\Profile || \is_callable($profile))) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Invalid profile %s is %s.',
           $identifier,
-          is_object($profile) ? get_class($profile) : gettype($profile)
+          \is_object($profile) ? \get_class($profile) : \gettype($profile)
         )
       );
     }
-    $index = strtolower($identifier);
+    $index = \strtolower($identifier);
     if (isset($this->_profiles[$index])) {
       switch ($duplicationMode) {
       case self::DUPLICATE_OVERWRITE :
         break;
       case self::DUPLICATE_ERROR :
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             'Duplicate application object profile: "%s"',
             $identifier
           )
@@ -137,9 +134,9 @@ class Application implements \ArrayAccess {
    * @return object
    */
   public function getObject($identifier) {
-    $index = strtolower($identifier);
+    $index = \strtolower($identifier);
     if (isset($this->_objects[$index]) &&
-        is_object($this->_objects[$index])) {
+        \is_object($this->_objects[$index])) {
       return $this->_objects[$index];
     }
     if (isset($this->_profiles[$index])) {
@@ -147,7 +144,7 @@ class Application implements \ArrayAccess {
       if ($profile instanceof Application\Profile) {
         return $this->_objects[$index] = $profile->createObject($this);
       } else {
-        return $this->_objects[$index] = call_user_func($profile, $this);
+        return $this->_objects[$index] = \call_user_func($profile, $this);
       }
     }
     throw new \InvalidArgumentException(
@@ -165,14 +162,14 @@ class Application implements \ArrayAccess {
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
     \Papaya\Utility\Constraints::assertObject($object);
-    $index = strtolower($identifier);
+    $index = \strtolower($identifier);
     if (isset($this->_objects[$index])) {
       switch ($duplicationMode) {
       case self::DUPLICATE_OVERWRITE :
         break;
       case self::DUPLICATE_ERROR :
         throw new \LogicException(
-          sprintf(
+          \sprintf(
             'Application object does already exists: "%s"',
             $identifier
           )
@@ -185,16 +182,16 @@ class Application implements \ArrayAccess {
   }
 
   /**
-  * Check if an object or an profile for an object exists
-  *
-  * @param string $identifier
-  * @param boolean $checkProfiles
-  * @return boolean
-  */
+   * Check if an object or an profile for an object exists
+   *
+   * @param string $identifier
+   * @param bool $checkProfiles
+   * @return bool
+   */
   public function hasObject($identifier, $checkProfiles = TRUE) {
-    $index = strtolower($identifier);
+    $index = \strtolower($identifier);
     if (isset($this->_objects[$index]) &&
-        is_object($this->_objects[$index])) {
+        \is_object($this->_objects[$index])) {
       return TRUE;
     } elseif (!$checkProfiles) {
       return FALSE;
@@ -207,12 +204,12 @@ class Application implements \ArrayAccess {
    *
    * @param string $identifier
    * @throws \InvalidArgumentException
-   * @return boolean
+   * @return bool
    */
   public function removeObject($identifier) {
-    $index = strtolower($identifier);
+    $index = \strtolower($identifier);
     if (isset($this->_objects[$index]) &&
-        is_object($this->_objects[$index])) {
+        \is_object($this->_objects[$index])) {
       unset($this->_objects[$index]);
       return TRUE;
     } elseif (isset($this->_profiles[$index])) {
@@ -224,27 +221,26 @@ class Application implements \ArrayAccess {
   }
 
   /**
-  * Allow property syntax to get objects from the registry.
-  *
-  * @see getObject
-  * @param string $name
-  * @return object
-  */
+   * Allow property syntax to get objects from the registry.
+   *
+   * @see getObject
+   * @param string $name
+   * @return object
+   */
   public function __get($name) {
     return $this->getObject($name);
   }
 
   /**
-  * Allow property syntax to put objects into the registry.
-  *
-  * @see setObject
-  * @param string $name
-  * @param object $value
-  */
+   * Allow property syntax to put objects into the registry.
+   *
+   * @see setObject
+   * @param string $name
+   * @param object $value
+   */
   public function __set($name, $value) {
     $this->setObject($name, $value);
   }
-
 
   /**
    * Allow method syntax to get/set objects from/into the registry.

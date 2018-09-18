@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Configuration;
+
 /**
  * The global configuration uses constants for fixed options. Constants are superglobal, so
  * this is a global configuration.
@@ -22,7 +23,6 @@ namespace Papaya\Configuration;
  * @subpackage Configuration
  */
 class GlobalValues extends \Papaya\Configuration {
-
   /**
    * Check if an option value exists, the name can be an existing constant or a key of the
    * $_options array.
@@ -32,7 +32,7 @@ class GlobalValues extends \Papaya\Configuration {
    */
   public function has($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
-    if (defined($name)) {
+    if (\defined($name)) {
       return TRUE;
     }
     return parent::has($name);
@@ -44,12 +44,12 @@ class GlobalValues extends \Papaya\Configuration {
    * @param string $name
    * @param mixed $default
    * @param \Papaya\Filter $filter
-   * @return NULL|int|bool|float|string
+   * @return null|int|bool|float|string
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
-    if (defined($name)) {
-      return $this->filter(constant($name), $default, $filter);
+    if (\defined($name)) {
+      return $this->filter(\constant($name), $default, $filter);
     }
     return parent::get($name, $default, $filter);
   }
@@ -63,11 +63,10 @@ class GlobalValues extends \Papaya\Configuration {
    */
   public function defineConstants() {
     foreach ($this->_options as $option => $value) {
-      if (!defined($option) &&
-        (is_scalar($value) || NULL === $value)) {
-        define($option, $value);
+      if (!\defined($option) &&
+        (\is_scalar($value) || NULL === $value)) {
+        \define($option, $value);
       }
     }
   }
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Sheet;
+
 /**
  * A list of subtitle elements for a sheet
  *
@@ -21,20 +22,19 @@ namespace Papaya\UI\Sheet;
  * @subpackage UI
  */
 class Subtitles extends \Papaya\UI\Control\Collection {
-
   protected $_itemClass = Subtitle::class;
 
   /**
    * Papaya\UI\Sheet\Subtitles constructor.
    *
-   * @param array|\Traversable|NULL $subtitles
+   * @param array|\Traversable|null $subtitles
    */
   public function __construct($subtitles = NULL) {
     if (NULL !== $subtitles) {
       \Papaya\Utility\Constraints::assertArrayOrTraversable($subtitles);
       /** @var array|\Traversable $subtitles */
       foreach ($subtitles as $subtitle) {
-        if (is_string($subtitle) || method_exists($subtitle, '__toString')) {
+        if (\is_string($subtitle) || \method_exists($subtitle, '__toString')) {
           $this->addString($subtitle);
         } else {
           $this->add($subtitle);

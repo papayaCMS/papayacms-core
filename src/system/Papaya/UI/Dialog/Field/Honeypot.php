@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A single line input for that needs to be send in the request always an empty string.
  *
@@ -27,7 +28,6 @@ namespace Papaya\UI\Dialog\Field;
  * @property string $hint
  */
 class Honeypot extends \Papaya\UI\Dialog\Field {
-
   /**
    * Field type, used in template
    *
@@ -40,11 +40,11 @@ class Honeypot extends \Papaya\UI\Dialog\Field {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint']
+  ];
 
   /**
    * Creates dialog field for url input with caption, name, default value and
@@ -86,7 +86,7 @@ class Honeypot extends \Papaya\UI\Dialog\Field {
       if (!$this->getDisabled() && $this->collection()->owner()->parameters()->has($name)) {
         return $this->collection()->owner()->parameters()->get($name);
       } else {
-        return NULL;
+        return;
       }
     }
     return '';
@@ -101,10 +101,10 @@ class Honeypot extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName())
-      ),
+      ],
       ''
     );
   }

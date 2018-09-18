@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control;
+
 /**
  * Abstract superclass for ui commands, like executing a dialog.
  *
@@ -21,19 +22,18 @@ namespace Papaya\UI\Control;
  * @subpackage UI
  */
 abstract class Command extends \Papaya\UI\Control\Interactive {
-
   /**
    * A permission that is validated for the current administration user,
    * before executing the command
    *
-   * @var NULL|array|integer
+   * @var null|array|int
    */
   private $_permission;
 
   /**
    * A condition that is validated, before executing the command
    *
-   * @var NULL|TRUE|Command\Condition
+   * @var null|true|Command\Condition
    */
   private $_condition;
 
@@ -47,7 +47,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
   /**
    * Validate if the command has to be executed. Can return a boolean or throw an exception.
    *
-   * @return boolean
+   * @return bool
    */
   public function validateCondition() {
     $condition = $this->condition();
@@ -86,15 +86,15 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Validate the assigned permission.
    *
    * @throws \UnexpectedValueException
-   * @return boolean
+   * @return bool
    */
   public function validatePermission() {
     if ($permission = $this->permission()) {
-      if (is_array($permission) && 2 === count($permission)) {
+      if (\is_array($permission) && 2 === \count($permission)) {
         $user = $this->papaya()->administrationUser;
         return $user->hasPerm($permission[1], $permission[0]);
       }
-      if (is_int($permission)) {
+      if (\is_int($permission)) {
         $user = $this->papaya()->administrationUser;
         return $user->hasPerm($permission);
       }
@@ -109,7 +109,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Getter/Setter for the permission
    *
    * @param int $permission
-   * @return NULL|array|integer
+   * @return null|array|int
    */
   public function permission($permission = NULL) {
     if (NULL !== $permission) {
@@ -125,7 +125,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If the owner is emtpy and exception is thrown.
    *
    * @throws \LogicException
-   * @param \Papaya\Request\Parameters\Access|NULL $owner
+   * @param \Papaya\Request\Parameters\Access|null $owner
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
@@ -134,9 +134,9 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
       $this->papaya($owner->papaya());
     } elseif (NULL === $this->_owner) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'LogicException: Instance of "%s" has no owner assigned.',
-          get_class($this)
+          \get_class($this)
         )
       );
     }
@@ -146,7 +146,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
   /**
    * Validate if an owner object is assigned
    *
-   * @return boolean
+   * @return bool
    */
   public function hasOwner() {
     return NULL !== $this->_owner;
@@ -157,8 +157,8 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    *
    * If an owner is available, its parameterMethod function will be used.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   * @return int
    */
   public function parameterMethod($method = NULL) {
     if ($this->hasOwner()) {
@@ -173,8 +173,8 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * This puts/expects all parameters into/in a parameter group.
    * If an owner is available, its parameterGroup function will be used.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
     if ($this->hasOwner()) {

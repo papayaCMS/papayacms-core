@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Profiler;
+
 /**
  * Profiler objects builder, create the objects needed to initialize the profiler. The
  * Profiler needs an collector and a storage object. Which classes are created depends on the
@@ -23,7 +24,6 @@ namespace Papaya\Profiler;
  * @subpackage Profiler
  */
 class Builder extends \Papaya\Application\BaseObject {
-
   /**
    * Create the profiler collector object. Currently heres is only the xhprof wrapper.
    *
@@ -56,12 +56,11 @@ class Builder extends \Papaya\Application\BaseObject {
       default :
         $storage = new Storage\File(
           $this->papaya()->options->get(
-            'PAPAYA_PROFILER_STORAGE_DIRECTORY', ini_get('xhprof.output_dir')
+            'PAPAYA_PROFILER_STORAGE_DIRECTORY', \ini_get('xhprof.output_dir')
           )
         );
       break;
     }
     return $storage;
   }
-
 }

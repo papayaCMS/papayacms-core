@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application\Profile\Page;
+
 /**
  * Application object profile for languages object
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application\Profile\Page;
  * @subpackage Application
  */
 class References implements \Papaya\Application\Profile {
-
   /**
    * Create the profile object and return it
    *

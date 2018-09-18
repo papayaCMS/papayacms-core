@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a value is not equal to a given comparsion value.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class NotEqual extends \Papaya\Filter\Exception {
-
   /**
    * Construct object with value informations
    *
@@ -29,7 +29,7 @@ class NotEqual extends \Papaya\Filter\Exception {
    */
   public function __construct($expected) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value does not equal comparsion value. Expected "%s".',
         $expected
       )

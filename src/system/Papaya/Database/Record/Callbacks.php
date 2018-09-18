@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Record;
+
 /**
  * Callbacks that are used by the record object
  *
@@ -26,25 +27,24 @@ namespace Papaya\Database\Record;
  * @property \Papaya\BaseObject\Callback $onAfterUpdate
  * @property \Papaya\BaseObject\Callback $onAfterInsert
  * @property \Papaya\BaseObject\Callback $onAfterDelete
- * @method boolean onBeforeUpdate(\Papaya\Database\Record $record)
- * @method boolean onBeforeInsert(\Papaya\Database\Record $record)
- * @method boolean onBeforeDelete(\Papaya\Database\Record $record)
- * @method boolean onAfterUpdate(\Papaya\Database\Record $record)
- * @method boolean onAfterInsert(\Papaya\Database\Record $record)
- * @method boolean onAfterDelete(\Papaya\Database\Record $record)
+ * @method bool onBeforeUpdate(\Papaya\Database\Record $record)
+ * @method bool onBeforeInsert(\Papaya\Database\Record $record)
+ * @method bool onBeforeDelete(\Papaya\Database\Record $record)
+ * @method bool onAfterUpdate(\Papaya\Database\Record $record)
+ * @method bool onAfterInsert(\Papaya\Database\Record $record)
+ * @method bool onAfterDelete(\Papaya\Database\Record $record)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onBeforeUpdate' => TRUE,
         'onBeforeInsert' => TRUE,
         'onBeforeDelete' => TRUE,
         'onAfterUpdate' => TRUE,
         'onAfterInsert' => TRUE,
         'onAfterDelete' => TRUE,
-      )
+      ]
     );
   }
 }

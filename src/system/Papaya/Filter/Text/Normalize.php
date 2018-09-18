@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Text;
+
 /**
  * Papaya filter class normalizing a string
  *
@@ -21,8 +22,8 @@ namespace Papaya\Filter\Text;
  * @subpackage Filter
  */
 class Normalize implements \Papaya\Filter {
-
   const OPTION_LOWERCASE = 1;
+
   const OPTION_ALLOW_ASTERISK = 2;
 
   /**
@@ -43,27 +44,26 @@ class Normalize implements \Papaya\Filter {
   public function validate($value) {
     if (empty($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
-    } elseif (!is_scalar($value)) {
+    } elseif (!\is_scalar($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
     return TRUE;
   }
 
   /**
-   * @param mixed|NULL $value
+   * @param mixed|null $value
    * @return string|null
    */
   public function filter($value) {
-    if (!(isset($value) && is_scalar($value))) {
-      return NULL;
+    if (!(isset($value) && \is_scalar($value))) {
+      return;
     }
     $asterisk = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
     $pattern = '([^\pL\pN'.($asterisk).']+)u';
-    $value = trim(preg_replace($pattern, ' ', $value));
+    $value = \trim(\preg_replace($pattern, ' ', $value));
     if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
       $value = \Papaya\Utility\Text\UTF8::toLowerCase($value);
     }
-    return $value !== '' ? $value : NULL;
+    return '' !== $value ? $value : NULL;
   }
-
 }

@@ -22,21 +22,20 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Generator implements \IteratorAggregate {
-
   /**
    * @var callback
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * @var array
    */
-  private $_arguments = array();
+  private $_arguments = [];
 
   /**
    * @var \Iterator
    */
-  private $_iterator = NULL;
+  private $_iterator;
 
   /**
    * Store callback and arguments for later use.
@@ -44,7 +43,7 @@ class Generator implements \IteratorAggregate {
    * @param callback $callback
    * @param array $arguments
    */
-  public function __construct($callback, array $arguments = array()) {
+  public function __construct($callback, array $arguments = []) {
     \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
     $this->_arguments = $arguments;
@@ -76,8 +75,8 @@ class Generator implements \IteratorAggregate {
    * @return \Iterator
    */
   private function createIterator() {
-    $traversable = call_user_func_array($this->_callback, $this->_arguments);
-    if (is_array($traversable)) {
+    $traversable = \call_user_func_array($this->_callback, $this->_arguments);
+    if (\is_array($traversable)) {
       return new \ArrayIterator($traversable);
     } elseif ($traversable instanceof \Iterator) {
       return $traversable;

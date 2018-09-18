@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\File\System;
+
 /**
  * A factory object that creates file and directory wrapper objects
  *
@@ -21,7 +22,6 @@ namespace Papaya\File\System;
  * @subpackage FileSystem
  */
 class Factory {
-
   /**
    * Return an object wrapping a file in the file system
    *

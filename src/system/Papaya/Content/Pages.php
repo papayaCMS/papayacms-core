@@ -22,13 +22,12 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Pages extends \Papaya\Database\Records\Lazy {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 't.topic_id',
     'parent' => 't.prev',
     'path' => 't.prev_path',
@@ -47,12 +46,12 @@ class Pages extends \Papaya\Database\Records\Lazy {
     'published' => 'topic_published',
     'link_type_id' => 't.linktype_id',
     'viewmode_id' => 'vm.viewmode_id'
-  );
+  ];
 
-  protected $_orderByProperties = array(
+  protected $_orderByProperties = [
     'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
     'created' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   /**
    * Table containing page informations
@@ -99,14 +98,14 @@ class Pages extends \Papaya\Database\Records\Lazy {
   /**
    * This defines if pages are only loaded, if they have a translation in the given language.
    *
-   * @var boolean
+   * @var bool
    */
   private $_translationNeeded = FALSE;
 
   /**
    * Define if a translation is needed, or pages without translations are loaded, too.
    *
-   * @param boolean $translationNeeded
+   * @param bool $translationNeeded
    */
   public function __construct($translationNeeded = FALSE) {
     $this->_translationNeeded = $translationNeeded;
@@ -116,11 +115,11 @@ class Pages extends \Papaya\Database\Records\Lazy {
    * Load pages defined by filter conditions.
    *
    * @param array $filter
-   * @param NULL|integer $limit
-   * @param NULL|integer $offset
+   * @param null|int $limit
+   * @param null|int $offset
    * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $joinMode = $this->_translationNeeded ? 'INNER' : 'LEFT';
     if (isset($filter['language_id'])) {
@@ -135,7 +134,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
       $viewModeId = 0;
       unset($filter['viewmode_id']);
     }
-    $sql = /** @lang TEXT */
+    $sql = /* @lang TEXT */
       "SELECT t.topic_id, t.prev, t.prev_path,
               t.linktype_id, t.topic_protocol,
               t.topic_weight,
@@ -151,7 +150,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
          LEFT JOIN %s AS au ON (t.author_id = au.user_id)
               ".\Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter)).'
               '.\Papaya\Utility\Text::escapeForPrintf($this->_compileOrderBy());
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName($this->_tablePages),
       $databaseAccess->getTableName($this->_tablePageTranslations),
       $languageId,
@@ -160,16 +159,16 @@ class Pages extends \Papaya\Database\Records\Lazy {
       $databaseAccess->getTableName($this->_tableViewConfigurations),
       $viewModeId,
       $databaseAccess->getTableName($this->_tableAuthenticationUsers)
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, 'id');
   }
 
   protected function _compileCondition($filter, $prefix = ' WHERE ') {
-    $statusConditions = array(
+    $statusConditions = [
       'modified' => 't.topic_modified > tp.topic_modified',
       'published' => 't.topic_modified <= tp.topic_modified',
       'created' => 'tp.topic_modified IS NULL'
-    );
+    ];
     $conditions = '';
     if (isset($filter['status'], $statusConditions[$filter['status']])) {
       $conditions .= $prefix.' '.$statusConditions[$filter['status']];
@@ -191,7 +190,6 @@ class Pages extends \Papaya\Database\Records\Lazy {
     return parent::_compileCondition($filter, $prefix);
   }
 
-
   /**
    * Overload the mapping object instantiation, to attach an callback for the mapping process.
    *
@@ -199,7 +197,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValue = array($this, 'mapValue');
+    $mapping->callbacks()->onMapValue = [$this, 'mapValue'];
     return $mapping;
   }
 
@@ -207,15 +205,15 @@ class Pages extends \Papaya\Database\Records\Lazy {
    * Mapping callback that (un)serialzes the parent path field
    *
    * @param object $context
-   * @param integer $mode
+   * @param int $mode
    * @param string $property
    * @param string $field
    * @param mixed $value
    * @return array|mixed|string
    */
   public function mapValue($context, $mode, $property, $field, $value) {
-    if ($property == 'path') {
-      if ($mode == \Papaya\Database\Record\Mapping::FIELD_TO_PROPERTY) {
+    if ('path' == $property) {
+      if (\Papaya\Database\Record\Mapping::FIELD_TO_PROPERTY == $mode) {
         return \Papaya\Utility\Arrays::decodeIdList($value);
       } else {
         return ';'.\Papaya\Utility\Arrays::encodeIdList($value).';';

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition;
+
 /**
  * Request parameters are used to create cache condition data.
  *
@@ -23,22 +24,21 @@ namespace Papaya\Cache\Identifier\Definition;
 class Parameters
   extends \Papaya\BaseObject\Interactive
   implements \Papaya\Cache\Identifier\Definition {
-
-  private $_names = array();
+  private $_names = [];
 
   /**
    * Provide the request parameter names, a parameter group and a method.
    *
    * @param array|string $names
-   * @param string|NULL $group
+   * @param string|null $group
    * @param int $method
    */
   public function __construct($names, $group = NULL, $method = self::METHOD_GET) {
     \Papaya\Utility\Constraints::assertNotEmpty($names);
-    if (is_array($names) || $names instanceof \Traversable) {
+    if (\is_array($names) || $names instanceof \Traversable) {
       $this->_names = $names;
     } else {
-      $this->_names = array($names);
+      $this->_names = [$names];
     }
     $this->parameterGroup($group);
     $this->parameterMethod($method);
@@ -51,10 +51,10 @@ class Parameters
    * If a paramter does not exist in the request, it will not be added to the condition data,
    * if none of the specified parameters exists the result will be TRUE.
    *
-   * @return TRUE|array
+   * @return true|array
    */
   public function getStatus() {
-    $data = array();
+    $data = [];
     foreach ($this->_names as $name) {
       $name = new \Papaya\Request\Parameters\Name($name);
       if ($this->parameters()->has((string)$name)) {
@@ -62,7 +62,7 @@ class Parameters
         $data[(string)$name] = $value;
       }
     }
-    return empty($data) ? TRUE : array(get_class($this) => $data);
+    return empty($data) ? TRUE : [\get_class($this) => $data];
   }
 
   /**
@@ -70,9 +70,9 @@ class Parameters
    * are used - the source is URL otherwise values from the request body are used, too.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   * @return int
    */
   public function getSources() {
-    return $this->parameterMethod() == self::METHOD_GET ? self::SOURCE_URL : self::SOURCE_REQUEST;
+    return self::METHOD_GET == $this->parameterMethod() ? self::SOURCE_URL : self::SOURCE_REQUEST;
   }
 }

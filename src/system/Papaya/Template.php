@@ -31,11 +31,11 @@ namespace Papaya;
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
 abstract class Template extends Application\BaseObject {
-
   /**
    * Strip the XML processing instruction <?xml ...?>
    */
   const STRIP_XML_PI = 1;
+
   /**
    * Strip empty XML namespaces xmlns:*=""
    */
@@ -46,38 +46,37 @@ abstract class Template extends Application\BaseObject {
    */
   const STRIP_XML_DEFAULT_NAMESPACE = 4;
 
-
   const STRIP_ALL = 7;
 
   /**
    * @var \Papaya\Template\Values
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * @var \Papaya\Template\Parameters
    */
-  private $_parameters = NULL;
+  private $_parameters;
 
   /**
    * @var \Papaya\XML\Errors
    */
-  private $_errors = NULL;
+  private $_errors;
 
   /**
    * Map method names to value paths
    *
    * @var array
    */
-  private $_addMethods = array(
+  private $_addMethods = [
     'navigation' => 'leftcol',
     'information' => 'rightcol',
     'content' => 'centercol',
     'menu' => 'menus',
     'script' => 'scripts'
-  );
+  ];
 
-  abstract function parse($options = self::STRIP_XML_EMPTY_NAMESPACE);
+  abstract public function parse($options = self::STRIP_XML_EMPTY_NAMESPACE);
 
   /**
    * Combined getter/setter for the template values object
@@ -88,7 +87,7 @@ abstract class Template extends Application\BaseObject {
   public function values(Template\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
-    } elseif (is_null($this->_values)) {
+    } elseif (\is_null($this->_values)) {
       $this->_values = new Template\Values();
     }
     return $this->_values;
@@ -98,22 +97,21 @@ abstract class Template extends Application\BaseObject {
    * Set template values from xml string
    *
    * @param string $xml
-   * @return boolean
+   * @return bool
    */
   public function setXML($xml) {
     return $this->errors()->encapsulate(
-      array($this->values()->document(), 'loadXML'),
-      array($xml)
+      [$this->values()->document(), 'loadXML'],
+      [$xml]
     );
   }
 
   /**
    * Get XML values as string
    *
-   * @access public
    * @return string
    */
-  function getXML() {
+  public function getXML() {
     return $this->values()->document()->saveXML();
   }
 
@@ -143,7 +141,7 @@ abstract class Template extends Application\BaseObject {
   public function errors(XML\Errors $errors = NULL) {
     if (isset($errors)) {
       $this->_errors = $errors;
-    } elseif (is_null($this->_errors)) {
+    } elseif (\is_null($this->_errors)) {
       $this->_errors = new XML\Errors();
       $this->_errors->papaya($this->papaya());
     }
@@ -153,33 +151,32 @@ abstract class Template extends Application\BaseObject {
   /**
    * Clean the result from the template processing.
    *
-   * @param string|FALSE $xml
+   * @param string|false $xml
    * @param int $options
    * @return bool|mixed
    */
   protected function clean($xml, $options) {
     if (FALSE !== $xml) {
-      $replace = array(
+      $replace = [
         '(<([\w:-]+)\s\s*>)s'
-      );
-      $with = array('<$1>', '');
+      ];
+      $with = ['<$1>', ''];
       if (Utility\Bitwise::inBitmask(self::STRIP_XML_PI, $options)) {
         $replace[] = '(<\?xml[^>]+\?>)';
-        $with [] = '';
+        $with[] = '';
       }
       if (Utility\Bitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns(:[a-zA-Z]+)?="\s*")';
-        $with [] = '';
+        $with[] = '';
       }
       if (Utility\Bitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns="[^"]*")';
-        $with [] = '';
+        $with[] = '';
       }
-      return preg_replace($replace, $with, $xml);
+      return \preg_replace($replace, $with, $xml);
     }
     return FALSE;
   }
-
 
   /**
    * Add content to the XML document. The content will be added to the 'page' root
@@ -189,7 +186,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\Papaya\XML\Appendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
-   * @param boolean $encodeInvalidEntities encode invalid entities like &
+   * @param bool $encodeInvalidEntities encode invalid entities like &
    * @return mixed
    */
   public function add($xml, $path = NULL, $encodeInvalidEntities = TRUE) {
@@ -200,21 +197,21 @@ abstract class Template extends Application\BaseObject {
     }
     if ($xml instanceof XML\Appendable || $xml instanceof \DOMNode) {
       return $this->errors()->encapsulate(
-        array(
+        [
           $this->values()->getValueByPath($path),
           'append'
-        ),
-        array($xml)
+        ],
+        [$xml]
       );
     } else {
       return $this->errors()->encapsulate(
-        array(
+        [
           $this->values()->getValueByPath($path),
           'appendXML'
-        ),
-        array(
+        ],
+        [
           $encodeInvalidEntities ? $this->encodeInvalidEntities($xml) : $xml
-        )
+        ]
       );
     }
   }
@@ -229,8 +226,8 @@ abstract class Template extends Application\BaseObject {
   private function encodeInvalidEntities($xml) {
     $result = Utility\Text\UTF8::ensure($xml);
     $result = Utility\Text\HTML::decodeNamedEntities($result);
-    $result = str_replace('&', '&amp;', $result);
-    $result = preg_replace(
+    $result = \str_replace('&', '&amp;', $result);
+    $result = \preg_replace(
       '(&amp;(gt|lt|quot|apos|amp|#\d{1,6}|#x[a-fA-F\d]{1,4});)',
       '&$1;',
       $result
@@ -247,27 +244,27 @@ abstract class Template extends Application\BaseObject {
    * @throws \LogicException
    */
   public function __call($method, $arguments) {
-    if (0 === strpos($method, 'add')) {
-      $target = strtolower(substr($method, 3));
+    if (0 === \strpos($method, 'add')) {
+      $target = \strtolower(\substr($method, 3));
       if (!isset($this->_addMethods[$target])) {
         throw new \LogicException(
-          sprintf(
+          \sprintf(
             'Invalid add method %s::%s(), can not find target.',
-            get_class($this),
+            \get_class($this),
             $method
           )
         );
       } elseif (!isset($arguments[0])) {
         throw new \LogicException(
-          sprintf(
+          \sprintf(
             'Invalid $xml argument for add method "%s:%s()".',
-            get_class($this),
+            \get_class($this),
             $method
           )
         );
       } else {
-        return call_user_func(
-          array($this, 'add'),
+        return \call_user_func(
+          [$this, 'add'],
           $arguments[0],
           $this->_addMethods[$target],
           isset($arguments[1]) ? (bool)$arguments[1] : TRUE
@@ -275,9 +272,9 @@ abstract class Template extends Application\BaseObject {
       }
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'Can not call nonexisting method "%s:%s()"',
-        get_class($this),
+        \get_class($this),
         $method
       )
     );
@@ -316,7 +313,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
-   * @param boolean $encode encode special characters ? optional, default value TRUE
+   * @param bool $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
   public function addData($xml, $path = NULL, $encode = TRUE) {
@@ -327,7 +324,7 @@ abstract class Template extends Application\BaseObject {
    * Alias for addNavigation()
    *
    * @param string|\DOMElement $xml data
-   * @param boolean $encode encode special characters ? optional, default value TRUE
+   * @param bool $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
   public function addLeft($xml, $encode = TRUE) {
@@ -338,7 +335,7 @@ abstract class Template extends Application\BaseObject {
    * Alias for addContent()
    *
    * @param string|\DOMElement $xml data
-   * @param boolean $encode encode special characters ? optional, default value TRUE
+   * @param bool $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
   public function addCenter($xml, $encode = TRUE) {
@@ -349,7 +346,7 @@ abstract class Template extends Application\BaseObject {
    * Alias for addInformation()
    *
    * @param string|\DOMElement $xml data
-   * @param boolean $encode encode special characters ? optional, default value TRUE
+   * @param bool $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
   public function addRight($xml, $encode = TRUE) {
@@ -370,7 +367,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @deprecated
    * @param int $options
-   * @return FALSE|string
+   * @return false|string
    */
   public function xhtml($options = 0) {
     return $this->getOutput($options);

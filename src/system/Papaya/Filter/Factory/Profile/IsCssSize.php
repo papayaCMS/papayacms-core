@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating a filter for a css size string including a unit
  *
@@ -21,11 +22,10 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class IsCssSize extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \Papaya\Filter\NumberWithUnit(array('em', 'px', 'pt', '%'));
+    return new \Papaya\Filter\NumberWithUnit(['em', 'px', 'pt', '%']);
   }
 }

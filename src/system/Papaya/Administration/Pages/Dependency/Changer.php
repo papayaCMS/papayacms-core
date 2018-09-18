@@ -15,11 +15,11 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
-use \Papaya\Administration;
-use \Papaya\Content;
-use \Papaya\Filter;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Administration;
+use Papaya\Content;
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Administration interface for changes on the dependencies of a page.
@@ -28,11 +28,10 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Changer extends UI\Control\Interactive {
-
   /**
    * Currently selected page
    *
-   * @var integer
+   * @var int
    */
   private $_pageId = 0;
 
@@ -40,14 +39,14 @@ class Changer extends UI\Control\Interactive {
    * Currently selected origin page, this will be the origin page of the current dependency or
    * the current page id.
    *
-   * @var integer
+   * @var int
    */
   private $_originId = 0;
 
   /**
    * Target page id of the reference to load.
    *
-   * @var integer
+   * @var int
    */
   private $_targetId = 0;
 
@@ -69,7 +68,6 @@ class Changer extends UI\Control\Interactive {
    * @var Content\Page\Reference $_reference
    */
   private $_reference;
-
 
   /**
    * @var Content\Page\References $_references
@@ -107,7 +105,7 @@ class Changer extends UI\Control\Interactive {
   /**
    * Return current page id
    *
-   * @return integer
+   * @return int
    */
   public function getPageId() {
     return $this->_pageId;
@@ -116,7 +114,7 @@ class Changer extends UI\Control\Interactive {
   /**
    * Return current origin page id
    *
-   * @return integer
+   * @return int
    */
   public function getOriginId() {
     return $this->_originId;
@@ -201,10 +199,10 @@ class Changer extends UI\Control\Interactive {
         $this->_pageId, $this->papaya()->administrationLanguage->getCurrent()->id
       );
       $this->listview()->pages()->load(
-        array(
+        [
           'id' => $this->getOriginId(),
           'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id
-        )
+        ]
       );
       $this->listview()->parameterGroup($this->parameterGroup());
       $this->listview()->appendTo($parent);
@@ -225,7 +223,7 @@ class Changer extends UI\Control\Interactive {
       $this->_targetId = (int)$this->parameters()->get('target_id', 0, new Filter\IntegerValue(0));
       if ($this->_targetId > 0) {
         $this->reference()->load(
-          array('source_id' => $this->_pageId, 'target_id' => $this->_targetId)
+          ['source_id' => $this->_pageId, 'target_id' => $this->_targetId]
         );
       }
     }
@@ -271,12 +269,12 @@ class Changer extends UI\Control\Interactive {
    * Append buttons to menu/toolbar depending on the current status.
    */
   private function appendButtons() {
-    if (in_array($this->parameters()->get('cmd'), array('reference_change', 'reference_delete'))) {
+    if (\in_array($this->parameters()->get('cmd'), ['reference_change', 'reference_delete'])) {
       $this->menu()->elements[] = $button = new UI\Toolbar\Button();
       $button->image = 'status-page-modified';
       $button->caption = new UI\Text\Translated('Edit dependency');
       $button->reference->setParameters(
-        array('cmd' => 'dependency_change', 'page_id' => $this->_pageId),
+        ['cmd' => 'dependency_change', 'page_id' => $this->_pageId],
         $this->parameterGroup()
       );
     }
@@ -285,7 +283,7 @@ class Changer extends UI\Control\Interactive {
       $button->image = 'actions-page-delete';
       $button->caption = new UI\Text\Translated('Delete dependency');
       $button->reference->setParameters(
-        array('cmd' => 'dependency_delete', 'page_id' => $this->_pageId),
+        ['cmd' => 'dependency_delete', 'page_id' => $this->_pageId],
         $this->parameterGroup()
       );
     }
@@ -294,7 +292,7 @@ class Changer extends UI\Control\Interactive {
     $button->image = 'actions-link-add';
     $button->caption = new UI\Text\Translated('Add reference');
     $button->reference->setParameters(
-      array('cmd' => 'reference_change', 'page_id' => $this->_pageId, 'target_id' => 0),
+      ['cmd' => 'reference_change', 'page_id' => $this->_pageId, 'target_id' => 0],
       $this->parameterGroup()
     );
     if ($this->reference()->sourceId > 0 && $this->reference()->targetId > 0) {
@@ -302,12 +300,12 @@ class Changer extends UI\Control\Interactive {
       $button->image = 'actions-link-delete';
       $button->caption = new UI\Text\Translated('Delete reference');
       $button->reference->setParameters(
-        array(
+        [
           'cmd' => 'reference_delete',
           'page_id' => $this->_pageId,
           'target_id' => (int)$this->reference()->sourceId === $this->_pageId
             ? $this->reference()->targetId : $this->reference()->sourceId
-        ),
+        ],
         $this->parameterGroup()
       );
     }

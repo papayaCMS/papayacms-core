@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Navigation\Builder;
+
 /**
  * Callbacks that are used by the navigation builder object
  *
@@ -26,19 +27,18 @@ namespace Papaya\UI\Navigation\Builder;
  * @property \Papaya\BaseObject\Callback $onAfterAppendItem
  * @method void onBeforeAppend(\Papaya\UI\Navigation\Items $items)
  * @method void onAfterAppend(\Papaya\UI\Navigation\Items $items)
- * @method NULL|\Papaya\UI\Navigation\Item onCreateItem($element, $index)
+ * @method null|\Papaya\UI\Navigation\Item onCreateItem($element, $index)
  * @method void onAfterAppendItem(\Papaya\UI\Navigation\Item $item, $element, $index)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onBeforeAppend' => NULL,
         'onAfterAppend' => NULL,
         'onCreateItem' => NULL,
         'onAfterAppendItem' => NULL
-      )
+      ]
     );
   }
 }

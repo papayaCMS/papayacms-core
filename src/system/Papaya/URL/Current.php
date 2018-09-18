@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\URL;
+
 /**
  * Papaya URL representation, representing the current url
  *
@@ -21,7 +22,6 @@ namespace Papaya\URL;
  * @subpackage URL
  */
 class Current extends \Papaya\URL {
-
   /**
    * If no $url is provided, the object will compile it from server environment
    *
@@ -36,19 +36,19 @@ class Current extends \Papaya\URL {
   /**
    * Compile url string from server environment variables
    *
-   * @return string|NULL
+   * @return string|null
    */
   public function getURLFromEnvironment() {
     $scheme = \Papaya\Utility\Server\Protocol::get();
     $port = $this->_getServerValue(
       'SERVER_PORT', ':', \Papaya\Utility\Server\Protocol::getDefaultPort()
     );
-    $host = $this->_getServerValue(array('HTTP_HOST', 'SERVER_NAME'));
+    $host = $this->_getServerValue(['HTTP_HOST', 'SERVER_NAME']);
     $requestUri = $this->_getServerValue('REQUEST_URI');
     if (!empty($host)) {
       return $scheme.'://'.$host.$port.$requestUri;
     } else {
-      return NULL;
+      return;
     }
   }
 
@@ -61,8 +61,8 @@ class Current extends \Papaya\URL {
    * @return string
    */
   private function _getServerValue($keys, $prefix = '', $ignoreValue = '') {
-    if (!is_array($keys)) {
-      $keys = array($keys);
+    if (!\is_array($keys)) {
+      $keys = [$keys];
     }
     foreach ($keys as $key) {
       if (!empty($_SERVER[$key]) &&

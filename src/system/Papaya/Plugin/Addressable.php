@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an object is editable.
  *
@@ -23,12 +24,11 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Addressable {
-
   /**
    * Getter/Setter for the content.
    *
    * @param \Papaya\Request $request
-   * @return FALSE|string|TRUE
+   * @return false|string|true
    */
   public function validateURL(\Papaya\Request $request);
 }

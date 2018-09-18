@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Text\Transliteration;
+
 /**
  * Transliterate a utf8 string into an ascii string.
  *
@@ -21,8 +22,8 @@ namespace Papaya\Text\Transliteration;
  * @subpackage String
  */
 class ASCII {
-
   private static $_mapping = NULL;
+
   private $_language = 'generic';
 
   /**
@@ -35,13 +36,13 @@ class ASCII {
    */
   public function transliterate($string, $language = 'generic') {
     $this->_language = empty($language) ? 'generic' : $language;
-    $result = preg_replace_callback(
+    $result = \preg_replace_callback(
       '([\\xC2-\\xDF][\\x80-\\xBF]|
         \\xE0[\\xA0-\\xBF][\\x80-\\xBF]|[\\xE1-\\xEC][\\x80-\\xBF]{2}|
         \\xED[\\x80-\\x9F][\\x80-\\xBF]|[\\xEE-\\xEF][\\x80-\\xBF]{2}|
         \\xF0[\\x90-\\xBF][\\x80-\\xBF]{2}|[\\xF1-\\xF3][\\x80-\\xBF]{3}|
         \\xF4[\\x80-\\x8F][\\x80-\\xBF]{2})xS',
-      array($this, 'mapCharacterMatch'),
+      [$this, 'mapCharacterMatch'],
       $string
     );
     return $result;
@@ -68,8 +69,8 @@ class ASCII {
   public function mapping(ASCII\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       self::$_mapping = $mapping;
-    } elseif (is_null(self::$_mapping)) {
-      self::$_mapping = new ASCII\Mapping;
+    } elseif (\is_null(self::$_mapping)) {
+      self::$_mapping = new ASCII\Mapping();
     }
     return self::$_mapping;
   }
@@ -80,5 +81,4 @@ class ASCII {
   public function resetMapping() {
     self::$_mapping = NULL;
   }
-
 }

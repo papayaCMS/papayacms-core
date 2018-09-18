@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - guid validation and normalization
  *
@@ -21,23 +22,22 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class Guid {
-
   /**
    * Validate if a string is a guid, by default an exception is thrown, but this can be supressed
    * with the second argument.
    *
    * @param string $guid
-   * @param boolean $silent
+   * @param bool $silent
    * @throws \UnexpectedValueException
-   * @return boolean
+   * @return bool
    */
   public static function validate($guid, $silent = FALSE) {
-    if (!preg_match('(^[a-fA-F\d]{32}$)D', $guid)) {
+    if (!\preg_match('(^[a-fA-F\d]{32}$)D', $guid)) {
       if ($silent) {
         return FALSE;
       }
       throw new \UnexpectedValueException(
-        sprintf('Invalid guid: "%s".', $guid)
+        \sprintf('Invalid guid: "%s".', $guid)
       );
     }
     return TRUE;
@@ -47,21 +47,21 @@ class Guid {
    * Normalize a given guid to lowercase letters
    *
    * @param string $guid
-   * @param boolean $silent
+   * @param bool $silent
    * @return string
    */
   public static function toLower($guid, $silent = FALSE) {
-    return self::validate($guid, $silent) ? strtolower($guid) : '';
+    return self::validate($guid, $silent) ? \strtolower($guid) : '';
   }
 
   /**
    * Normalize a given guid to uppercase letters
    *
    * @param string $guid
-   * @param boolean $silent
+   * @param bool $silent
    * @return string
    */
   public static function toUpper($guid, $silent = FALSE) {
-    return self::validate($guid, $silent) ? strtoupper($guid) : '';
+    return self::validate($guid, $silent) ? \strtoupper($guid) : '';
   }
 }

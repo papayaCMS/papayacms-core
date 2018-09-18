@@ -25,7 +25,6 @@ namespace Papaya\Content\Structure;
  * @subpackage Content
  */
 class Groups extends \Papaya\BaseObject\Collection {
-
   private $_page;
 
   public function __construct(Page $page) {

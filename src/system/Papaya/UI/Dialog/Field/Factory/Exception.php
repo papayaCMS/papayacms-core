@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory;
+
 /**
  * Abstract superclass for field factory exceptions.
  *
@@ -23,5 +24,4 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @subpackage UI
  */
 abstract class Exception extends \Papaya\Exception {
-
 }

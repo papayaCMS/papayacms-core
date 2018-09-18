@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple\Scanner\Status;
+
 /**
  * Look for template tokens inside a CSS string
  *
@@ -21,21 +22,20 @@ namespace Papaya\Template\Simple\Scanner\Status;
  * @subpackage Template
  */
 class CSS extends \Papaya\Template\Simple\Scanner\Status {
-
-  private $_patterns = array(
+  private $_patterns = [
     '(/\\*\\$[^*\\r\\n]+\*/)S' => \Papaya\Template\Simple\Scanner\Token::VALUE_NAME,
     '(\\s+)S' => \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
     '(/\\*)S' => \Papaya\Template\Simple\Scanner\Token::COMMENT_START,
     '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => \Papaya\Template\Simple\Scanner\Token::TEXT,
-  );
+  ];
 
   /**
    * Match the patterns against the buffer string, return a new token if it is found at
    * offset position
    *
    * @param string $buffer
-   * @param integer $offset
-   * @return NULL|\Papaya\Template\Simple\Scanner\Token
+   * @param int $offset
+   * @return null|\Papaya\Template\Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -46,7 +46,7 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    * be replaced (or not) by the defined value.
    *
    * @param \Papaya\Template\Simple\Scanner\Token
-   * @return \Papaya\Template\Simple\Scanner\Status|NULL
+   * @return \Papaya\Template\Simple\Scanner\Status|null
    */
   public function getNewStatus($token) {
     switch ($token->type) {
@@ -55,6 +55,6 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
       case \Papaya\Template\Simple\Scanner\Token::COMMENT_START :
         return new \Papaya\Template\Simple\Scanner\Status\CSS\Comment();
     }
-    return NULL;
+    return;
   }
 }

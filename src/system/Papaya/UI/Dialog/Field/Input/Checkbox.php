@@ -24,11 +24,10 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  */
 class Checkbox extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Specify the field type for the template
    *
@@ -41,23 +40,23 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var array
    */
-  protected $_values = array(
+  protected $_values = [
     'active' => TRUE,
     'inactive' => FALSE
-  );
+  ];
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Creates dialog field for time input with caption, name, default value and
@@ -66,7 +65,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    * @param string $caption
    * @param string $name
    * @param mixed $default optional, default NULL
-   * @param boolean $mandatory optional, default FALSE
+   * @param bool $mandatory optional, default FALSE
    */
   public function __construct($caption, $name, $default = NULL, $mandatory = TRUE) {
     parent::__construct($caption, $name, 9, $default);
@@ -87,10 +86,10 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
     $currentValue = $this->getCurrentValue();
     $input = $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName())
-      ),
+      ],
       (string)$this->_values['active']
     );
     if ((string)$currentValue === (string)$this->_values['active']) {
@@ -117,10 +116,10 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
         'The active value and the inactive value must be different.'
       );
     }
-    $this->_values = array(
+    $this->_values = [
       'active' => $active,
       'inactive' => $inactive
-    );
+    ];
     $this->setFilter(
       new \Papaya\Filter\Equals($this->_values['active'])
     );
@@ -174,6 +173,6 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
     if ($this->getMandatory()) {
       return parent::getFilter();
     }
-    return NULL;
+    return;
   }
 }

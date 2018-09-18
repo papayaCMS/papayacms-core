@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if an invalid key in an array is encountered.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class InvalidKey extends \Papaya\Filter\Exception {
-
   /**
    * The constructor expects the name of the invalid key
    *
@@ -29,7 +29,7 @@ class InvalidKey extends \Papaya\Filter\Exception {
    */
   public function __construct($key) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Invalid key "%s" in array.',
         $key
       )

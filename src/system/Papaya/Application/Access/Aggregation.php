@@ -17,7 +17,6 @@ namespace Papaya\Application\Access {
   use Papaya\Application;
 
   trait Aggregation {
-
     private $_papayaApplicationObject;
 
     /**

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Theme;
+
 /**
  * This object loads the available theme sets into a list.
  *
@@ -24,23 +25,22 @@ namespace Papaya\Content\Theme;
  * @subpackage Content
  */
 class Skins extends \Papaya\Database\Records\Lazy {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'themeset_id',
     'title' => 'themeset_title',
     'theme' => 'theme_name'
-  );
+  ];
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
-  protected $_orderByFields = array(
+  protected $_orderByFields = [
     'themeset_title' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  ];
 
   /**
    * Table containing view information
@@ -48,5 +48,4 @@ class Skins extends \Papaya\Database\Records\Lazy {
    * @var string
    */
   protected $_tableName = \Papaya\Content\Tables::THEME_SKINS;
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Utility\Server;
+
 /**
  * Static utility class to fetch the server name.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Utility\Server;
  * @subpackage Util
  */
 class Name {
-
   /**
    * fetch the current server name from environment
    *

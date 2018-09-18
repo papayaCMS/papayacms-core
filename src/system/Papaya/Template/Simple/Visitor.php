@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Template\Simple;
+
 /**
  * Abstract superclass for papaya template simple ast visitors. This maps the
  * node class names, to methods and calls them if the exists.
@@ -22,7 +23,6 @@ namespace Papaya\Template\Simple;
  * @subpackage AST
  */
 abstract class Visitor {
-
   abstract public function clear();
 
   abstract public function __toString();
@@ -67,17 +67,17 @@ abstract class Visitor {
    * @param AST $ast
    * @param string $prefix
    *
-   * @return string|FALSE
+   * @return string|false
    */
   private function getMethodName(AST $ast, $prefix = 'visit') {
-    $class = get_class($ast);
-    if (0 === strpos($class, AST::class)) {
-      $method = $prefix.substr($class, strlen(AST::class));
+    $class = \get_class($ast);
+    if (0 === \strpos($class, AST::class)) {
+      $method = $prefix.\substr($class, \strlen(AST::class));
     } else {
       $method = $prefix.$class;
     }
-    $method = str_replace('\\', '', $method);
-    if (method_exists($this, $method)) {
+    $method = \str_replace('\\', '', $method);
+    if (\method_exists($this, $method)) {
       return $method;
     }
     return FALSE;

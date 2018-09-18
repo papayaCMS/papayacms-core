@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A simple single line readonly input field with a caption.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @subpackage UI
  */
 class Readonly extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Initialize object, set caption and field name
    *
@@ -42,11 +42,11 @@ class Readonly extends \Papaya\UI\Dialog\Field\Input {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName()),
         'readonly' => 'yes'
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }

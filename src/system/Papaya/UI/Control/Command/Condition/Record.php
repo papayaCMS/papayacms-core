@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control\Command\Condition;
+
 /**
  * A command condition based on a database records existence.
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Control\Command\Condition;
  * @subpackage UI
  */
 class Record extends \Papaya\UI\Control\Command\Condition {
-
   /**
    * member variable to store the record
    *
@@ -42,7 +42,7 @@ class Record extends \Papaya\UI\Control\Command\Condition {
   /**
    * Execute callback and return value. Returns true if the record exists
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return $this->_record->key()->exists();

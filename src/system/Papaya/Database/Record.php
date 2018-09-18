@@ -14,23 +14,22 @@
  */
 
 namespace Papaya\Database;
+
 /**
  * Papaya Database Record, superclass for easy database record encapsulation.
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Record.php 39721 2014-04-07 13:13:23Z weinert $
  */
 abstract class Record
   extends \Papaya\BaseObject\Item
   implements Interfaces\Record {
-
   /**
    * An array of property to field mappings.
    *
    * @var array(string=>string)
    */
-  protected $_fields = array();
+  protected $_fields = [];
 
   /**
    * The table name for the default implementations
@@ -43,7 +42,7 @@ abstract class Record
    * The table alias for selected field mappings, if set only fields with this
    * alias will be included in insert/update queries
    *
-   * @var string|boolean
+   * @var string|bool
    */
   protected $_tableAlias = FALSE;
 
@@ -52,21 +51,21 @@ abstract class Record
    *
    * @var \Papaya\Database\Interfaces\Key
    */
-  private $_key = NULL;
+  private $_key;
 
   /**
    * Subobject for the database field mapping
    *
    * @var \Papaya\Database\Interfaces\Key
    */
-  private $_mapping = NULL;
+  private $_mapping;
 
   /**
    * Stored database access object
    *
    * @var \Papaya\Database\Access
    */
-  private $_databaseAccessObject = NULL;
+  private $_databaseAccessObject;
 
   /**
    * @var bool $_isLoaded loading indicator
@@ -76,13 +75,13 @@ abstract class Record
   /**
    * @var \Papaya\Database\Record\Callbacks
    */
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   /**
    * Create object and define properties
    */
   public function __construct() {
-    parent::__construct(array_keys($this->_fields));
+    parent::__construct(\array_keys($this->_fields));
   }
 
   /**
@@ -102,18 +101,18 @@ abstract class Record
    * be used like array('id' => $filter).
    *
    * @param mixed $filter
-   * @return boolean
+   * @return bool
    */
   public function load($filter) {
     $condition = \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter));
-    $fields = implode(
+    $fields = \implode(
       ', ',
       $this->mapping()->getFields()
     );
     $sql = "SELECT $fields FROM %s $condition";
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName)
-    );
+    ];
     return $this->_loadRecord($sql, $parameters);
   }
 
@@ -128,8 +127,8 @@ abstract class Record
     if ($filter instanceof \Papaya\Database\Condition\Element) {
       $condition = $filter->getSql();
     } else {
-      if (!is_array($filter)) {
-        $filter = array('id' => $filter);
+      if (!\is_array($filter)) {
+        $filter = ['id' => $filter];
       }
       $generator = new \Papaya\Database\Condition\Generator($this, $this->mapping());
       $condition = (string)$generator->fromArray($filter);
@@ -171,7 +170,7 @@ abstract class Record
   /**
    * Delte record from database table
    *
-   * @return boolean
+   * @return bool
    */
   public function delete() {
     if (!$this->callbacks()->onBeforeDelete($this)) {
@@ -196,7 +195,7 @@ abstract class Record
    *
    * @param string $sql
    * @param array $parameters
-   * @return boolean
+   * @return bool
    */
   protected function _loadRecord($sql, array $parameters = NULL) {
     if ($queryResult = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
@@ -212,15 +211,15 @@ abstract class Record
   /**
    * Internal method to update database record.
    *
-   * @return boolean
+   * @return bool
    */
   protected function _updateRecord() {
     if (!$this->callbacks()->onBeforeUpdate($this)) {
       return FALSE;
     }
     $result = FALSE !== $this
-        ->getDatabaseAccess()
-        ->updateRecord(
+      ->getDatabaseAccess()
+      ->updateRecord(
           $this->getDatabaseAccess()->getTableName($this->_tableName),
           $this->mapping()->mapPropertiesToFields($this->toArray(), $this->_tableAlias),
           $this->mapping()->mapPropertiesToFields($this->key()->getFilter(), $this->_tableAlias)
@@ -235,7 +234,7 @@ abstract class Record
   /**
    * Insert the record into the database table
    *
-   * @return \Papaya\Database\Interfaces\Key|FALSE
+   * @return \Papaya\Database\Interfaces\Key|false
    */
   protected function _insertRecord() {
     if (!$this->callbacks()->onBeforeInsert($this)) {
@@ -247,9 +246,9 @@ abstract class Record
     );
     $qualities = $this->key()->getQualities();
     if ($qualities & \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED) {
-      reset($filter);
-      $idField = key($filter);
-      if (array_key_exists($idField, $record)) {
+      \reset($filter);
+      $idField = \key($filter);
+      if (\array_key_exists($idField, $record)) {
         unset($record[$idField]);
       }
     } else {
@@ -268,7 +267,7 @@ abstract class Record
         $idField,
         $record
       );
-    if ($result !== FALSE) {
+    if (FALSE !== $result) {
       if (isset($idField)) {
         $record[$idField] = $result;
       }
@@ -291,7 +290,7 @@ abstract class Record
   public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
-    } elseif (is_null($this->_mapping)) {
+    } elseif (\is_null($this->_mapping)) {
       $this->_mapping = $this->_createMapping();
     }
     return $this->_mapping;
@@ -316,7 +315,7 @@ abstract class Record
   public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
     if (isset($key)) {
       $this->_key = $key;
-    } elseif (is_null($this->_key)) {
+    } elseif (\is_null($this->_key)) {
       $this->_key = $this->_createKey();
     }
     return $this->_key;
@@ -362,7 +361,7 @@ abstract class Record
   public function callbacks(\Papaya\Database\Record\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
+    } elseif (\is_null($this->_callbacks)) {
       $this->_callbacks = $this->_createCallbacks();
     }
     return $this->_callbacks;

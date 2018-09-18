@@ -14,28 +14,28 @@
  */
 
 namespace Papaya\Content\Page;
+
 /**
  * Provide data encapsulation for the reference between two pages.
  *
  * The two pages of the reference have the same weight. On mapping the informations the object
  * will put the lower id into source and the higher into target.
  *
- * @property integer $sourceId page id, smaller one
- * @property integer $targetId page id, larger one
+ * @property int $sourceId page id, smaller one
+ * @property int $targetId page id, larger one
  * @property string $note - a small text describing the reference
  */
 class Reference extends \Papaya\Database\Record {
-
   /**
    * Mapping fields
    *
    * @var array
    */
-  protected $_fields = array(
+  protected $_fields = [
     'target_id' => 'topic_target_id',
     'source_id' => 'topic_source_id',
     'note' => 'topic_note'
-  );
+  ];
 
   /**
    * References table name
@@ -53,7 +53,7 @@ class Reference extends \Papaya\Database\Record {
     return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
-      array('source_id', 'target_id')
+      ['source_id', 'target_id']
     );
   }
 
@@ -64,9 +64,9 @@ class Reference extends \Papaya\Database\Record {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = array(
+    $mapping->callbacks()->onAfterMapping = [
       $this, 'callbackSortPageIds'
-    );
+    ];
     return $mapping;
   }
 
@@ -74,13 +74,13 @@ class Reference extends \Papaya\Database\Record {
    * The callbacks sorts the page ids, to lower value is made the source id.
    *
    * @param object $context
-   * @param integer $mode
+   * @param int $mode
    * @param array $values
    * @param array $record
    * @return array
    */
   public function callbackSortPageIds($context, $mode, $values, $record) {
-    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
+    if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
       $result = $record;
       if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
         $result['topic_target_id'] = $record['topic_source_id'];
@@ -99,20 +99,20 @@ class Reference extends \Papaya\Database\Record {
   /**
    * Check if a callback exists
    *
-   * @param integer $sourceId
-   * @param integer $targetId
-   * @return boolean
+   * @param int $sourceId
+   * @param int $targetId
+   * @return bool
    */
   public function exists($sourceId, $targetId) {
     $sql = "SELECT COUNT(*)
               FROM %s
              WHERE topic_source_id = '%d'
                AND topic_target_id = '%d'";
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       (int)$sourceId > (int)$targetId ? $targetId : $sourceId,
       (int)$sourceId > (int)$targetId ? $sourceId : $targetId
-    );
+    ];
     if ($databaseResult = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
       return $databaseResult->fetchField() > 0;
     }

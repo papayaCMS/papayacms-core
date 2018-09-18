@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an object is editable.
  *
@@ -23,7 +24,6 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Editable {
-
   /**
    * Getter/Setter for the content.
    *

@@ -16,6 +16,5 @@
 namespace Papaya\BaseObject\Interfaces\Properties;
 
 interface Readable {
-
   public function __get($name);
 }

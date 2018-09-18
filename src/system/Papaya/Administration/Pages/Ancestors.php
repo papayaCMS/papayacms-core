@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Pages;
 
-use \Papaya\Content;
-use \Papaya\UI;
+use Papaya\Content;
+use Papaya\UI;
 
 /**
  * Display anchestors of the current page.
@@ -25,7 +25,6 @@ use \Papaya\UI;
  * @subpackage Administration
  */
 class Ancestors extends UI\Control {
-
   /**
    * Member variable for pages subobject
    *
@@ -44,7 +43,7 @@ class Ancestors extends UI\Control {
    * Append ancestor menu xml to parent element, this will do nothing until ids are set.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     return $this->menu()->appendTo($parent);
@@ -57,10 +56,10 @@ class Ancestors extends UI\Control {
    */
   public function setIds(array $pageIds) {
     $this->pages()->load(
-      array(
+      [
         'id' => $pageIds,
         'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id
-      )
+      ]
     );
     $this->menu()->items->clear();
     $this->menu()->items->limit = 10;
@@ -68,7 +67,7 @@ class Ancestors extends UI\Control {
       if ($this->pages()->offsetExists($id)) {
         $data = $this->pages()->offsetGet($id);
         $this->menu()->items[] = $item = new UI\Hierarchy\Item($data['title']);
-        $item->reference->setParameters(array('page_id' => $id), 'tt');
+        $item->reference->setParameters(['page_id' => $id], 'tt');
       }
     }
   }

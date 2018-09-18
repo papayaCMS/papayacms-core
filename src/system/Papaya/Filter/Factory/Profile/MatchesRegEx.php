@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Factory\Profile;
+
 /**
  * Profile creating pcre filter using the options as an string containing the pattern
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Factory\Profile;
  * @subpackage Filter
  */
 class MatchesRegEx extends \Papaya\Filter\Factory\Profile {
-
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
@@ -29,4 +29,3 @@ class MatchesRegEx extends \Papaya\Filter\Factory\Profile {
     return new \Papaya\Filter\RegEx((string)$this->options());
   }
 }
-

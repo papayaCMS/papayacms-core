@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Hierarchy;
+
 /**
  * A hierarchy item represent one element in {@see \Papaya\UI\Hierarchy\Items}.
  *
@@ -28,9 +29,10 @@ namespace Papaya\UI\Hierarchy;
  * @property \Papaya\UI\Reference $reference
  */
 class Item extends \Papaya\UI\Control\Collection\Item {
-
   const DISPLAY_BOTH = 1;
+
   const DISPLAY_IMAGE_ONLY = 2;
+
   const DISPLAY_TEXT_ONLY = 3;
 
   /**
@@ -39,11 +41,11 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array(integer => string)
    */
-  protected static $_displayModes = array(
+  protected static $_displayModes = [
     self::DISPLAY_BOTH => 'both',
     self::DISPLAY_IMAGE_ONLY => 'image',
     self::DISPLAY_TEXT_ONLY => 'text',
-  );
+  ];
 
   /**
    * Image index or url
@@ -69,7 +71,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Reference object
    *
-   * @var NULL|\Papaya\UI\Reference
+   * @var null|\Papaya\UI\Reference
    */
   protected $_reference;
 
@@ -85,13 +87,13 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', '_caption'),
-    'hint' => array('_hint', '_hint'),
-    'image' => array('_image', '_image'),
-    'reference' => array('reference', 'reference'),
-    'displayMode' => array('_displayMode', 'setDisplayMode')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', '_caption'],
+    'hint' => ['_hint', '_hint'],
+    'image' => ['_image', '_image'],
+    'reference' => ['reference', 'reference'],
+    'displayMode' => ['_displayMode', 'setDisplayMode']
+  ];
 
   /**
    * Create object and set caption text
@@ -111,12 +113,12 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     $itemNode = $parent->appendElement(
       'item',
-      array(
+      [
         'caption' => (string)$this->_caption,
         'hint' => (string)$this->_hint,
         'image' => $this->papaya()->images[(string)$this->_image],
         'mode' => self::$_displayModes[$this->_displayMode]
-      )
+      ]
     );
     if (NULL !== $this->_reference) {
       $itemNode->setAttribute('href', $this->reference()->getRelative());
@@ -147,11 +149,11 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * @throws \OutOfBoundsException
    */
   public function setDisplayMode($mode) {
-    if (array_key_exists($mode, self::$_displayModes)) {
+    if (\array_key_exists($mode, self::$_displayModes)) {
       $this->_displayMode = (int)$mode;
     } else {
       throw new \OutOfBoundsException(
-        sprintf('Invalid display mode for "%s".', __CLASS__)
+        \sprintf('Invalid display mode for "%s".', __CLASS__)
       );
     }
   }

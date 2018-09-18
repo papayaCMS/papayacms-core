@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Element\Description;
+
 /**
  * Dialog element description item encapsulating a named property.
  *
@@ -24,14 +25,14 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 class Property extends Item {
-
   protected $_name = '';
+
   protected $_value = '';
 
-  protected $_declaredProperties = array(
-    'name' => array('_name', 'setName'),
-    'value' => array('_value', '_value')
-  );
+  protected $_declaredProperties = [
+    'name' => ['_name', 'setName'],
+    'value' => ['_value', '_value']
+  ];
 
   /**
    * Create object, and store name and value data
@@ -63,10 +64,10 @@ class Property extends Item {
   public function appendTo(\Papaya\XML\Element $parent) {
     return $parent->appendElement(
       'property',
-      array(
+      [
         'name' => (string)$this->_name,
         'value' => (string)$this->_value
-      )
+      ]
     );
   }
 }

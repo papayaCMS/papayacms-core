@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\BaseObject;
+
 /**
  * An basic framework object including request parameters handling
  *
@@ -23,37 +24,35 @@ namespace Papaya\BaseObject;
 abstract class Interactive
   extends \Papaya\Application\BaseObject
   implements \Papaya\Request\Parameters\Access {
-
   /**
    * Parameter request method
    *
-   * @var NULL|string
+   * @var null|string
    */
   private $_parameterMethod = self::METHOD_MIXED_POST;
 
   /**
    * Parameter group name
    *
-   * @var NULL|string
+   * @var null|string
    */
-  private $_parameterGroup = NULL;
+  private $_parameterGroup;
 
   /**
    * Request parameters object
    *
    * @var \Papaya\Request\Parameters
    */
-  private $_parameters = NULL;
-
+  private $_parameters;
 
   /**
    * Get/Set parameter handling method. This will be used to define the parameter sources.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   * @return int
    */
   public function parameterMethod($method = NULL) {
-    if (!is_null($method)) {
+    if (!\is_null($method)) {
       \Papaya\Utility\Constraints::assertInteger($method);
       $this->_parameterMethod = $method;
     }
@@ -65,11 +64,11 @@ abstract class Interactive
    *
    * This puts all field parameters (except the hidden fields) into a parameter group.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
-    if (!is_null($groupName)) {
+    if (!\is_null($groupName)) {
       \Papaya\Utility\Constraints::assertString($groupName);
       \Papaya\Utility\Constraints::assertNotEmpty($groupName);
       $this->_parameterGroup = $groupName;
@@ -88,13 +87,13 @@ abstract class Interactive
   public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
-    } elseif (is_null($this->_parameters)) {
-      $sourceMapping = array(
+    } elseif (\is_null($this->_parameters)) {
+      $sourceMapping = [
         self::METHOD_GET => \Papaya\Request::SOURCE_QUERY,
         self::METHOD_POST => \Papaya\Request::SOURCE_BODY,
         self::METHOD_MIXED_POST => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY,
         self::METHOD_MIXED_GET => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
-      );
+      ];
       if (isset($this->_parameterGroup)) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(
           $this->_parameterGroup, $sourceMapping[$this->_parameterMethod]

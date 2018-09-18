@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown to report that a the value match not a specified type.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class UnexpectedType extends \Papaya\Filter\Exception {
-
   /**
    * expected type description
    *
@@ -37,7 +37,7 @@ class UnexpectedType extends \Papaya\Filter\Exception {
   public function __construct($expectedType) {
     $this->_expectedType = $expectedType;
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is not a "%s".',
         $expectedType
       )

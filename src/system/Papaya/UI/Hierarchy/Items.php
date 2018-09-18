@@ -14,17 +14,17 @@
  */
 
 namespace Papaya\UI\Hierarchy;
+
 /**
  * A collection of items representaiton the hierarchy of the current data element.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $limit limit the create links
+ * @property int $limit limit the create links
  * @property Item $spacer a spacer replacing the items not shown
  */
 class Items extends \Papaya\UI\Control\Collection {
-
   /**
    * Superclass for validation, only items of this class may be added.
    *
@@ -45,40 +45,40 @@ class Items extends \Papaya\UI\Control\Collection {
    * of the limit is shown from index 0 the other half from the end. If the limit is
    * odd the greater part is shown from the end.
    *
-   * @var integer
+   * @var int
    */
   protected $_limit = 6;
 
   /**
    * Papaya\UI\Hierarchy\Item
    *
-   * @var Item|NULL
+   * @var Item|null
    */
-  protected $_spacer = NULL;
+  protected $_spacer;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'limit' => array('_limit', '_limit'),
-    'spacer' => array('_spacer', '_spacer')
-  );
+  protected $_declaredProperties = [
+    'limit' => ['_limit', '_limit'],
+    'spacer' => ['_spacer', '_spacer']
+  ];
 
   /**
    * Append item output to parent element. If a tag name was provided, the items will be wrapped
    * in an additional element.
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
-    $count = count($this->_items);
+    $count = \count($this->_items);
     if ($this->_limit > 0 && $count > $this->_limit) {
       $parent = $parent->appendElement($this->_tagName);
-      $limitStart = floor($this->_limit / 2);
-      $limitEnd = $count - ceil($this->_limit / 2);
+      $limitStart = \floor($this->_limit / 2);
+      $limitEnd = $count - \ceil($this->_limit / 2);
       for ($i = 0; $i < $limitStart; $i++) {
         /** @var Item $item */
         $item = $this->_items[$i];
@@ -105,7 +105,7 @@ class Items extends \Papaya\UI\Control\Collection {
   public function spacer(Item $spacer = NULL) {
     if (isset($spacer)) {
       $this->_spacer = $spacer;
-    } elseif (is_null($this->_spacer)) {
+    } elseif (\is_null($this->_spacer)) {
       $this->_spacer = new Item('...');
       $this->_spacer->papaya($this->papaya());
     }

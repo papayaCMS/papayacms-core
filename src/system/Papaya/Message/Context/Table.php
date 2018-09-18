@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message\Context;
+
 /**
  * Papaya message context for tabular data
  *
@@ -25,27 +26,26 @@ class Table
   \Papaya\Message\Context\Interfaces\Table,
   \Papaya\Message\Context\Interfaces\Text,
   \Papaya\Message\Context\Interfaces\XHTML {
-
   /**
    * Field/column identifiers
    *
    * @var array
    */
-  private $_fields = array();
+  private $_fields = [];
 
   /**
    * Field/column captions
    *
-   * @var array|NULL
+   * @var array|null
    */
-  private $_captions = NULL;
+  private $_captions;
 
   /**
    * Data rows
    *
    * @var array
    */
-  private $_rows = array();
+  private $_rows = [];
 
   private $_label = '';
 
@@ -76,13 +76,13 @@ class Table
    * @throws \InvalidArgumentException
    */
   public function setColumns(array $columns) {
-    if (count($columns) > 0) {
+    if (\count($columns) > 0) {
       $this->_captions = $columns;
-      $this->_fields = array_keys($columns);
-      $this->_rows = array();
+      $this->_fields = \array_keys($columns);
+      $this->_rows = [];
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument $columns of %s::%s can not be empty.',
           __CLASS__,
           __METHOD__
@@ -108,9 +108,9 @@ class Table
    * @param array $values
    */
   public function addRow(array $values) {
-    if (is_null($this->_captions)) {
+    if (\is_null($this->_captions)) {
       foreach ($values as $field => $content) {
-        if (!in_array($field, $this->_fields)) {
+        if (!\in_array($field, $this->_fields)) {
           $this->_fields[] = $field;
         }
       }
@@ -124,12 +124,12 @@ class Table
    * This method return an array with all column identifiers as keys and the values found
    * in the current row. If a column identifier has no value for a column, NULL is used.
    *
-   * @param integer $position
+   * @param int $position
    * @return array
    */
   public function getRow($position) {
-    $result = array();
-    $row = isset($this->_rows[$position]) ? $this->_rows[$position] : array();
+    $result = [];
+    $row = isset($this->_rows[$position]) ? $this->_rows[$position] : [];
     foreach ($this->_fields as $field) {
       $result[$field] = isset($row[$field]) ? $row[$field] : NULL;
     }
@@ -139,10 +139,10 @@ class Table
   /**
    * Return the row count
    *
-   * @return integer
+   * @return int
    */
   public function getRowCount() {
-    return count($this->_rows);
+    return \count($this->_rows);
   }
 
   /**
@@ -154,16 +154,16 @@ class Table
    */
   public function asString() {
     $result = '';
-    if (count($this->_rows) > 0) {
-      foreach (array_keys($this->_rows) as $rowIndex) {
+    if (\count($this->_rows) > 0) {
+      foreach (\array_keys($this->_rows) as $rowIndex) {
         foreach ($this->getRow($rowIndex) as $column => $content) {
           if (isset($this->_captions)) {
             if (isset($this->_captions[$column]) &&
-              !is_null($content)) {
+              !\is_null($content)) {
               $result .= $this->_captions[$column].': '.$content."\n";
             }
           } else {
-            $result .= "- ".$content."\n";
+            $result .= '- '.$content."\n";
           }
         }
         $result .= "\n";
@@ -178,21 +178,21 @@ class Table
    * @return array
    */
   public function asArray() {
-    $result = array();
-    if (count($this->_rows) > 0) {
-      foreach (array_keys($this->_rows) as $rowIndex) {
+    $result = [];
+    if (\count($this->_rows) > 0) {
+      foreach (\array_keys($this->_rows) as $rowIndex) {
         $line = '';
         foreach ($this->getRow($rowIndex) as $column => $content) {
           if (isset($this->_captions)) {
             if (isset($this->_captions[$column]) &&
-              !is_null($content)) {
+              !\is_null($content)) {
               $line .= ', '.$this->_captions[$column].': '.$content;
             }
           } else {
-            $line .= "| ".$content." ";
+            $line .= '| '.$content.' ';
           }
         }
-        $result[] = substr($line, 2);
+        $result[] = \substr($line, 2);
       }
     }
     return $result;
@@ -205,7 +205,7 @@ class Table
    */
   public function asXhtml() {
     if (isset($this->_captions) ||
-      count($this->_rows) > 0) {
+      \count($this->_rows) > 0) {
       $result = '<table class="logContext" summary="">';
       if (isset($this->_captions)) {
         $result .= '<thead><tr>';
@@ -214,9 +214,9 @@ class Table
         }
         $result .= '</tr></thead>';
       }
-      if (count($this->_rows) > 0) {
+      if (\count($this->_rows) > 0) {
         $result .= '<tbody>';
-        foreach (array_keys($this->_rows) as $rowIndex) {
+        foreach (\array_keys($this->_rows) as $rowIndex) {
           $result .= '<tr>';
           foreach ($this->getRow($rowIndex) as $content) {
             $result .= '<td>'.\Papaya\Utility\Text\XML::escape($content).'</td>';
@@ -231,4 +231,3 @@ class Table
     return '';
   }
 }
-

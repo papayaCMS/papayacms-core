@@ -15,9 +15,9 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 
-use \Papaya\Content;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Check if the current page is a dependency and block edit page if it is set to sync.
@@ -28,18 +28,17 @@ use \Papaya\XML;
  * @subpackage Administration
  */
 class Blocker extends UI\Control\Interactive {
-
   /**
    * current page id
    *
-   * @var integer
+   * @var int
    */
   private $_pageId;
 
   /**
    * Cached synchronized result
    *
-   * @var NULL|array
+   * @var null|array
    */
   private $_synchronized;
 
@@ -81,7 +80,7 @@ class Blocker extends UI\Control\Interactive {
   /**
    * Initialize object with page id and synchronisation element.
    *
-   * @param integer $pageId
+   * @param int $pageId
    * @internal param int $synchronization
    */
   public function __construct($pageId) {
@@ -98,10 +97,10 @@ class Blocker extends UI\Control\Interactive {
     $pageId = $this->dependency()->originId;
     $pages = $this->pages();
     $pages->load(
-      array(
+      [
         'id' => $pageId,
         'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id
-      )
+      ]
     );
     $pageTitle = isset($pages[$pageId])
       ? $pages[$pageId]['title'] : '[...]';
@@ -112,14 +111,14 @@ class Blocker extends UI\Control\Interactive {
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->options->useToken = FALSE;
     $dialog->hiddenFields->merge(
-      array(
+      [
         'page_id' => $pageId
-      )
+      ]
     );
     $dialog->fields[] = new UI\Dialog\Field\Information(
       new UI\Text\Translated(
         'This part of the page is synchronized with page "%s #%d".',
-        array($pageTitle, $pageId)
+        [$pageTitle, $pageId]
       ),
       'status-system-locked'
     );
@@ -133,9 +132,9 @@ class Blocker extends UI\Control\Interactive {
   /**
    * Check if the given synchronization is active. It will cache the results.
    *
-   * @param integer $synchronization
-   * @param boolean $reset , reset cache and load record again
-   * @return boolean
+   * @param int $synchronization
+   * @param bool $reset , reset cache and load record again
+   * @return bool
    */
   public function isSynchronized($synchronization, $reset = FALSE) {
     $this->prepare($synchronization, $reset);
@@ -146,12 +145,12 @@ class Blocker extends UI\Control\Interactive {
    * Load dependency information for current clone if needed, store sync status if
    * asked for.
    *
-   * @param integer $synchronization
+   * @param int $synchronization
    * @param bool $reset
    */
   private function prepare($synchronization = NULL, $reset = FALSE) {
     if (NULL === $this->_synchronized || $reset) {
-      $this->_synchronized = array();
+      $this->_synchronized = [];
       $this->dependency()->load($this->_pageId);
     }
     if (
@@ -166,16 +165,16 @@ class Blocker extends UI\Control\Interactive {
   /**
    * Return all the views of dependend pages that syn either only the view xor the content.
    *
-   * @param integer $language
-   * @param boolean $reset , reset cache and load record again
+   * @param int $language
+   * @param bool $reset , reset cache and load record again
    * @return array
    */
   public function getSynchronizedViews($language, $reset = FALSE) {
-    $result = array();
+    $result = [];
     $this->prepare(NULL, $reset);
     if ($this->dependency()->isOrigin($this->_pageId) &&
       $this->dependencies()->load($this->_pageId, $language)) {
-      $viewIds = array();
+      $viewIds = [];
       foreach ($this->dependencies() as $dependency) {
         if (($dependency['synchronization'] & Content\Page\Dependency::SYNC_VIEW) xor
           ($dependency['synchronization'] & Content\Page\Dependency::SYNC_CONTENT)) {
@@ -183,7 +182,7 @@ class Blocker extends UI\Control\Interactive {
         }
       }
       $views = $this->views();
-      $views->load(array('id' => \array_values($viewIds)));
+      $views->load(['id' => \array_values($viewIds)]);
       foreach ($viewIds as $pageId => $viewId) {
         if (isset($views[$viewId])) {
           $result[$pageId] = $views[$viewId];

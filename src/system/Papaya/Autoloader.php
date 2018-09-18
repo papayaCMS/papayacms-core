@@ -16,20 +16,19 @@
 namespace Papaya;
 
 class Autoloader {
-
   /**
-  * prefix => path mapping array for modules/plugins.
-  *
-  * @var array
-  */
-  private static $_paths = array();
+   * prefix => path mapping array for modules/plugins.
+   *
+   * @var array
+   */
+  private static $_paths = [];
 
   /**
    * path => array('lowercaseclass' => '/path/class.php', ...)
    *
    * @var array
    */
-  private static $_classmaps = array();
+  private static $_classmaps = [];
 
   /**
    * Pattern that matches the parts (namespaces) of a class
@@ -41,7 +40,7 @@ class Autoloader {
       (?:[A-Z]+(?![a-z\d_]))
     )Sx';
 
-  private static $_mapClasses = array(
+  private static $_mapClasses = [
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
 
@@ -129,10 +128,11 @@ class Autoloader {
     'PapayaUiListviewSubitemImageList' => UI\ListView\SubItem\Images::class,
     'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
-  );
+  ];
+
   private static $_mapClassesReverse;
 
-  private static $_mapParts = array(
+  private static $_mapParts = [
     // Reserved Words
     'Boolean' => 'BooleanValue',
     'Float' => 'FloatValue',
@@ -169,14 +169,14 @@ class Autoloader {
     'Xhtml' => 'XHTML',
     'Xml' => 'XML',
     'Xslt' => 'XSLT'
-  );
+  ];
+
   private static $_mapPartsReverse;
 
   /**
-   *
    * @param string $name
-   * @param string|NULL $file
-   * @param string|NULL $alias
+   * @param string|null $file
+   * @param string|null $alias
    * @return bool
    */
   public static function load($name, $file = NULL, $alias = NULL) {
@@ -184,7 +184,7 @@ class Autoloader {
       $alternativeClass = self::convertToNamespaceClass($name);
       if (NULL !== $alternativeClass && $alternativeClass !== $name) {
         if (self::exists($alternativeClass, FALSE)) {
-          class_alias($alternativeClass, $name);
+          \class_alias($alternativeClass, $name);
           return TRUE;
         }
         if (self::load($alternativeClass, $file, $name)) {
@@ -193,17 +193,17 @@ class Autoloader {
         $alias = $alternativeClass;
       }
       $file = NULL === $file ? self::getClassFile($name) : $file;
-      if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
+      if (NULL !== $file && \file_exists($file) && \is_file($file) && \is_readable($file)) {
         /** @noinspection PhpIncludeInspection */
         include $file;
         if (NULL !== $alias) {
           if (self::exists($alias)) {
-            class_alias($alias, $name);
+            \class_alias($alias, $name);
           } else {
-            class_alias($name, $alias);
+            \class_alias($name, $alias);
           }
-        } elseif (FALSE !== strpos($name, '\\') && ($alias = self::convertToToOldClass($name))) {
-          class_alias($name, $alias);
+        } elseif (FALSE !== \strpos($name, '\\') && ($alias = self::convertToToOldClass($name))) {
+          \class_alias($name, $alias);
         }
       }
     }
@@ -212,53 +212,53 @@ class Autoloader {
 
   private static function exists($name, $allowAutoload = TRUE) {
     return
-      class_exists($name, $allowAutoload) ||
-      interface_exists($name, $allowAutoload) ||
-      trait_exists($name, $allowAutoload);
+      \class_exists($name, $allowAutoload) ||
+      \interface_exists($name, $allowAutoload) ||
+      \trait_exists($name, $allowAutoload);
   }
 
   /**
-  * Get file for a class
-  *
-  * @param string $className
-  * @return string|NULL
-  */
+   * Get file for a class
+   *
+   * @param string $className
+   * @return string|null
+   */
   public static function getClassFile($className) {
     static $systemDirectory = NULL;
     $systemDirectory = NULL !== $systemDirectory
-      ? $systemDirectory : str_replace('\\', '/', dirname(__DIR__));
+      ? $systemDirectory : \str_replace('\\', '/', \dirname(__DIR__));
     self::lazyLoadClassmap($systemDirectory);
-    $key = strtolower($className);
+    $key = \strtolower($className);
     foreach (self::$_classmaps as $path => $map) {
       if (isset($map[$key])) {
         return $path.$map[$key];
       }
     }
     $fileName = self::prepareFileName($className);
-    if (0 !== strpos($fileName, '/Papaya/') ||
-        0 === strpos($fileName, '/Papaya/Module/')) {
+    if (0 !== \strpos($fileName, '/Papaya/') ||
+        0 === \strpos($fileName, '/Papaya/Module/')) {
       foreach (self::$_paths as $prefix => $path) {
-        if (0 === strpos($fileName, $prefix)) {
-          return $path.substr($fileName, strlen($prefix)).'.php';
+        if (0 === \strpos($fileName, $prefix)) {
+          return $path.\substr($fileName, \strlen($prefix)).'.php';
         }
       }
-      return NULL;
+      return;
     }
     return $systemDirectory.$fileName.'.php';
   }
 
   /**
    * @param $className
-   * @return string|NULL
+   * @return string|null
    */
   private static function convertToNamespaceClass($className) {
     if (isset(self::$_mapClasses[$className])) {
       return self::$_mapClasses[$className];
     }
     if (
-      0 === strpos($className, 'Papaya') &&
-      FALSE === strpos($className, '\\') &&
-      preg_match_all(self::$classPattern, $className, $matches)
+      0 === \strpos($className, 'Papaya') &&
+      FALSE === \strpos($className, '\\') &&
+      \preg_match_all(self::$classPattern, $className, $matches)
     ) {
       /** @var array $parts */
       $parts = $matches[0];
@@ -269,7 +269,7 @@ class Autoloader {
         }
         $result .= '\\'.$part;
       }
-      return substr($result, 1);
+      return \substr($result, 1);
     }
     return $className;
   }
@@ -278,19 +278,19 @@ class Autoloader {
    *  Convert a new (namespaced class back to its old class name)
    *
    * @param string $className
-   * @return NULL|string
+   * @return null|string
    */
   private static function convertToToOldClass($className) {
     if (NULL === self::$_mapClassesReverse) {
-      self::$_mapClassesReverse = array_flip(self::$_mapClasses);
+      self::$_mapClassesReverse = \array_flip(self::$_mapClasses);
     }
     if (isset(self::$_mapClassesReverse[$className])) {
       return self::$_mapClassesReverse[$className];
     }
     if (NULL === self::$_mapPartsReverse) {
-      self::$_mapPartsReverse = array_flip(self::$_mapParts);
+      self::$_mapPartsReverse = \array_flip(self::$_mapParts);
     }
-    $parts = explode('\\', $className);
+    $parts = \explode('\\', $className);
     $result = '';
     foreach ($parts as $part) {
       if (isset(self::$_mapPartsReverse[$part])) {
@@ -302,15 +302,15 @@ class Autoloader {
   }
 
   /**
-  * Get file from matches class parts
-  *
-  * The file will include only the part of the path defined by the class.
-  *
-  * @param string $className
-  * @return string
-  */
+   * Get file from matches class parts
+   *
+   * The file will include only the part of the path defined by the class.
+   *
+   * @param string $className
+   * @return string
+   */
   private static function prepareFileName($className) {
-    if (preg_match_all(self::$classPattern, $className, $matches)) {
+    if (\preg_match_all(self::$classPattern, $className, $matches)) {
       /** @var array $parts */
       $parts = $matches[0];
     } else {
@@ -319,24 +319,24 @@ class Autoloader {
     $result = '';
     foreach ($parts as $part) {
       if ('\\' === $part[0]) {
-        $result .= '/'.substr($part, 1);
+        $result .= '/'.\substr($part, 1);
       } else {
-        $result .= '/'.ucfirst(strtolower($part));
+        $result .= '/'.\ucfirst(\strtolower($part));
       }
     }
     return $result;
   }
 
   /**
-  * Register an path for classes starting with a defined prefix. The prefix "Papaya" is reserved,
-  * except "PapayaModule".
-  *
-  * @param string $modulePrefix
-  * @param string $modulePath
-  */
+   * Register an path for classes starting with a defined prefix. The prefix "Papaya" is reserved,
+   * except "PapayaModule".
+   *
+   * @param string $modulePrefix
+   * @param string $modulePath
+   */
   public static function registerPath($modulePrefix, $modulePath) {
     self::$_paths[self::prepareFileName($modulePrefix).'/'] = Utility\File\Path::cleanup($modulePath);
-    uksort(self::$_paths, array('self', 'compareByCharacterLength'));
+    \uksort(self::$_paths, ['self', 'compareByCharacterLength']);
   }
 
   /**
@@ -385,18 +385,18 @@ class Autoloader {
    * @return int
    */
   public static function compareByCharacterLength($prefixOne, $prefixTwo) {
-    if (strlen($prefixOne) > strlen($prefixTwo)) {
+    if (\strlen($prefixOne) > \strlen($prefixTwo)) {
       return -1;
     }
-    return strcmp($prefixOne, $prefixTwo);
+    return \strcmp($prefixOne, $prefixTwo);
   }
 
   /**
-  * Clear all additional registered data about class and path mappings
-  */
+   * Clear all additional registered data about class and path mappings
+   */
   public static function clear() {
-    self::$_paths = array();
-    self::$_classmaps = array();
+    self::$_paths = [];
+    self::$_classmaps = [];
   }
 
   /**
@@ -406,10 +406,10 @@ class Autoloader {
    */
   private static function lazyLoadClassmap($directory) {
     if (empty(self::$_classmaps) || !isset(self::$_classmaps[$directory])) {
-      /** @noinspection PhpIncludeInspection */
+      /* @noinspection PhpIncludeInspection */
       self::registerClassMap($directory, include $directory.'/_classmap.php');
     }
   }
 }
 
-class_alias(Autoloader::class, 'PapayaAutoloader');
+\class_alias(Autoloader::class, 'PapayaAutoloader');

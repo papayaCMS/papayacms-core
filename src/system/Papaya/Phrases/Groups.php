@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Phrases;
+
 /**
  * Array Access implementation for phrase group objects.
  *
@@ -21,16 +22,15 @@ namespace Papaya\Phrases;
  * @subpackage Phrases
  */
 class Groups implements \ArrayAccess {
-
   /**
    * @var array
    */
-  private $_groups = array();
+  private $_groups = [];
 
   /**
    * @var \Papaya\Phrases
    */
-  private $_phrases = NULL;
+  private $_phrases;
 
   public function __construct(\Papaya\Phrases $phrases) {
     $this->_phrases = $phrases;
@@ -46,10 +46,10 @@ class Groups implements \ArrayAccess {
 
   /**
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($name) {
-    return array_key_exists($name, $this->_groups);
+    return \array_key_exists($name, $this->_groups);
   }
 
   /**

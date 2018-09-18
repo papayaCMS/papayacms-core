@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Message;
+
 /**
  * Interface for protocol messages
  *
@@ -21,7 +22,6 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 interface Logable extends \Papaya\Message {
-
   /**
    * log group for user messages (login/logout)
    */
@@ -70,7 +70,7 @@ interface Logable extends \Papaya\Message {
   /**
    * Get log group of message
    *
-   * @return integer
+   * @return int
    */
   public function getGroup();
 

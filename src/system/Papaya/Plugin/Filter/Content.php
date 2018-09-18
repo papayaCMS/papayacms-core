@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Filter;
+
 /**
  * An interface to define that allows to apply filter to a string content
  *
@@ -21,7 +22,6 @@ namespace Papaya\Plugin\Filter;
  * @subpackage Plugins
  */
 interface Content extends \Papaya\XML\Appendable {
-
   /**
    * @param string $content
    * @param \Papaya\BaseObject\Parameters $options

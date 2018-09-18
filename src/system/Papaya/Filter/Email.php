@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * This filter class checks an email address.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Email implements \Papaya\Filter {
-
   /**
    * Pattern to check for a linebreak
    *
@@ -36,10 +36,10 @@ class Email implements \Papaya\Filter {
    *
    * @param string $value
    * @throws \Papaya\Filter\Exception\UnexpectedType
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_patternCheck, $value)) {
+    if (!\preg_match($this->_patternCheck, $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('email address');
     }
     return TRUE;
@@ -56,7 +56,7 @@ class Email implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

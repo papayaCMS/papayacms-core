@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application\Profile;
+
 /**
  * Application object profile for profiler
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application\Profile;
  * @subpackage Application
  */
 class Profiler implements \Papaya\Application\Profile {
-
   private $_builder;
 
   /**

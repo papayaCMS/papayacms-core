@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
 /**
  * Field factory profiles for a generic select field.
  *
@@ -24,18 +25,17 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class Select extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    * @return \Papaya\UI\Dialog\Field\Select
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    if (is_array($this->options()->parameters) ||
+    if (\is_array($this->options()->parameters) ||
       $this->options()->parameters instanceof \Traversable) {
       $elements = $this->options()->parameters;
     } else {
-      $elements = array();
+      $elements = [];
     }
     $field = $this->createField($elements);
     $field->setDefaultValue($this->options()->default);

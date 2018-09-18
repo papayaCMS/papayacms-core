@@ -22,14 +22,13 @@ namespace Papaya\Controller;
  * @subpackage Controller
  */
 class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller {
-
   /**
    * Create an object list for \Papaya\Controller instances, add all arguments as
    * elements of that list.
    */
   public function __construct() {
     parent::__construct(\Papaya\Controller::class);
-    foreach (func_get_args() as $controller) {
+    foreach (\func_get_args() as $controller) {
       parent::add($controller);
     }
   }
@@ -46,7 +45,7 @@ class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller 
    * @return bool|\Papaya\Controller
    */
   public function execute(
-    /** @noinspection ReferencingObjectsInspection */
+    /* @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
     \Papaya\Request &$request,
     \Papaya\Response &$response

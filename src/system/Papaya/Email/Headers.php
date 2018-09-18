@@ -22,5 +22,4 @@ namespace Papaya\Email;
  * @subpackage Email
  */
 class Headers extends \Papaya\HTTP\Headers {
-
 }

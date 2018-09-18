@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class for an integer number
  *
@@ -27,25 +28,25 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class IntegerValue implements \Papaya\Filter {
-
   /**
    * Minimum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_minimum = NULL;
+  private $_minimum;
+
   /**
    * Maximum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_maximum = NULL;
+  private $_maximum;
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
-   * @param integer|NULL $minimum
-   * @param integer|NULL $maximum
+   * @param int|null $minimum
+   * @param int|null $maximum
    * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
@@ -66,10 +67,10 @@ class IntegerValue implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (preg_match('(^[+-]?\d+$)D', $value)) {
+    if (\preg_match('(^[+-]?\d+$)D', $value)) {
       $value = (int)$value;
       if (isset($this->_minimum) && $value < $this->_minimum) {
         throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $value);
@@ -88,7 +89,7 @@ class IntegerValue implements \Papaya\Filter {
    * into an integer before the validation. So only given limits are validated.
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
     $value = (int)$value;
@@ -96,7 +97,7 @@ class IntegerValue implements \Papaya\Filter {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

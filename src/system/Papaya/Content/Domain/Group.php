@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Domain;
+
 /**
  * Data encapsulation for a liust of domain group record
  *
@@ -24,16 +25,15 @@ namespace Papaya\Content\Domain;
  * @property string $title
  */
 class Group extends \Papaya\Database\Record\Lazy {
-
   /**
    * Map field names to more convinient property names
    *
    * @var array:string
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'domaingroup_id',
     'title' => 'domaingroup_title'
-  );
+  ];
 
   /**
    * @var string
@@ -47,7 +47,7 @@ class Group extends \Papaya\Database\Record\Lazy {
    */
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
-    $callbacks->onBeforeDelete = array($this, 'moveDomainsToDefaultGroup');
+    $callbacks->onBeforeDelete = [$this, 'moveDomainsToDefaultGroup'];
     return $callbacks;
   }
 
@@ -56,8 +56,8 @@ class Group extends \Papaya\Database\Record\Lazy {
       $databaseAccess = $this->getDatabaseAccess();
       return FALSE !== $databaseAccess->updateRecord(
           $databaseAccess->getTableName(\Papaya\Content\Tables::DOMAINS),
-          array('domaingroup_id' => 0),
-          array('domaingroup_id' => $this->id)
+          ['domaingroup_id' => 0],
+          ['domaingroup_id' => $this->id]
         );
     }
     return TRUE;

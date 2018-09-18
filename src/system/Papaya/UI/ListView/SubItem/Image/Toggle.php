@@ -14,44 +14,44 @@
  */
 
 namespace Papaya\UI\ListView\SubItem\Image;
+
 /**
  * A listview subitem displaying an icon from a given list.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property \Papaya\UI\Icon\Collection $icons
  * @property string $selection
  * @property array $actionParameters
  */
 class Toggle extends \Papaya\UI\ListView\SubItem {
-
   /**
    * A list of icons
    *
    * @var \Papaya\UI\Icon\Collection
    */
-  protected $_icons = NULL;
+  protected $_icons;
 
   /**
    * index of the selected icon in the list
    *
    * @var mixed
    */
-  protected $_selection = NULL;
+  protected $_selection;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'icons' => array('_icons', 'setIcons'),
-    'selection' => array('_selection', '_selection'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'icons' => ['_icons', 'setIcons'],
+    'selection' => ['_selection', '_selection'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+  ];
 
   /**
    * Create subitme and store icon list and selection index.
@@ -76,9 +76,9 @@ class Toggle extends \Papaya\UI\ListView\SubItem {
   public function appendTo(\Papaya\XML\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
-      array(
+      [
         'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
+      ]
     );
     $iconIndex = (string)$this->_selection;
     if (isset($this->_icons[$iconIndex]) &&

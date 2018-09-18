@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database\Records;
+
 /**
  * Papaya Database Records Tree - reads an parent child tree from database.
  *
@@ -21,42 +22,41 @@ namespace Papaya\Database\Records;
  * @subpackage Database
  */
 abstract class Tree extends Lazy {
-
   /**
    * identifing a record - the child identifier
    *
    * @var array
    */
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
   /**
    * identifing a parent record - the parent identifier
    *
    * @var array
    */
-  protected $_parentIdentifierProperties = array('parent_id');
+  protected $_parentIdentifierProperties = ['parent_id'];
 
   /**
    * An buffer for the children of each parent
    *
    * @var array
    */
-  protected $_children = array();
+  protected $_children = [];
 
   /**
    * Load the records, read them from database and create the children buffer.
    *
    * @param string $sql
    * @param array $parameters
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @param array $idProperties
    * @throws \LogicException
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
-    $this->_children = array();
-    $this->_records = array();
+  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+    $this->_children = [];
+    $this->_records = [];
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);

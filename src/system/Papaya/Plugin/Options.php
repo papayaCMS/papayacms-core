@@ -25,13 +25,16 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 class Options extends \Papaya\Configuration {
-
   const STATUS_CREATED = 0;
+
   const STATUS_LOADING = 1;
+
   const STATUS_LOADED = 2;
 
   private $_status = self::STATUS_CREATED;
+
   private $_storage;
+
   private $_guid;
 
   /**
@@ -40,7 +43,7 @@ class Options extends \Papaya\Configuration {
    * @param string $guid
    */
   public function __construct($guid) {
-    parent::__construct(array());
+    parent::__construct([]);
     $this->_guid = \Papaya\Utility\Text\Guid::toLower($guid);
   }
 
@@ -53,7 +56,7 @@ class Options extends \Papaya\Configuration {
   public function set($name, $value) {
     $this->lazyLoad();
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
-    if ($this->_status === self::STATUS_LOADING) {
+    if (self::STATUS_LOADING === $this->_status) {
       $this->_options[$name] = $value;
     } else {
       parent::set($name, $value);
@@ -77,7 +80,7 @@ class Options extends \Papaya\Configuration {
    * Validate if an option is available
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function has($name) {
     $this->lazyLoad();
@@ -91,7 +94,7 @@ class Options extends \Papaya\Configuration {
    */
   public function getIterator() {
     $this->lazyLoad();
-    return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
+    return new \Papaya\Configuration\Iterator(\array_keys($this->_options), $this);
   }
 
   /**
@@ -118,7 +121,7 @@ class Options extends \Papaya\Configuration {
   /**
    * Returns the current loading status
    *
-   * @return integer
+   * @return int
    */
   public function getStatus() {
     return $this->_status;

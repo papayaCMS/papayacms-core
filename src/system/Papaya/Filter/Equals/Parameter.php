@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter\Equals;
+
 /**
  * Papaya filter class that checks if the value is equal to a given parameter value.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter\Equals;
  * @subpackage Filter
  */
 class Parameter implements \Papaya\Filter {
-
   /**
    * Given parameters object
    *
@@ -54,7 +54,7 @@ class Parameter implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception\InvalidValue
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     if ($this->_parameters->get((string)$this->_parameterName) != (string)$value) {
@@ -67,14 +67,14 @@ class Parameter implements \Papaya\Filter {
    * Checks the value and returns the value if validate succeeded, otherwise NULL
    *
    * @param string $value
-   * @return mixed|NULL
+   * @return mixed|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
     } catch (\Papaya\Filter\Exception $e) {
-      return NULL;
+      return;
     }
   }
 }

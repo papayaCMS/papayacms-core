@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Languages;
 
-use \Papaya\Application;
-use \Papaya\Utility;
+use Papaya\Application;
+use Papaya\Utility;
 
 /**
  * Language image source administration control.
@@ -28,17 +28,18 @@ use \Papaya\Utility;
  * @subpackage Administration
  */
 class Image  implements Application\Access {
-
   use Application\Access\Aggregation;
 
   private $_languageId;
+
   private $_language;
+
   private $_image;
 
   /**
    * Create language image for the current or a specified language
    *
-   * @param integer $languageId
+   * @param int $languageId
    */
   public function __construct($languageId = 0) {
     Utility\Constraints::assertInteger($languageId);

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Validate that a value contains at least one character
  *
@@ -23,18 +24,17 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class NotEmpty implements \Papaya\Filter {
-
   /**
    * Values with only whitespaces are considered empty, too.
    *
-   * @var boolean
+   * @var bool
    */
   private $_ignoreSpaces = TRUE;
 
   /**
    * Initialize object and store ignore option.
    *
-   * @param boolean $ignoreSpaces
+   * @param bool $ignoreSpaces
    */
   public function __construct($ignoreSpaces = TRUE) {
     \Papaya\Utility\Constraints::assertBoolean($ignoreSpaces);
@@ -50,14 +50,14 @@ class NotEmpty implements \Papaya\Filter {
    * @return bool
    */
   public function validate($value) {
-    if (isset($value) && is_array($value)) {
-      if (count($value) <= 0) {
+    if (isset($value) && \is_array($value)) {
+      if (\count($value) <= 0) {
         throw new \Papaya\Filter\Exception\IsEmpty();
       }
     } else {
       $value = (string)$value;
-      if ($value === '' ||
-        ($this->_ignoreSpaces && trim($value) === '')) {
+      if ('' === $value ||
+        ($this->_ignoreSpaces && '' === \trim($value))) {
         throw new \Papaya\Filter\Exception\IsEmpty();
       }
     }
@@ -69,16 +69,16 @@ class NotEmpty implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param mixed $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
-    if (isset($value) && is_array($value)) {
-      return (count($value) > 0) ? $value : NULL;
+    if (isset($value) && \is_array($value)) {
+      return (\count($value) > 0) ? $value : NULL;
     } else {
       if ($this->_ignoreSpaces) {
-        $value = trim($value);
+        $value = \trim($value);
       }
-      return ($value == '') ? NULL : (string)$value;
+      return ('' == $value) ? NULL : (string)$value;
     }
   }
 }

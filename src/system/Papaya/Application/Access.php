@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Application;
+
 /**
  * Papaya Object Interface - implementing objects provide access to the papaya application registry
  *
@@ -21,7 +22,6 @@ namespace Papaya\Application;
  * @subpackage Objects
  */
 interface Access {
-
   /**
    * Getter/Setter for the application registry
    *

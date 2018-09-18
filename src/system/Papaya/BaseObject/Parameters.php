@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\BaseObject;
+
 /**
  * Extends the ArrayObject to allow lists as keys and a get with filtering and casting
  **
@@ -23,12 +24,11 @@ namespace Papaya\BaseObject;
  */
 class Parameters
   extends \ArrayObject {
-
   /**
    * Check if the value exists
    *
    * @param string|array $offset
-   * @return boolean
+   * @return bool
    */
   public function has($offset) {
     return $this->offsetExists($offset);
@@ -53,17 +53,17 @@ class Parameters
     if (isset($value) && isset($filter) && $filter instanceof \Papaya\Filter) {
       $value = $filter->filter($value);
     }
-    if (is_null($value)) {
+    if (\is_null($value)) {
       return $defaultValue;
-    } elseif (is_null($defaultValue)) {
+    } elseif (\is_null($defaultValue)) {
       return $value;
-    } elseif (is_array($defaultValue)) {
-      return is_array($value) ? $value : $defaultValue;
-    } elseif (is_object($defaultValue) && method_exists($defaultValue, '__toString')) {
-      return is_string($value) ? $value : (string)$defaultValue;
-    } elseif (is_scalar($defaultValue)) {
-      $type = gettype($defaultValue);
-      settype($value, $type);
+    } elseif (\is_array($defaultValue)) {
+      return \is_array($value) ? $value : $defaultValue;
+    } elseif (\is_object($defaultValue) && \method_exists($defaultValue, '__toString')) {
+      return \is_string($value) ? $value : (string)$defaultValue;
+    } elseif (\is_scalar($defaultValue)) {
+      $type = \gettype($defaultValue);
+      \settype($value, $type);
       return $value;
     } else {
       return $defaultValue;
@@ -74,7 +74,7 @@ class Parameters
    * Empty the internal array.
    */
   public function clear() {
-    parent::exchangeArray(array());
+    parent::exchangeArray([]);
   }
 
   /**
@@ -105,21 +105,21 @@ class Parameters
    *
    * @see \ArrayObject::offsetExists()
    * @param mixed $offset
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($offset) {
-    if (empty($offset) && $offset !== 0) {
+    if (empty($offset) && 0 !== $offset) {
       return FALSE;
     }
-    if (is_array($offset) && count($offset) > 0) {
-      $first = array_shift($offset);
+    if (\is_array($offset) && \count($offset) > 0) {
+      $first = \array_shift($offset);
       if (!parent::offsetExists($first)) {
         return FALSE;
       }
       $data = parent::offsetGet($first);
       foreach ($offset as $key) {
-        if (is_array($data) && array_key_exists($key, $data)) {
-          $data =& $data[$key];
+        if (\is_array($data) && \array_key_exists($key, $data)) {
+          $data = &$data[$key];
         } else {
           return FALSE;
         }
@@ -139,22 +139,22 @@ class Parameters
    * @return mixed
    */
   public function offsetGet($offset) {
-    if (is_array($offset) && count($offset) > 0) {
-      $first = array_shift($offset);
+    if (\is_array($offset) && \count($offset) > 0) {
+      $first = \array_shift($offset);
       $data = parent::offsetExists($first) ? parent::offsetGet($first) : NULL;
       foreach ($offset as $key) {
-        if (is_array($data) && array_key_exists($key, $data)) {
-          $data =& $data[$key];
+        if (\is_array($data) && \array_key_exists($key, $data)) {
+          $data = &$data[$key];
         } else {
           $data = NULL;
           break;
         }
       }
       return $data;
-    } elseif (!is_array($offset) && parent::offsetExists($offset)) {
+    } elseif (!\is_array($offset) && parent::offsetExists($offset)) {
       return parent::offsetGet($offset);
     } else {
-      return NULL;
+      return;
     }
   }
 
@@ -167,35 +167,35 @@ class Parameters
    */
   public function offsetSet($offset, $value) {
     if ($value instanceof \Traversable) {
-      $value = iterator_to_array($value);
+      $value = \iterator_to_array($value);
     }
-    if (is_array($offset) && count($offset) > 1) {
-      $first = array_shift($offset);
-      $last = array_pop($offset);
-      $top = parent::offsetExists($first) ? parent::offsetGet($first) : array();
-      $current =& $top;
+    if (\is_array($offset) && \count($offset) > 1) {
+      $first = \array_shift($offset);
+      $last = \array_pop($offset);
+      $top = parent::offsetExists($first) ? parent::offsetGet($first) : [];
+      $current = &$top;
       foreach ($offset as $key) {
-        if (empty($key) && $key !== 0) {
-          $current[] = array();
-          end($current);
-          $key = key($current);
-        } elseif (!(isset($current[$key]) && is_array($current[$key]))) {
-          $current[$key] = array();
+        if (empty($key) && 0 !== $key) {
+          $current[] = [];
+          \end($current);
+          $key = \key($current);
+        } elseif (!(isset($current[$key]) && \is_array($current[$key]))) {
+          $current[$key] = [];
         }
-        $current =& $current[$key];
+        $current = &$current[$key];
       }
-      if (empty($last) && $last !== 0) {
-        if (!is_array($current)) {
-          $current = array();
+      if (empty($last) && 0 !== $last) {
+        if (!\is_array($current)) {
+          $current = [];
         }
         $current[] = $value;
-      } elseif (is_array($current)) {
+      } elseif (\is_array($current)) {
         $current[$last] = $value;
       } else {
-        $current = array($last => $value);
+        $current = [$last => $value];
       }
-      parent::offsetSet(empty($first) && $first !== 0 ? NULL : $first, $top);
-    } elseif (is_array($offset)) {
+      parent::offsetSet(empty($first) && 0 !== $first ? NULL : $first, $top);
+    } elseif (\is_array($offset)) {
       parent::offsetSet($offset[0], $value);
     } else {
       parent::offsetSet($offset, $value);
@@ -209,32 +209,32 @@ class Parameters
    * @param mixed $offset
    */
   public function offsetUnset($offset) {
-    if (empty($offset) && $offset !== 0) {
+    if (empty($offset) && 0 !== $offset) {
       return;
     }
-    if (is_array($offset) && count($offset) > 1) {
-      $first = array_shift($offset);
-      $last = array_pop($offset);
+    if (\is_array($offset) && \count($offset) > 1) {
+      $first = \array_shift($offset);
+      $last = \array_pop($offset);
       if (!parent::offsetExists($first)) {
         return;
       }
       $top = parent::offsetGet($first);
-      $current =& $top;
+      $current = &$top;
       foreach ($offset as $key) {
-        if (isset($current[$key]) && is_array($current[$key])) {
-          $current =& $current[$key];
+        if (isset($current[$key]) && \is_array($current[$key])) {
+          $current = &$current[$key];
         } else {
           return;
         }
       }
-      if (is_array($current) && isset($current[$last])) {
+      if (\is_array($current) && isset($current[$last])) {
         unset($current[$last]);
         parent::offsetSet($first, $top);
       }
-    } elseif (is_array($offset)) {
+    } elseif (\is_array($offset)) {
       $offset = $offset[0];
     }
-    if (is_scalar($offset) && parent::offsetExists($offset)) {
+    if (\is_scalar($offset) && parent::offsetExists($offset)) {
       parent::offsetUnset($offset);
     }
   }
@@ -246,8 +246,8 @@ class Parameters
    */
   public function getChecksum() {
     $data = (array)$this;
-    ksort($data);
+    \ksort($data);
     \Papaya\Utility\Arrays::normalize($data);
-    return md5(serialize($data));
+    return \md5(\serialize($data));
   }
 }

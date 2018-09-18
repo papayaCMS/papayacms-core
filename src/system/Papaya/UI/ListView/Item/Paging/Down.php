@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\Item\Paging;
+
 /**
  * Provides several links to navigate to previous pages of a list in a listview. This
  * output links to pages with a lower number.
@@ -22,7 +23,6 @@ namespace Papaya\UI\ListView\Item\Paging;
  * @subpackage UI
  */
 class Down extends \Papaya\UI\ListView\Item\Paging {
-
   protected $_image = 'actions-go-previous';
 
   /**
@@ -36,7 +36,7 @@ class Down extends \Papaya\UI\ListView\Item\Paging {
     if ($minimum < 1) {
       $minimum = 1;
     }
-    $pages = array();
+    $pages = [];
     for ($i = $minimum; $i < $maximum; ++$i) {
       $pages[] = $i;
     }
@@ -46,7 +46,7 @@ class Down extends \Papaya\UI\ListView\Item\Paging {
   /**
    * Return the page that will be used for the image link
    *
-   * @return integer
+   * @return int
    */
   public function getImagePage() {
     $previous = $this->getCurrentPage() - 1;

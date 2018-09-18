@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Reference;
+
 /**
  * Papaya Interface Media Reference (Hyperlink Reference)
  *
@@ -21,20 +22,19 @@ namespace Papaya\UI\Reference;
  * @subpackage UI
  */
 class Media extends \Papaya\UI\Reference {
-
   /**
    * Page identification data
    *
    * @var array
    */
-  protected $_pageData = array(
+  protected $_pageData = [
     'title' => 'index',
     'mode' => 'media',
     'media_id' => NULL,
     'version' => 0,
     'extension' => '',
     'preview' => FALSE
-  );
+  ];
 
   /**
    * Static create function to allow fluent calls.
@@ -68,7 +68,7 @@ class Media extends \Papaya\UI\Reference {
       }
       return $result;
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -92,8 +92,8 @@ class Media extends \Papaya\UI\Reference {
    */
   public function setMediaId($mediaId) {
     $this->prepare();
-    if (!empty($mediaId) && preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
-      $this->_pageData['media_id'] = strtolower($mediaId);
+    if (!empty($mediaId) && \preg_match('(^[a-fA-F\d]{32}$)D', $mediaId)) {
+      $this->_pageData['media_id'] = \strtolower($mediaId);
     }
     return $this;
   }
@@ -101,7 +101,7 @@ class Media extends \Papaya\UI\Reference {
   /**
    * Set media version
    *
-   * @param integer $version
+   * @param int $version
    * @return self
    */
   public function setMediaVersion($version) {
@@ -120,7 +120,7 @@ class Media extends \Papaya\UI\Reference {
    */
   public function setTitle($title) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
+    if (\preg_match('(^[a-zA-Z\d_-]+$)D', $title)) {
       $this->_pageData['title'] = (string)$title;
     }
     return $this;
@@ -134,9 +134,9 @@ class Media extends \Papaya\UI\Reference {
    */
   public function setMode($mode) {
     $this->prepare();
-    if (in_array($mode, array('media', 'download'))) {
+    if (\in_array($mode, ['media', 'download'])) {
       $this->_pageData['mode'] = (string)$mode;
-    } elseif (in_array($mode, array('thumb', 'thumbnail'))) {
+    } elseif (\in_array($mode, ['thumb', 'thumbnail'])) {
       $this->_pageData['mode'] = 'media';
     }
     return $this;
@@ -150,8 +150,8 @@ class Media extends \Papaya\UI\Reference {
    */
   public function setExtension($extension) {
     $this->prepare();
-    if (preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
-      $this->_pageData['extension'] = strtolower($extension);
+    if (\preg_match('(^[a-zA-Z\d_]+$)D', $extension)) {
+      $this->_pageData['extension'] = \strtolower($extension);
     }
     return $this;
   }
@@ -169,7 +169,7 @@ class Media extends \Papaya\UI\Reference {
       (?:v(?P<version>\d+))?
       (?:\.(?P<extension>[a-zA-Z\d]+))?
     $)Dix';
-    if (preg_match($pattern, $mediaUri, $matches)) {
+    if (\preg_match($pattern, $mediaUri, $matches)) {
       $this->setMediaId($matches['media_id']);
       if (!empty($matches['version']) && $matches['version'] > 0) {
         $this->setMediaVersion($matches['version']);
@@ -184,7 +184,7 @@ class Media extends \Papaya\UI\Reference {
   /**
    * Set preview mode
    *
-   * @param boolean $isPreview
+   * @param bool $isPreview
    * @return \Papaya\UI\Reference\Page
    */
   public function setPreview($isPreview) {

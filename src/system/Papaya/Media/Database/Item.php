@@ -14,11 +14,12 @@
  */
 
 namespace Papaya\Media\Database;
+
 /**
  * Representing a media database item
  *
  * @property string $mediaId
- * @property integer $versionId
+ * @property int $versionId
  * @property string $name
  * @property string $mimeType
  *
@@ -26,20 +27,19 @@ namespace Papaya\Media\Database;
  * @subpackage Media-Database
  */
 class Item {
-
   /**
    * database access object
    *
    * @var \Papaya\Database\Access
    */
-  private $_databaseAccessObject = NULL;
+  private $_databaseAccessObject;
 
   /**
    * Media storage service
    *
    * @var \Papaya\Media\Storage\Service
    */
-  private $_storage = NULL;
+  private $_storage;
 
   /**
    * Media item id
@@ -51,7 +51,7 @@ class Item {
   /**
    * Media item version id
    *
-   * @var integer
+   * @var int
    */
   private $_versionId = 0;
 
@@ -60,10 +60,10 @@ class Item {
    *
    * @var array
    */
-  private $_attributes = array(
+  private $_attributes = [
     'name' => '',
     'mimeType' => '',
-  );
+  ];
 
   /**
    * Constructor - define id and storage service
@@ -92,7 +92,7 @@ class Item {
       return $this->_attributes[$name];
     } else {
       throw new \BadMethodCallException(
-        sprintf(
+        \sprintf(
           'Invalid attribute "%s:$%s."',
           __CLASS__,
           $name
@@ -125,7 +125,7 @@ class Item {
       break;
       default :
         throw new \BadMethodCallException(
-          sprintf(
+          \sprintf(
             'Invalid attribute "%s:$%s."',
             __CLASS__,
             $name
@@ -150,7 +150,6 @@ class Item {
    * Set database access object
    *
    * @param \Papaya\Media\Database\Item\Record $databaseAccessObject
-   * @return void
    */
   public function setDatabaseAccessObject(\Papaya\Media\Database\Item\Record $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
@@ -160,9 +159,9 @@ class Item {
    * Load media item data from database
    *
    * @param string $mediaId
-   * @param integer $versionId
+   * @param int $versionId
    * @throws \InvalidArgumentException
-   * @return boolean
+   * @return bool
    */
   public function load($mediaId, $versionId = NULL) {
     $databaseAccess = $this->getDatabaseAccessObject();
@@ -175,7 +174,7 @@ class Item {
       $this->mimeType = $databaseAccess['mimetype'];
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Media item id "%s" version "%d" does not exist.',
           $mediaId,
           $versionId
@@ -188,7 +187,7 @@ class Item {
   /**
    * Return url to media file if availiable
    *
-   * @return NULL|string
+   * @return null|string
    */
   public function getURL() {
     $identifier = $this->_mediaId.'v'.$this->versionId;
@@ -203,11 +202,11 @@ class Item {
    * @throws \BadMethodCallException
    */
   protected function _setMediaId($value) {
-    if (preg_match('(^[a-fA-F\d]{32}$)', $value)) {
+    if (\preg_match('(^[a-fA-F\d]{32}$)', $value)) {
       $this->_mediaId = $value;
     } else {
       throw new \BadMethodCallException(
-        sprintf(
+        \sprintf(
           'Invalid attribute value for %s:$mediaId: "%s"',
           __CLASS__,
           $value
@@ -227,7 +226,7 @@ class Item {
       $this->_versionId = (int)$value;
     } else {
       throw new \BadMethodCallException(
-        sprintf(
+        \sprintf(
           'Invalid attribute value for %s:$versionId: "%s"',
           __CLASS__,
           $value
@@ -240,7 +239,6 @@ class Item {
    * Set name attribute
    *
    * @param string $value
-   * @return void
    */
   protected function _setName($value) {
     $this->_setAttributeTrimString('name', $value);
@@ -255,11 +253,11 @@ class Item {
    * @throws \BadMethodCallException
    */
   protected function _setAttributeTrimString($attribute, $value) {
-    if (!empty($value) && trim($value != '')) {
+    if (!empty($value) && \trim('' != $value)) {
       $this->_attributes[$attribute] = (string)$value;
     } else {
       throw new \BadMethodCallException(
-        sprintf(
+        \sprintf(
           'Invalid attribute value for %s:$%s: "%s"',
           __CLASS__,
           $attribute,
@@ -268,7 +266,4 @@ class Item {
       );
     }
   }
-
 }
-
-

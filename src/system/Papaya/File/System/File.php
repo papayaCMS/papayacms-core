@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\File\System;
+
 /**
  * Wrapping a file entry in the file system to call operation as methods
  *
@@ -21,7 +22,6 @@ namespace Papaya\File\System;
  * @subpackage FileSystem
  */
 class File {
-
   private $_filename = '';
 
   /**
@@ -46,38 +46,38 @@ class File {
   /**
    * Does the file exists?
    *
-   * @return boolean
+   * @return bool
    */
   public function exists() {
-    return file_exists($this->_filename) && is_file($this->_filename);
+    return \file_exists($this->_filename) && \is_file($this->_filename);
   }
 
   /**
    * Is the file readable?
    *
-   * @return boolean
+   * @return bool
    */
   public function isReadable() {
-    return $this->exists() && is_readable($this->_filename);
+    return $this->exists() && \is_readable($this->_filename);
   }
 
   /**
    * Is the file writeable?
    *
-   * @return boolean
+   * @return bool
    */
   public function isWriteable() {
-    return $this->exists() && is_writeable($this->_filename);
+    return $this->exists() && \is_writable($this->_filename);
   }
 
   /**
    * Was the file uploaded?
    *
    * @codeCoverageIgnore
-   * @return boolean
+   * @return bool
    */
   public function isUploadedFile() {
-    return is_uploaded_file($this->_filename);
+    return \is_uploaded_file($this->_filename);
   }
 
   /**
@@ -86,7 +86,7 @@ class File {
    * @return string
    */
   public function getContents() {
-    return file_get_contents($this->_filename);
+    return \file_get_contents($this->_filename);
   }
 
   /**
@@ -95,7 +95,6 @@ class File {
    * @param mixed $content
    */
   public function putContents($content) {
-    file_put_contents($this->_filename, (string)$content);
+    \file_put_contents($this->_filename, (string)$content);
   }
-
 }

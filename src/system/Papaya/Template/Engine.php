@@ -35,55 +35,52 @@ namespace Papaya\Template;
  * @subpackage Template
  */
 abstract class Engine {
-
   /**
    * Parameter handling object
    *
    * @var \Papaya\BaseObject\Options\Collection
    */
-  private $_parameters = NULL;
+  private $_parameters;
 
   /**
    * Loaders list
    *
    * @var \Papaya\BaseObject\Collection
    */
-  private $_loaders = NULL;
+  private $_loaders;
 
   /**
    * Values tree
    *
    * @var \DOMDocument
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * Values tree limitation context
    *
    * @var \DOMElement
    */
-  private $_context = NULL;
+  private $_context;
 
   /**
    * Prepare template engine if needed
    */
-  abstract function prepare();
+  abstract public function prepare();
 
   /**
    * Execute/run template engine
    */
-  abstract function run();
+  abstract public function run();
 
   /**
    * Get result of last run
    */
-  abstract function getResult();
+  abstract public function getResult();
 
+  abstract public function setTemplateString($string);
 
-  abstract function setTemplateString($string);
-
-
-  abstract function setTemplateFile($fileName);
+  abstract public function setTemplateFile($fileName);
 
   /**
    * Combined getter/setter for paramters
@@ -96,11 +93,11 @@ abstract class Engine {
     if (isset($parameters)) {
       if ($parameters instanceof \Papaya\BaseObject\Options\Collection) {
         $this->_parameters = $parameters;
-      } elseif (is_array($parameters)) {
+      } elseif (\is_array($parameters)) {
         $this->_parameters = new \Papaya\BaseObject\Options\Collection($parameters);
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             'Argument must be an array or a %s object.',
             \Papaya\BaseObject\Options\Collection::class
           )
@@ -121,11 +118,11 @@ abstract class Engine {
    */
   public function loaders(\Papaya\BaseObject\Collection $loaders = NULL) {
     if (isset($loaders)) {
-      if ($loaders->getItemClass() === \Papaya\Template\Engine\Values\Loadable::class) {
+      if (\Papaya\Template\Engine\Values\Loadable::class === $loaders->getItemClass()) {
         $this->_loaders = $loaders;
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             '%1$s with %2$s expected: "%3$s" given.',
             \Papaya\BaseObject\Collection::class,
             \Papaya\Template\Engine\Values\Loadable::class,
@@ -180,9 +177,9 @@ abstract class Engine {
         $this->_context = $this->_values->documentElement;
       } else {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             '"%s" could not be converted into a Papaya\XML\Document.',
-            is_object($values) ? get_class($values) : gettype($values)
+            \is_object($values) ? \get_class($values) : \gettype($values)
           )
         );
       }

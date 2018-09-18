@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Content\Structure;
+
 /**
  * Content structure page element
  *
@@ -27,15 +28,14 @@ namespace Papaya\Content\Structure;
  * @property string $name
  */
 class Page extends Node {
-
   private $_groups;
 
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'name' => 'page',
         'title' => ''
-      )
+      ]
     );
   }
 

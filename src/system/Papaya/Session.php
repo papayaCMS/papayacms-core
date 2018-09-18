@@ -22,16 +22,17 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Session
  *
- * @property-read boolean $active
+ * @property-read bool $active
  * @property-read string $name
  * @property-read string $id
  * @property-read \Papaya\Session\Values $values
  * @property-read \Papaya\Session\Options $options
  */
 class Session extends Application\BaseObject {
-
   const ACTIVATION_ALWAYS = 1;
+
   const ACTIVATION_NEVER = 2;
+
   const ACTIVATION_DYNAMIC = 3;
 
   /**
@@ -39,28 +40,28 @@ class Session extends Application\BaseObject {
    *
    * @var \Papaya\Session\Values
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * Session options
    *
    * @var \Papaya\Session\Options
    */
-  private $_options = NULL;
+  private $_options;
 
   /**
    * Session function wrapper
    *
    * @var \Papaya\Session\Wrapper
    */
-  private $_wrapper = NULL;
+  private $_wrapper;
 
   /**
    * Session Identifier encapsulation
    *
    * @var \Papaya\Session\Id
    */
-  private $_id = NULL;
+  private $_id;
 
   /**
    * Session name
@@ -70,10 +71,9 @@ class Session extends Application\BaseObject {
   /**
    * session ist started and active
    *
-   * @var boolean
+   * @var bool
    */
   private $_active = FALSE;
-
 
   /**
    * Set the session name (include sid)
@@ -89,7 +89,7 @@ class Session extends Application\BaseObject {
   /**
    * check if the session is active
    *
-   * @return boolean
+   * @return bool
    */
   public function isActive() {
     return $this->_active;
@@ -106,7 +106,7 @@ class Session extends Application\BaseObject {
     if (isset($values)) {
       $this->_values = $values;
     }
-    if (is_null($this->_values)) {
+    if (\is_null($this->_values)) {
       $this->_values = new Session\Values($this);
     }
     return $this->_values;
@@ -122,7 +122,7 @@ class Session extends Application\BaseObject {
     if (isset($options)) {
       $this->_options = $options;
     }
-    if (is_null($this->_options)) {
+    if (\is_null($this->_options)) {
       $this->_options = new Session\Options();
     }
     return $this->_options;
@@ -138,7 +138,7 @@ class Session extends Application\BaseObject {
     if (isset($id)) {
       $this->_id = $id;
     }
-    if (is_null($this->_id)) {
+    if (\is_null($this->_id)) {
       $this->_id = new Session\Id($this->_sessionName);
     }
     return $this->_id;
@@ -154,7 +154,7 @@ class Session extends Application\BaseObject {
     if (isset($wrapper)) {
       $this->_wrapper = $wrapper;
     }
-    if (is_null($this->_wrapper)) {
+    if (\is_null($this->_wrapper)) {
       $this->_wrapper = new Session\Wrapper();
     }
     return $this->_wrapper;
@@ -184,8 +184,8 @@ class Session extends Application\BaseObject {
         return $this->options();
     }
     throw new \UnexpectedValueException(
-      sprintf(
-        'Invalid property "%s" in class "%s"', $name, get_class($this)
+      \sprintf(
+        'Invalid property "%s" in class "%s"', $name, \get_class($this)
       )
     );
   }
@@ -199,8 +199,8 @@ class Session extends Application\BaseObject {
    */
   public function __set($name, $value) {
     throw new \LogicException(
-      sprintf(
-        'All dynamic properties are read only in class "%s"', get_class($this)
+      \sprintf(
+        'All dynamic properties are read only in class "%s"', \get_class($this)
       )
     );
   }
@@ -228,7 +228,7 @@ class Session extends Application\BaseObject {
   /**
    * Check if session is possible with this protocol and user agent.
    *
-   * @return boolean
+   * @return bool
    */
   public function isAllowed() {
     return $this->isProtocolAllowed() && !Utility\Server\Agent::isRobot();
@@ -237,7 +237,7 @@ class Session extends Application\BaseObject {
   /**
    * Check if the options allow the session on the current protocol.
    *
-   * @return boolean
+   * @return bool
    */
   public function isProtocolAllowed() {
     if ($this->isSecureOnly()) {
@@ -258,7 +258,7 @@ class Session extends Application\BaseObject {
    *
    * PAPAYA_UI_SECURE sets only the administration interface and previews to secure mode.
    *
-   * @return boolean
+   * @return bool
    */
   public function isSecureOnly() {
     $options = $this->papaya()->options;
@@ -284,7 +284,7 @@ class Session extends Application\BaseObject {
    * If the method returns a redirect response, the caller should send it.
    *
    * @param bool|string $redirect
-   * @return NULL|\Papaya\Session\Redirect redirect response or null
+   * @return null|\Papaya\Session\Redirect redirect response or null
    */
   public function activate($redirect = FALSE) {
     if (!$this->_active) {
@@ -301,7 +301,7 @@ class Session extends Application\BaseObject {
         return $this->redirectIfNeeded();
       }
     }
-    return NULL;
+    return;
   }
 
   private function configure() {
@@ -309,7 +309,7 @@ class Session extends Application\BaseObject {
     $wrapper = $this->wrapper();
     $defaults = $wrapper->getCookieParameters();
     $wrapper->setCookieParameters(
-      array(
+      [
         'lifetime' => $defaults['lifetime'],
         'path' => $options->get(
           'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
@@ -319,7 +319,7 @@ class Session extends Application\BaseObject {
         ),
         'secure' => $this->isSecureOnly(),
         'httponly' => $options->get('PAPAYA_SESSION_HTTP_ONLY', $defaults['httponly']),
-      )
+      ]
     );
     $wrapper->setCacheLimiter($this->options()->cache);
   }
@@ -351,7 +351,7 @@ class Session extends Application\BaseObject {
           }
         break;
       }
-      return NULL;
+      return;
     } elseif (
     $this->id()->existsIn(
       Session\Id::SOURCE_PATH | Session\Id::SOURCE_QUERY
@@ -359,7 +359,7 @@ class Session extends Application\BaseObject {
     ) {
       return $this->_createRedirect();
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -378,7 +378,7 @@ class Session extends Application\BaseObject {
    */
   public function reset() {
     if ($this->_active) {
-      $_SESSION = array();
+      $_SESSION = [];
     }
   }
 
@@ -396,17 +396,17 @@ class Session extends Application\BaseObject {
    * Create a new session id, redirect if session id is in path
    *
    * @param string $targetURL
-   * @return \Papaya\Session\Redirect|FALSE
+   * @return \Papaya\Session\Redirect|false
    */
   public function regenerateId($targetURL = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
       if (isset($targetURL) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
-        $transports = array(
+        $transports = [
           Session\Id::SOURCE_COOKIE,
           Session\Id::SOURCE_PATH,
           Session\Id::SOURCE_QUERY
-        );
+        ];
         $transport = Session\Id::SOURCE_COOKIE;
         foreach ($transports as $transport) {
           if ($this->id()->existsIn($transport)) {
@@ -426,7 +426,7 @@ class Session extends Application\BaseObject {
   /**
    * Redirect to add or remove session id from url.
    *
-   * @param integer $transport
+   * @param int $transport
    * @param string $reason
    * @return \Papaya\Session\Redirect
    */

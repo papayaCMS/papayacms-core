@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Editable\Content;
+
 /**
  * This a standard implementation for editable plugin content. It
  * makes implements the \Papaya\Plugin\Editable interface and
@@ -25,7 +26,6 @@ namespace Papaya\Plugin\Editable\Content;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var \Papaya\Plugin\Editable\Content
    */
@@ -43,7 +43,7 @@ trait Aggregation {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
       $this->_content = new \Papaya\Plugin\Editable\Content();
-      $this->_content->callbacks()->onCreateEditor = function ($callbackContext, \Papaya\Plugin\Editable\Content $content) {
+      $this->_content->callbacks()->onCreateEditor = function($callbackContext, \Papaya\Plugin\Editable\Content $content) {
         return $this->createEditor($content);
       };
     }

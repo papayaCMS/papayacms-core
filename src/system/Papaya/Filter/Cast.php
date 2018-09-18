@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that casts the value into the specified type.
  *
@@ -23,20 +24,19 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Cast implements \Papaya\Filter {
-
   /**
    * target type the value should be cast to.
    *
-   * @var integer
+   * @var int
    */
-  private $_type = NULL;
+  private $_type;
 
   /**
    * Type mapping
    *
-   * @var integer
+   * @var int
    */
-  private $_typeMapping = array(
+  private $_typeMapping = [
     'bool' => 'boolean',
     'boolean' => 'boolean',
     'double' => 'float',
@@ -45,7 +45,7 @@ class Cast implements \Papaya\Filter {
     'integer' => 'integer',
     'number' => 'float',
     'string' => 'string'
-  );
+  ];
 
   /**
    * Construct object, check an store target type
@@ -57,7 +57,7 @@ class Cast implements \Papaya\Filter {
     if (isset($this->_typeMapping[$type])) {
       $this->_type = $this->_typeMapping[$type];
     } else {
-      throw new \InvalidArgumentException(sprintf('"%s" is not a valid type.', $type));
+      throw new \InvalidArgumentException(\sprintf('"%s" is not a valid type.', $type));
     }
   }
 
@@ -65,7 +65,7 @@ class Cast implements \Papaya\Filter {
    * This filter does not validate values, it just filters (casts) them.
    *
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     return TRUE;
@@ -75,10 +75,10 @@ class Cast implements \Papaya\Filter {
    * The filter function casts the value into the target type.
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
-    settype($value, $this->_type);
+    \settype($value, $this->_type);
     return $value;
   }
 }

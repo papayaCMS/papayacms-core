@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Database;
+
 /**
  * Papaya Database List, represents a list of records fetched from the database.
  *
@@ -23,20 +24,19 @@ namespace Papaya\Database;
 abstract class Records
   extends Records\Unbuffered
   implements \ArrayAccess {
-
   /**
    * internal storage for the record da after mapping.
    *
    * @var array
    */
-  protected $_records = array();
+  protected $_records = [];
 
   /**
    * An array of properties, used to compile the identifer
    *
    * @var array(string)
    */
-  protected $_identifierProperties = array();
+  protected $_identifierProperties = [];
 
   /**
    * The parts of an identifer a joined using the given separator string
@@ -49,19 +49,19 @@ abstract class Records
    * Load records from the defined table. This method can be overloaded to define an own sql.
    *
    * @param mixed $filter If it is a scalar the value will be used for the id property.
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
-    $fields = implode(', ', $this->mapping()->getFields());
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
+    $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
     $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName, $this->_useTablePrefix)
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 
@@ -71,14 +71,14 @@ abstract class Records
    */
   public function truncate($filterOrAll = FALSE) {
     $databaseAccess = $this->getDatabaseAccess();
-    if (is_array($filterOrAll) && !empty($filterOrAll)) {
+    if (\is_array($filterOrAll) && !empty($filterOrAll)) {
       return (
         FALSE !== $databaseAccess->deleteRecord(
           $databaseAccess->getTableName($this->_tableName),
           $this->mapping()->mapPropertiesToFields($filterOrAll, FALSE)
         )
       );
-    } elseif (is_bool($filterOrAll) && $filterOrAll) {
+    } elseif (\is_bool($filterOrAll) && $filterOrAll) {
       return (
         FALSE !== $databaseAccess->emptyTable(
           $databaseAccess->getTableName($this->_tableName)
@@ -95,7 +95,7 @@ abstract class Records
   public function insert($data) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($data);
     $databaseAccess = $this->getDatabaseAccess();
-    $records = array();
+    $records = [];
     foreach ($data as $values) {
       $records[] = $this->mapping()->mapPropertiesToFields($values, FALSE);
     }
@@ -108,13 +108,13 @@ abstract class Records
    *
    * @param string $sql
    * @param array $parameters
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @param array $idProperties if set the defined fields are used to create the keys for the
-   *    records array. If it is an empty array the records array will be a list.
+   *                            records array. If it is an empty array the records array will be a list.
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
+  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
     $this->reset();
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
       foreach ($this->getResultIterator() as $values) {
@@ -134,16 +134,16 @@ abstract class Records
    * Reset the object to "unloaded" status
    */
   public function reset() {
-    $this->_records = array();
+    $this->_records = [];
   }
 
   /**
    * Return the current count of records in the internal buffer
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_records);
+    return \count($this->_records);
   }
 
   /**
@@ -168,7 +168,7 @@ abstract class Records
    * return true if an record with the given offset/identifier exists
    *
    * @param mixed $offset
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($offset) {
     return isset($this->_records[$this->getIdentifier($offset)]);
@@ -194,7 +194,7 @@ abstract class Records
   public function offsetSet($offset, $value) {
     \Papaya\Utility\Constraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
-    $record = array();
+    $record = [];
     foreach ($this->mapping()->getProperties() as $property) {
       if (isset($value[$property])) {
         $record[$property] = $value[$property];
@@ -235,29 +235,29 @@ abstract class Records
    */
   protected function getIdentifier($values, $filter = NULL) {
     if (isset($filter)) {
-      if (!is_array($filter)) {
-        $filter = array($filter);
+      if (!\is_array($filter)) {
+        $filter = [$filter];
       }
       if (empty($filter)) {
-        return NULL;
+        return;
       } else {
-        $identifier = array();
+        $identifier = [];
         foreach ($filter as $property) {
           if (isset($values[$property])) {
             $identifier[] = $values[$property];
           } else {
             throw new \UnexpectedValueException(
-              sprintf(
+              \sprintf(
                 'The property "%s" was not found, but is needed to create the identifier.',
                 $property
               )
             );
           }
         }
-        return implode($this->_identifierSeparator, $identifier);
+        return \implode($this->_identifierSeparator, $identifier);
       }
-    } elseif (is_array($values)) {
-      return implode($this->_identifierSeparator, $values);
+    } elseif (\is_array($values)) {
+      return \implode($this->_identifierSeparator, $values);
     } else {
       return $values;
     }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog;
+
 /**
  * A list of dialog fields
  *
@@ -21,7 +22,6 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Fields extends Elements {
-
   /**
    * Only \Papaya\UI\Dialog\Field objects are allows in this list
    *
@@ -35,7 +35,7 @@ class Fields extends Elements {
    * If one of the fields returns FALSE, this will be the return value of the method. But still
    * all other fields will be checked.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     $result = TRUE;

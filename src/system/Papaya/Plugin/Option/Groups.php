@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Plugin\Option;
+
 /**
  * This is a list of the plugin options, the option of each plugin in one separate object.
  *
@@ -21,8 +22,7 @@ namespace Papaya\Plugin\Option;
  * @subpackage Plugins
  */
 class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
-
-  private $_groups = array();
+  private $_groups = [];
 
   /**
    * Check if it is already created.

@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Languages;
 
-use \Papaya\Application;
+use Papaya\Application;
 
 /**
  * Language caption administration control. A string castable object that fetches
@@ -26,10 +26,10 @@ use \Papaya\Application;
  * @subpackage Administration
  */
 class Caption implements Application\Access {
-
   use Application\Access\Aggregation;
 
   private $_suffix;
+
   private $_separator;
 
   private $_string;
@@ -67,5 +67,4 @@ class Caption implements Application\Access {
     }
     return (string)$this->_string;
   }
-
 }

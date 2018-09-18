@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Request\Parameters;
+
 /**
  * papaya CMS
  *
@@ -28,47 +29,46 @@ namespace Papaya\Request\Parameters;
  *  FOR A PARTICULAR PURPOSE.
  */
 interface Access extends \Papaya\Application\Access {
-
   /**
    * Parameter method post (read request body parameters)
    *
-   * @var integer
+   * @var int
    */
   const METHOD_POST = 0;
 
   /**
    * Parameter method get (read query string parameters)
    *
-   * @var integer
+   * @var int
    */
   const METHOD_GET = 1;
 
   /**
    * Parameter method post (read query string and request body)
    *
-   * @var integer
+   * @var int
    */
   const METHOD_MIXED = 2;
 
   /**
    * Parameter method get (read request body and query string)
    *
-   * @var integer
+   * @var int
    */
   const METHOD_MIXED_GET = 3;
 
   /**
    * Parameter method post (read query string and request body)
    *
-   * @var integer
+   * @var int
    */
   const METHOD_MIXED_POST = 2;
 
   /**
    * Get/Set parameter handling method. This will be used to define the parameter sources.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   * @return int
    */
   public function parameterMethod($method = NULL);
 
@@ -77,8 +77,8 @@ interface Access extends \Papaya\Application\Access {
    *
    * This puts all field parameters (except the hidden fields) into a parameter group.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL);
 
@@ -91,5 +91,4 @@ interface Access extends \Papaya\Application\Access {
    * @return \Papaya\Request\Parameters
    */
   public function parameters(\Papaya\Request\Parameters $parameters = NULL);
-
 }

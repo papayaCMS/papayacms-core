@@ -15,10 +15,10 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
-use \Papaya\Content;
-use \Papaya\Theme;
-use \Papaya\UI;
-use \Papaya\XML;
+use Papaya\Content;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * Import theme skin values from an uploaded file
@@ -28,7 +28,6 @@ use \Papaya\XML;
  */
 class Export
   extends UI\Control\Command {
-
   /**
    * @var Content\Theme\Skin
    */
@@ -57,11 +56,11 @@ class Export
     $response = $this->papaya()->response;
     $response->setStatus(200);
     $response->sendHeader(
-      sprintf(
+      \sprintf(
         'Content-Disposition: attachment; filename="%s.xml"',
-        str_replace(
-          array('\\', '"'),
-          array('\\\\', '\\"'),
+        \str_replace(
+          ['\\', '"'],
+          ['\\\\', '\\"'],
           $themeName.' '.$this->_themeSet['title']
         )
       )

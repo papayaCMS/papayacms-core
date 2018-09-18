@@ -14,17 +14,16 @@
  */
 
 namespace Papaya\Database\Record;
+
 /**
  * Papaya Database Record Lazy, superclass for easy database record encapsulation that
  * can store loading parameters until needed.
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
  */
 abstract class Lazy
   extends \Papaya\Database\Record {
-
   private $_loadingParameters;
 
   /**
@@ -33,14 +32,14 @@ abstract class Lazy
    * @param mixed $filter
    */
   public function activateLazyLoad($filter) {
-    $this->_loadingParameters = func_get_args();
+    $this->_loadingParameters = \func_get_args();
     $this->clear();
   }
 
   /**
    * Return the lazy loading parameters, NULL if here are none.
    *
-   * @return array|NULL
+   * @return array|null
    */
   public function getLazyLoadParameters() {
     return $this->_loadingParameters;
@@ -51,7 +50,7 @@ abstract class Lazy
    */
   protected function lazyLoad() {
     if (NULL !== $this->_loadingParameters) {
-      call_user_func_array(array($this, 'load'), $this->_loadingParameters);
+      \call_user_func_array([$this, 'load'], $this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
@@ -91,7 +90,7 @@ abstract class Lazy
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Key|NULL $key
+   * @param \Papaya\Database\Interfaces\Key|null $key
    * @return \Papaya\Database\Interfaces\Key
    */
   public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
@@ -114,7 +113,7 @@ abstract class Lazy
    * Validate if the defined value is set.
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     $this->lazyLoad();
@@ -160,7 +159,7 @@ abstract class Lazy
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($name) {
     $this->lazyLoad();

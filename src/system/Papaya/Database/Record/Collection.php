@@ -14,17 +14,16 @@
  */
 
 namespace Papaya\Database\Record;
+
 /**
  * List object to handle a collection of record objects, allows to save, delete all of them
  * with one method call
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
  */
 class Collection
   extends \Papaya\BaseObject\Collection {
-
   /**
    * Create list an set internal object type limitation
    */
@@ -39,7 +38,7 @@ class Collection
    * @return array
    */
   public function toArray() {
-    $result = array();
+    $result = [];
     /** @var \Papaya\Database\Interfaces\Record $record */
     foreach ($this as $record) {
       $result[] = $record->toArray();

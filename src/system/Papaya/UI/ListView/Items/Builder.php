@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\ListView\Items;
+
 /**
  * Create listview items from an Traversable or Iterator
  *
@@ -21,9 +22,9 @@ namespace Papaya\UI\ListView\Items;
  * @subpackage UI
  */
 class Builder {
+  private $_dataSource;
 
-  private $_dataSource = NULL;
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   /**
    * Create object and store the data source
@@ -54,7 +55,7 @@ class Builder {
       $items->clear();
     }
     if (!isset($this->callbacks()->onCreateItem)) {
-      $this->callbacks()->onCreateItem = array($this, 'createItem');
+      $this->callbacks()->onCreateItem = [$this, 'createItem'];
     }
     foreach ($this->getDataSource() as $index => $element) {
       $this->callbacks()->onCreateItem($items, $element, $index);
@@ -72,7 +73,7 @@ class Builder {
   public function callbacks(Builder\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
+    } elseif (\is_null($this->_callbacks)) {
       $this->_callbacks = new Builder\Callbacks();
     }
     return $this->_callbacks;

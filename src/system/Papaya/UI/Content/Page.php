@@ -31,11 +31,11 @@ use Papaya\Content;
  *  FOR A PARTICULAR PURPOSE.
  */
 class Page extends \Papaya\Application\BaseObject {
-
   /**
    * @var \Papaya\Content\Page
    */
   private $_page;
+
   /**
    * @var Content\Page\Translation
    */
@@ -50,6 +50,7 @@ class Page extends \Papaya\Application\BaseObject {
    * @var int|Content\Language|string
    */
   private $_language;
+
   /**
    * @var bool
    */
@@ -68,7 +69,7 @@ class Page extends \Papaya\Application\BaseObject {
   public function __construct($pageId, $language, $isPublic = TRUE) {
     $this->_pageId = (int)$pageId;
     $this->_language = $language;
-    $this->_isPublic = (boolean)$isPublic;
+    $this->_isPublic = (bool)$isPublic;
   }
 
   /**
@@ -106,7 +107,7 @@ class Page extends \Papaya\Application\BaseObject {
         : new Content\Page\Translation();
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(
-          array('id' => $this->_pageId, 'language_id' => $language['id'])
+          ['id' => $this->_pageId, 'language_id' => $language['id']]
         );
       }
     }
@@ -138,7 +139,7 @@ class Page extends \Papaya\Application\BaseObject {
     if (NULL !== $this->_language && isset($this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);
     }
-    return NULL;
+    return;
   }
 
   /**
@@ -162,15 +163,15 @@ class Page extends \Papaya\Application\BaseObject {
       if ($plugin) {
         $teaser = $parent->appendElement(
           'teaser',
-          array(
+          [
             'page-id' => $this->getPageId(),
             'plugin-guid' => $moduleGuid,
-            'plugin' => get_class($plugin),
+            'plugin' => \get_class($plugin),
             'view' => $this->translation()->viewName,
             'href' => $this->getPageHref($plugin, $configuration, $viewData),
             'published' => \Papaya\Utility\Date::timestampToString($this->translation()->modified),
             'created' => \Papaya\Utility\Date::timestampToString($this->translation()->created)
-          )
+          ]
         );
         if ($plugin instanceof \Papaya\Plugin\Quoteable) {
           if ($plugin instanceof \Papaya\Plugin\Configurable) {
@@ -178,7 +179,7 @@ class Page extends \Papaya\Application\BaseObject {
           }
           $plugin->appendQuoteTo($teaser);
         } elseif ($plugin instanceof \base_content &&
-          method_exists($plugin, 'getParsedTeaser')) {
+          \method_exists($plugin, 'getParsedTeaser')) {
           $teaser->appendXML((string)$plugin->getParsedTeaser((array)$configuration));
         }
         /** @var \Papaya\XML\Document $document */
@@ -229,7 +230,7 @@ class Page extends \Papaya\Application\BaseObject {
         $request->load($reference->url());
         $validatedHref = $plugin->validateURL($request);
       }
-      if (is_string($validatedHref) && ('' !== $validatedHref)) {
+      if (\is_string($validatedHref) && ('' !== $validatedHref)) {
         $href = $validatedHref;
       }
     }

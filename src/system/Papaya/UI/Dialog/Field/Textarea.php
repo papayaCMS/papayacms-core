@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field;
+
 /**
  * A simple textarea (multiline input) field
  *
@@ -21,11 +22,10 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Textarea extends \Papaya\UI\Dialog\Field {
-
   /**
    * Field lines
    *
-   * @var integer
+   * @var int
    */
   protected $_lineCount = 0;
 
@@ -34,9 +34,9 @@ class Textarea extends \Papaya\UI\Dialog\Field {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer $lines
+   * @param int $lines
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    */
   public function __construct(
     $caption, $name, $lines = 10, $default = NULL, \Papaya\Filter $filter = NULL
@@ -53,7 +53,7 @@ class Textarea extends \Papaya\UI\Dialog\Field {
   /**
    * Set the line count of this element.
    *
-   * @param integer $lineCount
+   * @param int $lineCount
    * @return \Papaya\UI\Dialog\Field\Input
    */
   public function setLineCount($lineCount) {
@@ -70,13 +70,12 @@ class Textarea extends \Papaya\UI\Dialog\Field {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',
-      array(
+      [
         'type' => 'text',
         'name' => $this->_getParameterName($this->getName()),
         'lines' => $this->_lineCount
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical not, wrapping another filter.
  *
@@ -21,7 +22,6 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class Not implements \Papaya\Filter {
-
   /**
    * Wrappend filter
    *
@@ -44,7 +44,7 @@ class Not implements \Papaya\Filter {
    *
    * @throws Exception\InvalidValue
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
     try {
@@ -59,7 +59,7 @@ class Not implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     return $value;

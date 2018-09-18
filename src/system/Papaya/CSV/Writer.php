@@ -14,36 +14,41 @@
  */
 
 namespace Papaya\CSV;
+
 /**
  * CSV writer allows you write data as csv into a stream or output.
  *
  * @package Papaya-Library
  * @subpackage CSV
  *
- * @property resource|NULL $stream
+ * @property resource|null $stream
  * @property string $linebreak
  * @property string $encodedLinebreak
  * @property string $separator
- * @property-read integer $separatorLength
+ * @property-read int $separatorLength
  * @property string $quote
  */
 class Writer {
+  private $_callbacks;
 
-  private $_callbacks = NULL;
-  private $_stream = NULL;
+  private $_stream;
 
   private $_linebreak = "\n";
+
   private $_separator = ',';
+
   private $_separatorLength = 1;
+
   private $_quote = '"';
+
   private $_encodedLinebreak = '\n';
 
   /**
    * Create object and store output stream, if no stream if provided, the standard output will be
    * used.
    *
-   * @param resource|NULL $stream
-   * @param boolean $addByteOrderMark optional, default FALSE
+   * @param resource|null $stream
+   * @param bool $addByteOrderMark optional, default FALSE
    */
   public function __construct($stream = NULL, $addByteOrderMark = FALSE) {
     if (isset($stream)) {
@@ -51,9 +56,9 @@ class Writer {
     }
     if ($addByteOrderMark) {
       if (isset($this->_stream)) {
-        fwrite($this->_stream, chr(239).chr(187).chr(191));
+        \fwrite($this->_stream, \chr(239).\chr(187).\chr(191));
       } else {
-        echo chr(239).chr(187).chr(191);
+        echo \chr(239).\chr(187).\chr(191);
       }
     }
   }
@@ -81,7 +86,7 @@ class Writer {
         return $this->_quote;
       default :
         throw new \UnexpectedValueException(
-          sprintf('Can not read undefined property "%s".', $name)
+          \sprintf('Can not read undefined property "%s".', $name)
         );
     }
   }
@@ -109,11 +114,11 @@ class Writer {
       case 'separator' :
         \Papaya\Utility\Constraints::assertString($value);
         $this->_separator = $value;
-        $this->_separatorLength = strlen($this->_separator);
+        $this->_separatorLength = \strlen($this->_separator);
       break;
       case 'separatorLength' :
         throw new \UnexpectedValueException(
-          sprintf('Can not write read only property "%s".', $name)
+          \sprintf('Can not write read only property "%s".', $name)
         );
       case 'quote' :
         \Papaya\Utility\Constraints::assertString($value);
@@ -121,7 +126,7 @@ class Writer {
       break;
       default :
         throw new \UnexpectedValueException(
-          sprintf('Can not write undefined property "%s".', $name)
+          \sprintf('Can not write undefined property "%s".', $name)
         );
     }
   }
@@ -173,14 +178,14 @@ class Writer {
    * @param $row
    */
   private function write($row) {
-    if (is_array($row) || $row instanceof \Traversable) {
+    if (\is_array($row) || $row instanceof \Traversable) {
       $result = '';
       foreach ($row as $value) {
         $result .= $this->_separator.$this->quoteValue($value);
       }
-      $this->writeString(substr($result, $this->_separatorLength).$this->_linebreak);
+      $this->writeString(\substr($result, $this->_separatorLength).$this->_linebreak);
       if (!isset($this->_stream)) {
-        flush();
+        \flush();
       }
     }
   }
@@ -193,17 +198,17 @@ class Writer {
    */
   private function quoteValue($value) {
     $quotesNeeded =
-      '('.preg_quote($this->_quote).'|'.preg_quote($this->_separator).'|[\r\n])';
-    if (preg_match($quotesNeeded, $value)) {
-      $encoded = preg_replace(
-        array(
-          '('.preg_quote($this->_quote).')',
+      '('.\preg_quote($this->_quote).'|'.\preg_quote($this->_separator).'|[\r\n])';
+    if (\preg_match($quotesNeeded, $value)) {
+      $encoded = \preg_replace(
+        [
+          '('.\preg_quote($this->_quote).')',
           "(\r\n|\n\r|[\r\n])"
-        ),
-        array(
+        ],
+        [
           $this->_quote.'$0',
           $this->_encodedLinebreak
-        ),
+        ],
         $value
       );
       return $this->_quote.$encoded.$this->_quote;
@@ -219,7 +224,7 @@ class Writer {
    */
   private function writeString($string) {
     if (isset($this->_stream)) {
-      fwrite($this->_stream, $string);
+      \fwrite($this->_stream, $string);
     } else {
       echo $string;
     }
@@ -234,10 +239,9 @@ class Writer {
   public function callbacks(Writer\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
+    } elseif (\is_null($this->_callbacks)) {
       $this->_callbacks = new Writer\Callbacks();
     }
     return $this->_callbacks;
   }
-
 }

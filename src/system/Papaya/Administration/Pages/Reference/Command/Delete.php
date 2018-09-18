@@ -27,7 +27,6 @@ use Papaya\UI;
  */
 class Delete
   extends UI\Control\Command\Dialog {
-
   /**
    * Create confirmation dialog and assign callback for confirmation message.
    */
@@ -40,12 +39,12 @@ class Delete
     $dialog->caption = new UI\Text\Translated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(
-      array(
+      [
         'cmd' => 'reference_delete',
         'page_id' => $changer->getPageId(),
         'target_id' => $changer->getPageId() === (int)$reference->sourceId
           ? $reference->targetId : $reference->sourceId
-      )
+      ]
     );
     $dialog->fields[] = new UI\Dialog\Field\Information(
       new UI\Text\Translated('Delete reference?'),
@@ -53,9 +52,9 @@ class Delete
     );
     $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Delete'));
 
-    $this->callbacks()->onExecuteSuccessful = array(
+    $this->callbacks()->onExecuteSuccessful = [
       $this, 'dispatchDeleteMessage'
-    );
+    ];
     return $dialog;
   }
 

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Dialog\Field\Input;
+
 /**
  * A single line input for Range
  *
@@ -23,14 +24,13 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property float|NULL $defaultValue
- * @property boolean $mandatory
+ * @property float|null $defaultValue
+ * @property bool $mandatory
  * @property float $minimum
  * @property float $maximum
  * @property float $step
  */
 class Range extends \Papaya\UI\Dialog\Field\Input {
-
   /**
    * Field type, used in template
    *
@@ -43,37 +43,37 @@ class Range extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var float
    */
-  protected $_minimum = NULL;
+  protected $_minimum;
 
   /**
    * Maximum value for range
    *
    * @var float
    */
-  protected $_maximum = NULL;
+  protected $_maximum;
 
   /**
    * step value for Range
    *
    * @var float
    */
-  protected $_step = NULL;
+  protected $_step;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory'),
-    'minimum' => array('_minimum', 'setMinimum'),
-    'maximum' => array('_maximum', 'setMaximum'),
-    'step' => array('_step', 'setStep')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory'],
+    'minimum' => ['_minimum', 'setMinimum'],
+    'maximum' => ['_maximum', 'setMaximum'],
+    'step' => ['_step', 'setStep']
+  ];
 
   /**
    * Creates dialog field for Range input with caption, name, default value and
@@ -85,7 +85,7 @@ class Range extends \Papaya\UI\Dialog\Field\Input {
    * @param float|int $minimum
    * @param float|int $maximum
    * @param float|int $step
-   * @param boolean $mandatory
+   * @param bool $mandatory
    */
   public function __construct(
     $caption,
@@ -96,8 +96,8 @@ class Range extends \Papaya\UI\Dialog\Field\Input {
     $step = 1,
     $mandatory = FALSE
   ) {
-    if (is_null($default)) {
-      $default = round(($minimum + $maximum) / 2, 0);
+    if (\is_null($default)) {
+      $default = \round(($minimum + $maximum) / 2, 0);
     }
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
@@ -118,13 +118,13 @@ class Range extends \Papaya\UI\Dialog\Field\Input {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName()),
         'min' => $this->_minimum,
         'max' => $this->_maximum,
         'step' => $this->_step
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }

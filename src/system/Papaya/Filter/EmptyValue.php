@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that chcks if the value is an empty one
  *
@@ -23,18 +24,17 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class EmptyValue implements \Papaya\Filter {
-
   /**
    * zero will be considered as an empty value
    *
-   * @var integer
+   * @var int
    */
   private $_ignoreZero = TRUE;
 
   /**
    * values containing only whitespaces will be considered as an empty value
    *
-   * @var integer
+   * @var int
    */
   private $_ignoreSpaces = TRUE;
 
@@ -56,18 +56,18 @@ class EmptyValue implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception\NotEmpty
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if (is_array($value)) {
-      if (count($value) == 0) {
+    if (\is_array($value)) {
+      if (0 == \count($value)) {
         return TRUE;
       }
     } else {
       $value = (string)$value;
-      if ($value === '' ||
-        ($this->_ignoreZero && $value === '0') ||
-        ($this->_ignoreSpaces && trim($value) === '')) {
+      if ('' === $value ||
+        ($this->_ignoreZero && '0' === $value) ||
+        ($this->_ignoreSpaces && '' === \trim($value))) {
         return TRUE;
       }
     }
@@ -78,9 +78,9 @@ class EmptyValue implements \Papaya\Filter {
    * The filter function always returns NULL
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
-    return NULL;
+    return;
   }
 }

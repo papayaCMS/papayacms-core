@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator\Repeat;
+
 /**
  * This iterator uses a callback to fetch the next entry as long as the callback returns new
  * elements.
@@ -25,13 +26,16 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Callback implements \Iterator {
-
   private $_callback;
+
   private $_startValue;
+
   private $_startKey;
 
   private $_currentValue;
+
   private $_currentKey = -1;
+
   private $_valid = FALSE;
 
   /**
@@ -43,7 +47,7 @@ class Callback implements \Iterator {
    * @param mixed $startKey
    */
   public function __construct($callback, $startValue = NULL, $startKey = -1) {
-    if (!is_callable($callback)) {
+    if (!\is_callable($callback)) {
       throw new \InvalidArgumentException(
         'Invalid callback provided.'
       );
@@ -66,10 +70,10 @@ class Callback implements \Iterator {
    * Use the callback to fetch the element
    */
   public function next() {
-    $result = call_user_func(
+    $result = \call_user_func(
       $this->_callback, $this->_currentValue, $this->_currentKey
     );
-    if (is_array($result) && count($result) > 1) {
+    if (\is_array($result) && \count($result) > 1) {
       $this->_currentValue = $result[0];
       $this->_currentKey = $result[1];
       $this->_valid = TRUE;
@@ -99,7 +103,7 @@ class Callback implements \Iterator {
   /**
    * return the if the last call toi next() fetched an element.
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     return $this->_valid;

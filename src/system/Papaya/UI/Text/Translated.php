@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Text;
+
 /**
  * Papaya Interface String Translated, a string object that will be translated before usage
  *
@@ -27,19 +28,18 @@ namespace Papaya\UI\Text;
  * @subpackage UI
  */
 class Translated extends \Papaya\UI\Text {
-
   /**
    * @var \Papaya\Phrases
    */
-  private $_phrases = NULL;
+  private $_phrases;
 
   /**
    * @var string
    */
-  private $_phrasesGroupName = NULL;
+  private $_phrasesGroupName;
 
   public function __construct(
-    $pattern, array $values = array(), \Papaya\Phrases $phrases = NULL, $groupName = NULL
+    $pattern, array $values = [], \Papaya\Phrases $phrases = NULL, $groupName = NULL
   ) {
     parent::__construct($pattern, $values);
     $this->_phrases = $phrases;
@@ -52,7 +52,7 @@ class Translated extends \Papaya\UI\Text {
    * return string
    */
   public function __toString() {
-    if (is_null($this->_string)) {
+    if (\is_null($this->_string)) {
       $this->_string = $this->compile(
         $this->translate($this->_pattern), $this->_values
       );

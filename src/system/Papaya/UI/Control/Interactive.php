@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Control;
+
 /**
  * Abstract superclass implementing basic features for handling request parameters in ui.
  *
@@ -23,18 +24,17 @@ namespace Papaya\UI\Control;
 abstract class Interactive
   extends \Papaya\UI\Control
   implements \Papaya\Request\Parameters\Access {
-
   /**
    * Parameter request method
    *
-   * @var NULL|string
+   * @var null|string
    */
   protected $_parameterMethod = self::METHOD_MIXED_POST;
 
   /**
    * Parameter group name
    *
-   * @var NULL|string
+   * @var null|string
    */
   protected $_parameterGroup;
 
@@ -48,8 +48,8 @@ abstract class Interactive
   /**
    * Get/Set parameter handling method. This will be used to define the parameter sources.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   * @return int
    */
   public function parameterMethod($method = NULL) {
     if (NULL !== $method) {
@@ -64,8 +64,8 @@ abstract class Interactive
    *
    * This puts all field parameters (except the hidden fields) into a parameter group.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
     if (NULL !== $groupName) {
@@ -88,12 +88,12 @@ abstract class Interactive
     if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     } elseif (NULL === $this->_parameters) {
-      $sourceMapping = array(
+      $sourceMapping = [
         self::METHOD_GET => \Papaya\Request::SOURCE_QUERY,
         self::METHOD_POST => \Papaya\Request::SOURCE_BODY,
         self::METHOD_MIXED_POST => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY,
         self::METHOD_MIXED_GET => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
-      );
+      ];
       if (NULL !== $this->_parameterGroup) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(
           $this->_parameterGroup, $sourceMapping[$this->_parameterMethod]
@@ -110,7 +110,7 @@ abstract class Interactive
   /**
    * Check if the current request uses POST
    *
-   * @return boolean
+   * @return bool
    */
   public function isPostRequest() {
     return ('post' === $this->papaya()->request->getMethod());

@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration;
 
-use \Papaya\Request;
-use \Papaya\UI;
+use Papaya\Request;
+use Papaya\UI;
 
 /**
  * Abstract superclass for an administration page.
@@ -31,9 +31,8 @@ use \Papaya\UI;
  * @subpackage Administration
  */
 abstract class Page extends \Papaya\Application\BaseObject {
-
   /**
-   * @var string|NULL
+   * @var string|null
    */
   private $_moduleId;
 
@@ -41,6 +40,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * @var \Papaya\Template
    */
   private $_layout;
+
   /**
    * @var Page\Parts
    */
@@ -78,7 +78,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createContent() {
     return FALSE;
@@ -88,7 +88,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createNavigation() {
     return FALSE;
@@ -98,7 +98,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createInformation() {
     return FALSE;
@@ -114,14 +114,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
     }
     $parts = $this->parts();
     $restoreParameters = ('get' === $this->papaya()->request->method) && !empty($this->_parameterGroup);
-    $parametersName = array(get_class($this), 'parameters', $this->_parameterGroup);
+    $parametersName = [\get_class($this), 'parameters', $this->_parameterGroup];
     if ($restoreParameters && $parts->parameters()->isEmpty()) {
       $value = $this->papaya()->session->getValue($parametersName);
-      $parts->parameters()->merge(is_array($value) ? $value : array());
+      $parts->parameters()->merge(\is_array($value) ? $value : []);
       $this->papaya()->request->setParameters(
         Request::SOURCE_QUERY,
         $this->papaya()->request->getParameters(Request::SOURCE_QUERY)->set(
-          $this->_parameterGroup, is_array($value) ? $value : array()
+          $this->_parameterGroup, \is_array($value) ? $value : []
         )
       );
     }
@@ -166,7 +166,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|Page\Part
+   * @return false|Page\Part
    */
   public function createPart($name) {
     switch ($name) {

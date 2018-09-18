@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\UI\Content\Teasers;
+
 /**
  * Create teaser list object including the needed pages database object for it.
  *
@@ -21,75 +22,81 @@ namespace Papaya\UI\Content\Teasers;
  * @subpackage UI-Content
  */
 class Factory extends \Papaya\Application\BaseObject {
-
   /**
    * thumbnail width
    *
-   * @var integer
+   * @var int
    */
   private $_width = 0;
 
   /**
    * thumbnail height
    *
-   * @var integer
+   * @var int
    */
   private $_height = 0;
 
   /**
    * thumbnail resize mode (abs, max, min, mincrop)
    *
-   * @var integer
+   * @var int
    */
   private $_resizeMode = 'max';
 
   const ORDER_TITLE_ASCENDING = 'title_asc';
+
   const ORDER_TITLE_DESCENDING = 'title_desc';
+
   const ORDER_POSITION_ASCENDING = 'position_asc';
+
   const ORDER_POSITION_DESCENDING = 'position_desc';
+
   const ORDER_CREATED_ASCENDING = 'created_asc';
+
   const ORDER_CREATED_DESCENDING = 'created_desc';
+
   const ORDER_MODIFIED_ASCENDING = 'modified_asc';
+
   const ORDER_MODIFIED_DESCENDING = 'modified_desc';
 
-  private $_orderByDefinitions = array(
-    self::ORDER_TITLE_ASCENDING => array(
+  private $_orderByDefinitions = [
+    self::ORDER_TITLE_ASCENDING => [
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'created' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_TITLE_DESCENDING => array(
+    ],
+    self::ORDER_TITLE_DESCENDING => [
       'title' => \Papaya\Database\Interfaces\Order::DESCENDING,
       'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'created' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_POSITION_ASCENDING => array(
+    ],
+    self::ORDER_POSITION_ASCENDING => [
       'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'created' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_POSITION_DESCENDING => array(
+    ],
+    self::ORDER_POSITION_DESCENDING => [
       'position' => \Papaya\Database\Interfaces\Order::DESCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'created' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_CREATED_ASCENDING => array(
+    ],
+    self::ORDER_CREATED_ASCENDING => [
       'created' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_CREATED_DESCENDING => array(
+    ],
+    self::ORDER_CREATED_DESCENDING => [
       'created' => \Papaya\Database\Interfaces\Order::DESCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_MODIFIED_ASCENDING => array(
+    ],
+    self::ORDER_MODIFIED_ASCENDING => [
       'modified' => \Papaya\Database\Interfaces\Order::ASCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING
-    ),
-    self::ORDER_MODIFIED_DESCENDING => array(
+    ],
+    self::ORDER_MODIFIED_DESCENDING => [
       'modified' => \Papaya\Database\Interfaces\Order::DESCENDING,
       'title' => \Papaya\Database\Interfaces\Order::ASCENDING
-    )
-  );
+    ]
+  ];
 
   public function __construct($width = 0, $height = 0, $resizeMode = 'mincrop') {
     $this->_width = $width;
@@ -97,14 +104,13 @@ class Factory extends \Papaya\Application\BaseObject {
     $this->_resizeMode = $resizeMode;
   }
 
-
   /**
    * Get a teaser list by a defined filter
    *
    * @param array $filter
    * @param string|\Papaya\Database\Interfaces\Order $order
-   * @param integer $limit
-   * @param integer $offset
+   * @param int $limit
+   * @param int $offset
    * @return \Papaya\UI\Content\Teasers
    */
   public function byFilter(
@@ -126,14 +132,14 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param array(integer)|integer $pageIds
    * @param string|\Papaya\Database\Interfaces\Order $order
-   * @param integer $limit
-   * @param integer $offset
+   * @param int $limit
+   * @param int $offset
    * @return \Papaya\UI\Content\Teasers
    */
   public function byParent(
     $pageIds, $order = self::ORDER_POSITION_ASCENDING, $limit = 10, $offset = 0
   ) {
-    return $this->byFilter(array('parent' => $pageIds), $order, $limit, $offset);
+    return $this->byFilter(['parent' => $pageIds], $order, $limit, $offset);
   }
 
   /**
@@ -141,14 +147,14 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param array(integer)|integer $pageIds
    * @param string|\Papaya\Database\Interfaces\Order $order
-   * @param integer $limit
-   * @param integer $offset
+   * @param int $limit
+   * @param int $offset
    * @return \Papaya\UI\Content\Teasers
    */
   public function byPageId(
     $pageIds, $order = self::ORDER_TITLE_ASCENDING, $limit = 10, $offset = 0
   ) {
-    return $this->byFilter(array('id' => $pageIds), $order, $limit, $offset);
+    return $this->byFilter(['id' => $pageIds], $order, $limit, $offset);
   }
 
   /**
@@ -187,7 +193,6 @@ class Factory extends \Papaya\Application\BaseObject {
         $this->_orderByDefinitions[$order], $pages->mapping()
       );
     }
-    return NULL;
+    return;
   }
-
 }

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\BaseObject;
+
 /**
  * The item class allows to define objects that have a set of properties, the properties are
  * accessible through property and array syntax and it is possbile to iterate over them.
@@ -25,13 +26,12 @@ namespace Papaya\BaseObject;
 class Item
   extends \Papaya\Application\BaseObject
   implements \ArrayAccess, \IteratorAggregate {
-
   /**
    * Internal value store
    *
    * @var array
    */
-  private $_values = array();
+  private $_values = [];
 
   /**
    * Create object and define properties provided as an list.
@@ -51,16 +51,16 @@ class Item
    * @throws \InvalidArgumentException
    */
   public function assign($data) {
-    if (!(is_array($data) || $data instanceof \Traversable)) {
+    if (!(\is_array($data) || $data instanceof \Traversable)) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument $data must be an array or instance of Traversable.'
         )
       );
     }
     foreach ($data as $name => $value) {
       $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-      if (array_key_exists($name, $this->_values)) {
+      if (\array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
       }
     }
@@ -97,7 +97,7 @@ class Item
    * Validate if the defined value is set.
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function __isset($name) {
     return isset($this->_values[$this->_prepareName($name)]);
@@ -139,11 +139,11 @@ class Item
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
-   * @return boolean
+   * @return bool
    */
   public function offsetExists($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    return array_key_exists($name, $this->_values);
+    return \array_key_exists($name, $this->_values);
   }
 
   /**
@@ -189,12 +189,12 @@ class Item
    */
   private function _prepareName($name) {
     $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (!array_key_exists($name, $this->_values)) {
+    if (!\array_key_exists($name, $this->_values)) {
       throw new \OutOfBoundsException(
-        sprintf(
+        \sprintf(
           'Property/Index "%s" is not defined for item class "%s".',
           $name,
-          get_class($this)
+          \get_class($this)
         )
       );
     }

@@ -28,7 +28,6 @@ namespace Papaya\Theme\Wrapper;
  * @subpackage Theme
  */
 class Group {
-
   /**
    * Absolute local path and filename of the theme.xml.
    *
@@ -41,7 +40,7 @@ class Group {
    *
    * @var \DOMDocument
    */
-  private $_document = NULL;
+  private $_document;
 
   /**
    * Initialize object and remember $themeFile for lazy loading.
@@ -60,10 +59,10 @@ class Group {
    * @return array(string)
    */
   public function getFiles($name, $mode = 'css') {
-    $files = array();
+    $files = [];
     $document = $this->getDocument();
     $xpath = new \DOMXpath($document);
-    $query = sprintf(
+    $query = \sprintf(
       '//wrapper-groups/%s-group[@name = "%s"]/file',
       \Papaya\Utility\Text\XML::escapeAttribute($mode),
       \Papaya\Utility\Text\XML::escapeAttribute($name)
@@ -82,12 +81,12 @@ class Group {
    *
    * @param string $name group name
    * @param string $mode js or css
-   * @return boolean
+   * @return bool
    */
   public function allowDirectories($name, $mode = 'css') {
     $document = $this->getDocument();
     $xpath = new \DOMXpath($document);
-    $query = sprintf(
+    $query = \sprintf(
       'boolean(//wrapper-groups/%s-group[@name = "%s"]/@recursive = "yes")',
       \Papaya\Utility\Text\XML::escapeAttribute($mode),
       \Papaya\Utility\Text\XML::escapeAttribute($name)
@@ -98,10 +97,10 @@ class Group {
   /**
    * Get the document, create the document and loads the theme file if nessesary.
    *
-   * @return \DOMDocument|NULL
+   * @return \DOMDocument|null
    */
   public function getDocument() {
-    if (is_null($this->_document)) {
+    if (\is_null($this->_document)) {
       $document = new \DOMDocument('1.0', 'UTF-8');
       if ($document->load($this->_themeFile)) {
         $this->_document = $document;

@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Filter;
+
 /**
  * Papaya filter class that validates if given value is in the list
  *
@@ -26,13 +27,12 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class ArrayElement implements \Papaya\Filter {
-
   /**
    * elements list
    *
-   * @var integer
+   * @var int
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * Construct object and set the list of elements
@@ -49,13 +49,13 @@ class ArrayElement implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @return TRUE
+   * @return true
    */
   public function validate($value) {
-    if ((string)$value === '') {
+    if ('' === (string)$value) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     }
-    if (is_array($this->_list) && in_array($value, $this->_list)) {
+    if (\is_array($this->_list) && \in_array($value, $this->_list)) {
       return TRUE;
     }
     foreach ($this->_list as $element) {
@@ -70,11 +70,11 @@ class ArrayElement implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return integer|NULL
+   * @return int|null
    */
   public function filter($value) {
-    if (is_array($this->_list)) {
-      $index = array_search($value, $this->_list);
+    if (\is_array($this->_list)) {
+      $index = \array_search($value, $this->_list);
       if (FALSE !== $index) {
         return $this->_list[$index];
       }
@@ -85,6 +85,6 @@ class ArrayElement implements \Papaya\Filter {
         }
       }
     }
-    return NULL;
+    return;
   }
 }

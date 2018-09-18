@@ -14,6 +14,7 @@
  */
 
 namespace Papaya\Iterator;
+
 /**
  * An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
  * with a lazy initialization.
@@ -25,8 +26,8 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class TraversableIterator implements \OuterIterator {
-
   private $_traversable;
+
   private $_iterator;
 
   /**
@@ -44,7 +45,7 @@ class TraversableIterator implements \OuterIterator {
    * by the methods of the iterator interface. The methods use the $useCached argument
    * to reuse an already fetched/created iterator.
    *
-   * @param boolean $useCached
+   * @param bool $useCached
    * @return \Iterator
    */
   public function getIteratorForTraversable($useCached = FALSE) {
@@ -61,7 +62,7 @@ class TraversableIterator implements \OuterIterator {
     if ($traversable instanceof \IteratorAggregate) {
       return $traversable->getIterator();
     }
-    if (is_array($traversable)) {
+    if (\is_array($traversable)) {
       return new \ArrayIterator($traversable);
     }
     return new \IteratorIterator($traversable);
@@ -109,7 +110,7 @@ class TraversableIterator implements \OuterIterator {
   /**
    * Valid if the current element is valid.
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     return $this->getIteratorForTraversable(TRUE)->valid();
