@@ -15,6 +15,9 @@
 
 namespace Papaya\Cache\Identifier\Definition;
 
+use Papaya\Application;
+use Papaya\Cache;
+
 /**
  * A boolean value or callback returning a boolean value defines if caching is allowed
  *
@@ -22,8 +25,8 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Surfer
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Application\Access, Cache\Identifier\Definition {
+  use Application\Access\Aggregation;
   /**
    * Check the surfer, return the id if it valid, TRUE otherwise
    *

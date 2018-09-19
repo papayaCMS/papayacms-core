@@ -15,6 +15,7 @@
 
 namespace Papaya\Request\Parameters\Access;
 
+use \Papaya\Application;
 use \Papaya\Request;
 use \Papaya\Utility;
 
@@ -24,9 +25,11 @@ use \Papaya\Utility;
  * @package Papaya-Library
  * @subpackage Objects
  *
- * @method \Papaya\Application\CMS papaya()
+ * @method Application\CMS papaya()
  */
 trait Integration {
+  use Application\Access\Aggregation;
+
   /**
    * Parameter request method
    *

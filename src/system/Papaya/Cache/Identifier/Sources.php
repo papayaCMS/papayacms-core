@@ -15,6 +15,8 @@
 
 namespace Papaya\Cache\Identifier;
 
+use Papaya\Utility;
+
 /**
  * An class to get the sources in a more readable way
  *
@@ -33,7 +35,7 @@ class Sources implements \IteratorAggregate {
   private $_sources = 0;
 
   public function __construct($sources) {
-    \Papaya\Utility\Constraints::assertInteger($sources);
+    Utility\Constraints::assertInteger($sources);
     $this->_sources = $sources;
   }
 
@@ -51,7 +53,7 @@ class Sources implements \IteratorAggregate {
   private function toArray() {
     $result = [];
     foreach ($this->_names as $source => $name) {
-      if (\Papaya\Utility\Bitwise::inBitmask($source, $this->_sources)) {
+      if (Utility\Bitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
       }
     }

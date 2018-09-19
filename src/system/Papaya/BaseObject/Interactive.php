@@ -15,16 +15,15 @@
 
 namespace Papaya\BaseObject;
 
-use \Papaya\Application;
 use \Papaya\Request;
+
 /**
  * An basic framework object including request parameters handling
  *
  * @package Papaya-Library
  * @subpackage Objects
  */
-abstract class Interactive implements Application\Access, Request\Parameters\Access {
+abstract class Interactive implements Request\Parameters\Access {
 
-  use Application\Access\Aggregation;
   use Request\Parameters\Access\Integration;
 }

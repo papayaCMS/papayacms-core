@@ -15,6 +15,9 @@
 
 namespace Papaya\Cache\Identifier\Definition;
 
+use Papaya\Cache;
+use Papaya\Utility;
+
 /**
  * A boolean value or callback returning a boolean value defines if caching is allowed
  *
@@ -22,7 +25,7 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class BooleanValue
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Cache\Identifier\Definition {
   private $_callback;
 
   private $_cacheable;
@@ -31,7 +34,7 @@ class BooleanValue
     if (\is_bool($condition)) {
       $this->_cacheable = $condition;
     } else {
-      \Papaya\Utility\Constraints::assertCallable($condition);
+      Utility\Constraints::assertCallable($condition);
       $this->_callback = $condition;
     }
   }
@@ -41,7 +44,7 @@ class BooleanValue
    * call it.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return BooleanValue
+   * @return bool
    */
   public function getStatus() {
     if (NULL === $this->_cacheable) {

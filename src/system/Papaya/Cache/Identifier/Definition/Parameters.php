@@ -15,6 +15,9 @@
 
 namespace Papaya\Cache\Identifier\Definition;
 
+use \Papaya\Request;
+use \Papaya\Utility;
+
 /**
  * Request parameters are used to create cache condition data.
  *
@@ -22,8 +25,9 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Parameters
-  extends \Papaya\BaseObject\Interactive
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Request\Parameters\Access, \Papaya\Cache\Identifier\Definition {
+  use Request\Parameters\Access\Integration;
+
   private $_names = [];
 
   /**
@@ -34,7 +38,7 @@ class Parameters
    * @param int $method
    */
   public function __construct($names, $group = NULL, $method = self::METHOD_GET) {
-    \Papaya\Utility\Constraints::assertNotEmpty($names);
+    Utility\Constraints::assertNotEmpty($names);
     if (\is_array($names) || $names instanceof \Traversable) {
       $this->_names = $names;
     } else {
@@ -56,7 +60,7 @@ class Parameters
   public function getStatus() {
     $data = [];
     foreach ($this->_names as $name) {
-      $name = new \Papaya\Request\Parameters\Name($name);
+      $name = new Request\Parameters\Name($name);
       if ($this->parameters()->has((string)$name)) {
         $value = $this->parameters()->get((string)$name, NULL);
         $data[(string)$name] = $value;
@@ -66,13 +70,13 @@ class Parameters
   }
 
   /**
-   * The source depends on the method. If the method is GET, only valeus from the query string
+   * The source depends on the method. If the method is GET, only values from the query string
    * are used - the source is URL otherwise values from the request body are used, too.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return int
    */
   public function getSources() {
-    return self::METHOD_GET == $this->parameterMethod() ? self::SOURCE_URL : self::SOURCE_REQUEST;
+    return self::METHOD_GET === $this->parameterMethod() ? self::SOURCE_URL : self::SOURCE_REQUEST;
   }
 }

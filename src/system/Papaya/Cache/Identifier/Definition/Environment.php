@@ -15,6 +15,9 @@
 
 namespace Papaya\Cache\Identifier\Definition;
 
+use Papaya\Cache;
+use Papaya\Utility;
+
 /**
  * Request parameters are used to create cache condition data.
  *
@@ -22,7 +25,7 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Environment
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Cache\Identifier\Definition {
   private $_name;
 
   /**
@@ -31,8 +34,8 @@ class Environment
    * @param string $name
    */
   public function __construct($name) {
-    \Papaya\Utility\Constraints::assertString($name);
-    \Papaya\Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertString($name);
+    Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 

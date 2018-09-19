@@ -15,6 +15,8 @@
 
 namespace Papaya\Cache\Identifier\Definition;
 
+use Papaya\Cache;
+
 /**
  * Use the all values provided in the constructor as cache condition data
  *
@@ -22,14 +24,16 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Values
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Cache\Identifier\Definition {
   private $_values;
 
   /**
    * Just store all arguments into an private member variable
+   *
+   * @param array $values
    */
-  public function __construct() {
-    $this->_values = \func_get_args();
+  public function __construct(...$values) {
+    $this->_values = $values;
   }
 
   /**
