@@ -12,10 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
-use \Papaya\Utility;
+use Papaya\Utility;
 
 /**
  * Extends the ArrayObject to allow lists as keys and a get with filtering and casting
@@ -29,6 +28,7 @@ class Parameters
    * Check if the value exists
    *
    * @param string|array $offset
+   *
    * @return bool
    */
   public function has($offset) {
@@ -47,6 +47,7 @@ class Parameters
    * @param mixed $offset
    * @param mixed $defaultValue
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function get($offset, $defaultValue = NULL, \Papaya\Filter $filter = NULL) {
@@ -95,6 +96,7 @@ class Parameters
    * Set each value from an array or traversable
    *
    * @param array|\Traversable $values
+   *
    * @internal param array|\Traversable $value
    */
   public function assign($values) {
@@ -108,7 +110,9 @@ class Parameters
    * ArrayAccess interface, check if the offset exists
    *
    * @see \ArrayObject::offsetExists()
+   *
    * @param mixed $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -122,7 +126,7 @@ class Parameters
       }
       $data = parent::offsetGet($first);
       foreach ($offset as $key) {
-        /** @noinspection ReferenceMismatchInspection */
+        /* @noinspection ReferenceMismatchInspection */
         if (\is_array($data) && \array_key_exists($key, $data)) {
           $data = &$data[$key];
         } else {
@@ -139,7 +143,9 @@ class Parameters
    * does not exist.
    *
    * @see \ArrayObject::offsetGet()
+   *
    * @param mixed $offset
+   *
    * @return mixed
    */
   public function offsetGet($offset) {
@@ -148,6 +154,7 @@ class Parameters
 
   /**
    * @param mixed $offset
+   *
    * @return mixed
    */
   private function getValueByOffset($offset) {
@@ -155,7 +162,7 @@ class Parameters
       $first = \array_shift($offset);
       $data = parent::offsetExists($first) ? parent::offsetGet($first) : NULL;
       foreach ($offset as $key) {
-        /** @noinspection ReferenceMismatchInspection */
+        /* @noinspection ReferenceMismatchInspection */
         if (\is_array($data) && \array_key_exists($key, $data)) {
           $data = &$data[$key];
         } else {
@@ -175,6 +182,7 @@ class Parameters
    * ArrayAccess interface, change a value
    *
    * @see \ArrayObject::offsetSet()
+   *
    * @param mixed $offset
    * @param mixed $value
    */
@@ -200,7 +208,7 @@ class Parameters
           $current = &$current[$key];
         }
         if (empty($last) && 0 !== $last) {
-          /** @noinspection NotOptimalIfConditionsInspection */
+          /* @noinspection NotOptimalIfConditionsInspection */
           if (!\is_array($current)) {
             $current = [];
           }
@@ -223,6 +231,7 @@ class Parameters
    * ArrayAccess interface, delete a value from the internal array
    *
    * @see \ArrayObject::offsetUnset()
+   *
    * @param mixed $offset
    */
   public function offsetUnset($offset) {

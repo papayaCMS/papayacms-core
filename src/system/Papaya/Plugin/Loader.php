@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -54,7 +53,9 @@ class Loader extends \Papaya\Application\BaseObject {
    * define plugins and options as readable properties
    *
    * @throws \LogicException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -71,7 +72,9 @@ class Loader extends \Papaya\Application\BaseObject {
 
   /**
    * define available dynamic properties
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __isset($name) {
@@ -88,7 +91,9 @@ class Loader extends \Papaya\Application\BaseObject {
    *
    * @param string $name
    * @param $value
+   *
    * @throws \LogicException
+   *
    * @return mixed
    */
   public function __set($name, $value) {
@@ -109,6 +114,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Getter/Setter für plugin data list
    *
    * @param \Papaya\Plugin\Collection|null $plugins
+   *
    * @return \Papaya\Plugin\Collection
    */
   public function plugins(Collection $plugins = NULL) {
@@ -128,6 +134,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Getter/Setter für plugin option groups (grouped by module guid)
    *
    * @param \Papaya\Plugin\Option\Groups|null $groups
+   *
    * @return \Papaya\Plugin\Option\Groups
    */
   public function options(Option\Groups $groups = NULL) {
@@ -145,6 +152,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * queries means better performance. The system will now always load all plugins descriptions.
    *
    * @deprecated
+   *
    * @return true
    */
   public function preload() {
@@ -155,6 +163,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Check if the data for a given plugin guid is available.
    *
    * @param string $guid
+   *
    * @return bool
    */
   public function has($guid) {
@@ -174,6 +183,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param array $data
    * @param bool $singleInstance Plugin object should be created once,
    *                             additional call will return the first instance.
+   *
    * @return \Object|null
    */
   public function get($guid, $parent = NULL, $data = NULL, $singleInstance = FALSE) {
@@ -193,6 +203,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Alias for {@see \Papaya\Plugin\Loader::get()}. For backwards compatibility only.
    *
    * @deprecated
+   *
    * @param string $guid
    * @param \Object|null $parent
    * @param array $data
@@ -200,6 +211,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param string $file
    * @param bool $singleton Plugin object should be created once,
    *                        additional calls will return the first instance.
+   *
    * @return \Object|null
    */
   public function getPluginInstance(
@@ -219,6 +231,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * plugin group will be activated, too.
    *
    * @param string $guid
+   *
    * @return string
    */
   public function getFileName($guid) {
@@ -260,6 +273,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * Prepares and includes a plugin file.
    *
    * @param array $pluginData
+   *
    * @return bool
    */
   private function preparePluginFile(array $pluginData) {
@@ -307,7 +321,9 @@ class Loader extends \Papaya\Application\BaseObject {
    * otherwise just return it.
    *
    * @param string $path
+   *
    * @throws
+   *
    * @return string|false
    */
   private function getPluginPath($path = '') {
@@ -343,6 +359,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param array $pluginData
    * @param \Object|null $parent
    * @param bool $singleInstance
+   *
    * @return \Object|null
    */
   private function createObject(array $pluginData, $parent, $singleInstance = FALSE) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Storage\Service;
 
 /**
@@ -130,6 +129,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return string
    */
   private function _getStorageObject($storageGroup, $storageId) {
@@ -153,6 +153,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * Get response xml and create xpath object
    *
    * @param \Papaya\HTTP\Client $client
+   *
    * @return \DOMXPath
    */
   private function _doXMLRequest(\Papaya\HTTP\Client $client) {
@@ -172,6 +173,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $startsWith
+   *
    * @return array
    */
   public function browse($storageGroup, $startsWith = '') {
@@ -197,6 +199,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return string | NULL
    */
   public function get($storageGroup, $storageId) {
@@ -216,6 +219,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return string | NULL
    */
   public function getURL($storageGroup, $storageId, $mimeType) {
@@ -230,6 +234,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return array|false array('filename' => string, 'is_temporary' => boolean)
    */
   public function getLocalFile($storageGroup, $storageId) {
@@ -305,6 +310,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param \Papaya\HTTP\Client\File $resource
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
    */
   private function _storeResource(
@@ -333,7 +339,9 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param mixed $content data string or resource id
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
+   *
    * @throws \InvalidArgumentException
    */
   public function store(
@@ -359,7 +367,9 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $filename
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
+   *
    * @throws \LogicException
    */
   public function storeLocalFile(
@@ -374,6 +384,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   public function remove($storageGroup, $storageId) {
@@ -390,6 +401,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   public function exists($storageGroup, $storageId) {
@@ -416,6 +428,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return bool $isPublic
    */
   public function isPublic($storageGroup, $storageId, $mimeType) {
@@ -469,6 +482,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param bool $isPublic
    * @param string $mimeType
+   *
    * @return bool file is now in target status
    */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {

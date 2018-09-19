@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
@@ -66,7 +65,9 @@ class PSR3
    * Send log message to browser using the Wildfire protocol if possible
    *
    * @param Message $message
+   *
    * @return bool
+   *
    * @throws \InvalidArgumentException
    */
   public function dispatch(Message $message) {
@@ -83,6 +84,7 @@ class PSR3
    * Send log message using the Wildfire protocol
    *
    * @param Message\Logable $message
+   *
    * @throws \InvalidArgumentException
    */
   public function send(Message\Logable $message) {

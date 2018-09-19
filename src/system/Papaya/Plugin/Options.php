@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -69,6 +68,7 @@ class Options extends \Papaya\Configuration {
    * @param string $name
    * @param mixed $default
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
@@ -80,6 +80,7 @@ class Options extends \Papaya\Configuration {
    * Validate if an option is available
    *
    * @param string $name
+   *
    * @return bool
    */
   public function has($name) {
@@ -110,6 +111,7 @@ class Options extends \Papaya\Configuration {
    * Load options and change loading status
    *
    * @param \Papaya\Configuration\Storage $storage
+   *
    * @return bool|void
    */
   public function load(\Papaya\Configuration\Storage $storage = NULL) {
@@ -131,6 +133,7 @@ class Options extends \Papaya\Configuration {
    * Getter/Setter for the configuration storage
    *
    * @param \Papaya\Configuration\Storage $storage
+   *
    * @return \Papaya\Configuration\Storage
    */
   public function storage(\Papaya\Configuration\Storage $storage = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
 
 /**
@@ -51,7 +50,9 @@ abstract class Tree extends Lazy {
    * @param int|null $limit
    * @param int|null $offset
    * @param array $idProperties
+   *
    * @throws \LogicException
+   *
    * @return bool
    */
   protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {

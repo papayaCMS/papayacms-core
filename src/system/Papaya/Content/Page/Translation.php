@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -99,6 +98,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
    * @param string $property
    * @param string $field
    * @param string $value
+   *
    * @return mixed
    */
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
@@ -116,6 +116,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
    * @param string $property
    * @param string $field
    * @param string $value
+   *
    * @return mixed
    */
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {

@@ -12,10 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
-use \Papaya\BaseObject\Interfaces\Properties;
+use Papaya\BaseObject\Interfaces\Properties;
 
 /**
  * A list of callbacks, this can be used in another object to allow the user to set
@@ -63,6 +62,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    * is thrown.
    *
    * @throws \LogicException
+   *
    * @param array $definitions
    */
   protected function defineCallbacks(array $definitions) {
@@ -88,6 +88,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    * Allows to check if a php callback is available for the given name.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -98,6 +99,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    * Returns the \Papaya\BaseObject\Callback instance for the given name.
    *
    * @param string $name
+   *
    * @return \Papaya\BaseObject\Callback
    */
   public function __get($name) {
@@ -111,6 +113,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    *
    * @param string $name
    * @param null|callback|\Callback $callback
+   *
    * @throws \InvalidArgumentException
    */
   public function __set($name, $callback) {
@@ -145,6 +148,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    *
    * @param string $name
    * @param $arguments
+   *
    * @return mixed
    */
   public function __call($name, $arguments) {
@@ -156,6 +160,7 @@ class Callbacks implements \IteratorAggregate, Properties {
    * Validate the callback name agains the defined callback names
    *
    * @param string $name
+   *
    * @throws \LogicException
    */
   private function validateName($name) {

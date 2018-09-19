@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher\Wildfire;
 
 /**
@@ -102,6 +101,7 @@ class Handler {
    * Create Handler and set callback function
    *
    * @param \Callback $callback
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($callback) {

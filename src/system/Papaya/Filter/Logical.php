@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -47,6 +46,7 @@ abstract class Logical implements \Papaya\Filter {
    * Check subfilters and save them in a protected property
    *
    * @param \Papaya\Filter[] $filters
+   *
    * @throws \InvalidArgumentException
    */
   protected function _setFilters($filters) {

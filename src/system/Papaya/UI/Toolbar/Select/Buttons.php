@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar\Select;
 
 /**
@@ -33,6 +32,7 @@ class Buttons extends \Papaya\UI\Toolbar\Select {
    * Append button xml elemens to parent element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

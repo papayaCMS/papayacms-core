@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -78,6 +77,7 @@ class Timestamp extends Date {
    * Append field and input ouptut to DOM
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -101,6 +101,7 @@ class Timestamp extends Date {
    *
    * @param int $timestamp
    * @param bool $includeTime
+   *
    * @return string
    */
   private function formatDateTime($timestamp, $includeTime = TRUE) {

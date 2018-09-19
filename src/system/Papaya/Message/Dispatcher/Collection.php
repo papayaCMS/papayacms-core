@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher {
 
   use Papaya\Message;
@@ -33,6 +32,7 @@ namespace Papaya\Message\Dispatcher {
 
     /**
      * @param Message $message
+     *
      * @return bool|void
      */
     public function dispatch(Message $message) {

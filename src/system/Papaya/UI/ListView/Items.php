@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
 
 /**
@@ -59,6 +58,7 @@ class Items
    * Return the listview of this list
    *
    * @param \Papaya\UI\ListView $listview
+   *
    * @return \Papaya\UI\ListView
    */
   public function owner($listview = NULL) {
@@ -71,6 +71,7 @@ class Items
    * caption/image.
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

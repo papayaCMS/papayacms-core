@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Hierarchy;
 
 /**
@@ -71,6 +70,7 @@ class Items extends \Papaya\UI\Control\Collection {
    * in an additional element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -100,6 +100,7 @@ class Items extends \Papaya\UI\Control\Collection {
    * Getter/Setter for a spacer item that replaces the items not appended because of the limit.
    *
    * @param Item $spacer
+   *
    * @return Item
    */
   public function spacer(Item $spacer = NULL) {

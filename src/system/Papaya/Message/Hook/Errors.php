@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Hook;
 
 use Papaya\Message;
@@ -124,7 +123,9 @@ class Errors
    * @param string $file
    * @param int $line
    * @param mixed $context
+   *
    * @return bool
+   *
    * @throws \Exception
    */
   public function handle($severity, $text, $file, $line, $context) {
@@ -163,7 +164,9 @@ class Errors
 
   /**
    * @param \Exception $exception
+   *
    * @return bool
+   *
    * @throws \Exception
    */
   private function handleException(\Exception $exception) {
@@ -180,7 +183,9 @@ class Errors
    * @param int $severity
    * @param string $file
    * @param int $line
+   *
    * @return int
+   *
    * @internal param string $text
    */
   public function checkErrorDuplicates($severity, $file, $line) {

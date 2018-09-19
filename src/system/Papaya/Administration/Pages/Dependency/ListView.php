@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
 
 use Papaya\Content;
@@ -193,6 +192,7 @@ class ListView extends UI\ListView {
    * Append listview to parent element if it has records.
    *
    * @param XML\Element $parent
+   *
    * @return null|XML\Element
    */
   public function appendTo(XML\Element $parent) {
@@ -207,6 +207,7 @@ class ListView extends UI\ListView {
    * Access to the pages list, to load page informations
    *
    * @param Content\Pages $pages
+   *
    * @return Content\Pages
    */
   public function pages(Content\Pages $pages = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Service;
 
 /**
@@ -126,6 +125,7 @@ class Memcache extends \Papaya\Cache\Service {
    * read cache path option from configuration or ini file
    *
    * @param \Papaya\Cache\Configuration $configuration
+   *
    * @return bool
    */
   public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
@@ -141,7 +141,9 @@ class Memcache extends \Papaya\Cache\Service {
    * Check cache is usable
    *
    * @param bool $silent
+   *
    * @throws \BadMethodCallException
+   *
    * @return bool
    */
   public function verify($silent = TRUE) {
@@ -189,6 +191,7 @@ class Memcache extends \Papaya\Cache\Service {
    *
    * @param \Memcache|\Memcached $memcache
    * @param array $server
+   *
    * @return bool
    */
   private function _connect($memcache, $server) {
@@ -254,6 +257,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param string $data Element data
    * @param int $expires Maximum age in seconds
+   *
    * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
@@ -279,6 +283,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -300,6 +305,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -322,6 +328,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -342,6 +349,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
+   *
    * @return int
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
@@ -372,6 +380,7 @@ class Memcache extends \Papaya\Cache\Service {
    * @param string $cacheId
    * @param int $expires
    * @param int $ifModifiedSince
+   *
    * @return bool
    */
   private function _read($cacheId, $expires, $ifModifiedSince) {

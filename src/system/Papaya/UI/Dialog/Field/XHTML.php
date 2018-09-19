@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -46,7 +45,9 @@ class XHTML extends \Papaya\UI\Dialog\Field {
    * Getter/Setter for xhtml content.
    *
    * @param string|\Papaya\UI\Text|\Papaya\XML\Element $content
+   *
    * @throws \InvalidArgumentException
+   *
    * @return \Papaya\XML\Element
    */
   public function content($content = NULL) {

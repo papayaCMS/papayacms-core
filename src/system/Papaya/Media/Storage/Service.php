@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Storage;
 
 /**
@@ -45,6 +44,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param string $storageGroup
    * @param string $startsWith
+   *
    * @return array
    */
   abstract public function browse($storageGroup, $startsWith = '');
@@ -57,6 +57,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string|resource $content data string or resource id
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
    */
   abstract public function store(
@@ -71,6 +72,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string $filename
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
    */
   abstract public function storeLocalFile(
@@ -82,6 +84,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   abstract public function remove($storageGroup, $storageId);
@@ -91,6 +94,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   abstract public function exists($storageGroup, $storageId);
@@ -108,6 +112,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return bool $isPublic
    */
   abstract public function isPublic($storageGroup, $storageId, $mimeType);
@@ -119,6 +124,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string $storageId
    * @param bool $isPublic
    * @param string $mimeType
+   *
    * @return bool file is now in target status
    */
   abstract public function setPublic($storageGroup, $storageId, $isPublic, $mimeType);
@@ -128,6 +134,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return string|null
    */
   abstract public function get($storageGroup, $storageId);
@@ -138,6 +145,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return string|null
    */
   abstract public function getURL($storageGroup, $storageId, $mimeType);
@@ -147,6 +155,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return array array('filename' => string, 'is_temporary' => boolean)
    */
   abstract public function getLocalFile($storageGroup, $storageId);

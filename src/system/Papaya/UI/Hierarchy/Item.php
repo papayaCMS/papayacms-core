@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Hierarchy;
 
 /**
@@ -108,6 +107,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Append item xml to parent xml element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -130,6 +130,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the reference subobject
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {
@@ -146,6 +147,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Read a cleaned display mode value
    *
    * @param int $mode
+   *
    * @throws \OutOfBoundsException
    */
   public function setDisplayMode($mode) {

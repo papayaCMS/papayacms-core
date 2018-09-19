@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 class Autoloader {
@@ -32,6 +31,7 @@ class Autoloader {
 
   /**
    * Pattern that matches the parts (namespaces) of a class
+   *
    * @var string
    */
   private static $classPattern = '(
@@ -177,6 +177,7 @@ class Autoloader {
    * @param string $name
    * @param string|null $file
    * @param string|null $alias
+   *
    * @return bool
    */
   public static function load($name, $file = NULL, $alias = NULL) {
@@ -221,6 +222,7 @@ class Autoloader {
    * Get file for a class
    *
    * @param string $className
+   *
    * @return string|null
    */
   public static function getClassFile($className) {
@@ -249,6 +251,7 @@ class Autoloader {
 
   /**
    * @param $className
+   *
    * @return string|null
    */
   private static function convertToNamespaceClass($className) {
@@ -278,6 +281,7 @@ class Autoloader {
    *  Convert a new (namespaced class back to its old class name)
    *
    * @param string $className
+   *
    * @return null|string
    */
   private static function convertToToOldClass($className) {
@@ -307,6 +311,7 @@ class Autoloader {
    * The file will include only the part of the path defined by the class.
    *
    * @param string $className
+   *
    * @return string
    */
   private static function prepareFileName($className) {
@@ -343,6 +348,7 @@ class Autoloader {
    * Check if a class name prefix is already registered.
    *
    * @param $modulePrefix
+   *
    * @return bool
    */
   public static function hasPrefix($modulePrefix) {
@@ -371,6 +377,7 @@ class Autoloader {
    * Check if a classmap for the given path is already registered
    *
    * @param $path
+   *
    * @return bool
    */
   public static function hasClassMap($path) {
@@ -382,6 +389,7 @@ class Autoloader {
    *
    * @param string $prefixOne
    * @param string $prefixTwo
+   *
    * @return int
    */
   public static function compareByCharacterLength($prefixOne, $prefixTwo) {

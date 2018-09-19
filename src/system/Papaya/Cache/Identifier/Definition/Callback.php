@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Cache;
@@ -39,6 +38,7 @@ class Callback
    * Return cache identification data from a callback, return FALSE if it is nor cacheable
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return array|false
    */
   public function getStatus() {
@@ -55,6 +55,7 @@ class Callback
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

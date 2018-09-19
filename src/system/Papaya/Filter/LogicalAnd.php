@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -27,7 +26,9 @@ class LogicalAnd extends Logical {
    * exception and break the loop if the value is invalid.
    *
    * @param string $value
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
@@ -45,6 +46,7 @@ class LogicalAnd extends Logical {
    * value is given to the next filter method call.
    *
    * @param string $value
+   *
    * @return mixed|null|string
    */
   public function filter($value) {

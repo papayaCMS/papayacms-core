@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -28,6 +27,7 @@ interface Addressable {
    * Getter/Setter for the content.
    *
    * @param \Papaya\Request $request
+   *
    * @return false|string|true
    */
   public function validateURL(\Papaya\Request $request);

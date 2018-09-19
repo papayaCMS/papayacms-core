@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content\CSV;
 
 /**
@@ -23,6 +22,7 @@ namespace Papaya\Response\Content\CSV;
  *
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapField
+ *
  * @method bool onMapRow
  * @method bool onMapField
  */

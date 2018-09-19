@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
 
 /**
@@ -75,6 +74,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Get/Set the theme wrapper group object.
    *
    * @param Wrapper\Group $group
+   *
    * @return Wrapper\Group
    */
   public function group(Wrapper\Group $group = NULL) {
@@ -155,6 +155,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Getter/setter for theme handler object including implicit create
    *
    * @param \Papaya\Theme\Handler $handler
+   *
    * @return \Papaya\Theme\Handler
    */
   public function handler(\Papaya\Theme\Handler $handler = NULL) {
@@ -172,6 +173,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Getter/setter for theme set database object including a implicit create
    *
    * @param \Papaya\Content\Theme\Skin $themeSet
+   *
    * @return \Papaya\Content\Theme\Skin
    */
   public function themeSet(\Papaya\Content\Theme\Skin $themeSet = NULL) {
@@ -189,6 +191,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Getter/setter for cache service object
    *
    * @param \Papaya\Cache\Service $service
+   *
    * @return \Papaya\Cache\Service
    */
   public function cache(\Papaya\Cache\Service $service = NULL) {
@@ -211,6 +214,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @param int $themeSetId
    * @param array $files
    * @param bool $compress use gzip compression
+   *
    * @return string
    */
   public function getCompiledContent($theme, $themeSetId, $files, $compress) {
@@ -248,6 +252,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * Getter/Setter for the active template engine.
    *
    * @param \Papaya\Template\Engine $engine
+   *
    * @return \Papaya\Template\Engine|null
    */
   public function templateEngine(\Papaya\Template\Engine $engine = NULL) {
@@ -314,6 +319,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    *
    * @param string $fileIdentifier
    * @param string $extension
+   *
    * @return string
    */
   private function prepareFileName($fileIdentifier, $extension) {
@@ -331,6 +337,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @param array $files
    * @param string $mimetype
    * @param bool $compress
+   *
    * @return string
    */
   public function getCacheIdentifier($themeSetId, $files, $mimetype, $compress = FALSE) {

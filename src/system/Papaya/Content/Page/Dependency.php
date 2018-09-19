@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -111,7 +110,9 @@ class Dependency extends \Papaya\Database\Record {
    * Velidate the deinfed dependency an save it into database.
    *
    * @throw UnexpectedValueException
+   *
    * @throws \UnexpectedValueException
+   *
    * @return bool|\Papaya\Database\Interfaces\Key
    */
   public function save() {
@@ -136,6 +137,7 @@ class Dependency extends \Papaya\Database\Record {
    * Check if the given page id already has a dependency deifnition. This is used to avoid chaining.
    *
    * @param int $pageId
+   *
    * @return bool
    */
   public function isDependency($pageId) {
@@ -154,6 +156,7 @@ class Dependency extends \Papaya\Database\Record {
    * Check if the given page id is the origin of one or more dependencies.
    *
    * @param int $pageId
+   *
    * @return bool
    */
   public function isOrigin($pageId) {

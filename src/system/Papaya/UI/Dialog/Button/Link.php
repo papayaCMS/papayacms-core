@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Button;
 
 /**
@@ -74,6 +73,7 @@ class Link extends \Papaya\UI\Dialog\Button {
 
   /**
    * @param \Papaya\UI\Reference|null $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

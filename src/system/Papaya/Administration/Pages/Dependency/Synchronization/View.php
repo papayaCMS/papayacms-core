@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Content\Page;
@@ -30,6 +29,7 @@ class View
    *
    * @param Page\Translation $origin
    * @param array $targetIds
+   *
    * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {

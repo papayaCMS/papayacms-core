@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select\Media;
 
 /**
@@ -66,6 +65,7 @@ class Folder extends \Papaya\UI\Dialog\Field {
    * returning a RecursiveIterator
    *
    * @param \Papaya\Content\Media\Folders $folders
+   *
    * @return \Papaya\Content\Media\Folders
    */
   public function mediaFolders(\Papaya\Content\Media\Folders $folders = NULL) {

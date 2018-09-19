@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -80,6 +79,7 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Checks if a session property is available.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -93,6 +93,7 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Retrieves a property from the session
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -119,6 +120,7 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Sets a session property defined in the list of persistent properties.
    *
    * @param string $name
+   *
    * @internal param mixed $value
    */
   public function __unset($name) {
@@ -133,7 +135,9 @@ abstract class Share extends \Papaya\Application\BaseObject {
    *
    * @param string $functionName
    * @param array $arguments
+   *
    * @throws \LogicException
+   *
    * @return mixed
    */
   public function __call($functionName, $arguments) {
@@ -160,7 +164,9 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Validate and prepare the property name
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
+   *
    * @return string
    */
   protected function preparePropertyName($name) {

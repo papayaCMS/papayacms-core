@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Variable\Visitor;
 
 /**
@@ -257,6 +256,7 @@ class XHTML
    *
    * @param \DOMElement $targetNode append childnode to this parent
    * @param string $typeString
+   *
    * @return \DOMElement new element
    */
   protected function _addTypeNode(\DOMElement $targetNode, $typeString) {
@@ -272,6 +272,7 @@ class XHTML
    * @param \DOMElement $targetNode append childnode to this parent
    * @param string $valueClass type of value (number, string, boolean)
    * @param string $value string representation of the value
+   *
    * @return \DOMElement new element
    */
   protected function _addValueNode(\DOMElement $targetNode, $valueClass, $value) {
@@ -296,6 +297,7 @@ class XHTML
    * Increase indent, add a new list to document, set parent node for list items
    *
    * @param \DOMElement $targetNode parent/position of the new list
+   *
    * @return bool return FALSE if identation limit is reached
    */
   protected function _increaseIndent(\DOMElement $targetNode) {

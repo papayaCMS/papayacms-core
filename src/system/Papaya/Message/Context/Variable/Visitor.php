@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Variable;
 
 /**
@@ -171,6 +170,7 @@ abstract class Visitor {
    * pushes an object hash to the recursion stack and adds it to the object list
    *
    * @param string $hash
+   *
    * @throws \LogicException
    */
   protected function _popObjectStack($hash) {
@@ -191,6 +191,7 @@ abstract class Visitor {
    * Check if object hash is in current recursion stack
    *
    * @param string $hash
+   *
    * @return bool
    */
   protected function _isObjectRecursion($hash) {
@@ -201,6 +202,7 @@ abstract class Visitor {
    * Check if object hash is in object list (already visited)
    *
    * @param string $hash
+   *
    * @return bool
    */
   protected function _isObjectDuplicate($hash) {
@@ -211,6 +213,7 @@ abstract class Visitor {
    * Return index of object in this context
    *
    * @param string $hash
+   *
    * @return int
    */
   protected function _getObjectIndex($hash) {

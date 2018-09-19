@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -46,6 +45,7 @@ class TraversableIterator implements \OuterIterator {
    * to reuse an already fetched/created iterator.
    *
    * @param bool $useCached
+   *
    * @return \Iterator
    */
   public function getIteratorForTraversable($useCached = FALSE) {

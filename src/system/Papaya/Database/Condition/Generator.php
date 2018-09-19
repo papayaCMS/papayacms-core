@@ -12,14 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Condition;
 
 /**
  * papaya CMS
  *
  * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ *
  * @link http://www.papaya-cms.com/
+ *
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
  *  You can redistribute and/or modify this script under the terms of the GNU General Public
@@ -49,6 +50,7 @@ class Generator {
   /**
    * @param \Papaya\Database\Interfaces\Access|\Papaya\Database\Access $parent
    * @param \Papaya\Database\Interfaces\Mapping $mapping
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL) {

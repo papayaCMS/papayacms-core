@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases\Storage;
 
 class Database
@@ -116,6 +115,7 @@ class Database
 
   /**
    * @param \Papaya\Content\Phrase\Messages $messages
+   *
    * @return \Papaya\Content\Phrase\Messages
    */
   public function messages(\Papaya\Content\Phrase\Messages $messages = NULL) {

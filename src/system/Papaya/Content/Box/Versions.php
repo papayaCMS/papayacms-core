@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Box;
 
 /**
@@ -52,6 +51,7 @@ class Versions extends \Papaya\Database\BaseObject\Records {
    * @param int $boxId
    * @param null|int $limit maximum records returned
    * @param null|int $offset start offset for limited results
+   *
    * @return bool
    */
   public function load($boxId, $limit = NULL, $offset = NULL) {
@@ -71,6 +71,7 @@ class Versions extends \Papaya\Database\BaseObject\Records {
    * Create a new version record object and load the specified version data
    *
    * @param int $versionId
+   *
    * @return \Papaya\Content\Box\Version|null
    */
   public function getVersion($versionId) {

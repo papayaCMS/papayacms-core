@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -76,6 +75,7 @@ class Text extends \Papaya\Application\BaseObject {
    *
    * @param string $pattern
    * @param array $values
+   *
    * @return string
    */
   protected function compile($pattern, $values) {

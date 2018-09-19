@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -176,6 +175,7 @@ class Access extends \Papaya\Application\BaseObject {
    * Get database connection (implicit create)
    *
    * @var \Papaya\Database\Manager $databaseManager
+   *
    * @return \db_simple
    */
   public function getDatabaseConnector() {
@@ -194,6 +194,7 @@ class Access extends \Papaya\Application\BaseObject {
    * Set database connection
    *
    * @todo define an interface for database connectors
+   *
    * @param \db_simple $connector
    */
   public function setDatabaseConnector($connector) {
@@ -205,6 +206,7 @@ class Access extends \Papaya\Application\BaseObject {
    *
    * @param string $tableName
    * @param bool $usePrefix
+   *
    * @return bool
    */
   public function getTableName($tableName, $usePrefix = TRUE) {
@@ -240,6 +242,7 @@ class Access extends \Papaya\Application\BaseObject {
    * Get table name mapper object
    *
    * @param \Papaya\Content\Tables $tables
+   *
    * @return \Papaya\Content\Tables
    */
   public function tables(\Papaya\Content\Tables $tables = NULL) {
@@ -256,6 +259,7 @@ class Access extends \Papaya\Application\BaseObject {
    *
    * @param bool|null $forObject optional, default value NULL
    * @param bool|null $forConnection optional, default value NULL
+   *
    * @return bool use master connection only?
    */
   public function masterOnly($forObject = NULL, $forConnection = NULL) {
@@ -275,6 +279,7 @@ class Access extends \Papaya\Application\BaseObject {
    * should the current read request go to the write connection?
    *
    * @param bool $useable read connection possible
+   *
    * @return bool
    */
   public function readOnly($useable) {
@@ -312,7 +317,9 @@ class Access extends \Papaya\Application\BaseObject {
    *
    * @param string $functionName
    * @param array $arguments
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __call($functionName, $arguments) {
@@ -372,7 +379,9 @@ class Access extends \Papaya\Application\BaseObject {
    * callback and restore the default error handling set it to FALSE.
    *
    * @param callable|false $callback
+   *
    * @throws \InvalidArgumentException
+   *
    * @return callable|null void
    */
   public function errorHandler($callback = NULL) {

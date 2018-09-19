@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
@@ -61,7 +60,9 @@ class Wildfire
    * Send log message to browser using the Wildfire protocol if possible
    *
    * @param Message $message
+   *
    * @return bool
+   *
    * @throws \InvalidArgumentException
    */
   public function dispatch(Message $message) {
@@ -79,6 +80,7 @@ class Wildfire
    *
    * @param \Callback $usableCallback function to test technical conditions, if it is not set
    *                                  self::usable is used.
+   *
    * @return bool|mixed
    */
   public function allow($usableCallback = NULL) {
@@ -123,6 +125,7 @@ class Wildfire
    * Get Wildfire protocol handler object, create one if none ist set
    *
    * @return Wildfire\Handler
+   *
    * @throws \InvalidArgumentException
    */
   public function getHandler() {
@@ -136,6 +139,7 @@ class Wildfire
    * Send log message using the Wildfire protocol
    *
    * @param Message\Logable $message
+   *
    * @throws \InvalidArgumentException
    */
   public function send(Message\Logable $message) {
@@ -163,6 +167,7 @@ class Wildfire
    * Send a message context using the Wildfire protocol
    *
    * @param \Papaya\Message\Context\Data $context
+   *
    * @throws \InvalidArgumentException
    */
   public function sendContext($context) {
@@ -194,6 +199,7 @@ class Wildfire
    * Convert internal type to Wildfire message type
    *
    * @param int $type
+   *
    * @return string
    */
   public function getWildfireMessageType($type) {
@@ -207,6 +213,7 @@ class Wildfire
    * Convert internal type to a group label
    *
    * @param int $type
+   *
    * @return string
    */
   public function getWildfireGroupLabelFromType($type) {
@@ -222,6 +229,7 @@ class Wildfire
    * Variables dumps need to have a special format to display as much informations as possible.
    *
    * @param Message\Context\Variable $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextVariable(Message\Context\Variable $context) {
@@ -239,6 +247,7 @@ class Wildfire
    * output a list.
    *
    * @param Message\Context\Backtrace $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextTrace(Message\Context\Backtrace $context) {
@@ -268,6 +277,7 @@ class Wildfire
    * @param array $array
    * @param string $index
    * @param mixed $default
+   *
    * @return mixed|null
    */
   private function _getArrayElement($array, $index, $default = NULL) {
@@ -281,6 +291,7 @@ class Wildfire
    * for arguments avoiding recursions.
    *
    * @param array $element
+   *
    * @return array
    */
   private function _traceElementToArray(array $element) {
@@ -308,6 +319,7 @@ class Wildfire
    * FirePHP has a special formatted output for tables.
    *
    * @param Message\Context\Interfaces\Table $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextTable(Message\Context\Interfaces\Table $context) {
@@ -334,6 +346,7 @@ class Wildfire
    * This has to be a public function, so it is possible to call it using array_map
    *
    * @param mixed $value
+   *
    * @return string
    */
   public function formatTableValue($value) {

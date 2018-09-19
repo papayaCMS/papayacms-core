@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration;
 
 /**
@@ -28,6 +27,7 @@ class GlobalValues extends \Papaya\Configuration {
    * $_options array.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function has($name) {
@@ -44,6 +44,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @param string $name
    * @param mixed $default
    * @param \Papaya\Filter $filter
+   *
    * @return null|int|bool|float|string
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {

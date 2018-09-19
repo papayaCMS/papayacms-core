@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -33,6 +32,7 @@ class Time implements \Papaya\Filter {
    * Constructor
    *
    * @param float $step in seconds (optional, default 1.0)
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($step = 1.0) {
@@ -47,8 +47,10 @@ class Time implements \Papaya\Filter {
    * Validate a time
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   *
    * @return bool
    */
   public function validate($value) {
@@ -102,6 +104,7 @@ class Time implements \Papaya\Filter {
    * Filter a time
    *
    * @param string $value
+   *
    * @return mixed the filtered time value or NULL
    */
   public function filter($value) {

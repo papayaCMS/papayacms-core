@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -43,7 +42,9 @@ class UTF8 {
    * It assumes that the invalid bytes are ISO-8859-1. Valid UTF-8 chars stay unchanged.
    *
    * @param $string
+   *
    * @internal param string $str
+   *
    * @return string
    */
   public static function ensure($string) {
@@ -77,6 +78,7 @@ class UTF8 {
    * Return a codepoint for a given utf 8 encoded character
    *
    * @param string $character
+   *
    * @return int|false
    */
   public static function getCodepoint($character) {
@@ -113,6 +115,7 @@ class UTF8 {
    * Get string length of an utf-8 string (works only on utf-8 strings)
    *
    * @param string $string
+   *
    * @return int
    */
   public static function length($string) {
@@ -132,6 +135,7 @@ class UTF8 {
    * @param string $string
    * @param int $start
    * @param null|int $length
+   *
    * @return string
    */
   public static function copy($string, $start, $length = NULL) {
@@ -184,6 +188,7 @@ class UTF8 {
    * @param string $haystack
    * @param string $needle
    * @param int $offset
+   *
    * @return false|int
    */
   public static function position($haystack, $needle, $offset = 0) {

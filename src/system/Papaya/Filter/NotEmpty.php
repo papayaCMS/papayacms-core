@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -46,7 +45,9 @@ class NotEmpty implements \Papaya\Filter {
    * check the trimmed version, too.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
+   *
    * @return bool
    */
   public function validate($value) {
@@ -68,7 +69,9 @@ class NotEmpty implements \Papaya\Filter {
    * If spaces are ignored trim the value. If the value is empty return NULL.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
+   *
    * @return string|null
    */
   public function filter($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Structure;
 
 /**
@@ -43,6 +42,7 @@ class Page extends Node {
    * Groups defined for this page
    *
    * @param Groups $groups
+   *
    * @return Groups
    */
   public function groups(Groups $groups = NULL) {

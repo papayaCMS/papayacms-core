@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -62,6 +61,7 @@ class Configuration
    * Validate and define the options.
    *
    * @param array $options
+   *
    * @throws \UnexpectedValueException
    */
   protected function defineOptions(array $options) {
@@ -98,6 +98,7 @@ class Configuration
    * @param string $name
    * @param string $default
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
@@ -115,6 +116,7 @@ class Configuration
    * @param mixed $value
    * @param mixed $default
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   protected function filter($value, $default = NULL, \Papaya\Filter $filter = NULL) {
@@ -136,8 +138,10 @@ class Configuration
    * uses the get() method.
    *
    * @deprecated {@see \Papaya\Configuration::get()}
+   *
    * @param string $name
    * @param mixed $default
+   *
    * @return mixed
    */
   public function getOption($name, $default = NULL) {
@@ -165,6 +169,7 @@ class Configuration
    * $_options array.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function has($name) {
@@ -176,6 +181,7 @@ class Configuration
    * Assign the values of an array or traverseable object to the current configuration object.
    *
    * @param array|\Traversable $source
+   *
    * @throws \InvalidArgumentException
    */
   public function assign($source) {
@@ -205,7 +211,9 @@ class Configuration
    * Getter/Setter for the storage object
    *
    * @throws \LogicException
+   *
    * @param \Papaya\Configuration\Storage $storage
+   *
    * @return \Papaya\Configuration\Storage
    */
   public function storage(\Papaya\Configuration\Storage $storage = NULL) {
@@ -221,7 +229,9 @@ class Configuration
    * Magic method, property syntax for options existance check
    *
    * @see self::has()
+   *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -232,7 +242,9 @@ class Configuration
    * Magic method, property syntax for options read
    *
    * @see self::get()
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -243,6 +255,7 @@ class Configuration
    * Magic method, property syntax for options write
    *
    * @see self::set()
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -254,7 +267,9 @@ class Configuration
    * ArrayAccess interface: check if an option exists
    *
    * @see self::has()
+   *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -265,7 +280,9 @@ class Configuration
    * ArrayAccess interface: read an option
    *
    * @see self::get()
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -276,6 +293,7 @@ class Configuration
    * ArrayAccess interface: write an option
    *
    * @see self::set()
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -289,6 +307,7 @@ class Configuration
    *
    *
    * @param string $name
+   *
    * @throws \LogicException
    */
   public function offsetUnset($name) {

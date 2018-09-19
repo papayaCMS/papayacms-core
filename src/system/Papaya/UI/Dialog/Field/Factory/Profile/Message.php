@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -24,7 +23,9 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
 class Message extends \Papaya\UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
+   *
    * @return \Papaya\UI\Dialog\Field\Message
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {

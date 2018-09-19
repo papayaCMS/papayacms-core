@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Ip;
 
 /**
@@ -30,9 +29,11 @@ class V6 implements \Papaya\Filter {
    *    and there must not be more than one empty part.
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\InvalidPart
+   *
    * @return bool TRUE
    */
   public function validate($value) {
@@ -70,6 +71,7 @@ class V6 implements \Papaya\Filter {
    * This method filters leading and trailing whitespaces from the input IP.
    *
    * @param string $value
+   *
    * @return mixed string|NULL
    */
   public function filter($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Profiler\Storage;
 
 /**
@@ -105,6 +104,7 @@ class Xhgui
    * Remove session id, querystring and fragment from url
    *
    * @param string $url
+   *
    * @return string
    */
   private function normalizeURL($url) {

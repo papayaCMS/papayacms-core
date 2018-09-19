@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response;
 
 /**
@@ -103,6 +102,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * ArrayAccess: Check if a header is in the list
    *
    * @param string $header
+   *
    * @return bool
    */
   public function offsetExists($header) {
@@ -124,6 +124,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * ArrayAccess: Get header value(s)
    *
    * @param string $header
+   *
    * @return mixed
    */
   public function offsetGet($header) {
@@ -135,6 +136,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * This method is used by the other methods to make the header name case insensitive.
    *
    * @param string $header
+   *
    * @return string
    */
   private function _normalize($header) {

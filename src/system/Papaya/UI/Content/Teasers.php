@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Content;
 
 /**
@@ -73,6 +72,7 @@ class Teasers extends \Papaya\UI\Control {
    * Getter/Setter for the pages subobject
    *
    * @param \Papaya\Content\Pages $pages
+   *
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
@@ -86,6 +86,7 @@ class Teasers extends \Papaya\UI\Control {
    * Getter/Setter for the view configurations
    *
    * @param \Papaya\Content\View\Configurations $viewConfigurations
+   *
    * @return \Papaya\Content\View\Configurations
    */
   public function viewConfigurations(\Papaya\Content\View\Configurations $viewConfigurations = NULL) {
@@ -112,6 +113,7 @@ class Teasers extends \Papaya\UI\Control {
    * Getter/Setter for the template reference subobject used to generate links to the subpages
    *
    * @param \Papaya\UI\Reference\Page $reference
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function reference(\Papaya\UI\Reference\Page $reference = NULL) {
@@ -129,6 +131,7 @@ class Teasers extends \Papaya\UI\Control {
    * if configuration was provided.
    *
    * @see \Papaya\XML\Appendable::appendTo()
+   *
    * @param \Papaya\XML\Element $parent
    */
   public function appendTo(\Papaya\XML\Element $parent) {

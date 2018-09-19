@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Server;
 
 /**
@@ -116,6 +115,7 @@ class Agent {
    * Fetch the user agent from $_SERVER['HTTP_USER_AGENT'].
    *
    * @param string
+   *
    * @return string
    */
   public static function get() {
@@ -134,6 +134,7 @@ class Agent {
    * @param string $userAgent
    * @param bool $useCache
    * @param bool
+   *
    * @return bool
    */
   public static function isRobot($userAgent = '', $useCache = TRUE) {
@@ -157,6 +158,7 @@ class Agent {
    *
    * @param string $userAgent
    * @param bool
+   *
    * @return bool
    */
   private static function _checkAgentIsRobot($userAgent) {
@@ -171,6 +173,7 @@ class Agent {
    *
    * @param string $userAgent
    * @param array $list
+   *
    * @return bool
    */
   private static function _checkAgainstList($userAgent, $list) {

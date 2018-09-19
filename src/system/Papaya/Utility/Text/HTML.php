@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -30,6 +29,7 @@ class HTML {
    * Escape HTML meta chars in string after stripping tags
    *
    * @param string $string
+   *
    * @return string
    */
   public static function escapeStripped($string) {
@@ -40,6 +40,7 @@ class HTML {
    * Strip HTML tags from string (positive match, result needs escaping)
    *
    * @param string $string
+   *
    * @return string
    */
   public static function stripTags($string) {
@@ -51,6 +52,7 @@ class HTML {
    * &auml;
    *
    * @param string $string
+   *
    * @return string
    */
   public static function decodeNamedEntities($string) {

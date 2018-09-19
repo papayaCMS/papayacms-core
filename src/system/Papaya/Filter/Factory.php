@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -72,6 +71,7 @@ class Factory implements \IteratorAggregate {
    *
    *
    * @return \Traversable|void
+   *
    * @throws \ReflectionException
    */
   public function getIterator() {
@@ -82,7 +82,9 @@ class Factory implements \IteratorAggregate {
    * Fetch all constants from \Papaya\Filter and store them in an internal array.
    *
    * @codeCoverageIgnore
+   *
    * @return array
+   *
    * @throws \ReflectionException
    */
   private static function _getProfiles() {
@@ -101,6 +103,7 @@ class Factory implements \IteratorAggregate {
    * Check if a profile for an filter exists.
    *
    * @param $name
+   *
    * @return bool
    */
   public function hasProfile($name) {
@@ -111,6 +114,7 @@ class Factory implements \IteratorAggregate {
    * Get the class name for a given profile
    *
    * @param string $name
+   *
    * @return string
    */
   private static function _getProfileClass($name) {
@@ -131,7 +135,9 @@ class Factory implements \IteratorAggregate {
    * Get the filter factory profile by name
    *
    * @param string $name
+   *
    * @throws Factory\Exception\InvalidProfile
+   *
    * @return Factory\Profile
    */
   public function getProfile($name) {
@@ -142,7 +148,9 @@ class Factory implements \IteratorAggregate {
    * Get the filter factory profile by name, internal static call
    *
    * @param string $name
+   *
    * @return Factory\Profile
+   *
    * @throws Factory\Exception\InvalidProfile
    * @throws Factory\Exception\InvalidProfile
    */
@@ -163,7 +171,9 @@ class Factory implements \IteratorAggregate {
    * @param Factory\Profile|string $profile
    * @param bool $mandatory
    * @param mixed $options
+   *
    * @return \Papaya\Filter
+   *
    * @throws Factory\Exception\InvalidProfile
    */
   public function getFilter($profile, $mandatory = TRUE, $options = NULL) {
@@ -176,7 +186,9 @@ class Factory implements \IteratorAggregate {
    * @param string|Factory\Profile $profile
    * @param bool $mandatory
    * @param mixed $options
+   *
    * @return \Papaya\Filter|\Papaya\Filter\LogicalOr
+   *
    * @throws Factory\Exception\InvalidProfile
    */
   private static function _getFilter($profile, $mandatory = TRUE, $options = NULL) {
@@ -203,7 +215,9 @@ class Factory implements \IteratorAggregate {
    * @param mixed $value
    * @param string|\Papaya\Filter|Factory\Profile $filter
    * @param bool $mandatory
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function validate($value, $filter, $mandatory = TRUE) {
@@ -229,7 +243,9 @@ class Factory implements \IteratorAggregate {
    *
    * @param mixed $value
    * @param string|\Papaya\Filter|Factory\Profile $filter
+   *
    * @return mixed
+   *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function filter($value, $filter) {
@@ -245,7 +261,9 @@ class Factory implements \IteratorAggregate {
    * @param string $value
    * @param string $pattern
    * @param bool $mandatory
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function matches($value, $pattern, $mandatory = TRUE) {
@@ -255,7 +273,9 @@ class Factory implements \IteratorAggregate {
   /**
    * @param string $name
    * @param array $arguments
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function __callStatic($name, $arguments) {

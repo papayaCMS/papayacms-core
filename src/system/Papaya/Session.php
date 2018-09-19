@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -100,6 +99,7 @@ class Session extends Application\BaseObject {
    * the session values.
    *
    * @param \Papaya\Session\Values $values
+   *
    * @return \Papaya\Session\Values
    */
   public function values(Session\Values $values = NULL) {
@@ -116,6 +116,7 @@ class Session extends Application\BaseObject {
    * Getter/Setter for session options object
    *
    * @param \Papaya\Session\Options $options
+   *
    * @return \Papaya\Session\Options
    */
   public function options(Session\Options $options = NULL) {
@@ -132,6 +133,7 @@ class Session extends Application\BaseObject {
    * Getter/Setter for session identifier object
    *
    * @param \Papaya\Session\Id $id
+   *
    * @return \Papaya\Session\Id
    */
   public function id(Session\Id $id = NULL) {
@@ -148,6 +150,7 @@ class Session extends Application\BaseObject {
    * Getter/Setter for session options object
    *
    * @param \Papaya\Session\Wrapper $wrapper
+   *
    * @return \Papaya\Session\Wrapper
    */
   public function wrapper(Session\Wrapper $wrapper = NULL) {
@@ -167,7 +170,9 @@ class Session extends Application\BaseObject {
    * $this->papaya()->session->values['name'];
    *
    * @param string $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -194,6 +199,7 @@ class Session extends Application\BaseObject {
    * Prohibit write access to all undeclared properties
    *
    * @throws \LogicException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -219,6 +225,7 @@ class Session extends Application\BaseObject {
    * For backwards compatibility add a shortcut to the values.
    *
    * @param string|array $name
+   *
    * @return mixed
    */
   public function getValue($name) {
@@ -284,6 +291,7 @@ class Session extends Application\BaseObject {
    * If the method returns a redirect response, the caller should send it.
    *
    * @param bool|string $redirect
+   *
    * @return null|\Papaya\Session\Redirect redirect response or null
    */
   public function activate($redirect = FALSE) {
@@ -396,6 +404,7 @@ class Session extends Application\BaseObject {
    * Create a new session id, redirect if session id is in path
    *
    * @param string $targetURL
+   *
    * @return \Papaya\Session\Redirect|false
    */
   public function regenerateId($targetURL = NULL) {
@@ -428,6 +437,7 @@ class Session extends Application\BaseObject {
    *
    * @param int $transport
    * @param string $reason
+   *
    * @return \Papaya\Session\Redirect
    */
   private function _createRedirect($transport = 0, $reason = 'session redirect') {

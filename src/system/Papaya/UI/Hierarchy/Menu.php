@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Hierarchy;
 
 /**
@@ -44,6 +43,7 @@ class Menu extends \Papaya\UI\Control {
    * Append menu to parent xml element
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -60,6 +60,7 @@ class Menu extends \Papaya\UI\Control {
    * Getter/Setter for the hierarchy items collection
    *
    * @param Items $items
+   *
    * @return Items
    */
   public function items(Items $items = NULL) {

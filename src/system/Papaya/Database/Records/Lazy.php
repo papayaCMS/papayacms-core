@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
 
 /**
@@ -71,6 +70,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    * @param int|null $limit
    * @param int|null $offset
    * @param array $idProperties
+   *
    * @return bool
    */
   protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
@@ -82,6 +82,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    *Absolute Count for limited results
    *
    * @return int
+   *
    * @internal param mixed $offset
    */
   public function absCount() {
@@ -123,6 +124,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    * ArrayAccess Interface, validate if record exists, after triggering lazy load.
    *
    * @param mixed $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -134,6 +136,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    * ArrayAccess Interface, return record, after triggering lazy load.
    *
    * @param mixed $offset
+   *
    * @return array
    */
   public function offsetGet($offset) {

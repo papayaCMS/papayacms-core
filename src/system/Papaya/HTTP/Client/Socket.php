@@ -23,6 +23,7 @@ namespace Papaya\HTTP\Client;
 class Socket {
   /**
    * connection resource id
+   *
    * @var resource
    */
   protected $_resource;
@@ -36,24 +37,28 @@ class Socket {
 
   /**
    * host used the connection was opened to
+   *
    * @var string
    */
   private $_host;
 
   /**
    * port the connection was opened to
+   *
    * @var int
    */
   private $_port;
 
   /**
    * size of the current chunk (reading only)
+   *
    * @var int
    */
   private $_currentChunkSize = 0;
 
   /**
    * linebreak chars
+   *
    * @var string
    */
   private $_lineBreak = "\r\n";
@@ -70,6 +75,7 @@ class Socket {
 
   /**
    * FALSE if the connection should not be put into the pool on close
+   *
    * @var bool
    */
   private $_keepAlive = TRUE;
@@ -103,6 +109,7 @@ class Socket {
    * @param int $timeout optional, default value 10
    * @param string $scheme optional, default value 'http'
    * @param string $transport optional, default value ''
+   *
    * @return bool
    */
   public function open($host, $port, $timeout = 10, $scheme = 'http', $transport = '') {
@@ -155,7 +162,9 @@ class Socket {
 
   /**
    * read response data
+   *
    * @param $maxBytes
+   *
    * @return string
    */
   public function read($maxBytes = 8192) {
@@ -184,6 +193,7 @@ class Socket {
    * read n bytes from response data
    *
    * @param int $maxBytes optional, default value 2048
+   *
    * @return string
    */
   private function _readBytes($maxBytes) {
@@ -196,6 +206,7 @@ class Socket {
    * read chunked response data (Transfer-Encoding: chunked)
    *
    * @param int $maxBytes optional, default value 2048
+   *
    * @return string
    */
   private function _readChunked($maxBytes = 8192) {
@@ -235,7 +246,9 @@ class Socket {
 
   /**
    * write line breaks
+   *
    * @param $count
+   *
    * @return string
    */
   public function writeLineBreak($count = 1) {
@@ -325,6 +338,7 @@ class Socket {
    *   on close after this request.
    *
    * @param bool $keepAlive
+   *
    * @return bool value that is now in effect
    */
   public function setKeepAlive($keepAlive) {
@@ -338,6 +352,7 @@ class Socket {
    * Activate a reading timeout for the stream. The value is given in seconds.
    *
    * @param int $time
+   *
    * @return bool
    */
   public function activateReadTimeout($time) {

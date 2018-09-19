@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\URL\Transformer;
 
 /**
@@ -26,6 +25,7 @@ class Cleanup {
    * Remove relative paths from the url
    *
    * @param string $target url to transform
+   *
    * @return string
    */
   public function transform($target) {
@@ -61,6 +61,7 @@ class Cleanup {
    * This method calculates /../ occurrences and removes // and /./ occurrences from a path
    *
    * @param string $path
+   *
    * @return string
    */
   protected function _calculateRealPath($path) {

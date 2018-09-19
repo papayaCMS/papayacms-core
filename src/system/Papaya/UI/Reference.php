@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -73,6 +72,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * will return an empty string as url (get() and getRelative()).
    *
    * @param bool $isValid
+   *
    * @return bool
    */
   public function valid($isValid = NULL) {
@@ -86,6 +86,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Static create function to allow fluent calls.
    *
    * @param \Papaya\URL $url
+   *
    * @return self
    */
   public static function create(\Papaya\URL $url = NULL) {
@@ -117,6 +118,7 @@ class Reference extends \Papaya\Application\BaseObject {
    *
    * @param \Papaya\URL|null $currentURL
    * @param bool $includeQueryString
+   *
    * @return string
    */
   public function getRelative($currentURL = NULL, $includeQueryString = TRUE) {
@@ -151,6 +153,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Get reference string
    *
    * @param bool $forPublic URL is for public use (do not include the session id)
+   *
    * @return string
    */
   public function get($forPublic = FALSE) {
@@ -164,6 +167,7 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * @param $path
    * @param bool $forPublic URL is for public use (do not include the session id)
+   *
    * @return string
    */
   protected function cleanupPath($path, $forPublic = FALSE) {
@@ -178,6 +182,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Set/Get attached url object or use the request to load one.
    *
    * @param \Papaya\URL $url
+   *
    * @return \Papaya\URL
    */
   public function url(\Papaya\URL $url = NULL) {
@@ -192,6 +197,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * load request data to reference
    *
    * @param \Papaya\Request $request
+   *
    * @return self
    */
   public function load(\Papaya\Request $request) {
@@ -208,7 +214,9 @@ class Reference extends \Papaya\Application\BaseObject {
    * Specifiy a custom parameter group separator
    *
    * @param string $separator Allowed values: '[]', ',', ':', '/', '*', '!'
+   *
    * @throws \InvalidArgumentException
+   *
    * @return self
    */
   public function setParameterGroupSeparator($separator) {
@@ -241,6 +249,7 @@ class Reference extends \Papaya\Application\BaseObject {
    *
    * @param array|\Papaya\Request\Parameters $parameters
    * @param string|null $parameterGroup
+   *
    * @return self
    */
   public function setParameters($parameters, $parameterGroup = NULL) {
@@ -281,6 +290,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Get reference query string prefixed by "?"
    *
    * @param bool $forPublic remove session id parameter for public urls
+   *
    * @return string
    */
   public function getQueryString($forPublic = FALSE) {
@@ -304,6 +314,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Set fragment
    *
    * @param string $fragment
+   *
    * @return self
    */
   public function setFragment($fragment) {
@@ -340,6 +351,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Set web base path
    *
    * @param string $path
+   *
    * @return self
    */
   public function setBasePath($path) {

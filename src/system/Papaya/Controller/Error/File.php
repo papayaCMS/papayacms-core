@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller\Error;
 
 /**
@@ -26,6 +25,7 @@ class File extends \Papaya\Controller\Error {
    * Set template data from file
    *
    * @param string $fileName
+   *
    * @return bool
    */
   public function setTemplateFile($fileName) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parser;
 
 /**
@@ -33,6 +32,7 @@ class System extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
+   *
    * @return false|array
    */
   public function parse($url) {

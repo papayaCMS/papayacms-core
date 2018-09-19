@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -35,6 +34,7 @@ class References extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $pageId
    * @param int $languageId
+   *
    * @return bool
    */
   public function load($pageId, $languageId = 0) {

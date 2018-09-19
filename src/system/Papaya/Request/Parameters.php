@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
 
 /**
@@ -34,6 +33,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * Get a subgroup of parameters
    *
    * @param string $groupName
+   *
    * @return self
    */
   public function getGroup($groupName) {
@@ -52,9 +52,11 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * return the default value if no value is found.
    *
    * @see \Papaya\BaseObject\Parameters::get()
+   *
    * @param array|int|string $offset
    * @param null $defaultValue
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function get($offset, $defaultValue = NULL, \Papaya\Filter $filter = NULL) {
@@ -67,6 +69,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    *
    * @param int|string|array|\Traversable $offsets
    * @param mixed $value
+   *
    * @return $this
    */
   public function set($offsets, $value = NULL) {
@@ -85,6 +88,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * parameter name.
    *
    * @param int|string|array(string) $offsets
+   *
    * @return $this
    */
   public function remove($offsets) {
@@ -111,6 +115,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    *
    * @param string $name
    * @param string $groupSeparator
+   *
    * @return array|string
    */
   private function _parseParameterName($name, $groupSeparator = '') {
@@ -124,6 +129,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @param string|array|bool $parameter
    * @param bool $stripSlashes
    * @param int $recursion
+   *
    * @return array|string
    */
   public function prepareParameter($parameter, $stripSlashes = FALSE, $recursion = 42) {
@@ -146,6 +152,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * Get encoded query string
    *
    * @param $groupSeparator
+   *
    * @return string
    */
   public function getQueryString($groupSeparator) {
@@ -156,6 +163,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
 
   /**
    * @param string $queryString
+   *
    * @return $this
    */
   public function setQueryString($queryString) {
@@ -169,6 +177,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * Return the parameters as a flat array (name => value)
    *
    * @param string $groupSeparator
+   *
    * @return array
    */
   public function getList($groupSeparator = '[]') {
@@ -184,6 +193,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * @param string $groupSeparator
    * @param string $prefix
    * @param int $maxRecursions
+   *
    * @return array
    */
   private function flattenArray($parameters, $groupSeparator, $prefix = '', $maxRecursions = 42) {
@@ -221,6 +231,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * ArrayAccess Interface: check if index exists
    *
    * @param string|int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -242,7 +253,9 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    * If the value is an array, it will return a new instance of itself containing the array.
    *
    * @param string|int $offset
+   *
    * @internal param mixed $value
+   *
    * @return mixed|self
    */
   public function offsetGet($offset) {

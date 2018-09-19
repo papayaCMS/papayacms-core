@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -26,6 +25,7 @@ class XML {
    * Escape XML meta chars in string
    *
    * @param string $string
+   *
    * @return string
    */
   public static function escape($string) {
@@ -36,6 +36,7 @@ class XML {
    * Unescape XML meta chars in string
    *
    * @param string $string
+   *
    * @return string
    */
   public static function unescape($string) {
@@ -46,6 +47,7 @@ class XML {
    * Escape XML meta chars and linebreaks in string
    *
    * @param string $string
+   *
    * @return string
    */
   public static function escapeAttribute($string) {
@@ -60,6 +62,7 @@ class XML {
    * Try to repair anf fix entities (unencaped and from html) to ensure valid xml.
    *
    * @param string $string
+   *
    * @return string
    */
   public static function repairEntities($string) {
@@ -89,6 +92,7 @@ class XML {
    *
    * @param array $array
    * @param string $tagName
+   *
    * @return string
    */
   public static function serializeArray($array, $tagName = 'data') {
@@ -133,6 +137,7 @@ class XML {
    * Unserialize a php array from xml
    *
    * @param string $xml
+   *
    * @return array
    */
   public static function unserializeArray($xml) {
@@ -181,6 +186,7 @@ class XML {
    * UTF-8 Bytes encoded as Latin1-Entities (between 125 and 255) decode them to bytes.
    *
    * @param array $match
+   *
    * @return string
    */
   public static function decodeOldEntitiesToUtf8($match) {
@@ -226,6 +232,7 @@ class XML {
    *
    * @param \DOMElement $sourceNode
    * @param int $length
+   *
    * @return \DOMElement
    */
   public static function truncate(\DOMElement $sourceNode, $length) {
@@ -243,6 +250,7 @@ class XML {
    * @param \DOMElement $sourceNode
    * @param \DOMElement $targetNode
    * @param int $length
+   *
    * @return int
    */
   private static function _truncateChildNodes(
@@ -289,6 +297,7 @@ class XML {
    *
    * @param \DOMElement $sourceNode
    * @param \DOMNode $targetParent
+   *
    * @return \DOMElement Imported node
    */
   private static function _copyElement(\DOMElement $sourceNode, \DOMNode $targetParent) {
@@ -309,7 +318,9 @@ class XML {
    * Validate if the given string is a qualified element name (tag name)
    *
    * @param string $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return true
    */
   public static function isQName($name) {
@@ -330,7 +341,9 @@ class XML {
    * @param string $name
    * @param int $offset Offset of NCName part in QName
    * @param int $length Length of NCName part in QName
+   *
    * @return bool
+   *
    * @throws \UnexpectedValueException
    */
   public static function isNcName($name, $offset = 0, $length = 0) {
@@ -373,6 +386,7 @@ class XML {
    * Removes control characters (invalid in PCDATA in XML) from an string.
    *
    * @param $string
+   *
    * @return string
    */
   public static function removeControlCharacters($string) {

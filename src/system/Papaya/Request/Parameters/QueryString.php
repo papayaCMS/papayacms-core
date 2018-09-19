@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameters;
 
 /**
@@ -49,6 +48,7 @@ class QueryString {
    * Set the group separator
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $groupSeparator
    */
   public function setSeparator($groupSeparator) {
@@ -67,6 +67,7 @@ class QueryString {
    * Get/set the values object
    *
    * @param \Papaya\Request\Parameters $values
+   *
    * @return \Papaya\Request\Parameters
    */
   public function values(\Papaya\Request\Parameters $values = NULL) {
@@ -84,6 +85,7 @@ class QueryString {
    *
    * @param string $queryString
    * @param bool $stripSlashes
+   *
    * @return self
    */
   public function setString($queryString, $stripSlashes = FALSE) {
@@ -130,6 +132,7 @@ class QueryString {
    *
    * @param string|array $parameter
    * @param bool $stripSlashes
+   *
    * @return array|string
    */
   private function _prepare($parameter, $stripSlashes = FALSE) {
@@ -145,6 +148,7 @@ class QueryString {
    * @param string $prefix
    * @param array $parameters
    * @param int $maxRecursions
+   *
    * @return string
    */
   private function _encode($prefix, $parameters, $maxRecursions = 10) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -55,7 +54,9 @@ class Password implements \Papaya\Filter {
    * Check the password input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -77,6 +78,7 @@ class Password implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {

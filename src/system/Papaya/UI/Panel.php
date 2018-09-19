@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -40,6 +39,7 @@ abstract class Panel extends Control {
    * Append panel to output xml
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element $panel
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -64,6 +64,7 @@ abstract class Panel extends Control {
    * Toolbars for the four corners of the panel
    *
    * @param \Papaya\UI\Toolbars $toolbars
+   *
    * @return \Papaya\UI\Toolbars
    */
   public function toolbars(\Papaya\UI\Toolbars $toolbars = NULL) {

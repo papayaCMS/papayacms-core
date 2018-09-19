@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation;
 
 /**
@@ -48,6 +47,7 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
    * Append a item to the xml and return it for further modifications in child classes.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -68,6 +68,7 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
    * to the xml element
    *
    * @param bool|null $selected
+   *
    * @return bool
    */
   public function selected($selected = NULL) {
@@ -82,6 +83,7 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for a reference subobject to create detail page links
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

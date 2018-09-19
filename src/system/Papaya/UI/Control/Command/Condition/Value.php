@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Condition;
 
 /**
@@ -33,6 +32,7 @@ class Value extends \Papaya\UI\Control\Command\Condition {
    * Create object and store callback.
    *
    * @param bool $value
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($value) {

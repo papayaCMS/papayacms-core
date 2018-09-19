@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Permission;
 
 use Papaya\Administration;
@@ -138,6 +137,7 @@ class Groups implements \IteratorAggregate {
    * First level are the group ids and titles. Second level are the permission ids and titles.
    *
    * @see \IteratorAggregate::getIterator()
+   *
    * @return \Iterator
    */
   public function getIterator() {
@@ -151,6 +151,7 @@ class Groups implements \IteratorAggregate {
    * get the group id for an given permission
    *
    * @param int $permissionId
+   *
    * @return int
    */
   public function getGroupId($permissionId) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -30,6 +29,7 @@ class Constraints {
    * @param string $expected expected types string
    * @param mixed $value actual value
    * @param string $message Individual error message (can be empty)
+   *
    * @return \UnexpectedValueException
    */
   protected static function createException($expected, $value, $message) {
@@ -50,8 +50,10 @@ class Constraints {
    * Assert value is an array
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertArray($value, $message = '') {
@@ -66,8 +68,10 @@ class Constraints {
    * used on the variable.
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertArrayOrTraversable($value, $message = '') {
@@ -83,8 +87,10 @@ class Constraints {
    * Assert value is a boolean
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertBoolean($value, $message = '') {
@@ -98,8 +104,10 @@ class Constraints {
    * Assert value is a boolean
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertCallable($value, $message = '') {
@@ -113,9 +121,11 @@ class Constraints {
    * Assert value is contained in the given list
    *
    * @throws \UnexpectedValueException
+   *
    * @param array $array
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertContains(array $array, $value, $message = '') {
@@ -133,8 +143,10 @@ class Constraints {
    * Assert value is a float
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertFloat($value, $message = '') {
@@ -148,8 +160,10 @@ class Constraints {
    * Assert value is an integer
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertInteger($value, $message = '') {
@@ -163,8 +177,10 @@ class Constraints {
    * Assert value is not empty
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertNotEmpty($value, $message = '') {
@@ -182,8 +198,10 @@ class Constraints {
    * Assert value is a number (integer or float)
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertNumber($value, $message = '') {
@@ -197,8 +215,10 @@ class Constraints {
    * Assert value is an object
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertObject($value, $message = '') {
@@ -214,8 +234,10 @@ class Constraints {
    * This is not a class check! Use type hints and the instanceof operator.
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertObjectOrNull($value, $message = '') {
@@ -229,9 +251,11 @@ class Constraints {
    * Assert value is an instance of $className
    *
    * @throws \UnexpectedValueException
+   *
    * @param array|string $expectedClass
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertInstanceOf($expectedClass, $value, $message = '') {
@@ -254,9 +278,11 @@ class Constraints {
    * Assert value is an instance of $className if it is not NULL
    *
    * @throws \UnexpectedValueException
+   *
    * @param array|string $expectedClass
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertInstanceOfOrNull($expectedClass, $value, $message = '') {
@@ -270,8 +296,10 @@ class Constraints {
    * Assert value is a resource
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertResource($value, $message = '') {
@@ -285,8 +313,10 @@ class Constraints {
    * Assert value is a string
    *
    * @throws \UnexpectedValueException
+   *
    * @param mixed $value
    * @param string $message Individual error message (can be empty)
+   *
    * @return true
    */
   public static function assertString($value, $message = '') {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Dialog\Plugin;
 
 /**
@@ -47,6 +46,7 @@ class Content extends \Papaya\UI\Control\Command\Dialog {
    * Execute command and append result to output xml
    *
    * @param \Papaya\XML\Element
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -69,6 +69,7 @@ class Content extends \Papaya\UI\Control\Command\Dialog {
    * Create the dialog object and assign the content data to it.
    *
    * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   *
    * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {

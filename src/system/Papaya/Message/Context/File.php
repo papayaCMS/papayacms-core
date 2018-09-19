@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -53,6 +52,7 @@ class File
    * Validate if the given file is readable
    *
    * @param string $fileName
+   *
    * @return bool
    */
   public function readable($fileName) {

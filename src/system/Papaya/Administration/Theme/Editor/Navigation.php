@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme\Editor;
 
 use Papaya\Content;
@@ -100,6 +99,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * selected skin.
    *
    * @param UI\ListView $listview
+   *
    * @return UI\ListView
    */
   public function listview(UI\ListView $listview = NULL) {
@@ -166,6 +166,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * @param UI\ListView\Items\Builder $builder
    * @param UI\ListView\Items $items
    * @param mixed $element
+   *
    * @return null|UI\ListView\Item
    */
   public function callbackCreateItem(UI\ListView\Items\Builder $builder, UI\ListView\Items $items, $element) {
@@ -187,6 +188,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme
    *
    * @param string $element
+   *
    * @return UI\ListView\Item
    */
   private function createThemeItem($element) {
@@ -210,6 +212,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a skin
    *
    * @param array $element
+   *
    * @return UI\ListView\Item
    */
   private function createSetItem($element) {
@@ -234,6 +237,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme values page
    *
    * @param \Papaya\Content\Structure\Page $element
+   *
    * @return UI\ListView\Item
    */
   private function createPageItem(\Papaya\Content\Structure\Page $element) {

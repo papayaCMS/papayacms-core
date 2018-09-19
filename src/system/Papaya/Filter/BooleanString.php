@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -57,7 +56,9 @@ class BooleanString
    * Validate the given value and return TRUE, throw and exception if it is empty.
    *
    * @param mixed $value
+   *
    * @throws \Papaya\Filter\Exception\IsEmpty
+   *
    * @return true
    */
   public function validate($value) {
@@ -72,6 +73,7 @@ class BooleanString
    * or a missing value. This is depending on the $castEmptyString constructor argument.
    *
    * @param mixed $value
+   *
    * @return bool|null
    */
   public function filter($value) {

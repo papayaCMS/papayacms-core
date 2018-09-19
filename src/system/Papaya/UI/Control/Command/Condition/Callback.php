@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Condition;
 
 /**
@@ -33,6 +32,7 @@ class Callback extends \Papaya\UI\Control\Command\Condition {
    * Create object and store callback.
    *
    * @param callable $callback
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($callback) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Content\Page;
@@ -38,6 +37,7 @@ class Properties
    * @param array $targetIds
    * @param int $originId
    * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -52,6 +52,7 @@ class Properties
    * Getter/Setter for the content page object
    *
    * @param Page\Work $page
+   *
    * @return Page\Work
    */
   public function page(Page\Work $page = NULL) {
@@ -68,6 +69,7 @@ class Properties
    *
    * @param Page\Translation $origin
    * @param array $targetIds
+   *
    * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {
@@ -92,6 +94,7 @@ class Properties
    *
    * @param Page\Work $origin
    * @param array $targetIds
+   *
    * @return bool
    */
   protected function updatePages(Page\Work $origin, array $targetIds) {

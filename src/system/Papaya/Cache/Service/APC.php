@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Service;
+
+use Papaya\Cache;
 
 /**
  * Papaya Cache Service for APC based cache
@@ -21,7 +22,7 @@ namespace Papaya\Cache\Service;
  * @package Papaya-Library
  * @subpackage Cache
  */
-class APC extends \Papaya\Cache\Service {
+class APC extends Cache\Service {
   /**
    * process cache - to avoid double requests
    *
@@ -47,10 +48,11 @@ class APC extends \Papaya\Cache\Service {
    * The APC does not need any configuration, So just overwrite the abstract function with an empty
    * one.
    *
-   * @param \Papaya\Cache\Configuration $configuration
+   * @param Cache\Configuration $configuration
+   *
    * @return bool
    */
-  public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
+  public function setConfiguration(Cache\Configuration $configuration) {
     return TRUE;
   }
 
@@ -58,7 +60,9 @@ class APC extends \Papaya\Cache\Service {
    * check if APC is here
    *
    * @param bool $silent
+   *
    * @throws \LogicException
+   *
    * @return bool
    */
   public function verify($silent = TRUE) {
@@ -98,6 +102,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param string $data Element data
    * @param int $expires Maximum age in seconds
+   *
    * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
@@ -119,6 +124,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -139,6 +145,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -159,6 +166,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -179,6 +187,7 @@ class APC extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
+   *
    * @return int
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
@@ -196,6 +205,7 @@ class APC extends \Papaya\Cache\Service {
    * @param $cacheId
    * @param $expires
    * @param $ifModifiedSince
+   *
    * @return bool
    */
   private function _read($cacheId, $expires, $ifModifiedSince) {

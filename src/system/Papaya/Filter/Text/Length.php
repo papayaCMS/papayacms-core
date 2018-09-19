@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Text;
 
 /**
@@ -47,6 +46,7 @@ class Length implements \Papaya\Filter {
    *
    * @param int|null $minimum
    * @param int|null $maximum
+   *
    * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
@@ -67,7 +67,9 @@ class Length implements \Papaya\Filter {
    * Check the string length and throw an exception if it does not not match limits
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -89,6 +91,7 @@ class Length implements \Papaya\Filter {
    * the maximum return a substring.
    *
    * @param string $value
+   *
    * @return int|null
    */
   public function filter($value) {

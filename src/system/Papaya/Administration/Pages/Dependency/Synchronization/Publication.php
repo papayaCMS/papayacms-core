@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Administration;
@@ -47,6 +46,7 @@ class Publication
    * @param array $targetIds
    * @param int $originId
    * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -73,6 +73,7 @@ class Publication
    * and fetch the publication period limits
    *
    * @param Page\Publication $publication
+   *
    * @return Page\Publication
    */
   public function publication(Page\Publication $publication = NULL) {
@@ -88,6 +89,7 @@ class Publication
    * Getter/Setter for working copy page object. This is used to publish the target pages.
    *
    * @param Page\Work $page
+   *
    * @return Page\Work
    */
   public function page(Page\Work $page = NULL) {
@@ -103,6 +105,7 @@ class Publication
    * Getter/Setter for a page version object. This is used to create version for the target pages.
    *
    * @param Page\Version $version
+   *
    * @return Page\Version
    */
   public function version(Page\Version $version = NULL) {
@@ -118,6 +121,7 @@ class Publication
    * Fetch the needed version data (owner, message, change level).
    *
    * @param int $pageId
+   *
    * @return array|false
    */
   private function getVersionData($pageId) {

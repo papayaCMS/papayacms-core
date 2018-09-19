@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Content;
 
 use Papaya\Content;
@@ -21,7 +20,9 @@ use Papaya\Content;
  * papaya CMS
  *
  * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ *
  * @link http://www.papaya-cms.com/
+ *
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
  *  You can redistribute and/or modify this script under the terms of the GNU General Public
@@ -83,6 +84,7 @@ class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @param \Papaya\Content\Page $page
+   *
    * @return \Papaya\Content\Page|Content\Page\Publication
    */
   public function page(Content\Page $page = NULL) {
@@ -97,6 +99,7 @@ class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @param Content\Page\Translation $translation
+   *
    * @return Content\Page\Publication\Translation|Content\Page\Translation
    */
   public function translation(Content\Page\Translation $translation = NULL) {
@@ -195,6 +198,7 @@ class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the template reference subobject used to generate links to the subpages
    *
    * @param \Papaya\UI\Reference\Page $reference
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function reference(\Papaya\UI\Reference\Page $reference = NULL) {
@@ -211,6 +215,7 @@ class Page extends \Papaya\Application\BaseObject {
    * @param object $plugin
    * @param array|\ArrayAccess $configuration
    * @param array|null $viewData
+   *
    * @return string
    */
   private function getPageHref($plugin, $configuration, array $viewData = NULL) {

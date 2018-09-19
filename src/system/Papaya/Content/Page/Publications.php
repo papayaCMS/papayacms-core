@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -42,6 +41,7 @@ class Publications extends \Papaya\Content\Pages {
    *
    * @param mixed $filter
    * @param string $prefix
+   *
    * @return array
    */
   protected function _compileCondition($filter, $prefix = 'WHERE') {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -64,6 +63,7 @@ class Collection extends \Papaya\Database\Records\Lazy {
    * @param array $filter
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
   public function load($filter = [], $limit = NULL, $offset = NULL) {
@@ -84,8 +84,10 @@ class Collection extends \Papaya\Database\Records\Lazy {
 
   /**
    * Fetch a list of all (active) plugins of a type
+   *
    * @param string $type
    * @param bool $activeOnly
+   *
    * @return \Papaya\Iterator\Filter\Callback
    */
   public function withType($type, $activeOnly = TRUE) {

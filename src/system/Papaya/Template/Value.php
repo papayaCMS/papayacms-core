@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template;
 
 /**
@@ -55,7 +54,9 @@ class Value {
    * Get/Set node property
    *
    * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   *
    * @throws \InvalidArgumentException
+   *
    * @return \Papaya\XML\Element|null
    */
   public function node($node = NULL) {
@@ -81,6 +82,7 @@ class Value {
    * Append the node represented by this value to a parent node.
    *
    * @param \Papaya\XML\Element $parentNode
+   *
    * @return $this
    */
   public function appendTo(\Papaya\XML\Element $parentNode) {
@@ -101,7 +103,9 @@ class Value {
    * @param string|\DOMElement $element
    * @param array $attributes
    * @param string $textContent
+   *
    * @throws \InvalidArgumentException
+   *
    * @return self|null
    */
   public function append($element, array $attributes = [], $textContent = '') {
@@ -147,7 +151,9 @@ class Value {
    * An instance of this class containing the appended element is returned.
    *
    * @param string $xml
+   *
    * @return $this
+   *
    * @throws \Papaya\XML\Exception
    */
   public function appendXML($xml) {
@@ -169,8 +175,10 @@ class Value {
    * or a list of DOMNodes as well.
    *
    * @param \DOMNode|array|string $xml
+   *
    * @throws \InvalidArgumentException
    * @throws \Papaya\XML\Exception
+   *
    * @return string
    */
   public function xml($xml = NULL) {

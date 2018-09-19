@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application;
 
 use Papaya\Application;
@@ -28,6 +27,7 @@ interface Profile {
    * Create the profile object and return it
    *
    * @param Application $application
+   *
    * @return object
    */
   public function createObject($application);

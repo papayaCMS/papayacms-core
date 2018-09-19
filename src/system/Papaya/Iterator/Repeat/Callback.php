@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Repeat;
 
 /**
@@ -42,6 +41,7 @@ class Callback implements \Iterator {
    * Create object store callback, start value and key.
    *
    * @throws \InvalidArgumentException
+   *
    * @param callable $callback
    * @param mixed $startValue
    * @param mixed $startKey

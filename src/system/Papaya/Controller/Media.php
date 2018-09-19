@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
 
 /**
@@ -33,6 +32,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
+   *
    * @return bool|\Papaya\Controller
    */
   public function execute(
@@ -70,6 +70,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Determine if the current surfer has the permission to retrieve the requested file.
    *
    * @param array $file
+   *
    * @return bool
    */
   protected function _outputPublicFile($file) {
@@ -95,6 +96,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Determine if current admin user is valid to send given file to client
    *
    * @param array $file
+   *
    * @return bool
    */
   protected function _outputPreviewFile($file) {

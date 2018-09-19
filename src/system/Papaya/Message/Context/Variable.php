@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -65,6 +64,7 @@ class Variable
    * Check and set the depth. It must be greater then zero.
    *
    * @param int $depth
+   *
    * @throws \InvalidArgumentException
    */
   public function setDepth($depth) {
@@ -87,6 +87,7 @@ class Variable
    * Check and set the depth. It must be greater then zero.
    *
    * @param int $length
+   *
    * @throws \InvalidArgumentException
    */
   public function setStringLength($length) {

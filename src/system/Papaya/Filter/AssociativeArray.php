@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -36,6 +35,7 @@ class AssociativeArray implements \Papaya\Filter {
    * Construct object and initialize minimum and maximum limits for the integer value
    *
    * @param array $filtersByName
+   *
    * @throws \RangeException
    */
   public function __construct(array $filtersByName) {
@@ -58,7 +58,9 @@ class AssociativeArray implements \Papaya\Filter {
    * Check the array elements against each filter.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -78,6 +80,7 @@ class AssociativeArray implements \Papaya\Filter {
    * Use the filter for each element. Build a result of the filtered values that are not NULL
    *
    * @param mixed $value
+   *
    * @return array|null
    */
   public function filter($value) {

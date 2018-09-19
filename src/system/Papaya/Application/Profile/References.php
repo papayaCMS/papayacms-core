@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
@@ -29,6 +28,7 @@ class References implements Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
+   *
    * @return UI\Reference\Factory
    */
   public function createObject($application) {

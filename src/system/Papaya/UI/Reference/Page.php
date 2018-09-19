@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Reference;
 
 /**
@@ -43,6 +42,7 @@ class Page extends \Papaya\UI\Reference {
    * Static create function to allow fluent calls.
    *
    * @param \Papaya\URL $url
+   *
    * @return self
    */
   public static function create(\Papaya\URL $url = NULL) {
@@ -51,7 +51,9 @@ class Page extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference::get()
+   *
    * @param bool $forPublic
+   *
    * @return string
    */
   public function get($forPublic = FALSE) {
@@ -83,7 +85,9 @@ class Page extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference::load()
+   *
    * @param \Papaya\Request $request
+   *
    * @return $this|\Papaya\UI\Reference
    */
   public function load(\Papaya\Request $request) {
@@ -114,6 +118,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param int $pageId
    * @param bool $autoConfigure
+   *
    * @return self
    */
   public function setPageId($pageId, $autoConfigure = TRUE) {
@@ -140,6 +145,7 @@ class Page extends \Papaya\UI\Reference {
    * Set page title (normalized string)
    *
    * @param $pageTitle
+   *
    * @return self
    */
   public function setPageTitle($pageTitle) {
@@ -169,6 +175,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param string $languageIdentifier
    * @param bool $autoConfigure
+   *
    * @return self
    */
   public function setPageLanguage($languageIdentifier, $autoConfigure = TRUE) {
@@ -192,6 +199,7 @@ class Page extends \Papaya\UI\Reference {
    * Set category id
    *
    * @param int $categoryId
+   *
    * @return self
    */
   public function setCategoryId($categoryId) {
@@ -206,6 +214,7 @@ class Page extends \Papaya\UI\Reference {
    * Set output mode identifier
    *
    * @param string $outputMode
+   *
    * @return self
    */
   public function setOutputMode($outputMode) {
@@ -230,6 +239,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param bool $isPreview
    * @param int $previewTime optional, default value 0
+   *
    * @return self
    */
   public function setPreview($isPreview, $previewTime = NULL) {
@@ -248,6 +258,7 @@ class Page extends \Papaya\UI\Reference {
    * data for links.
    *
    * @param \Papaya\UI\Reference\Page\Factory $factory
+   *
    * @return \Papaya\UI\Reference\Page\Factory
    */
   public function pageReferences(\Papaya\UI\Reference\Page\Factory $factory = NULL) {

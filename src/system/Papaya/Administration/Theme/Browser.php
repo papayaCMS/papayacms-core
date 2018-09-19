@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme;
 
 use Papaya\Theme;
@@ -44,6 +43,7 @@ class Browser
 
   /**
    * @param UI\Dialog $dialog
+   *
    * @return UI\Dialog
    */
   public function dialog(UI\Dialog $dialog = NULL) {
@@ -90,6 +90,7 @@ class Browser
 
   /**
    * @param \Traversable|null $themes
+   *
    * @return \Traversable
    */
   public function themes(\Traversable $themes = NULL) {
@@ -124,6 +125,7 @@ class Browser
 
   /**
    * @param Theme\Handler|null $themeHandler
+   *
    * @return Theme\Handler
    */
   public function themeHandler(Theme\Handler $themeHandler = NULL) {

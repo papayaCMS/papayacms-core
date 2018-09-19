@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple;
 
 /**
@@ -58,7 +57,9 @@ class Scanner {
    * @param array $target token target
    * @param string $string content string
    * @param int $offset start offset
+   *
    * @throws \UnexpectedValueException
+   *
    * @return int new offset
    */
   public function scan(&$target, $string, $offset = 0) {
@@ -114,6 +115,7 @@ class Scanner {
    *
    * @param array $target
    * @param \Papaya\Template\Simple\Scanner\Status $status
+   *
    * @return int offset
    */
   private function _delegate(&$target, $status) {

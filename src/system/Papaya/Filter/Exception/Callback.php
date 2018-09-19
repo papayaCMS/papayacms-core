@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
 
 /**
@@ -55,6 +54,7 @@ abstract class Callback extends \Papaya\Filter\Exception {
    * Convert a callback into a human readable string
    *
    * @param \Callback $callback
+   *
    * @return string
    */
   protected function callbackToString($callback) {

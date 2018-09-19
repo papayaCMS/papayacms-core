@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
 
 /**
@@ -108,6 +107,7 @@ class Groups implements \RecursiveIterator {
 
   /**
    * @see \RecursiveIterator::current()
+   *
    * @return mixed
    */
   public function current() {
@@ -117,6 +117,7 @@ class Groups implements \RecursiveIterator {
 
   /**
    * @see \RecursiveIterator::key()
+   *
    * @return int
    */
   public function key() {
@@ -126,6 +127,7 @@ class Groups implements \RecursiveIterator {
 
   /**
    * @see \RecursiveIterator::valid()
+   *
    * @return bool
    */
   public function valid() {
@@ -136,6 +138,7 @@ class Groups implements \RecursiveIterator {
 
   /**
    * @see \RecursiveIterator::hasChildren()
+   *
    * @return bool
    */
   public function hasChildren() {
@@ -144,6 +147,7 @@ class Groups implements \RecursiveIterator {
 
   /**
    * @see \RecursiveIterator::getChildren()
+   *
    * @return \RecursiveIterator
    */
   public function getChildren() {

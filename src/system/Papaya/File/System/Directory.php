@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System;
 
 /**
@@ -79,6 +78,7 @@ class Directory {
    *
    * @param string $filter
    * @param int $type
+   *
    * @return \Traversable
    */
   public function getEntries($filter = '(^[^.])', $type = self::FETCH_FILES_AND_DIRECTORIES) {

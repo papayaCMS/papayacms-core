@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Server;
 
 /**
@@ -58,6 +57,7 @@ class Protocol {
    * Return the currently used protocol. "http" or "https".
    *
    * @param int $mode
+   *
    * @return string
    */
   public static function get($mode = self::BOTH) {

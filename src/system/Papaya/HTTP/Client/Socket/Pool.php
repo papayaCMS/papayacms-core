@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP\Client\Socket;
 
 /**
@@ -34,6 +33,7 @@ class Pool {
    *
    * @param string $host
    * @param int $port
+   *
    * @return mixed|null
    */
   public function getConnection($host, $port) {

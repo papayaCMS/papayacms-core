@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
 
 /**
@@ -112,6 +111,7 @@ abstract class Field extends Element {
    * cast it to a string.
    *
    * @param string|\Papaya\UI\Text $caption
+   *
    * @throws \UnexpectedValueException
    */
   public function setCaption($caption) {
@@ -144,6 +144,7 @@ abstract class Field extends Element {
    * cast it to a string.
    *
    * @param string|\Papaya\UI\Text $hint
+   *
    * @throws \UnexpectedValueException
    */
   public function setHint($hint) {
@@ -310,6 +311,7 @@ abstract class Field extends Element {
    * Getter/Setter for the description subobject.
    *
    * @param Element\Description $description
+   *
    * @return Element\Description
    */
   public function description(Element\Description $description = NULL) {
@@ -338,6 +340,7 @@ abstract class Field extends Element {
    * Validate current value against the filter object if it is here.
    *
    * @param \Papaya\Filter|null $filter
+   *
    * @return bool
    */
   protected function _validateFilter($filter) {
@@ -435,6 +438,7 @@ abstract class Field extends Element {
    * Append field outer elements to DOM
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   protected function _appendFieldTo(\Papaya\XML\Element $parent) {
@@ -465,6 +469,7 @@ abstract class Field extends Element {
    * Return field class name without stripped prefix.
    *
    * @param string $prefix
+   *
    * @return string
    */
   protected function _getFieldClass($prefix = 'PapayaUI') {

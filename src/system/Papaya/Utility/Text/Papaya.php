@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -20,6 +19,7 @@ namespace Papaya\Utility\Text;
  *
  * @package Papaya-Library
  * @subpackage Util
+ *
  * @deprecated
  */
 class Papaya {
@@ -37,6 +37,7 @@ class Papaya {
    * @param string $alt optional, default value ''
    * @param mixed $resize optional, default value NULL
    * @param string $subTitle
+   *
    * @return string tag or ''
    */
   public static function getImageTag(

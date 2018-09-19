@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -28,6 +27,7 @@ interface Editable {
    * Getter/Setter for the content.
    *
    * @param Editable\Content $content
+   *
    * @return Editable\Content
    */
   public function content(Editable\Content $content = NULL);

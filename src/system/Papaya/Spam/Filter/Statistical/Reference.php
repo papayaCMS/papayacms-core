@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Spam\Filter\Statistical;
 
 /**
@@ -41,6 +40,7 @@ class Reference extends \Papaya\Database\BaseObject\Records {
    *
    * @param array $words
    * @param int $languageId
+   *
    * @return bool
    */
   public function load(array $words, $languageId) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -53,6 +52,7 @@ class Length implements \Papaya\Filter {
    * @param int|null $minimum
    * @param int|null $maximum
    * @param bool $isUTF8
+   *
    * @throws \RangeException
    */
   public function __construct($minimum = 0, $maximum = NULL, $isUTF8 = FALSE) {
@@ -70,7 +70,9 @@ class Length implements \Papaya\Filter {
    * Check the input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -95,6 +97,7 @@ class Length implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Content\Teaser;
 
 /**
@@ -81,6 +80,7 @@ class Images extends \Papaya\UI\Control {
    * Append teaser thumbnail tags to given parent element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {

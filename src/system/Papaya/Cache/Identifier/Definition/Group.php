@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Cache;
@@ -57,6 +56,7 @@ class Group
    * If no arguments whre stored, return TRUE.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return bool|array
    */
   public function getStatus() {
@@ -79,6 +79,7 @@ class Group
    * Compile a bitmask with all the source from the definitions.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

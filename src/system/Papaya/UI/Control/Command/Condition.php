@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -44,7 +43,9 @@ abstract class Condition extends \Papaya\Application\BaseObject {
    *
    *
    * @param \Papaya\UI\Control\Command $command
+   *
    * @throws \LogicException
+   *
    * @return \Papaya\UI\Control\Command
    */
   public function command(\Papaya\UI\Control\Command $command = NULL) {

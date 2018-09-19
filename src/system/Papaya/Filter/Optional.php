@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -63,6 +62,7 @@ class Optional implements \Papaya\Filter {
    * Validate the value using the combined filter
    *
    * @param mixed $value
+   *
    * @return bool
    */
   public function validate($value) {
@@ -73,6 +73,7 @@ class Optional implements \Papaya\Filter {
    * Filter the value using the combined filter
    *
    * @param mixed $value
+   *
    * @return mixed
    */
   public function filter($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -43,6 +42,7 @@ class ArraySize implements \Papaya\Filter {
    *
    * @param int|null $minimum
    * @param int|null $maximum
+   *
    * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
@@ -62,7 +62,9 @@ class ArraySize implements \Papaya\Filter {
    * Check the array input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -82,6 +84,7 @@ class ArraySize implements \Papaya\Filter {
    * into an integer before the validation. So only given limits are validated.
    *
    * @param string $value
+   *
    * @return array|null
    */
   public function filter($value) {

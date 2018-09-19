@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Languages;
 
 use Papaya\Content;
@@ -54,6 +53,7 @@ class Selector extends UI\Control\Interactive {
    * Getter/Setter for a content languages record list.
    *
    * @param Content\Languages $languages
+   *
    * @return Content\Languages
    */
   public function languages(Content\Languages $languages = NULL) {
@@ -69,7 +69,9 @@ class Selector extends UI\Control\Interactive {
    * Map some properties from the current language for easier access.
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
    * @return mixed|string
    */
   public function __get($name) {
@@ -105,6 +107,7 @@ class Selector extends UI\Control\Interactive {
    * Appends a <links> element with references for the different content languages.
    *
    * @param XML\Element $parent
+   *
    * @return XML\Element
    */
   public function appendTo(XML\Element $parent) {

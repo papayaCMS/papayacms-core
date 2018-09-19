@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -44,7 +43,9 @@ class ArrayOf implements \Papaya\Filter {
    * Check if the value is an array and if an element filter is set, check each element against it.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -64,6 +65,7 @@ class ArrayOf implements \Papaya\Filter {
    * filtering them.
    *
    * @param string $value
+   *
    * @return int|null
    */
   public function filter($value) {

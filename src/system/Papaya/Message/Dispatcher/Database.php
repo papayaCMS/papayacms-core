@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
@@ -58,6 +57,7 @@ class Database
    * Log messages to database
    *
    * @param Message $message
+   *
    * @return bool
    */
   public function dispatch(Message $message) {
@@ -73,6 +73,7 @@ class Database
    * Check if the current message should be logged
    *
    * @param Message|Message\Logable $message
+   *
    * @return bool
    */
   public function allow(Message\Logable $message) {
@@ -92,6 +93,7 @@ class Database
    * Save the message to database
    *
    * @param Message|Message\Logable $message
+   *
    * @return bool
    */
   protected function save(Message\Logable $message) {

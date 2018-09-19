@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
 
 /**
@@ -62,6 +61,7 @@ class Display
    * check if the given type is valid for this kind of messages
    *
    * @param int $severity
+   *
    * @return bool
    */
   private function _isValidSeverity($severity) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Key;
 
 /**
@@ -59,6 +58,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * Provide information about the key
    *
    * @var int
+   *
    * @return int
    */
   public function getQualities() {
@@ -69,6 +69,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * Assign data to the key. This is an array because others keys can consist of multiple fields
    *
    * @param array $data
+   *
    * @return bool
    */
   public function assign(array $data) {
@@ -126,6 +127,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * object.
    *
    * @param int $for the action the filter ist fetched for
+   *
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {

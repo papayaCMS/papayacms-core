@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -51,6 +50,7 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    * @param int $languageId
    * @param int $limit
    * @param int $offset
+   *
    * @return bool
    */
   public function load($originId, $languageId = 0, $limit = NULL, $offset = NULL) {
@@ -83,6 +83,7 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    * record object.
    *
    * @param int $pageId
+   *
    * @return \Papaya\Content\Page\Dependency
    */
   public function getDependency($pageId) {
@@ -97,6 +98,7 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    * Delete a defined dependency by the target/clone page id.
    *
    * @param int $pageId
+   *
    * @return bool
    */
   public function delete($pageId) {
@@ -116,6 +118,7 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $originId
    * @param int $newOriginId
+   *
    * @return bool|int
    */
   public function changeOrigin($originId, $newOriginId) {

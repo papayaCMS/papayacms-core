@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -40,6 +39,7 @@ class Action extends \Papaya\UI\Control\Command {
    * Execute command and append result to output xml
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -55,6 +55,7 @@ class Action extends \Papaya\UI\Control\Command {
    * Getter/Setter to the validated parameters data subobject.
    *
    * @param \Papaya\Request\Parameters\Validator $data
+   *
    * @return \Papaya\Request\Parameters\Validator|\Papaya\UI\Dialog
    */
   public function data(\Papaya\Request\Parameters\Validator $data = NULL) {
@@ -70,6 +71,7 @@ class Action extends \Papaya\UI\Control\Command {
    * Create parameters validator using the "getDefintion()" callback
    *
    * @param array|null $definitions
+   *
    * @return \Papaya\Request\Parameters\Validator
    */
   protected function _createData(array $definitions = NULL) {
@@ -83,6 +85,7 @@ class Action extends \Papaya\UI\Control\Command {
    * Getter/Setter for the callbacks object
    *
    * @param Action\Callbacks $callbacks
+   *
    * @return Action\Callbacks
    */
   public function callbacks(Action\Callbacks $callbacks = NULL) {

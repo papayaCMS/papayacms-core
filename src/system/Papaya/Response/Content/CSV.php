@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content;
 
 /**
@@ -66,6 +65,7 @@ class CSV implements \Papaya\Response\Content {
    * needed definitions.
    *
    * @param CSV\Callbacks $callbacks
+   *
    * @return CSV\Callbacks
    */
   public function callbacks(CSV\Callbacks $callbacks = NULL) {
@@ -146,6 +146,7 @@ class CSV implements \Papaya\Response\Content {
    * Prepare a header or data value for csv. The value is escaped and quotes if needed.
    *
    * @param string $value
+   *
    * @return string
    */
   private function csvQuote($value) {

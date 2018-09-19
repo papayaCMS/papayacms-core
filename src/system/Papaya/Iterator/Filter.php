@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -93,6 +92,7 @@ class Filter extends \FilterIterator {
    * Match pattern against a value (key or current). The value will be casted to string
    *
    * @param mixed $value
+   *
    * @return bool
    */
   private function isMatch($value) {

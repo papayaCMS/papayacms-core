@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation\Builder;
 
 /**
@@ -25,6 +24,7 @@ namespace Papaya\UI\Navigation\Builder;
  * @property \Papaya\BaseObject\Callback $onAfterAppend
  * @property \Papaya\BaseObject\Callback $onCreateItem
  * @property \Papaya\BaseObject\Callback $onAfterAppendItem
+ *
  * @method void onBeforeAppend(\Papaya\UI\Navigation\Items $items)
  * @method void onAfterAppend(\Papaya\UI\Navigation\Items $items)
  * @method null|\Papaya\UI\Navigation\Item onCreateItem($element, $index)

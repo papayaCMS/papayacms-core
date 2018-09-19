@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Dialog\Database;
 
 /**
@@ -46,6 +45,7 @@ class Record extends \Papaya\UI\Control\Command\Dialog {
    * Getter/Setter for the database record
    *
    * @param \Papaya\Database\Interfaces\Record $record
+   *
    * @return \Papaya\Database\Interfaces\Record
    */
   public function record(\Papaya\Database\Interfaces\Record $record = NULL) {

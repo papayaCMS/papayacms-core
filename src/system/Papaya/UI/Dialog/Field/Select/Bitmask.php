@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
 
 /**
@@ -36,6 +35,7 @@ class Bitmask extends \Papaya\UI\Dialog\Field\Select {
    *
    * @param mixed $currentValue
    * @param string $optionValue
+   *
    * @return bool|int
    */
   protected function _isOptionSelected($currentValue, $optionValue) {

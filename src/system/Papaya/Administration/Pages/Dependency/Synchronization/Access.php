@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Administration;
@@ -33,6 +32,7 @@ class Access
    * @param array $targetIds
    * @param int $originId
    * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -46,6 +46,7 @@ class Access
    * Getter/Setter for the content page object
    *
    * @param Content\Page\Work $page
+   *
    * @return Content\Page\Work
    */
   public function page(Content\Page\Work $page = NULL) {
@@ -62,6 +63,7 @@ class Access
    *
    * @param Content\Page\Work $origin
    * @param array $targetIds
+   *
    * @return bool
    */
   protected function updatePages(Content\Page\Work $origin, array $targetIds) {

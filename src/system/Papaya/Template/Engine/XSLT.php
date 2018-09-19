@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Engine;
 
 /**
@@ -83,6 +82,7 @@ class XSLT extends \Papaya\Template\Engine {
    * Set the xsl file for the transformation, throw an exception it it is not readable
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $fileName
    */
   public function setTemplateFile($fileName) {
@@ -108,6 +108,7 @@ class XSLT extends \Papaya\Template\Engine {
    * The function will return TRUE if the cache will be used.
    *
    * @param bool|null $use
+   *
    * @return bool
    */
   public function useCache($use = NULL) {
@@ -129,6 +130,7 @@ class XSLT extends \Papaya\Template\Engine {
    * Set the xslt processor object
    *
    * @throws \InvalidArgumentException
+   *
    * @param \XsltCache|\XsltProcessor $processor
    */
   public function setProcessor($processor) {
@@ -181,6 +183,7 @@ class XSLT extends \Papaya\Template\Engine {
    * Load xsl file into processor
    *
    * @throws \Papaya\XML\Exception
+   *
    * @return true
    */
   public function prepare() {
@@ -212,6 +215,7 @@ class XSLT extends \Papaya\Template\Engine {
    * Run template processing and set result.
    *
    * @return bool
+   *
    * @throws \Papaya\Xml\Exception
    */
   public function run() {
@@ -255,6 +259,7 @@ class XSLT extends \Papaya\Template\Engine {
    * callback for templates to parse a generated XML string
    *
    * @param string $xmlString
+   *
    * @return \Papaya\Xml\Document
    */
   public static function parseXML($xmlString) {

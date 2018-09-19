@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -29,6 +28,7 @@ class Identifier {
    * Create a underscore seperated, uppercase version of the identifier string.
    *
    * @param string $string
+   *
    * @return string
    */
   public static function toUnderscoreUpper($string) {
@@ -39,6 +39,7 @@ class Identifier {
    * Create a underscore seperated, lowercase version of the identifier string.
    *
    * @param string $string
+   *
    * @return string
    */
   public static function toUnderscoreLower($string) {
@@ -50,6 +51,7 @@ class Identifier {
    *
    * @param string $string
    * @param bool $firstUpper - first char should be uppercase
+   *
    * @return string
    */
   public static function toCamelCase($string, $firstUpper = FALSE) {
@@ -70,6 +72,7 @@ class Identifier {
    * Split the identifier string into a list of lowercased parts.
    *
    * @param string $string
+   *
    * @return array
    */
   public static function toArray($string) {

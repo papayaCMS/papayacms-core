@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -140,6 +139,7 @@ class Tables extends \Papaya\Application\BaseObject {
    *
    * @param string $tableName
    * @param bool $prefix
+   *
    * @return string
    */
   public function get($tableName, $prefix = TRUE) {

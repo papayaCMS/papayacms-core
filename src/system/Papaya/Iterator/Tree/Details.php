@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
 
 /**
@@ -102,6 +101,7 @@ class Details
    *
    * @param array $element
    * @param mixed $key
+   *
    * @return string
    */
   protected function getIdentifier($element, $key) {

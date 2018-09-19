@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -104,7 +103,9 @@ class Select extends Element {
    * Store options list. The options must be an array or implement the Traversable interface.
    *
    * @param array|\Traversable $options
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array|\Traversable
    */
   public function options($options = NULL) {
@@ -151,6 +152,7 @@ class Select extends Element {
    * Checks if the given value equals one of the keys in the options, return default value if not.
    *
    * @param $currentValue
+   *
    * @return mixed
    */
   private function validateCurrentValue($currentValue) {
@@ -166,6 +168,7 @@ class Select extends Element {
    * Append select xml elements to xml document
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

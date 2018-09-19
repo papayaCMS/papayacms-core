@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
 
 /**
@@ -66,6 +65,7 @@ class Errors extends \Papaya\Application\BaseObject {
    * @param callable $callback
    * @param null|array $arguments
    * @param bool $emitErrors
+   *
    * @return mixed
    */
   public function encapsulate($callback, array $arguments = NULL, $emitErrors = TRUE) {
@@ -107,6 +107,7 @@ class Errors extends \Papaya\Application\BaseObject {
    * Dispatches messages for the libxml errors in the internal buffer.
    *
    * @param bool $fatalOnly
+   *
    * @throws Exception
    */
   public function emit($fatalOnly = FALSE) {
@@ -128,7 +129,9 @@ class Errors extends \Papaya\Application\BaseObject {
 
   /**
    * @deprecated {@see self::emit()}
+   *
    * @param bool $fatalOnly
+   *
    * @throws Exception
    */
   public function omit($fatalOnly = FALSE) {
@@ -139,6 +142,7 @@ class Errors extends \Papaya\Application\BaseObject {
    * Converts a libxml error object into a \Papaya\Message
    *
    * @param \libXMLError $error
+   *
    * @return \Papaya\Message\Log
    */
   public function getMessageFromError(\libXMLError $error) {

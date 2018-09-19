@@ -12,10 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache;
-
-use Papaya\Configuration;
 
 /**
  * Abstract class for Papaya Cache Services
@@ -34,9 +31,9 @@ abstract class Service {
   /**
    * constructor
    *
-   * @param \Papaya\Cache\Configuration|null $configuration
+   * @param Configuration|null $configuration
    */
-  public function __construct(\Papaya\Cache\Configuration $configuration = NULL) {
+  public function __construct(Configuration $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
@@ -45,9 +42,9 @@ abstract class Service {
   /**
    * Set configuration
    *
-   * @param \Papaya\Cache\Configuration $configuration
+   * @param Configuration $configuration
    */
-  abstract public function setConfiguration(\Papaya\Cache\Configuration $configuration);
+  abstract public function setConfiguration(Configuration $configuration);
 
   /**
    * Verify that the cache has a valid configuration
@@ -64,6 +61,7 @@ abstract class Service {
    * @param string|array $parameters
    * @param string $data Element data
    * @param int $expires Maximum age in seconds
+   *
    * @return bool
    */
   abstract public function write($group, $element, $parameters, $data, $expires = NULL);
@@ -76,6 +74,7 @@ abstract class Service {
    * @param string|array $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return string|false
    */
   abstract public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
@@ -88,6 +87,7 @@ abstract class Service {
    * @param string|array $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return bool
    */
   abstract public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
@@ -100,6 +100,7 @@ abstract class Service {
    * @param string|array $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return int|false
    */
   abstract public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
@@ -110,6 +111,7 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
+   *
    * @return int
    */
   abstract public function delete($group = NULL, $element = NULL, $parameters = NULL);
@@ -120,7 +122,9 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
@@ -149,7 +153,9 @@ abstract class Service {
    * @param $element
    * @param $parameters
    * @param int $maximumLength
+   *
    * @throws \InvalidArgumentException
+   *
    * @return string
    */
   public function getCacheIdentifier($group, $element, $parameters, $maximumLength = 255) {
@@ -166,6 +172,7 @@ abstract class Service {
    * escape identifier string using rawurlencode() if needed
    *
    * @param string $string
+   *
    * @return string
    */
   protected function _escapeIdentifierString($string) {
@@ -179,6 +186,7 @@ abstract class Service {
    * serialize parameters to string
    *
    * @param mixed $parameters
+   *
    * @return string
    */
   protected function _serializeParameters($parameters) {

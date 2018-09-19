@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable\Options;
 
 /**
@@ -35,7 +34,9 @@ trait Aggregation {
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
    * @see \Papaya\Plugin\Adaptable::options()
+   *
    * @param \Papaya\Plugin\Editable\Options $options
+   *
    * @return \Papaya\Plugin\Editable\Options
    */
   public function options(\Papaya\Plugin\Editable\Options $options = NULL) {
@@ -54,6 +55,7 @@ trait Aggregation {
 
   /**
    * @param \Papaya\Plugin\Editable\Options $content
+   *
    * @return \Papaya\Plugin\Editor
    */
   abstract public function createOptionsEditor(\Papaya\Plugin\Editable\Options $content);

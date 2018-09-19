@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile\Administration;
 
 use Papaya\Application;
@@ -28,6 +27,7 @@ class User implements Application\Profile {
    * Create the profile object and return it
    *
    * @param Application|Application\CMS $application
+   *
    * @return object
    */
   public function createObject($application) {

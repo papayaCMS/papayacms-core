@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Storage\Service;
 
 /**
@@ -120,6 +119,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $path
    * @param string $storageId
    * @param bool $createPath
+   *
    * @return string|null
    */
   private function _getFileLocation($path, $storageId, $createPath) {
@@ -152,6 +152,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $directory
    * @param $createDirectory
    * @param int $oldMask
+   *
    * @return false
    */
   private function _ensureLocalDirectory($directory, $createDirectory, &$oldMask) {
@@ -173,6 +174,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param bool $createPath
+   *
    * @return string|null
    */
   private function _getStorageFilename($storageGroup, $storageId, $createPath) {
@@ -193,6 +195,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param string $mimeType
    * @param bool $createPath
+   *
    * @return string|null
    */
   private function _getPublicFilename($storageGroup, $storageId, $mimeType, $createPath) {
@@ -216,6 +219,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return string
    */
   private function _getPublicExtension($storageId, $mimeType) {
@@ -234,6 +238,7 @@ class File extends \Papaya\Media\Storage\Service {
    * check if a storage file exists and is read-/writeable
    *
    * @param string $storageFilename
+   *
    * @return bool
    */
   private function _existLocalFile($storageFilename) {
@@ -252,6 +257,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $path
    * @param string $startsWith
+   *
    * @return array(string) files
    */
   private function _browseDirectory($path, $startsWith = '') {
@@ -281,6 +287,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $startsWith
+   *
    * @return array
    */
   public function browse($storageGroup, $startsWith = '') {
@@ -301,6 +308,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param resource|string $content
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
    */
   public function store(
@@ -332,6 +340,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $filename
    * @param string $mimeType
    * @param bool $isPublic
+   *
    * @return bool
    */
   public function storeLocalFile(
@@ -352,6 +361,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   public function remove($storageGroup, $storageId) {
@@ -367,6 +377,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return bool
    */
   public function exists($storageGroup, $storageId) {
@@ -382,6 +393,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return string|null
    */
   public function get($storageGroup, $storageId) {
@@ -400,6 +412,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param int $rangeFrom
    * @param int $rangeTo
    * @param int $bufferSize
+   *
    * @return bool
    */
   public function output(
@@ -428,6 +441,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param int $rangeFrom
    * @param int $length
    * @param int $bufferSize
+   *
    * @return bool
    */
   protected function _outputLocalFile($fileName, $rangeFrom, $length, $bufferSize) {
@@ -462,6 +476,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return bool $isPublic
    */
   public function isPublic($storageGroup, $storageId, $mimeType) {
@@ -483,6 +498,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageId
    * @param bool $isPublic
    * @param string $mimeType
+   *
    * @return bool file is now in target status
    */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
@@ -522,6 +538,7 @@ class File extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
+   *
    * @return array array('filename' => string, 'is_temporary' => FALSE)
    */
   public function getLocalFile($storageGroup, $storageId) {
@@ -541,6 +558,7 @@ class File extends \Papaya\Media\Storage\Service {
    * @param string $storageGroup
    * @param string $storageId
    * @param string $mimeType
+   *
    * @return string|null
    */
   public function getURL($storageGroup, $storageId, $mimeType) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
 
 use Papaya\Administration;
@@ -124,6 +123,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the dependency database object
    *
    * @param Content\Page\Dependency $dependency
+   *
    * @return Content\Page\Dependency
    */
   public function dependency(Content\Page\Dependency $dependency = NULL) {
@@ -139,6 +139,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the dependencies list database object
    *
    * @param Content\Page\Dependencies $dependencies
+   *
    * @return Content\Page\Dependencies
    */
   public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
@@ -154,6 +155,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the reference database object
    *
    * @param Content\Page\Reference $reference
+   *
    * @return Content\Page\Reference
    */
   public function reference(Content\Page\Reference $reference = NULL) {
@@ -169,6 +171,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the references list database object
    *
    * @param Content\Page\References $references
+   *
    * @return Content\Page\References
    */
   public function references(Content\Page\References $references = NULL) {
@@ -233,6 +236,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for commands, define commands on implicit create.
    *
    * @param UI\Control\Command\Controller $commands
+   *
    * @return UI\Control\Command\Controller
    */
   public function commands(UI\Control\Command\Controller $commands = NULL) {
@@ -254,6 +258,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the menu (action/command buttons)
    *
    * @param UI\Toolbar $menu
+   *
    * @return UI\Toolbar
    */
   public function menu(UI\Toolbar $menu = NULL) {
@@ -315,6 +320,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the dependencies listview.
    *
    * @param ListView $listview
+   *
    * @return ListView
    */
   public function listview(ListView $listview = NULL) {
@@ -336,6 +342,7 @@ class Changer extends UI\Control\Interactive {
    * Getter/Setter for the synchronizations list
    *
    * @param Synchronizations $synchronizations
+   *
    * @return Synchronizations
    */
   public function synchronizations(Synchronizations $synchronizations = NULL) {

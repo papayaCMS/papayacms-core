@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\Items;
 
 /**
@@ -68,6 +67,7 @@ class Builder {
    *
    *
    * @param \Papaya\UI\ListView\Items\Builder\Callbacks $callbacks
+   *
    * @return null|\Papaya\UI\ListView\Items\Builder\Callbacks
    */
   public function callbacks(Builder\Callbacks $callbacks = NULL) {

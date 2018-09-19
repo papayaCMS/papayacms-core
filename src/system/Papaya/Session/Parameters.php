@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -68,6 +67,7 @@ class Parameters extends \Papaya\Application\BaseObject {
    * @param mixed $default
    * @param \Papaya\Filter|null $filter
    * @param array|string $dependencies
+   *
    * @return mixed
    */
   public function load($name, $default = NULL, $filter = NULL, $dependencies = NULL) {
@@ -115,6 +115,7 @@ class Parameters extends \Papaya\Application\BaseObject {
    * Getter/Setter for the associated request parameters
    *
    * @param \Papaya\Request\Parameters $parameters
+   *
    * @return \Papaya\Request\Parameters
    */
   public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
@@ -128,6 +129,7 @@ class Parameters extends \Papaya\Application\BaseObject {
    * Getter/Setter for the associated session values
    *
    * @param \Papaya\Session\Values $values
+   *
    * @return \Papaya\Session\Values
    */
   public function values(\Papaya\Session\Values $values = NULL) {
@@ -143,6 +145,7 @@ class Parameters extends \Papaya\Application\BaseObject {
    * Get a clean session identifer
    *
    * @param string|array $parameterName
+   *
    * @return array string
    */
   private function getIdentifier($parameterName) {

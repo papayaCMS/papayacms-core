@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -33,6 +32,7 @@ interface Handler {
    *
    * @param string $savePath
    * @param string $sessionName
+   *
    * @return bool
    */
   public static function open($savePath, $sessionName);
@@ -51,6 +51,7 @@ interface Handler {
    * are converted to boolean expression. TRUE for success, FALSE for failure.
    *
    * @param string $id
+   *
    * @return string
    */
   public static function read($id);
@@ -61,6 +62,7 @@ interface Handler {
    *
    * @param string $id
    * @param string $sessionData
+   *
    * @return bool
    */
   public static function write($id, $sessionData);
@@ -70,6 +72,7 @@ interface Handler {
    * and takes the session id as its only parameter.
    *
    * @param string $id
+   *
    * @return bool
    */
   public static function destroy($id);
@@ -79,6 +82,7 @@ interface Handler {
    * and takes the max session lifetime as its only parameter.
    *
    * @param int $maxlifetime
+   *
    * @return bool
    */
   public static function gc($maxlifetime);

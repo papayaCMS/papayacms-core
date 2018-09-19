@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
 
 /**
@@ -31,6 +30,7 @@ class Factory {
    * @param string $errorIdentifier
    * @param string $errorMessage
    * @param string $templateFile
+   *
    * @return Error
    */
   public static function createError($status, $errorIdentifier, $errorMessage, $templateFile = '') {

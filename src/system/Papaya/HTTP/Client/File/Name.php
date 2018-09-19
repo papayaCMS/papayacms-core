@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP\Client\File;
 
 /**
@@ -33,6 +32,7 @@ class Name extends \Papaya\HTTP\Client\File {
    * @param string $name
    * @param string $fileName
    * @param string $mimeType optional, default value ''
+   *
    * @throws \LogicException
    */
   public function __construct($name, $fileName, $mimeType = '') {
@@ -68,6 +68,7 @@ class Name extends \Papaya\HTTP\Client\File {
    * @param \Papaya\HTTP\Client\Socket $socket
    * @param bool $chunked optional, default value FALSE
    * @param int $bufferSize optional, default value 0
+   *
    * @throws \LogicException
    */
   public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {

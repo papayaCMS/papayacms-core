@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -43,6 +42,7 @@ class ListView extends \Papaya\UI\Dialog\Field {
    * can never be NULL, so no implicit create is needed.
    *
    * @param \Papaya\UI\ListView $listview
+   *
    * @return \Papaya\UI\ListView
    */
   public function listview(\Papaya\UI\ListView $listview = NULL) {
@@ -56,6 +56,7 @@ class ListView extends \Papaya\UI\Dialog\Field {
    * Append field to dialog xml element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

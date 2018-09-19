@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Streamwrapper;
 
 /**
@@ -127,6 +126,7 @@ class S3 {
    *
    * @param string $id
    * @param string $secret
+   *
    * @return bool
    */
   public static function setSecret($id, $secret) {
@@ -144,6 +144,7 @@ class S3 {
    * Register stream wrapper if not defined
    *
    * @param string $protocol
+   *
    * @return bool
    */
   public static function register($protocol) {
@@ -182,6 +183,7 @@ class S3 {
    *
    * @param string $path
    * @param int $options
+   *
    * @return array|bool array with the path information or FALSE
    */
   public function parsePath($path, $options) {
@@ -229,6 +231,7 @@ class S3 {
    * @param string $mode
    * @param string $options
    * @param string $openedPath
+   *
    * @return bool success
    */
   public function stream_open($path, $mode, $options, &$openedPath) {
@@ -271,6 +274,7 @@ class S3 {
    * Read given count of bytes and return them
    *
    * @param int $count
+   *
    * @return string
    */
   public function stream_read($count) {
@@ -299,6 +303,7 @@ class S3 {
    * Fill the read buffer and return the stat information
    *
    * @param bool $force an request when the size is not yet known
+   *
    * @return array|null stat information or NULL
    */
   public function fillBuffer($force = FALSE) {
@@ -324,6 +329,7 @@ class S3 {
    *
    * @param int $offset
    * @param int $whence
+   *
    * @return bool success
    */
   public function stream_seek($offset, $whence = SEEK_SET) {
@@ -403,6 +409,7 @@ class S3 {
    *
    * @param string $path
    * @param int $flags bitmask
+   *
    * @return array|null stat information or NULL
    */
   public function url_stat($path, $flags) {
@@ -452,6 +459,7 @@ class S3 {
    *
    * @param string $path
    * @param int $options bitmask
+   *
    * @return bool success
    */
   public function dir_opendir($path, $options) {
@@ -534,6 +542,7 @@ class S3 {
    * Write $data to stream
    *
    * @param string $data
+   *
    * @return int amount of bytes written
    */
   public function stream_write($data) {
@@ -556,6 +565,7 @@ class S3 {
    * Remove a file.
    *
    * @param string $path
+   *
    * @return bool success
    */
   public function unlink($path) {
@@ -581,6 +591,7 @@ class S3 {
    * @param string $path
    * @param int $mode permission mask
    * @param int $options bitmask
+   *
    * @return bool success
    */
   public function mkdir($path, $mode, $options) {
@@ -645,6 +656,7 @@ class S3 {
    *
    * @param string $path
    * @param int $options bitmask
+   *
    * @return bool success
    */
   public function rmdir($path, $options) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
 
 /**
@@ -88,6 +87,7 @@ class Address {
 
   /**
    * @param $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -105,6 +105,7 @@ class Address {
    *
    * @param string $name
    * @param string $value
+   *
    * @throws \InvalidArgumentException
    */
   public function __set($name, $value) {
@@ -126,7 +127,9 @@ class Address {
    * Dynamic property getter
    *
    * @param string $name
+   *
    * @throws \InvalidArgumentException
+   *
    * @return string
    */
   public function __get($name) {

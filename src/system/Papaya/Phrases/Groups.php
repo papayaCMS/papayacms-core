@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases;
 
 /**
@@ -38,6 +37,7 @@ class Groups implements \ArrayAccess {
 
   /**
    * @param string $name
+   *
    * @return \Papaya\Phrases\Group
    */
   public function get($name) {
@@ -46,6 +46,7 @@ class Groups implements \ArrayAccess {
 
   /**
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -54,6 +55,7 @@ class Groups implements \ArrayAccess {
 
   /**
    * @param string $name
+   *
    * @return \Papaya\Phrases\Group
    */
   public function offsetGet($name) {

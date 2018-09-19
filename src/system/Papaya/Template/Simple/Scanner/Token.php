@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner;
 
 /**
@@ -55,6 +54,7 @@ class Token {
    * @param int $type
    * @param int $offset
    * @param string $content
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($type, $offset, $content) {
@@ -101,6 +101,7 @@ class Token {
    * Return the type as a string, return NULL if it is an invalid type.
    *
    * @param int $type
+   *
    * @return string|null
    */
   public static function getTypeString($type) {
@@ -115,7 +116,9 @@ class Token {
    * Read private properties stored in constructor
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
    * @return int|string
    */
   public function __get($name) {
@@ -139,6 +142,7 @@ class Token {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \LogicException
    */
   public function __set($name, $value) {

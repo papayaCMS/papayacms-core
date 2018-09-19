@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner;
 
 /**
@@ -27,6 +26,7 @@ abstract class Status {
    *
    * @param string $buffer
    * @param int $offset
+   *
    * @return \Papaya\Template\Simple\Scanner\Token
    */
   abstract public function getToken($buffer, $offset);
@@ -35,6 +35,7 @@ abstract class Status {
    * Check if token ends status
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
+   *
    * @return bool
    */
   public function isEndToken(
@@ -48,6 +49,7 @@ abstract class Status {
    * Get new (sub)status if needed.
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
+   *
    * @return self|null
    */
   public function getNewStatus(
@@ -63,6 +65,7 @@ abstract class Status {
    * @param string $buffer
    * @param int $offset
    * @param string $pattern
+   *
    * @return string|null
    */
   protected function matchPattern($buffer, $offset, $pattern) {
@@ -85,7 +88,9 @@ abstract class Status {
    * @param string $buffer
    * @param int $offset
    * @param array $patterns
+   *
    * @internal param array $pattern
+   *
    * @return \Papaya\Template\Simple\Scanner\Token|null
    */
   protected function matchPatterns($buffer, $offset, $patterns) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Streamwrapper\S3;
 
 /**
@@ -66,6 +65,7 @@ class Handler {
    * @param array $headers
    * @param int $options
    * @param array $arguments for the http request
+   *
    * @return null|\Papaya\HTTP\Client
    */
   private function _sendRequest($method, $url, $headers, $options, $arguments = []) {
@@ -111,6 +111,7 @@ class Handler {
    *
    * @param array $location
    * @param int $options
+   *
    * @return array|null
    */
   public function getFileInformations($location, $options) {
@@ -148,6 +149,7 @@ class Handler {
    * @param int $position
    * @param int $count
    * @param int $options
+   *
    * @return array|null
    */
   public function readFileContent($location, $position, $count, $options) {
@@ -201,7 +203,9 @@ class Handler {
    * @param array $location
    * @param int $options
    * @param string $mimeType
+   *
    * @internal param string $data
+   *
    * @return bool success
    */
   public function openWriteFile($location, $options, $mimeType = 'application/octet-stream') {
@@ -243,6 +247,7 @@ class Handler {
    *
    * @param int $options
    * @param string $data
+   *
    * @return int amount of bytes written
    */
   public function writeFileContent($options, $data) {
@@ -288,6 +293,7 @@ class Handler {
    *
    * @param array $location
    * @param int $options
+   *
    * @return bool success
    */
   public function removeFile($location, $options) {
@@ -325,6 +331,7 @@ class Handler {
    * @param int $options
    * @param int $maxKeys Limit the number of results, default 1
    * @param string $startMarker Start output lexicographically after this, default ''
+   *
    * @return array|null associative array $result
    */
   public function getDirectoryInformations($location, $options, $maxKeys = 1, $startMarker = '') {
@@ -399,6 +406,7 @@ class Handler {
    * @param \DOMDocument $dom
    * @param string $xml
    * @param string $xpath
+   *
    * @return mixed
    */
   public function evaluateResult($dom, $xml, $xpath) {

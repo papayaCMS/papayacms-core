@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -80,6 +79,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
    * Allows to get/set the list object. Can create a list object if needed.
    *
    * @param Box\Translations $translations
+   *
    * @return Box\Translations
    */
   public function translations(Box\Translations $translations = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order;
 
 /**
@@ -60,6 +59,7 @@ class Group
    * Return the internal multiple iterator to allow to iterate over all items in all atached lists
    *
    * @see \IteratorAggregate::getIterator()
+   *
    * @return \Iterator
    */
   public function getIterator() {
@@ -70,6 +70,7 @@ class Group
    * Casting the list to string generates the needed sql
    *
    * @see \Papaya\Database\Interfaces\Order::__toString()
+   *
    * @return string
    */
   public function __toString() {

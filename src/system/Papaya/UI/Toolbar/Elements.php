@@ -12,13 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
  * A list of menu elements, used for the $elements property of a {@see \Papaya\UI\Menu}
  *
  * @property bool $allowGroups
+ *
  * @package Papaya-Library
  * @subpackage UI
  */
@@ -59,7 +59,9 @@ class Elements extends \Papaya\UI\Control\Collection {
    * Additionally to the standard validation, we block the groups in groups to avoid recursion.
    *
    * @throws \InvalidArgumentException
+   *
    * @param \Papaya\UI\Control\Collection\Item|Element $item
+   *
    * @return bool
    */
   protected function validateItemClass(\Papaya\UI\Control\Collection\Item $item) {

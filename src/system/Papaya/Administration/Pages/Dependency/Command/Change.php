@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Command;
 
 use Papaya\Content;
@@ -113,6 +112,7 @@ class Change extends UI\Control\Command\Dialog {
    *
    * @param \Object $context
    * @param Content\Page\Dependency $record
+   *
    * @return bool
    */
   public function validateOriginAndSynchronizations($context, $record) {
@@ -148,6 +148,7 @@ class Change extends UI\Control\Command\Dialog {
    * Validate that all views in matching translations (language) use the same module
    *
    * @param Content\Page\Dependency $record
+   *
    * @return bool
    */
   private function compareViewModules(Content\Page\Dependency $record) {

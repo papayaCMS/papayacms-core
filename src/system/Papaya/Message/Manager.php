@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
 
 use Papaya\Message;
@@ -138,6 +137,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * as logable error messages.
    *
    * @param \Callable $callback
+   *
    * @return Sandbox|callable
    */
   public function encapsulate($callback) {
@@ -151,6 +151,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * Register error and exceptions hooks
    *
    * @param array|null $hooks
+   *
    * @return array
    */
   public function hooks(array $hooks = NULL) {

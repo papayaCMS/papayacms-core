@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -67,8 +66,10 @@ class Text implements \Papaya\Filter {
    * character.
    *
    * @param mixed $value
+   *
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\InvalidCharacter
+   *
    * @return true
    */
   public function validate($value) {
@@ -89,6 +90,7 @@ class Text implements \Papaya\Filter {
    * Remove all invalid characters from the value, return NULL if the value is empty after that
    *
    * @param mixed|null $value
+   *
    * @return string|null
    */
   public function filter($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -25,6 +24,7 @@ class Normalize {
    * (at string start or after a -) has to be uppercase
    *
    * @param string $string
+   *
    * @return string
    */
   public static function toHTTPHeaderName($string) {

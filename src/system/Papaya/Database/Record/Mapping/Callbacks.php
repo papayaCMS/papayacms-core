@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Mapping;
 
 /**
@@ -35,6 +34,7 @@ namespace Papaya\Database\Record\Mapping;
  * @property \Papaya\BaseObject\Callback $onMapValueFromPropertyToField
  * @property \Papaya\BaseObject\Callback $onGetFieldForProperty
  * @property \Papaya\BaseObject\Callback $onGetPropertyForField
+ *
  * @method array onBeforeMapping(int $direction, array $properties, array $record)
  * @method array onBeforeMappingFieldsToProperties(array $properties, array $record)
  * @method array onBeforeMappingPropertiesToFields(array $properties, array $record)

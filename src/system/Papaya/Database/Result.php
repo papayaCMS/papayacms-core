@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -49,6 +48,7 @@ interface Result extends \IteratorAggregate {
    * Fetch row from result
    *
    * @param int $mode
+   *
    * @return array
    */
   public function fetchRow($mode = self::FETCH_ORDERED);
@@ -57,6 +57,7 @@ interface Result extends \IteratorAggregate {
    * Fetch field from result
    *
    * @param int|string $column
+   *
    * @return mixed
    */
   public function fetchField($column = 0);
@@ -65,6 +66,7 @@ interface Result extends \IteratorAggregate {
    * Seek internal pointer to the given row
    *
    * @param int $index
+   *
    * @return array
    */
   public function seek($index);

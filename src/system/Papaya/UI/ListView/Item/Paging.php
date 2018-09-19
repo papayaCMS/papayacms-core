@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\Item;
 
 /**
@@ -112,6 +111,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * links.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -184,6 +184,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param int $itemsCount
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
@@ -201,6 +202,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * minimum value is 1.
    *
    * @param int $itemsPerPage
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
@@ -217,7 +219,9 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * The maximum count of page links.
    *
    * @param $pageLimit
+   *
    * @throws \UnexpectedValueException
+   *
    * @internal param int $buttonLimit
    */
   public function setPageLimit($pageLimit) {
@@ -234,6 +238,7 @@ abstract class Paging extends \Papaya\UI\ListView\Item {
    * Depending on the mode set the current value as page or as offset value.
    *
    * @param $currentValue
+   *
    * @return int
    */
   public function setCurrentValue($currentValue) {

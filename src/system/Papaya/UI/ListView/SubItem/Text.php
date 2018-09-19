@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
 
 /**
@@ -74,6 +73,7 @@ class Text extends \Papaya\UI\ListView\SubItem {
    * if not set.
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

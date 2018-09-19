@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Option;
 
 /**
@@ -63,6 +62,7 @@ class Storage extends \Papaya\Application\BaseObject
    * Getter/Setter: Options database encapsultation subobject
    *
    * @param \Papaya\Content\Module\Options $options
+   *
    * @return \Papaya\Content\Module\Options
    */
   public function options(\Papaya\Content\Module\Options $options = NULL) {

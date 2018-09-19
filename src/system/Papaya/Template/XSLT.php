@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template;
 
 /**
@@ -61,6 +60,7 @@ class XSLT extends \Papaya\Template {
    * Getter/Setter for the xslt template engine
    *
    * @param \Papaya\Template\Engine\XSLT $engine
+   *
    * @return \Papaya\Template\Engine\XSLT
    */
   public function engine(\Papaya\Template\Engine\XSLT $engine = NULL) {
@@ -78,6 +78,7 @@ class XSLT extends \Papaya\Template {
    * Parse data
    *
    * @param int $options
+   *
    * @return string|false parsed $result or message
    */
   public function parse($options = self::STRIP_XML_EMPTY_NAMESPACE) {
@@ -98,6 +99,7 @@ class XSLT extends \Papaya\Template {
    * by parse() and should not be called directly.
    *
    * @param \Papaya\Template\Engine $engine
+   *
    * @return mixed
    */
   public function process($engine) {

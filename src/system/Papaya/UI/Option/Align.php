@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Option;
 
 /**
@@ -59,6 +58,7 @@ class Align {
    * argument is invalid it will return "left".
    *
    * @param int $align
+   *
    * @return string
    */
   public static function getString($align) {
@@ -74,8 +74,10 @@ class Align {
    * An individual message for the exception can be provided, too.
    *
    * @throws \InvalidArgumentException
+   *
    * @param int $align
    * @param string $message
+   *
    * @return true
    */
   public static function validate($align, $message = NULL) {

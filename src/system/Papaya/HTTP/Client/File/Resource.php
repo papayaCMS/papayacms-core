@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP\Client\File;
 
 /**
@@ -29,6 +28,7 @@ class Resource extends \Papaya\HTTP\Client\File {
    * @param string $fileName
    * @param resource $resource
    * @param string $mimeType optional, default value ''
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($name, $fileName, $resource, $mimeType = '') {
@@ -68,6 +68,7 @@ class Resource extends \Papaya\HTTP\Client\File {
    * @param \Papaya\HTTP\Client\Socket $socket
    * @param bool $chunked optional, default value FALSE
    * @param int $bufferSize optional, default value 0
+   *
    * @throws \UnexpectedValueException
    */
   public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {

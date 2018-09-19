@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -29,9 +28,11 @@ class LogicalOr extends Logical {
    * The method throws the first captured exception if all filter failed.
    *
    * @param string $value
+   *
    * @throws \Exception
    * @throws null
    * @throws \Papaya\Filter\Exception
+   *
    * @return bool
    */
   public function validate($value) {
@@ -54,6 +55,7 @@ class LogicalOr extends Logical {
    * Call filter() on each subfilter while NULL is returned.
    *
    * @param string $value
+   *
    * @return mixed|null
    */
   public function filter($value) {

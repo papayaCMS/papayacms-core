@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -51,6 +50,7 @@ class Cast implements \Papaya\Filter {
    * Construct object, check an store target type
    *
    * @param string $type
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($type) {
@@ -65,6 +65,7 @@ class Cast implements \Papaya\Filter {
    * This filter does not validate values, it just filters (casts) them.
    *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -75,6 +76,7 @@ class Cast implements \Papaya\Filter {
    * The filter function casts the value into the target type.
    *
    * @param string $value
+   *
    * @return int|null
    */
   public function filter($value) {

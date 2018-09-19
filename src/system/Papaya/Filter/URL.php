@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -51,7 +50,9 @@ class URL implements \Papaya\Filter {
    * Check the value if it's a valid url, if not throw an exception.
    *
    * @throws \Papaya\Filter\Exception\UnexpectedType
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -65,6 +66,7 @@ class URL implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {

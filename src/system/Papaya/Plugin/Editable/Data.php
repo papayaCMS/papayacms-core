@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable;
 
 abstract class Data extends \Papaya\BaseObject\Parameters {
@@ -30,7 +29,9 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
    * Getter/Setter for the editor object
    *
    * @param \Papaya\Plugin\Editor $editor
+   *
    * @throws \LogicException
+   *
    * @return \Papaya\Plugin\Editor
    */
   public function editor(\Papaya\Plugin\Editor $editor = NULL) {
@@ -58,6 +59,7 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
    * Getter/Setter for the callbacks subobject
    *
    * @param Callbacks $callbacks
+   *
    * @return Callbacks
    */
   public function callbacks(Callbacks $callbacks = NULL) {

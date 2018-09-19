@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
 
 /**
@@ -64,6 +63,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    * Set the alignment if it is valid throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param int $align
    */
   public function setAlign($align) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -79,6 +78,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    * Append the field to the xml output
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -103,6 +103,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    *
    * @param mixed $active
    * @param mixed $inactive
+   *
    * @throws \InvalidArgumentException
    */
   public function setValues($active, $inactive) {

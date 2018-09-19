@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Spam;
 
 /**
@@ -30,6 +29,7 @@ interface Filter {
    * @param string $text
    * @param array|string $tokens an array containing tokens and count
    * @param int $languageId
+   *
    * @return float
    */
   public function classify($text, array $tokens, $languageId);

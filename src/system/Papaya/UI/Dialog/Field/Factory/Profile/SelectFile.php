@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -32,7 +31,9 @@ class SelectFile
 
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
+   *
    * @return \Papaya\UI\Dialog\Field\Select
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
@@ -81,6 +82,7 @@ class SelectFile
    *
    * @param object $context
    * @param string|\splFileInfo $element
+   *
    * @return string
    */
   public function callbackGetFilename($context, $element) {
@@ -92,6 +94,7 @@ class SelectFile
    * a \Papaya\Configuration\Path object.
    *
    * @return string|\Papaya\Configuration\Path
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   private function getPath() {
@@ -116,6 +119,7 @@ class SelectFile
    * Getter/Setter for the file system factory
    *
    * @param \Papaya\File\System\Factory $fileSystem
+   *
    * @return \Papaya\File\System\Factory
    */
   public function fileSystem(\Papaya\File\System\Factory $fileSystem = NULL) {

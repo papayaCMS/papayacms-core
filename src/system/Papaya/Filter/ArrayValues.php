@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -48,7 +47,9 @@ class ArrayValues implements \Papaya\Filter {
    * Check the integer input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -67,6 +68,7 @@ class ArrayValues implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param array $value
+   *
    * @return array
    */
   public function filter($value) {

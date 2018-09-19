@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -28,7 +27,9 @@ class Guid {
    *
    * @param string $guid
    * @param bool $silent
+   *
    * @throws \UnexpectedValueException
+   *
    * @return bool
    */
   public static function validate($guid, $silent = FALSE) {
@@ -48,6 +49,7 @@ class Guid {
    *
    * @param string $guid
    * @param bool $silent
+   *
    * @return string
    */
   public static function toLower($guid, $silent = FALSE) {
@@ -59,6 +61,7 @@ class Guid {
    *
    * @param string $guid
    * @param bool $silent
+   *
    * @return string
    */
   public static function toUpper($guid, $silent = FALSE) {

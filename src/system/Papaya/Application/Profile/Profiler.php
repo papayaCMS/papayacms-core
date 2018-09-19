@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
@@ -31,6 +30,7 @@ class Profiler implements Application\Profile {
    * Create the profile object and return it
    *
    * @param Application|Application\CMS $application
+   *
    * @return Profiling
    */
   public function createObject($application) {
@@ -49,6 +49,7 @@ class Profiler implements Application\Profile {
    * Getter/Setter for profiler builder
    *
    * @param Profiling\Builder $builder
+   *
    * @return Profiling\Builder
    */
   public function builder(Profiling\Builder $builder = NULL) {

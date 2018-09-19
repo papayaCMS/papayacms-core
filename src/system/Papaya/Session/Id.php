@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -95,6 +94,7 @@ class Id extends \Papaya\Application\BaseObject {
    * Test if the session id exists in any of the given sources.
    *
    * @param int $source
+   *
    * @return bool
    */
   public function existsIn($source = self::SOURCE_ANY) {
@@ -117,6 +117,7 @@ class Id extends \Papaya\Application\BaseObject {
    * Validate the syntax of a session id. Return id if valid, NULL if not.
    *
    * @param string|null $id
+   *
    * @return null|string
    */
   public function validate($id) {

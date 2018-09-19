@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -40,7 +39,9 @@ class Cache {
    *
    * @param \Papaya\Configuration $configuration
    * @param bool $static remember service object an return at second request
+   *
    * @throws \UnexpectedValueException
+   *
    * @return \Papaya\Cache\Service
    */
   public static function getService($configuration, $static = TRUE) {
@@ -73,6 +74,7 @@ class Cache {
    * using mapping definition.
    *
    * @param \Papaya\Configuration $configuration
+   *
    * @return \Papaya\Cache\Configuration
    */
   public static function prepareConfiguration($configuration) {
@@ -99,6 +101,7 @@ class Cache {
    * @param string $for
    * @param \Papaya\Configuration $globalConfiguration
    * @param bool $static
+   *
    * @return false|\Papaya\Cache\Service
    */
   public static function get($for, $globalConfiguration, $static = TRUE) {

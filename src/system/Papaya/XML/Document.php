@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
 
 /**
@@ -62,6 +61,7 @@ class Document
    *
    * @param string $version
    * @param string $encoding
+   *
    * @return self
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
@@ -105,6 +105,7 @@ class Document
    * @param string $prefix
    * @param string $namespace
    * @param bool $registerOnXpath
+   *
    * @throws \InvalidArgumentException
    */
   public function registerNamespace($prefix, $namespace, $registerOnXpath = TRUE) {
@@ -130,7 +131,9 @@ class Document
    * character will be used.
    *
    * @param string $prefix
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   public function getNamespace($prefix) {
@@ -152,6 +155,7 @@ class Document
    * @param string $name
    * @param array $attributes
    * @param string $content
+   *
    * @return \Papaya\XML\Element new element
    */
   public function appendElement($name, array $attributes = [], $content = NULL) {
@@ -168,6 +172,7 @@ class Document
    *
    * @param string $content
    * @param \Papaya\XML\Element $target
+   *
    * @return \Papaya\XML\Element|self $target
    */
   public function appendXML($content, \Papaya\XML\Element $target = NULL) {
@@ -202,9 +207,11 @@ class Document
    * Allow to provide attributes.
    *
    * @see \DOMDocument::createElement()
+   *
    * @param string $name
    * @param string|null $value
    * @param array|null $attributes
+   *
    * @return \Papaya\XML\Element
    */
   public function createElement($name, $value = NULL, array $attributes = NULL) {
@@ -231,8 +238,10 @@ class Document
    * Allow to provide the attribute value directly.
    *
    * @see \DOMDocument::createElement()
+   *
    * @param string $name
    * @param string|null $value
+   *
    * @return \DOMAttribute
    */
   public function createAttribute($name, $value = NULL) {
@@ -254,7 +263,9 @@ class Document
    * @param string $name
    * @param array $attributes
    * @param string $content
+   *
    * @deprecated
+   *
    * @return \Papaya\XML\Element new node
    */
   public static function createElementNode(
@@ -267,6 +278,7 @@ class Document
    * Get/set the entry loader status
    *
    * @param bool $status
+   *
    * @return bool|null
    */
   public function activateEntityLoader($status = NULL) {

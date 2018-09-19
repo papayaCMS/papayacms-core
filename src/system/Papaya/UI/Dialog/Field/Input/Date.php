@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -76,6 +75,7 @@ class Date extends \Papaya\UI\Dialog\Field\Input {
    * @param bool $mandatory
    * @param int $includeTime
    * @param float $step
+   *
    * @throws \UnexpectedValueException
    * @throws \InvalidArgumentException
    */

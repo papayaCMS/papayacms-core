@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
 
 /**
@@ -41,7 +40,9 @@ abstract class Part
    * protected property.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -78,6 +79,7 @@ abstract class Part
    * protected property.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
    * @param mixed $value
    */

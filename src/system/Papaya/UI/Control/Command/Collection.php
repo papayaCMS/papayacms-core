@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -60,6 +59,7 @@ class Collection
    * Overload owner method to set owner on all commands, too.
    *
    * @param \Papaya\Request\Parameters\Access|\Papaya\UI\Control\Interactive $owner
+   *
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
@@ -77,6 +77,7 @@ class Collection
    * ArrayAccess interface: validate if command with the offset is set.
    *
    * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -87,6 +88,7 @@ class Collection
    * ArrayAccess interface: get command at given offset.
    *
    * @param int $offset
+   *
    * @return \Papaya\UI\Control\Command
    */
   public function offsetGet($offset) {
@@ -98,6 +100,7 @@ class Collection
    *
    * @param int $offset
    * @param \Papaya\UI\Control\Command $command
+   *
    * @throws \UnexpectedValueException
    */
   public function offsetSet($offset, $command) {

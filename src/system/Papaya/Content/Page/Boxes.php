@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -40,6 +39,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
    * Load boxes links into records list
    *
    * @param int $pageId
+   *
    * @return bool
    */
   public function load($pageId) {
@@ -58,6 +58,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
    * Delete box links on the given page ids
    *
    * @param array|int $pageIds
+   *
    * @return bool
    */
   public function delete($pageIds) {
@@ -72,6 +73,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
    * Copy currently loaded box links to the given page ids
    *
    * @param array|int $pageIds
+   *
    * @return bool
    */
   public function copyTo($pageIds) {

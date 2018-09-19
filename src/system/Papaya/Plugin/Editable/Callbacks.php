@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable;
 
 /**
@@ -22,6 +21,7 @@ namespace Papaya\Plugin\Editable;
  * @subpackage Plugins
  *
  * @property \Papaya\BaseObject\Callback $onCreateEditor
+ *
  * @method \Papaya\Plugin\Editor onCreateEditor(\Papaya\Plugin\Editable\Data $data)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {

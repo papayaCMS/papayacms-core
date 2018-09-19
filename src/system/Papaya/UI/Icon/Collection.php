@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Icon;
 
 /**
@@ -33,6 +32,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: check if an icon is availiable
    *
    * @param string $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -43,6 +43,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: return an icon from the internal list
    *
    * @param string $offset
+   *
    * @return \Papaya\UI\Icon
    */
   public function offsetGet($offset) {
@@ -55,6 +56,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string $offset
    * @param \Papaya\UI\Icon $icon
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($offset, $icon) {
@@ -76,6 +78,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: remove an icon from the internal list
    *
    * @param string $offset
+   *
    * @return \Papaya\UI\Icon
    */
   public function offsetUnset($offset) {

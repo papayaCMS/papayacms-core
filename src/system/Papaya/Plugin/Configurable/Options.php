@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Configurable;
 
 /**
@@ -27,6 +26,7 @@ interface Options {
    * Getter/Setter for the editable options.
    *
    * @param \Papaya\Plugin\Editable\Options $content
+   *
    * @return \Papaya\Plugin\Editable\Options
    */
   public function options(\Papaya\Plugin\Editable\Options $content = NULL);

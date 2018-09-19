@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -56,6 +55,7 @@ class Group
    * Append group and elements to the output xml.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {

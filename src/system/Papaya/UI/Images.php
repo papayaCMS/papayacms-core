@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -87,6 +86,7 @@ class Images implements \ArrayAccess {
    * ArrayAccess: validate if an image is available
    *
    * @param string $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -97,6 +97,7 @@ class Images implements \ArrayAccess {
    * ArrayAccess: get image
    *
    * @param string $offset
+   *
    * @return mixed|string
    */
   public function offsetGet($offset) {

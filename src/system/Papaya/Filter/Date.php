@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -73,6 +72,7 @@ class Date implements \Papaya\Filter {
    *
    * @param int $includeTime optional, default self::DATE_NO_TIME
    * @param float $step optional, default 1.0
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
@@ -95,8 +95,10 @@ class Date implements \Papaya\Filter {
    * Validate a date
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   *
    * @return bool
    */
   public function validate($value) {
@@ -145,6 +147,7 @@ class Date implements \Papaya\Filter {
    * Filter a date
    *
    * @param string $value
+   *
    * @return mixed the filtered date value or NULL
    */
   public function filter($value) {

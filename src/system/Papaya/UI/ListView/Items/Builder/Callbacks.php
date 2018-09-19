@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\Items\Builder;
 
 /**
@@ -24,6 +23,7 @@ namespace Papaya\UI\ListView\Items\Builder;
  * @property \Papaya\BaseObject\Callback $onBeforeFill
  * @property \Papaya\BaseObject\Callback $onAfterFill
  * @property \Papaya\BaseObject\Callback $onCreateItem
+ *
  * @method bool onBeforeFill(\Papaya\UI\ListView\Items $items) if the callback returns FALSE, the items will be cleared.
  * @method bool onAfterFill(\Papaya\UI\ListView\Items $items)
  * @method bool onCreateItem(\Papaya\UI\ListView\Items $items, mixed $element, int $index)

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\URL;
 
 /**
@@ -58,6 +57,7 @@ class Current extends \Papaya\URL {
    * @param array|string $keys
    * @param string $prefix
    * @param string $ignoreValue
+   *
    * @return string
    */
   private function _getServerValue($keys, $prefix = '', $ignoreValue = '') {

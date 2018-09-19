@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Text;
 
 /**
@@ -37,7 +36,9 @@ class Normalize implements \Papaya\Filter {
 
   /**
    * @param mixed $value
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\UnexpectedType
    */
@@ -52,6 +53,7 @@ class Normalize implements \Papaya\Filter {
 
   /**
    * @param mixed|null $value
+   *
    * @return string|null
    */
   public function filter($value) {

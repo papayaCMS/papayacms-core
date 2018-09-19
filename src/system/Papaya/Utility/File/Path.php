@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\File;
 
 /**
@@ -28,6 +27,7 @@ class Path {
    *
    * @param string $path
    * @param bool $withTrailingSlash
+   *
    * @return string
    */
   public static function cleanup($path, $withTrailingSlash = TRUE) {
@@ -63,6 +63,7 @@ class Path {
    * Make sure that the path starts with an / or a device letter. Add a / if neither is found.
    *
    * @param string $path
+   *
    * @return string
    */
   public static function ensureIsAbsolute($path) {
@@ -78,6 +79,7 @@ class Path {
    * Make sure that the path ends with an /.
    *
    * @param string $path
+   *
    * @return string
    */
   public static function ensureTrailingSlash($path) {
@@ -92,6 +94,7 @@ class Path {
    * Make sure that the path does not end with an /.
    *
    * @param string $path
+   *
    * @return string
    */
   public static function ensureNoTrailingSlash($path) {
@@ -106,6 +109,7 @@ class Path {
    * Get the base path/url path to the called script
    *
    * @param bool|string $includeDocumentRoot
+   *
    * @return string
    */
   public static function getBasePath($includeDocumentRoot = TRUE) {
@@ -127,6 +131,7 @@ class Path {
    * Get the document root if possible
    *
    * @param \Papaya\Configuration $options
+   *
    * @return string
    */
   public static function getDocumentRoot($options = NULL) {
@@ -181,6 +186,7 @@ class Path {
    * Remove all files and subdirectories in a given directory.
    *
    * @param string $directory
+   *
    * @return int
    */
   public static function clear($directory) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme\Editor\Changes;
 
 use Papaya\Content;
@@ -132,6 +131,7 @@ class Dialog
    * Theme definition page to access the group and value definition of the selected page
    *
    * @param Content\Structure\Page $themePage
+   *
    * @return Content\Structure\Page
    */
   public function themePage(Content\Structure\Page $themePage = NULL) {
@@ -151,6 +151,7 @@ class Dialog
    * themes of the current installation
    *
    * @param \Papaya\Theme\Handler $themeHandler
+   *
    * @return \Papaya\Theme\Handler
    */
   public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
@@ -168,6 +169,7 @@ class Dialog
    * defined by the field type name.
    *
    * @param \Papaya\UI\Dialog\Field\Factory $factory
+   *
    * @return \Papaya\UI\Dialog\Field\Factory
    */
   public function fieldFactory(\Papaya\UI\Dialog\Field\Factory $factory = NULL) {
@@ -183,6 +185,7 @@ class Dialog
    * Access to the theme cache service - to reset the cache after changes.
    *
    * @param \Papaya\Cache\Service $service
+   *
    * @return \Papaya\Cache\Service
    */
   public function cache(\Papaya\Cache\Service $service = NULL) {

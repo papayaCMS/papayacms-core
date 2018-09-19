@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Box;
 
 /**
@@ -61,7 +60,9 @@ class Translation extends \Papaya\Database\BaseObject\Record {
    * Load box translation details
    *
    * @param mixed $filter
+   *
    * @return array|bool|null
+   *
    * @internal param $array ($boxId, $languageId) $filter
    */
   public function load($filter) {
@@ -93,6 +94,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
    * It is used as a callback function after reading the record from the database result.
    *
    * @param array $record
+   *
    * @return array
    */
   protected function convertBoxRecordToValues($record) {

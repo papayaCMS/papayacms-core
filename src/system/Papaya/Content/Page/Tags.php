@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -54,6 +53,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    * @param int $pageId
    * @param int $languageId
    * @param array $categoryIds
+   *
    * @return bool
    */
   public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
@@ -92,6 +92,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    * Remove all tags for a specified page id.
    *
    * @param int $pageId
+   *
    * @return bool
    */
   public function clear($pageId) {
@@ -109,6 +110,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $pageId
    * @param array $tagIds
+   *
    * @return bool
    */
   public function insert($pageId, array $tagIds) {

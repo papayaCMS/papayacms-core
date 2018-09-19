@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
 
 /**
@@ -40,6 +39,7 @@ class Sandbox extends \Papaya\Application\BaseObject {
    * message and return NULL.
    *
    * @param mixed,... $argument
+   *
    * @return mixed
    */
   public function __invoke() {

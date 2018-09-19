@@ -12,10 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
-use \Papaya\Request;
+use Papaya\Request;
 
 /**
  * An basic framework object including request parameters handling
@@ -24,6 +23,5 @@ use \Papaya\Request;
  * @subpackage Objects
  */
 abstract class Interactive implements Request\Parameters\Access {
-
   use Request\Parameters\Access\Integration;
 }

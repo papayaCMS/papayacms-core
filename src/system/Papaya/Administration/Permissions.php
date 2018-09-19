@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration;
 
 use Papaya\Database;
@@ -178,6 +177,7 @@ class Permissions
    *
    * @param int $permissionId
    * @param null|int $groupId
+   *
    * @return bool
    */
   public function exists($permissionId, $groupId = NULL) {
@@ -194,8 +194,10 @@ class Permissions
    * Validate if the given permission is in the given group.
    *
    * @see \Papaya\Administration\Permissions::exists()
+   *
    * @param int $permissionId
    * @param int $groupId
+   *
    * @return bool
    */
   public function inGroup($permissionId, $groupId) {
@@ -206,6 +208,7 @@ class Permissions
    * Return the current status of a permission
    *
    * @param int $permissionId
+   *
    * @return bool
    */
   public function isActive($permissionId) {
@@ -217,6 +220,7 @@ class Permissions
 
   /**
    * @param Permission\Groups $groups
+   *
    * @return Permission\Groups
    */
   public function groups(Permission\Groups $groups = NULL) {

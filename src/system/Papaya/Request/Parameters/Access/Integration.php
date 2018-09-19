@@ -12,12 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameters\Access;
 
-use \Papaya\Application;
-use \Papaya\Request;
-use \Papaya\Utility;
+use Papaya\Application;
+use Papaya\Request;
+use Papaya\Utility;
 
 /**
  * An basic framework object including request parameters handling
@@ -55,6 +54,7 @@ trait Integration {
    * Get/Set parameter handling method. This will be used to define the parameter sources.
    *
    * @param int $method
+   *
    * @return int
    */
   public function parameterMethod($method = NULL) {
@@ -71,6 +71,7 @@ trait Integration {
    * This puts all field parameters (except the hidden fields) into a parameter group.
    *
    * @param string|null $groupName
+   *
    * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
@@ -88,6 +89,7 @@ trait Integration {
    * This method gives you access to request parameters.
    *
    * @param Request\Parameters $parameters
+   *
    * @return Request\Parameters
    */
   public function parameters(Request\Parameters $parameters = NULL) {

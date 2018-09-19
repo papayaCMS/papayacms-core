@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation;
 
 /**
@@ -37,6 +36,7 @@ class Items extends \Papaya\UI\Control\Collection {
    * Getter/Setter for a reference subobject to create detail page links
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

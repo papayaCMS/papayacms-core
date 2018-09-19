@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme\Wrapper;
 
 /**
@@ -56,6 +55,7 @@ class Group {
    *
    * @param string $name group name
    * @param string $mode js or css
+   *
    * @return array(string)
    */
   public function getFiles($name, $mode = 'css') {
@@ -81,6 +81,7 @@ class Group {
    *
    * @param string $name group name
    * @param string $mode js or css
+   *
    * @return bool
    */
   public function allowDirectories($name, $mode = 'css') {

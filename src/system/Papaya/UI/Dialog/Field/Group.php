@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -55,6 +54,7 @@ class Group extends \Papaya\UI\Dialog\Field {
    * Group fields getter/setter
    *
    * @param \Papaya\UI\Dialog\Fields $fields
+   *
    * @return \Papaya\UI\Dialog\Fields
    */
   public function fields(\Papaya\UI\Dialog\Fields $fields = NULL) {
@@ -128,6 +128,7 @@ class Group extends \Papaya\UI\Dialog\Field {
    * Return the owner collection of the item.
    *
    * @param \Papaya\UI\Control\Collection $collection
+   *
    * @return \Papaya\UI\Control\Collection
    */
   public function collection(\Papaya\UI\Control\Collection $collection = NULL) {

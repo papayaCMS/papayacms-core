@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Reference;
 
 /**
@@ -40,6 +39,7 @@ class Media extends \Papaya\UI\Reference {
    * Static create function to allow fluent calls.
    *
    * @param \Papaya\URL $url
+   *
    * @return \Papaya\UI\Reference
    */
   public static function create(\Papaya\URL $url = NULL) {
@@ -48,7 +48,9 @@ class Media extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference#get()
+   *
    * @param bool $forPublic
+   *
    * @return null|string
    */
   public function get($forPublic = FALSE) {
@@ -73,7 +75,9 @@ class Media extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference::load()
+   *
    * @param \Papaya\Request $request
+   *
    * @return $this|\Papaya\UI\Reference
    */
   public function load(\Papaya\Request $request) {
@@ -88,6 +92,7 @@ class Media extends \Papaya\UI\Reference {
    * Set media id
    *
    * @param string $mediaId
+   *
    * @return self
    */
   public function setMediaId($mediaId) {
@@ -102,6 +107,7 @@ class Media extends \Papaya\UI\Reference {
    * Set media version
    *
    * @param int $version
+   *
    * @return self
    */
   public function setMediaVersion($version) {
@@ -116,6 +122,7 @@ class Media extends \Papaya\UI\Reference {
    * Set file title (normalized string)
    *
    * @param string $title
+   *
    * @return self
    */
   public function setTitle($title) {
@@ -130,6 +137,7 @@ class Media extends \Papaya\UI\Reference {
    * Set mode
    *
    * @param string $mode
+   *
    * @return self
    */
   public function setMode($mode) {
@@ -146,6 +154,7 @@ class Media extends \Papaya\UI\Reference {
    * Set extension (normalized string)
    *
    * @param string $extension
+   *
    * @return self
    */
   public function setExtension($extension) {
@@ -160,6 +169,7 @@ class Media extends \Papaya\UI\Reference {
    * Set media data from "uri" [id]v[version].[extension]
    *
    * @param string $mediaUri
+   *
    * @return self
    */
   public function setMediaUri($mediaUri) {
@@ -185,6 +195,7 @@ class Media extends \Papaya\UI\Reference {
    * Set preview mode
    *
    * @param bool $isPreview
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function setPreview($isPreview) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -78,6 +77,7 @@ abstract class Message
    * Append message to parent xml element and return it.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element the appended message xml element
    */
   protected function appendMessageElement(\Papaya\XML\Element $parent) {
@@ -94,6 +94,7 @@ abstract class Message
    * Validate and set the message severity.
    *
    * @throws \InvalidArgumentException
+   *
    * @param int $severity
    */
   public function setSeverity($severity) {
@@ -128,6 +129,7 @@ abstract class Message
    * Get the tag name. The xml element name depends on the severity.
    *
    * @param int $severity
+   *
    * @return string
    */
   protected function getTagName($severity) {

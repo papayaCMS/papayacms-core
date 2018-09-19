@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -32,6 +31,7 @@ class Text {
    * @param string $length
    * @param bool $cut Cut words
    * @param string $suffix suffix string for truncated strings
+   *
    * @return string
    */
   public static function truncate($string, $length, $cut = TRUE, $suffix = '') {
@@ -53,6 +53,7 @@ class Text {
    * Escape a string to be used as part of a formatted string pattern (e.g. printf).
    *
    * @param string $string
+   *
    * @return string
    */
   public static function escapeForPrintf($string) {

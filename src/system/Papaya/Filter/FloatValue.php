@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -61,7 +60,9 @@ class FloatValue implements \Papaya\Filter {
    * Check the float input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -82,6 +83,7 @@ class FloatValue implements \Papaya\Filter {
    * into a float numeric before the validation. So only given limits are validated.
    *
    * @param string $value
+   *
    * @return float|null
    */
   public function filter($value) {

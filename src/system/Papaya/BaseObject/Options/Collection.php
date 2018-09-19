@@ -12,10 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Options;
 
-use \Papaya\BaseObject\Interfaces\Properties;
+use Papaya\BaseObject\Interfaces\Properties;
 
 /**
  * A options list if a list of name => value pairs. The names consists of letters and
@@ -56,7 +55,9 @@ class Collection
    * Convert to uppercase letters and check name
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
+   *
    * @return string
    */
   protected function _prepareName($name) {
@@ -79,6 +80,7 @@ class Collection
    * Read an option value
    *
    * @param $name
+   *
    * @return mixed
    */
   protected function _read($name) {
@@ -99,6 +101,7 @@ class Collection
    * Check if an option value exists
    *
    * @param $name
+   *
    * @return bool
    */
   protected function _exists($name) {
@@ -109,6 +112,7 @@ class Collection
    * ArrayAccess interface: return option
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -119,6 +123,7 @@ class Collection
    * ArrayAccess interface, set option value
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -143,6 +148,7 @@ class Collection
    * ArrayAccess interface, check if option exists
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -171,6 +177,7 @@ class Collection
    * Magic Method: read access to options as properties
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -191,6 +198,7 @@ class Collection
    * Magic Method: access to options as properties to check if they exists
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {

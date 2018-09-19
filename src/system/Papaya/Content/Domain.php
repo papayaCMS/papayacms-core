@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -102,6 +101,7 @@ class Domain extends \Papaya\Database\Record {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return mixed
    */
   public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
@@ -122,6 +122,7 @@ class Domain extends \Papaya\Database\Record {
    * @param int $mode
    * @param array $values
    * @param array $record
+   *
    * @return array
    */
   public function callbackUpdateHostLength($context, $mode, $values, $record) {

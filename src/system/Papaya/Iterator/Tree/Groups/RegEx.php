@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree\Groups;
 
 /**
@@ -48,6 +47,7 @@ class RegEx extends \Papaya\Iterator\Tree\Groups {
    *
    * @param mixed $element
    * @param int|bool|float|string $index
+   *
    * @return null|string
    */
   public function callbackMatchGroup($element, $index) {
@@ -62,6 +62,7 @@ class RegEx extends \Papaya\Iterator\Tree\Groups {
    * Get the group string from the value
    *
    * @param string $value
+   *
    * @return string|null
    */
   private function matchValue($value) {

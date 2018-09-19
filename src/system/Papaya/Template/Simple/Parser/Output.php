@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Parser;
 
 /**
@@ -31,6 +30,7 @@ class Output extends \Papaya\Template\Simple\Parser {
    * between VALUE_NAME and VALUE_DEFAULT are ignored.
    *
    * @return \Papaya\Template\Simple\AST\Nodes
+   *
    * @throws \Papaya\Template\Simple\Exception
    */
   public function parse() {

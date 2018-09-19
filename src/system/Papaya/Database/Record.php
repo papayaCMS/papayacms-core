@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -101,6 +100,7 @@ abstract class Record
    * be used like array('id' => $filter).
    *
    * @param mixed $filter
+   *
    * @return bool
    */
   public function load($filter) {
@@ -121,6 +121,7 @@ abstract class Record
    *
    * @param $filter
    * @param string $prefix
+   *
    * @return string
    */
   protected function _compileCondition($filter, $prefix = 'WHERE') {
@@ -195,6 +196,7 @@ abstract class Record
    *
    * @param string $sql
    * @param array $parameters
+   *
    * @return bool
    */
   protected function _loadRecord($sql, array $parameters = NULL) {
@@ -285,6 +287,7 @@ abstract class Record
    * a database record and back.
    *
    * @param \Papaya\Database\Interfaces\Mapping $mapping
+   *
    * @return \Papaya\Database\Interfaces\Mapping
    */
   public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
@@ -310,6 +313,7 @@ abstract class Record
    * of the record.
    *
    * @param \Papaya\Database\Interfaces\Key $key
+   *
    * @return \Papaya\Database\Interfaces\Key
    */
   public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
@@ -356,6 +360,7 @@ abstract class Record
    * Getter/Setter for the possible callbacks, to modify the behaviour of the object
    *
    * @param \Papaya\Database\Record\Callbacks $callbacks
+   *
    * @return \Papaya\Database\Record\Callbacks
    */
   public function callbacks(\Papaya\Database\Record\Callbacks $callbacks = NULL) {

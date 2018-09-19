@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -45,6 +44,7 @@ class Values implements \ArrayAccess {
    * Check if the session variable exists
    *
    * @param mixed $identifier
+   *
    * @return bool
    */
   public function offsetExists($identifier) {
@@ -60,6 +60,7 @@ class Values implements \ArrayAccess {
    * Get a session value if the session is active and the value exists. Return NULL otherwise.
    *
    * @param mixed $identifier
+   *
    * @return mixed
    */
   public function offsetGet($identifier) {
@@ -76,7 +77,9 @@ class Values implements \ArrayAccess {
    * Alias for {@see \Papaya\Session\Values::offsetGet()}.
    *
    * @param mixed $identifier
+   *
    * @return mixed
+   *
    * @internal param mixed $value
    */
   public function get($identifier) {
@@ -129,6 +132,7 @@ class Values implements \ArrayAccess {
    * Provide access to the used identifer string
    *
    * @param mixed $identifier
+   *
    * @return string
    */
   public function getKey($identifier) {
@@ -147,6 +151,7 @@ class Values implements \ArrayAccess {
    * All other identifier data is casted to a string.
    *
    * @param mixed $identifier
+   *
    * @return string
    */
   private function _compileKey($identifier) {

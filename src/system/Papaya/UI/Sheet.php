@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -73,6 +72,7 @@ class Sheet extends Control {
 
   /**
    * @param \Papaya\UI\Sheet\Subtitles|array $subtitles
+   *
    * @return \Papaya\UI\Sheet\Subtitles
    */
   public function subtitles($subtitles = NULL) {
@@ -91,6 +91,7 @@ class Sheet extends Control {
 
   /**
    * @param \Papaya\XML\Appendable $content
+   *
    * @return \Papaya\XML\Element|\Papaya\XML\Appendable $content
    */
   public function content($content = NULL) {

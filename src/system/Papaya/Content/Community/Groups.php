@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Community;
 
 /**
@@ -43,6 +42,7 @@ class Groups extends \Papaya\Database\Records {
    * @param int $permission
    * @param null|int $limit
    * @param null|int $offset
+   *
    * @return boolean;
    */
   public function loadByPermission($permission, $limit = NULL, $offset = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -82,6 +81,7 @@ class Languages extends \Papaya\Database\Records {
    * load languages from database, this can be filtered by usage
    *
    * @param int $usageFilter
+   *
    * @return bool
    */
   public function loadByUsage($usageFilter = self::FILTER_NONE) {
@@ -103,6 +103,7 @@ class Languages extends \Papaya\Database\Records {
    * @param array $filter
    * @param null $limit
    * @param int $offset
+   *
    * @return bool
    */
   public function load($filter = [], $limit = NULL, $offset = 0) {
@@ -123,6 +124,7 @@ class Languages extends \Papaya\Database\Records {
    * object is called.
    *
    * @param string|int $language
+   *
    * @return \Papaya\Content\Language
    */
   public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
@@ -167,6 +169,7 @@ class Languages extends \Papaya\Database\Records {
    * Create a new language record object and assign the data from the list if available.
    *
    * @param string $code
+   *
    * @return \Papaya\Content\Language
    */
   public function getLanguageByCode($code) {
@@ -183,6 +186,7 @@ class Languages extends \Papaya\Database\Records {
    * Create a new language record object and assign the data from the list if available.
    *
    * @param string $identifier
+   *
    * @return \Papaya\Content\Language
    */
   public function getLanguageByIdentifier($identifier) {
@@ -199,6 +203,7 @@ class Languages extends \Papaya\Database\Records {
    * Get the language code by the id.
    *
    * @param int $languageId
+   *
    * @return string|null
    */
   public function getIdentiferById($languageId) {

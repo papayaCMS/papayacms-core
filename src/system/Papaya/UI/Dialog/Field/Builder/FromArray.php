@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Builder;
 
 /**
@@ -153,6 +152,7 @@ class FromArray {
    * Add a field group object, group definitions hav only a caption
    *
    * @param string $caption
+   *
    * @return \Papaya\UI\Dialog\Field\Group
    */
   private function _addGroup($caption) {
@@ -169,6 +169,7 @@ class FromArray {
    *
    * @param string $name
    * @param array $data
+   *
    * @return \Papaya\UI\Dialog\Field|null
    */
   private function _addField($name, array $data) {
@@ -206,6 +207,7 @@ class FromArray {
    * If a phrase could need a translation, this method is used to wrap it into an object.
    *
    * @param string $string
+   *
    * @return string|\Papaya\UI\Text\Translated
    */
   private function _createPhrase($string) {
@@ -216,6 +218,7 @@ class FromArray {
    * Getter/Setter for the field factory
    *
    * @param \Papaya\UI\Dialog\Field\Factory $factory
+   *
    * @return \Papaya\UI\Dialog\Field\Factory
    */
   public function fieldFactory(\Papaya\UI\Dialog\Field\Factory $factory = NULL) {

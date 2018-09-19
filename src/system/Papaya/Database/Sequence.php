@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -59,6 +58,7 @@ abstract class Sequence extends BaseObject {
    *
    * @param string $table
    * @param string $field
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($table, $field) {
@@ -97,6 +97,7 @@ abstract class Sequence extends BaseObject {
    * Create a several ids at once
    *
    * @param int $count
+   *
    * @return array
    */
   protected function createIdentifiers($count) {
@@ -114,7 +115,9 @@ abstract class Sequence extends BaseObject {
    * Check identifiers agains table, return only identifiers not already used.
    *
    * @param array $identifiers
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array|false $identifiers
    */
   protected function checkIdentifiers(array $identifiers) {

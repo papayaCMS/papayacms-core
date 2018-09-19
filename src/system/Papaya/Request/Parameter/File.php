@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameter;
 
 /**
@@ -87,6 +86,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Get the file parameter data as an Iterator
    *
    * @see \IteratorAggregate::getIterator()
+   *
    * @return \Iterator
    */
   public function getIterator() {
@@ -165,6 +165,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Getter/Setter for the file system factory
    *
    * @param \Papaya\File\System\Factory $fileSystem
+   *
    * @return \Papaya\File\System\Factory
    */
   public function fileSystem(\Papaya\File\System\Factory $fileSystem = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -54,6 +53,7 @@ class Composed extends \Papaya\UI\Control {
    * Define the set by a list of names.
    *
    * @param array $sets
+   *
    * @throws \InvalidArgumentException
    */
   public function setNames(array $sets) {
@@ -93,6 +93,7 @@ class Composed extends \Papaya\UI\Control {
    * The toolbar to sets get appended to.
    *
    * @param \Papaya\UI\Toolbar $toolbar
+   *
    * @return \Papaya\UI\Toolbar
    */
   public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
@@ -109,6 +110,7 @@ class Composed extends \Papaya\UI\Control {
    * Return the toolbar set name is defined. The toolbar set does not need to exists at this point.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -121,7 +123,9 @@ class Composed extends \Papaya\UI\Control {
    * thrown.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return \Papaya\UI\Toolbar\Collection
    */
   public function __get($name) {
@@ -143,6 +147,7 @@ class Composed extends \Papaya\UI\Control {
    * If the position name is invalid an excpetion is thrown.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
    * @param \Papaya\UI\Toolbar\Collection $value
    */

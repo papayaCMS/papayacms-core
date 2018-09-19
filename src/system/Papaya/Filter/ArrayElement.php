@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -48,7 +47,9 @@ class ArrayElement implements \Papaya\Filter {
    * Check the integer input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -70,6 +71,7 @@ class ArrayElement implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return int|null
    */
   public function filter($value) {

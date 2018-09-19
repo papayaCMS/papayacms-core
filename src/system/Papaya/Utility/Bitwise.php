@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 class Bitwise {
@@ -22,6 +21,7 @@ class Bitwise {
 
   /**
    * @param int ,... $bit
+   *
    * @return int
    */
   public static function union() {

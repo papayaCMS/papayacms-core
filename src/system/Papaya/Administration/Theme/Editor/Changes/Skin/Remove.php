@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
 use Papaya\UI;
@@ -29,6 +28,7 @@ class Remove
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
    * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   *
    * @return \Papaya\UI\Dialog
    */
   public function createDialog() {

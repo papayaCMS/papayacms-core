@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
 
 use Papaya\Content;
@@ -81,6 +80,7 @@ class Blocker extends UI\Control\Interactive {
    * Initialize object with page id and synchronisation element.
    *
    * @param int $pageId
+   *
    * @internal param int $synchronization
    */
   public function __construct($pageId) {
@@ -91,6 +91,7 @@ class Blocker extends UI\Control\Interactive {
    * Append the blocker message/goto dialog to the parent xml.
    *
    * @param XML\Element $parent
+   *
    * @return UI\Dialog
    */
   public function appendTo(XML\Element $parent) {
@@ -134,6 +135,7 @@ class Blocker extends UI\Control\Interactive {
    *
    * @param int $synchronization
    * @param bool $reset , reset cache and load record again
+   *
    * @return bool
    */
   public function isSynchronized($synchronization, $reset = FALSE) {
@@ -167,6 +169,7 @@ class Blocker extends UI\Control\Interactive {
    *
    * @param int $language
    * @param bool $reset , reset cache and load record again
+   *
    * @return array
    */
   public function getSynchronizedViews($language, $reset = FALSE) {
@@ -196,6 +199,7 @@ class Blocker extends UI\Control\Interactive {
    * Get/Set an object for the current dependency.
    *
    * @param Content\Page\Dependency $dependency
+   *
    * @return Content\Page\Dependency
    */
   public function dependency(Content\Page\Dependency $dependency = NULL) {
@@ -212,6 +216,7 @@ class Blocker extends UI\Control\Interactive {
    * Getter/Setter for the dependencies list database object
    *
    * @param Content\Page\Dependencies $dependencies
+   *
    * @return Content\Page\Dependencies
    */
   public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
@@ -227,6 +232,7 @@ class Blocker extends UI\Control\Interactive {
    * Getter/Setter for the views list database object
    *
    * @param Content\Views $views
+   *
    * @return Content\Views
    */
   public function views(Content\Views $views = NULL) {
@@ -242,6 +248,7 @@ class Blocker extends UI\Control\Interactive {
    * Access to the pages list, to load page information
    *
    * @param Content\Pages $pages
+   *
    * @return Content\Pages
    */
   public function pages(Content\Pages $pages = NULL) {
@@ -258,6 +265,7 @@ class Blocker extends UI\Control\Interactive {
    * Provides count for depended pages and references
    *
    * @param Counter $counter
+   *
    * @return Counter
    */
   public function counter(Counter $counter = NULL) {

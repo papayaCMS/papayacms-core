@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -49,6 +48,7 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
    * @param string $caption
    * @param string $name
    * @param string $captchaImage
+   *
    * @internal param string $dynamicImage dynamic image identifier
    */
   public function __construct($caption, $name, $captchaImage = 'captcha') {
@@ -72,6 +72,7 @@ class Captcha extends \Papaya\UI\Dialog\Field\Input {
    * Append the captcha field xml to the dom
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

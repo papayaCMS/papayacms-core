@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
 
 /**
@@ -94,6 +93,7 @@ class Confirmation extends \Papaya\UI\Dialog {
    * Append dialog elements to dom
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return null|\Papaya\XML\Element|void
    */
   public function appendTo(\Papaya\XML\Element $parent) {

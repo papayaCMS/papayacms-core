@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -144,6 +143,7 @@ class Paging extends Element {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param int $itemsCount
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
@@ -162,6 +162,7 @@ class Paging extends Element {
    * minimum value is 1.
    *
    * @param int $itemsPerPage
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
@@ -180,6 +181,7 @@ class Paging extends Element {
    * Minimum value is 3. I suggest only odd values for this option.
    *
    * @param int $buttonLimit
+   *
    * @throws \UnexpectedValueException
    */
   public function setButtonLimit($buttonLimit) {
@@ -321,6 +323,7 @@ class Paging extends Element {
    * If offset mode is used convert page to offset.
    *
    * @param int $page
+   *
    * @return int
    */
   private function preparePagingParameter($page) {

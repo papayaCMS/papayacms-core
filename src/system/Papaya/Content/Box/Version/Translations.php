@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Box\Version;
 
 /**
@@ -44,6 +43,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * Load translation list informations
    *
    * @param int $boxId
+   *
    * @return bool
    */
   public function load($boxId) {
@@ -66,6 +66,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $boxId
    * @param int $languageId
+   *
    * @return \Papaya\Content\Box\Translation
    */
   public function getTranslation($boxId, $languageId) {

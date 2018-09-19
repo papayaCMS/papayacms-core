@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
 
 /**
@@ -25,6 +24,7 @@ namespace Papaya\Filter\Factory\Profile;
 class Generator extends \Papaya\Filter\Factory\Profile {
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
+   *
    * @throws \ReflectionException
    * @throws \Papaya\Filter\Factory\Exception\InvalidFilter
    * @throws \Papaya\Filter\Factory\Exception\InvalidOptions

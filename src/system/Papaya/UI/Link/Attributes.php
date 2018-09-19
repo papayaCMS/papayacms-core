@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Link;
 
 /**
@@ -126,6 +125,7 @@ class Attributes extends \Papaya\UI\Control\Part {
    * more then one scrollbars option is set.
    *
    * @param int $options
+   *
    * @throws \InvalidArgumentException
    */
   public function setPopupOptions($options) {
@@ -178,6 +178,7 @@ class Attributes extends \Papaya\UI\Control\Part {
    * The object append the link attributes to a given element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

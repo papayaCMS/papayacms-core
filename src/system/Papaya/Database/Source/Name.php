@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Source;
 
 /**
@@ -59,7 +58,9 @@ class Name {
    * Construct a dsn object and set it's properties from a dsn string
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
+   *
    * @throws \Papaya\Database\Exception\Connect
    */
   public function __construct($name) {
@@ -96,6 +97,7 @@ class Name {
    *
    *
    * @param string $name
+   *
    * @throws \Papaya\Database\Exception\Connect
    */
   public function setName($name) {
@@ -174,6 +176,7 @@ class Name {
    * @param array $matches
    * @param string $name
    * @param mixed $default
+   *
    * @return mixed|null
    */
   private function _getMatchValue($matches, $name, $default = NULL) {
@@ -187,6 +190,7 @@ class Name {
    * Check if a dsn property does exists (contains a value in this case)
    *
    * @param name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -202,7 +206,9 @@ class Name {
    * Provides read access to the values in the _properties array and the parameters property.
    *
    * @throws \ErrorException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -226,6 +232,7 @@ class Name {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \BadMethodCallException
    */
   public function __set($name, $value) {

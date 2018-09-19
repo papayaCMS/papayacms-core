@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -112,6 +111,7 @@ class Response extends Application\BaseObject {
    * Get response helper
    *
    * @param \Papaya\Response\Helper $helper
+   *
    * @return \Papaya\Response\Helper
    */
   public function helper(Response\Helper $helper = NULL) {
@@ -127,6 +127,7 @@ class Response extends Application\BaseObject {
    * Get response http headers list
    *
    * @param \Papaya\Response\Headers $headers
+   *
    * @return \Papaya\Response\Headers
    */
   public function headers(Response\Headers $headers = NULL) {
@@ -142,6 +143,7 @@ class Response extends Application\BaseObject {
    * Get/Set response content object
    *
    * @param \Papaya\Response\Content $content
+   *
    * @return \Papaya\Response\Content
    */
   public function content(Response\Content $content = NULL) {
@@ -157,6 +159,7 @@ class Response extends Application\BaseObject {
    * Set response status
    *
    * @param int $status
+   *
    * @throws \UnexpectedValueException
    */
   public function setStatus($status) {

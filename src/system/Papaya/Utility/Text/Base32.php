@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -97,6 +96,7 @@ class Base32 {
    *
    * @param string $bytes
    * @param bool $padding
+   *
    * @return string
    */
   public static function encode($bytes, $padding = FALSE) {
@@ -130,7 +130,9 @@ class Base32 {
    * decode a base32 encoded binary string
    *
    * @param string $encodedString
+   *
    * @throws \OutOfBoundsException
+   *
    * @return string
    */
   public static function decode($encodedString) {

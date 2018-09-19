@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory;
 
 /**
@@ -35,7 +34,6 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
  */
 class Options implements \ArrayAccess {
-
   /**
    * Definition of options and default values
    *
@@ -72,6 +70,7 @@ class Options implements \ArrayAccess {
    * Create object and assign values from the provided Traversable or array.
    *
    * @param array|\Traversable $values
+   *
    * @throws \UnexpectedValueException
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -85,6 +84,7 @@ class Options implements \ArrayAccess {
    * Assign values from a traversable as option values, unknown option names will be ignored
    *
    * @param array|\Traversable $values
+   *
    * @throws \UnexpectedValueException
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -99,7 +99,9 @@ class Options implements \ArrayAccess {
    * Magic Method, return true if the property exists and isset.
    *
    * @param string $name
+   *
    * @return bool
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __isset($name) {
@@ -110,6 +112,7 @@ class Options implements \ArrayAccess {
    * Magic Method, return the option value
    *
    * @param string $name
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __get($name) {
@@ -121,6 +124,7 @@ class Options implements \ArrayAccess {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __set($name, $value) {
@@ -131,7 +135,9 @@ class Options implements \ArrayAccess {
    * Magic Method, reset the option value to its default value from the definition
    *
    * @param string $name
+   *
    * @internal param mixed $value
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __unset($name) {
@@ -144,8 +150,11 @@ class Options implements \ArrayAccess {
    * ArrayAccess interface, check if the option name is valid
    *
    * @see \ArrayAccess::offsetExists()
+   *
    * @param mixed $offset
+   *
    * @return bool
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetExists($offset) {
@@ -156,8 +165,11 @@ class Options implements \ArrayAccess {
    * ArrayAccess interface, get the option value
    *
    * @see \ArrayAccess::offsetGet()
+   *
    * @param mixed $offset
+   *
    * @return mixed
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetGet($offset) {
@@ -168,8 +180,10 @@ class Options implements \ArrayAccess {
    * ArrayAccess interface, set the option value
    *
    * @see \ArrayAccess::offsetSet()
+   *
    * @param mixed $offset
    * @param mixed $value
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetSet($offset, $value) {
@@ -180,7 +194,9 @@ class Options implements \ArrayAccess {
    * ArrayAccess interface, reset the option value to its default value from the definition
    *
    * @see \ArrayAccess::offsetGet()
+   *
    * @param mixed $offset
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetUnset($offset) {
@@ -192,7 +208,9 @@ class Options implements \ArrayAccess {
    *
    * @param string $name
    * @param bool $silent
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
    * @return bool
    */
   private function exists($name, $silent = FALSE) {
@@ -209,7 +227,9 @@ class Options implements \ArrayAccess {
    * Fetch a value from the buffer or return the default value
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
    * @param string $name
+   *
    * @return mixed
    */
   private function get($name) {
@@ -225,6 +245,7 @@ class Options implements \ArrayAccess {
    * Set the option value, if silent is set to false invalid option names will trigger an exception.
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
    * @param string $name
    * @param mixed $value
    * @param bool $silent
@@ -250,7 +271,9 @@ class Options implements \ArrayAccess {
    * In all other cases it is considered a filter profile name.
    *
    * @param mixed $validation
+   *
    * @return null|\Papaya\Filter|\Papaya\Filter\NotEmpty
+   *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   private function getValidation($validation) {
@@ -277,6 +300,7 @@ class Options implements \ArrayAccess {
    * Getter/Setter for the validation filter factory
    *
    * @param \Papaya\Filter\Factory $factory
+   *
    * @return \Papaya\Filter\Factory
    */
   public function filterFactory(\Papaya\Filter\Factory $factory = NULL) {

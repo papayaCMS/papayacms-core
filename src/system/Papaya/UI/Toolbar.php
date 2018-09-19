@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -44,6 +43,7 @@ class Toolbar extends Control {
    * Getter/setter for elements collection
    *
    * @param Toolbar\Elements $elements
+   *
    * @return Toolbar\Elements
    */
   public function elements(Toolbar\Elements $elements = NULL) {
@@ -60,6 +60,7 @@ class Toolbar extends Control {
    * Append toolbar and elements and set identifier if available
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Dialog;
 
 /**
@@ -24,6 +23,7 @@ namespace Papaya\UI\Control\Command\Dialog;
  * @property \Papaya\BaseObject\Callback onCreateDialog
  * @property \Papaya\BaseObject\Callback onExecuteSuccessful
  * @property \Papaya\BaseObject\Callback onExecuteFailed
+ *
  * @method bool onCreateDialog(\Papaya\UI\Dialog $dialog)
  * @method bool onExecuteSuccessful(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
  * @method bool onExecuteFailed(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)

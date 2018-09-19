@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
 
 use Papaya\Content;
@@ -136,6 +135,7 @@ class Synchronizations {
    * Getter/setter for the dependencies database list
    *
    * @param Content\Page\Dependencies|null $dependencies
+   *
    * @return Content\Page\Dependencies
    */
   public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
@@ -151,6 +151,7 @@ class Synchronizations {
    * Get the action object for an synchronization.
    *
    * @param int $synchronization
+   *
    * @return null|\Papaya\Administration\Pages\Dependency\Synchronization
    */
   public function getAction($synchronization) {
@@ -167,6 +168,7 @@ class Synchronizations {
    *
    * @param int $originId
    * @param int $synchronization
+   *
    * @return array|null
    */
   public function getTargets($originId, $synchronization) {

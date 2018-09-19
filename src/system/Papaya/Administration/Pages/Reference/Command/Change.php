@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Reference\Command;
 
 use Papaya\Administration;
@@ -93,6 +92,7 @@ class Change extends UI\Control\Command\Dialog {
    *
    * @param object $context
    * @param Content\Page\Reference $record
+   *
    * @return bool
    */
   public function validateTarget($context, Content\Page\Reference $record) {
@@ -116,6 +116,7 @@ class Change extends UI\Control\Command\Dialog {
    *
    * @param int $idOne
    * @param int $idTwo
+   *
    * @return array
    */
   private function sortAsc($idOne, $idTwo) {

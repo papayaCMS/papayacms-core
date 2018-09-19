@@ -31,6 +31,7 @@ namespace Papaya\Application\Access {
      * An combined getter/setter for the Papaya Application object
      *
      * @param Application $application
+     *
      * @return Application\CMS|Application
      */
     public function papaya(Application $application = NULL) {

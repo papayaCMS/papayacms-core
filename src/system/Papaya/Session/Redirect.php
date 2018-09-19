@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -77,6 +76,7 @@ class Redirect extends \Papaya\Response {
    * Getter/Setter for the redirect target url object
    *
    * @param \Papaya\URL $url
+   *
    * @return \Papaya\URL
    */
   public function url(\Papaya\URL $url = NULL) {

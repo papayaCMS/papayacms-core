@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration;
 
 use Papaya\Request;
@@ -144,6 +143,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the parts list
    *
    * @param Page\Parts $parts
+   *
    * @return Page\Parts
    */
   public function parts(Page\Parts $parts = NULL) {
@@ -166,6 +166,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * FALSE the part is ignored.
    *
    * @param string $name
+   *
    * @return false|Page\Part
    */
   public function createPart($name) {
@@ -185,6 +186,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * appended to the toolbar.
    *
    * @param UI\Toolbar $toolbar
+   *
    * @return UI\Toolbar
    */
   public function toolbar(UI\Toolbar $toolbar = NULL) {

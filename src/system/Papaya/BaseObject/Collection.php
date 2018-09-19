@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
 /**
@@ -58,6 +57,7 @@ class Collection
    * Set/Change the item class restriction, this will remove all items in teh internal list.
    *
    * @param string $itemClass
+   *
    * @throws \InvalidArgumentException
    */
   public function setItemClass($itemClass) {
@@ -91,6 +91,7 @@ class Collection
    * to add several items using a fluent interface.
    *
    * @param object $value
+   *
    * @return $this
    */
   public function add($value) {
@@ -175,6 +176,7 @@ class Collection
    * ArrayAccess interface: check for item specified by index
    *
    * @param int $index
+   *
    * @return bool
    */
   public function offsetExists($index) {
@@ -185,6 +187,7 @@ class Collection
    * ArrayAccess interface: get item specified by index
    *
    * @param int $index
+   *
    * @return mixed
    */
   public function offsetGet($index) {
@@ -199,6 +202,7 @@ class Collection
    *
    * @param int $index
    * @param mixed $value
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($index, $value) {
@@ -243,6 +247,7 @@ class Collection
    * Prepare item before adding it to the list. Overriding this method allows type conversions.
    *
    * @param mixed $value
+   *
    * @return mixed
    */
   protected function prepareItem($value) {

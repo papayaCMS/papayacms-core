@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Paging;
 
 /**
@@ -97,6 +96,7 @@ class Steps extends \Papaya\UI\Control {
    * Append stepSize elements top parent xml element
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -125,6 +125,7 @@ class Steps extends \Papaya\UI\Control {
    * Allow to specify element and attribute names for the generated xml
    *
    * @param array $names
+   *
    * @throws \UnexpectedValueException
    */
   public function setXMLNames(array $names) {
@@ -167,6 +168,7 @@ class Steps extends \Papaya\UI\Control {
    * Getter/Setter for the reference subobject.
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return null|\Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -72,7 +71,9 @@ class Toolbars extends Control {
    * thrown.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return Toolbar
    */
   public function __get($name) {
@@ -97,6 +98,7 @@ class Toolbars extends Control {
    * thrown.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
    * @param Toolbar $value
    */

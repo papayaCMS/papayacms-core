@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -44,6 +43,7 @@ class Message extends Information {
    *
    * @param \Papaya\UI\Text|string $severity
    * @param string|\Papaya\UI\Text $message
+   *
    * @internal param string $image
    */
   public function __construct($severity, $message) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Option;
 
 /**
@@ -36,6 +35,7 @@ class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
    * Get options object for a plugin, create it if needed
    *
    * @param string $guid
+   *
    * @return \Papaya\Configuration
    */
   public function offsetGet($guid) {

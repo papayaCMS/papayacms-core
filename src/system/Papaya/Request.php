@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -157,6 +156,7 @@ class Request
 
   /**
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -184,7 +184,9 @@ class Request
    * Allow to read request data as properties
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -236,6 +238,7 @@ class Request
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \LogicException
    */
   public function __set($name, $value) {
@@ -293,6 +296,7 @@ class Request
    * Getter/Setter for the request language
    *
    * @param \Papaya\Content\Language $language
+   *
    * @return \Papaya\Content\Language
    */
   public function language(\Papaya\Content\Language $language = NULL) {
@@ -318,6 +322,7 @@ class Request
    * Getter/Setter for view mode object
    *
    * @param \Papaya\Content\View\Mode $mode
+   *
    * @return \Papaya\Content\View\Mode
    */
   public function mode(\Papaya\Content\View\Mode $mode = NULL) {
@@ -361,7 +366,9 @@ class Request
    * Set parameter group separator if valid
    *
    * @param string $separator
+   *
    * @throws \InvalidArgumentException
+   *
    * @return string
    */
   public function setParameterGroupSeparator($separator) {
@@ -425,6 +432,7 @@ class Request
    * Load and parse request
    *
    * @param URL $url
+   *
    * @return bool
    */
   public function load(URL $url) {
@@ -459,6 +467,7 @@ class Request
    * Initialize and cache parameter for the specified source
    *
    * @param \Integer $source
+   *
    * @return \Papaya\Request\Parameters
    */
   private function _loadParametersForSource($source) {
@@ -508,6 +517,7 @@ class Request
    * Merges parameter data from different sources and uses an object cache
    *
    * @param $sources
+   *
    * @return \Papaya\Request\Parameters
    */
   public function loadParameters($sources = self::SOURCE_ALL) {
@@ -543,6 +553,7 @@ class Request
    * Get a parameters object containing all parameters from the given sources
    *
    * @param int $sources
+   *
    * @return \Papaya\Request\Parameters
    */
   public function getParameters($sources = self::SOURCE_ALL) {
@@ -556,6 +567,7 @@ class Request
    * @param mixed $defaultValue
    * @param \Papaya\Filter $filter
    * @param int $sources
+   *
    * @return mixed
    */
   public function getParameter(
@@ -570,6 +582,7 @@ class Request
    *
    * @param string $name
    * @param int $sources
+   *
    * @return \Papaya\Request\Parameters
    */
   public function getParameterGroup($name, $sources = self::SOURCE_ALL) {
@@ -582,6 +595,7 @@ class Request
    *
    * @param int $source
    * @param \Papaya\Request\Parameters $parameters
+   *
    * @throws \InvalidArgumentException
    */
   public function setParameters($source, $parameters) {
@@ -672,6 +686,7 @@ class Request
    *
    * @param string $cacheId
    * @param $lastModified
+   *
    * @return bool
    */
   public function validateBrowserCache($cacheId, $lastModified) {
@@ -695,6 +710,7 @@ class Request
    * takes it castable to a string.
    *
    * @param \Papaya\Request\Content $content
+   *
    * @return \Papaya\Request\Content
    */
   public function content(Request\Content $content = NULL) {

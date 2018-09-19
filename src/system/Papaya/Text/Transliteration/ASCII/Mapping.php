@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Text\Transliteration\ASCII;
 
 /**
@@ -73,6 +72,7 @@ class Mapping {
    *
    * @param int $bank
    * @param string $language
+   *
    * @return bool
    */
   public function isLoaded($bank, $language) {
@@ -142,6 +142,7 @@ class Mapping {
    *
    * @param int $bank
    * @param string $language
+   *
    * @return string
    */
   public function getFile($bank, $language) {

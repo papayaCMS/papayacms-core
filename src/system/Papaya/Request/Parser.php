@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
 
 /**
@@ -26,6 +25,7 @@ abstract class Parser extends \Papaya\Application\BaseObject {
    * parse request
    *
    * @param \Papaya\URL $url
+   *
    * @return false|array
    */
   abstract public function parse($url);

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Group;
 
 /**
@@ -55,6 +54,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
    * Group buttons getter/setter
    *
    * @param \Papaya\UI\Dialog\Buttons $buttons
+   *
    * @return \Papaya\UI\Dialog\Buttons
    */
   public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {
@@ -76,6 +76,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
    * Return the owner collection of the item.
    *
    * @param \Papaya\UI\Control\Collection $collection
+   *
    * @return \Papaya\UI\Control\Collection
    */
   public function collection(\Papaya\UI\Control\Collection $collection = NULL) {

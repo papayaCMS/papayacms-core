@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple;
 
 /**
@@ -78,7 +77,9 @@ abstract class Parser {
    * token may be specified, which does not make any sense, anyway.
    *
    * @param array|int|string $expectedTokens
+   *
    * @throws \Papaya\Template\Simple\Exception
+   *
    * @return \Papaya\Template\Simple\Scanner\Token
    */
   protected function read($expectedTokens) {
@@ -123,7 +124,9 @@ abstract class Parser {
    * @param array|int|string $expectedTokens
    * @param int $position
    * @param bool $allowEndOfTokens
+   *
    * @throws \Papaya\Template\Simple\Exception
+   *
    * @return \Papaya\Template\Simple\Scanner\Token|null
    */
   protected function lookahead($expectedTokens, $position = 0, $allowEndOfTokens = FALSE) {
@@ -153,6 +156,7 @@ abstract class Parser {
    * may be provided to look forward.
    *
    * @param int $position
+   *
    * @return bool
    */
   protected function endOfTokens($position = 0) {
@@ -177,6 +181,7 @@ abstract class Parser {
    *
    * @param array|int|string $expectedTokens
    * @param bool
+   *
    * @return bool
    */
   protected function ignore($expectedTokens) {
@@ -222,7 +227,9 @@ abstract class Parser {
    * subparser.
    *
    * @param string $subparserClass
+   *
    * @throws \LogicException
+   *
    * @return \Papaya\Template\Simple\AST
    */
   protected function delegate($subparserClass) {
@@ -241,6 +248,7 @@ abstract class Parser {
    *
    * @param $position
    * @param int $type
+   *
    * @return bool
    */
   protected function matchToken($position, $type) {
@@ -261,6 +269,7 @@ abstract class Parser {
    *
    * @param array $expectedTokens
    * @param int $position
+   *
    * @return \Papaya\Template\Simple\Exception
    */
   protected function createMismatchException($expectedTokens, $position = 0) {

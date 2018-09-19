@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Profiler\Storage;
 
 /**
@@ -44,6 +43,7 @@ class File implements \Papaya\Profiler\Storage {
    *
    * @param array $data
    * @param string $type
+   *
    * @return string
    */
   public function saveRun($data, $type) {
@@ -58,6 +58,7 @@ class File implements \Papaya\Profiler\Storage {
    *
    * @param string $id
    * @param string $type
+   *
    * @return string
    */
   private function getFilename($id, $type) {
@@ -78,7 +79,9 @@ class File implements \Papaya\Profiler\Storage {
    * Cleanup directory option and validate it.
    *
    * @param string $directory
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   private function prepareDirectory($directory) {
@@ -100,7 +103,9 @@ class File implements \Papaya\Profiler\Storage {
    * Validate profiling file extension.
    *
    * @param string $suffix
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   private function prepareSuffix($suffix) {

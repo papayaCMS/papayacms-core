@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Mapping;
 
 /**
@@ -55,6 +54,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Map the database fields of an record to the object properties
    *
    * @param array $record
+   *
    * @return array
    */
   public function mapFieldsToProperties(array $record) {
@@ -109,6 +109,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param array $values
    * @param bool $withAlias
+   *
    * @return array
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
@@ -174,6 +175,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Get a list of the used database fields
    *
    * @param bool $withAlias
+   *
    * @return array
    */
   public function getFields($withAlias = TRUE) {
@@ -187,6 +189,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Get the property name for a field
    *
    * @param $field
+   *
    * @return string|false
    */
   public function getProperty($field) {
@@ -201,6 +204,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param $property
    * @param bool $withAlias
+   *
    * @return string|false
    */
   public function getField($property, $withAlias = TRUE) {

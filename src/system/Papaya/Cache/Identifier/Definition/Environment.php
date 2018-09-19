@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Cache;
@@ -55,6 +54,7 @@ class Environment
    * Any kind of data from the request environment
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

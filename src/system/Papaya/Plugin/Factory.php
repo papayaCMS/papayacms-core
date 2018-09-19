@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -65,6 +64,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
 
   /**
    * @param \Papaya\Plugin\Loader $pluginLoader
+   *
    * @return \Papaya\Plugin\Loader
    */
   public function loader(\Papaya\Plugin\Loader $pluginLoader = NULL) {
@@ -80,6 +80,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * Validate if a guid for the given plugin name was defined.
    *
    * @param string $pluginName
+   *
    * @return bool
    */
   public function has($pluginName) {
@@ -90,8 +91,10 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * Fetch a plugin from plugin loader using the guid definition in self::$_plugins.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $pluginName
    * @param bool $singleInstance
+   *
    * @return null|object
    */
   public function get($pluginName, $singleInstance = FALSE) {
@@ -115,7 +118,9 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * plugin instance.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $pluginName
+   *
    * @return null|object
    */
   public function __get($pluginName) {
@@ -124,6 +129,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
 
   /**
    * @param $pluginName
+   *
    * @return bool
    */
   public function __isset($pluginName) {
@@ -150,6 +156,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $pluginName
    * @param \Papaya\Configuration $options
+   *
    * @return null|\Papaya\Configuration
    */
   public function options($pluginName, \Papaya\Configuration $options = NULL) {
@@ -173,6 +180,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * @param string $optionName
    * @param mixed $default
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function getOption($pluginName, $optionName, $default = NULL, $filter = NULL) {

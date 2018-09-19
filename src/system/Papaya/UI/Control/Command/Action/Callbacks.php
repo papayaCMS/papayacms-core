@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Action;
 
 /**
@@ -24,6 +23,7 @@ namespace Papaya\UI\Control\Command\Action;
  * @property \Papaya\BaseObject\Callback $onValidationSuccessful
  * @property \Papaya\BaseObject\Callback $onValidationFailed
  * @property \Papaya\BaseObject\Callback $getDefinition
+ *
  * @method void onValidationSuccessful(\Papaya\UI\Control\Command\Action $action, \Papaya\XML\Element $parentNode)
  * @method void onValidationFailed(\Papaya\UI\Control\Command\Action $action, \Papaya\XML\Element $parentNode)
  * @method array getDefinition()

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -47,6 +46,7 @@ class Hyphenation {
    * This method is by no means complete but it should help to avoid to long words.
    *
    * @param string $word
+   *
    * @return string
    */
   public static function german($word) {

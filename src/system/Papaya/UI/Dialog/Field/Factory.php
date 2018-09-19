@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -35,7 +34,9 @@ class Factory {
    * Get the profile object for the given name.
    *
    * @param string $name
+   *
    * @return Factory\Profile
+   *
    * @throws Factory\Exception\InvalidProfile
    */
   public function getProfile($name) {
@@ -49,7 +50,9 @@ class Factory {
    *
    * @param string|Factory\Profile $profile
    * @param Factory\Options $options
+   *
    * @return \Papaya\UI\Dialog\Field
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception
    */
   public function getField($profile, Factory\Options $options = NULL) {
@@ -68,7 +71,9 @@ class Factory {
    * converted to camel case with the first letter uppercase.
    *
    * @param string $name
+   *
    * @throws Factory\Exception\InvalidProfile
+   *
    * @return string
    */
   private function getProfileClass($name) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases;
 
 /**
@@ -39,6 +38,7 @@ class Group {
    *
    * @param string $phrase
    * @param array $arguments
+   *
    * @return \Papaya\UI\Text\Translated
    */
   public function get($phrase, array $arguments = []) {
@@ -52,6 +52,7 @@ class Group {
    * A string list object
    *
    * @param array|\Traversable $phrases
+   *
    * @return \Papaya\UI\Text\Translated\Collection
    */
   public function getList($phrases) {

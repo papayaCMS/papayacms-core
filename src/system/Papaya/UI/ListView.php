@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -111,6 +110,7 @@ class ListView extends Control\Interactive {
    * Append listview output to parent element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -131,6 +131,7 @@ class ListView extends Control\Interactive {
    * The list of listview items
    *
    * @param \Papaya\UI\ListView\Items $items
+   *
    * @return null|\Papaya\UI\ListView\Items
    */
   public function items(\Papaya\UI\ListView\Items $items = NULL) {
@@ -152,6 +153,7 @@ class ListView extends Control\Interactive {
    * add some items from a data source for example.
    *
    * @param \Papaya\UI\ListView\Items\Builder $builder
+   *
    * @return null|\Papaya\UI\ListView\Items\Builder
    */
   public function builder(\Papaya\UI\ListView\Items\Builder $builder = NULL) {
@@ -166,6 +168,7 @@ class ListView extends Control\Interactive {
    * The list of listview columns
    *
    * @param \Papaya\UI\ListView\Columns $columns
+   *
    * @return \Papaya\UI\ListView\Columns
    */
   public function columns(\Papaya\UI\ListView\Columns $columns = NULL) {
@@ -183,6 +186,7 @@ class ListView extends Control\Interactive {
    * The list of listview toolbars
    *
    * @param \Papaya\UI\Toolbars $toolbars
+   *
    * @return \Papaya\UI\Toolbars
    */
   public function toolbars(\Papaya\UI\Toolbars $toolbars = NULL) {
@@ -203,6 +207,7 @@ class ListView extends Control\Interactive {
    * will use this one.
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

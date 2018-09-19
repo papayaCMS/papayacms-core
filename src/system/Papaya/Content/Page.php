@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -128,6 +127,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * Load page record from database
    *
    * @param mixed $filter
+   *
    * @return bool
    */
   public function load($filter) {
@@ -162,6 +162,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @param string $property
    * @param string $field
    * @param string $value
+   *
    * @return mixed
    */
   public function callbackMapValueFromFieldToProperty(
@@ -183,6 +184,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * @param string $property
    * @param string $field
    * @param string $value
+   *
    * @return mixed
    */
   public function callbackMapValueFromPropertyToField(
@@ -204,6 +206,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * Allows to get/set the list object. Can create a list object if needed.
    *
    * @param Page\Translations $translations
+   *
    * @return Page\Translations
    */
   public function translations(Page\Translations $translations = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -65,6 +64,7 @@ class Number extends \Papaya\UI\Dialog\Field\Input {
    * @param bool $mandatory optional, default FALSE
    * @param int $minimumLength optional, default NULL
    * @param int $maximumLength optional, default NULL
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct(

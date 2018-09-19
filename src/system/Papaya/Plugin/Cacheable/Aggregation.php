@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Cacheable;
 
 /**
@@ -32,7 +31,9 @@ trait Aggregation {
    * Provide the cache definition for the output.
    *
    * @see \Papaya\Plugin\Cacheable::cacheable()
+   *
    * @param \Papaya\Cache\Identifier\Definition $definition
+   *
    * @return \Papaya\Cache\Identifier\Definition
    */
   public function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL) {

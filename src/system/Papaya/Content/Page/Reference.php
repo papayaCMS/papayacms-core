@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -77,6 +76,7 @@ class Reference extends \Papaya\Database\Record {
    * @param int $mode
    * @param array $values
    * @param array $record
+   *
    * @return array
    */
   public function callbackSortPageIds($context, $mode, $values, $record) {
@@ -101,6 +101,7 @@ class Reference extends \Papaya\Database\Record {
    *
    * @param int $sourceId
    * @param int $targetId
+   *
    * @return bool
    */
   public function exists($sourceId, $targetId) {

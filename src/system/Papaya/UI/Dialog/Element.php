@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
 
 /**
@@ -42,6 +41,7 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
    *
    * @param string|array $key
    * @param bool $withGroup
+   *
    * @return string
    */
   protected function _getParameterName($key, $withGroup = TRUE) {

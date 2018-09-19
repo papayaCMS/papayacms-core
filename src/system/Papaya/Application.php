@@ -12,47 +12,53 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
  * Papaya Application - object registry with profiles
+ *
  * @package Papaya-Library
  * @subpackage Application
  */
 class Application implements \ArrayAccess {
   /**
    * Duplicate profiles trigger an error
+   *
    * @var int
    */
   const DUPLICATE_ERROR = 0;
 
   /**
    * Ignore duplicate profiles
+   *
    * @var int
    */
   const DUPLICATE_IGNORE = 1;
 
   /**
    * Overwrite duplicate profiles
+   *
    * @var int
    */
   const DUPLICATE_OVERWRITE = 2;
 
   /**
    * Class variable for singleton instance
+   *
    * @var \Papaya\Application
    */
   private static $instance = NULL;
 
   /**
    * Profile objects
+   *
    * @var array
    */
   private $_profiles = [];
 
   /**
    * Objects
+   *
    * @var array(object)
    */
   private $_objects = [];
@@ -61,6 +67,7 @@ class Application implements \ArrayAccess {
    * Create a new instance of this class or return existing one (singleton)
    *
    * @param bool $reset
+   *
    * @return \Papaya\Application Instance of Application Object
    */
   public static function getInstance($reset = FALSE) {
@@ -90,6 +97,7 @@ class Application implements \ArrayAccess {
    * @param string $identifier
    * @param \Papaya\Application\Profile|callable $profile
    * @param int $duplicationMode
+   *
    * @throws \InvalidArgumentException
    */
   public function registerProfile(
@@ -130,7 +138,9 @@ class Application implements \ArrayAccess {
    * used to create a new object, if provided.
    *
    * @param string $identifier
+   *
    * @throws \InvalidArgumentException
+   *
    * @return object
    */
   public function getObject($identifier) {
@@ -158,6 +168,7 @@ class Application implements \ArrayAccess {
    * @param string $identifier
    * @param object $object
    * @param int $duplicationMode
+   *
    * @throws \LogicException
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
@@ -186,6 +197,7 @@ class Application implements \ArrayAccess {
    *
    * @param string $identifier
    * @param bool $checkProfiles
+   *
    * @return bool
    */
   public function hasObject($identifier, $checkProfiles = TRUE) {
@@ -203,7 +215,9 @@ class Application implements \ArrayAccess {
    * Check if an object or an profile for an object exists
    *
    * @param string $identifier
+   *
    * @throws \InvalidArgumentException
+   *
    * @return bool
    */
   public function removeObject($identifier) {
@@ -224,7 +238,9 @@ class Application implements \ArrayAccess {
    * Allow property syntax to get objects from the registry.
    *
    * @see getObject
+   *
    * @param string $name
+   *
    * @return object
    */
   public function __get($name) {
@@ -235,6 +251,7 @@ class Application implements \ArrayAccess {
    * Allow property syntax to put objects into the registry.
    *
    * @see setObject
+   *
    * @param string $name
    * @param object $value
    */
@@ -247,8 +264,10 @@ class Application implements \ArrayAccess {
    *
    * @see __get
    * @see __set
+   *
    * @param string $name
    * @param $arguments
+   *
    * @return object
    */
   public function __call($name, $arguments) {
@@ -263,7 +282,9 @@ class Application implements \ArrayAccess {
    * a profile for the object exists.
    *
    * @see setObject
+   *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -272,6 +293,7 @@ class Application implements \ArrayAccess {
 
   /**
    * @param string $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -280,6 +302,7 @@ class Application implements \ArrayAccess {
 
   /**
    * @param string $offset
+   *
    * @return object
    */
   public function offsetGet($offset) {

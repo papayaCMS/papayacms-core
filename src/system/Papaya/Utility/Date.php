@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -26,6 +25,7 @@ class Date {
    * parses a user input datetime string with offset to get a unix timestamp.
    *
    * @param string $datetime a datetime string Y-m-dTH:i:s[+-[H[:i]]]
+   *
    * @return mixed timestamp if $date was matched, otherwise FALSE
    */
   public static function iso8601ToTimestamp($datetime) {
@@ -87,6 +87,7 @@ class Date {
    * parses a user input date string to get a unix timestamp
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
+   *
    * @return int|false timestamp if $date was matched, otherwise FALSE
    */
   public static function stringToTimestamp($date) {
@@ -108,6 +109,7 @@ class Date {
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
    * @param bool $includeTime
+   *
    * @return string iso date time
    */
   public static function stringToISO($date, $includeTime = TRUE) {
@@ -129,6 +131,7 @@ class Date {
    * parses a user input date string to get a array with all parts
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
+   *
    * @return mixed timestamp if $date was matched, otherwise FALSE
    */
   public static function stringToArray($date) {
@@ -181,6 +184,7 @@ class Date {
    * @param bool $seconds
    * @param bool $offset only used if $seconds is TRUE
    * @param bool $weekDay
+   *
    * @return string
    */
   public static function timestampToString(
@@ -203,7 +207,9 @@ class Date {
    * Convert a time period (in seconds) to an array.
    *
    * @param $period
+   *
    * @return array
+   *
    * @internal param float|int $seconds
    */
   public static function periodToArray($period) {
@@ -232,6 +238,7 @@ class Date {
    * @param int $period
    * @param int $precision elements to output (start with the first one greater zero)
    * @param array $units map standard units to strings
+   *
    * @return string
    */
   public static function periodToString($period, $precision = 2, $units = []) {
@@ -272,6 +279,7 @@ class Date {
    * @param int $value
    * @param int $fragmentValue
    * @param float $divider
+   *
    * @return int
    */
   private static function _roundPeriodElement($value, $fragmentValue, $divider) {
@@ -289,6 +297,7 @@ class Date {
    * @param array $array
    * @param string $key
    * @param mixed $defaultValue
+   *
    * @return mixed
    */
   private static function _getValueFromArray(array $array, $key, $defaultValue) {

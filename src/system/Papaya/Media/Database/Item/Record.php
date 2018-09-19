@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Database\Item;
 
 /**
@@ -37,6 +36,7 @@ class Record extends \Papaya\Database\BaseObject\Record {
    * Load item from database
    *
    * @param string $mediaId
+   *
    * @return bool
    */
   public function load($mediaId) {

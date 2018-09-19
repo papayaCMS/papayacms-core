@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Spam\Filter;
 
 /**
@@ -45,6 +44,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * @param string $text ignored - original text
    * @param array $tokens prepared token list
    * @param int $languageId
+   *
    * @return float probability between 0 and 1
    */
   public function classify($text, array $tokens, $languageId) {
@@ -91,6 +91,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * relative to 0.5, so a maximum of 0.4 is allowed. A minimum of 0 is possible.
    *
    * @param int|float $derivation
+   *
    * @throws \RangeException
    */
   public function setRelevanceLimit($derivation) {
@@ -105,6 +106,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * Set the maximum count of tokens that are used to calculate the probability.
    *
    * @param int $count
+   *
    * @throws \RangeException
    */
   public function setTokenLimit($count) {
@@ -119,6 +121,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * Check token list for tokens that are to short or two long. Return a list without them.
    *
    * @param array $tokens
+   *
    * @return array(string=>integer)
    */
   public function filterTokens($tokens) {
@@ -136,6 +139,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * Get the probabilities for all relevant tokens.
    *
    * @param array $tokens
+   *
    * @return array(string=>float)
    */
   public function getProbabilities(array $tokens) {
@@ -156,6 +160,7 @@ class Statistical implements \Papaya\Spam\Filter {
    *
    * @param $probabilityOne
    * @param $probabilityTwo
+   *
    * @return int
    */
   public function compareProbabilityRelevance($probabilityOne, $probabilityTwo) {
@@ -174,6 +179,7 @@ class Statistical implements \Papaya\Spam\Filter {
    *
    * @param array $tokens
    * @param array $probabilities
+   *
    * @return float
    */
   private function aggregateProbabilities(array $tokens, array $probabilities) {
@@ -211,6 +217,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * default value.
    *
    * @param string $word
+   *
    * @return float
    */
   public function getProbability($word) {
@@ -230,6 +237,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * @param array $data
    * @param int $summaryHam
    * @param int $summarySpam
+   *
    * @return float
    */
   private function calculateProbability($data, $summaryHam, $summarySpam) {

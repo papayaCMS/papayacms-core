@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -64,6 +63,7 @@ class Controller
    * Execute command and append output after validating the user permission
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -101,6 +101,7 @@ class Controller
    * ArrayAccess interface: check if a command name exists
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -111,6 +112,7 @@ class Controller
    * ArrayAccess interface: get command by name
    *
    * @param string $name
+   *
    * @return \Papaya\UI\Control\Command
    */
   public function offsetGet($name) {
@@ -163,6 +165,7 @@ class Controller
    * Overload owner method to set owner on all commands, too.
    *
    * @param \Papaya\Request\Parameters\Access $owner
+   *
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
@@ -179,6 +182,7 @@ class Controller
    * Magic method, check if a command with the specified name exists.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -189,6 +193,7 @@ class Controller
    * Magic method, threat the command names as properties to read them.
    *
    * @param string $name
+   *
    * @return null|\Papaya\UI\Control\Command
    */
   public function __get($name) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Administration;
@@ -60,6 +59,7 @@ class Boxes
    *
    * @param array $targetIds
    * @param int $status
+   *
    * @return bool
    */
   private function setInheritanceStatus(array $targetIds, $status) {
@@ -77,6 +77,7 @@ class Boxes
    * Getter/Setter for the  page boxes list database object
    *
    * @param Content\Page\Boxes $boxes
+   *
    * @return Content\Page\Boxes
    */
   public function boxes(Content\Page\Boxes $boxes = NULL) {
@@ -92,6 +93,7 @@ class Boxes
    * Getter/Setter for the page working copy
    *
    * @param Content\Page\Work $page
+   *
    * @return Content\Page\Work
    */
   public function page(Content\Page\Work $page = NULL) {

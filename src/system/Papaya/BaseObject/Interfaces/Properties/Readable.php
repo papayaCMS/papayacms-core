@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Interfaces\Properties;
 
 /**
@@ -23,12 +22,14 @@ namespace Papaya\BaseObject\Interfaces\Properties;
 interface Readable {
   /**
    * @param $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name);
 
   /**
    * @param $name
+   *
    * @return mixed
    */
   public function __get($name);

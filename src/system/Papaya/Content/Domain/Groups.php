@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Domain;
 
 /**
@@ -41,6 +40,7 @@ class Groups extends \Papaya\Database\Records\Lazy {
 
   /**
    * @param int|array|null $filter
+   *
    * @return Group
    */
   public function getItem($filter = NULL) {

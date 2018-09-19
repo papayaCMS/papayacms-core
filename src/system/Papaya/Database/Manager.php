@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -56,6 +55,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param object $owner
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
+   *
    * @return \Papaya\Database\Access
    */
   public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
@@ -69,6 +69,7 @@ class Manager extends \Papaya\Application\BaseObject {
    *
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
+   *
    * @return \db_simple
    */
   public function getConnector($readUri = NULL, $writeUri = NULL) {
@@ -92,6 +93,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * @param \db_simple $connector connector object
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
+   *
    * @return \db_simple
    */
   public function setConnector($connector, $readUri = NULL, $writeUri = NULL) {
@@ -105,6 +107,7 @@ class Manager extends \Papaya\Application\BaseObject {
    *
    * @param string $readUri
    * @param string $writeUri
+   *
    * @return array
    */
   protected function _getConnectorUris($readUri = NULL, $writeUri = NULL) {

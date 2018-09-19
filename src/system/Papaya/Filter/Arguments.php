@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -53,7 +52,9 @@ class Arguments implements \Papaya\Filter {
    * Check the input value and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -77,6 +78,7 @@ class Arguments implements \Papaya\Filter {
    * If a submatch identifier is available, it returns the submatch.
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {

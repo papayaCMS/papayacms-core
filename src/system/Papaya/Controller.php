@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -33,6 +32,7 @@ interface Controller {
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
+   *
    * @return bool|self
    */
   public function execute(

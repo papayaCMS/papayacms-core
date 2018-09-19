@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages;
 
 use Papaya\Content;
@@ -43,6 +42,7 @@ class Ancestors extends UI\Control {
    * Append ancestor menu xml to parent element, this will do nothing until ids are set.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -76,6 +76,7 @@ class Ancestors extends UI\Control {
    * Content object, to load page informations
    *
    * @param Content\Pages $pages
+   *
    * @return Content\Pages
    */
   public function pages(Content\Pages $pages = NULL) {
@@ -92,6 +93,7 @@ class Ancestors extends UI\Control {
    * Menu object used to generate xml with page items
    *
    * @param UI\Hierarchy\Menu $menu
+   *
    * @return UI\Hierarchy\Menu
    */
   public function menu(UI\Hierarchy\Menu $menu = NULL) {

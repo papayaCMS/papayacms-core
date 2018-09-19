@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Page;
 
 use Papaya\Administration;
@@ -67,6 +66,7 @@ abstract class Part extends UI\Control\Interactive {
    * {@see \Papaya\Administration\Page\Part::_createCommands89} is called for lazy init
    *
    * @param UI\Control\Command $commands
+   *
    * @return UI\Control\Command
    */
   public function commands(UI\Control\Command $commands = NULL) {
@@ -83,6 +83,7 @@ abstract class Part extends UI\Control\Interactive {
    *
    * @param string $name
    * @param string $default
+   *
    * @return UI\Control\Command\Controller
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
@@ -97,6 +98,7 @@ abstract class Part extends UI\Control\Interactive {
    * (Navigation -> Content -> Information).
    *
    * @param UI\Toolbar\Collection $toolbar
+   *
    * @return UI\Toolbar\Collection
    */
   public function toolbar(UI\Toolbar\Collection $toolbar = NULL) {

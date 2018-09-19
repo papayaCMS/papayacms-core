@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
 
 /**
@@ -47,6 +46,7 @@ class Callback implements \Papaya\Controller {
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
+   *
    * @return bool|\Papaya\Controller
    */
   public function execute(

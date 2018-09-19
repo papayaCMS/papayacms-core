@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Reference\Page;
 
 /**
@@ -71,6 +70,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param int $pageId
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function get($languageIdentifier, $pageId) {
@@ -87,6 +87,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Configure a given page reference
    *
    * @param \Papaya\UI\Reference\Page $reference
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function configure(\Papaya\UI\Reference\Page $reference) {
@@ -128,6 +129,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $title
    * @param string $languageIdentifier
+   *
    * @return string
    */
   private function prepareTitle($title, $languageIdentifier) {
@@ -166,6 +168,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param int $pageId
+   *
    * @return array|false
    */
   public function getPageData($languageIdentifier, $pageId) {
@@ -205,6 +208,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param int $pageId
+   *
    * @return bool
    */
   private function isPageLoaded($languageIdentifier, $pageId) {
@@ -226,6 +230,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param int $pageId
+   *
    * @return array|bool
    */
   public function getDomainData($languageIdentifier, $pageId) {
@@ -280,6 +285,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * can not be filtered on loading.
    *
    * @param array $domain
+   *
    * @return bool
    */
   public function isDomainWithoutWildcards($domain) {
@@ -298,6 +304,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $languageIdentifier
    * @param int $pageId
+   *
    * @return null|\Papaya\UI\Link\Attributes
    */
   public function getLinkAttributes($languageIdentifier, $pageId) {
@@ -372,6 +379,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * @param array $options
    * @param string $name
    * @param bool $default
+   *
    * @return int
    */
   private function setLinkPopupOption($bitmask, $bit, $options, $name, $default = FALSE) {
@@ -385,6 +393,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * The pages subobject is used to load the acutal page data
    *
    * @param \Papaya\Content\Pages $pages
+   *
    * @return \Papaya\Content\Pages
    */
   public function pages(\Papaya\Content\Pages $pages = NULL) {
@@ -402,6 +411,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Access to the link types
    *
    * @param \Papaya\Content\Link\Types $linkTypes
+   *
    * @return \Papaya\Content\Link\Types
    */
   public function linkTypes(\Papaya\Content\Link\Types $linkTypes = NULL) {
@@ -419,6 +429,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * The domains subobject is used to load get domain data for the page id
    *
    * @param \Papaya\Domains $domains
+   *
    * @return \Papaya\Domains
    */
   public function domains(\Papaya\Domains $domains = NULL) {
@@ -435,6 +446,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Getter/Setter for a content languages record list.
    *
    * @param \Papaya\Content\Languages $languages
+   *
    * @return \Papaya\Content\Languages
    */
   public function languages(\Papaya\Content\Languages $languages = NULL) {
@@ -452,6 +464,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * for a repeated call.
    *
    * @param string $languageIdentifier
+   *
    * @return string
    */
   public function validateLanguageIdentifier($languageIdentifier) {
@@ -512,6 +525,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param array|int $pageId
    * @param $languageId
+   *
    * @return array
    */
   private function getFilter($pageId, $languageId) {
@@ -529,6 +543,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Set start page reference
    *
    * @param \Papaya\UI\Reference\Page $page
+   *
    * @return bool
    */
   public function isStartPage(\Papaya\UI\Reference\Page $page) {

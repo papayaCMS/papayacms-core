@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -67,6 +66,7 @@ class Domains extends \Papaya\Database\Records {
    * @param string $property
    * @param string $field
    * @param string $value
+   *
    * @return mixed
    */
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {

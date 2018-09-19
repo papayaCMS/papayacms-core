@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Interfaces;
 
 /**
@@ -30,6 +29,7 @@ interface Mapping {
    * Map the database fields of an record to the object properties
    *
    * @param array $record
+   *
    * @return array
    */
   public function mapFieldsToProperties(array $record);
@@ -39,6 +39,7 @@ interface Mapping {
    *
    * @param array $values
    * @param bool $withAlias
+   *
    * @return array
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE);
@@ -54,6 +55,7 @@ interface Mapping {
    * Get a list of the used database fields
    *
    * @param bool $withAlias
+   *
    * @return array
    */
   public function getFields($withAlias = TRUE);
@@ -62,6 +64,7 @@ interface Mapping {
    * Get the property name for a field
    *
    * @param $field
+   *
    * @return string|false
    */
   public function getProperty($field);
@@ -71,6 +74,7 @@ interface Mapping {
    *
    * @param $property
    * @param bool $withAlias
+   *
    * @return string|false
    */
   public function getField($property, $withAlias = TRUE);

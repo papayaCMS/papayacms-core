@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Equals;
 
 /**
@@ -53,7 +52,9 @@ class Parameter implements \Papaya\Filter {
    * @see \Papaya\Filter::validate()
    *
    * @throws \Papaya\Filter\Exception\InvalidValue
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -67,6 +68,7 @@ class Parameter implements \Papaya\Filter {
    * Checks the value and returns the value if validate succeeded, otherwise NULL
    *
    * @param string $value
+   *
    * @return mixed|null
    */
   public function filter($value) {

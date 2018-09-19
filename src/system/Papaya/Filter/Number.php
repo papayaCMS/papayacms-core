@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -44,6 +43,7 @@ class Number implements \Papaya\Filter {
    *
    * @param int $minimumLength optional, default NULL
    * @param int $maximumLength optional, default NULL
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($minimumLength = NULL, $maximumLength = NULL) {
@@ -70,9 +70,11 @@ class Number implements \Papaya\Filter {
    * Check a value and throw an exception if it does not match the constraints
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\UnexpectedType
    * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   *
    * @return bool
    */
   public function validate($value) {
@@ -92,6 +94,7 @@ class Number implements \Papaya\Filter {
    * Filter a value
    *
    * @param string $value
+   *
    * @return mixed the filtered value or NULL if not valid
    */
   public function filter($value) {

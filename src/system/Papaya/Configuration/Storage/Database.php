@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration\Storage;
 
 /**
@@ -34,6 +33,7 @@ class Database extends \Papaya\Application\BaseObject
    * Getter/Setter for database records object
    *
    * @param \Papaya\Content\Configuration $records
+   *
    * @return \Papaya\Content\Configuration
    */
   public function records(\Papaya\Content\Configuration $records = NULL) {

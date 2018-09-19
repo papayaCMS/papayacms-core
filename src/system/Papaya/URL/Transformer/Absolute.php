@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\URL\Transformer;
 
 /**
@@ -27,6 +26,7 @@ class Absolute {
    *
    * @param \Papaya\URL $currentURL current url
    * @param string $target url to transform
+   *
    * @return string
    */
   public function transform(\Papaya\URL $currentURL, $target) {
@@ -52,6 +52,7 @@ class Absolute {
    * This method calculates /../ occurrences and removes // and /./ occurrences from a path
    *
    * @param string $path
+   *
    * @return string
    */
   protected function _calculateRealPath($path) {

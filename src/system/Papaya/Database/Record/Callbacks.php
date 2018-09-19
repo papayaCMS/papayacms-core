@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
 
 /**
@@ -27,6 +26,7 @@ namespace Papaya\Database\Record;
  * @property \Papaya\BaseObject\Callback $onAfterUpdate
  * @property \Papaya\BaseObject\Callback $onAfterInsert
  * @property \Papaya\BaseObject\Callback $onAfterDelete
+ *
  * @method bool onBeforeUpdate(\Papaya\Database\Record $record)
  * @method bool onBeforeInsert(\Papaya\Database\Record $record)
  * @method bool onBeforeDelete(\Papaya\Database\Record $record)

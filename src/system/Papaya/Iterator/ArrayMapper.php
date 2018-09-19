@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -42,6 +41,7 @@ class ArrayMapper extends \Papaya\Iterator\Callback {
    * Callback used to map the array elements to scalars
    *
    * @param array $element
+   *
    * @return mixed
    */
   public function callbackMapElement($element) {

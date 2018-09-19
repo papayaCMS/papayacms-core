@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Theme;
 
 /**
@@ -69,6 +68,7 @@ class Skin extends \Papaya\Database\Record {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return mixed
    */
   public function mapFieldToProperty(
@@ -88,6 +88,7 @@ class Skin extends \Papaya\Database\Record {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return mixed
    */
   public function mapPropertyToField(
@@ -104,6 +105,7 @@ class Skin extends \Papaya\Database\Record {
    * Return the values as a xml document
    *
    * @param \Papaya\Content\Structure $definition
+   *
    * @return \Papaya\XML\Document
    */
   public function getValuesXML(\Papaya\Content\Structure $definition) {

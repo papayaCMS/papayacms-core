@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Ip;
 
 /**
@@ -69,6 +68,7 @@ class V4 implements \Papaya\Filter {
    *
    * @throws \InvalidArgumentException
    * @throws \OutOfRangeException
+   *
    * @param int $configuration
    */
   public function __construct($configuration = self::DEFAULT_CONFIGURATION) {
@@ -91,10 +91,13 @@ class V4 implements \Papaya\Filter {
    * 4. check the actual value against the configuration
    *
    * @todo Replace InvalidARgumentException with FilterException child classes
+   *
    * @throws \Papaya\Filter\Exception\InvalidPart
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \InvalidArgumentException
+   *
    * @param string $value
+   *
    * @return bool TRUE
    */
   public function validate($value) {
@@ -134,6 +137,7 @@ class V4 implements \Papaya\Filter {
    * This method filters leading and trailing whitespaces from the input IP.
    *
    * @param string $value
+   *
    * @return mixed string|NULL
    */
   public function filter($value) {

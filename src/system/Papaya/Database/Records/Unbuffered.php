@@ -12,14 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
 
 /**
  * papaya CMS
  *
  * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ *
  * @link http://www.papaya-cms.com/
+ *
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
  *  You can redistribute and/or modify this script under the terms of the GNU General Public
@@ -105,6 +106,7 @@ abstract class Unbuffered
    * @param mixed $filter If it is an scalar the value will be used for the id property.
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
@@ -126,6 +128,7 @@ abstract class Unbuffered
    * @param array $parameters
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
   protected function _loadSql($sql, $parameters, $limit = NULL, $offset = NULL) {
@@ -153,6 +156,7 @@ abstract class Unbuffered
    *
    * @param mixed $filter
    * @param string $prefix
+   *
    * @return string
    */
   protected function _compileCondition($filter, $prefix = ' WHERE ') {
@@ -190,6 +194,7 @@ abstract class Unbuffered
    * a database record and back.
    *
    * @param \Papaya\Database\Interfaces\Mapping $mapping
+   *
    * @return \Papaya\Database\Interfaces\Mapping
    */
   public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
@@ -216,6 +221,7 @@ abstract class Unbuffered
    * here should be no order by clause.
    *
    * @param \Papaya\Database\Interfaces\Order $orderBy
+   *
    * @return \Papaya\Database\Interfaces\Order|false
    */
   public function orderBy(\Papaya\Database\Interfaces\Order $orderBy = NULL) {
@@ -318,6 +324,7 @@ abstract class Unbuffered
    * Getter/Setter for the current database result object
    *
    * @param \Papaya\Database\Result $databaseResult
+   *
    * @return null|\Papaya\Database\Result
    */
   public function databaseResult(\Papaya\Database\Result $databaseResult = NULL) {
@@ -353,6 +360,7 @@ abstract class Unbuffered
    * the $_itemClass property.
    *
    * @return \Papaya\Database\Record
+   *
    * @throws \LogicException
    */
   protected function _createItem() {
@@ -369,6 +377,7 @@ abstract class Unbuffered
    * the $item object.
    *
    * @param null $filter
+   *
    * @return \Papaya\Database\Record
    */
   public function getItem($filter = NULL) {

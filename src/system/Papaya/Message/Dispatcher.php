@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
 
 /**
@@ -29,6 +28,7 @@ interface Dispatcher {
    * Dispatch/handle a message
    *
    * @param \Papaya\Message $message
+   *
    * @return bool message dispatched
    */
   public function dispatch(\Papaya\Message $message);

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -47,6 +46,7 @@ class Collection
    * Getter/setter for elements collection
    *
    * @param \Papaya\UI\Toolbar\Elements $elements
+   *
    * @return \Papaya\UI\Toolbar\Elements
    */
   public function elements(\Papaya\UI\Toolbar\Elements $elements = NULL) {

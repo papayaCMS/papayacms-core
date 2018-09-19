@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Engine\Values;
 
 /**
@@ -29,6 +28,7 @@ namespace Papaya\Template\Engine\Values;
 interface Loadable {
   /**
    * @param mixed $values
+   *
    * @return false|\Papaya\XML\Element|\Papaya\XML\Document
    */
   public function load($values);

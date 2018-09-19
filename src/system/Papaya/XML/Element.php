@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
 
 /**
@@ -30,6 +29,7 @@ class Element
    * Append a object (with interface Papaya\XML\Appendable) to the element
    *
    * @param Appendable $object
+   *
    * @return self|null
    */
   public function append(Appendable $object) {
@@ -42,6 +42,7 @@ class Element
    * @param string $name
    * @param array $attributes
    * @param string $content
+   *
    * @return self new element
    */
   public function appendElement($name, array $attributes = [], $content = NULL) {
@@ -55,6 +56,7 @@ class Element
    * Append a new text node into element
    *
    * @param string $content
+   *
    * @return self $this
    */
   public function appendText($content) {
@@ -67,6 +69,7 @@ class Element
    * Append a xml fragment into element
    *
    * @param string $content
+   *
    * @return self $this
    */
   public function appendXML($content) {
@@ -80,6 +83,7 @@ class Element
    * Automatically imports the element into the target document if needed.
    *
    * @param \DOMDocument|\DOMelement|\DOMNode $target
+   *
    * @throws \InvalidArgumentException
    */
   public function appendTo(\DOMNode $target) {

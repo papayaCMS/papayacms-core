@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable\Content;
 
 /**
@@ -35,7 +34,9 @@ trait Aggregation {
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
    * @see \Papaya\Plugin\Editable::content()
+   *
    * @param \Papaya\Plugin\Editable\Content $content
+   *
    * @return \Papaya\Plugin\Editable\Content
    */
   public function content(\Papaya\Plugin\Editable\Content $content = NULL) {
@@ -52,6 +53,7 @@ trait Aggregation {
 
   /**
    * @param \Papaya\Plugin\Editable\Content $content
+   *
    * @return \Papaya\Plugin\Editor
    */
   abstract public function createEditor(\Papaya\Plugin\Editable\Content $content);

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -51,6 +50,7 @@ class Domains extends Application\BaseObject {
    * Return domains with virtual roots for the given path of page ids.
    *
    * @param array $pageRootIds
+   *
    * @return array
    */
   public function getDomainsByPath(array $pageRootIds) {
@@ -69,6 +69,7 @@ class Domains extends Application\BaseObject {
    *
    * @param string $host
    * @param int $scheme
+   *
    * @return array|false
    */
   public function getDomainByHost($host, $scheme) {
@@ -112,6 +113,7 @@ class Domains extends Application\BaseObject {
    * is a list with any variant of a subdomain and tld replaced by *.
    *
    * @param string $host
+   *
    * @return array
    */
   public function getHostVariants($host) {
@@ -168,6 +170,7 @@ class Domains extends Application\BaseObject {
    * Getter/Setter for the domain database object.
    *
    * @param \Papaya\Content\Domains $domains
+   *
    * @return \Papaya\Content\Domains
    */
   public function domains(\Papaya\Content\Domains $domains = NULL) {

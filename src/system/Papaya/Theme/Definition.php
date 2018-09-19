@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
 
 /**
@@ -90,7 +89,9 @@ class Definition extends \Papaya\Content\Structure {
    * Get a theme property
    *
    * @param string $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return array
    */
   public function __get($name) {

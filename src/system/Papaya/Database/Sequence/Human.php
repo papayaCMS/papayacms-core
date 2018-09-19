@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Sequence;
 
 /**
@@ -98,6 +97,7 @@ class Human extends \Papaya\Database\Sequence {
    * Get $_length random symbols from $_characterTable
    *
    * @param int $length
+   *
    * @return string
    */
   protected function getRandomCharacters($length) {

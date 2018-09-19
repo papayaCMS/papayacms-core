@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
 
 /**
@@ -98,6 +97,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * Return if here is an Traversable attached for the current target
    *
    * @see \RecursiveIterator::hasChildren()
+   *
    * @return bool
    */
   public function hasChildren() {
@@ -110,6 +110,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * The method creates a new Instance of this class for the Traversable.   *
    *
    * @see \RecursiveIterator::hasChildren()
+   *
    * @return bool
    */
   public function getChildren() {

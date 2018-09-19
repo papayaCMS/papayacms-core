@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Page;
 
 use Papaya\UI;
@@ -80,6 +79,7 @@ class Parts
 
   /**
    * @param string $name
+   *
    * @return false|Part
    */
   public function __isset($name) {
@@ -88,6 +88,7 @@ class Parts
 
   /**
    * @param string $name
+   *
    * @return false|Part
    */
   public function __get($name) {
@@ -106,6 +107,7 @@ class Parts
    * Get the specified part, create it if is is defined but does not exist yet.
    *
    * @param string $name
+   *
    * @return false|Part
    */
   public function get($name) {
@@ -120,6 +122,7 @@ class Parts
    *
    * @param string $name
    * @param Part $part
+   *
    * @throws \UnexpectedValueException
    */
   public function set($name, Part $part = NULL) {
@@ -134,7 +137,9 @@ class Parts
    *
    *
    * @param $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return Part|false
    */
   public function create($name) {
@@ -154,7 +159,9 @@ class Parts
    * Get the target (layout element) the page part xml shoudl be assigned too.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return string
    */
   public function getTarget($name) {
@@ -171,6 +178,7 @@ class Parts
    * The toolbar is composed, so the navigation and the changes subobjects can add elements
    *
    * @param UI\Toolbar\Composed $toolbar
+   *
    * @return UI\Toolbar\Composed
    */
   public function toolbar(UI\Toolbar\Composed $toolbar = NULL) {
@@ -219,6 +227,7 @@ class Parts
    *
    * @see \Iterator::current()
    * @see \Papaya\Administration\Page\Parts::get()
+   *
    * @return false|Part
    */
   public function current() {
@@ -233,6 +242,7 @@ class Parts
    * Iterator Interface - Return the current key value
    *
    * @see \Iterator::key()
+   *
    * @return string
    */
   public function key() {
@@ -243,6 +253,7 @@ class Parts
    * Iterator Interface - Check if here is an element to iterate
    *
    * @see \Iterator::valid()
+   *
    * @return bool
    */
   public function valid() {

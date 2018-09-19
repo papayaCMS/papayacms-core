@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Storage\Service\S3;
 
 /**
@@ -96,6 +95,7 @@ class Handler {
    * @param string $method
    * @param array $parameters
    * @param array $headers
+   *
    * @return \Papaya\HTTP\Client
    */
   public function setUpRequest(
@@ -128,6 +128,7 @@ class Handler {
    * Collect and aggregate signature data
    *
    * @param string $url
+   *
    * @return string
    */
   public function getSignatureData($url) {
@@ -196,6 +197,7 @@ class Handler {
    * Create signature for data string.
    *
    * @param string $data
+   *
    * @return string
    */
   private function _getSignature($data) {

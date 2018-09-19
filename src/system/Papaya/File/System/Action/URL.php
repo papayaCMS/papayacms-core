@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System\Action;
 
 /**
@@ -32,6 +31,7 @@ class URL implements \Papaya\File\System\Action {
    * Load an external url to trigger a script on the (remote) server
    *
    * @param array $parameters
+   *
    * @return bool
    */
   public function execute(array $parameters = []) {
@@ -46,6 +46,7 @@ class URL implements \Papaya\File\System\Action {
    * fetch the external resource (trigger the script)
    *
    * @param string $url
+   *
    * @return bool
    * @codeCoverageIgnore
    */

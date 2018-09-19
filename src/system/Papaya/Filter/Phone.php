@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -38,7 +37,9 @@ class Phone implements \Papaya\Filter {
    * Check the value if it's a valid phone number, if not throw an exception.
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\UnexpectedType
+   *
    * @return true
    */
   public function validate($value) {
@@ -52,6 +53,7 @@ class Phone implements \Papaya\Filter {
    * The filter function is used to read an input value if it is valid.
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {

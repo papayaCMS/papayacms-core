@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Text\Transliteration;
 
 /**
@@ -32,6 +31,7 @@ class ASCII {
    *
    * @param string $string
    * @param string $language
+   *
    * @return string
    */
   public function transliterate($string, $language = 'generic') {
@@ -52,6 +52,7 @@ class ASCII {
    * Callback that maps a single matched utf8 character to ascii
    *
    * @param array $match
+   *
    * @return string
    */
   public function mapCharacterMatch($match) {
@@ -64,6 +65,7 @@ class ASCII {
    * memory consumption.
    *
    * @param ASCII\Mapping $mapping
+   *
    * @return ASCII\Mapping
    */
   public function mapping(ASCII\Mapping $mapping = NULL) {

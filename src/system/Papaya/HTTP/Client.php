@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP;
 
 /**
@@ -164,6 +163,7 @@ class Client {
    * set the url to request
    *
    * @param string $url
+   *
    * @throws \InvalidArgumentException
    */
   public function setURL($url) {
@@ -241,6 +241,7 @@ class Client {
    * Set the transport protocol
    *
    * @param string $transport
+   *
    * @return bool TRUE if empty or available in stream_get_transports(), FALSE otherwise
    */
   public function setTransport($transport) {
@@ -268,6 +269,7 @@ class Client {
    * @param int $port optional, default value NULL
    * @param string $user optional, default value NULL
    * @param string $password optional, default value NULL
+   *
    * @throws \InvalidArgumentException
    */
   public function setProxy($server, $port = NULL, $user = NULL, $password = NULL) {
@@ -607,6 +609,7 @@ class Client {
    * @param string $name header name
    * @param string $value
    * @param bool $allowDuplicates optional, default value FALSE
+   *
    * @return bool
    */
   public function setHeader($name, $value, $allowDuplicates = FALSE) {
@@ -617,6 +620,7 @@ class Client {
    * get a request http header value
    *
    * @param string $name
+   *
    * @return string|array|null
    */
   public function getHeader($name) {
@@ -653,6 +657,7 @@ class Client {
    * add files to request
    *
    * @param \Papaya\HTTP\Client\File $file
+   *
    * @return bool
    */
   public function addRequestFile(\Papaya\HTTP\Client\File $file) {
@@ -665,6 +670,7 @@ class Client {
    *
    * @param string $name
    * @param array $data
+   *
    * @return array
    */
   private function _flattenArray($name, $data) {
@@ -766,6 +772,7 @@ class Client {
    * get response header value
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function getResponseHeader($name) {

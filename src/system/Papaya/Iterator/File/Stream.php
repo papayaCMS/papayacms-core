@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\File;
 
 /**
@@ -39,6 +38,7 @@ class Stream implements \Iterator {
    *
    * @param resource $stream
    * @param int $trim
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($stream, $trim = self::TRIM_NONE) {
@@ -61,6 +61,7 @@ class Stream implements \Iterator {
    * once - in the constructor.
    *
    * @param resource $stream
+   *
    * @throws \InvalidArgumentException
    */
   private function setStream($stream) {

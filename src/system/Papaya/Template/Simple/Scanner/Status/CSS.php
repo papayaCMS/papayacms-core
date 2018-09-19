@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner\Status;
 
 /**
@@ -35,6 +34,7 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    *
    * @param string $buffer
    * @param int $offset
+   *
    * @return null|\Papaya\Template\Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
@@ -46,6 +46,7 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    * be replaced (or not) by the defined value.
    *
    * @param \Papaya\Template\Simple\Scanner\Token
+   *
    * @return \Papaya\Template\Simple\Scanner\Status|null
    */
   public function getNewStatus($token) {

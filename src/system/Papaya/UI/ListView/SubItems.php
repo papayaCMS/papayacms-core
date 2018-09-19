@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
 
 /**
@@ -52,6 +51,7 @@ class SubItems
    * Return the listview item for this list of subitems
    *
    * @param Item $item
+   *
    * @return Item
    */
   public function owner($item = NULL) {

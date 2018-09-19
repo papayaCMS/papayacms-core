@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Text;
 
 /**
@@ -73,6 +72,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string|int $offset
    * @param string $defaultValue
+   *
    * @return string
    */
   public function get($offset, $defaultValue = NULL) {

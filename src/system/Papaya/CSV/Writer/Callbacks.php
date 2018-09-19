@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\CSV\Writer;
 
 /**
@@ -23,6 +22,7 @@ namespace Papaya\CSV\Writer;
  *
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapHeader
+ *
  * @method array onMapRow
  * @method array onMapHeader
  */

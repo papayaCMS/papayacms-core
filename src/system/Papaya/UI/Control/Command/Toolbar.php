@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -44,6 +43,7 @@ abstract class Toolbar extends \Papaya\UI\Control\Command {
    * Getter/Setter for the toolbar elements
    *
    * @param \Papaya\UI\Toolbar\Elements $elements
+   *
    * @return \Papaya\UI\Toolbar\Elements
    */
   public function elements(\Papaya\UI\Toolbar\Elements $elements = NULL) {
@@ -57,6 +57,7 @@ abstract class Toolbar extends \Papaya\UI\Control\Command {
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

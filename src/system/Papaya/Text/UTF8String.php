@@ -12,14 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Text;
 
 /**
  * papaya CMS
  *
  * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ *
  * @link http://www.papaya-cms.com/
+ *
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
  *  You can redistribute and/or modify this script under the terms of the GNU General Public
@@ -112,6 +113,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    *
    * @param string $needle
    * @param int $offset
+   *
    * @return int
    */
   public function indexOf($needle, $offset = 0) {
@@ -134,6 +136,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    *
    * @param string $needle
    * @param int $offset
+   *
    * @return int
    */
   public function lastIndexOf($needle, $offset = NULL) {
@@ -156,6 +159,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * Return the chracter at the specified position
    *
    * @param $index
+   *
    * @return int|null|string
    */
   public function charAt($index) {
@@ -168,6 +172,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    *
    * @param $start
    * @param null $length
+   *
    * @return self
    */
   public function substr($start, $length = NULL) {
@@ -178,6 +183,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * Set the allowed mode (the used library). You can provide a list of allowed modes.
    *
    * @param int|array $mode
+   *
    * @return int
    */
   public function setMode($mode) {
@@ -192,6 +198,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * mode.
    *
    * @return int
+   *
    * @throws \LogicException
    */
   public function getMode() {

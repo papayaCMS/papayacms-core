@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
@@ -56,6 +55,7 @@ class CLI
    * Output log message to stdout
    *
    * @param Message $message
+   *
    * @return bool
    */
   public function dispatch(Message $message) {
@@ -90,7 +90,9 @@ class CLI
    * Get/set the php sapi name
    *
    * @see php_sapi_name()
+   *
    * @param string $name
+   *
    * @return string
    */
   public function phpSAPIName($name = NULL) {
@@ -112,6 +114,7 @@ class CLI
 
   /**
    * @param int $type
+   *
    * @return array
    */
   public function getLabelFromType($type) {
@@ -126,7 +129,9 @@ class CLI
    *
    * @param string $target
    * @param resource $stream
+   *
    * @throws \InvalidArgumentException
+   *
    * @return resource
    */
   public function stream($target, $stream = NULL) {

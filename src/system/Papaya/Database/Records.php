@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -51,6 +50,7 @@ abstract class Records
    * @param mixed $filter If it is a scalar the value will be used for the id property.
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
   public function load($filter = [], $limit = NULL, $offset = NULL) {
@@ -67,6 +67,7 @@ abstract class Records
 
   /**
    * @param array|bool $filterOrAll delete records defined by the filter or all if it is set to true
+   *
    * @return bool
    */
   public function truncate($filterOrAll = FALSE) {
@@ -90,6 +91,7 @@ abstract class Records
 
   /**
    * @param \Traversable|[] $data
+   *
    * @return bool
    */
   public function insert($data) {
@@ -112,6 +114,7 @@ abstract class Records
    * @param int|null $offset
    * @param array $idProperties if set the defined fields are used to create the keys for the
    *                            records array. If it is an empty array the records array will be a list.
+   *
    * @return bool
    */
   protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
@@ -168,6 +171,7 @@ abstract class Records
    * return true if an record with the given offset/identifier exists
    *
    * @param mixed $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -178,6 +182,7 @@ abstract class Records
    * return the record data of the result row.
    *
    * @param mixed $offset
+   *
    * @return array|null
    */
   public function offsetGet($offset) {
@@ -230,7 +235,9 @@ abstract class Records
    *
    * @param mixed $values
    * @param mixed $filter
+   *
    * @throws \UnexpectedValueException
+   *
    * @return mixed
    */
   protected function getIdentifier($values, $filter = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\SVN;
 
 class Tags implements \IteratorAggregate, \Countable {
@@ -27,6 +26,7 @@ class Tags implements \IteratorAggregate, \Countable {
    * Get/set the SVN client
    *
    * @param \Papaya\SVN\Client $client
+   *
    * @return \Papaya\SVN\Client
    */
   public function svnClient(\Papaya\SVN\Client $client = NULL) {

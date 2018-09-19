@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Repeat;
 
 /**
@@ -53,6 +52,7 @@ class Decrement extends Callback {
    *
    * @param int $value
    * @param int $key
+   *
    * @return false|array
    */
   public function decrement($value, $key) {

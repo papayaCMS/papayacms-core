@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Community;
 
 /**
@@ -46,6 +45,7 @@ class Users extends \Papaya\Database\Records {
    *
    * @param array $filter
    * @param string $prefix
+   *
    * @return string
    */
   public function _compileCondition($filter, $prefix = ' WHERE ') {
@@ -79,6 +79,7 @@ class Users extends \Papaya\Database\Records {
    *
    * @param object $context
    * @param array $values
+   *
    * @return array
    */
   public function callbackAfterMappingFieldsToProperties($context, $values) {

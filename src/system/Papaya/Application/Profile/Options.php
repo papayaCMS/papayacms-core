@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
@@ -29,6 +28,7 @@ class Options implements Application\Profile {
    * Create the profile object and return it
    *
    * @param Application $application
+   *
    * @return Configuration\CMS
    */
   public function createObject($application) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Sequence\Human;
 
 /**
@@ -83,6 +82,7 @@ class Cumulative extends \Papaya\Database\Sequence\Human {
    * the length so that tha last element always is one of maximum length.
    *
    * @param int $count
+   *
    * @return array
    */
   protected function createIdentifiers($count) {

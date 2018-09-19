@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -57,6 +56,7 @@ class Structure implements \IteratorAggregate {
    * Getter/Setter for the dynamic value definition pages
    *
    * @param Structure\Pages $pages
+   *
    * @return Structure\Pages
    */
   public function pages(Structure\Pages $pages = NULL) {
@@ -81,6 +81,7 @@ class Structure implements \IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
+   *
    * @return Structure\Page|null
    */
   public function getPage($identifier) {
@@ -98,6 +99,7 @@ class Structure implements \IteratorAggregate {
    * a valid QName, the element will be ignored.
    *
    * @param array $currentValues
+   *
    * @return \Papaya\XML\Document
    */
   public function getXMLDocument(array $currentValues) {
@@ -138,6 +140,7 @@ class Structure implements \IteratorAggregate {
    * Read the data from an xml document into an recursive array.
    *
    * @param \Papaya\XML\Element $dataNode
+   *
    * @return array
    */
   public function getArray(\Papaya\XML\Element $dataNode) {

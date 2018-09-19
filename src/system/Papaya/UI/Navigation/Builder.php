@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation;
 
 /**
@@ -57,6 +56,7 @@ class Builder extends \Papaya\UI\Control {
    *
    * @param array|\Traversable $elements
    * @param string $itemClass
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($elements, $itemClass = Item\Text::class) {
@@ -101,6 +101,7 @@ class Builder extends \Papaya\UI\Control {
    * Getter/Setter for the source elements
    *
    * @param array|\Traversable $elements
+   *
    * @return array|\Traversable
    */
   public function elements($elements = NULL) {
@@ -115,6 +116,7 @@ class Builder extends \Papaya\UI\Control {
    * Getter/Setter for the navigation items
    *
    * @param \Papaya\UI\Navigation\Items $items
+   *
    * @return \Papaya\UI\Navigation\Items
    */
   public function items(\Papaya\UI\Navigation\Items $items = NULL) {
@@ -131,6 +133,7 @@ class Builder extends \Papaya\UI\Control {
    * Getter/Setter for the callbacks
    *
    * @param Builder\Callbacks $callbacks
+   *
    * @return Builder\Callbacks
    */
   public function callbacks(Builder\Callbacks $callbacks = NULL) {

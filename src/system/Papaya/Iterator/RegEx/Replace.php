@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\RegEx;
 
 /**
@@ -56,6 +55,7 @@ class Replace extends \Papaya\Iterator\Callback {
    * Callback method to apply the pattern to the current value before returning it
    *
    * @param string $current
+   *
    * @return string
    */
   public function replace($current) {

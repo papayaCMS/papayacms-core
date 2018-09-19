@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
 
 /**
@@ -51,6 +50,7 @@ class Columns
    * Return the listview of this list
    *
    * @param \Papaya\UI\ListView $listview
+   *
    * @return \Papaya\UI\ListView
    */
   public function owner($listview = NULL) {

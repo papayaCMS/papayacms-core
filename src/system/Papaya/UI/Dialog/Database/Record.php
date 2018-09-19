@@ -12,13 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Database;
 
 /**
  * A dialog that can add/edit a record to a database table
  *
  * @deprecated
+ *
  * @package Papaya-Library
  * @subpackage UI
  */
@@ -163,6 +163,7 @@ class Record extends \Papaya\UI\Dialog {
    * Get the identifier value, filter it if a filter was provided.
    *
    * @param string $column
+   *
    * @return mixed|string
    */
   private function _getIdentifierValue($column) {
@@ -180,6 +181,7 @@ class Record extends \Papaya\UI\Dialog {
    * Get the database action that was executed.
    *
    * @param int
+   *
    * @return int
    */
   public function getDatabaseAction() {
@@ -190,6 +192,7 @@ class Record extends \Papaya\UI\Dialog {
    * Get the database action that will be executed if the dialog is submitted.
    *
    * @param int
+   *
    * @return int
    */
   public function getDatabaseActionNext() {
@@ -211,6 +214,7 @@ class Record extends \Papaya\UI\Dialog {
    *
    * @param string $action
    * @param array $filter
+   *
    * @return bool|mixed
    */
   public function checkRecordPermission($action, array $filter = []) {
@@ -244,6 +248,7 @@ class Record extends \Papaya\UI\Dialog {
 
   /**
    * @param $identifier
+   *
    * @return false|array
    */
   protected function _load($identifier) {
@@ -267,6 +272,7 @@ class Record extends \Papaya\UI\Dialog {
    * Update record data in database table.
    *
    * @param string|int $identifier
+   *
    * @return bool
    */
   protected function _update($identifier) {

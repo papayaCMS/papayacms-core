@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Filter;
 
 /**
@@ -78,6 +77,7 @@ class RegEx extends \FilterIterator {
    * Match pattern agains a value (key or current). The value will be casted to string
    *
    * @param mixed $value
+   *
    * @return int
    */
   private function isMatch($value) {

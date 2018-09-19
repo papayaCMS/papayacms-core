@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -53,6 +52,7 @@ class Tokens extends \Papaya\Application\BaseObject {
    *
    * @param mixed $for
    * @param int $expires Seconds until the token expires
+   *
    * @return string|null $token New token
    */
   public function create($for = '', $expires = -1) {
@@ -86,6 +86,7 @@ class Tokens extends \Papaya\Application\BaseObject {
    *
    * @param string $token
    * @param mixed $for
+   *
    * @return bool
    */
   public function validate($token, $for = '') {
@@ -166,6 +167,7 @@ class Tokens extends \Papaya\Application\BaseObject {
    * be serialized (to avoid recursion).
    *
    * @param mixed $for
+   *
    * @return string md5 checksum
    */
   protected function getVerification($for) {

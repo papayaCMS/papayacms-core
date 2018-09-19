@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 use Papaya\Message;
@@ -46,6 +45,7 @@ class Template
    * Only messages that implements \Papaya\Message\Display are used, \all other message are ignored.
    *
    * @param Message $message
+   *
    * @return bool
    */
   public function dispatch(Message $message) {

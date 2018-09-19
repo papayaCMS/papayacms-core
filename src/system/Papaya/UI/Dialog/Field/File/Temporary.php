@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\File;
 
 /**
@@ -98,6 +97,7 @@ class Temporary extends \Papaya\UI\Dialog\Field {
    * superglobal array
    *
    * @param \Papaya\Request\Parameter\File $file
+   *
    * @return \Papaya\Request\Parameter\File
    */
   public function file(\Papaya\Request\Parameter\File $file = NULL) {

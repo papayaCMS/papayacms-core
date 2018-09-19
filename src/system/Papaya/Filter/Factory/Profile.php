@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory;
 
 /**
@@ -38,6 +37,7 @@ abstract class Profile {
    * The filter options data
    *
    * @param mixed $options
+   *
    * @return mixed|null
    */
   public function options($options = NULL) {

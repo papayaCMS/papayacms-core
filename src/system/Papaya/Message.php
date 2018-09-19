@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -66,6 +65,7 @@ interface Message {
    * Information message type
    *
    * @deprecated use SEVERITY_INFO
+   *
    * @var int
    */
   const TYPE_INFO = 0;
@@ -74,6 +74,7 @@ interface Message {
    * Warning message type
    *
    * @deprecated use SEVERITY_WARNING
+   *
    * @var int
    */
   const TYPE_WARNING = 1;
@@ -82,6 +83,7 @@ interface Message {
    * Error message type
    *
    * @deprecated use SEVERITY_ERROR
+   *
    * @var int
    */
   const TYPE_ERROR = 2;
@@ -90,6 +92,7 @@ interface Message {
    * Error message type
    *
    * @deprecated use SEVERITY_DEBUG
+   *
    * @var int
    */
   const TYPE_DEBUG = 3;
@@ -98,6 +101,7 @@ interface Message {
    * Get type of message (info, warning, error)
    *
    * @deprecated
+   *
    * @return int
    */
   public function getType();

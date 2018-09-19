@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -25,7 +24,9 @@ class RichtextSimple
   extends Richtext {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
+   *
    * @return \Papaya\UI\Dialog\Field\Textarea\Richtext
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {

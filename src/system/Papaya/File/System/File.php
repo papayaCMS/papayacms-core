@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System;
 
 /**
@@ -74,6 +73,7 @@ class File {
    * Was the file uploaded?
    *
    * @codeCoverageIgnore
+   *
    * @return bool
    */
   public function isUploadedFile() {

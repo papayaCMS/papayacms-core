@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
 
 /**
@@ -40,6 +39,7 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * strip path information from returned directory name
    *
    * @param string $element
+   *
    * @return string
    */
   public function callbackGetName($element) {
@@ -50,6 +50,7 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
+   *
    * @return \Papaya\Content\Structure
    */
   public function getDefinition($theme) {
@@ -61,6 +62,7 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * themes of the current installation
    *
    * @param \Papaya\Theme\Handler $handler
+   *
    * @return \Papaya\Theme\Handler
    */
   public function handler(\Papaya\Theme\Handler $handler = NULL) {

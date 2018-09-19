@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -28,6 +27,7 @@ class Arrays {
    * @param array|\Traversable $arrayOne
    * @param array|\Traversable $arrayTwo
    * @param int $recursion
+   *
    * @return array
    */
   public static function merge($arrayOne, $arrayTwo, $recursion = 20) {
@@ -63,6 +63,7 @@ class Arrays {
    *
    * @param mixed $input
    * @param bool $useKeys
+   *
    * @return array
    */
   public static function ensure($input, $useKeys = TRUE) {
@@ -107,6 +108,7 @@ class Arrays {
    * @param array $array
    * @param mixed $index
    * @param mixed $default
+   *
    * @return mixed
    */
   public static function get(array $array, $index, $default = NULL) {
@@ -130,6 +132,7 @@ class Arrays {
    * @param array $array
    * @param array $keys
    * @param mixed $default
+   *
    * @return mixed
    */
   public static function getRecursive(array $array, array $keys, $default = NULL) {
@@ -152,6 +155,7 @@ class Arrays {
    * Extract all positive integer numbers from a stirng into an array
    *
    * @param string $string
+   *
    * @return array
    */
   public static function decodeIdList($string) {
@@ -166,6 +170,7 @@ class Arrays {
    *
    * @param array $list
    * @param string $separator
+   *
    * @return string
    */
   public static function encodeIdList(array $list, $separator = ';') {
@@ -178,6 +183,7 @@ class Arrays {
    * @param array $list
    * @param string $quote
    * @param string $separator
+   *
    * @return string
    */
   public static function encodeAndQuoteIdList(array $list, $quote = ';', $separator = ';') {

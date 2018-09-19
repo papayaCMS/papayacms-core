@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -43,7 +42,9 @@ class NoLinebreak implements \Papaya\Filter {
    * Check the value for linebreaks, if the value contains linebreaks throw an exception
    *
    * @throws \Papaya\Filter\Exception\InvalidCharacter
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -57,6 +58,7 @@ class NoLinebreak implements \Papaya\Filter {
    * Replace linebreaks and surrounding whitespace characters with a single space
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {

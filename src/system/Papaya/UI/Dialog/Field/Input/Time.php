@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -64,6 +63,7 @@ class Time extends \Papaya\UI\Dialog\Field\Input {
    * @param mixed $default optional, default NULL
    * @param bool $mandatory optional, default FALSE
    * @param float $step optional, default 60.0
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct(

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Cache;
@@ -30,6 +29,7 @@ class URL
    * Use the current request url as cache definition parameter
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return true|array
    */
   public function getStatus() {
@@ -40,6 +40,7 @@ class URL
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

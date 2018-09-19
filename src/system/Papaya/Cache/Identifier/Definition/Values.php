@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Cache;
@@ -43,6 +42,7 @@ class Values
    * If no arguments whre stored, return TRUE.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return true|array
    */
   public function getStatus() {
@@ -53,6 +53,7 @@ class Values
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

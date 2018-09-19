@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Structure;
 
 /**
@@ -55,6 +54,7 @@ class Group extends Node {
    * Getter/Setter for the values list
    *
    * @param Values $values
+   *
    * @return Values
    */
   public function values(Values $values = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Plugin\Editor;
 
 use Papaya\Plugin;
@@ -58,6 +57,7 @@ class Fields extends Dialog {
    * and uses a factory to create the field instances.
    *
    * @param UI\Dialog\Field\Builder\FromArray $builder
+   *
    * @return UI\Dialog\Field\Builder\FromArray
    */
   public function builder(UI\Dialog\Field\Builder\FromArray $builder = NULL) {

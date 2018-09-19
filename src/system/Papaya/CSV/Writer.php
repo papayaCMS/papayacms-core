@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\CSV;
 
 /**
@@ -67,7 +66,9 @@ class Writer {
    * Read object properties
    *
    * @param string $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return int|null|resource|string
    */
   public function __get($name) {
@@ -96,6 +97,7 @@ class Writer {
    *
    * @param string $name
    * @param $value
+   *
    * @throws \UnexpectedValueException
    */
   public function __set($name, $value) {
@@ -194,6 +196,7 @@ class Writer {
    * Prepare a header or data value for csv. The value is escaped and quotes if needed.
    *
    * @param string $value
+   *
    * @return string
    */
   private function quoteValue($value) {
@@ -234,6 +237,7 @@ class Writer {
    * Getter/Setter for the callbacks subobject handlign the mapping callbacks
    *
    * @param Writer\Callbacks $callbacks
+   *
    * @return Writer\Callbacks
    */
   public function callbacks(Writer\Callbacks $callbacks = NULL) {

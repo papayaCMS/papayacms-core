@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Condition;
 
 /**
@@ -55,6 +54,7 @@ class Group
    * @param self|\Papaya\Database\Access|\Papaya\Database\Interfaces\Access $parent
    * @param \Papaya\Database\Interfaces\Mapping $mapping
    * @param string $operator
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct(

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Module;
 
 /**
@@ -60,6 +59,7 @@ class Options extends \Papaya\Database\Records {
    * @param int $mode
    * @param array $values
    * @param array $record
+   *
    * @return array
    */
   public function callbackConvertValueByType($context, $mode, $values, $record) {

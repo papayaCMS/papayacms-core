@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\URL;
 
 /**
@@ -40,6 +39,7 @@ class Web extends \Papaya\Filter\URL {
    * prefix the value if needed with http://
    *
    * @param string $value
+   *
    * @return string
    */
   private function prepare($value) {

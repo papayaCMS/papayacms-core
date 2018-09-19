@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -27,7 +26,9 @@ class SelectBoolean
    * Create a select field with two elements displayed as radio boxes
    *
    * @param array|\Traversable $elements
+   *
    * @return \Papaya\UI\Dialog\Field\Select
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {

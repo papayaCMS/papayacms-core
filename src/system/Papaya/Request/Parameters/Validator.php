@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameters;
 
 /**
@@ -52,6 +51,7 @@ class Validator
   /**
    * @param array $definitions
    * @param array|\Papaya\Request\Parameters $parameters
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct(array $definitions, $parameters) {
@@ -67,6 +67,7 @@ class Validator
    * Validate and store the definitions, throw exceptions for invalid definitions
    *
    * @param array $definitions
+   *
    * @throws \UnexpectedValueException
    */
   private function setDefinitions(array $definitions) {
@@ -125,6 +126,7 @@ class Validator
    * Trigger validation and return TRUE if a definition for the value exists.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -136,6 +138,7 @@ class Validator
    * ArrayAccess alias for the simple get method
    *
    * @param string $name
+   *
    * @return mixed|null
    */
   public function offsetGet($name) {
@@ -146,6 +149,7 @@ class Validator
    * Trigger validation and return value, if no definition exists NULL is returned.
    *
    * @param string $name
+   *
    * @return mixed|null
    */
   public function get($name) {
@@ -156,6 +160,7 @@ class Validator
   /**
    * @param mixed $name
    * @param mixed $value
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($name, $value) {
@@ -196,6 +201,7 @@ class Validator
    * Reset a value to the provided default
    *
    * @param string $name
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetUnset($name) {

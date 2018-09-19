@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Administration;
@@ -40,6 +39,7 @@ class Content
    * @param array $targetIds
    * @param int $originId
    * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -56,6 +56,7 @@ class Content
    * Getter/Setter for the translation records list.
    *
    * @param Page\Translations $translations
+   *
    * @return Page\Translations
    */
   public function translations(Page\Translations $translations = NULL) {
@@ -72,6 +73,7 @@ class Content
    *
    * @param array $targetIds
    * @param array $languageIds
+   *
    * @return array
    */
   protected function getExistingTargetTranslations(array $targetIds, array $languageIds) {
@@ -103,6 +105,7 @@ class Content
    * @param array $targetIds
    * @param array $languageIds
    * @param array $existing
+   *
    * @return array
    */
   protected function getMissingTargetTranslations(
@@ -132,6 +135,7 @@ class Content
    * @param array $languages
    * @param array $existing
    * @param array $missing
+   *
    * @return bool
    */
   public function synchronizeTranslations(
@@ -160,6 +164,7 @@ class Content
    *
    * @param Page\Translation $origin
    * @param array $targetIds
+   *
    * @return bool
    */
   protected function updateTranslations(Page\Translation $origin, array $targetIds) {
@@ -182,6 +187,7 @@ class Content
    *
    * @param Page\Translation $origin
    * @param $targetIds
+   *
    * @return bool
    */
   protected function insertTranslations(Page\Translation $origin, $targetIds) {
@@ -201,6 +207,7 @@ class Content
    *
    * @param array|int $languageId
    * @param int $targetId
+   *
    * @return bool
    */
   protected function deleteTranslations($languageId, $targetId) {

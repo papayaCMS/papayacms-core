@@ -6,11 +6,11 @@ papaya CMS
 @link http://www.papaya-cms.com/
 @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
 
-You can redistribute and/or modify this script under the terms of the GNU General Public
-License (GPL) version 2, provided that the copyright and license notes, including these
-lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.
+ You can redistribute and/or modify this script under the terms of the GNU General Public
+ License (GPL) version 2, provided that the copyright and license notes, including these
+ lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.
 EOF;
 
 return PhpCsFixer\Config::create()
@@ -49,7 +49,11 @@ return PhpCsFixer\Config::create()
       'function_typehint_space' => TRUE,
       'general_phpdoc_annotation_remove' => ['author','version'],
       'hash_to_slash_comment' => TRUE,
-      'header_comment' => ['header' => $header, 'separate' => 'none'],
+      'header_comment' => [
+        'comment_type' => 'PHPDoc',
+        'header' => $header,
+        'separate' => 'bottom'
+      ],
       'indentation_type' => FALSE,
       'line_ending' => TRUE,
       'linebreak_after_opening_tag' => TRUE,
@@ -101,7 +105,7 @@ return PhpCsFixer\Config::create()
       'phpdoc_no_package' => FALSE,
       'phpdoc_scalar' => TRUE,
       'phpdoc_separation' => FALSE,
-      'phpdoc_to_comment' => TRUE,
+      'phpdoc_to_comment' => FALSE,
       'phpdoc_trim' => TRUE,
       'phpdoc_types' => TRUE,
       'phpdoc_var_without_name' => FALSE,

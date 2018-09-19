@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\URL\Transformer;
 
 /**
@@ -27,6 +26,7 @@ class Relative {
    *
    * @param \Papaya\URL $currentURL current url
    * @param \Papaya\URL $targetURL url to transform
+   *
    * @return string
    */
   public function transform($currentURL, $targetURL) {
@@ -61,6 +61,7 @@ class Relative {
    *
    * @param string $portOne
    * @param string $portTwo
+   *
    * @return bool
    */
   private function _comparePorts($portOne, $portTwo) {
@@ -78,6 +79,7 @@ class Relative {
    *
    * @param string $currentPath
    * @param string $targetPath
+   *
    * @return string
    */
   public function getRelativePath($currentPath, $targetPath) {

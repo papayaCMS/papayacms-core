@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
 
 /**
@@ -64,6 +63,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Define mapping
    *
    * @param array(string=>string|NULL) $definition
+   *
    * @throws \LogicException
    */
   private function setDefinition($definition) {
@@ -90,6 +90,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Strip the alias from the field if here was one.
    *
    * @param $field
+   *
    * @return string
    */
   private function stripAliasFromField($field) {
@@ -103,6 +104,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Map the database fields of an record to the object properties
    *
    * @param array $record
+   *
    * @return array
    */
   public function mapFieldsToProperties(array $record) {
@@ -163,6 +165,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param array $values
    * @param bool $withAlias
+   *
    * @return array
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
@@ -231,6 +234,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Get a list of the used database fields
    *
    * @param bool|string $withAlias
+   *
    * @return array
    */
   public function getFields($withAlias = TRUE) {
@@ -258,6 +262,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param string $property
    * @param bool|string $withAlias
+   *
    * @return string|null
    */
   public function getField($property, $withAlias = TRUE) {
@@ -287,6 +292,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Get the property name for a database fields
    *
    * @param string $field
+   *
    * @return string|null
    */
   public function getProperty($field) {
@@ -309,6 +315,7 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
    *
    * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
+   *
    * @return \Papaya\Database\Record\Mapping\Callbacks
    */
   public function callbacks(\Papaya\Database\Record\Mapping\Callbacks $callbacks = NULL) {

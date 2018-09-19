@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Locale\Germany;
 
 /**
@@ -45,10 +44,13 @@ class Zip implements \Papaya\Filter {
    * throw an exception if the validation has failed.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\InvalidLength\ToShort
    * @throws \Papaya\Filter\Exception\InvalidLength\ToLong
    * @throws \Papaya\Filter\Exception\InvalidCharacter
+   *
    * @return true
    */
   public function validate($value) {
@@ -87,6 +89,7 @@ class Zip implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {

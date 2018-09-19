@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme\Editor;
 
 use Papaya\Content;
@@ -43,6 +42,7 @@ class Changes extends \Papaya\Administration\Page\Part {
    *
    * @param string $name
    * @param string $default
+   *
    * @return UI\Control\Command\Controller
    */
   protected function _createCommands($name = 'cmd', $default = 'skin_edit') {
@@ -60,6 +60,7 @@ class Changes extends \Papaya\Administration\Page\Part {
    * The theme skin the the database record wrapper object.
    *
    * @param Content\Theme\Skin $themeSet
+   *
    * @return Content\Theme\Skin
    */
   public function themeSet(Content\Theme\Skin $themeSet = NULL) {
@@ -76,6 +77,7 @@ class Changes extends \Papaya\Administration\Page\Part {
    * themes of the current installation
    *
    * @param Theme\Handler $themeHandler
+   *
    * @return Theme\Handler
    */
   public function themeHandler(Theme\Handler $themeHandler = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -28,7 +27,9 @@ class SelectCheckboxes
    * Create a select field displayed as checkboxes
    *
    * @param array|\Traversable $elements
+   *
    * @return \Papaya\UI\Dialog\Field\Select
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {

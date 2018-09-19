@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -36,6 +35,7 @@ class ArrayMapper {
    * @param array|\Traversable $array
    * @param string|int|array $elementIndex
    * @param string|int|array $keyIndex
+   *
    * @return array
    */
   public static function byIndex($array, $elementIndex = NULL, $keyIndex = NULL) {

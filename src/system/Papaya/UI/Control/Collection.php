@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
 
 /**
@@ -64,6 +63,7 @@ class Collection
    * in an additional element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null parent the elements where appended to,
    *                                  NULL if no items are appended.
    */
@@ -86,7 +86,9 @@ class Collection
    * some generic handling for that.
    *
    * @param object $owner
+   *
    * @throws \LogicException
+   *
    * @return object
    */
   public function owner($owner = NULL) {
@@ -128,7 +130,9 @@ class Collection
    * the item counting from the end of the list.
    *
    * @param int $offset
+   *
    * @throws \OutOfBoundsException
+   *
    * @return \Papaya\UI\Control
    */
   public function get($offset) {
@@ -146,6 +150,7 @@ class Collection
    * the item counting from the end of the list.
    *
    * @param int $offset
+   *
    * @return bool
    */
   public function has($offset) {
@@ -158,6 +163,7 @@ class Collection
    * provide a fluent api.
    *
    * @param Collection\Item $item
+   *
    * @return self
    */
   public function add(Collection\Item $item) {
@@ -174,7 +180,9 @@ class Collection
    *
    * @param int $offset
    * @param Collection\Item $item
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function set($offset, Collection\Item $item) {
@@ -198,7 +206,9 @@ class Collection
    *
    * @param int $offset
    * @param Collection\Item $item
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function insertBefore($offset, Collection\Item $item) {
@@ -221,7 +231,9 @@ class Collection
    * provide a fluent api.
    *
    * @param int $offset
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function remove($offset) {
@@ -280,6 +292,7 @@ class Collection
    * ArrayAccess interface, return true if an item at $offset exists. Negative values are possible.
    *
    * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -290,6 +303,7 @@ class Collection
    * ArrayAccess interface, return tha item at $offset. Negative values are possible.
    *
    * @param int $offset
+   *
    * @return Collection\Item
    */
   public function offsetGet($offset) {
@@ -315,6 +329,7 @@ class Collection
    * ArrayAccess interface, Remove the item defined by $offset. Negative values are possible.
    *
    * @param int $offset
+   *
    * @return self
    */
   public function offsetUnset($offset) {
@@ -327,6 +342,7 @@ class Collection
    * the item knopws the list it is in.
    *
    * @param Collection\Item $item
+   *
    * @return Collection\Item
    */
   protected function prepareItem($item) {
@@ -339,7 +355,9 @@ class Collection
    * Validate the class of an item.
    *
    * @throws \InvalidArgumentException
+   *
    * @param $item
+   *
    * @return bool
    */
   protected function validateItemClass(Collection\Item $item) {
@@ -359,6 +377,7 @@ class Collection
    * Make sure that $offset is an integer. If it is an negative value calcluate the real $offset.
    *
    * @param int $offset
+   *
    * @return int
    */
   protected function prepareOffset($offset) {

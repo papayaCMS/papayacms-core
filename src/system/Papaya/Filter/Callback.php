@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -56,7 +55,9 @@ class Callback implements \Papaya\Filter {
    * throw an exception if the validation has failed.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -73,6 +74,7 @@ class Callback implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {
@@ -88,6 +90,7 @@ class Callback implements \Papaya\Filter {
    * Check if the callback function is callable
    *
    * @param \Callback $callback
+   *
    * @throws \Papaya\Filter\Exception\InvalidCallback
    */
   public function _isCallback($callback) {

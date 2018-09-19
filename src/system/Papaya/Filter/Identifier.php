@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter {
   /**
    * Papaya filter class for an identifier/name
@@ -64,6 +63,7 @@ namespace Papaya\Filter {
 
     /**
      * @param mixed|null $value
+     *
      * @return bool|mixed|null|string|string[]
      */
     public function filter($value) {
@@ -85,7 +85,9 @@ namespace Papaya\Filter {
 
     /**
      * @param mixed $value
+     *
      * @return bool
+     *
      * @throws Exception\InvalidValue
      * @throws Exception\UnexpectedType
      */

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner\Status\CSS;
 
 /**
@@ -33,6 +32,7 @@ class Comment extends \Papaya\Template\Simple\Scanner\Status {
    *
    * @param string $buffer
    * @param int $offset
+   *
    * @return null|\Papaya\Template\Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
@@ -43,6 +43,7 @@ class Comment extends \Papaya\Template\Simple\Scanner\Status {
    * Return TRUE if the token is a comment end
    *
    * @param \Papaya\Template\Simple\Scanner\Token $token
+   *
    * @return bool
    */
   public function isEndToken($token) {

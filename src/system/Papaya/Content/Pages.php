@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
 /**
@@ -117,6 +116,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
    * @param array $filter
    * @param null|int $limit
    * @param null|int $offset
+   *
    * @return bool
    */
   public function load($filter = [], $limit = NULL, $offset = NULL) {
@@ -209,6 +209,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return array|mixed|string
    */
   public function mapValue($context, $mode, $property, $field, $value) {

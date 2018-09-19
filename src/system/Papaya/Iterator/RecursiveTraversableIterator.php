@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator {
 
   /**
@@ -46,6 +45,7 @@ namespace Papaya\Iterator {
 
     /**
      * @param $traversable
+     *
      * @return \RecursiveIteratorIterator
      */
     protected function createIteratorForTraversable($traversable) {

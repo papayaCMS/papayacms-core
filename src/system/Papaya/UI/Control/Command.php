@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
 
 /**
@@ -61,6 +60,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Condition can be used to validate if an command can be executed.
    *
    * @param Command\Condition $condition
+   *
    * @return Command\Condition
    */
   public function condition(Command\Condition $condition = NULL) {
@@ -86,6 +86,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Validate the assigned permission.
    *
    * @throws \UnexpectedValueException
+   *
    * @return bool
    */
   public function validatePermission() {
@@ -109,6 +110,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Getter/Setter for the permission
    *
    * @param int $permission
+   *
    * @return null|array|int
    */
   public function permission($permission = NULL) {
@@ -125,7 +127,9 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If the owner is emtpy and exception is thrown.
    *
    * @throws \LogicException
+   *
    * @param \Papaya\Request\Parameters\Access|null $owner
+   *
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
@@ -158,6 +162,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If an owner is available, its parameterMethod function will be used.
    *
    * @param int $method
+   *
    * @return int
    */
   public function parameterMethod($method = NULL) {
@@ -174,6 +179,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If an owner is available, its parameterGroup function will be used.
    *
    * @param string|null $groupName
+   *
    * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
@@ -190,6 +196,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If an owner is available, its parameters function will be used.
    *
    * @param \Papaya\Request\Parameters $parameters
+   *
    * @return \Papaya\Request\Parameters
    */
   public function parameters(\Papaya\Request\Parameters $parameters = NULL) {

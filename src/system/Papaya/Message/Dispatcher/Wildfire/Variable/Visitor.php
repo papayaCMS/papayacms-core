@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher\Wildfire\Variable;
 
 /**
@@ -152,6 +151,7 @@ class Visitor
    * Visit an object variable, handle recursions and duplicates
    *
    * @param object $object
+   *
    * @throws \LogicException
    */
   public function visitObject($object) {
@@ -250,6 +250,7 @@ class Visitor
    * Add element to dump, and return a reference to it.
    *
    * @param mixed $element
+   *
    * @return mixed
    */
   private function &_addElement($element) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
 /**
@@ -62,6 +61,7 @@ class XHTML
    * Output log message to browser using xhtml output
    *
    * @param \Papaya\Message $message
+   *
    * @return bool
    */
   public function dispatch(\Papaya\Message $message) {
@@ -109,6 +109,7 @@ class XHTML
    * Get header formating options and a label for the error message
    *
    * @param int $type
+   *
    * @return array
    */
   public function getHeaderOptionsFromType($type) {

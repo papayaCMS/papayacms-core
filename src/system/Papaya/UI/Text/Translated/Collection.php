@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Text\Translated;
 
 /**
@@ -61,6 +60,7 @@ class Collection
    * Wrap the current element into an translated string and return it.
    *
    * @see \IteratorIterator::current()
+   *
    * @return string
    */
   public function current() {
@@ -78,6 +78,7 @@ class Collection
    * An combined getter/setter for the Papaya Application object
    *
    * @param \Papaya\Application $application
+   *
    * @return \Papaya\Application\CMS|\Papaya\Application
    */
   public function papaya(\Papaya\Application $application = NULL) {

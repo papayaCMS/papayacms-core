@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
 
 /**
@@ -142,6 +141,7 @@ class Options
    * Convert the value into a more readable string representation
    *
    * @param mixed $value
+   *
    * @return string
    */
   private function _valueToString($value) {

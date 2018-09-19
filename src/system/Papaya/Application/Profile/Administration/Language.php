@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile\Administration;
 
 use Papaya\Administration\Languages\Selector as LanguageToggle;
@@ -29,6 +28,7 @@ class Language implements Application\Profile {
    * Create the profile object and return it
    *
    * @param Application $application
+   *
    * @return LanguageToggle
    */
   public function createObject($application) {

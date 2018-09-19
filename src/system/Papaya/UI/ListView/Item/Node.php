@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\Item;
 
 /**
@@ -91,6 +90,7 @@ class Node extends \Papaya\UI\Control {
    *
    * @param \Papaya\XML\Element $parent
    * @param \Papaya\XML\Element|null
+   *
    * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -127,6 +127,7 @@ class Node extends \Papaya\UI\Control {
    * from the item.
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {

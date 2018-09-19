@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
 
 use Papaya\Content;
@@ -128,6 +127,7 @@ class Counter extends Database\BaseObject {
    * @param string $separator
    * @param string $prefix
    * @param string $suffix
+   *
    * @return string
    */
   public function getLabel($separator = '/', $prefix = ' (', $suffix = ')') {

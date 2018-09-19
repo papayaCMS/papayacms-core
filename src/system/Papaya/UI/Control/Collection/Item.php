@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Collection;
 
 /**
@@ -48,7 +47,9 @@ abstract class Item extends \Papaya\UI\Control {
    * Return the owner collection of the item.
    *
    * @throws \BadMethodCallException
+   *
    * @param \Papaya\UI\Control\Collection $collection
+   *
    * @return \Papaya\UI\Control\Collection
    */
   public function collection(\Papaya\UI\Control\Collection $collection = NULL) {
@@ -68,7 +69,9 @@ abstract class Item extends \Papaya\UI\Control {
    * Getter/Setter for the index of the item in the collection.
    *
    * @param int|null $index
+   *
    * @throws \UnexpectedValueException
+   *
    * @return int
    */
   public function index($index = NULL) {

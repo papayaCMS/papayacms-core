@@ -12,12 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
-use \Papaya\Application;
-use \Papaya\BaseObject\Interfaces\Properties;
-use \Papaya\Utility;
+use Papaya\Application;
+use Papaya\BaseObject\Interfaces\Properties;
+use Papaya\Utility;
 
 /**
  * The item class allows to define objects that have a set of properties, the properties are
@@ -31,6 +30,7 @@ use \Papaya\Utility;
 class Item
   implements Application\Access, Properties, \ArrayAccess, \IteratorAggregate {
   use Application\Access\Aggregation;
+
   /**
    * Internal value store
    *
@@ -53,6 +53,7 @@ class Item
    * Assign the data from another object (like an array)
    *
    * @param array|\Traversable $data
+   *
    * @throws \InvalidArgumentException
    */
   public function assign($data) {
@@ -102,6 +103,7 @@ class Item
    * Validate if the defined value is set.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -112,7 +114,9 @@ class Item
    * Return the defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -123,6 +127,7 @@ class Item
    * Change a defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -134,6 +139,7 @@ class Item
    * Set the deifned value to NULL.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    */
   public function __unset($name) {
@@ -144,6 +150,7 @@ class Item
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -155,7 +162,9 @@ class Item
    * ArrayAccess: Return the defined vbalue
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -166,6 +175,7 @@ class Item
    * ArrayAccess: Change the defined value.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -178,6 +188,7 @@ class Item
    *
    *
    * @param string $name
+   *
    * @internal param mixed $value
    */
   public function offsetUnset($name) {
@@ -189,7 +200,9 @@ class Item
    * if the property/index is not defined.
    *
    * @param string $name
+   *
    * @throws \OutOfBoundsException
+   *
    * @return string
    */
   private function _prepareName($name) {

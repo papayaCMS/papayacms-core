@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Database;
 
 /**
@@ -23,6 +22,7 @@ namespace Papaya\UI\Dialog\Database;
  *
  * @property \Papaya\BaseObject\Callback $onBeforeSave
  * @property \Papaya\BaseObject\Callback $onBeforeDelete
+ *
  * @method bool onBeforeSave(\Papaya\Database\Interfaces\Record $record)
  * @method bool onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
  */

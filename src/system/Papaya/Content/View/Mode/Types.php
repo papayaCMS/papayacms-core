@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\View\Mode;
 
 /**
@@ -44,6 +43,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * Static function to validate if a type is valid withotu the need to create an object
    *
    * @param string $mode
+   *
    * @return bool
    */
   public static function exists($mode) {
@@ -65,7 +65,9 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * Validate if an type exists
    *
    * @see \ArrayAccess::offsetExists()
+   *
    * @param mixed $mode
+   *
    * @return bool
    */
   public function offsetExists($mode) {
@@ -76,7 +78,9 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * Get the caption for a type
    *
    * @see \ArrayAccess::offsetGet()
+   *
    * @param mixed $mode
+   *
    * @return string
    */
   public function offsetGet($mode) {
@@ -89,6 +93,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * Throw an exeption if someone tries to modify the list
    *
    * @throws \LogicException
+   *
    * @see \ArrayAccess::offsetSet()
    */
   public function offsetSet($mode, $caption) {
@@ -99,6 +104,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * Throw an exeption if someone tries to modify the list
    *
    * @throws \LogicException
+   *
    * @see \ArrayAccess::offsetSet()
    */
   public function offsetUnset($mode) {

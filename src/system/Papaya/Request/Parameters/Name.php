@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameters;
 
 /**
@@ -53,8 +52,11 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Getter/Setter for parameter group separator
    *
    * @param string $groupSeparator
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param array|string $name
+   *
    * @return string
    */
   public function separator($groupSeparator = NULL) {
@@ -76,7 +78,9 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
+   *
    * @param string|int|array|self $name
    * @param string $groupSeparator
    */
@@ -95,7 +99,9 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Append name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
+   *
    * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
    */
@@ -108,7 +114,9 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Prepend name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
+   *
    * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
    */
@@ -121,7 +129,9 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Insert name parts before the specified index, append if the index does not exists.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
+   *
    * @param int $index
    * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
@@ -137,9 +147,12 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @see \Papaya\Request\Parameters\Name::parseString()
    * @see \Papaya\Request\Parameters\Name::parseArray()
+   *
    * @throws \InvalidArgumentException
+   *
    * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
+   *
    * @return array|string
    */
   public function parse($name, $groupSeparator = NULL) {
@@ -162,6 +175,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set name parts using an array.
    *
    * @see \Papaya\Request\Parameters\Name::parseArray()
+   *
    * @param array $name
    */
   public function setArray(array $name) {
@@ -172,6 +186,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * All array elements are converted to strings.
    *
    * @param array $name
+   *
    * @return array
    */
   public function parseArray(array $name) {
@@ -186,6 +201,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set the name parts using a string.
    *
    * @see \Papaya\Request\Parameters\Name::parseString()
+   *
    * @param string $name
    * @param string $groupSeparator
    */
@@ -201,6 +217,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string $name
    * @param string $groupSeparator delimiter
+   *
    * @return array
    */
   public function parseString($name, $groupSeparator = '') {
@@ -259,6 +276,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Get the name as a string
    *
    * @param string $groupSeparator
+   *
    * @return string
    */
   public function getString($groupSeparator = '') {
@@ -302,6 +320,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess: check if an name parts exists
    *
    * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -312,6 +331,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess: get the specified name part
    *
    * @param int $offset
+   *
    * @return string
    */
   public function offsetGet($offset) {

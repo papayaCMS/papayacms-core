@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration\Storage;
 
 /**
@@ -63,6 +62,7 @@ class Domain extends \Papaya\Application\BaseObject
    * Getter/Setter for domain record object
    *
    * @param \Papaya\Content\Domain $domain
+   *
    * @return \Papaya\Content\Domain
    */
   public function domain(\Papaya\Content\Domain $domain = NULL) {

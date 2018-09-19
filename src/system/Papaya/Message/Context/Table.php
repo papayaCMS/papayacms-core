@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -73,6 +72,7 @@ class Table
    * This will delete all existing rows
    *
    * @param array $columns
+   *
    * @throws \InvalidArgumentException
    */
   public function setColumns(array $columns) {
@@ -125,6 +125,7 @@ class Table
    * in the current row. If a column identifier has no value for a column, NULL is used.
    *
    * @param int $position
+   *
    * @return array
    */
   public function getRow($position) {

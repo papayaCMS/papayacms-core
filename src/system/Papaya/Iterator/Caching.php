@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -44,6 +43,7 @@ class Caching extends \CachingIterator {
    * Validate and store callback function
    *
    * @param \Callable|null $callback
+   *
    * @throws \InvalidArgumentException
    */
   public function setCallback($callback) {

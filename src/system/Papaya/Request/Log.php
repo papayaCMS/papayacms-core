@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
 
 /**
@@ -68,6 +67,7 @@ class Log extends \Papaya\Application\BaseObject {
    * This object can be used like a singleton, or created normally.
    *
    * @param bool $reset create new instance
+   *
    * @return self
    */
   public static function getInstance($reset = FALSE) {

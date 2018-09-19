@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
 
 /**
@@ -29,7 +28,9 @@ class Wrapper {
    * {@see session_set_save_handler}.
    *
    * @param string $handler
+   *
    * @throws \InvalidArgumentException
+   *
    * @return bool
    */
   public function registerHandler($handler) {
@@ -54,6 +55,7 @@ class Wrapper {
    * Returns an empty string if the session is not started yet.
    *
    * @see session_id()
+   *
    * @return string
    */
   public function getId() {
@@ -66,7 +68,9 @@ class Wrapper {
    * Returns the previous session id.
    *
    * @see session_id()
+   *
    * @param string $sessionId
+   *
    * @return string
    */
   public function setId($sessionId) {
@@ -77,6 +81,7 @@ class Wrapper {
    * Get the current session name (parameter name).
    *
    * @see session_name()
+   *
    * @return string
    */
   public function getName() {
@@ -89,7 +94,9 @@ class Wrapper {
    * Returns the previous session name value.
    *
    * @see session_name()
+   *
    * @param string $sessionName
+   *
    * @return string
    */
   public function setName($sessionName) {
@@ -100,6 +107,7 @@ class Wrapper {
    * Start the session, create/loads the session.
    *
    * @see session_start()
+   *
    * @return bool
    */
   public function start() {
@@ -122,6 +130,7 @@ class Wrapper {
    * logins.
    *
    * @see session_regenerate_id()
+   *
    * @return bool
    */
   public function regenerateId() {
@@ -144,6 +153,7 @@ class Wrapper {
    * Return the current session cookie parameters.
    *
    * @see session_get_cookie_params()
+   *
    * @return array
    */
   public function getCookieParameters() {
@@ -154,6 +164,7 @@ class Wrapper {
    * Change the session cookie parameters
    *
    * @see session_set_cookie_params()
+   *
    * @param array $cookieParameters
    */
   public function setCookieParameters(array $cookieParameters) {
@@ -175,6 +186,7 @@ class Wrapper {
    * Get the session cache limiter
    *
    * @see session_cache_limiter()
+   *
    * @return string
    */
   public function getCacheLimiter() {
@@ -185,7 +197,9 @@ class Wrapper {
    * Set the session cache limiter. Returns the previous value.
    *
    * @see session_cache_limiter()
+   *
    * @param string $cacheLimiter
+   *
    * @return string
    */
   public function setCacheLimiter($cacheLimiter) {

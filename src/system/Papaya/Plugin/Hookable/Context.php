@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Hookable;
 
 /**
@@ -72,6 +71,7 @@ class Context {
    * data assigned.
    *
    * @param \Papaya\Plugin\Editable\Content|array|\Traversable|null $data
+   *
    * @return \Papaya\Plugin\Editable\Content
    */
   public function data($data = NULL) {

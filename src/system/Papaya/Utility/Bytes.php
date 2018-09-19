@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -52,6 +51,7 @@ class Bytes {
    * @param int $bytes
    * @param int $decimals
    * @param string $decimalSeparator
+   *
    * @return string
    */
   public static function toString($bytes, $decimals = 2, $decimalSeparator = '.') {
@@ -75,6 +75,7 @@ class Bytes {
    * Convert a string containing a unit into an integer
    *
    * @param string $string
+   *
    * @return int
    */
   public static function fromString($string) {

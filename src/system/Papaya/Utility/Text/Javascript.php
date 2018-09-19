@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
 
 /**
@@ -27,6 +26,7 @@ class Javascript {
    *
    * @param string $string
    * @param string $quoteChar
+   *
    * @return string
    */
   public static function quote($string, $quoteChar = "'") {

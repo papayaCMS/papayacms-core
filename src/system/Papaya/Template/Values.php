@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template;
 
 /**
@@ -43,7 +42,9 @@ class Values {
    * Get/Set document property
    *
    * @param \DOMDocument $document
+   *
    * @return \DOMDocument
+   *
    * @internal param $node
    */
   public function document(\DOMDocument $document = NULL) {
@@ -76,7 +77,9 @@ class Values {
    * @param string $path
    * @param \DOMElement $context
    * @param bool $createIfNotExists
+   *
    * @throws \InvalidArgumentException
+   *
    * @return \Papaya\Template\Value|false
    */
   public function getValueByPath($path, \DOMElement $context = NULL, $createIfNotExists = TRUE) {
@@ -126,7 +129,9 @@ class Values {
    * If it is an DOMElement a value containing this element will be returned.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string|null|\DOMElement $selector
+   *
    * @return \Papaya\Template\Value
    */
   public function getValue($selector = NULL) {
@@ -147,6 +152,7 @@ class Values {
    * @param string $name
    * @param array $attributes
    * @param string $content
+   *
    * @return \Papaya\Template\Value
    */
   public function append($parent, $name, array $attributes = [], $content = '') {
@@ -158,6 +164,7 @@ class Values {
    *
    * @param string|null|\DOMElement $parent
    * @param string $xml
+   *
    * @return \Papaya\Template\Value
    */
   public function appendXML($parent, $xml) {

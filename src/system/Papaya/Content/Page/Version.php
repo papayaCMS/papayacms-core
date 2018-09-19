@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
 
 /**
@@ -100,6 +99,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
    *
    * @throws \LogicException
    * @throws \UnexpectedValueException
+   *
    * @return bool
    */
   public function save() {
@@ -172,6 +172,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
    * Access to the version translations
    *
    * @param Version\Translations $translations
+   *
    * @return Version\Translations
    */
   public function translations(Version\Translations $translations = NULL) {

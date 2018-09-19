@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
 
 use Papaya\Administration;
@@ -39,6 +38,7 @@ class Tags
    * @param array $targetIds
    * @param int $originId
    * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -61,6 +61,7 @@ class Tags
    * Getter/Setter for the tags subobject
    *
    * @param Page\Tags $tags
+   *
    * @return Page\Tags
    */
   public function tags(Page\Tags $tags = NULL) {
@@ -77,6 +78,7 @@ class Tags
    *
    * @param int $targetId
    * @param array $tagIds
+   *
    * @return bool
    */
   public function synchronizeTags($targetId, array $tagIds) {

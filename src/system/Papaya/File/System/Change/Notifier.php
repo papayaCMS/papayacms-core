@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System\Change;
 
 /**
@@ -117,6 +116,7 @@ class Notifier {
    * Get/Set the notifier action object, this will be set from setTarget usually.
    *
    * @param \Papaya\File\System\Action $action
+   *
    * @return \Papaya\File\System\Action
    */
   public function action(\Papaya\File\System\Action $action = NULL) {

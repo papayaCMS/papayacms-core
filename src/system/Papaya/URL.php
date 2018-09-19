@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -30,6 +29,7 @@ namespace Papaya;
  * @property string $path
  * @property string $query
  * @property string $fragment
+ *
  * @method string getScheme()
  * @method string getUser()
  * @method string getPass()
@@ -56,6 +56,7 @@ class URL {
    * Constructor
    *
    * @param string $url
+   *
    * @return self
    */
   public function __construct($url = '') {
@@ -148,7 +149,9 @@ class URL {
    *
    * @param string $method
    * @param array $arguments
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __call($method, $arguments) {
@@ -169,7 +172,9 @@ class URL {
    * Map the parts of the url to object properties
    *
    * @param string $name
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -188,6 +193,7 @@ class URL {
    *
    * @param string $name
    * @param $value
+   *
    * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
@@ -209,6 +215,7 @@ class URL {
    * set scheme if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $scheme
    */
   public function setScheme($scheme) {
@@ -225,6 +232,7 @@ class URL {
    * set host if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $host
    */
   public function setHost($host) {
@@ -243,6 +251,7 @@ class URL {
    *
    *
    * @param $port
+   *
    * @throws \InvalidArgumentException
    */
   public function setPort($port) {
@@ -259,6 +268,7 @@ class URL {
    * set path if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $path
    */
   public function setPath($path) {
@@ -276,7 +286,9 @@ class URL {
    *
    *
    * @param $query
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param string $path
    * @internal param string $query
    */
@@ -295,7 +307,9 @@ class URL {
    *
    *
    * @param string $fragment
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param string $query
    */
   public function setFragment($fragment) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
 /**
@@ -92,6 +91,7 @@ class Button extends \Papaya\UI\Toolbar\Element {
    * Setter for access key character.
    *
    * @param string $key
+   *
    * @throws \InvalidArgumentException
    */
   public function setAccessKey($key) {

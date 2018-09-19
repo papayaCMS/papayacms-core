@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP\Client;
 
 /**
@@ -86,6 +85,7 @@ abstract class File {
    * get file name property
    *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   public function getName() {
@@ -121,6 +121,7 @@ abstract class File {
    * escape a header value (like the filename)
    *
    * @param $value
+   *
    * @return string
    */
   protected function _escapeHeaderValue($value) {

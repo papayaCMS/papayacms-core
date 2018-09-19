@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Link;
 
 /**
@@ -97,6 +96,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return mixed
    */
   public function mapFieldToProperty($context, $property, $field, $value) {
@@ -113,6 +113,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    * @param string $property
    * @param string $field
    * @param mixed $value
+   *
    * @return mixed
    */
   public function mapPropertyToField($context, $property, $field, $value) {

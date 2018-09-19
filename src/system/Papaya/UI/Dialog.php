@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -174,6 +173,7 @@ class Dialog extends Control\Interactive {
    * The owner is used to verify the dialog token.
    *
    * @param object|null $owner
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($owner = NULL) {
@@ -233,6 +233,7 @@ class Dialog extends Control\Interactive {
    * The result is cached, so the validation and collection runs only one time.
    *
    * @return bool
+   *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    */
@@ -252,7 +253,9 @@ class Dialog extends Control\Interactive {
    * Append the dialog output to a DOM
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
+   *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \InvalidArgumentException
@@ -301,6 +304,7 @@ class Dialog extends Control\Interactive {
 
   /**
    * @param string $encoding
+   *
    * @throws \UnexpectedValueException
    */
   public function setEncoding($encoding) {
@@ -342,6 +346,7 @@ class Dialog extends Control\Interactive {
    * dialog. Hidden values do not use the parameter group name.
    *
    * @param \Papaya\Request\Parameters $values
+   *
    * @return \Papaya\Request\Parameters
    */
   public function hiddenValues(\Papaya\Request\Parameters $values = NULL) {
@@ -361,6 +366,7 @@ class Dialog extends Control\Interactive {
    * dialog. Hidden fields use the parameter group name.
    *
    * @param \Papaya\Request\Parameters|null $values
+   *
    * @return \Papaya\Request\Parameters
    */
   public function hiddenFields(\Papaya\Request\Parameters $values = NULL) {
@@ -377,6 +383,7 @@ class Dialog extends Control\Interactive {
    * Getter/Setter for csrf token manager including implizit create
    *
    * @param \Papaya\UI\Tokens $tokens
+   *
    * @return \Papaya\UI\Tokens
    */
   public function tokens(\Papaya\UI\Tokens $tokens = NULL) {
@@ -396,6 +403,7 @@ class Dialog extends Control\Interactive {
    * without query string.
    *
    * @param string|null $action
+   *
    * @return string
    */
   public function action($action = NULL) {
@@ -414,7 +422,9 @@ class Dialog extends Control\Interactive {
    * @param \Papaya\XML\Element $parent
    * @param \Papaya\Request\Parameters $values
    * @param string|null $path
+   *
    * @return \Papaya\XML\Element
+   *
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
@@ -442,7 +452,9 @@ class Dialog extends Control\Interactive {
    * be casted to string. If the dialog uses the method "GET" the request parameter level sepearator will be used.
    *
    * @param string|array $name
+   *
    * @return \Papaya\Request\Parameters\Name
+   *
    * @throws \InvalidArgumentException
    */
   public function getParameterName($name) {
@@ -459,6 +471,7 @@ class Dialog extends Control\Interactive {
    * Error handler
    *
    * @param \Papaya\UI\Dialog\Errors|null $errors
+   *
    * @return \Papaya\UI\Dialog\Errors
    */
   public function errors(\Papaya\UI\Dialog\Errors $errors = NULL) {
@@ -486,6 +499,7 @@ class Dialog extends Control\Interactive {
    * Getter/Setter for dialog options object
    *
    * @param \Papaya\UI\Dialog\Options $options
+   *
    * @return \Papaya\UI\Dialog\Options
    */
   public function options(\Papaya\UI\Dialog\Options $options = NULL) {
@@ -505,6 +519,7 @@ class Dialog extends Control\Interactive {
    * a more complex subobject later allowing an icon and buttons.
    *
    * @param string|\Papaya\UI\Text $caption
+   *
    * @return string|\Papaya\UI\Text
    */
   public function caption($caption = NULL) {
@@ -518,6 +533,7 @@ class Dialog extends Control\Interactive {
    * Deprecated alias for {@see self::caption()}.
    *
    * @param string|\Papaya\UI\Text $caption
+   *
    * @return string|\Papaya\UI\Text
    */
   public function title($caption) {
@@ -528,7 +544,9 @@ class Dialog extends Control\Interactive {
    * Dialog fields getter/setter
    *
    * @param \Papaya\UI\Dialog\Fields|array|\Traversable|null $fields
+   *
    * @return \Papaya\UI\Dialog\Fields
+   *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    */
@@ -556,7 +574,9 @@ class Dialog extends Control\Interactive {
    * Dialog buttons getter/setter
    *
    * @param \Papaya\UI\Dialog\Buttons $buttons
+   *
    * @return \Papaya\UI\Dialog\Buttons
+   *
    * @throws \LogicException
    */
   public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {
@@ -580,6 +600,7 @@ class Dialog extends Control\Interactive {
    * The execution call the method collect() on each field and button to fill up this object.
    *
    * @param \Papaya\Request\Parameters $data
+   *
    * @return \Papaya\Request\Parameters
    */
   public function data(\Papaya\Request\Parameters $data = NULL) {
@@ -597,6 +618,7 @@ class Dialog extends Control\Interactive {
    * Getter/Setter for the description subobject.
    *
    * @param \Papaya\UI\Dialog\Element\Description
+   *
    * @return \Papaya\UI\Dialog\Element\Description
    */
   public function description(\Papaya\UI\Dialog\Element\Description $description = NULL) {

@@ -12,10 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
-use \Papaya\BaseObject\Interfaces\Properties;
+use Papaya\BaseObject\Interfaces\Properties;
 
 /**
  * Encapsulate a php callback, to allow a default return value and a context.
@@ -70,6 +69,7 @@ class Callback implements Properties {
    * Execute the callback if defined, just return the default return value otherwise.
    *
    * @param array $arguments
+   *
    * @return mixed
    */
   public function execute(...$arguments) {
@@ -87,6 +87,7 @@ class Callback implements Properties {
    * Check status of $defaultReturn, $callback and $context properties.
    *
    * @param $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -98,6 +99,7 @@ class Callback implements Properties {
    * Get value of $defaultReturn, $callback and $context properties.
    *
    * @param $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -147,7 +149,9 @@ class Callback implements Properties {
    * Validate the property name and return the private object variable name.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return string
    */
   private function getPropertyName($name) {

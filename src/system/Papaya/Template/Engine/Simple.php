@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Engine;
 
 /**
@@ -69,6 +68,7 @@ class Simple extends \Papaya\Template\Engine {
    *
    * @param object $context
    * @param string $expression
+   *
    * @return mixed
    */
   public function callbackGetValue($context, $expression) {
@@ -84,6 +84,7 @@ class Simple extends \Papaya\Template\Engine {
    * Set a template file, loads the content of the file and stores the file name
    *
    * @param string $fileName
+   *
    * @throws \InvalidArgumentException
    */
   public function setTemplateFile($fileName) {
@@ -115,6 +116,7 @@ class Simple extends \Papaya\Template\Engine {
    * Getter/Setter for the ast. The default ast is created using scanner and parser objects.
    *
    * @param \Papaya\Template\Simple\AST $ast
+   *
    * @return \Papaya\Template\Simple\AST
    */
   public function ast(\Papaya\Template\Simple\AST $ast = NULL) {
@@ -136,6 +138,7 @@ class Simple extends \Papaya\Template\Engine {
    * Getter/Setter for the ast visitor used to execute the template.
    *
    * @param \Papaya\Template\Simple\Visitor $visitor
+   *
    * @return \Papaya\Template\Simple\Visitor
    */
   public function visitor(\Papaya\Template\Simple\Visitor $visitor = NULL) {

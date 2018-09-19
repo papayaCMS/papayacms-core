@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
 
 /**
@@ -26,6 +25,7 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @property \Papaya\BaseObject\Callback $getOptionCaption
  * @property \Papaya\BaseObject\Callback $getOptionGroupCaption
  * @property \Papaya\BaseObject\Callback $getOptionData
+ *
  * @method string getOptionCaption($option, $index)
  * @method string getOptionGroupCaption($option, $index)
  * @method array getOptionData($option, $index)

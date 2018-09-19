@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
 
 /**
@@ -51,6 +50,7 @@ class Image implements \Papaya\Controller {
    * @param \Papaya\Application|\Papaya\Application\CMS $application
    * @param \Papaya\Request &$request
    * @param \Papaya\Response &$response
+   *
    * @return bool|\Papaya\Controller
    */
   public function execute(

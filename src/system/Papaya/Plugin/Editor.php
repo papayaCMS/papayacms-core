@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -55,6 +54,7 @@ abstract class Editor extends \Papaya\UI\Control\Interactive {
    * Return the stored data object - bc for old API
    *
    * @deprecated
+   *
    * @return Editable\Data
    */
   public function getContent() {
@@ -66,6 +66,7 @@ abstract class Editor extends \Papaya\UI\Control\Interactive {
    * parameters need to be added to links and dialogs
    *
    * @param \Papaya\Request\Parameters $context
+   *
    * @return \Papaya\Request\Parameters
    */
   public function context(\Papaya\Request\Parameters $context = NULL) {

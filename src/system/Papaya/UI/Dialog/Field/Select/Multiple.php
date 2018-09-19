@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
 
 /**
@@ -161,6 +160,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * Append select field to DOM
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -177,6 +177,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * Append the select element itself to the DOM (the field element is the parent)
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   protected function _appendSelect(\Papaya\XML\Element $parent) {
@@ -195,6 +196,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    *
    * @param \Papaya\XML\Element $parent
    * @param \RecursiveIterator|\Traversable|array $options
+   *
    * @return \Papaya\XML\Element
    */
   protected function _appendOptions(\Papaya\XML\Element $parent, $options) {
@@ -216,6 +218,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * @param \Papaya\XML\Element $parent
    * @param mixed $option
    * @param mixed $index
+   *
    * @return \Papaya\XML\Element
    */
   protected function _appendOptionGroup(\Papaya\XML\Element $parent, $option, $index) {
@@ -234,6 +237,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * @param \Papaya\XML\Element $parent
    * @param mixed $option
    * @param mixed $index
+   *
    * @return \Papaya\XML\Element
    */
   protected function _appendOption(\Papaya\XML\Element $parent, $option, $index) {
@@ -266,6 +270,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    *
    * @param mixed $currentValue
    * @param string $optionValue
+   *
    * @return bool
    */
   protected function _isOptionSelected($currentValue, $optionValue) {
@@ -277,6 +282,7 @@ class Multiple extends \Papaya\UI\Dialog\Field {
    * needed definitions.
    *
    * @param \Papaya\UI\Dialog\Field\Select\Callbacks $callbacks
+   *
    * @return \Papaya\UI\Dialog\Field\Select\Callbacks
    */
   public function callbacks(\Papaya\UI\Dialog\Field\Select\Callbacks $callbacks = NULL) {

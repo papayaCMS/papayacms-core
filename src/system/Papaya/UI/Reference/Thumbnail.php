@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Reference;
 
 /**
@@ -42,6 +41,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Static create function to allow fluent calls.
    *
    * @param \Papaya\URL $url
+   *
    * @return \Papaya\UI\Reference
    */
   public static function create(\Papaya\URL $url = NULL) {
@@ -50,7 +50,9 @@ class Thumbnail extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference::get()
+   *
    * @param bool $forPublic
+   *
    * @return null|string
    */
   public function get($forPublic = FALSE) {
@@ -86,7 +88,9 @@ class Thumbnail extends \Papaya\UI\Reference {
 
   /**
    * @see \Papaya\UI\Reference::load()
+   *
    * @param \Papaya\Request $request
+   *
    * @return \Papaya\UI\Reference|$this
    */
   public function load(\Papaya\Request $request) {
@@ -101,6 +105,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set media id
    *
    * @param string $mediaId
+   *
    * @return self
    */
   public function setMediaId($mediaId) {
@@ -115,6 +120,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set media version
    *
    * @param int $version
+   *
    * @return self
    */
   public function setMediaVersion($version) {
@@ -129,6 +135,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set file title (normalized string)
    *
    * @param string $title
+   *
    * @return self
    */
   public function setTitle($title) {
@@ -143,6 +150,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set thumbnail resize mode
    *
    * @param string $mode
+   *
    * @return self
    */
   public function setThumbnailMode($mode) {
@@ -157,6 +165,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set thumbnail size
    *
    * @param string $size
+   *
    * @return self
    */
   public function setThumbnailSize($size) {
@@ -171,6 +180,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set thumbnail params
    *
    * @param array $params
+   *
    * @return self
    */
   public function setThumbnailParameters($params) {
@@ -189,6 +199,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set extension (normalized string)
    *
    * @param string $extension
+   *
    * @return self
    */
   public function setExtension($extension) {
@@ -203,6 +214,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set media data from "uri" [id]v[version].[extension]
    *
    * @param string $mediaUri
+   *
    * @return self
    */
   public function setMediaUri($mediaUri) {
@@ -240,6 +252,7 @@ class Thumbnail extends \Papaya\UI\Reference {
    * Set preview mode
    *
    * @param bool $isPreview
+   *
    * @return \Papaya\UI\Reference\Page
    */
   public function setPreview($isPreview) {

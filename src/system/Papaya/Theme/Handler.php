@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
 
 /**
@@ -26,6 +25,7 @@ class Handler extends \Papaya\Application\BaseObject {
    * Get url for theme files, is $themeName is empty the current theme is used.
    *
    * @param string $themeName
+   *
    * @return string
    */
   public function getURL($themeName = NULL) {
@@ -74,6 +74,7 @@ class Handler extends \Papaya\Application\BaseObject {
    * Get local path on server to theme files
    *
    * @param string $themeName
+   *
    * @return string
    */
   public function getLocalThemePath($themeName = NULL) {
@@ -89,6 +90,7 @@ class Handler extends \Papaya\Application\BaseObject {
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
+   *
    * @return \Papaya\Theme\Definition
    */
   public function getDefinition($theme) {

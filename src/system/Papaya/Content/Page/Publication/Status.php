@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page\Publication;
 
 use Papaya\Cache;
@@ -42,6 +41,7 @@ class Status extends \Papaya\Content\Page\Status {
    * Cache the database result to avoid to many small queries for each page.
    *
    * @param int $id
+   *
    * @return bool
    */
   public function load($id) {
@@ -62,6 +62,7 @@ class Status extends \Papaya\Content\Page\Status {
    * Getter/Setter for cache object, fetches the system data cache if not set.
    *
    * @param Cache\Service $cache
+   *
    * @return false|Cache\Service
    */
   public function cache(Cache\Service $cache = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
 
 /**
@@ -158,6 +157,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Set the indentation level of the listview item.
    *
    * @param int $indentation
+   *
    * @throws \InvalidArgumentException
    */
   protected function setIndentation($indentation) {
@@ -184,6 +184,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Return the collection for the item, overload for code completion and type check
    *
    * @param \Papaya\UI\ListView\Items|\Papaya\UI\Control\Collection $items
+   *
    * @return \Papaya\UI\ListView\Items|\Papaya\UI\Control\Collection
    */
   public function collection(\Papaya\UI\Control\Collection $items = NULL) {
@@ -195,6 +196,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the node subobject
    *
    * @param \Papaya\UI\ListView\Item\Node $node
+   *
    * @return \Papaya\UI\ListView\Item\Node
    */
   public function node(\Papaya\UI\ListView\Item\Node $node = NULL) {
@@ -210,6 +212,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the item subitems. Subitems represent addiitonal data.
    *
    * @param \Papaya\UI\ListView\SubItems $subitems
+   *
    * @return \Papaya\UI\ListView\SubItems
    */
   public function subitems(\Papaya\UI\ListView\SubItems $subitems = NULL) {
@@ -228,6 +231,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * is cloned or a new one is created (if no collection is available).
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {
@@ -254,6 +258,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Append list item xml to parent xml element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

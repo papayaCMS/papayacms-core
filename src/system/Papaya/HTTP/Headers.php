@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP;
 
 /**
@@ -78,6 +77,7 @@ class Headers
    * get a request http header value
    *
    * @param string $name
+   *
    * @return string|array|null
    */
   public function get($name) {
@@ -96,6 +96,7 @@ class Headers
    * @param string $name header name
    * @param string $value
    * @param bool $allowDuplicates optional, default value FALSE
+   *
    * @return bool
    */
   public function set($name, $value, $allowDuplicates = FALSE) {
@@ -129,6 +130,7 @@ class Headers
    * (at string start or after a -) has to be uppercase
    *
    * @param string $name
+   *
    * @return string
    */
   protected function normalizeName($name) {
@@ -140,6 +142,7 @@ class Headers
    * ArrayAccess Interface: check if an heaer exists
    *
    * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -150,6 +153,7 @@ class Headers
    * ArrayAccess Interface: get an header
    *
    * @param int $offset
+   *
    * @return string|array|null
    */
   public function offsetGet($offset) {
@@ -161,6 +165,7 @@ class Headers
    *
    * @param int $offset
    * @param mixed $value
+   *
    * @internal param $ string|array|NULL
    */
   public function offsetSet($offset, $value) {

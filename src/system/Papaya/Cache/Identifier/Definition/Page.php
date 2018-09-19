@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Application;
@@ -29,10 +28,12 @@ use Papaya\Utility;
 class Page
   implements Application\Access, Cache\Identifier\Definition {
   use Application\Access\Aggregation;
+
   /**
    * Return data for the specified page
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return bool|array
    */
   public function getStatus() {
@@ -69,6 +70,7 @@ class Page
    * page id and category id are from the url path.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

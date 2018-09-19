@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Paging;
 
 /**
@@ -175,6 +174,7 @@ class Count extends \Papaya\UI\Control {
    * Allow to specify element and attribute names for the generated xml
    *
    * @param array $names
+   *
    * @throws \UnexpectedValueException
    */
   public function setXMLNames(array $names) {
@@ -226,6 +226,7 @@ class Count extends \Papaya\UI\Control {
    * Append the list element to the xml
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   protected function appendListElement(\Papaya\XML\Element $parent) {
@@ -240,6 +241,7 @@ class Count extends \Papaya\UI\Control {
    * @param \Papaya\XML\Element $parent
    * @param int $page
    * @param string|null $type
+   *
    * @return \Papaya\XML\Element
    */
   protected function appendPageElement(\Papaya\XML\Element $parent, $page, $type = NULL) {
@@ -267,6 +269,7 @@ class Count extends \Papaya\UI\Control {
    * Getter/Setter for the reference object (the link url)
    *
    * @param \Papaya\UI\Reference $reference
+   *
    * @return \Papaya\UI\Reference
    */
   public function reference(\Papaya\UI\Reference $reference = NULL) {
@@ -284,6 +287,7 @@ class Count extends \Papaya\UI\Control {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param int $itemsCount
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
@@ -302,6 +306,7 @@ class Count extends \Papaya\UI\Control {
    * minimum value is 1.
    *
    * @param int $itemsPerPage
+   *
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
@@ -320,6 +325,7 @@ class Count extends \Papaya\UI\Control {
    * Minimum value is 3. I suggest only odd values for this option.
    *
    * @param int $pageLimit
+   *
    * @throws \UnexpectedValueException
    */
   public function setPageLimit($pageLimit) {

@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Cache\Service\APC;
 
 /**
@@ -35,9 +36,11 @@ class Wrapper {
    * Cache a variable in the data store
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheId
    * @param mixed $data
    * @param int $expires
+   *
    * @return bool
    */
   public function store($cacheId, $data, $expires) {
@@ -48,7 +51,9 @@ class Wrapper {
    * Fetch a stored variable from the cache
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheId
+   *
    * @return mixed
    */
   public function fetch($cacheId) {
@@ -60,7 +65,9 @@ class Wrapper {
    * Clears the user/system cache.
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheType
+   *
    * @return bool
    */
   public function clearCache($cacheType) {

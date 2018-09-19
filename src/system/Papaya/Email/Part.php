@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
 
 /**
@@ -53,6 +52,7 @@ class Part {
    * Getter/Setter vor header subobject
    *
    * @param Headers $headers
+   *
    * @return Headers
    */
   public function headers(Headers $headers = NULL) {
@@ -69,6 +69,7 @@ class Part {
    * Getter/Setter for content subobject
    *
    * @param Content $content
+   *
    * @return Content
    */
   public function content(Content $content = NULL) {
@@ -80,6 +81,7 @@ class Part {
 
   /**
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -95,7 +97,9 @@ class Part {
    * Allow headers() and content() to be used as properties.
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
    * @return Content|Headers
    */
   public function __get($name) {
@@ -119,6 +123,7 @@ class Part {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \LogicException
    */
   public function __set($name, $value) {

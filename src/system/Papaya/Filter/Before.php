@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -45,7 +44,9 @@ class Before implements \Papaya\Filter {
 
   /**
    * @param string $value
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
@@ -54,6 +55,7 @@ class Before implements \Papaya\Filter {
 
   /**
    * @param string $value
+   *
    * @return mixed|null|string
    */
   public function filter($value) {

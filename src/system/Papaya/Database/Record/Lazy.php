@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
 
 /**
@@ -61,6 +60,7 @@ abstract class Lazy
    *
    * @param string $sql
    * @param array|null $parameters
+   *
    * @return bool
    */
   protected function _loadRecord($sql, array $parameters = NULL) {
@@ -82,6 +82,7 @@ abstract class Lazy
    * Deactivate lazy loading if data is assigned
    *
    * @see \Papaya\BaseObject\Item::assign()
+   *
    * @param array|\Traversable $data
    */
   public function assign($data) {
@@ -91,6 +92,7 @@ abstract class Lazy
 
   /**
    * @param \Papaya\Database\Interfaces\Key|null $key
+   *
    * @return \Papaya\Database\Interfaces\Key
    */
   public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
@@ -113,6 +115,7 @@ abstract class Lazy
    * Validate if the defined value is set.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -124,7 +127,9 @@ abstract class Lazy
    * Return the defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -136,6 +141,7 @@ abstract class Lazy
    * Change a defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -148,6 +154,7 @@ abstract class Lazy
    * Set the deifned value to NULL.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    */
   public function __unset($name) {
@@ -159,6 +166,7 @@ abstract class Lazy
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\BaseObject;
 
 /**
@@ -82,6 +81,7 @@ abstract class Records
    * Returns NULL if the offset is invalid.
    *
    * @param string|int $offset
+   *
    * @return array|null
    */
   public function item($offset) {
@@ -92,6 +92,7 @@ abstract class Records
    * Get an item by its position in the records array
    *
    * @param int $position
+   *
    * @return array
    */
   public function itemAt($position) {
@@ -106,6 +107,7 @@ abstract class Records
    * Assign an array to this object as the replacement for all records.
    *
    * @param array|\Traversable $data
+   *
    * @return array
    */
   public function assign($data) {
@@ -132,6 +134,7 @@ abstract class Records
    * @param string|null $idField
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool TRUE on success otherwise FALSE
    */
   protected function _loadRecords(

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -30,6 +29,7 @@ class Color extends \Papaya\UI\Dialog\Field\Factory\Profile {
    *
    * @see \Papaya\UI\Dialog\Field\Input\Color
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {

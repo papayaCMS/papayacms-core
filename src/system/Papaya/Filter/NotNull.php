@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -28,7 +27,9 @@ class NotNull implements \Papaya\Filter {
    * Check the value throw exception if value is not set
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\IsUndefined
+   *
    * @return true
    */
   public function validate($value) {
@@ -42,6 +43,7 @@ class NotNull implements \Papaya\Filter {
    * The filter function always returns the value if it is set or NULL
    *
    * @param string $value
+   *
    * @return mixed
    */
   public function filter($value) {

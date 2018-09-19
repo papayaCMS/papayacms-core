@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -54,6 +53,7 @@ class Textarea extends \Papaya\UI\Dialog\Field {
    * Set the line count of this element.
    *
    * @param int $lineCount
+   *
    * @return \Papaya\UI\Dialog\Field\Input
    */
   public function setLineCount($lineCount) {

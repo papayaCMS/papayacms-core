@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
 
 /**
@@ -58,6 +57,7 @@ class Date extends \Papaya\UI\ListView\SubItem {
    *
    * @param int $timestamp
    * @param int $options
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {

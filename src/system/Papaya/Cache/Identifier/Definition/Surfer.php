@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
 use Papaya\Application;
@@ -27,10 +26,12 @@ use Papaya\Cache;
 class Surfer
   implements Application\Access, Cache\Identifier\Definition {
   use Application\Access\Aggregation;
+
   /**
    * Check the surfer, return the id if it valid, TRUE otherwise
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
+   *
    * @return array|true
    */
   public function getStatus() {
@@ -45,6 +46,7 @@ class Surfer
    * The surfer is defined by request data
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

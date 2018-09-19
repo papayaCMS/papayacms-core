@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media;
 
 /**
@@ -32,7 +31,9 @@ class Storage {
    * @param string $service
    * @param \Papaya\Configuration $configuration
    * @param bool $static optional, default value TRUE
+   *
    * @throws \InvalidArgumentException
+   *
    * @return \Papaya\Media\Storage\Service
    */
   public static function getService($service = '', $configuration = NULL, $static = TRUE) {

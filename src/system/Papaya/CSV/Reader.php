@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\CSV;
 
 /**
@@ -80,7 +79,9 @@ class Reader {
    * Throws differenc exceptions depending on the error.
    *
    * @param bool $allowLocal
+   *
    * @return true
+   *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \LengthException
@@ -114,6 +115,7 @@ class Reader {
    *
    * @param int $offset byte offset to start reading, new offset after reading
    * @param int $limit maximum lines to read
+   *
    * @return array|null
    */
   public function fetchAssoc(&$offset, $limit = 0) {
@@ -159,6 +161,7 @@ class Reader {
    * Use the second line of a given file resource to determine the csv style.
    *
    * @param \Resource $fh
+   *
    * @return array
    */
   protected function _getStyle($fh) {
@@ -186,6 +189,7 @@ class Reader {
    *
    * @param string $string string to check
    * @param array $characters array of characters
+   *
    * @return string $char character that occurs first, otherwise an empty string
    */
   protected function _getFirstCharacter($string, $characters) {
@@ -212,6 +216,7 @@ class Reader {
    * @param \Resource $fh
    * @param string $delimiter
    * @param string $enclosure
+   *
    * @return array(array,integer)
    */
   protected function _readLine($fh, $delimiter, $enclosure) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System;
 
 /**
@@ -26,6 +25,7 @@ class Factory {
    * Return an object wrapping a file in the file system
    *
    * @param string $filename
+   *
    * @return \Papaya\File\System\File
    */
   public function getFile($filename) {
@@ -36,6 +36,7 @@ class Factory {
    * Return an object wrapping a directory in the file system
    *
    * @param string $directory
+   *
    * @return Directory
    */
   public function getDirectory($directory) {

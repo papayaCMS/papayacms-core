@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Tag;
 
 /**
@@ -46,6 +45,7 @@ class Categories extends \Papaya\Database\Records\Tree {
    * @param mixed $filter If it is an scalar the value will be used for the id property.
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {

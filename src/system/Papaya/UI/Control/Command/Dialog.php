@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
 
 /**
@@ -60,6 +59,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Execute command and append result to output xml
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -90,6 +90,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * A context for the dialog - to be set as hidden values or used in links
    *
    * @param \Papaya\Request\Parameters $context
+   *
    * @return \Papaya\Request\Parameters
    */
   public function context(\Papaya\Request\Parameters $context = NULL) {
@@ -103,6 +104,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
    *
    * @param \Papaya\UI\Dialog $dialog
+   *
    * @return \Papaya\UI\Dialog
    */
   public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
@@ -122,6 +124,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Getter/Setter for the callbacks object
    *
    * @param Dialog\Callbacks $callbacks
+   *
    * @return Dialog\Callbacks
    */
   public function callbacks(Dialog\Callbacks $callbacks = NULL) {
@@ -150,6 +153,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * (aka not added to the DOM) if it was executed successfully.
    *
    * @param null|bool $hide
+   *
    * @return bool
    */
   public function hideAfterSuccess($hide = NULL) {
@@ -166,6 +170,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Ignored if the hide after success option is active.
    *
    * @param null|bool $reset
+   *
    * @return bool
    */
   public function resetAfterSuccess($reset = NULL) {

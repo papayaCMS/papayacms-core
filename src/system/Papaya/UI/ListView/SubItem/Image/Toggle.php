@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem\Image;
 
 /**
@@ -71,6 +70,7 @@ class Toggle extends \Papaya\UI\ListView\SubItem {
    * the subitem will be empty.
    *
    * @param \Papaya\XML\Element
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

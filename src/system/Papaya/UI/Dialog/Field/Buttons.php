@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
 
 /**
@@ -45,6 +44,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
    * Group buttons getter/setter
    *
    * @param \Papaya\UI\Dialog\Buttons $buttons
+   *
    * @return \Papaya\UI\Dialog\Buttons
    */
   public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {

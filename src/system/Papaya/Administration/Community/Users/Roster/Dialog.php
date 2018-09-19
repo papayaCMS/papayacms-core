@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Community\Users\Roster;
 
 use Papaya\Content;
@@ -132,6 +131,7 @@ class Dialog extends UI\Dialog {
    * Getter/Setter for the community user records object
    *
    * @param Content\Community\Users $users
+   *
    * @return Content\Community\Users
    */
   public function users(Content\Community\Users $users = NULL) {
@@ -148,6 +148,7 @@ class Dialog extends UI\Dialog {
    * Getter/Setter for the listview subobject, it displays a chunk of the users list
    *
    * @param UI\ListView $listview
+   *
    * @return UI\ListView
    */
   public function listview(UI\ListView $listview = NULL) {
@@ -185,6 +186,7 @@ class Dialog extends UI\Dialog {
    * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
    *
    * @param UI\Toolbar\Paging $paging
+   *
    * @return UI\Toolbar\Paging
    */
   public function paging(UI\Toolbar\Paging $paging = NULL) {
@@ -206,6 +208,7 @@ class Dialog extends UI\Dialog {
    * The basic reference object used by the subobjects to create urls.
    *
    * @param UI\Reference $reference
+   *
    * @return UI\Reference
    */
   public function reference(UI\Reference $reference = NULL) {
@@ -224,6 +227,7 @@ class Dialog extends UI\Dialog {
    *
    * @param string $identifier
    * @param string $name
+   *
    * @throws \InvalidArgumentException
    */
   public function setParameterNameMapping($identifier, $name) {

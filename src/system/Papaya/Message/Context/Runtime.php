@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -150,6 +149,7 @@ class Runtime
    * part considered milliseconds, second part seconds
    *
    * @param float|string $value
+   *
    * @return float
    */
   private static function _prepareTimeValue($value) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order\By;
 
 /**
@@ -61,6 +60,7 @@ class Properties
 
   /**
    * @see \Papaya\Database\Interfaces\Order::__toString()
+   *
    * @return string
    */
   public function __toString() {

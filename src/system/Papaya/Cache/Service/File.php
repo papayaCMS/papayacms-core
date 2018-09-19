@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Service;
 
 /**
@@ -67,7 +66,9 @@ class File extends \Papaya\Cache\Service {
    * Check cache is usable
    *
    * @param bool $silent
+   *
    * @throws \LogicException
+   *
    * @return bool
    */
   public function verify($silent = TRUE) {
@@ -95,6 +96,7 @@ class File extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param string $data Element data
    * @param int $expires Maximum age in seconds
+   *
    * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
@@ -123,6 +125,7 @@ class File extends \Papaya\Cache\Service {
    *
    * @param string $directory
    * @param int $oldMask
+   *
    * @return bool
    */
   private function _ensureLocalDirectory($directory, &$oldMask) {
@@ -151,6 +154,7 @@ class File extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -169,6 +173,7 @@ class File extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -195,6 +200,7 @@ class File extends \Papaya\Cache\Service {
    * @param string $parameters
    * @param int $expires Maximum age in seconds
    * @param int $ifModifiedSince first possible creation time
+   *
    * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
@@ -219,6 +225,7 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
+   *
    * @return int|bool
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
@@ -257,7 +264,9 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
@@ -294,6 +303,7 @@ class File extends \Papaya\Cache\Service {
    * about the file change.
    *
    * @param \Papaya\File\System\Change\Notifier $notifier
+   *
    * @return \Papaya\File\System\Change\Notifier|false
    */
   public function notifier(\Papaya\File\System\Change\Notifier $notifier = NULL) {

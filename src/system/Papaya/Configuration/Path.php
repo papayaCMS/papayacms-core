@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration;
 
 /**
@@ -107,6 +106,7 @@ class Path extends \Papaya\Application\BaseObject {
    *Getter/Setter for a theme handler subobject.
    *
    * @param \Papaya\Theme\Handler $handler
+   *
    * @return \Papaya\Theme\Handler
    */
   public function themeHandler(\Papaya\Theme\Handler $handler = NULL) {
@@ -123,6 +123,7 @@ class Path extends \Papaya\Application\BaseObject {
    * validate if somthing is an identifer for a system path
    *
    * @param string $identifier
+   *
    * @return bool
    */
   public static function isIdentifier($identifier) {

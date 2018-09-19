@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
 
 /**
@@ -36,6 +35,7 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appe
    * If the list contains items, append them and return the list xml element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -53,6 +53,7 @@ class Messages extends \Papaya\BaseObject\Collection implements \Papaya\XML\Appe
    * Return object items as xml string
    *
    * @see appendTo
+   *
    * @return string
    */
   public function getXML() {

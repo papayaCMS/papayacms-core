@@ -12,14 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Parser\Search;
 
 /**
  * papaya CMS
  *
  * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ *
  * @link http://www.papaya-cms.com/
+ *
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
  *  You can redistribute and/or modify this script under the terms of the GNU General Public
@@ -155,6 +156,7 @@ class Text implements \IteratorAggregate {
    * Add element token
    *
    * @param array $token
+   *
    * @return bool
    */
   private function addElementToken($token) {
@@ -170,6 +172,7 @@ class Text implements \IteratorAggregate {
    * Add token
    *
    * @param array $token
+   *
    * @return int
    */
   private function addToken($token) {
@@ -227,6 +230,7 @@ class Text implements \IteratorAggregate {
    * Open token group
    *
    * @param int $level
+   *
    * @return int
    */
   public function openTokenGroup($level) {
@@ -238,6 +242,7 @@ class Text implements \IteratorAggregate {
    * Close token group
    *
    * @param int $level
+   *
    * @return int
    */
   public function closeTokenGroup($level) {

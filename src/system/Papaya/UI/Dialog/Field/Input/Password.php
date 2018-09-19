@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
 
 /**
@@ -37,6 +36,7 @@ class Password extends \Papaya\UI\Dialog\Field\Input {
    * @param string $name
    * @param int $length
    * @param \Papaya\Filter|null $filter
+   *
    * @internal param mixed $default
    */
   public function __construct($caption, $name, $length = 1024, \Papaya\Filter $filter = NULL) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -39,8 +38,10 @@ class XML implements \Papaya\Filter {
    *
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\InvalidXML
    * @throws \Papaya\Filter\Exception\IsEmpty
+   *
    * @return true
    */
   public function validate($value) {
@@ -69,6 +70,7 @@ class XML implements \Papaya\Filter {
    * The filter function is used to read an input value if it is valid.
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {

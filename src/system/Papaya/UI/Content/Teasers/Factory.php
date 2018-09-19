@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Content\Teasers;
 
 /**
@@ -111,6 +110,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param int $limit
    * @param int $offset
+   *
    * @return \Papaya\UI\Content\Teasers
    */
   public function byFilter(
@@ -134,6 +134,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param int $limit
    * @param int $offset
+   *
    * @return \Papaya\UI\Content\Teasers
    */
   public function byParent(
@@ -149,6 +150,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param int $limit
    * @param int $offset
+   *
    * @return \Papaya\UI\Content\Teasers
    */
   public function byPageId(
@@ -161,6 +163,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Create a pages database encapsulation object
    *
    * @param string|\Papaya\Database\Interfaces\Order $order
+   *
    * @return \Papaya\Content\Pages|\Papaya\Content\Page\Publications
    */
   private function createPages($order) {
@@ -183,6 +186,7 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param \Papaya\Content\Pages $pages
+   *
    * @return \Papaya\Database\Interfaces\Order
    */
   private function getOrderBy($order, \Papaya\Content\Pages $pages) {

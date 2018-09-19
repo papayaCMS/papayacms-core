@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order;
 
 /**
@@ -66,6 +65,7 @@ class Field
    * Get sql identifier string for the order by direction (ASC or DESC)
    *
    * @param int $direction
+   *
    * @return string
    */
   protected function getDirectionString($direction) {

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Box;
 
 /**
@@ -65,6 +64,7 @@ class Work extends \Papaya\Content\Box {
    * @param array $languageIds
    * @param int $publishedFrom
    * @param int $publishedTo
+   *
    * @return bool
    */
   public function publish(array $languageIds = NULL, $publishedFrom = 0, $publishedTo = 0) {
@@ -85,6 +85,7 @@ class Work extends \Papaya\Content\Box {
    *
    * @param \Papaya\Content\Box\Publication $publication
    * @param array $languageIds
+   *
    * @return bool
    */
   private function _publishTranslations(

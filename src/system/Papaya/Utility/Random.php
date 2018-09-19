@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -27,6 +26,7 @@ class Random {
    *
    * @param int $min
    * @param int $max
+   *
    * @return int
    */
   public static function rand($min = NULL, $max = NULL) {

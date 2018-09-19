@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application;
 
 /**
@@ -26,6 +25,7 @@ interface Access {
    * Getter/Setter for the application registry
    *
    * @param \Papaya\Application $application
+   *
    * @return \Papaya\Application\CMS
    */
   public function papaya(\Papaya\Application $application = NULL);

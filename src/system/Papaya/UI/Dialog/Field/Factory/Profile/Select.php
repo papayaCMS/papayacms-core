@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 /**
@@ -27,7 +26,9 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
 class Select extends \Papaya\UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
+   *
    * @return \Papaya\UI\Dialog\Field\Select
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
@@ -49,7 +50,9 @@ class Select extends \Papaya\UI\Dialog\Field\Factory\Profile {
    * Create field, own function so that child class can redefine the creation
    *
    * @param array|\Traversable $elements
+   *
    * @return \Papaya\UI\Dialog\Field\Select
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {

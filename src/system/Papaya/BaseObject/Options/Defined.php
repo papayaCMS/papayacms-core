@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Options;
 
 /**
@@ -62,7 +61,9 @@ abstract class Defined
    * Write an option value
    *
    * @param $name
+   *
    * @throws \InvalidArgumentException
+   *
    * @return mixed
    */
   protected function _read($name) {
@@ -81,6 +82,7 @@ abstract class Defined
    *
    * @param $name
    * @param $value
+   *
    * @throws \InvalidArgumentException
    */
   protected function _write($name, $value) {
@@ -97,6 +99,7 @@ abstract class Defined
    * Check if an option value exists
    *
    * @param $name
+   *
    * @return bool
    */
   protected function _exists($name) {

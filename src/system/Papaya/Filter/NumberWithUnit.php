@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -80,7 +79,9 @@ class NumberWithUnit implements \Papaya\Filter {
    * Validates the given string and throws exceptions
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param string $value
+   *
    * @return true
    */
   public function validate($value) {
@@ -128,6 +129,7 @@ class NumberWithUnit implements \Papaya\Filter {
    * Removes unwanted characters from value
    *
    * @param string $value
+   *
    * @return string|null
    */
   public function filter($value) {

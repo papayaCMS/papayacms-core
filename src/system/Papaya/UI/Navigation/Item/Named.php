@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation\Item;
 
 /**
@@ -30,7 +29,9 @@ class Named extends \Papaya\UI\Navigation\Item {
    * for the create xml element using the member variable.
    *
    * @see \Papaya\UI\Navigation\Item#appendTo($parent)
+   *
    * @param \Papaya\XML\Element $parent
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {

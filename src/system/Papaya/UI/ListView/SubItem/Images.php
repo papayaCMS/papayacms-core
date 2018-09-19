@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
 
 /**
@@ -93,6 +92,7 @@ class Images extends Image\Toggle {
    * the subitem will be empty.
    *
    * @param \Papaya\XML\Element
+   *
    * @return \Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
@@ -118,6 +118,7 @@ class Images extends Image\Toggle {
    * Validate the icon index against the selection depending on the mode.
    *
    * @param mixed $index
+   *
    * @return bool
    */
   protected function validateSelection($index) {

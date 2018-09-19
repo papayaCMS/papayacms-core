@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Configurable;
 
 /**
@@ -35,7 +34,9 @@ trait Aggregation {
    * execution of other methods (like appendTo()).
    *
    * @see \Papaya\Plugin\Configurable::configuration()
+   *
    * @param \Papaya\BaseObject\Parameters $configuration
+   *
    * @return \Papaya\BaseObject\Parameters
    */
   public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL) {

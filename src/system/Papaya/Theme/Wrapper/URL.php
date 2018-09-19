@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme\Wrapper;
 
 /**
@@ -83,6 +82,7 @@ class URL {
    * $_requestURL property.
    *
    * @param \Papaya\Request\Parameters $parameters
+   *
    * @return \Papaya\Request\Parameters
    */
   public function parameters(\Papaya\Request\Parameters $parameters = NULL) {

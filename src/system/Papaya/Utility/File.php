@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
 
 /**
@@ -28,6 +27,7 @@ class File {
    * @param int $bytes
    * @param int $decimals
    * @param string $decimalSeparator
+   *
    * @return string
    */
   public static function formatBytes($bytes, $decimals = 2, $decimalSeparator = '.') {
@@ -41,7 +41,9 @@ class File {
    * @param int $maxLength
    * @param string $language
    * @param string $unknown
+   *
    * @internal param int $bytes
+   *
    * @return string
    */
   public static function normalizeName($utf8string, $maxLength, $language = '', $unknown = '-') {

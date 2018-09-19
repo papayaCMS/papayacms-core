@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -69,6 +68,7 @@ class Union implements \OuterIterator {
    * Set internal flags
    *
    * @param $flags
+   *
    * @return int
    */
   public function setFlags($flags) {
@@ -110,6 +110,7 @@ class Union implements \OuterIterator {
    * Validate if an interator is attached.
    *
    * @param \Traversable|array $iterator
+   *
    * @return bool
    */
   public function containsIterator($iterator) {
@@ -218,6 +219,7 @@ class Union implements \OuterIterator {
    * If it is an object, the spl object hash will be used.
    *
    * @param \Traversable|array $iterator
+   *
    * @return string
    */
   private function getIteratorIdentifier($iterator) {

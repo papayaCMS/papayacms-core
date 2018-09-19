@@ -12,11 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
 
-use \Papaya\Request;
-use \Papaya\Utility;
+use Papaya\Request;
+use Papaya\Utility;
 
 /**
  * Request parameters are used to create cache condition data.
@@ -74,6 +73,7 @@ class Parameters
    * are used - the source is URL otherwise values from the request body are used, too.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
+   *
    * @return int
    */
   public function getSources() {

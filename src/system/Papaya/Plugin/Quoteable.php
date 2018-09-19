@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
 
 /**
@@ -28,6 +27,7 @@ interface Quoteable {
    * Append short content (aka "quote") to the parent xml element.
    *
    * @param \Papaya\XML\Element $parent
+   *
    * @return null|\Papaya\XML\Element
    */
   public function appendQuoteTo(\Papaya\XML\Element $parent);

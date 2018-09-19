@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -63,6 +62,7 @@ class Backtrace
    * Check an set backtrace offset
    *
    * @param int $offset
+   *
    * @throws \InvalidArgumentException
    */
   public function setOffset($offset) {

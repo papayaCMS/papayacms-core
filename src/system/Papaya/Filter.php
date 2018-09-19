@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -85,6 +84,7 @@ interface Filter {
    * If the input is invalid it should NULL
    *
    * @param mixed|null $value
+   *
    * @return mixed
    */
   public function filter($value);
@@ -95,7 +95,9 @@ interface Filter {
    * It will throw an \Papaya\Filter\Exception if the input is invalid.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
+   *
    * @return bool
    */
   public function validate($value);

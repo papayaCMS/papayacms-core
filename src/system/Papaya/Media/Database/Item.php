@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Database;
 
 /**
@@ -78,7 +77,9 @@ class Item {
    * Magic function, read dynamic properties
    *
    * @param string $name
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -106,7 +107,9 @@ class Item {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __set($name, $value) {
@@ -160,7 +163,9 @@ class Item {
    *
    * @param string $mediaId
    * @param int $versionId
+   *
    * @throws \InvalidArgumentException
+   *
    * @return bool
    */
   public function load($mediaId, $versionId = NULL) {
@@ -199,6 +204,7 @@ class Item {
    * Set media id
    *
    * @param string $value
+   *
    * @throws \BadMethodCallException
    */
   protected function _setMediaId($value) {
@@ -219,6 +225,7 @@ class Item {
    * Set media id
    *
    * @param string $value
+   *
    * @throws \BadMethodCallException
    */
   protected function _setVersionId($value) {
@@ -250,6 +257,7 @@ class Item {
    *
    * @param string $attribute
    * @param string $value
+   *
    * @throws \BadMethodCallException
    */
   protected function _setAttributeTrimString($attribute, $value) {

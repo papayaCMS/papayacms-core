@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Request;
 
 /**
@@ -31,6 +30,7 @@ class Method {
    * fetch the current request method from environment
    *
    * @param int $format
+   *
    * @return string
    */
   public static function get($format = self::FORMAT_LOWERCASE) {

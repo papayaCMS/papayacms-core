@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Plugin\Editor;
 
 use Papaya\Administration;
@@ -35,6 +34,7 @@ class Dialog extends Plugin\Editor {
    * Execute and append the dialog to to the administration interface DOM.
    *
    * @see \Papaya\XML\Appendable::appendTo()
+   *
    * @param XML\Element $parent
    */
   public function appendTo(XML\Element $parent) {
@@ -71,6 +71,7 @@ class Dialog extends Plugin\Editor {
    * Getter/Setter for the dialog subobject.
    *
    * @param UI\Dialog $dialog
+   *
    * @return UI\Dialog
    */
   public function dialog(UI\Dialog $dialog = NULL) {

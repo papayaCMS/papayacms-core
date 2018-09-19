@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
 
 /**
@@ -35,7 +34,9 @@ class Email implements \Papaya\Filter {
    * Check the value if it's a valid email address, if not throw an exception.
    *
    * @param string $value
+   *
    * @throws \Papaya\Filter\Exception\UnexpectedType
+   *
    * @return true
    */
   public function validate($value) {
@@ -49,6 +50,7 @@ class Email implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {

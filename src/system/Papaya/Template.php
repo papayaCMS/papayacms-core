@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -82,6 +81,7 @@ abstract class Template extends Application\BaseObject {
    * Combined getter/setter for the template values object
    *
    * @param \Papaya\Template\Values $values
+   *
    * @return \Papaya\Template\Values
    */
   public function values(Template\Values $values = NULL) {
@@ -97,6 +97,7 @@ abstract class Template extends Application\BaseObject {
    * Set template values from xml string
    *
    * @param string $xml
+   *
    * @return bool
    */
   public function setXML($xml) {
@@ -117,6 +118,7 @@ abstract class Template extends Application\BaseObject {
 
   /**
    * @param array|\Traversable $parameters
+   *
    * @return \Papaya\Template\Parameters
    */
   public function parameters($parameters = NULL) {
@@ -136,6 +138,7 @@ abstract class Template extends Application\BaseObject {
    * Combined getter/setter for the libxml errors
    *
    * @param \Papaya\XML\Errors $errors
+   *
    * @return \Papaya\XML\Errors
    */
   public function errors(XML\Errors $errors = NULL) {
@@ -153,6 +156,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|false $xml
    * @param int $options
+   *
    * @return bool|mixed
    */
   protected function clean($xml, $options) {
@@ -187,6 +191,7 @@ abstract class Template extends Application\BaseObject {
    * @param string|\Papaya\XML\Appendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param bool $encodeInvalidEntities encode invalid entities like &
+   *
    * @return mixed
    */
   public function add($xml, $path = NULL, $encodeInvalidEntities = TRUE) {
@@ -221,6 +226,7 @@ abstract class Template extends Application\BaseObject {
    * named entities or '&'.
    *
    * @param string $xml
+   *
    * @return string
    */
   private function encodeInvalidEntities($xml) {
@@ -240,7 +246,9 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string $method
    * @param array $arguments
+   *
    * @return mixed
+   *
    * @throws \LogicException
    */
   public function __call($method, $arguments) {
@@ -284,6 +292,7 @@ abstract class Template extends Application\BaseObject {
    * Transform XML with XSL to HTML
    *
    * @param int $options
+   *
    * @return string
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
@@ -314,6 +323,7 @@ abstract class Template extends Application\BaseObject {
    * @param string|\DOMElement $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param bool $encode encode special characters ? optional, default value TRUE
+   *
    * @return mixed
    */
   public function addData($xml, $path = NULL, $encode = TRUE) {
@@ -325,6 +335,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
+   *
    * @return mixed
    */
   public function addLeft($xml, $encode = TRUE) {
@@ -336,6 +347,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
+   *
    * @return mixed
    */
   public function addCenter($xml, $encode = TRUE) {
@@ -347,6 +359,7 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
+   *
    * @return mixed
    */
   public function addRight($xml, $encode = TRUE) {
@@ -355,6 +368,7 @@ abstract class Template extends Application\BaseObject {
 
   /**
    * @deprecated
+   *
    * @param string $name
    * @param string $value
    */
@@ -366,7 +380,9 @@ abstract class Template extends Application\BaseObject {
    * Alias for getOutput()
    *
    * @deprecated
+   *
    * @param int $options
+   *
    * @return false|string
    */
   public function xhtml($options = 0) {
@@ -377,6 +393,7 @@ abstract class Template extends Application\BaseObject {
    * Alias for getXML()
    *
    * @deprecated
+   *
    * @return string
    */
   public function xml() {

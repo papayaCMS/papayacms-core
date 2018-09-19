@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
 
 /**
@@ -41,6 +40,7 @@ class Group
    * Append a new context element to group
    *
    * @param Data $context
+   *
    * @return \Papaya\Message\Context\Group $this
    */
   public function append(Data $context) {

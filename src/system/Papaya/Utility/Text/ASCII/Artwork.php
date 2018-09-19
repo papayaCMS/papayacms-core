@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text\ASCII;
 
 /**
@@ -338,6 +337,7 @@ class Artwork {
    * Return ASCII graphic string
    *
    * @param string $string
+   *
    * @return string
    */
   public static function get($string) {

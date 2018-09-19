@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
 
 /**
@@ -53,6 +52,7 @@ abstract class Database extends \Papaya\UI\Dialog {
    * The values of the record are merged into the data property.
    *
    * @param \Papaya\Database\Interfaces\Record $record
+   *
    * @return \Papaya\Database\Interfaces\Record
    */
   public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
@@ -68,6 +68,7 @@ abstract class Database extends \Papaya\UI\Dialog {
    * needed definitions.
    *
    * @param \Papaya\UI\Dialog\Database\Callbacks $callbacks
+   *
    * @return \Papaya\UI\Dialog\Database\Callbacks
    */
   public function callbacks(\Papaya\UI\Dialog\Database\Callbacks $callbacks = NULL) {

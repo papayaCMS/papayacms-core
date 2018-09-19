@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
 
 /**
@@ -40,6 +39,7 @@ class Xpath extends \DOMXpath {
   /**
    * @param string $prefix
    * @param string $namespaceUri
+   *
    * @return bool
    */
   public function registerNamespace($prefix, $namespaceUri) {
@@ -58,6 +58,7 @@ class Xpath extends \DOMXpath {
    * Enable/Disable the automatic namespace registration, return the current status
    *
    * @param bool|null $enabled
+   *
    * @return bool
    */
   public function registerNodeNamespaces($enabled = NULL) {
@@ -71,9 +72,11 @@ class Xpath extends \DOMXpath {
    * Evaluate an xpath expression an return the result
    *
    * @see \DOMXPath::evaluate()
+   *
    * @param string $expression
    * @param \DOMNode|null $contextNode
    * @param null|bool $registerNodeNS
+   *
    * @return \DOMNodeList|string|float|int|bool|false
    */
   public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
@@ -95,10 +98,13 @@ class Xpath extends \DOMXpath {
    *
    * @deprecated
    * @see \DOMXPath::query()
+   *
    * @param string $expression
    * @param \DOMNode|null $contextNode
    * @param null|bool $registerNodeNS
+   *
    * @throws \LogicException
+   *
    * @return \DOMNodeList
    */
   public function query($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {

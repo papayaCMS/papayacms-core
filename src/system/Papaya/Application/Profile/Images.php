@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
@@ -32,6 +31,7 @@ class Images implements Application\Profile {
    * Create the profile object and return it
    *
    * @param Application $application
+   *
    * @return UI\Images
    */
   public function createObject($application) {

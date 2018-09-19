@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Key;
 
 /**
@@ -49,6 +48,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * @param \Papaya\Database\Record $record
    * @param $tableName
    * @param array $properties
+   *
    * @internal param int|NULL $
    */
   public function __construct(\Papaya\Database\Record $record, $tableName, array $properties) {
@@ -63,6 +63,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * Provide information about the key
    *
    * @var int
+   *
    * @return int
    */
   public function getQualities() {
@@ -73,6 +74,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * Assign data to the key.
    *
    * @param array $data
+   *
    * @return bool
    */
   public function assign(array $data) {
@@ -144,6 +146,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    * fields
    *
    * @param int $for the action the filter ist fetched for
+   *
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {
