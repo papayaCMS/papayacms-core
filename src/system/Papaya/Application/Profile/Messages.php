@@ -15,30 +15,34 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+use Papaya\Message;
+use Papaya\Plugin;
+
 /**
  * Application object profile for the messages (manager) object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Messages implements \Papaya\Application\Profile {
+class Messages implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
-   * @return \Papaya\Message\Manager
+   * @param Application|Application\CMS $application
+   * @return Message\Manager
    */
   public function createObject($application) {
-    $messages = new \Papaya\Message\Manager();
-    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Template());
-    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Database());
-    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Wildfire());
-    $messages->addDispatcher(new \Papaya\Message\Dispatcher\XHTML());
+    $messages = new Message\Manager();
+    $messages->addDispatcher(new Message\Dispatcher\Template());
+    $messages->addDispatcher(new Message\Dispatcher\Database());
+    $messages->addDispatcher(new Message\Dispatcher\Wildfire());
+    $messages->addDispatcher(new Message\Dispatcher\XHTML());
     $plugins = $application->plugins;
     if (NULL !== $plugins) {
-      foreach ($plugins->withType(\Papaya\Plugin\Types::LOGGER) as $plugin) {
+      foreach ($plugins->withType(Plugin\Types::LOGGER) as $plugin) {
         if (
-          $plugin instanceof \Papaya\Plugin\LoggerFactory &&
+          $plugin instanceof Plugin\LoggerFactory &&
           ($dispatcher = $plugin->createLogger())
         ) {
           $messages->addDispatcher($dispatcher);

@@ -15,13 +15,15 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+
 /**
  * Application object profile for the standard response object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Response implements \Papaya\Application\Profile {
+class Response implements Application\Profile {
   /**
    * Create the profile object and return it
    *

@@ -15,21 +15,24 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+use Papaya\Plugin;
+
 /**
  * Application object profile for the plugin loader
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Plugins implements \Papaya\Application\Profile {
+class Plugins implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param Application $application
    * @return object
    */
   public function createObject($application) {
-    $plugins = new \Papaya\Plugin\Loader();
+    $plugins = new Plugin\Loader();
     $plugins->papaya($application);
     return $plugins;
   }

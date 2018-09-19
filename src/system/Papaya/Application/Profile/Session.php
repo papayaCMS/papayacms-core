@@ -15,13 +15,15 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+
 /**
  * Application object profile for default session object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Session implements \Papaya\Application\Profile {
+class Session implements Application\Profile {
   /**
    * Create the profile object and return it
    *

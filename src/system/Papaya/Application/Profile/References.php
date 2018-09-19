@@ -15,21 +15,24 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+use Papaya\UI;
+
 /**
  * Application object profile for references factory
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class References implements \Papaya\Application\Profile {
+class References implements Application\Profile {
   /**
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \Papaya\UI\Reference\Factory
+   * @return UI\Reference\Factory
    */
   public function createObject($application) {
-    $references = new \Papaya\UI\Reference\Factory();
+    $references = new UI\Reference\Factory();
     $references->papaya($application);
     return $references;
   }

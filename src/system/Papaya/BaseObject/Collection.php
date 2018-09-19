@@ -49,7 +49,7 @@ class Collection
    * @param string $itemClass
    */
   public function __construct($itemClass = NULL) {
-    if (isset($itemClass)) {
+    if (NULL !== $itemClass) {
       $this->setItemClass($itemClass);
     }
   }
@@ -204,7 +204,7 @@ class Collection
   public function offsetSet($index, $value) {
     $value = $this->prepareItem($value);
     if ($value instanceof $this->_itemClass) {
-      if (\is_null($index)) {
+      if (NULL === $index) {
         $this->_items[] = $value;
       } elseif (isset($this->_items[$index])) {
         $this->_items[$index] = $value;

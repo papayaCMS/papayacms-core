@@ -16,6 +16,14 @@ namespace Papaya\Application\Access {
 
   use Papaya\Application;
 
+  /**
+   * Provides access to the papaya Application
+   * instance.
+   *
+   * This is an implementation for {@see Papaya\Application\Access}
+   *
+   * @package Papaya\Application\Access
+   */
   trait Aggregation {
     private $_papayaApplicationObject;
 

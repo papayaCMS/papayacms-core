@@ -15,6 +15,12 @@
 
 namespace Papaya\BaseObject\Interfaces;
 
+/**
+ * Declare that the class implements dynamic properties that are readable
+ * and writable
+ *
+ * @package Papaya\BaseObject\Interfaces\Properties
+ */
 interface Properties
   extends
     Properties\Readable,

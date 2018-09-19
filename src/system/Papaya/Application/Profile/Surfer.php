@@ -15,13 +15,15 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+
 /**
  * Application object profile for default request object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Surfer implements \Papaya\Application\Profile {
+class Surfer implements Application\Profile {
   /**
    * Create the profile object and return it
    *

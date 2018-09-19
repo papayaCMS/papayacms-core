@@ -70,9 +70,7 @@ return PhpCsFixer\Config::create()
       'no_alternative_syntax' => TRUE,
       'no_blank_lines_after_class_opening' => FALSE,
       'no_blank_lines_after_phpdoc' => TRUE,
-      'no_break_comment' => [
-        'comment_text' => 'no break'
-      ],
+      'no_break_comment' => FALSE,
       'no_closing_tag' => TRUE,
       'no_empty_comment' => TRUE,
       'no_empty_phpdoc' => TRUE,
@@ -109,7 +107,7 @@ return PhpCsFixer\Config::create()
       'phpdoc_var_without_name' => FALSE,
       'self_accessor' => TRUE,
       'short_scalar_cast' => TRUE,
-      'simplified_null_return' => TRUE,
+      'simplified_null_return' => FALSE,
       'single_blank_line_at_eof' => TRUE,
       'single_import_per_statement' => TRUE,
       'single_line_after_imports' => TRUE,

@@ -16,11 +16,14 @@
 namespace Papaya\BaseObject\Text;
 
 /**
- * A list of strings that is castable to a string using a default offset
+ * A list of strings that can be cast into a string using a default offset
  *
  * If you cast is to a string the default element will be casted to string and returned.
  *
  * But you can treat it like an array, too.
+ *
+ * It makes it easier to handle lists that contain a single value typically or
+ * a main value. HTTP headers are an example for that.
  *
  * @package Papaya-Library
  * @subpackage Objects

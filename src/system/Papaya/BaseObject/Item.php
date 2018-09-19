@@ -15,17 +15,22 @@
 
 namespace Papaya\BaseObject;
 
+use \Papaya\Application;
+use \Papaya\BaseObject\Interfaces\Properties;
+use \Papaya\Utility;
+
 /**
  * The item class allows to define objects that have a set of properties, the properties are
- * accessible through property and array syntax and it is possbile to iterate over them.
- **
+ * accessible through property and array syntax and it is possible to iterate over them.
+ *
+ * The property/offset names are normalized to lowercase with underscore.
  *
  * @package Papaya-Library
  * @subpackage Objects
  */
 class Item
-  extends \Papaya\Application\BaseObject
-  implements \ArrayAccess, \IteratorAggregate {
+  implements Application\Access, Properties, \ArrayAccess, \IteratorAggregate {
+  use Application\Access\Aggregation;
   /**
    * Internal value store
    *
@@ -40,7 +45,7 @@ class Item
    */
   public function __construct(array $properties) {
     foreach ($properties as $name) {
-      $this->_values[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)] = NULL;
+      $this->_values[Utility\Text\Identifier::toUnderscoreLower($name)] = NULL;
     }
   }
 
@@ -59,7 +64,7 @@ class Item
       );
     }
     foreach ($data as $name => $value) {
-      $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+      $name = Utility\Text\Identifier::toUnderscoreLower($name);
       if (\array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
       }
@@ -142,7 +147,7 @@ class Item
    * @return bool
    */
   public function offsetExists($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
     return \array_key_exists($name, $this->_values);
   }
 
@@ -188,7 +193,7 @@ class Item
    * @return string
    */
   private function _prepareName($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
     if (!\array_key_exists($name, $this->_values)) {
       throw new \OutOfBoundsException(
         \sprintf(

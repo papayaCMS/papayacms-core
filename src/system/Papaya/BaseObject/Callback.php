@@ -15,8 +15,10 @@
 
 namespace Papaya\BaseObject;
 
+use \Papaya\BaseObject\Interfaces\Properties;
+
 /**
- * Encapsulate a php callback, to allow a default returnvalue and a context.
+ * Encapsulate a php callback, to allow a default return value and a context.
  *
  * @package Papaya-Library
  * @subpackage UI
@@ -25,7 +27,7 @@ namespace Papaya\BaseObject;
  * @property object $context
  * @property callable $callback
  */
-class Callback {
+class Callback implements Properties {
   /**
    * Default return value, returned by execute if no php callback is set.
    *
@@ -50,7 +52,7 @@ class Callback {
   /**
    * @var bool
    */
-  private $_addContext = TRUE;
+  private $_addContext;
 
   /**
    * Create callback object, set default return value and create context object.
@@ -67,18 +69,18 @@ class Callback {
   /**
    * Execute the callback if defined, just return the default return value otherwise.
    *
+   * @param array $arguments
    * @return mixed
    */
-  public function execute() {
-    if (isset($this->_callback)) {
-      $arguments = \func_get_args();
+  public function execute(...$arguments) {
+    if (NULL !== $this->_callback) {
       if ($this->_addContext) {
         \array_unshift($arguments, $this->_context);
       }
-      return \call_user_func_array($this->_callback, $arguments);
-    } else {
-      return $this->_defaultReturn;
+      $callback = $this->_callback;
+      return $callback(...$arguments);
     }
+    return $this->_defaultReturn;
   }
 
   /**
@@ -120,7 +122,7 @@ class Callback {
         $this->_defaultReturn = $value;
       break;
       case 'callback' :
-        if (\is_null($value) || \is_callable($value)) {
+        if (NULL === $value || \is_callable($value)) {
           $this->_callback = $value;
         }
       break;
@@ -133,7 +135,7 @@ class Callback {
    * @param $name
    */
   public function __unset($name) {
-    if ('context' == $name) {
+    if ('context' === $name) {
       $this->_context = new \stdClass();
       return;
     }

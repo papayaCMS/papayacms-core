@@ -28,7 +28,7 @@ class Language implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param Application $application
    * @return LanguageToggle
    */
   public function createObject($application) {

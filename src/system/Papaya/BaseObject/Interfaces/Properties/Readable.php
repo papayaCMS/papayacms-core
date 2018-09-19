@@ -15,6 +15,21 @@
 
 namespace Papaya\BaseObject\Interfaces\Properties;
 
+/**
+ * Declare that the class implements dynamic properties that are readable
+ *
+ * @package Papaya\BaseObject\Interfaces\Properties
+ */
 interface Readable {
+  /**
+   * @param $name
+   * @return boolean
+   */
+  public function __isset($name);
+
+  /**
+   * @param $name
+   * @return mixed
+   */
   public function __get($name);
 }

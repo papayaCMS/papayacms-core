@@ -15,6 +15,8 @@
 
 namespace Papaya\BaseObject\Options;
 
+use \Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * A options list if a list of name => value pairs. The names consists of letters and
  * underscores (the first char can not be an underscore). Lowercase letters, will be converted
@@ -29,7 +31,7 @@ namespace Papaya\BaseObject\Options;
  * @subpackage Objects
  */
 class Collection
-  implements \ArrayAccess, \Countable, \IteratorAggregate {
+  implements \ArrayAccess, \Countable, \IteratorAggregate, Properties {
   /**
    * Options storage
    *
@@ -38,7 +40,9 @@ class Collection
   protected $_options = [];
 
   /**
-   * Constrcutor: create object with optional default data
+   * create object with optional default data
+   *
+   * @param array|null $options
    */
   public function __construct(array $options = NULL) {
     if (\is_array($options)) {
@@ -117,20 +121,19 @@ class Collection
    * @throws \InvalidArgumentException
    * @param string $name
    * @param mixed $value
-   * @return string
    */
   public function offsetSet($name, $value) {
     $name = $this->_prepareName($name);
     if (\is_scalar($value)) {
       $this->_write($name, $value);
-    } elseif (\is_null($value)) {
+    } elseif (NULL === $value) {
       if (\array_key_exists($name, $this->_options)) {
         unset($this->_options[$name]);
       }
     } else {
       throw new \InvalidArgumentException(
         \sprintf(
-          'Option value must be a skalar: "%s" given.', \gettype($value)
+          'Option value must be a scalar: "%s" given.', \gettype($value)
         )
       );
     }
@@ -219,6 +222,8 @@ class Collection
 
   /**
    * Assign a list of options
+   *
+   * @param array|\Traversable $values
    */
   public function assign($values) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
@@ -229,6 +234,9 @@ class Collection
 
   /**
    * Set an option
+   *
+   * @param string $name
+   * @param mixed $value
    */
   public function set($name, $value) {
     $this->offsetSet($name, $value);

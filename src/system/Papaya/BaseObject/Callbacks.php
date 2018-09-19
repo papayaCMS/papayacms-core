@@ -15,6 +15,8 @@
 
 namespace Papaya\BaseObject;
 
+use \Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * A list of callbacks, this can be used in another object to allow the user to set
  * callbacks for different events inside the object.
@@ -22,7 +24,7 @@ namespace Papaya\BaseObject;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Callbacks implements \IteratorAggregate {
+class Callbacks implements \IteratorAggregate, Properties {
   /**
    * List of callbacks
    *
@@ -40,7 +42,7 @@ class Callbacks implements \IteratorAggregate {
   /**
    * @var bool
    */
-  private $_addContext = TRUE;
+  private $_addContext;
 
   /**
    * Create list and initialize callbacks and default return values.
@@ -113,7 +115,7 @@ class Callbacks implements \IteratorAggregate {
    */
   public function __set($name, $callback) {
     $this->validateName($name);
-    if (\is_null($callback)) {
+    if (NULL === $callback) {
       $this->_callbacks[$name] = new Callback($this->_defaults[$name], $this->_addContext);
     } elseif ($callback instanceof Callback) {
       $this->_callbacks[$name] = $callback;

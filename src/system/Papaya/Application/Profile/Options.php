@@ -15,22 +15,25 @@
 
 namespace Papaya\Application\Profile;
 
+use Papaya\Application;
+use Papaya\Configuration;
+
 /**
  * Application object profile for default options object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Options implements \Papaya\Application\Profile {
+class Options implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
-   * @return \Papaya\Configuration\CMS
+   * @param Application $application
+   * @return Configuration\CMS
    */
   public function createObject($application) {
-    $options = new \Papaya\Configuration\CMS();
-    $options->storage(new \Papaya\Configuration\Storage\Database());
+    $options = new Configuration\CMS();
+    $options->storage(new Configuration\Storage\Database());
     return $options;
   }
 }

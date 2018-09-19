@@ -15,6 +15,20 @@
 
 namespace Papaya\BaseObject\Interfaces\Properties;
 
+/**
+ * Declare that the class implements dynamic properties that are writable
+ *
+ * @package Papaya\BaseObject\Interfaces\Properties
+ */
 interface Writable {
+  /**
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value);
+
+  /**
+   * @param string $name
+   */
+  public function __unset($name);
 }

@@ -15,6 +15,8 @@
 
 namespace Papaya\Application;
 
+use Papaya\Application;
+
 /**
  * Interface definition for Papaya Application Profiles
  *
@@ -25,7 +27,7 @@ interface Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param Application $application
    * @return object
    */
   public function createObject($application);

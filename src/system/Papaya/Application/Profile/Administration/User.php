@@ -27,7 +27,7 @@ class User implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
+   * @param Application|Application\CMS $application
    * @return object
    */
   public function createObject($application) {

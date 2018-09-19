@@ -15,10 +15,12 @@
 
 namespace Papaya\Database\Interfaces;
 
+use Papaya\BaseObject\Interfaces\Properties;
+
 interface Record
   extends
-  \Papaya\Database\Interfaces\Access,
-  \Papaya\BaseObject\Interfaces\Properties,
+  Access,
+  Properties,
   \ArrayAccess,
   \IteratorAggregate {
   public function assign($data);

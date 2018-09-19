@@ -156,6 +156,31 @@ class Request
   }
 
   /**
+   * @param string $name
+   * @return bool
+   */
+  public function __isset($name) {
+    $name = Utility\Text\Identifier::toCamelCase($name);
+    switch ($name) {
+      case 'url' :
+      case 'language' :
+      case 'method' :
+      case 'allowCompression' :
+      case 'pageId' :
+      case 'languageId' :
+      case 'languageIdentifier' :
+      case 'mode' :
+      case 'modeId' :
+      case 'isPreview' :
+      case 'isAdministration' :
+      case 'content' :
+      case 'contentLength' :
+        return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Allow to read request data as properties
    *
    * @param string $name
@@ -226,6 +251,18 @@ class Request
     throw new \LogicException(
       \sprintf(
         'Property %s::$%s can not be changed', \get_class($this), $name
+      )
+    );
+  }
+
+  /**
+   * @param $name
+   */
+  public function __unset($name) {
+    $name = Utility\Text\Identifier::toCamelCase($name);
+    throw new \LogicException(
+      \sprintf(
+        'Property %s::$%s can not be unset', \get_class($this), $name
       )
     );
   }
