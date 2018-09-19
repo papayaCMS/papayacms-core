@@ -179,7 +179,7 @@ abstract class Service {
     if (\preg_match('(^[A-Za-z\d.-]+$)D', $string)) {
       return $string;
     }
-    return \rawurlencode($string);
+    return '' !== $string ? \rawurlencode($string) : '__';
   }
 
   /**

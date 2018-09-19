@@ -12,7 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
+/** @noinspection PhpUndefinedClassInspection */
 namespace Papaya\Cache\Service;
+
+use Papaya\Cache;
 
 /**
  * Papaya Cache Service for memcache based cache
@@ -20,7 +24,7 @@ namespace Papaya\Cache\Service;
  * @package Papaya-Library
  * @subpackage Cache
  */
-class Memcache extends \Papaya\Cache\Service {
+class Memcache extends Cache\Service {
   /**
    * cache path configuration (servers and parameters)
    *
@@ -100,11 +104,11 @@ class Memcache extends \Papaya\Cache\Service {
   /**
    * get memcache object instance
    *
-   * @return \memcache|\memcached|null|false
+   * @return \memcache|\memcached|false
    */
   public function getMemcacheObject() {
-    if (!isset($this->_memcache)) {
-      return $this->_createMemcacheObject();
+    if (NULL === $this->_memcache) {
+      $this->_memcache = $this->_createMemcacheObject();
     }
     return $this->_memcache;
   }
@@ -124,14 +128,14 @@ class Memcache extends \Papaya\Cache\Service {
   /**
    * read cache path option from configuration or ini file
    *
-   * @param \Papaya\Cache\Configuration $configuration
+   * @param Cache\Configuration $configuration
    *
    * @return bool
    */
-  public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
+  public function setConfiguration(Cache\Configuration $configuration) {
     $this->_cachePath = $configuration['MEMCACHE_SERVERS'];
     if (empty($this->_cachePath) && \is_callable('ini_get')) {
-      $this->_cachePath = ('memcache' == \ini_get('session.save_handler'))
+      $this->_cachePath = ('memcache' === \ini_get('session.save_handler'))
         ? \ini_get('session.save_path') : '';
     }
     return TRUE;
@@ -179,11 +183,10 @@ class Memcache extends \Papaya\Cache\Service {
         $memcache = $this->_memcache = FALSE;
       }
     }
-    if (isset($memcache) && FALSE !== $memcache) {
+    if (NULL !== $memcache && FALSE !== $memcache) {
       return $this->_connected = TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -266,10 +269,9 @@ class Memcache extends \Papaya\Cache\Service {
       $time = \time();
       if ($this->_memcache->replace($cacheId, $time.':'.$data, $expires)) {
         return $cacheId;
-      } else {
-        if ($this->_memcache->set($cacheId, $time.':'.$data, $expires)) {
-          return $cacheId;
-        }
+      }
+      if ($this->_memcache->set($cacheId, $time.':'.$data, $expires)) {
+        return $cacheId;
       }
     }
     return FALSE;
@@ -313,9 +315,8 @@ class Memcache extends \Papaya\Cache\Service {
       ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
       if (isset($this->_localCache[$cacheId])) {
         return !empty($this->_localCache[$cacheId]);
-      } else {
-        return (bool)$this->_read($cacheId, $expires, $ifModifiedSince);
       }
+      return (bool)$this->_read($cacheId, $expires, $ifModifiedSince);
     }
     return FALSE;
   }
@@ -336,7 +337,8 @@ class Memcache extends \Papaya\Cache\Service {
       ($cacheId = $this->getCacheIdentifier($group, $element, $parameters))) {
       if (isset($this->_cacheCreated[$cacheId])) {
         return $this->_cacheCreated[$cacheId];
-      } elseif ($this->_read($cacheId, $expires, $ifModifiedSince)) {
+      }
+      if ($this->_read($cacheId, $expires, $ifModifiedSince)) {
         return $this->_cacheCreated[$cacheId];
       }
     }
@@ -389,7 +391,7 @@ class Memcache extends \Papaya\Cache\Service {
     if ($headerEnd > 0) {
       $created = (int)\substr($data, 0, $headerEnd);
       if (($created + $expires) > \time()) {
-        if (\is_null($ifModifiedSince) || $ifModifiedSince < $created) {
+        if (NULL === $ifModifiedSince || $ifModifiedSince < $created) {
           $this->_localCache[$cacheId] = \substr($data, $headerEnd + 1);
           $this->_cacheCreated[$cacheId] = $created;
           return TRUE;

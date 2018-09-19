@@ -181,6 +181,7 @@ namespace Papaya\Cache {
         array('foo', 'foo'),
         array('{}', '%7B%7D'),
         array("\xC3\x84", '%C3%84'),
+        array('', '__'),
       );
     }
 
