@@ -14,6 +14,8 @@
  */
 namespace Papaya\Configuration;
 
+use Papaya\Utility;
+
 /**
  * Object representation a system path (depending on the configuration)
  *
@@ -34,12 +36,12 @@ class Path extends \Papaya\Application\BaseObject {
   /**
    * @var string
    */
-  private $_basePath = '';
+  private $_basePath;
 
   /**
    * @var string
    */
-  private $_path = '';
+  private $_path;
 
   /**
    * @var \Papaya\Theme\Handler
@@ -53,8 +55,8 @@ class Path extends \Papaya\Application\BaseObject {
    * @param string $path
    */
   public function __construct($identifier, $path) {
-    $this->_basePath = $identifier;
-    $this->_path = $path;
+    $this->_basePath = (string)$identifier;
+    $this->_path = (string)$path;
   }
 
   /**
@@ -81,12 +83,12 @@ class Path extends \Papaya\Application\BaseObject {
         $result = $this->themeHandler()->getLocalThemePath().$this->_path;
       break;
       case self::PATH_INSTALLATION :
-        $result = \Papaya\Utility\File\Path::getDocumentRoot().
+        $result = Utility\File\Path::getDocumentRoot().
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
           $this->_path;
       break;
       case self::PATH_ADMINISTRATION :
-        $result = \Papaya\Utility\File\Path::getDocumentRoot().
+        $result = Utility\File\Path::getDocumentRoot().
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
           $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
           $this->_path;
@@ -99,7 +101,7 @@ class Path extends \Papaya\Application\BaseObject {
         $result = $this->_basePath.'/'.$this->_path;
       break;
     }
-    return \Papaya\Utility\File\Path::cleanup($result);
+    return Utility\File\Path::cleanup($result);
   }
 
   /**
@@ -110,9 +112,9 @@ class Path extends \Papaya\Application\BaseObject {
    * @return \Papaya\Theme\Handler
    */
   public function themeHandler(\Papaya\Theme\Handler $handler = NULL) {
-    if (isset($handler)) {
+    if (NULL !== $handler) {
       $this->_themeHandler = $handler;
-    } elseif (NULL == $this->_themeHandler) {
+    } elseif (NULL === $this->_themeHandler) {
       $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
@@ -120,7 +122,7 @@ class Path extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * validate if somthing is an identifer for a system path
+   * validate if something is an identifier for a system path
    *
    * @param string $identifier
    *
@@ -135,7 +137,8 @@ class Path extends \Papaya\Application\BaseObject {
         self::PATH_INSTALLATION,
         self::PATH_ADMINISTRATION,
         self::PATH_UPLOAD
-      ]
+      ],
+      TRUE
     );
   }
 }

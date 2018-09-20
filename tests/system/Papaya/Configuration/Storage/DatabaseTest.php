@@ -47,7 +47,7 @@ class DatabaseTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('errorHandler')
-      ->with($this->isType('array'));
+      ->with($this->isType('callable'));
 
     $records = $this->createMock(\Papaya\Content\Configuration::class);
     $records

@@ -14,6 +14,11 @@
  */
 namespace Papaya\Configuration;
 
+use Papaya\Content;
+use Papaya\Session;
+use Papaya\URL\Current as CurrentURL;
+use Papaya\Utility;
+
 /*
  * Define a default project name, using the http host name
  *
@@ -102,7 +107,7 @@ class CMS extends GlobalValues {
     'PAPAYA_CONTENT_LANGUAGE' => 1,
     'PAPAYA_CONTENT_LANGUAGE_COOKIE' => FALSE,
 
-    'PAPAYA_DEFAULT_PROTOCOL' => \Papaya\Utility\Server\Protocol::BOTH,
+    'PAPAYA_DEFAULT_PROTOCOL' => Utility\Server\Protocol::BOTH,
     'PAPAYA_DEFAULT_HOST' => '',
     'PAPAYA_DEFAULT_HOST_ACTION' => 0,
     'PAPAYA_REDIRECT_PROTECTION' => FALSE,
@@ -275,7 +280,7 @@ class CMS extends GlobalValues {
 
     // session handling
     'PAPAYA_SESSION_START' => TRUE,
-    'PAPAYA_SESSION_ACTIVATION' => \Papaya\Session::ACTIVATION_DYNAMIC,
+    'PAPAYA_SESSION_ACTIVATION' => Session::ACTIVATION_DYNAMIC,
     'PAPAYA_SESSION_DOMAIN' => '',
     'PAPAYA_SESSION_PATH' => '',
     'PAPAYA_SESSION_SECURE' => FALSE,
@@ -342,49 +347,46 @@ class CMS extends GlobalValues {
    */
   public function setupPaths() {
     $this->set('PAPAYA_PATH_CACHE', $this->get('PAPAYA_PATH_DATA').'cache/');
-    switch ($this->get('PAPAYA_MEDIA_STORAGE_SERVICE')) {
-      case 's3' :
-        $basePath = 's3://'.
-          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
-          $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
-        \Papaya\Streamwrapper\S3::setSecret(
-          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
-          $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
+    if ('s3' === $this->get('PAPAYA_MEDIA_STORAGE_SERVICE')) {
+      $basePath = 's3://'.
+        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
+        $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
+      \Papaya\Streamwrapper\S3::setSecret(
+        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
+        $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
+      );
+      \Papaya\Streamwrapper\S3::register('s3');
+      $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
+    } else {
+      $basePath = $this->get('PAPAYA_PATH_DATA');
+      $this->set('PAPAYA_MEDIA_STORAGE_DIRECTORY', $this->get('PAPAYA_PATH_DATA').'media/');
+      if (empty($_SERVER['DOCUMENT_ROOT']) || ('' === $this->get('PAPAYA_PATH_PUBLICFILES'))) {
+        $this->set('PAPAYA_MEDIA_PUBLIC_DIRECTORY', '');
+        $this->set('PAPAYA_MEDIA_PUBLIC_URL', '');
+      } else {
+        $this->set(
+          'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
+          Utility\File\Path::cleanup(
+            $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
+          )
         );
-        \Papaya\Streamwrapper\S3::register('s3');
-        $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
-      break;
-      default :
-        $basePath = $this->get('PAPAYA_PATH_DATA');
-        $this->set('PAPAYA_MEDIA_STORAGE_DIRECTORY', $this->get('PAPAYA_PATH_DATA').'media/');
-        if (empty($_SERVER['DOCUMENT_ROOT']) || ('' === $this->get('PAPAYA_PATH_PUBLICFILES'))) {
-          $this->set('PAPAYA_MEDIA_PUBLIC_DIRECTORY', '');
-          $this->set('PAPAYA_MEDIA_PUBLIC_URL', '');
-        } else {
-          $this->set(
-            'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
-            \Papaya\Utility\File\Path::cleanup(
-              $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
-            )
-          );
-          $url = new \Papaya\URL\Current();
-          $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
-          $this->set(
-            'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathURL()
-          );
-        }
-      break;
+        $url = new CurrentURL();
+        $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
+        $this->set(
+          'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathURL()
+        );
+      }
     }
     $this->set('PAPAYA_PATH_MEDIAFILES', $basePath.'media/files/');
     $this->set('PAPAYA_PATH_THUMBFILES', $basePath.'media/thumbs/');
 
-    if ('' == $this->get('PAPAYA_PATH_TEMPLATES', '')) {
+    if ('' === (string)$this->get('PAPAYA_PATH_TEMPLATES', '')) {
       $templatePaths = [
-        \Papaya\Utility\File\Path::getDocumentRoot().'/../templates/',
+        Utility\File\Path::getDocumentRoot().'/../templates/',
         $this->get('PAPAYA_PATH_DATA').'templates/'
       ];
       foreach ($templatePaths as $templatePath) {
-        $templatePath = \Papaya\Utility\File\Path::cleanup($templatePath);
+        $templatePath = Utility\File\Path::cleanup($templatePath);
         $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
         if (\file_exists($templatePath) && \is_dir($templatePath)) {
           break;
@@ -393,7 +395,7 @@ class CMS extends GlobalValues {
     }
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
-      \Papaya\Utility\File\Path::cleanup(
+      Utility\File\Path::cleanup(
         $this->get('PAPAYA_PATH_WEB').$this->get('PAPAYA_PATH_ADMIN')
       )
     );
@@ -411,7 +413,7 @@ class CMS extends GlobalValues {
    */
   public function defineDatabaseTables() {
     $prefix = $this->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-    foreach (\Papaya\Content\Tables::getTables() as $tableConstant => $tableName) {
+    foreach (Content\Tables::getTables() as $tableConstant => $tableName) {
       if (!\defined($tableConstant)) {
         \define($tableConstant, $prefix.'_'.$tableName);
       }

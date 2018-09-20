@@ -14,33 +14,37 @@
  */
 namespace Papaya\Configuration\Storage;
 
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\Content;
+
 /**
  * Load options from database table
  *
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Database extends \Papaya\Application\BaseObject
-  implements \Papaya\Configuration\Storage {
+class Database extends Application\BaseObject
+  implements Configuration\Storage {
   /**
    * Options database records list
    *
-   * @var \Papaya\Content\Configuration
+   * @var Content\Configuration
    */
   private $_records;
 
   /**
    * Getter/Setter for database records object
    *
-   * @param \Papaya\Content\Configuration $records
+   * @param Content\Configuration $records
    *
-   * @return \Papaya\Content\Configuration
+   * @return Content\Configuration
    */
-  public function records(\Papaya\Content\Configuration $records = NULL) {
+  public function records(Content\Configuration $records = NULL) {
     if (NULL !== $records) {
       $this->_records = $records;
     } elseif (NULL === $this->_records) {
-      $this->_records = new \Papaya\Content\Configuration();
+      $this->_records = new Content\Configuration();
     }
     return $this->_records;
   }
@@ -48,9 +52,9 @@ class Database extends \Papaya\Application\BaseObject
   /**
    * Dispatch the error message as http header and be silent otherwise.
    *
-   * @param \Papaya\Database\Exception $exception
+   * @param \Exception $exception
    */
-  public function handleError(\Papaya\Database\Exception $exception) {
+  public function handleError(\Exception $exception) {
     if (
       isset($this->papaya()->response) &&
       $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)
@@ -68,7 +72,11 @@ class Database extends \Papaya\Application\BaseObject
    * @return bool
    */
   public function load() {
-    $this->records()->getDatabaseAccess()->errorHandler([$this, 'handleError']);
+    $this->records()->getDatabaseAccess()->errorHandler(
+      function(\Exception $exception) {
+        $this->handleError($exception);
+      }
+    );
     return $this->records()->load();
   }
 

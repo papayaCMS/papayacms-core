@@ -14,6 +14,9 @@
  */
 namespace Papaya\Configuration;
 
+use Papaya\Configuration;
+use Papaya\Utility;
+
 /**
  * The global configuration uses constants for fixed options. Constants are superglobal, so
  * this is a global configuration.
@@ -21,7 +24,7 @@ namespace Papaya\Configuration;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class GlobalValues extends \Papaya\Configuration {
+class GlobalValues extends Configuration {
   /**
    * Check if an option value exists, the name can be an existing constant or a key of the
    * $_options array.
@@ -31,7 +34,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @return bool
    */
   public function has($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if (\defined($name)) {
       return TRUE;
     }
@@ -48,7 +51,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @return null|int|bool|float|string
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if (\defined($name)) {
       return $this->filter(\constant($name), $default, $filter);
     }

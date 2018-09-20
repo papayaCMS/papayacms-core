@@ -14,6 +14,8 @@
  */
 namespace Papaya\Configuration;
 
+use Papaya\Configuration;
+
 /**
  * Iterator for the \Papaya\Configuration class.
  *
@@ -31,7 +33,7 @@ class Iterator implements \Iterator {
   /**
    * configuration object
    *
-   * @var \Papaya\Configuration
+   * @var Configuration
    */
   private $_configuration;
 
@@ -53,9 +55,9 @@ class Iterator implements \Iterator {
    * Create object, store names and configuration object
    *
    * @param array $names
-   * @param \Papaya\Configuration $configuration
+   * @param Configuration $configuration
    */
-  public function __construct(array $names, \Papaya\Configuration $configuration) {
+  public function __construct(array $names, Configuration $configuration) {
     $this->_names = \array_values($names);
     $this->_maximum = \count($names) - 1;
     $this->_configuration = $configuration;
@@ -70,16 +72,20 @@ class Iterator implements \Iterator {
 
   /**
    * Return option value form current iterator position
+   *
+   * return mixed
    */
   public function current() {
     if ($this->_position <= $this->_maximum) {
       return $this->_configuration->get($this->_names[$this->_position]);
     }
-    return;
+    return NULL;
   }
 
   /**
    * Return option name form current iterator position
+   *
+   * return string
    */
   public function key() {
     return $this->_names[$this->_position];
@@ -87,6 +93,8 @@ class Iterator implements \Iterator {
 
   /**
    * Move iterator to next position and return option value
+   *
+   * return mixed
    */
   public function next() {
     ++$this->_position;
@@ -95,6 +103,8 @@ class Iterator implements \Iterator {
 
   /**
    * Return if current iterator position is valid
+   *
+   * return bool
    */
   public function valid() {
     return $this->_position <= $this->_maximum;
