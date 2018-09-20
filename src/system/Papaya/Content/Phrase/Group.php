@@ -14,17 +14,24 @@
  */
 namespace Papaya\Content\Phrase;
 
+use Papaya\Database;
+use Papaya\Content;
+
 /**
  * Encapsulation for phrase groups, groups allows more efficient loading for phrases
  *
  * @package Papaya-Library
  * @subpackage Content
+ *
+ * @property string $id
+ * @property string $title
+ * @property string $identifier
  */
-class Group extends \Papaya\Database\Record\Lazy {
+class Group extends Database\Record\Lazy {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
   protected $_fields = [
     'id' => 'module_id',
@@ -32,5 +39,5 @@ class Group extends \Papaya\Database\Record\Lazy {
     'identifier' => 'module_title_lower'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PHRASE_GROUPS;
+  protected $_tableName = Content\Tables::PHRASE_GROUPS;
 }

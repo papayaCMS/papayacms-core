@@ -14,13 +14,16 @@
  */
 namespace Papaya\Content\Phrase;
 
+use Papaya\Database;
+use Papaya\Content;
+
 /**
  * Log messages for phrases system
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Messages extends \Papaya\Database\Records {
+class Messages extends Database\Records {
   /**
    * Map field names to more convenient property names
    *
@@ -35,7 +38,7 @@ class Messages extends \Papaya\Database\Records {
     'created' => 'log_datetime'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PHRASE_LOG;
+  protected $_tableName = Content\Tables::PHRASE_LOG;
 
   public function add(array $data) {
     $values = $this->mapping()->mapPropertiesToFields($data);
