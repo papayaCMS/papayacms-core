@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content\Box\Version;
 
+use Papaya\Content;
+
 /**
  * Provide data encapsulation for a single content box version translation details.
  *
@@ -33,6 +35,6 @@ namespace Papaya\Content\Box\Version;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Content\Box\Translation {
-  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
+class Translation extends Content\Box\Translation {
+  protected $_tableNameBoxTranslations = Content\Tables::BOX_VERSION_TRANSLATIONS;
 }

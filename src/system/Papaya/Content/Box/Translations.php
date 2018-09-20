@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content box translations list.
  *
@@ -23,7 +26,7 @@ namespace Papaya\Content\Box;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \Papaya\Database\BaseObject\Records {
+class Translations extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
@@ -55,9 +58,9 @@ class Translations extends \Papaya\Database\BaseObject\Records {
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
              WHERE tt.box_id = %d';
     $parameters = [
-      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::BOX_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
       (int)$boxId
     ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');

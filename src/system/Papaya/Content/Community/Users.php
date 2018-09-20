@@ -14,13 +14,16 @@
  */
 namespace Papaya\Content\Community;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the  surfer user records.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Users extends \Papaya\Database\Records {
+class Users extends Database\Records {
   protected $_fields = [
     'id' => 'surfer_id',
     'group_id' => 'surfergroup_id',
@@ -33,12 +36,12 @@ class Users extends \Papaya\Database\Records {
   ];
 
   protected $_orderByFields = [
-    'surfer_surname' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'surfer_givenname' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'surfer_email' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'surfer_surname' => Database\Interfaces\Order::ASCENDING,
+    'surfer_givenname' => Database\Interfaces\Order::ASCENDING,
+    'surfer_email' => Database\Interfaces\Order::ASCENDING
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_USER;
+  protected $_tableName = Content\Tables::COMMUNITY_USER;
 
   /**
    * If a filter element is provided this is used to search fulltext on all surfers.

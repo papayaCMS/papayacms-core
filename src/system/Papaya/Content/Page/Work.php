@@ -14,6 +14,10 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide data encapsulation for the working copy of content page.
  *
@@ -44,7 +48,7 @@ namespace Papaya\Content\Page;
  * @property int $expiresTime page browser cache time, if mode == own
  * @property int $unpublishedTranslations internal counter for unpublished translations
  */
-class Work extends \Papaya\Content\Page {
+class Work extends Content\Page {
   /**
    * Create child page object (but do not save it yet)
    *
@@ -71,7 +75,7 @@ class Work extends \Papaya\Content\Page {
         'owner' => $this->owner,
         'group' => $this->group,
         'permissions' => $this->permissions,
-        'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_PARENT,
+        'inherit_visitor_permissions' => Content\Options::INHERIT_PERMISSIONS_PARENT,
         'visitor_permissions' => [],
         'position' => 999999,
         'inherit_boxes' => TRUE,
@@ -139,14 +143,14 @@ class Work extends \Papaya\Content\Page {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {
       $deleted = $databaseAccess->deleteRecord(
-        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+        $databaseAccess->getTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
         [
           'topic_id' => $this->id,
           'lng_id' => $languageIds
         ]
       );
       if (FALSE !== $deleted) {
-        $filter = \str_replace('%', '%%', $databaseAccess->getSqlCondition('lng_id', $languageIds));
+        $filter = \str_replace('%', '%%', $databaseAccess->getSqlCondition(['lng_id' => $languageIds]));
         $now = \time();
         $sql = "INSERT INTO %s
                        (topic_id, lng_id, topic_title,
@@ -161,10 +165,10 @@ class Work extends \Papaya\Content\Page {
                   FROM %s t
                  WHERE t.topic_id = %d AND $filter";
         $parameters = [
-          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+          $databaseAccess->getTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
           $now,
           $now,
-          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+          $databaseAccess->getTableName(Content\Tables::PAGE_TRANSLATIONS),
           $this->id
         ];
         if (FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters)) {
@@ -180,8 +184,7 @@ class Work extends \Papaya\Content\Page {
         }
       }
       return FALSE;
-    } else {
-      return TRUE;
     }
+    return TRUE;
   }
 }

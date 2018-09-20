@@ -14,13 +14,16 @@
  */
 namespace Papaya\Content\Domain;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Data encapsulation for a liust of domain groups
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\Database\Records\Lazy {
+class Groups extends Database\Records\Lazy {
   /**
    * Map field names to more convinient property names
    *
@@ -34,7 +37,7 @@ class Groups extends \Papaya\Database\Records\Lazy {
   /**
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::DOMAIN_GROUPS;
+  protected $_tableName = Content\Tables::DOMAIN_GROUPS;
 
   protected $_identifierProperties = ['id'];
 

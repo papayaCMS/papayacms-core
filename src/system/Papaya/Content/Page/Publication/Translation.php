@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content\Page\Publication;
 
+use Papaya\Content;
+
 /**
  * Provide data encapsulation for the content page translation details.
  *
@@ -37,6 +39,6 @@ namespace Papaya\Content\Page\Publication;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Content\Page\Translation {
-  protected $_tableNamePageTranslations = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
+class Translation extends Content\Page\Translation {
+  protected $_tableNamePageTranslations = Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 }

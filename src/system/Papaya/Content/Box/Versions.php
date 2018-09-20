@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content box version list. The versions are created if
  * a box is published. They are not changeable.
@@ -24,7 +27,7 @@ namespace Papaya\Content\Box;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Versions extends \Papaya\Database\BaseObject\Records {
+class Versions extends Database\BaseObject\Records {
   /**
    * Map field names to value identifiers
    *
@@ -37,13 +40,6 @@ class Versions extends \Papaya\Database\BaseObject\Records {
     'version_message' => 'message',
     'box_id' => 'box_id'
   ];
-
-  /**
-   * Version table name
-   *
-   * @var string
-   */
-  protected $_versionsTableName = \Papaya\Content\Tables::BOX_VERSIONS;
 
   /**
    * Load version list informations
@@ -61,7 +57,7 @@ class Versions extends \Papaya\Database\BaseObject\Records {
              WHERE box_id = %d
              ORDER BY version_time DESC';
     $parameters = [
-      $this->databaseGetTableName($this->_versionsTableName),
+      $this->databaseGetTableName(Content\Tables::BOX_VERSIONS),
       (int)$boxId
     ];
     return $this->_loadRecords($sql, $parameters, 'version_id', $limit, $offset);
@@ -72,10 +68,10 @@ class Versions extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $versionId
    *
-   * @return \Papaya\Content\Box\Version|null
+   * @return Version|null
    */
   public function getVersion($versionId) {
-    $result = new \Papaya\Content\Box\Version();
+    $result = new Version();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load($versionId);
     return $result;

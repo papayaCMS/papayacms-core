@@ -14,24 +14,27 @@
  */
 namespace Papaya\Content\Authentication;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the administration user group records.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\Database\Records\Lazy {
+class Groups extends Database\Records\Lazy {
   protected $_fields = [
     'id' => 'group_id',
     'title' => 'grouptitle'
   ];
 
   protected $_orderByFields = [
-    'grouptitle' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'group_id' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'grouptitle' => Database\Interfaces\Order::ASCENDING,
+    'group_id' => Database\Interfaces\Order::ASCENDING
   ];
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \Papaya\Content\Tables::AUTHENTICATION_GROUPS;
+  protected $_tableName = Content\Tables::AUTHENTICATION_GROUPS;
 }

@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content box translation details.
  *
@@ -34,7 +37,7 @@ namespace Papaya\Content\Box;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Database\BaseObject\Record {
+class Translation extends Database\BaseObject\Record {
   /**
    * Map properties to database fields
    *
@@ -54,7 +57,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
     'module_title' => 'module_title'
   ];
 
-  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_TRANSLATIONS;
+  protected $_tableNameBoxTranslations = Content\Tables::BOX_TRANSLATIONS;
 
   /**
    * Load box translation details
@@ -77,8 +80,8 @@ class Translation extends \Papaya\Database\BaseObject\Record {
                AND t.lng_id = %d';
     $parameters = [
       $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::MODULES),
       (int)$filter[0],
       (int)$filter[1]
     ];
@@ -124,9 +127,8 @@ class Translation extends \Papaya\Database\BaseObject\Record {
       if ($res = $this->databaseQueryFmt($sql, $parameters)) {
         if ($res->fetchField() > 0) {
           return $this->_update();
-        } else {
-          return $this->_insert();
         }
+        return $this->_insert();
       }
     }
     return FALSE;

@@ -14,26 +14,29 @@
  */
 namespace Papaya\Content\Community;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the  surfer groups records.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\Database\Records {
+class Groups extends Database\Records {
   protected $_fields = [
     'id' => 'surfergroup_id',
     'title' => 'surfergroup_title'
   ];
 
   protected $_orderByFields = [
-    'surfergroup_title' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'surfergroup_id' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'surfergroup_title' => Database\Interfaces\Order::ASCENDING,
+    'surfergroup_id' => Database\Interfaces\Order::ASCENDING
   ];
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_GROUPS;
+  protected $_tableName = Content\Tables::COMMUNITY_GROUPS;
 
   /**
    * This method can be used to load the group records by a given permission id
@@ -55,7 +58,7 @@ class Groups extends \Papaya\Database\Records {
              ) ".$this->_compileOrderBy();
     $parameters = [
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::COMMUNITY_GROUP_PERMISSIONS),
+      $databaseAccess->getTableName(Content\Tables::COMMUNITY_GROUP_PERMISSIONS),
       (int)$permission
     ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);

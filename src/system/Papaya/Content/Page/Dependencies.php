@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page dependencies list.
  *
@@ -23,7 +26,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Dependencies extends \Papaya\Database\BaseObject\Records {
+class Dependencies extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
@@ -66,11 +69,11 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
              WHERE td.topic_origin_id = '%d'
              ORDER BY tt.topic_title, t.topic_id";
     $parameters = [
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(Content\Tables::PAGES),
+      $this->databaseGetTableName(Content\Tables::PAGE_TRANSLATIONS),
       (int)$languageId,
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATIONS),
+      $this->databaseGetTableName(Content\Tables::PAGE_PUBLICATIONS),
       (int)$originId
     ];
     return $this->_loadRecords($sql, $parameters, 'topic_id', $limit, $offset);
@@ -84,10 +87,10 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $pageId
    *
-   * @return \Papaya\Content\Page\Dependency
+   * @return Dependency
    */
   public function getDependency($pageId) {
-    $result = new \Papaya\Content\Page\Dependency();
+    $result = new Dependency();
     if (isset($this->_records[$pageId])) {
       $result->assign($this->_records[$pageId]);
     }
@@ -103,7 +106,7 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    */
   public function delete($pageId) {
     $result = $this->databaseDeleteRecord(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
       'topic_id',
       (int)$pageId
     );
@@ -123,12 +126,12 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    */
   public function changeOrigin($originId, $newOriginId) {
     $result = FALSE;
-    $dependency = new \Papaya\Content\Page\Dependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($this->getDatabaseAccess());
     $dependency->load($newOriginId);
     if ($this->delete($newOriginId)) {
       $result = $this->databaseUpdateRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
+        $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
         ['topic_origin_id' => $newOriginId],
         ['topic_origin_id' => $originId]
       );

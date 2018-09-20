@@ -14,6 +14,10 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide data encapsulation for the content page translations list.
  *
@@ -23,9 +27,9 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \Papaya\Database\BaseObject\Records {
+class Translations extends Database\BaseObject\Records {
   /**
-   * Map field names to value identfiers
+   * Map field names to value identifiers
    *
    * @var array
    */
@@ -38,7 +42,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
     'view_title' => 'view',
   ];
 
-  protected $_translationsTableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
+  protected $_translationsTableName = Content\Tables::PAGE_TRANSLATIONS;
 
   /**
    * Change the main page table name
@@ -46,8 +50,8 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * @param string $tableName
    */
   public function setTranslationsTableName($tableName) {
-    \Papaya\Utility\Constraints::assertString($tableName);
-    \Papaya\Utility\Constraints::assertNotEmpty($tableName);
+    Utility\Constraints::assertString($tableName);
+    Utility\Constraints::assertNotEmpty($tableName);
     $this->_translationsTableName = $tableName;
   }
 
@@ -69,8 +73,8 @@ class Translations extends \Papaya\Database\BaseObject\Records {
              WHERE tt.topic_id = %d';
     $parameters = [
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
       (int)$pageId
     ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -82,10 +86,10 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * @param int $pageId
    * @param int $languageId
    *
-   * @return \Papaya\Content\Page\Translation
+   * @return Translation
    */
   public function getTranslation($pageId, $languageId) {
-    $result = new \Papaya\Content\Page\Translation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->activateLazyLoad(['id' => $pageId, 'language_id' => $languageId]);
     return $result;

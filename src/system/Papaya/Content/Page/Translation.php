@@ -14,6 +14,10 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide data encapsulation for the content page translation details.
  *
@@ -37,7 +41,7 @@ namespace Papaya\Content\Page;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Database\Record\Lazy {
+class Translation extends Database\Record\Lazy {
   /**
    * Map properties to database fields
    *
@@ -58,16 +62,16 @@ class Translation extends \Papaya\Database\Record\Lazy {
     'module_guid' => 'v.module_guid'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
+  protected $_tableName = Content\Tables::PAGE_TRANSLATIONS;
 
   protected $_tableAlias = 'tt';
 
-  protected $_tableNameViews = \Papaya\Content\Tables::VIEWS;
+  protected $_tableNameViews = Content\Tables::VIEWS;
 
   public function load($filter) {
     $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s AS tt, %s AS v WHERE v.view_id = tt.view_id ";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter, 'AND'));
+    $sql .= Utility\Text::escapeForPrintf($this->_compileCondition($filter, 'AND'));
     $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $this->getDatabaseAccess()->getTableName($this->_tableNameViews)
@@ -78,63 +82,47 @@ class Translation extends \Papaya\Database\Record\Lazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see \Papaya\Database\Record::_createMapping()
+   * @return Database\Record\Mapping
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = [
-      $this, 'callbackMapValueFromFieldToProperty'
-    ];
-    $mapping->callbacks()->onMapValueFromPropertyToField = [
-      $this, 'callbackMapValueFromPropertyToField'
-    ];
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'content' :
+          return Utility\Text\XML::unserializeArray($value);
+      }
+      return $value;
+    };
+    $mapping->callbacks()->onMapValueFromPropertyToField = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'content' :
+          return Utility\Text\XML::serializeArray(empty($value) ? [] : $value);
+      }
+      return $value;
+    };
     return $mapping;
   }
 
   /**
-   * Unserialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   *
-   * @return mixed
+   * @return Database\Record\Key\Fields
    */
-  public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
-    switch ($property) {
-      case 'content' :
-        return \Papaya\Utility\Text\XML::unserializeArray($value);
-    }
-    return $value;
-  }
-
-  /**
-   * Serialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   *
-   * @return mixed
-   */
-  public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
-    switch ($property) {
-      case 'content' :
-        return \Papaya\Utility\Text\XML::serializeArray(empty($value) ? [] : $value);
-    }
-    return $value;
-  }
-
   public function _createKey() {
-    return new \Papaya\Database\Record\Key\Fields(
+    return new Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       ['id', 'language_id']
     );
   }
 
+  /**
+   * @return bool|Database\Interfaces\Key
+   */
   public function save() {
     if (empty($this['id']) || empty($this['language_id'])) {
       return FALSE;
@@ -142,11 +130,17 @@ class Translation extends \Papaya\Database\Record\Lazy {
     return parent::save();
   }
 
+  /**
+   * @return false|Database\Interfaces\Key
+   */
   public function _insertRecord() {
     $this['created'] = $this['modified'] = \time();
     return parent::_insertRecord();
   }
 
+  /**
+   * @return bool
+   */
   public function _updateRecord() {
     $this['modified'] = \time();
     return parent::_updateRecord();

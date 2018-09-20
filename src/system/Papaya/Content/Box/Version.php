@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for a single content box version and access to its translations.
  *
@@ -31,7 +34,7 @@ namespace Papaya\Content\Box;
  * @property string $name administration interface box name
  * @property int $modified last modification timestamp
  */
-class Version extends \Papaya\Database\BaseObject\Record {
+class Version extends Database\BaseObject\Record {
   /**
    * Map properties to database fields
    *
@@ -61,7 +64,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::BOX_VERSIONS;
+  protected $_tableName = Content\Tables::BOX_VERSIONS;
 
   /**
    * version translations list subobject
@@ -82,13 +85,13 @@ class Version extends \Papaya\Database\BaseObject\Record {
   public function save() {
     if (isset($this->id)) {
       throw new \LogicException('LogicException: Box versions can not be changed.');
-    } elseif (empty($this->boxId) || empty($this->owner) || empty($this->message)) {
+    }
+    if (empty($this->boxId) || empty($this->owner) || empty($this->message)) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: box id, owner or message are missing.'
       );
-    } else {
-      return $this->create();
     }
+    return $this->create();
   }
 
   /**
@@ -111,7 +114,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
       isset($this->created) ? $this->created : \time(),
       $this->owner,
       $this->message,
-      $this->databaseGetTableName(\Papaya\Content\Tables::BOXES),
+      $this->databaseGetTableName(Content\Tables::BOXES),
       $this->boxId
     ];
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -131,9 +134,9 @@ class Version extends \Papaya\Database\BaseObject\Record {
                 FROM %s bt
                WHERE bt.box_id = %d";
       $parameters = [
-        $this->databaseGetTableName(\Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::BOX_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::BOX_TRANSLATIONS),
         $this->boxId
       ];
       $this->databaseQueryFmtWrite($sql, $parameters);
@@ -150,10 +153,9 @@ class Version extends \Papaya\Database\BaseObject\Record {
    * @return Version\Translations
    */
   public function translations(Version\Translations $translations = NULL) {
-    if (isset($translations)) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
-    }
-    if (\is_null($this->_translations)) {
+    } elseif (NULL === $this->_translations) {
       $this->_translations = new Version\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }

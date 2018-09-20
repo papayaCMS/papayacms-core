@@ -100,6 +100,8 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const PAGE_BOXES = 'boxlinks';
 
+  const PAGE_LINK_TYPES = 'linktypes';
+
   const BOXES = 'box';
 
   const BOX_TRANSLATIONS = 'box_trans';

@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page translations list.
  *
@@ -23,7 +26,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Boxes extends \Papaya\Database\BaseObject\Records {
+class Boxes extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
@@ -48,7 +51,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
              WHERE topic_id = '%d'
              ORDER BY box_sort, box_id";
     $parameters = [
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+      $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
       $pageId
     ];
     return $this->_loadRecords($sql, $parameters);
@@ -63,7 +66,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
    */
   public function delete($pageIds) {
     return FALSE !== $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+        $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
         'topic_id',
         \Papaya\Utility\Arrays::ensure($pageIds)
       );
@@ -93,7 +96,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
         }
       }
       return FALSE !== $this->databaseInsertRecords(
-          $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+          $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
           $records
         );
     }

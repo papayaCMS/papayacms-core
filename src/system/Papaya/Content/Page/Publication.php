@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the working copy of content page.
  *
@@ -45,7 +48,7 @@ namespace Papaya\Content\Page;
  * @property int $publishedFrom publication period - start time
  * @property int $publishedTo publication period - end time
  */
-class Publication extends \Papaya\Content\Page {
+class Publication extends Content\Page {
   /**
    * Map properties to database fields
    *
@@ -95,12 +98,12 @@ class Publication extends \Papaya\Content\Page {
     'published_to' => 'published_to'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
+  protected $_tableName = Content\Tables::PAGE_PUBLICATIONS;
 
-  protected $_translationsTableName = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
+  protected $_translationsTableName = Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 
   public function _createKey() {
-    return new \Papaya\Database\Record\Key\Fields(
+    return new Database\Record\Key\Fields(
       $this, $this->getDatabaseAccess()->getTableName($this->_tableName), ['id']
     );
   }

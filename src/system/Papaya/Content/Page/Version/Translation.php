@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content\Page\Version;
 
+use Papaya\Content;
+
 /**
  * Provide data encapsulation for a single content page version translation details.
  *
@@ -36,6 +38,6 @@ namespace Papaya\Content\Page\Version;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Content\Page\Translation {
-  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS;
+class Translation extends Content\Page\Translation {
+  protected $_tableName = Content\Tables::PAGE_VERSION_TRANSLATIONS;
 }

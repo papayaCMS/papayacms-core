@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page version list. The versions are created if
  * a page is published. They are not changeable.
@@ -24,7 +27,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Versions extends \Papaya\Database\BaseObject\Records {
+class Versions extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
@@ -44,7 +47,7 @@ class Versions extends \Papaya\Database\BaseObject\Records {
    *
    * @var string
    */
-  protected $_versionsTableName = \Papaya\Content\Tables::PAGE_VERSIONS;
+  protected $_versionsTableName = Content\Tables::PAGE_VERSIONS;
 
   /**
    * Load version list informations
@@ -73,10 +76,10 @@ class Versions extends \Papaya\Database\BaseObject\Records {
    *
    * @param int $versionId
    *
-   * @return \Papaya\Content\Page\Version|null
+   * @return Version|null
    */
   public function getVersion($versionId) {
-    $result = new \Papaya\Content\Page\Version();
+    $result = new Version();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load($versionId);
     return $result;

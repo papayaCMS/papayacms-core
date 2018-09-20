@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the dependency of content page.
  *
@@ -25,7 +28,7 @@ namespace Papaya\Content\Page;
  * @property string $note - a small text describing the dependency
  * @property int $synchronization bitmask of the synchronization elements
  */
-class Dependency extends \Papaya\Database\Record {
+class Dependency extends Database\Record {
   /**
    * Sync page properties: title, meta information, ...
    *
@@ -91,7 +94,7 @@ class Dependency extends \Papaya\Database\Record {
     'note' => 'topic_note'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PAGE_DEPENDENCIES;
+  protected $_tableName = Content\Tables::PAGE_DEPENDENCIES;
 
   /**
    * Create a multi field key object containg both page id properties
@@ -99,7 +102,7 @@ class Dependency extends \Papaya\Database\Record {
    * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
-    return new \Papaya\Database\Record\Key\Fields(
+    return new Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       ['id']
@@ -107,7 +110,7 @@ class Dependency extends \Papaya\Database\Record {
   }
 
   /**
-   * Velidate the deinfed dependency an save it into database.
+   * Validate the defined dependency an save it into database.
    *
    * @throw UnexpectedValueException
    *
@@ -122,7 +125,7 @@ class Dependency extends \Papaya\Database\Record {
     if ($this->originId < 1) {
       throw new \UnexpectedValueException('UnexpectedValueException: No origin page defined.');
     }
-    if ($this->id == $this->originId) {
+    if ((int)$this->id === (int)$this->originId) {
       throw new \UnexpectedValueException('UnexpectedValueException: Target equals origin.');
     }
     if ($this->isDependency($this->originId)) {
@@ -134,7 +137,7 @@ class Dependency extends \Papaya\Database\Record {
   }
 
   /**
-   * Check if the given page id already has a dependency deifnition. This is used to avoid chaining.
+   * Check if the given page id already has a dependency definition. This is used to avoid chaining.
    *
    * @param int $pageId
    *

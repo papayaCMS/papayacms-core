@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+
 /**
  * Provide data encapsulation for the content box publication.
  *
@@ -30,7 +32,7 @@ namespace Papaya\Content\Box;
  * @property int $publishedFrom publication time limit - start
  * @property int $publishedTo publication time limit - end
  */
-class Publication extends \Papaya\Content\Box {
+class Publication extends Content\Box {
   /**
    * Map properties to database fields
    *
@@ -59,7 +61,7 @@ class Publication extends \Papaya\Content\Box {
     'published_to' => 'box_public_to'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::BOX_PUBLICATIONS;
+  protected $_tableName = Content\Tables::BOX_PUBLICATIONS;
 
   public function save() {
     if ($this->id > 0) {

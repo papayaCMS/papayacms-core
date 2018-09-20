@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content box working copy.
  *
@@ -32,7 +35,7 @@ namespace Papaya\Content\Box;
  * @property int $cacheTime box content cache time, if mode == own
  * @property int $unpublishedTranslations internal counter for unpublished translations
  */
-class Work extends \Papaya\Content\Box {
+class Work extends Content\Box {
   /**
    * Save box to database
    *
@@ -50,10 +53,10 @@ class Work extends \Papaya\Content\Box {
   /**
    * Get a publication encapsulation object
    *
-   * @return \Papaya\Content\Box\Publication
+   * @return Publication
    */
   protected function _createPublicationObject() {
-    $publication = new \Papaya\Content\Box\Publication();
+    $publication = new Publication();
     $publication->setDatabaseAccess($this->getDatabaseAccess());
     return $publication;
   }
@@ -83,24 +86,24 @@ class Work extends \Papaya\Content\Box {
   /**
    * Publish the translations of the given languages.
    *
-   * @param \Papaya\Content\Box\Publication $publication
+   * @param Publication $publication
    * @param array $languageIds
    *
    * @return bool
    */
   private function _publishTranslations(
-    \Papaya\Content\Box\Publication $publication, array $languageIds = NULL
+    Publication $publication, array $languageIds = NULL
   ) {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
         [
           'box_id' => $this->id,
           'lng_id' => $languageIds
         ]
       );
       if (FALSE !== $deleted) {
-        $filter = \str_replace('%', '%%', $this->databaseGetSqlCondition('lng_id', $languageIds));
+        $filter = \str_replace('%', '%%', $this->databaseGetSqlCondition(['lng_id' => $languageIds]));
         $now = \time();
         $sql = "INSERT INTO %s
                        (box_id, lng_id, box_title, box_data, view_id,
@@ -110,9 +113,9 @@ class Work extends \Papaya\Content\Box {
                   FROM %s t
                  WHERE t.box_id = %d AND $filter";
         $parameters = [
-          $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+          $this->databaseGetTableName(Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
           $now,
-          $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
+          $this->databaseGetTableName(Content\Tables::BOX_TRANSLATIONS),
           $this->id
         ];
         if (FALSE !== $this->databaseQueryFmt($sql, $parameters)) {
@@ -128,8 +131,7 @@ class Work extends \Papaya\Content\Box {
         }
       }
       return FALSE;
-    } else {
-      return TRUE;
     }
+    return TRUE;
   }
 }

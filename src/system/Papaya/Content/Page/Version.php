@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for a single content page version and access to its translations.
  *
@@ -38,7 +41,7 @@ namespace Papaya\Content\Page;
  * @property int $priority content priority (for search engines)
  * @property int $scheme page scheme (http, https or both)
  */
-class Version extends \Papaya\Database\BaseObject\Record {
+class Version extends Database\BaseObject\Record {
   /**
    * Map properties to database fields
    *
@@ -84,7 +87,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSIONS;
+  protected $_tableName = Content\Tables::PAGE_VERSIONS;
 
   /**
    * version translations list subobject
@@ -138,7 +141,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
       $this->owner,
       $this->message,
       isset($this->level) ? $this->level : -1,
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
+      $this->databaseGetTableName(Content\Tables::PAGES),
       $this->pageId
     ];
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -157,9 +160,9 @@ class Version extends \Papaya\Database\BaseObject\Record {
           FROM %s tt
          WHERE tt.topic_id = %d";
       $parameters = [
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::PAGE_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::PAGE_TRANSLATIONS),
         $this->pageId
       ];
       $this->databaseQueryFmtWrite($sql, $parameters);

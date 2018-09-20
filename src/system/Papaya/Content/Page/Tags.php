@@ -14,6 +14,10 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide data encapsulation for the content page tag/label list.
  *
@@ -23,7 +27,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Tags extends \Papaya\Database\BaseObject\Records {
+class Tags extends Database\BaseObject\Records {
   /**
    * All tag links are saved into one table, the type specified the link group
    *
@@ -59,7 +63,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
   public function load($pageId, $languageId = 0, array $categoryIds = NULL) {
     $categoryCondition = '';
     if ($categoryIds) {
-      $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
+      $categoryCondition = Utility\Text::escapeForPrintf(
         ' AND '.$this->databaseGetSqlCondition(
           ['t.category_id' => $categoryIds]
         )
@@ -77,11 +81,11 @@ class Tags extends \Papaya\Database\BaseObject\Records {
                 $categoryCondition
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = [
-      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::TAG_LINKS),
+      $this->databaseGetTableName(Content\Tables::TAG_TRANSLATIONS),
       $languageId,
-      $this->databaseGetTableName(\Papaya\Content\Tables::TAGS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_CATEGORY),
+      $this->databaseGetTableName(Content\Tables::TAGS),
+      $this->databaseGetTableName(Content\Tables::TAG_CATEGORY),
       $this->_linkType,
       $pageId
     ];
@@ -97,7 +101,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
    */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+        $this->databaseGetTableName(Content\Tables::TAG_LINKS),
         [
           'link_type' => $this->_linkType,
           'link_id' => $pageId
@@ -123,7 +127,7 @@ class Tags extends \Papaya\Database\BaseObject\Records {
       ];
     }
     return FALSE !== $this->databaseInsertRecords(
-        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+        $this->databaseGetTableName(Content\Tables::TAG_LINKS),
         $data
       );
   }

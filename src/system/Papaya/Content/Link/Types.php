@@ -14,29 +14,32 @@
  */
 namespace Papaya\Content\Link;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * This object loads link type data into a list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Types extends \Papaya\Database\Records\Lazy {
+class Types extends Database\Records\Lazy {
   protected $_fields = [
     'id' => 'linktype_id',
     'name' => 'linktype_name',
-    'is_visisble' => 'linktype_is_visisble',
+    'is_visible' => 'linktype_is_visible',
     'class' => 'linktype_class',
     'target' => 'linktype_target',
     'is_popup' => 'linktype_popup',
     'popup_options' => 'linktype_popup_config'
   ];
 
-  protected $_tableName = 'linktypes';
+  protected $_tableName = Content\Tables::PAGE_LINK_TYPES;
 
   protected $_identifierProperties = ['id'];
 
   protected $_orderByFields = [
-    'name' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'name' => Database\Interfaces\Order::ASCENDING
   ];
 
   /**
@@ -52,7 +55,7 @@ class Types extends \Papaya\Database\Records\Lazy {
           [
             'id' => 1,
             'name' => 'visible',
-            'is_visisble' => TRUE,
+            'is_visible' => TRUE,
             'class' => '',
             'target' => '_self',
             'is_popup' => FALSE,
@@ -61,7 +64,7 @@ class Types extends \Papaya\Database\Records\Lazy {
           [
             'id' => 2,
             'name' => 'hidden',
-            'is_visisble' => FALSE,
+            'is_visible' => FALSE,
             'class' => '',
             'target' => '_self',
             'is_popup' => FALSE,
@@ -74,52 +77,28 @@ class Types extends \Papaya\Database\Records\Lazy {
   }
 
   /**
-   * @see \Papaya\Database\Records\Unbuffered::_createMapping()
-   *
    * @return \Papaya\Database\Record\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = [
-      $this, 'mapFieldToProperty'
-    ];
-    $mapping->callbacks()->onMapValueFromPropertyToField = [
-      $this, 'mapPropertyToField'
-    ];
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      if ('popup_options' === $property) {
+        return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
+      }
+      return $value;
+    };
+    $mapping->callbacks()->onMapValueFromPropertyToField = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      if ('popup_options' === $property) {
+        return \Papaya\Utility\Text\XML::serializeArray((array)$value);
+      }
+      return $value;
+    };
     return $mapping;
-  }
-
-  /**
-   * Link options need to be deserialized.
-   *
-   * @param string $context
-   * @param string $property
-   * @param string $field
-   * @param mixed $value
-   *
-   * @return mixed
-   */
-  public function mapFieldToProperty($context, $property, $field, $value) {
-    if ('popup_options' == $property) {
-      return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
-    }
-    return $value;
-  }
-
-  /**
-   * Link options need to be serialized.
-   *
-   * @param string $context
-   * @param string $property
-   * @param string $field
-   * @param mixed $value
-   *
-   * @return mixed
-   */
-  public function mapPropertyToField($context, $property, $field, $value) {
-    if ('popup_options' == $property) {
-      return \Papaya\Utility\Text\XML::serializeArray((array)$value);
-    }
-    return $value;
   }
 }

@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Page;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the reference between two pages.
  *
@@ -24,7 +27,7 @@ namespace Papaya\Content\Page;
  * @property int $targetId page id, larger one
  * @property string $note - a small text describing the reference
  */
-class Reference extends \Papaya\Database\Record {
+class Reference extends Database\Record {
   /**
    * Mapping fields
    *
@@ -41,7 +44,7 @@ class Reference extends \Papaya\Database\Record {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGE_REFERENCES;
+  protected $_tableName = Content\Tables::PAGE_REFERENCES;
 
   /**
    * Create a multi field key object containg both page id properties
@@ -49,7 +52,7 @@ class Reference extends \Papaya\Database\Record {
    * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
-    return new \Papaya\Database\Record\Key\Fields(
+    return new Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       ['source_id', 'target_id']
@@ -63,37 +66,26 @@ class Reference extends \Papaya\Database\Record {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = [
-      $this, 'callbackSortPageIds'
-    ];
+    $mapping->callbacks()->onAfterMapping = function (
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $values, $record
+    ) {
+      if (Database\Record\Mapping::PROPERTY_TO_FIELD === $mode) {
+        $result = $record;
+        if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
+          $result['topic_target_id'] = $record['topic_source_id'];
+          $result['topic_source_id'] = $record['topic_target_id'];
+        }
+      } else {
+        $result = $values;
+        if ((int)$values['source_id'] > (int)$values['target_id']) {
+          $result['target_id'] = $values['source_id'];
+          $result['source_id'] = $values['target_id'];
+        }
+      }
+      return $result;
+    };
     return $mapping;
-  }
-
-  /**
-   * The callbacks sorts the page ids, to lower value is made the source id.
-   *
-   * @param object $context
-   * @param int $mode
-   * @param array $values
-   * @param array $record
-   *
-   * @return array
-   */
-  public function callbackSortPageIds($context, $mode, $values, $record) {
-    if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
-      $result = $record;
-      if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
-        $result['topic_target_id'] = $record['topic_source_id'];
-        $result['topic_source_id'] = $record['topic_target_id'];
-      }
-    } else {
-      $result = $values;
-      if ((int)$values['source_id'] > (int)$values['target_id']) {
-        $result['target_id'] = $values['source_id'];
-        $result['source_id'] = $values['target_id'];
-      }
-    }
-    return $result;
   }
 
   /**

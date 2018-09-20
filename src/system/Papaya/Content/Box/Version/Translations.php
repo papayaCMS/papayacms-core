@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Box\Version;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content box version translations list.
  *
@@ -23,9 +26,9 @@ namespace Papaya\Content\Box\Version;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \Papaya\Database\BaseObject\Records {
+class Translations extends Database\BaseObject\Records {
   /**
-   * Map field names to value identfiers
+   * Map field names to value identifiers
    *
    * @var array
    */
@@ -37,7 +40,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
     'view_title' => 'view'
   ];
 
-  protected $_translationsTableName = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
+  protected $_translationsTableName = Content\Tables::BOX_VERSION_TRANSLATIONS;
 
   /**
    * Load translation list informations
@@ -55,7 +58,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
              WHERE tt.box_id = %d';
     $parameters = [
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
       (int)$boxId
     ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -70,7 +73,7 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * @return \Papaya\Content\Box\Translation
    */
   public function getTranslation($boxId, $languageId) {
-    $result = new \Papaya\Content\Box\Version\Translation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load([$boxId, $languageId]);
     return $result;

@@ -15,10 +15,10 @@
 namespace Papaya\UI\Toolbar;
 
 /**
- * A toolbar that consists of multiple sets of elements. The sets are not visisble in
+ * A toolbar that consists of multiple sets of elements. The sets are not visible in
  * the xml output.
  *
- * The main reson for this object is the possibility to provided an order of the elements sets
+ * The main reason for this object is the possibility to provided an order of the elements sets
  * independent from the order the elements are added to the toolbar. Like adding
  * action buttons before navigation button but have the navigation first in the toolbar.
  *

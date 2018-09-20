@@ -46,53 +46,38 @@ class Options extends \Papaya\Database\Records {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = [
-      $this, 'callbackConvertValueByType'
-    ];
-    return $mapping;
-  }
-
-  /**
-   * The callback read the type field, and converts the value field depending on it.
-   *
-   * @param object $context
-   * @param int $mode
-   * @param array $values
-   * @param array $record
-   *
-   * @return array
-   */
-  public function callbackConvertValueByType($context, $mode, $values, $record) {
-    $mapValue = (isset($values['type']) && isset($values['value']));
-    if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
-      $result = $record;
-      if ($mapValue) {
-        switch ($values['type']) {
-          case 'array' :
+    $mapping->callbacks()->onAfterMapping = function (
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $values, $record
+    ) {
+      $mapValue = isset($values['type'], $values['value']);
+      if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD === $mode) {
+        $result = $record;
+        if ($mapValue) {
+          if ('array' === $values['type']) {
             $result['moduleoption_value'] = \Papaya\Utility\Text\XML::serializeArray($values['value']);
-          break;
-          default :
+          } else {
             $result['moduleoption_value'] = (string)$values['value'];
+          }
         }
-      }
-    } else {
-      $result = $values;
-      if ($mapValue) {
-        switch ($values['type']) {
-          case 'array' :
+      } else {
+        $result = $values;
+        if ($mapValue) {
+          if ('array' === $values['type']) {
             if (empty($values['value'])) {
               $result['value'] = [];
-            } elseif ('<' == \substr($values['value'], 0, 1)) {
+            } elseif (0 === strpos($values['value'], '<')) {
               $result['value'] = \Papaya\Utility\Text\XML::unserializeArray($values['value']);
             } else {
               $result['value'] = @\unserialize($values['value']);
             }
-          break;
-          default :
-            $result['value'] = (string)$values['value'];
+          } else {
+              $result['value'] = (string)$values['value'];
+          }
         }
       }
-    }
-    return $result;
+      return $result;
+    };
+    return $mapping;
   }
 }

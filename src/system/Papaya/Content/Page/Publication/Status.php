@@ -15,6 +15,7 @@
 namespace Papaya\Content\Page\Publication;
 
 use Papaya\Cache;
+use Papaya\Content;
 
 /**
  * Load status informations of a page publication.
@@ -22,13 +23,13 @@ use Papaya\Cache;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Status extends \Papaya\Content\Page\Status {
+class Status extends Content\Page\Status {
   /**
    * Get status from page publication
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
+  protected $_tableName = Content\Tables::PAGE_PUBLICATIONS;
 
   /**
    * Query data cache.
