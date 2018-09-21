@@ -14,17 +14,20 @@
  */
 namespace Papaya\Content\Tag;
 
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * This object loads page data by different conditions.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Categories extends \Papaya\Database\Records\Tree {
+class Categories extends Database\Records\Tree {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
   protected $_fields = [
     'id' => 'c.category_id',
@@ -36,7 +39,7 @@ class Categories extends \Papaya\Database\Records\Tree {
   ];
 
   protected $_orderByProperties = [
-    'title' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'title' => Database\Interfaces\Order::ASCENDING
   ];
 
   /**
@@ -63,8 +66,8 @@ class Categories extends \Papaya\Database\Records\Tree {
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = [
-      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY),
-      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_CATEGORY_TRANSLATIONS),
+      $this->getDatabaseAccess()->getTableName(Content\Tables::TAG_CATEGORY),
+      $this->getDatabaseAccess()->getTableName(Content\Tables::TAG_CATEGORY_TRANSLATIONS),
       $languageId
     ];
     return $this->_loadRecords($sql, $parameters, $limit, $offset, ['id']);
