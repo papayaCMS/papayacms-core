@@ -15,32 +15,29 @@
 
 namespace Papaya\Database\Statement {
 
-  class Formatted
-    implements \Papaya\Database\Interfaces\Statement {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-    private $_sql;
-    private $_parameters;
-    private $_databaseAccess;
+  /**
+   * @covers \Papaya\Database\Statement\Formatted
+   */
+  class FormattedTest extends \Papaya\TestCase {
 
-    public function __construct(\Papaya\Database\Access $databaseAccess, $sql, array $parameters = []) {
-      $this->_databaseAccess = $databaseAccess;
-      $this->_sql = $sql;
-      $this->_parameters = $parameters;
-    }
+    public function testGetSQLInsertsEscapedParameters() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('escapeString')
+        ->with('ab123')
+        ->willReturn('ab123');
 
-    public function __toString() {
-      return $this->getSQL();
-    }
-
-    public function getSQL() {
-      return \vsprintf(
-        $this->_sql,
-        array_map(
-          function($value) {
-            return $this->_databaseAccess->escapeString($value);
-          },
-          $this->_parameters
-        )
+      $statement = new Formatted(
+        $databaseAccess,
+        "SELECT * FROM test WHERE id = '%s'",
+        ['ab123']
+      );
+      $this->assertEquals(
+        "SELECT * FROM test WHERE id = 'ab123'",
+        (string)$statement
       );
     }
   }

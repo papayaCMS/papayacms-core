@@ -33,7 +33,8 @@ namespace Papaya\Database\Statement {
    *
    * @package Papaya\Database\Statement
    */
-  class Prepared {
+  class Prepared
+    implements \Papaya\Database\Interfaces\Statement {
 
     /**
      * @var \Papaya\Database\Access
