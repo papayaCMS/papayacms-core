@@ -19,15 +19,24 @@ namespace Papaya\Database\Statement {
 
     private $_sql;
     private $_parameters;
+    private $_databaseAccess;
 
     public function __construct(\Papaya\Database\Access $databaseAccess, $sql, array $parameters = []) {
-      $this->setDatabaseAccess($databaseAccess);
+      $this->_databaseAccess = $databaseAccess;
       $this->_sql = $sql;
       $this->_parameters = $parameters;
     }
 
     public function __toString() {
-      return \vsprintf($this->_sql, $this->_parameters);
+      return \vsprintf(
+        $this->_sql,
+        array_map(
+          function($value) {
+            return $this->_databaseAccess->escapeString($value);
+          },
+          $this->_parameters
+        )
+      );
     }
   }
 }

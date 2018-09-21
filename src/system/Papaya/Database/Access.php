@@ -222,6 +222,21 @@ class Access extends \Papaya\Application\BaseObject {
   }
 
   /**
+   * @param string $identifier
+   * @return string
+   */
+  public function quoteIdentifier($identifier) {
+    $connector = $this->getDatabaseConnector();
+    if (method_exists($connector, 'quoteIdentifier')) {
+      return $connector->quoteIdentifier($identifier);
+    }
+    if (preg_match('([a-zA-Z\\d_])', $identifier)) {
+      return $identifier;
+    }
+    return '_invalid_identifier_';
+  }
+
+  /**
    * Get table name mapper object
    *
    * @param \Papaya\Content\Tables $tables
