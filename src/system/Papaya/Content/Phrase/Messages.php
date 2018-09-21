@@ -14,8 +14,8 @@
  */
 namespace Papaya\Content\Phrase;
 
-use Papaya\Database;
 use Papaya\Content;
+use Papaya\Database;
 
 /**
  * Log messages for phrases system

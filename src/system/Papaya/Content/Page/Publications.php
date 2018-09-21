@@ -15,7 +15,6 @@
 namespace Papaya\Content\Page;
 
 use Papaya\Content;
-use Papaya\Database;
 
 /**
  * This object loads public page data by different conditions.

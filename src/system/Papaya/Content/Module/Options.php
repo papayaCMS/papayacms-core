@@ -46,7 +46,7 @@ class Options extends \Papaya\Database\Records {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = function (
+    $mapping->callbacks()->onAfterMapping = function(
       /** @noinspection PhpUnusedParameterInspection */
       $context, $mode, $values, $record
     ) {
@@ -66,13 +66,13 @@ class Options extends \Papaya\Database\Records {
           if ('array' === $values['type']) {
             if (empty($values['value'])) {
               $result['value'] = [];
-            } elseif (0 === strpos($values['value'], '<')) {
+            } elseif (0 === \strpos($values['value'], '<')) {
               $result['value'] = \Papaya\Utility\Text\XML::unserializeArray($values['value']);
             } else {
               $result['value'] = @\unserialize($values['value']);
             }
           } else {
-              $result['value'] = (string)$values['value'];
+            $result['value'] = (string)$values['value'];
           }
         }
       }

@@ -14,8 +14,10 @@
  */
 namespace Papaya\Content;
 
+use Papaya\XML;
+
 /**
- * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
+ * A content structure based on an XML definition (for example the theme skin XML).
  *
  * @package Papaya-Library
  * @subpackage Theme
@@ -37,17 +39,16 @@ class Structure implements \IteratorAggregate {
       if (empty($data)) {
         return;
       }
-      $dom = new \Papaya\XML\Document();
+      $document = new XML\Document();
       if (0 === \strpos($data, '<')) {
-        $dom->loadXML($data);
+        $document->loadXML($data);
       } else {
-        $dom->load($data);
+        $document->load($data);
       }
-      if (isset($dom->documentElement)) {
-        /* @noinspection PhpParamsInspection */
-        $this->pages()->load($dom->documentElement);
+      if (isset($document->documentElement)) {
+        $this->pages()->load($document->documentElement);
       }
-    } elseif ($data instanceof \Papaya\XML\Element) {
+    } elseif ($data instanceof XML\Element) {
       $this->pages()->load($data);
     }
   }
@@ -91,19 +92,19 @@ class Structure implements \IteratorAggregate {
         return $page;
       }
     }
-    return;
+    return NULL;
   }
 
   /**
-   * Convert the definition into an xml variable tree. If the Name of an element is not
+   * Convert the definition into an xml variable tree. If the name of an element is not
    * a valid QName, the element will be ignored.
    *
    * @param array $currentValues
    *
-   * @return \Papaya\XML\Document
+   * @return XML\Document
    */
   public function getXMLDocument(array $currentValues) {
-    $document = new \Papaya\XML\Document();
+    $document = new XML\Document();
     $rootNode = $document->appendElement('values');
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -139,13 +140,13 @@ class Structure implements \IteratorAggregate {
   /**
    * Read the data from an xml document into an recursive array.
    *
-   * @param \Papaya\XML\Element $dataNode
+   * @param XML\Element $dataNode
    *
    * @return array
    */
-  public function getArray(\Papaya\XML\Element $dataNode) {
+  public function getArray(XML\Element $dataNode) {
     $result = [];
-    /** @var \Papaya\XML\Document $document */
+    /** @var XML\Document $document */
     $document = $dataNode->ownerDocument;
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -158,7 +159,7 @@ class Structure implements \IteratorAggregate {
             /** @var Structure\Value $value */
             foreach ($group->values() as $value) {
               if ($document->xpath()->evaluate('count('.$value->name.')', $groupNode)) {
-                /** @var \Papaya\XML\Element $valueNode */
+                /** @var XML\Element $valueNode */
                 $valueNode = $document->xpath()->evaluate($value->name, $groupNode)->item(0);
                 $type = empty($value->type) ? 'text' : $value->type;
                 if ('xhtml' === $type) {

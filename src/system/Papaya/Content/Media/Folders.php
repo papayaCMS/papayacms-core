@@ -32,7 +32,7 @@ class Folders extends Database\Records\Tree {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = function (
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
       /** @noinspection PhpUnusedParameterInspection */
       $context, $property, $field, $value
     ) {
@@ -41,7 +41,7 @@ class Folders extends Database\Records\Tree {
       }
       return $value;
     };
-    $mapping->callbacks()->onGetFieldForProperty = function (
+    $mapping->callbacks()->onGetFieldForProperty = function(
       /** @noinspection PhpUnusedParameterInspection */
       $context, $property
     ) {

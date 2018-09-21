@@ -66,7 +66,7 @@ class Reference extends Database\Record {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = function (
+    $mapping->callbacks()->onAfterMapping = function(
       /** @noinspection PhpUnusedParameterInspection */
       $context, $mode, $values, $record
     ) {

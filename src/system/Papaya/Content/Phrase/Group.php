@@ -14,8 +14,8 @@
  */
 namespace Papaya\Content\Phrase;
 
-use Papaya\Database;
 use Papaya\Content;
+use Papaya\Database;
 
 /**
  * Encapsulation for phrase groups, groups allows more efficient loading for phrases

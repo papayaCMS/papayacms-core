@@ -16,7 +16,6 @@ namespace Papaya\Content\Page;
 
 use Papaya\Content;
 use Papaya\Database;
-use Papaya\Utility;
 
 /**
  * Provide data encapsulation for the working copy of content page.

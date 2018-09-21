@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content\Structure;
 
+use Papaya\BaseObject;
+use Papaya\XML;
+
 /**
  * Content structure values group list
  *
@@ -23,7 +26,7 @@ namespace Papaya\Content\Structure;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\BaseObject\Collection {
+class Groups extends BaseObject\Collection {
   private $_page;
 
   public function __construct(Page $page) {
@@ -34,12 +37,12 @@ class Groups extends \Papaya\BaseObject\Collection {
   /**
    * Load group data from xml
    *
-   * @param \Papaya\XML\Element $pageNode
+   * @param XML\Element $pageNode
    */
-  public function load(\Papaya\XML\Element $pageNode) {
-    /** @var \Papaya\XML\Document $document */
+  public function load(XML\Element $pageNode) {
+    /** @var XML\Document $document */
     $document = $pageNode->ownerDocument;
-    /** @var \Papaya\XML\Element $node */
+    /** @var XML\Element $node */
     foreach ($document->xpath()->evaluate('group', $pageNode) as $node) {
       $this[] = $group = new Group($this->_page);
       $group->name = $node->getAttribute('name');
