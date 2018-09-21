@@ -31,15 +31,16 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain
    */
   public function testCallbackFieldSerializationSerializeOptions() {
     $record = new Domain();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $record->mapping();
     $this->assertEquals(
     /** @lang XML */
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
-      $record->callbackFieldSerialization(
-        new \stdClass(),
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         'options',
         'domain_options',
@@ -49,14 +50,15 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain
    */
   public function testCallbackFieldSerializationUnserializeOptions() {
     $record = new Domain();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $record->mapping();
     $this->assertEquals(
       array('SAMPLE_OPTION' => 'sample data'),
-      $record->callbackFieldSerialization(
-        new \stdClass(),
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'options',
         'domain_options',
@@ -67,14 +69,15 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Domain::callbackFieldSerialization
+   * @covers \Papaya\Content\Domain
    */
   public function testCallbackFieldSerializationPassthru() {
     $record = new Domain();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $record->mapping();
     $this->assertEquals(
       'domain.tld',
-      $record->callbackFieldSerialization(
-        new \stdClass(),
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'host',
         'domain_hostname',
@@ -84,10 +87,12 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Domain::callbackUpdateHostLength
+   * @covers \Papaya\Content\Domain
    */
   public function testCallbackUpdateHostLength() {
     $record = new Domain();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $record->mapping();
     $this->assertEquals(
       array(
         'domain_id' => 42,
@@ -100,8 +105,7 @@ class DomainTest extends \Papaya\TestCase {
         /** @lang XML */
           '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
       ),
-      $record->callbackUpdateHostLength(
-        new \stdClass(),
+      $mapping->callbacks()->onAfterMapping(
         \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         array(
           'id' => 42,
@@ -128,10 +132,12 @@ class DomainTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Domain::callbackUpdateHostLength
+   * @covers \Papaya\Content\Domain
    */
   public function testCallbackUpdateHostLengthPassthru() {
     $record = new Domain();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $record->mapping();
     $this->assertEquals(
       array(
         'id' => 42,
@@ -142,8 +148,7 @@ class DomainTest extends \Papaya\TestCase {
         'data' => 'domain data',
         'options' => array('SAMPLE_OPTION' => 'sample data')
       ),
-      $record->callbackUpdateHostLength(
-        new \stdClass(),
+      $mapping->callbacks()->onAfterMapping(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         array(
           'id' => 42,

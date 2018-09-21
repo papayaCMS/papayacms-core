@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the configuration options.
  *
@@ -21,7 +23,7 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Configuration
-  extends \Papaya\Database\BaseObject\Records {
+  extends Database\BaseObject\Records {
   /**
    * Map field names to value identifiers
    *
@@ -42,7 +44,7 @@ class Configuration
          FROM %s
         ORDER BY opt_name';
     $parameters = [
-      $this->databaseGetTableName(\Papaya\Content\Tables::OPTIONS)
+      $this->databaseGetTableName(Tables::OPTIONS)
     ];
     return $this->_loadRecords($sql, $parameters, 'opt_name');
   }

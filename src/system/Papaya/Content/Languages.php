@@ -14,13 +14,15 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the languages list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Languages extends \Papaya\Database\Records {
+class Languages extends Database\Records {
   /**
    * All languages - filter disabled
    */
@@ -37,7 +39,7 @@ class Languages extends \Papaya\Database\Records {
   const FILTER_IS_INTERFACE = 2;
 
   /**
-   * Map field names to value identfiers
+   * Map field names to value identifiers
    *
    * @var array
    */
@@ -56,7 +58,7 @@ class Languages extends \Papaya\Database\Records {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
+  protected $_tableName = Tables::LANGUAGES;
 
   /**
    * @var string
@@ -125,7 +127,8 @@ class Languages extends \Papaya\Database\Records {
    *
    * @param string|int $language
    *
-   * @return \Papaya\Content\Language
+   * @param int $usageFilter
+   * @return Language
    */
   public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
     if (\is_int($language) || \preg_match('(^\\d+$)D', $language)) {
@@ -135,7 +138,7 @@ class Languages extends \Papaya\Database\Records {
     }
     $result = NULL;
     if ($id > 0) {
-      $result = new \Papaya\Content\Language();
+      $result = new Language();
       $result->papaya($this->papaya());
       $result->setDatabaseAccess($this->getDatabaseAccess());
       if (isset($this[$id])) {
@@ -152,12 +155,12 @@ class Languages extends \Papaya\Database\Records {
       switch ($usageFilter) {
         case self::FILTER_IS_CONTENT:
           if (!$result['is_content']) {
-            return;
+            return NULL;
           }
         break;
         case self::FILTER_IS_INTERFACE:
           if (!$result['is_interface']) {
-            return;
+            return NULL;
           }
         break;
       }
@@ -170,16 +173,15 @@ class Languages extends \Papaya\Database\Records {
    *
    * @param string $code
    *
-   * @return \Papaya\Content\Language
+   * @return Language
    */
   public function getLanguageByCode($code) {
-    $result = new \Papaya\Content\Language();
-    if (isset($this->_mapCodes[$code]) &&
-      isset($this[$this->_mapCodes[$code]])) {
+    $result = new Language();
+    if (isset($this->_mapCodes[$code], $this[$this->_mapCodes[$code]])) {
       $result->assign($this[$this->_mapCodes[$code]]);
       return $result;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -187,16 +189,15 @@ class Languages extends \Papaya\Database\Records {
    *
    * @param string $identifier
    *
-   * @return \Papaya\Content\Language
+   * @return Language
    */
   public function getLanguageByIdentifier($identifier) {
-    $result = new \Papaya\Content\Language();
-    if (isset($this->_mapIdentifiers[$identifier]) &&
-      isset($this[$this->_mapIdentifiers[$identifier]])) {
+    $result = new Language();
+    if (isset($this->_mapIdentifiers[$identifier], $this[$this->_mapIdentifiers[$identifier]])) {
       $result->assign($this[$this->_mapIdentifiers[$identifier]]);
       return $result;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -206,21 +207,20 @@ class Languages extends \Papaya\Database\Records {
    *
    * @return string|null
    */
-  public function getIdentiferById($languageId) {
+  public function getIdentifierById($languageId) {
     if ($language = $this->getLanguage($languageId)) {
       return $language->identifier;
     }
-    return;
+    return NULL;
   }
 
   /**
-   * @return \Papaya\Content\Language
+   * @return Language
    */
   public function getDefault() {
     if (\count($this->_records) > 0 && ($id = \array_keys($this->_records)[0])) {
       return $this->getLanguage($id);
-    } else {
-      return;
     }
+    return NULL;
   }
 }

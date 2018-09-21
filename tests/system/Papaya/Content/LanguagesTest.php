@@ -280,7 +280,7 @@ namespace Papaya\Content {
     }
 
     /**
-     * @covers \Papaya\Content\Languages::getIdentiferById
+     * @covers \Papaya\Content\Languages::getIdentifierById
      */
     public function testGetIdentifierById() {
       $languages = new Languages_TestProxy();
@@ -289,12 +289,12 @@ namespace Papaya\Content {
         $this->mockPapaya()->databaseAccess()
       );
       $this->assertEquals(
-        'de', $languages->getIdentiferById(2)
+        'de', $languages->getIdentifierById(2)
       );
     }
 
     /**
-     * @covers \Papaya\Content\Languages::getIdentiferById
+     * @covers \Papaya\Content\Languages::getIdentifierById
      */
     public function testGetIdentifierByIdExpectingNull() {
       $databaseResult = $this->createMock(\Papaya\Database\Result::class);
@@ -316,7 +316,7 @@ namespace Papaya\Content {
         ->will($this->returnValue($databaseResult));
       $languages = new Languages();
       $languages->setDatabaseAccess($databaseAccess);
-      $this->assertNull($languages->getIdentiferById(99));
+      $this->assertNull($languages->getIdentifierById(99));
     }
   }
 

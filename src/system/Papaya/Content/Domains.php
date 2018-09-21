@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Utility;
+
 /**
  * This object loads the defined domains for a papaya installation.
  *
@@ -42,7 +44,7 @@ class Domains extends \Papaya\Database\Records {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::DOMAINS;
+  protected $_tableName = Tables::DOMAINS;
 
   protected $_identifierProperties = ['id'];
 
@@ -53,27 +55,16 @@ class Domains extends \Papaya\Database\Records {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = [
-      $this, 'callbackMapValueFromFieldToProperty'
-    ];
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'options' :
+          return Utility\Text\XML::unserializeArray($value);
+      }
+      return $value;
+    };
     return $mapping;
-  }
-
-  /**
-   * Deserialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   *
-   * @return mixed
-   */
-  public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
-    switch ($property) {
-      case 'options' :
-        return \Papaya\Utility\Text\XML::unserializeArray($value);
-    }
-    return $value;
   }
 }

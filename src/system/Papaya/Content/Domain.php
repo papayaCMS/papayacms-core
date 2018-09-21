@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Load/save a domain record
  *
@@ -28,7 +31,7 @@ namespace Papaya\Content;
  * @property string $data
  * @property array $options
  */
-class Domain extends \Papaya\Database\Record {
+class Domain extends Database\Record {
   /**
    * No special handling
    */
@@ -71,11 +74,11 @@ class Domain extends \Papaya\Database\Record {
   ];
 
   /**
-   * Table containing domain informations
+   * Table containing domain information
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::DOMAINS;
+  protected $_tableName = Tables::DOMAINS;
 
   /**
    * Create the mapping objects and set callbacks to handle the
@@ -84,54 +87,33 @@ class Domain extends \Papaya\Database\Record {
    * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
    * used to order the domain lists in some cases.
    *
-   * @return \Papaya\Database\Record\Mapping
+   * @return Database\Record\Mapping
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValue = [$this, 'callbackFieldSerialization'];
-    $mapping->callbacks()->onAfterMapping = [$this, 'callbackUpdateHostLength'];
-    return $mapping;
-  }
-
-  /**
-   * The "options" are an array, stored as xml string.
-   *
-   * @param $context
-   * @param int $mode
-   * @param string $property
-   * @param string $field
-   * @param mixed $value
-   *
-   * @return mixed
-   */
-  public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
-    if ('options' == $property) {
-      if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
-        return \Papaya\Utility\Text\XML::serializeArray($value);
-      } else {
-        return \Papaya\Utility\Text\XML::unserializeArray($value);
+    $mapping->callbacks()->onMapValue = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $property, $field, $value
+    ) {
+      if ('options' === $property) {
+        return (Database\Record\Mapping::PROPERTY_TO_FIELD === $mode)
+          ? Utility\Text\XML::serializeArray($value)
+          : Utility\Text\XML::unserializeArray($value);
       }
-    }
-    return $value;
-  }
-
-  /**
-   * Update the host length field before storing the data
-   *
-   * @param object $context
-   * @param int $mode
-   * @param array $values
-   * @param array $record
-   *
-   * @return array
-   */
-  public function callbackUpdateHostLength($context, $mode, $values, $record) {
-    if (\Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD == $mode) {
-      $result = $record;
-      $result['domain_hostlength'] = \strlen($record['domain_hostname']);
-    } else {
-      $result = $values;
-    }
-    return $result;
+      return $value;
+    };
+    $mapping->callbacks()->onAfterMapping = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $values, $record
+    ) {
+      if (Database\Record\Mapping::PROPERTY_TO_FIELD === $mode) {
+        $result = $record;
+        $result['domain_hostlength'] = \strlen($record['domain_hostname']);
+      } else {
+        $result = $values;
+      }
+      return $result;
+    };
+    return $mapping;
   }
 }

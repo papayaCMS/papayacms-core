@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for a language record.
  *
@@ -30,7 +32,7 @@ namespace Papaya\Content;
  * @property int $isInterface
  * @property int $isContent
  */
-class Language extends \Papaya\Database\Record\Lazy {
+class Language extends Database\Record\Lazy {
   /**
    * Map properties to database fields
    *
@@ -46,8 +48,15 @@ class Language extends \Papaya\Database\Record\Lazy {
     'is_content' => 'is_content_lng'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
+  protected $_tableName = Tables::LANGUAGES;
 
+  /**
+   * For BC allow to read the properties using the field names, this allows to drop in
+   * the language object for the old language record array
+   *
+   * @param string $name
+   * @return mixed
+   */
   public function offsetGet($name) {
     switch ($name) {
       case 'lng_id' :
@@ -62,6 +71,10 @@ class Language extends \Papaya\Database\Record\Lazy {
     return parent::offsetGet($name);
   }
 
+  /**
+   * @param string $name
+   * @return bool
+   */
   public function offsetExists($name) {
     switch ($name) {
       case 'lng_id' :
