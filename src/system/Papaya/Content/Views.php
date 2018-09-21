@@ -14,17 +14,19 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+
 /**
  * This object loads view records into a list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Views extends \Papaya\Database\Records\Lazy {
+class Views extends Database\Records\Lazy {
   /**
    * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
   protected $_fields = [
     'id' => 'v.view_id',
@@ -36,22 +38,22 @@ class Views extends \Papaya\Database\Records\Lazy {
   ];
 
   /**
-   * Table containing view informations
+   * Table containing view information
    *
    * @var string
    */
   protected $_tableName = Tables::VIEWS;
 
   /**
-   * Table containing module informations
+   * Table containing module information
    *
    * @var string
    */
   protected $_tableNameModules = Tables::MODULES;
 
   protected $_orderByProperties = [
-    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'id' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'title' => Database\Interfaces\Order::ASCENDING,
+    'id' => Database\Interfaces\Order::ASCENDING
   ];
 
   /**

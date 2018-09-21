@@ -14,6 +14,8 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+
 /**
  * Defines the tables used by the \Papaya\Content\* classes. Allows to prefix the
  * current table name with the defined table prefix.
@@ -201,7 +203,7 @@ class Tables extends \Papaya\Application\BaseObject {
     'PAPAYA_DB_TBL_BOXLINKS' => self::PAGE_BOXES,
     'PAPAYA_DB_TBL_CRONJOBS' => 'cronjobs',
     'PAPAYA_DB_TBL_IMAGES' => 'images',
-    'PAPAYA_DB_TBL_LINKTYPES' => 'linktypes',
+    'PAPAYA_DB_TBL_LINKTYPES' => self::PAGE_LINK_TYPES,
     'PAPAYA_DB_TBL_LNG' => self::LANGUAGES,
     'PAPAYA_DB_TBL_LOG' => 'log',
     'PAPAYA_DB_TBL_LOG_QUERIES' => 'log_queries',

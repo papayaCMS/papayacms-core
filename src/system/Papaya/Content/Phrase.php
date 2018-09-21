@@ -14,17 +14,26 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Encapsulation for translated phrase (get text like system)
  *
  * @package Papaya-Library
  * @subpackage Content
+ *
+ * @property int $id
+ * @property string $identifier
+ * @property string $text
+ * @property string $translation
+ * @property int $languageId
  */
-class Phrase extends \Papaya\Database\Record {
+class Phrase extends Database\Record {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
   protected $_fields = [
     'id' => 'p.phrase_id',
@@ -34,7 +43,7 @@ class Phrase extends \Papaya\Database\Record {
     'language_id' => 'pt.lng_id'
   ];
 
-  protected $_tableName = \Papaya\Content\Tables::PHRASES;
+  protected $_tableName = Tables::PHRASES;
 
   protected $_tableAlias = 'p';
 
@@ -50,12 +59,12 @@ class Phrase extends \Papaya\Database\Record {
     $sql = "SELECT $fields
               FROM %s AS p
               LEFT JOIN %s AS pt ON (pt.phrase_id = p.phrase_id AND pt.lng_id = '%d')";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf(
+    $sql .= Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter)
     );
     $parameters = [
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
+      $databaseAccess->getTableName(Tables::PHRASE_TRANSLATIONS),
       $languageId
     ];
     return $this->_loadRecord($sql, $parameters);
@@ -75,7 +84,7 @@ class Phrase extends \Papaya\Database\Record {
       $groupId = $group->save();
     }
     $databaseAccess = $this->getDatabaseAccess();
-    $linkTable = $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUP_LINKS);
+    $linkTable = $databaseAccess->getTableName(Tables::PHRASE_GROUP_LINKS);
     $sql = "SELECT COUNT(*) FROM %s WHERE phrase_id = '%d' AND module_id = '%d'";
     $parameters = [$linkTable, $this->id, $groupId];
     if (
@@ -96,7 +105,7 @@ class Phrase extends \Papaya\Database\Record {
 
   public function getGroup($title = NULL) {
     $identifier = \strtolower(\trim($title));
-    $group = new \Papaya\Content\Phrase\Group();
+    $group = new Phrase\Group();
     $group->papaya($this->papaya());
     $group->setDatabaseAccess($this->getDatabaseAccess());
     $group->activateLazyLoad(['identifier' => $identifier]);
