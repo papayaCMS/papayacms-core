@@ -14,6 +14,11 @@
  */
 namespace Papaya\Content\Theme;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Load/save a the theme set main record (contains name and id)
  *
@@ -25,7 +30,7 @@ namespace Papaya\Content\Theme;
  * @property string $theme
  * @property array $values
  */
-class Skin extends \Papaya\Database\Record {
+class Skin extends Database\Record {
   /**
    * Map field names to more convenient property names
    *
@@ -43,7 +48,7 @@ class Skin extends \Papaya\Database\Record {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::THEME_SKINS;
+  protected $_tableName = Content\Tables::THEME_SKINS;
 
   /**
    * @see \Papaya\Database\Records\Unbuffered::_createMapping()
@@ -76,7 +81,7 @@ class Skin extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \Papaya\Utility\Text\XML::unserializeArray((string)$value);
+      return Utility\Text\XML::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -96,7 +101,7 @@ class Skin extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \Papaya\Utility\Text\XML::serializeArray((array)$value);
+      return Utility\Text\XML::serializeArray((array)$value);
     }
     return $value;
   }
@@ -104,21 +109,21 @@ class Skin extends \Papaya\Database\Record {
   /**
    * Return the values as a xml document
    *
-   * @param \Papaya\Content\Structure $definition
+   * @param Content\Structure $definition
    *
    * @return \Papaya\XML\Document
    */
-  public function getValuesXML(\Papaya\Content\Structure $definition) {
+  public function getValuesXML(Content\Structure $definition) {
     return $definition->getXMLDocument(isset($this->values) ? $this->values : []);
   }
 
   /**
    * Loads the values from a xml document
    *
-   * @param \Papaya\Content\Structure $definition
-   * @param \Papaya\XML\Element $values
+   * @param Content\Structure $definition
+   * @param XML\Element $values
    */
-  public function setValuesXML(\Papaya\Content\Structure $definition, \Papaya\XML\Element $values) {
+  public function setValuesXML(Content\Structure $definition, XML\Element $values) {
     $this['values'] = $definition->getArray($values);
   }
 }
