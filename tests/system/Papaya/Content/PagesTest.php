@@ -328,7 +328,7 @@ class PagesTest extends \Papaya\TestCase {
    */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new Pages();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $pages->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
@@ -338,10 +338,11 @@ class PagesTest extends \Papaya\TestCase {
    */
   public function testMapValueReturnsValueByDefault() {
     $pages = new Pages();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $pages->mapping();
     $this->assertEquals(
       'success',
-      $pages->mapValue(
-        new \stdClass,
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'id',
         'topic_id',
@@ -355,10 +356,11 @@ class PagesTest extends \Papaya\TestCase {
    */
   public function testMapValueDecodesPath() {
     $pages = new Pages();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $pages->mapping();
     $this->assertEquals(
       array(21, 42),
-      $pages->mapValue(
-        new \stdClass,
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         'path',
         'prev_path',
@@ -372,10 +374,11 @@ class PagesTest extends \Papaya\TestCase {
    */
   public function testMapValueEncodesPath() {
     $pages = new Pages();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $pages->mapping();
     $this->assertEquals(
       ';21;42;',
-      $pages->mapValue(
-        new \stdClass,
+      $mapping->callbacks()->onMapValue(
         \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         'path',
         'prev_path',

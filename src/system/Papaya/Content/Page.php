@@ -14,6 +14,9 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide basic data encapsulation for the content page.
  *
@@ -50,7 +53,7 @@ namespace Papaya\Content;
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class Page extends \Papaya\Database\Record\Lazy {
+class Page extends Database\Record\Lazy {
   /**
    * Map properties to database fields
    *
@@ -106,7 +109,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGES;
+  protected $_tableName = Tables::PAGES;
 
   /**
    * Page translations list object
@@ -146,58 +149,30 @@ class Page extends \Papaya\Database\Record\Lazy {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = [
-      $this, 'callbackMapValueFromFieldToProperty'
-    ];
-    $mapping->callbacks()->onMapValueFromPropertyToField = [
-      $this, 'callbackMapValueFromPropertyToField'
-    ];
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+      /* @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'parent_path' :
+        case 'visitor_permissions' :
+          return Utility\Arrays::decodeIdList($value);
+      }
+      return $value;
+    };
+    $mapping->callbacks()->onMapValueFromPropertyToField = function(
+      /* @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'parent_path' :
+          return Utility\Arrays::encodeAndQuoteIdList(empty($value) ? [] : $value);
+        case 'visitor_permissions' :
+          return Utility\Arrays::encodeIdList(empty($value) ? [] : $value);
+      }
+      return $value;
+    };
     return $mapping;
-  }
-
-  /**
-   * Deserialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   *
-   * @return mixed
-   */
-  public function callbackMapValueFromFieldToProperty(
-    /* @noinspection PhpUnusedParameterInspection */
-    $context, $property, $field, $value
-  ) {
-    switch ($property) {
-      case 'parent_path' :
-      case 'visitor_permissions' :
-        return \Papaya\Utility\Arrays::decodeIdList($value);
-    }
-    return $value;
-  }
-
-  /**
-   * Serialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   *
-   * @return mixed
-   */
-  public function callbackMapValueFromPropertyToField(
-    /* @noinspection PhpUnusedParameterInspection */
-    $context, $property, $field, $value
-  ) {
-    switch ($property) {
-      case 'parent_path' :
-        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? [] : $value);
-      case 'visitor_permissions' :
-        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? [] : $value);
-    }
-    return $value;
   }
 
   /**
@@ -220,26 +195,19 @@ class Page extends \Papaya\Database\Record\Lazy {
     return $this->_translations;
   }
 
+  /**
+   * @return Database\Record\Callbacks
+   */
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
-    $callbacks->onBeforeInsert = [$this, 'callbackOnBeforeInsert'];
-    $callbacks->onBeforeUpdate = [$this, 'callbackOnBeforeUpdate'];
+    $callbacks->onBeforeInsert = function() {
+      $this->modified = $this->created = \time();
+      return TRUE;
+    };
+    $callbacks->onBeforeUpdate = function() {
+      $this->modified = \time();
+      return TRUE;
+    };
     return $callbacks;
-  }
-
-  /**
-   * @return bool
-   */
-  public function callbackOnBeforeUpdate() {
-    $this->modified = \time();
-    return TRUE;
-  }
-
-  /**
-   * @return bool
-   */
-  public function callbackOnBeforeInsert() {
-    $this->modified = $this->created = \time();
-    return TRUE;
   }
 }

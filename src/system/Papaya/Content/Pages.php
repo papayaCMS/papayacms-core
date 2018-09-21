@@ -14,17 +14,20 @@
  */
 namespace Papaya\Content;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * This object loads page data by different conditions.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Pages extends \Papaya\Database\Records\Lazy {
+class Pages extends Database\Records\Lazy {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
   protected $_fields = [
     'id' => 't.topic_id',
@@ -48,58 +51,58 @@ class Pages extends \Papaya\Database\Records\Lazy {
   ];
 
   protected $_orderByProperties = [
-    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'created' => \Papaya\Database\Interfaces\Order::ASCENDING
+    'title' => Database\Interfaces\Order::ASCENDING,
+    'created' => Database\Interfaces\Order::ASCENDING
   ];
 
   /**
-   * Table containing page informations
+   * Table containing page information
    *
    * @var string
    */
-  protected $_tablePages = \Papaya\Content\Tables::PAGES;
+  protected $_tablePages = Tables::PAGES;
 
   /**
-   * Table containing language specific page informations
+   * Table containing language specific page information
    *
    * @var string
    */
-  protected $_tablePageTranslations = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
+  protected $_tablePageTranslations = Tables::PAGE_TRANSLATIONS;
 
   /**
    * Table containing page publications
    *
    * @var string
    */
-  protected $_tablePagePublications = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
+  protected $_tablePagePublications = Tables::PAGE_PUBLICATIONS;
 
   /**
-   * Table containing user informations
+   * Table containing user information
    *
    * @var string
    */
-  protected $_tableAuthenticationUsers = \Papaya\Content\Tables::AUTHENTICATION_USERS;
+  protected $_tableAuthenticationUsers = Tables::AUTHENTICATION_USERS;
 
   /**
    * Table containing page views
    *
    * @var string
    */
-  protected $_tableViews = \Papaya\Content\Tables::VIEWS;
+  protected $_tableViews = Tables::VIEWS;
 
   /**
    * Table containing page view configurations for the output modes
    *
    * @var string
    */
-  protected $_tableViewConfigurations = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
+  protected $_tableViewConfigurations = Tables::VIEW_CONFIGURATIONS;
 
   /**
    * This defines if pages are only loaded, if they have a translation in the given language.
    *
    * @var bool
    */
-  private $_translationNeeded = FALSE;
+  private $_translationNeeded;
 
   /**
    * Define if a translation is needed, or pages without translations are loaded, too.
@@ -107,7 +110,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
    * @param bool $translationNeeded
    */
   public function __construct($translationNeeded = FALSE) {
-    $this->_translationNeeded = $translationNeeded;
+    $this->_translationNeeded = (bool)$translationNeeded;
   }
 
   /**
@@ -148,8 +151,8 @@ class Pages extends \Papaya\Database\Records\Lazy {
          LEFT JOIN %s AS v ON (v.view_id = tt.view_id)
          LEFT JOIN %s AS vm ON (vm.view_id = tt.view_id AND vm.viewmode_id = '%d')
          LEFT JOIN %s AS au ON (t.author_id = au.user_id)
-              ".\Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter)).'
-              '.\Papaya\Utility\Text::escapeForPrintf($this->_compileOrderBy());
+              ".Utility\Text::escapeForPrintf($this->_compileCondition($filter)).'
+              '.Utility\Text::escapeForPrintf($this->_compileOrderBy());
     $parameters = [
       $databaseAccess->getTableName($this->_tablePages),
       $databaseAccess->getTableName($this->_tablePageTranslations),
@@ -175,7 +178,7 @@ class Pages extends \Papaya\Database\Records\Lazy {
       $prefix = ' AND ';
     }
     if (isset($filter['ancestor_id']) && $filter['ancestor_id'] > 0) {
-      $ancestorFilter = new \Papaya\Database\Condition\Group($this);
+      $ancestorFilter = new Database\Condition\Group($this);
       $ancestorFilter
         ->isEqual('t.prev', $filter['ancestor_id'])
         ->logicalOr()
@@ -193,36 +196,27 @@ class Pages extends \Papaya\Database\Records\Lazy {
   /**
    * Overload the mapping object instantiation, to attach an callback for the mapping process.
    *
-   * @return \Papaya\Database\Interfaces\Mapping
+   * @return Database\Interfaces\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValue = [$this, 'mapValue'];
+    $mapping->callbacks()->onMapValue = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $property, $field, $value
+    ) {
+      if ('path' === $property) {
+        return Database\Record\Mapping::FIELD_TO_PROPERTY === $mode
+          ? Utility\Arrays::decodeIdList($value)
+          : ';'.Utility\Arrays::encodeIdList($value).';';
+      }
+      return $value;
+    };
     return $mapping;
   }
 
   /**
-   * Mapping callback that (un)serialzes the parent path field
-   *
-   * @param object $context
-   * @param int $mode
-   * @param string $property
-   * @param string $field
-   * @param mixed $value
-   *
-   * @return array|mixed|string
+   * @return bool
    */
-  public function mapValue($context, $mode, $property, $field, $value) {
-    if ('path' == $property) {
-      if (\Papaya\Database\Record\Mapping::FIELD_TO_PROPERTY == $mode) {
-        return \Papaya\Utility\Arrays::decodeIdList($value);
-      } else {
-        return ';'.\Papaya\Utility\Arrays::encodeIdList($value).';';
-      }
-    }
-    return $value;
-  }
-
   public function isPublic() {
     return FALSE;
   }
