@@ -14,18 +14,23 @@
  */
 namespace Papaya\Content\View;
 
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Plugin;
+use Papaya\Utility;
+
 /**
  * This object loads view records into a list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Configurations extends \Papaya\Database\Records\Lazy {
-  const TYPE_OUTPUT = \Papaya\Plugin\Types::OUTPUT;
+class Configurations extends Database\Records\Lazy {
+  const TYPE_OUTPUT = Plugin\Types::OUTPUT;
 
-  const TYPE_FILTER = \Papaya\Plugin\Types::FILTER;
+  const TYPE_FILTER = Plugin\Types::FILTER;
 
-  const TYPE_IMPORT = \Papaya\Plugin\Types::IMPORT;
+  const TYPE_IMPORT = Plugin\Types::IMPORT;
 
   /**
    * Map field names to more convenient property names
@@ -47,7 +52,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
+  protected $_tableName = Content\Tables::VIEW_CONFIGURATIONS;
 
   /**
    * @param array|string|int $filter
@@ -67,10 +72,10 @@ class Configurations extends \Papaya\Database\Records\Lazy {
     } else {
       $conditionOutput = $conditionData = '';
     }
-    $conditionOutput = \Papaya\Utility\Text::escapeForPrintf(
+    $conditionOutput = Utility\Text::escapeForPrintf(
       $conditionOutput.$this->_compileCondition($filter, $prefix)
     );
-    $conditionData = \Papaya\Utility\Text::escapeForPrintf(
+    $conditionData = Utility\Text::escapeForPrintf(
       $conditionData.$this->_compileCondition($filter, $prefix)
     );
     $sql = "SELECT vl.view_id,
@@ -93,12 +98,12 @@ class Configurations extends \Papaya\Database\Records\Lazy {
                JOIN %s m ON (m.module_guid = vm.module_guid)
                $conditionData";
     $parameters = [
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_CONFIGURATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_MODES),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTERS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES)
+      $databaseAccess->getTableName(Content\Tables::VIEW_CONFIGURATIONS),
+      $databaseAccess->getTableName(Content\Tables::VIEW_MODES),
+      $databaseAccess->getTableName(Content\Tables::MODULES),
+      $databaseAccess->getTableName(Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
+      $databaseAccess->getTableName(Content\Tables::VIEW_DATAFILTERS),
+      $databaseAccess->getTableName(Content\Tables::MODULES)
     ];
     return parent::_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
