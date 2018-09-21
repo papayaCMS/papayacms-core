@@ -165,14 +165,17 @@ namespace Papaya\Database\Statement {
 
     /**
      * @param string $parameterName
+     * @return $this
      */
     public function addNull($parameterName) {
       $this->addValue($parameterName, NULL, function() { return 'NULL'; });
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param string $value
+     * @return $this
      */
     public function addString($parameterName, $value) {
       $this->addValue(
@@ -182,11 +185,13 @@ namespace Papaya\Database\Statement {
           return $this->_databaseAccess->quoteString((string)$value);
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param string[]|string $values
+     * @return $this
      */
     public function addStringList($parameterName, $values) {
       $this->addValueList(
@@ -196,11 +201,13 @@ namespace Papaya\Database\Statement {
           return $this->_databaseAccess->quoteString((string)$value);
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param int $value
+     * @return $this
      */
     public function addInt($parameterName, $value) {
       $this->addValue(
@@ -210,11 +217,13 @@ namespace Papaya\Database\Statement {
           return (string)(int)$value;
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param int[]|int $values
+     * @return $this
      */
     public function addIntList($parameterName, $values) {
       $this->addValueList(
@@ -224,12 +233,14 @@ namespace Papaya\Database\Statement {
           return (string)(int)$value;
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param float $value
      * @param int $decimals
+     * @return $this
      */
     public function addFloat($parameterName, $value, $decimals = 8) {
       $this->addValue(
@@ -239,11 +250,13 @@ namespace Papaya\Database\Statement {
           return number_format((float)$value, $decimals);
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param bool $value
+     * @return $this
      */
     public function addBool($parameterName, $value) {
       $this->addValue(
@@ -253,12 +266,14 @@ namespace Papaya\Database\Statement {
           return $value ? 'true' : 'false';
         }
       );
+      return $this;
     }
 
     /**
      * @param string $parameterName
      * @param string $tableName
      * @param bool $usePrefix
+     * @return $this
      */
     public function addTableName($parameterName, $tableName, $usePrefix = TRUE) {
       $this->addValue(
@@ -270,6 +285,7 @@ namespace Papaya\Database\Statement {
           );
         }
       );
+      return $this;
     }
 
     /**

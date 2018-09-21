@@ -34,8 +34,9 @@ namespace Papaya\Database\Statement {
         $databaseAccess,
         'SELECT * FROM :a_table WHERE id = :id'
       );
-      $statement->addTableName('a_table', 'test');
-      $statement->addString('id', 'ab123');
+      $statement
+        ->addTableName('a_table', 'test')
+        ->addString('id', 'ab123');
 
       $this->assertEquals(
         "SELECT * FROM table_test WHERE id = 'ab123'",
@@ -61,8 +62,9 @@ namespace Papaya\Database\Statement {
         $databaseAccess,
         'SELECT * FROM :a_table WHERE id IN :id'
       );
-      $statement->addTableName('a_table', 'test');
-      $statement->addStringList('id', ['ab123', 'ef456']);
+      $statement
+        ->addTableName('a_table', 'test')
+        ->addStringList('id', ['ab123', 'ef456']);
 
       $this->assertEquals(
         "SELECT * FROM table_test WHERE id IN ('ab123', 'ef456')",
@@ -137,8 +139,9 @@ namespace Papaya\Database\Statement {
         $databaseAccess,
         'INSERT INTO test VALUES (:field1, :field2)'
       );
-      $statement->addInt('field1', 21);
-      $statement->addNull('field2');
+      $statement
+        ->addInt('field1', 21)
+        ->addNull('field2');
 
       $this->assertEquals(
         'INSERT INTO test VALUES (21, NULL)',
