@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Database;
+namespace Papaya\Database\Interfaces;
 
-/**
- * Papaya Database Object, superclass for classes with database access
- *
- * @package Papaya-Library
- * @subpackage Database
- */
-class BaseObject
-  implements \Papaya\Application\Access, Interfaces\Access {
+interface Statement {
 
-  use Interfaces\Access\Delegation;
+  /**
+   * @return string
+   */
+  public function getSQL();
+
+  /**
+   * @return string
+   */
+  public function __toString();
 }
