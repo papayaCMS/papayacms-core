@@ -15,14 +15,14 @@
 namespace Papaya\Database\Interfaces\Access;
 
 /**
- * @method boolean databaseAddField(string $table, array $fieldData)
- * @method boolean databaseAddIndex(string $table, array $index)
- * @method boolean databaseChangeField(string $table, array $fieldData)
- * @method boolean databaseChangeIndex(string $table, array $index)
+ * @method bool databaseAddField(string $table, array $fieldData)
+ * @method bool databaseAddIndex(string $table, array $index)
+ * @method bool databaseChangeField(string $table, array $fieldData)
+ * @method bool databaseChangeIndex(string $table, array $index)
  * @method void databaseClose()
  * @method true databaseCompareFieldStructure(array $xmlField, array $databaseField)
- * @method boolean databaseCompareKeyStructure()
- * @method boolean databaseCreateTable(string $tableData, string $tablePrefix)
+ * @method bool databaseCompareKeyStructure()
+ * @method bool databaseCreateTable(string $tableData, string $tablePrefix)
  * @method void databaseDebugNextQuery(integer $count = 1)
  * @method int databaseDeleteRecord(string $table, mixed $filter, mixed $value = NULL)
  * @method bool databaseDropField(string $table, string $field)
@@ -34,18 +34,18 @@ namespace Papaya\Database\Interfaces\Access;
  * @method string databaseGetProtocol()
  * @method string databaseGetSqlSource(string $function, array $params)
  * @method string databaseGetSqlCondition(array $filter, $value = NULL, $operator = '=')
- * @method int|string|FALSE databaseInsertRecord(string $table, mixed $idField, array $values = NULL)
- * @method int|string|FALSE databaseInsertRecords(string $table, array $values)
- * @method \Papaya\Database\Result|int|FALSE databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
- * @method \Papaya\Database\Result|int|FALSE databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
- * @method \Papaya\Database\Result|int|FALSE databaseQueryFmtWrite(string $sql, array $values)
- * @method \Papaya\Database\Result|int|FALSE databaseQueryWrite(string $sql)
- * @method int|FALSE databaseUpdateRecord(string $table, array $values, mixed $filter, mixed $value = NULL)
+ * @method int|string|false databaseInsertRecord(string $table, mixed $idField, array $values = NULL)
+ * @method int|string|false databaseInsertRecords(string $table, array $values)
+ * @method \Papaya\Database\Result|int|false databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+ * @method \Papaya\Database\Result|int|false databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+ * @method \Papaya\Database\Result|int|false databaseQueryFmtWrite(string $sql, array $values)
+ * @method \Papaya\Database\Result|int|false databaseQueryWrite(string $sql)
+ * @method int|false databaseUpdateRecord(string $table, array $values, mixed $filter, mixed $value = NULL)
  * @method array databaseQueryTableNames()
  * @method array databaseQueryTableStructure(string $tableName)
  * @method string databaseGetTableName($tableIdentifier, $usePrefix = TRUE)
  * @method int databaseGetTimestamp()
- * @method int|string|NULL databaseLastInsertId(string $table, string $idField)
+ * @method int|string|null databaseLastInsertId(string $table, string $idField)
  */
 trait Delegation {
   use Aggregation;
@@ -59,15 +59,15 @@ trait Delegation {
    * @return mixed
    */
   public function __call($functionName, $arguments) {
-    if (0 === strpos($functionName, 'database')) {
-      $delegateFunction = strtolower($functionName[8]).substr($functionName, 9);
+    if (0 === \strpos($functionName, 'database')) {
+      $delegateFunction = \strtolower($functionName[8]).\substr($functionName, 9);
       $access = $this->getDatabaseAccess();
-      return call_user_func_array(array($access, $delegateFunction), $arguments);
+      return \call_user_func_array([$access, $delegateFunction], $arguments);
     }
     throw new \BadMethodCallException(
-      sprintf(
+      \sprintf(
         'Invalid function call. Method %s::%s does not exist.',
-        get_class($this),
+        \get_class($this),
         $functionName
       )
     );

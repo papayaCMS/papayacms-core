@@ -229,10 +229,10 @@ class Access extends \Papaya\Application\BaseObject {
    */
   public function quoteIdentifier($identifier) {
     $connector = $this->getDatabaseConnector();
-    if (method_exists($connector, 'quoteIdentifier')) {
+    if (\method_exists($connector, 'quoteIdentifier')) {
       return $connector->quoteIdentifier($identifier);
     }
-    if (preg_match('([a-zA-Z\\d_])', $identifier)) {
+    if (\preg_match('([a-zA-Z\\d_])', $identifier)) {
       return $identifier;
     }
     return '_invalid_identifier_';

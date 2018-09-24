@@ -12,14 +12,14 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Statement {
 
   class Formatted
     implements \Papaya\Database\Interfaces\Statement {
-
     private $_sql;
+
     private $_parameters;
+
     private $_databaseAccess;
 
     public function __construct(\Papaya\Database\Access $databaseAccess, $sql, array $parameters = []) {
@@ -35,7 +35,7 @@ namespace Papaya\Database\Statement {
     public function getSQL() {
       return \vsprintf(
         $this->_sql,
-        array_map(
+        \array_map(
           function($value) {
             return $this->_databaseAccess->escapeString($value);
           },

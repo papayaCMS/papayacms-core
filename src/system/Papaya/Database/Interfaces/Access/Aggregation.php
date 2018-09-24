@@ -12,17 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Interfaces\Access;
 
 trait Aggregation {
-
   use \Papaya\Application\Access\Aggregation;
 
   /**
    * Database read uri
    *
-   * @var string|NULL
+   * @var string|null
    */
   private $_databaseURIs = [
     'read' => NULL,
@@ -37,8 +35,8 @@ trait Aggregation {
   protected $_databaseAccessObject;
 
   /**
-   * @param NULL|string $read
-   * @param NULL|string $write
+   * @param null|string $read
+   * @param null|string $write
    */
   public function setDatabaseURIs($read, $write = NULL) {
     $this->_databaseURIs = [
