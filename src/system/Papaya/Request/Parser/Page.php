@@ -23,11 +23,12 @@ namespace Papaya\Request\Parser;
 class Page extends \Papaya\Request\Parser {
 
   /**
-   * PCRE pattern for page links
-   *
-   * @var string
-   */
-  private $_pattern = '(/
+  * PCRE pattern for page links
+  *
+  * @var string
+  */
+  private $_pattern = '(
+    ^(/[^/\n?#]+)*/ # anything before the last path /
     (?:(?P<page_title>(?:%[\\dA-Fa-f]{2}|[\\sa-zA-Z\\d_-]+)+)\\.) # title
     (?:(?P<category_id>\\d+)\\.)? # category id
     (?:(?P<page_id>\\d+)\\.) # page id
