@@ -18,6 +18,9 @@
 # Build Artifacts
 /build/
 
+# CS Fixer
+.php_cs.cache
+
 # PHP built-in webserver log
 /php-server.log
 
