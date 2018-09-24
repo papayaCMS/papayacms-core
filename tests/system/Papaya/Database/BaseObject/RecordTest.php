@@ -68,7 +68,7 @@ namespace Papaya\Database\BaseObject {
         ->method('insertRecord')
         ->with(
           'table_sample_table',
-          'sample_id',
+          23,
           array(
             'sample_title' => 'title text'
           )
@@ -76,7 +76,7 @@ namespace Papaya\Database\BaseObject {
         ->will($this->returnValue(TRUE));
       $item = new Record_TestProxy();
       $item->_fields = array(
-        'id' => 'sample_id',
+        'id' => '23',
         'title' => 'sample_title'
       );
       $item->_values = array(

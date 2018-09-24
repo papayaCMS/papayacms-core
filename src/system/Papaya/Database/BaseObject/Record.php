@@ -14,6 +14,9 @@
  */
 namespace Papaya\Database\BaseObject;
 
+use Papaya\Application;
+use Papaya\Database;
+
 /**
  * Papaya Database Access Record, a single row database result
  *
@@ -23,8 +26,9 @@ namespace Papaya\Database\BaseObject;
  * @subpackage Database
  */
 abstract class Record
-  extends \Papaya\Database\BaseObject
-  implements \Papaya\Database\Interfaces\Record {
+   implements Application\Access, Database\Interfaces\Record {
+  use Database\Interfaces\Access\Delegation;
+
   /**
    * field name mapping (dynamic properties)
    *
@@ -93,13 +97,12 @@ abstract class Record
    */
   protected function _saveRecordWithAutoId($convertValuesCallback = NULL) {
     $table = $this->databaseGetTableName($this->_tableName);
-    if (empty($this->id)) {
+    if (!(isset($this->_values['id']) && (int)$this->_values['id'] > 0)) {
       return $this->_insertRecord($table, 'id', $convertValuesCallback);
-    } else {
-      return $this->_updateRecord(
-        $table, [$this->_fields['id'] => $this->id], $convertValuesCallback
-      );
     }
+    return $this->_updateRecord(
+      $table, [$this->_fields['id'] => (int)$this->_values['id']], $convertValuesCallback
+    );
   }
 
   /**
@@ -125,7 +128,8 @@ abstract class Record
             [$idField => $this->_values['id']],
             $convertValuesCallback
           );
-        } elseif ($this->_insertRecord($table, NULL, $convertValuesCallback)) {
+        }
+        if ($this->_insertRecord($table, NULL, $convertValuesCallback)) {
           return $this->_values['id'];
         }
       }
@@ -144,8 +148,10 @@ abstract class Record
   protected function _deleteRecord($tableName, array $properties) {
     $filter = [];
     foreach ($properties as $property) {
-      if (!empty($this->_fields[$property]) &&
-        isset($this->$property)) {
+      if (
+        isset($this->$property) &&
+        !empty($this->_fields[$property])
+      ) {
         $filter[$this->_fields[$property]] = $this->$property;
       }
     }
@@ -229,8 +235,9 @@ abstract class Record
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       return $this->_values[$offset];
-    } elseif ($this->offsetExists($offset)) {
-      return;
+    }
+    if ($this->offsetExists($offset)) {
+      return NULL;
     }
     throw new \OutOfBoundsException(
       \sprintf('Invalid field name "%s" in "%s"', $offset, \get_class($this))
@@ -354,13 +361,14 @@ abstract class Record
    * @return bool
    */
   protected function _loadRecord($sql, array $parameters, $convertRecordCallback = NULL) {
-    if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      if ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
-        $this->_values = $this->_applyCallback(
-          $convertRecordCallback, [$this, 'convertRecordToValues'], $row
-        );
-        return TRUE;
-      }
+    if (
+      ($result = $this->databaseQueryFmt($sql, $parameters)) &&
+      ($row = $result->fetchRow(Database\Result::FETCH_ASSOC))
+    ) {
+      $this->_values = $this->_applyCallback(
+        $convertRecordCallback, [$this, 'convertRecordToValues'], $row
+      );
+      return TRUE;
     }
     return FALSE;
   }
@@ -378,7 +386,7 @@ abstract class Record
     $record = $this->_applyCallback(
       $convertValuesCallback, [$this, 'convertValuesToRecord'], $this->_values
     );
-    if (isset($identifier)) {
+    if (NULL !== $identifier) {
       $identifierField = $this->_fields[$identifier];
       if (isset($record[$identifierField])) {
         unset($record[$identifierField]);
@@ -387,7 +395,7 @@ abstract class Record
       $identifierField = NULL;
     }
     if ($newId = $this->databaseInsertRecord($table, $identifierField, $record)) {
-      if (isset($identifierField)) {
+      if (NULL !== $identifierField) {
         return $this->_values[$identifier] = $newId;
       }
       return TRUE;
@@ -417,7 +425,7 @@ abstract class Record
    * Apply one of two callbacks to data.
    *
    * If the first argument is NULL the second is used. The method is to apply a individual callback
-   * if availiable and use a fallback callback if nessessary.
+   * if available and use a fallback callback if necessary.
    *
    * @throws \UnexpectedValueException
    *
@@ -428,14 +436,11 @@ abstract class Record
    * @return array
    */
   protected function _applyCallback($actual, $default, array $data) {
-    $callback = \is_null($actual) ? $default : $actual;
-    if (isset($callback) && \is_callable($callback)) {
-      return \call_user_func($callback, $data);
-    } else {
-      throw new \UnexpectedValueException(
-        'Invalid callback provided.'
-      );
+    $callback = NULL === $actual ? $default : $actual;
+    if (\is_callable($callback)) {
+      return $callback($data);
     }
+    throw new \UnexpectedValueException('Invalid callback provided.');
   }
 
   /**

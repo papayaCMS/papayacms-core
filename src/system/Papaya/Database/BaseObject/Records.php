@@ -14,6 +14,10 @@
  */
 namespace Papaya\Database\BaseObject;
 
+use Papaya\Application;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Papaya Database Record List, a list of records from a database.
  *
@@ -23,8 +27,9 @@ namespace Papaya\Database\BaseObject;
  * @subpackage Database
  */
 abstract class Records
-  extends \Papaya\Database\BaseObject
-  implements \IteratorAggregate, \Countable {
+   implements Application\Access, Database\Interfaces\Access, \IteratorAggregate, \Countable {
+  use Database\Interfaces\Access\Delegation;
+
   /**
    * Absolute record count (for paging)
    *
@@ -85,7 +90,7 @@ abstract class Records
    * @return array|null
    */
   public function item($offset) {
-    return (isset($this->_records[$offset])) ? $this->_records[$offset] : NULL;
+    return isset($this->_records[$offset]) ? $this->_records[$offset] : NULL;
   }
 
   /**
@@ -100,22 +105,20 @@ abstract class Records
     if ($position < 0) {
       $position = \count($list) + $position;
     }
-    return (isset($list[$position])) ? $list[$position] : NULL;
+    return isset($list[$position]) ? $list[$position] : NULL;
   }
 
   /**
    * Assign an array to this object as the replacement for all records.
    *
    * @param array|\Traversable $data
-   *
-   * @return array
    */
   public function assign($data) {
     $this->_records = [];
-    foreach (\Papaya\Utility\Arrays::ensure($data) as $id => $row) {
+    foreach (Utility\Arrays::ensure($data) as $id => $row) {
       $record = [];
       foreach ($row as $field => $value) {
-        if (\in_array($field, $this->_fieldMapping)) {
+        if (\in_array($field, $this->_fieldMapping, TRUE)) {
           $record[$field] = $value;
         }
       }
@@ -146,20 +149,19 @@ abstract class Records
       $this->_fetchRecords($databaseResult, $idField);
       $this->_recordCount = $databaseResult->absCount();
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
    * Converts the record from database into a values array using the mapping array.
    *
-   * @param \Papaya\Database\Result $databaseResult
+   * @param Database\Result $databaseResult
    * @param string $idField
    */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = [];
-    while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
+    while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
       $record = [];
       foreach ($row as $field => $value) {
         if (!empty($this->_fieldMapping[$field])) {
