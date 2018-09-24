@@ -14,13 +14,18 @@
  */
 namespace Papaya\Controller;
 
+use Papaya\Application;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
+
 /**
  * Papaya controller superclass with media database access
  *
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller {
+class Media extends Application\BaseObject implements Controller {
   /**
    * @var \base_mediadb
    */
@@ -29,25 +34,23 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
   /**
    * Execute controller
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
    *
-   * @return bool|\Papaya\Controller
+   * @return bool|Controller
    */
   public function execute(
     /* @noinspection ReferencingObjectsInspection */
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     $this->papaya($application);
-    /** @var \Papaya\Request $request */
-    $request = $application->getObject('Request');
-    $isPreview = $request->getParameter('preview', '', NULL, \Papaya\Request::SOURCE_PATH);
-    $mediaId = $request->getParameter('media_id', '', NULL, \Papaya\Request::SOURCE_PATH);
+    $isPreview = $request->getParameter('preview', '', NULL, Request::SOURCE_PATH);
+    $mediaId = $request->getParameter('media_id', '', NULL, Request::SOURCE_PATH);
     $mediaVersion = $request->getParameter(
-      'media_version', 0, NULL, \Papaya\Request::SOURCE_PATH
+      'media_version', 0, NULL, Request::SOURCE_PATH
     );
     if (!empty($mediaId)) {
       $file = $this->getMediaDatabase()->getFile($mediaId, $mediaVersion);

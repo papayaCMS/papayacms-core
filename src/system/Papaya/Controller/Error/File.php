@@ -14,13 +14,15 @@
  */
 namespace Papaya\Controller\Error;
 
+use Papaya\Controller;
+
 /**
  * Papaya Controller class for error pages with template file
  *
  * @package Papaya-Library
  * @subpackage Controller
  */
-class File extends \Papaya\Controller\Error {
+class File extends Controller\Error {
   /**
    * Set template data from file
    *

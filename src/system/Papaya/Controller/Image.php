@@ -14,13 +14,18 @@
  */
 namespace Papaya\Controller;
 
+use Papaya\Application;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
+
 /**
  * Papaya controller class for dynamic images
  *
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Image implements \Papaya\Controller {
+class Image implements Controller {
   private $_imageGenerator;
 
   /**
@@ -38,7 +43,7 @@ class Image implements \Papaya\Controller {
    * @return \base_imagegenerator
    */
   public function getImageGenerator() {
-    if (\is_null($this->_imageGenerator)) {
+    if (NULL === $this->_imageGenerator) {
       $this->_imageGenerator = new \base_imagegenerator();
     }
     return $this->_imageGenerator;
@@ -47,43 +52,41 @@ class Image implements \Papaya\Controller {
   /**
    * Execute controller
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
+   * @param Application|Application\CMS $application
+   * @param Request &$request
+   * @param Response &$response
    *
-   * @return bool|\Papaya\Controller
+   * @return bool|Controller
    */
   public function execute(
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    /** @noinspection ReferencingObjectsInspection */
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     $imgGenerator = $this->getImageGenerator();
     $imgGenerator->publicMode = $request->getParameter(
-      'preview', TRUE, NULL, \Papaya\Request::SOURCE_PATH
+      'preview', TRUE, NULL, Request::SOURCE_PATH
     );
     if ($imgGenerator->publicMode || $application->administrationUser->isLoggedIn()) {
-      $ident = $request->getParameter(
-        'image_identifier', '', NULL, \Papaya\Request::SOURCE_PATH
+      $identifier = $request->getParameter(
+        'image_identifier', '', NULL, Request::SOURCE_PATH
       );
-      if (!empty($ident) &&
-        $imgGenerator->loadByIdent($ident)) {
+      if (!empty($identifier) &&
+        $imgGenerator->loadByIdent($identifier)) {
         if ($imgGenerator->generateImage()) {
           return TRUE;
-        } else {
-          return \Papaya\Controller\Factory::createError(
-            500, 'DYNAMIC_IMAGE_CREATE', $imgGenerator->lastError
-          );
         }
-      } else {
-        return \Papaya\Controller\Factory::createError(
-          404, 'DYNAMIC_IMAGE_NOT_FOUND', 'Image identifier not found'
+        return Factory::createError(
+          500, 'DYNAMIC_IMAGE_CREATE', $imgGenerator->lastError
         );
       }
-    } else {
-      return \Papaya\Controller\Factory::createError(
-        403, 'DYNAMIC_IMAGE_ACCESS', 'Permission denied'
+      return Factory::createError(
+        404, 'DYNAMIC_IMAGE_NOT_FOUND', 'Image identifier not found'
       );
     }
+    return Factory::createError(
+      403, 'DYNAMIC_IMAGE_ACCESS', 'Permission denied'
+    );
   }
 }

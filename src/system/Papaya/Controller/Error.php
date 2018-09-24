@@ -14,13 +14,19 @@
  */
 namespace Papaya\Controller;
 
+use Papaya\Application;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Papaya controller class for error pages
  *
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller {
+class Error extends Application\BaseObject implements Controller {
   /**
    * HTTP response status
    *
@@ -126,21 +132,22 @@ class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller
   /**
    * Execute controller
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
    *
-   * @return bool|\Papaya\Controller
+   * @return bool|Controller
    */
   public function execute(
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    /** @noinspection ReferencingObjectsInspection */
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     $response->setStatus($this->_status);
     $response->setContentType('text/html');
     $response->content(
-      new \Papaya\Response\Content\Text($this->_getOutput())
+      new Response\Content\Text($this->_getOutput())
     );
     return TRUE;
   }
@@ -152,11 +159,11 @@ class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller
    */
   protected function _getOutput() {
     $replace = [
-      '{%status%}' => \Papaya\Utility\Text\XML::escape($this->_status),
-      '{%artwork%}' => \Papaya\Utility\Text\ASCII\Artwork::get($this->_status),
-      '{%identifier%}' => \Papaya\Utility\Text\XML::escape($this->_errorIdentifier),
-      '{%message%}' => \Papaya\Utility\Text\XML::escape($this->_errorMessage),
-      '{%host%}' => \Papaya\Utility\Text\XML::escape(\Papaya\Utility\Server\Name::get()),
+      '{%status%}' => Utility\Text\XML::escape($this->_status),
+      '{%artwork%}' => Utility\Text\ASCII\Artwork::get($this->_status),
+      '{%identifier%}' => Utility\Text\XML::escape($this->_errorIdentifier),
+      '{%message%}' => Utility\Text\XML::escape($this->_errorMessage),
+      '{%host%}' => Utility\Text\XML::escape(Utility\Server\Name::get()),
     ];
     return \str_replace(
       \array_keys($replace),
