@@ -26,7 +26,8 @@ class PapayaRequestParserPage extends PapayaRequestParser {
   *
   * @var string
   */
-  private $_pattern = '(/
+  private $_pattern = '(
+    ^(/[^/\n?#]+)*/ # anything before the last path /
     (?:(?P<page_title>(?:%[\\dA-Fa-f]{2}|[\\sa-zA-Z\\d_-]+)+)\\.) # title
     (?:(?P<category_id>\\d+)\\.)? # category id
     (?:(?P<page_id>\\d+)\\.) # page id

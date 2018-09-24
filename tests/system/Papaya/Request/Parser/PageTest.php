@@ -142,6 +142,16 @@ class PapayaRequestParserPageTest extends PapayaTestCase {
           'page_title' => 'title%20with%20spaces',
           'language' => 'en'
         )
+      ),
+      array(
+        '/sid2fb2e3bd142f20e238d39b64eb6d3195/url-with-sid.2042.de.html',
+        array(
+          'mode' => 'page',
+          'output_mode' => 'html',
+          'page_id' => 2042,
+          'page_title' => 'url-with-sid',
+          'language' => 'de'
+        )
       )
     );
   }
