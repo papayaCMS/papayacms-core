@@ -14,6 +14,8 @@
  */
 namespace Papaya\CSV;
 
+use Papaya\Utility;
+
 /**
  * CSV reader class
  *
@@ -48,8 +50,8 @@ class Reader {
    * @param string $fileName
    */
   public function __construct($fileName) {
-    \Papaya\Utility\Constraints::assertString($fileName);
-    \Papaya\Utility\Constraints::assertNotEmpty($fileName);
+    Utility\Constraints::assertString($fileName);
+    Utility\Constraints::assertNotEmpty($fileName);
     $this->_fileName = $fileName;
   }
 
@@ -59,7 +61,7 @@ class Reader {
    * @param int $size
    */
   public function setMaximumFileSize($size) {
-    \Papaya\Utility\Constraints::assertInteger($size);
+    Utility\Constraints::assertInteger($size);
     $this->_maxFileSize = $size;
   }
 
@@ -69,7 +71,7 @@ class Reader {
    * @param int $size
    */
   public function setMaximumLineSize($size) {
-    \Papaya\Utility\Constraints::assertInteger($size);
+    Utility\Constraints::assertInteger($size);
     $this->_maxLineSize = $size;
   }
 
@@ -87,23 +89,24 @@ class Reader {
    * @throws \LengthException
    */
   public function isValid($allowLocal = FALSE) {
-    if (\file_exists($this->_fileName) &&
+    if (
+      \file_exists($this->_fileName) &&
       \is_file($this->_fileName) &&
-      \is_readable($this->_fileName)) {
+      \is_readable($this->_fileName)
+    ) {
       if ($allowLocal || \is_uploaded_file($this->_fileName)) {
         $fileSize = \filesize($this->_fileName);
         if ($fileSize <= 0) {
           throw new \LengthException('File is empty.');
-        } elseif ($this->_maxFileSize > 0 && $fileSize > $this->_maxFileSize) {
+        }
+        if ($this->_maxFileSize > 0 && $fileSize > $this->_maxFileSize) {
           throw new \LengthException('File is to large.');
         }
         return TRUE;
-      } else {
-        throw new \LogicException('Local files are not allowed.');
       }
-    } else {
-      throw new \UnexpectedValueException('Can not read file.');
+      throw new \LogicException('Local files are not allowed.');
     }
+    throw new \UnexpectedValueException('Can not read file.');
   }
 
   /**
@@ -145,7 +148,7 @@ class Reader {
       \fclose($fh);
       return $result;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -154,7 +157,7 @@ class Reader {
    * @return \Resource
    */
   protected function _getFileResource() {
-    return \fopen($this->_fileName, 'r');
+    return \fopen($this->_fileName, 'rb');
   }
 
   /**
@@ -172,12 +175,12 @@ class Reader {
     \fgets($fh, $this->_maxLineSize);
     // better take the second line
     $line = \fgets($fh, $this->_maxLineSize);
-    $separator = self::_getFirstCharacter($line, [',', ';', "\t"]);
-    if (isset($separator) && '' != $separator) {
+    $separator = $this->_getFirstCharacter($line, [',', ';', "\t"]);
+    if (NULL !== $separator && '' !== $separator) {
       $result['separator'] = $separator;
     }
-    $enclosure = self::_getFirstCharacter($line, ['"', "'"]);
-    if (isset($enclosure) && '' != $enclosure) {
+    $enclosure = $this->_getFirstCharacter($line, ['"', "'"]);
+    if (NULL !== $enclosure && '' !== $enclosure) {
       $result['enclosure'] = $enclosure;
     }
     \fseek($fh, 0, SEEK_SET);
@@ -193,19 +196,18 @@ class Reader {
    * @return string $char character that occurs first, otherwise an empty string
    */
   protected function _getFirstCharacter($string, $characters) {
+    $charPos = [];
     foreach ($characters as $char) {
       $position = \strpos($string, $char);
-      // if string doesn't contain char, 0 is returned -> check if str[0] is char
-      if ($position > 0 || $string[0] == $char) {
+      if (FALSE !== $position) {
         $charPos[$position] = $char;
       }
     }
-    if (isset($charPos) && \is_array($charPos) && \count($charPos) > 0) {
+    if (\count($charPos) > 0) {
       // order chars by position
       \ksort($charPos);
       // result is char with lowest position
-      $result = (string)\array_shift($charPos);
-      return $result;
+      return (string)\array_shift($charPos);
     }
     return '';
   }
@@ -213,16 +215,16 @@ class Reader {
   /**
    * Read a line from csv, parse it into an array and reutrn array and new offset
    *
-   * @param \Resource $fh
+   * @param resource $fh
    * @param string $delimiter
    * @param string $enclosure
    *
-   * @return array(array,integer)
+   * @return array|false
    */
   protected function _readLine($fh, $delimiter, $enclosure) {
-    $delimiter = \preg_quote($delimiter);
-    $enclosure = \preg_quote($enclosure);
-    $escape = \preg_quote($enclosure);
+    $delimiter = \preg_quote($delimiter, '(');
+    $enclosure = \preg_quote($enclosure, '(');
+    $escape = \preg_quote($enclosure, '(');
     $prefix = '(?:^)';
     $postfix = "(?:$delimiter|$)";
     $quotedValue = "(?:$enclosure((?:[^$enclosure]|$escape$enclosure)*)$enclosure)";

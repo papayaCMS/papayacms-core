@@ -14,6 +14,9 @@
  */
 namespace Papaya\CSV;
 
+use Papaya\BaseObject;
+use Papaya\Utility;
+
 /**
  * CSV writer allows you write data as csv into a stream or output.
  *
@@ -27,7 +30,7 @@ namespace Papaya\CSV;
  * @property-read int $separatorLength
  * @property string $quote
  */
-class Writer {
+class Writer implements BaseObject\Interfaces\Properties {
   private $_callbacks;
 
   private $_stream;
@@ -50,15 +53,35 @@ class Writer {
    * @param bool $addByteOrderMark optional, default FALSE
    */
   public function __construct($stream = NULL, $addByteOrderMark = FALSE) {
-    if (isset($stream)) {
+    if (NULL !== $stream) {
       $this->_stream = $stream;
     }
     if ($addByteOrderMark) {
-      if (isset($this->_stream)) {
+      if (NULL !== $this->_stream) {
         \fwrite($this->_stream, \chr(239).\chr(187).\chr(191));
       } else {
         echo \chr(239).\chr(187).\chr(191);
       }
+    }
+  }
+
+  /**
+   * @param string $name
+   * @return bool
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'stream' :
+      case 'linebreak' :
+      case 'encodedLinebreak' :
+      case 'separator' :
+      case 'separatorLength' :
+      case 'quote' :
+        return TRUE;
+      default :
+        throw new \UnexpectedValueException(
+          \sprintf('Can not read undefined property "%s".', $name)
+        );
     }
   }
 
@@ -106,15 +129,15 @@ class Writer {
         $this->_stream = $value;
       break;
       case 'linebreak' :
-        \Papaya\Utility\Constraints::assertString($value);
+        Utility\Constraints::assertString($value);
         $this->_linebreak = $value;
       break;
       case 'encodedLinebreak' :
-        \Papaya\Utility\Constraints::assertString($value);
+        Utility\Constraints::assertString($value);
         $this->_encodedLinebreak = $value;
       break;
       case 'separator' :
-        \Papaya\Utility\Constraints::assertString($value);
+        Utility\Constraints::assertString($value);
         $this->_separator = $value;
         $this->_separatorLength = \strlen($this->_separator);
       break;
@@ -123,7 +146,7 @@ class Writer {
           \sprintf('Can not write read only property "%s".', $name)
         );
       case 'quote' :
-        \Papaya\Utility\Constraints::assertString($value);
+        Utility\Constraints::assertString($value);
         $this->_quote = $value;
       break;
       default :
@@ -131,6 +154,15 @@ class Writer {
           \sprintf('Can not write undefined property "%s".', $name)
         );
     }
+  }
+
+  /**
+   * @param string $name
+   */
+  public function __unset($name) {
+    throw new \UnexpectedValueException(
+      \sprintf('Can not unset property "%s".', $name)
+    );
   }
 
   /**
@@ -164,7 +196,7 @@ class Writer {
    * @param array|\Traversable $list
    */
   public function writeList($list) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($list);
+    Utility\Constraints::assertArrayOrTraversable($list);
     foreach ($list as $row) {
       $this->writeRow($row);
     }
@@ -186,7 +218,7 @@ class Writer {
         $result .= $this->_separator.$this->quoteValue($value);
       }
       $this->writeString(\substr($result, $this->_separatorLength).$this->_linebreak);
-      if (!isset($this->_stream)) {
+      if (NULL === $this->_stream) {
         \flush();
       }
     }
@@ -201,11 +233,11 @@ class Writer {
    */
   private function quoteValue($value) {
     $quotesNeeded =
-      '('.\preg_quote($this->_quote).'|'.\preg_quote($this->_separator).'|[\r\n])';
+      '('.\preg_quote($this->_quote, '(').'|'.\preg_quote($this->_separator, '(').'|[\r\n])';
     if (\preg_match($quotesNeeded, $value)) {
       $encoded = \preg_replace(
         [
-          '('.\preg_quote($this->_quote).')',
+          '('.\preg_quote($this->_quote, '(').')',
           "(\r\n|\n\r|[\r\n])"
         ],
         [
@@ -215,9 +247,8 @@ class Writer {
         $value
       );
       return $this->_quote.$encoded.$this->_quote;
-    } else {
-      return $value;
     }
+    return $value;
   }
 
   /**
@@ -226,7 +257,7 @@ class Writer {
    * @param string $string
    */
   private function writeString($string) {
-    if (isset($this->_stream)) {
+    if (NULL !== $this->_stream) {
       \fwrite($this->_stream, $string);
     } else {
       echo $string;
@@ -241,9 +272,9 @@ class Writer {
    * @return Writer\Callbacks
    */
   public function callbacks(Writer\Callbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (\is_null($this->_callbacks)) {
+    } elseif (NULL === $this->_callbacks) {
       $this->_callbacks = new Writer\Callbacks();
     }
     return $this->_callbacks;
