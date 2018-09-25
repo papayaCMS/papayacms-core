@@ -32,7 +32,7 @@ namespace Papaya\Database\Records {
       $records->setDatabaseAccess($databaseAccess);
       $records->activateLazyLoad();
       $this->assertEquals(
-        array(),
+        array([], NULL, NULL),
         $records->getLazyLoadParameters()
       );
     }

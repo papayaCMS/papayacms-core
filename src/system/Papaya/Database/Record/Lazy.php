@@ -33,10 +33,10 @@ abstract class Lazy
   /**
    * Define lazy load parameters and activate it.
    *
-   * @param array $arguments
+   * @param array|int|string $filter
    */
-  public function activateLazyLoad(...$arguments) {
-    $this->_loadingParameters = $arguments;
+  public function activateLazyLoad($filter) {
+    $this->_loadingParameters = [$filter];
     $this->clear();
   }
 

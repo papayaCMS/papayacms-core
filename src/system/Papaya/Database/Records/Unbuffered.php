@@ -14,49 +14,39 @@
  */
 namespace Papaya\Database\Records;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- *
- * @link http://www.papaya-cms.com/
- *
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
+use Papaya\Application;
+use Papaya\Database;
+use Papaya\Utility;
+
 abstract class Unbuffered
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Database\Interfaces\Access, \IteratorAggregate, \Countable {
+  implements Application\Access, Database\Interfaces\Access, \IteratorAggregate, \Countable {
+  use Application\Access\Aggregation;
+
   /**
    * Stored database access object
    *
-   * @var \Papaya\Database\Access
+   * @var Database\Access
    */
   private $_databaseAccessObject;
 
   /**
    * The database result of the last loading query.
    *
-   * @var \Papaya\Database\Result
+   * @var Database\Result
    */
   private $_databaseResult;
 
   /**
    * Mapping object
    *
-   * @var \Papaya\Database\Interfaces\Mapping
+   * @var Database\Interfaces\Mapping
    */
   private $_mapping;
 
   /**
    * Order object
    *
-   * @var \Papaya\Database\Interfaces\Order
+   * @var Database\Interfaces\Order
    */
   private $_orderBy;
 
@@ -94,8 +84,6 @@ abstract class Unbuffered
   protected $_useTablePrefix = TRUE;
 
   /**
-   * A class for individual records, used by {@see self::getItem()}
-   *
    * @var string
    */
   protected $_itemClass;
@@ -112,7 +100,7 @@ abstract class Unbuffered
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf(
+    $sql .= Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = [
@@ -135,7 +123,7 @@ abstract class Unbuffered
     $this->_databaseResult = NULL;
     $databaseAccess = $this->getDatabaseAccess();
     $databaseResult = $databaseAccess->queryFmt($sql, $parameters, $limit, $offset);
-    if ($databaseResult instanceof \Papaya\Database\Result) {
+    if ($databaseResult instanceof Database\Result) {
       $this->_databaseResult = $databaseResult;
       return TRUE;
     }
@@ -145,10 +133,10 @@ abstract class Unbuffered
   /**
    * Create a filter condition object attached to this database accesss and mapping
    *
-   * @return \Papaya\Database\Condition\Root
+   * @return Database\Condition\Root
    */
   public function createFilter() {
-    return new \Papaya\Database\Condition\Root($this, $this->mapping());
+    return new Database\Condition\Root($this, $this->mapping());
   }
 
   /**
@@ -160,18 +148,17 @@ abstract class Unbuffered
    * @return string
    */
   protected function _compileCondition($filter, $prefix = ' WHERE ') {
-    if (isset($filter)) {
-      if ($filter instanceof \Papaya\Database\Condition\Element) {
+    if (NULL !== $filter) {
+      if ($filter instanceof Database\Condition\Element) {
         $condition = $filter->getSql();
         return empty($condition) ? '' : $prefix.$condition;
-      } else {
-        if (!\is_array($filter)) {
-          $filter = ['id' => $filter];
-        }
-        $generator = new \Papaya\Database\Condition\Generator($this, $this->mapping());
-        $condition = $generator->fromArray($filter)->getSql(TRUE);
-        return empty($condition) ? '' : $prefix.$condition;
       }
+      if (!\is_array($filter)) {
+        $filter = ['id' => $filter];
+      }
+      $generator = new Database\Condition\Generator($this, $this->mapping());
+      $condition = $generator->fromArray($filter)->getSql(TRUE);
+      return empty($condition) ? '' : $prefix.$condition;
     }
     return '';
   }
@@ -193,14 +180,14 @@ abstract class Unbuffered
    * Getter/Setter for the mapping subobject. This is used to convert the property values into
    * a database record and back.
    *
-   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @param Database\Interfaces\Mapping $mapping
    *
-   * @return \Papaya\Database\Interfaces\Mapping
+   * @return Database\Interfaces\Mapping
    */
-  public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
-    if (isset($mapping)) {
+  public function mapping(Database\Interfaces\Mapping $mapping = NULL) {
+    if (NULL !== $mapping) {
       $this->_mapping = $mapping;
-    } elseif (\is_null($this->_mapping)) {
+    } elseif (NULL === $this->_mapping) {
       $this->_mapping = $this->_createMapping();
     }
     return $this->_mapping;
@@ -209,10 +196,10 @@ abstract class Unbuffered
   /**
    * Create a standard mapping object for the property $_fields.
    *
-   * @return \Papaya\Database\Record\Mapping
+   * @return Database\Record\Mapping
    */
   protected function _createMapping() {
-    return new \Papaya\Database\Record\Mapping($this->_fields);
+    return new Database\Record\Mapping($this->_fields);
   }
 
   /**
@@ -220,14 +207,14 @@ abstract class Unbuffered
    * select statement. It is possible that the method return FALSE, indicating that
    * here should be no order by clause.
    *
-   * @param \Papaya\Database\Interfaces\Order $orderBy
+   * @param Database\Interfaces\Order $orderBy
    *
-   * @return \Papaya\Database\Interfaces\Order|false
+   * @return Database\Interfaces\Order|false
    */
-  public function orderBy(\Papaya\Database\Interfaces\Order $orderBy = NULL) {
-    if (isset($orderBy)) {
+  public function orderBy(Database\Interfaces\Order $orderBy = NULL) {
+    if (NULL !== $orderBy) {
       $this->_orderBy = $orderBy;
-    } elseif (\is_null($this->_orderBy)) {
+    } elseif (NULL === $this->_orderBy) {
       $this->_orderBy = $this->_createOrderBy();
     }
     return $this->_orderBy;
@@ -237,21 +224,21 @@ abstract class Unbuffered
    * Create a standard order object using the property $_orderByFields. If the property is empty
    * the method will return FALSE.
    *
-   * @return \Papaya\Database\Interfaces\Order|false
+   * @return Database\Interfaces\Order|false
    */
   protected function _createOrderBy() {
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {
       return FALSE;
     }
-    $result = new \Papaya\Database\Record\Order\Group();
+    $result = new Database\Record\Order\Group();
     if (!empty($this->_orderByProperties)) {
       $result->add(
-        new \Papaya\Database\Record\Order\By\Properties($this->_orderByProperties, $this->mapping())
+        new Database\Record\Order\By\Properties($this->_orderByProperties, $this->mapping())
       );
     }
     if (!empty($this->_orderByFields)) {
       $result->add(
-        new \Papaya\Database\Record\Order\By\Fields($this->_orderByFields)
+        new Database\Record\Order\By\Fields($this->_orderByFields)
       );
     }
     return $result;
@@ -278,9 +265,8 @@ abstract class Unbuffered
   public function absCount() {
     if ($databaseResult = $this->databaseResult()) {
       return $databaseResult->absCount();
-    } else {
-      return $this->count();
     }
+    return $this->count();
   }
 
   /**
@@ -307,15 +293,15 @@ abstract class Unbuffered
    * @return \Iterator
    */
   protected function getResultIterator() {
-    if (!($this->databaseResult() instanceof \Papaya\Database\Result)) {
+    if (!($this->databaseResult() instanceof Database\Result)) {
       return new \EmptyIterator();
     }
-    $iterator = new \Papaya\Database\Result\Iterator($this->databaseResult());
+    $iterator = new Database\Result\Iterator($this->databaseResult());
     $mapping = $this->mapping();
     $iterator->setMapping(
-      $mapping instanceof \Papaya\Database\Record\Mapping\Cache
+      $mapping instanceof Database\Record\Mapping\Cache
         ? $mapping
-        : new \Papaya\Database\Record\Mapping\Cache($mapping)
+        : new Database\Record\Mapping\Cache($mapping)
     );
     return $iterator;
   }
@@ -323,12 +309,12 @@ abstract class Unbuffered
   /**
    * Getter/Setter for the current database result object
    *
-   * @param \Papaya\Database\Result $databaseResult
+   * @param Database\Result $databaseResult
    *
-   * @return null|\Papaya\Database\Result
+   * @return null|Database\Result
    */
-  public function databaseResult(\Papaya\Database\Result $databaseResult = NULL) {
-    if (isset($databaseResult)) {
+  public function databaseResult(Database\Result $databaseResult = NULL) {
+    if (NULL !== $databaseResult) {
       $this->_databaseResult = $databaseResult;
     }
     return $this->_databaseResult;
@@ -337,19 +323,19 @@ abstract class Unbuffered
   /**
    * Set database access object
    *
-   * @param \Papaya\Database\Access $databaseAccessObject
+   * @param Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
+  public function setDatabaseAccess(Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
    * Get database access object
    *
-   * @return \Papaya\Database\Access
+   * @return Database\Access
    */
   public function getDatabaseAccess() {
-    if (!isset($this->_databaseAccessObject)) {
+    if (NULL === $this->_databaseAccessObject) {
       $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess($this);
     }
     return $this->_databaseAccessObject;
@@ -364,12 +350,11 @@ abstract class Unbuffered
    * @throws \LogicException
    */
   protected function _createItem() {
-    if (isset($this->_itemClass)) {
+    if (NULL !== $this->_itemClass) {
       $class = $this->_itemClass;
       return new $class();
-    } else {
-      throw new \LogicException('No item class for records defined');
     }
+    throw new \LogicException('No item class for records defined');
   }
 
   /**

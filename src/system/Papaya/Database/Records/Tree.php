@@ -14,6 +14,9 @@
  */
 namespace Papaya\Database\Records;
 
+use Papaya\Database;
+use Papaya\Iterator;
+
 /**
  * Papaya Database Records Tree - reads an parent child tree from database.
  *
@@ -22,14 +25,14 @@ namespace Papaya\Database\Records;
  */
 abstract class Tree extends Lazy {
   /**
-   * identifing a record - the child identifier
+   * identifying a record - the child identifier
    *
    * @var array
    */
   protected $_identifierProperties = ['id'];
 
   /**
-   * identifing a parent record - the parent identifier
+   * identifying a parent record - the parent identifier
    *
    * @var array
    */
@@ -83,10 +86,10 @@ abstract class Tree extends Lazy {
    * Return a tree iterator for the loaded records starting with the children of the virtual
    * element zero.
    *
-   * @return \Papaya\Iterator\Tree\Children
+   * @return Iterator\Tree\Children
    */
   public function getIterator() {
     $this->lazyLoad();
-    return new \Papaya\Iterator\Tree\Children($this->_records, $this->_children);
+    return new Iterator\Tree\Children($this->_records, $this->_children);
   }
 }

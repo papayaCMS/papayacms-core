@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Records;
 
+use Papaya\Database;
+
 /**
  * Papaya Database List, represents a list of records fetched from the database. Additionally
  * to the loading prozess is triggered by access the data.
@@ -27,7 +29,7 @@ namespace Papaya\Database\Records;
  * @package Papaya-Library
  * @subpackage Database
  */
-abstract class Lazy extends \Papaya\Database\Records {
+abstract class Lazy extends Database\Records {
   private $_loadingParameters;
 
   /**
@@ -38,7 +40,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    * @param null|int $offset
    */
   public function activateLazyLoad($filter = [], $limit = NULL, $offset = NULL) {
-    $this->_loadingParameters = \func_get_args();
+    $this->_loadingParameters = [$filter, $limit, $offset];
     $this->_records = NULL;
   }
 
@@ -56,7 +58,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    */
   protected function lazyLoad() {
     if (NULL !== $this->_loadingParameters) {
-      \call_user_func_array([$this, 'load'], $this->_loadingParameters);
+      $this->load(...$this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
