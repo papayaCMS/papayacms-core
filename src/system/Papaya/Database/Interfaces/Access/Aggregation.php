@@ -14,8 +14,11 @@
  */
 namespace Papaya\Database\Interfaces\Access;
 
+use Papaya\Application;
+use Papaya\Database;
+
 trait Aggregation {
-  use \Papaya\Application\Access\Aggregation;
+  use Application\Access\Aggregation;
 
   /**
    * Database read uri
@@ -30,7 +33,7 @@ trait Aggregation {
   /**
    * Stored database access object
    *
-   * @var \Papaya\Database\Access
+   * @var Database\Access
    */
   protected $_databaseAccessObject;
 
@@ -48,23 +51,23 @@ trait Aggregation {
   /**
    * Set database access object
    *
-   * @param \Papaya\Database\Access $databaseAccessObject
+   * @param Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
+  public function setDatabaseAccess(Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
    * Get database access object
    *
-   * @return \Papaya\Database\Access
+   * @return Database\Access
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = new \Papaya\Database\Access(
+      $this->_databaseAccessObject = new Database\Access(
         $this, $this->_databaseURIs['read'], $this->_databaseURIs['write']
       );
-      if ($this instanceof \Papaya\Application\Access) {
+      if ($this instanceof Application\Access) {
         $this->_databaseAccessObject->papaya($this->papaya());
       }
     }

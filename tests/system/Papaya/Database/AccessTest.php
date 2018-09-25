@@ -482,10 +482,10 @@ class AccessTest extends \Papaya\TestCase {
    ************************************/
 
   /**
-   * @throws Exception\Query
+   * @throws Exception\QueryFailed
    */
   public function callbackThrowDatabaseError() {
-    throw new Exception\Query(
+    throw new Exception\QueryFailed(
       'Simulated Error', 23, NULL, 'SELECT simulation'
     );
   }

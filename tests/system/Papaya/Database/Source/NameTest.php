@@ -52,7 +52,7 @@ class NameTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Source\Name::setName
    */
   public function testConstructorWithEmptyDsnExpectingException() {
-    $this->expectException(\Papaya\Database\Exception\Connect::class);
+    $this->expectException(\Papaya\Database\Exception\ConnectionFailed::class);
     new Name('');
   }
 
@@ -61,7 +61,7 @@ class NameTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Source\Name::setName
    */
   public function testConstructorWithInvalidDsnExpectingException() {
-    $this->expectException(\Papaya\Database\Exception\Connect::class);
+    $this->expectException(\Papaya\Database\Exception\ConnectionFailed::class);
     new Name('xxx');
   }
 
@@ -71,7 +71,7 @@ class NameTest extends \Papaya\TestCase {
    * @dataProvider provideValidDatabaseSourceNames
    * @param string $name
    * @param mixed $expected
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   public function testSetName($name, $expected) {
     $dsn = new Name($name);
@@ -101,7 +101,7 @@ class NameTest extends \Papaya\TestCase {
    * @dataProvider provideValidPropertyNames
    * @param string $property
    * @param mixed $expected
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   public function testMagicMethodGet($property, $expected) {
     $dsn = new Name('mysqli(mysql)://user:pass@server:42/database');

@@ -30,12 +30,12 @@ class dbcon_pgsql extends dbcon_base {
    * Check that the pgsql extension is available
    *
    * @access public
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
   function extensionFound() {
     if (!extension_loaded('pgsql')) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "pgsql" not available.'
       );
     }
@@ -46,7 +46,7 @@ class dbcon_pgsql extends dbcon_base {
    * Establish connection to database
    *
    * @access public
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws Exception
    * @return resource $this->databaseConnection connection ID
    */
@@ -78,7 +78,7 @@ class dbcon_pgsql extends dbcon_base {
       }
       if (isset($connection) && is_resource($connection)) {
         if (pg_set_client_encoding($connection, 'UNICODE') !== 0) {
-          throw new \Papaya\Database\Exception\Connect(
+          throw new \Papaya\Database\Exception\ConnectionFailed(
             'Can not set client encoding for database connection.'
           );
         }
@@ -90,7 +90,7 @@ class dbcon_pgsql extends dbcon_base {
   }
 
   public function handleConnectionError($code, $message) {
-    throw new \Papaya\Database\Exception\Connect(
+    throw new \Papaya\Database\Exception\ConnectionFailed(
       strip_tags(str_replace('&quot;', '"', $message)), $code
     );
   }
@@ -110,7 +110,7 @@ class dbcon_pgsql extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws \Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\QueryFailed
    * @param string $sql
    * @return bool|resource
    */
@@ -125,11 +125,11 @@ class dbcon_pgsql extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return \Papaya\Database\Exception\Query
+   * @return \Papaya\Database\Exception\QueryFailed
    */
   private function _createQueryException($sql) {
     $errorMessage = pg_last_error($this->databaseConnection);
-    return new \Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\QueryFailed(
       empty($errorMessage) ? 'Unknown PostgreSQL error.' : $errorMessage, 0, NULL, $sql
     );
   }
@@ -879,7 +879,7 @@ class dbcon_pgsql extends dbcon_base {
     $result = NULL;
     try {
       return $this->changeIndex($table, $index, FALSE);
-    } catch (\Papaya\Database\Exception\Query $e) {
+    } catch (\Papaya\Database\Exception\QueryFailed $e) {
       $logMessage = new \Papaya\Message\Log(
         \Papaya\Message\Logable::GROUP_DATABASE,
         \Papaya\Message::SEVERITY_ERROR,

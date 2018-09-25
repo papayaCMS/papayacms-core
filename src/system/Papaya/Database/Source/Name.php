@@ -61,7 +61,7 @@ class Name {
    *
    * @param string $name
    *
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   public function __construct($name) {
     $this->setName($name);
@@ -98,11 +98,11 @@ class Name {
    *
    * @param string $name
    *
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Can not initialize database connection from empty dsn.'
       );
     }
@@ -164,7 +164,7 @@ class Name {
         $this->_parameters = new \Papaya\Request\Parameters();
       }
     } else {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Can not initialize database connection from invalid dsn.'
       );
     }

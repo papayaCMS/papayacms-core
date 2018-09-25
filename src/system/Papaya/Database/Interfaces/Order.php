@@ -19,5 +19,8 @@ interface Order {
 
   const DESCENDING = 1;
 
+  /**
+   * @return string
+   */
   public function __toString();
 }

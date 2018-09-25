@@ -22,13 +22,30 @@ interface Record
   Properties,
   \ArrayAccess,
   \IteratorAggregate {
+  /**
+   * @param $data
+   * @return array|\Traversable
+   */
   public function assign($data);
 
+  /**
+   * @return array
+   */
   public function toArray();
 
+  /**
+   * @param array $filter
+   * @return bool
+   */
   public function load($filter);
 
+  /**
+   * @return bool|Key
+   */
   public function save();
 
+  /**
+   * @return bool
+   */
   public function delete();
 }

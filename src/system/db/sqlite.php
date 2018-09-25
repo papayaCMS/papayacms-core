@@ -41,12 +41,12 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Check for sqlite database extension found
    *
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
   public function extensionFound() {
     if (!extension_loaded('sqlite')) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "sqlite" not available.'
       );
     }
@@ -56,7 +56,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return resource $this->databaseConnection connection ID
    */
   public function connect() {
@@ -70,7 +70,7 @@ class dbcon_sqlite extends dbcon_base {
         $this->databaseConnection = $connection;
         return TRUE;
       } else {
-        throw new \Papaya\Database\Exception\Connect($error);
+        throw new \Papaya\Database\Exception\ConnectionFailed($error);
       }
     }
   }
@@ -88,7 +88,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws \Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\QueryFailed
    * @param string $sql
    * @return \SQLiteResult
    */
@@ -103,7 +103,7 @@ class dbcon_sqlite extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return \Papaya\Database\Exception\Query
+   * @return \Papaya\Database\Exception\QueryFailed
    */
   private function _createQueryException($sql) {
     $errorCode = sqlite_last_error($this->databaseConnection);
@@ -125,7 +125,7 @@ class dbcon_sqlite extends dbcon_base {
     } else {
       $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
-    return new \Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\QueryFailed(
       $errorMessage, $errorCode, $severity, $sql
     );
   }

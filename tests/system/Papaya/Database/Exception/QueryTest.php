@@ -20,31 +20,31 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class QueryTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Database\Exception\Query::__construct
+   * @covers \Papaya\Database\Exception\QueryFailed::__construct
    */
   public function testConstructorWithMessage() {
-    $exception = new Query('Sample');
+    $exception = new QueryFailed('Sample');
     $this->assertEquals(
       'Sample', $exception->getMessage()
     );
   }
 
   /**
-   * @covers \Papaya\Database\Exception\Query::__construct
+   * @covers \Papaya\Database\Exception\QueryFailed::__construct
    */
   public function testConstructorWithCode() {
-    $exception = new Query('Sample', 42);
+    $exception = new QueryFailed('Sample', 42);
     $this->assertEquals(
       42, $exception->getCode()
     );
   }
 
   /**
-   * @covers \Papaya\Database\Exception\Query::__construct
-   * @covers \Papaya\Database\Exception\Query::getSeverity
+   * @covers \Papaya\Database\Exception\QueryFailed::__construct
+   * @covers \Papaya\Database\Exception\QueryFailed::getSeverity
    */
   public function testConstructorWithSeverity() {
-    $exception = new Query(
+    $exception = new QueryFailed(
       'Sample', 42, \Papaya\Database\Exception::SEVERITY_INFO
     );
     $this->assertEquals(
@@ -53,22 +53,22 @@ class QueryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Database\Exception\Query::__construct
-   * @covers \Papaya\Database\Exception\Query::getSeverity
+   * @covers \Papaya\Database\Exception\QueryFailed::__construct
+   * @covers \Papaya\Database\Exception\QueryFailed::getSeverity
    */
   public function testConstructorWithNullAsSeverity() {
-    $exception = new Query('Sample', 42, NULL);
+    $exception = new QueryFailed('Sample', 42, NULL);
     $this->assertEquals(
       \Papaya\Database\Exception::SEVERITY_ERROR, $exception->getSeverity()
     );
   }
 
   /**
-   * @covers \Papaya\Database\Exception\Query::__construct
-   * @covers \Papaya\Database\Exception\Query::getStatement
+   * @covers \Papaya\Database\Exception\QueryFailed::__construct
+   * @covers \Papaya\Database\Exception\QueryFailed::getStatement
    */
   public function testConstructorWithSql() {
-    $exception = new Query(
+    $exception = new QueryFailed(
       'Sample', 42, \Papaya\Database\Exception::SEVERITY_INFO, 'Select SQL'
     );
     $this->assertEquals(

@@ -14,14 +14,16 @@
  */
 namespace Papaya\Database\Interfaces;
 
+use Papaya\Database;
+
 interface Access {
   /**
-   * @return \Papaya\Database\Access
+   * @return Database\Access
    */
   public function getDatabaseAccess();
 
   /**
-   * @param \Papaya\Database\Access $access
+   * @param Database\Access $access
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $access);
+  public function setDatabaseAccess(Database\Access $access);
 }

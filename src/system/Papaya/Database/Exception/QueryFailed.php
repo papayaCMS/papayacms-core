@@ -14,13 +14,15 @@
  */
 namespace Papaya\Database\Exception;
 
+use Papaya\Database;
+
 /**
  * Papaya database query exception, thrown on sql errors
  *
  * @package Papaya-Library
  * @subpackage Database
  */
-class Query extends \Papaya\Database\Exception {
+class QueryFailed extends Database\Exception {
   /**
    * Sent sql query
    *

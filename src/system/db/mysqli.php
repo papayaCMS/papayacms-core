@@ -31,12 +31,12 @@ class dbcon_mysqli extends dbcon_base {
    * Check that the mysqli extension is available
    *
    * @access public
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
   function extensionFound() {
     if (!extension_loaded('mysqli')) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "mysqli" not available.'
       );
     }
@@ -47,7 +47,7 @@ class dbcon_mysqli extends dbcon_base {
    * Establish connection to database
    *
    * @access public
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
   function connect() {
@@ -84,7 +84,7 @@ class dbcon_mysqli extends dbcon_base {
         }
         return TRUE;
       }
-      throw new \Papaya\Database\Exception\Connect(mysqli_connect_error(), mysqli_connect_errno());
+      throw new \Papaya\Database\Exception\ConnectionFailed(mysqli_connect_error(), mysqli_connect_errno());
     }
   }
 
@@ -105,7 +105,7 @@ class dbcon_mysqli extends dbcon_base {
    * Wrap query execution so we can convert the erorr to an exception
    *
    * @param string $sql
-   * @throws \Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\QueryFailed
    * @return MySQLi_result
    */
   public function executeQuery($sql) {
@@ -119,7 +119,7 @@ class dbcon_mysqli extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return \Papaya\Database\Exception\Query
+   * @return \Papaya\Database\Exception\QueryFailed
    */
   private function _createQueryException($sql) {
     $errorCode = $this->databaseConnection->errno;
@@ -137,7 +137,7 @@ class dbcon_mysqli extends dbcon_base {
     } else {
       $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
-    return new \Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\QueryFailed(
       $errorMessage, $errorCode, $severity, $sql
     );
   }

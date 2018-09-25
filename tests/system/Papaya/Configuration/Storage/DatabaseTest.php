@@ -76,7 +76,7 @@ class DatabaseTest extends \Papaya\TestCase {
     $response
       ->expects($this->once())
       ->method('sendHeader')
-      ->with('X-Papaya-Error: Papaya\Database\Exception\Query: Sample Error Message');
+      ->with('X-Papaya-Error: Papaya\Database\Exception\QueryFailed: Sample Error Message');
 
     $storage = new Database();
     $storage->papaya(
@@ -88,7 +88,7 @@ class DatabaseTest extends \Papaya\TestCase {
       )
     );
 
-    $exception = new \Papaya\Database\Exception\Query(
+    $exception = new \Papaya\Database\Exception\QueryFailed(
       'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
@@ -112,7 +112,7 @@ class DatabaseTest extends \Papaya\TestCase {
       )
     );
 
-    $exception = new \Papaya\Database\Exception\Query(
+    $exception = new \Papaya\Database\Exception\QueryFailed(
       'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);

@@ -418,7 +418,7 @@ class Access extends \Papaya\Application\BaseObject {
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );
       $logMsg->context()->append(new \Papaya\Message\Context\Backtrace(3));
-      if ($exception instanceof \Papaya\Database\Exception\Query) {
+      if ($exception instanceof \Papaya\Database\Exception\QueryFailed) {
         $logMsg->context()->append(new \Papaya\Message\Context\Text($exception->getStatement()));
       }
       $this->papaya()->messages->dispatch($logMsg);

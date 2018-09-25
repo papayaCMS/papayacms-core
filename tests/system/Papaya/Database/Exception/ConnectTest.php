@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class ConnectTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Database\Exception\Connect::__construct
+   * @covers \Papaya\Database\Exception\ConnectionFailed::__construct
    */
   public function testConstructorWithMessage() {
-    $exception = new Connect('Sample');
+    $exception = new ConnectionFailed('Sample');
     $this->assertEquals(
       'Sample', $exception->getMessage()
     );
@@ -33,10 +33,10 @@ class ConnectTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Database\Exception\Connect::__construct
+   * @covers \Papaya\Database\Exception\ConnectionFailed::__construct
    */
   public function testConstructorWithCode() {
-    $exception = new Connect('Sample', 42);
+    $exception = new ConnectionFailed('Sample', 42);
     $this->assertEquals(
       42, $exception->getCode()
     );

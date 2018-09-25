@@ -920,7 +920,7 @@ class papaya_installer extends base_db {
       if ($database->connect($this, FALSE)) {
         return TRUE;
       }
-    } catch (\Papaya\Database\Exception\Connect $e) {
+    } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
     } catch (InvalidArgumentException $e) {
     }
     return FALSE;

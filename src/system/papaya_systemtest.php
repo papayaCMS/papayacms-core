@@ -425,7 +425,7 @@ class papaya_systemtest {
       if (extension_loaded($uriData->api)) {
         return TESTRESULT_OK;
       }
-    } catch (\Papaya\Database\Exception\Connect $e) {
+    } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
     }
     return TESTRESULT_FAILED;
   }
@@ -445,7 +445,7 @@ class papaya_systemtest {
       if ($database->connect($this, TRUE) && $database->connect($this, FALSE)) {
         return TESTRESULT_OK;
       }
-    } catch (\Papaya\Database\Exception\Connect $e) {
+    } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
       $this->resultTestMessages[$title] = $e->getMessage();
     }
     return TESTRESULT_FAILED;

@@ -36,12 +36,12 @@ class dbcon_mysql extends dbcon_base {
   /**
   * Check that the mysql extension is available
   *
-  * @throws \Papaya\Database\Exception\Connect
+  * @throws \Papaya\Database\Exception\ConnectionFailed
   * @return bool
   */
   public function extensionFound() {
     if (!extension_loaded('mysql')) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "mysql" not available.'
       );
     }
@@ -51,7 +51,7 @@ class dbcon_mysql extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws \Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
   public function connect() {
@@ -85,7 +85,7 @@ class dbcon_mysql extends dbcon_base {
           $connection
         );
         if (!$selected) {
-          throw new \Papaya\Database\Exception\Connect(
+          throw new \Papaya\Database\Exception\ConnectionFailed(
             sprintf(
               'Could not select database "%s".',
               $this->databaseConfiguration->database
@@ -103,7 +103,7 @@ class dbcon_mysql extends dbcon_base {
           return TRUE;
         }
       }
-      throw new \Papaya\Database\Exception\Connect(mysql_error(), mysql_errno());
+      throw new \Papaya\Database\Exception\ConnectionFailed(mysql_error(), mysql_errno());
     }
   }
 
@@ -199,7 +199,7 @@ class dbcon_mysql extends dbcon_base {
    * Wrap query execution so we can convert the erorr to an exception
    *
    * @param string $sql
-   * @throws \Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\QueryFailed
    * @return boolean|NULL|resource on success a resource if a result set is
    *   available, otherwise TRUE; on failure NULL
    */
@@ -214,7 +214,7 @@ class dbcon_mysql extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return \Papaya\Database\Exception\Query
+   * @return \Papaya\Database\Exception\QueryFailed
    */
   private function _createQueryException($sql) {
     $errorCode = mysql_errno($this->databaseConnection);
@@ -232,7 +232,7 @@ class dbcon_mysql extends dbcon_base {
     } else {
       $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
-    return new \Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\QueryFailed(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
