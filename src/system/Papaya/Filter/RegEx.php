@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for using a pcre pattern
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class RegEx implements \Papaya\Filter {
+class RegEx implements Filter {
   /**
    * Minimum password length
    *
@@ -53,7 +55,7 @@ class RegEx implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
@@ -69,7 +71,7 @@ class RegEx implements \Papaya\Filter {
    *
    * If a submatch identifier is available, it returns the submatch.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
@@ -77,6 +79,6 @@ class RegEx implements \Papaya\Filter {
     if (\preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
       return $matches[$this->_subMatch];
     }
-    return;
+    return NULL;
   }
 }

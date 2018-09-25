@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Locale\Germany;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for German zip code
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Zip implements \Papaya\Filter {
+class Zip implements Filter {
   /**
    * Check flag for country prefix
    *
@@ -43,13 +45,13 @@ class Zip implements \Papaya\Filter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Filter\Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @throws \Papaya\Filter\Exception\InvalidLength\ToShort
-   * @throws \Papaya\Filter\Exception\InvalidLength\ToLong
-   * @throws \Papaya\Filter\Exception\InvalidCharacter
+   * @throws Filter\Exception\InvalidLength\ToShort
+   * @throws Filter\Exception\InvalidLength\ToLong
+   * @throws Filter\Exception\InvalidCharacter
    *
    * @return true
    */
@@ -69,18 +71,18 @@ class Zip implements \Papaya\Filter {
       $matches
     );
     if ($found && TRUE === $this->_allowCountryPrefix && empty($matches['prefix'])) {
-      throw new \Papaya\Filter\Exception\InvalidCharacter($value, 0);
+      throw new Filter\Exception\InvalidCharacter($value, 0);
     }
     if (!$found || empty($matches['zipcode']) || \strlen($matches['zipcode']) < 5) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToShort(5, \strlen($matches['zipcode']));
+      throw new Filter\Exception\InvalidLength\ToShort(5, \strlen($matches['zipcode']));
     }
     if (\strlen($matches['zipcode']) > 5) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToLong(5, \strlen($matches['zipcode']));
+      throw new Filter\Exception\InvalidLength\ToLong(5, \strlen($matches['zipcode']));
     }
     $wrongMatches = [];
     $wrongFound = \preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);
     if ($wrongFound) {
-      throw new \Papaya\Filter\Exception\InvalidCharacter($matches['zipcode'], $wrongMatches[0][1]);
+      throw new Filter\Exception\InvalidCharacter($matches['zipcode'], $wrongMatches[0][1]);
     }
     return TRUE;
   }
@@ -88,7 +90,7 @@ class Zip implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
@@ -96,8 +98,8 @@ class Zip implements \Papaya\Filter {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+    } catch (Filter\Exception $e) {
+      return NULL;
     }
   }
 }

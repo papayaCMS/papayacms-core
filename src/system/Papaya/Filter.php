@@ -83,9 +83,8 @@ interface Filter {
    *
    * If the input is invalid it should NULL
    *
-   * @param mixed|null $value
-   *
-   * @return mixed
+   * @param mixed $value
+   * @return mixed|null
    */
   public function filter($value);
 
@@ -98,7 +97,7 @@ interface Filter {
    *
    * @param mixed $value
    *
-   * @return bool
+   * @return true
    */
   public function validate($value);
 }

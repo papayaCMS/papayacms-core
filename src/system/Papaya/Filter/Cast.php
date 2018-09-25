@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class that casts the value into the specified type.
  *
@@ -22,7 +24,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Cast implements \Papaya\Filter {
+class Cast implements Filter {
   /**
    * target type the value should be cast to.
    *
@@ -35,7 +37,7 @@ class Cast implements \Papaya\Filter {
    *
    * @var int
    */
-  private $_typeMapping = [
+  private static $_typeMapping = [
     'bool' => 'boolean',
     'boolean' => 'boolean',
     'double' => 'float',
@@ -54,8 +56,8 @@ class Cast implements \Papaya\Filter {
    * @throws \InvalidArgumentException
    */
   public function __construct($type) {
-    if (isset($this->_typeMapping[$type])) {
-      $this->_type = $this->_typeMapping[$type];
+    if (isset(self::$_typeMapping[$type])) {
+      $this->_type = self::$_typeMapping[$type];
     } else {
       throw new \InvalidArgumentException(\sprintf('"%s" is not a valid type.', $type));
     }
@@ -64,7 +66,7 @@ class Cast implements \Papaya\Filter {
   /**
    * This filter does not validate values, it just filters (casts) them.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
@@ -75,9 +77,9 @@ class Cast implements \Papaya\Filter {
   /**
    * The filter function casts the value into the target type.
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @return int|null
+   * @return mixed
    */
   public function filter($value) {
     \settype($value, $this->_type);

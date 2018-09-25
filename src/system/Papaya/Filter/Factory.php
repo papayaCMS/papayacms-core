@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * A filter factory to create filter objects for from data structures using profiles
  *
@@ -89,7 +91,7 @@ class Factory implements \IteratorAggregate {
    */
   private static function _getProfiles() {
     if (NULL === self::$_profiles) {
-      $reflection = new \ReflectionClass(\Papaya\Filter::class);
+      $reflection = new \ReflectionClass(Filter::class);
       foreach ($reflection->getConstants() as $constant => $profile) {
         if (0 === \strpos($constant, 'IS_')) {
           self::$_profiles[\strtolower($profile)] = $profile;
@@ -172,7 +174,7 @@ class Factory implements \IteratorAggregate {
    * @param bool $mandatory
    * @param mixed $options
    *
-   * @return \Papaya\Filter
+   * @return Filter
    *
    * @throws Factory\Exception\InvalidProfile
    */
@@ -187,7 +189,7 @@ class Factory implements \IteratorAggregate {
    * @param bool $mandatory
    * @param mixed $options
    *
-   * @return \Papaya\Filter|\Papaya\Filter\LogicalOr
+   * @return Filter
    *
    * @throws Factory\Exception\InvalidProfile
    */
@@ -202,9 +204,9 @@ class Factory implements \IteratorAggregate {
     if ($mandatory) {
       return $filter;
     }
-    return new \Papaya\Filter\LogicalOr(
+    return new LogicalOr(
       $filter,
-      new \Papaya\Filter\EmptyValue(FALSE, FALSE)
+      new EmptyValue(FALSE, FALSE)
     );
   }
 
@@ -213,25 +215,26 @@ class Factory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\Papaya\Filter|Factory\Profile $filter
+   * @param string|Filter|Factory\Profile $filter
    * @param bool $mandatory
    *
    * @return bool
    *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
+   * @throws \Exception
    */
   public static function validate($value, $filter, $mandatory = TRUE) {
-    if (!($filter instanceof \Papaya\Filter)) {
+    if (!($filter instanceof Filter)) {
       $filter = self::_getFilter($filter, $mandatory);
     } elseif (!$mandatory) {
-      $filter = new \Papaya\Filter\LogicalOr(
+      $filter = new LogicalOr(
         $filter,
-        new \Papaya\Filter\EmptyValue(FALSE, FALSE)
+        new EmptyValue(FALSE, FALSE)
       );
     }
     try {
       $filter->validate($value);
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
       return FALSE;
     }
     return TRUE;
@@ -242,14 +245,14 @@ class Factory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\Papaya\Filter|Factory\Profile $filter
+   * @param string|Filter|Factory\Profile $filter
    *
    * @return mixed
    *
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function filter($value, $filter) {
-    if (!($filter instanceof \Papaya\Filter)) {
+    if (!($filter instanceof Filter)) {
       $filter = self::_getFilter($filter);
     }
     return $filter->filter($value);
@@ -267,7 +270,7 @@ class Factory implements \IteratorAggregate {
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function matches($value, $pattern, $mandatory = TRUE) {
-    return self::validate($value, new \Papaya\Filter\RegEx($pattern), $mandatory);
+    return self::validate($value, new RegEx($pattern), $mandatory);
   }
 
   /**

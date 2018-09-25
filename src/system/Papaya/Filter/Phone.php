@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * This filter class checks a phone number.
  *
@@ -38,13 +40,13 @@ class Phone implements \Papaya\Filter {
    *
    * @param string $value
    *
-   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws Exception\UnexpectedType
    *
    * @return true
    */
   public function validate($value) {
     if (!\preg_match($this->_patternCheck, $value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('phone');
+      throw new Exception\UnexpectedType('phone');
     }
     return TRUE;
   }
@@ -52,16 +54,16 @@ class Phone implements \Papaya\Filter {
   /**
    * The filter function is used to read an input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @return string
+   * @return string|NULL
    */
   public function filter($value) {
     try {
       $this->validate($value);
-      return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+      return (string)$value;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

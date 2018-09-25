@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter for numeric with unit validation
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NumberWithUnit implements \Papaya\Filter {
+class NumberWithUnit implements Filter {
   /**
    * Allowed units for validation
    *
@@ -64,13 +66,13 @@ class NumberWithUnit implements \Papaya\Filter {
       $units = [$units];
     }
     $this->_units = $units;
-    if (isset($minimum)) {
+    if (NULL !== $minimum) {
       $this->_minimum = $minimum;
     }
-    if (isset($maximum)) {
+    if (NULL !== $maximum) {
       $this->_maximum = $maximum;
     }
-    if (isset($algebraicSign)) {
+    if (NULL !== $algebraicSign) {
       $this->_algebraicSign = $algebraicSign;
     }
   }
@@ -78,16 +80,16 @@ class NumberWithUnit implements \Papaya\Filter {
   /**
    * Validates the given string and throws exceptions
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
   public function validate($value) {
     $value = (string)$value;
     $matches = [];
-    $units = $this->getRegexpUnitOptions();
+    $units = $this->getUnitSubPattern();
     \preg_match(
       '~^(?P<number>
         (-|\+)?
@@ -99,41 +101,49 @@ class NumberWithUnit implements \Papaya\Filter {
       $value,
       $matches
     );
-    if (isset($matches['unit']) &&
-      \in_array($matches['unit'], $this->_units)) {
-      if ('-' == $this->_algebraicSign &&
-        '-' != \substr($matches['number'], 0, 1)) {
-        throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
+    if (
+      isset($matches['unit']) &&
+        \in_array($matches['unit'], $this->_units, TRUE)
+    ) {
+      if (
+        '-' === $this->_algebraicSign &&
+        0 !== strpos($matches['number'], '-')
+      ) {
+        throw new Exception\InvalidCharacter($matches['number'], 0);
       }
-      if ('+' == $this->_algebraicSign &&
+      if (
+        '+' === $this->_algebraicSign &&
         (float)$matches['number'] < 0) {
-        throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
+        throw new Exception\InvalidCharacter($matches['number'], 0);
       }
-      if (isset($this->_minimum) &&
+      if (
+        NULL !== $this->_minimum &&
         (float)$matches['number'] < $this->_minimum) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, (float)$matches['number']);
+        throw new Exception\OutOfRange\ToSmall($this->_minimum, (float)$matches['number']);
       }
-      if (isset($this->_maximum) &&
+      if (
+        NULL !== $this->_maximum &&
         (float)$matches['number'] > $this->_maximum) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, (float)$matches['number']);
+        throw new Exception\OutOfRange\ToLarge($this->_maximum, (float)$matches['number']);
       }
       return TRUE;
-    } elseif ('0' == $value) {
-      return TRUE;
-    } else {
-      throw new \Papaya\Filter\Exception\NotIncluded($value);
     }
+    if ('0' === (string)$value) {
+      return TRUE;
+    }
+    throw new Exception\NotIncluded($value);
   }
 
   /**
    * Removes unwanted characters from value
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
   public function filter($value) {
-    $units = $this->getRegexpUnitOptions();
+    $value = (string)$value;
+    $units = $this->getUnitSubPattern();
     $matches = [];
     \preg_match(
       '~^
@@ -150,14 +160,14 @@ class NumberWithUnit implements \Papaya\Filter {
       $value,
       $matches
     );
-    if (isset($matches['number']) && isset($matches['unit'])) {
+    if (isset($matches['number'], $matches['unit'])) {
       $value = $matches['number'].$matches['unit'];
     }
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 
@@ -166,10 +176,10 @@ class NumberWithUnit implements \Papaya\Filter {
    *
    * @return string
    */
-  public function getRegexpUnitOptions() {
+  private function getUnitSubPattern() {
     $result = [];
     foreach ($this->_units as $unit) {
-      $result[] = \preg_quote($unit);
+      $result[] = \preg_quote($unit, '(');
     }
     return '(?:'.\implode('|', $result).')';
   }

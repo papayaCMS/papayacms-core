@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class that chcks if the value is an empty one
  *
@@ -22,13 +24,13 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Equals implements \Papaya\Filter {
+class Equals implements Filter {
   /**
-   * The comparsion
+   * The comparision
    *
    * @var mixed
    */
-  private $_value = TRUE;
+  private $_value;
 
   /**
    * Construct object, check and store options
@@ -44,28 +46,28 @@ class Equals implements \Papaya\Filter {
    *
    * @param string $value
    *
-   * @throws \Papaya\Filter\Exception\NotEqual
+   * @throws Exception
    *
    * @return true
    */
   public function validate($value) {
+    /** @noinspection TypeUnsafeComparisonInspection */
     if ($this->_value != $value) {
-      throw new \Papaya\Filter\Exception\NotEqual($this->_value);
+      throw new Exception\NotEqual($this->_value);
     }
     return TRUE;
   }
 
   /**
-   * The filter function always returns NULL
-   *
-   * @param string $value
+   * @param mixed $value
    *
    * @return mixed|null
    */
   public function filter($value) {
+    /** @noinspection TypeUnsafeComparisonInspection */
     if ($this->_value == $value) {
       return $this->_value;
     }
-    return;
+    return NULL;
   }
 }

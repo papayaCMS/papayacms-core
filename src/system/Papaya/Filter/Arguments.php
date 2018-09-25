@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for an list of arguments joined by a defined separator character
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Arguments implements \Papaya\Filter {
+class Arguments implements Filter {
   /**
    * The filters for the arguments
    *
@@ -33,7 +35,7 @@ class Arguments implements \Papaya\Filter {
    *
    * @var int
    */
-  private $_separator = ',';
+  private $_separator;
 
   /**
    * Construct object and initialize pattern and submatch identifier (for filter result)
@@ -51,9 +53,9 @@ class Arguments implements \Papaya\Filter {
   /**
    * Check the input value and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
@@ -65,7 +67,7 @@ class Arguments implements \Papaya\Filter {
     if (\count($value) > \count($this->_filters)) {
       throw new Exception\InvalidCount(\count($this->_filters), \count($value), 'array');
     }
-    /** @var \Papaya\Filter $filter */
+    /** @var Filter $filter */
     foreach ($this->_filters as $index => $filter) {
       $filter->validate(isset($value[$index]) ? $value[$index] : '');
     }
@@ -77,7 +79,7 @@ class Arguments implements \Papaya\Filter {
    *
    * If a submatch identifier is available, it returns the submatch.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
@@ -86,13 +88,13 @@ class Arguments implements \Papaya\Filter {
       $this->validate($value);
       $value = \explode($this->_separator, $value);
       $result = [];
-      /** @var \Papaya\Filter $filter */
+      /** @var Filter $filter */
       foreach ($this->_filters as $index => $filter) {
         $result[] = $filter->filter(isset($value[$index]) ? $value[$index] : '');
       }
       return \implode($this->_separator, $result);
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

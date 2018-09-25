@@ -14,6 +14,9 @@
  */
 namespace Papaya\Filter\Text;
 
+use Papaya\Filter;
+use Papaya\Utility;
+
 /**
  * Papaya filter class for an string length
  *
@@ -26,7 +29,7 @@ namespace Papaya\Filter\Text;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Length implements \Papaya\Filter {
+class Length implements Filter {
   /**
    * Minimum limit for integer value
    *
@@ -51,14 +54,15 @@ class Length implements \Papaya\Filter {
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
     $this->_minimum = $minimum;
-    if (isset($minimum)) {
-      if (isset($maximum) &&
+    if (NULL !== $minimum) {
+      if (
+        NULL !== $maximum &&
         $maximum < $minimum
       ) {
         throw new \RangeException('The maximum needs to be larger then the minimum.');
       }
       $this->_maximum = $maximum;
-    } elseif (isset($maximum)) {
+    } elseif (NULL !== $maximum) {
       throw new \RangeException('A maximum was given, but minimum was not.');
     }
   }
@@ -68,20 +72,20 @@ class Length implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
   public function validate($value) {
     if (\is_array($value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('string');
+      throw new Filter\Exception\UnexpectedType('string');
     }
-    $length = \Papaya\Utility\Text\UTF8::length((string)$value);
-    if (isset($this->_minimum) && $length < $this->_minimum) {
-      throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $length);
+    $length = Utility\Text\UTF8::length((string)$value);
+    if (NULL !== $this->_minimum && $length < $this->_minimum) {
+      throw new Filter\Exception\OutOfRange\ToSmall($this->_minimum, $length);
     }
-    if (isset($this->_maximum) && $length > $this->_maximum) {
-      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, $length);
+    if (NULL !== $this->_maximum && $length > $this->_maximum) {
+      throw new Filter\Exception\OutOfRange\ToLarge($this->_maximum, $length);
     }
     return TRUE;
   }
@@ -90,18 +94,18 @@ class Length implements \Papaya\Filter {
    * If the string is shorter then the minimum return NULL, if it is longer then
    * the maximum return a substring.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return int|null
    */
   public function filter($value) {
     $value = \is_array($value) ? '' : (string)$value;
-    $length = \Papaya\Utility\Text\UTF8::length($value);
-    if (isset($this->_minimum) && $length < $this->_minimum) {
-      return;
+    $length = Utility\Text\UTF8::length($value);
+    if (NULL !== $this->_minimum && $length < $this->_minimum) {
+      return NULL;
     }
-    if (isset($this->_maximum) && $length > $this->_maximum) {
-      return \Papaya\Utility\Text\UTF8::copy($value, 0, $this->_maximum);
+    if (NULL !== $this->_maximum && $length > $this->_maximum) {
+      return Utility\Text\UTF8::copy($value, 0, $this->_maximum);
     }
     return $value;
   }

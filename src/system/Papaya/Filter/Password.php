@@ -14,62 +14,64 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for a password
  *
  * This class is used to validate/filter a password input.
  * By default the minimum length is 8, the maximum is 60.
- * At least two numbers or punktuations are needed.
+ * At least two numbers or punctuations are needed.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Password implements \Papaya\Filter {
+class Password implements Filter {
   /**
    * Minimum password length
    *
    * @var int
    */
-  private $_minimumLength = 0;
+  private $_minimumLength;
 
   /**
    * Maximum password length
    *
    * @var int
    */
-  private $_maximumLength = 0;
+  private $_maximumLength;
 
   /**
-   * Construct object and initilize password length limits
+   * Construct object and initialize password length limits
    *
    * @param int $minimum
    * @param int $maximum
    */
   public function __construct($minimum = 8, $maximum = 60) {
-    $this->_minimumLength = $minimum;
-    $this->_maximumLength = $maximum;
+    $this->_minimumLength = (int)$minimum;
+    $this->_maximumLength = (int)$maximum;
   }
 
   /**
    * Check the password input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
   public function validate($value) {
     $length = \strlen($value);
     if ($length < $this->_minimumLength) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimumLength, $length);
+      throw new Exception\InvalidLength\ToShort($this->_minimumLength, $length);
     }
     if ($length > $this->_maximumLength) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToLong($this->_maximumLength, $length);
+      throw new Exception\InvalidLength\ToLong($this->_maximumLength, $length);
     }
     \preg_match_all('(\PL)u', $value, $matches);
     if (!(isset($matches[0]) && \count($matches[0]) > 1)) {
-      throw new \Papaya\Filter\Exception\Password\Weak();
+      throw new Exception\Password\Weak();
     }
     return TRUE;
   }
@@ -77,16 +79,16 @@ class Password implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
-      return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+      return (string)$value;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

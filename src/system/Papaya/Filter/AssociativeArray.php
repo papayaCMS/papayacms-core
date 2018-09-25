@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for an array with specific elements. It validates the specified elements
  * in the array.
@@ -23,11 +25,11 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class AssociativeArray implements \Papaya\Filter {
+class AssociativeArray implements Filter {
   /**
    * Filters for each array element
    *
-   * @var int
+   * @var Filter[]
    */
   private $_filters = [];
 
@@ -39,12 +41,11 @@ class AssociativeArray implements \Papaya\Filter {
    * @throws \RangeException
    */
   public function __construct(array $filtersByName) {
-    $this->_filters = [];
     if (empty($filtersByName)) {
       throw new \InvalidArgumentException('Empty filter definition.');
     }
     foreach ($filtersByName as $name => $filter) {
-      if ($filter instanceof \Papaya\Filter) {
+      if ($filter instanceof Filter) {
         $this->_filters[$name] = $filter;
       } else {
         throw new \InvalidArgumentException(
@@ -85,7 +86,7 @@ class AssociativeArray implements \Papaya\Filter {
    */
   public function filter($value) {
     if (!\is_array($value)) {
-      return;
+      return NULL;
     }
     $result = [];
     foreach ($value as $name => $subValue) {

@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\File;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class validating a file name string
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Name extends \Papaya\Filter\RegEx {
+class Name extends Filter\RegEx {
   /**
    * set pattern in superclass constructor
    */

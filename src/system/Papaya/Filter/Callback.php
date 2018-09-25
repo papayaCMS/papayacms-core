@@ -14,26 +14,28 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class that uses a callback function to validate the value
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Callback implements \Papaya\Filter {
+class Callback implements Filter {
   /**
    * callback function or method
    *
    * @var string
    */
-  private $_callback = '';
+  private $_callback;
 
   /**
-   * Addiitonal arguments for the callback
+   * Additional arguments for the callback
    *
-   * @var string
+   * @var array
    */
-  private $_arguments = [];
+  private $_arguments;
 
   /**
    * Construct object and initialize function name and optional arguments.
@@ -54,18 +56,21 @@ class Callback implements \Papaya\Filter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
    * @param string $value
    *
    * @return true
    */
   public function validate($value) {
-    $this->_isCallback($this->_callback);
+    $callback = $this->_callback;
+    if (!\is_callable($callback)) {
+      throw new Exception\InvalidCallback($callback);
+    }
     $arguments = $this->_arguments;
     \array_unshift($arguments, $value);
-    if (!\call_user_func_array($this->_callback, $arguments)) {
-      throw new \Papaya\Filter\Exception\FailedCallback($this->_callback);
+    if (!$callback(...$arguments)) {
+      throw new Exception\FailedCallback($callback);
     }
     return TRUE;
   }
@@ -81,21 +86,8 @@ class Callback implements \Papaya\Filter {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
-    }
-  }
-
-  /**
-   * Check if the callback function is callable
-   *
-   * @param \Callback $callback
-   *
-   * @throws \Papaya\Filter\Exception\InvalidCallback
-   */
-  public function _isCallback($callback) {
-    if (!\is_callable($callback)) {
-      throw new \Papaya\Filter\Exception\InvalidCallback($callback);
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

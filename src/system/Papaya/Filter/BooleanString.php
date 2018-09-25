@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter that interprets an string as boolean value, mapping several string and
  * casting others.
@@ -22,7 +24,7 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class BooleanString
-  implements \Papaya\Filter {
+  implements Filter {
   private $_mapping = [
     '+' => TRUE,
     'y' => TRUE,
@@ -77,16 +79,18 @@ class BooleanString
    * @return bool|null
    */
   public function filter($value) {
-    if (!isset($value)) {
-      return;
-    } elseif (\is_bool($value)) {
+    if (NULL === $value) {
+      return NULL;
+    }
+    if (\is_bool($value)) {
       return $value;
-    } elseif (\is_int($value)) {
+    }
+    if (\is_int($value)) {
       return (bool)$value;
     }
-    $normalized = \trim(\strtolower($value));
+    $normalized = \strtolower(\trim($value));
     if (!$this->_castEmptyString && '' === $normalized) {
-      return;
+      return NULL;
     }
     if (isset($this->_mapping[$normalized])) {
       return $this->_mapping[$normalized];

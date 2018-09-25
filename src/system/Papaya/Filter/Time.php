@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * This filter class checks a time in human-readable format.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Time implements \Papaya\Filter {
+class Time implements Filter {
   /**
    * Step in seconds, default 60
    *
@@ -48,8 +50,7 @@ class Time implements \Papaya\Filter {
    *
    * @param string $value
    *
-   * @throws \Papaya\Filter\Exception\UnexpectedType
-   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   * @throws Exception
    *
    * @return bool
    */
@@ -74,10 +75,10 @@ class Time implements \Papaya\Filter {
       )?
       $)Dx';
     if (!\preg_match($patternTimeISO, $value, $match)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('ISO time.');
+      throw new Exception\UnexpectedType('ISO time.');
     }
     if (!empty($match['offsetOperator'])) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('Time must not include a time zone offset.');
+      throw new Exception\UnexpectedType('Time must not include a time zone offset.');
     }
     $limits = [
       'hour' => 23,
@@ -86,7 +87,7 @@ class Time implements \Papaya\Filter {
     ];
     foreach ($limits as $element => $limit) {
       if (isset($match[$element]) && $match[$element] > $limit) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($limit, $match[$element]);
+        throw new Exception\OutOfRange\ToLarge($limit, $match[$element]);
       }
     }
     $timeStamp = $this->_toTimestamp(
@@ -94,8 +95,8 @@ class Time implements \Papaya\Filter {
       isset($match['minute']) ? $match['minute'] : 0,
       isset($match['second']) ? $match['second'] : 0
     );
-    if (0 != $timeStamp % $this->_step) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('Time matching the expected step.');
+    if (0 !== $timeStamp % $this->_step) {
+      throw new Exception\UnexpectedType('Time matching the expected step.');
     }
     return TRUE;
   }
@@ -103,15 +104,15 @@ class Time implements \Papaya\Filter {
   /**
    * Filter a time
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @return mixed the filtered time value or NULL
+   * @return string|null the filtered time value or NULL
    */
   public function filter($value) {
     try {
       $this->validate(\trim($value));
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+    } catch (Exception $e) {
+      return NULL;
     }
     return \trim($value);
   }

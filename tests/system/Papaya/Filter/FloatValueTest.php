@@ -19,36 +19,6 @@ require_once __DIR__.'/../../../bootstrap.php';
 class FloatValueTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\FloatValue::__construct
-   */
-  public function testConstructWithoutParams() {
-    $testObj = new FloatValue();
-    $this->assertAttributeEquals(NULL, '_min', $testObj);
-    $this->assertAttributeEquals(NULL, '_max', $testObj);
-  }
-
-  /**
-   * @covers \Papaya\Filter\FloatValue::__construct
-   */
-  public function testConstructWithoutFirstParam() {
-    $min = -120;
-    $testObj = new FloatValue($min);
-    $this->assertAttributeEquals($min, '_min', $testObj);
-    $this->assertAttributeEquals(NULL, '_max', $testObj);
-  }
-
-  /**
-   * @covers \Papaya\Filter\FloatValue::__construct
-   */
-  public function testConstructWithoutWithBothParams() {
-    $min = -120;
-    $max = 120;
-    $testObj = new FloatValue($min, $max);
-    $this->assertAttributeEquals($min, '_min', $testObj);
-    $this->assertAttributeEquals($max, '_max', $testObj);
-  }
-
-  /**
    * @covers \Papaya\Filter\FloatValue::validate
    */
   public function testValidate() {

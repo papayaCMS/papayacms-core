@@ -14,6 +14,10 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
+use Papaya\Utility;
+
 /**
  * Papaya filter class that validates if given value is in the list of keys
  *
@@ -25,7 +29,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArrayKey implements \Papaya\Filter {
+class ArrayKey implements Filter {
   /**
    * elements list
    *
@@ -39,14 +43,14 @@ class ArrayKey implements \Papaya\Filter {
    * @param array|\Traversable $elements
    */
   public function __construct($elements) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
+    Utility\Constraints::assertArrayOrTraversable($elements);
     $this->_list = $elements;
   }
 
   /**
    * Check the input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
    * @param mixed $value
    *
@@ -78,23 +82,23 @@ class ArrayKey implements \Papaya\Filter {
    *
    * @param mixed $value
    *
-   * @return int|null
+   * @return mixed|null
    */
   public function filter($value) {
     if (!(\is_string($value) || \is_int($value) || \is_float($value))) {
-      return;
+      return NULL;
     }
     if (\is_array($this->_list) && !\array_key_exists($value, $this->_list)) {
-      return;
+      return NULL;
     }
     if ($this->_list instanceof \ArrayAccess && !isset($this->_list[$value])) {
-      return;
+      return NULL;
     }
     foreach ($this->_list as $key => $element) {
       if ((string)$value === (string)$key) {
         return $key;
       }
     }
-    return;
+    return NULL;
   }
 }

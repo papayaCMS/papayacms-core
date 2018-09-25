@@ -14,6 +14,10 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+use Papaya\Utility;
+use Papaya\Text;
+
 /**
  * Papaya filter class for an string length
  *
@@ -26,7 +30,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Length implements \Papaya\Filter {
+class Length implements Filter {
   /**
    * Minimum limit for integer value
    *
@@ -42,9 +46,9 @@ class Length implements \Papaya\Filter {
   private $_maximum;
 
   /**
-   * @var bool use sttring as utf-8 and return the codepoint count
+   * @var bool use string as utf-8 and return the code point count
    */
-  private $_isUTF8 = FALSE;
+  private $_isUTF8;
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
@@ -57,7 +61,7 @@ class Length implements \Papaya\Filter {
    */
   public function __construct($minimum = 0, $maximum = NULL, $isUTF8 = FALSE) {
     $this->_minimum = (int)$minimum;
-    if (isset($maximum)) {
+    if (NULL !== $maximum) {
       if ($maximum < $minimum) {
         throw new \RangeException('The maximum needs to be larger then the minimum.');
       }
@@ -69,26 +73,26 @@ class Length implements \Papaya\Filter {
   /**
    * Check the input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
   public function validate($value) {
     if ($this->_isUTF8) {
-      $string = new \Papaya\Text\UTF8String(
-        \Papaya\Utility\Text\UTF8::ensure($value)
+      $string = new Text\UTF8String(
+        Utility\Text\UTF8::ensure($value)
       );
       $length = $string->length();
     } else {
       $length = \strlen($value);
     }
-    if (isset($this->_minimum) && $length < $this->_minimum) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimum, $value);
+    if (NULL !== $this->_minimum && $length < $this->_minimum) {
+      throw new Exception\InvalidLength\ToShort($this->_minimum, $value);
     }
-    if (isset($this->_maximum) && $length > $this->_maximum) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToLong($this->_minimum, $value);
+    if (NULL !== $this->_maximum && $length > $this->_maximum) {
+      throw new Exception\InvalidLength\ToLong($this->_minimum, $value);
     }
     return TRUE;
   }
@@ -96,17 +100,17 @@ class Length implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string|null
    */
   public function filter($value) {
-    $value = \Papaya\Utility\Text\UTF8::ensure($value);
+    $value = Utility\Text\UTF8::ensure($value);
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

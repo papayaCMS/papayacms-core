@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Papaya filter class for xml strings.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class XML implements \Papaya\Filter {
+class XML implements Filter {
   /**
    * @var bool
    */
-  private $_allowFragments = TRUE;
+  private $_allowFragments;
 
   /**
    * @param bool $allowFragments
@@ -37,17 +39,16 @@ class XML implements \Papaya\Filter {
    * Check the value if it's a xml string, if not throw an exception.
    *
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @throws \Papaya\Filter\Exception\InvalidXML
-   * @throws \Papaya\Filter\Exception\IsEmpty
+   * @throws Exception
    *
    * @return true
    */
   public function validate($value) {
     $value = \trim($value);
     if (empty($value)) {
-      throw new \Papaya\Filter\Exception\IsEmpty();
+      throw new Exception\IsEmpty();
     }
     $errors = new \Papaya\XML\Errors();
     $errors->activate();
@@ -61,7 +62,7 @@ class XML implements \Papaya\Filter {
       }
       $errors->emit(TRUE);
     } catch (\Papaya\XML\Exception $e) {
-      throw new \Papaya\Filter\Exception\InvalidXML($e);
+      throw new Exception\InvalidXML($e);
     }
     return TRUE;
   }
@@ -69,16 +70,16 @@ class XML implements \Papaya\Filter {
   /**
    * The filter function is used to read an input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string
    */
   public function filter($value) {
     try {
       $this->validate($value);
-      return $value;
-    } catch (\Papaya\Filter\Exception $e) {
-      return;
+      return (string)$value;
+    } catch (Exception $e) {
+      return NULL;
     }
   }
 }

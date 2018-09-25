@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Filter {
+
+use Papaya\Filter;
+
   /**
    * Papaya filter class for an identifier/name
    *
@@ -22,7 +25,7 @@ namespace Papaya\Filter {
    * @package Papaya-Library
    * @subpackage Filter
    */
-  class Identifier implements \Papaya\Filter {
+  class Identifier implements Filter {
     const CASE_INSENSITIVE = 0;
 
     const LOWERCASE = 1;
@@ -62,7 +65,7 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @param mixed|null $value
+     * @param mixed $value
      *
      * @return bool|mixed|null|string|string[]
      */
@@ -72,7 +75,7 @@ namespace Papaya\Filter {
         $value = \substr($value, 0, $this->_maximumLength);
       }
       if (\strlen($value) < $this->_minimumLength) {
-        return;
+        return NULL;
       }
       if (self::LOWERCASE === $this->_mode) {
         return \strtolower($value);
@@ -86,7 +89,7 @@ namespace Papaya\Filter {
     /**
      * @param mixed $value
      *
-     * @return bool
+     * @return true
      *
      * @throws Exception\InvalidValue
      * @throws Exception\UnexpectedType

@@ -82,15 +82,6 @@ class NumberWithUnitTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\NumberWithUnit::getRegexpUnitOptions
-   */
-  public function testRegexpUnitOptions() {
-    $expected = '(?:px|\?\+|\.\*)';
-    $filter = new NumberWithUnit(array('px', '?+', '.*'));
-    $this->assertSame($expected, $filter->getRegexpUnitOptions());
-  }
-
-  /**
    * @covers \Papaya\Filter\NumberWithUnit::validate
    */
   public function testValidate() {

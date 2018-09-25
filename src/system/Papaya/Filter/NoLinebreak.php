@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * This filter class checks for linebreaks and filters them out.
  *
@@ -23,7 +25,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NoLinebreak implements \Papaya\Filter {
+class NoLinebreak implements Filter {
   /**
    * Pattern to check for a linebreak
    *
@@ -32,36 +34,36 @@ class NoLinebreak implements \Papaya\Filter {
   private $_patternCheck = '([\r\n])u';
 
   /**
-   * Pattern to replace linebreaks and surrounding whitespace
+   * Pattern to replace line breaks and surrounding whitespace
    *
    * @var string
    */
   private $_patternFilter = '(\s*[\r\n]+\s*)u';
 
   /**
-   * Check the value for linebreaks, if the value contains linebreaks throw an exception
+   * Check the value for line breaks, if the value contains line breaks throw an exception
    *
-   * @throws \Papaya\Filter\Exception\InvalidCharacter
+   * @throws Exception\InvalidCharacter
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return true
    */
   public function validate($value) {
     if (\preg_match($this->_patternCheck, $value, $match, PREG_OFFSET_CAPTURE)) {
-      throw new \Papaya\Filter\Exception\InvalidCharacter($value, $match[0][1]);
+      throw new Exception\InvalidCharacter($value, $match[0][1]);
     }
     return TRUE;
   }
 
   /**
-   * Replace linebreaks and surrounding whitespace characters with a single space
+   * Replace line breaks and surrounding whitespace characters with a single space
    *
-   * @param string $value
+   * @param mixed $value
    *
    * @return string
    */
   public function filter($value) {
-    return \preg_replace($this->_patternFilter, ' ', $value);
+    return \preg_replace($this->_patternFilter, ' ', (string)$value);
   }
 }

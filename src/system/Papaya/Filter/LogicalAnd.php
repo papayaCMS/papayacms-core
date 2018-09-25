@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter;
 
+use Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical "and" links between other filters
  *
@@ -45,16 +47,16 @@ class LogicalAnd extends Logical {
    * If NULL is return from a subfilter method call it is returned. In all other cases the returned
    * value is given to the next filter method call.
    *
-   * @param string $value
+   * @param mixed $value
    *
-   * @return mixed|null|string
+   * @return mixed
    */
   public function filter($value) {
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $value = $filter->filter($value);
       if (NULL === $value) {
-        return;
+        return NULL;
       }
     }
     return $value;
