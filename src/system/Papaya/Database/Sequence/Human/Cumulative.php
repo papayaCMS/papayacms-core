@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Sequence\Human;
 
+use Papaya\Database;
+
 /**
  * Class generating human readable sequence strings with ascending length. The
  * module produces some ids that will be tried against the database and have
@@ -29,7 +31,7 @@ namespace Papaya\Database\Sequence\Human;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Cumulative extends \Papaya\Database\Sequence\Human {
+class Cumulative extends Database\Sequence\Human {
   /**
    * @var int minimum length.
    */
@@ -50,6 +52,14 @@ class Cumulative extends \Papaya\Database\Sequence\Human {
    */
   private $_cumulativeStep = 1;
 
+  /**
+   * Cumulative constructor.
+   *
+   * @param string $table
+   * @param string $field
+   * @param int $minimumLength
+   * @param int $maximumLength
+   */
   public function __construct($table, $field, $minimumLength = 2, $maximumLength = 32) {
     parent::__construct($table, $field);
     if ($minimumLength <= $maximumLength) {

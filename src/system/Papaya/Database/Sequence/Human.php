@@ -14,6 +14,9 @@
  */
 namespace Papaya\Database\Sequence;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Generator that uses a restricted set of symbols which can be conveniently used by humans.
  *
@@ -26,7 +29,7 @@ namespace Papaya\Database\Sequence;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Human extends \Papaya\Database\Sequence {
+class Human extends Database\Sequence {
   /**
    * List of character used in the id
    */
@@ -70,7 +73,7 @@ class Human extends \Papaya\Database\Sequence {
    *
    * @var int
    */
-  private $_length = 10;
+  private $_length;
 
   /**
    * Initialize object and default properties, optionally set count
@@ -81,7 +84,7 @@ class Human extends \Papaya\Database\Sequence {
    */
   public function __construct($table, $field, $length = 10) {
     parent::__construct($table, $field);
-    $this->_length = $length;
+    $this->_length = (int)$length;
   }
 
   /**
@@ -104,7 +107,7 @@ class Human extends \Papaya\Database\Sequence {
     $result = '';
     $max = \count($this->_characterTable) - 1;
     for ($i = 0; $i < $length; $i++) {
-      $result .= $this->_characterTable[\Papaya\Utility\Random::rand(0, $max)];
+      $result .= $this->_characterTable[Utility\Random::rand(0, $max)];
     }
     return $result;
   }
