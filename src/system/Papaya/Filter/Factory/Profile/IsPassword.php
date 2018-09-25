@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an Password filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsPassword extends \Papaya\Filter\Factory\Profile {
+class IsPassword extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\Password();
+    return new Filter\Password();
   }
 }

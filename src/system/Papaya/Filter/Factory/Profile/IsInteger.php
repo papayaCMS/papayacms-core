@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an Integer filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsInteger extends \Papaya\Filter\Factory\Profile {
+class IsInteger extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\IntegerValue();
+    return new Filter\IntegerValue();
   }
 }

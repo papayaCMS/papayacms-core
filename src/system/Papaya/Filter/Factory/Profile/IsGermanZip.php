@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a german date postal code/zip
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsGermanZip extends \Papaya\Filter\Factory\Profile {
+class IsGermanZip extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\Locale\Germany\Zip();
+    return new Filter\Locale\Germany\Zip();
   }
 }

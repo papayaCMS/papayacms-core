@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a german date string
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsGermanDate extends \Papaya\Filter\Factory\Profile {
+class IsGermanDate extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\RegEx('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');
+    return new Filter\RegEx('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');
   }
 }

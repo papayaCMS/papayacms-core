@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Factory\Exception;
 
+use Papaya\Filter;
+
 /**
  * Exception: options invalid for the profile class
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidOptions extends \Papaya\Filter\Factory\Exception {
+class InvalidOptions extends Filter\Factory\Exception {
   /**
    * @param string $name
    */

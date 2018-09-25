@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an xml string filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsXML extends \Papaya\Filter\Factory\Profile {
+class IsXML extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\XML();
+    return new Filter\XML();
   }
 }

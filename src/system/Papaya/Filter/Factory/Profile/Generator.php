@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating filter specified by the first element in the options array using the
  * other elements of the options array as arguments.
@@ -21,27 +23,27 @@ namespace Papaya\Filter\Factory\Profile;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Generator extends \Papaya\Filter\Factory\Profile {
+class Generator extends Filter\Factory\Profile {
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    *
    * @throws \ReflectionException
-   * @throws \Papaya\Filter\Factory\Exception\InvalidFilter
-   * @throws \Papaya\Filter\Factory\Exception\InvalidOptions
+   * @throws Filter\Factory\Exception\InvalidFilter
+   * @throws Filter\Factory\Exception\InvalidOptions
    */
   public function getFilter() {
     $arguments = $this->options();
     if (\is_array($arguments)) {
       $name = \array_shift($arguments);
       $filterReflection = new \ReflectionClass($name);
-      if ($filterReflection->isSubclassOf(\Papaya\Filter::class)) {
+      if ($filterReflection->isSubclassOf(Filter::class)) {
         return \call_user_func_array(
           [$filterReflection, 'newInstance'],
           $arguments
         );
       }
-      throw new \Papaya\Filter\Factory\Exception\InvalidFilter($name);
+      throw new Filter\Factory\Exception\InvalidFilter($name);
     }
-    throw new \Papaya\Filter\Factory\Exception\InvalidOptions(__CLASS__);
+    throw new Filter\Factory\Exception\InvalidOptions(__CLASS__);
   }
 }

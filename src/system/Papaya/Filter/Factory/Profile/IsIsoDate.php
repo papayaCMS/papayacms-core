@@ -14,18 +14,20 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a  ISO 8601 date string
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsIsoDate extends \Papaya\Filter\Factory\Profile {
+class IsIsoDate extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\RegEx(
+    return new Filter\RegEx(
       '(^([12]\d{3})-(\d|(0\d)|(1[0-2]))-(([012]?\d)|(3[01]))$)Du'
     );
   }

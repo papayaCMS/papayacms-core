@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an css color value filter, this can be an hexadecimal color with 3 or 6 digits
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsCssColor extends \Papaya\Filter\Factory\Profile {
+class IsCssColor extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\Color();
+    return new Filter\Color();
   }
 }

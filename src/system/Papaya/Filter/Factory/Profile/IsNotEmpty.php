@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for string that contains something except whitespaces
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsNotEmpty extends \Papaya\Filter\Factory\Profile {
+class IsNotEmpty extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\NotEmpty();
+    return new Filter\NotEmpty();
   }
 }

@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an guid filter, accepting 16 byte random byte strings encoded hexadecimal
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsGuid extends \Papaya\Filter\Factory\Profile {
+class IsGuid extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\RegEx('(^[a-fA-F\d]{32}$)Du');
+    return new Filter\RegEx('(^[a-fA-F\d]{32}$)Du');
   }
 }

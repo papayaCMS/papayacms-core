@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating an text (letters, punctuation, spaces) filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsTextWithNumbers extends \Papaya\Filter\Factory\Profile {
+class IsTextWithNumbers extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_SPACES | \Papaya\Filter\Text::ALLOW_DIGITS);
+    return new Filter\Text(Filter\Text::ALLOW_SPACES | Filter\Text::ALLOW_DIGITS);
   }
 }

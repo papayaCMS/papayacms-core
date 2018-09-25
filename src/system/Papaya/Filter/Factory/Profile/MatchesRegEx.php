@@ -14,17 +14,19 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating pcre filter using the options as an string containing the pattern
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class MatchesRegEx extends \Papaya\Filter\Factory\Profile {
+class MatchesRegEx extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\RegEx((string)$this->options());
+    return new Filter\RegEx((string)$this->options());
   }
 }

@@ -14,21 +14,23 @@
  */
 namespace Papaya\Filter\Factory\Profile;
 
+use Papaya\Filter;
+
 /**
  * Profile creating a server address (host name or ip)
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsServerAddress extends \Papaya\Filter\Factory\Profile {
+class IsServerAddress extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\LogicalOr(
-      new \Papaya\Filter\URL\Host(),
-      new \Papaya\Filter\Ip\V4(),
-      new \Papaya\Filter\Ip\V6()
+    return new Filter\LogicalOr(
+      new Filter\URL\Host(),
+      new Filter\Ip\V4(),
+      new Filter\Ip\V6()
     );
   }
 }

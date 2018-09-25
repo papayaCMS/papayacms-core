@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Factory\Exception;
 
+use Papaya\Filter;
+
 /**
  * Exception: invalid filter class in profile
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidFilter extends \Papaya\Filter\Factory\Exception {
+class InvalidFilter extends Filter\Factory\Exception {
   /**
    * @param string $name
    */
