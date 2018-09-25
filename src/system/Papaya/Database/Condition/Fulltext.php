@@ -14,21 +14,6 @@
  */
 namespace Papaya\Database\Condition;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- *
- * @link http://www.papaya-cms.com/
- *
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
 abstract class Fulltext {
   private $_parent;
 
@@ -36,8 +21,15 @@ abstract class Fulltext {
 
   protected $_searchFor = '';
 
+  /**
+   * Fulltext constructor.
+   *
+   * @param \Papaya\Database\Condition\Group $parent
+   * @param string|string[] $fields
+   * @param string $searchFor
+   */
   public function __construct(
-    Group $parent, $fields = '', $searchFor
+    Group $parent, $fields, $searchFor
   ) {
     $this->_parent = $parent;
     $this->_fields = \is_array($fields) ? $fields : [$fields];
@@ -48,22 +40,35 @@ abstract class Fulltext {
    * @param \Papaya\Parser\Search\Text $tokens
    * @param array|\Traversable $fields
    *
-   * @return mixed
+   * @return string
    */
   abstract protected function getFullTextCondition(\Papaya\Parser\Search\Text $tokens, array $fields);
 
+  /**
+   * @return \Papaya\Database\Access
+   */
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();
   }
 
+  /**
+   * @return null|\Papaya\Database\Interfaces\Mapping
+   */
   public function getMapping() {
-    return ($parent = $this->getParent()) ? $this->getParent()->getMapping() : NULL;
+    return ($parent = $this->getParent()) ? $parent->getMapping() : NULL;
   }
 
+  /**
+   * @return \Papaya\Database\Condition\Group
+   */
   public function getParent() {
     return $this->_parent;
   }
 
+  /**
+   * @param bool $silent
+   * @return string
+   */
   public function getSql($silent = FALSE) {
     try {
       $tokens = new \Papaya\Parser\Search\Text($this->_searchFor);
@@ -76,11 +81,17 @@ abstract class Fulltext {
     }
   }
 
+  /**
+   * @return string
+   */
   public function __toString() {
-    $result = $this->getSql(TRUE);
-    return $result ? $result : '';
+    return $this->getSql(TRUE);
   }
 
+  /**
+   * @param string $name
+   * @return false|string
+   */
   private function mapFieldName($name) {
     if (empty($name)) {
       throw new \LogicException(
