@@ -26,10 +26,10 @@ class Factory {
    *
    * @param string $filename
    *
-   * @return \Papaya\File\System\File
+   * @return File
    */
   public function getFile($filename) {
-    return new \Papaya\File\System\File($filename);
+    return new File($filename);
   }
 
   /**

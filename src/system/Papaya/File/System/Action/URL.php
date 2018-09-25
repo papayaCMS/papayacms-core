@@ -14,13 +14,15 @@
  */
 namespace Papaya\File\System\Action;
 
+use Papaya\File\System as FileSystem;
+
 /**
  * Read an url to trigger an remote script
  *
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class URL implements \Papaya\File\System\Action {
+class URL implements FileSystem\Action {
   private $_url;
 
   public function __construct($url) {

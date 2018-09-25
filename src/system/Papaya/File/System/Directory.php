@@ -14,6 +14,9 @@
  */
 namespace Papaya\File\System;
 
+use Papaya\Iterator;
+use Papaya\Utility;
+
 /**
  * Wrapping a file entry in the file system to call operation as methods
  *
@@ -27,7 +30,7 @@ class Directory {
 
   const FETCH_FILES_AND_DIRECTORIES = 3;
 
-  private $_path = '';
+  private $_path;
 
   /**
    * Create object an store the path after cleanup
@@ -35,8 +38,8 @@ class Directory {
    * @param string $path
    */
   public function __construct($path) {
-    \Papaya\Utility\Constraints::assertNotEmpty($path);
-    $this->_path = \Papaya\Utility\File\Path::cleanup($path, FALSE);
+    Utility\Constraints::assertNotEmpty($path);
+    $this->_path = Utility\File\Path::cleanup($path, FALSE);
   }
 
   /**
@@ -65,12 +68,23 @@ class Directory {
   }
 
   /**
-   * Is the directory writeable?
+   * Is the directory writable?
    *
    * @return bool
    */
-  public function isWriteable() {
+  public function isWritable() {
     return $this->exists() && \is_writable($this->_path);
+  }
+
+  /** @noinspection SpellCheckingInspection */
+
+  /**
+   * Is the directory writable?
+   * @deprecated
+   * @return bool
+   */
+  public function isWriteable() {
+    return $this->isWritable();
   }
 
   /**
@@ -91,30 +105,27 @@ class Directory {
     );
     switch ($type) {
       case self::FETCH_FILES :
-        $result = new \Papaya\Iterator\Filter\Callback(
-          $result, [$this, 'callbackFileInfoIsFile']
+        $result = new Iterator\Filter\Callback(
+          $result,
+          function(\splFileInfo $fileInfo) {
+            return $fileInfo->isFile();
+          }
         );
       break;
       case self::FETCH_DIRECTORIES :
-        $result = new \Papaya\Iterator\Filter\Callback(
-          $result, [$this, 'callbackFileInfoIsDirectory']
+        $result = new Iterator\Filter\Callback(
+          $result,
+          function(\splFileInfo $fileInfo) {
+            return $fileInfo->isDir();
+          }
         );
       break;
     }
     if (!empty($filter)) {
-      return new \Papaya\Iterator\Filter\RegEx(
-        $result, $filter, 0, \Papaya\Iterator\Filter\RegEx::FILTER_KEYS
+      return new Iterator\Filter\RegEx(
+        $result, $filter, 0, Iterator\Filter\RegEx::FILTER_KEYS
       );
-    } else {
-      return $result;
     }
-  }
-
-  public function callbackFileInfoIsFile(\splFileInfo $fileInfo) {
-    return $fileInfo->isFile();
-  }
-
-  public function callbackFileInfoIsDirectory(\splFileInfo $fileInfo) {
-    return $fileInfo->isDir();
+    return $result;
   }
 }

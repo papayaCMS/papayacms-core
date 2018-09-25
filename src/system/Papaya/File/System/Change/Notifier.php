@@ -14,6 +14,8 @@
  */
 namespace Papaya\File\System\Change;
 
+use Papaya\File\System as FileSystem;
+
 /**
  * An filter iterator to filter an given iterator using a pcre pattern.
  *
@@ -61,7 +63,7 @@ class Notifier {
   const ACTION_INVALIDATED = 'I';
 
   /**
-   * @var \Papaya\File\System\Action
+   * @var FileSystem\Action
    */
   private $_action;
 
@@ -82,9 +84,9 @@ class Notifier {
    */
   public function setTarget($target) {
     if (\preg_match('(^https?://)', $target)) {
-      $this->_action = new \Papaya\File\System\Action\URL($target);
+      $this->_action = new FileSystem\Action\URL($target);
     } elseif (!empty($target)) {
-      $this->_action = new \Papaya\File\System\Action\Script($target);
+      $this->_action = new FileSystem\Action\Script($target);
     } else {
       $this->_action = NULL;
     }
@@ -93,18 +95,18 @@ class Notifier {
   /**
    * Trigger the notification, if an action is set
    *
-   * @param string $action
+   * @param string $about
    * @param string|null $file
    * @param string $path
    */
-  public function notify($action, $file = NULL, $path = NULL) {
+  public function notify($about, $file = NULL, $path = NULL) {
     $parameters = [
-      'action' => $action
+      'action' => $about
     ];
-    if (isset($file)) {
+    if (NULL !== $file) {
       $parameters['file'] = $file;
     }
-    if (isset($path)) {
+    if (NULL !== $path) {
       $parameters['path'] = $path;
     }
     if ($action = $this->action()) {
@@ -115,12 +117,12 @@ class Notifier {
   /**
    * Get/Set the notifier action object, this will be set from setTarget usually.
    *
-   * @param \Papaya\File\System\Action $action
+   * @param FileSystem\Action $action
    *
-   * @return \Papaya\File\System\Action
+   * @return FileSystem\Action
    */
-  public function action(\Papaya\File\System\Action $action = NULL) {
-    if (isset($action)) {
+  public function action(FileSystem\Action $action = NULL) {
+    if (NULL !== $action) {
       $this->_action = $action;
     }
     return $this->_action;

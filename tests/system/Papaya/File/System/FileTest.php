@@ -59,13 +59,13 @@ class FileTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\File\System\File::isWriteable
+   * @covers \Papaya\File\System\File::isWritable
    */
   public function testIsWriteableExpectingTrue() {
     $filename = $this->createTemporaryDirectory().'/sample.txt';
     touch($filename);
     $file = new File($filename);
-    $this->assertTrue($file->isWriteable());
+    $this->assertTrue($file->isWritable());
   }
 
   /**

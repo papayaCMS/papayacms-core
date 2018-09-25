@@ -14,13 +14,15 @@
  */
 namespace Papaya\File\System\Action;
 
+use Papaya\File\System as FileSystem;
+
 /**
  * Execute a local script
  *
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class Script implements \Papaya\File\System\Action {
+class Script implements FileSystem\Action {
   private $_script;
 
   public function __construct($script) {
@@ -49,6 +51,7 @@ class Script implements \Papaya\File\System\Action {
    */
   protected function executeCommand($command, $arguments) {
     if (\is_callable('pcntl_exec')) {
+      /** @noinspection PhpComposerExtensionStubsInspection */
       pcntl_exec($command, $arguments);
     } else {
       $command = \escapeshellcmd($command);

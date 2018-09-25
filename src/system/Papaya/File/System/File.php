@@ -14,6 +14,8 @@
  */
 namespace Papaya\File\System;
 
+use Papaya\Utility;
+
 /**
  * Wrapping a file entry in the file system to call operation as methods
  *
@@ -29,7 +31,7 @@ class File {
    * @param string $filename
    */
   public function __construct($filename) {
-    \Papaya\Utility\Constraints::assertNotEmpty($filename);
+    Utility\Constraints::assertNotEmpty($filename);
     $this->_filename = $filename;
   }
 
@@ -61,12 +63,24 @@ class File {
   }
 
   /**
-   * Is the file writeable?
+   * Is the file writable?
    *
    * @return bool
    */
-  public function isWriteable() {
+  public function isWritable() {
     return $this->exists() && \is_writable($this->_filename);
+  }
+
+  /** @noinspection SpellCheckingInspection */
+
+  /**
+   * Is the file writable?
+   *
+   * @deprecated
+   * @return bool
+   */
+  public function isWritewable() {
+    return $this->isWritable();
   }
 
   /**
