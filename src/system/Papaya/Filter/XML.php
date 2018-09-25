@@ -52,13 +52,13 @@ class XML implements Filter {
     }
     $errors = new \Papaya\XML\Errors();
     $errors->activate();
-    $dom = new \Papaya\XML\Document();
+    $document = new \Papaya\XML\Document();
     try {
       if ($this->_allowFragments) {
-        $root = $dom->appendElement('root');
+        $root = $document->appendElement('root');
         $root->appendXML($value);
       } else {
-        $dom->loadXML($value);
+        $document->loadXML($value);
       }
       $errors->emit(TRUE);
     } catch (\Papaya\XML\Exception $e) {
