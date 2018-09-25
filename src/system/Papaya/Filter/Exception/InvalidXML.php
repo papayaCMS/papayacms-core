@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * A range exception is thrown if a value is not a valid xml fragment.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidXML extends \Papaya\Filter\Exception {
+class InvalidXML extends Filter\Exception {
   /**
    * @param \Papaya\XML\Exception $e
    */

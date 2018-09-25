@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if an invalid key in an array is encountered.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidKey extends \Papaya\Filter\Exception {
+class InvalidKey extends Filter\Exception {
   /**
    * The constructor expects the name of the invalid key
    *

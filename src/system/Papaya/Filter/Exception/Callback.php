@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * A callback exception is thrown if an callback is not callable or returns FALSE
  *
@@ -22,7 +24,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class Callback extends \Papaya\Filter\Exception {
+abstract class Callback extends Filter\Exception {
   /**
    * Private property containing the callback
    *

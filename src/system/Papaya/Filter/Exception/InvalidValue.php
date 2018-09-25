@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * A length exception is thrown if a certain length is expected and another if found
  *
@@ -22,7 +24,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidValue extends \Papaya\Filter\Exception {
+class InvalidValue extends Filter\Exception {
   /**
    * The actual value
    *

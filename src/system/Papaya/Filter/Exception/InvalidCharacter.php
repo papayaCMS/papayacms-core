@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if an invalid character is found in the given input
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCharacter extends \Papaya\Filter\Exception {
+class InvalidCharacter extends Filter\Exception {
   /**
    * Position of invalid character
    *

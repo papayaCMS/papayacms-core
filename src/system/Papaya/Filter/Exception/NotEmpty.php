@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not considered empty.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotEmpty extends \Papaya\Filter\Exception {
+class NotEmpty extends Filter\Exception {
   /**
    * Construct object with value informations
    *

@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception\InvalidLength;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is to long.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ToLong extends \Papaya\Filter\Exception\InvalidLength {
+class ToLong extends Filter\Exception\InvalidLength {
   /**
    * Construct object with length information
    *

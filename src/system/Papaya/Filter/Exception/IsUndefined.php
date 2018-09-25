@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not defined (or NULL).
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsUndefined extends \Papaya\Filter\Exception {
+class IsUndefined extends Filter\Exception {
   /**
    * Construct object and set (static) message.
    */

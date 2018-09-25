@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * A range exception is thrown if a value in a certain range is expected.
  *
@@ -22,20 +24,20 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class OutOfRange extends \Papaya\Filter\Exception {
+abstract class OutOfRange extends Filter\Exception {
   /**
    * The expected value limit (minimum or maximum)
    *
    * @var int|float
    */
-  private $_expectedLimit = 0;
+  private $_expectedLimit;
 
   /**
    * The actual length of the value
    *
    * @var int|float
    */
-  private $_actualValue = 0;
+  private $_actualValue;
 
   /**
    * Construct object, set message and range limit information
@@ -53,7 +55,7 @@ abstract class OutOfRange extends \Papaya\Filter\Exception {
   /**
    * Read private expected value limit property
    *
-   * @return int
+   * @return int|float
    */
   public function getExpectedLimit() {
     return $this->_expectedLimit;
@@ -62,7 +64,7 @@ abstract class OutOfRange extends \Papaya\Filter\Exception {
   /**
    * Read private actual value property
    *
-   * @return int
+   * @return int|float
    */
   public function getActualValue() {
     return $this->_actualValue;

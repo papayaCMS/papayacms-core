@@ -14,20 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not enclosed in a list of values.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotIncluded extends \Papaya\Filter\Exception {
-  /**
-   * The actual length of the value
-   *
-   * @var string|int|float|bool
-   */
-  private $_actualValue = 0;
-
+class NotIncluded extends Filter\Exception {
   /**
    * Construct object with value information
    *
@@ -40,6 +35,5 @@ class NotIncluded extends \Papaya\Filter\Exception {
         $actual
       )
     );
-    $this->_actualValue = $actual;
   }
 }

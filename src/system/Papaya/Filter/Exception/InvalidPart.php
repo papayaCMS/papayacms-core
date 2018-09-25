@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if an invalid part is encountered.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidPart extends \Papaya\Filter\Exception {
+class InvalidPart extends Filter\Exception {
   /**
    * The constructor expects the number of the invalid part, its type and optionally a message
    * of the underlying exception.

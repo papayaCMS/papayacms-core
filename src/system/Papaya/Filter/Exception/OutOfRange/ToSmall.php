@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception\OutOfRange;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is to small.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ToSmall extends \Papaya\Filter\Exception\OutOfRange {
+class ToSmall extends Filter\Exception\OutOfRange {
   /**
    * Construct object with length informations
    *

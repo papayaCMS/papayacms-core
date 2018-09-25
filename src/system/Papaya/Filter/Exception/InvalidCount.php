@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if the number of elements differ from the expected number.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCount extends \Papaya\Filter\Exception {
+class InvalidCount extends Filter\Exception {
   /**
    * The constructor expects the expected element count, the actual number and the element type.
    *

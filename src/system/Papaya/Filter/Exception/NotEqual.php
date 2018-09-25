@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not equal to a given comparsion value.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotEqual extends \Papaya\Filter\Exception {
+class NotEqual extends Filter\Exception {
   /**
    * Construct object with value informations
    *

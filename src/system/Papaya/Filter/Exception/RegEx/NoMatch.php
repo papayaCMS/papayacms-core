@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception\RegEx;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value does not match a given pcre pattern.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NoMatch extends \Papaya\Filter\Exception {
+class NoMatch extends Filter\Exception {
   /**
    * Pcre pattern used for validation
    *

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a the callback has failed (returned FALSE).
  *

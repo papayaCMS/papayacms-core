@@ -22,7 +22,7 @@ namespace Papaya\Filter\Exception;
  */
 class InvalidCallback extends Callback {
   /**
-   * Construct object with callback informations
+   * Construct object with callback information
    *
    * @param \Callback $callback
    */

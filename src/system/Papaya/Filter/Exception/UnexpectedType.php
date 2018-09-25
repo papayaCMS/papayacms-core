@@ -14,13 +14,15 @@
  */
 namespace Papaya\Filter\Exception;
 
+use Papaya\Filter;
+
 /**
  * This exception is thrown to report that a the value match not a specified type.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class UnexpectedType extends \Papaya\Filter\Exception {
+class UnexpectedType extends Filter\Exception {
   /**
    * expected type description
    *
