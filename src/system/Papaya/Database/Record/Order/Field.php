@@ -14,6 +14,9 @@
  */
 namespace Papaya\Database\Record\Order;
 
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Encapsulate data for an sql order by element
  *
@@ -21,7 +24,7 @@ namespace Papaya\Database\Record\Order;
  * @subpackage Database
  */
 class Field
-  implements \Papaya\Database\Interfaces\Order {
+  implements Database\Interfaces\Order {
   /**
    * @var string
    */
@@ -47,7 +50,7 @@ class Field
    * @param int $direction
    */
   public function __construct($field, $direction = self::ASCENDING) {
-    \Papaya\Utility\Constraints::assertNotEmpty($field);
+    Utility\Constraints::assertNotEmpty($field);
     $this->_field = (string)$field;
     $this->_direction = (int)$direction;
   }

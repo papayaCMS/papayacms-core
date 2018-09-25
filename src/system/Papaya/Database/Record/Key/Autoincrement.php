@@ -14,19 +14,21 @@
  */
 namespace Papaya\Database\Record\Key;
 
+use Papaya\Database;
+
 /**
  * An single field autoincrement key
  *
  * @package Papaya-Library
  * @subpackage Database
  */
-class Autoincrement implements \Papaya\Database\Interfaces\Key {
+class Autoincrement implements Database\Interfaces\Key {
   /**
    * the property name
    *
    * @var string
    */
-  private $_property = 'id';
+  private $_property;
 
   /**
    * the current field value
@@ -50,7 +52,7 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
    * @return int
    */
   public function getQualities() {
-    return \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED;
+    return Database\Interfaces\Key::DATABASE_PROVIDED;
   }
 
   /**
@@ -79,7 +81,7 @@ class Autoincrement implements \Papaya\Database\Interfaces\Key {
    * @return bool
    */
   public function exists() {
-    return isset($this->_value);
+    return NULL !== $this->_value;
   }
 
   /**

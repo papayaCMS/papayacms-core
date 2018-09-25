@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Record\Key;
 
+use Papaya\Database;
+
 /**
  * An single field key, provided by a sequence object, the sequence is created on the
  * client side and the sequence object validates the existance in the database.
@@ -21,11 +23,11 @@ namespace Papaya\Database\Record\Key;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Sequence implements \Papaya\Database\Interfaces\Key {
+class Sequence implements Database\Interfaces\Key {
   /**
    * Sequence object to create new identifiers
    *
-   * @var \Papaya\Database\Sequence
+   * @var Database\Sequence
    */
   private $_sequence;
 
@@ -34,7 +36,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    *
    * @var string
    */
-  private $_property = 'id';
+  private $_property;
 
   /**
    * the current field value
@@ -46,10 +48,10 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
   /**
    * Create objecd and store sequence and property.
    *
-   * @param \Papaya\Database\Sequence $sequence
+   * @param Database\Sequence $sequence
    * @param string $property
    */
-  public function __construct(\Papaya\Database\Sequence $sequence, $property = 'id') {
+  public function __construct(Database\Sequence $sequence, $property = 'id') {
     $this->_sequence = $sequence;
     $this->_property = $property;
   }
@@ -62,7 +64,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * @return int
    */
   public function getQualities() {
-    return \Papaya\Database\Interfaces\Key::CLIENT_GENERATED;
+    return Database\Interfaces\Key::CLIENT_GENERATED;
   }
 
   /**
@@ -131,7 +133,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {
-    if (self::ACTION_CREATE == $for) {
+    if (self::ACTION_CREATE === $for) {
       return [$this->_property => $this->_sequence->next()];
     }
     return [$this->_property => $this->_value];

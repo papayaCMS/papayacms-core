@@ -14,13 +14,15 @@
  */
 namespace Papaya\Database\Record\Key;
 
+use Papaya\Database;
+
 /**
  * An multiple field key that represents a link table index
  *
  * @package Papaya-Library
  * @subpackage Database
  */
-class Fields implements \Papaya\Database\Interfaces\Key {
+class Fields implements Database\Interfaces\Key {
   /**
    * the key values
    *
@@ -31,7 +33,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   /**
    * Attached record for this key
    *
-   * @var \Papaya\Database\Record
+   * @var Database\Record
    */
   private $_record;
 
@@ -40,18 +42,18 @@ class Fields implements \Papaya\Database\Interfaces\Key {
    *
    * @var string
    */
-  private $_tableName = '';
+  private $_tableName;
 
   /**
    * Create object and set the identifier property, the default
    *
-   * @param \Papaya\Database\Record $record
+   * @param Database\Record $record
    * @param $tableName
    * @param array $properties
    *
    * @internal param int|NULL $
    */
-  public function __construct(\Papaya\Database\Record $record, $tableName, array $properties) {
+  public function __construct(Database\Record $record, $tableName, array $properties) {
     $this->_record = $record;
     $this->_tableName = $tableName;
     foreach ($properties as $property) {
@@ -97,11 +99,11 @@ class Fields implements \Papaya\Database\Interfaces\Key {
     $filter = [];
     $values = $this->getFilter();
     foreach ($this->_record->mapping()->mapPropertiesToFields($values, FALSE) as $field => $value) {
-      if (isset($value)) {
+      if (NULL !== $value) {
         $filter[$field] = $value;
       }
     }
-    if (empty($filter) || \count($filter) != \count($values)) {
+    if (empty($filter) || \count($filter) !== \count($values)) {
       return FALSE;
     }
     $databaseAccess = $this->_record->getDatabaseAccess();
@@ -152,7 +154,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   public function getFilter($for = self::ACTION_FILTER) {
     $values = $this->_values;
     foreach ($values as $property => $value) {
-      if (!isset($value) && isset($this->_record[$property])) {
+      if (NULL === $value && isset($this->_record[$property])) {
         $values[$property] = $this->_record[$property];
       }
     }

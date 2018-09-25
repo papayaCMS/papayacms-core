@@ -14,27 +14,30 @@
  */
 namespace Papaya\Database\Record;
 
+use Papaya\BaseObject;
+use Papaya\Database;
+
 /**
  * Callbacks that are used by the record object
  *
  * @package Papaya-Library
  * @subpackage Database
  *
- * @property \Papaya\BaseObject\Callback $onBeforeUpdate
- * @property \Papaya\BaseObject\Callback $onBeforeInsert
- * @property \Papaya\BaseObject\Callback $onBeforeDelete
- * @property \Papaya\BaseObject\Callback $onAfterUpdate
- * @property \Papaya\BaseObject\Callback $onAfterInsert
- * @property \Papaya\BaseObject\Callback $onAfterDelete
+ * @property BaseObject\Callback $onBeforeUpdate
+ * @property BaseObject\Callback $onBeforeInsert
+ * @property BaseObject\Callback $onBeforeDelete
+ * @property BaseObject\Callback $onAfterUpdate
+ * @property BaseObject\Callback $onAfterInsert
+ * @property BaseObject\Callback $onAfterDelete
  *
- * @method bool onBeforeUpdate(\Papaya\Database\Record $record)
- * @method bool onBeforeInsert(\Papaya\Database\Record $record)
- * @method bool onBeforeDelete(\Papaya\Database\Record $record)
- * @method bool onAfterUpdate(\Papaya\Database\Record $record)
- * @method bool onAfterInsert(\Papaya\Database\Record $record)
- * @method bool onAfterDelete(\Papaya\Database\Record $record)
+ * @method bool onBeforeUpdate(Database\Record $record)
+ * @method bool onBeforeInsert(Database\Record $record)
+ * @method bool onBeforeDelete(Database\Record $record)
+ * @method bool onAfterUpdate(Database\Record $record)
+ * @method bool onAfterInsert(Database\Record $record)
+ * @method bool onAfterDelete(Database\Record $record)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   public function __construct() {
     parent::__construct(
       [

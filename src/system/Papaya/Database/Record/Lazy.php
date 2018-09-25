@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Record;
 
+use Papaya\Database;
+
 /**
  * Papaya Database Record Lazy, superclass for easy database record encapsulation that
  * can store loading parameters until needed.
@@ -22,16 +24,19 @@ namespace Papaya\Database\Record;
  * @subpackage Database
  */
 abstract class Lazy
-  extends \Papaya\Database\Record {
+  extends Database\Record {
+  /**
+   * @var null|array
+   */
   private $_loadingParameters;
 
   /**
    * Define lazy load parameters and activate it.
    *
-   * @param mixed $filter
+   * @param array $arguments
    */
-  public function activateLazyLoad($filter) {
-    $this->_loadingParameters = \func_get_args();
+  public function activateLazyLoad(...$arguments) {
+    $this->_loadingParameters = $arguments;
     $this->clear();
   }
 
@@ -49,7 +54,7 @@ abstract class Lazy
    */
   protected function lazyLoad() {
     if (NULL !== $this->_loadingParameters) {
-      \call_user_func_array([$this, 'load'], $this->_loadingParameters);
+      $this->load(...$this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
@@ -91,11 +96,11 @@ abstract class Lazy
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Key|null $key
+   * @param Database\Interfaces\Key|null $key
    *
-   * @return \Papaya\Database\Interfaces\Key
+   * @return Database\Interfaces\Key
    */
-  public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
+  public function key(Database\Interfaces\Key $key = NULL) {
     $key = parent::key($key);
     $this->lazyLoad();
     return $key;
