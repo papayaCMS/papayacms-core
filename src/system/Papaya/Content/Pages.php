@@ -163,7 +163,7 @@ class Pages extends Database\Records\Lazy {
       $viewModeId,
       $databaseAccess->getTableName($this->_tableAuthenticationUsers)
     ];
-    return $this->_loadRecords($sql, $parameters, $limit, $offset, 'id');
+    return $this->_loadRecords($sql, $parameters, $limit, $offset, ['id']);
   }
 
   protected function _compileCondition($filter, $prefix = ' WHERE ') {

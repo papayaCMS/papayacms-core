@@ -22,7 +22,7 @@ use Papaya\Utility;
  *
  * Usage:
  *   $sequence = new \Papaya\Database\Sequence\Base32(
- *     'tablename', 'fieldname', 10
+ *     'table_name', 'field_name', 10
  *   );
  *   $newId = $sequence->next();
  *

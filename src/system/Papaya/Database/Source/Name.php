@@ -14,6 +14,9 @@
  */
 namespace Papaya\Database\Source;
 
+use Papaya\Database;
+use Papaya\Request;
+
 /**
  * Database source name (DSN) specifies a data structure that contains the information
  * about a specific data source
@@ -30,7 +33,7 @@ namespace Papaya\Database\Source;
  * @property string $port
  * @property string $socket
  * @property string $database
- * @property \Papaya\Request\Parameters $parameters
+ * @property Request\Parameters $parameters
  */
 class Name {
   /**
@@ -50,7 +53,7 @@ class Name {
   /**
    * Additional parameters
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -61,7 +64,7 @@ class Name {
    *
    * @param string $name
    *
-   * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws Database\Exception\ConnectionFailed
    */
   public function __construct($name) {
     $this->setName($name);
@@ -98,11 +101,11 @@ class Name {
    *
    * @param string $name
    *
-   * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws Database\Exception\ConnectionFailed
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new \Papaya\Database\Exception\ConnectionFailed(
+      throw new Database\Exception\ConnectionFailed(
         'Can not initialize database connection from empty dsn.'
       );
     }
@@ -158,13 +161,13 @@ class Name {
         'database' => $this->_getMatchValue($matches, 'database')
       ];
       if ($queryStringStart > 0) {
-        $query = new \Papaya\Request\Parameters\QueryString();
+        $query = new Request\Parameters\QueryString();
         $this->_parameters = $query->setString(\substr($name, $queryStringStart + 1))->values();
       } else {
-        $this->_parameters = new \Papaya\Request\Parameters();
+        $this->_parameters = new Request\Parameters();
       }
     } else {
-      throw new \Papaya\Database\Exception\ConnectionFailed(
+      throw new Database\Exception\ConnectionFailed(
         'Can not initialize database connection from invalid dsn.'
       );
     }

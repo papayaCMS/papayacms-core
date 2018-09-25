@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database;
 
+use Papaya\Utility;
+
 /**
  * Papaya Database List, represents a list of records fetched from the database.
  *
@@ -31,14 +33,14 @@ abstract class Records
   protected $_records = [];
 
   /**
-   * An array of properties, used to compile the identifer
+   * An array of properties, used to compile the identifier
    *
    * @var array(string)
    */
   protected $_identifierProperties = [];
 
   /**
-   * The parts of an identifer a joined using the given separator string
+   * The parts of an identifier a joined using the given separator string
    *
    * @var string
    */
@@ -56,7 +58,7 @@ abstract class Records
   public function load($filter = [], $limit = NULL, $offset = NULL) {
     $fields = \implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf(
+    $sql .= Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = [
@@ -79,7 +81,8 @@ abstract class Records
           $this->mapping()->mapPropertiesToFields($filterOrAll, FALSE)
         )
       );
-    } elseif (\is_bool($filterOrAll) && $filterOrAll) {
+    }
+    if (\is_bool($filterOrAll) && $filterOrAll) {
       return (
         FALSE !== $databaseAccess->emptyTable(
           $databaseAccess->getTableName($this->_tableName)
@@ -95,7 +98,7 @@ abstract class Records
    * @return bool
    */
   public function insert($data) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($data);
+    Utility\Constraints::assertArrayOrTraversable($data);
     $databaseAccess = $this->getDatabaseAccess();
     $records = [];
     foreach ($data as $values) {
@@ -117,12 +120,12 @@ abstract class Records
    *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+  protected function _loadRecords($sql, array $parameters, $limit, $offset, $idProperties = []) {
     $this->reset();
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);
-        if (isset($identifier)) {
+        if (NULL !== $identifier) {
           $this->_records[$identifier] = $values;
         } else {
           $this->_records[] = $values;
@@ -161,7 +164,7 @@ abstract class Records
   /**
    * Get an iterator for the loaded records.
    *
-   * @return \ArrayIterator
+   * @return \Iterator
    */
   public function getIterator() {
     return empty($this->_records) ? new \EmptyIterator() : new \ArrayIterator($this->_records);
@@ -197,7 +200,7 @@ abstract class Records
    * @param mixed $value
    */
   public function offsetSet($offset, $value) {
-    \Papaya\Utility\Constraints::assertArray($value);
+    Utility\Constraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
     $record = [];
     foreach ($this->mapping()->getProperties() as $property) {
@@ -207,7 +210,7 @@ abstract class Records
         $record[$property] = NULL;
       }
     }
-    if (isset($identifier)) {
+    if (NULL !== $identifier) {
       $this->_records[$identifier] = $record;
     } else {
       $this->_records[] = $record;
@@ -231,42 +234,41 @@ abstract class Records
    * only the properties defined in the filter (corresponding to keys in the values array) are
    * used. If the $filter argument is an empty array the method returns NULL.
    *
-   * If the $filter argument is NULL, all values in the $valeus argument are used.
+   * If the $filter argument is NULL, all values in the $values argument are used.
    *
    * @param mixed $values
    * @param mixed $filter
    *
    * @throws \UnexpectedValueException
    *
-   * @return mixed
+   * @return string|null
    */
   protected function getIdentifier($values, $filter = NULL) {
-    if (isset($filter)) {
+    if (NULL !== $filter) {
       if (!\is_array($filter)) {
         $filter = [$filter];
       }
       if (empty($filter)) {
-        return;
-      } else {
-        $identifier = [];
-        foreach ($filter as $property) {
-          if (isset($values[$property])) {
-            $identifier[] = $values[$property];
-          } else {
-            throw new \UnexpectedValueException(
-              \sprintf(
-                'The property "%s" was not found, but is needed to create the identifier.',
-                $property
-              )
-            );
-          }
-        }
-        return \implode($this->_identifierSeparator, $identifier);
+        return NULL;
       }
-    } elseif (\is_array($values)) {
-      return \implode($this->_identifierSeparator, $values);
-    } else {
-      return $values;
+      $identifier = [];
+      foreach ($filter as $property) {
+        if (isset($values[$property])) {
+          $identifier[] = $values[$property];
+        } else {
+          throw new \UnexpectedValueException(
+            \sprintf(
+              'The property "%s" was not found, but is needed to create the identifier.',
+              $property
+            )
+          );
+        }
+      }
+      return \implode($this->_identifierSeparator, $identifier);
     }
+    if (\is_array($values)) {
+      return \implode($this->_identifierSeparator, $values);
+    }
+    return NULL !== $values ? (string)$values : NULL;
   }
 }

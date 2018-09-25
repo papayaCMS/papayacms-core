@@ -33,7 +33,7 @@ namespace Papaya\Database\Interfaces\Access;
  * @method string databaseQuoteString(mixed $value)
  * @method string databaseGetProtocol()
  * @method string databaseGetSqlSource(string $function, array $params)
- * @method string databaseGetSqlCondition(array $filter, $value = NULL, $operator = '=')
+ * @method string databaseGetSqlCondition(array|string $filter, $value = NULL, $operator = '=')
  * @method int|string|false databaseInsertRecord(string $table, mixed $idField, array $values = NULL)
  * @method int|string|false databaseInsertRecords(string $table, array $values)
  * @method \Papaya\Database\Result|int|false databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)

@@ -34,7 +34,7 @@ class Groups extends Database\Records {
     'surfergroup_id' => Database\Interfaces\Order::ASCENDING
   ];
 
-  protected $_identifierProperties = 'id';
+  protected $_identifierProperties = ['id'];
 
   protected $_tableName = Content\Tables::COMMUNITY_GROUPS;
 

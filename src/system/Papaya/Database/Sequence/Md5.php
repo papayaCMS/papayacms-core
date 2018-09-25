@@ -22,7 +22,7 @@ use Papaya\Utility;
  *
  * Usage:
  *   $sequence = new \Papaya\Database\Sequence\Md5(
- *     'tablename', 'fieldname', 5
+ *     'table_name', 'field_name', 5
  *   );
  *   $newId = $sequence->next();
  *
@@ -31,7 +31,7 @@ use Papaya\Utility;
  */
 class Md5 extends Database\Sequence {
   /**
-   * Generate a random, unqiue id and use md5 to hash it
+   * Generate a random, unique id and use md5 to hash it
    *
    * @return string
    */

@@ -14,24 +14,52 @@
  */
 namespace Papaya\Database\Statement {
 
+  use Papaya\Database;
+
   class Formatted
-    implements \Papaya\Database\Interfaces\Statement {
+    implements Database\Interfaces\Statement {
+    /**
+     * @var string
+     */
     private $_sql;
 
+    /**
+     * @var array
+     */
     private $_parameters;
 
+    /**
+     * @var \Papaya\Database\Access
+     */
     private $_databaseAccess;
 
-    public function __construct(\Papaya\Database\Access $databaseAccess, $sql, array $parameters = []) {
+    /**
+     * Formatted constructor.
+     *
+     * @param \Papaya\Database\Access $databaseAccess
+     * @param $sql
+     * @param array $parameters
+     */
+    public function __construct(Database\Access $databaseAccess, $sql, array $parameters = []) {
       $this->_databaseAccess = $databaseAccess;
       $this->_sql = $sql;
       $this->_parameters = $parameters;
     }
 
+    /**
+     * @return string
+     */
     public function __toString() {
-      return $this->getSQL();
+      try {
+        return $this->getSQL();
+      } catch (\Exception $e) {
+        return '';
+      }
     }
 
+    /**
+     * @return string
+     */
     public function getSQL() {
       return \vsprintf(
         $this->_sql,

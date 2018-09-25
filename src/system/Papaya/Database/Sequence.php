@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database;
 
+use Papaya\Utility;
+
 /**
  * Papaya Database Sequence, handles manual client side sequence
  *
@@ -21,7 +23,7 @@ namespace Papaya\Database;
  *
  * Usage:
  *   $sequence = new \Papaya\Database\Sequence\Sample(
- *     'tablename', 'fieldname'
+ *     'table_name', 'field_name'
  *   );
  *   $newId = $sequence->next();
  *
@@ -122,9 +124,7 @@ abstract class Sequence extends BaseObject {
    */
   protected function checkIdentifiers(array $identifiers) {
     $identifiers = \array_values($identifiers);
-    $filter = \str_replace(
-      '%',
-      '%%',
+    $filter = Utility\Text::escapeForPrintf(
       $this->databaseGetSqlCondition($this->_field, $identifiers)
     );
     if (empty($filter)) {
@@ -140,8 +140,7 @@ abstract class Sequence extends BaseObject {
         $found[] = $row[0];
       }
       return \array_diff($identifiers, $found);
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 }

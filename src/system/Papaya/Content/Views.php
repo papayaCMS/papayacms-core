@@ -77,6 +77,6 @@ class Views extends Database\Records\Lazy {
       $databaseAccess->getTableName($this->_tableName),
       $databaseAccess->getTableName($this->_tableNameModules)
     ];
-    return $this->_loadRecords($sql, $parameters, $limit, $offset, 'id');
+    return $this->_loadRecords($sql, $parameters, $limit, $offset, ['id']);
   }
 }
