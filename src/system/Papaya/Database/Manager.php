@@ -23,7 +23,6 @@ use Papaya\Application;
  * @subpackage Database
  */
 class Manager implements Application\Access {
-
   use Application\Access\Aggregation;
 
   /**
