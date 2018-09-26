@@ -16,7 +16,7 @@ namespace Papaya\Filter {
 
 use Papaya\Filter;
 
-  /**
+/**
    * Papaya filter class for an identifier/name
    *
    * Identifiers are only allowed to include ASCII letters, digits and underscore.

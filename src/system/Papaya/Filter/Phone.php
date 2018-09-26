@@ -56,7 +56,7 @@ class Phone implements \Papaya\Filter {
    *
    * @param mixed $value
    *
-   * @return string|NULL
+   * @return string|null
    */
   public function filter($value) {
     try {

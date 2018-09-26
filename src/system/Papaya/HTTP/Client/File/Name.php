@@ -14,19 +14,22 @@
  */
 namespace Papaya\HTTP\Client\File;
 
+use Papaya\HTTP;
+use Papaya\Utility;
+
 /**
  * Papaya HTTP Client File Name - handle file upload resource using a filename
  *
  * @package Papaya-Library
  * @subpackage HTTP-Client
  */
-class Name extends \Papaya\HTTP\Client\File {
+class Name extends HTTP\Client\File {
   /**
    * initialize to an inter value on first @see getSize()
    *
    * @var int
    */
-  protected $_size;
+  private $_size;
 
   /**
    * @param string $name
@@ -36,10 +39,15 @@ class Name extends \Papaya\HTTP\Client\File {
    * @throws \LogicException
    */
   public function __construct($name, $fileName, $mimeType = '') {
-    if (!empty($name) &&
+    Utility\Constraints::assertString($name);
+    Utility\Constraints::assertString($fileName);
+    Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertNotEmpty($fileName);
+    if (
       \file_exists($fileName) &&
       \is_file($fileName) &&
-      \is_readable($fileName)) {
+      \is_readable($fileName)
+    ) {
       $this->_name = $name;
       $this->_fileName = $fileName;
       if (!empty($mimeType)) {
@@ -56,7 +64,7 @@ class Name extends \Papaya\HTTP\Client\File {
    * @return int
    */
   public function getSize() {
-    if (!isset($this->_size)) {
+    if (NULL === $this->_size) {
       $this->_size = \filesize($this->_fileName);
     }
     return $this->_size;
@@ -65,14 +73,14 @@ class Name extends \Papaya\HTTP\Client\File {
   /**
    * send file data
    *
-   * @param \Papaya\HTTP\Client\Socket $socket
+   * @param HTTP\Client\Socket $socket
    * @param bool $chunked optional, default value FALSE
    * @param int $bufferSize optional, default value 0
    *
    * @throws \LogicException
    */
-  public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
-    if ($fh = @\fopen($this->_fileName, 'r')) {
+  public function send(HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
+    if ($fh = @\fopen($this->_fileName, 'rb')) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {
           $bufferSize = $this->_bufferSize;

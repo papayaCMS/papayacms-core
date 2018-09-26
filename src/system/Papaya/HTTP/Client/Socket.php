@@ -31,7 +31,7 @@ class Socket {
   /**
    * connection pool object
    *
-   * @var \Papaya\HTTP\Client\Socket\Pool
+   * @var Socket\Pool
    */
   private $_pool;
 
@@ -83,20 +83,20 @@ class Socket {
   /**
    * set the connection pool object
    *
-   * @param \Papaya\HTTP\Client\Socket\Pool $pool
+   * @param Socket\Pool $pool
    */
-  public function setPool(\Papaya\HTTP\Client\Socket\Pool $pool) {
+  public function setPool(Socket\Pool $pool) {
     $this->_pool = $pool;
   }
 
   /**
    * return the connection pool object
    *
-   * @return \Papaya\HTTP\Client\Socket\Pool
+   * @return Socket\Pool
    */
   public function getPool() {
-    if (\is_null($this->_pool)) {
-      $this->_pool = new \Papaya\HTTP\Client\Socket\Pool();
+    if (NULL === $this->_pool) {
+      $this->_pool = new Socket\Pool();
     }
     return $this->_pool;
   }
@@ -107,12 +107,11 @@ class Socket {
    * @param string $host
    * @param int $port
    * @param int $timeout optional, default value 10
-   * @param string $scheme optional, default value 'http'
    * @param string $transport optional, default value ''
    *
    * @return bool
    */
-  public function open($host, $port, $timeout = 10, $scheme = 'http', $transport = '') {
+  public function open($host, $port, $timeout = 10, $transport = '') {
     $this->_contentLength = -1;
     $this->_host = $host;
     $this->_port = $port;
@@ -180,13 +179,14 @@ class Socket {
         $this->close();
       }
       return $data;
-    } elseif (-1 == $this->_contentLength) {
-      return $this->_readBytes($maxBytes);
-    } elseif (-2 == $this->_contentLength) {
-      return $this->_readChunked($maxBytes);
-    } else {
-      return FALSE;
     }
+    if (-1 === $this->_contentLength) {
+      return $this->_readBytes($maxBytes);
+    }
+    if (-2 === $this->_contentLength) {
+      return $this->_readChunked($maxBytes);
+    }
+    return FALSE;
   }
 
   /**
@@ -211,14 +211,15 @@ class Socket {
    */
   private function _readChunked($maxBytes = 8192) {
     $result = '';
-    if (0 == $this->_currentChunkSize) {
+    if (0 === $this->_currentChunkSize) {
       $line = \rtrim($this->readLine());
       if ('0' === $line) {
         $this->_readBytes(2);
         $this->_contentLength = 0;
         $this->close();
         return FALSE;
-      } elseif (\preg_match('(^([0-9a-f]+)(?:;.*)?$)i', $line, $match)) {
+      }
+      if (\preg_match('(^([0-9a-f]+)(?:;.*)?$)i', $line, $match)) {
         $this->_currentChunkSize = \hexdec($match[1]);
       }
     }
@@ -248,8 +249,6 @@ class Socket {
    * write line breaks
    *
    * @param $count
-   *
-   * @return string
    */
   public function writeLineBreak($count = 1) {
     $this->write(\str_repeat($this->_lineBreak, $count));
@@ -287,10 +286,8 @@ class Socket {
    * @return bool
    */
   public function eof() {
-    if ($this->isActive()) {
-      if (0 != $this->_contentLength) {
-        return \feof($this->_resource);
-      }
+    if (0 !== $this->_contentLength && $this->isActive()) {
+      return \feof($this->_resource);
     }
     return TRUE;
   }
@@ -301,7 +298,7 @@ class Socket {
    * @return bool
    */
   public function isActive() {
-    return (isset($this->_resource) && \is_resource($this->_resource));
+    return (NULL !== $this->_resource && \is_resource($this->_resource));
   }
 
   /**
@@ -328,9 +325,8 @@ class Socket {
         $this->_resource = NULL;
       }
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**

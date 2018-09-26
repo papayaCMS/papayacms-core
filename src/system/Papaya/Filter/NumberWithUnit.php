@@ -107,7 +107,7 @@ class NumberWithUnit implements Filter {
     ) {
       if (
         '-' === $this->_algebraicSign &&
-        0 !== strpos($matches['number'], '-')
+        0 !== \strpos($matches['number'], '-')
       ) {
         throw new Exception\InvalidCharacter($matches['number'], 0);
       }

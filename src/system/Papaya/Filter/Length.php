@@ -15,8 +15,8 @@
 namespace Papaya\Filter;
 
 use Papaya\Filter;
-use Papaya\Utility;
 use Papaya\Text;
+use Papaya\Utility;
 
 /**
  * Papaya filter class for an string length

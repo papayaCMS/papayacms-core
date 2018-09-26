@@ -57,29 +57,20 @@ abstract class File {
   protected $_mimeType = '';
 
   /**
-   * file size
-   *
-   * @var int
-   */
-  protected $_size = 0;
-
-  /**
    * abstract send function
    *
-   * @param \Papaya\HTTP\Client\Socket $socket
+   * @param Socket $socket
    * @param bool $chunked optional, default value FALSE
    * @param int $bufferSize optional, default value 0
    */
-  abstract public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0);
+  abstract public function send(Socket $socket, $chunked = FALSE, $bufferSize = 0);
 
   /**
    * get file size property value
    *
    * @return int
    */
-  public function getSize() {
-    return $this->_size;
-  }
+  abstract public function getSize();
 
   /**
    * get file name property
@@ -91,9 +82,8 @@ abstract class File {
   public function getName() {
     if (empty($this->_name)) {
       throw new \UnexpectedValueException('Invalid name property', E_USER_WARNING);
-    } else {
-      return $this->_name;
     }
+    return $this->_name;
   }
 
   /**

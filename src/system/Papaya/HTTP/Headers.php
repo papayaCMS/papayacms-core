@@ -38,7 +38,7 @@ class Headers
    * @param array $defaults
    */
   public function __construct(array $defaults = NULL) {
-    if (isset($defaults)) {
+    if (NULL !== $defaults) {
       foreach ($defaults as $name => $value) {
         $this->set($name, $value, TRUE);
       }
@@ -81,13 +81,13 @@ class Headers
    * @return string|array|null
    */
   public function get($name) {
-    if ('' != \trim($name)) {
+    if ('' !== \trim($name)) {
       $name = $this->normalizeName($name);
       if (!empty($this->_headers[$name])) {
         return $this->_headers[$name];
       }
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -100,24 +100,23 @@ class Headers
    * @return bool
    */
   public function set($name, $value, $allowDuplicates = FALSE) {
-    if ('' != \trim($name)) {
+    if ('' !== \trim($name)) {
       $name = $this->normalizeName($name);
-      if ($allowDuplicates &&
-        isset($this->_headers[$name])) {
-        if (!empty($value)) {
-          if (isset($this->_headers[$name]) &&
-            !\is_array($this->_headers[$name])) {
-            $this->_headers[$name] = [
-              $this->_headers[$name]
-            ];
-          }
-          $this->_headers[$name][] = $value;
+      if (empty($value)) {
+        if (!$allowDuplicates && isset($this->_headers[$name])) {
+          unset($this->_headers[$name]);
           return TRUE;
         }
-      } elseif (empty($value) && isset($this->_headers[$name])) {
-        unset($this->_headers[$name]);
-        return TRUE;
-      } elseif (!empty($value)) {
+      } else {
+        if (isset($this->_headers[$name])) {
+          if ($allowDuplicates && !\is_array($this->_headers[$name])) {
+            $this->_headers[$name] = [$this->_headers[$name]];
+          }
+          if (\is_array($this->_headers[$name])) {
+            $this->_headers[$name][] = (string)$value;
+            return TRUE;
+          }
+        }
         $this->_headers[$name] = (string)$value;
         return TRUE;
       }
@@ -134,12 +133,17 @@ class Headers
    * @return string
    */
   protected function normalizeName($name) {
-    $parts = \explode('-', \strtolower($name));
-    return \implode('-', \array_map('ucfirst', $parts));
+    return \implode(
+      '-',
+      \array_map(
+        'ucfirst',
+        \explode('-', \strtolower($name))
+      )
+    );
   }
 
   /**
-   * ArrayAccess Interface: check if an heaer exists
+   * ArrayAccess Interface: check if an header exists
    *
    * @param int $offset
    *

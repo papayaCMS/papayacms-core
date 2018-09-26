@@ -14,14 +14,25 @@
  */
 namespace Papaya\HTTP\Client\File;
 
+use Papaya\HTTP;
+use Papaya\Utility;
+
 /**
  * Papaya HTTP Client File Resource - handle file upload resource using a resource id
  *
  * @package Papaya-Library
  * @subpackage HTTP-Client
  */
-class Resource extends \Papaya\HTTP\Client\File {
-  protected $_size;
+class Resource extends HTTP\Client\File {
+  /**
+   * @var int|null $_size
+   */
+  private $_size;
+
+  /**
+   * @var resource $_resource
+   */
+  private $_resource;
 
   /**
    * @param string $name
@@ -32,17 +43,16 @@ class Resource extends \Papaya\HTTP\Client\File {
    * @throws \InvalidArgumentException
    */
   public function __construct($name, $fileName, $resource, $mimeType = '') {
-    if (!empty($name) &&
-      !empty($fileName) &&
-      \is_resource($resource)) {
-      $this->_name = $name;
-      $this->_fileName = $fileName;
-      $this->_resource = $resource;
-      if (!empty($mimeType)) {
-        $this->_mimeType = $mimeType;
-      }
-    } else {
-      throw new \InvalidArgumentException('Invalid arguments for element: '.$name);
+    Utility\Constraints::assertString($name);
+    Utility\Constraints::assertString($fileName);
+    Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertNotEmpty($fileName);
+    Utility\Constraints::assertResource($resource);
+    $this->_name = (string)$name;
+    $this->_fileName = (string)$fileName;
+    $this->_resource = $resource;
+    if (!empty($mimeType)) {
+      $this->_mimeType = $mimeType;
     }
   }
 
@@ -52,7 +62,7 @@ class Resource extends \Papaya\HTTP\Client\File {
    * @return int
    */
   public function getSize() {
-    if (!isset($this->_size)) {
+    if (\is_resource($this->_resource) && NULL === $this->_size) {
       $this->_size = 0;
       $stat = \fstat($this->_resource);
       if (isset($stat['size'])) {
@@ -65,46 +75,43 @@ class Resource extends \Papaya\HTTP\Client\File {
   /**
    * send file data
    *
-   * @param \Papaya\HTTP\Client\Socket $socket
+   * @param HTTP\Client\Socket $socket
    * @param bool $chunked optional, default value FALSE
    * @param int $bufferSize optional, default value 0
    *
    * @throws \UnexpectedValueException
    */
-  public function send(\Papaya\HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
-    if (\is_resource($this->_resource)) {
-      if ($socket->isActive()) {
-        if ($bufferSize <= 0) {
-          $bufferSize = $this->_bufferSize;
-        }
-        if ($chunked) {
-          while (!\feof($this->_resource)) {
-            $data = \fread($this->_resource, $bufferSize);
-            if ('' !== $data) {
-              $socket->writeChunk($data);
-            }
-          }
-          $socket->writeChunk($this->_lineBreak);
-        } else {
-          $size = $this->getSize();
-          $sent = 0;
-          while (!\feof($this->_resource) && $size >= ($sent + $bufferSize)) {
-            $data = \fread($this->_resource, $bufferSize);
-            if ('' !== $data) {
-              $socket->write($data);
-              $sent += \strlen($data);
-            }
-          }
-          if ($size > $sent) {
-            $bytesToSend = $size - $sent;
-            $data = \fread($this->_resource, $bytesToSend);
-            $socket->write($data);
-          }
-          $socket->write($this->_lineBreak);
-        }
+  public function send(HTTP\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
+    Utility\Constraints::assertResource($this->_resource);
+    if (\is_resource($this->_resource) && $socket->isActive()) {
+      if ($bufferSize <= 0) {
+        $bufferSize = $this->_bufferSize;
       }
-    } else {
-      throw new \UnexpectedValueException('Invalid resource in element: '.$this->_name);
+      if ($chunked) {
+        while (!\feof($this->_resource)) {
+          $data = \fread($this->_resource, $bufferSize);
+          if ('' !== $data) {
+            $socket->writeChunk($data);
+          }
+        }
+        $socket->writeChunk($this->_lineBreak);
+      } else {
+        $size = $this->getSize();
+        $sent = 0;
+        while (!\feof($this->_resource) && $size >= ($sent + $bufferSize)) {
+          $data = \fread($this->_resource, $bufferSize);
+          if ('' !== $data) {
+            $socket->write($data);
+            $sent += \strlen($data);
+          }
+        }
+        if ($size > $sent) {
+          $bytesToSend = $size - $sent;
+          $data = \fread($this->_resource, $bytesToSend);
+          $socket->write($data);
+        }
+        $socket->write($this->_lineBreak);
+      }
     }
   }
 }

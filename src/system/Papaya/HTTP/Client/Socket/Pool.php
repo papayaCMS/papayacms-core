@@ -47,7 +47,7 @@ class Pool {
         return $connection;
       }
     }
-    return;
+    return NULL;
   }
 
   /**

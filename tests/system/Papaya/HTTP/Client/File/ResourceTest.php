@@ -47,7 +47,7 @@ class ResourceTest extends \Papaya\TestCase {
    * @covers \Papaya\HTTP\Client\File\Resource::__construct
    */
   public function testConstructorExpectingError() {
-    $this->expectException(\InvalidArgumentException::class);
+    $this->expectException(\UnexpectedValueException::class);
     new Resource('', '', NULL, '');
   }
 

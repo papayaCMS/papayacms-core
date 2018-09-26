@@ -60,12 +60,19 @@ namespace Papaya\HTTP\Client {
 
     public
       /** @noinspection PropertyInitializationFlawsInspection */
-      $_name = '',
+      $_name = '';
+    public
       /** @noinspection PropertyInitializationFlawsInspection */
       $_mimeType = '';
 
+    public $size = 0;
+
     public function send(Socket $socket, $chunked = FALSE, $bufferSize = 0) {
       parent::send($socket, $chunked, $bufferSize);
+    }
+
+    public function getSize() {
+      return $this->size;
     }
 
     public function _escapeHeaderValue($value) {

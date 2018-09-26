@@ -392,11 +392,7 @@ class Client {
       }
     }
     $opened = $socket->open(
-      $server,
-      $port,
-      $this->_timeout,
-      $this->_url['scheme'],
-      $this->_transport
+      $server, $port, $this->_timeout, $this->_transport
     );
     if ($opened) {
       if ('close' === \strtolower($this->getHeader('Connection'))) {
