@@ -15,7 +15,7 @@
 namespace Papaya\Filter;
 
 use Papaya\Filter;
-use Papaya\Text;
+use Papaya\Text\UTF8String;
 use Papaya\Utility;
 
 /**
@@ -81,9 +81,7 @@ class Length implements Filter {
    */
   public function validate($value) {
     if ($this->_isUTF8) {
-      $string = new Text\UTF8String(
-        Utility\Text\UTF8::ensure($value)
-      );
+      $string = new UTF8String($value, TRUE);
       $length = $string->length();
     } else {
       $length = \strlen($value);

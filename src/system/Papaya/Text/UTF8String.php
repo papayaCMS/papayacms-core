@@ -82,10 +82,11 @@ class UTF8String implements \Iterator, \ArrayAccess {
   /**
    * Encapsulate string into unicode object
    *
-   * @param $string
+   * @param string $string
+   * @param bool $convertUnknown convert unknown bytes as LATIN1 to UTF-8
    */
-  public function __construct($string) {
-    $this->_string = $string;
+  public function __construct($string, $convertUnknown = FALSE) {
+    $this->_string = $convertUnknown ? \Papaya\Utility\Text\UTF8::ensure($string) : (string)$string;
   }
 
   /**

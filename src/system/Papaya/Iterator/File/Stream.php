@@ -25,12 +25,24 @@ class Stream implements \Iterator {
 
   const TRIM_RIGHT = 1;
 
+  /**
+   * @var resource
+   */
   private $_stream;
 
+  /**
+   * @var int
+   */
   private $_trim;
 
+  /**
+   * @var int
+   */
   private $_line = -1;
 
+  /**
+   * @var bool
+   */
   private $_current = FALSE;
 
   /**
@@ -104,12 +116,10 @@ class Stream implements \Iterator {
    * @return string|false
    */
   public function current() {
-    switch ($this->_trim) {
-      case self::TRIM_RIGHT :
-        return \rtrim($this->_current);
-      default :
-        return $this->_current;
+    if (self::TRIM_RIGHT === $this->_trim) {
+      return \rtrim($this->_current);
     }
+    return $this->_current;
   }
 
   /**
