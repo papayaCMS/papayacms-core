@@ -25,16 +25,34 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Callback implements \Iterator {
+  /**
+   * @var callable
+   */
   private $_callback;
 
+  /**
+   * @var mixed
+   */
   private $_startValue;
 
+  /**
+   * @var mixed
+   */
   private $_startKey;
 
+  /**
+   * @var mixed
+   */
   private $_currentValue;
 
+  /**
+   * @var mixed
+   */
   private $_currentKey = -1;
 
+  /**
+   * @var bool
+   */
   private $_valid = FALSE;
 
   /**
@@ -46,12 +64,7 @@ class Callback implements \Iterator {
    * @param mixed $startValue
    * @param mixed $startKey
    */
-  public function __construct($callback, $startValue = NULL, $startKey = -1) {
-    if (!\is_callable($callback)) {
-      throw new \InvalidArgumentException(
-        'Invalid callback provided.'
-      );
-    }
+  public function __construct(callable $callback, $startValue = NULL, $startKey = -1) {
     $this->_callback = $callback;
     $this->_startValue = $startValue;
     $this->_startKey = $startKey;
@@ -70,9 +83,8 @@ class Callback implements \Iterator {
    * Use the callback to fetch the element
    */
   public function next() {
-    $result = \call_user_func(
-      $this->_callback, $this->_currentValue, $this->_currentKey
-    );
+    $callback = $this->_callback;
+    $result = $callback($this->_currentValue, $this->_currentKey);
     if (\is_array($result) && \count($result) > 1) {
       $this->_currentValue = $result[0];
       $this->_currentKey = $result[1];

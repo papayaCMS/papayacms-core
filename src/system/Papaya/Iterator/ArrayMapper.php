@@ -14,16 +14,16 @@
  */
 namespace Papaya\Iterator;
 
+use Papaya\Utility;
+
 /**
- * This iterator allows convert array elements into scalars by fetching one specified subelement
+ * This iterator allows convert array elements into scalars by fetching one specified element
  * from the array.
  *
  * @package Papaya-Library
  * @subpackage Iterator
  */
-class ArrayMapper extends \Papaya\Iterator\Callback {
-  private $_elementName;
-
+class ArrayMapper extends Callback {
   /**
    * Create object, store iterator data and element name.
    *
@@ -33,18 +33,12 @@ class ArrayMapper extends \Papaya\Iterator\Callback {
    * @param mixed $elementName
    */
   public function __construct($iterator, $elementName) {
-    parent::__construct($iterator, [$this, 'callbackMapElement'], self::MODIFY_VALUES);
-    $this->_elementName = $elementName;
-  }
-
-  /**
-   * Callback used to map the array elements to scalars
-   *
-   * @param array $element
-   *
-   * @return mixed
-   */
-  public function callbackMapElement($element) {
-    return \Papaya\Utility\Arrays::get($element, $this->_elementName, NULL);
+    parent::__construct(
+      $iterator,
+      function($element) use ($elementName) {
+        return Utility\Arrays::get($element, $elementName, NULL);
+      },
+      self::MODIFY_VALUES
+    );
   }
 }

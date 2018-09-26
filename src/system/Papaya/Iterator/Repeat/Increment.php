@@ -21,11 +21,6 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Increment extends Callback {
-  private $_maximum;
-
-  private $_step;
-
-  private $_mode;
 
   const MODE_LIST = 0;
 
@@ -40,30 +35,21 @@ class Increment extends Callback {
    * @param int $mode
    */
   public function __construct($minimum, $maximum, $step = 1, $mode = self::MODE_LIST) {
-    $this->_maximum = $maximum;
-    $this->_step = $step;
-    $this->_mode = $mode;
-    parent::__construct([$this, 'increment'], $minimum - $step, -1);
-  }
-
-  /**
-   * Increment the current value by step until it is larger then the maximim.
-   *
-   * @param int $value
-   * @param int $key
-   *
-   * @return false|array
-   */
-  public function increment($value, $key) {
-    $value += $this->_step;
-    if (self::MODE_ASSOC === $this->_mode) {
-      $key = $value;
-    } else {
-      ++$key;
-    }
-    if ($value <= $this->_maximum) {
-      return [$value, $key];
-    }
-    return FALSE;
+    parent::__construct(
+      function($value, $key) use ($maximum, $step, $mode) {
+        $value += $step;
+        if (self::MODE_ASSOC === $mode) {
+          $key = $value;
+        } else {
+          ++$key;
+        }
+        if ($value <= $maximum) {
+          return [$value, $key];
+        }
+        return FALSE;
+      },
+      $minimum - $step,
+      -1
+    );
   }
 }

@@ -14,6 +14,7 @@
  */
 namespace Papaya\Iterator;
 
+use Papaya\Utility;
 /**
  * An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
  * with a lazy initialization.
@@ -25,8 +26,14 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class TraversableIterator implements \OuterIterator {
+  /**
+   * @var array|\Traversable
+   */
   private $_traversable;
 
+  /**
+   * @var \Iterator
+   */
   private $_iterator;
 
   /**
@@ -35,7 +42,7 @@ class TraversableIterator implements \OuterIterator {
    * @param \Traversable|array $traversable
    */
   public function __construct($traversable) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
   }
 

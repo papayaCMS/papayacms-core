@@ -14,7 +14,7 @@
  */
 namespace Papaya\Iterator;
 
-use Iterator;
+use Papaya\Utility;
 
 /**
  * This iterator allows convert the values on request. The callback function will be called with
@@ -33,7 +33,7 @@ class Callback implements \OuterIterator {
   /**
    * Inner Iterator
    *
-   * @var Iterator
+   * @var \Iterator
    */
   private $_iterator;
 
@@ -59,10 +59,9 @@ class Callback implements \OuterIterator {
   public function __construct(
     $iterator, $callback = NULL, $target = self::MODIFY_VALUES
   ) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
-    \Papaya\Utility\Constraints::assertCallable($callback);
-    $this->_iterator = ($iterator instanceof \Iterator)
-      ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
+    Utility\Constraints::assertArrayOrTraversable($iterator);
+    Utility\Constraints::assertCallable($callback);
+    $this->_iterator = ($iterator instanceof \Iterator) ? $iterator : new TraversableIterator($iterator);
     $this->_callback = $callback;
     $this->_target = \in_array(
       $target,
@@ -100,16 +99,15 @@ class Callback implements \OuterIterator {
    * @return mixed
    */
   public function current() {
-    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
-      return \call_user_func(
-        $this->_callback,
+    if (Utility\Bitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
+      $callback = $this->_callback;
+      return $callback(
         $this->getInnerIterator()->current(),
         $this->getInnerIterator()->key(),
         self::MODIFY_VALUES
       );
-    } else {
-      return $this->getInnerIterator()->current();
     }
+    return $this->getInnerIterator()->current();
   }
 
   /**
@@ -118,9 +116,9 @@ class Callback implements \OuterIterator {
    * @return mixed
    */
   public function key() {
-    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
-      return \call_user_func(
-        $this->_callback,
+    if (Utility\Bitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
+      $callback = $this->_callback;
+      return $callback(
         $this->getInnerIterator()->current(),
         $this->getInnerIterator()->key(),
         self::MODIFY_KEYS

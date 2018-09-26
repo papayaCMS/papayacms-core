@@ -22,17 +22,26 @@ namespace Papaya\Iterator\Tree;
  * @subpackage Iterator
  */
 class Children implements \RecursiveIterator {
-  private $_elements = [];
+  /**
+   * @var array
+   */
+  private $_elements;
 
-  private $_tree = [];
+  /**
+   * @var array
+   */
+  private $_tree;
 
-  private $_list = [];
+  /**
+   * @var array
+   */
+  private $_list;
 
   /**
    * Create iterator, store elements, tree and child-ids
    *
    * @param array $elements
-   * @param array $tree
+   * @param array[] $tree
    * @param int|string $id
    */
   public function __construct(array $elements, array $tree, $id = 0) {
@@ -54,7 +63,7 @@ class Children implements \RecursiveIterator {
    */
   public function next() {
     while (FALSE !== ($key = \next($this->_list))) {
-      if (\array_key_exists($this->key(), $this->_elements)) {
+      if (\array_key_exists($key, $this->_elements)) {
         return;
       }
     }
@@ -85,9 +94,10 @@ class Children implements \RecursiveIterator {
    */
   public function valid() {
     $key = $this->key();
-    return isset($key) &&
-      FALSE != $key &&
-      \array_key_exists($this->key(), $this->_elements);
+    return
+      NULL !== $key &&
+      FALSE !== $key &&
+      \array_key_exists($key, $this->_elements);
   }
 
   /**

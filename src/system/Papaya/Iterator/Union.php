@@ -14,6 +14,7 @@
  */
 namespace Papaya\Iterator;
 
+use Papaya\Utility;
 /**
  * This iterator allows to iterate over several given inner iterators. In other words
  * it combines the elements of multiple iterators.
@@ -32,10 +33,19 @@ class Union implements \OuterIterator {
 
   const MIT_FLAGS_DEFAULT = 0;
 
+  /**
+   * @var array
+   */
   private $_iterators = [];
 
+  /**
+   * @var int
+   */
   private $_position = 0;
 
+  /**
+   * @var int
+   */
   private $_flags = self::MIT_FLAGS_DEFAULT;
 
   /**
@@ -43,16 +53,16 @@ class Union implements \OuterIterator {
    *
    * All parameters are optional, and you can give as many iterators you like directly.
    *
-   * @param int $flags
-   * @param \Traversable|array ...$iterator
+   * @param int|array|\Traversable $flags
+   * @param array $traversable
    */
-  public function __construct($flags = NULL) {
-    $iterators = \func_get_args();
-    if (isset($flags) && !($flags instanceof \Traversable || \is_array($flags))) {
-      \array_shift($iterators);
+  public function __construct($flags = NULL, ...$traversable) {
+    if ($flags instanceof \Traversable || \is_array($flags)) {
+      \array_unshift($traversable, $flags);
+    } elseif (is_int($flags)) {
       $this->setFlags($flags);
     }
-    \call_user_func_array([$this, 'attachIterators'], $iterators);
+    $this->attachIterators(...$traversable);
   }
 
   /**
@@ -68,11 +78,9 @@ class Union implements \OuterIterator {
    * Set internal flags
    *
    * @param $flags
-   *
-   * @return int
    */
   public function setFlags($flags) {
-    \Papaya\Utility\Constraints::assertInteger($flags);
+    Utility\Constraints::assertInteger($flags);
     $this->_flags = $flags;
   }
 
@@ -88,11 +96,11 @@ class Union implements \OuterIterator {
   /**
    * Attach one or more iterators. All parameters of this method will be attaches as iterators
    *
-   * @param \Traversable,... $iterator
+   * @param array $traversable
    */
-  public function attachIterators() {
-    foreach (\func_get_args() as $iterator) {
-      $this->attachIterator($iterator);
+  public function attachIterators(...$traversable) {
+    foreach ($traversable as $innerTraversable) {
+      $this->attachIterator($innerTraversable);
     }
   }
 
@@ -103,7 +111,7 @@ class Union implements \OuterIterator {
    */
   public function attachIterator($iterator) {
     $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof \Iterator)
-      ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator);
+      ? $iterator : new TraversableIterator($iterator);
   }
 
   /**
@@ -142,7 +150,7 @@ class Union implements \OuterIterator {
   public function rewind() {
     $this->_position = -1;
     $iterator = \reset($this->_iterators);
-    if (($iterator instanceof \Iterator)) {
+    if ($iterator instanceof \Iterator) {
       $iterator->rewind();
       if ($iterator->valid()) {
         $this->_position = 0;
@@ -159,9 +167,8 @@ class Union implements \OuterIterator {
     $iterator = $this->getInnerIterator();
     if ($iterator instanceof \Iterator) {
       return $iterator->valid();
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -174,9 +181,8 @@ class Union implements \OuterIterator {
     if (self::MIT_KEYS_ASSOC === ($this->getFlags() & self::MIT_KEYS_ASSOC)) {
       $iterator = $this->getInnerIterator();
       return ($iterator instanceof \Iterator) ? $iterator->key() : NULL;
-    } else {
-      return $this->_position;
     }
+    return $this->_position;
   }
 
   /**
@@ -212,7 +218,7 @@ class Union implements \OuterIterator {
   }
 
   /**
-   * Generate an identifer for the provided iterator data.
+   * Generate an identifier for the provided iterator data.
    *
    * If is is an array a md5 hash of the serialized array will be used.
    *
@@ -223,7 +229,7 @@ class Union implements \OuterIterator {
    * @return string
    */
   private function getIteratorIdentifier($iterator) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
+    Utility\Constraints::assertArrayOrTraversable($iterator);
     return \is_array($iterator) ? \md5(\serialize($iterator)) : \spl_object_hash($iterator);
   }
 }

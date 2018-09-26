@@ -14,6 +14,8 @@
  */
 namespace Papaya\Iterator\Tree;
 
+use Papaya\Iterator;
+
 /**
  * An iterator that group items using a callback function on them.
  *
@@ -40,16 +42,19 @@ class Groups implements \RecursiveIterator {
    * @var array
    */
   private $_children = [];
+  /**
+   * @var callable
+   */
+  private $_callback;
 
   /**
    * Store item traversable and callback function for group generation
    *
    * @param \Traversable|array $traversable
-   * @param callback $callback
+   * @param callable $callback
    */
-  public function __construct($traversable, $callback) {
-    $this->_iterator = new \Papaya\Iterator\TraversableIterator($traversable);
-    \Papaya\Utility\Constraints::assertCallable($callback);
+  public function __construct($traversable, callable $callback) {
+    $this->_iterator = new Iterator\TraversableIterator($traversable);
     $this->_callback = $callback;
   }
 
@@ -59,16 +64,17 @@ class Groups implements \RecursiveIterator {
    * @throws \LogicException
    */
   private function prepareGroupsLazy() {
-    if (\is_null($this->_tree)) {
+    if (NULL === $this->_tree) {
       $this->_tree = [];
       $this->_positions = [];
       $this->_children = [];
       foreach ($this->_iterator as $key => $item) {
         $group = \call_user_func($this->_callback, $item, $key);
-        if (!isset($group)) {
+        if (NULL === $group) {
           $this->_tree[$key] = $item;
           continue;
-        } elseif (\is_scalar($group)) {
+        }
+        if (\is_scalar($group)) {
           $groupKey = $group;
         } else {
           $groupKey = \md5(\serialize($group));
@@ -152,8 +158,6 @@ class Groups implements \RecursiveIterator {
    */
   public function getChildren() {
     $key = $this->key();
-    return new \Papaya\Iterator\Tree\Items(
-      isset($this->_children[$key]) ? $this->_children[$key] : []
-    );
+    return new Items(isset($this->_children[$key]) ? $this->_children[$key] : []);
   }
 }

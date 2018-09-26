@@ -22,11 +22,6 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Decrement extends Callback {
-  private $_minimum;
-
-  private $_step;
-
-  private $_mode;
 
   const MODE_LIST = 0;
 
@@ -41,30 +36,21 @@ class Decrement extends Callback {
    * @param int $mode
    */
   public function __construct($maximum, $minimum, $step = 1, $mode = self::MODE_LIST) {
-    $this->_minimum = $minimum;
-    $this->_step = $step;
-    $this->_mode = $mode;
-    parent::__construct([$this, 'decrement'], $maximum + $step, -1);
-  }
-
-  /**
-   * Increment the current value by step until it is larger then the maximim.
-   *
-   * @param int $value
-   * @param int $key
-   *
-   * @return false|array
-   */
-  public function decrement($value, $key) {
-    $value -= $this->_step;
-    if (self::MODE_ASSOC === $this->_mode) {
-      $key = $value;
-    } else {
-      ++$key;
-    }
-    if ($value >= $this->_minimum) {
-      return [$value, $key];
-    }
-    return FALSE;
+    parent::__construct(
+      function($value, $key) use ($minimum, $step, $mode) {
+        $value -= $step;
+        if (self::MODE_ASSOC === $mode) {
+          $key = $value;
+        } else {
+          ++$key;
+        }
+        if ($value >= $minimum) {
+          return [$value, $key];
+        }
+        return FALSE;
+      },
+      $maximum + $step,
+      -1
+    );
   }
 }

@@ -14,9 +14,12 @@
  */
 namespace Papaya\Iterator\Tree;
 
+use Papaya\Iterator;
+use Papaya\Utility;
+
 /**
  * An iterator that converts any traversable or array into an RecursiveIterator you can attach
- * other Traverables or arrays as children to each element.
+ * other Traversable or arrays as children to each element.
  *
  * @package Papaya-Library
  * @subpackage Iterator
@@ -26,7 +29,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
 
   const ATTACH_TO_VALUES = 1;
 
-  private $_mode = self::ATTACH_TO_KEYS;
+  private $_mode;
 
   /**
    * @var \Traversable|array
@@ -50,7 +53,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * @param int $mode
    */
   public function __construct($traversable, $mode = self::ATTACH_TO_KEYS) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
     $this->_mode = $mode;
   }
@@ -65,19 +68,19 @@ class Items implements \OuterIterator, \RecursiveIterator {
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
       $this->_iterator = ($this->_traversable instanceof \Iterator)
-        ? $this->_traversable : new \Papaya\Iterator\TraversableIterator($this->_traversable);
+        ? $this->_traversable : new Iterator\TraversableIterator($this->_traversable);
     }
     return $this->_iterator;
   }
 
   /**
-   * Attach an Traversalbe as children to an element.
+   * Attach an Traversable as children to an element.
    *
    * @param int|float|string|bool $target
    * @param \Traversable|array $traversable
    */
   public function attachItemIterator($target, $traversable) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_itemIterators[(string)$target] = $traversable;
   }
 
@@ -111,7 +114,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    *
    * @see \RecursiveIterator::hasChildren()
    *
-   * @return bool
+   * @return \RecursiveIterator
    */
   public function getChildren() {
     $iterator = $this->_itemIterators[$this->getCurrentTarget()];
@@ -124,7 +127,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * @return mixed
    */
   private function getCurrentTarget() {
-    if (self::ATTACH_TO_VALUES == $this->_mode) {
+    if (self::ATTACH_TO_VALUES === $this->_mode) {
       $result = $this->getInnerIterator()->current();
     } else {
       $result = $this->getInnerIterator()->key();

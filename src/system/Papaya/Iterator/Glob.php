@@ -21,10 +21,19 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Glob implements \IteratorAggregate, \Countable {
-  private $_path = '';
+  /**
+   * @var string
+   */
+  private $_path;
 
+  /**
+   * @var int
+   */
   private $_flags = 0;
 
+  /**
+   * @var array|null
+   */
   private $_files;
 
   /**
@@ -43,7 +52,7 @@ class Glob implements \IteratorAggregate, \Countable {
    * @param int $flags
    */
   public function __construct($path, $flags = 0) {
-    $this->_path = $path;
+    $this->_path = (string)$path;
     $this->setFlags($flags);
   }
 
@@ -53,7 +62,7 @@ class Glob implements \IteratorAggregate, \Countable {
    * @param int $flags
    */
   public function setFlags($flags) {
-    $this->_flags = $flags;
+    $this->_flags = (int)$flags;
     $this->rewind();
   }
 
@@ -80,7 +89,7 @@ class Glob implements \IteratorAggregate, \Countable {
    * @return array
    */
   private function getFilesLazy() {
-    if (\is_null($this->_files)) {
+    if (NULL === $this->_files) {
       $this->_files = [];
       foreach (\glob($this->_path, $this->_flags) as $file) {
         $this->_files[] = $file;
