@@ -37,7 +37,7 @@ class RegEx extends Iterator\Tree\Groups {
     parent::__construct(
       $traversable,
       function($element, $index) use ($pattern, $subMatch, $target) {
-        $value = (self::GROUP_KEYS === $target) ? $index: $element;
+        $value = (self::GROUP_KEYS === $target) ? $index : $element;
         $matches = [];
         if (
           \preg_match($pattern, (string)$value, $matches) &&

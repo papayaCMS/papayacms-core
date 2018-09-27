@@ -26,8 +26,8 @@ class Maximum {
   public function __construct($width, $height, $maximumWidth, $maximumHeight) {
     $this->_width = $width;
     $this->_height = $height;
-    $this->_maximumWidth = $width;
-    $this->_maximumHeight = $height;
+    $this->_maximumWidth = $maximumWidth;
+    $this->_maximumHeight = $maximumHeight;
   }
 
   public function getTargetSize() {

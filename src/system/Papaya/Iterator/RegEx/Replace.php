@@ -24,7 +24,6 @@ use Papaya\Utility;
  * @subpackage Iterator
  */
 class Replace extends Iterator\Callback {
-
   /**
    * Create object and store properties
    *

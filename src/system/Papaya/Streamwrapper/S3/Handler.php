@@ -263,7 +263,7 @@ class Handler {
     $client = $this->_client;
     \fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new \Papaya\HTTP\Client\File\Resource('file', 'file', $this->_temporaryFile)
+      new \Papaya\HTTP\Client\File\Stream('file', 'file', $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();

@@ -684,7 +684,7 @@ class HandlerTest extends \Papaya\TestCase {
     $client
       ->expects($this->once())
       ->method('addRequestFile')
-      ->with($this->isInstanceOf(\Papaya\HTTP\Client\File\Resource::class));
+      ->with($this->isInstanceOf(\Papaya\HTTP\Client\File\Stream::class));
     $client
       ->expects($this->once())
       ->method('getResponseStatus')

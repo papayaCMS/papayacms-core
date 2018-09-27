@@ -23,14 +23,14 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage HTTP-Client
  */
-class Resource extends HTTP\Client\File {
+class Stream extends HTTP\Client\File {
   /**
    * @var int|null $_size
    */
   private $_size;
 
   /**
-   * @var resource $_resource
+   * @var Stream $_resource
    */
   private $_resource;
 

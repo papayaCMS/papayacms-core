@@ -42,6 +42,7 @@ class Groups implements \RecursiveIterator {
    * @var array
    */
   private $_children = [];
+
   /**
    * @var callable
    */

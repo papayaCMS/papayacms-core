@@ -15,7 +15,7 @@
 namespace Papaya\Iterator;
 
 use Papaya\Iterator;
-use Papaya\Utility;
+
 /**
  * A CachingIterator that fills itself using a callback on first rewind or a class to getCache.
  *

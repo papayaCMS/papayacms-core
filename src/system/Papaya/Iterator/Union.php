@@ -15,6 +15,7 @@
 namespace Papaya\Iterator;
 
 use Papaya\Utility;
+
 /**
  * This iterator allows to iterate over several given inner iterators. In other words
  * it combines the elements of multiple iterators.
@@ -59,7 +60,7 @@ class Union implements \OuterIterator {
   public function __construct($flags = NULL, ...$traversable) {
     if ($flags instanceof \Traversable || \is_array($flags)) {
       \array_unshift($traversable, $flags);
-    } elseif (is_int($flags)) {
+    } elseif (\is_int($flags)) {
       $this->setFlags($flags);
     }
     $this->attachIterators(...$traversable);

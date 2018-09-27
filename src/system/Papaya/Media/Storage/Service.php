@@ -27,7 +27,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    * @param \Papaya\Configuration $configuration
    */
   public function __construct($configuration = NULL) {
-    if (isset($configuration) && \is_object($configuration)) {
+    if (NULL !== $configuration && \is_object($configuration)) {
       $this->setConfiguration($configuration);
     }
   }
@@ -37,7 +37,7 @@ abstract class Service extends \Papaya\Application\BaseObject {
    *
    * @param \Papaya\Configuration $configuration
    */
-  abstract public function setConfiguration($configuration);
+  abstract public function setConfiguration(\Papaya\Configuration $configuration);
 
   /**
    * Get a list of storage ids in a storage group

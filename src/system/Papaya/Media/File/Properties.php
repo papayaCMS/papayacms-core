@@ -17,6 +17,9 @@ namespace Papaya\Media\File;
 class Properties extends Info {
   private $_fetchers;
 
+  /**
+   * @return array
+   */
   protected function fetchProperties() {
     $file = $this->getFile();
     if (\file_exists($file) && \is_file($file) && \is_readable($file)) {
@@ -34,8 +37,11 @@ class Properties extends Info {
     ];
   }
 
-  public function fetchers() {
-    $fetchers = \func_get_args();
+  /**
+   * @param \Papaya\Media\File\Info[] $fetchers
+   * @return array
+   */
+  public function fetchers(Info ...$fetchers) {
     if (\count($fetchers) > 0) {
       $this->_fetchers = $fetchers;
     } elseif (NULL === $this->_fetchers) {

@@ -12,9 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Media\File\Info;
 
-class Mimetype extends \Papaya\Media\File\Info {
+use Papaya\Media;
+
+class Mimetype extends Media\File\Info {
   private $_fallbackMimeType = 'application/octet-stream';
 
   protected function fetchProperties() {

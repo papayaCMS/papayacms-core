@@ -36,30 +36,28 @@ class Storage {
    *
    * @return \Papaya\Media\Storage\Service
    */
-  public static function getService($service = '', $configuration = NULL, $static = TRUE) {
+  public static function getService($service = '', \Papaya\Configuration $configuration = NULL, $static = TRUE) {
     if (empty($service)) {
       $service = \defined('PAPAYA_MEDIA_STORAGE_SERVICE')
         ? PAPAYA_MEDIA_STORAGE_SERVICE : 'File';
     }
     $service = \ucfirst(\strtolower($service));
-    if (\in_array($service, self::$_services)) {
+    if (\in_array($service, self::$_services, TRUE)) {
       if ($static && isset(self::$_serviceObjects[$service])) {
         return self::$_serviceObjects[$service];
       }
       $class = __CLASS__.'\\Service\\'.$service;
       $object = new $class();
-      if (isset($configuration) && \method_exists($object, 'setConfiguration')) {
+      if (NULL !== $configuration && \method_exists($object, 'setConfiguration')) {
         $object->setConfiguration($configuration);
       }
       if ($static) {
         return self::$_serviceObjects[$service] = $object;
-      } else {
-        return $object;
       }
-    } else {
-      throw new \InvalidArgumentException(
-        'Unknown media storage service: '.$service
-      );
+      return $object;
     }
+    throw new \InvalidArgumentException(
+      'Unknown media storage service: '.$service
+    );
   }
 }

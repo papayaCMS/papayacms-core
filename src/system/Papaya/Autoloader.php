@@ -90,6 +90,8 @@ class Autoloader {
     'PapayaFilterIsset' => Filter\NotNull::class,
     'PapayaFilterPcre' => Filter\RegEx::class,
 
+    'PapayaHttpClientFileResource' => HTTP\Client\File\Stream::class,
+
     'PapayaIteratorArrayMapper' => Iterator\ArrayMapper::class,
     'PapayaIteratorMultiple' => Iterator\Union::class,
     'PapayaIteratorTraversable' => Iterator\TraversableIterator::class,

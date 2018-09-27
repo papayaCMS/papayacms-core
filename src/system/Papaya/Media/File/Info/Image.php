@@ -12,9 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Media\File\Info;
 
-class Image extends \Papaya\Media\File\Info {
+use Papaya\Media;
+
+class Image extends Media\File\Info {
   protected function fetchProperties() {
     $properties = [
       'is_valid' => FALSE,

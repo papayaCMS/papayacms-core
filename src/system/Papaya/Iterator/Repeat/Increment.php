@@ -21,7 +21,6 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Increment extends Callback {
-
   const MODE_LIST = 0;
 
   const MODE_ASSOC = 1;

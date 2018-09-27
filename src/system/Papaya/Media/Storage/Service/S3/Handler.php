@@ -47,8 +47,8 @@ class Handler {
    *
    * @param \Papaya\Configuration $configuration
    */
-  public function __construct($configuration = NULL) {
-    if (isset($configuration) && \is_object($configuration)) {
+  public function __construct(\Papaya\Configuration $configuration = NULL) {
+    if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
   }
@@ -67,7 +67,7 @@ class Handler {
    *
    * @param \Papaya\Configuration $configuration
    */
-  public function setConfiguration($configuration) {
+  public function setConfiguration(\Papaya\Configuration $configuration) {
     $this->_storageAccessKeyId = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_S3_KEYID', $this->_storageAccessKeyId
     );
@@ -82,7 +82,7 @@ class Handler {
    * Initialize HTTP client, create instance if not already exists, reset current instance
    */
   public function initHTTPClient() {
-    if (!isset($this->_client)) {
+    if (NULL === $this->_client) {
       $this->_client = new \Papaya\HTTP\Client();
     }
     $this->_client->reset();
@@ -99,7 +99,7 @@ class Handler {
    * @return \Papaya\HTTP\Client
    */
   public function setUpRequest(
-    $url, $method = 'GET', $parameters = [], $headers = []
+    $url, $method = 'GET', array $parameters = [], array $headers = []
   ) {
     $this->initHTTPClient();
     $this->_client->setMethod($method);
@@ -152,7 +152,7 @@ class Handler {
       }
     }
     // path is the request URI from first / up to the query string
-    $urlPattern = '(^
+    $urlPattern = /** @lang TEXT */'(^
       [^:/]+://
       (?P<bucket>[^/]+)
       \\.s3\\.amazonaws[^/?]+
@@ -188,8 +188,8 @@ class Handler {
       $key = \str_pad($key, 64, \chr(0));
     }
     $this->_storageAccessKey = [
-      'inner' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64)),
-      'outer' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64))
+      'inner' => \substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64),
+      'outer' => \substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64)
     ];
   }
 

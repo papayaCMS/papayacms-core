@@ -14,13 +14,16 @@
  */
 namespace Papaya\Media\Storage\Service;
 
+use Papaya\Cache;
+use Papaya\Media;
+
 /**
  * Amazon S3 based storage service for Papaya Media Storage
  *
  * @package Papaya-Library
  * @subpackage Media-Storage
  */
-class S3 extends \Papaya\Media\Storage\Service {
+class S3 extends Media\Storage\Service {
   /**
    * Amazon S3 bucket name
    *
@@ -52,12 +55,12 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * handler object
    *
-   * @var \Papaya\Media\Storage\Service\S3\Handler
+   * @var S3\Handler
    */
   private $_handler;
 
   /**
-   * @var Papaya\Cache\Service cache for meta information
+   * @var Cache\Service cache for meta information
    */
   private $_cacheService;
 
@@ -73,12 +76,12 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param \Papaya\Configuration $configuration
    */
-  public function setConfiguration($configuration) {
+  public function setConfiguration(\Papaya\Configuration $configuration) {
     $this->_storageBucket = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_S3_BUCKET', $this->_storageBucket
     );
 
-    $this->_handler = new \Papaya\Media\Storage\Service\S3\Handler($configuration);
+    $this->_handler = new S3\Handler($configuration);
 
     $this->_storageDirectory = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', $this->_storageDirectory
@@ -97,11 +100,15 @@ class S3 extends \Papaya\Media\Storage\Service {
     );
   }
 
-  public function cache(\Papaya\Cache\Service $service = NULL) {
+  /**
+   * @param Cache\Service|null $service
+   * @return false|Cache\Service
+   */
+  public function cache(Cache\Service $service = NULL) {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
-      $this->_cacheService = \Papaya\Cache::get(\Papaya\Cache::DATA, $this->papaya()->options);
+      $this->_cacheService = Cache::get(Cache::DATA, $this->papaya()->options);
     }
     return $this->_cacheService;
   }
@@ -143,9 +150,9 @@ class S3 extends \Papaya\Media\Storage\Service {
   /**
    * Set the used handler object.
    *
-   * @param \Papaya\Media\Storage\Service\S3\Handler $handler
+   * @param S3\Handler $handler
    */
-  public function setHandler(\Papaya\Media\Storage\Service\S3\Handler $handler) {
+  public function setHandler(S3\Handler $handler) {
     $this->_handler = $handler;
   }
 
@@ -210,7 +217,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     if (200 === $client->getResponseStatus()) {
       return $client->getResponseData();
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -226,7 +233,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     if ($this->isPublic($storageGroup, $storageId, $mimeType)) {
       return $this->_getBucketURL().'/'.$this->_getStorageObject($storageGroup, $storageId);
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -336,7 +343,7 @@ class S3 extends \Papaya\Media\Storage\Service {
    *
    * @param string $storageGroup
    * @param string $storageId
-   * @param mixed $content data string or resource id
+   * @param string|resource $content data string or resource id
    * @param string $mimeType
    * @param bool $isPublic
    *
@@ -352,7 +359,7 @@ class S3 extends \Papaya\Media\Storage\Service {
     $isPublic = FALSE
   ) {
     if (\is_resource($content)) {
-      $resource = new \Papaya\HTTP\Client\File\Resource('filedata', 'file.dat', $content, $mimeType);
+      $resource = new \Papaya\HTTP\Client\File\Stream('filedata', 'file.dat', $content, $mimeType);
     } else {
       $resource = new \Papaya\HTTP\Client\File\Text('filedata', 'file.dat', $content, $mimeType);
     }

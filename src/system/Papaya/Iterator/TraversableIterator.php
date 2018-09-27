@@ -15,6 +15,7 @@
 namespace Papaya\Iterator;
 
 use Papaya\Utility;
+
 /**
  * An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
  * with a lazy initialization.
