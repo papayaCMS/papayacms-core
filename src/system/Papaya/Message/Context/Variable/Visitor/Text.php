@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context\Variable\Visitor;
 
+use \Papaya\Message;
+
 /**
  * Visitor to convert a variable into a plain text string dump
  *
@@ -21,7 +23,7 @@ namespace Papaya\Message\Context\Variable\Visitor;
  * @subpackage Messages
  */
 class Text
-  extends \Papaya\Message\Context\Variable\Visitor {
+  extends Message\Context\Variable\Visitor {
   /**
    * internal indent counter
    *
@@ -65,7 +67,7 @@ class Text
    * @param string $line
    */
   private function _addLine($line) {
-    if ('' != $this->_variableString) {
+    if ('' !== (string)$this->_variableString) {
       $this->_variableString .= "\n";
     }
     $this->_variableString .= \str_repeat($this->_indentString, $this->_indent).$line;
@@ -240,9 +242,8 @@ class Text
     if ($this->_indent < ($this->_depth - 1)) {
       $this->_indent++;
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**

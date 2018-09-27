@@ -23,7 +23,7 @@ namespace Papaya\Message\Context\Interfaces;
  * @subpackage Messages
  */
 interface Table
-  extends \Papaya\Message\Context\Interfaces\Items {
+  extends Items {
   /**
    * Get table column header if available
    *

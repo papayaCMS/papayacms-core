@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context;
 
+use Papaya\Utility;
+
 /**
  * Papaya message context for tabular data
  *
@@ -21,10 +23,7 @@ namespace Papaya\Message\Context;
  * @subpackage Message
  */
 class Table
-  implements
-  \Papaya\Message\Context\Interfaces\Table,
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\XHTML {
+  implements Interfaces\Table, Interfaces\Text, Interfaces\XHTML {
   /**
    * Field/column identifiers
    *
@@ -46,7 +45,10 @@ class Table
    */
   private $_rows = [];
 
-  private $_label = '';
+  /**
+   * @var string
+   */
+  private $_label;
 
   /**
    * Initialize object and set the label property
@@ -108,9 +110,9 @@ class Table
    * @param array $values
    */
   public function addRow(array $values) {
-    if (\is_null($this->_captions)) {
+    if (NULL === $this->_captions) {
       foreach ($values as $field => $content) {
-        if (!\in_array($field, $this->_fields)) {
+        if (!\in_array($field, $this->_fields, FALSE)) {
           $this->_fields[] = $field;
         }
       }
@@ -158,9 +160,11 @@ class Table
     if (\count($this->_rows) > 0) {
       foreach (\array_keys($this->_rows) as $rowIndex) {
         foreach ($this->getRow($rowIndex) as $column => $content) {
-          if (isset($this->_captions)) {
-            if (isset($this->_captions[$column]) &&
-              !\is_null($content)) {
+          if (NULL !== $this->_captions) {
+            if (
+              NULL !== $content &&
+              isset($this->_captions[$column])
+            ) {
               $result .= $this->_captions[$column].': '.$content."\n";
             }
           } else {
@@ -184,9 +188,11 @@ class Table
       foreach (\array_keys($this->_rows) as $rowIndex) {
         $line = '';
         foreach ($this->getRow($rowIndex) as $column => $content) {
-          if (isset($this->_captions)) {
-            if (isset($this->_captions[$column]) &&
-              !\is_null($content)) {
+          if (NULL !== $this->_captions) {
+            if (
+              NULL !== $content &&
+              isset($this->_captions[$column])
+            ) {
               $line .= ', '.$this->_captions[$column].': '.$content;
             }
           } else {
@@ -205,22 +211,23 @@ class Table
    * @return string
    */
   public function asXhtml() {
-    if (isset($this->_captions) ||
-      \count($this->_rows) > 0) {
+    $hasCaptions = NULL !== $this->_captions;
+    $hasRows = \count($this->_rows) > 0;
+    if ($hasCaptions || $hasRows) {
       $result = '<table class="logContext" summary="">';
-      if (isset($this->_captions)) {
+      if ($hasCaptions) {
         $result .= '<thead><tr>';
         foreach ($this->_captions as $caption) {
-          $result .= '<th>'.\Papaya\Utility\Text\XML::escape($caption).'</th>';
+          $result .= '<th>'.Utility\Text\XML::escape($caption).'</th>';
         }
         $result .= '</tr></thead>';
       }
-      if (\count($this->_rows) > 0) {
+      if ($hasRows) {
         $result .= '<tbody>';
         foreach (\array_keys($this->_rows) as $rowIndex) {
           $result .= '<tr>';
           foreach ($this->getRow($rowIndex) as $content) {
-            $result .= '<td>'.\Papaya\Utility\Text\XML::escape($content).'</td>';
+            $result .= '<td>'.Utility\Text\XML::escape($content).'</td>';
           }
           $result .= '</tr>';
         }

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context;
 
+use Papaya\Utility;
+
 /**
  * Message string context containing a file
  *
@@ -23,14 +25,20 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class File
-  implements
-  \Papaya\Message\Context\Interfaces\Items,
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\XHTML {
+  implements Interfaces\Items, Interfaces\Text, Interfaces\XHTML {
+  /**
+   * @var string
+   */
   protected $_fileName = '';
 
+  /**
+   * @var int
+   */
   protected $_line = 0;
 
+  /**
+   * @var int
+   */
   protected $_column = 0;
 
   /**
@@ -56,10 +64,7 @@ class File
    * @return bool
    */
   public function readable($fileName) {
-    if (\file_exists($fileName) && \is_file($fileName) && \is_readable($fileName)) {
-      return TRUE;
-    }
-    return FALSE;
+    return \file_exists($fileName) && \is_file($fileName) && \is_readable($fileName);
   }
 
   /**
@@ -88,20 +93,20 @@ class File
         $result .= '<ol class="file" style="white-space: pre; font-family: monospace;">';
         foreach ($lines as $index => $line) {
           $line = \rtrim($line, "\r\n");
-          if ($index == ($this->_line - 1)) {
+          if ($index === ($this->_line - 1)) {
             $split = ($this->_column - 1) > 0 ? $this->_column - 1 : 0;
             $offsetContent = \substr($line, 0, $split);
             $highlightContent = \substr($line, $split);
             $result .= \sprintf(
               '<li style="list-style-position: outside;">'.
               '<strong>%s<em>%s</em></strong></li>',
-              \Papaya\Utility\Text\XML::escape($offsetContent),
-              \Papaya\Utility\Text\XML::escape($highlightContent)
+              Utility\Text\XML::escape($offsetContent),
+              Utility\Text\XML::escape($highlightContent)
             );
           } else {
             $result .= \sprintf(
               '<li style="list-style-position: outside;">%s</li>',
-              \Papaya\Utility\Text\XML::escape($line)
+              Utility\Text\XML::escape($line)
             );
           }
         }
@@ -119,9 +124,8 @@ class File
   public function asString() {
     if ($this->readable($this->_fileName)) {
       return \file_get_contents($this->_fileName);
-    } else {
-      return '';
     }
+    return '';
   }
 
   /**

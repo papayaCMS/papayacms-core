@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context;
 
+use Papaya\Utility;
+
 /**
  * Message string context containing a group of other context objects
  *
@@ -24,11 +26,7 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Group
-  implements
-  Interfaces\Text,
-  Interfaces\XHTML,
-  \Iterator,
-  \Countable {
+  implements Interfaces\Text, Interfaces\XHTML, \Iterator, \Countable {
   /**
    * context group elements
    *
@@ -62,7 +60,7 @@ class Group
       if ($element instanceof Interfaces\Text) {
         $result .= "\n\n".$element->asString();
       } elseif ($element instanceof Interfaces\XHTML) {
-        $result .= "\n\n".\Papaya\Utility\Text\HTML::stripTags($element->asXhtml());
+        $result .= "\n\n".Utility\Text\HTML::stripTags($element->asXhtml());
       }
     }
     return \substr($result, 2);
@@ -76,13 +74,13 @@ class Group
     foreach ($this as $element) {
       $result .= '<div class="group">';
       if ($element instanceof Interfaces\Labeled) {
-        $result .= '<h3>'.\Papaya\Utility\Text\XML::escape($element->getLabel()).'</h3>';
+        $result .= '<h3>'.Utility\Text\XML::escape($element->getLabel()).'</h3>';
       }
       if ($element instanceof Interfaces\XHTML) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof Interfaces\Text) {
         $result .= \str_replace(
-          "\n", "\n<br />", \Papaya\Utility\Text\XML::escape($element->asString())
+          "\n", "\n<br />", Utility\Text\XML::escape($element->asString())
         );
       }
       $result .= '</div>';

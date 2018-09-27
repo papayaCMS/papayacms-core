@@ -135,7 +135,7 @@ abstract class Visitor {
    * @param mixed $variable
    */
   public function visitVariable($variable) {
-    if (\is_null($variable)) {
+    if (NULL === $variable) {
       $this->visitNull($variable);
     } elseif (\is_object($variable)) {
       $this->visitObject($variable);
@@ -175,7 +175,7 @@ abstract class Visitor {
    */
   protected function _popObjectStack($hash) {
     $last = \end($this->_objectStack);
-    if ($last != $hash) {
+    if ($last !== $hash) {
       throw new \LogicException(
         \sprintf(
           'Trying to remove %s from object stack, but %s found.',
@@ -195,7 +195,7 @@ abstract class Visitor {
    * @return bool
    */
   protected function _isObjectRecursion($hash) {
-    return \in_array($hash, $this->_objectStack);
+    return \in_array($hash, $this->_objectStack, TRUE);
   }
 
   /**

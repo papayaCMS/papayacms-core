@@ -15,7 +15,7 @@
 namespace Papaya\Message\Context;
 
 /**
- * Message context containing the timing infotmations
+ * Message context containing the timing information
  *
  * It is not possible to get the actual runtime of the php script, so all calls are relative to
  * the first instance of this class.
@@ -24,10 +24,9 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Runtime
-  implements
-  \Papaya\Message\Context\Interfaces\Text {
+  implements Interfaces\Text {
   /**
-   * Global mode sets the timeing in relation to script runtime
+   * Global mode sets the timing in relation to script runtime
    *
    * @var int
    */
@@ -55,9 +54,9 @@ class Runtime
   /**
    * Class variable to remember last memory usage status and calculate differences
    *
-   * @var int
+   * @var int|NULL
    */
-  private static $_previousTime = 0;
+  private static $_previousTime;
 
   /**
    * Time value
@@ -83,10 +82,10 @@ class Runtime
    * @param null|float|string $stop
    */
   public function __construct($start = NULL, $stop = NULL) {
-    if (0 == self::$_previousTime) {
+    if (NULL === self::$_previousTime) {
       self::setStartTime(\microtime(TRUE));
     }
-    if (\is_null($start)) {
+    if (NULL === $start) {
       $stop = \microtime(TRUE);
       $this->setTimeValues(
         self::$_previousTime,
@@ -97,7 +96,7 @@ class Runtime
     } else {
       $this->setTimeValues(
         $start,
-        \is_null($stop) ? \microtime(TRUE) : $stop
+        NULL === $stop ? \microtime(TRUE) : $stop
       );
       $this->_mode = self::MODE_SINGLE;
     }
@@ -156,15 +155,16 @@ class Runtime
     if (\is_string($value) && \strpos($value, ' ')) {
       list($milliSeconds, $seconds) = \explode(' ', $value, 2);
       return ((float)$seconds + (float)$milliSeconds);
-    } else {
-      return (float)$value;
     }
+    return (float)$value;
   }
 
   /**
    * Initialize a start time.
+   *
+   * @param float|NULL $startTime
    */
   public static function setStartTime($startTime) {
-    self::$_previousTime = self::$_startTime = self::_prepareTimeValue($startTime);
+    self::$_previousTime = self::$_startTime = NULL !== $startTime ? self::_prepareTimeValue($startTime) : NULL;
   }
 }

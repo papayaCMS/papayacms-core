@@ -21,14 +21,13 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Text
-  implements
-  \Papaya\Message\Context\Interfaces\Text {
+  implements Interfaces\Text {
   /**
    * data buffer
    *
    * @var string
    */
-  private $_text = '';
+  private $_text;
 
   /**
    * Create simple text context
@@ -36,7 +35,7 @@ class Text
    * @param string $text
    */
   public function __construct($text) {
-    $this->_text = $text;
+    $this->_text = (string)$text;
   }
 
   /**
@@ -45,6 +44,6 @@ class Text
    * @return string
    */
   public function asString() {
-    return $this->_text;
+    return  $this->_text;
   }
 }

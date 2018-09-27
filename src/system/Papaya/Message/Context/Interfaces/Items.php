@@ -23,7 +23,7 @@ namespace Papaya\Message\Context\Interfaces;
  * @subpackage Messages
  */
 interface Items
-  extends \Papaya\Message\Context\Interfaces\Labeled {
+  extends Labeled {
   /**
    * Get context as simple string, without formatting
    *

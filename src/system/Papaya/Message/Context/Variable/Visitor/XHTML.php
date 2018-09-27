@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context\Variable\Visitor;
 
+use \Papaya\Message;
+
 /**
  * Visitor to convert a variable into a xhtml formatted string dump
  *
@@ -21,7 +23,7 @@ namespace Papaya\Message\Context\Variable\Visitor;
  * @subpackage Messages
  */
 class XHTML
-  extends \Papaya\Message\Context\Variable\Visitor {
+  extends Message\Context\Variable\Visitor {
   /**
    * Suffix for truncated string values
    *

@@ -15,14 +15,13 @@
 namespace Papaya\Message\Context;
 
 /**
- * Message context containing the informations about the memory consumption
+ * Message context containing the information about the memory consumption
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
 class Memory
-  implements
-  \Papaya\Message\Context\Interfaces\Text {
+  implements Interfaces\Text {
   /**
    * Class variable to remember last memory usage status and calculate differences
    *
@@ -56,7 +55,7 @@ class Memory
    */
   public function __construct() {
     if (\function_exists('memory_get_usage')) {
-      $realUsage = \version_compare(PHP_VERSION, '5.2', '>');
+      $realUsage = PHP_VERSION_ID > 50200;
       $this->setMemoryUsage(
         $realUsage ? \memory_get_usage(TRUE) : \memory_get_usage(),
         $realUsage ? \memory_get_peak_usage(TRUE) : \memory_get_peak_usage()

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context;
 
+use Papaya\Utility;
+
 /**
  * Message string context containing a backtrace
  *
@@ -24,10 +26,7 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Backtrace
-  implements
-  \Papaya\Message\Context\Interfaces\Items,
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\XHTML {
+  implements Interfaces\Items, Interfaces\Text, Interfaces\XHTML {
   /**
    * The offset is used to ignore the first elements of a backtrace,
    * if they do not provide useful informations
@@ -50,7 +49,7 @@ class Backtrace
    * @param array $backtrace
    */
   public function __construct($offset = 0, array $backtrace = NULL) {
-    if (isset($backtrace)) {
+    if (NULL !== $backtrace) {
       $this->setBacktrace($backtrace, $offset);
     } else {
       $this->setOffset($offset + 1);
@@ -89,7 +88,7 @@ class Backtrace
    * @return array
    */
   public function getBacktrace() {
-    if (\is_null($this->_backtrace)) {
+    if (NULL === $this->_backtrace) {
       return $this->_backtrace = \debug_backtrace();
     }
     $trace = $this->_backtrace;
@@ -119,7 +118,7 @@ class Backtrace
       if ($key > 0) {
         $result .= "<br />\n";
       }
-      $result .= \Papaya\Utility\Text\XML::escape($element);
+      $result .= Utility\Text\XML::escape($element);
     }
     return $result;
   }

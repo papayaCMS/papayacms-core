@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Message\Context;
-
+use Papaya\Utility;
 /**
  * Message context containing simple plain text
  *
@@ -21,23 +21,20 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Items
-  implements
-  \Papaya\Message\Context\Interfaces\Items,
-  \Papaya\Message\Context\Interfaces\XHTML,
-  \Papaya\Message\Context\Interfaces\Text {
+  implements Interfaces\Items, Interfaces\XHTML, Interfaces\Text {
   /**
    * List label/caption
    *
    * @var string
    */
-  private $_label = '';
+  private $_label;
 
   /**
    * list items
    *
    * @var array
    */
-  private $_items = [];
+  private $_items;
 
   /**
    * Create list context
@@ -57,7 +54,7 @@ class Items
   /**
    * Return list as simple array
    *
-   * @return string
+   * @return array
    */
   public function asArray() {
     return $this->_items;
@@ -81,7 +78,7 @@ class Items
     if (\count($this->_items) > 0) {
       $result = '<ol>';
       foreach ($this->_items as $item) {
-        $result .= '<li>'.\Papaya\Utility\Text\XML::escape($item).'</li>';
+        $result .= '<li>'.Utility\Text\XML::escape($item).'</li>';
       }
       $result .= '</ol>';
       return $result;

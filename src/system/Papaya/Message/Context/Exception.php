@@ -14,26 +14,44 @@
  */
 namespace Papaya\Message\Context {
 
-  class Exception implements
-    Interfaces\Items,
-    Interfaces\Text,
-    Interfaces\XHTML {
+  class Exception
+    implements Interfaces\Items, Interfaces\Text, Interfaces\XHTML {
+    /**
+     * @var \Exception
+     */
     private $_exception;
 
+    /**
+     * @var Backtrace
+     */
     private $_backtrace;
 
+    /**
+     * Exception constructor.
+     *
+     * @param \Exception $exception
+     */
     public function __construct(\Exception $exception) {
       $this->_exception = $exception;
     }
 
+    /**
+     * @return \Exception
+     */
     public function getException() {
       return $this->_exception;
     }
 
+    /**
+     * @return string
+     */
     public function getLabel() {
       return 'Exception';
     }
 
+    /**
+     * @return \Papaya\Message\Context\Backtrace
+     */
     public function getBacktraceContext() {
       if (NULL === $this->_backtrace) {
         $this->_backtrace = new Backtrace(0, $this->_exception->getTrace());
@@ -41,14 +59,23 @@ namespace Papaya\Message\Context {
       return $this->_backtrace;
     }
 
+    /**
+     * @return array
+     */
     public function asArray() {
       return $this->getBacktraceContext()->asArray();
     }
 
+    /**
+     * @return string
+     */
     public function asString() {
       return $this->getBacktraceContext()->asString();
     }
 
+    /**
+     * @return string
+     */
     public function asXhtml() {
       return $this->getBacktraceContext()->asXhtml();
     }
