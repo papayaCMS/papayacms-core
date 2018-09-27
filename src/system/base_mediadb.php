@@ -137,26 +137,6 @@ class base_mediadb extends base_db {
   }
 
   /**
-   * Get media item
-   *
-   * @param string $mediaId
-   * @param integer|null $versionId
-   * @return \Papaya\Media\Database\Item
-   */
-  public function getItem($mediaId, $versionId = NULL) {
-    $item = new \Papaya\Media\Database\Item(
-      \Papaya\Media\Storage::getService(
-        $this->papaya()->options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
-        $this->papaya()->options
-      )
-    );
-    if ($item->load($mediaId, $versionId)) {
-      return $item;
-    }
-    return FALSE;
-  }
-
-  /**
   * loads data for a file by its id and version (optional)
   *
   * use this method to get information on a file, if no version is given, the
