@@ -14,6 +14,7 @@
  */
 namespace Papaya\Message;
 
+use Papaya\Application;
 use Papaya\Message;
 
 /**
@@ -22,7 +23,10 @@ use Papaya\Message;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Manager extends \Papaya\Application\BaseObject {
+class Manager
+  implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * Internal list of message dispatchers
    *
@@ -49,9 +53,9 @@ class Manager extends \Papaya\Application\BaseObject {
   /**
    * Dispatch a message to all available dispatchers
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    */
-  public function dispatch(\Papaya\Message $message) {
+  public function dispatch(Message $message) {
     /** @var Dispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
@@ -119,7 +123,7 @@ class Manager extends \Papaya\Application\BaseObject {
    */
   public function debug() {
     $message = new Log(
-      Logable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
+      Logable::GROUP_DEBUG, Message::SEVERITY_DEBUG, ''
     );
     if (\func_num_args() > 0) {
       $message->context()->append(new Context\Variable(\func_get_args(), 5, 9999));

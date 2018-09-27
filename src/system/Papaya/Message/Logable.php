@@ -14,13 +14,15 @@
  */
 namespace Papaya\Message;
 
+use Papaya\Message;
+
 /**
  * Interface for protocol messages
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
-interface Logable extends \Papaya\Message {
+interface Logable extends Message {
   /**
    * log group for user messages (login/logout)
    */

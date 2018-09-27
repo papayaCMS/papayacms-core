@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message;
 
+use Papaya\Message;
+
 /**
  * Papaya Message Display, simple message displayed to the user
  *
@@ -27,7 +29,7 @@ class Display
    *
    * @var int
    */
-  protected $_severity = \Papaya\Message::SEVERITY_INFO;
+  protected $_severity = Message::SEVERITY_INFO;
 
   /**
    * Message text
@@ -42,9 +44,9 @@ class Display
    * @var array
    */
   private $_possibleSeverities = [
-    \Papaya\Message::SEVERITY_INFO,
-    \Papaya\Message::SEVERITY_WARNING,
-    \Papaya\Message::SEVERITY_ERROR
+    Message::SEVERITY_INFO,
+    Message::SEVERITY_WARNING,
+    Message::SEVERITY_ERROR
   ];
 
   /**
@@ -69,15 +71,6 @@ class Display
       return TRUE;
     }
     throw new \InvalidArgumentException('Invalid message type.');
-  }
-
-  /**
-   * Get type of message (info, warning, error)
-   *
-   * @return int
-   */
-  public function getType() {
-    return $this->_severity;
   }
 
   /**

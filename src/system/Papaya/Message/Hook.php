@@ -27,7 +27,7 @@ interface Hook {
   public function activate();
 
   /**
-   * Dectivate message hook, restoring default behavour
+   * Deactivate message hook, restoring default behaviour
    */
   public function deactivate();
 }

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message;
 
+use Papaya\Message;
+
 /**
  * Papaya Message Dispatcher, interface for message dispatchers
  *
@@ -27,9 +29,9 @@ interface Dispatcher {
   /**
    * Dispatch/handle a message
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    *
    * @return bool message dispatched
    */
-  public function dispatch(\Papaya\Message $message);
+  public function dispatch(Message $message);
 }

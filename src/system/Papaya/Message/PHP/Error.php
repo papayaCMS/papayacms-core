@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\PHP;
 
+use Papaya\Message;
+
 /**
  * Papaya Message Php Error, message object representing an php error
  *
@@ -21,7 +23,7 @@ namespace Papaya\Message\PHP;
  * @subpackage Messages
  */
 class Error
-  extends \Papaya\Message\PHP {
+  extends Message\PHP {
   /**
    * Create object and set values from a captured error
    *
@@ -35,7 +37,7 @@ class Error
     $this->_message = $message;
     $this
       ->_context
-      ->append(new \Papaya\Message\Context\Backtrace(2))
-      ->append(new \Papaya\Message\Context\Variable($variableContext));
+      ->append(new Message\Context\Backtrace(2))
+      ->append(new Message\Context\Variable($variableContext));
   }
 }

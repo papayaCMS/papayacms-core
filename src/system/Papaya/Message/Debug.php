@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message;
 
+use Papaya\Message;
+
 /**
  * Standard debug message
  *
@@ -69,21 +71,12 @@ class Debug
   }
 
   /**
-   * Get type of message, always "debug" for this class
-   *
-   * @return int
-   */
-  public function getType() {
-    return \Papaya\Message::SEVERITY_DEBUG;
-  }
-
-  /**
    * Get type of message (info, warning, error)
    *
    * @return int
    */
   public function getSeverity() {
-    return \Papaya\Message::SEVERITY_DEBUG;
+    return Message::SEVERITY_DEBUG;
   }
 
   /**

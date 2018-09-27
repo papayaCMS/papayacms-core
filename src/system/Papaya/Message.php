@@ -100,15 +100,6 @@ interface Message {
   /**
    * Get type of message (info, warning, error)
    *
-   * @deprecated
-   *
-   * @return int
-   */
-  public function getType();
-
-  /**
-   * Get type of message (info, warning, error)
-   *
    * @return int
    */
   public function getSeverity();

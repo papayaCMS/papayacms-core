@@ -14,6 +14,9 @@
  */
 namespace Papaya\Message\Display;
 
+use Papaya\Message;
+use Papaya\UI;
+
 /**
  * A language specific message displayed to the user.
  *
@@ -22,7 +25,7 @@ namespace Papaya\Message\Display;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Translated extends \Papaya\Message\Display {
+class Translated extends Message\Display {
   /**
    * Initialize object, convert message into translation object
    *
@@ -31,6 +34,6 @@ class Translated extends \Papaya\Message\Display {
    * @param array $parameters message parameters
    */
   public function __construct($type, $message, array $parameters = []) {
-    parent::__construct($type, new \Papaya\UI\Text\Translated($message, $parameters));
+    parent::__construct($type, new UI\Text\Translated($message, $parameters));
   }
 }

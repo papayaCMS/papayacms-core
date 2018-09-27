@@ -180,7 +180,7 @@ class WildfireTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
@@ -208,7 +208,7 @@ class WildfireTest extends \Papaya\TestCase {
     $handler
       ->expects($this->once())
       ->method('startGroup')
-      ->with($this->equalTo('Log'));
+      ->with($this->equalTo('Debug'));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -220,7 +220,7 @@ class WildfireTest extends \Papaya\TestCase {
     $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
-      ->method('getType')
+      ->method('getSeverity')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
