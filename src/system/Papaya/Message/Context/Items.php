@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Message\Context;
+
 use Papaya\Utility;
+
 /**
  * Message context containing simple plain text
  *

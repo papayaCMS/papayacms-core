@@ -14,6 +14,7 @@
  */
 namespace Papaya\Message\Dispatcher {
 
+  use Papaya\BaseObject;
   use Papaya\Message;
 
   /**
@@ -24,7 +25,7 @@ namespace Papaya\Message\Dispatcher {
    * @subpackage Messages
    */
   class Collection
-    extends \Papaya\BaseObject\Collection
+    extends BaseObject\Collection
     implements Message\Dispatcher {
     public function __construct() {
       parent::__construct(Message\Dispatcher::class);

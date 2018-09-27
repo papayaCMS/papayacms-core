@@ -14,6 +14,10 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
+use Papaya\Message;
+use Papaya\Utility;
+
 /**
  * Papaya Message Dispatcher XHTML, send out log messages as xhtml (just output to the browser)
  *
@@ -23,36 +27,37 @@ namespace Papaya\Message\Dispatcher;
  * @subpackage Messages
  */
 class XHTML
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
+
   /**
    * Options for header formatting (background color, text color, label)
    *
    * @var array
    */
   private static $_MESSAGE_OPTIONS = [
-    \Papaya\Message::SEVERITY_DEBUG => [
+    Message::SEVERITY_DEBUG => [
       '#F0F0F0', '#000', 'Debug'
     ],
-    \Papaya\Message::SEVERITY_INFO => [
+    Message::SEVERITY_INFO => [
       '#F0F0F0', '#000060', 'Information'
     ],
-    \Papaya\Message::SEVERITY_NOTICE => [
+    Message::SEVERITY_NOTICE => [
       '#F0F0F0', '#000060', 'Notice'
     ],
-    \Papaya\Message::SEVERITY_WARNING => [
+    Message::SEVERITY_WARNING => [
       '#FFCC33', '#000000', 'Warning'
     ],
-    \Papaya\Message::SEVERITY_ERROR => [
+    Message::SEVERITY_ERROR => [
       '#CC0000', '#FFFFFF', 'Error'
     ],
-    \Papaya\Message::SEVERITY_CRITICAL => [
+    Message::SEVERITY_CRITICAL => [
       '#CC0000', '#FFFFFF', 'Critical'
     ],
-    \Papaya\Message::SEVERITY_ALERT => [
+    Message::SEVERITY_ALERT => [
       '#CC0000', '#FFFFFF', 'Alert'
     ],
-    \Papaya\Message::SEVERITY_EMERGENCY => [
+    Message::SEVERITY_EMERGENCY => [
       '#CC0000', '#FFFFFF', 'Emergency'
     ],
   ];
@@ -60,22 +65,22 @@ class XHTML
   /**
    * Output log message to browser using xhtml output
    *
-   * @param \Papaya\Message $message
+   * @param Message $message
    *
    * @return bool
    */
-  public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \Papaya\Message\Logable &&
+  public function dispatch(Message $message) {
+    if ($message instanceof Message\Logable &&
       $this->allow()) {
       $this->outputClosers();
       print('<div class="debug" style="border: none; margin: 3em; padding: 0; font-size: 1em;">');
       $headerOptions = $this->getHeaderOptionsFromType($message->getSeverity());
       \printf(
         '<h3 style="background-color: %s; color: %s; padding: 0.3em; margin: 0;">%s: %s</h3>',
-        \Papaya\Utility\Text\XML::escapeAttribute($headerOptions[0]),
-        \Papaya\Utility\Text\XML::escapeAttribute($headerOptions[1]),
-        \Papaya\Utility\Text\XML::escape($headerOptions[2]),
-        \Papaya\Utility\Text\XML::escape($message->getMessage())
+        Utility\Text\XML::escapeAttribute($headerOptions[0]),
+        Utility\Text\XML::escapeAttribute($headerOptions[1]),
+        Utility\Text\XML::escape($headerOptions[2]),
+        Utility\Text\XML::escape($message->getMessage())
       );
       print($message->context()->asXhtml());
       print('</div>');
@@ -116,6 +121,6 @@ class XHTML
     if (isset(self::$_MESSAGE_OPTIONS[$type])) {
       return self::$_MESSAGE_OPTIONS[$type];
     }
-    return self::$_MESSAGE_OPTIONS[\Papaya\Message::SEVERITY_ERROR];
+    return self::$_MESSAGE_OPTIONS[Message::SEVERITY_ERROR];
   }
 }

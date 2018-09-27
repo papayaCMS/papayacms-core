@@ -14,7 +14,7 @@
  */
 namespace Papaya\Message\Context\Variable\Visitor;
 
-use \Papaya\Message;
+use Papaya\Message;
 
 /**
  * Visitor to convert a variable into a plain text string dump

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Dispatcher\Wildfire\Variable;
 
+use Papaya\Message;
+
 /**
  * Visitor to convert a variable into a plain text string dump
  *
@@ -21,7 +23,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable;
  * @subpackage Messages
  */
 class Visitor
-  extends \Papaya\Message\Context\Variable\Visitor {
+  extends Message\Context\Variable\Visitor {
   /**
    * Suffix for truncated string values
    *
@@ -225,7 +227,7 @@ class Visitor
    * @param resource $resource
    */
   public function visitResource($resource) {
-    $this->_addElement('** '.(string)$resource.' **');
+    $this->_addElement('** '.$resource.' **');
   }
 
   /**

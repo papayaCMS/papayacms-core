@@ -14,11 +14,14 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
+use Papaya\Utility;
 
 class CLI
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
+
   const TARGET_STDOUT = 'stdout';
 
   const TARGET_STDERR = 'stderr';
@@ -44,7 +47,7 @@ class CLI
   /**
    * Output streams
    *
-   * @var array(resource)
+   * @var resource[]
    */
   private $_streams = [
     self::TARGET_STDOUT => NULL,
@@ -141,7 +144,7 @@ class CLI
       );
     }
     if (NULL !== $stream) {
-      \Papaya\Utility\Constraints::assertResource($stream);
+      Utility\Constraints::assertResource($stream);
       $this->_streams[$target] = $stream;
     } elseif (NULL === $this->_streams[$target]) {
       $name = 'php://'.$target;

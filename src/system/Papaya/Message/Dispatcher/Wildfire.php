@@ -14,6 +14,7 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
 
 /**
@@ -30,8 +31,9 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Wildfire
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
+
   private static $_SEVERITY_TYPES = [
     Message::SEVERITY_DEBUG => 'LOG',
     Message::SEVERITY_INFO => 'INFO',

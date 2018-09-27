@@ -14,7 +14,7 @@
  */
 namespace Papaya\Message\Context\Interfaces;
 
-use \Papaya\Message;
+use Papaya\Message;
 
 /**
  * Interface for message string contexts

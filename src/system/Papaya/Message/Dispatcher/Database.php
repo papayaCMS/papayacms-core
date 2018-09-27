@@ -14,20 +14,23 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Database\Interfaces\Access as DatabaseBaseAccess;
 use Papaya\Message;
+use Papaya\URL\Current as CurrentURL;
 
 /**
  * Papaya Message Dispatcher Database, handles messages logged to the database
  *
  * Make sure that the dispatcher does not initialize it's resources only if needed,
- * It will be created at the start of the script, unused initialzation will slow the script down.
+ * It will be created at the start of the script, unused initialization will slow the script down.
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
 class Database
-  extends \Papaya\Database\BaseObject
-  implements Message\Dispatcher {
+  implements DatabaseBaseAccess, Message\Dispatcher {
+  use DatabaseBaseAccess\Aggregation;
+
   private static $_SEVERITY_TYPES = [
     Message::SEVERITY_DEBUG => 3,
     Message::SEVERITY_INFO => 0,
@@ -61,10 +64,8 @@ class Database
    * @return bool
    */
   public function dispatch(Message $message) {
-    if ($message instanceof Message\Logable) {
-      if ($this->allow($message)) {
-        return $this->save($message);
-      }
+    if ($message instanceof Message\Logable && $this->allow($message)) {
+      return $this->save($message);
     }
     return FALSE;
   }
@@ -84,9 +85,8 @@ class Database
           return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
       }
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -97,7 +97,7 @@ class Database
    * @return bool
    */
   protected function save(Message\Logable $message) {
-    $url = new \Papaya\URL\Current();
+    $url = new CurrentURL();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
     if ($message->context() instanceof Message\Context\Interfaces\XHTML) {
@@ -126,8 +126,9 @@ class Database
     }
     if (!$this->_preventMessageRecursion) {
       $this->_preventMessageRecursion = TRUE;
-      $result = $this->databaseInsertRecord(
-        $this->databaseGetTableName($this->_logTableName, TRUE), NULL, $values
+      $databaseAccess = $this->getDatabaseAccess();
+      $result = $databaseAccess->insertRecord(
+        $databaseAccess->getTableName($this->_logTableName, TRUE), NULL, $values
       );
       $this->_preventMessageRecursion = FALSE;
       return FALSE !== $result;

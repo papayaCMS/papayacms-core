@@ -54,7 +54,7 @@ class Runtime
   /**
    * Class variable to remember last memory usage status and calculate differences
    *
-   * @var int|NULL
+   * @var int|null
    */
   private static $_previousTime;
 
@@ -162,7 +162,7 @@ class Runtime
   /**
    * Initialize a start time.
    *
-   * @param float|NULL $startTime
+   * @param float|null $startTime
    */
   public static function setStartTime($startTime) {
     self::$_previousTime = self::$_startTime = NULL !== $startTime ? self::_prepareTimeValue($startTime) : NULL;

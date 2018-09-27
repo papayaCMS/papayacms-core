@@ -14,6 +14,7 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
 
 /**
@@ -26,8 +27,9 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Template
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
+
   private static $_SEVERITY_STRINGS = [
     Message::SEVERITY_DEBUG => 'debug',
     Message::SEVERITY_INFO => 'info',
@@ -49,20 +51,18 @@ class Template
    * @return bool
    */
   public function dispatch(Message $message) {
-    if ($message instanceof Message\Displayable) {
-      if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
-        /** @var \Papaya\Template $layout */
-        $layout = $GLOBALS['PAPAYA_LAYOUT'];
-        $layout->values()->append(
-          '/page/messages',
-          'message',
-          [
-            'severity' => self::$_SEVERITY_STRINGS[$message->getSeverity()]
-          ],
-          $message->getMessage()
-        );
-        return TRUE;
-      }
+    if ($message instanceof Message\Displayable && isset($GLOBALS['PAPAYA_LAYOUT'])) {
+      /** @var \Papaya\Template $layout */
+      $layout = $GLOBALS['PAPAYA_LAYOUT'];
+      $layout->values()->append(
+        '/page/messages',
+        'message',
+        [
+          'severity' => self::$_SEVERITY_STRINGS[$message->getSeverity()]
+        ],
+        $message->getMessage()
+      );
+      return TRUE;
     }
     return FALSE;
   }
