@@ -232,9 +232,9 @@ class base_options extends base_db {
     'PAPAYA_SUPPORT_BUG_EMAIL' => array (13, 'isEMail', 'input', 50,
       'info@papaya-cms.com'),
     'PAPAYA_SUPPORT_PAGE_NEWS' => array (13, 'isHTTPX', 'input', 50,
-      'http://www.papaya-cms.com/news/'),
+      'https://www.papaya-cms.com/news/'),
     'PAPAYA_SUPPORT_PAGE_MANUAL' => array (13, 'isHTTPX', 'input', 50,
-      'http://www.papaya-cms.com/manual/'),
+      'https://www.papaya-cms.com/manual/'),
 
     'PAPAYA_MAX_UPLOAD_SIZE' => array(14, 'isNum', 'input', 5, 7),
     'PAPAYA_NUM_UPLOAD_FIELDS' => array(14, 'isNum', 'input', 2, 1),
