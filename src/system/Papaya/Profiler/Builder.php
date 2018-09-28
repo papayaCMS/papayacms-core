@@ -26,6 +26,7 @@ use Papaya\Application;
  */
 class Builder implements Application\Access {
   use Application\Access\Aggregation;
+
   /**
    * Create the profiler collector object. Currently heres is only the xhprof wrapper.
    *

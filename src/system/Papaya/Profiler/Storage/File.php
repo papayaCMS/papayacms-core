@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Profiler\Storage;
+
 use Papaya\Profiler;
+
 /**
  * Stores the Xhrof profiling data into a file usable by the standard report app.
  *

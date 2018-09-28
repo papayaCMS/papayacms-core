@@ -26,6 +26,7 @@ use Papaya\Utility;
  */
 class Timer implements \IteratorAggregate, Application\Access {
   use Application\Access\Aggregation;
+
   private $_start;
 
   private $_takes = [];
