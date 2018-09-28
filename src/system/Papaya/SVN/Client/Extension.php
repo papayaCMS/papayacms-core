@@ -27,6 +27,7 @@ class Extension implements \Papaya\SVN\Client {
    *                     size, time, time_t, name, type
    */
   public function ls($url) {
+    /** @noinspection PhpComposerExtensionStubsInspection */
     return svn_ls($url);
   }
 }

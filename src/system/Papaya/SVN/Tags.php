@@ -14,27 +14,28 @@
  */
 namespace Papaya\SVN;
 
+use Papaya\Utility;
+
 class Tags implements \IteratorAggregate, \Countable {
   /**
    * SVN client
    *
-   * @var \Papaya\SVN\Client|null
+   * @var Client|null
    */
   private $_svnClient;
 
   /**
    * Get/set the SVN client
    *
-   * @param \Papaya\SVN\Client $client
+   * @param Client $client
    *
-   * @return \Papaya\SVN\Client
+   * @return Client
    */
-  public function svnClient(\Papaya\SVN\Client $client = NULL) {
-    if (isset($client)) {
+  public function svnClient(Client $client = NULL) {
+    if (NULL !== $client) {
       $this->_svnClient = $client;
-    }
-    if (\is_null($this->_svnClient)) {
-      $this->_svnClient = new \Papaya\SVN\Client\Extension();
+    } elseif (NULL === $this->_svnClient) {
+      $this->_svnClient = new Client\Extension();
     }
     return $this->_svnClient;
   }
@@ -68,9 +69,9 @@ class Tags implements \IteratorAggregate, \Countable {
    * @param int $newerThanRevision
    */
   public function __construct($tagDirectoryURL, $newerThanRevision = 0) {
-    \Papaya\Utility\Constraints::assertString($tagDirectoryURL);
+    Utility\Constraints::assertString($tagDirectoryURL);
+    Utility\Constraints::assertInteger($newerThanRevision);
     $this->_tagDirectoryURL = $tagDirectoryURL;
-    \Papaya\Utility\Constraints::assertInteger($newerThanRevision);
     $this->_newerThanRevision = $newerThanRevision;
     $this->_highestRevisionSeen = $newerThanRevision;
   }
@@ -89,12 +90,11 @@ class Tags implements \IteratorAggregate, \Countable {
    * Used to lazily do the actual work.
    */
   private function find() {
-    if (!\is_null($this->_newTags)) {
+    if (NULL !== $this->_newTags) {
       return;
     }
     $this->_newTags = [];
-    $this->_tagDirectoryURL =
-      \Papaya\Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryURL);
+    $this->_tagDirectoryURL = Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryURL);
     $tagList = $this->svnClient()->ls($this->_tagDirectoryURL);
     foreach ($tagList as $tag) {
       $revision = (int)$tag['created_rev'];
