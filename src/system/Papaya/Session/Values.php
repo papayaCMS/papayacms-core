@@ -49,11 +49,11 @@ class Values implements \ArrayAccess {
    */
   public function offsetExists($identifier) {
     $key = $this->_compileKey($identifier);
+    /** @noinspection UnSafeIsSetOverArrayInspection */
     if (isset($_SESSION) && \is_array($_SESSION) && \array_key_exists($key, $_SESSION)) {
       return TRUE;
-    } else {
-      return \array_key_exists($key, $this->_fallback);
     }
+    return \array_key_exists($key, $this->_fallback);
   }
 
   /**
@@ -67,10 +67,11 @@ class Values implements \ArrayAccess {
     $key = $this->_compileKey($identifier);
     if (isset($_SESSION[$key])) {
       return $_SESSION[$key];
-    } elseif (isset($this->_fallback[$key])) {
+    }
+    if (isset($this->_fallback[$key])) {
       return $this->_fallback[$key];
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -117,11 +118,12 @@ class Values implements \ArrayAccess {
    */
   public function offsetUnset($identifier) {
     $key = $this->_compileKey($identifier);
-    if ($this->_session->isActive() &&
-      \is_array($_SESSION)) {
-      if (\array_key_exists($key, $_SESSION)) {
-        unset($_SESSION[$key]);
-      }
+    if (
+      \is_array($_SESSION) &&
+      \array_key_exists($key, $_SESSION) &&
+      $this->_session->isActive()
+    ) {
+      unset($_SESSION[$key]);
     }
     if (\array_key_exists($key, $this->_fallback)) {
       unset($this->_fallback[$key]);
@@ -167,10 +169,10 @@ class Values implements \ArrayAccess {
         }
       }
       return \substr($result, 1);
-    } elseif (\is_object($identifier)) {
-      return \get_class($identifier);
-    } else {
-      return (string)$identifier;
     }
+    if (\is_object($identifier)) {
+      return \get_class($identifier);
+    }
+    return (string)$identifier;
   }
 }

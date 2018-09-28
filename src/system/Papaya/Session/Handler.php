@@ -81,9 +81,8 @@ interface Handler {
    * The garbage collector, this is executed when the session garbage collector is executed
    * and takes the max session lifetime as its only parameter.
    *
-   * @param int $maxlifetime
-   *
+   * @param int $maxLifeTime
    * @return bool
    */
-  public static function gc($maxlifetime);
+  public static function gc($maxLifeTime);
 }

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Session;
 
+use Papaya\Application;
+
 /**
  * This is the generic papaya session share object which can be used in projects to share related,
  * session-persistent data conveniently between different modules.
@@ -32,7 +34,9 @@ namespace Papaya\Session;
  * @package Papaya-Library
  * @subpackage Session
  */
-abstract class Share extends \Papaya\Application\BaseObject {
+abstract class Share implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * The list of those properties that are stored in the session.
    *
@@ -43,7 +47,7 @@ abstract class Share extends \Papaya\Application\BaseObject {
   /**
    * Internal variable for an session values object used for dependency injection
    *
-   * @var \Papaya\Session\Values
+   * @var Values
    */
   private $_sessionValues;
 
@@ -57,10 +61,10 @@ abstract class Share extends \Papaya\Application\BaseObject {
   /**
    * Getter for session values object
    *
-   * @return \Papaya\Session\Values $values
+   * @return Values $values
    */
   public function getSessionValues() {
-    if (isset($this->_sessionValues)) {
+    if (NULL !== $this->_sessionValues) {
       return $this->_sessionValues;
     }
     return $this->papaya()->session->values();
@@ -69,9 +73,9 @@ abstract class Share extends \Papaya\Application\BaseObject {
   /**
    * Setter for session values object, allows dependency injection if needed.
    *
-   * @param \Papaya\Session\Values $values
+   * @param Values $values
    */
-  public function setSessionValues(\Papaya\Session\Values $values) {
+  public function setSessionValues(Values $values) {
     $this->_sessionValues = $values;
   }
 
@@ -170,14 +174,12 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * @return string
    */
   protected function preparePropertyName($name) {
-    if ($this->_normalizeNames) {
-      if (\preg_match('(^[a-zA-Z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
-        $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
-        if (\preg_match_all($camelCasePattern, $name, $matches)) {
-          $name = \implode('_', $matches[0]);
-        }
-        $name = \strtolower($name);
+    if ($this->_normalizeNames && \preg_match('(^[a-zA-Z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
+      $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
+      if (\preg_match_all($camelCasePattern, $name, $matches)) {
+        $name = \implode('_', $matches[0]);
       }
+      $name = \strtolower($name);
     }
     if (isset($this->_definitions[$name])) {
       return $name;

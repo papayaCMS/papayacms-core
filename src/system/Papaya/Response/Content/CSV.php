@@ -80,7 +80,7 @@ class CSV implements Response\Content {
   public function callbacks(CSV\Callbacks $callbacks = NULL) {
     if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    }  elseif (NULL === $this->_callbacks) {
+    } elseif (NULL === $this->_callbacks) {
       $this->_callbacks = new CSV\Callbacks();
       $this->_callbacks->onMapRow = function($value) {
         return $value;

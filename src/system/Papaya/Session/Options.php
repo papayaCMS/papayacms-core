@@ -14,6 +14,8 @@
  */
 namespace Papaya\Session;
 
+use Papaya\BaseObject\Options\Defined as DefinedOptions;
+
 /**
  * Papaya Session Options, encapsulates storage und validation of session options
  *
@@ -24,7 +26,7 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Options
-  extends \Papaya\BaseObject\Options\Defined {
+  extends DefinedOptions {
   /**
    * Fallback mode: only use cookie, no fallback
    *
