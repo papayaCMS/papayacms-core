@@ -14,13 +14,15 @@
  */
 namespace Papaya\Response\Content;
 
+use Papaya\Response;
+
 /**
  * Iterate the argument and output it as a CSV.
  *
  * @package Papaya-Library
  * @subpackage Response
  */
-class CSV implements \Papaya\Response\Content {
+class CSV implements Response\Content {
   /**
    * string content buffer
    *
@@ -28,23 +30,30 @@ class CSV implements \Papaya\Response\Content {
    */
   private $_traversable;
 
+  /**
+   * @var string
+   */
   private $_quote = '"';
 
+  /**
+   * @var string
+   */
   private $_separator = ',';
 
+  /**
+   * @var string
+   */
   private $_linebreak = "\r\n";
 
+  /**
+   * @var string
+   */
   private $_encodedLinebreak = '\\n';
 
   /**
    * @var array
    */
   private $_columns;
-
-  /**
-   * @var callable
-   */
-  private $_onMapValue;
 
   /**
    * @var CSV\Callbacks
@@ -69,10 +78,9 @@ class CSV implements \Papaya\Response\Content {
    * @return CSV\Callbacks
    */
   public function callbacks(CSV\Callbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    }
-    if (\is_null($this->_callbacks)) {
+    }  elseif (NULL === $this->_callbacks) {
       $this->_callbacks = new CSV\Callbacks();
       $this->_callbacks->onMapRow = function($value) {
         return $value;
@@ -95,8 +103,6 @@ class CSV implements \Papaya\Response\Content {
 
   /**
    * Output string content to standard output
-   *
-   * @return string
    */
   public function output() {
     $callbacks = $this->callbacks();
@@ -129,6 +135,9 @@ class CSV implements \Papaya\Response\Content {
     }
   }
 
+  /**
+   * @param array $values
+   */
   private function outputCSVLine($values) {
     $separator = FALSE;
     foreach (\array_values($values) as $value) {
@@ -151,11 +160,11 @@ class CSV implements \Papaya\Response\Content {
    */
   private function csvQuote($value) {
     $quotesNeeded =
-      '('.\preg_quote($this->_quote).'|'.\preg_quote($this->_separator).'|[\r\n])';
+      '('.\preg_quote($this->_quote, '(').'|'.\preg_quote($this->_separator, '(').'|[\r\n])';
     if (\preg_match($quotesNeeded, $value)) {
       $encoded = \preg_replace(
         [
-          '('.\preg_quote($this->_quote).')',
+          '('.\preg_quote($this->_quote, '(').')',
           "(\r\n|\n\r|[\r\n])"
         ],
         [
@@ -165,8 +174,7 @@ class CSV implements \Papaya\Response\Content {
         $value
       );
       return $this->_quote.$encoded.$this->_quote;
-    } else {
-      return $value;
     }
+    return $value;
   }
 }

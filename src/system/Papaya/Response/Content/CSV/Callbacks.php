@@ -14,6 +14,8 @@
  */
 namespace Papaya\Response\Content\CSV;
 
+use Papaya\BaseObject;
+
 /**
  * Callbacks that are used by the csv response content
  *
@@ -23,10 +25,10 @@ namespace Papaya\Response\Content\CSV;
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapField
  *
- * @method bool onMapRow
- * @method bool onMapField
+ * @method array onMapRow(array $value)
+ * @method mixed onMapField($value, $key)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   /**
    * Initialize object and set callback definition
    */

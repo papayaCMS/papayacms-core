@@ -14,6 +14,9 @@
  */
 namespace Papaya\Response;
 
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Papaya Response Headers Object
  *
@@ -62,7 +65,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
   public function set($header, $value, $replace = TRUE) {
     $header = $this->_normalize($header);
     $value = \str_replace(['\r', '\n'], ' ', (string)$value);
-    \Papaya\Utility\Constraints::assertNotEmpty($header);
+    Utility\Constraints::assertNotEmpty($header);
     if ($replace || !isset($this->_headers[$header])) {
       $this->_headers[$header] = $value;
     } elseif (\is_array($this->_headers[$header])) {

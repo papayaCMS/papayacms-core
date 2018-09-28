@@ -14,6 +14,9 @@
  */
 namespace Papaya\Response\Content;
 
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Simple string response content
  *
@@ -22,13 +25,13 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class Text implements \Papaya\Response\Content {
+class Text implements Response\Content {
   /**
    * string content buffer
    *
    * @var string
    */
-  private $_content = '';
+  private $_content;
 
   /**
    * Initialize object from a string
@@ -36,7 +39,7 @@ class Text implements \Papaya\Response\Content {
    * @param string $contentString
    */
   public function __construct($contentString) {
-    \Papaya\Utility\Constraints::assertString($contentString);
+    Utility\Constraints::assertString($contentString);
     $this->_content = $contentString;
   }
 
@@ -51,8 +54,6 @@ class Text implements \Papaya\Response\Content {
 
   /**
    * Output string content to standard output
-   *
-   * @return string
    */
   public function output() {
     echo $this->_content;

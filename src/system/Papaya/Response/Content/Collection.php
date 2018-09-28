@@ -14,13 +14,15 @@
  */
 namespace Papaya\Response\Content;
 
+use Papaya\Response;
+
 /**
  * Iterator the argument and output it.
  *
  * @package Papaya-Library
  * @subpackage Response
  */
-class Collection implements \Papaya\Response\Content {
+class Collection implements Response\Content {
   /**
    * string content buffer
    *
@@ -28,7 +30,10 @@ class Collection implements \Papaya\Response\Content {
    */
   private $_traversable;
 
-  private $_lineEnd = "\n";
+  /**
+   * @var string
+   */
+  private $_lineEnd;
 
   /**
    * @param \Traversable $traversable
