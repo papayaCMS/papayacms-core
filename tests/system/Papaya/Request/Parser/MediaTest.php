@@ -94,6 +94,15 @@ class MediaTest extends \Papaya\TestCase {
         )
       ),
       array(
+        '/sid2fb2e3bd142f20e238d39b64eb6d3195/index.media.01234567890123456789012345678901v23.jpg',
+        array(
+          'mode' => 'media',
+          'media_id' => '01234567890123456789012345678901',
+          'media_uri' => '01234567890123456789012345678901v23.jpg',
+          'media_version' => 23
+        )
+      ),
+      array(
         '/hn999sramon-7esrp-tours5.download.preview.d7e21e7a82c200090aa0e29327ad4581v23',
         array(
           'mode' => 'download',

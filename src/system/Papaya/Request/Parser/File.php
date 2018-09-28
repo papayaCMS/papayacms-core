@@ -14,13 +14,15 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for links path and file name
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class File extends \Papaya\Request\Parser {
+class File extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *

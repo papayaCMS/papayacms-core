@@ -14,13 +14,15 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for page links
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Session extends \Papaya\Request\Parser {
+class Session extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *

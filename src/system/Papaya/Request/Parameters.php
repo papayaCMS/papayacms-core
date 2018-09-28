@@ -14,13 +14,16 @@
  */
 namespace Papaya\Request;
 
+use Papaya\BaseObject;
+use Papaya\Filter;
+
 /**
  * Papaya Request Parameters Handling
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Parameters extends \Papaya\BaseObject\Parameters {
+class Parameters extends BaseObject\Parameters {
   public static function createFromString($queryString) {
     $queryParameters = new Parameters\QueryString();
     $queryParameters->setString($queryString);
@@ -55,16 +58,16 @@ class Parameters extends \Papaya\BaseObject\Parameters {
    *
    * @param array|int|string $offset
    * @param null $defaultValue
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    *
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, \Papaya\Filter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, Filter $filter = NULL) {
     return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
   }
 
   /**
-   * Set a value. If $offsets is an array or Traversalbe each element in the array/Traversalbe
+   * Set a value. If $offsets is an array or Traversable each element in the array/Traversalbe
    * is set.
    *
    * @param int|string|array|\Traversable $offsets
@@ -84,7 +87,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
   }
 
   /**
-   * Remove ohne or more keys. If $offsets is an array, each element is used as an separate
+   * Remove one or more keys. If $offsets is an array, each element is used as an separate
    * parameter name.
    *
    * @param int|string|array(string) $offsets

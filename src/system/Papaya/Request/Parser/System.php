@@ -14,13 +14,15 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for system urls
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class System extends \Papaya\Request\Parser {
+class System extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *
@@ -37,10 +39,9 @@ class System extends \Papaya\Request\Parser {
    */
   public function parse($url) {
     if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = [
+      return [
         'mode' => $matches['mode']
       ];
-      return $result;
     }
     return FALSE;
   }

@@ -14,13 +14,15 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for dynamic image links
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Image extends \Papaya\Request\Parser {
+class Image extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *

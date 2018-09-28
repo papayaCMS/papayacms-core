@@ -14,6 +14,8 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for wrapper calls
  *
@@ -22,7 +24,7 @@ namespace Papaya\Request\Parser;
  * @package Papaya-Library
  * @subpackage Request
  */
-class Wrapper extends \Papaya\Request\Parser {
+class Wrapper extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *

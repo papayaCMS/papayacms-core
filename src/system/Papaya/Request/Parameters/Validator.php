@@ -14,6 +14,10 @@
  */
 namespace Papaya\Request\Parameters;
 
+use Papaya\Filter;
+use Papaya\Request;
+use Papaya\Utility;
+
 /**
  * Papaya Request Parameter validation, allows to validate a group of parameters
  * against an definition and access them in a filtered variant
@@ -24,7 +28,7 @@ namespace Papaya\Request\Parameters;
 class Validator
   implements \ArrayAccess, \IteratorAggregate {
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -50,16 +54,16 @@ class Validator
 
   /**
    * @param array $definitions
-   * @param array|\Papaya\Request\Parameters $parameters
+   * @param array|Request\Parameters $parameters
    *
    * @throws \UnexpectedValueException
    */
   public function __construct(array $definitions, $parameters) {
     $this->setDefinitions($definitions);
     if (\is_array($parameters)) {
-      $parameters = new \Papaya\Request\Parameters($parameters);
+      $parameters = new Request\Parameters($parameters);
     }
-    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
+    Utility\Constraints::assertInstanceOf(Request\Parameters::class, $parameters);
     $this->_parameters = $parameters;
   }
 
@@ -72,19 +76,19 @@ class Validator
    */
   private function setDefinitions(array $definitions) {
     foreach ($definitions as $definition) {
-      $name = \Papaya\Utility\Arrays::get($definition, ['name', 0], NULL);
-      \Papaya\Utility\Constraints::assertNotEmpty(
+      $name = Utility\Arrays::get($definition, ['name', 0], NULL);
+      Utility\Constraints::assertNotEmpty(
         $name, 'Empty parameter name not allowed.'
       );
-      $default = \Papaya\Utility\Arrays::get($definition, ['default', 1], NULL);
-      if ($default instanceof \Papaya\Filter) {
+      $default = Utility\Arrays::get($definition, ['default', 1], NULL);
+      if ($default instanceof Filter) {
         $filter = $default;
         $default = NULL;
       } else {
-        $filter = \Papaya\Utility\Arrays::get($definition, ['filter', 2], NULL);
+        $filter = Utility\Arrays::get($definition, ['filter', 2], NULL);
       }
       if (NULL !== $filter) {
-        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Filter::class, $filter);
+        Utility\Constraints::assertInstanceOf(Filter::class, $filter);
       }
       $this->_definitions[$name] = [
         'default' => $default, 'filter' => $filter
@@ -104,7 +108,7 @@ class Validator
       $this->_validationResult = TRUE;
       foreach ($this->_definitions as $name => $definition) {
         try {
-          /** @var \Papaya\Filter $filter */
+          /** @var Filter $filter */
           $filter = isset($definition['filter']) ? $definition['filter'] : NULL;
           $value = $this->_parameters->get(
             $name, $definition['default'], $filter
@@ -113,7 +117,7 @@ class Validator
           if (NULL !== $filter) {
             $filter->validate($value);
           }
-        } catch (\Papaya\Filter\Exception $e) {
+        } catch (Filter\Exception $e) {
           $this->_errors[$name] = $e;
           $this->_validationResult = FALSE;
         }

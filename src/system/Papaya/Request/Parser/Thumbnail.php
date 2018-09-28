@@ -14,13 +14,15 @@
  */
 namespace Papaya\Request\Parser;
 
+use Papaya\Request;
+
 /**
  * Papaya request parser for media database thumbnail links
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Thumbnail extends \Papaya\Request\Parser {
+class Thumbnail extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *

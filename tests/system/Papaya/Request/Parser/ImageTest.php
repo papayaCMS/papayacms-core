@@ -60,6 +60,15 @@ class ImageTest extends \Papaya\TestCase {
           'image_identifier' => 'testbutton',
           'image_format' => 'png'
         )
+      ),
+      array(
+        '/sid2fb2e3bd142f20e238d39b64eb6d3195/testbutton.image.png.preview',
+        array(
+          'mode' => 'image',
+          'preview' => TRUE,
+          'image_identifier' => 'testbutton',
+          'image_format' => 'png'
+        )
       )
     );
   }

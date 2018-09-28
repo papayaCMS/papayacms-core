@@ -14,6 +14,8 @@
  */
 namespace Papaya\Request\Parameters;
 
+use Papaya\Request;
+
 /**
  * Decode a query string into an array or encode an array into an query string
  *
@@ -31,7 +33,7 @@ class QueryString {
   /**
    * Values object
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_values;
 
@@ -52,9 +54,10 @@ class QueryString {
    * @param string $groupSeparator
    */
   public function setSeparator($groupSeparator) {
+    $groupSeparator = \trim($groupSeparator);
     if (\in_array($groupSeparator, [',', ':', '/', '*', '!'])) {
       $this->_separator = $groupSeparator;
-    } elseif (\in_array($groupSeparator, ['', '[]'])) {
+    } elseif (\in_array($groupSeparator, ['', '[]'], TRUE)) {
       $this->_separator = '';
     } else {
       throw new \InvalidArgumentException(
@@ -66,16 +69,15 @@ class QueryString {
   /**
    * Get/set the values object
    *
-   * @param \Papaya\Request\Parameters $values
+   * @param Request\Parameters $values
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function values(\Papaya\Request\Parameters $values = NULL) {
-    if (isset($values)) {
+  public function values(Request\Parameters $values = NULL) {
+    if (NULL !== $values) {
       $this->_values = $values;
-    }
-    if (\is_null($this->_values)) {
-      $this->_values = new \Papaya\Request\Parameters();
+    } elseif (NULL === $this->_values) {
+      $this->_values = new Request\Parameters();
     }
     return $this->_values;
   }
@@ -89,8 +91,8 @@ class QueryString {
    * @return self
    */
   public function setString($queryString, $stripSlashes = FALSE) {
-    if (isset($queryString)) {
-      $this->_values = new \Papaya\Request\Parameters();
+    if (NULL !== $queryString) {
+      $this->_values = new Request\Parameters();
       $this->_decode($queryString, $stripSlashes);
     }
     return $this;
@@ -118,10 +120,10 @@ class QueryString {
         if (FALSE !== ($pos = \strpos($part, '='))) {
           $name = \urldecode(\substr($part, 0, $pos));
           $value = \urldecode(\substr($part, $pos + 1));
-          $this->_values->set($name, $this->_prepare($value, $stripSlashes), $this->_separator);
+          $this->_values->set($name, $this->_prepare($value, $stripSlashes));
         } else {
           $name = \urldecode($part);
-          $this->_values->set($name, TRUE, $this->_separator);
+          $this->_values->set($name, TRUE);
         }
       }
     }
@@ -158,7 +160,7 @@ class QueryString {
       foreach ($parameters as $name => $value) {
         if (empty($prefix)) {
           $fullName = \urlencode($name);
-        } elseif ('[]' == $this->_separator || empty($this->_separator)) {
+        } elseif ('[]' === $this->_separator || empty($this->_separator)) {
           $fullName = $prefix.'['.\urlencode($name).']';
         } else {
           $fullName = $prefix.$this->_separator.\urlencode($name);

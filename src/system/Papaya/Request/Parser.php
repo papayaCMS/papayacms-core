@@ -14,13 +14,17 @@
  */
 namespace Papaya\Request;
 
+use Papaya\Application;
+
 /**
  * Papaya Request Parser super class
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-abstract class Parser extends \Papaya\Application\BaseObject {
+abstract class Parser implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * parse request
    *
