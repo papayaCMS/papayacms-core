@@ -15,5 +15,11 @@
 namespace Papaya\Phrases;
 
 interface Storage {
+  /**
+   * @param string $phrase
+   * @param string $module
+   * @param int $languageId
+   * @return string
+   */
   public function get($phrase, $module, $languageId);
 }

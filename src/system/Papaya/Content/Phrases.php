@@ -22,6 +22,8 @@ use Papaya\Utility;
  *
  * @package Papaya-Library
  * @subpackage Content
+ *
+ * @method Phrase getItem($filter = NULL)
  */
 class Phrases extends Database\Records {
   /**

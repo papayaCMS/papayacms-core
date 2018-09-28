@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Phrases;
-
+use \Papaya\Phrases;
+use \Papaya\UI;
+use \Papaya\Utility;
 /**
  * Grouped access to phrases. This is a factory for phrase objects. The methods create
  * objects with access to the translations engine. If needed the objects fetch the
@@ -23,12 +25,24 @@ namespace Papaya\Phrases;
  * @subpackage Phrases
  */
 class Group {
+  /**
+   * @var \Papaya\Phrases
+   */
   private $_phrases;
 
-  private $_name = '';
+  /**
+   * @var string
+   */
+  private $_name;
 
-  public function __construct(\Papaya\Phrases $phrases, $name) {
-    \Papaya\Utility\Constraints::assertNotEmpty($name);
+  /**
+   * Group constructor.
+   *
+   * @param Phrases $phrases
+   * @param string $name
+   */
+  public function __construct(Phrases $phrases, $name) {
+    Utility\Constraints::assertNotEmpty($name);
     $this->_phrases = $phrases;
     $this->_name = $name;
   }
@@ -39,10 +53,10 @@ class Group {
    * @param string $phrase
    * @param array $arguments
    *
-   * @return \Papaya\UI\Text\Translated
+   * @return UI\Text\Translated
    */
   public function get($phrase, array $arguments = []) {
-    $result = new \Papaya\UI\Text\Translated(
+    $result = new UI\Text\Translated(
       $phrase, $arguments, $this->_phrases, $this->_name
     );
     return $result;
@@ -53,10 +67,11 @@ class Group {
    *
    * @param array|\Traversable $phrases
    *
-   * @return \Papaya\UI\Text\Translated\Collection
+   * @return UI\Text\Translated\Collection
    */
   public function getList($phrases) {
-    $result = new \Papaya\UI\Text\Translated\Collection(
+    Utility\Constraints::assertArrayOrTraversable($phrases);
+    $result = new UI\Text\Translated\Collection(
       $phrases, $this->_phrases, $this->_name
     );
     return $result;
