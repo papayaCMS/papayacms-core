@@ -14,6 +14,10 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\Configuration;
+use Papaya\Filter;
+use Papaya\Utility;
+
 /**
  * This is a list of the options for a single plugin module.
  *
@@ -23,7 +27,7 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Options extends \Papaya\Configuration {
+class Options extends Configuration {
   const STATUS_CREATED = 0;
 
   const STATUS_LOADING = 1;
@@ -43,7 +47,7 @@ class Options extends \Papaya\Configuration {
    */
   public function __construct($guid) {
     parent::__construct([]);
-    $this->_guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $this->_guid = Utility\Text\Guid::toLower($guid);
   }
 
   /**
@@ -54,7 +58,7 @@ class Options extends \Papaya\Configuration {
    */
   public function set($name, $value) {
     $this->lazyLoad();
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if (self::STATUS_LOADING === $this->_status) {
       $this->_options[$name] = $value;
     } else {
@@ -67,11 +71,11 @@ class Options extends \Papaya\Configuration {
    *
    * @param string $name
    * @param mixed $default
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    *
    * @return mixed
    */
-  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
+  public function get($name, $default = NULL, Filter $filter = NULL) {
     $this->lazyLoad();
     return parent::get($name, $default, $filter);
   }
@@ -95,7 +99,7 @@ class Options extends \Papaya\Configuration {
    */
   public function getIterator() {
     $this->lazyLoad();
-    return new \Papaya\Configuration\Iterator(\array_keys($this->_options), $this);
+    return new Configuration\Iterator(\array_keys($this->_options), $this);
   }
 
   /**
@@ -110,11 +114,11 @@ class Options extends \Papaya\Configuration {
   /**
    * Load options and change loading status
    *
-   * @param \Papaya\Configuration\Storage $storage
+   * @param Configuration\Storage $storage
    *
    * @return bool|void
    */
-  public function load(\Papaya\Configuration\Storage $storage = NULL) {
+  public function load(Configuration\Storage $storage = NULL) {
     $this->_status = self::STATUS_LOADING;
     parent::load($storage);
     $this->_status = self::STATUS_LOADED;
@@ -132,11 +136,11 @@ class Options extends \Papaya\Configuration {
   /**
    * Getter/Setter for the configuration storage
    *
-   * @param \Papaya\Configuration\Storage $storage
+   * @param Configuration\Storage $storage
    *
-   * @return \Papaya\Configuration\Storage
+   * @return Configuration\Storage
    */
-  public function storage(\Papaya\Configuration\Storage $storage = NULL) {
+  public function storage(Configuration\Storage $storage = NULL) {
     if (NULL !== $storage) {
       $this->_storage = $storage;
     } elseif (NULL === $this->_storage) {

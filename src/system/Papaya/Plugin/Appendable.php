@@ -14,12 +14,16 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\XML;
+
 /**
  * An interface to define that an object is a plugin appendable to an DOM element. This
  * extends \Papaya\XML\Appendable to provide the additional information that it is an content plugin.
  *
+ * Appends XML nodes to the given parent. Used by pages and boxes.
+ *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface Appendable extends \Papaya\XML\Appendable {
+interface Appendable extends XML\Appendable {
 }

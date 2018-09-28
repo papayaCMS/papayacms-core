@@ -14,6 +14,11 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\Application;
+use Papaya\Autoloader;
+use Papaya\Iterator;
+use Papaya\Utility;
+
 /**
  * The PluginLoader allows to to get module/plugin objects by guid.
  *
@@ -27,7 +32,10 @@ namespace Papaya\Plugin;
  * @property Collection $plugins
  * @property Option\Groups $options
  */
-class Loader extends \Papaya\Application\BaseObject {
+class Loader
+  implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * Database access to plugin data
    *
@@ -133,9 +141,9 @@ class Loader extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter für plugin option groups (grouped by module guid)
    *
-   * @param \Papaya\Plugin\Option\Groups|null $groups
+   * @param Option\Groups|null $groups
    *
-   * @return \Papaya\Plugin\Option\Groups
+   * @return Option\Groups
    */
   public function options(Option\Groups $groups = NULL) {
     if (NULL !== $groups) {
@@ -196,7 +204,7 @@ class Loader extends \Papaya\Application\BaseObject {
       $this->configure($plugin, $data);
       return $plugin;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -238,7 +246,7 @@ class Loader extends \Papaya\Application\BaseObject {
     $plugins = $this->plugins();
     if ($pluginData = $plugins[$guid]) {
       $this->prepareAutoloader($pluginData);
-      if ($result = \Papaya\Autoloader::getClassFile($pluginData['class'])) {
+      if ($result = Autoloader::getClassFile($pluginData['class'])) {
         return $result;
       }
       return $this->getPluginPath($pluginData['path']).$pluginData['file'];
@@ -253,18 +261,18 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param array $pluginData
    */
   private function prepareAutoloader(array $pluginData) {
-    if (!(empty($pluginData['prefix']) || \Papaya\Autoloader::hasPrefix($pluginData['prefix']))) {
+    if (!(empty($pluginData['prefix']) || Autoloader::hasPrefix($pluginData['prefix']))) {
       $path = $this->getPluginPath($pluginData['path']);
-      \Papaya\Autoloader::registerPath($pluginData['prefix'], $path);
+      Autoloader::registerPath($pluginData['prefix'], $path);
     }
     if (!empty($pluginData['classes'])) {
       $path = \substr($this->getPluginPath($pluginData['path']), 0, -1);
       /* @noinspection PhpIncludeInspection */
       if (
-        !\Papaya\Autoloader::hasClassMap($path) &&
+        !Autoloader::hasClassMap($path) &&
         ($classMap = include $path.'/'.$pluginData['classes'])
       ) {
-        \Papaya\Autoloader::registerClassMap($path, $classMap);
+        Autoloader::registerClassMap($path, $classMap);
       }
     }
   }
@@ -331,21 +339,21 @@ class Loader extends \Papaya\Application\BaseObject {
       return $path;
     }
     $map = [
-      'vendor:' => \Papaya\Utility\File\Path::getVendorPath(),
-      'src:' => \Papaya\Utility\File\Path::getSourcePath()
+      'vendor:' => Utility\File\Path::getVendorPath(),
+      'src:' => Utility\File\Path::getSourcePath()
     ];
-    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', \Papaya\Utility\File\Path::getDocumentRoot());
+    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', Utility\File\Path::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
       if (0 === \strpos($path, $prefix)) {
         $basePath = $documentRoot.$mapPath;
         $relativePath = \substr($path, \strlen($prefix));
-        return \Papaya\Utility\File\Path::cleanup(
+        return Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
     }
     if ($includePath = $this->papaya()->options->get('PAPAYA_INCLUDE_PATH', '')) {
-      return \Papaya\Utility\File\Path::cleanup(
+      return Utility\File\Path::cleanup(
           $includePath.'/modules/', TRUE
         ).$path;
     }
@@ -368,7 +376,7 @@ class Loader extends \Papaya\Application\BaseObject {
       return $this->_instances[$pluginData['guid']];
     }
     $result = new $pluginData['class']($parent);
-    if ($result instanceof \Papaya\Application\Access) {
+    if ($result instanceof Application\Access) {
       $result->papaya($this->papaya());
     }
     /* @noinspection PhpUndefinedFieldInspection */
@@ -386,7 +394,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param string|array $data
    */
   public function configure($plugin, $data) {
-    \Papaya\Utility\Constraints::assertObject($plugin);
+    Utility\Constraints::assertObject($plugin);
     if ($plugin instanceof Editable) {
       if (\is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
@@ -396,8 +404,8 @@ class Loader extends \Papaya\Application\BaseObject {
     } elseif (!empty($data) && \method_exists($plugin, 'setData')) {
       if (\is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
-          \Papaya\Utility\Text\XML::serializeArray(
-            \Papaya\Utility\Arrays::ensure($data)
+          Utility\Text\XML::serializeArray(
+            Utility\Arrays::ensure($data)
           )
         );
       } else {
@@ -406,8 +414,12 @@ class Loader extends \Papaya\Application\BaseObject {
     }
   }
 
+  /**
+   * @param $type
+   * @return Iterator\Callback
+   */
   public function withType($type) {
-    return new \Papaya\Iterator\Callback(
+    return new Iterator\Callback(
       $this->plugins()->withType($type),
       function($data, $guid) {
         return $this->get($guid);

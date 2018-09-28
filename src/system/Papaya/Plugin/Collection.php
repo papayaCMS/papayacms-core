@@ -14,6 +14,9 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\Database;
+use Papaya\Iterator;
+
 /**
  * The PluginLoaderList allows to to load module/plugin data using a list of guids.
  *
@@ -23,9 +26,9 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Collection extends \Papaya\Database\Records\Lazy {
+class Collection extends Database\Records\Lazy {
   /**
-   * @var array()
+   * @var array
    */
   protected $_fields = [
     'guid' => 'm.module_guid',
@@ -88,11 +91,11 @@ class Collection extends \Papaya\Database\Records\Lazy {
    * @param string $type
    * @param bool $activeOnly
    *
-   * @return \Papaya\Iterator\Filter\Callback
+   * @return Iterator\Filter\Callback
    */
   public function withType($type, $activeOnly = TRUE) {
     $this->lazyLoad();
-    return new \Papaya\Iterator\Filter\Callback(
+    return new Iterator\Filter\Callback(
       $this,
       function($plugin) use ($type, $activeOnly) {
         return $plugin['type'] === $type && (!$activeOnly || $plugin['active']);

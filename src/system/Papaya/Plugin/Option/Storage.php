@@ -14,6 +14,11 @@
  */
 namespace Papaya\Plugin\Option;
 
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\Content;
+use Papaya\Utility;
+
 /**
  * This configuration storage load the module option records using
  * {@see \Papaya\Content\Module\Options} by the module guid and maps them into an associative array.
@@ -21,10 +26,18 @@ namespace Papaya\Plugin\Option;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Storage extends \Papaya\Application\BaseObject
-  implements \Papaya\Configuration\Storage {
+class Storage
+  implements Application\Access, Configuration\Storage {
+  use Application\Access\Aggregation;
+
+  /**
+   * @var string
+   */
   private $_guid;
 
+  /**
+   * @var Content\Module\Options
+   */
   private $_options;
 
   /**
@@ -33,7 +46,7 @@ class Storage extends \Papaya\Application\BaseObject
    * @param string $guid
    */
   public function __construct($guid) {
-    $this->_guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $this->_guid = Utility\Text\Guid::toLower($guid);
   }
 
   /**
@@ -48,7 +61,7 @@ class Storage extends \Papaya\Application\BaseObject
   /**
    * Map and return module options
    *
-   * @return array
+   * @return \Traversable
    */
   public function getIterator() {
     $result = [];
@@ -61,15 +74,15 @@ class Storage extends \Papaya\Application\BaseObject
   /**
    * Getter/Setter: Options database encapsultation subobject
    *
-   * @param \Papaya\Content\Module\Options $options
+   * @param Content\Module\Options $options
    *
-   * @return \Papaya\Content\Module\Options
+   * @return Content\Module\Options
    */
-  public function options(\Papaya\Content\Module\Options $options = NULL) {
-    if (isset($options)) {
+  public function options(Content\Module\Options $options = NULL) {
+    if (NULL !== $options) {
       $this->_options = $options;
-    } elseif (\is_null($this->_options)) {
-      $this->_options = new \Papaya\Content\Module\Options();
+    } elseif (NULL === $this->_options) {
+      $this->_options = new Content\Module\Options();
     }
     return $this->_options;
   }

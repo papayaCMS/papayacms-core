@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\Cache;
+
 /**
  * An interface to define that an object has information (in an subobject)
  * which conditions decide how and if it is cacheable.
@@ -23,12 +25,11 @@ namespace Papaya\Plugin;
  */
 interface Cacheable {
   /**
-   * An subobject implementing {@see \Papaya\Cache\Identifier\Definition} compiling the cache
-   * parameter status
+   * An subobject implementing providing cache information and sources.
    *
-   * @param \Papaya\Cache\Identifier\Definition $definition
+   * @param Cache\Identifier\Definition $definition
    *
-   * @return \Papaya\Cache\Identifier\Definition
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL);
+  public function cacheable(Cache\Identifier\Definition $definition = NULL);
 }

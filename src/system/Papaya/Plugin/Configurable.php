@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\BaseObject;
+
 /**
  * An interface to define that an object can be configured from a controller.
  * Page content modules get parameters like "fullpage" this way.
@@ -23,9 +25,9 @@ namespace Papaya\Plugin;
  */
 interface Configurable {
   /**
-   * @param \Papaya\BaseObject\Parameters $configuration
+   * @param BaseObject\Parameters $configuration
    *
-   * @return \Papaya\BaseObject\Parameters
+   * @return BaseObject\Parameters
    */
-  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL);
+  public function configuration(BaseObject\Parameters $configuration = NULL);
 }
