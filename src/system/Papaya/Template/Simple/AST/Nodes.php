@@ -14,9 +14,17 @@
  */
 namespace Papaya\Template\Simple\AST;
 
+use Papaya\BaseObject;
+use Papaya\Template\Simple;
+
 class Nodes
-  extends \Papaya\BaseObject\Collection
-  implements \Papaya\Template\Simple\AST {
+  extends BaseObject\Collection
+  implements Simple\AST {
+  /**
+   * Nodes constructor.
+   *
+   * @param array $nodes
+   */
   public function __construct(array $nodes = []) {
     parent::__construct(Node::class);
     foreach ($nodes as $node) {
@@ -27,10 +35,10 @@ class Nodes
   /**
    * Tell the nodes about the visitor.
    *
-   * @param \Papaya\Template\Simple\Visitor $visitor
+   * @param Simple\Visitor $visitor
    */
-  public function accept(\Papaya\Template\Simple\Visitor $visitor) {
-    /** @var \Papaya\Template\Simple\AST $node */
+  public function accept(Simple\Visitor $visitor) {
+    /** @var Simple\AST $node */
     foreach ($this as $node) {
       $node->accept($visitor);
     }

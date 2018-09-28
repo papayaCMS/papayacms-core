@@ -14,7 +14,9 @@
  */
 namespace Papaya\Template\Simple\Exception;
 
-abstract class Parser extends \Papaya\Template\Simple\Exception {
+use Papaya\Template\Simple;
+
+abstract class Parser extends Simple\Exception {
   /**
    * An array of tokens which would have been expected to be found.
    *

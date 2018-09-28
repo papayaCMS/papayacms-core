@@ -18,7 +18,6 @@ use Papaya\BaseObject;
 use Papaya\Template;
 use Papaya\XML;
 
-
 /**
  * Papayas php implemented simple template engine.
  *
@@ -133,7 +132,7 @@ class Simple extends Template\Engine {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {
       $this->_visitor = new Template\Simple\Visitor\Output();
-      $this->_visitor->callbacks()->onGetValue = function (
+      $this->_visitor->callbacks()->onGetValue = function(
         /** @noinspection PhpUnusedParameterInspection */
         $context, $expression
       ) {

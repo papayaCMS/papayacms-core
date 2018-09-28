@@ -14,14 +14,16 @@
  */
 namespace Papaya\Template\Simple\Exception;
 
-class UnexpectedToken extends \Papaya\Template\Simple\Exception\Parser {
+use Papaya\Template\Simple;
+
+class UnexpectedToken extends Parser {
   /**
    * The token encountered during the scan.
    *
    * This is the token object which was not expected to be found at the given
    * position.
    *
-   * @var \Papaya\Template\Simple\Scanner\Token
+   * @var Simple\Scanner\Token
    */
   public $encounteredToken;
 
@@ -31,12 +33,15 @@ class UnexpectedToken extends \Papaya\Template\Simple\Exception\Parser {
 
     $expectedTokenStrings = [];
     foreach ($expectedTokens as $expectedToken) {
-      $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
+      $expectedTokenStrings[] = Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(
-      'Parse error: Found '.(string)$encounteredToken.
-      ' while one of '.\implode(', ', $expectedTokenStrings).' was expected.'
+      \sprintf(
+        'Parse error: Found %s while one of %s was expected.',
+        (string)$encounteredToken,
+        \implode(', ', $expectedTokenStrings)
+      )
     );
   }
 }
