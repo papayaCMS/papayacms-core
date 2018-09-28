@@ -14,15 +14,18 @@
  */
 namespace Papaya\Profiler;
 
+use Papaya\Application;
+
 /**
  * Profiler objects builder, create the objects needed to initialize the profiler. The
  * Profiler needs an collector and a storage object. Which classes are created depends on the
- * current configuraiton.
+ * current configuration.
  *
  * @package Papaya-Library
  * @subpackage Profiler
  */
-class Builder extends \Papaya\Application\BaseObject {
+class Builder implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * Create the profiler collector object. Currently heres is only the xhprof wrapper.
    *

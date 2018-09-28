@@ -14,6 +14,11 @@
  */
 namespace Papaya\Profiler\Storage;
 
+use Papaya\Application;
+use Papaya\Database;
+use Papaya\Profiler;
+use Papaya\Utility;
+
 /**
  * Stores the Xhrof profiling data into a database table for the XHGui by Paul Rheinheimer.
  *
@@ -23,27 +28,23 @@ namespace Papaya\Profiler\Storage;
  * @subpackage Profiler
  */
 class Xhgui
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Profiler\Storage, \Papaya\Database\Interfaces\Access {
-  /**
-   * @var string
-   */
-  private $_database = '';
+  implements Application\Access, Profiler\Storage, Database\Interfaces\Access {
+  use Database\Interfaces\Access\Aggregation;
 
   /**
    * @var string
    */
-  private $_tableName = '';
+  private $_database;
 
   /**
    * @var string
    */
-  private $_serverId = '';
+  private $_tableName;
 
   /**
-   * @var \Papaya\Database\Access
+   * @var string
    */
-  private $_databaseAccessObject;
+  private $_serverId;
 
   /**
    * Create storage object and store configuration options
@@ -53,9 +54,9 @@ class Xhgui
    * @param string $serverId
    */
   public function __construct($database, $tableName, $serverId) {
-    $this->_database = $database;
-    $this->_tableName = $tableName;
-    $this->_serverId = $serverId;
+    $this->_database = (string)$database;
+    $this->_tableName = (string)$tableName;
+    $this->_serverId = (string)$serverId;
   }
 
   /**
@@ -63,9 +64,11 @@ class Xhgui
    *
    * @param array $data
    * @param string $type
+   * @return string
    */
   public function saveRun($data, $type) {
     $databaseAccess = $this->getDatabaseAccess();
+    /** @noinspection PhpComposerExtensionStubsInspection */
     $record = [
       'id' => $this->getId(), // unique id for the run
       'url' => $url = $this->removeSid(
@@ -97,7 +100,7 @@ class Xhgui
    * @return string
    */
   protected function getId() {
-    return \uniqid();
+    return Utility\Random::getId();
   }
 
   /**
@@ -119,20 +122,20 @@ class Xhgui
   /**
    * Set database access object
    *
-   * @param \Papaya\Database\Access $databaseAccessObject
+   * @param Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
+  public function setDatabaseAccess(Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
    * Get database access object
    *
-   * @return \Papaya\Database\Access
+   * @return Database\Access
    */
   public function getDatabaseAccess() {
-    if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \Papaya\Database\Access($this, $this->_database);
+    if (NULL === $this->_databaseAccessObject) {
+      $this->_databaseAccessObject = new Database\Access($this, $this->_database);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;

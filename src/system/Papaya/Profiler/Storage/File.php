@@ -13,17 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Profiler\Storage;
-
+use Papaya\Profiler;
 /**
  * Stores the Xhrof profiling data into a file usable by the standard report app.
  *
  * @package Papaya-Library
  * @subpackage Profiler
  */
-class File implements \Papaya\Profiler\Storage {
+class File implements Profiler\Storage {
+  /**
+   * @var string
+   */
   private $_suffix = 'xhprof';
 
-  private $_directory = '/tmp/';
+  /**
+   * @var string
+   */
+  private $_directory;
 
   /**
    * Create storage object and store configuration options
@@ -33,7 +39,7 @@ class File implements \Papaya\Profiler\Storage {
    */
   public function __construct($directory, $suffix = NULL) {
     $this->_directory = $directory;
-    if (!empty($suffix)) {
+    if (NULL !== $suffix || '' !== \trim($suffix)) {
       $this->_suffix = $this->prepareSuffix($suffix);
     }
   }
@@ -111,10 +117,9 @@ class File implements \Papaya\Profiler\Storage {
   private function prepareSuffix($suffix) {
     if (\preg_match('(^[a-z\d]+$)D', $suffix)) {
       return $suffix;
-    } else {
-      throw new \UnexpectedValueException(
-        \sprintf('Invalid profiling file suffix "%s"', $suffix)
-      );
     }
+    throw new \UnexpectedValueException(
+      \sprintf('Invalid profiling file suffix "%s"', $suffix)
+    );
   }
 }

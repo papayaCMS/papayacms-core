@@ -14,14 +14,19 @@
  */
 namespace Papaya\Profiler;
 
+use Papaya\Application;
+use Papaya\Message;
+use Papaya\Utility;
+
 /**
  * A stack of timings, it fetches a starting time at the moment the object is created.
  *
  * @package Papaya-Library
  * @subpackage Profiler
  */
-class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate {
-  private $_start = 0;
+class Timer implements \IteratorAggregate, Application\Access {
+  use Application\Access\Aggregation;
+  private $_start;
 
   private $_takes = [];
 
@@ -56,16 +61,18 @@ class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate
     $result = [];
     $offset = $this->_start;
     foreach ($this->_takes as $take) {
-      if (isset($take['text'][1]) && \is_array($take['text'][1])) {
-        $text = \vsprintf($take['text'][0], $take['text'][1]);
-      } elseif (isset($take['text'][1])) {
-        $text = \sprintf($take['text'][0], $take['text'][1]);
+      if (isset($take['text'][1])) {
+        if (\is_array($take['text'][1])) {
+          $text = \vsprintf($take['text'][0], $take['text'][1]);
+        } else {
+          $text = \sprintf($take['text'][0], $take['text'][1]);
+        }
       } else {
         $text = $take['text'][0];
       }
       $result[] = [
         'time' => $take['time'] - $offset,
-        'time_string' => \Papaya\Utility\Date::periodToString($take['time'] - $offset),
+        'time_string' => Utility\Date::periodToString($take['time'] - $offset),
         'start' => $offset,
         'end' => $offset = $take['time'],
         'text' => $text
@@ -80,10 +87,10 @@ class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate
   public function emit() {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
-        \Papaya\Message\Logable::GROUP_DEBUG,
-        \Papaya\Message::SEVERITY_DEBUG,
+        Message\Logable::GROUP_DEBUG,
+        Message::SEVERITY_DEBUG,
         $take['text'],
-        new \Papaya\Message\Context\Runtime($take['start'], $take['end'])
+        new Message\Context\Runtime($take['start'], $take['end'])
       );
     }
   }
