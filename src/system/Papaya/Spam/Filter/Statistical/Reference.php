@@ -14,6 +14,8 @@
  */
 namespace Papaya\Spam\Filter\Statistical;
 
+use Papaya\Database;
+
 /**
  * The refennce list provides the statistical spam filter with the spam/ham count for a given list of
  * words.
@@ -23,7 +25,7 @@ namespace Papaya\Spam\Filter\Statistical;
  * @package Papaya-Library
  * @subpackage Spam
  */
-class Reference extends \Papaya\Database\BaseObject\Records {
+class Reference extends Database\BaseObject\Records {
   /**
    * buffer array for the text count loaded from database
    *
@@ -61,7 +63,7 @@ class Reference extends \Papaya\Database\BaseObject\Records {
         $languageId
       ];
       if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-        while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
+        while ($row = $res->fetchRow(Database\Result::FETCH_ASSOC)) {
           $word = $row['spamword'];
           if (!isset($this->_records[$word])) {
             $this->_records[$word] = [
@@ -96,7 +98,7 @@ class Reference extends \Papaya\Database\BaseObject\Records {
       $languageId
     ];
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
+      while ($row = $res->fetchRow(Database\Result::FETCH_ASSOC)) {
         $category = \strtolower($row['spamcategory_ident']);
         $this->_totals[$category] = $row['text_count'];
       }

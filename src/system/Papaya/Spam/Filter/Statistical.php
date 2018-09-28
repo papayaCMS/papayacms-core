@@ -14,6 +14,8 @@
  */
 namespace Papaya\Spam\Filter;
 
+use Papaya\Spam;
+
 /**
  * The statistical spam filter uses a reference table of tokens to calculate the spam probability of
  * a given token list.
@@ -21,21 +23,45 @@ namespace Papaya\Spam\Filter;
  * @package Papaya-Library
  * @subpackage Spam
  */
-class Statistical implements \Papaya\Spam\Filter {
+class Statistical implements Spam\Filter {
+  /**
+   * @var int
+   */
   private $_minimumTokenLength = 3;
 
+  /**
+   * @var int
+   */
   private $_maximumTokenLength = 30;
 
+  /**
+   * @var int
+   */
   private $_maximumRelevant = 15;
 
+  /**
+   * @var float
+   */
   private $_relevantDerivation = 0.2;
 
+  /**
+   * @var float
+   */
   private $_defaultRating = 0.5;
 
+  /**
+   * @var float
+   */
   private $_defaultRatingProbability = 0.3;
 
+  /**
+   * @var Statistical\Reference
+   */
   private $_reference;
 
+  /**
+   * @var array
+   */
   private $_report = [];
 
   /**
@@ -68,11 +94,11 @@ class Statistical implements \Papaya\Spam\Filter {
   /**
    * Getter for reference data object including implicit create.
    *
-   * @return \Papaya\Spam\Filter\Statistical\Reference
+   * @return Statistical\Reference
    */
   public function getReference() {
-    if (\is_null($this->_reference)) {
-      $this->_reference = new \Papaya\Spam\Filter\Statistical\Reference();
+    if (NULL === $this->_reference) {
+      $this->_reference = new Statistical\Reference();
     }
     return $this->_reference;
   }
@@ -80,9 +106,9 @@ class Statistical implements \Papaya\Spam\Filter {
   /**
    * Setter for reference data object.
    *
-   * @param \Papaya\Spam\Filter\Statistical\Reference $reference
+   * @param Statistical\Reference $reference
    */
-  public function setReference(\Papaya\Spam\Filter\Statistical\Reference $reference) {
+  public function setReference(Statistical\Reference $reference) {
     $this->_reference = $reference;
   }
 
@@ -168,7 +194,8 @@ class Statistical implements \Papaya\Spam\Filter {
     $relevanceTwo = \abs(0.5 - $probabilityTwo);
     if ($relevanceOne > $relevanceTwo) {
       return -1;
-    } elseif ($relevanceOne < $relevanceTwo) {
+    }
+    if ($relevanceOne < $relevanceTwo) {
       return 1;
     }
     return 0;
@@ -202,14 +229,13 @@ class Statistical implements \Papaya\Spam\Filter {
       }
     }
     if ($ratingCounter > 0) {
-      $hamminess = 1 - \pow($hamminess, (1 / $ratingCounter));
-      $spamminess = 1 - \pow($spamminess, (1 / $ratingCounter));
+      $hamminess = 1 - ($hamminess ** (1 / $ratingCounter));
+      $spamminess = 1 - ($spamminess ** (1 / $ratingCounter));
       $probability = ($hamminess - $spamminess) / ($hamminess + $spamminess);
       $probability = (1 + $probability) / 2;
       return $probability;
-    } else {
-      return $this->_defaultRating;
     }
+    return $this->_defaultRating;
   }
 
   /**
@@ -226,9 +252,8 @@ class Statistical implements \Papaya\Spam\Filter {
       return $this->calculateProbability(
         $item, $reference->getHamCount(), $reference->getSpamCount()
       );
-    } else {
-      return $this->_defaultRating;
     }
+    return $this->_defaultRating;
   }
 
   /**
