@@ -14,6 +14,9 @@
  */
 namespace Papaya\Plugin\Editable;
 
+use Papaya\BaseObject;
+use Papaya\Plugin;
+
 /**
  * Callbacks for the plugin editable content
  *
@@ -22,9 +25,9 @@ namespace Papaya\Plugin\Editable;
  *
  * @property \Papaya\BaseObject\Callback $onCreateEditor
  *
- * @method \Papaya\Plugin\Editor onCreateEditor(\Papaya\Plugin\Editable\Data $data)
+ * @method Plugin\Editor onCreateEditor(Data $data)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   public function __construct() {
     parent::__construct(
       [

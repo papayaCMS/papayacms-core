@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin\Configurable;
 
+use Papaya\Plugin;
+
 /**
  * An interface to define that an object is a module with global options
  * (It can be adapted to the current environment).
@@ -25,9 +27,9 @@ interface Options {
   /**
    * Getter/Setter for the editable options.
    *
-   * @param \Papaya\Plugin\Editable\Options $content
+   * @param Plugin\Editable\Options $content
    *
-   * @return \Papaya\Plugin\Editable\Options
+   * @return Plugin\Editable\Options
    */
-  public function options(\Papaya\Plugin\Editable\Options $content = NULL);
+  public function options(Plugin\Editable\Options $content = NULL);
 }

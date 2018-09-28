@@ -21,6 +21,7 @@ use Papaya\Phrases;
 class Database
   implements Application\Access, Phrases\Storage {
   use Application\Access\Aggregation;
+
   /**
    * @var array
    */
@@ -131,7 +132,7 @@ class Database
   }
 
   /**
-   * @param Content\Phrases|NULL $phrases
+   * @param Content\Phrases|null $phrases
    * @return Content\Phrases
    */
   public function phrases(Content\Phrases $phrases = NULL) {

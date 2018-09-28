@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Phrases;
-use \Papaya\Phrases;
-use \Papaya\UI;
-use \Papaya\Utility;
+
+use Papaya\Phrases;
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Grouped access to phrases. This is a factory for phrase objects. The methods create
  * objects with access to the translations engine. If needed the objects fetch the

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin\Editable\Content;
 
+use Papaya\Plugin;
+
 /**
  * This a standard implementation for editable plugin content. It
  * makes implements the \Papaya\Plugin\Editable interface and
@@ -26,7 +28,7 @@ namespace Papaya\Plugin\Editable\Content;
  */
 trait Aggregation {
   /**
-   * @var \Papaya\Plugin\Editable\Content
+   * @var Plugin\Editable\Content
    */
   private $_content;
 
@@ -35,16 +37,19 @@ trait Aggregation {
    *
    * @see \Papaya\Plugin\Editable::content()
    *
-   * @param \Papaya\Plugin\Editable\Content $content
+   * @param Plugin\Editable\Content $content
    *
-   * @return \Papaya\Plugin\Editable\Content
+   * @return Plugin\Editable\Content
    */
-  public function content(\Papaya\Plugin\Editable\Content $content = NULL) {
+  public function content(Plugin\Editable\Content $content = NULL) {
     if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new \Papaya\Plugin\Editable\Content();
-      $this->_content->callbacks()->onCreateEditor = function($callbackContext, \Papaya\Plugin\Editable\Content $content) {
+      $this->_content = new Plugin\Editable\Content();
+      $this->_content->callbacks()->onCreateEditor = function(
+        /** @noinspection PhpUnusedParameterInspection */
+        $callbackContext, Plugin\Editable\Content $content
+      ) {
         return $this->createEditor($content);
       };
     }
@@ -52,9 +57,9 @@ trait Aggregation {
   }
 
   /**
-   * @param \Papaya\Plugin\Editable\Content $content
+   * @param Plugin\Editable\Content $content
    *
    * @return \Papaya\Plugin\Editor
    */
-  abstract public function createEditor(\Papaya\Plugin\Editable\Content $content);
+  abstract public function createEditor(Plugin\Editable\Content $content);
 }

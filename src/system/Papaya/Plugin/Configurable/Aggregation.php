@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin\Configurable;
 
+use Papaya\BaseObject;
+
 /**
  * This a standard implementation for a configurable plugin. It
  * add a configuration() getter/setter method to the plugin.
@@ -25,7 +27,7 @@ namespace Papaya\Plugin\Configurable;
  */
 trait Aggregation {
   /**
-   * @var \Papaya\BaseObject\Parameters
+   * @var BaseObject\Parameters
    */
   private $_configuration;
 
@@ -35,15 +37,15 @@ trait Aggregation {
    *
    * @see \Papaya\Plugin\Configurable::configuration()
    *
-   * @param \Papaya\BaseObject\Parameters $configuration
+   * @param BaseObject\Parameters $configuration
    *
-   * @return \Papaya\BaseObject\Parameters
+   * @return BaseObject\Parameters
    */
-  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL) {
+  public function configuration(BaseObject\Parameters $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->_configuration = $configuration;
     } elseif (NULL === $this->_configuration) {
-      $this->_configuration = new \Papaya\BaseObject\Parameters();
+      $this->_configuration = new BaseObject\Parameters();
     }
     return $this->_configuration;
   }

@@ -13,8 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Phrases;
-use \Papaya\Phrases;
-use \Papaya\Utility;
+
+use Papaya\Phrases;
+use Papaya\Utility;
 
 /**
  * Array Access implementation for phrase group objects.

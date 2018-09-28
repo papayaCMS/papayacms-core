@@ -14,15 +14,22 @@
  */
 namespace Papaya\Plugin\Editable;
 
+use Papaya\Plugin;
+
 class Options extends Data {
   /**
-   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Options::modified()}
+   * Checksum buffer
    *
    * @var string|null
    */
   private $_checksum;
 
-  public function __construct(\Papaya\Plugin\Options $options) {
+  /**
+   * Options constructor.
+   *
+   * @param Plugin\Options $options
+   */
+  public function __construct(Plugin\Options $options) {
     parent::__construct(\iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }
