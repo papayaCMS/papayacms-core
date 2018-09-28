@@ -14,17 +14,21 @@
  */
 namespace Papaya\Template\Engine;
 
+use Papaya\BaseObject;
+use Papaya\Template;
+use Papaya\XML;
+
 /**
  * XSLT template engine, uses ext/xsl or ext/xslcache
  *
- * @property \Papaya\BaseObject\Options\Collection $parameters
- * @property \Papaya\BaseObject\Collection $loaders
+ * @property BaseObject\Options\Collection $parameters
+ * @property BaseObject\Collection $loaders
  * @property \DOMDocument $values
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class XSLT extends \Papaya\Template\Engine {
+class XSLT extends Template\Engine {
   /**
    * Transformation result buffer
    *
@@ -63,7 +67,7 @@ class XSLT extends \Papaya\Template\Engine {
   /**
    * Error handling wrapper for libxml/libxslt errors
    *
-   * @var \Papaya\XML\Errors
+   * @var XML\Errors
    */
   private $_errorHandler;
 
@@ -161,20 +165,20 @@ class XSLT extends \Papaya\Template\Engine {
   /**
    * Set libxml errors handler
    *
-   * @param \Papaya\XML\Errors $errorHandler
+   * @param XML\Errors $errorHandler
    */
-  public function setErrorHandler(\Papaya\XML\Errors $errorHandler) {
+  public function setErrorHandler(XML\Errors $errorHandler) {
     $this->_errorHandler = $errorHandler;
   }
 
   /**
    * Set libxml errors handler
    *
-   * @return \Papaya\XML\Errors
+   * @return XML\Errors
    */
   public function getErrorHandler() {
     if (NULL === $this->_errorHandler) {
-      $this->_errorHandler = new \Papaya\XML\Errors();
+      $this->_errorHandler = new XML\Errors();
     }
     return $this->_errorHandler;
   }
@@ -260,13 +264,13 @@ class XSLT extends \Papaya\Template\Engine {
    *
    * @param string $xmlString
    *
-   * @return \Papaya\Xml\Document
+   * @return XML\Document
    */
   public static function parseXML($xmlString) {
-    $errors = new \Papaya\Xml\Errors();
+    $errors = new XML\Errors();
     return $errors->encapsulate(
       function($xmlString) {
-        $document = new \Papaya\XML\Document();
+        $document = new XML\Document();
         $document->loadXML($xmlString);
         return $document;
       },

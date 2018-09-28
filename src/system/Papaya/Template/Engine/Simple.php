@@ -14,17 +14,22 @@
  */
 namespace Papaya\Template\Engine;
 
+use Papaya\BaseObject;
+use Papaya\Template;
+use Papaya\XML;
+
+
 /**
  * Papayas php implemented simple template engine.
  *
- * @property \Papaya\BaseObject\Options\Collection $parameters
- * @property \Papaya\BaseObject\Collection $loaders
+ * @property BaseObject\Options\Collection $parameters
+ * @property BaseObject\Collection $loaders
  * @property \DOMDocument $values
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class Simple extends \Papaya\Template\Engine {
+class Simple extends Template\Engine {
   private $_template = '';
 
   private $_templateFile = FALSE;
@@ -44,13 +49,14 @@ class Simple extends \Papaya\Template\Engine {
    * Execute/run template engine
    */
   public function run() {
-    $errors = new \Papaya\XML\Errors();
-    $errors->activate();
-    try {
-      $this->ast()->accept($this->visitor());
-    } catch (\Papaya\XML\Exception $e) {
-    }
-    $errors->deactivate();
+    $errors = new XML\Errors();
+    $errors->encapsulate(
+      function() {
+        $this->ast()->accept($this->visitor());
+      },
+      NULL,
+      FALSE
+    );
   }
 
   /**
@@ -58,26 +64,6 @@ class Simple extends \Papaya\Template\Engine {
    */
   public function getResult() {
     return (string)$this->visitor();
-  }
-
-  /**
-   * Match a value name or xpath expresion agains the values document.
-   * It will wrap it into a string typecast.
-   *
-   * This allows to use simple names like "foo.bar" in the template but xpath expressions, too.
-   *
-   * @param object $context
-   * @param string $expression
-   *
-   * @return mixed
-   */
-  public function callbackGetValue($context, $expression) {
-    if (0 === \strpos($expression, 'xpath(')) {
-      $expression = 'string('.\substr($expression, 6, -1).')';
-    } else {
-      $expression = 'string('.\str_replace('.', '/', \strtolower($expression)).')';
-    }
-    return $this->values()->xpath()->evaluate($expression, $this->getContext());
   }
 
   /**
@@ -115,20 +101,21 @@ class Simple extends \Papaya\Template\Engine {
   /**
    * Getter/Setter for the ast. The default ast is created using scanner and parser objects.
    *
-   * @param \Papaya\Template\Simple\AST $ast
+   * @param Template\Simple\AST $ast
    *
-   * @return \Papaya\Template\Simple\AST
+   * @return Template\Simple\AST
+   * @throws \Papaya\Template\Simple\Exception
    */
-  public function ast(\Papaya\Template\Simple\AST $ast = NULL) {
-    if (isset($ast)) {
+  public function ast(Template\Simple\AST $ast = NULL) {
+    if (NULL !== $ast) {
       $this->_ast = $ast;
     } elseif (NULL === $this->_ast) {
       $tokens = [];
-      $scanner = new \Papaya\Template\Simple\Scanner(
-        new \Papaya\Template\Simple\Scanner\Status\CSS()
+      $scanner = new Template\Simple\Scanner(
+        new Template\Simple\Scanner\Status\CSS()
       );
       $scanner->scan($tokens, $this->_template);
-      $parser = new \Papaya\Template\Simple\Parser\Output($tokens);
+      $parser = new Template\Simple\Parser\Output($tokens);
       return $parser->parse();
     }
     return $this->_ast;
@@ -137,16 +124,26 @@ class Simple extends \Papaya\Template\Engine {
   /**
    * Getter/Setter for the ast visitor used to execute the template.
    *
-   * @param \Papaya\Template\Simple\Visitor $visitor
+   * @param Template\Simple\Visitor $visitor
    *
-   * @return \Papaya\Template\Simple\Visitor
+   * @return Template\Simple\Visitor
    */
-  public function visitor(\Papaya\Template\Simple\Visitor $visitor = NULL) {
-    if (isset($visitor)) {
+  public function visitor(Template\Simple\Visitor $visitor = NULL) {
+    if (NULL !== $visitor) {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {
-      $this->_visitor = new \Papaya\Template\Simple\Visitor\Output();
-      $this->_visitor->callbacks()->onGetValue = [$this, 'callbackGetValue'];
+      $this->_visitor = new Template\Simple\Visitor\Output();
+      $this->_visitor->callbacks()->onGetValue = function (
+        /** @noinspection PhpUnusedParameterInspection */
+        $context, $expression
+      ) {
+        if (0 === \strpos($expression, 'xpath(')) {
+          $expression = 'string('.\substr($expression, 6, -1).')';
+        } else {
+          $expression = 'string('.\str_replace('.', '/', \strtolower($expression)).')';
+        }
+        return $this->values()->xpath()->evaluate($expression, $this->getContext());
+      };
     }
     return $this->_visitor;
   }

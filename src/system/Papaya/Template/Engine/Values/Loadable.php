@@ -14,12 +14,15 @@
  */
 namespace Papaya\Template\Engine\Values;
 
+use Papaya\BaseObject;
+use Papaya\XML;
+
 /**
  * Interface for classes that allow to convert a variable to a DOMElement
  * values tree usable by the template engines.
  *
- * @property \Papaya\BaseObject\Options\Collection $parameters
- * @property \Papaya\BaseObject\Collection $loaders
+ * @property BaseObject\Options\Collection $parameters
+ * @property BaseObject\Collection $loaders
  * @property \DOMDocument $values
  *
  * @package Papaya-Library
@@ -29,7 +32,7 @@ interface Loadable {
   /**
    * @param mixed $values
    *
-   * @return false|\Papaya\XML\Element|\Papaya\XML\Document
+   * @return false|XML\Element|XML\Document
    */
   public function load($values);
 }
