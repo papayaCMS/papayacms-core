@@ -14,6 +14,8 @@
  */
 namespace Papaya\Streamwrapper\S3;
 
+use Papaya\HTTP;
+
 /**
  * Papaya Streamwrapper Amazon S3 Papaya\Theme\Handler
  *
@@ -24,7 +26,7 @@ class Handler {
   /**
    * HTTP client object
    *
-   * @var \Papaya\HTTP\Client
+   * @var HTTP\Client
    */
   private $_client;
 
@@ -38,20 +40,20 @@ class Handler {
   /**
    * Set HTTP client object
    *
-   * @param \Papaya\HTTP\Client $client
+   * @param HTTP\Client $client
    */
-  public function setHTTPClient(\Papaya\HTTP\Client $client) {
+  public function setHTTPClient(HTTP\Client $client) {
     $this->_client = $client;
   }
 
   /**
    * Get the HTTP client object, reset it if it already exists
    *
-   * @return \Papaya\HTTP\Client
+   * @return HTTP\Client
    */
   public function getHTTPClient() {
-    if (!($this->_client instanceof \Papaya\HTTP\Client)) {
-      $this->_client = new \Papaya\HTTP\Client();
+    if (!($this->_client instanceof HTTP\Client)) {
+      $this->_client = new HTTP\Client();
     }
     $this->_client->reset();
     return $this->_client;
@@ -66,9 +68,9 @@ class Handler {
    * @param int $options
    * @param array $arguments for the http request
    *
-   * @return null|\Papaya\HTTP\Client
+   * @return null|HTTP\Client
    */
-  private function _sendRequest($method, $url, $headers, $options, $arguments = []) {
+  private function _sendRequest($method, $url, $headers, $options, array $arguments = []) {
     $client = $this->getHTTPClient();
     $client->setMethod($method);
     $client->setURL($url);
@@ -80,34 +82,33 @@ class Handler {
     }
     $client->send();
     $status = $client->getResponseStatus();
-    if (\in_array($status, [200, 204, 206])) {
+    if (\in_array($status, [200, 204, 206], TRUE)) {
       return $client;
-    } else {
-      $client->close();
-      if ($options & STREAM_REPORT_ERRORS) {
-        switch ($status) {
-          case 404 :
-          break;
-          case 403 :
-            \trigger_error(
-              'Invalid Amazon S3 permissions',
-              E_USER_WARNING
-            );
-          break;
-          default :
-            \trigger_error(
-              'Unexpected response status: '.$status,
-              E_USER_WARNING
-            );
-          break;
-        }
-      }
-      return;
     }
+    $client->close();
+    if ($options & STREAM_REPORT_ERRORS) {
+      switch ($status) {
+        case 404 :
+        break;
+        case 403 :
+          \trigger_error(
+            'Invalid Amazon S3 permissions',
+            E_USER_WARNING
+          );
+        break;
+        default :
+          \trigger_error(
+            'Unexpected response status: '.$status,
+            E_USER_WARNING
+          );
+        break;
+      }
+    }
+    return NULL;
   }
 
   /**
-   * Get informations about a file resource
+   * Get information about a file resource
    *
    * @param array $location
    * @param int $options
@@ -120,7 +121,7 @@ class Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
     ];
-    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'HEAD', $headers);
+    $signature = new Signature($location, 'HEAD', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'HEAD',
@@ -139,7 +140,7 @@ class Handler {
         ];
       }
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -159,7 +160,7 @@ class Handler {
       'Connection' => 'keep-alive',
       'Range' => 'bytes='.$position.'-'.($position + $count - 1)
     ];
-    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
+    $signature = new Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -179,7 +180,7 @@ class Handler {
             E_USER_WARNING
           );
         }
-        return;
+        return NULL;
       }
       $size = $range[3];
       $stat = [
@@ -188,13 +189,14 @@ class Handler {
         'mode' => 0100006
       ];
       return [$client->getResponseData(), $stat];
-    } elseif ($options & STREAM_REPORT_ERRORS) {
+    }
+    if ($options & STREAM_REPORT_ERRORS) {
       \trigger_error(
         'Can not find amazon resource.',
         E_USER_WARNING
       );
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -215,7 +217,7 @@ class Handler {
       'Connection' => 'close',
     ];
     $method = 'PUT';
-    $signature = new \Papaya\Streamwrapper\S3\Signature(
+    $signature = new Signature(
       $location,
       $method,
       $headers
@@ -250,7 +252,10 @@ class Handler {
    *
    * @return int amount of bytes written
    */
-  public function writeFileContent($options, $data) {
+  public function writeFileContent(
+    /** @noinspection PhpUnusedParameterInspection */
+    $options, $data
+  ) {
     return \fwrite($this->_temporaryFile, $data);
   }
 
@@ -263,26 +268,25 @@ class Handler {
     $client = $this->_client;
     \fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new \Papaya\HTTP\Client\File\Stream('file', 'file', $this->_temporaryFile)
+      new HTTP\Client\File\Stream('file', 'file', $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();
     $client->close();
-    if (!\in_array($status, [200])
-      && ($options & STREAM_REPORT_ERRORS)) {
-      switch ($status) {
-        case 403 :
-          \trigger_error(
-            'Invalid Amazon S3 permissions',
-            E_USER_WARNING
-          );
-        break;
-        default :
-          \trigger_error(
-            'Unexpected response status: '.$status,
-            E_USER_WARNING
-          );
-        break;
+    if (
+      200 !== $status
+      && ($options & STREAM_REPORT_ERRORS)
+    ) {
+      if (403 === $status) {
+        \trigger_error(
+          'Invalid Amazon S3 permissions',
+          E_USER_WARNING
+        );
+      } else {
+        \trigger_error(
+          'Unexpected response status: '.$status,
+          E_USER_WARNING
+        );
       }
     }
     \fclose($this->_temporaryFile);
@@ -302,7 +306,7 @@ class Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive',
     ];
-    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'DELETE', $headers);
+    $signature = new Signature($location, 'DELETE', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'DELETE',
@@ -340,7 +344,7 @@ class Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
     ];
-    if ('/' == \substr($location['object'], -1)) {
+    if ('/' === \substr($location['object'], -1)) {
       $path = $location['object'];
     } else {
       $path = $location['object'].'/';
@@ -352,7 +356,7 @@ class Handler {
       'delimiter' => '/'
     ];
     $location['object'] = '';
-    $signature = new \Papaya\Streamwrapper\S3\Signature($location, 'GET', $headers);
+    $signature = new Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -377,7 +381,7 @@ class Handler {
         $contents = [];
         $prefixLength = \strlen($path);
         foreach ($items as $item) {
-          if ('/' == \substr($item->nodeValue, -1)) {
+          if ('/' === \substr($item->nodeValue, -1)) {
             $value = \substr($item->nodeValue, $prefixLength, -1);
           } else {
             $value = \substr($item->nodeValue, $prefixLength);
@@ -397,7 +401,7 @@ class Handler {
         ];
       }
     }
-    return;
+    return NULL;
   }
 
   /**

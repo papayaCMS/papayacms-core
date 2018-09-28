@@ -84,8 +84,8 @@ class Signature {
   private function _getSignature() {
     $key = \str_pad($this->_resource['secret'], 64, \chr(0));
     $accessKey = [
-      'inner' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64)),
-      'outer' => (\substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64))
+      'inner' => \substr($key, 0, 64) ^ \str_repeat(\chr(0x36), 64),
+      'outer' => \substr($key, 0, 64) ^ \str_repeat(\chr(0x5C), 64)
     ];
     return \base64_encode(
       \pack(

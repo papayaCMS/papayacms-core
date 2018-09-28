@@ -41,7 +41,7 @@ class S3 {
   /**
    * Bitmask with options.
    *
-   * All funktions that set this should not unset STREAM_REPORT_ERRORS
+   * All functions that set this should not unset STREAM_REPORT_ERRORS
    * except when we should really stay quiet (e.g. for url_stat form
    * file_exists), because that constant will not be set by php itself.
    *
@@ -103,7 +103,7 @@ class S3 {
   /**
    * Amazon S3 handler object
    *
-   * @var \Papaya\Streamwrapper\S3\Handler
+   * @var S3\Handler
    */
   private $_handler;
 
@@ -130,10 +130,11 @@ class S3 {
    * @return bool
    */
   public static function setSecret($id, $secret) {
-    if (\is_null($secret)) {
+    if (NULL === $secret) {
       unset(self::$_secrets[$id]);
       return FALSE;
-    } elseif (1 === \preg_match(self::SECRET_PATTERN, $secret)) {
+    }
+    if (1 === \preg_match(self::SECRET_PATTERN, $secret)) {
       self::$_secrets[$id] = $secret;
       return TRUE;
     }
@@ -160,20 +161,20 @@ class S3 {
   /**
    * Set Amazon S3 handler object
    *
-   * @param \Papaya\Streamwrapper\S3\Handler $handler
+   * @param S3\Handler $handler
    */
-  public function setHandler(\Papaya\Streamwrapper\S3\Handler $handler) {
+  public function setHandler(S3\Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
    * Get the Amazon S3 handler object
    *
-   * @return \Papaya\Streamwrapper\S3\Handler
+   * @return S3\Handler
    */
   public function getHandler() {
-    if (!($this->_handler instanceof \Papaya\Streamwrapper\S3\Handler)) {
-      $this->_handler = new \Papaya\Streamwrapper\S3\Handler();
+    if (!($this->_handler instanceof S3\Handler)) {
+      $this->_handler = new S3\Handler();
     }
     return $this->_handler;
   }
@@ -206,7 +207,8 @@ class S3 {
         'secret' => $matches['secret'],
         'object' => $matches['object']
       ];
-    } elseif ($options & STREAM_REPORT_ERRORS) {
+    }
+    if ($options & STREAM_REPORT_ERRORS) {
       \trigger_error(
         'Invalid Amazon S3 resource string',
         E_USER_WARNING
@@ -225,7 +227,7 @@ class S3 {
   }
 
   /**
-   * Open file resource and cache informations
+   * Open file resource and cache information
    *
    * @param string $path
    * @param string $mode
@@ -234,7 +236,10 @@ class S3 {
    *
    * @return bool success
    */
-  public function stream_open($path, $mode, $options, &$openedPath) {
+  public function stream_open(
+    /** @noinspection PhpUnusedParameterInspection */
+    $path, $mode, $options, &$openedPath
+  ) {
     if (\in_array($mode, ['r', 'w', 'rt', 'rb', 'wt', 'wb'])) {
       $this->_options |= $options;
       if ($this->_location = $this->parsePath($path, $this->_options)) {
@@ -245,23 +250,24 @@ class S3 {
             $this->_location,
             $this->_options
           );
-        } else {
-          $resourceData = $this->fillBuffer(TRUE);
-          if (\is_null($resourceData)) {
-            if ($this->_options & STREAM_REPORT_ERRORS) {
-              \trigger_error(
-                'Can not find amazon resource.',
-                E_USER_WARNING
-              );
-            }
-          } else {
-            $this->_size = $resourceData['size'];
-            $this->_lastModified = $resourceData['modified'];
-            return TRUE;
+        }
+        $resourceData = $this->fillBuffer(TRUE);
+        if (NULL === $resourceData) {
+          if ($this->_options & STREAM_REPORT_ERRORS) {
+            \trigger_error(
+              'Can not find amazon resource.',
+              E_USER_WARNING
+            );
           }
+        } else {
+          $this->_size = $resourceData['size'];
+          $this->_lastModified = $resourceData['modified'];
+          return TRUE;
         }
       }
-    } elseif ($this->_options & STREAM_REPORT_ERRORS) {
+      return FALSE;
+    }
+    if ($this->_options & STREAM_REPORT_ERRORS) {
       \trigger_error(
         'Mode not support by stream wrapper: '.$mode,
         E_USER_WARNING
@@ -315,7 +321,7 @@ class S3 {
     } elseif ($force) {
       $bufferSize = 1024 * 1024;
     } else {
-      return;
+      return NULL;
     }
     list($this->_buffer, $stat) = $this->getHandler()->readFileContent(
       $this->_location, $this->_position, $bufferSize, $this->_options
@@ -347,26 +353,20 @@ class S3 {
         if ($offset >= 0) {
           $this->_position = $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       case SEEK_CUR :
         if ($offset >= 0) {
           $this->_position += $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       case SEEK_END :
         if ($this->_size + $offset >= 0) {
           $this->_position = $this->_size + $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       default:
         return FALSE;
     }
@@ -415,19 +415,19 @@ class S3 {
   public function url_stat($path, $flags) {
     $resourceData = NULL;
     if ($location = $this->parsePath($path, $this->_options)) {
-      if ('/' != \substr($location['object'], -1)) {
+      if ('/' !== \substr($location['object'], -1)) {
         $resourceData = $this->getHandler()->getFileInformations(
           $location,
           $this->_options
         );
       }
-      if (\is_null($resourceData)) {
+      if (NULL === $resourceData) {
         $resourceData = $this->getHandler()->getDirectoryInformations(
           $location,
           $this->_options
         );
       }
-      if (!\is_null($resourceData)) {
+      if (NULL !== $resourceData) {
         return [
           'dev' => 0,
           'ino' => 0,
@@ -443,15 +443,18 @@ class S3 {
           'blksize' => 0,
           'blocks' => -1
         ];
-      } elseif ($this->_options & STREAM_REPORT_ERRORS &&
-        !($flags & STREAM_URL_STAT_QUIET)) {
+      }
+      if (
+        $this->_options & STREAM_REPORT_ERRORS &&
+        !($flags & STREAM_URL_STAT_QUIET)
+      ) {
         \trigger_error(
           'Can not find amazon resource.',
           E_USER_WARNING
         );
       }
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -469,7 +472,7 @@ class S3 {
         $location,
         $this->_options
       );
-      if (\is_null($resourceData)) {
+      if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
           \trigger_error(
             'Can not find amazon resource.',
@@ -504,7 +507,7 @@ class S3 {
         4000,
         $this->_directoryPosition
       );
-      if (\is_null($resourceData)) {
+      if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
           \trigger_error(
             'Can not find amazon resource.',
@@ -594,7 +597,10 @@ class S3 {
    *
    * @return bool success
    */
-  public function mkdir($path, $mode, $options) {
+  public function mkdir(
+    /** @noinspection PhpUnusedParameterInspection */
+    $path, $mode, $options
+  ) {
     $this->_options |= $options;
     if ($location = $this->parsePath($path, $this->_options)) {
       $handler = $this->getHandler();
