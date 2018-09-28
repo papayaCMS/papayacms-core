@@ -14,18 +14,21 @@
  */
 namespace Papaya\Plugin\Filter;
 
+use Papaya\BaseObject;
+use Papaya\XML;
+
 /**
  * An interface to define that allows to apply filter to a string content
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface Content extends \Papaya\XML\Appendable {
+interface Content extends XML\Appendable {
   /**
    * @param string $content
-   * @param \Papaya\BaseObject\Parameters $options
+   * @param BaseObject\Parameters $options
    */
-  public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL);
+  public function prepare($content, BaseObject\Parameters $options = NULL);
 
   /**
    * @param string $content
