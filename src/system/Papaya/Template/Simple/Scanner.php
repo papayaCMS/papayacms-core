@@ -24,7 +24,7 @@ class Scanner {
   /**
    * Scanner status object
    *
-   * @var \Papaya\Template\Simple\Scanner\Status
+   * @var Scanner\Status
    */
   private $_status;
 
@@ -45,7 +45,7 @@ class Scanner {
   /**
    * Constructor, set status object
    *
-   * @param \Papaya\Template\Simple\Scanner\Status $status
+   * @param Scanner\Status $status
    */
   public function __construct(Scanner\Status $status) {
     $this->_status = $status;
@@ -97,7 +97,7 @@ class Scanner {
   /**
    * Get next token
    *
-   * @return \Papaya\Template\Simple\Scanner\Token|null
+   * @return Scanner\Token|null
    */
   private function _next() {
     if (($token = $this->_status->getToken($this->_buffer, $this->_offset)) &&
@@ -105,7 +105,7 @@ class Scanner {
       $this->_offset += $token->length;
       return $token;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -114,7 +114,7 @@ class Scanner {
    * If the status returns a new status object, a new scanner is created to handle it.
    *
    * @param array $target
-   * @param \Papaya\Template\Simple\Scanner\Status $status
+   * @param Scanner\Status $status
    *
    * @return int offset
    */

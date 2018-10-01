@@ -14,19 +14,34 @@
  */
 namespace Papaya\Template\Simple\Visitor;
 
-class Output extends \Papaya\Template\Simple\Visitor {
+use Papaya\Template\Simple;
+
+class Output extends Simple\Visitor {
+  /**
+   * @var string
+   */
   private $_buffer = '';
 
+  /**
+   * @var Output\Callbacks
+   */
   private $_callbacks;
 
   public function clear() {
     $this->_buffer = '';
   }
 
+  /**
+   * @return string
+   */
   public function __toString() {
     return $this->_buffer;
   }
 
+  /**
+   * @param Output\Callbacks|NULL $callbacks
+   * @return Output\Callbacks
+   */
   public function callbacks(Output\Callbacks $callbacks = NULL) {
     if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
@@ -36,15 +51,21 @@ class Output extends \Papaya\Template\Simple\Visitor {
     return $this->_callbacks;
   }
 
-  public function visitNodeOutput(\Papaya\Template\Simple\AST\Node\Output $node) {
+  /**
+   * @param Simple\AST\Node\Output $node
+   */
+  public function visitNodeOutput(Simple\AST\Node\Output $node) {
     $this->_buffer .= $node->text;
   }
 
-  public function visitNodeValue(\Papaya\Template\Simple\AST\Node\Value $node) {
+  /**
+   * @param Simple\AST\Node\Value $node
+   */
+  public function visitNodeValue(Simple\AST\Node\Value $node) {
     if ($value = $this->callbacks()->onGetValue($node->name)) {
-      $this->_buffer .= (string)$value;
+      $this->_buffer .= $value;
     } else {
-      $this->_buffer .= (string)$node->default;
+      $this->_buffer .= $node->default;
     }
   }
 }

@@ -24,6 +24,9 @@ namespace Papaya\Template\Simple;
 abstract class Visitor {
   abstract public function clear();
 
+  /**
+   * @return string
+   */
   abstract public function __toString();
 
   /**

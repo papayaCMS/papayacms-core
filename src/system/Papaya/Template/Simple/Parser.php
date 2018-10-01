@@ -78,7 +78,7 @@ abstract class Parser {
    *
    * @param array|int|string $expectedTokens
    *
-   * @throws \Papaya\Template\Simple\Exception
+   * @throws Exception
    *
    * @return \Papaya\Template\Simple\Scanner\Token
    */
@@ -125,7 +125,7 @@ abstract class Parser {
    * @param int $position
    * @param bool $allowEndOfTokens
    *
-   * @throws \Papaya\Template\Simple\Exception
+   * @throws Exception
    *
    * @return \Papaya\Template\Simple\Scanner\Token|null
    */
@@ -137,7 +137,7 @@ abstract class Parser {
 
     // If the the requested characters is not available on the tokenstream
     // and this state is allowed return a special ANY token
-    if (TRUE === $allowEndOfTokens && (!isset($this->_tokens[$position]))) {
+    if (TRUE === $allowEndOfTokens && !isset($this->_tokens[$position])) {
       return new Scanner\Token(Scanner\Token::ANY, 0, '');
     }
 
@@ -190,7 +190,7 @@ abstract class Parser {
       return $this->ignore([$expectedTokens]);
     }
 
-    // increase position until the end of the tokenstream is reached or
+    // increase position until the end of the token stream is reached or
     // a non matching token is found
     $found = TRUE;
     $position = 0;
@@ -203,18 +203,16 @@ abstract class Parser {
       }
       if ($found) {
         continue;
-      } else {
-        break;
       }
+      break;
     }
 
     // remove the tokens from the stream
     if ($position > 0) {
       \array_splice($this->_tokens, 0, $position);
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -241,7 +239,7 @@ abstract class Parser {
   }
 
   /**
-   * Match a token on the tokenstream against a token type.
+   * Match a token on the token stream against a token type.
    *
    * Returns true if the token at the given position exists and the provided
    * token type matches type of the token at this position, false otherwise.
@@ -270,10 +268,10 @@ abstract class Parser {
    * @param array $expectedTokens
    * @param int $position
    *
-   * @return \Papaya\Template\Simple\Exception
+   * @return Exception
    */
   protected function createMismatchException($expectedTokens, $position = 0) {
-    // If the tokenstream ended unexpectedly throw an appropriate exception
+    // If the token stream ended unexpectedly throw an appropriate exception
     if (!isset($this->_tokens[$position])) {
       return new Exception\UnexpectedEOF($expectedTokens);
     }
