@@ -14,7 +14,14 @@
  */
 namespace Papaya\Template;
 
-class Parameters extends \Papaya\BaseObject\Options\Collection {
+use Papaya\BaseObject;
+
+class Parameters extends BaseObject\Options\Collection {
+  /**
+   * Parameters constructor.
+   *
+   * @param array|null $options
+   */
   public function __construct(array $options = NULL) {
     $this['SYSTEM_TIME'] = \date('Y-m-d H:i:s');
     $this['SYSTEM_TIME_OFFSET'] = \date('O');

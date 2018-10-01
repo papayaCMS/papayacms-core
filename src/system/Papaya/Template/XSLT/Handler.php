@@ -14,13 +14,17 @@
  */
 namespace Papaya\Template\XSLT;
 
+use Papaya\Application;
+use Papaya\Request;
+use Papaya\Utility;
+
 /**
  * Papaya XSLT template handler class
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class Handler extends \Papaya\Application\BaseObject {
+class Handler extends Application\BaseObject {
   /**
    * Get absolute local file path to current template directory
    *
@@ -31,7 +35,7 @@ class Handler extends \Papaya\Application\BaseObject {
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_TEMPLATES');
-    return \Papaya\Utility\File\Path::cleanup($path.'/'.$this->getTemplate());
+    return Utility\File\Path::cleanup($path.'/'.$this->getTemplate());
   }
 
   /**
@@ -44,7 +48,7 @@ class Handler extends \Papaya\Application\BaseObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, Request::SOURCE_PATH);
     if ($isPreview) {
       $template = $this
         ->papaya()

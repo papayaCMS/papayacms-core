@@ -14,6 +14,8 @@
  */
 namespace Papaya\Template;
 
+use Papaya\Utility;
+
 /**
  * Papaya Template, using the XSLT engine to generate the output.
  *
@@ -27,7 +29,7 @@ class XSLT extends \Papaya\Template {
   private $_xslFile = '';
 
   /**
-   * @var \Papaya\Template\Engine\XSLT
+   * @var Engine\XSLT
    */
   private $_engine;
 
@@ -43,8 +45,8 @@ class XSLT extends \Papaya\Template {
    * @param $fileName
    */
   public function setXsl($fileName) {
-    \Papaya\Utility\Constraints::assertNotEmpty($fileName);
-    $this->_xslFile = $fileName;
+    Utility\Constraints::assertNotEmpty($fileName);
+    $this->_xslFile = (string)$fileName;
   }
 
   /**
@@ -53,23 +55,23 @@ class XSLT extends \Papaya\Template {
    * @return string
    */
   public function getXslFile() {
-    return (string)$this->_xslFile;
+    return $this->_xslFile;
   }
 
   /**
    * Getter/Setter for the xslt template engine
    *
-   * @param \Papaya\Template\Engine\XSLT $engine
+   * @param Engine\XSLT $engine
    *
-   * @return \Papaya\Template\Engine\XSLT
+   * @return Engine\XSLT
    */
-  public function engine(\Papaya\Template\Engine\XSLT $engine = NULL) {
-    if (isset($engine)) {
+  public function engine(Engine\XSLT $engine = NULL) {
+    if (NULL !== $engine) {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
       $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
-      $this->_engine = $engine = new \Papaya\Template\Engine\XSLT();
-      $engine->useCache('xsl' != $preferred);
+      $this->_engine = $engine = new Engine\XSLT();
+      $engine->useCache('xsl' !== $preferred);
     }
     return $this->_engine;
   }
@@ -110,11 +112,11 @@ class XSLT extends \Papaya\Template {
       $timer = NULL;
     }
     $engine->prepare();
-    if (isset($timer)) {
+    if (NULL !== $timer) {
       $timer->take('Prepared XSLT file "%s"', $this->getXslFile());
     }
     $engine->run();
-    if (isset($timer)) {
+    if (NULL !== $timer) {
       $timer->take('Processed XSLT file "%s"', $this->getXslFile());
       $timer->emit();
     }

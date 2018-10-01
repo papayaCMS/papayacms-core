@@ -74,7 +74,7 @@ class XSLT extends Template\Engine {
   /**
    * Set the template directly as string, not as file.
    *
-   * @param $string
+   * @param string $string
    */
   public function setTemplateString($string) {
     $this->_template = $string;

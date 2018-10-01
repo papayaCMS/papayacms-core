@@ -14,28 +14,31 @@
  */
 namespace Papaya\Template;
 
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Templates values are a handling object for a dom document of template values,
- * later convertet to an output using a template engine
+ * later converted to an output using a template engine
  *
  * @package Papaya-Library
  * @subpackage Template
  */
 class Values {
   /**
-   * The Dom Document containg the actual values
+   * The Dom Document containing the actual values
    *
-   * @var \Papaya\XML\Document
+   * @var XML\Document
    */
   private $_document;
 
   /**
    * Construct object and initialize internal dom document.
    *
-   * @param \Papaya\XML\Document $document
+   * @param XML\Document $document
    */
-  public function __construct(\Papaya\XML\Document $document = NULL) {
-    $this->document(isset($document) ? $document : new \Papaya\XML\Document());
+  public function __construct(XML\Document $document = NULL) {
+    $this->document(NULL !== $document ? $document : new XML\Document());
   }
 
   /**
@@ -48,7 +51,7 @@ class Values {
    * @internal param $node
    */
   public function document(\DOMDocument $document = NULL) {
-    if (isset($document)) {
+    if (NULL !== $document) {
       $this->_document = $document;
     }
     return $this->_document;
@@ -80,10 +83,10 @@ class Values {
    *
    * @throws \InvalidArgumentException
    *
-   * @return \Papaya\Template\Value|false
+   * @return Value|false
    */
   public function getValueByPath($path, \DOMElement $context = NULL, $createIfNotExists = TRUE) {
-    if ('/' == \substr($path, 0, 1)) {
+    if (0 === \strpos($path, '/')) {
       $context = NULL;
       $paths = \explode('/', \substr($path, 1));
     } else {
@@ -95,12 +98,12 @@ class Values {
         throw new \InvalidArgumentException('Invalid argument path: "'.$path.'"');
       }
       $nodeList = $this->getXpath()->evaluate(
-        $name.'[1]', \is_null($context) ? $this->_document : $context
+        $name.'[1]', NULL === $context ? $this->_document : $context
       );
-      if (0 == $nodeList->length) {
+      if (0 === $nodeList->length) {
         if ($createIfNotExists) {
           $node = $this->_document->createElement($name);
-          if (isset($context)) {
+          if (NULL !== $context) {
             $context->appendChild($node);
           } else {
             $this->_document->appendChild($node);
@@ -113,8 +116,7 @@ class Values {
       }
       $context = $node;
     }
-    return ($node instanceof \Papaya\XML\Element)
-      ? new \Papaya\Template\Value($node) : FALSE;
+    return ($node instanceof XML\Element) ? new Value($node) : FALSE;
   }
 
   /**
@@ -132,15 +134,17 @@ class Values {
    *
    * @param string|null|\DOMElement $selector
    *
-   * @return \Papaya\Template\Value
+   * @return Value
    */
   public function getValue($selector = NULL) {
     if (\is_string($selector)) {
       return $this->getValueByPath($selector);
-    } elseif (\is_null($selector)) {
-      return new \Papaya\Template\Value($this->_document);
-    } elseif ($selector instanceof \Papaya\XML\Element) {
-      return new \Papaya\Template\Value($selector);
+    }
+    if (NULL === $selector) {
+      return new Value($this->_document);
+    }
+    if ($selector instanceof XML\Element) {
+      return new Value($selector);
     }
     throw new \InvalidArgumentException('Can not find specified template value');
   }
@@ -153,7 +157,7 @@ class Values {
    * @param array $attributes
    * @param string $content
    *
-   * @return \Papaya\Template\Value
+   * @return Value
    */
   public function append($parent, $name, array $attributes = [], $content = '') {
     return $this->getValue($parent)->append($name, $attributes, $content);
@@ -165,9 +169,10 @@ class Values {
    * @param string|null|\DOMElement $parent
    * @param string $xml
    *
-   * @return \Papaya\Template\Value
+   * @return Value
+   * @throws \Papaya\XML\Exception
    */
   public function appendXML($parent, $xml) {
-    return $this->getValue($parent)->appendXML(\Papaya\Utility\Text\UTF8::ensure($xml));
+    return $this->getValue($parent)->appendXML(Utility\Text\UTF8::ensure($xml));
   }
 }

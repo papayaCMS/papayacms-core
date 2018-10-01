@@ -14,6 +14,8 @@
  */
 namespace Papaya\Template;
 
+use Papaya\XML;
+
 /**
  * Wrapper object for a DOMElement, defining a template value.
  *
@@ -24,14 +26,14 @@ class Value {
   /**
    * Wrapped DOM element
    *
-   * @var \Papaya\XML\Element
+   * @var XML\Element
    */
   private $_node;
 
   /**
    * Construct object from DOMNode
    *
-   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   * @param XML\Document|XML\Element $node
    */
   public function __construct($node) {
     $this->node($node);
@@ -43,33 +45,31 @@ class Value {
    * @return \DOMDocument
    */
   private function _getDocument() {
-    if ($this->_node instanceof \Papaya\XML\Document) {
-      return $this->_node;
-    } else {
-      return $this->_node->ownerDocument;
-    }
+    return $this->_node instanceof XML\Document ? $this->_node : $this->_node->ownerDocument;
   }
 
   /**
    * Get/Set node property
    *
-   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   * @param XML\Document|XML\Element $node
    *
    * @throws \InvalidArgumentException
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element
    */
   public function node($node = NULL) {
-    if (isset($node)) {
-      if ($node instanceof \Papaya\XML\Document ||
-        $node instanceof \Papaya\XML\Element) {
+    if (NULL !== $node) {
+      if (
+        $node instanceof XML\Document ||
+        $node instanceof XML\Element
+      ) {
         $this->_node = $node;
       } else {
         throw new \InvalidArgumentException(
           \sprintf(
             '%1$s or %2$s expected, got %3$s',
-            \Papaya\XML\Document::class,
-            \Papaya\XML\Element::class,
+            XML\Document::class,
+            XML\Element::class,
             \is_object($node) ? \get_class($node) : \gettype($node)
           )
         );
@@ -81,11 +81,11 @@ class Value {
   /**
    * Append the node represented by this value to a parent node.
    *
-   * @param \Papaya\XML\Element $parentNode
+   * @param XML\Element $parentNode
    *
    * @return $this
    */
-  public function appendTo(\Papaya\XML\Element $parentNode) {
+  public function appendTo(XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
   }
@@ -111,11 +111,11 @@ class Value {
   public function append($element, array $attributes = [], $textContent = '') {
     if (\is_string($element)) {
       $element = $this->_getDocument()->createElement($element);
-    } elseif ($element instanceof \Papaya\XML\Appendable) {
+    } elseif ($element instanceof XML\Appendable) {
       $element->appendTo($this->_node);
-      return;
+      return NULL;
     } elseif ($element instanceof \DOMDocument) {
-      if (isset($element->documentElement)) {
+      if (NULL !== $element->documentElement) {
         $element = $element->documentElement;
       } else {
         throw new \InvalidArgumentException(
@@ -138,9 +138,9 @@ class Value {
     if (!empty($textContent)) {
       $element->nodeValue = (string)$textContent;
     }
-    $this->_node->appendChild($this->_getDocument()->importNode($element, TRUE));
-    $class = \get_class($this);
-    return new $class($element);
+    /** @var XML\Element $imported */
+    $imported = $this->_node->appendChild($this->_getDocument()->importNode($element, TRUE));
+    return new static($imported);
   }
 
   /**
@@ -157,7 +157,7 @@ class Value {
    * @throws \Papaya\XML\Exception
    */
   public function appendXML($xml) {
-    $errors = new \Papaya\XML\Errors();
+    $errors = new XML\Errors();
     $errors->activate();
     $this->node()->appendXML($xml);
     $errors->emit();
@@ -182,7 +182,7 @@ class Value {
    * @return string
    */
   public function xml($xml = NULL) {
-    if (isset($xml)) {
+    if (NULL !== $xml) {
       for ($i = $this->_node->childNodes->length - 1; $i >= 0; $i--) {
         $this->_node->removeChild($this->_node->childNodes->item($i));
       }

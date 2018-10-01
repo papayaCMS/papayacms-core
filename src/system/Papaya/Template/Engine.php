@@ -14,37 +14,40 @@
  */
 namespace Papaya\Template;
 
+use Papaya\BaseObject;
+use Papaya\XML;
+
 /**
- * Abstract Superclas for template engines, implements \paramter handling and a loader concept for
+ * Abstract superclass for template engines, implements parameter handling and a loader concept for
  * Variables.
  *
  * The target of this class is to provide an identical interface for all kind of templates.
  *
  * The parameters are a key=>values list. The key will be converted to an uppercase string ([A-Z_]),
- * only skalar values are allowed for the parameters.
+ * only scalar values are allowed for the parameters.
  *
  * The values are converted into a DOMDocument. The context is used for restriction in the real
  * implementation.
  *
- * @property \Papaya\BaseObject\Options\Collection $parameters
- * @property \Papaya\BaseObject\Collection $loaders
+ * @property BaseObject\Options\Collection $parameters
+ * @property BaseObject\Collection $loaders
  * @property \DOMDocument $values
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-abstract class Engine {
+abstract class Engine implements BaseObject\Interfaces\Properties {
   /**
    * Parameter handling object
    *
-   * @var \Papaya\BaseObject\Options\Collection
+   * @var BaseObject\Options\Collection
    */
   private $_parameters;
 
   /**
    * Loaders list
    *
-   * @var \Papaya\BaseObject\Collection
+   * @var BaseObject\Collection
    */
   private $_loaders;
 
@@ -77,35 +80,43 @@ abstract class Engine {
    */
   abstract public function getResult();
 
+  /**
+   * @param string $string
+   * @return mixed
+   */
   abstract public function setTemplateString($string);
 
+  /**
+   * @param string $fileName
+   * @return mixed
+   */
   abstract public function setTemplateFile($fileName);
 
   /**
    * Combined getter/setter for paramters
    *
-   * @param \Papaya\BaseObject\Options\Collection|array $parameters
+   * @param BaseObject\Options\Collection|array $parameters
    *
    * @throws \InvalidArgumentException
    *
-   * @return \Papaya\BaseObject\Options\Collection
+   * @return BaseObject\Options\Collection
    */
   public function parameters($parameters = NULL) {
-    if (isset($parameters)) {
-      if ($parameters instanceof \Papaya\BaseObject\Options\Collection) {
+    if (NULL !== $parameters) {
+      if ($parameters instanceof BaseObject\Options\Collection) {
         $this->_parameters = $parameters;
       } elseif (\is_array($parameters)) {
-        $this->_parameters = new \Papaya\BaseObject\Options\Collection($parameters);
+        $this->_parameters = new BaseObject\Options\Collection($parameters);
       } else {
         throw new \InvalidArgumentException(
           \sprintf(
             'Argument must be an array or a %s object.',
-            \Papaya\BaseObject\Options\Collection::class
+            BaseObject\Options\Collection::class
           )
         );
       }
-    } elseif (!isset($this->_parameters)) {
-      $this->_parameters = new \Papaya\BaseObject\Options\Collection();
+    } elseif (NULL === $this->_parameters) {
+      $this->_parameters = new BaseObject\Options\Collection();
     }
     return $this->_parameters;
   }
@@ -113,28 +124,28 @@ abstract class Engine {
   /**
    * Combined getter/setter for loaders
    *
-   * @param \Papaya\BaseObject\Collection $loaders
+   * @param BaseObject\Collection $loaders
    *
    * @throws \InvalidArgumentException
    *
-   * @return \Papaya\BaseObject\Collection
+   * @return BaseObject\Collection
    */
-  public function loaders(\Papaya\BaseObject\Collection $loaders = NULL) {
-    if (isset($loaders)) {
-      if (\Papaya\Template\Engine\Values\Loadable::class === $loaders->getItemClass()) {
+  public function loaders(BaseObject\Collection $loaders = NULL) {
+    if (NULL !== $loaders) {
+      if (Engine\Values\Loadable::class === $loaders->getItemClass()) {
         $this->_loaders = $loaders;
       } else {
         throw new \InvalidArgumentException(
           \sprintf(
             '%1$s with %2$s expected: "%3$s" given.',
-            \Papaya\BaseObject\Collection::class,
-            \Papaya\Template\Engine\Values\Loadable::class,
+            BaseObject\Collection::class,
+            Engine\Values\Loadable::class,
             $loaders->getItemClass()
           )
         );
       }
-    } elseif (!isset($this->_loaders)) {
-      $this->_loaders = new \Papaya\BaseObject\Collection(\Papaya\Template\Engine\Values\Loadable::class);
+    } elseif (NULL === $this->_loaders) {
+      $this->_loaders = new BaseObject\Collection(Engine\Values\Loadable::class);
     }
     return $this->_loaders;
   }
@@ -147,14 +158,14 @@ abstract class Engine {
    *
    * @throws \UnexpectedValueException
    *
-   * @return \Papaya\XML\Document
+   * @return XML\Document
    */
   public function values($values = NULL) {
-    if (isset($values)) {
+    if (NULL !== $values) {
       $this->_context = NULL;
       if (!($values instanceof \DOMElement || $values instanceof \DOMDocument)) {
         $loadedValues = NULL;
-        /** @var \Papaya\Template\Engine\Values\Loadable $loader */
+        /** @var Engine\Values\Loadable $loader */
         foreach ($this->loaders() as $loader) {
           $loadedValues = $loader->load($values);
           if (FALSE !== $loadedValues) {
@@ -164,18 +175,19 @@ abstract class Engine {
       } else {
         $loadedValues = $values;
       }
-      if ($loadedValues instanceof \Papaya\XML\Document) {
+      /** @var \DOMDocument|\DOMElement $loadedValues */
+      if ($loadedValues instanceof XML\Document) {
         $this->_values = $loadedValues;
-      } elseif ($loadedValues instanceof \Papaya\XML\Element) {
+      } elseif ($loadedValues instanceof XML\Element) {
         $this->_values = $loadedValues->ownerDocument;
         $this->_context = $loadedValues;
-      } elseif ($loadedValues instanceof \DOMDocument && isset($loadedValues->documentElement)) {
-        $this->_values = new \Papaya\XML\Document();
+      } elseif ($loadedValues instanceof \DOMDocument && NULL !== $loadedValues->documentElement) {
+        $this->_values = new XML\Document();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues->documentElement, TRUE)
         );
       } elseif ($loadedValues instanceof \DOMElement) {
-        $this->_values = new \Papaya\XML\Document();
+        $this->_values = new XML\Document();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues, TRUE)
         );
@@ -190,7 +202,7 @@ abstract class Engine {
       }
     }
     if (NULL === $this->_values) {
-      $this->_values = new \Papaya\XML\Document();
+      $this->_values = new XML\Document();
       $this->_context = NULL;
     }
     return $this->_values;
@@ -201,11 +213,25 @@ abstract class Engine {
   }
 
   /**
+   * @param string $name
+   * @return bool
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'loaders' :
+      case 'parameters' :
+      case 'values' :
+        return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Magic Method, provides virtual properties
    *
    * @param string $name
    *
-   * @return \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\XML\Document
+   * @return BaseObject\Collection|BaseObject\Options\Collection|XML\Document
    */
   public function __get($name) {
     switch ($name) {
@@ -238,5 +264,14 @@ abstract class Engine {
       break;
     }
     $this->$name = $value;
+  }
+
+  /**
+   * @param $name
+   */
+  public function __unset($name) {
+    throw new \LogicException(
+      \sprintf('Can not unset property %s::$%s.', static::class, $name)
+    );
   }
 }

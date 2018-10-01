@@ -98,13 +98,13 @@ class Image extends \Papaya\Template\Tag {
     if ($this->_height > 0) {
       $attributes['height'] = $this->_height;
     }
-    if ('' !== trim($this->_alt)) {
+    if ('' !== \trim($this->_alt)) {
       $attributes['alt'] = $this->_alt;
     }
-    if ('' !== trim($this->_resize)) {
+    if ('' !== \trim($this->_resize)) {
       $attributes['resize'] = $this->_resize;
     }
-    if ('' !== trim($this->_subTitle)) {
+    if ('' !== \trim($this->_subTitle)) {
       $attributes['subtitle'] = $this->_subTitle;
     }
     $document = $parent->ownerDocument;
@@ -132,7 +132,7 @@ class Image extends \Papaya\Template\Tag {
       if (0 === $this->_height && isset($regs[6])) {
         $this->_height = (int)$regs[6];
       }
-      if (isset($regs[8]) && '' === trim($this->_resize)) {
+      if (isset($regs[8]) && '' === \trim($this->_resize)) {
         $this->_resize = \papaya_strings::escapeHTMLChars($regs[8]);
       }
     }
