@@ -27,14 +27,14 @@ abstract class Status {
    * @param string $buffer
    * @param int $offset
    *
-   * @return \Papaya\Template\Simple\Scanner\Token
+   * @return Token
    */
   abstract public function getToken($buffer, $offset);
 
   /**
    * Check if token ends status
    *
-   * @param \Papaya\Template\Simple\Scanner\Token $token
+   * @param Token $token
    *
    * @return bool
    */
@@ -48,7 +48,7 @@ abstract class Status {
   /**
    * Get new (sub)status if needed.
    *
-   * @param \Papaya\Template\Simple\Scanner\Token $token
+   * @param Token $token
    *
    * @return self|null
    */
@@ -56,7 +56,7 @@ abstract class Status {
     /* @noinspection PhpUnusedParameterInspection */
     $token
   ) {
-    return;
+    return NULL;
   }
 
   /**
@@ -72,13 +72,10 @@ abstract class Status {
     $found = \preg_match(
       $pattern, $buffer, $match, PREG_OFFSET_CAPTURE, $offset
     );
-    if ($found &&
-      isset($match[0]) &&
-      isset($match[0][1]) &&
-      $match[0][1] === $offset) {
+    if ($found && isset($match[0][1]) && $match[0][1] === $offset) {
       return $match[0][0];
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -91,15 +88,15 @@ abstract class Status {
    *
    * @internal param array $pattern
    *
-   * @return \Papaya\Template\Simple\Scanner\Token|null
+   * @return Token|null
    */
   protected function matchPatterns($buffer, $offset, $patterns) {
     foreach ($patterns as $pattern => $tokenType) {
       $tokenContent = $this->matchPattern($buffer, $offset, $pattern);
       if (NULL !== $tokenContent) {
-        return new \Papaya\Template\Simple\Scanner\Token($tokenType, $offset, $tokenContent);
+        return new Token($tokenType, $offset, $tokenContent);
       }
     }
-    return;
+    return NULL;
   }
 }

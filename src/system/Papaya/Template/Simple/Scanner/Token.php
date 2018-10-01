@@ -14,6 +14,8 @@
  */
 namespace Papaya\Template\Simple\Scanner;
 
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * Scanner token of papaya simple template sytem.
  *
@@ -25,7 +27,7 @@ namespace Papaya\Template\Simple\Scanner;
  * @property-read int $length
  * @property-read string $content
  */
-class Token {
+class Token implements Properties {
   const ANY = -1;
 
   const TEXT = 1;
@@ -40,16 +42,28 @@ class Token {
 
   const VALUE_DEFAULT = 21;
 
-  private static $_tokenNames = NULL;
-
-  private $_offset = 0;
-
-  private $_type = self::TEXT;
-
-  private $_content = '';
+  /**
+   * @var array
+   */
+  private static $_tokenNames;
 
   /**
-   * Validate constrcutor arguments and store them
+   * @var int
+   */
+  private $_offset;
+
+  /**
+   * @var int
+   */
+  private $_type;
+
+  /**
+   * @var string
+   */
+  private $_content;
+
+  /**
+   * Validate constructor arguments and store them
    *
    * @param int $type
    * @param int $offset
@@ -81,9 +95,12 @@ class Token {
    */
   private static function getTokenTypes() {
     // @codeCoverageIgnoreStart
-    if (NULL == self::$_tokenNames) {
-      $reflection = new \ReflectionClass(__CLASS__);
-      self::$_tokenNames = \array_flip($reflection->getConstants());
+    if (NULL === self::$_tokenNames) {
+      try {
+        $reflection = new \ReflectionClass(__CLASS__);
+        self::$_tokenNames = \array_flip($reflection->getConstants());
+      } catch (\ReflectionException $e) {
+      }
     }
     // @codeCoverageIgnoreEnd
     return self::$_tokenNames;
@@ -107,9 +124,31 @@ class Token {
   public static function getTypeString($type) {
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
-      return;
+      return NULL;
     }
     return $tokenTypes[$type];
+  }
+
+  /**
+   * Read private properties stored in constructor
+   *
+   * @param string $name
+   *
+   * @throws \LogicException
+   *
+   * @return int|string
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'offset' :
+      case 'type' :
+      case 'content' :
+      case 'length' :
+        return TRUE;
+    }
+    throw new \LogicException(
+      \sprintf('Unknown property: %s::$%s', __CLASS__, $name)
+    );
   }
 
   /**
@@ -146,6 +185,17 @@ class Token {
    * @throws \LogicException
    */
   public function __set($name, $value) {
-    throw new \LogicException('All properties are defined in the constrcutor, they are read only.');
+    throw new \LogicException('All properties are defined in the constructor, they are read only.');
+  }
+
+  /**
+   * Block all undefined properties
+   *
+   * @param string $name
+   *
+   * @throws \LogicException
+   */
+  public function __unset($name) {
+    throw new \LogicException('All properties are defined in the constructor, they are read only.');
   }
 }

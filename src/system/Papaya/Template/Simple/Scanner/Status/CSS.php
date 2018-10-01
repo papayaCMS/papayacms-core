@@ -14,18 +14,20 @@
  */
 namespace Papaya\Template\Simple\Scanner\Status;
 
+use Papaya\Template\Simple;
+
 /**
  * Look for template tokens inside a CSS string
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class CSS extends \Papaya\Template\Simple\Scanner\Status {
+class CSS extends Simple\Scanner\Status {
   private $_patterns = [
-    '(/\\*\\$[^*\\r\\n]+\*/)S' => \Papaya\Template\Simple\Scanner\Token::VALUE_NAME,
-    '(\\s+)S' => \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
-    '(/\\*)S' => \Papaya\Template\Simple\Scanner\Token::COMMENT_START,
-    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => \Papaya\Template\Simple\Scanner\Token::TEXT,
+    '(/\\*\\$[^*\\r\\n]+\*/)S' => Simple\Scanner\Token::VALUE_NAME,
+    '(\\s+)S' => Simple\Scanner\Token::WHITESPACE,
+    '(/\\*)S' => Simple\Scanner\Token::COMMENT_START,
+    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => Simple\Scanner\Token::TEXT,
   ];
 
   /**
@@ -35,7 +37,7 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    * @param string $buffer
    * @param int $offset
    *
-   * @return null|\Papaya\Template\Simple\Scanner\Token
+   * @return null|Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -45,17 +47,17 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    * If a token name is found, switch to value status, expecting a css value that can
    * be replaced (or not) by the defined value.
    *
-   * @param \Papaya\Template\Simple\Scanner\Token
+   * @param Simple\Scanner\Token
    *
-   * @return \Papaya\Template\Simple\Scanner\Status|null
+   * @return Simple\Scanner\Status|null
    */
   public function getNewStatus($token) {
     switch ($token->type) {
-      case \Papaya\Template\Simple\Scanner\Token::VALUE_NAME :
-        return new \Papaya\Template\Simple\Scanner\Status\CSS\Value();
-      case \Papaya\Template\Simple\Scanner\Token::COMMENT_START :
-        return new \Papaya\Template\Simple\Scanner\Status\CSS\Comment();
+      case Simple\Scanner\Token::VALUE_NAME :
+        return new CSS\Value();
+      case Simple\Scanner\Token::COMMENT_START :
+        return new CSS\Comment();
     }
-    return;
+    return NULL;
   }
 }
