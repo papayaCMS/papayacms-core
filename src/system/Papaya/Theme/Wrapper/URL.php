@@ -14,6 +14,9 @@
  */
 namespace Papaya\Theme\Wrapper;
 
+use Papaya\Request;
+use Papaya\URL\Current as CurrentURL;
+
 /**
  * Extract theme wrapper data from an url object
  *
@@ -36,6 +39,9 @@ class URL {
    */
   private $_requestURL;
 
+  /**
+   * @var array
+   */
   private $_mimetypeIdentification = [
     'text/javascript' => '((/[^/]+)/js(\\.php)?$)',
     'text/css' => '((/[^/]+)/css(\\.php)?$)',
@@ -43,7 +49,7 @@ class URL {
   ];
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -53,11 +59,7 @@ class URL {
    * @param \Papaya\URL $url
    */
   public function __construct(\Papaya\URL $url = NULL) {
-    if (isset($url)) {
-      $this->_requestURL = $url;
-    } else {
-      $this->_requestURL = new \Papaya\URL\Current();
-    }
+    $this->_requestURL = NULL !== $url ? $url : new CurrentURL();
   }
 
   /**
@@ -81,15 +83,15 @@ class URL {
    * If the $_parameters property is not set it will be initialized using the query string of the
    * $_requestURL property.
    *
-   * @param \Papaya\Request\Parameters $parameters
+   * @param Request\Parameters $parameters
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     } elseif (NULL === $parameters) {
-      $query = new \Papaya\Request\Parameters\QueryString();
+      $query = new Request\Parameters\QueryString();
       $query->setString($this->_requestURL->getQuery());
       $this->_parameters = $query->values();
     }

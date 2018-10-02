@@ -39,7 +39,7 @@ class Output extends Simple\Visitor {
   }
 
   /**
-   * @param Output\Callbacks|NULL $callbacks
+   * @param Output\Callbacks|null $callbacks
    * @return Output\Callbacks
    */
   public function callbacks(Output\Callbacks $callbacks = NULL) {

@@ -12,23 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Text;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- *
- * @link http://www.papaya-cms.com/
- *
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
+use Papaya\Utility;
+
 class UTF8String implements \Iterator, \ArrayAccess {
   const MODE_INTL = 1;
 
@@ -48,12 +37,12 @@ class UTF8String implements \Iterator, \ArrayAccess {
   /**
    * @var string Internal string buffer
    */
-  private $_string = '';
+  private $_string;
 
   /**
    * @var int string character length buffer (cached)
    */
-  private $_length = 0;
+  private $_length;
 
   /**
    * @var int used unicode mode
@@ -86,7 +75,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * @param bool $convertUnknown convert unknown bytes as LATIN1 to UTF-8
    */
   public function __construct($string, $convertUnknown = FALSE) {
-    $this->_string = $convertUnknown ? \Papaya\Utility\Text\UTF8::ensure($string) : (string)$string;
+    $this->_string = $convertUnknown ? Utility\Text\UTF8::ensure($string) : (string)$string;
   }
 
   /**
@@ -102,7 +91,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * @return int return the character length
    */
   public function length() {
-    if (NULL == $this->_length) {
+    if (NULL === $this->_length) {
       $this->_length = $this->_getLength($this->_string);
     }
     return $this->_length;
@@ -141,27 +130,25 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * @return int
    */
   public function lastIndexOf($needle, $offset = NULL) {
-    $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
+    $string = NULL !== $offset ? $this->_getSubStr(0, $offset) : $this->_string;
     switch ($this->getMode()) {
       case self::MODE_ICONV :
-        $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
+        $string = NULL !== $offset ? $this->_getSubStr(0, $offset) : $this->_string;
         return \iconv_strrpos($string, (string)$needle, 'utf-8');
       case self::MODE_MBSTRING :
         return \mb_strrpos($string, (string)$needle, 0, 'utf-8');
       case self::MODE_INTL :
       default :
         return \grapheme_strrpos($string, (string)$needle);
-      // @codeCoverageIgnoreStart
     }
-    // @codeCoverageIgnoreEnd
   }
 
   /**
-   * Return the chracter at the specified position
+   * Return the character at the specified position
    *
    * @param $index
    *
-   * @return int|null|string
+   * @return null|string
    */
   public function charAt($index) {
     $char = $this->_getSubStr($index, 1);
@@ -171,8 +158,8 @@ class UTF8String implements \Iterator, \ArrayAccess {
   /**
    * Return a substring ad an string object
    *
-   * @param $start
-   * @param null $length
+   * @param int $start
+   * @param null|int $length
    *
    * @return self
    */
@@ -188,7 +175,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * @return int
    */
   public function setMode($mode) {
-    $this->_allowModes = \Papaya\Utility\Arrays::ensure($mode);
+    $this->_allowModes = Utility\Arrays::ensure($mode);
     $this->_mode = NULL;
     $this->_length = NULL;
     return $this->getMode();
@@ -215,6 +202,10 @@ class UTF8String implements \Iterator, \ArrayAccess {
     return $this->_mode;
   }
 
+  /**
+   * @param $string
+   * @return int
+   */
   private function _getLength($string) {
     switch ($this->getMode()) {
       case self::MODE_ICONV :
@@ -246,12 +237,13 @@ class UTF8String implements \Iterator, \ArrayAccess {
       case self::MODE_INTL :
       default :
         if (NULL === $lengthBug) {
-          $lengthBug = \version_compare(PHP_VERSION, '5.4', '>=');
+          $lengthBug = PHP_VERSION_ID >= 50400;
         }
         // @codeCoverageIgnoreStart
         if (NULL === $length) {
           return \grapheme_substr($this->_string, $start);
-        } elseif ($lengthBug && $length > 0) {
+        }
+        if ($lengthBug && $length > 0) {
           if ($start >= 0) {
             $possibleLength = $this->length() - $start;
           } else {
@@ -275,34 +267,58 @@ class UTF8String implements \Iterator, \ArrayAccess {
     $this->_current = $this->charAt(++$this->_position);
   }
 
+  /**
+   * @return bool
+   */
   public function valid() {
     return $this->offsetExists($this->_position);
   }
 
+  /**
+   * @return int|mixed
+   */
   public function key() {
     return $this->_position;
   }
 
+  /**
+   * @return mixed|null
+   */
   public function current() {
     return $this->_current;
   }
 
+  /**
+   * @param int $offset
+   * @return bool
+   */
   public function offsetExists($offset) {
     return $offset >= 0 && $offset < $this->length();
   }
 
+  /**
+   * @param int $offset
+   * @return null|string
+   */
   public function offsetGet($offset) {
     return $this->charAt($offset);
   }
 
+  /**
+   * @param int $offset
+   * @param string $char
+   */
   public function offsetSet($offset, $char) {
-    if (1 != $this->_getLength($char)) {
+    if (1 !== $this->_getLength($char)) {
       throw new \LogicException('Invalid character: '.$char);
     }
     $this->_string = $this->_getSubStr(0, $offset).$char.$this->_getSubStr($offset + 1);
     $this->_length = NULL;
   }
 
+  /**
+   * @param int $offset
+   */
   public function offsetUnset($offset) {
     throw new \LogicException('You can not remove character from the string.');
   }

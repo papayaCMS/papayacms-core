@@ -14,13 +14,18 @@
  */
 namespace Papaya\Theme;
 
+use Papaya\Application;
+use Papaya\Utility;
+
 /**
  * Papaya theme handler class
  *
  * @package Papaya-Library
  * @subpackage Theme
  */
-class Handler extends \Papaya\Application\BaseObject {
+class Handler implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * Get url for theme files, is $themeName is empty the current theme is used.
    *
@@ -31,7 +36,7 @@ class Handler extends \Papaya\Application\BaseObject {
   public function getURL($themeName = NULL) {
     $options = $this->papaya()->options;
     $baseURL = '';
-    if (\Papaya\Utility\Server\Protocol::isSecure()) {
+    if (Utility\Server\Protocol::isSecure()) {
       $baseURL = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
     }
     if (empty($baseURL)) {
@@ -43,15 +48,14 @@ class Handler extends \Papaya\Application\BaseObject {
         ->request
         ->getURL()
         ->getHostURL();
-      $baseURL .= \Papaya\Utility\File\Path::cleanup(
+      $baseURL .= Utility\File\Path::cleanup(
         $options->get('PAPAYA_PATH_WEB').$options->get('PAPAYA_PATH_THEMES')
       );
     }
-    if (empty($themeName)) {
+    if ('' === \trim($themeName)) {
       return $baseURL.$this->getTheme().'/';
-    } else {
-      return $baseURL.$themeName.'/';
     }
+    return $baseURL.$themeName.'/';
   }
 
   /**
@@ -60,14 +64,14 @@ class Handler extends \Papaya\Application\BaseObject {
    * @return string
    */
   public function getLocalPath() {
-    $root = \Papaya\Utility\File\Path::getDocumentRoot(
+    $root = Utility\File\Path::getDocumentRoot(
       $this->papaya()->options
     );
     $path = $this
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_THEMES');
-    return \Papaya\Utility\File\Path::cleanup($root.'/'.$path);
+    return Utility\File\Path::cleanup($root.'/'.$path);
   }
 
   /**
@@ -78,10 +82,10 @@ class Handler extends \Papaya\Application\BaseObject {
    * @return string
    */
   public function getLocalThemePath($themeName = NULL) {
-    if (empty($themeName)) {
+    if ('' === \trim($themeName)) {
       $themeName = $this->getTheme();
     }
-    return \Papaya\Utility\File\Path::cleanup(
+    return Utility\File\Path::cleanup(
       $this->getLocalPath().$themeName
     );
   }
@@ -91,10 +95,10 @@ class Handler extends \Papaya\Application\BaseObject {
    *
    * @param string $theme
    *
-   * @return \Papaya\Theme\Definition
+   * @return Definition
    */
   public function getDefinition($theme) {
-    $definition = new \Papaya\Theme\Definition();
+    $definition = new Definition();
     $definition->load(
       $this->getLocalThemePath($theme).'/theme.xml'
     );
@@ -144,7 +148,7 @@ class Handler extends \Papaya\Application\BaseObject {
         ->papaya()
         ->session
         ->values
-        ->get('PapayaPreviewThemeSet', 0);
+        ->get('PapayaPreviewThemeSet');
     }
     if ($themeSet <= 0) {
       $themeSet = $this

@@ -14,8 +14,10 @@
  */
 namespace Papaya\Text\Transliteration\ASCII;
 
+use Papaya\Utility;
+
 /**
- * Map unicode codepoints to ascii characters.
+ * Map unicode code points to ascii characters.
  *
  * This is used to generate an ascii representation of a unicode string. The mapping can be language
  * specific. A German "ä" will be mapped to "ae" while an English "ä" will be mapped to "a".
@@ -24,15 +26,21 @@ namespace Papaya\Text\Transliteration\ASCII;
  * @subpackage String
  */
 class Mapping {
+  /**
+   * @var array
+   */
   private $_mappingTables = [];
 
+  /**
+   * @var string
+   */
   private $_mappingFilesPath;
 
   /**
    * Create object and store mapping file path
    */
   public function __construct() {
-    $this->_mappingFilesPath = \Papaya\Utility\File\Path::cleanup(
+    $this->_mappingFilesPath = Utility\File\Path::cleanup(
       __DIR__.'/../../../../utf8/external', FALSE
     );
   }
@@ -42,9 +50,11 @@ class Mapping {
    *
    * @param int $codePoint
    * @param string $language
+   *
+   * @return null|string
    */
   public function get($codePoint, $language) {
-    \Papaya\Utility\Constraints::assertNotEmpty($language);
+    Utility\Constraints::assertNotEmpty($language);
     $bank = $codePoint >> 8;
     $this->lazyLoad($bank, $language);
     $index = $codePoint & 255;
@@ -57,7 +67,7 @@ class Mapping {
     if (isset($this->_mappingTables['generic'][$bank][$index])) {
       return $this->_mappingTables['generic'][$bank][$index];
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -76,7 +86,7 @@ class Mapping {
    * @return bool
    */
   public function isLoaded($bank, $language) {
-    \Papaya\Utility\Constraints::assertNotEmpty($language);
+    Utility\Constraints::assertNotEmpty($language);
     return (
       isset($this->_mappingTables[$language]) &&
       \is_array($this->_mappingTables[$language]) &&

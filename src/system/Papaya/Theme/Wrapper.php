@@ -14,13 +14,18 @@
  */
 namespace Papaya\Theme;
 
+use Papaya\Application;
+use Papaya\Template;
+
 /**
  * Combine, cache and output theme files (javascript/css)
  *
  * @package Papaya-Library
  * @subpackage Theme
  */
-class Wrapper extends \Papaya\Application\BaseObject {
+class Wrapper implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * @var Wrapper\URL
    */
@@ -29,12 +34,12 @@ class Wrapper extends \Papaya\Application\BaseObject {
   /**
    * Theme handler object, provides current theme and local path
    *
-   * @var \Papaya\Theme\Handler
+   * @var Handler
    */
   private $_handler;
 
   /**  *
-   * @var \Papaya\Theme\Handler
+   * @var Handler
    */
   private $_themeSet;
 
@@ -51,7 +56,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
   private $_cacheService;
 
   /**
-   * @var \Papaya\Template\Engine
+   * @var Template\Engine
    */
   private $_templateEngine;
 
@@ -147,23 +152,22 @@ class Wrapper extends \Papaya\Application\BaseObject {
       $response->headers()->set('Content-Encoding', 'gzip');
     }
     $response->setStatus(200);
-    $response->setContentType(empty($mimetype) ? 'text/plain' : $mimetype);
+    $response->setContentType('' === \trim($mimetype) ? 'text/plain' : $mimetype);
     return $response;
   }
 
   /**
    * Getter/setter for theme handler object including implicit create
    *
-   * @param \Papaya\Theme\Handler $handler
+   * @param Handler $handler
    *
-   * @return \Papaya\Theme\Handler
+   * @return Handler
    */
-  public function handler(\Papaya\Theme\Handler $handler = NULL) {
-    if (isset($handler)) {
+  public function handler(Handler $handler = NULL) {
+    if (NULL !== $handler) {
       $this->_handler = $handler;
-    }
-    if (\is_null($this->_handler)) {
-      $this->_handler = new \Papaya\Theme\Handler();
+    } elseif (NULL === $this->_handler) {
+      $this->_handler = new Handler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;
@@ -177,10 +181,9 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @return \Papaya\Content\Theme\Skin
    */
   public function themeSet(\Papaya\Content\Theme\Skin $themeSet = NULL) {
-    if (isset($themeSet)) {
+    if (NULL !== $themeSet) {
       $this->_themeSet = $themeSet;
-    }
-    if (\is_null($this->_themeSet)) {
+    } elseif (NULL === $this->_themeSet) {
       $this->_themeSet = new \Papaya\Content\Theme\Skin();
       $this->_themeSet->papaya($this->papaya());
     }
@@ -195,10 +198,9 @@ class Wrapper extends \Papaya\Application\BaseObject {
    * @return \Papaya\Cache\Service
    */
   public function cache(\Papaya\Cache\Service $service = NULL) {
-    if (isset($service)) {
+    if (NULL !== $service) {
       $this->_cacheService = $service;
-    }
-    if (\is_null($this->_cacheService)) {
+    } elseif (NULL === $this->_cacheService) {
       /* @noinspection PhpParamsInspection */
       $this->_cacheService = \Papaya\Cache::getService(
         $this->papaya()->options
@@ -234,8 +236,9 @@ class Wrapper extends \Papaya\Application\BaseObject {
         $result .= "\n/* Missing file: ".$fileName." */\n";
       }
     }
-    if (($engine = $this->templateEngine()) &&
+    if (
       $themeSetId > 0 &&
+      ($engine = $this->templateEngine()) &&
       $this->themeSet()->load($themeSetId)) {
       $engine->setTemplateString($result);
       $engine->values(
@@ -245,18 +248,19 @@ class Wrapper extends \Papaya\Application\BaseObject {
       $engine->run();
       $result = $engine->getResult();
     }
-    return ($compress) ? \gzencode($result) : $result;
+    /** @noinspection PhpComposerExtensionStubsInspection */
+    return $compress ? \gzencode($result) : $result;
   }
 
   /**
    * Getter/Setter for the active template engine.
    *
-   * @param \Papaya\Template\Engine $engine
+   * @param Template\Engine $engine
    *
-   * @return \Papaya\Template\Engine|null
+   * @return Template\Engine|null
    */
-  public function templateEngine(\Papaya\Template\Engine $engine = NULL) {
-    if (isset($engine)) {
+  public function templateEngine(Template\Engine $engine = NULL) {
+    if (NULL !== $engine) {
       $this->_templateEngine = $engine;
     }
     return $this->_templateEngine;
@@ -287,7 +291,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
         default :
           $extension = 'css';
           $allowDirectories = $this->_wrapperURL->allowDirectories();
-          $this->templateEngine(new \Papaya\Template\Engine\Simple());
+          $this->templateEngine(new Template\Engine\Simple());
       }
       if ($group = $this->_wrapperURL->getGroup()) {
         $files = $this->group()->getFiles($group, $extension);
@@ -298,9 +302,9 @@ class Wrapper extends \Papaya\Application\BaseObject {
         $files = $this->_wrapperURL->getFiles();
       }
       if ($allowDirectories) {
-        $pattern = '(^([a-z\d_-]+/)*[a-z\d._-]+\\.'.\preg_quote($extension).'$)iS';
+        $pattern = '(^([a-z\d_-]+/)*[a-z\d._-]+\\.'.\preg_quote($extension, '(').'$)iS';
       } else {
-        $pattern = '(^[a-z\d._-]+\\.'.\preg_quote($extension).'$)iS';
+        $pattern = '(^[a-z\d._-]+\\.'.\preg_quote($extension, '(').'$)iS';
       }
       $result = [];
       foreach ($files as $fileIdentifier) {
@@ -324,7 +328,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
    */
   private function prepareFileName($fileIdentifier, $extension) {
     $fileName = \trim($fileIdentifier);
-    if (\substr($fileName, 0 - \strlen($extension)) != $extension) {
+    if (\substr($fileName, 0 - \strlen($extension)) !== $extension) {
       $fileName .= $extension;
     }
     return $fileName;
@@ -347,7 +351,7 @@ class Wrapper extends \Papaya\Application\BaseObject {
       '_',
       [
         $options->get('PAPAYA_WEBSITE_REVISION', 'dev'),
-        'text/css' == $mimetype ? 'css' : 'js',
+        'text/css' === $mimetype ? 'css' : 'js',
         \md5(\serialize($files))
       ]
     );

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Text\Transliteration;
 
+use Papaya\Utility;
+
 /**
  * Transliterate a utf8 string into an ascii string.
  *
@@ -21,8 +23,14 @@ namespace Papaya\Text\Transliteration;
  * @subpackage String
  */
 class ASCII {
-  private static $_mapping = NULL;
+  /**
+   * @var
+   */
+  private static $_mapping;
 
+  /**
+   * @var string
+   */
   private $_language = 'generic';
 
   /**
@@ -42,22 +50,13 @@ class ASCII {
         \\xED[\\x80-\\x9F][\\x80-\\xBF]|[\\xEE-\\xEF][\\x80-\\xBF]{2}|
         \\xF0[\\x90-\\xBF][\\x80-\\xBF]{2}|[\\xF1-\\xF3][\\x80-\\xBF]{3}|
         \\xF4[\\x80-\\x8F][\\x80-\\xBF]{2})xS',
-      [$this, 'mapCharacterMatch'],
+      function($match) {
+        $codePoint = Utility\Text\UTF8::getCodepoint($match[0]);
+        return $this->mapping()->get($codePoint, $this->_language);
+      },
       $string
     );
     return $result;
-  }
-
-  /**
-   * Callback that maps a single matched utf8 character to ascii
-   *
-   * @param array $match
-   *
-   * @return string
-   */
-  public function mapCharacterMatch($match) {
-    $codepoint = \Papaya\Utility\Text\UTF8::getCodepoint($match[0]);
-    return $this->mapping()->get($codepoint, $this->_language);
   }
 
   /**
@@ -69,9 +68,9 @@ class ASCII {
    * @return ASCII\Mapping
    */
   public function mapping(ASCII\Mapping $mapping = NULL) {
-    if (isset($mapping)) {
+    if (NULL !== $mapping) {
       self::$_mapping = $mapping;
-    } elseif (\is_null(self::$_mapping)) {
+    } elseif (NULL === self::$_mapping) {
       self::$_mapping = new ASCII\Mapping();
     }
     return self::$_mapping;

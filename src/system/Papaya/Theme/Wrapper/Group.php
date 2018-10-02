@@ -14,6 +14,8 @@
  */
 namespace Papaya\Theme\Wrapper;
 
+use Papaya\Utility;
+
 /**
  * The class can be used to read the wrapper group data from the theme.xml file
  *
@@ -32,7 +34,7 @@ class Group {
    *
    * @var string
    */
-  private $_themeFile = '';
+  private $_themeFile;
 
   /**
    * Buffer property for the document object with the loaded theme.xml.
@@ -64,8 +66,8 @@ class Group {
     $xpath = new \DOMXpath($document);
     $query = \sprintf(
       '//wrapper-groups/%s-group[@name = "%s"]/file',
-      \Papaya\Utility\Text\XML::escapeAttribute($mode),
-      \Papaya\Utility\Text\XML::escapeAttribute($name)
+      Utility\Text\XML::escapeAttribute($mode),
+      Utility\Text\XML::escapeAttribute($name)
     );
     foreach ($xpath->evaluate($query) as $file) {
       $fileName = $xpath->evaluate('string(@href)', $file);
@@ -89,8 +91,8 @@ class Group {
     $xpath = new \DOMXpath($document);
     $query = \sprintf(
       'boolean(//wrapper-groups/%s-group[@name = "%s"]/@recursive = "yes")',
-      \Papaya\Utility\Text\XML::escapeAttribute($mode),
-      \Papaya\Utility\Text\XML::escapeAttribute($name)
+      Utility\Text\XML::escapeAttribute($mode),
+      Utility\Text\XML::escapeAttribute($name)
     );
     return $xpath->evaluate($query);
   }
@@ -101,7 +103,7 @@ class Group {
    * @return \DOMDocument|null
    */
   public function getDocument() {
-    if (\is_null($this->_document)) {
+    if (NULL === $this->_document) {
       $document = new \DOMDocument('1.0', 'UTF-8');
       if ($document->load($this->_themeFile)) {
         $this->_document = $document;

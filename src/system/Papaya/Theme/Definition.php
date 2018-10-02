@@ -14,6 +14,10 @@
  */
 namespace Papaya\Theme;
 
+use Papaya\Content;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
  *
@@ -29,7 +33,7 @@ namespace Papaya\Theme;
  * @property string $templatePath
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
-class Definition extends \Papaya\Content\Structure {
+class Definition extends Content\Structure {
   /**
    * Theme data
    *
@@ -61,7 +65,7 @@ class Definition extends \Papaya\Content\Structure {
    * @param string $location
    */
   public function load($location) {
-    $dom = new \Papaya\XML\Document();
+    $dom = new XML\Document();
     $dom->load($location);
     $xpath = $dom->xpath();
     $this->_properties['name'] = \basename(\dirname($location));
@@ -85,6 +89,11 @@ class Definition extends \Papaya\Content\Structure {
     }
   }
 
+  public function __isset($name) {
+    $identifier = Utility\Text\Identifier::toUnderscoreLower($name);
+    return ('thumbnails' === $identifier || isset($this->_properties[$identifier]));
+  }
+
   /**
    * Get a theme property
    *
@@ -95,15 +104,43 @@ class Definition extends \Papaya\Content\Structure {
    * @return array
    */
   public function __get($name) {
-    $identifier = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    $identifier = Utility\Text\Identifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
-    } elseif ('thumbnails' == $identifier) {
+    }
+    if ('thumbnails' === $identifier) {
       return $this->_thumbnails;
     }
     throw new \UnexpectedValueException(
       \sprintf(
         'Can not read unknown property "%s::$%s".',
+        \get_class($this),
+        $name
+      )
+    );
+  }
+
+  /**
+   * @param string $name
+   * @param mixed $value
+   */
+  public function __set($name, $value) {
+    throw new \UnexpectedValueException(
+      \sprintf(
+        'Can not write property "%s::$%s".',
+        \get_class($this),
+        $name
+      )
+    );
+  }
+
+  /**
+   * @param string $name
+   */
+  public function __unset($name) {
+    throw new \UnexpectedValueException(
+      \sprintf(
+        'Can not unset property "%s::$%s".',
         \get_class($this),
         $name
       )

@@ -14,13 +14,21 @@
  */
 namespace Papaya\Theme;
 
+use Papaya\Application;
+use Papaya\Iterator;
+
 /**
  * Load a list of themes. The themes are subdirectories in a local directory.
  *
  * @package Papaya-Library
  * @subpackage Theme
  */
-class Collection extends \Papaya\Application\BaseObject implements \IteratorAggregate {
+class Collection implements Application\Access, \IteratorAggregate {
+  use Application\Access\Aggregation;
+
+  /**
+   * @var
+   */
   private $_handler;
 
   /**
@@ -29,21 +37,12 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
-    return new \Papaya\Iterator\Callback(
-      new \Papaya\Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
-      [$this, 'callbackGetName']
+    return new Iterator\Callback(
+      new Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
+      function($element) {
+        return \basename($element);
+      }
     );
-  }
-
-  /**
-   * strip path information from returned directory name
-   *
-   * @param string $element
-   *
-   * @return string
-   */
-  public function callbackGetName($element) {
-    return \basename($element);
   }
 
   /**
@@ -61,15 +60,15 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * The handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param \Papaya\Theme\Handler $handler
+   * @param Handler $handler
    *
-   * @return \Papaya\Theme\Handler
+   * @return Handler
    */
-  public function handler(\Papaya\Theme\Handler $handler = NULL) {
-    if (isset($handler)) {
+  public function handler(Handler $handler = NULL) {
+    if (NULL !== $handler) {
       $this->_handler = $handler;
     } elseif (NULL === $this->_handler) {
-      $this->_handler = new \Papaya\Theme\Handler();
+      $this->_handler = new Handler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;

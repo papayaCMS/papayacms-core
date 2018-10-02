@@ -283,7 +283,7 @@ class Request
   /**
    * get the attached url object
    *
-   * @return URL|null
+   * @return URL
    */
   public function getURL() {
     if (NULL === $this->_url) {
