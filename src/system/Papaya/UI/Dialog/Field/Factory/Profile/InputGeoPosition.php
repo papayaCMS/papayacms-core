@@ -14,22 +14,24 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a geo position input
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputGeoPosition extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class InputGeoPosition extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Input
+   * @return UI\Dialog\Field\Input\GeoPosition
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\GeoPosition(
+    $field = new UI\Dialog\Field\Input\GeoPosition(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,

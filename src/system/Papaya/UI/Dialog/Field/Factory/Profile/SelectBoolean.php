@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a field with two radio boxes displaying "yes" and "no"
  *
@@ -27,15 +29,15 @@ class SelectBoolean
    *
    * @param array|\Traversable $elements
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Radio(
+    return new UI\Dialog\Field\Select\Radio(
       $this->options()->caption,
       $this->options()->name,
-      new \Papaya\UI\Text\Translated\Collection(['no', 'yes'])
+      new UI\Text\Translated\Collection(['no', 'yes'])
     );
   }
 }

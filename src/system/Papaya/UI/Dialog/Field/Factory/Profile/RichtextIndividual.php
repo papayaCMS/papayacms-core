@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a rte field using a simpler configuration wiht less elements.
  *
@@ -25,13 +27,13 @@ class RichtextIndividual
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Textarea\Richtext
+   * @return UI\Dialog\Field\Textarea\Richtext
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = parent::getField();
-    $field->setRteMode(\Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_INDIVIDUAL);
+    $field->setRteMode(UI\Dialog\Field\Textarea\Richtext::RTE_INDIVIDUAL);
     return $field;
   }
 }

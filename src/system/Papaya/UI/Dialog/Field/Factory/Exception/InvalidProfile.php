@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Exception;
 
+use Papaya\UI;
+
 /**
  * The profile name is invalid, no mapping or profile class was found.
  *
@@ -21,7 +23,7 @@ namespace Papaya\UI\Dialog\Field\Factory\Exception;
  * @subpackage UI
  */
 class InvalidProfile
-  extends \Papaya\UI\Dialog\Field\Factory\Exception {
+  extends UI\Dialog\Field\Factory\Exception {
   /**
    * Create exception with compiled message
    *

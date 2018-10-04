@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field displayed as radio boxes.
  *
@@ -27,12 +29,12 @@ class SelectRadio
    *
    * @param array|\Traversable $elements
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select\Radio
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Radio(
+    return new UI\Dialog\Field\Select\Radio(
       $this->options()->caption,
       $this->options()->name,
       $elements

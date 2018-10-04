@@ -14,23 +14,25 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profile for a "captcha" field.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Captcha extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class Captcha extends UI\Dialog\Field\Factory\Profile {
   /**
    * Create a color input field
    *
    * @see \Papaya\UI\Dialog\Field\Input\Color
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Captcha(
+    $field = new UI\Dialog\Field\Input\Captcha(
       $this->options()->caption,
       $this->options()->name,
       empty($this->options()->parameters) ? 'captcha' : $this->options()->parameters

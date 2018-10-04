@@ -14,22 +14,24 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a input for a password.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputPassword extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class InputPassword extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Input
+   * @return UI\Dialog\Field\Input\Password
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Password(
+    $field = new UI\Dialog\Field\Input\Password(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

@@ -14,27 +14,30 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * Field factory profiles for a input for an iso datetime.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputDateTime extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class InputDateTime extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Input
+   * @return UI\Dialog\Field\Input\Date
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Date(
+    $field = new UI\Dialog\Field\Input\Date(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,
       $this->options()->mandatory,
-      \Papaya\Filter\Date::DATE_OPTIONAL_TIME
+      Filter\Date::DATE_OPTIONAL_TIME
     );
     if ($hint = $this->options()->hint) {
       $field->setHint($hint);

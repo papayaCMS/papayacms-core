@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field display the media database folders
  *
@@ -25,12 +27,12 @@ class SelectMediaFolder
   /**
    * @param array|\Traversable $elements
    *
-   * @return \Papaya\UI\Dialog\Field\Select\Media\Folder
+   * @return UI\Dialog\Field\Select\Media\Folder
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    return new UI\Dialog\Field\Select\Media\Folder(
       $this->options()->caption,
       $this->options()->name
     );

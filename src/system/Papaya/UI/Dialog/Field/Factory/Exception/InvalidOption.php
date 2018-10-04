@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Exception;
 
+use Papaya\UI;
+
 /**
  * The option name is invalid, aka the option does not exist
  *
@@ -21,7 +23,7 @@ namespace Papaya\UI\Dialog\Field\Factory\Exception;
  * @subpackage UI
  */
 class InvalidOption
-  extends \Papaya\UI\Dialog\Field\Factory\Exception {
+  extends UI\Dialog\Field\Factory\Exception {
   /**
    * Create exception with compiled message
    *

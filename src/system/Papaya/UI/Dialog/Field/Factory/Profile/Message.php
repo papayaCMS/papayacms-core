@@ -14,22 +14,24 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profile for an information, confirmation, warning or error
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Message extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class Message extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Message
+   * @return UI\Dialog\Field\Message
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Message(
+    $field = new UI\Dialog\Field\Message(
       (int)$this->options()->parameters,
       $this->options()->default
     );

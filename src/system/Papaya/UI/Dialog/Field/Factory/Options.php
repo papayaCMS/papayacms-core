@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory;
 
+use Papaya\Filter;
+use Papaya\Utility;
+
 /**
  * Field factory option for profiles.
  *
@@ -29,7 +32,7 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @property mixed $default field default value
  * @property bool $mandatory mandatory field status
  * @property bool $disabled disabled field status
- * @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
+ * @property Filter $validation the validation filter, can be set from string|array as well
  * @property mixed $parameters an individual parameters value
  * @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
  */
@@ -60,7 +63,7 @@ class Options implements \ArrayAccess {
   private $_values = [];
 
   /**
-   * @var \Papaya\Filter\Factory
+   * @var Filter\Factory
    */
   private $_filterFactory;
 
@@ -72,7 +75,7 @@ class Options implements \ArrayAccess {
    * @param array|\Traversable $values
    *
    * @throws \UnexpectedValueException
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function __construct(
     $values = []
@@ -86,10 +89,10 @@ class Options implements \ArrayAccess {
    * @param array|\Traversable $values
    *
    * @throws \UnexpectedValueException
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function assign($values) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
+    Utility\Constraints::assertArrayOrTraversable($values);
     foreach ($values as $name => $value) {
       $this->set($name, $value, TRUE);
     }
@@ -102,7 +105,8 @@ class Options implements \ArrayAccess {
    *
    * @return bool
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
+   * @throws Filter\Factory\Exception\InvalidProfile
    */
   public function __isset($name) {
     return $this->exists($name, TRUE) && (NULL !== $this->get($name));
@@ -113,7 +117,9 @@ class Options implements \ArrayAccess {
    *
    * @param string $name
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @return mixed
+   * @throws Filter\Factory\Exception\InvalidProfile
+   * @throws Exception\InvalidOption
    */
   public function __get($name) {
     return $this->get($name);
@@ -125,7 +131,7 @@ class Options implements \ArrayAccess {
    * @param string $name
    * @param mixed $value
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function __set($name, $value) {
     $this->set($name, $value);
@@ -138,7 +144,7 @@ class Options implements \ArrayAccess {
    *
    * @internal param mixed $value
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function __unset($name) {
     if ($this->exists($name)) {
@@ -155,7 +161,7 @@ class Options implements \ArrayAccess {
    *
    * @return bool
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function offsetExists($offset) {
     return $this->exists($offset, TRUE);
@@ -170,7 +176,8 @@ class Options implements \ArrayAccess {
    *
    * @return mixed
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
+   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public function offsetGet($offset) {
     return $this->__get($offset);
@@ -184,7 +191,7 @@ class Options implements \ArrayAccess {
    * @param mixed $offset
    * @param mixed $value
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function offsetSet($offset, $value) {
     $this->__set($offset, $value);
@@ -197,7 +204,7 @@ class Options implements \ArrayAccess {
    *
    * @param mixed $offset
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    */
   public function offsetUnset($offset) {
     $this->__unset($offset);
@@ -209,7 +216,7 @@ class Options implements \ArrayAccess {
    * @param string $name
    * @param bool $silent
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    *
    * @return bool
    */
@@ -220,13 +227,14 @@ class Options implements \ArrayAccess {
     if ($silent) {
       return FALSE;
     }
-    throw new \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption($name);
+    throw new Exception\InvalidOption($name);
   }
 
   /**
    * Fetch a value from the buffer or return the default value
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
+   * @throws Filter\Factory\Exception\InvalidProfile
    *
    * @param string $name
    *
@@ -244,7 +252,7 @@ class Options implements \ArrayAccess {
   /**
    * Set the option value, if silent is set to false invalid option names will trigger an exception.
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws Exception\InvalidOption
    *
    * @param string $name
    * @param mixed $value
@@ -272,16 +280,16 @@ class Options implements \ArrayAccess {
    *
    * @param mixed $validation
    *
-   * @return null|\Papaya\Filter|\Papaya\Filter\NotEmpty
+   * @return null|Filter|Filter\NotEmpty
    *
-   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
+   * @throws Filter\Factory\Exception\InvalidProfile
    */
   private function getValidation($validation) {
-    if ($validation instanceof \Papaya\Filter) {
+    if ($validation instanceof Filter) {
       return $validation;
     }
     if (empty($validation)) {
-      return $this->mandatory ? new \Papaya\Filter\NotEmpty() : NULL;
+      return $this->mandatory ? new Filter\NotEmpty() : NULL;
     }
     $factory = $this->filterFactory();
     if (\is_array($validation) || $validation instanceof \Closure) {
@@ -299,15 +307,15 @@ class Options implements \ArrayAccess {
   /**
    * Getter/Setter for the validation filter factory
    *
-   * @param \Papaya\Filter\Factory $factory
+   * @param Filter\Factory $factory
    *
-   * @return \Papaya\Filter\Factory
+   * @return Filter\Factory
    */
-  public function filterFactory(\Papaya\Filter\Factory $factory = NULL) {
+  public function filterFactory(Filter\Factory $factory = NULL) {
     if (NULL !== $factory) {
       $this->_filterFactory = $factory;
     } elseif (NULL === $this->_filterFactory) {
-      $this->_filterFactory = new \Papaya\Filter\Factory();
+      $this->_filterFactory = new Filter\Factory();
     }
     return $this->_filterFactory;
   }

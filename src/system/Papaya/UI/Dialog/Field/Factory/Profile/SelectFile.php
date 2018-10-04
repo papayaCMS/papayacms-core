@@ -14,6 +14,12 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\File\System as FileSystem;
+use Papaya\Iterator;
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field for a file list.
  *
@@ -21,18 +27,18 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class SelectFile
-  extends \Papaya\UI\Dialog\Field\Factory\Profile {
+  extends UI\Dialog\Field\Factory\Profile {
   /**
-   * @var \Papaya\File\System\Factory
+   * @var FileSystem\Factory
    */
   private $_fileSystem;
 
-  protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_FILES;
+  protected $_fileSystemItems = FileSystem\Directory::FETCH_FILES;
 
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -46,30 +52,35 @@ class SelectFile
         $this->_fileSystemItems
       );
       if (!$this->options()->mandatory) {
-        $elements = new \Papaya\Iterator\Union(
-          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
+        $elements = new Iterator\Union(
+          Iterator\Union::MIT_KEYS_ASSOC,
           new \ArrayIterator(['' => 'none']),
           $elements
         );
       }
-      $field = new \Papaya\UI\Dialog\Field\Select(
+      $field = new UI\Dialog\Field\Select(
         $this->options()->caption,
         $this->options()->name,
-        new \Papaya\Iterator\Tree\Groups\RegEx(
+        new Iterator\Tree\Groups\RegEx(
           $elements,
           '(^(?P<group>.+)_([^_]+\\.[^.]+)$)',
           'group',
-          \Papaya\Iterator\Tree\Groups\RegEx::GROUP_KEYS
+          Iterator\Tree\Groups\RegEx::GROUP_KEYS
         ),
         $this->options()->mandatory
       );
-      $field->callbacks()->getOptionCaption = [$this, 'callbackGetFilename'];
+      $field->callbacks()->getOptionCaption = function(
+        /** @noinspection PhpUnusedParameterInspection */
+        $context, $element
+      ) {
+        return ($element instanceof \splFileInfo) ? $element->getFilename() : (string)$element;
+      };
       $field->setDefaultValue($this->options()->default);
-      $field->setHint($this->options()->hint ? $this->options()->hint : '');
+      $field->setHint($this->options()->hint ?: '');
     } else {
-      $field = new \Papaya\UI\Dialog\Field\Message(
+      $field = new UI\Dialog\Field\Message(
         \Papaya\Message::SEVERITY_ERROR,
-        new \Papaya\UI\Text\Translated(
+        new UI\Text\Translated(
           'Can not open directory "%s"', [$path]
         )
       );
@@ -78,22 +89,10 @@ class SelectFile
   }
 
   /**
-   * If the element is a fileinfo get the filename from it, cast the variable to string otherwise
-   *
-   * @param object $context
-   * @param string|\splFileInfo $element
-   *
-   * @return string
-   */
-  public function callbackGetFilename($context, $element) {
-    return ($element instanceof \splFileInfo) ? $element->getFilename() : (string)$element;
-  }
-
-  /**
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
    * a \Papaya\Configuration\Path object.
    *
-   * @return string|\Papaya\Configuration\Path
+   * @return string|Configuration\Path
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -102,13 +101,13 @@ class SelectFile
     $basePath = empty($parameters[0]) ? '' : (string)$parameters[0];
     if (0 === \strpos($basePath, 'callback:')) {
       $callback = [$this->options()->context, \substr($basePath, 9)];
-      $path = \call_user_func($callback);
+      $path = $callback();
     } else {
-      $path = new \Papaya\Configuration\Path(
+      $path = new Configuration\Path(
         $basePath,
         empty($parameters[2]) ? '' : (string)$parameters[2]
       );
-      if ($this->options()->context instanceof \Papaya\Application\Access) {
+      if ($this->options()->context instanceof Application\Access) {
         $path->papaya($this->options()->context->papaya());
       }
     }
@@ -118,15 +117,15 @@ class SelectFile
   /**
    * Getter/Setter for the file system factory
    *
-   * @param \Papaya\File\System\Factory $fileSystem
+   * @param FileSystem\Factory $fileSystem
    *
-   * @return \Papaya\File\System\Factory
+   * @return FileSystem\Factory
    */
-  public function fileSystem(\Papaya\File\System\Factory $fileSystem = NULL) {
-    if (isset($fileSystem)) {
+  public function fileSystem(FileSystem\Factory $fileSystem = NULL) {
+    if (NULL !== $fileSystem) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {
-      $this->_fileSystem = new \Papaya\File\System\Factory();
+      $this->_fileSystem = new FileSystem\Factory();
     }
     return $this->_fileSystem;
   }

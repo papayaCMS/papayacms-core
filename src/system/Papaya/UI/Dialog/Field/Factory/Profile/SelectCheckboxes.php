@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field displayed as checkboxes. Beaucser of the
  * nature of this field type, multiple selection are possible
@@ -28,12 +30,12 @@ class SelectCheckboxes
    *
    * @param array|\Traversable $elements
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Checkboxes(
+    return new UI\Dialog\Field\Select\Checkboxes(
       $this->options()->caption,
       $this->options()->name,
       $elements

@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a generic input.
  *
@@ -24,16 +26,16 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class InputSuggest
-  extends \Papaya\UI\Dialog\Field\Factory\Profile {
+  extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Input
+   * @return UI\Dialog\Field\Input\Suggest
    *
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Suggest(
+    $field = new UI\Dialog\Field\Input\Suggest(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->parameters,

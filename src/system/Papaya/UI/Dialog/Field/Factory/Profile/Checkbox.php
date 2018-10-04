@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a checkbox.
  *
@@ -23,7 +25,7 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Checkbox extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class Checkbox extends UI\Dialog\Field\Factory\Profile {
   /**
    * Create a checkbox input field
    *
@@ -33,7 +35,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Factory\Profile {
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Checkbox(
+    $field = new UI\Dialog\Field\Input\Checkbox(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,

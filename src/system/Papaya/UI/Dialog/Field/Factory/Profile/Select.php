@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
+use Papaya\UI;
+
 /**
  * Field factory profiles for a generic select field.
  *
@@ -23,11 +25,11 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Select extends \Papaya\UI\Dialog\Field\Factory\Profile {
+class Select extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -51,12 +53,12 @@ class Select extends \Papaya\UI\Dialog\Field\Factory\Profile {
    *
    * @param array|\Traversable $elements
    *
-   * @return \Papaya\UI\Dialog\Field\Select
+   * @return UI\Dialog\Field\Select
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select(
+    return new UI\Dialog\Field\Select(
       $this->options()->caption,
       $this->options()->name,
       $elements
