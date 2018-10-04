@@ -71,9 +71,11 @@ class Errors implements \IteratorAggregate, \Countable {
   public function getSourceCaptions() {
     $result = [];
     foreach ($this->_errors as $error) {
-      if (isset($error['source']) &&
+      if (
+        isset($error['source']) &&
         ($source = $error['source']) &&
-        $source instanceof \Papaya\UI\Dialog\Field) {
+        $source instanceof Field
+      ) {
         $caption = $source->getCaption();
         if (!empty($caption)) {
           $result[] = $caption;

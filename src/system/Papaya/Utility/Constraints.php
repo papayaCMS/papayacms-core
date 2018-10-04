@@ -41,9 +41,8 @@ class Constraints {
           \is_object($value) ? \get_class($value) : \gettype($value)
         )
       );
-    } else {
-      return new \UnexpectedValueException($message);
     }
+    return new \UnexpectedValueException($message);
   }
 
   /**
@@ -64,7 +63,7 @@ class Constraints {
   }
 
   /**
-   * Assert value is an array or an Traverable instance. If either one is true, foreach can be
+   * Assert value is an array or an Traversable instance. If either one is true, foreach can be
    * used on the variable.
    *
    * @throws \UnexpectedValueException
@@ -77,7 +76,8 @@ class Constraints {
   public static function assertArrayOrTraversable($value, $message = '') {
     if (\is_array($value)) {
       return TRUE;
-    } elseif ($value instanceof \Traversable) {
+    }
+    if ($value instanceof \Traversable) {
       return TRUE;
     }
     throw self::createException('array, Traversable', $value, $message);
@@ -129,14 +129,13 @@ class Constraints {
    * @return true
    */
   public static function assertContains(array $array, $value, $message = '') {
-    if (\in_array($value, $array)) {
+    if (\in_array($value, $array, FALSE)) {
       return TRUE;
     }
     if (empty($message)) {
       throw new \UnexpectedValueException('Array does not contains the given value.');
-    } else {
-      throw new \UnexpectedValueException($message);
     }
+    throw new \UnexpectedValueException($message);
   }
 
   /**
@@ -241,7 +240,7 @@ class Constraints {
    * @return true
    */
   public static function assertObjectOrNull($value, $message = '') {
-    if (\is_object($value) || \is_null($value)) {
+    if (\is_object($value) || NULL === $value) {
       return TRUE;
     }
     throw self::createException('object, NULL', $value, $message);
@@ -268,7 +267,8 @@ class Constraints {
         $validated[] = $class;
       }
       throw self::createException(\implode(', ', $validated), $value, $message);
-    } elseif ($value instanceof $expectedClass) {
+    }
+    if ($value instanceof $expectedClass) {
       return TRUE;
     }
     throw self::createException($expectedClass, $value, $message);
@@ -289,7 +289,7 @@ class Constraints {
     if (NULL === $value) {
       return TRUE;
     }
-    self::assertInstanceOf($expectedClass, $value, $message);
+    return self::assertInstanceOf($expectedClass, $value, $message);
   }
 
   /**
@@ -324,5 +324,26 @@ class Constraints {
       return TRUE;
     }
     throw self::createException('string', $value, $message);
+  }
+
+  /**
+   * Assert value is a string
+   *
+   * @throws \UnexpectedValueException
+   *
+   * @param mixed $value
+   * @param string $message Individual error message (can be empty)
+   *
+   * @return true
+   */
+  public static function assertStringCastable($value, $message = '') {
+    if (
+      \is_string($value) ||
+      $value instanceof \Papaya\BaseObject\Interfaces\StringCastable ||
+      (\is_object($value) && \method_exists($value, '__toString'))
+    ) {
+      return TRUE;
+    }
+    throw self::createException('string, string castable', $value, $message);
   }
 }

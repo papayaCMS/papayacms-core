@@ -400,6 +400,46 @@ namespace Papaya\Utility {
       throw Constraints_TestProxy::createException('', new \stdClass, 'SAMPLE MESSAGE');
     }
 
+    /**
+     * @covers \Papaya\Utility\Constraints::assertStringCastable
+     */
+    public function testAssertStringCastableWithStringExpectingTrue() {
+      $this->assertTrue(
+        Constraints::assertStringCastable('foo')
+      );
+    }
+
+    /**
+     * @covers \Papaya\Utility\Constraints::assertStringCastable
+     */
+    public function testAssertStringCastableWithObjectImplementingTheMagicMethodExpectingTrue() {
+      $this->assertTrue(
+        Constraints::assertStringCastable(new ConstraintsTest_ImplementingToString())
+      );
+    }
+
+    /**
+     * @covers \Papaya\Utility\Constraints::assertStringCastable
+     */
+    public function testAssertStringCastableWithObjectImplementingStringCastableInterfaceExpectingTrue() {
+      $this->assertTrue(
+        Constraints::assertStringCastable(
+          $this->createMock(\Papaya\BaseObject\Interfaces\StringCastable::class)
+        )
+      );
+    }
+
+    /**
+     * @covers \Papaya\Utility\Constraints::assertStringCastable
+     */
+    public function testAssertStringCastableWithStdClassExpectingException() {
+      $this->expectException(\UnexpectedValueException::class);
+      $this->expectExceptionMessage('Unexpected value type: Expected "string, string castable" but "stdClass" given.');
+      $this->assertTrue(
+        Constraints::assertStringCastable(new \stdClass())
+      );
+    }
+
     /*************************************
      * Data Provider
      *************************************/
@@ -544,6 +584,12 @@ namespace Papaya\Utility {
 
     public static function createException($expected, $value, $message) {
       return parent::createException($expected, $value, $message);
+    }
+  }
+
+  class ConstraintsTest_ImplementingToString {
+    public function __toString() {
+      return 'success';
     }
   }
 }

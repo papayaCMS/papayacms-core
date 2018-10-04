@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog;
 
+use Papaya\BaseObject\Options\Defined as DefinedOptions;
+use Papaya\XML;
+
 /**
  * /**
  * The options for a dialog object are encapsulated into a separate class, this allows
@@ -33,7 +36,7 @@ namespace Papaya\UI\Dialog;
  * @subpackage UI
  */
 class Options
-  extends \Papaya\BaseObject\Options\Defined {
+  extends DefinedOptions {
   /**
    * Show no field captions
    *
@@ -125,9 +128,9 @@ class Options
   /**
    * Append options to an xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $options = $parent->appendElement('options');
     foreach ($this as $name => $value) {
       $options->appendElement(
@@ -146,9 +149,8 @@ class Options
    */
   private function _valueToString($value) {
     if (\is_bool($value)) {
-      return ($value) ? 'yes' : 'no';
-    } else {
-      return (string)$value;
+      return $value ? 'yes' : 'no';
     }
+    return (string)$value;
   }
 }

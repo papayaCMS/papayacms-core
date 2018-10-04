@@ -16,9 +16,10 @@
 /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Text;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\Utility;
 
-class UTF8String implements \Iterator, \ArrayAccess {
+class UTF8String implements \Iterator, \ArrayAccess, StringCastable {
   const MODE_INTL = 1;
 
   const MODE_ICONV = 2;

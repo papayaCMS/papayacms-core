@@ -14,13 +14,15 @@
  */
 namespace Papaya\UI\Dialog;
 
+use Papaya\UI;
+
 /**
  * A dialog that stores its data into the session.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Session extends \Papaya\UI\Dialog {
+class Session extends UI\Dialog {
   private $_sessionIdentifier;
 
   /**
