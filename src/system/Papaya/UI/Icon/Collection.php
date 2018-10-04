@@ -29,7 +29,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
   private $_icons = [];
 
   /**
-   * ArrayAccess Interface: check if an icon is availiable
+   * ArrayAccess Interface: check if an icon is available
    *
    * @param string $offset
    *
@@ -60,7 +60,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @throws \InvalidArgumentException
    */
   public function offsetSet($offset, $icon) {
-    if (\is_null($offset)) {
+    if (NULL === $offset) {
       throw new \InvalidArgumentException(
         'InvalidArgumentException: Please provide a valid offset for the icon.'
       );
@@ -78,8 +78,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: remove an icon from the internal list
    *
    * @param string $offset
-   *
-   * @return \Papaya\UI\Icon
    */
   public function offsetUnset($offset) {
     unset($this->_icons[$offset]);

@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Link;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * An control part that append link attributes like class, target and a popup configuration to
  * an parent xml element.
@@ -30,7 +34,7 @@ namespace Papaya\UI\Link;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Attributes extends \Papaya\UI\Control\Part {
+class Attributes extends UI\Control\Part {
   const OPTION_RESIZEABLE = 1;
 
   const OPTION_SCROLLBARS_AUTO = 2;
@@ -47,20 +51,44 @@ class Attributes extends \Papaya\UI\Control\Part {
 
   const OPTION_STATUSBAR = 128;
 
+  /**
+   * @var string
+   */
   protected $_class = '';
 
+  /**
+   * @var string
+   */
   protected $_target = '_self';
 
+  /**
+   * @var bool
+   */
   protected $_isPopup = FALSE;
 
+  /**
+   * @var string|int|null
+   */
   protected $_popupWidth = '50%';
 
+  /**
+   * @var string|int|null
+   */
   protected $_popupHeight = '50%';
 
+  /**
+   * @var string|int|null
+   */
   protected $_popupTop;
 
+  /**
+   * @var string|int|null
+   */
   protected $_popupLeft;
 
+  /**
+   * @var int
+   */
   protected $_popupOptions = self::OPTION_SCROLLBARS_NEVER;
 
   private $_attributeNames = [
@@ -130,9 +158,9 @@ class Attributes extends \Papaya\UI\Control\Part {
    */
   public function setPopupOptions($options) {
     $counter = 0;
-    $counter += \Papaya\Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_AUTO, $options) ? 1 : 0;
-    $counter += \Papaya\Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $options) ? 1 : 0;
-    $counter += \Papaya\Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $options) ? 1 : 0;
+    $counter += Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_AUTO, $options) ? 1 : 0;
+    $counter += Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $options) ? 1 : 0;
+    $counter += Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $options) ? 1 : 0;
     if ($counter > 1) {
       throw new \InvalidArgumentException(
         'Invalid options definition: only one scrollbars option can be set.'
@@ -159,14 +187,14 @@ class Attributes extends \Papaya\UI\Control\Part {
       $data['left'] = $this->_popupLeft;
     }
     $popupOptions = $this->popupOptions;
-    $data['resizeable'] = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_RESIZEABLE, $popupOptions);
-    $data['toolBar'] = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_TOOLBAR, $popupOptions);
-    $data['menuBar'] = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_MENUBAR, $popupOptions);
-    $data['locationBar'] = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_LOCATIONBAR, $popupOptions);
-    $data['statusBar'] = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_STATUSBAR, $popupOptions);
-    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $popupOptions)) {
+    $data['resizeable'] = Utility\Bitwise::inBitmask(self::OPTION_RESIZEABLE, $popupOptions);
+    $data['toolBar'] = Utility\Bitwise::inBitmask(self::OPTION_TOOLBAR, $popupOptions);
+    $data['menuBar'] = Utility\Bitwise::inBitmask(self::OPTION_MENUBAR, $popupOptions);
+    $data['locationBar'] = Utility\Bitwise::inBitmask(self::OPTION_LOCATIONBAR, $popupOptions);
+    $data['statusBar'] = Utility\Bitwise::inBitmask(self::OPTION_STATUSBAR, $popupOptions);
+    if (Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $popupOptions)) {
       $data['scrollBars'] = 'yes';
-    } elseif (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $popupOptions)) {
+    } elseif (Utility\Bitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $popupOptions)) {
       $data['scrollBars'] = 'no';
     } else {
       $data['scrollBars'] = 'auto';
@@ -177,11 +205,11 @@ class Attributes extends \Papaya\UI\Control\Part {
   /**
    * The object append the link attributes to a given element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $class = $this->class;
     if (!empty($class)) {
       $parent->setAttribute($this->_attributeNames['class'], $class);
