@@ -14,19 +14,24 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A single line input with auto suggest
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $hint
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Suggest extends \Papaya\UI\Dialog\Field\Input {
+class Suggest extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -66,10 +71,10 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
    * @param string $name
    * @param string $suggestionURL
    * @param mixed $default optional, default NULL
-   * @param \Papaya\Filter|null $filter
+   * @param Filter|null $filter
    */
   public function __construct(
-    $caption, $name, $suggestionURL, $default = NULL, \Papaya\Filter $filter = NULL
+    $caption, $name, $suggestionURL, $default = NULL, Filter $filter = NULL
   ) {
     parent::__construct($caption, $name, 1024, $default, $filter);
     $this->setSuggestionURL($suggestionURL);
@@ -77,9 +82,11 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
 
   /**
    * Set the suggestion url of this input field
+   *
+   * @param string $url
    */
   public function setSuggestionURL($url) {
-    \Papaya\Utility\Constraints::assertNotEmpty($url);
+    Utility\Constraints::assertNotEmpty($url);
     $this->_suggestionData['url'] = $url;
   }
 
@@ -91,13 +98,13 @@ class Suggest extends \Papaya\UI\Dialog\Field\Input {
   }
 
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

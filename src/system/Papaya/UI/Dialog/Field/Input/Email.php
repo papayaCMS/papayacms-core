@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for email
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Email extends \Papaya\UI\Dialog\Field\Input {
+class Email extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -60,7 +63,7 @@ class Email extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 1024, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Email()
+      new Filter\Email()
     );
   }
 }

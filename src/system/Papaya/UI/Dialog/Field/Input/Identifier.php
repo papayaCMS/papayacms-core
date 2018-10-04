@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for an identifier/name
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Identifier extends \Papaya\UI\Dialog\Field\Input {
+class Identifier extends UI\Dialog\Field\Input {
   /**
    * declare dynamic properties
    *
@@ -52,6 +55,6 @@ class Identifier extends \Papaya\UI\Dialog\Field\Input {
   public function __construct($caption, $name, $default = '', $mandatory = FALSE) {
     parent::__construct($caption, $name, 100, $default);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \Papaya\Filter\Identifier());
+    $this->setFilter(new Filter\Identifier());
   }
 }

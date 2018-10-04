@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for color
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Color extends \Papaya\UI\Dialog\Field\Input {
+class Color extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -59,6 +62,6 @@ class Color extends \Papaya\UI\Dialog\Field\Input {
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 7, $default);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \Papaya\Filter\Color());
+    $this->setFilter(new Filter\Color());
   }
 }

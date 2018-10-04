@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A single line input for Range
  *
@@ -29,7 +33,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property float $maximum
  * @property float $step
  */
-class Range extends \Papaya\UI\Dialog\Field\Input {
+class Range extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -95,25 +99,23 @@ class Range extends \Papaya\UI\Dialog\Field\Input {
     $step = 1,
     $mandatory = FALSE
   ) {
-    if (\is_null($default)) {
+    if (NULL === $default) {
       $default = \round(($minimum + $maximum) / 2, 0);
     }
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
-    $this->setFilter(
-      new \Papaya\Filter\FloatValue($this->_minimum, $this->_maximum)
-    );
+    $this->setFilter(new Filter\FloatValue($this->_minimum, $this->_maximum));
     $this->_minimum = $minimum;
     $this->_maximum = $maximum;
     $this->_step = $step;
   }
 
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

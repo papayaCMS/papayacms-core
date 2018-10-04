@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for url
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class URL extends \Papaya\UI\Dialog\Field\Input {
+class URL extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -58,9 +61,7 @@ class URL extends \Papaya\UI\Dialog\Field\Input {
    */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 1024, $default);
-    $this->setmandatory($mandatory);
-    $this->setFilter(
-      new \Papaya\Filter\URL()
-    );
+    $this->setMandatory($mandatory);
+    $this->setFilter(new Filter\URL());
   }
 }

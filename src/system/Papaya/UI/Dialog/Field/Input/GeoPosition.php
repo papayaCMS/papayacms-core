@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for a geographic position
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage UI
  */
-class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
+class GeoPosition extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -48,7 +51,7 @@ class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
   ];
 
   /**
-   * Create field, set caption, name, defaultvalue and mandatory status
+   * Create field, set caption, name, default value and mandatory status
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
@@ -59,7 +62,7 @@ class GeoPosition extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 100, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Geo\Position()
+      new Filter\Geo\Position()
     );
   }
 }

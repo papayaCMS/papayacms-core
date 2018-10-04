@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A checkbox for an active/inactive value
  *
@@ -26,7 +30,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Checkbox extends \Papaya\UI\Dialog\Field\Input {
+class Checkbox extends UI\Dialog\Field\Input {
   /**
    * Specify the field type for the template
    *
@@ -70,18 +74,18 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 9, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Equals($this->_values['active'])
+      new Filter\Equals($this->_values['active'])
     );
   }
 
   /**
    * Append the field to the xml output
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $currentValue = $this->getCurrentValue();
     $input = $field->appendElement(
@@ -122,7 +126,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
       'inactive' => $inactive
     ];
     $this->setFilter(
-      new \Papaya\Filter\Equals($this->_values['active'])
+      new Filter\Equals($this->_values['active'])
     );
   }
 
@@ -174,6 +178,6 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
     if ($this->getMandatory()) {
       return parent::getFilter();
     }
-    return;
+    return NULL;
   }
 }

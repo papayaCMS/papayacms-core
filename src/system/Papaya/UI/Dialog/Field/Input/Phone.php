@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for phone
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Phone extends \Papaya\UI\Dialog\Field\Input {
+class Phone extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -60,7 +63,7 @@ class Phone extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 1024, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Phone()
+      new Filter\Phone()
     );
   }
 }

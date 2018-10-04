@@ -14,19 +14,22 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for ISO time
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $hint
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Time extends \Papaya\UI\Dialog\Field\Input {
+class Time extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -74,9 +77,7 @@ class Time extends \Papaya\UI\Dialog\Field\Input {
     }
     parent::__construct($caption, $name, 9, $default);
     $this->_step = $step;
-    $this->setmandatory($mandatory);
-    $this->setFilter(
-      new \Papaya\Filter\Time($this->_step)
-    );
+    $this->setMandatory($mandatory);
+    $this->setFilter(new Filter\Time($this->_step));
   }
 }

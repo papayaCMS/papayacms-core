@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A single line input for date and optional time, the internal value is an unix timestamp.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $hint
  * @property string|null $defaultValue
@@ -32,7 +36,7 @@ class Timestamp extends Date {
   /**
    * Create object and initalize integer filter
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    * @param string $name
    * @param int $default
    * @param bool $mandatory
@@ -44,11 +48,11 @@ class Timestamp extends Date {
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME,
+    $includeTime = Filter\Date::DATE_NO_TIME,
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
-    $this->setFilter(new \Papaya\Filter\IntegerValue(1));
+    $this->setFilter(new Filter\IntegerValue(1));
   }
 
   /**
@@ -63,9 +67,10 @@ class Timestamp extends Date {
    */
   public function getCurrentValue() {
     $name = $this->getName();
-    if ($this->hasCollection() &&
+    if (
+      '' !== \trim($name) &&
+      $this->hasCollection() &&
       $this->collection()->hasOwner() &&
-      !empty($name) &&
       $this->collection()->owner()->parameters()->has($name)) {
       $dateTime = $this->collection()->owner()->parameters()->get($name);
       return \strtotime($dateTime);
@@ -76,11 +81,11 @@ class Timestamp extends Date {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
@@ -90,7 +95,7 @@ class Timestamp extends Date {
         'maxlength' => $this->_maximumLength
       ],
       $this->formatDateTime(
-        $this->getCurrentValue(), \Papaya\Filter\Date::DATE_NO_TIME != $this->_includeTime
+        $this->getCurrentValue(), Filter\Date::DATE_NO_TIME !== $this->_includeTime
       )
     );
     return $field;
@@ -105,12 +110,12 @@ class Timestamp extends Date {
    * @return string
    */
   private function formatDateTime($timestamp, $includeTime = TRUE) {
-    if (0 == $timestamp) {
+    if (0 === (int)$timestamp) {
       return '';
-    } elseif ($includeTime) {
-      return \date('Y-m-d H:i:s', $timestamp);
-    } else {
-      return \date('Y-m-d', $timestamp);
     }
+    if ($includeTime) {
+      return \date('Y-m-d H:i:s', $timestamp);
+    }
+    return \date('Y-m-d', $timestamp);
   }
 }

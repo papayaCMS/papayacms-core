@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for a page id
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property int|null $defaultValue
  * @property bool $mandatory
  */
-class Page extends \Papaya\UI\Dialog\Field\Input {
+class Page extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -59,7 +62,7 @@ class Page extends \Papaya\UI\Dialog\Field\Input {
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\IntegerValue(1)
+      new Filter\IntegerValue(1)
     );
   }
 }

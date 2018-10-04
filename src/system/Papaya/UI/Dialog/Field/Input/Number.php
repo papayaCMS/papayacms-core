@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for unsigned numbers with optional minimum/maximum length
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|null $defaultValue
  * @property bool $mandatory
  */
-class Number extends \Papaya\UI\Dialog\Field\Input {
+class Number extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -92,7 +95,7 @@ class Number extends \Papaya\UI\Dialog\Field\Input {
     $this->_minimumLength = $minimumLength;
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Number($this->_minimumLength, $this->_maximumLength)
+      new Filter\Number($this->_minimumLength, $this->_maximumLength)
     );
   }
 }

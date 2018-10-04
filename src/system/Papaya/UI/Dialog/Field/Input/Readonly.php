@@ -14,13 +14,16 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple single line readonly input field with a caption.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Readonly extends \Papaya\UI\Dialog\Field\Input {
+class Readonly extends UI\Dialog\Field\Input {
   /**
    * Initialize object, set caption and field name
    *
@@ -33,11 +36,11 @@ class Readonly extends \Papaya\UI\Dialog\Field\Input {
   }
 
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
@@ -51,7 +54,7 @@ class Readonly extends \Papaya\UI\Dialog\Field\Input {
   }
 
   /**
-   * Always return the provided defaultvalue
+   * Always return the provided default value
    *
    * @return mixed|null
    */

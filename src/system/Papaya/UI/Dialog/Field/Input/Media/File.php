@@ -14,13 +14,16 @@
  */
 namespace Papaya\UI\Dialog\Field\Input\Media;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for a file from the media database
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class File extends \Papaya\UI\Dialog\Field\Input {
+class File extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
@@ -31,6 +34,6 @@ class File extends \Papaya\UI\Dialog\Field\Input {
   public function __construct($caption, $name, $mandatory = FALSE) {
     parent::__construct($caption, $name);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \Papaya\Filter\Guid());
+    $this->setFilter(new Filter\Guid());
   }
 }
