@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field\Builder;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Created dialog fields from an $editFields array. This object is used to allow an easier migration.
  *
@@ -41,21 +44,21 @@ class FromArray {
   private $_owner;
 
   /**
-   * Editfields definition, stored for later getFields() call
+   * fields definition, stored for later getFields() call
    *
    * @var array
    */
-  private $_editFields = [];
+  private $_editFields;
 
   /**
    * Translate captions and hints?
    *
    * @var bool
    */
-  private $_translatePhrases = [];
+  private $_translatePhrases;
 
   /**
-   * @var \Papaya\UI\Dialog\Field\Factory
+   * @var UI\Dialog\Field\Factory
    */
   private $_fieldFactory;
 
@@ -119,7 +122,7 @@ class FromArray {
   public function __construct($owner, array $editFields, $translatePhrases = FALSE) {
     $this->_owner = $owner;
     $this->_editFields = $editFields;
-    \Papaya\Utility\Constraints::assertBoolean($translatePhrases);
+    Utility\Constraints::assertBoolean($translatePhrases);
     $this->_translatePhrases = $translatePhrases;
   }
 
@@ -127,17 +130,19 @@ class FromArray {
    * Create fields array from definition
    *
    * @return array
+   * @throws \Papaya\UI\Dialog\Field\Factory\Exception
    */
   public function getFields() {
     $fields = [];
+    /** @var UI\Dialog\Field\Group|null $group */
     $group = NULL;
     foreach ($this->_editFields as $fieldName => $data) {
       if (\is_string($data)) {
         $fields[] = $group = $this->_addGroup($data);
       } else {
         $field = $this->_addField($fieldName, $data);
-        if (isset($field)) {
-          if (isset($group)) {
+        if (NULL !== $field) {
+          if (NULL !== $group) {
             $group->fields()->add($field);
           } else {
             $fields[] = $field;
@@ -153,13 +158,12 @@ class FromArray {
    *
    * @param string $caption
    *
-   * @return \Papaya\UI\Dialog\Field\Group
+   * @return UI\Dialog\Field\Group
    */
   private function _addGroup($caption) {
-    $group = new \Papaya\UI\Dialog\Field\Group(
+    return new UI\Dialog\Field\Group(
       $this->_createPhrase($caption)
     );
-    return $group;
   }
 
   /**
@@ -171,32 +175,33 @@ class FromArray {
    * @param array $data
    *
    * @return \Papaya\UI\Dialog\Field|null
+   * @throws \Papaya\UI\Dialog\Field\Factory\Exception
    */
   private function _addField($name, array $data) {
-    $type = (string)\Papaya\Utility\Arrays::get($data, ['type', 3], 'input');
-    if ('disabled_' === \substr($type, 0, 9)) {
+    $type = (string)Utility\Arrays::get($data, ['type', 3], 'input');
+    if (0 === \strpos($type, 'disabled_')) {
       $type = \substr($type, 9);
       $disabled = TRUE;
     } else {
       $disabled = FALSE;
     }
 
-    $type = \Papaya\Utility\Arrays::get($this->_fieldMapping, $type, $type);
-    $filter = \Papaya\Utility\Arrays::get($data, ['validation', 1], 'isNotEmpty');
+    $type = Utility\Arrays::get($this->_fieldMapping, $type, $type);
+    $filter = Utility\Arrays::get($data, ['validation', 1], 'isNotEmpty');
     if (\is_string($filter) && !empty($filter)) {
-      $filter = \Papaya\Utility\Arrays::get($this->_filterMapping, $filter, $filter);
+      $filter = Utility\Arrays::get($this->_filterMapping, $filter, $filter);
     }
-    $options = new \Papaya\UI\Dialog\Field\Factory\Options(
+    $options = new UI\Dialog\Field\Factory\Options(
       [
         'name' => $name,
-        'caption' => \Papaya\Utility\Arrays::get($data, ['caption', 0], ''),
+        'caption' => Utility\Arrays::get($data, ['caption', 0], ''),
         'validation' => $filter,
-        'mandatory' => (bool)\Papaya\Utility\Arrays::get($data, ['mandatory', 2], FALSE),
-        'parameters' => \Papaya\Utility\Arrays::get($data, ['parameters', 4], NULL),
-        'url' => \Papaya\Utility\Arrays::get($data, ['url', 0], ''),
-        'hint' => \Papaya\Utility\Arrays::get($data, ['hint', 5], ''),
-        'default' => \Papaya\Utility\Arrays::get($data, ['default', 6], NULL),
-        'disabled' => \Papaya\Utility\Arrays::get($data, 'disabled', $disabled),
+        'mandatory' => (bool)Utility\Arrays::get($data, ['mandatory', 2], FALSE),
+        'parameters' => Utility\Arrays::get($data, ['parameters', 4], NULL),
+        'url' => Utility\Arrays::get($data, ['url', 0], ''),
+        'hint' => Utility\Arrays::get($data, ['hint', 5], ''),
+        'default' => Utility\Arrays::get($data, ['default', 6], NULL),
+        'disabled' => Utility\Arrays::get($data, 'disabled', $disabled),
         'context' => $this->_owner
       ]
     );
@@ -208,24 +213,24 @@ class FromArray {
    *
    * @param string $string
    *
-   * @return string|\Papaya\UI\Text\Translated
+   * @return string|UI\Text\Translated
    */
   private function _createPhrase($string) {
-    return $this->_translatePhrases ? new \Papaya\UI\Text\Translated($string) : $string;
+    return $this->_translatePhrases ? new UI\Text\Translated($string) : $string;
   }
 
   /**
    * Getter/Setter for the field factory
    *
-   * @param \Papaya\UI\Dialog\Field\Factory $factory
+   * @param UI\Dialog\Field\Factory $factory
    *
-   * @return \Papaya\UI\Dialog\Field\Factory
+   * @return UI\Dialog\Field\Factory
    */
-  public function fieldFactory(\Papaya\UI\Dialog\Field\Factory $factory = NULL) {
-    if (isset($factory)) {
+  public function fieldFactory(UI\Dialog\Field\Factory $factory = NULL) {
+    if (NULL !== $factory) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new \Papaya\UI\Dialog\Field\Factory();
+      $this->_fieldFactory = new UI\Dialog\Field\Factory();
     }
     return $this->_fieldFactory;
   }
