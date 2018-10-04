@@ -14,24 +14,17 @@
  */
 namespace Papaya\UI\Content;
 
+use Papaya\Application;
 use Papaya\Content;
+use Papaya\Plugin;
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- *
- * @link http://www.papaya-cms.com/
- *
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
-class Page extends \Papaya\Application\BaseObject {
+class Page implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * @var \Papaya\Content\Page
    */
@@ -58,7 +51,7 @@ class Page extends \Papaya\Application\BaseObject {
   private $_isPublic;
 
   /**
-   * @var \Papaya\UI\Reference\Page
+   * @var UI\Reference\Page
    */
   private $_reference;
 
@@ -77,7 +70,7 @@ class Page extends \Papaya\Application\BaseObject {
    * @param array|\Traversable $data
    */
   public function assign($data) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($data);
+    Utility\Constraints::assertArrayOrTraversable($data);
     $this->page()->assign($data);
     $this->translation()->assign($data);
   }
@@ -142,7 +135,7 @@ class Page extends \Papaya\Application\BaseObject {
     if (NULL !== $this->_language && isset($this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -155,11 +148,11 @@ class Page extends \Papaya\Application\BaseObject {
   /**
    * Append the page teaser
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    * @param array|\Papaya\BaseObject\Parameters $configuration
    * @param array $viewData
    */
-  public function appendQuoteTo(\Papaya\XML\Element $parent, $configuration = [], array $viewData = NULL) {
+  public function appendQuoteTo(XML\Element $parent, $configuration = [], array $viewData = NULL) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
@@ -172,12 +165,12 @@ class Page extends \Papaya\Application\BaseObject {
             'plugin' => \get_class($plugin),
             'view' => $this->translation()->viewName,
             'href' => $this->getPageHref($plugin, $configuration, $viewData),
-            'published' => \Papaya\Utility\Date::timestampToString($this->translation()->modified),
-            'created' => \Papaya\Utility\Date::timestampToString($this->translation()->created)
+            'published' => Utility\Date::timestampToString($this->translation()->modified),
+            'created' => Utility\Date::timestampToString($this->translation()->created)
           ]
         );
-        if ($plugin instanceof \Papaya\Plugin\Quoteable) {
-          if ($plugin instanceof \Papaya\Plugin\Configurable) {
+        if ($plugin instanceof Plugin\Quoteable) {
+          if ($plugin instanceof Plugin\Configurable) {
             $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);
@@ -197,15 +190,15 @@ class Page extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for the template reference subobject used to generate links to the subpages
    *
-   * @param \Papaya\UI\Reference\Page $reference
+   * @param UI\Reference\Page $reference
    *
-   * @return \Papaya\UI\Reference\Page
+   * @return UI\Reference\Page
    */
-  public function reference(\Papaya\UI\Reference\Page $reference = NULL) {
+  public function reference(UI\Reference\Page $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference\Page();
+      $this->_reference = new UI\Reference\Page();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -225,13 +218,13 @@ class Page extends \Papaya\Application\BaseObject {
       $reference->setPageId($this->getPageId(), TRUE);
       if (isset($configuration['query_string'])) {
         $reference->setParameters(
-          \Papaya\Request\Parameters::createFromString($configuration['query_string'])
+          Request\Parameters::createFromString($configuration['query_string'])
         );
       }
       $href = $reference->get();
       $validatedHref = FALSE;
-      if ($plugin instanceof \Papaya\Plugin\Addressable) {
-        $request = new \Papaya\Request($this->papaya()->options);
+      if ($plugin instanceof Plugin\Addressable) {
+        $request = new Request($this->papaya()->options);
         $request->load($reference->url());
         $validatedHref = $plugin->validateURL($request);
       }

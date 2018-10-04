@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Content\Teaser;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Extract teaser image information from the given subtopic elements and creates a list
  * of scaled teaser image tags.
@@ -21,7 +24,7 @@ namespace Papaya\UI\Content\Teaser;
  * @package Papaya-Library
  * @subpackage UI-Content
  */
-class Images extends \Papaya\UI\Control {
+class Images extends UI\Control {
   /**
    * thumbnail width
    *
@@ -46,7 +49,7 @@ class Images extends \Papaya\UI\Control {
   /**
    * teasers parent element node
    *
-   * @var \Papaya\XML\Element
+   * @var XML\Element
    */
   private $_teasers;
 
@@ -64,12 +67,12 @@ class Images extends \Papaya\UI\Control {
   /**
    * Create object and store given parameters
    *
-   * @param \Papaya\XML\Element $teasers
+   * @param XML\Element $teasers
    * @param int $width
    * @param int $height
    * @param string $resizeMode
    */
-  public function __construct(\Papaya\XML\Element $teasers, $width, $height, $resizeMode = 'max') {
+  public function __construct(XML\Element $teasers, $width, $height, $resizeMode = 'max') {
     $this->_teasers = $teasers;
     $this->_width = $width;
     $this->_height = $height;
@@ -79,11 +82,11 @@ class Images extends \Papaya\UI\Control {
   /**
    * Append teaser thumbnail tags to given parent element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     /** @var \Papaya\XML\Document $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
@@ -109,7 +112,7 @@ class Images extends \Papaya\UI\Control {
     }
     if ($images->length > 0) {
       $thumbs = $parent->appendElement($names['list']);
-      /** @var \Papaya\XML\Element $imageNode */
+      /** @var XML\Element $imageNode */
       foreach ($images as $imageNode) {
         $thumbNode = $thumbs
           ->appendElement(
@@ -136,6 +139,6 @@ class Images extends \Papaya\UI\Control {
       }
       return $thumbs;
     }
-    return;
+    return NULL;
   }
 }
