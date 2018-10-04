@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Element\Description;
 
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Dialog element description item encapsulating a named property.
  *
@@ -24,10 +27,19 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 class Property extends Item {
+  /**
+   * @var string
+   */
   protected $_name = '';
 
+  /**
+   * @var string
+   */
   protected $_value = '';
 
+  /**
+   * @var array
+   */
   protected $_declaredProperties = [
     'name' => ['_name', 'setName'],
     'value' => ['_value', '_value']
@@ -50,18 +62,18 @@ class Property extends Item {
    * @param string $name
    */
   public function setName($name) {
-    \Papaya\Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
   /**
    * Append description element with href attribute to parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     return $parent->appendElement(
       'property',
       [

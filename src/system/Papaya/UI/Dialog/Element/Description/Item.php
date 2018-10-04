@@ -14,11 +14,13 @@
  */
 namespace Papaya\UI\Dialog\Element\Description;
 
+use Papaya\UI;
+
 /**
  * Dialog element description item superclass.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Item extends \Papaya\UI\Control\Collection\Item {
+abstract class Item extends UI\Control\Collection\Item {
 }
