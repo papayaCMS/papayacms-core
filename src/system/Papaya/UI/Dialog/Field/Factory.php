@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Create dialog fields using profile objects.
  *
@@ -77,7 +80,7 @@ class Factory {
    * @return string
    */
   private function getProfileClass($name) {
-    $name = \Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
+    $name = Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (isset($this->_profiles[$name])) {
       return $this->_profiles[$name];
     }
@@ -100,9 +103,9 @@ class Factory {
    * @param array|\Traversable $profiles
    */
   public function registerProfiles($profiles) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($profiles);
+    Utility\Constraints::assertArrayOrTraversable($profiles);
     foreach ($profiles as $name => $profile) {
-      $this->_profiles[\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
+      $this->_profiles[Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
     }
   }
 }

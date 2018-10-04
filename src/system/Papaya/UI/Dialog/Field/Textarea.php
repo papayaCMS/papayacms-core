@@ -14,13 +14,18 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
- * A simple textarea (multiline input) field
+ * A simple textarea (multiple line input) field
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Textarea extends \Papaya\UI\Dialog\Field {
+class Textarea extends UI\Dialog\Field {
   /**
    * Field lines
    *
@@ -35,16 +40,16 @@ class Textarea extends \Papaya\UI\Dialog\Field {
    * @param string $name
    * @param int $lines
    * @param mixed $default
-   * @param \Papaya\Filter|null $filter
+   * @param Filter|null $filter
    */
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, \Papaya\Filter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);
     $this->setLineCount($lines);
     $this->setDefaultValue($default);
-    if (isset($filter)) {
+    if (NULL !== $filter) {
       $this->setFilter($filter);
     }
   }
@@ -53,20 +58,18 @@ class Textarea extends \Papaya\UI\Dialog\Field {
    * Set the line count of this element.
    *
    * @param int $lineCount
-   *
-   * @return \Papaya\UI\Dialog\Field\Input
    */
   public function setLineCount($lineCount) {
-    \Papaya\Utility\Constraints::assertInteger($lineCount);
+    Utility\Constraints::assertInteger($lineCount);
     $this->_lineCount = $lineCount;
   }
 
   /**
    * Append field and textarea output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',

@@ -14,20 +14,23 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A dialog field with several buttons
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
- * @property \Papaya\UI\Dialog\Buttons $buttons
+ * @property string|UI\Text $caption
+ * @property UI\Dialog\Buttons $buttons
  */
-class Buttons extends \Papaya\UI\Dialog\Field {
+class Buttons extends UI\Dialog\Field {
   /**
    * Grouped input buttons
    *
-   * @var \Papaya\UI\Dialog\Buttons
+   * @var UI\Dialog\Buttons
    */
   protected $_buttons;
 
@@ -43,19 +46,18 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Group buttons getter/setter
    *
-   * @param \Papaya\UI\Dialog\Buttons $buttons
+   * @param UI\Dialog\Buttons $buttons
    *
-   * @return \Papaya\UI\Dialog\Buttons
+   * @return UI\Dialog\Buttons
    */
-  public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {
-    if (isset($buttons)) {
+  public function buttons(UI\Dialog\Buttons $buttons = NULL) {
+    if (NULL !== $buttons) {
       $this->_buttons = $buttons;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
         $buttons->owner($this->collection()->owner());
       }
-    }
-    if (\is_null($this->_buttons)) {
-      $this->_buttons = new \Papaya\UI\Dialog\Buttons(
+    } elseif (NULL === $this->_buttons) {
+      $this->_buttons = new UI\Dialog\Buttons(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
     }
@@ -77,8 +79,10 @@ class Buttons extends \Papaya\UI\Dialog\Field {
    * @return bool
    */
   public function collect() {
-    if (parent::collect() &&
-      isset($this->_buttons)) {
+    if (
+      NULL !== $this->_buttons &&
+      parent::collect()
+    ) {
       $this->_buttons->collect();
       return TRUE;
     }
@@ -88,10 +92,10 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Append group and buttons in this group to the DOM.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (isset($this->_buttons) && \count($this->_buttons) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (NULL !== $this->_buttons && \count($this->_buttons) > 0) {
       $field = $this->_appendFieldTo($parent);
       $field
         ->appendElement('buttons')

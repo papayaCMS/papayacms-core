@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A hidden dialog field, this will be part of the dialog but not visible. The main
  * difference to the hiddenFields property of the dialog object is that this field changes the data
@@ -22,28 +26,28 @@ namespace Papaya\UI\Dialog\Field;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Hidden extends \Papaya\UI\Dialog\Field {
+class Hidden extends UI\Dialog\Field {
   /**
    * Initialize object, field name, default value and filter
    *
    * @param string $name
    * @param int $default
-   * @param \Papaya\Filter|null $filter
+   * @param Filter|null $filter
    */
-  public function __construct($name, $default, \Papaya\Filter $filter = NULL) {
+  public function __construct($name, $default, Filter $filter = NULL) {
     $this->setName($name);
     $this->setDefaultValue($default);
-    if (isset($filter)) {
+    if (NULL !== $filter) {
       $this->setFilter($filter);
     }
   }
 
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $parent->appendElement(
       'field',
       [

@@ -14,24 +14,10 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
-use base_thumbnail;
+use Papaya\UI;
+use Papaya\XML;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- *
- * @link http://www.papaya-cms.com/
- *
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
-class Image extends \Papaya\UI\Dialog\Field {
+class Image extends UI\Dialog\Field {
   /**
    * Message image
    *
@@ -61,20 +47,20 @@ class Image extends \Papaya\UI\Dialog\Field {
   protected $_mode = 'max';
 
   /**
-   * @var base_thumbnail
+   * @var \base_thumbnail
    */
   protected $_thumbnail;
 
   /**
-   * @var \Papaya\UI\Reference\Thumbnail
+   * @var UI\Reference\Thumbnail
    */
-  protected $_referenceThumbnail;
+  protected $_thumbnailReference;
 
   /**
    * Create object and assign needed values
    *
    * @param string $fileId
-   *                       * @param string $caption
+   * @param string $caption
    * @param int $width
    * @param int $height
    * @param string $mode
@@ -83,7 +69,7 @@ class Image extends \Papaya\UI\Dialog\Field {
     $fileId, $caption = NULL, $width = 100, $height = 100, $mode = 'max'
   ) {
     $this->_fileId = $fileId;
-    if (!\is_null($caption)) {
+    if (NULL !== $caption) {
       $this->setCaption($caption);
     }
     $this->_width = $width;
@@ -94,9 +80,9 @@ class Image extends \Papaya\UI\Dialog\Field {
   /**
    * Append image field to dialog xml dom
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
 
     $thumbnail = $this->thumbnail()->getThumbnail(
@@ -111,7 +97,7 @@ class Image extends \Papaya\UI\Dialog\Field {
     $this->referenceThumbnail()->setThumbnailSize($this->_width.'x'.$this->_height);
     $this->referenceThumbnail()->setMediaUri($thumbnail);
 
-    $image = $field->appendElement(
+    $field->appendElement(
       'image', [
         'src' => $this->referenceThumbnail()->get(),
         'mode' => $this->_mode
@@ -120,42 +106,37 @@ class Image extends \Papaya\UI\Dialog\Field {
   }
 
   /**
-   * @param base_thumbnail $object
+   * @param \base_thumbnail $thumbnail
    *
-   * @return base_thumbnail
+   * @return \base_thumbnail
    */
-  public function thumbnail(base_thumbnail $object = NULL) {
-    if (isset($object)) {
-      $this->_thumbnail = $object;
-    } else {
-      if (\is_null($this->_thumbnail)) {
-        $this->_thumbnail = new \base_thumbnail();
-      }
+  public function thumbnail(\base_thumbnail $thumbnail = NULL) {
+    if (NULL !== $thumbnail) {
+      $this->_thumbnail = $thumbnail;
+    } elseif (NULL === $this->_thumbnail) {
+      $this->_thumbnail = new \base_thumbnail();
     }
     return $this->_thumbnail;
   }
 
   /**
-   * @param \Papaya\UI\Reference\Thumbnail $object
+   * @param UI\Reference\Thumbnail $thumbnailReference
    *
-   * @return \Papaya\UI\Reference\Thumbnail
+   * @return UI\Reference\Thumbnail
    */
-  public function referenceThumbnail(\Papaya\UI\Reference\Thumbnail $object = NULL) {
-    if (isset($object)) {
-      $this->_referenceThumbnail = $object;
-    } else {
-      if (\is_null($this->_referenceThumbnail)) {
-        $this->_referenceThumbnail = new \Papaya\UI\Reference\Thumbnail();
-        $this->_referenceThumbnail->setThumbnailMode($this->_mode);
-        $this->_referenceThumbnail->setThumbnailSize($this->_width.'x'.$this->_height);
-        $this->_referenceThumbnail->setExtension('png');
-        $this->_referenceThumbnail->setPreview(
-          !(isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public)
-        );
-
-        $this->_referenceThumbnail->load($this->papaya()->request);
-      }
+  public function referenceThumbnail(UI\Reference\Thumbnail $thumbnailReference = NULL) {
+    if (NULL !== $thumbnailReference) {
+      $this->_thumbnailReference = $thumbnailReference;
+    } elseif (NULL === $this->_thumbnailReference) {
+      $this->_thumbnailReference = new UI\Reference\Thumbnail();
+      $this->_thumbnailReference->setThumbnailMode($this->_mode);
+      $this->_thumbnailReference->setThumbnailSize($this->_width.'x'.$this->_height);
+      $this->_thumbnailReference->setExtension('png');
+      $this->_thumbnailReference->setPreview(
+        !(isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public)
+      );
+      $this->_thumbnailReference->load($this->papaya()->request);
     }
-    return $this->_referenceThumbnail;
+    return $this->_thumbnailReference;
   }
 }

@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\Message as PapayaMessage;
+
 /**
  * A field that output a message inside the dialog
  *
@@ -21,11 +23,11 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Message extends Information {
-  const SEVERITY_INFO = \Papaya\Message::SEVERITY_INFO;
+  const SEVERITY_INFO = PapayaMessage::SEVERITY_INFO;
 
-  const SEVERITY_WARNING = \Papaya\Message::SEVERITY_WARNING;
+  const SEVERITY_WARNING = PapayaMessage::SEVERITY_WARNING;
 
-  const SEVERITY_ERROR = \Papaya\Message::SEVERITY_ERROR;
+  const SEVERITY_ERROR = PapayaMessage::SEVERITY_ERROR;
 
   /**
    * Message image
@@ -33,9 +35,9 @@ class Message extends Information {
    * @var string[]
    */
   private static $_images = [
-    \Papaya\Message::SEVERITY_INFO => 'status-dialog-information',
-    \Papaya\Message::SEVERITY_WARNING => 'status-dialog-warning',
-    \Papaya\Message::SEVERITY_ERROR => 'status-dialog-error'
+    self::SEVERITY_INFO => 'status-dialog-information',
+    self::SEVERITY_WARNING => 'status-dialog-warning',
+    self::SEVERITY_ERROR => 'status-dialog-error'
   ];
 
   /**
@@ -47,7 +49,7 @@ class Message extends Information {
    * @internal param string $image
    */
   public function __construct($severity, $message) {
-    $severityKey = isset(self::$_images[$severity]) ? $severity : \Papaya\Message::SEVERITY_INFO;
+    $severityKey = isset(self::$_images[$severity]) ? $severity : self::SEVERITY_INFO;
     parent::__construct($message, self::$_images[$severityKey]);
   }
 }

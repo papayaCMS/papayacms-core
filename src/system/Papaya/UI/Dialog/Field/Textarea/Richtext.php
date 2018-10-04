@@ -14,19 +14,26 @@
  */
 namespace Papaya\UI\Dialog\Field\Textarea;
 
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A textarea (multiline input) field, that will be replaced with an RTE using JavaScript
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
+class Richtext extends UI\Dialog\Field\Textarea {
   const RTE_DEFAULT = 'standard';
 
   const RTE_SIMPLE = 'simple';
 
   const RTE_INDIVIDUAL = 'individual';
 
+  /**
+   * @var string
+   */
   private $_rteMode = self::RTE_DEFAULT;
 
   /**
@@ -36,7 +43,7 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
    * @param string $name
    * @param int $lines
    * @param mixed $default
-   * @param \Papaya\Filter|null $filter
+   * @param Filter|null $filter
    * @param int|string $rteMode
    */
   public function __construct(
@@ -44,7 +51,7 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
     $name,
     $lines = 10,
     $default = NULL,
-    \Papaya\Filter $filter = NULL,
+    Filter $filter = NULL,
     $rteMode = self::RTE_DEFAULT
   ) {
     parent::__construct($caption, $name, $lines, $default, $filter);
@@ -54,9 +61,9 @@ class Richtext extends \Papaya\UI\Dialog\Field\Textarea {
   /**
    * Append field and textarea output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',
