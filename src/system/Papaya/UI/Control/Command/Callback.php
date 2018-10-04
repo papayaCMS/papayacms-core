@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A command that uses a callback to append elements to the DOM. Allows for direct implementation
  * of simple commands
@@ -23,7 +27,7 @@ namespace Papaya\UI\Control\Command;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Callback extends \Papaya\UI\Control\Command {
+class Callback extends UI\Control\Command {
   /**
    * @var callable
    */
@@ -33,18 +37,19 @@ class Callback extends \Papaya\UI\Control\Command {
    * @param \Callable $callback
    */
   public function __construct($callback) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+    Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 
   /**
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    return \call_user_func($this->_callback, $parent);
+  public function appendTo(XML\Element $parent) {
+    $callback = $this->_callback;
+    return $callback($parent);
   }
 }

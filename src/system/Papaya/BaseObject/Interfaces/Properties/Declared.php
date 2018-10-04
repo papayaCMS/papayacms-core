@@ -12,28 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\UI\Control;
+namespace Papaya\BaseObject\Interfaces\Properties;
 
-use Papaya\Application;
-use Papaya\BaseObject;
+use Papaya\BaseObject\Interfaces\Properties;
 
 /**
- * Abstract superclass implementing basic features for user interface control parts.
+ * Declare that the class implements dynamic properties that are readable
  *
- * @package Papaya-Library
- * @subpackage UI
+ * @package Papaya\BaseObject\Interfaces\Properties
  */
-abstract class Part
-  implements Application\Access, \Papaya\XML\Appendable {
-  use Application\Access\Aggregation;
-  use BaseObject\DeclaredProperties;
-
-  /**
-   * @var array
-   */
-  protected $_declaredProperties = [];
-
-  public function getPropertyDeclaration() {
-    return $this->_declaredProperties;
-  }
+interface Declared extends Properties {
+  public static function getPropertyDeclaration();
 }

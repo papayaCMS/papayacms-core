@@ -14,13 +14,16 @@
  */
 namespace Papaya\UI\Control\Command\Condition;
 
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A command condition testing a request parameter.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Parameter extends \Papaya\UI\Control\Command\Condition {
+class Parameter extends UI\Control\Command\Condition {
   /**
    * The parameter name
    *
@@ -31,7 +34,7 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
   /**
    * the filter object
    *
-   * @var \Papaya\Filter
+   * @var Filter
    */
   private $_filter;
 
@@ -39,9 +42,9 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
    * Create object, store parameter and filter.
    *
    * @param string|array|\Papaya\Request\Parameters\Name $parameterName
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    */
-  public function __construct($parameterName, \Papaya\Filter $filter) {
+  public function __construct($parameterName, Filter $filter) {
     $this->_parameterName = $parameterName;
     $this->_filter = $filter;
   }

@@ -14,13 +14,15 @@
  */
 namespace Papaya\UI\Control;
 
+use Papaya\Request;
+
 /**
  * Abstract superclass for ui commands, like executing a dialog.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Command extends \Papaya\UI\Control\Interactive {
+abstract class Command extends Interactive {
   /**
    * A permission that is validated for the current administration user,
    * before executing the command
@@ -39,7 +41,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
   /**
    * The owner of the command. This is where the command gets it parameters from.
    *
-   * @param \Papaya\UI\Control\Interactive
+   * @param Interactive
    */
   private $_owner;
 
@@ -128,11 +130,11 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    *
    * @throws \LogicException
    *
-   * @param \Papaya\Request\Parameters\Access|null $owner
+   * @param Request\Parameters\Access|null $owner
    *
-   * @return \Papaya\Request\Parameters\Access
+   * @return Request\Parameters\Access
    */
-  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
+  public function owner(Request\Parameters\Access $owner = NULL) {
     if (NULL !== $owner) {
       $this->_owner = $owner;
       $this->papaya($owner->papaya());
@@ -195,11 +197,11 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * This method gives you access to request parameters.
    * If an owner is available, its parameters function will be used.
    *
-   * @param \Papaya\Request\Parameters $parameters
+   * @param Request\Parameters $parameters
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if ($this->hasOwner()) {
       $parameters = $this->owner()->parameters($parameters);
     }

@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
  * callbacks are executed.
@@ -21,16 +25,16 @@ namespace Papaya\UI\Control\Command;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Dialog extends \Papaya\UI\Control\Command {
+class Dialog extends UI\Control\Command {
   /**
    * Dialog object
    *
-   * @var \Papaya\UI\Dialog
+   * @var UI\Dialog
    */
   private $_dialog;
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_context;
 
@@ -58,11 +62,11 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * Execute command and append result to output xml
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog) {
@@ -89,11 +93,11 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * A context for the dialog - to be set as hidden values or used in links
    *
-   * @param \Papaya\Request\Parameters $context
+   * @param Request\Parameters $context
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function context(\Papaya\Request\Parameters $context = NULL) {
+  public function context(Request\Parameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     }
@@ -103,11 +107,11 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
    *
-   * @param \Papaya\UI\Dialog $dialog
+   * @param UI\Dialog $dialog
    *
-   * @return \Papaya\UI\Dialog
+   * @return UI\Dialog
    */
-  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
+  public function dialog(UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -140,10 +144,10 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Create and return a dialog object, can be overloaded by child classes to create specific
    * dialogs.
    *
-   * @return \Papaya\UI\Dialog
+   * @return UI\Dialog
    */
   protected function createDialog() {
-    $dialog = new \Papaya\UI\Dialog();
+    $dialog = new UI\Dialog();
     $dialog->papaya($this->papaya());
     return $dialog;
   }

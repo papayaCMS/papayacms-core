@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Control\Command\Dialog;
 
+use Papaya\BaseObject;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Callbacks that are used by the dialog command
  *
@@ -24,11 +28,11 @@ namespace Papaya\UI\Control\Command\Dialog;
  * @property \Papaya\BaseObject\Callback onExecuteSuccessful
  * @property \Papaya\BaseObject\Callback onExecuteFailed
  *
- * @method bool onCreateDialog(\Papaya\UI\Dialog $dialog)
- * @method bool onExecuteSuccessful(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
- * @method bool onExecuteFailed(\Papaya\UI\Dialog $dialog, \Papaya\XML\Element $parent)
+ * @method bool onCreateDialog(UI\Dialog $dialog)
+ * @method bool onExecuteSuccessful(UI\Dialog $dialog, XML\Element $parent)
+ * @method bool onExecuteFailed(UI\Dialog $dialog, XML\Element $parent)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   /**
    * Initialize object and set callback definition
    */

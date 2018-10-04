@@ -14,6 +14,11 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A group of commands, one of the command ist executed depending on parameter value and
  * default command.
@@ -24,19 +29,19 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 class Controller
-  extends \Papaya\UI\Control\Command
+  extends UI\Control\Command
   implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * Array of command objects
    *
-   * @var \Papaya\UI\Control\Command[]
+   * @var UI\Control\Command[]
    */
   protected $_commands = [];
 
   /**
    * Parameter name
    *
-   * @var \Papaya\Request\Parameters\Name
+   * @var Request\Parameters\Name
    */
   private $_parameterName;
 
@@ -51,22 +56,22 @@ class Controller
   /**
    * Initialize parameter controller, set parameter name and default command identifier
    *
-   * @param array|\Papaya\Request\Parameters\Name|string $parameterName
+   * @param array|Request\Parameters\Name|string $parameterName
    * @param string $defaultCommand
    */
   public function __construct($parameterName, $defaultCommand = '') {
-    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
-    $this->_defaultCommand = \Papaya\Utility\Text\Identifier::toUnderscoreLower($defaultCommand);
+    $this->_parameterName = new Request\Parameters\Name($parameterName);
+    $this->_defaultCommand = Utility\Text\Identifier::toUnderscoreLower($defaultCommand);
   }
 
   /**
    * Execute command and append output after validating the user permission
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (
       $this->validateCondition() &&
       $this->validatePermission() &&
@@ -76,16 +81,16 @@ class Controller
     ) {
       return $command->appendTo($parent);
     }
-    return;
+    return NULL;
   }
 
   /**
    * Get the current command, checking the parameter values and default command name.
    *
-   * @return null|\Papaya\UI\Control\Command
+   * @return null|UI\Control\Command
    */
   public function getCurrent() {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower(
+    $name = Utility\Text\Identifier::toUnderscoreLower(
       $this->owner()->parameters()->get((string)$this->_parameterName, '')
     );
     if (isset($this->_commands[$name])) {
@@ -94,7 +99,7 @@ class Controller
     if (isset($this->_commands[$this->_defaultCommand])) {
       return $this->_commands[$this->_defaultCommand];
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -105,7 +110,7 @@ class Controller
    * @return bool
    */
   public function offsetExists($name) {
-    return isset($this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)]);
+    return isset($this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)]);
   }
 
   /**
@@ -113,10 +118,10 @@ class Controller
    *
    * @param string $name
    *
-   * @return \Papaya\UI\Control\Command
+   * @return UI\Control\Command
    */
   public function offsetGet($name) {
-    return $this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)];
+    return $this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)];
   }
 
   /**
@@ -124,10 +129,10 @@ class Controller
    * added command if the controller has an owner.
    *
    * @param string $name
-   * @param \Papaya\UI\Control\Command $command
+   * @param UI\Control\Command $command
    */
   public function offsetSet($name, $command) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
     if ($this->hasOwner()) {
       $command->owner($this->owner());
     }
@@ -140,7 +145,7 @@ class Controller
    * @param string $name
    */
   public function offsetUnset($name) {
-    unset($this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)]);
+    unset($this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)]);
   }
 
   /**
@@ -164,13 +169,13 @@ class Controller
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param \Papaya\Request\Parameters\Access $owner
+   * @param Request\Parameters\Access $owner
    *
-   * @return \Papaya\Request\Parameters\Access
+   * @return Request\Parameters\Access
    */
-  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
+  public function owner(Request\Parameters\Access $owner = NULL) {
     if (NULL !== $owner) {
-      /** @var \Papaya\UI\Control\Command $command */
+      /** @var UI\Control\Command $command */
       foreach ($this->_commands as $command) {
         $command->owner($owner);
       }
@@ -194,7 +199,7 @@ class Controller
    *
    * @param string $name
    *
-   * @return null|\Papaya\UI\Control\Command
+   * @return null|UI\Control\Command
    */
   public function __get($name) {
     return $this->offsetGet($name);
@@ -204,7 +209,7 @@ class Controller
    * Magic method, threat the command names as properties to write them.
    *
    * @param string $name
-   * @param \Papaya\UI\Control\Command $command
+   * @param UI\Control\Command $command
    */
   public function __set($name, $command) {
     $this->offsetSet($name, $command);

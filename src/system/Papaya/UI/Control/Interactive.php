@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Control;
 
+use Papaya\Request;
+
 /**
  * Abstract superclass implementing basic features for handling request parameters in ui.
  *
@@ -22,7 +24,7 @@ namespace Papaya\UI\Control;
  */
 abstract class Interactive
   extends \Papaya\UI\Control
-  implements \Papaya\Request\Parameters\Access {
+  implements Request\Parameters\Access {
   /**
    * Parameter request method
    *
@@ -40,7 +42,7 @@ abstract class Interactive
   /**
    * Request parameters object
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -82,19 +84,19 @@ abstract class Interactive
    *
    * This method gives you access to request parameters.
    *
-   * @param \Papaya\Request\Parameters $parameters
+   * @param Request\Parameters $parameters
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     } elseif (NULL === $this->_parameters) {
       $sourceMapping = [
-        self::METHOD_GET => \Papaya\Request::SOURCE_QUERY,
-        self::METHOD_POST => \Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_POST => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_GET => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
+        self::METHOD_GET => Request::SOURCE_QUERY,
+        self::METHOD_POST => Request::SOURCE_BODY,
+        self::METHOD_MIXED_POST => Request::SOURCE_QUERY | Request::SOURCE_BODY,
+        self::METHOD_MIXED_GET => Request::SOURCE_QUERY | Request::SOURCE_BODY
       ];
       if (NULL !== $this->_parameterGroup) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(

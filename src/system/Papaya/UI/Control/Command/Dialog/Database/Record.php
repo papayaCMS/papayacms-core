@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Control\Command\Dialog\Database;
 
+use Papaya\Database;
+use Papaya\UI;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
  * callbacks are executed. This class adds record handling.
@@ -21,22 +24,28 @@ namespace Papaya\UI\Control\Command\Dialog\Database;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Record extends \Papaya\UI\Control\Command\Dialog {
+class Record extends UI\Control\Command\Dialog {
   const ACTION_SAVE = 'save';
 
   const ACTION_DELETE = 'delete';
 
+  /**
+   * @var Database\Interfaces\Record
+   */
   private $_record;
 
+  /**
+   * @var string
+   */
   private $_action;
 
   /**
    * This dialog command uses database record objects
    *
-   * @param \Papaya\Database\Interfaces\Record $record
+   * @param Database\Interfaces\Record $record
    * @param string $action
    */
-  public function __construct(\Papaya\Database\Interfaces\Record $record, $action = self::ACTION_SAVE) {
+  public function __construct(Database\Interfaces\Record $record, $action = self::ACTION_SAVE) {
     $this->record($record);
     $this->_action = $action;
   }
@@ -44,11 +53,11 @@ class Record extends \Papaya\UI\Control\Command\Dialog {
   /**
    * Getter/Setter for the database record
    *
-   * @param \Papaya\Database\Interfaces\Record $record
+   * @param Database\Interfaces\Record $record
    *
-   * @return \Papaya\Database\Interfaces\Record
+   * @return Database\Interfaces\Record
    */
-  public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
+  public function record(Database\Interfaces\Record $record = NULL) {
     if (NULL !== $record) {
       $this->_record = $record;
     }
@@ -58,15 +67,15 @@ class Record extends \Papaya\UI\Control\Command\Dialog {
   /**
    * Create a database record aware dialog.
    *
-   * @return \Papaya\UI\Dialog\Database\Delete|\Papaya\UI\Dialog\Database\Save
+   * @return UI\Dialog\Database\Delete|UI\Dialog\Database\Save
    */
   protected function createDialog() {
     switch ($this->_action) {
       case self::ACTION_DELETE :
-        $dialog = new \Papaya\UI\Dialog\Database\Delete($this->record());
+        $dialog = new UI\Dialog\Database\Delete($this->record());
       break;
       default :
-        $dialog = new \Papaya\UI\Dialog\Database\Save($this->record());
+        $dialog = new UI\Dialog\Database\Save($this->record());
       break;
     }
     $dialog->papaya($this->papaya());

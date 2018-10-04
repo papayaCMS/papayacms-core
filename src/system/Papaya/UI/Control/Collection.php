@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Control;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A collection list of interface controls with the same superclass. Allows access with array syntax
  * and iterations.
@@ -22,7 +26,7 @@ namespace Papaya\UI\Control;
  * @subpackage UI
  */
 class Collection
-  extends \Papaya\UI\Control
+  extends UI\Control
   implements \IteratorAggregate, \Countable, \ArrayAccess {
   /**
    * Most collection have an owner object, the generic handling stores it in this property
@@ -62,12 +66,12 @@ class Collection
    * Append item output to parent element. If a tag name was provided, the items will be wrapped
    * in an additional element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null parent the elements where appended to,
-   *                                  NULL if no items are appended.
+   * @return XML\Element|null parent the elements where appended to,
+   *                          NULL if no items are appended.
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (\count($this->_items) > 0) {
       if (!empty($this->_tagName)) {
         $parent = $parent->appendElement($this->_tagName);
@@ -78,7 +82,7 @@ class Collection
       }
       return $parent;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -92,10 +96,10 @@ class Collection
    * @return object
    */
   public function owner($owner = NULL) {
-    if (isset($owner)) {
-      \Papaya\Utility\Constraints::assertObject($owner);
-      if (isset($this->_ownerClass)) {
-        \Papaya\Utility\Constraints::assertInstanceOf($this->_ownerClass, $owner);
+    if (NULL !== $owner) {
+      Utility\Constraints::assertObject($owner);
+      if (NULL !== $this->_ownerClass) {
+        Utility\Constraints::assertInstanceOf($this->_ownerClass, $owner);
       }
       $this->_owner = $owner;
       if ($owner instanceof \Papaya\Application\Access) {
@@ -105,7 +109,7 @@ class Collection
         $this->prepareItem($item);
       }
     }
-    if (\is_null($this->_owner)) {
+    if (NULL === $this->_owner) {
       throw new \LogicException(
         \sprintf(
           'LogicException: Collection "%s" has no owner object.',
@@ -122,7 +126,7 @@ class Collection
    * @return bool
    */
   public function hasOwner() {
-    return isset($this->_owner);
+    return NULL !== $this->_owner;
   }
 
   /**
@@ -133,7 +137,7 @@ class Collection
    *
    * @throws \OutOfBoundsException
    *
-   * @return \Papaya\UI\Control
+   * @return UI\Control
    */
   public function get($offset) {
     $offset = $this->prepareOffset($offset);
@@ -192,11 +196,10 @@ class Collection
       $this->_items[$offset] = $this->prepareItem($item);
       $item->index($offset);
       return $this;
-    } else {
-      throw new \OutOfBoundsException(
-        \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
-      );
     }
+    throw new \OutOfBoundsException(
+      \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+    );
   }
 
   /**
@@ -218,11 +221,10 @@ class Collection
       \array_splice($this->_items, $offset, 0, [$this->prepareItem($item)]);
       $this->updateItemIndex($offset);
       return $this;
-    } else {
-      throw new \OutOfBoundsException(
-        \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
-      );
     }
+    throw new \OutOfBoundsException(
+      \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+    );
   }
 
   /**
@@ -304,7 +306,7 @@ class Collection
    *
    * @param int $offset
    *
-   * @return Collection\Item
+   * @return Collection\Item|UI\Control
    */
   public function offsetGet($offset) {
     return $this->get($offset);
@@ -318,7 +320,7 @@ class Collection
    * @param Collection\Item $item
    */
   public function offsetSet($offset, $item) {
-    if (\is_null($offset)) {
+    if (NULL === $offset) {
       $this->add($item);
     } else {
       $this->set($offset, $item);
@@ -338,8 +340,8 @@ class Collection
 
   /**
    * Prepare the item before adding it to the internal item list. This allows to do things like
-   * setting the application object or parameter group in subclasses. It sets the colelction so
-   * the item knopws the list it is in.
+   * setting the application object or parameter group in subclasses. It sets the collection so
+   * the item knows the list it is in.
    *
    * @param Collection\Item $item
    *
@@ -381,12 +383,11 @@ class Collection
    * @return int
    */
   protected function prepareOffset($offset) {
-    \Papaya\Utility\Constraints::assertInteger($offset);
+    Utility\Constraints::assertInteger($offset);
     if ($offset < 0) {
       return \count($this->_items) + $offset;
-    } else {
-      return $offset;
     }
+    return $offset;
   }
 
   /**

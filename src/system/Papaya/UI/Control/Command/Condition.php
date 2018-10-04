@@ -14,18 +14,23 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\Application;
+use Papaya\UI;
+
 /**
- * Abstract superclass for ui command condition, allow to specify conditions that hav to
- * be fullfilled to execute the command.
+ * Abstract superclass for UI command condition, allow to specify conditions that hav to
+ * be fulfilled to execute the command.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Condition extends \Papaya\Application\BaseObject {
+abstract class Condition implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * The command of the condition.
    *
-   * @param \Papaya\UI\Control\Command
+   * @param UI\Control\Command
    */
   private $_command;
 
@@ -42,13 +47,13 @@ abstract class Condition extends \Papaya\Application\BaseObject {
    * If the owner is emtpy and exception is thrown.
    *
    *
-   * @param \Papaya\UI\Control\Command $command
+   * @param UI\Control\Command $command
    *
    * @throws \LogicException
    *
-   * @return \Papaya\UI\Control\Command
+   * @return UI\Control\Command
    */
-  public function command(\Papaya\UI\Control\Command $command = NULL) {
+  public function command(UI\Control\Command $command = NULL) {
     if (NULL !== $command) {
       $this->_command = $command;
       $this->papaya($command->papaya());

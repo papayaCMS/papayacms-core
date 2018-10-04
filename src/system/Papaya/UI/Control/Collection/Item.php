@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Control\Collection;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A abstract superclass for collection items. This class provides access to the collection and
  * the position of the item in the collection.
@@ -21,7 +24,7 @@ namespace Papaya\UI\Control\Collection;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Item extends \Papaya\UI\Control {
+abstract class Item extends UI\Control {
   /**
    * Position of item in the collection
    *
@@ -32,7 +35,7 @@ abstract class Item extends \Papaya\UI\Control {
   /**
    * Owner collection of the item
    *
-   * @var \Papaya\UI\Control\Collection
+   * @var UI\Control\Collection
    */
   private $_collection;
 
@@ -40,7 +43,7 @@ abstract class Item extends \Papaya\UI\Control {
    * Return TRUE if the item is part of a collection.
    */
   public function hasCollection() {
-    return isset($this->_collection);
+    return NULL !== $this->_collection;
   }
 
   /**
@@ -48,16 +51,15 @@ abstract class Item extends \Papaya\UI\Control {
    *
    * @throws \BadMethodCallException
    *
-   * @param \Papaya\UI\Control\Collection $collection
+   * @param UI\Control\Collection $collection
    *
-   * @return \Papaya\UI\Control\Collection
+   * @return UI\Control\Collection
    */
-  public function collection(\Papaya\UI\Control\Collection $collection = NULL) {
-    if (isset($collection)) {
+  public function collection(UI\Control\Collection $collection = NULL) {
+    if (NULL !== $collection) {
       $this->_collection = $collection;
       $this->papaya($collection->papaya());
-    }
-    if (\is_null($this->_collection)) {
+    } elseif (NULL === $this->_collection) {
       throw new \BadMethodCallException(
         'BadMethodCallException: Item ist not part of a collection.'
       );
@@ -75,9 +77,11 @@ abstract class Item extends \Papaya\UI\Control {
    * @return int
    */
   public function index($index = NULL) {
-    if (isset($index) &&
-      $index != $this->_index) {
-      \Papaya\Utility\Constraints::assertInteger($index);
+    if (
+      NULL !== $index &&
+      (int)$index !== $this->_index
+    ) {
+      Utility\Constraints::assertInteger($index);
       if ($this->collection()->get($index) === $this) {
         $this->_index = $index;
       } else {

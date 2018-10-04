@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A command that executes an action depending on a specific set of parameters
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Action extends \Papaya\UI\Control\Command {
+class Action extends UI\Control\Command {
   /**
    * Dialog object
    *
@@ -38,11 +42,11 @@ class Action extends \Papaya\UI\Control\Command {
   /**
    * Execute command and append result to output xml
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if ($this->data()->validate()) {
       $this->callbacks()->onValidationSuccessful($this, $parent);
     } else {
@@ -54,11 +58,11 @@ class Action extends \Papaya\UI\Control\Command {
   /**
    * Getter/Setter to the validated parameters data subobject.
    *
-   * @param \Papaya\Request\Parameters\Validator $data
+   * @param Request\Parameters\Validator $data
    *
-   * @return \Papaya\Request\Parameters\Validator|\Papaya\UI\Dialog
+   * @return Request\Parameters\Validator|\Papaya\UI\Dialog
    */
-  public function data(\Papaya\Request\Parameters\Validator $data = NULL) {
+  public function data(Request\Parameters\Validator $data = NULL) {
     if (NULL !== $data) {
       $this->_data = $data;
     } elseif (NULL === $this->_data) {
@@ -72,10 +76,10 @@ class Action extends \Papaya\UI\Control\Command {
    *
    * @param array|null $definitions
    *
-   * @return \Papaya\Request\Parameters\Validator
+   * @return Request\Parameters\Validator
    */
   protected function _createData(array $definitions = NULL) {
-    return new \Papaya\Request\Parameters\Validator(
+    return new Request\Parameters\Validator(
       NULL !== $definitions ? $definitions : $this->callbacks()->getDefinition(),
       $this->parameters()
     );

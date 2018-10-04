@@ -14,13 +14,15 @@
  */
 namespace Papaya\UI\Control\Command\Condition;
 
+use Papaya\UI;
+
 /**
  * A command condition based on a value.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Value extends \Papaya\UI\Control\Command\Condition {
+class Value extends UI\Control\Command\Condition {
   /**
    * member variable to store the value
    *

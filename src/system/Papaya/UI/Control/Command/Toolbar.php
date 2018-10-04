@@ -14,39 +14,42 @@
  */
 namespace Papaya\UI\Control\Command;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A command that adds elements to a provided toolbar, this will not add elements to the DOM but
- * the papayaUI toolbar obkject.
+ * the papayaUI toolbar object.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Toolbar extends \Papaya\UI\Control\Command {
+abstract class Toolbar extends UI\Control\Command {
   /**
-   * @var \Papaya\UI\Toolbar\Elements
+   * @var UI\Toolbar\Elements
    */
   private $_elements;
 
   /**
-   * Append the elements to the provided toolbar, buttons, dropdowns, ...
+   * Append the elements to the provided toolbar, buttons, ...
    */
   abstract public function appendToolbarElements();
 
   /**
-   * @param \Papaya\UI\Toolbar\Elements $elements
+   * @param UI\Toolbar\Elements $elements
    */
-  public function __construct(\Papaya\UI\Toolbar\Elements $elements) {
+  public function __construct(UI\Toolbar\Elements $elements) {
     $this->elements($elements);
   }
 
   /**
    * Getter/Setter for the toolbar elements
    *
-   * @param \Papaya\UI\Toolbar\Elements $elements
+   * @param UI\Toolbar\Elements $elements
    *
-   * @return \Papaya\UI\Toolbar\Elements
+   * @return UI\Toolbar\Elements
    */
-  public function elements(\Papaya\UI\Toolbar\Elements $elements = NULL) {
+  public function elements(UI\Toolbar\Elements $elements = NULL) {
     if (NULL !== $elements) {
       $this->_elements = $elements;
     }
@@ -56,11 +59,11 @@ abstract class Toolbar extends \Papaya\UI\Control\Command {
   /**
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $this->appendToolbarElements();
     return $parent;
   }
