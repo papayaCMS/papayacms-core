@@ -22,7 +22,7 @@ namespace Papaya\UI\Dialog;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Button extends \Papaya\UI\Dialog\Element {
+abstract class Button extends Element {
   /**
    * Button alignment constant: right (default)
    */
@@ -55,6 +55,6 @@ abstract class Button extends \Papaya\UI\Dialog\Element {
    * @param int $align
    */
   public function setAlign($align) {
-    $this->_align = $align;
+    $this->_align = (int)$align;
   }
 }

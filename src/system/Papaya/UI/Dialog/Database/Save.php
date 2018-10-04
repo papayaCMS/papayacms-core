@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Database;
 
+use Papaya\UI;
+
 /**
  * A dialog that can add/edit a record to a database table using a
  * {@see \Papaya\Database\BaseObject\Record} object.
@@ -21,7 +23,7 @@ namespace Papaya\UI\Dialog\Database;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Save extends \Papaya\UI\Dialog\Database {
+class Save extends UI\Dialog\Database {
   /**
    * If the dialog is successfully executed the records is saved.
    *
@@ -35,6 +37,7 @@ class Save extends \Papaya\UI\Dialog\Database {
       $record = clone $this->record();
       $record->assign($this->data());
       $record->assign($this->hiddenFields());
+      /** @noinspection NotOptimalIfConditionsInspection */
       if ($this->callbacks()->onBeforeSave($record) && $record->save()) {
         $this->record()->assign($record->toArray());
         return TRUE;

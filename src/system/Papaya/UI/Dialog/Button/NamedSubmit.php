@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Button;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A named submit button sets a value in the dialog data if it was "clicked".
  *
@@ -44,7 +47,7 @@ class NamedSubmit extends Submit {
    * @param int $align
    */
   public function __construct(
-    $caption, $name, $value = '1', $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT
+    $caption, $name, $value = '1', $align = UI\Dialog\Button::ALIGN_RIGHT
   ) {
     parent::__construct($caption, $align);
     \Papaya\Utility\Constraints::assertString($name);
@@ -55,16 +58,16 @@ class NamedSubmit extends Submit {
   }
 
   /**
-   * Append button ouptut to DOM
+   * Append button output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'button',
       [
         'type' => 'submit',
-        'align' => (\Papaya\UI\Dialog\Button::ALIGN_LEFT == $this->_align) ? 'left' : 'right',
+        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
         'name' => $this->_getParameterName([$this->_name, $this->_value])
       ],
       (string)$this->_caption
