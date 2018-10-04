@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\ListView\Item\Paging;
 
+use Papaya\UI;
+
 /**
  * Provides several links to navigate to the next pages of a list in a listview. This
  * output links to pages with a higher number.
@@ -21,7 +23,7 @@ namespace Papaya\UI\ListView\Item\Paging;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Up extends \Papaya\UI\ListView\Item\Paging {
+class Up extends UI\ListView\Item\Paging {
   protected $_image = 'actions-go-next';
 
   /**

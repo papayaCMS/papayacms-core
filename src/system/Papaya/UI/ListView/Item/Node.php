@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView\Item;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Provides a node marker for a listview item
  *
@@ -30,10 +33,10 @@ namespace Papaya\UI\ListView\Item;
  * @subpackage UI
  *
  * @property int $status
- * @property \Papaya\UI\Reference $reference
- * @property-read \Papaya\UI\ListView\Item $item
+ * @property UI\Reference $reference
+ * @property-read UI\ListView\Item $item
  */
-class Node extends \Papaya\UI\Control {
+class Node extends UI\Control {
   const NODE_HIDDEN = 0;
 
   const NODE_EMPTY = 1;
@@ -42,19 +45,22 @@ class Node extends \Papaya\UI\Control {
 
   const NODE_OPEN = 3;
 
-  private $_statusStrings = [
+  /**
+   * @var array
+   */
+  private static $_statusStrings = [
     self::NODE_EMPTY => 'empty',
     self::NODE_CLOSED => 'closed',
     self::NODE_OPEN => 'open',
   ];
 
   /**
-   * @var \Papaya\UI\ListView\Item
+   * @var UI\ListView\Item
    */
   protected $_item;
 
   /**
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
   protected $_reference;
 
@@ -77,10 +83,10 @@ class Node extends \Papaya\UI\Control {
   /**
    * Store the owner item and set an status
    *
-   * @param \Papaya\UI\ListView\Item $item
+   * @param UI\ListView\Item $item
    * @param int $status
    */
-  public function __construct(\Papaya\UI\ListView\Item $item, $status = self::NODE_HIDDEN) {
+  public function __construct(UI\ListView\Item $item, $status = self::NODE_HIDDEN) {
     $this->_item = $item;
     $this->setStatus($status);
   }
@@ -88,25 +94,25 @@ class Node extends \Papaya\UI\Control {
   /**
    * Append the listview item node marker to the parent xml element
    *
-   * @param \Papaya\XML\Element $parent
-   * @param \Papaya\XML\Element|null
+   * @param XML\Element $parent
+   * @param XML\Element|null
    *
-   * @return null|\Papaya\XML\Element
+   * @return null|XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (self::NODE_HIDDEN != $this->status) {
+  public function appendTo(XML\Element $parent) {
+    if (self::NODE_HIDDEN !== $this->status) {
       $node = $parent->appendElement(
         'node',
         [
-          'status' => $this->_statusStrings[$this->status]
+          'status' => self::$_statusStrings[$this->status]
         ]
       );
-      if (self::NODE_EMPTY != $this->status) {
+      if (self::NODE_EMPTY !== $this->status) {
         $node->setAttribute('href', (string)$this->reference());
       }
       return $node;
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -115,7 +121,7 @@ class Node extends \Papaya\UI\Control {
    * @param int $status
    */
   public function setStatus($status) {
-    if (isset($this->_statusStrings[$status])) {
+    if (isset(self::$_statusStrings[$status])) {
       $this->_status = (int)$status;
     } else {
       $this->_status = self::NODE_HIDDEN;
@@ -126,12 +132,12 @@ class Node extends \Papaya\UI\Control {
    * Getter/Setter for the node reference, if no reference is provided it is cloned
    * from the item.
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
       $this->_reference = clone $this->item->reference();

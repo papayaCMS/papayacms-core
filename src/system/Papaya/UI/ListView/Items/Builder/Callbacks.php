@@ -14,21 +14,24 @@
  */
 namespace Papaya\UI\ListView\Items\Builder;
 
+use Papaya\BaseObject;
+use Papaya\UI;
+
 /**
  * Callbacks that are used by the listview items builder
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\BaseObject\Callback $onBeforeFill
- * @property \Papaya\BaseObject\Callback $onAfterFill
- * @property \Papaya\BaseObject\Callback $onCreateItem
+ * @property BaseObject\Callback $onBeforeFill
+ * @property BaseObject\Callback $onAfterFill
+ * @property BaseObject\Callback $onCreateItem
  *
- * @method bool onBeforeFill(\Papaya\UI\ListView\Items $items) if the callback returns FALSE, the items will be cleared.
- * @method bool onAfterFill(\Papaya\UI\ListView\Items $items)
- * @method bool onCreateItem(\Papaya\UI\ListView\Items $items, mixed $element, int $index)
+ * @method bool onBeforeFill(UI\ListView\Items $items) if the callback returns FALSE, the items will be cleared.
+ * @method bool onAfterFill(UI\ListView\Items $items)
+ * @method bool onCreateItem(UI\ListView\Items $items, mixed $element, int $index)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   /**
    * Initialize object and set callback definition
    */

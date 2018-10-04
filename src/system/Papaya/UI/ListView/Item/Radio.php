@@ -14,39 +14,55 @@
  */
 namespace Papaya\UI\ListView\Item;
 
-class Radio extends \Papaya\UI\ListView\Item {
-  private $_fieldName = '';
+use Papaya\UI;
+use Papaya\XML;
+
+class Radio extends UI\ListView\Item {
+  /**
+   * @var string
+   */
+  private $_fieldName;
 
   /**
-   * @var \Papaya\UI\Dialog
+   * @var UI\Dialog
    */
   private $_dialog;
 
-  private $_value = '';
+  /**
+   * @var mixed
+   */
+  private $_value;
 
+  /**
+   * @var bool
+   */
   private $_checked;
 
   /**
    * @param string $image
    * @param \Papaya\UI\Text|string $caption
-   * @param \Papaya\UI\Dialog $dialog
-   * @param bool $fieldName
-   * @param $value
+   * @param UI\Dialog $dialog
+   * @param string $fieldName
+   * @param mixed $value
    */
-  public function __construct($image, $caption, \Papaya\UI\Dialog $dialog, $fieldName, $value) {
+  public function __construct($image, $caption, UI\Dialog $dialog, $fieldName, $value) {
     parent::__construct($image, $caption);
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;
     $this->_value = $value;
   }
 
-  public function appendTo(\Papaya\XML\Element $parent) {
+  /**
+   * @param XML\Element $parent
+   * @return XML\Element|void
+   */
+  public function appendTo(XML\Element $parent) {
     $node = parent::appendTo($parent);
     $input = $node->appendElement(
       'input',
       [
         'type' => 'radio',
-        'name' => new \Papaya\UI\Dialog\Field\Parameter\Name($this->_fieldName, $this->_dialog),
+        'name' => new UI\Dialog\Field\Parameter\Name($this->_fieldName, $this->_dialog),
         'value' => $this->_value
       ]
     );
