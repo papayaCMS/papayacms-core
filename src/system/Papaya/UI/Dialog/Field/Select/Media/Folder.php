@@ -14,13 +14,22 @@
  */
 namespace Papaya\UI\Dialog\Field\Select\Media;
 
+use Papaya\Content;
+use Papaya\Iterator;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A selection field displayed as radio boxes, only a single value can be selected.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Folder extends \Papaya\UI\Dialog\Field {
+class Folder extends UI\Dialog\Field {
+  /**
+   * @var Content\Media\Folders
+   */
   private $_folders;
 
   public function __construct($caption, $name) {
@@ -31,9 +40,9 @@ class Folder extends \Papaya\UI\Dialog\Field {
   /**
    * Append select field to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(
       'select',
@@ -42,19 +51,19 @@ class Folder extends \Papaya\UI\Dialog\Field {
         'type' => 'dropdown',
       ]
     );
-    $iterator = new \RecursiveIteratorIterator(
-      $this->mediaFolders(), \RecursiveIteratorIterator::SELF_FIRST
+    $iterator = new Iterator\RecursiveTraversableIterator(
+      $this->mediaFolders(), Iterator\RecursiveTraversableIterator::SELF_FIRST
     );
     foreach ($iterator as $folderId => $folder) {
       $caption = '';
       if ($iterator->getDepth() > 0) {
         $caption .= \str_repeat('  ', $iterator->getDepth() - 1).'->';
       }
-      $caption .= \Papaya\Utility\Arrays::get($folder, 'title', '');
+      $caption .= Utility\Arrays::get($folder, 'title', '');
       $option = $select->appendElement(
         'option', ['value' => $folderId], $caption
       );
-      if ($folderId == $this->getCurrentValue()) {
+      if ($folderId === $this->getCurrentValue()) {
         $option->setAttribute('selected', 'selected');
       }
     }
@@ -64,16 +73,16 @@ class Folder extends \Papaya\UI\Dialog\Field {
    * Getter/Setter for the media folders data object, it implements \IteratorAggregate and
    * returning a RecursiveIterator
    *
-   * @param \Papaya\Content\Media\Folders $folders
+   * @param Content\Media\Folders $folders
    *
-   * @return \Papaya\Content\Media\Folders
+   * @return Content\Media\Folders
    */
-  public function mediaFolders(\Papaya\Content\Media\Folders $folders = NULL) {
-    if (isset($folders)) {
+  public function mediaFolders(Content\Media\Folders $folders = NULL) {
+    if (NULL !== $folders) {
       $this->_folders = $folders;
       $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
-    } elseif (NULL == $this->_folders) {
-      $this->_folders = new \Papaya\Content\Media\Folders();
+    } elseif (NULL === $this->_folders) {
+      $this->_folders = new Content\Media\Folders();
       $this->_folders->activateLazyLoad();
       $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
     }

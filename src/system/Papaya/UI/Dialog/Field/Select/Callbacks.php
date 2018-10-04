@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Select;
 
+use Papaya\BaseObject;
+
 /**
  * Callbacks that are used by the dialog select field
  *
@@ -22,15 +24,15 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\BaseObject\Callback $getOptionCaption
- * @property \Papaya\BaseObject\Callback $getOptionGroupCaption
- * @property \Papaya\BaseObject\Callback $getOptionData
+ * @property BaseObject\Callback $getOptionCaption
+ * @property BaseObject\Callback $getOptionGroupCaption
+ * @property BaseObject\Callback $getOptionData
  *
  * @method string getOptionCaption($option, $index)
  * @method string getOptionGroupCaption($option, $index)
  * @method array getOptionData($option, $index)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   public function __construct() {
     parent::__construct(
       [

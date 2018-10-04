@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Dialog\Field\Select;
 
+use Papaya\UI;
+
 /**
  * A selection field displayed as checkboxes, mutiple values can be selected.
  *
@@ -22,7 +24,7 @@ namespace Papaya\UI\Dialog\Field\Select;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Bitmask extends \Papaya\UI\Dialog\Field\Select {
+class Bitmask extends UI\Dialog\Field\Select {
   /**
    * type of the select control, used in the xslt template
    *
@@ -76,9 +78,11 @@ class Bitmask extends \Papaya\UI\Dialog\Field\Select {
    */
   public function getCurrentValue() {
     $name = $this->getName();
-    if ($this->hasCollection() &&
-      $this->collection()->hasOwner() &&
-      !empty($name)) {
+    if (
+      '' !== \trim($name) &&
+      $this->hasCollection() &&
+      $this->collection()->hasOwner()
+    ) {
       if ($this->collection()->owner()->parameters()->has($name)) {
         $bits = $this->collection()->owner()->parameters()->get($name);
         $bitmask = 0;
@@ -88,7 +92,8 @@ class Bitmask extends \Papaya\UI\Dialog\Field\Select {
           }
         }
         return $bitmask;
-      } elseif ($this->collection()->owner()->isSubmitted()) {
+      }
+      if ($this->collection()->owner()->isSubmitted()) {
         return 0;
       }
     }
