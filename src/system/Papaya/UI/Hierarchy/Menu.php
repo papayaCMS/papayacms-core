@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Hierarchy;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A hierarchy menu is used to show a line of links representing the current hierarchy of data.
  *
@@ -22,7 +25,7 @@ namespace Papaya\UI\Hierarchy;
  *
  * @property Items $items
  */
-class Menu extends \Papaya\UI\Control {
+class Menu extends UI\Control {
   /**
    * Items buffer variable
    *
@@ -42,18 +45,17 @@ class Menu extends \Papaya\UI\Control {
   /**
    * Append menu to parent xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (\count($this->items()) > 0) {
       $menu = $parent->appendElement('hierarchy-menu');
       $this->items()->appendTo($menu);
       return $menu;
-    } else {
-      return;
     }
+    return NULL;
   }
 
   /**

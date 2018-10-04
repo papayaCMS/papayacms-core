@@ -14,8 +14,11 @@
  */
 namespace Papaya\UI\Hierarchy;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
- * A collection of items representaiton the hierarchy of the current data element.
+ * A collection of items representation the hierarchy of the current data element.
  *
  * @package Papaya-Library
  * @subpackage UI
@@ -23,7 +26,7 @@ namespace Papaya\UI\Hierarchy;
  * @property int $limit limit the create links
  * @property Item $spacer a spacer replacing the items not shown
  */
-class Items extends \Papaya\UI\Control\Collection {
+class Items extends UI\Control\Collection {
   /**
    * Superclass for validation, only items of this class may be added.
    *
@@ -69,11 +72,11 @@ class Items extends \Papaya\UI\Control\Collection {
    * Append item output to parent element. If a tag name was provided, the items will be wrapped
    * in an additional element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $count = \count($this->_items);
     if ($this->_limit > 0 && $count > $this->_limit) {
       $parent = $parent->appendElement($this->_tagName);
@@ -104,9 +107,9 @@ class Items extends \Papaya\UI\Control\Collection {
    * @return Item
    */
   public function spacer(Item $spacer = NULL) {
-    if (isset($spacer)) {
+    if (NULL !== $spacer) {
       $this->_spacer = $spacer;
-    } elseif (\is_null($this->_spacer)) {
+    } elseif (NULL === $this->_spacer) {
       $this->_spacer = new Item('...');
       $this->_spacer->papaya($this->papaya());
     }
