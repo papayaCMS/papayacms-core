@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Paging;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Output paging links based on a item count.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  * @property string|array $parameterName
  * @property int $currentPage
  * @property int $lastPage
@@ -28,7 +32,7 @@ namespace Papaya\UI\Paging;
  * @property int $itemsPerPage
  * @property int $pageLimit
  */
-class Count extends \Papaya\UI\Control {
+class Count extends UI\Control {
   const LINK_FIRST = 'first';
 
   const LINK_PREVIOUS = 'previous';
@@ -42,7 +46,7 @@ class Count extends \Papaya\UI\Control {
   /**
    * reference (link) object
    *
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
   protected $_reference;
 
@@ -84,7 +88,7 @@ class Count extends \Papaya\UI\Control {
   protected $_currentPage;
 
   /**
-   * The minimum page value. This is caluclated using the button limit.
+   * The minimum page value. This is calculated using the button limit.
    * It changes with the current page.
    *
    * @var int|null
@@ -92,7 +96,7 @@ class Count extends \Papaya\UI\Control {
   private $_minimumPage;
 
   /**
-   * The maximum page value. This is caluclated using the button limit.
+   * The maximum page value. This is calculated using the button limit.
    * It changes with the current page.
    *
    * @var int|null
@@ -197,12 +201,12 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append a list of paging links to the parent.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
-      $list = $this->appendListElement($parent, $this->_itemsCount);
+      $list = $this->appendListElement($parent);
       $current = $this->getCurrentPage();
       if ($current > 2) {
         $this->appendPageElement($list, 1, self::LINK_FIRST);
@@ -211,7 +215,7 @@ class Count extends \Papaya\UI\Control {
         $this->appendPageElement($list, $current - 1, self::LINK_PREVIOUS);
       }
       for ($page = $this->_minimumPage; $page <= $this->_maximumPage; ++$page) {
-        $this->appendPageElement($list, $page, $page == $current ? self::LINK_SELECTED : NULL);
+        $this->appendPageElement($list, $page, $page === $current ? self::LINK_SELECTED : NULL);
       }
       if ($current < $this->_lastPage) {
         $this->appendPageElement($list, $current + 1, self::LINK_NEXT);
@@ -225,11 +229,11 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append the list element to the xml
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  protected function appendListElement(\Papaya\XML\Element $parent) {
+  protected function appendListElement(XML\Element $parent) {
     return $parent->appendElement(
       $this->_xmlNames['list'], [$this->_xmlNames['attr-count'] => $this->getLastPage()]
     );
@@ -238,13 +242,13 @@ class Count extends \Papaya\UI\Control {
   /**
    * Append one paging link xml element to the list
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    * @param int $page
    * @param string|null $type
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  protected function appendPageElement(\Papaya\XML\Element $parent, $page, $type = NULL) {
+  protected function appendPageElement(XML\Element $parent, $page, $type = NULL) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,
@@ -257,9 +261,9 @@ class Count extends \Papaya\UI\Control {
         $this->_xmlNames['attr-page'] => $page
       ]
     );
-    if (self::LINK_SELECTED == $type) {
+    if (self::LINK_SELECTED === $type) {
       $item->setAttribute($this->_xmlNames['attr-selected'], $this->_xmlNames['attr-selected']);
-    } elseif (!empty($type)) {
+    } elseif ('' !== \trim($type)) {
       $item->setAttribute($this->_xmlNames['attr-type'], $type);
     }
     return $item;
@@ -268,16 +272,15 @@ class Count extends \Papaya\UI\Control {
   /**
    * Getter/Setter for the reference object (the link url)
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    }
-    if (\is_null($this->_reference)) {
-      $this->_reference = new \Papaya\UI\Reference();
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -291,7 +294,7 @@ class Count extends \Papaya\UI\Control {
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    \Papaya\Utility\Constraints::assertInteger($itemsCount);
+    Utility\Constraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -310,7 +313,7 @@ class Count extends \Papaya\UI\Control {
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    \Papaya\Utility\Constraints::assertInteger($itemsPerPage);
+    Utility\Constraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -329,7 +332,7 @@ class Count extends \Papaya\UI\Control {
    * @throws \UnexpectedValueException
    */
   public function setPageLimit($pageLimit) {
-    \Papaya\Utility\Constraints::assertInteger($pageLimit);
+    Utility\Constraints::assertInteger($pageLimit);
     if ($pageLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 3.'
@@ -361,14 +364,14 @@ class Count extends \Papaya\UI\Control {
   }
 
   /**
-   * Resets the internal calculation result to NULL. This way they are caluclated again if needed.
+   * Resets the internal calculation result to NULL. This way they are calculated again if needed.
    */
   private function reset() {
     $this->_calculated = FALSE;
   }
 
   /**
-   * Calculate sevaral internal limits for the button output.
+   * Calculate several internal limits for the button output.
    */
   private function calculate() {
     if ($this->_calculated) {

@@ -14,23 +14,26 @@
  */
 namespace Papaya\UI\Panel;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A panel containing an iframe showing an given reference.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $height
- * @property \Papaya\UI\Reference $reference
- * @property \Papaya\UI\Toolbars $toolbars
+ * @property UI\Reference $reference
+ * @property UI\Toolbars $toolbars
  */
-class Frame extends \Papaya\UI\Panel {
+class Frame extends UI\Panel {
   /**
    * The url reference object.
    *
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
   protected $_reference;
 
@@ -49,7 +52,7 @@ class Frame extends \Papaya\UI\Panel {
   protected $_height = '400';
 
   /**
-   * Declared public properties, see property annotaiton of the class for documentation.
+   * Declared public properties, see property annotation of the class for documentation.
    *
    * @var array
    */
@@ -64,7 +67,7 @@ class Frame extends \Papaya\UI\Panel {
   /**
    * Initialize object and store parameters.
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    * @param string $name
    * @param string $height
    */
@@ -78,8 +81,10 @@ class Frame extends \Papaya\UI\Panel {
    * Append iframe to panel xml element.
    *
    * @see \Papaya\UI\Panel#appendTo($parent)
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',
@@ -95,15 +100,15 @@ class Frame extends \Papaya\UI\Panel {
   /**
    * Getter/Setter for the reference object.
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
+  public function reference(UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference();
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

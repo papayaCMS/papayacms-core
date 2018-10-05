@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Reference;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\URL;
+
 /**
  * Papaya Interface Page Reference (Hyperlink Reference)
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Page extends \Papaya\UI\Reference {
+class Page extends UI\Reference {
   /**
    * Page identification data
    *
@@ -41,11 +45,11 @@ class Page extends \Papaya\UI\Reference {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\URL $url
+   * @param URL $url
    *
    * @return self
    */
-  public static function create(\Papaya\URL $url = NULL) {
+  public static function create(URL $url = NULL) {
     return new self($url);
   }
 
@@ -86,29 +90,29 @@ class Page extends \Papaya\UI\Reference {
   /**
    * @see \Papaya\UI\Reference::load()
    *
-   * @param \Papaya\Request $request
+   * @param Request $request
    *
-   * @return $this|\Papaya\UI\Reference
+   * @return $this
    */
-  public function load(\Papaya\Request $request) {
+  public function load(Request $request) {
     parent::load($request);
     $this->setPageTitle(
-      $request->getParameter('page_title', 'index', NULL, \Papaya\Request::SOURCE_PATH)
+      $request->getParameter('page_title', 'index', NULL, Request::SOURCE_PATH)
     );
     $this->setPageId(
-      $request->getParameter('page_id', 0, NULL, \Papaya\Request::SOURCE_PATH),
+      $request->getParameter('page_id', 0, NULL, Request::SOURCE_PATH),
       FALSE
     );
     $this->setPageLanguage(
-      $request->getParameter('language', '', NULL, \Papaya\Request::SOURCE_PATH),
+      $request->getParameter('language', '', NULL, Request::SOURCE_PATH),
       FALSE
     );
     $this->setOutputMode(
-      $request->getParameter('output_mode', 'html', NULL, \Papaya\Request::SOURCE_PATH)
+      $request->getParameter('output_mode', 'html', NULL, Request::SOURCE_PATH)
     );
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH),
-      $request->getParameter('preview_time', 0, NULL, \Papaya\Request::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, Request::SOURCE_PATH),
+      $request->getParameter('preview_time', 0, NULL, Request::SOURCE_PATH)
     );
     return $this;
   }
@@ -119,13 +123,13 @@ class Page extends \Papaya\UI\Reference {
    * @param int $pageId
    * @param bool $autoConfigure
    *
-   * @return self
+   * @return $this
    */
   public function setPageId($pageId, $autoConfigure = TRUE) {
     $this->prepare();
     if ($pageId > 0) {
       $this->_pageData['id'] = (int)$pageId;
-      if ($autoConfigure && $pageId > 0 && ($factory = $this->pageReferences())) {
+      if ($autoConfigure && ($factory = $this->pageReferences())) {
         $factory->configure($this);
       }
     }
@@ -146,7 +150,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param $pageTitle
    *
-   * @return self
+   * @return $this
    */
   public function setPageTitle($pageTitle) {
     $this->prepare();
@@ -176,7 +180,7 @@ class Page extends \Papaya\UI\Reference {
    * @param string $languageIdentifier
    * @param bool $autoConfigure
    *
-   * @return self
+   * @return $this
    */
   public function setPageLanguage($languageIdentifier, $autoConfigure = TRUE) {
     $this->prepare();
@@ -200,7 +204,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param int $categoryId
    *
-   * @return self
+   * @return $this
    */
   public function setCategoryId($categoryId) {
     $this->prepare();
@@ -215,7 +219,7 @@ class Page extends \Papaya\UI\Reference {
    *
    * @param string $outputMode
    *
-   * @return self
+   * @return $this
    */
   public function setOutputMode($outputMode) {
     $this->prepare();
@@ -240,12 +244,12 @@ class Page extends \Papaya\UI\Reference {
    * @param bool $isPreview
    * @param int $previewTime optional, default value 0
    *
-   * @return self
+   * @return $this
    */
   public function setPreview($isPreview, $previewTime = NULL) {
     $this->prepare();
     $this->_pageData['preview'] = (bool)$isPreview;
-    if ($isPreview && isset($previewTime)) {
+    if ($isPreview && NULL !== $previewTime) {
       $this->_pageData['preview_time'] = (int)$previewTime;
     } elseif (!$isPreview) {
       $this->_pageData['preview_time'] = 0;
@@ -257,12 +261,12 @@ class Page extends \Papaya\UI\Reference {
    * Getter/Setter for the page reference factory - an object that load page and domain
    * data for links.
    *
-   * @param \Papaya\UI\Reference\Page\Factory $factory
+   * @param Page\Factory $factory
    *
-   * @return \Papaya\UI\Reference\Page\Factory
+   * @return Page\Factory
    */
-  public function pageReferences(\Papaya\UI\Reference\Page\Factory $factory = NULL) {
-    if (isset($factory)) {
+  public function pageReferences(Page\Factory $factory = NULL) {
+    if (NULL !== $factory) {
       $this->_pageReferences = $factory;
     } elseif (NULL === $this->_pageReferences && isset($this->papaya()->pageReferences)) {
       $this->_pageReferences = $this->papaya()->pageReferences;

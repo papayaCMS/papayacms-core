@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Paging;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Output paging steps size links based on a list.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  * @property string|array $parameterName
  * @property int $currentStepSize
  * @property array|\Traversable $stepSizes
@@ -28,15 +32,24 @@ namespace Papaya\UI\Paging;
  * @property int $itemsPerPage
  * @property int $pageLimit
  */
-class Steps extends \Papaya\UI\Control {
+class Steps extends UI\Control {
   const USE_KEYS = 0;
 
   const USE_VALUES = 1;
 
+  /**
+   * @var UI\Reference
+   */
   private $_reference;
 
+  /**
+   * @var array
+   */
   private $_stepSizes = [];
 
+  /**
+   * @var int
+   */
   private $_mode = self::USE_VALUES;
 
   /**
@@ -49,7 +62,7 @@ class Steps extends \Papaya\UI\Control {
   /**
    * The current step size
    *
-   * @var string|int
+   * @var int
    */
   protected $_currentStepSize = 0;
 
@@ -88,21 +101,21 @@ class Steps extends \Papaya\UI\Control {
    */
   public function __construct($parameterName, $currentStepSize, $stepSizes) {
     $this->_parameterName = $parameterName;
-    $this->_currentStepSize = $currentStepSize;
+    $this->_currentStepSize = (int)$currentStepSize;
     $this->setStepSizes($stepSizes);
   }
 
   /**
    * Append stepSize elements top parent xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
-      $parameterValue = self::USE_KEYS == $this->_mode ? $key : (string)$stepSize;
+      $parameterValue = (int)(self::USE_KEYS === $this->_mode ? $key : $stepSize);
       $reference = clone $this->reference();
       $reference->getParameters()->set($this->_parameterName, $parameterValue);
       $stepSizeNode = $list->appendElement(
@@ -112,7 +125,7 @@ class Steps extends \Papaya\UI\Control {
         ],
         (string)$stepSize
       );
-      if ($parameterValue == $this->_currentStepSize) {
+      if ($parameterValue === $this->_currentStepSize) {
         $stepSizeNode->setAttribute(
           $this->_xmlNames['attr-selected'], $this->_xmlNames['attr-selected']
         );
@@ -151,7 +164,7 @@ class Steps extends \Papaya\UI\Control {
    * @param \Traversable|array $stepSizes
    */
   public function setStepSizes($stepSizes) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($stepSizes);
+    Utility\Constraints::assertArrayOrTraversable($stepSizes);
     $this->_stepSizes = $stepSizes;
   }
 
@@ -167,15 +180,15 @@ class Steps extends \Papaya\UI\Control {
   /**
    * Getter/Setter for the reference subobject.
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return null|\Papaya\UI\Reference
+   * @return null|UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (\is_null($this->_reference)) {
-      $this->_reference = new \Papaya\UI\Reference();
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

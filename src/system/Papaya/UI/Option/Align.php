@@ -64,9 +64,8 @@ class Align {
   public static function getString($align) {
     if (isset(self::$_alignAttributes[$align])) {
       return self::$_alignAttributes[$align];
-    } else {
-      return self::$_alignAttributes[self::LEFT];
     }
+    return self::$_alignAttributes[self::LEFT];
   }
 
   /**
@@ -83,12 +82,12 @@ class Align {
   public static function validate($align, $message = NULL) {
     if (isset(self::$_alignAttributes[$align])) {
       return TRUE;
-    } elseif (isset($message)) {
-      throw new \InvalidArgumentException($message);
-    } else {
-      throw new \InvalidArgumentException(
-        \sprintf('InvalidArgumentException: Invalid align value "%d".', $align)
-      );
     }
+    if (NULL !== $message) {
+      throw new \InvalidArgumentException($message);
+    }
+    throw new \InvalidArgumentException(
+      \sprintf('InvalidArgumentException: Invalid align value "%d".', $align)
+    );
   }
 }

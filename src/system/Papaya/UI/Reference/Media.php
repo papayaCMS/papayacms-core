@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Reference;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\URL;
+
 /**
  * Papaya Interface Media Reference (Hyperlink Reference)
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Media extends \Papaya\UI\Reference {
+class Media extends UI\Reference {
   /**
    * Page identification data
    *
@@ -38,11 +42,11 @@ class Media extends \Papaya\UI\Reference {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\URL $url
+   * @param URL $url
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public static function create(\Papaya\URL $url = NULL) {
+  public static function create(URL $url = NULL) {
     return new self($url);
   }
 
@@ -70,20 +74,20 @@ class Media extends \Papaya\UI\Reference {
       }
       return $result;
     }
-    return;
+    return NULL;
   }
 
   /**
    * @see \Papaya\UI\Reference::load()
    *
-   * @param \Papaya\Request $request
+   * @param Request $request
    *
-   * @return $this|\Papaya\UI\Reference
+   * @return $this
    */
-  public function load(\Papaya\Request $request) {
+  public function load(Request $request) {
     parent::load($request);
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, Request::SOURCE_PATH)
     );
     return $this;
   }
@@ -93,7 +97,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param string $mediaId
    *
-   * @return self
+   * @return $this
    */
   public function setMediaId($mediaId) {
     $this->prepare();
@@ -108,7 +112,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param int $version
    *
-   * @return self
+   * @return $this
    */
   public function setMediaVersion($version) {
     $this->prepare();
@@ -123,7 +127,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param string $title
    *
-   * @return self
+   * @return $this
    */
   public function setTitle($title) {
     $this->prepare();
@@ -138,7 +142,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param string $mode
    *
-   * @return self
+   * @return $this
    */
   public function setMode($mode) {
     $this->prepare();
@@ -155,7 +159,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param string $extension
    *
-   * @return self
+   * @return $this
    */
   public function setExtension($extension) {
     $this->prepare();
@@ -170,7 +174,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param string $mediaUri
    *
-   * @return self
+   * @return $this
    */
   public function setMediaUri($mediaUri) {
     $this->prepare();
@@ -196,7 +200,7 @@ class Media extends \Papaya\UI\Reference {
    *
    * @param bool $isPreview
    *
-   * @return \Papaya\UI\Reference\Page
+   * @return $this
    */
   public function setPreview($isPreview) {
     $this->prepare();
