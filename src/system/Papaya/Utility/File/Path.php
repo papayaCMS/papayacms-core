@@ -53,7 +53,7 @@ class Path {
     } else {
       $path = \str_replace('/./', '/', $path);
     }
-    $path = ($withTrailingSlash)
+    $path = $withTrailingSlash
       ? self::ensureTrailingSlash($path) : self::ensureNoTrailingSlash($path);
     $path = self::ensureIsAbsolute($path);
     return $path;
@@ -67,12 +67,12 @@ class Path {
    * @return string
    */
   public static function ensureIsAbsolute($path) {
-    if ('/' !== \substr($path, 0, 1) &&
+    if (
+      0 !== \strpos($path, '/') &&
       !\preg_match('(^[a-zA-Z]:/)', $path)) {
       return '/'.$path;
-    } else {
-      return $path;
     }
+    return $path;
   }
 
   /**
@@ -85,9 +85,8 @@ class Path {
   public static function ensureTrailingSlash($path) {
     if ('/' !== \substr($path, -1)) {
       return $path.'/';
-    } else {
-      return $path;
     }
+    return $path;
   }
 
   /**
@@ -100,9 +99,8 @@ class Path {
   public static function ensureNoTrailingSlash($path) {
     if ('/' === \substr($path, -1)) {
       return \substr($path, 0, -1);
-    } else {
-      return $path;
     }
+    return $path;
   }
 
   /**
@@ -116,13 +114,13 @@ class Path {
     $path = \dirname($_SERVER['SCRIPT_FILENAME']);
     if ($includeDocumentRoot) {
       $result = $path;
+    } elseif (
+      \preg_match('~^\w:~', $_SERVER['DOCUMENT_ROOT']) &&
+      !\preg_match('~^\w:~', $_SERVER['SCRIPT_FILENAME'])
+    ) {
+      $result = \substr($path, \strlen($_SERVER['DOCUMENT_ROOT']) - 2);
     } else {
-      if (\preg_match('~^\w:~', $_SERVER['DOCUMENT_ROOT']) &&
-        !\preg_match('~^\w:~', $_SERVER['SCRIPT_FILENAME'])) {
-        $result = \substr($path, \strlen($_SERVER['DOCUMENT_ROOT']) - 2);
-      } else {
-        $result = \substr($path, \strlen($_SERVER['DOCUMENT_ROOT']));
-      }
+      $result = \substr($path, \strlen($_SERVER['DOCUMENT_ROOT']));
     }
     return self::cleanup($result);
   }
@@ -191,25 +189,23 @@ class Path {
    */
   public static function clear($directory) {
     $counter = 0;
-    if (\is_dir($directory)) {
-      if ($dh = \opendir($directory)) {
-        if (!\in_array(\substr($directory, -1), ['/', DIRECTORY_SEPARATOR])) {
-          $directory .= DIRECTORY_SEPARATOR;
-        }
-        while (FALSE !== ($entry = \readdir($dh))) {
-          if ('.' !== $entry && '..' !== $entry) {
-            if (\is_dir($directory.$entry)) {
-              $counter += self::clear($directory.$entry.DIRECTORY_SEPARATOR);
-              @\rmdir($directory.$entry);
-            } elseif (\is_file($directory.$entry)) {
-              if (@\unlink($directory.$entry)) {
-                ++$counter;
-              }
+    if (\is_dir($directory) && ($directoryHandle = \opendir($directory))) {
+      if (!\in_array(\substr($directory, -1), ['/', DIRECTORY_SEPARATOR], TRUE)) {
+        $directory .= DIRECTORY_SEPARATOR;
+      }
+      while (FALSE !== ($entry = \readdir($directoryHandle))) {
+        if ('.' !== $entry && '..' !== $entry) {
+          if (\is_dir($directory.$entry)) {
+            $counter += self::clear($directory.$entry.DIRECTORY_SEPARATOR);
+            @\rmdir($directory.$entry);
+          } elseif (\is_file($directory.$entry)) {
+            if (@\unlink($directory.$entry)) {
+              ++$counter;
             }
           }
         }
-        \closedir($dh);
       }
+      \closedir($directoryHandle);
     }
     return $counter;
   }

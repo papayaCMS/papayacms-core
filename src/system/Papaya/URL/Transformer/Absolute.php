@@ -59,7 +59,7 @@ class Absolute {
    */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
-    $leadingSlash = (0 === strpos($path, '/'));
+    $leadingSlash = (0 === \strpos($path, '/'));
     $trailingSlash = ('/' === \substr($path, -1));
 
     $pathElements = \explode('/', $path);

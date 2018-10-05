@@ -29,10 +29,10 @@ class Name {
   public static function get() {
     if (!empty($_SERVER['HTTP_HOST'])) {
       return $_SERVER['HTTP_HOST'];
-    } elseif (!empty($_SERVER['SERVER_NAME'])) {
-      return $_SERVER['SERVER_NAME'];
-    } else {
-      return '';
     }
+    if (!empty($_SERVER['SERVER_NAME'])) {
+      return $_SERVER['SERVER_NAME'];
+    }
+    return '';
   }
 }

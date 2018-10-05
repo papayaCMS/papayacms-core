@@ -38,10 +38,12 @@ class Port {
     } else {
       $header = NULL;
     }
-    if (isset($header) &&
+    if (
+      NULL !== $header &&
       \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
-      32 == \strlen(PAPAYA_HEADER_HTTPS_TOKEN) &&
-      PAPAYA_HEADER_HTTPS_TOKEN == $header) {
+      PAPAYA_HEADER_HTTPS_TOKEN === $header &&
+      32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)
+    ) {
       return 443;
     }
     return empty($_SERVER['SERVER_PORT']) ? 80 : (int)$_SERVER['SERVER_PORT'];

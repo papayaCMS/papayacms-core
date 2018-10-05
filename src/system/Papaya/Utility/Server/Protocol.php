@@ -44,10 +44,11 @@ class Protocol {
     } else {
       $header = NULL;
     }
-    if (isset($header) &&
+    if (
+      NULL !== $header &&
       \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
-      32 == \strlen(PAPAYA_HEADER_HTTPS_TOKEN) &&
-      PAPAYA_HEADER_HTTPS_TOKEN == $header) {
+      PAPAYA_HEADER_HTTPS_TOKEN === $header &&
+      32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)) {
       return TRUE;
     }
     return (isset($_SERVER['HTTPS']) && 'on' === \strtolower($_SERVER['HTTPS']));
@@ -61,11 +62,10 @@ class Protocol {
    * @return string
    */
   public static function get($mode = self::BOTH) {
-    if (self::BOTH != $mode) {
-      return self::HTTPS == $mode ? 'https' : 'http';
-    } else {
-      return self::isSecure() ? 'https' : 'http';
+    if (self::BOTH !== $mode) {
+      return self::HTTPS === $mode ? 'https' : 'http';
     }
+    return self::isSecure() ? 'https' : 'http';
   }
 
   /**

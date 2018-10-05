@@ -44,7 +44,7 @@ class Method {
    * @return bool
    */
   public static function isGet() {
-    return 'get' == self::get();
+    return 'get' === self::get();
   }
 
   /**
@@ -53,7 +53,7 @@ class Method {
    * @return bool
    */
   public static function isPost() {
-    return 'post' == self::get();
+    return 'post' === self::get();
   }
 
   /**
@@ -62,6 +62,6 @@ class Method {
    * @return bool
    */
   public static function isPut() {
-    return 'put' == self::get();
+    return 'put' === self::get();
   }
 }
