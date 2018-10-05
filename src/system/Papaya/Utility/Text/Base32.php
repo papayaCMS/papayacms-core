@@ -121,9 +121,8 @@ class Base32 {
     $paddingLength = \strlen($result) % 8;
     if ($padding && $paddingLength > 0) {
       return $result.\str_repeat('=', 8 - $paddingLength);
-    } else {
-      return $result;
     }
+    return $result;
   }
 
   /**
@@ -140,7 +139,7 @@ class Base32 {
     $result = '';
     $binary = '';
     $count = \strlen($encodedString);
-    if (\in_array($count % 8, [1, 3, 6])) {
+    if (\in_array($count % 8, [1, 3, 6], TRUE)) {
       throw new \OutOfBoundsException(
         \sprintf(
           'Invalid input string length for %s::%s',

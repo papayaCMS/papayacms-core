@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Utility\Text;
 
 /**
@@ -30,7 +31,7 @@ class UTF8 {
   const EXT_MBSTRING = 2;
 
   /**
-   * The used unicode extension is chached
+   * The used unicode extension is cached
    *
    * @var int
    */
@@ -81,7 +82,7 @@ class UTF8 {
    *
    * @return int|false
    */
-  public static function getCodepoint($character) {
+  public static function getCodePoint($character) {
     $cp = [
       0, 0, 0, 0
     ];
@@ -141,13 +142,14 @@ class UTF8 {
   public static function copy($string, $start, $length = NULL) {
     switch (self::getExtension()) {
       case self::EXT_INTL :
-        if (\is_null($length)) {
+        if (NULL === $length) {
           return \grapheme_substr($string, $start);
-        } elseif ($length > 0) {
+        }
+        if ($length > 0) {
           if ($start >= 0) {
             $possibleLength = self::length($string) - $start;
           } else {
-            $possibleLength = \abs($start);
+            $possibleLength = (int)\abs($start);
           }
           if ($possibleLength < $length) {
             $length = $possibleLength;
@@ -155,10 +157,10 @@ class UTF8 {
         }
         return \grapheme_substr($string, $start, $length);
       case self::EXT_MBSTRING :
-        if (\is_null($length)) {
+        if (NULL === $length) {
           $length = self::length($string);
         }
-        if (0 == $length) {
+        if (0 === $length) {
           return '';
         }
         return \mb_substr($string, $start, $length, 'utf-8');
@@ -167,7 +169,7 @@ class UTF8 {
     if ($start < 0) {
       $start = $stringLength + $start;
     }
-    if (\is_null($length)) {
+    if (NULL === $length) {
       $length = $stringLength;
     } elseif ($length < 0) {
       $length = $stringLength + $length - $start;
@@ -209,10 +211,11 @@ class UTF8 {
       case self::EXT_INTL :
         if (\class_exists('Transliterator', FALSE)) {
           return \Transliterator::create('Any-Lower')->transliterate($string);
-        } elseif (\extension_loaded('mbstring')) {
+        }
+        if (\extension_loaded('mbstring')) {
           return \mb_strtolower($string, 'utf-8');
         }
-      break;
+        break;
       case self::EXT_MBSTRING :
         return \mb_strtolower($string, 'utf-8');
     }
@@ -229,11 +232,12 @@ class UTF8 {
     switch (self::getExtension()) {
       case self::EXT_INTL :
         if (\class_exists('Transliterator', FALSE)) {
-          return \T\ransliterator::create('Any-Upper')->transliterate($string);
-        } elseif (\extension_loaded('mbstring')) {
+          return \Transliterator::create('Any-Upper')->transliterate($string);
+        }
+        if (\extension_loaded('mbstring')) {
           return \mb_strtoupper($string, 'utf-8');
         }
-      break;
+        break;
       case self::EXT_MBSTRING :
         return \mb_strtoupper($string, 'utf-8');
     }
@@ -253,7 +257,7 @@ class UTF8 {
    * @return int
    */
   public static function getExtension() {
-    if (self::EXT_UNKNOWN == self::$extension) {
+    if (self::EXT_UNKNOWN === self::$extension) {
       self::$extension = self::EXT_PCRE;
       $extensions = [
         self::EXT_INTL => 'intl',

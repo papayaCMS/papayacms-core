@@ -17,7 +17,7 @@ namespace Papaya\Utility\Text;
 /**
  * Papaya Utilities - identifier normalization into different output formats
  *
- * The function in this class can be used to intepret a given stirng as an identifer and normalize
+ * The function in this class can be used to interpret a given string as an identifier and normalize
  * it into different version.
  *
  * @package Papaya-Library
@@ -25,7 +25,7 @@ namespace Papaya\Utility\Text;
  */
 class Identifier {
   /**
-   * Create a underscore seperated, uppercase version of the identifier string.
+   * Create a underscore separated, uppercase version of the identifier string.
    *
    * @param string $string
    *
@@ -36,7 +36,7 @@ class Identifier {
   }
 
   /**
-   * Create a underscore seperated, lowercase version of the identifier string.
+   * Create a underscore separated, lowercase version of the identifier string.
    *
    * @param string $string
    *
@@ -47,7 +47,7 @@ class Identifier {
   }
 
   /**
-   * Create a camel case version of the identifer.
+   * Create a camel case version of the identifier.
    *
    * @param string $string
    * @param bool $firstUpper - first char should be uppercase
@@ -69,7 +69,7 @@ class Identifier {
   }
 
   /**
-   * Split the identifier string into a list of lowercased parts.
+   * Split the identifier string into a list of lower cased parts.
    *
    * @param string $string
    *

@@ -51,7 +51,7 @@ class ASCII {
         \\xF0[\\x90-\\xBF][\\x80-\\xBF]{2}|[\\xF1-\\xF3][\\x80-\\xBF]{3}|
         \\xF4[\\x80-\\x8F][\\x80-\\xBF]{2})xS',
       function($match) {
-        $codePoint = Utility\Text\UTF8::getCodepoint($match[0]);
+        $codePoint = Utility\Text\UTF8::getCodePoint($match[0]);
         return $this->mapping()->get($codePoint, $this->_language);
       },
       $string

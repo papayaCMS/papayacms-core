@@ -14,6 +14,8 @@
  */
 namespace Papaya\Utility\Text;
 
+use Papaya\Utility;
+
 /**
  * Papaya Utilities - XML functions
  *
@@ -67,7 +69,7 @@ class XML {
    */
   public static function repairEntities($string) {
     static $translations = NULL;
-    if (!isset($translations)) {
+    if (NULL === $translations) {
       $translations = \array_flip(
         \version_compare(PHP_VERSION, '>', '5.2')
           ? \get_html_translation_table(HTML_ENTITIES, ENT_COMPAT, 'UTF-8')
@@ -84,7 +86,7 @@ class XML {
     $result = \str_replace('&', '&amp;', $result);
     $result = \preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
     $result = \str_replace('&amp;amp;', '&amp;', $result);
-    return \Papaya\Utility\Text\UTF8::ensure($result);
+    return UTF8::ensure($result);
   }
 
   /**
@@ -96,14 +98,14 @@ class XML {
    * @return string
    */
   public static function serializeArray($array, $tagName = 'data') {
-    $dom = new \DOMDocument('1.0', 'UTF-8');
-    $root = $dom->createElement($tagName);
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $root = $document->createElement($tagName);
     $root->setAttribute('version', '2');
-    $dom->appendChild($root);
+    $document->appendChild($root);
     if (\is_array($array)) {
-      self::_serializeSubArray($dom->documentElement, $tagName, $array);
+      self::_serializeSubArray($document->documentElement, $tagName, $array);
     }
-    return $dom->saveXML($dom->documentElement);
+    return $document->saveXML($document->documentElement);
   }
 
   /**
@@ -115,16 +117,16 @@ class XML {
    */
   private static function _serializeSubArray($parent, $tagName, $array) {
     foreach ($array as $name => $value) {
-      if ('' != \trim($name)) {
-        if (isset($value) && \is_array($value)) {
+      if ('' !== \trim($name)) {
+        if (NULL !== $value && \is_array($value)) {
           $childNode = $parent->ownerDocument->createElement($tagName.'-list');
-          $childNode->setAttribute('name', \Papaya\Utility\Text\UTF8::ensure($name));
+          $childNode->setAttribute('name', UTF8::ensure($name));
           self::_serializeSubArray($childNode, $tagName, $value);
         } else {
           $childNode = $parent->ownerDocument->createElement($tagName.'-element');
-          $childNode->setAttribute('name', \Papaya\Utility\Text\UTF8::ensure($name));
+          $childNode->setAttribute('name', UTF8::ensure($name));
           $dataNode = $parent->ownerDocument->createTextNode(
-            \Papaya\Utility\Text\UTF8::ensure($value)
+            UTF8::ensure($value)
           );
           $childNode->appendChild($dataNode);
         }
@@ -146,14 +148,16 @@ class XML {
       return $result;
     }
     if (FALSE === \strpos($xml, ' version="2">')) {
-      $xml = \Papaya\Utility\Text\UTF8::ensure(
+      $xml = UTF8::ensure(
         \preg_replace_callback(
           '(&\\#(
             (?:1(?:2[6-9]|[3-9][0-9]))
             |
             (?:2(?:[01][0-9]|2[0-7]))
            );)x',
-          ['Papaya\Utility\Text\XML', 'decodeOldEntitiesToUtf8'],
+          function($match) {
+            return isset($match[1]) ? \chr($match[1]) : $match[0];
+          },
           $xml
         )
       );
@@ -183,40 +187,30 @@ class XML {
   }
 
   /**
-   * UTF-8 Bytes encoded as Latin1-Entities (between 125 and 255) decode them to bytes.
-   *
-   * @param array $match
-   *
-   * @return string
-   */
-  public static function decodeOldEntitiesToUtf8($match) {
-    return (isset($match[1])) ? \chr($match[1]) : $match[0];
-  }
-
-  /**
    * Unserialze array data from a node, this function is called recursive.
    *
    * @param string $tagName
    * @param \DOMElement $parentNode
    * @param array $array
-   * @param null $valueCallback
+   * @param callable|null $valueCallback
    */
   private static function _unserializeArrayFromNode(
-    $tagName, \DOMElement $parentNode, &$array, $valueCallback = NULL
+    $tagName, \DOMElement $parentNode, &$array, callable $valueCallback = NULL
   ) {
     if ($parentNode->hasChildNodes()) {
       foreach ($parentNode->childNodes as $childNode) {
-        if ($childNode instanceof \DOMElement &&
-          $childNode->hasAttribute('name') &&
-          isset($childNode->nodeName)) {
+        if (
+          $childNode instanceof \DOMElement &&
+          $childNode->hasAttribute('name')
+        ) {
           $name = $childNode->getAttribute('name');
-          if ($childNode->nodeName == $tagName.'-list') {
+          if ($childNode->localName === $tagName.'-list') {
             $array[$name] = [];
             self::_unserializeArrayFromNode(
               $tagName, $childNode, $array[$name], $valueCallback
             );
-          } elseif (isset($valueCallback)) {
-            $array[$name] = \call_user_func($valueCallback, $childNode->nodeValue);
+          } elseif (NULL !== $valueCallback) {
+            $array[$name] = $valueCallback($childNode->textContent);
           } else {
             $array[$name] = $childNode->nodeValue;
           }
@@ -236,10 +230,10 @@ class XML {
    * @return \DOMElement
    */
   public static function truncate(\DOMElement $sourceNode, $length) {
-    $dom = new \DOMDocument('1.0', 'UTF-8');
-    $targetNode = self::_copyElement($sourceNode, $dom);
-    $dom->appendChild($targetNode);
-    self::_truncateChildNodes($sourceNode, $targetNode, $length, '');
+    $document = new \DOMDocument('1.0', 'UTF-8');
+    $targetNode = self::_copyElement($sourceNode, $document);
+    $document->appendChild($targetNode);
+    self::_truncateChildNodes($sourceNode, $targetNode, $length);
     return $targetNode;
   }
 
@@ -275,8 +269,8 @@ class XML {
             );
             $length -= $nodeLength;
           } else {
-            $nodeText = \Papaya\Utility\Text::truncate($nodeText, $length, FALSE);
-            if ('' != $nodeText) {
+            $nodeText = Utility\Text::truncate($nodeText, $length, FALSE);
+            if ('' !== $nodeText) {
               $targetNode->appendChild(
                 $targetNode->ownerDocument->createTextNode($nodeText)
               );
@@ -326,7 +320,10 @@ class XML {
   public static function isQName($name) {
     if (empty($name)) {
       throw new \UnexpectedValueException('Invalid QName: QName is empty.');
-    } elseif (FALSE !== ($position = \strpos($name, ':'))) {
+    }
+    if (
+      FALSE !== ($position = \strpos($name, ':'))
+    ) {
       self::isNCName($name, 0, $position);
       self::isNCName($name, $position + 1);
       return TRUE;
@@ -346,7 +343,7 @@ class XML {
    *
    * @throws \UnexpectedValueException
    */
-  public static function isNcName($name, $offset = 0, $length = 0) {
+  public static function isNCName($name, $offset = 0, $length = 0) {
     $nameStartChar =
       'A-Z_a-z'.
       '\\x{C0}-\\x{D6}\\x{D8}-\\x{F6}\\x{F8}-\\x{2FF}\\x{370}-\\x{37D}'.
@@ -367,13 +364,15 @@ class XML {
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Missing QName part.'
       );
-    } elseif (\preg_match('([^'.$nameChar.'-])u', $namePart, $match, PREG_OFFSET_CAPTURE)) {
+    }
+    if (\preg_match('([^'.$nameChar.'-])u', $namePart, $match, PREG_OFFSET_CAPTURE)) {
       //invalid bytes and whitespaces
       $position = (int)$match[0][1];
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.($offset + $position).'.'
       );
-    } elseif (\preg_match('(^[^'.$nameStartChar.'])u', $namePart)) {
+    }
+    if (\preg_match('(^[^'.$nameStartChar.'])u', $namePart)) {
       //first char is a little more limited
       throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.$offset.'.'

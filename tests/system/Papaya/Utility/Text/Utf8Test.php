@@ -32,7 +32,7 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Utility\Text\UTF8::getCodepoint
+   * @covers \Papaya\Utility\Text\UTF8::getCodePoint
    * @dataProvider getCodepointDataProvider
    * @param string $string
    * @param string $expected
@@ -40,7 +40,7 @@ class Utf8Test extends \Papaya\TestCase {
   public function testGetCodepoint($expected, $string) {
     $this->assertEquals(
       $expected,
-      UTF8::getCodepoint($string)
+      UTF8::getCodePoint($string)
     );
   }
 
