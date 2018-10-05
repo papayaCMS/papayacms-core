@@ -37,10 +37,23 @@ class Translated extends UI\Text {
   private $_phrases;
 
   /**
-   * @var string
+   * @var string|null
    */
   private $_phrasesGroupName;
 
+  /**
+   * @var string
+   */
+  private $_string;
+
+  /**
+   * Translated constructor.
+   *
+   * @param string $pattern
+   * @param array $values
+   * @param \Papaya\Phrases|null $phrases
+   * @param null|string $groupName
+   */
   public function __construct(
     $pattern, array $values = [], Phrases $phrases = NULL, $groupName = NULL
   ) {

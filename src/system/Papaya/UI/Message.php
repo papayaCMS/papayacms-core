@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Abstract/Basic superclass for the user messages.
  *
@@ -29,10 +33,9 @@ namespace Papaya\UI;
  *
  * @property int $severity
  * @property bool $occurred
- * @property string|\Papaya\UI\Text $event
+ * @property string|StringCastable $event
  */
-abstract class Message
-  extends Control {
+abstract class Message extends Control {
   const SEVERITY_INFORMATION = 0;
 
   const SEVERITY_WARNING = 1;
@@ -92,11 +95,11 @@ abstract class Message
   /**
    * Append message to parent xml element and return it.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element the appended message xml element
+   * @return XML\Element the appended message xml element
    */
-  protected function appendMessageElement(\Papaya\XML\Element $parent) {
+  protected function appendMessageElement(XML\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
       [
@@ -116,7 +119,7 @@ abstract class Message
    * @param int $severity
    */
   public function setSeverity($severity) {
-    \Papaya\Utility\Constraints::assertInteger($severity);
+    Utility\Constraints::assertInteger($severity);
     if (!\array_key_exists($severity, $this->_tagNames)) {
       throw new \InvalidArgumentException('Invalid severity for message.');
     }
@@ -126,11 +129,11 @@ abstract class Message
   /**
    * Validate and set the message event identifier string.
    *
-   * @param string $event
+   * @param string|StringCastable $event
    */
   public function setEvent($event) {
     $event = (string)$event;
-    \Papaya\Utility\Constraints::assertNotEmpty($event);
+    Utility\Constraints::assertNotEmpty($event);
     $this->_event = $event;
   }
 

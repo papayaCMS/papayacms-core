@@ -14,19 +14,24 @@
  */
 namespace Papaya\UI;
 
+use Papaya\Application;
+use Papaya\Utility;
+
 /**
  * Provides some function to get random values
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Tokens extends \Papaya\Application\BaseObject {
+class Tokens implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * Maximum of token in list until the GC is triggered.
    *
    * @var int
    */
-  private $_maximum = 0;
+  private $_maximum;
 
   /**
    * Actual tokens
@@ -43,8 +48,8 @@ class Tokens extends \Papaya\Application\BaseObject {
    * @param int $maximum
    */
   public function __construct($maximum = 200) {
-    \Papaya\Utility\Constraints::assertInteger($maximum);
-    $this->_maximum = $maximum;
+    Utility\Constraints::assertInteger($maximum);
+    $this->_maximum = (int)$maximum;
   }
 
   /**
@@ -56,13 +61,13 @@ class Tokens extends \Papaya\Application\BaseObject {
    * @return string|null $token New token
    */
   public function create($for = '', $expires = -1) {
-    \Papaya\Utility\Constraints::assertInteger($expires);
+    Utility\Constraints::assertInteger($expires);
     if (!isset($this->papaya()->session) ||
       !$this->papaya()->session->isActive()) {
-      return;
+      return NULL;
     }
     $this->loadTokens();
-    if (isset($this->_tokens) && \count($this->_tokens) >= $this->_maximum) {
+    if (NULL !== $this->_tokens && \count($this->_tokens) >= $this->_maximum) {
       $this->cleanup();
     }
     do {
@@ -90,15 +95,15 @@ class Tokens extends \Papaya\Application\BaseObject {
    * @return bool
    */
   public function validate($token, $for = '') {
-    \Papaya\Utility\Constraints::assertString($token);
+    Utility\Constraints::assertString($token);
     if (!$this->papaya()->session->isActive()) {
       return TRUE;
     }
     $this->loadTokens();
     if (isset($this->_tokens[$token])) {
       list($validUntil, $verification) = $this->_tokens[$token];
-      if (\is_null($validUntil) || $validUntil > \time()) {
-        if ($verification == $this->getVerification($for)) {
+      if (NULL === $validUntil || $validUntil > \time()) {
+        if ($verification === $this->getVerification($for)) {
           unset($this->_tokens[$token]);
           $this->storeTokens();
           return TRUE;
@@ -116,9 +121,8 @@ class Tokens extends \Papaya\Application\BaseObject {
    */
   protected function cleanup() {
     $now = \time();
-    foreach ($this->_tokens as $key => $value) {
-      list($validUntil) = $value;
-      if (!\is_null($validUntil) && $now > $validUntil) {
+    foreach ($this->_tokens as $key => list($validUntil)) {
+      if (NULL !== $validUntil && $now > $validUntil) {
         unset($this->_tokens[$key]);
       }
     }
@@ -135,7 +139,7 @@ class Tokens extends \Papaya\Application\BaseObject {
    * @return string
    */
   protected function getTokenHash() {
-    return \md5(\Papaya\Utility\Random::getId());
+    return \md5(Utility\Random::getId());
   }
 
   /**
@@ -146,8 +150,8 @@ class Tokens extends \Papaya\Application\BaseObject {
    * @param mixed $force
    */
   protected function loadTokens($force = FALSE) {
-    if (\is_null($this->_tokens) || $force) {
-      $this->_tokens = $this->papaya()->session->values->get($this, []);
+    if (NULL === $this->_tokens || $force) {
+      $this->_tokens = $this->papaya()->session->values->get($this) ?: [];
     }
   }
 

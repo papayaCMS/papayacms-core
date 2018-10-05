@@ -50,7 +50,7 @@ class Images implements \ArrayAccess {
    * @param array $images
    */
   public function __construct(array $images = NULL) {
-    if (isset($images)) {
+    if (NULL !== $images) {
       $this->add($images);
     }
   }
@@ -63,7 +63,7 @@ class Images implements \ArrayAccess {
    */
   public function add(array $images, $mode = self::DUPLICATES_IGNORE) {
     foreach ($images as $id => $image) {
-      if (!(isset($this->_images[$id]) && self::DUPLICATES_IGNORE == $mode)) {
+      if (!(self::DUPLICATES_IGNORE === $mode && isset($this->_images[$id]))) {
         $this->_images[$id] = $image;
       }
     }

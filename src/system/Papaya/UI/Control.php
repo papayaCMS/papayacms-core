@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI;
 
+use Papaya\XML;
+
 /**
  * Abstract superclass implementing basic features for user interface control.
  *
@@ -27,11 +29,11 @@ abstract class Control extends Control\Part {
    * @return string
    */
   public function getXML() {
-    $dom = new \Papaya\XML\Document();
-    $control = $dom->appendElement('control');
+    $document = new XML\Document();
+    $control = $document->appendElement('control');
     $this->appendTo($control);
     $xml = '';
-    foreach ($dom->documentElement->childNodes as $node) {
+    foreach ($document->documentElement->childNodes as $node) {
       $xml .= $node->ownerDocument->saveXML($node);
     }
     return $xml;

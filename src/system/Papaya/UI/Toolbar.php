@@ -69,6 +69,6 @@ class Toolbar extends Control {
       $this->elements()->appendTo($toolbar);
       return $toolbar;
     }
-    return;
+    return NULL;
   }
 }

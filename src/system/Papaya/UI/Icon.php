@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\XML;
+
 /**
  * A ui control for an icon, the icon can add itself to the output using a <glyph> element.
  *
@@ -25,13 +28,13 @@ namespace Papaya\UI;
  * @property string|\Papaya\UI\Text $hint
  * @property bool $visible
  * @property array $actionParameters
- * @property \Papaya\UI\Reference $reference
+ * @property Reference $reference
  */
 class Icon extends Control {
   /**
    * internal reference object buffer
    *
-   * @var \Papaya\UI\Reference|null
+   * @var Reference|null
    */
   protected $_reference;
 
@@ -45,14 +48,14 @@ class Icon extends Control {
   /**
    * caption/alternative text for image
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = '';
 
   /**
    * hint/quickinfo text for image
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_hint = '';
 
@@ -86,6 +89,11 @@ class Icon extends Control {
 
   /**
    * Create object and assign provided data
+   *
+   * @param string $image
+   * @param string|StringCastable $caption
+   * @param string|StringCastable $hint
+   * @param array|null $actionParameters
    */
   public function __construct($image, $caption = '', $hint = '', array $actionParameters = NULL) {
     $this->_image = $image;
@@ -106,11 +114,11 @@ class Icon extends Control {
   /**
    * append icon to output using a <glyph> element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
         'glyph',
@@ -120,11 +128,11 @@ class Icon extends Control {
         ]
       );
       $hint = (string)$this->_hint;
-      if (!empty($hint)) {
+      if ('' !== \trim($hint)) {
         $glyph->setAttribute('hint', $hint);
       }
       $url = $this->getURL();
-      if (!empty($url)) {
+      if ('' !== \trim($url)) {
         $glyph->setAttribute('href', $url);
       }
     } else {
@@ -152,31 +160,29 @@ class Icon extends Control {
    * If action parameters were provided, return the reference for a link containing these
    * parameters in the query string
    *
-   * @return \Papaya\UI\Reference|null
+   * @return string|null
    */
   public function getURL() {
     if (empty($this->_actionParameters)) {
-      return;
-    } else {
-      $reference = clone $this->reference();
-      $reference->setParameters($this->_actionParameters);
-      return $reference->getRelative();
+      return NULL;
     }
+    $reference = clone $this->reference();
+    $reference->setParameters($this->_actionParameters);
+    return $reference->getRelative();
   }
 
   /**
    * Getter/Setter for a reference subobject used to create hyperlinks.
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    }
-    if (\is_null($this->_reference)) {
-      $this->_reference = new \Papaya\UI\Reference();
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

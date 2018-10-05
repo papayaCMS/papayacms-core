@@ -14,21 +14,26 @@
  */
 namespace Papaya\UI;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Request;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Abstract superclass implementing basic dialog features
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|StringCastable $caption
  * @property string $image
- * @property \Papaya\UI\Dialog\Element\Description $description
- * @property \Papaya\UI\Dialog\Fields $fields
- * @property \Papaya\UI\Dialog\Buttons $buttons
- * @property \Papaya\Request\Parameters $hiddenFields
- * @property \Papaya\Request\Parameters $hiddenValues
- * @property \Papaya\Request\Parameters $data
- * @property \Papaya\UI\Dialog\Options $options
+ * @property Dialog\Element\Description $description
+ * @property Dialog\Fields $fields
+ * @property Dialog\Buttons $buttons
+ * @property Request\Parameters $hiddenFields
+ * @property Request\Parameters $hiddenValues
+ * @property Request\Parameters $data
+ * @property Dialog\Options $options
  */
 class Dialog extends Control\Interactive {
   /**
@@ -55,7 +60,7 @@ class Dialog extends Control\Interactive {
   /**
    * Dialog caption text  *
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   private $_caption = '';
 
@@ -83,63 +88,63 @@ class Dialog extends Control\Interactive {
   /**
    * Hidden values are output as hidden input field but not part of the parameter group
    *
-   * @var \Papaya\Request\Parameters|null
+   * @var Request\Parameters|null
    */
   private $_hiddenValues;
 
   /**
    * Hidden fields are output as hidden input fields, the parameter group value ist used for them
    *
-   * @var \Papaya\Request\Parameters|null
+   * @var Request\Parameters|null
    */
   private $_hiddenFields;
 
   /**
    * Token helper object
    *
-   * @var \Papaya\UI\Tokens|null
+   * @var Tokens|null
    */
   private $_tokens;
 
   /**
    * Error list object
    *
-   * @var \Papaya\UI\Dialog\Errors|null
+   * @var Dialog\Errors|null
    */
   private $_errors;
 
   /**
    * Dialog input fields
    *
-   * @var \Papaya\UI\Dialog\Fields
+   * @var Dialog\Fields
    */
   private $_fields;
 
   /**
    * Dialog buttons
    *
-   * @var \Papaya\UI\Dialog\Buttons
+   * @var Dialog\Buttons
    */
   private $_buttons;
 
   /**
    * Dialog data
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_data;
 
   /**
    * Dialog options  *
    *
-   * @var \Papaya\UI\Dialog\Options
+   * @var Dialog\Options
    */
   private $_options;
 
   /**
    * Dialog description data (additional properties)
    *
-   * @var \Papaya\UI\Dialog\Element\Description
+   * @var Dialog\Element\Description
    */
   private $_description;
 
@@ -177,7 +182,7 @@ class Dialog extends Control\Interactive {
    * @throws \UnexpectedValueException
    */
   public function __construct($owner = NULL) {
-    \Papaya\Utility\Constraints::assertObjectOrNull($owner);
+    Utility\Constraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 
@@ -252,15 +257,15 @@ class Dialog extends Control\Interactive {
   /**
    * Append the dialog output to a DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \InvalidArgumentException
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $dialog = $parent->appendElement(
       'dialog-box',
       [
@@ -285,7 +290,7 @@ class Dialog extends Control\Interactive {
     $this->options()->appendTo($dialog);
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
-    $values = new \Papaya\Request\Parameters();
+    $values = new Request\Parameters();
     if ($this->options()->useConfirmation) {
       $values->set(
         'confirmation',
@@ -308,7 +313,7 @@ class Dialog extends Control\Interactive {
    * @throws \UnexpectedValueException
    */
   public function setEncoding($encoding) {
-    \Papaya\Utility\Constraints::assertContains(
+    Utility\Constraints::assertContains(
       [
         'application/x-www-form-urlencoded',
         'multipart/form-data',
@@ -345,16 +350,16 @@ class Dialog extends Control\Interactive {
    * This function gives you access to parameters object holding the hidden values of the
    * dialog. Hidden values do not use the parameter group name.
    *
-   * @param \Papaya\Request\Parameters $values
+   * @param Request\Parameters $values
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function hiddenValues(\Papaya\Request\Parameters $values = NULL) {
+  public function hiddenValues(Request\Parameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenValues = $values;
     }
     if (NULL === $this->_hiddenValues) {
-      $this->_hiddenValues = new \Papaya\Request\Parameters();
+      $this->_hiddenValues = new Request\Parameters();
     }
     return $this->_hiddenValues;
   }
@@ -365,16 +370,16 @@ class Dialog extends Control\Interactive {
    * This function gives you access to parameters object holding the hidden fields of the
    * dialog. Hidden fields use the parameter group name.
    *
-   * @param \Papaya\Request\Parameters|null $values
+   * @param Request\Parameters|null $values
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function hiddenFields(\Papaya\Request\Parameters $values = NULL) {
+  public function hiddenFields(Request\Parameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenFields = $values;
     }
     if (NULL === $this->_hiddenFields) {
-      $this->_hiddenFields = new \Papaya\Request\Parameters();
+      $this->_hiddenFields = new Request\Parameters();
     }
     return $this->_hiddenFields;
   }
@@ -382,15 +387,15 @@ class Dialog extends Control\Interactive {
   /**
    * Getter/Setter for csrf token manager including implizit create
    *
-   * @param \Papaya\UI\Tokens $tokens
+   * @param Tokens $tokens
    *
-   * @return \Papaya\UI\Tokens
+   * @return Tokens
    */
-  public function tokens(\Papaya\UI\Tokens $tokens = NULL) {
+  public function tokens(Tokens $tokens = NULL) {
     if (NULL !== $tokens) {
       $this->_tokens = $tokens;
     } elseif (NULL === $this->_tokens) {
-      $this->_tokens = new \Papaya\UI\Tokens();
+      $this->_tokens = new Tokens();
       $this->_tokens->papaya($this->papaya());
     }
     return $this->_tokens;
@@ -419,16 +424,16 @@ class Dialog extends Control\Interactive {
   /**
    * Append a group hidden elements to the output (recursive function)
    *
-   * @param \Papaya\XML\Element $parent
-   * @param \Papaya\Request\Parameters $values
+   * @param XML\Element $parent
+   * @param Request\Parameters $values
    * @param string|null $path
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    *
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    \Papaya\XML\Element $parent, \Papaya\Request\Parameters $values, $path = NULL
+    XML\Element $parent, Request\Parameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);
@@ -453,12 +458,12 @@ class Dialog extends Control\Interactive {
    *
    * @param string|array $name
    *
-   * @return \Papaya\Request\Parameters\Name
+   * @return Request\Parameters\Name
    *
    * @throws \InvalidArgumentException
    */
   public function getParameterName($name) {
-    $parts = new \Papaya\Request\Parameters\Name($name);
+    $parts = new Request\Parameters\Name($name);
     if (self::METHOD_GET === $this->parameterMethod()) {
       $parts->separator($this->papaya()->request->getParameterGroupSeparator());
     }
@@ -470,16 +475,16 @@ class Dialog extends Control\Interactive {
    *
    * Error handler
    *
-   * @param \Papaya\UI\Dialog\Errors|null $errors
+   * @param Dialog\Errors|null $errors
    *
-   * @return \Papaya\UI\Dialog\Errors
+   * @return Dialog\Errors
    */
-  public function errors(\Papaya\UI\Dialog\Errors $errors = NULL) {
+  public function errors(Dialog\Errors $errors = NULL) {
     if (NULL !== $errors) {
       $this->_errors = $errors;
     }
     if (NULL === $this->_errors) {
-      $this->_errors = new \Papaya\UI\Dialog\Errors();
+      $this->_errors = new Dialog\Errors();
     }
     return $this->_errors;
   }
@@ -488,9 +493,9 @@ class Dialog extends Control\Interactive {
    * Collect errors from fields
    *
    * @param \Exception $exception
-   * @param \Papaya\UI\Dialog\Field $field
+   * @param Dialog\Field $field
    */
-  public function handleValidationFailure(\Exception $exception, \Papaya\UI\Dialog\Field $field) {
+  public function handleValidationFailure(\Exception $exception, Dialog\Field $field) {
     $this->_executionResult = FALSE;
     $this->errors()->add($exception, $field);
   }
@@ -498,16 +503,16 @@ class Dialog extends Control\Interactive {
   /**
    * Getter/Setter for dialog options object
    *
-   * @param \Papaya\UI\Dialog\Options $options
+   * @param Dialog\Options $options
    *
-   * @return \Papaya\UI\Dialog\Options
+   * @return Dialog\Options
    */
-  public function options(\Papaya\UI\Dialog\Options $options = NULL) {
+  public function options(Dialog\Options $options = NULL) {
     if (NULL !== $options) {
       $this->_options = $options;
     }
     if (NULL === $this->_options) {
-      $this->_options = new \Papaya\UI\Dialog\Options();
+      $this->_options = new Dialog\Options();
     }
     return $this->_options;
   }
@@ -543,20 +548,20 @@ class Dialog extends Control\Interactive {
   /**
    * Dialog fields getter/setter
    *
-   * @param \Papaya\UI\Dialog\Fields|array|\Traversable|null $fields
+   * @param Dialog\Fields|array|\Traversable|null $fields
    *
-   * @return \Papaya\UI\Dialog\Fields
+   * @return Dialog\Fields
    *
    * @throws \UnexpectedValueException
    * @throws \LogicException
    */
   public function fields($fields = NULL) {
     if (NULL !== $fields) {
-      if ($fields instanceof \Papaya\UI\Dialog\Fields) {
+      if ($fields instanceof Dialog\Fields) {
         $this->_fields = $fields;
         $fields->owner($this);
       } else {
-        \Papaya\Utility\Constraints::assertArrayOrTraversable($fields);
+        Utility\Constraints::assertArrayOrTraversable($fields);
         /* @noinspection ForeachSourceInspection */
         foreach ($fields as $field) {
           $this->fields()->add($field);
@@ -564,7 +569,7 @@ class Dialog extends Control\Interactive {
       }
     }
     if (NULL === $this->_fields) {
-      $this->_fields = new \Papaya\UI\Dialog\Fields($this);
+      $this->_fields = new Dialog\Fields($this);
       $this->_fields->papaya($this->papaya());
     }
     return $this->_fields;
@@ -573,19 +578,19 @@ class Dialog extends Control\Interactive {
   /**
    * Dialog buttons getter/setter
    *
-   * @param \Papaya\UI\Dialog\Buttons $buttons
+   * @param Dialog\Buttons $buttons
    *
-   * @return \Papaya\UI\Dialog\Buttons
+   * @return Dialog\Buttons
    *
    * @throws \LogicException
    */
-  public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {
+  public function buttons(Dialog\Buttons $buttons = NULL) {
     if (NULL !== $buttons) {
       $this->_buttons = $buttons;
       $buttons->owner($this);
     }
     if (NULL === $this->_buttons) {
-      $this->_buttons = new \Papaya\UI\Dialog\Buttons($this);
+      $this->_buttons = new Dialog\Buttons($this);
       $this->_buttons->papaya($this->papaya());
     }
     return $this->_buttons;
@@ -599,16 +604,16 @@ class Dialog extends Control\Interactive {
    *
    * The execution call the method collect() on each field and button to fill up this object.
    *
-   * @param \Papaya\Request\Parameters $data
+   * @param Request\Parameters $data
    *
-   * @return \Papaya\Request\Parameters
+   * @return Request\Parameters
    */
-  public function data(\Papaya\Request\Parameters $data = NULL) {
+  public function data(Request\Parameters $data = NULL) {
     if (NULL !== $data) {
       $this->_data = $data;
     }
     if (NULL === $this->_data) {
-      $this->_data = new \Papaya\Request\Parameters();
+      $this->_data = new Request\Parameters();
       $this->_data->merge($this->hiddenFields());
     }
     return $this->_data;
@@ -617,15 +622,15 @@ class Dialog extends Control\Interactive {
   /**
    * Getter/Setter for the description subobject.
    *
-   * @param \Papaya\UI\Dialog\Element\Description
+   * @param Dialog\Element\Description
    *
-   * @return \Papaya\UI\Dialog\Element\Description
+   * @return Dialog\Element\Description
    */
-  public function description(\Papaya\UI\Dialog\Element\Description $description = NULL) {
+  public function description(Dialog\Element\Description $description = NULL) {
     if (NULL !== $description) {
       $this->_description = $description;
     } elseif (NULL === $this->_description) {
-      $this->_description = new \Papaya\UI\Dialog\Element\Description();
+      $this->_description = new Dialog\Element\Description();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;

@@ -49,7 +49,7 @@ class Text implements Application\Access, StringCastable {
    *
    * @var string|null
    */
-  protected $_string;
+  private $_string;
 
   /**
    * Create object and store arguments into variables

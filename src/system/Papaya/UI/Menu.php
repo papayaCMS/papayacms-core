@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI;
 
+use Papaya\XML;
+
 /**
  * A menu gui control. This is a list of menu elements like buttons, separators and selects,
  * maybe grouped.
@@ -22,7 +24,7 @@ namespace Papaya\UI;
  * @subpackage UI
  *
  * @property string $identifier
- * @property \Papaya\UI\Toolbar\Elements $elements
+ * @property Toolbar\Elements $elements
  */
 class Menu extends Toolbar {
   /**
@@ -33,7 +35,7 @@ class Menu extends Toolbar {
   protected $_identifier = '';
 
   /**
-   * Delcare public properties
+   * Declare public properties
    *
    * @var array
    */
@@ -45,11 +47,11 @@ class Menu extends Toolbar {
   /**
    * Append menu and elements and set identifier if available
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (\count($this->elements()) > 0) {
       $menu = $parent->appendElement('menu');
       if (!empty($this->_identifier)) {
@@ -58,6 +60,6 @@ class Menu extends Toolbar {
       $this->elements()->appendTo($menu);
       return $menu;
     }
-    return;
+    return NULL;
   }
 }
