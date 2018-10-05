@@ -14,23 +14,34 @@
  */
 namespace Papaya\UI\Sheet;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A single subtitle element for a sheet
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Subtitle extends \Papaya\UI\Control\Collection\Item {
-  private $_text = '';
+class Subtitle extends UI\Control\Collection\Item {
+  /**
+   * @var string|StringCastable
+   */
+  private $_text;
 
   /**
-   * @param $text
+   * @param string|StringCastable $text
    */
   public function __construct($text) {
     $this->_text = $text;
   }
 
-  public function appendTo(\Papaya\XML\Element $parent) {
+  /**
+   * @param XML\Element $parent
+   * @return XML\Element
+   */
+  public function appendTo(XML\Element $parent) {
     return $parent->appendElement('subtitle', [], (string)$this->_text);
   }
 }

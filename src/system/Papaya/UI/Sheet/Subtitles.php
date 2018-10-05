@@ -14,13 +14,19 @@
  */
 namespace Papaya\UI\Sheet;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A list of subtitle elements for a sheet
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Subtitles extends \Papaya\UI\Control\Collection {
+class Subtitles extends UI\Control\Collection {
+  /**
+   * @var string
+   */
   protected $_itemClass = Subtitle::class;
 
   /**
@@ -30,7 +36,7 @@ class Subtitles extends \Papaya\UI\Control\Collection {
    */
   public function __construct($subtitles = NULL) {
     if (NULL !== $subtitles) {
-      \Papaya\Utility\Constraints::assertArrayOrTraversable($subtitles);
+      Utility\Constraints::assertArrayOrTraversable($subtitles);
       /** @var array|\Traversable $subtitles */
       foreach ($subtitles as $subtitle) {
         if (\is_string($subtitle) || \method_exists($subtitle, '__toString')) {
@@ -42,6 +48,10 @@ class Subtitles extends \Papaya\UI\Control\Collection {
     }
   }
 
+  /**
+   * @param $string
+   * @return \Papaya\UI\Control\Collection
+   */
   public function addString($string) {
     return $this->add(new Subtitle($string));
   }
