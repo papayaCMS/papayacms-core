@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Navigation;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * An navigation builder class, creates a link navigation from an Transversable or array.
  *
@@ -22,7 +26,7 @@ namespace Papaya\UI\Navigation;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Builder extends \Papaya\UI\Control {
+class Builder extends UI\Control {
   /**
    * member variable for the source
    *
@@ -33,7 +37,7 @@ class Builder extends \Papaya\UI\Control {
   /**
    * member variable for the links
    *
-   * @var \Papaya\UI\Navigation\Items
+   * @var Items
    */
   private $_items;
 
@@ -61,12 +65,12 @@ class Builder extends \Papaya\UI\Control {
    */
   public function __construct($elements, $itemClass = Item\Text::class) {
     $this->elements($elements);
-    if (!\is_subclass_of($itemClass, \Papaya\UI\Navigation\Item::class)) {
+    if (!\is_subclass_of($itemClass, Item::class)) {
       throw new \InvalidArgumentException(
         \sprintf(
           'Class "%s" is not an subclass of "%s".',
           $itemClass,
-          \Papaya\UI\Navigation\Item::class
+          Item::class
         )
       );
     }
@@ -76,9 +80,9 @@ class Builder extends \Papaya\UI\Control {
   /**
    * Create items for each source element and append them to the parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $this->items()->clear();
     $this->callbacks()->onBeforeAppend($this->items());
     foreach ($this->elements() as $index => $element) {
@@ -88,7 +92,7 @@ class Builder extends \Papaya\UI\Control {
         $itemClass = $this->_itemClass;
         $item = new $itemClass($element, $index);
       }
-      if ($item instanceof \Papaya\UI\Navigation\Item) {
+      if ($item instanceof Item) {
         $this->items()->add($item);
         $this->callbacks()->onAfterAppendItem($item, $element, $index);
       }
@@ -106,7 +110,7 @@ class Builder extends \Papaya\UI\Control {
    */
   public function elements($elements = NULL) {
     if (NULL !== $elements) {
-      \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
+      Utility\Constraints::assertArrayOrTraversable($elements);
       $this->_elements = $elements;
     }
     return $this->_elements;
@@ -115,15 +119,15 @@ class Builder extends \Papaya\UI\Control {
   /**
    * Getter/Setter for the navigation items
    *
-   * @param \Papaya\UI\Navigation\Items $items
+   * @param Items $items
    *
-   * @return \Papaya\UI\Navigation\Items
+   * @return Items
    */
-  public function items(\Papaya\UI\Navigation\Items $items = NULL) {
+  public function items(Items $items = NULL) {
     if (NULL !== $items) {
       $this->_items = $items;
     } elseif (NULL === $this->_items) {
-      $this->_items = new \Papaya\UI\Navigation\Items();
+      $this->_items = new Items();
       $this->_items->papaya($this->papaya());
     }
     return $this->_items;

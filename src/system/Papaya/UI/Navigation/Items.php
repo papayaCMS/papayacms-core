@@ -14,13 +14,15 @@
  */
 namespace Papaya\UI\Navigation;
 
+use Papaya\UI;
+
 /**
  * An navigation items list.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Items extends \Papaya\UI\Control\Collection {
+class Items extends UI\Control\Collection {
   private $_reference;
 
   /**
@@ -35,15 +37,15 @@ class Items extends \Papaya\UI\Control\Collection {
   /**
    * Getter/Setter for a reference subobject to create detail page links
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
+  public function reference(UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference\Page();
+      $this->_reference = new UI\Reference\Page();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

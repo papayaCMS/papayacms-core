@@ -14,30 +14,34 @@
  */
 namespace Papaya\UI\Navigation\Item;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * An navigation item with a name attribute. Used for specific navigation items, that need
  * individual handling in the template.
  *
- * The given name is converted to an identifer using lowercase letters and underscore separators.
+ * The given name is converted to an identifier using lowercase letters and underscore separators.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Named extends \Papaya\UI\Navigation\Item {
+class Named extends UI\Navigation\Item {
   /**
    * Use the parent method to create and append to xml element not. Set an attribute name
    * for the create xml element using the member variable.
    *
    * @see \Papaya\UI\Navigation\Item#appendTo($parent)
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $result = parent::appendTo($parent);
     $result->setAttribute(
-      'name', \Papaya\Utility\Text\Identifier::toUnderscoreLower((string)$this->_sourceValue)
+      'name', Utility\Text\Identifier::toUnderscoreLower((string)$this->_sourceValue)
     );
     return $result;
   }

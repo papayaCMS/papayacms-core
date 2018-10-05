@@ -14,23 +14,26 @@
  */
 namespace Papaya\UI\Navigation\Builder;
 
+use Papaya\BaseObject;
+use Papaya\UI;
+
 /**
  * Callbacks that are used by the navigation builder object
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\BaseObject\Callback $onBeforeAppend
- * @property \Papaya\BaseObject\Callback $onAfterAppend
- * @property \Papaya\BaseObject\Callback $onCreateItem
- * @property \Papaya\BaseObject\Callback $onAfterAppendItem
+ * @property BaseObject\Callback $onBeforeAppend
+ * @property BaseObject\Callback $onAfterAppend
+ * @property BaseObject\Callback $onCreateItem
+ * @property BaseObject\Callback $onAfterAppendItem
  *
- * @method void onBeforeAppend(\Papaya\UI\Navigation\Items $items)
- * @method void onAfterAppend(\Papaya\UI\Navigation\Items $items)
- * @method null|\Papaya\UI\Navigation\Item onCreateItem($element, $index)
- * @method void onAfterAppendItem(\Papaya\UI\Navigation\Item $item, $element, $index)
+ * @method void onBeforeAppend(UI\Navigation\Items $items)
+ * @method void onAfterAppend(UI\Navigation\Items $items)
+ * @method null|UI\Navigation\Item onCreateItem($element, $index)
+ * @method void onAfterAppendItem(UI\Navigation\Item $item, $element, $index)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends BaseObject\Callbacks {
   public function __construct() {
     parent::__construct(
       [
