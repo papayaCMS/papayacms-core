@@ -14,6 +14,8 @@
  */
 namespace Papaya\URL;
 
+use Papaya\Utility;
+
 /**
  * Papaya URL representation, representing the current url
  *
@@ -28,7 +30,7 @@ class Current extends \Papaya\URL {
    */
   public function __construct($url = NULL) {
     parent::__construct(
-      empty($url) ? $this->getURLFromEnvironment() : $url
+      NULL === $url ? $this->getURLFromEnvironment() : $url
     );
   }
 
@@ -38,17 +40,13 @@ class Current extends \Papaya\URL {
    * @return string|null
    */
   public function getURLFromEnvironment() {
-    $scheme = \Papaya\Utility\Server\Protocol::get();
+    $scheme = Utility\Server\Protocol::get();
     $port = $this->_getServerValue(
-      'SERVER_PORT', ':', \Papaya\Utility\Server\Protocol::getDefaultPort()
+      'SERVER_PORT', ':', Utility\Server\Protocol::getDefaultPort()
     );
     $host = $this->_getServerValue(['HTTP_HOST', 'SERVER_NAME']);
     $requestUri = $this->_getServerValue('REQUEST_URI');
-    if (!empty($host)) {
-      return $scheme.'://'.$host.$port.$requestUri;
-    } else {
-      return;
-    }
+    return !empty($host) ? $scheme.'://'.$host.$port.$requestUri : NULL;
   }
 
   /**
@@ -65,15 +63,16 @@ class Current extends \Papaya\URL {
       $keys = [$keys];
     }
     foreach ($keys as $key) {
-      if (!empty($_SERVER[$key]) &&
-        $ignoreValue != $_SERVER[$key]) {
+      if (
+        !empty($_SERVER[$key]) &&
+        (string)$ignoreValue !== (string)$_SERVER[$key]
+      ) {
         $result = $_SERVER[$key];
       }
     }
     if (!empty($result)) {
       return $prefix.$result;
-    } else {
-      return '';
     }
+    return '';
   }
 }

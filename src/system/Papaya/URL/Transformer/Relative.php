@@ -53,7 +53,7 @@ class Relative {
         return $path;
       }
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -65,13 +65,11 @@ class Relative {
    * @return bool
    */
   private function _comparePorts($portOne, $portTwo) {
-    if ($portOne == $portTwo ||
-      ('80' == $portOne && empty($portTwo)) ||
-      ('80' == $portTwo && empty($portOne))) {
-      return TRUE;
-    } else {
-      return FALSE;
-    }
+    return (
+      (string)$portOne === (string)$portTwo ||
+      ('80' === (string)$portOne && empty($portTwo)) ||
+      ('80' === (string)$portTwo && empty($portOne))
+    );
   }
 
   /**
@@ -100,7 +98,7 @@ class Relative {
       $result = \str_repeat('../', $partCount - $i);
     }
     $result .= \substr($targetPath, \strlen($strippedPart) + 1);
-    if ('' == $result) {
+    if ('' === $result) {
       return './';
     }
     return $result;
