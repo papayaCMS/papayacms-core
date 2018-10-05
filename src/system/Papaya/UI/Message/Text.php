@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Message;
 
+use \Papaya\BaseObject;
+
 /**
  * User message with an xml fragment as message content.
  *
@@ -21,32 +23,36 @@ namespace Papaya\UI\Message;
  *
  * @property int $severity
  * @property string $event
- * @property bool $occured
+ * @property bool $occurred
  * @property string $content
  *
  * @package Papaya-Library
  * @subpackage UI
  */
 class Text extends \Papaya\UI\Message {
+  /**
+   * @var string|BaseObject\Interfaces\StringCastable
+   */
   private $_content = '';
 
   protected $_declaredProperties = [
     'severity' => ['_severity', 'setSeverity'],
     'event' => ['_event', 'setEvent'],
-    'occured' => ['_occured', 'setOccured'],
+    'occured' => ['_occurred', 'setOccurred'],
+    'occurred' => ['_occurred', 'setOccurred'],
     'content' => ['getContent', 'setContent']
   ];
 
   /**
-   * Create object and store poroperties including the xml fragment string
+   * Create object and store properties including the xml fragment string
    *
    * @param int $severity
    * @param string $event
    * @param string $content
-   * @param bool $occured
+   * @param bool $occurred
    */
-  public function __construct($severity, $event, $content, $occured = FALSE) {
-    parent::__construct($severity, $event, $occured);
+  public function __construct($severity, $event, $content, $occurred = FALSE) {
+    parent::__construct($severity, $event, $occurred);
     $this->setContent($content);
   }
 
@@ -69,7 +75,7 @@ class Text extends \Papaya\UI\Message {
   /**
    * Set the content string. This can be an object, if it is castable.
    *
-   * @param string|\Papaya\UI\Text $content
+   * @param string|BaseObject\Interfaces\StringCastable $content
    */
   public function setContent($content) {
     $this->_content = $content;

@@ -17,10 +17,10 @@ namespace Papaya\UI;
 /**
  * Abstract/Basic superclass for the user messages.
  *
- * This are messages diplayed to the user on a page. They can have differnt kind of severities
+ * This are messages displayed to the user on a page. They can have different kind of severities
  * and always have a event. This is a string identifier for the event the message is for.
  *
- * Occured is an boolean attribute, that is true if the message actually occured in the current
+ * Occurred is an boolean attribute, that is true if the message actually occurred in the current
  * request. It is sometimes needed to output a message to the xml even if the event did not happen.
  * A typical case for this is a javascript action/event.
  *
@@ -28,7 +28,7 @@ namespace Papaya\UI;
  * @subpackage UI
  *
  * @property int $severity
- * @property bool $occured
+ * @property bool $occurred
  * @property string|\Papaya\UI\Text $event
  */
 abstract class Message
@@ -41,6 +41,9 @@ abstract class Message
 
   const SEVERITY_CONFIRMATION = 3;
 
+  /**
+   * @var array
+   */
   private $_tagNames = [
     self::SEVERITY_INFORMATION => 'information',
     self::SEVERITY_WARNING => 'warning',
@@ -48,16 +51,29 @@ abstract class Message
     self::SEVERITY_CONFIRMATION => 'confirmation'
   ];
 
+  /**
+   * @var int
+   */
   protected $_severity = self::SEVERITY_INFORMATION;
 
+  /**
+   * @var string
+   */
   protected $_event = '';
 
-  protected $_occured = FALSE;
+  /**
+   * @var bool
+   */
+  protected $_occurred = FALSE;
 
+  /**
+   * @var array
+   */
   protected $_declaredProperties = [
     'severity' => ['_severity', 'setSeverity'],
     'event' => ['_event', 'setEvent'],
-    'occured' => ['_occured', 'setOccured']
+    'occured' => ['_occurred', 'setOccurred'],
+    'occurred' => ['_occurred', 'setOccurred']
   ];
 
   /**
@@ -65,12 +81,12 @@ abstract class Message
    *
    * @param int $severity
    * @param string $event
-   * @param bool $occured
+   * @param bool $occurred
    */
-  public function __construct($severity, $event, $occured = FALSE) {
+  public function __construct($severity, $event, $occurred = FALSE) {
     $this->setSeverity($severity);
     $this->setEvent($event);
-    $this->setOccured($occured);
+    $this->setOccurred($occurred);
   }
 
   /**
@@ -85,7 +101,9 @@ abstract class Message
       $this->getTagName($this->_severity),
       [
         'event' => $this->event,
-        'occured' => $this->occured ? 'yes' : 'no'
+        'occurred' => $this->occurred ? 'yes' : 'no',
+        /* @todo remove property and attribute */
+        'occured' => $this->occurred ? 'yes' : 'no'
       ]
     );
   }
@@ -117,12 +135,12 @@ abstract class Message
   }
 
   /**
-   * Validate and set the message occured status.
+   * Validate and set the message occurred status.
    *
-   * @param bool $occured
+   * @param bool $occurred
    */
-  public function setOccured($occured) {
-    $this->_occured = (bool)$occured;
+  public function setOccurred($occurred) {
+    $this->_occurred = (bool)$occurred;
   }
 
   /**

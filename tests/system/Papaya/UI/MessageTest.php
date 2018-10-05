@@ -37,7 +37,7 @@ namespace Papaya\UI {
      */
     public function testConstructorWithOptionalParameters() {
       $message = new Message_TestProxy(Message::SEVERITY_ERROR, 'sample', TRUE);
-      $this->assertTrue($message->occured);
+      $this->assertTrue($message->occurred);
     }
 
     /**
@@ -90,7 +90,7 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers \Papaya\UI\Message::setOccured
+     * @covers \Papaya\UI\Message::setOccurred
      */
     public function testOccurredGetAfterSet() {
       $message = new Message_TestProxy(Message::SEVERITY_ERROR, 'sample');
@@ -108,14 +108,14 @@ namespace Papaya\UI {
       return array(
         'sample error, not occurred' => array(
           /** @lang XML */
-          '<error event="sample" occured="no"/>',
+          '<error event="sample" occurred="no" occured="no"/>',
           Message::SEVERITY_ERROR,
           'sample',
           FALSE
         ),
         'test information, occurred' => array(
           /** @lang XML */
-          '<information event="test" occured="yes"/>',
+          '<information event="test" occurred="yes" occured="yes"/>',
           Message::SEVERITY_INFORMATION,
           'test',
           TRUE

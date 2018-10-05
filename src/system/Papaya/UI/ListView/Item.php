@@ -30,7 +30,6 @@ use Papaya\XML;
  * @property int $indentation
  * @property int $columnSpan
  * @property bool $selected
- * @property bool $emphased
  * @property bool $emphasised
  * @property SubItems $subitems
  * @property UI\Reference $reference
