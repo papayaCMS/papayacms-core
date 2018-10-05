@@ -41,10 +41,10 @@ class Text {
       $pattern = '(^(.{0,'.(int)$length.'})(?:$|\P{L}))us';
     }
     if (\preg_match($pattern, $string, $matches)) {
-      if ($matches[1] == $string) {
+      if ($matches[1] === $string) {
         return $string;
       }
-      return \Papaya\Utility\Text\UTF8::ensure(\rtrim($matches[1]).$suffix);
+      return Text\UTF8::ensure(\rtrim($matches[1]).$suffix);
     }
     return '';
   }

@@ -57,16 +57,19 @@ class Date {
         'second' => (int)self::_getValueFromArray($matches, 'second', 0),
         'millisecond' => (int)self::_getValueFromArray($matches, 'millisecond', 0)
       ];
-      if (isset($matches['offsetOperator']) && !empty($matches['offsetOperator']) &&
-        isset($matches['offsetHour']) && (int)($matches['offsetHour']) > 0) {
-        if ('+' == $matches['offsetOperator']) {
+      if (
+        !empty($matches['offsetOperator']) &&
+        isset($matches['offsetHour']) &&
+        (int)$matches['offsetHour'] > 0
+      ) {
+        if ('+' === $matches['offsetOperator']) {
           $resultMatch['hour'] -= (int)$matches['offsetHour'];
-          if (isset($matches['offsetMinute']) && (int)($matches['offsetMinute']) > 0) {
+          if (isset($matches['offsetMinute']) && (int)$matches['offsetMinute'] > 0) {
             $resultMatch['minute'] += (int)$matches['offsetMinute'];
           }
         } else {
           $resultMatch['hour'] += (int)$matches['offsetHour'];
-          if (isset($matches['offsetMinute']) && (int)($matches['offsetMinute']) > 0) {
+          if (isset($matches['offsetMinute']) && (int)$matches['offsetMinute'] > 0) {
             $resultMatch['minute'] -= (int)$matches['offsetMinute'];
           }
         }
@@ -241,7 +244,7 @@ class Date {
    *
    * @return string
    */
-  public static function periodToString($period, $precision = 2, $units = []) {
+  public static function periodToString($period, $precision = 2, array $units = []) {
     $elements = self::periodToArray($period);
     $result = '';
     $counter = 0;
@@ -253,11 +256,12 @@ class Date {
       ['min', 's', 30],
       ['s', 'ms', 500],
     ];
-    foreach ($patterns as $pattern) {
-      list($current, $next, $divider) = $pattern;
+    foreach ($patterns as list($current, $next, $divider)) {
       $unit = isset($units[$current]) ? $units[$current] : $current;
-      if ($counter + $elements[$current] > 0 &&
-        $precision >= ++$counter) {
+      if (
+        $counter + $elements[$current] > 0 &&
+        $precision >= ++$counter
+      ) {
         $result .= ' ';
         if ($precision > $counter) {
           $result .= $elements[$current];
@@ -283,11 +287,7 @@ class Date {
    * @return int
    */
   private static function _roundPeriodElement($value, $fragmentValue, $divider) {
-    if ($fragmentValue >= $divider) {
-      return $value + 1;
-    } else {
-      return $value;
-    }
+    return $fragmentValue >= $divider ? $value + 1 : $value;
   }
 
   /**
@@ -301,6 +301,6 @@ class Date {
    * @return mixed
    */
   private static function _getValueFromArray(array $array, $key, $defaultValue) {
-    return (empty($array[$key])) ? $defaultValue : $array[$key];
+    return empty($array[$key]) ? $defaultValue : $array[$key];
   }
 }

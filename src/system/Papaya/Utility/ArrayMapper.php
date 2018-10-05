@@ -39,17 +39,17 @@ class ArrayMapper {
    * @return array
    */
   public static function byIndex($array, $elementIndex = NULL, $keyIndex = NULL) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($array);
+    Constraints::assertArrayOrTraversable($array);
     $result = [];
     foreach ($array as $key => $value) {
-      if (isset($keyIndex)) {
-        $key = \Papaya\Utility\Arrays::get($value, $keyIndex, NULL);
+      if (NULL !== $keyIndex) {
+        $key = Arrays::get($value, $keyIndex, NULL);
       }
-      if (isset($elementIndex)) {
-        $value = \Papaya\Utility\Arrays::get($value, $elementIndex, NULL);
+      if (NULL !== $elementIndex) {
+        $value = Arrays::get($value, $elementIndex, NULL);
       }
-      if (isset($value)) {
-        if (isset($key)) {
+      if (NULL !== $value) {
+        if (NULL !== $key) {
           $result[$key] = $value;
         } else {
           $result[] = $value;

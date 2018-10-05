@@ -31,11 +31,7 @@ class Random {
    */
   public static function rand($min = NULL, $max = NULL) {
     $random = \function_exists('mt_rand') ? 'mt_rand' : 'rand';
-    if (\is_null($min)) {
-      return $random();
-    } else {
-      return $random($min, $max);
-    }
+    return NULL === $min ? $random() : $random($min, $max);
   }
 
   /**

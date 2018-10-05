@@ -59,7 +59,7 @@ class Bytes {
     $size = $bytes;
     foreach (self::$_exponents as $unit => $exponent) {
       if ($exponent > 0) {
-        $factor = \pow(1024, $exponent);
+        $factor = 1024 ** $exponent;
         if ($bytes > $factor) {
           $size = $bytes / $factor;
           break;
@@ -81,8 +81,8 @@ class Bytes {
   public static function fromString($string) {
     $string = \trim($string);
     if (\preg_match('((?P<size>[\d.,]+)\s*(?P<unit>[a-z]*))i', $string, $matches)) {
-      $size = \Papaya\Utility\Arrays::get($matches, 'size', 0);
-      $unit = \strtolower(\Papaya\Utility\Arrays::get($matches, 'unit', ''));
+      $size = Arrays::get($matches, 'size', 0);
+      $unit = \strtolower(Arrays::get($matches, 'unit', ''));
     } else {
       $size = $string;
       $unit = '';
@@ -93,7 +93,7 @@ class Bytes {
       $exponent = 0;
     }
     if ($exponent > 0) {
-      return (int)$size * \pow(1024, $exponent);
+      return (int)$size * (1024 ** $exponent);
     }
     return (int)$size;
   }

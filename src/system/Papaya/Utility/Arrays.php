@@ -31,14 +31,18 @@ class Arrays {
    * @return array
    */
   public static function merge($arrayOne, $arrayTwo, $recursion = 20) {
-    if (\is_array($arrayOne) || $arrayOne instanceof \Traversable) {
+    $isTraversableOne = \is_array($arrayOne) || $arrayOne instanceof \Traversable;
+    $isTraversableTwo = \is_array($arrayTwo) || $arrayTwo instanceof \Traversable;
+    if ($isTraversableOne) {
       $result = self::ensure($arrayOne);
-      if (\is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
+      if ($isTraversableTwo) {
         foreach ($arrayTwo as $key => $value) {
-          if (isset($result[$key]) &&
-            (\is_array($result[$key]) || $result[$key] instanceof \Traversable) &&
-            $recursion > 1) {
-            $result[$key] = \Papaya\Utility\Arrays::merge(
+          if (
+            $recursion > 1 &&
+            isset($result[$key]) &&
+            (\is_array($result[$key]) || $result[$key] instanceof \Traversable)
+          ) {
+            $result[$key] = self::merge(
               self::ensure($result[$key]), $value, $recursion - 1
             );
           } else {
@@ -46,10 +50,10 @@ class Arrays {
           }
         }
       }
-    } elseif (\is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
+    } elseif ($isTraversableTwo) {
       $result = self::ensure($arrayTwo);
     } else {
-      return;
+      return [];
     }
     return $result;
   }

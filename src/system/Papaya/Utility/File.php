@@ -31,7 +31,7 @@ class File {
    * @return string
    */
   public static function formatBytes($bytes, $decimals = 2, $decimalSeparator = '.') {
-    return \Papaya\Utility\Bytes::toString($bytes, $decimals, $decimalSeparator);
+    return Bytes::toString($bytes, $decimals, $decimalSeparator);
   }
 
   /**
