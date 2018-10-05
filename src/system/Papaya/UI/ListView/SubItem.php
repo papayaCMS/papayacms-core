@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A subitem is additional data, attached to an listview item. They are displayed as additional
  * columns in the most cases.
@@ -21,7 +24,7 @@ namespace Papaya\UI\ListView;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
+abstract class SubItem extends UI\Control\Collection\Item {
   /**
    * Alignment, if it is NULL, the column alignment is used, "left" is the default value.
    *
@@ -52,20 +55,18 @@ abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
    * @return int
    */
   public function getAlign() {
-    if (\is_null($this->_align)) {
+    if (NULL === $this->_align) {
       $columnIndex = $this->index();
       if ($this->hasCollection() &&
         ($collection = $this->collection()) &&
-        $collection instanceof \Papaya\UI\ListView\SubItems &&
+        $collection instanceof SubItems &&
         $collection->getListView()->columns()->has($columnIndex + 1)) {
         /* @noinspection PhpUndefinedMethodInspection */
         return $collection->getListView()->columns()->get($columnIndex + 1)->getAlign();
-      } else {
-        return \Papaya\UI\Option\Align::LEFT;
       }
-    } else {
-      return $this->_align;
+      return UI\Option\Align::LEFT;
     }
+    return $this->_align;
   }
 
   /**
@@ -75,5 +76,18 @@ abstract class SubItem extends \Papaya\UI\Control\Collection\Item {
    */
   public function setActionParameters(array $actionParameters = NULL) {
     $this->_actionParameters = $actionParameters;
+  }
+
+  /**
+   * @param XML\Element $parent
+   * @return XML\Element
+   */
+  protected function _appendSubItemTo(XML\Element $parent) {
+    return $parent->appendElement(
+      'subitem',
+      [
+        'align' => UI\Option\Align::getString($this->getAlign())
+      ]
+    );
   }
 }

@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A list view column represent one part of the column header in a {@see \Papaya\UI\ListView}.
  *
@@ -23,7 +26,7 @@ namespace Papaya\UI\ListView;
  * @property int $align
  * @property string|\Papaya\UI\Text $caption
  */
-class Column extends \Papaya\UI\Control\Collection\Item {
+class Column extends UI\Control\Collection\Item {
   /**
    * Current caption value
    *
@@ -36,7 +39,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    *
    * @var int
    */
-  protected $_align = \Papaya\UI\Option\Align::LEFT;
+  protected $_align = UI\Option\Align::LEFT;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
@@ -54,7 +57,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    * @param string|\Papaya\UI\Text $caption
    * @param int $align
    */
-  public function __construct($caption, $align = \Papaya\UI\Option\Align::LEFT) {
+  public function __construct($caption, $align = UI\Option\Align::LEFT) {
     $this->_caption = $caption;
     $this->setAlign($align);
   }
@@ -67,7 +70,7 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    * @param int $align
    */
   public function setAlign($align) {
-    \Papaya\UI\Option\Align::validate($align);
+    UI\Option\Align::validate($align);
     $this->_align = $align;
   }
 
@@ -83,13 +86,13 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append column xml to parent node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'col',
       [
-        'align' => \Papaya\UI\Option\Align::getString($this->_align)
+        'align' => UI\Option\Align::getString($this->_align)
       ],
       (string)$this->_caption
     );

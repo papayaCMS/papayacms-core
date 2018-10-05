@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView\SubItem;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A listview subitem displaying multiple icons from a given list.
  *
@@ -21,7 +24,7 @@ namespace Papaya\UI\ListView\SubItem;
  * @subpackage UI
  *
  * @property int $align
- * @property \Papaya\UI\Icon\Collection $icons
+ * @property UI\Icon\Collection $icons
  * @property string $selection
  * @property int $selectionMode
  * @property array $actionParameters
@@ -70,15 +73,15 @@ class Images extends Image\Toggle {
   ];
 
   /**
-   * Create subitme and store icon list and selection index.
+   * Create subitem and store icon list and selection index.
    *
-   * @param \Papaya\UI\Icon\Collection $icons
+   * @param UI\Icon\Collection $icons
    * @param mixed $selection
    * @param int $selectionMode
    * @param array $actionParameters
    */
   public function __construct(
-    \Papaya\UI\Icon\Collection $icons,
+    UI\Icon\Collection $icons,
     $selection,
     $selectionMode = self::VALIDATE_VALUES,
     array $actionParameters = NULL
@@ -88,20 +91,15 @@ class Images extends Image\Toggle {
   }
 
   /**
-   * Append the subitem to the listitem xml element. If the selected icon is not found
+   * Append the subitem to the list item xml element. If the selected icon is not found
    * the subitem will be empty.
    *
-   * @param \Papaya\XML\Element
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $subitem = $parent->appendElement(
-      'subitem',
-      [
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      ]
-    );
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
     $list = $subitem->appendElement('glyphs');
     /** @var \Papaya\UI\Icon $icon */
     foreach ($this->_icons as $index => $icon) {

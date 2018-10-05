@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView\SubItem;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple listview subitem displaying an image.
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\ListView\SubItem;
  * @property array $actionParameters
  * @property \Papaya\UI\Reference $reference
  */
-class Image extends Text {
+class Image extends Link {
   /**
    * buffer for image index or filename
    *
@@ -69,7 +72,7 @@ class Image extends Text {
    * @param array $actionParameters
    */
   public function __construct($image, $hint = '', array $actionParameters = NULL) {
-    parent::__construct('', $actionParameters);
+    parent::__construct($actionParameters);
     $this->_image = $image;
     $this->_hint = $hint;
   }
@@ -77,15 +80,11 @@ class Image extends Text {
   /**
    * Append subitem xml data to parent node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $subitem = $parent->appendElement(
-      'subitem',
-      [
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      ]
-    );
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
     if (!empty($this->_image)) {
       $glyph = $subitem->appendElement(
         'glyph',
@@ -98,5 +97,6 @@ class Image extends Text {
         $glyph->setAttribute('href', $this->getURL());
       }
     }
+    return $subitem;
   }
 }

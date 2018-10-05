@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView\SubItem\Image;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A listview subitem displaying an icon from a given list.
  *
@@ -21,15 +24,15 @@ namespace Papaya\UI\ListView\SubItem\Image;
  * @subpackage UI
  *
  * @property int $align
- * @property \Papaya\UI\Icon\Collection $icons
+ * @property UI\Icon\Collection $icons
  * @property string $selection
  * @property array $actionParameters
  */
-class Toggle extends \Papaya\UI\ListView\SubItem {
+class Toggle extends UI\ListView\SubItem {
   /**
    * A list of icons
    *
-   * @var \Papaya\UI\Icon\Collection
+   * @var UI\Icon\Collection
    */
   protected $_icons;
 
@@ -53,48 +56,45 @@ class Toggle extends \Papaya\UI\ListView\SubItem {
   ];
 
   /**
-   * Create subitme and store icon list and selection index.
+   * Create subitem and store icon list and selection index.
    *
-   * @param \Papaya\UI\Icon\Collection $icons
+   * @param UI\Icon\Collection $icons
    * @param mixed $selection
    * @param array $actionParameters
    */
-  public function __construct(\Papaya\UI\Icon\Collection $icons, $selection, array $actionParameters = NULL) {
+  public function __construct(UI\Icon\Collection $icons, $selection, array $actionParameters = NULL) {
     $this->setIcons($icons);
     $this->_selection = $selection;
     $this->_actionParameters = $actionParameters;
   }
 
   /**
-   * Append the subitem to the listitem xml element. If the selected icon is not found
+   * Append the subitem to the list item xml element. If the selected icon is not found
    * the subitem will be empty.
    *
-   * @param \Papaya\XML\Element
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $subitem = $parent->appendElement(
-      'subitem',
-      [
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      ]
-    );
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
     $iconIndex = (string)$this->_selection;
-    if (isset($this->_icons[$iconIndex]) &&
+    if (
+      isset($this->_icons[$iconIndex]) &&
       ($icon = $this->_icons[$iconIndex]) &&
-      $icon instanceof \Papaya\UI\Icon) {
+      $icon instanceof UI\Icon
+    ) {
       $icon->appendTo($subitem);
     }
     return $subitem;
   }
 
   /**
-   * Set icons list, the typehint ensures that a valid icon list is set.
+   * Set icons list, the type hint ensures that a valid icon list is set.
    *
-   * @param \Papaya\UI\Icon\Collection $icons
+   * @param UI\Icon\Collection $icons
    */
-  public function setIcons(\Papaya\UI\Icon\Collection $icons) {
+  public function setIcons(UI\Icon\Collection $icons) {
     $this->_icons = $icons;
   }
 }

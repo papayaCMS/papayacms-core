@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView;
 
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A list view item represent one data line of the {@see \Papaya\UI\ListView}.
  *
@@ -28,20 +31,21 @@ namespace Papaya\UI\ListView;
  * @property int $columnSpan
  * @property bool $selected
  * @property bool $emphased
- * @property \Papaya\UI\ListView\SubItems $subitems
- * @property \Papaya\UI\Reference $reference
- * @property \Papaya\UI\ListView\Item\Node $node
+ * @property bool $emphasised
+ * @property SubItems $subitems
+ * @property UI\Reference $reference
+ * @property Item\Node $node
  */
-class Item extends \Papaya\UI\Control\Collection\Item {
+class Item extends UI\Control\Collection\Item {
   /**
    * Subitems collection
    *
-   * @var \Papaya\UI\ListView\SubItems
+   * @var SubItems
    */
   protected $_subitems;
 
   /**
-   * @var \Papaya\UI\ListView\Item\Node
+   * @var Item\Node
    */
   private $_node;
 
@@ -83,7 +87,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Reference object
    *
-   * @var null|\Papaya\UI\Reference
+   * @var null|UI\Reference
    */
   protected $_reference;
 
@@ -99,7 +103,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var int indentation
    */
-  protected $_emphased = FALSE;
+  protected $_emphasised = FALSE;
 
   /**
    * Listitems can span subitem columns, -1 means that is will span all columns
@@ -122,13 +126,14 @@ class Item extends \Papaya\UI\Control\Collection\Item {
     'actionParameters' => ['_actionParameters', 'setActionParameters'],
     'selected' => ['_selected', '_selected'],
     'indentation' => ['_indentation', 'setIndentation'],
-    'emphased' => ['_emphased', '_emphased'],
+    'emphased' => ['_emphasised', '_emphasised'],
+    'emphasised' => ['_emphasised', '_emphasised'],
     'columnSpan' => ['_columnSpan', '_columnSpan'],
     'reference' => ['reference', 'reference']
   ];
 
   /**
-   * Create object and store intialization values.
+   * Create object and store initialization values.
    *
    *
    * @param string $image
@@ -183,27 +188,27 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Return the collection for the item, overload for code completion and type check
    *
-   * @param \Papaya\UI\ListView\Items|\Papaya\UI\Control\Collection $items
+   * @param Items|UI\Control\Collection $items
    *
-   * @return \Papaya\UI\ListView\Items|\Papaya\UI\Control\Collection
+   * @return Items|UI\Control\Collection
    */
-  public function collection(\Papaya\UI\Control\Collection $items = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\UI\ListView\Items::class, $items);
+  public function collection(UI\Control\Collection $items = NULL) {
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(Items::class, $items);
     return parent::collection($items);
   }
 
   /**
    * Getter/Setter for the node subobject
    *
-   * @param \Papaya\UI\ListView\Item\Node $node
+   * @param Item\Node $node
    *
-   * @return \Papaya\UI\ListView\Item\Node
+   * @return Item\Node
    */
-  public function node(\Papaya\UI\ListView\Item\Node $node = NULL) {
-    if (isset($node)) {
+  public function node(Item\Node $node = NULL) {
+    if (NULL !== $node) {
       $this->_node = $node;
     } elseif (NULL === $this->_node) {
-      $this->_node = new \Papaya\UI\ListView\Item\Node($this);
+      $this->_node = new Item\Node($this);
     }
     return $this->_node;
   }
@@ -211,17 +216,16 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Getter/Setter for the item subitems. Subitems represent addiitonal data.
    *
-   * @param \Papaya\UI\ListView\SubItems $subitems
+   * @param SubItems $subitems
    *
-   * @return \Papaya\UI\ListView\SubItems
+   * @return SubItems
    */
-  public function subitems(\Papaya\UI\ListView\SubItems $subitems = NULL) {
-    if (isset($subitems)) {
+  public function subitems(SubItems $subitems = NULL) {
+    if (NULL !== $subitems) {
       $this->_subitems = $subitems;
       $this->_subitems->owner($this);
-    }
-    if (\is_null($this->_subitems)) {
-      $this->_subitems = new \Papaya\UI\ListView\SubItems($this);
+    } elseif (NULL === $this->_subitems) {
+      $this->_subitems = new SubItems($this);
     }
     return $this->_subitems;
   }
@@ -230,21 +234,21 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
    * is cloned or a new one is created (if no collection is available).
    *
-   * @param \Papaya\UI\Reference $reference
+   * @param UI\Reference $reference
    *
-   * @return \Papaya\UI\Reference
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (\is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       if ($this->hasCollection()) {
         $this->_reference = clone $this->collection()->reference();
         $this->_reference->setParameters(
           $this->_actionParameters, $this->getListView()->parameterGroup()
         );
       } else {
-        $this->_reference = new \Papaya\UI\Reference();
+        $this->_reference = new UI\Reference();
         $this->_reference->papaya($this->papaya());
         $this->_reference->setParameters(
           $this->_actionParameters
@@ -257,11 +261,11 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append list item xml to parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $itemNode = $parent->appendElement(
       'listitem',
       [
@@ -275,19 +279,21 @@ class Item extends \Papaya\UI\Control\Collection\Item {
     if (!empty($this->_text)) {
       $itemNode->setAttribute('subtitle', (string)$this->_text);
     }
-    if (!empty($this->_actionParameters) || isset($this->_reference)) {
+    if (!empty($this->_actionParameters) || NULL !== $this->_reference) {
       $itemNode->setAttribute('href', $this->reference()->getRelative());
     }
     if ($this->_indentation > 0) {
       $itemNode->setAttribute('indent', $this->_indentation);
     }
-    if (0 != $this->_columnSpan) {
+    if (0 !== $this->_columnSpan) {
       $itemNode->setAttribute('span', $this->getColumnSpan());
     }
     if ((bool)$this->_selected) {
       $itemNode->setAttribute('selected', 'selected');
     }
-    if ((bool)$this->_emphased) {
+    if ((bool)$this->_emphasised) {
+      $itemNode->setAttribute('emphasized', 'emphasized');
+      /* @todo remove property and attribute after changing the use */
       $itemNode->setAttribute('emphased', 'emphased');
     }
     $itemNode->append($this->node());
@@ -301,10 +307,6 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * @return int
    */
   protected function getColumnSpan() {
-    if ($this->_columnSpan < 0) {
-      return \count($this->getListView()->columns());
-    } else {
-      return $this->_columnSpan;
-    }
+    return $this->_columnSpan < 0 ? \count($this->getListView()->columns()) : $this->_columnSpan;
   }
 }

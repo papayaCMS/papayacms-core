@@ -363,7 +363,7 @@ class ItemTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\UI\ListView\Item::appendTo
    */
-  public function testAppendToWithEmphased() {
+  public function testAppendToWithEmphasized() {
     $item = new Item('image', 'caption');
     $item->emphased = TRUE;
     $item->papaya(
@@ -371,7 +371,7 @@ class ItemTest extends \Papaya\TestCase {
     );
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<listitem title="caption" image="test.gif" emphased="emphased"/>',
+      '<listitem title="caption" image="test.gif" emphasized="emphasized" emphased="emphased"/>',
       $item->getXML()
     );
   }

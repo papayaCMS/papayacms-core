@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Subitems are additional data, attached to an listview item. They are displayed as additional
  * columns in the most cases.
@@ -22,7 +25,7 @@ namespace Papaya\UI\ListView;
  * @subpackage UI
  */
 class SubItems
-  extends \Papaya\UI\Control\Collection {
+  extends UI\Control\Collection {
   /**
    * Only {@see \Papaya\Ui\ListView\SubItem} objects are allowed in this list
    *
@@ -55,7 +58,8 @@ class SubItems
    * @return Item
    */
   public function owner($item = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(Item::class, $item);
+    Utility\Constraints::assertInstanceOfOrNull(Item::class, $item);
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
     return parent::owner($item);
   }
 

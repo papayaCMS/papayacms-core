@@ -28,7 +28,7 @@ use Papaya\XML;
  * @property array $actionParameters
  * @property UI\Reference $reference
  */
-class Text extends Link {
+abstract class Link extends UI\ListView\SubItem {
   /**
    * buffer for text variable
    *
@@ -55,7 +55,6 @@ class Text extends Link {
    */
   protected $_declaredProperties = [
     'align' => ['getAlign', 'setAlign'],
-    'text' => ['_text', '_text'],
     'actionParameters' => ['_actionParameters', 'setActionParameters'],
     'reference' => ['reference', 'reference']
   ];
@@ -63,28 +62,51 @@ class Text extends Link {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param string|\Papaya\UI\Text $text
    * @param array $actionParameters
    */
-  public function __construct($text, array $actionParameters = NULL) {
-    parent::__construct($actionParameters);
-    $this->_text = $text;
+  public function __construct(array $actionParameters = NULL) {
     $this->setActionParameters($actionParameters);
   }
 
   /**
-   * Append subitem xml data to parent node.
+   * Getter/Setter for the reference subobject, this will be initialized from the listview
+   * if not set.
    *
-   * @param XML\Element $parent
-   * @return XML\Element
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function appendTo(XML\Element $parent) {
-    $subitem = $this->_appendSubItemTo($parent);
-    if (!empty($this->_actionParameters)) {
-      $subitem->appendElement('a', ['href' => $this->getURL()], (string)$this->_text);
-    } else {
-      $subitem->appendText((string)$this->_text);
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
+      $this->_reference = $reference;
+    } elseif (NULL === $this->_reference) {
+      // directly return the reference, so it is possible to recognise if it was set.
+      /* @noinspection PhpUndefinedMethodInspection */
+      return $this->collection()->getListview()->reference();
     }
-    return $subitem;
+    return $this->_reference;
+  }
+
+  /**
+   * Use the action parameter and the reference from the items to get an url for the output xml.
+   *
+   * If you assigned a reference object the action parameters will be applied without an additional
+   * parameter group. If the reference is fetched from the listview, the listview parameter group
+   * will be used.
+   *
+   * @return string
+   */
+  protected function getURL() {
+    $reference = clone $this->reference();
+    if (NULL !== $this->_reference) {
+      $reference->setParameters($this->_actionParameters);
+    } else {
+      /* @noinspection PhpUndefinedMethodInspection */
+      $reference->setParameters(
+        $this->_actionParameters,
+        $this->collection()->getListview()->parameterGroup()
+      );
+    }
+    return $reference->getRelative();
   }
 }

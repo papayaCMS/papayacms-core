@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\ListView;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A list of list view columns, used for the $columns property of a {@see \Papaya\UI\ListView}
  *
@@ -21,7 +24,7 @@ namespace Papaya\UI\ListView;
  * @subpackage UI
  */
 class Columns
-  extends \Papaya\UI\Control\Collection {
+  extends UI\Control\Collection {
   /**
    * Only {@see \Papaya\UI\ListView\Column} objects are allowed in this list
    *
@@ -40,21 +43,22 @@ class Columns
   /**
    * Create object an set owner listview object.
    *
-   * @param \Papaya\UI\ListView $listview
+   * @param UI\ListView $listview
    */
-  public function __construct(\Papaya\UI\ListView $listview) {
+  public function __construct(UI\ListView $listview) {
     $this->owner($listview);
   }
 
   /**
    * Return the listview of this list
    *
-   * @param \Papaya\UI\ListView $listview
+   * @param UI\ListView $listview
    *
-   * @return \Papaya\UI\ListView
+   * @return UI\ListView
    */
   public function owner($listview = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\UI\ListView::class, $listview);
+    Utility\Constraints::assertInstanceOfOrNull(UI\ListView::class, $listview);
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
     return parent::owner($listview);
   }
 }
