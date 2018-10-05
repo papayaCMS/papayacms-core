@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Text;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Utility;
+
 /**
  * Papaya Interface String Translated, a string object that will be translated before usage
  *
@@ -26,7 +29,7 @@ namespace Papaya\UI\Text;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Date extends \Papaya\UI\Text {
+class Date implements StringCastable {
   const SHOW_DATE = 0;
 
   const SHOW_TIME = 1;
@@ -40,7 +43,15 @@ class Date extends \Papaya\UI\Text {
    */
   private $_timestamp;
 
+  /**
+   * @var int
+   */
   private $_options;
+
+  /**
+   * @var string|null
+   */
+  private $_string;
 
   /**
    * create object and store timestamp
@@ -60,9 +71,9 @@ class Date extends \Papaya\UI\Text {
    */
   public function __toString() {
     $pattern = 'Y-m-d';
-    if (\Papaya\Utility\Bitwise::inBitmask(self::SHOW_TIME, $this->_options)) {
+    if (Utility\Bitwise::inBitmask(self::SHOW_TIME, $this->_options)) {
       $pattern .= ' H:i';
-      if (\Papaya\Utility\Bitwise::inBitmask(self::SHOW_SECONDS, $this->_options)) {
+      if (Utility\Bitwise::inBitmask(self::SHOW_SECONDS, $this->_options)) {
         $pattern .= ':s';
       }
     }

@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Text;
 
+use Papaya\Phrases;
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Papaya Interface String Translated, a string object that will be translated before usage
  *
@@ -26,9 +30,9 @@ namespace Papaya\UI\Text;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Translated extends \Papaya\UI\Text {
+class Translated extends UI\Text {
   /**
-   * @var \Papaya\Phrases
+   * @var Phrases
    */
   private $_phrases;
 
@@ -38,7 +42,7 @@ class Translated extends \Papaya\UI\Text {
   private $_phrasesGroupName;
 
   public function __construct(
-    $pattern, array $values = [], \Papaya\Phrases $phrases = NULL, $groupName = NULL
+    $pattern, array $values = [], Phrases $phrases = NULL, $groupName = NULL
   ) {
     parent::__construct($pattern, $values);
     $this->_phrases = $phrases;
@@ -48,10 +52,10 @@ class Translated extends \Papaya\UI\Text {
   /**
    * Allow to cast the object into a string, compiling the pattern and values into a result string.
    *
-   * return string
+   * @return string
    */
   public function __toString() {
-    if (\is_null($this->_string)) {
+    if (NULL === $this->_string) {
       $this->_string = $this->compile(
         $this->translate($this->_pattern), $this->_values
       );
@@ -60,19 +64,20 @@ class Translated extends \Papaya\UI\Text {
   }
 
   /**
-   * Translate a string using the phrase translations (only availiable in administration mode)
+   * Translate a string using the phrase translations (only available in administration mode)
    *
-   * return string
+   * @param string $string
+   * @return string
    */
   protected function translate($string) {
-    \Papaya\Utility\Constraints::assertString($string);
+    Utility\Constraints::assertString($string);
     $application = $this->papaya();
-    if (isset($this->_phrases)) {
+    if (NULL !== $this->_phrases) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);
-    } elseif (isset($application->phrases)) {
-      return $application->phrases->getText($string, $this->_phrasesGroupName);
-    } else {
-      return $string;
     }
+    if (isset($application->phrases)) {
+      return $application->phrases->getText($string, $this->_phrasesGroupName);
+    }
+    return $string;
   }
 }

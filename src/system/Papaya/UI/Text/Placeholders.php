@@ -14,10 +14,12 @@
  */
 namespace Papaya\UI\Text;
 
+use Papaya\UI;
+
 /**
  * Class Papaya\UI\Text\Placeholders
  */
-class Placeholders extends \Papaya\UI\Text {
+class Placeholders extends UI\Text {
   /**
    * Allow to cast the object into a string, replacing the {key} placeholders in the string.
    *

@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Text\Translated;
 
+use Papaya\Application;
+use Papaya\Iterator;
+use Papaya\Phrases;
+
 /**
  * A list of string (objects) that will be translated if cast to string.
  *
@@ -25,9 +29,9 @@ namespace Papaya\UI\Text\Translated;
  */
 class Collection
   extends \IteratorIterator
-  implements \Papaya\Application\Access {
+  implements Application\Access {
   /**
-   * @var \Papaya\Phrases
+   * @var Phrases
    */
   private $_phrases;
 
@@ -47,11 +51,11 @@ class Collection
    * Create object and store traversable as iterator
    *
    * @param array|\Traversable $traversable
-   * @param \Papaya\Phrases $phrases
+   * @param Phrases $phrases
    * @param null $groupName
    */
-  public function __construct($traversable, \Papaya\Phrases $phrases = NULL, $groupName = NULL) {
-    parent::__construct(new \Papaya\Iterator\TraversableIterator($traversable));
+  public function __construct($traversable, Phrases $phrases = NULL, $groupName = NULL) {
+    parent::__construct(new Iterator\TraversableIterator($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;
   }
@@ -77,15 +81,15 @@ class Collection
   /**
    * An combined getter/setter for the Papaya Application object
    *
-   * @param \Papaya\Application $application
+   * @param Application $application
    *
-   * @return \Papaya\Application\CMS|\Papaya\Application
+   * @return \Papaya\Application\CMS|Application
    */
-  public function papaya(\Papaya\Application $application = NULL) {
+  public function papaya(Application $application = NULL) {
     if (NULL !== $application) {
       $this->_applicationObject = $application;
     } elseif (NULL === $this->_applicationObject) {
-      $this->_applicationObject = \Papaya\Application::getInstance();
+      $this->_applicationObject = Application::getInstance();
     }
     return $this->_applicationObject;
   }
