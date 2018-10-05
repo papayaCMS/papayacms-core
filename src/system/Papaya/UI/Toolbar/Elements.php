@@ -14,6 +14,9 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A list of menu elements, used for the $elements property of a {@see \Papaya\UI\Menu}
  *
@@ -22,7 +25,7 @@ namespace Papaya\UI\Toolbar;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Elements extends \Papaya\UI\Control\Collection {
+class Elements extends UI\Control\Collection {
   /**
    * Only {@see \Papaya\UI\Toolbar\Element} objects are allowed in this list
    *
@@ -49,9 +52,9 @@ class Elements extends \Papaya\UI\Control\Collection {
   /**
    * Create object and set owner.
    *
-   * @param \Papaya\UI\Control $owner
+   * @param UI\Control $owner
    */
-  public function __construct(\Papaya\UI\Control $owner = NULL) {
+  public function __construct(UI\Control $owner = NULL) {
     $this->owner($owner);
   }
 
@@ -60,15 +63,17 @@ class Elements extends \Papaya\UI\Control\Collection {
    *
    * @throws \InvalidArgumentException
    *
-   * @param \Papaya\UI\Control\Collection\Item|Element $item
+   * @param UI\Control\Collection\Item|Element $item
    *
    * @return bool
    */
-  protected function validateItemClass(\Papaya\UI\Control\Collection\Item $item) {
-    \Papaya\Utility\Constraints::assertInstanceOf(Element::class, $item);
+  protected function validateItemClass(UI\Control\Collection\Item $item) {
+    Utility\Constraints::assertInstanceOf(Element::class, $item);
     parent::validateItemClass($item);
-    if (!$this->_allowGroups &&
-      $item instanceof \Papaya\UI\Toolbar\Group) {
+    if (
+      !$this->_allowGroups &&
+      $item instanceof Group
+    ) {
       throw new \InvalidArgumentException(
         \sprintf(
           'InvalidArgumentException: Invalid item class "%s".',

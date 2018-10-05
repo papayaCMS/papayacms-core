@@ -14,21 +14,26 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A menu/toolbar button with image and/or text.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
- * @property string|\Papaya\UI\Text $caption
- * @property string|\Papaya\UI\Text $hint
+ * @property UI\Reference $reference
+ * @property string|StringCastable $caption
+ * @property string|StringCastable $hint
  * @property bool $selected
  * @property string $accessKey
  * @property string $target
  * @property string $image
  */
-class Button extends \Papaya\UI\Toolbar\Element {
+class Button extends Element {
   /**
    * Image or image index.  The button needs a cpation or/and an image.
    *
@@ -39,14 +44,14 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * Button caption. The button needs a caption or/and an image
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = '';
 
   /**
-   * Button quickinfo
+   * Button quick info
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_hint = '';
 
@@ -95,8 +100,8 @@ class Button extends \Papaya\UI\Toolbar\Element {
    * @throws \InvalidArgumentException
    */
   public function setAccessKey($key) {
-    \Papaya\Utility\Constraints::assertString($key);
-    if (1 == \strlen($key)) {
+    Utility\Constraints::assertString($key);
+    if (1 === \strlen($key)) {
       $this->_accessKey = $key;
     } else {
       throw new \InvalidArgumentException(
@@ -108,9 +113,9 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * Append button xml to menu. The button needs at least a caption or image to be shown.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $image = $this->papaya()->images[(string)$this->_image];
     $caption = (string)$this->_caption;
     if (!(empty($image) && empty($caption))) {
@@ -121,17 +126,17 @@ class Button extends \Papaya\UI\Toolbar\Element {
           'target' => $this->_target
         ]
       );
-      if (!empty($image)) {
+      if ('' !== \trim($image)) {
         $button->setAttribute('glyph', $image);
       }
-      if (!empty($caption)) {
+      if ('' !== \trim($caption)) {
         $button->setAttribute('title', $caption);
       }
-      if (!empty($this->_accessKey)) {
+      if ('' !== \trim($this->_accessKey)) {
         $button->setAttribute('accesskey', $this->_accessKey);
       }
       $hint = (string)$this->_hint;
-      if (!empty($hint)) {
+      if ('' !== \trim($hint)) {
         $button->setAttribute('hint', $hint);
       }
       if ((bool)$this->_selected) {

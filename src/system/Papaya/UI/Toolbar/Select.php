@@ -14,17 +14,22 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
- * A menu/toolbar select box. This creates a seperate form (method get) with a <select>-field.
+ * A menu/toolbar select box. This creates a separate form (method get) with a <select>-field.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
  * @property \Papaya\UI\Reference $reference
  * @property string $parameterName
- * @property string|\Papaya\UI\Text $caption
+ * @property string|StringCastable $caption
  * @property \Traversable|array $options
- * @property string|\Papaya\UI\Text $defaultOption
+ * @property string|StringCastable $defaultOption
  * @property string|int|bool $currentValue
  * @property mixed defaultValue
  * @property mixed defaultCaption
@@ -109,7 +114,7 @@ class Select extends Element {
    * @return array|\Traversable
    */
   public function options($options = NULL) {
-    if (isset($options)) {
+    if (NULL !== $options) {
       if (\is_array($options) ||
         ($options instanceof \Traversable)) {
         $this->_options = $options;
@@ -128,8 +133,8 @@ class Select extends Element {
    * @return string|int|bool
    */
   public function getCurrentValue() {
-    if (\is_null($this->_currentValue)) {
-      $name = new \Papaya\Request\Parameters\Name(
+    if (NULL === $this->_currentValue) {
+      $name = new Request\Parameters\Name(
         $this->_parameterName, $this->reference()->getParameterGroupSeparator()
       );
       $this->_currentValue = $this->validateCurrentValue(
@@ -157,6 +162,7 @@ class Select extends Element {
    */
   private function validateCurrentValue($currentValue) {
     foreach ($this->_options as $value => $caption) {
+      /** @noinspection TypeUnsafeComparisonInspection */
       if ($value == $currentValue) {
         return $value;
       }
@@ -167,15 +173,15 @@ class Select extends Element {
   /**
    * Append select xml elements to xml document
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $select = $parent->appendElement(
       'combo',
       [
-        'name' => new \Papaya\Request\Parameters\Name(
+        'name' => new Request\Parameters\Name(
           $this->_parameterName, $this->reference()->getParameterGroupSeparator()
         ),
         'action' => $this->reference()->getRelative(NULL, FALSE)
@@ -193,7 +199,7 @@ class Select extends Element {
     $default = (string)$this->defaultCaption;
     if (!empty($default)) {
       $select->appendElement(
-        'option', ['value' => (string)$this->_defaultValue], (string)$default
+        'option', ['value' => (string)$this->_defaultValue], $default
       );
     }
     $currentValue = $this->getCurrentValue();
@@ -201,6 +207,7 @@ class Select extends Element {
       $option = $select->appendElement(
         'option', ['value' => (string)$value], (string)$caption
       );
+      /** @noinspection TypeUnsafeComparisonInspection */
       if ($currentValue == $value) {
         $option->setAttribute('selected', 'selected');
       }

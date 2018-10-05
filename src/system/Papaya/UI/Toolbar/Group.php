@@ -14,21 +14,24 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\XML;
+
 /**
  * A menu element group. This is a sublist of menu elements like buttons with an group caption.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
- * @property \Papaya\UI\Toolbar\Elements $elements
+ * @property string|StringCastable $caption
+ * @property Elements $elements
  */
 class Group
-  extends \Papaya\UI\Toolbar\Collection {
+  extends Collection {
   /**
    * A caption for the group
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = '';
 
@@ -54,11 +57,11 @@ class Group
   /**
    * Append group and elements to the output xml.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element|null
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if (\count($this->elements()) > 0) {
       $group = $parent->appendElement(
         'group',
@@ -69,6 +72,6 @@ class Group
       $this->elements()->appendTo($group);
       return $group;
     }
-    return;
+    return NULL;
   }
 }

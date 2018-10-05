@@ -14,6 +14,8 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\XML;
+
 /**
  * A menu/toolbar element separator.
  *
@@ -24,9 +26,9 @@ class Separator extends Element {
   /**
    * Append the separator to the parent xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if ($this->isDisplayed()) {
       $parent->appendElement('separator');
     }
@@ -40,12 +42,10 @@ class Separator extends Element {
     $index = $this->index();
     $previous = $index - 1;
     $next = $index + 1;
-    if ($previous >= 0 &&
-      $next < \count($this->collection())) {
-      if (!$this->collection()->get($previous) instanceof self) {
-        return TRUE;
-      }
-    }
-    return FALSE;
+    return (
+      $previous >= 0 &&
+      $next < \count($this->collection()) &&
+      !($this->collection()->get($previous) instanceof self)
+    );
   }
 }

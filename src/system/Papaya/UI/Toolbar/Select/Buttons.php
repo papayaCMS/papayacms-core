@@ -14,37 +14,42 @@
  */
 namespace Papaya\UI\Toolbar\Select;
 
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A menu/toolbar button list to select a single value out of a list.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  * @property string $parameterName
  * @property string|\Papaya\UI\Text $caption
  * @property \Traversable|array $options
  * @property string|\Papaya\UI\Text $defaultOption
  * @property string|int|bool $currentValue
  */
-class Buttons extends \Papaya\UI\Toolbar\Select {
+class Buttons extends UI\Toolbar\Select {
   /**
    * Append button xml elemens to parent element.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    *
-   * @return \Papaya\XML\Element
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $currentValue = $this->getCurrentValue();
-    $parameterName = new \Papaya\Request\Parameters\Name($this->_parameterName);
+  public function appendTo(XML\Element $parent) {
+    $currentValue = (string)$this->getCurrentValue();
+    $parameterName = new Request\Parameters\Name($this->_parameterName);
     foreach ($this->_options as $value => $data) {
       if (\is_array($data)) {
         if (\array_key_exists('enabled', $data) && !$data['enabled']) {
           continue;
         }
-        $caption = \Papaya\Utility\Arrays::get($data, ['caption', 0], '');
-        $image = \Papaya\Utility\Arrays::get($data, ['image', 1], '');
+        $caption = Utility\Arrays::get($data, ['caption', 0], '');
+        $image = Utility\Arrays::get($data, ['image', 1], '');
       } else {
         $caption = $data;
         $image = '';
@@ -59,7 +64,7 @@ class Buttons extends \Papaya\UI\Toolbar\Select {
           'image' => empty($image) ? '' : (string)$this->papaya()->images[$image]
         ]
       );
-      if ($currentValue == $value) {
+      if ($currentValue === (string)$value) {
         $button->setAttribute('down', 'down');
       }
     }

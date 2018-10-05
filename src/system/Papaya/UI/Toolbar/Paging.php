@@ -14,13 +14,17 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Provides several buttons to navigate mutiple pages of a list.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  * @property string|array $parameterName
  * @property int $currentPage
  * @property int $currentOffset
@@ -34,6 +38,9 @@ class Paging extends Element {
 
   const MODE_OFFSET = 1;
 
+  /**
+   * @var int
+   */
   protected $_mode = self::MODE_PAGE;
 
   /**
@@ -74,7 +81,7 @@ class Paging extends Element {
   protected $_currentPage;
 
   /**
-   * The minimum page value. This is caluclated using the button limit.
+   * The minimum page value. This is calculated using the button limit.
    * It changes with the current page.
    *
    * @var int|null
@@ -82,7 +89,7 @@ class Paging extends Element {
   private $_minimumPage;
 
   /**
-   * The maximum page value. This is caluclated using the button limit.
+   * The maximum page value. This is calculated using the button limit.
    * It changes with the current page.
    *
    * @var int|null
@@ -147,7 +154,7 @@ class Paging extends Element {
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    \Papaya\Utility\Constraints::assertInteger($itemsCount);
+    Utility\Constraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -166,7 +173,7 @@ class Paging extends Element {
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    \Papaya\Utility\Constraints::assertInteger($itemsPerPage);
+    Utility\Constraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -185,7 +192,7 @@ class Paging extends Element {
    * @throws \UnexpectedValueException
    */
   public function setButtonLimit($buttonLimit) {
-    \Papaya\Utility\Constraints::assertInteger($buttonLimit);
+    Utility\Constraints::assertInteger($buttonLimit);
     if ($buttonLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Button limit can not be less than 3.'
@@ -202,8 +209,8 @@ class Paging extends Element {
    * @return int
    */
   public function getCurrentPage() {
-    $this->getCurrentPageParameter(TRUE);
-    if (\is_null($this->_lastPage)) {
+    $this->getCurrentPageParameter();
+    if (NULL === $this->_lastPage) {
       $this->calculate();
     }
     return $this->_currentPage;
@@ -211,27 +218,24 @@ class Paging extends Element {
 
   /**
    * Fetch the current page parameter from request or property. This will not trigger the
-   * caluclation.
+   * calculation.
    *
    * @return int
    */
   private function getCurrentPageParameter() {
-    if (\is_null($this->_currentPage)) {
-      switch ($this->_mode) {
-        case self::MODE_OFFSET :
-          $this->setCurrentOffset(
-            $this->papaya()->request->getParameter(
-              (string)$this->_parameterName, 0, new \Papaya\Filter\IntegerValue(0)
-            )
-          );
-        break;
-        default :
-          $this->setCurrentPage(
-            $this->papaya()->request->getParameter(
-              (string)$this->_parameterName, 1, new \Papaya\Filter\IntegerValue(1)
-            )
-          );
-        break;
+    if (NULL === $this->_currentPage) {
+      if (self::MODE_OFFSET === $this->_mode) {
+        $this->setCurrentOffset(
+          $this->papaya()->request->getParameter(
+            (string)$this->_parameterName, 0, new \Papaya\Filter\IntegerValue(0)
+          )
+        );
+      } else {
+        $this->setCurrentPage(
+          $this->papaya()->request->getParameter(
+            (string)$this->_parameterName, 1, new \Papaya\Filter\IntegerValue(1)
+          )
+        );
       }
     }
     return $this->_currentPage;
@@ -271,14 +275,14 @@ class Paging extends Element {
   /**
    * Append button xml to parent node. If the item count is zero no button are added.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     if ($this->_itemsCount > $this->_itemsPerPage) {
-      $current = $this->getCurrentPage();
+      $current = (int)$this->getCurrentPage();
       if ($current > 2) {
         $this->appendArrowButton(
-          $parent, 1, 'actions-go-first', new \Papaya\UI\Text\Translated('First page')
+          $parent, 1, 'actions-go-first', new UI\Text\Translated('First page')
         );
       }
       if ($current > 1) {
@@ -286,7 +290,7 @@ class Paging extends Element {
           $parent,
           $current - 1,
           'actions-go-previous',
-          new \Papaya\UI\Text\Translated('Previous page')
+          new UI\Text\Translated('Previous page')
         );
       }
       for ($page = $this->_minimumPage; $page <= $this->_maximumPage; ++$page) {
@@ -302,18 +306,18 @@ class Paging extends Element {
             'href' => $reference->getRelative()
           ]
         );
-        if ($page == $current) {
+        if ($page === $current) {
           $button->setAttribute('down', 'down');
         }
       }
       if ($current < $this->_lastPage) {
         $this->appendArrowButton(
-          $parent, $current + 1, 'actions-go-next', new \Papaya\UI\Text\Translated('Next page')
+          $parent, $current + 1, 'actions-go-next', new UI\Text\Translated('Next page')
         );
       }
       if ($current < $this->_lastPage - 1) {
         $this->appendArrowButton(
-          $parent, $this->_lastPage, 'actions-go-last', new \Papaya\UI\Text\Translated('Last page')
+          $parent, $this->_lastPage, 'actions-go-last', new UI\Text\Translated('Last page')
         );
       }
     }
@@ -327,24 +331,19 @@ class Paging extends Element {
    * @return int
    */
   private function preparePagingParameter($page) {
-    switch ($this->_mode) {
-      case self::MODE_OFFSET :
-        return ($page - 1) * $this->_itemsPerPage;
-      default :
-        return $page;
-    }
+    return self::MODE_OFFSET === $this->_mode ? ($page - 1) * $this->_itemsPerPage : $page;
   }
 
   /**
    * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
    * page. The are only shown if needed.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    * @param int $page
    * @param string $image
    * @param string|\Papaya\UI\Text $hint
    */
-  private function appendArrowButton(\Papaya\XML\Element $parent, $page, $image, $hint) {
+  private function appendArrowButton(XML\Element $parent, $page, $image, $hint) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,
@@ -372,7 +371,7 @@ class Paging extends Element {
   }
 
   /**
-   * Calculate sevaral internal limits for the button output.
+   * Calculate several internal limits for the button output.
    */
   private function calculate() {
     $currentPage = $this->getCurrentPageParameter();

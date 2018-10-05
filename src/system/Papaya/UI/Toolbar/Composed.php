@@ -14,6 +14,10 @@
  */
 namespace Papaya\UI\Toolbar;
 
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A toolbar that consists of multiple sets of elements. The sets are not visible in
  * the xml output.
@@ -25,23 +29,23 @@ namespace Papaya\UI\Toolbar;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Composed extends \Papaya\UI\Control {
+class Composed extends UI\Control {
   /**
    * The internal set list
    *
-   * @var \Papaya\UI\Toolbar\Collection[]
+   * @var Collection[]
    */
-  private $_sets = [];
+  private $_groups = [];
 
   /**
    * Internal member variable vor the toolbar subobject.
    *
-   * @var \Papaya\UI\Toolbar
+   * @var UI\Toolbar
    */
   private $_toolbar;
 
   /**
-   * Create the control and sefine the available sets
+   * Create the control and define the available sets
    *
    * @param array $sets
    */
@@ -52,23 +56,23 @@ class Composed extends \Papaya\UI\Control {
   /**
    * Define the set by a list of names.
    *
-   * @param array $sets
+   * @param array $groups
    *
    * @throws \InvalidArgumentException
    */
-  public function setNames(array $sets) {
-    $this->_sets = [];
-    if (empty($sets)) {
+  public function setNames(array $groups) {
+    $this->_groups = [];
+    if (empty($groups)) {
       throw new \InvalidArgumentException('No sets defined');
     }
-    foreach ($sets as $index => $name) {
-      $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    foreach ($groups as $index => $name) {
+      $name = Utility\Text\Identifier::toUnderscoreLower($name);
       if (empty($name)) {
         throw new \InvalidArgumentException(
           \sprintf('Invalid set name "%s" in index "%s".', $name, $index)
         );
       }
-      $this->_sets[$name] = NULL;
+      $this->_groups[$name] = NULL;
     }
   }
 
@@ -76,14 +80,14 @@ class Composed extends \Papaya\UI\Control {
    * Append the existing toolbar to the parent xml element and set the position attribute.
    * Sets without elements will not be added.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $toolbar = $this->toolbar();
     $toolbar->elements->clear();
-    foreach ($this->_sets as $set) {
-      if (isset($set)) {
-        $toolbar->elements[] = $set;
+    foreach ($this->_groups as $group) {
+      if (NULL !== $group) {
+        $toolbar->elements[] = $group;
       }
     }
     $parent->append($toolbar);
@@ -92,15 +96,15 @@ class Composed extends \Papaya\UI\Control {
   /**
    * The toolbar to sets get appended to.
    *
-   * @param \Papaya\UI\Toolbar $toolbar
+   * @param UI\Toolbar $toolbar
    *
-   * @return \Papaya\UI\Toolbar
+   * @return UI\Toolbar
    */
-  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
-    if (isset($toolbar)) {
+  public function toolbar(UI\Toolbar $toolbar = NULL) {
+    if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
-    } elseif (\is_null($this->_toolbar)) {
-      $this->_toolbar = new \Papaya\UI\Toolbar();
+    } elseif (NULL === $this->_toolbar) {
+      $this->_toolbar = new UI\Toolbar();
       $this->_toolbar->papaya($this->papaya());
     }
     return $this->_toolbar;
@@ -114,8 +118,8 @@ class Composed extends \Papaya\UI\Control {
    * @return bool
    */
   public function __isset($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    return \array_key_exists($name, $this->_sets);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
+    return \array_key_exists($name, $this->_groups);
   }
 
   /**
@@ -126,16 +130,16 @@ class Composed extends \Papaya\UI\Control {
    *
    * @param string $name
    *
-   * @return \Papaya\UI\Toolbar\Collection
+   * @return Collection
    */
   public function __get($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (\array_key_exists($name, $this->_sets)) {
-      if (!isset($this->_sets[$name])) {
-        $this->_sets[$name] = $set = new \Papaya\UI\Toolbar\Collection();
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
+    if (\array_key_exists($name, $this->_groups)) {
+      if (!isset($this->_groups[$name])) {
+        $this->_groups[$name] = $set = new Collection();
         $set->papaya($this->papaya());
       }
-      return $this->_sets[$name];
+      return $this->_groups[$name];
     }
     throw new \UnexpectedValueException(
       'Invalid toolbar set requested.'
@@ -149,13 +153,13 @@ class Composed extends \Papaya\UI\Control {
    * @throws \UnexpectedValueException
    *
    * @param string $name
-   * @param \Papaya\UI\Toolbar\Collection $value
+   * @param Collection $value
    */
   public function __set($name, $value) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\UI\Toolbar\Collection::class, $value);
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (\array_key_exists($name, $this->_sets)) {
-      $this->_sets[$name] = $value;
+    Utility\Constraints::assertInstanceOf(Collection::class, $value);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
+    if (\array_key_exists($name, $this->_groups)) {
+      $this->_groups[$name] = $value;
     } else {
       throw new \UnexpectedValueException(
         'Invalid toolbar set requested.'
