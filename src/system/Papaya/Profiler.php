@@ -53,7 +53,7 @@ class Profiler {
     $this->_allowRun = NULL;
     if ($divisor < 1) {
       $this->_allowRun = FALSE;
-    } elseif (1 == $divisor) {
+    } elseif (1 === (int)$divisor) {
       $this->_divisor = 1;
       $this->_allowRun = TRUE;
     } elseif ($divisor > 999999) {
@@ -64,21 +64,21 @@ class Profiler {
   }
 
   /**
-   * Return true if profilng data for the current run should be collected.
+   * Return true if profiling data for the current run should be collected.
    *
-   * If it is not defined otherwise, it willb e calculated using the $divisor.
+   * If it is not defined otherwise, it will e calculated using the $divisor.
    *
    * @return boolean.
    */
   public function allowRun() {
-    if (\is_null($this->_allowRun)) {
-      $this->_allowRun = (1 == \rand(1, $this->_divisor));
+    if (NULL === $this->_allowRun) {
+      $this->_allowRun = (1 === \mt_rand(1, $this->_divisor));
     }
     return $this->_allowRun;
   }
 
   /**
-   * Start the profilning if allowed.
+   * Start the profiling if allowed.
    */
   public function start() {
     if ($this->allowRun()) {

@@ -18,7 +18,8 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Response
  */
-class Response extends Application\BaseObject {
+class Response implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * Status codes
    *

@@ -29,15 +29,14 @@ interface Controller {
    *   FALSE - next
    *   \Papaya\Controller - delegate to this controller
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
    *
    * @return bool|self
    */
   public function execute(
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+  /** @noinspection ReferencingObjectsInspection */
+    Application $application, Request &$request, Response &$response
   );
 }

@@ -22,7 +22,8 @@ namespace Papaya;
  *
  * @property \Papaya\Phrases\Groups groups
  */
-class Phrases extends Application\BaseObject {
+class Phrases implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * @var \Papaya\Phrases\Groups
    */

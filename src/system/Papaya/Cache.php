@@ -56,17 +56,14 @@ class Cache {
         $object = new $class($configuration);
         if ($static) {
           return self::$_serviceObjects[$configurationId] = $object;
-        } else {
-          return $object;
         }
-      } else {
-        throw new \UnexpectedValueException(
-          \sprintf('Unknown cache service "%s".', $class)
-        );
+        return $object;
       }
-    } else {
-      throw new \UnexpectedValueException('No cache service defined.');
+      throw new \UnexpectedValueException(
+        \sprintf('Unknown cache service "%s".', $class)
+      );
     }
+    throw new \UnexpectedValueException('No cache service defined.');
   }
 
   /**

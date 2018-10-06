@@ -14,6 +14,8 @@
  */
 namespace Papaya;
 
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * Papaya URL representation
  *
@@ -40,7 +42,7 @@ namespace Papaya;
  * @method string getQuery()
  * @method string getFragment()
  */
-class URL {
+class URL implements Properties {
   /**
    * Parsed url elements
    *
@@ -56,8 +58,6 @@ class URL {
    * Constructor
    *
    * @param string $url
-   *
-   * @return self
    */
   public function __construct($url = '') {
     if (!empty($url)) {
@@ -86,10 +86,10 @@ class URL {
    */
   public function getURL() {
     $result = $this->getPathURL();
-    if (!\is_null($query = $this->getQuery())) {
+    if (NULL !== $query = $this->getQuery()) {
       $result .= '?'.$query;
     }
-    if (!\is_null($fragment = $this->getFragment())) {
+    if (NULL !== $fragment = $this->getFragment()) {
       $result .= '#'.$fragment;
     }
     return $result;
@@ -156,9 +156,9 @@ class URL {
    */
   public function __call($method, $arguments) {
     $action = \substr($method, 0, 3);
-    if ('get' == $action) {
+    if ('get' === $action) {
       $property = \strtolower(\substr($method, 3));
-      if ('password' == $property) {
+      if ('password' === $property) {
         $property = 'pass';
       }
       return $this->$property;
@@ -166,6 +166,13 @@ class URL {
     throw new \BadMethodCallException(
       \sprintf('Invalid method call "%s" on "%s"', $method, __CLASS__)
     );
+  }
+
+  public function __isset($name) {
+    if ('password' === $name) {
+      $name = 'pass';
+    }
+    return \in_array($name, $this->_parts, TRUE);
   }
 
   /**
@@ -178,14 +185,13 @@ class URL {
    * @return mixed
    */
   public function __get($name) {
-    if ('password' == $name) {
+    if ('password' === $name) {
       $name = 'pass';
     }
-    if (\in_array($name, $this->_parts)) {
+    if (\in_array($name, $this->_parts, TRUE)) {
       return empty($this->_elements[$name]) ? NULL : $this->_elements[$name];
-    } else {
-      throw new \BadMethodCallException(\sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
+    throw new \BadMethodCallException(\sprintf('Invalid property "%s::%s".', __CLASS__, $name));
   }
 
   /**
@@ -197,7 +203,7 @@ class URL {
    * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
-    if (\in_array($name, $this->_parts)) {
+    if (\in_array($name, $this->_parts, TRUE)) {
       $setter = 'set'.\ucfirst($name);
       if (\method_exists($this, $setter)) {
         $this->$setter($value);
@@ -209,6 +215,17 @@ class URL {
     } else {
       throw new \BadMethodCallException(\sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
+  }
+
+  /**
+   * check if the property has a setter and call it
+   *
+   * @param string $name
+   *
+   * @throws \BadMethodCallException
+   */
+  public function __unset($name) {
+    throw new \BadMethodCallException(\sprintf('Can not unset property "%s::%s".', __CLASS__, $name));
   }
 
   /**

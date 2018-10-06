@@ -33,7 +33,7 @@ interface Filter {
 
   const IS_FLOAT = 'isFloat';
 
-  const IS_GEO_POSITON = 'isGeoPosition';
+  const IS_GEO_POSITION = 'isGeoPosition';
 
   const IS_GERMAN_DATE = 'isGermanDate';
 

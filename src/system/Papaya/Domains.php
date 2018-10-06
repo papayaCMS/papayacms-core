@@ -20,7 +20,9 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Domains
  */
-class Domains extends Application\BaseObject {
+class Domains implements Application\Access {
+  use Application\Access\Aggregation;
+
   /**
    * @var array
    */
@@ -58,7 +60,7 @@ class Domains extends Application\BaseObject {
     $result = [];
     foreach ($pageRootIds as $pageRootId) {
       if (isset($this->_domainsByRootId[$pageRootId])) {
-        $result = \Papaya\Utility\Arrays::merge($result, $this->_domainsByRootId[$pageRootId]);
+        $result = Utility\Arrays::merge($result, $this->_domainsByRootId[$pageRootId]);
       }
     }
     return $result;
@@ -79,9 +81,10 @@ class Domains extends Application\BaseObject {
     foreach ($variants as $name) {
       if (isset($this->_domainsByName[$name])) {
         foreach ($this->_domainsByName[$name] as $domain) {
-          if ($domain['scheme'] == $scheme) {
+          if ((int)$domain['scheme'] === $scheme) {
             return $domain;
-          } elseif (Utility\Server\Protocol::BOTH == $domain['scheme'] && !$result) {
+          }
+          if (!$result && Utility\Server\Protocol::BOTH === (int)$domain['scheme']) {
             $result = $domain;
           }
         }
@@ -97,7 +100,7 @@ class Domains extends Application\BaseObject {
    * return array|FALSE
    */
   public function getCurrent() {
-    if (isset($this->_current)) {
+    if (NULL !== $this->_current) {
       return $this->_current;
     }
     $this->_current = $this->getDomainByHost(
@@ -126,7 +129,7 @@ class Domains extends Application\BaseObject {
       //last to parts of the hostname to the buffer
       $buffer = $hostParts[0];
       $tldLength = \strlen($hostParts[0]);
-      for ($i = 1; $i < \count($hostParts); $i++) {
+      for ($i = 1, $c = \count($hostParts); $i < $c; $i++) {
         //prefix hostname parts in buffer with a "*." and replace tld with *
         if ($i > 1) {
           $result[] = '*.'.\substr($buffer, 0, -1 * $tldLength).'*';
@@ -134,7 +137,7 @@ class Domains extends Application\BaseObject {
         }
         //prefix hostname parts in buffer with a "*."
         $result[] = '*.'.$buffer;
-        if (1 == $i) {
+        if (1 === $i) {
           $result[] = $hostParts[$i].'.'.\substr($buffer, 0, -1 * $tldLength).'*';
         }
         //add hostname part to the buffer
@@ -146,7 +149,7 @@ class Domains extends Application\BaseObject {
   }
 
   /**
-   * Lazy load the domain informations and create index array for fast access.
+   * Lazy load the domain information and create index array for fast access.
    *
    * @param bool $reset
    */
@@ -154,10 +157,11 @@ class Domains extends Application\BaseObject {
     if ($reset || !$this->_loaded) {
       $this->domains()->load();
       foreach ($this->domains() as $domainId => $domain) {
-        if (\Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN == $domain['mode']) {
+        if (Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$domain['mode']) {
           $this->_domainsByRootId[(int)$domain['data']][$domainId] = $domain;
-        } elseif (\Papaya\Content\Domain::MODE_DEFAULT == $domain['mode'] ||
-          \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE == $domain['mode']) {
+        } elseif (
+          Content\Domain::MODE_DEFAULT === (int)$domain['mode'] ||
+          Content\Domain::MODE_REDIRECT_LANGUAGE === (int)$domain['mode']) {
           $this->_domainsByRootId[0][$domainId] = $domain;
         }
         $this->_domainsByName[$domain['host']][$domainId] = $domain;
@@ -169,24 +173,28 @@ class Domains extends Application\BaseObject {
   /**
    * Getter/Setter for the domain database object.
    *
-   * @param \Papaya\Content\Domains $domains
+   * @param Content\Domains $domains
    *
-   * @return \Papaya\Content\Domains
+   * @return Content\Domains
    */
-  public function domains(\Papaya\Content\Domains $domains = NULL) {
-    if (isset($domains)) {
+  public function domains(Content\Domains $domains = NULL) {
+    if (NULL !== $domains) {
       $this->_domains = $domains;
-    } elseif (\is_null($this->_domains)) {
-      $this->_domains = new \Papaya\Content\Domains();
+    } elseif (NULL === $this->_domains) {
+      $this->_domains = new Content\Domains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;
   }
 
+  /**
+   * @param \Papaya\UI\Reference\Page $page
+   * @return bool
+   */
   public function isStartPage(UI\Reference\Page $page) {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
-      'https' == $page->url()->getScheme()
+      'https' === $page->url()->getScheme()
         ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP
     );
     $pageId = isset($targetDomain['options']['PAPAYA_PAGEID_DEFAULT']) ?
@@ -203,9 +211,9 @@ class Domains extends Application\BaseObject {
       return FALSE;
     }
     return (
-      ($pageId == $page->getPageId()) &&
-      ($language['identifier'] == $page->getPageLanguage()) &&
-      ($outputMode == $page->getOutputMode())
+      ((int)$pageId === (int)$page->getPageId()) &&
+      ($language['identifier'] === $page->getPageLanguage()) &&
+      ($outputMode === $page->getOutputMode())
     );
   }
 }

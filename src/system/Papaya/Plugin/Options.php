@@ -14,6 +14,7 @@
  */
 namespace Papaya\Plugin;
 
+use Papaya\Application;
 use Papaya\Configuration;
 use Papaya\Filter;
 use Papaya\Utility;
@@ -27,7 +28,9 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Options extends Configuration {
+class Options extends Configuration implements Application\Access {
+  use Application\Access\Aggregation;
+
   const STATUS_CREATED = 0;
 
   const STATUS_LOADING = 1;

@@ -29,7 +29,8 @@ namespace Papaya;
  * @method bool addMenu($xml, $encodeInvalidEntities = TRUE)
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
-abstract class Template extends Application\BaseObject {
+abstract class Template implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * Strip the XML processing instruction <?xml ...?>
    */
@@ -85,9 +86,9 @@ abstract class Template extends Application\BaseObject {
    * @return \Papaya\Template\Values
    */
   public function values(Template\Values $values = NULL) {
-    if (isset($values)) {
+    if (NULL !== $values) {
       $this->_values = $values;
-    } elseif (\is_null($this->_values)) {
+    } elseif (NULL === $this->_values) {
       $this->_values = new Template\Values();
     }
     return $this->_values;
@@ -122,7 +123,7 @@ abstract class Template extends Application\BaseObject {
    * @return \Papaya\Template\Parameters
    */
   public function parameters($parameters = NULL) {
-    if (isset($parameters)) {
+    if (NULL !== $parameters) {
       if ($parameters instanceof Template\Parameters) {
         $this->_parameters = $parameters;
       } else {
@@ -142,9 +143,9 @@ abstract class Template extends Application\BaseObject {
    * @return \Papaya\XML\Errors
    */
   public function errors(XML\Errors $errors = NULL) {
-    if (isset($errors)) {
+    if (NULL !== $errors) {
       $this->_errors = $errors;
-    } elseif (\is_null($this->_errors)) {
+    } elseif (NULL === $this->_errors) {
       $this->_errors = new XML\Errors();
       $this->_errors->papaya($this->papaya());
     }
@@ -195,7 +196,7 @@ abstract class Template extends Application\BaseObject {
    * @return mixed
    */
   public function add($xml, $path = NULL, $encodeInvalidEntities = TRUE) {
-    if (!isset($path)) {
+    if (NULL === $path) {
       $path = '/page/centercol';
     } else {
       $path = '/page/'.$path;
@@ -208,21 +209,20 @@ abstract class Template extends Application\BaseObject {
         ],
         [$xml]
       );
-    } else {
-      return $this->errors()->encapsulate(
-        [
-          $this->values()->getValueByPath($path),
-          'appendXML'
-        ],
-        [
-          $encodeInvalidEntities ? $this->encodeInvalidEntities($xml) : $xml
-        ]
-      );
     }
+    return $this->errors()->encapsulate(
+      [
+        $this->values()->getValueByPath($path),
+        'appendXML'
+      ],
+      [
+        $encodeInvalidEntities ? $this->encodeInvalidEntities($xml) : $xml
+      ]
+    );
   }
 
   /**
-   * Try to repair and XML input if it contais invlaid utf-8 characters,
+   * Try to repair and XML input if it contains invalid utf-8 characters,
    * named entities or '&'.
    *
    * @param string $xml
@@ -262,7 +262,8 @@ abstract class Template extends Application\BaseObject {
             $method
           )
         );
-      } elseif (!isset($arguments[0])) {
+      }
+      if (!isset($arguments[0])) {
         throw new \LogicException(
           \sprintf(
             'Invalid $xml argument for add method "%s:%s()".',
@@ -270,18 +271,16 @@ abstract class Template extends Application\BaseObject {
             $method
           )
         );
-      } else {
-        return \call_user_func(
-          [$this, 'add'],
-          $arguments[0],
-          $this->_addMethods[$target],
-          isset($arguments[1]) ? (bool)$arguments[1] : TRUE
-        );
       }
+      return $this->add(
+        $arguments[0],
+        $this->_addMethods[$target],
+        isset($arguments[1]) ? (bool)$arguments[1] : TRUE
+      );
     }
     throw new \LogicException(
       \sprintf(
-        'Can not call nonexisting method "%s:%s()"',
+        'Can not call non-existing method "%s:%s()"',
         \get_class($this),
         $method
       )
@@ -297,7 +296,7 @@ abstract class Template extends Application\BaseObject {
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
     $debugXML = $this->papaya()->request->getParameter(
-      'XML', FALSE, NULL, \Papaya\Request::SOURCE_QUERY
+      'XML', FALSE, NULL, Request::SOURCE_QUERY
     );
     if ($debugXML && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
@@ -314,7 +313,7 @@ abstract class Template extends Application\BaseObject {
   }
 
   /****************************
-   * Backwards compatiblity
+   * Backwards compatibility
    ***************************/
 
   /**
@@ -323,8 +322,6 @@ abstract class Template extends Application\BaseObject {
    * @param string|\DOMElement $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param bool $encode encode special characters ? optional, default value TRUE
-   *
-   * @return mixed
    */
   public function addData($xml, $path = NULL, $encode = TRUE) {
     $this->add($xml, $path, $encode);
@@ -335,8 +332,6 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
-   *
-   * @return mixed
    */
   public function addLeft($xml, $encode = TRUE) {
     $this->addNavigation($xml, $encode);
@@ -347,8 +342,6 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
-   *
-   * @return mixed
    */
   public function addCenter($xml, $encode = TRUE) {
     $this->addContent($xml, $encode);
@@ -359,8 +352,6 @@ abstract class Template extends Application\BaseObject {
    *
    * @param string|\DOMElement $xml data
    * @param bool $encode encode special characters ? optional, default value TRUE
-   *
-   * @return mixed
    */
   public function addRight($xml, $encode = TRUE) {
     $this->addInformation($xml, $encode);

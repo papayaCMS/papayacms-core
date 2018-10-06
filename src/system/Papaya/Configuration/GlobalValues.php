@@ -16,6 +16,7 @@ namespace Papaya\Configuration;
 
 use Papaya\Configuration;
 use Papaya\Utility;
+use Papaya\Filter;
 
 /**
  * The global configuration uses constants for fixed options. Constants are superglobal, so
@@ -46,11 +47,11 @@ class GlobalValues extends Configuration {
    *
    * @param string $name
    * @param mixed $default
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    *
    * @return null|int|bool|float|string
    */
-  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
+  public function get($name, $default = NULL, Filter $filter = NULL) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if (\defined($name)) {
       return $this->filter(\constant($name), $default, $filter);

@@ -34,8 +34,8 @@ namespace Papaya;
  * @property-read int $contentLength
  */
 class Request
-  extends Application\BaseObject
-  implements BaseObject\Interfaces\Properties {
+  implements Application\Access, BaseObject\Interfaces\Properties {
+  use Application\Access\Aggregation;
   /**
    * Paramter source type: url path
    *
