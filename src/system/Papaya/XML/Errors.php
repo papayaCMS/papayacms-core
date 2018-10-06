@@ -14,6 +14,9 @@
  */
 namespace Papaya\XML;
 
+use Papaya\Application;
+use Papaya\Message;
+
 /**
  * Encapsulation object for the libxml errors.
  *
@@ -23,7 +26,8 @@ namespace Papaya\XML;
  * @package Papaya-Library
  * @subpackage XML
  */
-class Errors extends \Papaya\Application\BaseObject {
+class Errors implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * @var bool
    */
@@ -35,10 +39,10 @@ class Errors extends \Papaya\Application\BaseObject {
    * @var array
    */
   private $_errorMapping = [
-    LIBXML_ERR_NONE => \Papaya\Message::SEVERITY_INFO,
-    LIBXML_ERR_WARNING => \Papaya\Message::SEVERITY_WARNING,
-    LIBXML_ERR_ERROR => \Papaya\Message::SEVERITY_ERROR,
-    LIBXML_ERR_FATAL => \Papaya\Message::SEVERITY_ERROR
+    LIBXML_ERR_NONE => Message::SEVERITY_INFO,
+    LIBXML_ERR_WARNING => Message::SEVERITY_WARNING,
+    LIBXML_ERR_ERROR => Message::SEVERITY_ERROR,
+    LIBXML_ERR_FATAL => Message::SEVERITY_ERROR
   ];
 
   /**
@@ -71,34 +75,32 @@ class Errors extends \Papaya\Application\BaseObject {
   public function encapsulate($callback, array $arguments = NULL, $emitErrors = TRUE) {
     $this->activate();
     try {
-      $success = \call_user_func_array(
-        $callback,
-        NULL !== $arguments ? $arguments : []
-      );
+      $arguments = $arguments ?: [];
+      $success = $callback(...$arguments);
       if ($emitErrors) {
         $this->emit();
       }
       $this->deactivate();
     } catch (Exception $e) {
       if ($emitErrors) {
-        $context = new \Papaya\Message\Context\Group();
+        $context = new Message\Context\Group();
         if ($e->getContextFile()) {
           $context->append(
-            new \Papaya\Message\Context\File(
+            new Message\Context\File(
               $e->getContextFile(), $e->getContextLine(), $e->getContextColumn()
             )
           );
         }
-        $context->append(new \Papaya\Message\Context\Variable($arguments));
-        $context->append(new \Papaya\Message\Context\Backtrace(1));
+        $context->append(new Message\Context\Variable($arguments));
+        $context->append(new Message\Context\Backtrace(1));
         $this->papaya()->messages->log(
-          \Papaya\Message\Logable::GROUP_SYSTEM,
-          \Papaya\Message::SEVERITY_ERROR,
+          Message\Logable::GROUP_SYSTEM,
+          Message::SEVERITY_ERROR,
           $e->getMessage(),
           $context
         );
       }
-      return;
+      return NULL;
     }
     return $success;
   }
@@ -115,7 +117,8 @@ class Errors extends \Papaya\Application\BaseObject {
     foreach ($errors as $error) {
       if (LIBXML_ERR_FATAL === $error->level) {
         throw new Exception($error);
-      } elseif (!$fatalOnly && 0 !== \strpos($error->message, 'Namespace prefix papaya')) {
+      }
+      if (!$fatalOnly && 0 !== \strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()
           ->messages
@@ -143,12 +146,12 @@ class Errors extends \Papaya\Application\BaseObject {
    *
    * @param \libXMLError $error
    *
-   * @return \Papaya\Message\Log
+   * @return Message\Log
    */
   public function getMessageFromError(\libXMLError $error) {
     $messageType = $this->_errorMapping[$error->level];
-    $message = new \Papaya\Message\Log(
-      \Papaya\Message\Logable::GROUP_SYSTEM,
+    $message = new Message\Log(
+      Message\Logable::GROUP_SYSTEM,
       $messageType,
       \sprintf(
         '%d: %s in line %d at char %d',
@@ -162,7 +165,7 @@ class Errors extends \Papaya\Application\BaseObject {
       $message
         ->context()
         ->append(
-          new \Papaya\Message\Context\File(
+          new Message\Context\File(
             $error->file, $error->line, $error->column
           )
         );
@@ -170,7 +173,7 @@ class Errors extends \Papaya\Application\BaseObject {
     $message
       ->context()
       ->append(
-        new \Papaya\Message\Context\Backtrace(3)
+        new Message\Context\Backtrace(3)
       );
     return $message;
   }

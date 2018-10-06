@@ -29,10 +29,10 @@ class Xpath extends \DOMXpath {
   /**
    * Create object and disable the automatic namespace registration if possible.
    *
-   * @param \DOMDocument $dom
+   * @param \DOMDocument $document
    */
-  public function __construct(\DOMDocument $dom) {
-    parent::__construct($dom);
+  public function __construct(\DOMDocument $document) {
+    parent::__construct($document);
     $this->registerNodeNamespaces(\version_compare(PHP_VERSION, '<', '5.3.3'));
   }
 
@@ -79,7 +79,10 @@ class Xpath extends \DOMXpath {
    *
    * @return \DOMNodeList|string|float|int|bool|false
    */
-  public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function evaluate(
+    /** @noinspection PhpSignatureMismatchDuringInheritanceInspection */
+    $expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL
+  ) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
       $result = NULL !== $contextNode
         ? parent::evaluate($expression, $contextNode)
@@ -93,6 +96,7 @@ class Xpath extends \DOMXpath {
     return $result;
   }
 
+  /** @noinspection OverridingDeprecatedMethodInspection */
   /**
    * Query should not be used, but evaluate. Block it.
    *
@@ -104,10 +108,11 @@ class Xpath extends \DOMXpath {
    * @param null|bool $registerNodeNS
    *
    * @throws \LogicException
-   *
-   * @return \DOMNodeList
    */
-  public function query($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function query(
+    /** @noinspection PhpSignatureMismatchDuringInheritanceInspection */
+    $expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL
+  ) {
     throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
 }

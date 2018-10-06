@@ -23,7 +23,18 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 interface Node {
-  public function appendElement($name, array $attributes = [], $content = NULL);
+  /**
+   * Append a new element. Strings will be appended as text nodes, arrays set as attributes
+   *
+   * @param string $name
+   * @param string[]|array[]|Appendable[] $appendables
+   * @return mixed
+   */
+  public function appendElement($name, ...$appendables);
 
+  /**
+   * @param $content
+   * @return mixed
+   */
   public function appendXML($content);
 }

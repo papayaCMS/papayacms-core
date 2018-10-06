@@ -23,11 +23,13 @@ class Autoloader {
   private static $_paths = [];
 
   /**
-   * path => array('lowercaseclass' => '/path/class.php', ...)
+   * Class maps are added by plugins to propagate their own classes.
+   *
+   * path => array('lower_case_class' => '/path/class.php', ...)
    *
    * @var array
    */
-  private static $_classmaps = [];
+  private static $_classMaps = [];
 
   /**
    * Pattern that matches the parts (namespaces) of a class
@@ -40,6 +42,11 @@ class Autoloader {
       (?:[A-Z]+(?![a-z\d_]))
     )Sx';
 
+  /**
+   * A mapping from old class names to current ones. For BC
+   *
+   * @var array
+   */
   private static $_mapClasses = [
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
@@ -134,6 +141,11 @@ class Autoloader {
 
   private static $_mapClassesReverse;
 
+  /**
+   * parts are used to map word of an old class without namespaces to one with namespaces.
+   *
+   * @var array
+   */
   private static $_mapParts = [
     // Reserved Words
     'Boolean' => 'BooleanValue',
@@ -233,7 +245,7 @@ class Autoloader {
       ? $systemDirectory : \str_replace('\\', '/', \dirname(__DIR__));
     self::lazyLoadClassmap($systemDirectory);
     $key = \strtolower($className);
-    foreach (self::$_classmaps as $path => $map) {
+    foreach (self::$_classMaps as $path => $map) {
       if (isset($map[$key])) {
         return $path.$map[$key];
       }
@@ -246,7 +258,7 @@ class Autoloader {
           return $path.\substr($fileName, \strlen($prefix)).'.php';
         }
       }
-      return;
+      return NULL;
     }
     return $systemDirectory.$fileName.'.php';
   }
@@ -372,7 +384,7 @@ class Autoloader {
    * @param array $classMap
    */
   public static function registerClassMap($path, array $classMap) {
-    self::$_classmaps[$path] = $classMap;
+    self::$_classMaps[$path] = $classMap;
   }
 
   /**
@@ -383,7 +395,7 @@ class Autoloader {
    * @return bool
    */
   public static function hasClassMap($path) {
-    return isset(self::$_classmaps[$path]);
+    return isset(self::$_classMaps[$path]);
   }
 
   /**
@@ -406,7 +418,7 @@ class Autoloader {
    */
   public static function clear() {
     self::$_paths = [];
-    self::$_classmaps = [];
+    self::$_classMaps = [];
   }
 
   /**
@@ -415,7 +427,7 @@ class Autoloader {
    * @param string $directory
    */
   private static function lazyLoadClassmap($directory) {
-    if (empty(self::$_classmaps) || !isset(self::$_classmaps[$directory])) {
+    if (empty(self::$_classMaps) || !isset(self::$_classMaps[$directory])) {
       /* @noinspection PhpIncludeInspection */
       self::registerClassMap($directory, include $directory.'/_classmap.php');
     }

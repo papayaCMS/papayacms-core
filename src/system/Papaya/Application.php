@@ -14,13 +14,15 @@
  */
 namespace Papaya;
 
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * Papaya Application - object registry with profiles
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Application implements \ArrayAccess {
+class Application implements \ArrayAccess, Properties {
   /**
    * Duplicate profiles trigger an error
    *
@@ -47,7 +49,7 @@ class Application implements \ArrayAccess {
    *
    * @var \Papaya\Application
    */
-  private static $instance = NULL;
+  private static $instance;
 
   /**
    * Profile objects
@@ -153,9 +155,8 @@ class Application implements \ArrayAccess {
       $profile = $this->_profiles[$index];
       if ($profile instanceof Application\Profile) {
         return $this->_objects[$index] = $profile->createObject($this);
-      } else {
-        return $this->_objects[$index] = \call_user_func($profile, $this);
       }
+      return $this->_objects[$index] = $profile($this);
     }
     throw new \InvalidArgumentException(
       'Unknown profile identifier: '.$identifier
@@ -172,7 +173,7 @@ class Application implements \ArrayAccess {
    * @throws \LogicException
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
-    \Papaya\Utility\Constraints::assertObject($object);
+    Utility\Constraints::assertObject($object);
     $index = \strtolower($identifier);
     if (isset($this->_objects[$index])) {
       switch ($duplicationMode) {
@@ -202,10 +203,13 @@ class Application implements \ArrayAccess {
    */
   public function hasObject($identifier, $checkProfiles = TRUE) {
     $index = \strtolower($identifier);
-    if (isset($this->_objects[$index]) &&
-        \is_object($this->_objects[$index])) {
+    if (
+      isset($this->_objects[$index]) &&
+      \is_object($this->_objects[$index])
+    ) {
       return TRUE;
-    } elseif (!$checkProfiles) {
+    }
+    if (!$checkProfiles) {
       return FALSE;
     }
     return isset($this->_profiles[$index]);
@@ -222,16 +226,33 @@ class Application implements \ArrayAccess {
    */
   public function removeObject($identifier) {
     $index = \strtolower($identifier);
-    if (isset($this->_objects[$index]) &&
-        \is_object($this->_objects[$index])) {
+    if (
+      isset($this->_objects[$index]) &&
+      \is_object($this->_objects[$index])
+    ) {
       unset($this->_objects[$index]);
       return TRUE;
-    } elseif (isset($this->_profiles[$index])) {
+    }
+    if (isset($this->_profiles[$index])) {
       return TRUE;
     }
     throw new \InvalidArgumentException(
       'Unknown profile identifier: '.$identifier
     );
+  }
+
+  /**
+   * Allow property syntax to check object are available, this will return true even if only
+   * a profile for the object exists.
+   *
+   * @see setObject
+   *
+   * @param string $name
+   *
+   * @return bool
+   */
+  public function __isset($name) {
+    return $this->hasObject($name);
   }
 
   /**
@@ -260,6 +281,17 @@ class Application implements \ArrayAccess {
   }
 
   /**
+   * Allow property syntax to remove objects from the registry.
+   *
+   * @see setObject
+   *
+   * @param string $name
+   */
+  public function __unset($name) {
+    $this->removeObject($name);
+  }
+
+  /**
    * Allow method syntax to get/set objects from/into the registry.
    *
    * @see __get
@@ -275,20 +307,6 @@ class Application implements \ArrayAccess {
       $this->__set($name, $arguments[0]);
     }
     return $this->__get($name);
-  }
-
-  /**
-   * Allow property syntax to check object are availiable, this will return true even if only
-   * a profile for the object exists.
-   *
-   * @see setObject
-   *
-   * @param string $name
-   *
-   * @return bool
-   */
-  public function __isset($name) {
-    return $this->hasObject($name);
   }
 
   /**
