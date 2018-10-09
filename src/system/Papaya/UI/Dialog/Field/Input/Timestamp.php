@@ -12,31 +12,34 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A single line input for date and optional time, the internal value is an unix timestamp.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  * @property float $step
  * @property-read int $includeTime
  */
 class Timestamp extends Date {
-
   /**
    * Create object and initalize integer filter
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    * @param string $name
-   * @param integer $default
-   * @param boolean $mandatory
+   * @param int $default
+   * @param bool $mandatory
    * @param int $includeTime
    * @param float $step
    */
@@ -45,11 +48,11 @@ class Timestamp extends Date {
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME,
+    $includeTime = Filter\Date::DATE_NO_TIME,
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
-    $this->setFilter(new \Papaya\Filter\IntegerValue(1));
+    $this->setFilter(new Filter\IntegerValue(1));
   }
 
   /**
@@ -64,12 +67,13 @@ class Timestamp extends Date {
    */
   public function getCurrentValue() {
     $name = $this->getName();
-    if ($this->hasCollection() &&
+    if (
+      '' !== \trim($name) &&
+      $this->hasCollection() &&
       $this->collection()->hasOwner() &&
-      !empty($name) &&
       $this->collection()->owner()->parameters()->has($name)) {
       $dateTime = $this->collection()->owner()->parameters()->get($name);
-      return strtotime($dateTime);
+      return \strtotime($dateTime);
     }
     return (int)parent::getCurrentValue();
   }
@@ -77,20 +81,21 @@ class Timestamp extends Date {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName()),
         'maxlength' => $this->_maximumLength
-      ),
+      ],
       $this->formatDateTime(
-        $this->getCurrentValue(), $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
+        $this->getCurrentValue(), Filter\Date::DATE_NO_TIME !== $this->_includeTime
       )
     );
     return $field;
@@ -99,17 +104,18 @@ class Timestamp extends Date {
   /**
    * Convert timestamp into a string
    *
-   * @param integer $timestamp
-   * @param boolean $includeTime
+   * @param int $timestamp
+   * @param bool $includeTime
+   *
    * @return string
    */
   private function formatDateTime($timestamp, $includeTime = TRUE) {
-    if ($timestamp == 0) {
+    if (0 === (int)$timestamp) {
       return '';
-    } elseif ($includeTime) {
-      return date('Y-m-d H:i:s', $timestamp);
-    } else {
-      return date('Y-m-d', $timestamp);
     }
+    if ($includeTime) {
+      return \date('Y-m-d H:i:s', $timestamp);
+    }
+    return \date('Y-m-d', $timestamp);
   }
 }

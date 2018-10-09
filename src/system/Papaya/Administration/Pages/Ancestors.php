@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages;
+
+use Papaya\Content;
+use Papaya\UI;
 
 /**
  * Display anchestors of the current page.
@@ -21,27 +23,27 @@ namespace Papaya\Administration\Pages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Ancestors extends \Papaya\UI\Control {
-
+class Ancestors extends UI\Control {
   /**
    * Member variable for pages subobject
    *
-   * @var \Papaya\Content\Pages
+   * @var Content\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   /**
    * Member variable for hierarchy menu subobject
    *
-   * @var \Papaya\UI\Hierarchy\Menu
+   * @var UI\Hierarchy\Menu
    */
-  private $_menu = NULL;
+  private $_menu;
 
   /**
    * Append ancestor menu xml to parent element, this will do nothing until ids are set.
    *
    * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   *
+   * @return null|\Papaya\XML\Element
    */
   public function appendTo(\Papaya\XML\Element $parent) {
     return $this->menu()->appendTo($parent);
@@ -54,18 +56,18 @@ class Ancestors extends \Papaya\UI\Control {
    */
   public function setIds(array $pageIds) {
     $this->pages()->load(
-      array(
+      [
         'id' => $pageIds,
         'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id
-      )
+      ]
     );
     $this->menu()->items->clear();
     $this->menu()->items->limit = 10;
     foreach ($pageIds as $id) {
       if ($this->pages()->offsetExists($id)) {
         $data = $this->pages()->offsetGet($id);
-        $this->menu()->items[] = $item = new \Papaya\UI\Hierarchy\Item($data['title']);
-        $item->reference->setParameters(array('page_id' => $id), 'tt');
+        $this->menu()->items[] = $item = new UI\Hierarchy\Item($data['title']);
+        $item->reference->setParameters(['page_id' => $id], 'tt');
       }
     }
   }
@@ -73,14 +75,15 @@ class Ancestors extends \Papaya\UI\Control {
   /**
    * Content object, to load page informations
    *
-   * @param \Papaya\Content\Pages $pages
-   * @return \Papaya\Content\Pages
+   * @param Content\Pages $pages
+   *
+   * @return Content\Pages
    */
-  public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+  public function pages(Content\Pages $pages = NULL) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
-    } elseif (is_null($this->_pages)) {
-      $this->_pages = new \Papaya\Content\Pages();
+    } elseif (NULL === $this->_pages) {
+      $this->_pages = new Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;
@@ -89,14 +92,15 @@ class Ancestors extends \Papaya\UI\Control {
   /**
    * Menu object used to generate xml with page items
    *
-   * @param \Papaya\UI\Hierarchy\Menu $menu
-   * @return \Papaya\UI\Hierarchy\Menu
+   * @param UI\Hierarchy\Menu $menu
+   *
+   * @return UI\Hierarchy\Menu
    */
-  public function menu(\Papaya\UI\Hierarchy\Menu $menu = NULL) {
-    if (isset($menu)) {
+  public function menu(UI\Hierarchy\Menu $menu = NULL) {
+    if (NULL !== $menu) {
       $this->_menu = $menu;
-    } elseif (is_null($this->_menu)) {
-      $this->_menu = new \Papaya\UI\Hierarchy\Menu();
+    } elseif (NULL === $this->_menu) {
+      $this->_menu = new UI\Hierarchy\Menu();
       $this->_menu->papaya($this->papaya());
     }
     return $this->_menu;

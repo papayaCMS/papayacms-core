@@ -12,28 +12,29 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
+
 /**
  * Encapsulation for the raw request content.
  *
  * Depending on the SAPI the input stream is not seekable and can be read only once in some
- * circumstances. So the cotnent is cached in a static field.
+ * circumstances. So the content is cached in a static field.
  *
  * @package Papaya-Library
  * @subpackage Request
  */
 class Content {
-
   const STREAM_PHP_INPUT = 'php://input';
 
-  private $_stream = NULL;
-  private $_contents = NULL;
-  private $_length = NULL;
+  private $_stream;
+
+  private $_contents;
+
+  private $_length;
 
   /**
-   * @param resource|NULL $stream
-   * @param int|NULL $length
+   * @param resource|null $stream
+   * @param int|null $length
    */
   public function __construct($stream = NULL, $length = NULL) {
     $this->_stream = $stream;
@@ -46,10 +47,10 @@ class Content {
    * @return string
    */
   public function get() {
-    if (is_null($this->_contents)) {
-      $this->_contents = isset($this->_stream)
-        ? stream_get_contents($this->_stream)
-        : file_get_contents(self::STREAM_PHP_INPUT);
+    if (NULL === $this->_contents) {
+      $this->_contents = NULL !== $this->_stream
+        ? \stream_get_contents($this->_stream)
+        : \file_get_contents(self::STREAM_PHP_INPUT);
     }
     return $this->_contents;
   }
@@ -60,13 +61,13 @@ class Content {
    * @return int
    */
   public function length() {
-    if (isset($this->_length)) {
+    if (NULL !== $this->_length) {
       return (int)$this->_length;
-    } elseif (isset($_SERVER['HTTP_CONTENT_LENGTH'])) {
-      return $this->_length = (int)$_SERVER['HTTP_CONTENT_LENGTH'];
-    } else {
-      return $this->_length = 0;
     }
+    if (isset($_SERVER['HTTP_CONTENT_LENGTH'])) {
+      return $this->_length = (int)$_SERVER['HTTP_CONTENT_LENGTH'];
+    }
+    return $this->_length = 0;
   }
 
   /**

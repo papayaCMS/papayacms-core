@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a rte field using a simpler configuration wiht less elements.
  *
@@ -22,15 +24,16 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class RichtextSimple
   extends Richtext {
-
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Textarea\Richtext
+   *
+   * @return UI\Dialog\Field\Textarea\Richtext
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = parent::getField();
-    $field->setRteMode(\Papaya\UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE);
+    $field->setRteMode(UI\Dialog\Field\Textarea\Richtext::RTE_SIMPLE);
     return $field;
   }
 }

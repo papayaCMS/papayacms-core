@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * A checkbox for an active/inactive value
@@ -24,11 +27,10 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  */
-class Checkbox extends \Papaya\UI\Dialog\Field\Input {
-
+class Checkbox extends UI\Dialog\Field\Input {
   /**
    * Specify the field type for the template
    *
@@ -41,23 +43,23 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var array
    */
-  protected $_values = array(
+  protected $_values = [
     'active' => TRUE,
     'inactive' => FALSE
-  );
+  ];
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Creates dialog field for time input with caption, name, default value and
@@ -66,31 +68,32 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    * @param string $caption
    * @param string $name
    * @param mixed $default optional, default NULL
-   * @param boolean $mandatory optional, default FALSE
+   * @param bool $mandatory optional, default FALSE
    */
   public function __construct($caption, $name, $default = NULL, $mandatory = TRUE) {
     parent::__construct($caption, $name, 9, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\Equals($this->_values['active'])
+      new Filter\Equals($this->_values['active'])
     );
   }
 
   /**
    * Append the field to the xml output
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $currentValue = $this->getCurrentValue();
     $input = $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName())
-      ),
+      ],
       (string)$this->_values['active']
     );
     if ((string)$currentValue === (string)$this->_values['active']) {
@@ -104,6 +107,7 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
    *
    * @param mixed $active
    * @param mixed $inactive
+   *
    * @throws \InvalidArgumentException
    */
   public function setValues($active, $inactive) {
@@ -117,12 +121,12 @@ class Checkbox extends \Papaya\UI\Dialog\Field\Input {
         'The active value and the inactive value must be different.'
       );
     }
-    $this->_values = array(
+    $this->_values = [
       'active' => $active,
       'inactive' => $inactive
-    );
+    ];
     $this->setFilter(
-      new \Papaya\Filter\Equals($this->_values['active'])
+      new Filter\Equals($this->_values['active'])
     );
   }
 

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
 /**
  * This exception is thrown if a the callback is invalid.
  *
@@ -21,15 +21,14 @@ namespace Papaya\Filter\Exception;
  * @subpackage Filter
  */
 class InvalidCallback extends Callback {
-
   /**
-   * Construct object with callback informations
+   * Construct object with callback information
    *
    * @param \Callback $callback
    */
   public function __construct($callback) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Invalid callback specified: "%s"',
         $this->callbackToString($callback)
       ),

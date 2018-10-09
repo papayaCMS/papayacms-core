@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Options;
+
 /**
  * A superclass for options list with a definition of possible options. The possible options are
  * defined in a array with names and list of possible values.
@@ -27,22 +27,13 @@ namespace Papaya\BaseObject\Options;
  * @subpackage Objects
  */
 abstract class Defined
-  extends \Papaya\BaseObject\Options\Collection {
-
-
+  extends Collection {
   /**
    * Dialog option definitions: The key is the option name, the element a list of possible values.
    *
    * @var array
    */
-  protected $_definitions = array();
-
-  /**
-   * Dialog option values
-   *
-   * @var array
-   */
-  protected $_options = array();
+  protected $_definitions = [];
 
   /**
    * Convert options into an array with name => value pairs
@@ -50,8 +41,8 @@ abstract class Defined
    * @return array
    */
   public function toArray() {
-    $result = array();
-    foreach (array_keys($this->_definitions) as $name) {
+    $result = [];
+    foreach (\array_keys($this->_definitions) as $name) {
       $result[$name] = $this->_read($name);
     }
     return $result;
@@ -60,27 +51,29 @@ abstract class Defined
   /**
    * Each option has a default value, so this method return the count of all option definitions.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_definitions);
+    return \count($this->_definitions);
   }
 
   /**
    * Write an option value
    *
    * @param $name
+   *
    * @throws \InvalidArgumentException
+   *
    * @return mixed
    */
   protected function _read($name) {
-    if (array_key_exists($name, $this->_options)) {
+    if (\array_key_exists($name, $this->_options)) {
       return $this->_options[$name];
     } elseif (isset($this->_definitions[$name])) {
       return $this->_definitions[$name][0];
     }
     throw new \InvalidArgumentException(
-      sprintf('Unknown option name "%s".', $name)
+      \sprintf('Unknown option name "%s".', $name)
     );
   }
 
@@ -89,6 +82,7 @@ abstract class Defined
    *
    * @param $name
    * @param $value
+   *
    * @throws \InvalidArgumentException
    */
   protected function _write($name, $value) {
@@ -97,7 +91,7 @@ abstract class Defined
       return;
     }
     throw new \InvalidArgumentException(
-      sprintf('Unknown option name "%s".', $name)
+      \sprintf('Unknown option name "%s".', $name)
     );
   }
 
@@ -105,6 +99,7 @@ abstract class Defined
    * Check if an option value exists
    *
    * @param $name
+   *
    * @return bool
    */
   protected function _exists($name) {

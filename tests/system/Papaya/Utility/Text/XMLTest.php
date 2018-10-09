@@ -211,41 +211,41 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isNcName
+   * @covers \Papaya\Utility\Text\XML::isNCName
    * @dataProvider provideValidNcNames
    * @param string $tagName
    * @param int $offset
    * @param int $length
    */
   public function testIsNcName($tagName, $offset, $length) {
-    $this->assertTrue(XML::isNcName($tagName, $offset, $length));
+    $this->assertTrue(XML::isNCName($tagName, $offset, $length));
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isNcName
+   * @covers \Papaya\Utility\Text\XML::isNCName
    */
   public function testIsNcNameWithEmptyTagnameExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:": Missing QName part.');
-    XML::isNcName('nc:', 3);
+    XML::isNCName('nc:', 3);
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isNcName
+   * @covers \Papaya\Utility\Text\XML::isNCName
    */
   public function testIsNcNameWithInvalidTagnameCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:ta<g>": Invalid character at index 5.');
-    XML::isNcName('nc:ta<g>', 3);
+    XML::isNCName('nc:ta<g>', 3);
   }
 
   /**
-   * @covers \Papaya\Utility\Text\XML::isNcName
+   * @covers \Papaya\Utility\Text\XML::isNCName
    */
   public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:1tag": Invalid character at index 3.');
-    XML::isNcName('nc:1tag', 3);
+    XML::isNCName('nc:1tag', 3);
   }
 
   /*********************************

@@ -12,28 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\Profiler as Profiling;
+
 /**
  * Application object profile for profiler
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Profiler implements \Papaya\Application\Profile {
-
+class Profiler implements Application\Profile {
   private $_builder;
 
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
-   * @return \Papaya\Profiler
+   * @param Application|Application\CMS $application
+   *
+   * @return Profiling
    */
   public function createObject($application) {
     $builder = $this->builder();
     $builder->papaya($application);
-    $profiler = new \Papaya\Profiler($builder->createCollector(), $builder->createStorage());
+    $profiler = new Profiling($builder->createCollector(), $builder->createStorage());
     if ($application->options->get('PAPAYA_PROFILER_ACTIVE', FALSE)) {
       $profiler->setDivisor($application->options->get('PAPAYA_PROFILER_DIVISOR', 50));
     } else {
@@ -45,14 +48,15 @@ class Profiler implements \Papaya\Application\Profile {
   /**
    * Getter/Setter for profiler builder
    *
-   * @param \Papaya\Profiler\Builder $builder
-   * @return \Papaya\Profiler\Builder
+   * @param Profiling\Builder $builder
+   *
+   * @return Profiling\Builder
    */
-  public function builder(\Papaya\Profiler\Builder $builder = NULL) {
+  public function builder(Profiling\Builder $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
-      $this->_builder = new \Papaya\Profiler\Builder();
+      $this->_builder = new Profiling\Builder();
     }
     return $this->_builder;
   }

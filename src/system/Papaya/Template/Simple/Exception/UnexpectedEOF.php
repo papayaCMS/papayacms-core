@@ -12,22 +12,24 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Exception;
 
-class UnexpectedEOF extends \Papaya\Template\Simple\Exception\Parser {
+use Papaya\Template\Simple;
 
+class UnexpectedEOF extends Parser {
   public function __construct(array $expectedTokens) {
     $this->expectedTokens = $expectedTokens;
 
-    $expectedTokenStrings = array();
+    $expectedTokenStrings = [];
     foreach ($expectedTokens as $expectedToken) {
-      $expectedTokenStrings[] = \Papaya\Template\Simple\Scanner\Token::getTypeString($expectedToken);
+      $expectedTokenStrings[] = Simple\Scanner\Token::getTypeString($expectedToken);
     }
 
     parent::__construct(
-      'Parse error: Unexpected end of file was found while one of '.
-      implode(", ", $expectedTokenStrings).' was expected.'
+      \sprintf(
+        'Parse error: Unexpected end of file was found while one of %s was expected.',
+        \implode(', ', $expectedTokenStrings)
+      )
     );
   }
 }

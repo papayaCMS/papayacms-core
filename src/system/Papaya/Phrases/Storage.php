@@ -12,10 +12,14 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases;
 
 interface Storage {
-
+  /**
+   * @param string $phrase
+   * @param string $module
+   * @param int $languageId
+   * @return string
+   */
   public function get($phrase, $module, $languageId);
 }

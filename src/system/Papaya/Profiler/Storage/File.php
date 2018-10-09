@@ -12,18 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Profiler\Storage;
+
+use Papaya\Profiler;
+
 /**
  * Stores the Xhrof profiling data into a file usable by the standard report app.
  *
  * @package Papaya-Library
  * @subpackage Profiler
  */
-class File implements \Papaya\Profiler\Storage {
-
+class File implements Profiler\Storage {
+  /**
+   * @var string
+   */
   private $_suffix = 'xhprof';
-  private $_directory = '/tmp/';
+
+  /**
+   * @var string
+   */
+  private $_directory;
 
   /**
    * Create storage object and store configuration options
@@ -33,7 +41,7 @@ class File implements \Papaya\Profiler\Storage {
    */
   public function __construct($directory, $suffix = NULL) {
     $this->_directory = $directory;
-    if (!empty($suffix)) {
+    if (NULL !== $suffix || '' !== \trim($suffix)) {
       $this->_suffix = $this->prepareSuffix($suffix);
     }
   }
@@ -43,12 +51,13 @@ class File implements \Papaya\Profiler\Storage {
    *
    * @param array $data
    * @param string $type
+   *
    * @return string
    */
   public function saveRun($data, $type) {
     $id = $this->getId();
     $file = $this->getFilename($id, $type);
-    file_put_contents($file, serialize($data));
+    \file_put_contents($file, \serialize($data));
     return $id;
   }
 
@@ -57,6 +66,7 @@ class File implements \Papaya\Profiler\Storage {
    *
    * @param string $id
    * @param string $type
+   *
    * @return string
    */
   private function getFilename($id, $type) {
@@ -70,14 +80,16 @@ class File implements \Papaya\Profiler\Storage {
    * @return string
    */
   protected function getId() {
-    return uniqid('papaya', TRUE);
+    return \uniqid('papaya', TRUE);
   }
 
   /**
    * Cleanup directory option and validate it.
    *
    * @param string $directory
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   private function prepareDirectory($directory) {
@@ -87,11 +99,11 @@ class File implements \Papaya\Profiler\Storage {
       );
     }
     $directory = \Papaya\Utility\File\Path::cleanup($directory);
-    if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
+    if (\file_exists($directory) && \is_dir($directory) && \is_readable($directory)) {
       return $directory;
     }
     throw new \UnexpectedValueException(
-      sprintf('Profiling directory "%s" is not writeable.', $directory)
+      \sprintf('Profiling directory "%s" is not writeable.', $directory)
     );
   }
 
@@ -99,16 +111,17 @@ class File implements \Papaya\Profiler\Storage {
    * Validate profiling file extension.
    *
    * @param string $suffix
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   private function prepareSuffix($suffix) {
-    if (preg_match('(^[a-z\d]+$)D', $suffix)) {
+    if (\preg_match('(^[a-z\d]+$)D', $suffix)) {
       return $suffix;
-    } else {
-      throw new \UnexpectedValueException(
-        sprintf('Invalid profiling file suffix "%s"', $suffix)
-      );
     }
+    throw new \UnexpectedValueException(
+      \sprintf('Invalid profiling file suffix "%s"', $suffix)
+    );
   }
 }

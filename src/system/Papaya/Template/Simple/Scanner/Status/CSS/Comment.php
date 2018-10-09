@@ -12,28 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner\Status\CSS;
+
+use Papaya\Template\Simple;
+
 /**
  * After a simple template value name comment, this status looks for the default value.
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class Comment extends \Papaya\Template\Simple\Scanner\Status {
-
-  private $_patterns = array(
-    '(\\*/)S' => \Papaya\Template\Simple\Scanner\Token::COMMENT_END,
-    '(([^*]+|[*][^/]|[*]$)+)S' => \Papaya\Template\Simple\Scanner\Token::TEXT
-  );
+class Comment extends Simple\Scanner\Status {
+  private $_patterns = [
+    '(\\*/)S' => Simple\Scanner\Token::COMMENT_END,
+    '(([^*]+|[*][^/]|[*]$)+)S' => Simple\Scanner\Token::TEXT
+  ];
 
   /**
    * Match the patterns against the buffer string, return a new token if it is found at
    * offset position.
    *
    * @param string $buffer
-   * @param integer $offset
-   * @return NULL|\Papaya\Template\Simple\Scanner\Token
+   * @param int $offset
+   *
+   * @return null|Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -42,10 +44,11 @@ class Comment extends \Papaya\Template\Simple\Scanner\Status {
   /**
    * Return TRUE if the token is a comment end
    *
-   * @param \Papaya\Template\Simple\Scanner\Token $token
-   * @return boolean
+   * @param Simple\Scanner\Token $token
+   *
+   * @return bool
    */
   public function isEndToken($token) {
-    return ($token->type == \Papaya\Template\Simple\Scanner\Token::COMMENT_END);
+    return (Simple\Scanner\Token::COMMENT_END === $token->type);
   }
 }

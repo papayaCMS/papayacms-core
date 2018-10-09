@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
+
 /**
  * Papaya Utilities for Date and Time
  *
@@ -21,11 +21,11 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Date {
-
   /**
    * parses a user input datetime string with offset to get a unix timestamp.
    *
    * @param string $datetime a datetime string Y-m-dTH:i:s[+-[H[:i]]]
+   *
    * @return mixed timestamp if $date was matched, otherwise FALSE
    */
   public static function iso8601ToTimestamp($datetime) {
@@ -47,31 +47,34 @@ class Date {
         )?
       )?
       $)Dx';
-    if (preg_match($patternDateISO, $datetime, $matches)) {
-      $resultMatch = array(
-        'year' => (int)self::_getValueFromArray($matches, 'year', date('Y')),
+    if (\preg_match($patternDateISO, $datetime, $matches)) {
+      $resultMatch = [
+        'year' => (int)self::_getValueFromArray($matches, 'year', \date('Y')),
         'month' => (int)self::_getValueFromArray($matches, 'month', 1),
         'day' => (int)self::_getValueFromArray($matches, 'day', 1),
         'hour' => (int)self::_getValueFromArray($matches, 'hour', 0),
         'minute' => (int)self::_getValueFromArray($matches, 'minute', 0),
         'second' => (int)self::_getValueFromArray($matches, 'second', 0),
         'millisecond' => (int)self::_getValueFromArray($matches, 'millisecond', 0)
-      );
-      if (isset($matches['offsetOperator']) && !empty($matches['offsetOperator']) &&
-        isset($matches['offsetHour']) && (int)($matches['offsetHour']) > 0) {
-        if ($matches['offsetOperator'] == '+') {
+      ];
+      if (
+        !empty($matches['offsetOperator']) &&
+        isset($matches['offsetHour']) &&
+        (int)$matches['offsetHour'] > 0
+      ) {
+        if ('+' === $matches['offsetOperator']) {
           $resultMatch['hour'] -= (int)$matches['offsetHour'];
-          if (isset($matches['offsetMinute']) && (int)($matches['offsetMinute']) > 0) {
+          if (isset($matches['offsetMinute']) && (int)$matches['offsetMinute'] > 0) {
             $resultMatch['minute'] += (int)$matches['offsetMinute'];
           }
         } else {
           $resultMatch['hour'] += (int)$matches['offsetHour'];
-          if (isset($matches['offsetMinute']) && (int)($matches['offsetMinute']) > 0) {
+          if (isset($matches['offsetMinute']) && (int)$matches['offsetMinute'] > 0) {
             $resultMatch['minute'] -= (int)$matches['offsetMinute'];
           }
         }
       }
-      $result = gmmktime(
+      $result = \gmmktime(
         $resultMatch['hour'],
         $resultMatch['minute'],
         $resultMatch['second'],
@@ -87,11 +90,12 @@ class Date {
    * parses a user input date string to get a unix timestamp
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
-   * @return int|FALSE timestamp if $date was matched, otherwise FALSE
+   *
+   * @return int|false timestamp if $date was matched, otherwise FALSE
    */
   public static function stringToTimestamp($date) {
     if ($array = self::stringToArray($date)) {
-      return mktime(
+      return \mktime(
         $array['hour'],
         $array['minute'],
         $array['second'],
@@ -108,17 +112,18 @@ class Date {
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
    * @param bool $includeTime
+   *
    * @return string iso date time
    */
   public static function stringToISO($date, $includeTime = TRUE) {
     if ($array = self::stringToArray($date)) {
-      $result = str_pad($array['year'], 4, '0', STR_PAD_LEFT);
-      $result .= '-'.str_pad($array['month'], 2, '0', STR_PAD_LEFT);
-      $result .= '-'.str_pad($array['day'], 2, '0', STR_PAD_LEFT);
+      $result = \str_pad($array['year'], 4, '0', STR_PAD_LEFT);
+      $result .= '-'.\str_pad($array['month'], 2, '0', STR_PAD_LEFT);
+      $result .= '-'.\str_pad($array['day'], 2, '0', STR_PAD_LEFT);
       if ($includeTime) {
-        $result .= ' '.str_pad($array['hour'], 2, '0', STR_PAD_LEFT);
-        $result .= ':'.str_pad($array['minute'], 2, '0', STR_PAD_LEFT);
-        $result .= ':'.str_pad($array['second'], 2, '0', STR_PAD_LEFT);
+        $result .= ' '.\str_pad($array['hour'], 2, '0', STR_PAD_LEFT);
+        $result .= ':'.\str_pad($array['minute'], 2, '0', STR_PAD_LEFT);
+        $result .= ':'.\str_pad($array['second'], 2, '0', STR_PAD_LEFT);
       }
       return $result;
     }
@@ -129,6 +134,7 @@ class Date {
    * parses a user input date string to get a array with all parts
    *
    * @param string $date a date string d.m.Y H:i:s OR m/d/Y H:i:s OR Y-m-d H:i:s
+   *
    * @return mixed timestamp if $date was matched, otherwise FALSE
    */
   public static function stringToArray($date) {
@@ -158,18 +164,18 @@ class Date {
         )?
       )?
       $)Dx';
-    if (preg_match($patternDateISO, $date, $matches) ||
-      preg_match($patternDateEN, $date, $matches) ||
-      preg_match($patternDateDE, $date, $matches)) {
-      return array(
-        'year' => (int)self::_getValueFromArray($matches, 'year', date('Y')),
+    if (\preg_match($patternDateISO, $date, $matches) ||
+      \preg_match($patternDateEN, $date, $matches) ||
+      \preg_match($patternDateDE, $date, $matches)) {
+      return [
+        'year' => (int)self::_getValueFromArray($matches, 'year', \date('Y')),
         'month' => (int)self::_getValueFromArray($matches, 'month', 1),
         'day' => (int)self::_getValueFromArray($matches, 'day', 1),
         'hour' => (int)self::_getValueFromArray($matches, 'hour', 0),
         'minute' => (int)self::_getValueFromArray($matches, 'minute', 0),
         'second' => (int)self::_getValueFromArray($matches, 'second', 0),
         'millisecond' => (int)self::_getValueFromArray($matches, 'millisecond', 0)
-      );
+      ];
     }
     return FALSE;
   }
@@ -177,10 +183,11 @@ class Date {
   /**
    * convert a unix timestamp to an string
    *
-   * @param integer $timestamp
-   * @param boolean $seconds
+   * @param int $timestamp
+   * @param bool $seconds
    * @param bool $offset only used if $seconds is TRUE
    * @param bool $weekDay
+   *
    * @return string
    */
   public static function timestampToString(
@@ -196,32 +203,34 @@ class Date {
         }
       }
     }
-    return date($formatString, (int)$timestamp);
+    return \date($formatString, (int)$timestamp);
   }
 
   /**
    * Convert a time period (in seconds) to an array.
    *
    * @param $period
+   *
    * @return array
+   *
    * @internal param float|int $seconds
    */
   public static function periodToArray($period) {
-    $seconds = floor($period);
-    $minutes = floor($seconds / 60);
-    $hours = floor($minutes / 60);
-    $days = floor($hours / 24);
-    $weeks = floor($days / 7);
-    $years = floor($weeks / 52);
-    return array(
+    $seconds = \floor($period);
+    $minutes = \floor($seconds / 60);
+    $hours = \floor($minutes / 60);
+    $days = \floor($hours / 24);
+    $weeks = \floor($days / 7);
+    $years = \floor($weeks / 52);
+    return [
       'y' => $years,
       'w' => $weeks - ($years * 52),
       'd' => $days - ($weeks * 7),
       'h' => $hours - ($days * 24),
       'min' => $minutes - ($hours * 60),
       's' => $seconds - ($minutes * 60),
-      'ms' => round(($period - $seconds) * 1000, 2),
-    );
+      'ms' => \round(($period - $seconds) * 1000, 2),
+    ];
   }
 
   /**
@@ -229,28 +238,30 @@ class Date {
    *
    * @uses \Papaya\Utility\Date::periodToArray()
    *
-   * @param integer $period
-   * @param integer $precision elements to output (start with the first one greater zero)
+   * @param int $period
+   * @param int $precision elements to output (start with the first one greater zero)
    * @param array $units map standard units to strings
+   *
    * @return string
    */
-  public static function periodToString($period, $precision = 2, $units = array()) {
+  public static function periodToString($period, $precision = 2, array $units = []) {
     $elements = self::periodToArray($period);
     $result = '';
     $counter = 0;
-    $patterns = array(
-      array('y', 'w', 25.5),
-      array('w', 'd', 3.5),
-      array('d', 'h', 12),
-      array('h', 'min', 30),
-      array('min', 's', 30),
-      array('s', 'ms', 500),
-    );
-    foreach ($patterns as $pattern) {
-      list($current, $next, $divider) = $pattern;
+    $patterns = [
+      ['y', 'w', 25.5],
+      ['w', 'd', 3.5],
+      ['d', 'h', 12],
+      ['h', 'min', 30],
+      ['min', 's', 30],
+      ['s', 'ms', 500],
+    ];
+    foreach ($patterns as list($current, $next, $divider)) {
       $unit = isset($units[$current]) ? $units[$current] : $current;
-      if ($counter + $elements[$current] > 0 &&
-        $precision >= ++$counter) {
+      if (
+        $counter + $elements[$current] > 0 &&
+        $precision >= ++$counter
+      ) {
         $result .= ' ';
         if ($precision > $counter) {
           $result .= $elements[$current];
@@ -263,23 +274,20 @@ class Date {
     if ($precision > $counter) {
       $result .= ' '.$elements['ms'].'ms';
     }
-    return substr($result, 1);
+    return \substr($result, 1);
   }
 
   /**
    * Round period elements by the next element
    *
-   * @param integer $value
-   * @param integer $fragmentValue
+   * @param int $value
+   * @param int $fragmentValue
    * @param float $divider
+   *
    * @return int
    */
   private static function _roundPeriodElement($value, $fragmentValue, $divider) {
-    if ($fragmentValue >= $divider) {
-      return $value + 1;
-    } else {
-      return $value;
-    }
+    return $fragmentValue >= $divider ? $value + 1 : $value;
   }
 
   /**
@@ -289,9 +297,10 @@ class Date {
    * @param array $array
    * @param string $key
    * @param mixed $defaultValue
+   *
    * @return mixed
    */
   private static function _getValueFromArray(array $array, $key, $defaultValue) {
-    return (empty($array[$key])) ? $defaultValue : $array[$key];
+    return empty($array[$key]) ? $defaultValue : $array[$key];
   }
 }

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Domain;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Data encapsulation for a liust of domain group record
  *
@@ -23,22 +26,21 @@ namespace Papaya\Content\Domain;
  * @property int $id
  * @property string $title
  */
-class Group extends \Papaya\Database\Record\Lazy {
-
+class Group extends Database\Record\Lazy {
   /**
    * Map field names to more convinient property names
    *
    * @var array:string
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'domaingroup_id',
     'title' => 'domaingroup_title'
-  );
+  ];
 
   /**
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::DOMAIN_GROUPS;
+  protected $_tableName = Content\Tables::DOMAIN_GROUPS;
 
   /**
    * Create callbacks subobject, override to assign callbacks
@@ -47,7 +49,7 @@ class Group extends \Papaya\Database\Record\Lazy {
    */
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
-    $callbacks->onBeforeDelete = array($this, 'moveDomainsToDefaultGroup');
+    $callbacks->onBeforeDelete = [$this, 'moveDomainsToDefaultGroup'];
     return $callbacks;
   }
 
@@ -55,9 +57,9 @@ class Group extends \Papaya\Database\Record\Lazy {
     if ($this->id > 0) {
       $databaseAccess = $this->getDatabaseAccess();
       return FALSE !== $databaseAccess->updateRecord(
-          $databaseAccess->getTableName(\Papaya\Content\Tables::DOMAINS),
-          array('domaingroup_id' => 0),
-          array('domaingroup_id' => $this->id)
+          $databaseAccess->getTableName(Content\Tables::DOMAINS),
+          ['domaingroup_id' => 0],
+          ['domaingroup_id' => $this->id]
         );
     }
     return TRUE;

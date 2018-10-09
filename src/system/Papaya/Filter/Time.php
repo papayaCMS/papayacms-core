@@ -12,15 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * This filter class checks a time in human-readable format.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Time implements \Papaya\Filter {
+class Time implements Filter {
   /**
    * Step in seconds, default 60
    *
@@ -32,6 +34,7 @@ class Time implements \Papaya\Filter {
    * Constructor
    *
    * @param float $step in seconds (optional, default 1.0)
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($step = 1.0) {
@@ -46,9 +49,10 @@ class Time implements \Papaya\Filter {
    * Validate a time
    *
    * @param string $value
-   * @throws \Papaya\Filter\Exception\UnexpectedType
-   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-   * @return boolean
+   *
+   * @throws Exception
+   *
+   * @return bool
    */
   public function validate($value) {
     $patternTimeISO = '(^
@@ -70,20 +74,20 @@ class Time implements \Papaya\Filter {
         )?
       )?
       $)Dx';
-    if (!preg_match($patternTimeISO, $value, $match)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('ISO time.');
+    if (!\preg_match($patternTimeISO, $value, $match)) {
+      throw new Exception\UnexpectedType('ISO time.');
     }
     if (!empty($match['offsetOperator'])) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('Time must not include a time zone offset.');
+      throw new Exception\UnexpectedType('Time must not include a time zone offset.');
     }
-    $limits = array(
+    $limits = [
       'hour' => 23,
       'minute' => 59,
       'second' => 59,
-    );
+    ];
     foreach ($limits as $element => $limit) {
       if (isset($match[$element]) && $match[$element] > $limit) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($limit, $match[$element]);
+        throw new Exception\OutOfRange\ToLarge($limit, $match[$element]);
       }
     }
     $timeStamp = $this->_toTimestamp(
@@ -91,8 +95,8 @@ class Time implements \Papaya\Filter {
       isset($match['minute']) ? $match['minute'] : 0,
       isset($match['second']) ? $match['second'] : 0
     );
-    if ($timeStamp % $this->_step != 0) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('Time matching the expected step.');
+    if (0 !== $timeStamp % $this->_step) {
+      throw new Exception\UnexpectedType('Time matching the expected step.');
     }
     return TRUE;
   }
@@ -100,16 +104,17 @@ class Time implements \Papaya\Filter {
   /**
    * Filter a time
    *
-   * @param string $value
-   * @return mixed the filtered time value or NULL
+   * @param mixed $value
+   *
+   * @return string|null the filtered time value or NULL
    */
   public function filter($value) {
     try {
-      $this->validate(trim($value));
-    } catch (\Papaya\Filter\Exception $e) {
+      $this->validate(\trim($value));
+    } catch (Exception $e) {
       return NULL;
     }
-    return trim($value);
+    return \trim($value);
   }
 
   private function _toTimestamp($hour, $minute, $second) {

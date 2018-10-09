@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content;
+
+use Papaya\Response;
 
 /**
  * Iterator the argument and output it.
@@ -21,8 +22,7 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class Collection implements \Papaya\Response\Content {
-
+class Collection implements Response\Content {
   /**
    * string content buffer
    *
@@ -30,7 +30,10 @@ class Collection implements \Papaya\Response\Content {
    */
   private $_traversable;
 
-  private $_lineEnd = "\n";
+  /**
+   * @var string
+   */
+  private $_lineEnd;
 
   /**
    * @param \Traversable $traversable
@@ -44,7 +47,7 @@ class Collection implements \Papaya\Response\Content {
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
     return -1;
@@ -58,7 +61,7 @@ class Collection implements \Papaya\Response\Content {
   public function output() {
     foreach ($this->_traversable as $line) {
       echo $line.$this->_lineEnd;
-      flush();
+      \flush();
     }
   }
 }

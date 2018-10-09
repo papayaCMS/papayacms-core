@@ -41,15 +41,6 @@ class CallbackTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Iterator\Repeat\Callback
-   */
-  public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->expectException(\InvalidArgumentException::class);
-    $this->expectExceptionMessage('Invalid callback provided.');
-    new Callback(NULL);
-  }
-
   public function incrementToThree($value, $key) {
     $value++;
     $key++;

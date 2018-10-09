@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
+use Papaya\BaseObject;
+
 /**
  * An interface to define that an object can be configured from a controller.
  * Page content modules get parameters like "fullpage" this way.
@@ -22,10 +24,10 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Configurable {
-
   /**
-   * @param \Papaya\BaseObject\Parameters $configuration
-   * @return \Papaya\BaseObject\Parameters
+   * @param BaseObject\Parameters $configuration
+   *
+   * @return BaseObject\Parameters
    */
-  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL);
+  public function configuration(BaseObject\Parameters $configuration = NULL);
 }

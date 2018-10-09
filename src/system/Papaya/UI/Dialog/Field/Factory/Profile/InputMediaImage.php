@@ -12,23 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profile for a media image selection field.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputMediaImage extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class InputMediaImage extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Input\Media\Image
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Input\Media\Image
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Media\Image(
+    $field = new UI\Dialog\Field\Input\Media\Image(
       $this->options()->caption,
       $this->options()->name
     );

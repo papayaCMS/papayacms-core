@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
 /**
@@ -29,13 +28,12 @@ namespace Papaya\BaseObject;
  */
 class Collection
   implements \Iterator, \ArrayAccess, \Countable {
-
   /**
    * List items
    *
    * @var array
    */
-  private $_items = array();
+  private $_items = [];
 
   /**
    * Item class/interface
@@ -50,7 +48,7 @@ class Collection
    * @param string $itemClass
    */
   public function __construct($itemClass = NULL) {
-    if (isset($itemClass)) {
+    if (NULL !== $itemClass) {
       $this->setItemClass($itemClass);
     }
   }
@@ -59,16 +57,17 @@ class Collection
    * Set/Change the item class restriction, this will remove all items in teh internal list.
    *
    * @param string $itemClass
+   *
    * @throws \InvalidArgumentException
    */
   public function setItemClass($itemClass) {
-    if (class_exists($itemClass) ||
-      interface_exists($itemClass)) {
+    if (\class_exists($itemClass) ||
+      \interface_exists($itemClass)) {
       $this->_itemClass = $itemClass;
-      $this->_items = array();
+      $this->_items = [];
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Please provide a valid class/interface: "%s" was not found.',
           $itemClass
         )
@@ -92,6 +91,7 @@ class Collection
    * to add several items using a fluent interface.
    *
    * @param object $value
+   *
    * @return $this
    */
   public function add($value) {
@@ -101,17 +101,15 @@ class Collection
 
   /**
    * Removes all items from the list
-   *
-   * @return void
    */
   public function clear() {
-    $this->_items = array();
+    $this->_items = [];
   }
 
   /**
    * Remove a single item from the list.
    *
-   * @param integer $index
+   * @param int $index
    */
   public function remove($index) {
     $this->offsetUnset($index);
@@ -120,7 +118,7 @@ class Collection
   /**
    * Check if the list contains no items
    *
-   * @return boolean
+   * @return bool
    */
   public function isEmpty() {
     return empty($this->_items);
@@ -130,54 +128,55 @@ class Collection
    * Countable interface: return count of items in list
    */
   public function count() {
-    return count($this->_items);
+    return \count($this->_items);
   }
 
   /**
    * Iterator interface: return current item
    *
-   * @return object|FALSE
+   * @return object|false
    */
   public function current() {
-    return current($this->_items);
+    return \current($this->_items);
   }
 
   /**
    * Iterator ínterface: return current key
    *
-   * @return integer|NULL
+   * @return int|null
    */
   public function key() {
-    return key($this->_items);
+    return \key($this->_items);
   }
 
   /**
    * Iterator interface: move internal pointer to next item
    */
   public function next() {
-    next($this->_items);
+    \next($this->_items);
   }
 
   /**
    * Iterator interface: move internal pointer to first item
    */
   public function rewind() {
-    reset($this->_items);
+    \reset($this->_items);
   }
 
   /**
    * Iterator interface: check for item at internal pointer position
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
-    return $this->current() !== FALSE;
+    return FALSE !== $this->current();
   }
 
   /**
    * ArrayAccess interface: check for item specified by index
    *
-   * @param integer $index
+   * @param int $index
+   *
    * @return bool
    */
   public function offsetExists($index) {
@@ -187,7 +186,8 @@ class Collection
   /**
    * ArrayAccess interface: get item specified by index
    *
-   * @param integer $index
+   * @param int $index
+   *
    * @return mixed
    */
   public function offsetGet($index) {
@@ -200,20 +200,21 @@ class Collection
    * Only items of the given class/interface are allowed. If the index is NULl the item is added to
    * the end of the list, if it is an existing key the item is replaced.
    *
-   * @param integer $index
+   * @param int $index
    * @param mixed $value
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($index, $value) {
     $value = $this->prepareItem($value);
     if ($value instanceof $this->_itemClass) {
-      if (is_null($index)) {
+      if (NULL === $index) {
         $this->_items[] = $value;
       } elseif (isset($this->_items[$index])) {
         $this->_items[$index] = $value;
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             'Item with index "%s" does not exist.',
             $index
           )
@@ -221,10 +222,10 @@ class Collection
       }
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Only instances of "%s" are allowed in this list, "%s" given.',
           $this->_itemClass,
-          is_object($value) ? get_class($value) : gettype($value)
+          \is_object($value) ? \get_class($value) : \gettype($value)
         )
       );
     }
@@ -233,12 +234,12 @@ class Collection
   /**
    * ArrayAccess interface: Remove the item specified by index
    *
-   * @param integer $index
+   * @param int $index
    */
   public function offsetUnset($index) {
     if (isset($this->_items[$index])) {
       unset($this->_items[$index]);
-      $this->_items = array_values($this->_items);
+      $this->_items = \array_values($this->_items);
     }
   }
 
@@ -246,6 +247,7 @@ class Collection
    * Prepare item before adding it to the list. Overriding this method allows type conversions.
    *
    * @param mixed $value
+   *
    * @return mixed
    */
   protected function prepareItem($value) {

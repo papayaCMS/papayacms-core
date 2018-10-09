@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
+
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for an identifier/name
  *
@@ -23,23 +26,22 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string $hint
- * @property string|NULL $defaultValue
- * @property boolean $mandatory
+ * @property string|null $defaultValue
+ * @property bool $mandatory
  */
-class Identifier extends \Papaya\UI\Dialog\Field\Input {
-
+class Identifier extends UI\Dialog\Field\Input {
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Creates dialog field for color input with caption, name, default value and
@@ -48,11 +50,11 @@ class Identifier extends \Papaya\UI\Dialog\Field\Input {
    * @param string $caption
    * @param string $name
    * @param string $default optional, default ''
-   * @param boolean $mandatory optional, default FALSE
+   * @param bool $mandatory optional, default FALSE
    */
   public function __construct($caption, $name, $default = '', $mandatory = FALSE) {
     parent::__construct($caption, $name, 100, $default);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \Papaya\Filter\Identifier());
+    $this->setFilter(new Filter\Identifier());
   }
 }

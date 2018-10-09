@@ -12,27 +12,29 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Authentication;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the administration user group records.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\Database\Records\Lazy {
-
-  protected $_fields = array(
+class Groups extends Database\Records\Lazy {
+  protected $_fields = [
     'id' => 'group_id',
     'title' => 'grouptitle'
-  );
+  ];
 
-  protected $_orderByFields = array(
-    'grouptitle' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'group_id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  protected $_orderByFields = [
+    'grouptitle' => Database\Interfaces\Order::ASCENDING,
+    'group_id' => Database\Interfaces\Order::ASCENDING
+  ];
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \Papaya\Content\Tables::AUTHENTICATION_GROUPS;
+  protected $_tableName = Content\Tables::AUTHENTICATION_GROUPS;
 }

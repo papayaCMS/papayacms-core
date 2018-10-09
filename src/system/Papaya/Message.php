@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
 /**
  * Papaya Message, abstract superclass for all messages
  *
@@ -21,42 +21,43 @@ namespace Papaya;
  * @subpackage Messages
  */
 interface Message {
-
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_INFO = 0;
+
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_WARNING = 1;
+
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_ERROR = 2;
 
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_DEBUG = 3;
 
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_EMERGENCY = 4;
 
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_ALERT = 5;
 
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_CRITICAL = 6;
 
   /**
-   * @var integer
+   * @var int
    */
   const SEVERITY_NOTICE = 7;
 
@@ -64,43 +65,42 @@ interface Message {
    * Information message type
    *
    * @deprecated use SEVERITY_INFO
-   * @var integer
+   *
+   * @var int
    */
   const TYPE_INFO = 0;
+
   /**
    * Warning message type
    *
    * @deprecated use SEVERITY_WARNING
-   * @var integer
+   *
+   * @var int
    */
   const TYPE_WARNING = 1;
+
   /**
    * Error message type
    *
    * @deprecated use SEVERITY_ERROR
-   * @var integer
+   *
+   * @var int
    */
   const TYPE_ERROR = 2;
+
   /**
    * Error message type
    *
    * @deprecated use SEVERITY_DEBUG
-   * @var integer
+   *
+   * @var int
    */
   const TYPE_DEBUG = 3;
 
   /**
    * Get type of message (info, warning, error)
    *
-   * @deprecated
-   * @return integer
-   */
-  public function getType();
-
-  /**
-   * Get type of message (info, warning, error)
-   *
-   * @return integer
+   * @return int
    */
   public function getSeverity();
 
@@ -110,5 +110,4 @@ interface Message {
    * @return string
    */
   public function getMessage();
-
 }

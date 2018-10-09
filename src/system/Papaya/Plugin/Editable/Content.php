@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable;
+
+use Papaya\Utility;
+
 /**
  * An editable module content, the content needs to be provided as array
  * serialized as an XML string.
@@ -22,11 +24,10 @@ namespace Papaya\Plugin\Editable;
  * @subpackage Plugins
  */
 class Content extends Data {
-
   /**
    * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Content::modified()}
    *
-   * @var string|NULL
+   * @var string|null
    */
   private $_checksum;
 
@@ -37,7 +38,7 @@ class Content extends Data {
    */
   public function setXML($xml) {
     $this->clear();
-    $this->merge(\Papaya\Utility\Text\XML::unserializeArray($xml));
+    $this->merge(Utility\Text\XML::unserializeArray($xml));
     $this->_checksum = $this->getChecksum();
   }
 
@@ -47,7 +48,7 @@ class Content extends Data {
    * @return string
    */
   public function getXML() {
-    return \Papaya\Utility\Text\XML::serializeArray((array)$this);
+    return Utility\Text\XML::serializeArray((array)$this);
   }
 
   /**
@@ -55,7 +56,7 @@ class Content extends Data {
    * set using {@see \Papaya\Plugin\Editable\Content::setXML()} or the generated checksum is
    * different.
    *
-   * @return boolean
+   * @return bool
    */
   public function modified() {
     if (NULL !== $this->_checksum) {

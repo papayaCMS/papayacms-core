@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text\ASCII;
+
 /**
  * Transform text to ASCII-graphic
  *
@@ -21,350 +21,349 @@ namespace Papaya\Utility\Text\ASCII;
  * @subpackage Util
  */
 class Artwork {
-
   /**
    * Artwork data
    *
    * @var array $_blocks
    */
-  private static $_blocks = array(
-    0 => array(
+  private static $_blocks = [
+    0 => [
       ' _____ ',
       '|  _  |',
       '| | | |',
       '| | | |',
       '| |_| |',
       '|_____|'
-    ),
-    1 => array(
+    ],
+    1 => [
       ' ___',
       '|_  |',
       '  | |',
       '  | |',
       '  | |',
       '  |_|'
-    ),
-    2 => array(
+    ],
+    2 => [
       ' _____',
       '|___  |',
       ' ___| |',
       '|  ___|',
       '| |___',
       '|_____|'
-    ),
-    3 => array(
+    ],
+    3 => [
       ' _____',
       '|___  |',
       '   _| |',
       '  |_  |',
       ' ___| |',
       '|_____|'
-    ),
-    4 => array(
+    ],
+    4 => [
       ' _   _',
       '| | | |',
       '| |_| |',
       '|___  |',
       '    | |',
       '    |_|'
-    ),
-    5 => array(
+    ],
+    5 => [
       ' _____',
       '|  ___|',
       '| |___',
       '|___  |',
       ' ___| |',
       '|_____|'
-    ),
-    6 => array(
+    ],
+    6 => [
       ' _____',
       '|  ___|',
       '| |___',
       '|  _  |',
       '| |_| |',
       '|_____|'
-    ),
-    7 => array(
+    ],
+    7 => [
       ' _____',
       '|___  |',
       '    | |',
       '    | |',
       '    | |',
       '    |_|'
-    ),
-    8 => array(
+    ],
+    8 => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|  _  |',
       '| |_| |',
       '|_____|'
-    ),
-    9 => array(
+    ],
+    9 => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|___  |',
       ' ___| |',
       '|_____|'
-    ),
-    'A' => array(
+    ],
+    'A' => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|  _  |',
       '| | | |',
       '|_| |_|'
-    ),
-    'B' => array(
+    ],
+    'B' => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|  _ <',
       '| |_| |',
       '|_____|'
-    ),
-    'C' => array(
+    ],
+    'C' => [
       ' _____',
       '|  ___|',
       '| |',
       '| |',
       '| |___',
       '|_____|'
-    ),
-    'D' => array(
+    ],
+    'D' => [
       ' ____',
       '|  _ \\',
       '| | | |',
       '| | | |',
       '| |_| |',
       '|____/'
-    ),
-    'E' => array(
+    ],
+    'E' => [
       ' _____',
       '|  ___|',
       '| |_',
       '|  _|',
       '| |___',
       '|_____|'
-    ),
-    'F' => array(
+    ],
+    'F' => [
       ' _____',
       '|  ___|',
       '| |_',
       '|  _|',
       '| |',
       '|_|'
-    ),
-    'G' => array(
+    ],
+    'G' => [
       ' _____',
       '|  ___|',
       '| |  _',
       '| | \ \\',
       '| |_| |',
       '|_____|'
-    ),
-    'H' => array(
+    ],
+    'H' => [
       ' _   _',
       '| | | |',
       '| |_| |',
       '|  _  |',
       '| | | |',
       '|_| |_|'
-    ),
-    'I' => array(
+    ],
+    'I' => [
       ' _',
       '| |',
       '| |',
       '| |',
       '| |',
       '|_|'
-    ),
-    'K' => array(
+    ],
+    'K' => [
       ' _   _',
       '| | / /',
       '| |/ /',
       '|   <',
       '| |\ \\',
       '|_| \_\\'
-    ),
-    'L' => array(
+    ],
+    'L' => [
       ' _',
       '| |',
       '| |',
       '| |',
       '| |___',
       '|_____|'
-    ),
-    'M' => array(
+    ],
+    'M' => [
       ' __    __',
       '|  \  /  |',
       '|   \/   |',
       '| |\__/| |',
       '| |    | |',
       '|_|    |_|'
-    ),
-    'N' => array(
+    ],
+    'N' => [
       ' __    _',
       '|  \  | |',
       '|   \ | |',
       '| |\ \| |',
       '| | \   |',
       '|_|  \__|'
-    ),
-    'O' => array(
+    ],
+    'O' => [
       ' _____',
       '|  _  |',
       '| | | |',
       '| | | |',
       '| |_| |',
       '|_____|'
-    ),
-    'P' => array(
+    ],
+    'P' => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|  ___|',
       '| |',
       '|_|'
-    ),
-    'Q' => array(
+    ],
+    'Q' => [
       ' ______',
       '|  __  |',
       '| |  | |',
       '| | _| |',
       '| |_\  \\',
       '|_______|'
-    ),
-    'R' => array(
+    ],
+    'R' => [
       ' _____',
       '|  _  |',
       '| |_| |',
       '|  _ <',
       '| | \ |',
       '|_| |_|'
-    ),
-    'S' => array(
+    ],
+    'S' => [
       ' _____',
       '|  ___|',
       '| |___',
       '|___  |',
       ' ___| |',
       '|_____|'
-    ),
-    'T' => array(
+    ],
+    'T' => [
       ' _____',
       '|_   _|',
       '  | |',
       '  | |',
       '  | |',
       '  |_|'
-    ),
-    'U' => array(
+    ],
+    'U' => [
       ' _   _',
       '| | | |',
       '| | | |',
       '| | | |',
       '| |_| |',
       '|_____|'
-    ),
-    'V' => array(
+    ],
+    'V' => [
       ' _   _',
       '| | | |',
       '| | | |',
       '| | | |',
       '\\ \\_/ /',
       ' \\___/'
-    ),
-    'W' => array(
+    ],
+    'W' => [
       ' _        _',
       '| |      | |',
       '| |      | |',
       '| |  __  | |',
       '\\ \\_/  \\_/ /',
       ' \\___/\\___/'
-    ),
-    'X' => array(
+    ],
+    'X' => [
       ' _   _',
       '| | | |',
       '\\ \\_/ /',
       ' | _ |',
       '/ / \\ \\',
       '|_| |_|'
-    ),
-    'Y' => array(
+    ],
+    'Y' => [
       ' _   _',
       '| | | |',
       '\\ \\_/ /',
       ' \\   /',
       '  | |',
       '  |_|'
-    ),
-    'Z' => array(
+    ],
+    'Z' => [
       ' _____',
       '|___  |',
       '   / / ',
       '  / /  ',
       ' / /__ ',
       '|_____|'
-    ),
-    '-' => array(
+    ],
+    '-' => [
       '',
       '',
       ' _____',
       '|_____|',
       '',
       ''
-    ),
-    '+' => array(
+    ],
+    '+' => [
       '',
       '   _',
       ' _| |_',
       '|_   _|',
       '  |_|',
       ''
-    ),
-    ':' => array(
+    ],
+    ':' => [
       '',
       ' _',
       '|_|',
       ' _',
       '|_|',
       ''
-    )
-  );
+    ]
+  ];
 
   /**
    * Return ASCII graphic string
    *
    * @param string $string
-   * @access public
+   *
    * @return string
    */
   public static function get($string) {
-    $string = strtoupper((string)$string);
-    $max = strlen($string);
-    $result = array();
+    $string = \strtoupper((string)$string);
+    $max = \strlen($string);
+    $result = [];
     for ($i = 0; $i < $max; $i++) {
       if (isset(self::$_blocks[$string[$i]])) {
         $char = self::$_blocks[$string[$i]];
         $length = 0;
         foreach ($char as $charStr) {
-          if (strlen($charStr) > $length) {
-            $length = strlen($charStr);
+          if (\strlen($charStr) > $length) {
+            $length = \strlen($charStr);
           }
         }
-        if (count($char) > 0) {
+        if (\count($char) > 0) {
           foreach ($char as $line => $charStr) {
             if (empty($result[$line])) {
-              $result[$line] = str_pad(rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
+              $result[$line] = \str_pad(\rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
             } else {
-              $result[$line] .= ' '.str_pad(rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
+              $result[$line] .= ' '.\str_pad(\rtrim($charStr), $length, ' ', STR_PAD_RIGHT);
             }
           }
         }
       }
     }
-    return implode("\n", $result);
+    return \implode("\n", $result);
   }
 }

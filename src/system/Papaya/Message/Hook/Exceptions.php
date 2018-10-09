@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Hook;
 
 use Papaya\Message;
@@ -25,7 +24,6 @@ use Papaya\Message;
  */
 class Exceptions
   implements Message\Hook {
-
   /**
    * Message manger object to dispatch the created messages
    *
@@ -42,20 +40,19 @@ class Exceptions
     $this->_messageManager = $messageManager;
   }
 
-
   /**
    * Activate hook, override current exception handler. This will only capture exception not
    * catched in the source.
    */
   public function activate() {
-    set_exception_handler(array($this, 'handle'));
+    \set_exception_handler([$this, 'handle']);
   }
 
   /**
    * Deactivate hook, restore previous exception handler
    */
   public function deactivate() {
-    restore_exception_handler();
+    \restore_exception_handler();
   }
 
   /**
@@ -70,9 +67,9 @@ class Exceptions
       );
     } else {
       $error = new \ErrorException(
-        sprintf(
+        \sprintf(
           "Uncaught exception '%s' with message '%s' in %s:%d",
-          get_class($exception),
+          \get_class($exception),
           $exception->getMessage(),
           $exception->getFile(),
           $exception->getLine()

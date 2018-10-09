@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Element\Description;
+
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Dialog element description item encapsulating a named property.
  *
@@ -24,14 +27,23 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 class Property extends Item {
-
+  /**
+   * @var string
+   */
   protected $_name = '';
+
+  /**
+   * @var string
+   */
   protected $_value = '';
 
-  protected $_declaredProperties = array(
-    'name' => array('_name', 'setName'),
-    'value' => array('_value', '_value')
-  );
+  /**
+   * @var array
+   */
+  protected $_declaredProperties = [
+    'name' => ['_name', 'setName'],
+    'value' => ['_value', '_value']
+  ];
 
   /**
    * Create object, and store name and value data
@@ -50,23 +62,24 @@ class Property extends Item {
    * @param string $name
    */
   public function setName($name) {
-    \Papaya\Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
   /**
    * Append description element with href attribute to parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     return $parent->appendElement(
       'property',
-      array(
+      [
         'name' => (string)$this->_name,
         'value' => (string)$this->_value
-      )
+      ]
     );
   }
 }

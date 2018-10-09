@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not considered empty.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotEmpty extends \Papaya\Filter\Exception {
-
+class NotEmpty extends Filter\Exception {
   /**
    * Construct object with value informations
    *
@@ -29,9 +30,9 @@ class NotEmpty extends \Papaya\Filter\Exception {
    */
   public function __construct($actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to not empty. Got "%s".',
-        is_array($actual) ? 'array' : $actual
+        \is_array($actual) ? 'array' : $actual
       )
     );
   }

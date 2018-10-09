@@ -12,23 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a default rte field.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Richtext extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class Richtext extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Textarea\Richtext
+   *
+   * @return UI\Dialog\Field\Textarea\Richtext
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Textarea\Richtext(
+    $field = new UI\Dialog\Field\Textarea\Richtext(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

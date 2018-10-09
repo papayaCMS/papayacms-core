@@ -12,15 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template;
 
-class Parameters extends \Papaya\BaseObject\Options\Collection {
+use Papaya\BaseObject;
 
+class Parameters extends BaseObject\Options\Collection {
+  /**
+   * Parameters constructor.
+   *
+   * @param array|null $options
+   */
   public function __construct(array $options = NULL) {
-    $this['SYSTEM_TIME'] = date('Y-m-d H:i:s');
-    $this['SYSTEM_TIME_OFFSET'] = date('O');
-    $this['PAPAYA_VERSION'] = defined('PAPAYA_VERSION_STRING') ? PAPAYA_VERSION_STRING : '';
+    $this['SYSTEM_TIME'] = \date('Y-m-d H:i:s');
+    $this['SYSTEM_TIME_OFFSET'] = \date('O');
+    $this['PAPAYA_VERSION'] = \defined('PAPAYA_VERSION_STRING') ? PAPAYA_VERSION_STRING : '';
     parent::__construct($options);
   }
 }

@@ -35,7 +35,7 @@ class StringTest extends \Papaya\TestCase {
   }
 
   public function testConstructorExpectingError() {
-    $this->expectError(E_WARNING);
+    $this->expectException(\UnexpectedValueException::class);
     new Text('', '', '', '');
   }
 

@@ -885,7 +885,7 @@ class papaya_options extends base_options {
    * @return string
    */
   function getThemeSetsCombo($name, $element, $data) {
-    $themeSets = new \Papaya\Content\Theme\Sets();
+    $themeSets = new \Papaya\Content\Theme\Skins();
     $themeSets->load(
       array('theme_name' => $this->papaya()->options->get('PAPAYA_LAYOUT_THEME'))
     );

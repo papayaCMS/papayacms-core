@@ -12,25 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception\OutOfRange;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is to small.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ToSmall extends \Papaya\Filter\Exception\OutOfRange {
-
+class ToSmall extends Filter\Exception\OutOfRange {
   /**
    * Construct object with length informations
    *
-   * @param integer|float $expected
-   * @param integer|float $actual
+   * @param int|float $expected
+   * @param int|float $actual
    */
   public function __construct($expected, $actual) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is to small. Expecting a minimum of "%s", got "%s".',
         $expected,
         $actual

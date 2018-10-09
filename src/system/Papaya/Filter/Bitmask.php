@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class that uses validates and array of bits agains a list and converts into
  * a single bitmask value.
@@ -21,14 +23,13 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Bitmask implements \Papaya\Filter {
-
+class Bitmask implements Filter {
   /**
    * List of valid bits
    *
    * @var array(integer)
    */
-  protected $_bits = array();
+  protected $_bits = [];
 
   /**
    * Initialize object and store bit list
@@ -43,38 +44,42 @@ class Bitmask implements \Papaya\Filter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
     if (empty($value)) {
       return TRUE;
-    } elseif (preg_match('(^[+-]?\d+$)D', $value)) {
+    }
+    if (\preg_match('(^[+-]?\d+$)D', $value)) {
       $bits = (int)$value;
       foreach ($this->_bits as $bit) {
         $bits &= ~$bit;
       }
-      if ($bits === 0) {
+      if (0 === $bits) {
         return TRUE;
       }
-      throw new \Papaya\Filter\Exception\InvalidValue($value);
+      throw new Exception\InvalidValue($value);
     }
-    throw new \Papaya\Filter\Exception\UnexpectedType('integer number');
+    throw new Exception\UnexpectedType('integer number');
   }
 
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
-   * @return string|NULL
+   * @param mixed $value
+   *
+   * @return string|null
    */
   public function filter($value) {
     $value = (int)$value;
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
       return NULL;
     }
   }

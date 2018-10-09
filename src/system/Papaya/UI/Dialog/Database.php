@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
+
+use Papaya\Database\Interfaces as DatabaseInterfaces;
+use Papaya\UI;
+
 /**
  * A dialog superclass for dialogs that execute database actions on
  * {@see \Papaya\Database\BaseObject\Record} instances
@@ -21,28 +24,29 @@ namespace Papaya\UI\Dialog;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Database extends \Papaya\UI\Dialog {
-
+abstract class Database extends UI\Dialog {
   /**
    * Attached database callbacks object
    *
    * @var \Papaya\Database\BaseObject\Record
    */
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   /**
    * Attached database record object
    *
-   * @var \Papaya\Database\Interfaces\Record
+   * @var DatabaseInterfaces\Record
    */
-  private $_record = NULL;
+  private $_record;
 
   /**
    * Create dialog and attach a record to it.
    *
-   * @param \Papaya\Database\Interfaces\Record $record
+   * @param DatabaseInterfaces\Record $record
+   * @param null|object $owner
    */
-  public function __construct(\Papaya\Database\Interfaces\Record $record) {
+  public function __construct(DatabaseInterfaces\Record $record, $owner = NULL) {
+    parent::__construct($owner);
     $this->record($record);
   }
 
@@ -52,11 +56,12 @@ abstract class Database extends \Papaya\UI\Dialog {
    *
    * The values of the record are merged into the data property.
    *
-   * @param \Papaya\Database\Interfaces\Record $record
-   * @return \Papaya\Database\Interfaces\Record
+   * @param DatabaseInterfaces\Record $record
+   *
+   * @return DatabaseInterfaces\Record
    */
-  public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
-    if (isset($record)) {
+  public function record(DatabaseInterfaces\Record $record = NULL) {
+    if (NULL !== $record) {
       $this->_record = $record;
       $this->data()->merge((array)$record->toArray());
     }
@@ -67,15 +72,15 @@ abstract class Database extends \Papaya\UI\Dialog {
    * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
    * needed definitions.
    *
-   * @param \Papaya\UI\Dialog\Database\Callbacks $callbacks
-   * @return \Papaya\UI\Dialog\Database\Callbacks
+   * @param Database\Callbacks $callbacks
+   *
+   * @return Database\Callbacks
    */
-  public function callbacks(\Papaya\UI\Dialog\Database\Callbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+  public function callbacks(Database\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    }
-    if (is_null($this->_callbacks)) {
-      $this->_callbacks = new \Papaya\UI\Dialog\Database\Callbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Database\Callbacks();
     }
     return $this->_callbacks;
   }

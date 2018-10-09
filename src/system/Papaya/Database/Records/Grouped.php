@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
+
 /**
  * Papaya Database Records Grouped - reads records from the database and stores them grouped.
  *
@@ -21,7 +21,6 @@ namespace Papaya\Database\Records;
  * @subpackage Database
  */
 abstract class Grouped extends Lazy {
-
   /**
    * identify a child - the detail record identifier
    *
@@ -34,21 +33,23 @@ abstract class Grouped extends Lazy {
    *
    * @var array
    */
-  protected $_groupIdentifierProperties = array('group_id');
+  protected $_groupIdentifierProperties = ['group_id'];
 
   /**
    * Load the records, read them from database and create the children buffer.
    *
    * @param string $sql
    * @param array $parameters
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @param array $idProperties
+   *
    * @throws \LogicException
+   *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
-    $this->_records = array();
+  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+    $this->_records = [];
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);

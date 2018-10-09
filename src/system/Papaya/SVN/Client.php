@@ -12,10 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\SVN;
 
 interface Client {
-
-  function ls($url);
+  public function ls($url);
 }

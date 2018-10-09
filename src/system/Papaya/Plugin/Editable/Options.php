@@ -12,27 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable;
 
-class Options extends Data {
+use Papaya\Plugin;
 
+class Options extends Data {
   /**
-   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\Options::modified()}
+   * Checksum buffer
    *
-   * @var string|NULL
+   * @var string|null
    */
   private $_checksum;
 
-  public function __construct(\Papaya\Plugin\Options $options) {
-    parent::__construct(iterator_to_array($options));
+  /**
+   * Options constructor.
+   *
+   * @param Plugin\Options $options
+   */
+  public function __construct(Plugin\Options $options) {
+    parent::__construct(\iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }
 
   /**
    * Check if the contained data was modified.
    *
-   * @return boolean
+   * @return bool
    */
   public function modified() {
     return $this->_checksum !== $this->getChecksum();

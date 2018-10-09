@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
+
 /**
  * Papaya Database Result, this will be a new result interface for database queries
  *
@@ -23,71 +23,75 @@ namespace Papaya\Database;
  * @subpackage Database
  */
 interface Result extends \IteratorAggregate {
-
   /**
    * Fetch numeric and named keys
    *
-   * @var integer
+   * @var int
    */
   const FETCH_BOTH = 0;
+
   /**
    * Fetch numeric keys
    *
-   * @var integer
+   * @var int
    */
   const FETCH_ORDERED = 1;
+
   /**
    * Fetch named keys
    *
-   * @var integer
+   * @var int
    */
   const FETCH_ASSOC = 2;
 
   /**
    * Fetch row from result
    *
-   * @param integer $mode
+   * @param int $mode
+   *
    * @return array
    */
-  function fetchRow($mode = self::FETCH_ORDERED);
+  public function fetchRow($mode = self::FETCH_ORDERED);
 
   /**
    * Fetch field from result
    *
-   * @param integer|string $column
+   * @param int|string $column
+   *
    * @return mixed
    */
-  function fetchField($column = 0);
+  public function fetchField($column = 0);
 
   /**
    * Seek internal pointer to the given row
    *
-   * @param integer $index
+   * @param int $index
+   *
    * @return array
    */
-  function seek($index);
+  public function seek($index);
 
   /**
    * return count of records in compiled result with limit
    *
-   * @return integer
+   * @return int
    */
-  function count();
+  public function count();
 
   /**
    * return count of records in compiled result without limit
    *
-   * @return integer
+   * @return int
    */
-  function absCount();
+  public function absCount();
 
   /**
    * Unset result data
    */
-  function free();
+  public function free();
 
   /**
-   * @return NULL|\Papaya\Message\Context\Data
+   * @return null|\Papaya\Message\Context\Data
    */
-  function getExplain();
+  public function getExplain();
 }

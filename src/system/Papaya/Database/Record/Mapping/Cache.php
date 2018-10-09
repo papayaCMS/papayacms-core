@@ -12,36 +12,38 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Mapping;
+
+use Papaya\Database;
+
 /**
  * Mapper object to convert a database fields into object properties and back. It caches the
- * results of functions call to the orginal mapping class and the callback functions.
+ * results of functions call to the original mapping class and the callback functions.
  *
  * It will not cache the result of the property/record value mappings.
  *
  * @package Papaya-Library
  * @subpackage Database
  */
-class Cache implements \Papaya\Database\Interfaces\Mapping {
-
+class Cache implements Database\Interfaces\Mapping {
   /**
-   * @var \Papaya\Database\Interfaces\Mapping
+   * @var Database\Interfaces\Mapping
    */
   private $_mapping;
+
   /**
    * @var \Papaya\BaseObject\Callback[]
    */
-  private $_callbacks = array();
+  private $_callbacks = [];
 
   /**
    * @var array
    */
-  private $_results = array();
+  private $_results = [];
 
-  public function __construct(\Papaya\Database\Interfaces\Mapping $mapping) {
+  public function __construct(Database\Interfaces\Mapping $mapping) {
     $this->_mapping = $mapping;
-    if ($mapping instanceof \Papaya\Database\Record\Mapping) {
+    if ($mapping instanceof Database\Record\Mapping) {
       foreach ($mapping->callbacks() as $event => $callback) {
         if (isset($callback->callback) || isset($callback->defaultReturn)) {
           $this->_callbacks[$event] = $callback;
@@ -54,19 +56,18 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Map the database fields of an record to the object properties
    *
    * @param array $record
+   *
    * @return array
    */
   public function mapFieldsToProperties(array $record) {
     $callbacks = $this->_callbacks;
-    $values = array();
+    $values = [];
     if (isset($callbacks['onBeforeMappingFieldsToProperties'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $values = $callbacks['onBeforeMappingFieldsToProperties']->execute(
         $values, $record
       );
     }
     if (isset($callbacks['onBeforeMapping'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $values = $callbacks['onBeforeMapping']->execute(
         self::FIELD_TO_PROPERTY, $values, $record
       );
@@ -74,13 +75,11 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
     foreach ($record as $field => $value) {
       if ($property = $this->getProperty($field)) {
         if (isset($callbacks['onMapValueFromFieldToProperty'])) {
-          /** @noinspection PhpUndefinedMethodInspection */
           $value = $callbacks['onMapValueFromFieldToProperty']->execute(
             $property, $field, $value
           );
         }
         if (isset($callbacks['onMapValue'])) {
-          /** @noinspection PhpUndefinedMethodInspection */
           $value = $callbacks['onMapValue']->execute(
             self::FIELD_TO_PROPERTY, $property, $field, $value
           );
@@ -89,13 +88,11 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
       }
     }
     if (isset($callbacks['onAfterMappingFieldsToProperties'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $values = $callbacks['onAfterMappingFieldsToProperties']->execute(
         $values, $record
       );
     }
     if (isset($callbacks['onAfterMapping'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $values = $callbacks['onAfterMapping']->execute(
         self::FIELD_TO_PROPERTY, $values, $record
       );
@@ -108,19 +105,18 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param array $values
    * @param bool $withAlias
+   *
    * @return array
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->_callbacks;
-    $record = array();
+    $record = [];
     if (isset($callbacks['onBeforeMappingPropertiesToFields'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $record = $callbacks['onBeforeMappingPropertiesToFields']->execute(
         $values, $record
       );
     }
     if (isset($callbacks['onBeforeMapping'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $record = $callbacks['onBeforeMapping']->execute(
         self::PROPERTY_TO_FIELD, $values, $record
       );
@@ -128,13 +124,11 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
     foreach ($values as $property => $value) {
       if ($field = $this->getField($property, $withAlias)) {
         if (isset($callbacks['onMapValueFromPropertyToField'])) {
-          /** @noinspection PhpUndefinedMethodInspection */
           $value = $callbacks['onMapValueFromPropertyToField']->execute(
             $property, $field, $value
           );
         }
         if (isset($callbacks['onMapValue'])) {
-          /** @noinspection PhpUndefinedMethodInspection */
           $value = $callbacks['onMapValue']->execute(
             self::PROPERTY_TO_FIELD, $property, $field, $value
           );
@@ -143,13 +137,11 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
       }
     }
     if (isset($callbacks['onAfterMappingPropertiesToFields'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $record = $callbacks['onAfterMappingPropertiesToFields']->execute(
         $values, $record
       );
     }
     if (isset($callbacks['onAfterMapping'])) {
-      /** @noinspection PhpUndefinedMethodInspection */
       $record = $callbacks['onAfterMapping']->execute(
         self::PROPERTY_TO_FIELD, $values, $record
       );
@@ -173,6 +165,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Get a list of the used database fields
    *
    * @param bool $withAlias
+   *
    * @return array
    */
   public function getFields($withAlias = TRUE) {
@@ -186,7 +179,8 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    * Get the property name for a field
    *
    * @param $field
-   * @return string|FALSE
+   *
+   * @return string|false
    */
   public function getProperty($field) {
     if (!isset($this->_results['getProperty'][$field])) {
@@ -195,13 +189,13 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
     return $this->_results['getProperty'][$field];
   }
 
-
   /**
    * Get the field name for a property
    *
    * @param $property
    * @param bool $withAlias
-   * @return string|FALSE
+   *
+   * @return string|false
    */
   public function getField($property, $withAlias = TRUE) {
     if (!isset($this->_results['getField'][$property][$withAlias])) {

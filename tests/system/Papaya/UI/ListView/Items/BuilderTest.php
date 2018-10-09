@@ -100,18 +100,4 @@ class BuilderTest extends \Papaya\TestCase {
     $builder = new Builder(array());
     $this->assertInstanceOf(Builder\Callbacks::class, $builder->callbacks());
   }
-
-  public function testCreateItem() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\ListView\Items $items */
-    $items = $this
-      ->getMockBuilder(\Papaya\UI\ListView\Items::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $items
-      ->expects($this->once())
-      ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(\Papaya\UI\ListView\Item::class));
-    $builder = new Builder(array());
-    $builder->createItem(NULL, $items, 'Sample');
-  }
 }

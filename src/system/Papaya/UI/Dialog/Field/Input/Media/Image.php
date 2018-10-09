@@ -12,21 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input\Media;
+
+use Papaya\UI;
+
 /**
  * A single line input for an image (gif, png, jpeg) from the media database
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Image extends \Papaya\UI\Dialog\Field\Input\Media\File {
-
+class Image extends File {
   /**
    * Field type, used in template
    *
-   * @var boolean
+   * @var bool
    */
   protected $_type = 'media_image';
-
 }

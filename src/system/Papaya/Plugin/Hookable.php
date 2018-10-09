@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an object is hookable and needs a context.
  *
@@ -23,11 +23,11 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Hookable {
-
   /**
    * Getter/Setter for the hook context.
    *
    * @param Editable\Content $context
+   *
    * @return Editable\Content
    */
   public function context(Editable\Content $context = NULL);

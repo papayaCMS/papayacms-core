@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Message;
+
+use Papaya\XML\Element as XMLElement;
+
 /**
  * User message with an xml fragment as message text.
  *
@@ -25,15 +27,15 @@ namespace Papaya\UI\Message;
  * @subpackage UI
  */
 class XML extends Text {
-
   /**
    * Use the parent method to append the element and append the xml fragment to the new
    * message xml element node.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XMLElement $parent
+   *
+   * @return XMLElement
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XMLElement $parent) {
     $message = parent::appendMessageElement($parent);
     if ($xmlFragment = $this->getContent()) {
       $message->appendXML($xmlFragment);

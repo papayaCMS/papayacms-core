@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * A length exception is thrown if a certain length is expected and another if found
  *
@@ -22,12 +24,11 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class InvalidLength extends \Papaya\Filter\Exception {
-
+abstract class InvalidLength extends Filter\Exception {
   /**
    * The expected length of the value
    *
-   * @var integer
+   * @var int
    */
   private $_expectedLength = 0;
 
@@ -42,8 +43,8 @@ abstract class InvalidLength extends \Papaya\Filter\Exception {
    * Construct object, set message and length informations
    *
    * @param string $message
-   * @param integer $expected
-   * @param integer $actual
+   * @param int $expected
+   * @param int $actual
    */
   public function __construct($message, $expected, $actual) {
     $this->_expectedLength = $expected;
@@ -54,7 +55,7 @@ abstract class InvalidLength extends \Papaya\Filter\Exception {
   /**
    * Read private expected length property
    *
-   * @return integer
+   * @return int
    */
   public function getExpectedLength() {
     return $this->_expectedLength;
@@ -63,7 +64,7 @@ abstract class InvalidLength extends \Papaya\Filter\Exception {
   /**
    * Read private actual length property
    *
-   * @return integer
+   * @return int
    */
   public function getActualLength() {
     return $this->_actualLength;

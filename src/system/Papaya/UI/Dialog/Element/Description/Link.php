@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Element\Description;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Dialog element description item encapsulationing a simple link.
  *
@@ -21,35 +24,36 @@ namespace Papaya\UI\Dialog\Element\Description;
  * @subpackage UI
  */
 class Link extends Item {
-
   private $_reference;
 
   /**
    * Append description element with href attribute to parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     return $parent->appendElement(
       'link',
-      array(
+      [
         'href' => $this->reference()->getRelative()
-      )
+      ]
     );
   }
 
   /**
    * Getter/Setter for the reference subobject.
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
+  public function reference(UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference();
+      $this->_reference = new UI\Reference();
     }
     return $this->_reference;
   }

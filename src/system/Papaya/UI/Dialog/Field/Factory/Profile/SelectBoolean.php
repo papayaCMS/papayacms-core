@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a field with two radio boxes displaying "yes" and "no"
  *
@@ -22,19 +24,20 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectBoolean
   extends Select {
-
   /**
    * Create a select field with two elements displayed as radio boxes
    *
    * @param array|\Traversable $elements
-   * @return \Papaya\UI\Dialog\Field\Select
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Select
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Radio(
+    return new UI\Dialog\Field\Select\Radio(
       $this->options()->caption,
       $this->options()->name,
-      new \Papaya\UI\Text\Translated\Collection(array('no', 'yes'))
+      new UI\Text\Translated\Collection(['no', 'yes'])
     );
   }
 }

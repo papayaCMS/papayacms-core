@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a "color" input.
  *
@@ -23,17 +25,17 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Color extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class Color extends UI\Dialog\Field\Factory\Profile {
   /**
    * Create a color input field
    *
    * @see \Papaya\UI\Dialog\Field\Input\Color
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Color(
+    $field = new UI\Dialog\Field\Input\Color(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,

@@ -12,44 +12,63 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner;
+
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * Scanner token of papaya simple template sytem.
  *
  * @package Papaya-Library
  * @subpackage Template
  *
- * @property-read integer $type
- * @property-read integer $offset
- * @property-read integer $length
+ * @property-read int $type
+ * @property-read int $offset
+ * @property-read int $length
  * @property-read string $content
  */
-class Token {
-
+class Token implements Properties {
   const ANY = -1;
 
   const TEXT = 1;
+
   const WHITESPACE = 2;
 
   const COMMENT_START = 10;
+
   const COMMENT_END = 11;
 
   const VALUE_NAME = 20;
+
   const VALUE_DEFAULT = 21;
 
-  private static $_tokenNames = NULL;
-
-  private $_offset = 0;
-  private $_type = self::TEXT;
-  private $_content = '';
+  /**
+   * @var array
+   */
+  private static $_tokenNames;
 
   /**
-   * Validate constrcutor arguments and store them
+   * @var int
+   */
+  private $_offset;
+
+  /**
+   * @var int
+   */
+  private $_type;
+
+  /**
+   * @var string
+   */
+  private $_content;
+
+  /**
+   * Validate constructor arguments and store them
    *
-   * @param integer $type
-   * @param integer $offset
+   * @param int $type
+   * @param int $offset
    * @param string $content
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($type, $offset, $content) {
@@ -59,7 +78,7 @@ class Token {
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Unknown token type "%d"', $type
         )
       );
@@ -76,9 +95,12 @@ class Token {
    */
   private static function getTokenTypes() {
     // @codeCoverageIgnoreStart
-    if (NULL == self::$_tokenNames) {
-      $reflection = new \ReflectionClass(__CLASS__);
-      self::$_tokenNames = array_flip($reflection->getConstants());
+    if (NULL === self::$_tokenNames) {
+      try {
+        $reflection = new \ReflectionClass(__CLASS__);
+        self::$_tokenNames = \array_flip($reflection->getConstants());
+      } catch (\ReflectionException $e) {
+      }
     }
     // @codeCoverageIgnoreEnd
     return self::$_tokenNames;
@@ -95,8 +117,9 @@ class Token {
   /**
    * Return the type as a string, return NULL if it is an invalid type.
    *
-   * @param integer $type
-   * @return string|NULL
+   * @param int $type
+   *
+   * @return string|null
    */
   public static function getTypeString($type) {
     $tokenTypes = self::getTokenTypes();
@@ -110,7 +133,31 @@ class Token {
    * Read private properties stored in constructor
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
+   * @return int|string
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'offset' :
+      case 'type' :
+      case 'content' :
+      case 'length' :
+        return TRUE;
+    }
+    throw new \LogicException(
+      \sprintf('Unknown property: %s::$%s', __CLASS__, $name)
+    );
+  }
+
+  /**
+   * Read private properties stored in constructor
+   *
+   * @param string $name
+   *
+   * @throws \LogicException
+   *
    * @return int|string
    */
   public function __get($name) {
@@ -122,10 +169,10 @@ class Token {
       case 'content' :
         return $this->_content;
       case 'length' :
-        return strlen($this->_content);
+        return \strlen($this->_content);
     }
     throw new \LogicException(
-      sprintf('Unknown property: %s::$%s', __CLASS__, $name)
+      \sprintf('Unknown property: %s::$%s', __CLASS__, $name)
     );
   }
 
@@ -134,9 +181,21 @@ class Token {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \LogicException
    */
   public function __set($name, $value) {
-    throw new \LogicException('All properties are defined in the constrcutor, they are read only.');
+    throw new \LogicException('All properties are defined in the constructor, they are read only.');
+  }
+
+  /**
+   * Block all undefined properties
+   *
+   * @param string $name
+   *
+   * @throws \LogicException
+   */
+  public function __unset($name) {
+    throw new \LogicException('All properties are defined in the constructor, they are read only.');
   }
 }

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Button;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple submit button with a caption and without a name.
  *
@@ -30,8 +33,7 @@ namespace Papaya\UI\Dialog\Button;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Submit extends \Papaya\UI\Dialog\Button {
-
+class Submit extends UI\Dialog\Button {
   /**
    * Button caption
    *
@@ -43,9 +45,9 @@ class Submit extends \Papaya\UI\Dialog\Button {
    * Initialize object, set caption and alignment
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
-  public function __construct($caption, $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT) {
+  public function __construct($caption, $align = UI\Dialog\Button::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
@@ -53,15 +55,15 @@ class Submit extends \Papaya\UI\Dialog\Button {
   /**
    * Append button output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'button',
-      array(
+      [
         'type' => 'submit',
-        'align' => ($this->_align == \Papaya\UI\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right'
-      ),
+        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right'
+      ],
       (string)$this->_caption
     );
   }

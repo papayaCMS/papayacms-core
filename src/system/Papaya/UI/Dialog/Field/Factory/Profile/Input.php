@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a generic input.
  *
@@ -23,15 +25,16 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Input extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class Input extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Input
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Input
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input(
+    $field = new UI\Dialog\Field\Input(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

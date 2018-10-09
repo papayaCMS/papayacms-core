@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a  v4 or v6 ip address
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsIpAddress extends \Papaya\Filter\Factory\Profile {
-
+class IsIpAddress extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\LogicalOr(new \Papaya\Filter\Ip\V4(), new \Papaya\Filter\Ip\V6());
+    return new Filter\LogicalOr(new Filter\Ip\V4(), new Filter\Ip\V6());
   }
 }

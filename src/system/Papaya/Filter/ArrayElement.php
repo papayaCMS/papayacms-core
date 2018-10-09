@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class that validates if given value is in the list
  *
@@ -25,14 +27,13 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArrayElement implements \Papaya\Filter {
-
+class ArrayElement implements Filter {
   /**
    * elements list
    *
-   * @var integer
+   * @var int
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * Construct object and set the list of elements
@@ -47,40 +48,43 @@ class ArrayElement implements \Papaya\Filter {
   /**
    * Check the integer input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if ((string)$value === '') {
-      throw new \Papaya\Filter\Exception\IsEmpty();
+    if ('' === (string)$value) {
+      throw new Exception\IsEmpty();
     }
-    if (is_array($this->_list) && in_array($value, $this->_list)) {
+    if (\is_array($this->_list) && \in_array($value, $this->_list, FALSE)) {
       return TRUE;
     }
     foreach ($this->_list as $element) {
-      if ($value == $element) {
+      if ((string)$value === (string)$element) {
         return TRUE;
       }
     }
-    throw new \Papaya\Filter\Exception\NotIncluded($value);
+    throw new Exception\NotIncluded($value);
   }
 
   /**
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return integer|NULL
+   *
+   * @return mixed|null
    */
   public function filter($value) {
-    if (is_array($this->_list)) {
-      $index = array_search($value, $this->_list);
+    if (\is_array($this->_list)) {
+      $index = \array_search($value, $this->_list, FALSE);
       if (FALSE !== $index) {
         return $this->_list[$index];
       }
     } else {
       foreach ($this->_list as $element) {
-        if ($value == $element) {
+        if ((string)$value === (string)$element) {
           return $element;
         }
       }

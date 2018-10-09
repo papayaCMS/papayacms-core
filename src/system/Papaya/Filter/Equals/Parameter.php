@@ -12,53 +12,55 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Equals;
+
+use Papaya\Filter;
+use Papaya\Request;
+
 /**
  * Papaya filter class that checks if the value is equal to a given parameter value.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Parameter implements \Papaya\Filter {
-
+class Parameter implements Filter {
   /**
    * Given parameters object
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
-  private $_parameters = TRUE;
+  private $_parameters;
 
   /**
    * Given parameters name object
    *
-   * @var \Papaya\Request\Parameters\Name
+   * @var Request\Parameters\Name
    */
-  private $_parameterName = TRUE;
+  private $_parameterName;
 
   /**
    * Construct object, check and store options
    *
-   * @param \Papaya\Request\Parameters $parameters
+   * @param Request\Parameters $parameters
    * @param string $parameterName
    */
-  public function __construct(\Papaya\Request\Parameters $parameters, $parameterName) {
+  public function __construct(Request\Parameters $parameters, $parameterName) {
     $this->_parameters = $parameters;
-    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
+    $this->_parameterName = new Request\Parameters\Name($parameterName);
   }
 
   /**
    * Check the value throw exception if value is not equal to given parameter value
    *
-   * @see \Papaya\Filter::validate()
+   * @throws Filter\Exception\InvalidValue
    *
-   * @throws \Papaya\Filter\Exception\InvalidValue
-   * @param string $value
-   * @return TRUE
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if ($this->_parameters->get((string)$this->_parameterName) != (string)$value) {
-      throw new \Papaya\Filter\Exception\InvalidValue($value);
+    if ($this->_parameters->get((string)$this->_parameterName, '') !== (string)$value) {
+      throw new Filter\Exception\InvalidValue($value);
     }
     return TRUE;
   }
@@ -66,14 +68,15 @@ class Parameter implements \Papaya\Filter {
   /**
    * Checks the value and returns the value if validate succeeded, otherwise NULL
    *
-   * @param string $value
-   * @return mixed|NULL
+   * @param mixed $value
+   *
+   * @return mixed|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Filter\Exception $e) {
       return NULL;
     }
   }

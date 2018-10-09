@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * Papaya URL representation
  *
@@ -29,6 +31,7 @@ namespace Papaya;
  * @property string $path
  * @property string $query
  * @property string $fragment
+ *
  * @method string getScheme()
  * @method string getUser()
  * @method string getPass()
@@ -39,24 +42,22 @@ namespace Papaya;
  * @method string getQuery()
  * @method string getFragment()
  */
-class URL {
-
+class URL implements Properties {
   /**
    * Parsed url elements
    *
-   * @var array|NULL
+   * @var array|null
    */
-  protected $_elements = NULL;
+  protected $_elements;
 
-  private $_parts = array(
+  private $_parts = [
     'scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'
-  );
+  ];
 
   /**
    * Constructor
    *
    * @param string $url
-   * @return self
    */
   public function __construct($url = '') {
     if (!empty($url)) {
@@ -85,10 +86,10 @@ class URL {
    */
   public function getURL() {
     $result = $this->getPathURL();
-    if (!is_null($query = $this->getQuery())) {
+    if (NULL !== $query = $this->getQuery()) {
       $result .= '?'.$query;
     }
-    if (!is_null($fragment = $this->getFragment())) {
+    if (NULL !== $fragment = $this->getFragment()) {
       $result .= '#'.$fragment;
     }
     return $result;
@@ -133,14 +134,13 @@ class URL {
    * Set request url attribute
    *
    * @param string $url
-   * @return void
    */
   public function setURLString($url) {
     if (!empty($url)) {
-      $this->_elements = @parse_url($url);
+      $this->_elements = @\parse_url($url);
     }
-    if (!is_array($this->_elements)) {
-      $this->_elements = array();
+    if (!\is_array($this->_elements)) {
+      $this->_elements = [];
     }
   }
 
@@ -149,39 +149,49 @@ class URL {
    *
    * @param string $method
    * @param array $arguments
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __call($method, $arguments) {
-    $action = substr($method, 0, 3);
-    if ($action == 'get') {
-      $property = strtolower(substr($method, 3));
-      if ($property == 'password') {
+    $action = \substr($method, 0, 3);
+    if ('get' === $action) {
+      $property = \strtolower(\substr($method, 3));
+      if ('password' === $property) {
         $property = 'pass';
       }
       return $this->$property;
     }
     throw new \BadMethodCallException(
-      sprintf('Invalid method call "%s" on "%s"', $method, __CLASS__)
+      \sprintf('Invalid method call "%s" on "%s"', $method, __CLASS__)
     );
+  }
+
+  public function __isset($name) {
+    if ('password' === $name) {
+      $name = 'pass';
+    }
+    return \in_array($name, $this->_parts, TRUE);
   }
 
   /**
    * Map the parts of the url to object properties
    *
    * @param string $name
+   *
    * @throws \BadMethodCallException
+   *
    * @return mixed
    */
   public function __get($name) {
-    if ($name == 'password') {
+    if ('password' === $name) {
       $name = 'pass';
     }
-    if (in_array($name, $this->_parts)) {
+    if (\in_array($name, $this->_parts, TRUE)) {
       return empty($this->_elements[$name]) ? NULL : $this->_elements[$name];
-    } else {
-      throw new \BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
+    throw new \BadMethodCallException(\sprintf('Invalid property "%s::%s".', __CLASS__, $name));
   }
 
   /**
@@ -189,35 +199,48 @@ class URL {
    *
    * @param string $name
    * @param $value
+   *
    * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
-    if (in_array($name, $this->_parts)) {
-      $setter = 'set'.ucfirst($name);
-      if (method_exists($this, $setter)) {
+    if (\in_array($name, $this->_parts, TRUE)) {
+      $setter = 'set'.\ucfirst($name);
+      if (\method_exists($this, $setter)) {
         $this->$setter($value);
       } else {
         throw new \BadMethodCallException(
-          sprintf('Property "%s::%s" is not writeable.', __CLASS__, $name)
+          \sprintf('Property "%s::%s" is not writeable.', __CLASS__, $name)
         );
       }
     } else {
-      throw new \BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
+      throw new \BadMethodCallException(\sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
+  }
+
+  /**
+   * check if the property has a setter and call it
+   *
+   * @param string $name
+   *
+   * @throws \BadMethodCallException
+   */
+  public function __unset($name) {
+    throw new \BadMethodCallException(\sprintf('Can not unset property "%s::%s".', __CLASS__, $name));
   }
 
   /**
    * set scheme if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $scheme
    */
   public function setScheme($scheme) {
-    if (preg_match('(^[a-z_()-]+$)D', $scheme)) {
+    if (\preg_match('(^[a-z_()-]+$)D', $scheme)) {
       $this->_elements['scheme'] = $scheme;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
+        \sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
   }
@@ -226,15 +249,16 @@ class URL {
    * set host if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $host
    */
   public function setHost($host) {
     $regex = '((^[0-9a-z-_\.]+\.[a-z]+$)|(^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$))Di';
-    if (preg_match($regex, $host)) {
+    if (\preg_match($regex, $host)) {
       $this->_elements['host'] = $host;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s: "%s"', __METHOD__, $host)
+        \sprintf('Invalid argument #0 for %s: "%s"', __METHOD__, $host)
       );
     }
   }
@@ -244,14 +268,15 @@ class URL {
    *
    *
    * @param $port
+   *
    * @throws \InvalidArgumentException
    */
   public function setPort($port) {
-    if (preg_match('(^[0-9]+$)D', $port)) {
+    if (\preg_match('(^[0-9]+$)D', $port)) {
       $this->_elements['port'] = $port;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
+        \sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
   }
@@ -260,14 +285,15 @@ class URL {
    * set path if it is valid, throw an exception if not.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $path
    */
   public function setPath($path) {
-    if (preg_match('(^/[^?#\r\n]*$)D', $path)) {
+    if (\preg_match('(^/[^?#\r\n]*$)D', $path)) {
       $this->_elements['path'] = $path;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
+        \sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
   }
@@ -277,16 +303,18 @@ class URL {
    *
    *
    * @param $query
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param string $path
    * @internal param string $query
    */
   public function setQuery($query) {
-    if (preg_match('(^[^?#\r\n]*$)D', $query)) {
+    if (\preg_match('(^[^?#\r\n]*$)D', $query)) {
       $this->_elements['query'] = $query;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
+        \sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
   }
@@ -296,15 +324,17 @@ class URL {
    *
    *
    * @param string $fragment
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param string $query
    */
   public function setFragment($fragment) {
-    if (preg_match('(^[^?#\r\n]*$)D', $fragment)) {
+    if (\preg_match('(^[^?#\r\n]*$)D', $fragment)) {
       $this->_elements['fragment'] = $fragment;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
+        \sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
   }

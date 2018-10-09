@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - HTML functions
  *
@@ -21,7 +21,6 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class HTML {
-
   const PATTERN_HTML_TAG = '(</?[^\s\d\pP>][^>]*>)u';
 
   private static $_namedEntities;
@@ -30,20 +29,22 @@ class HTML {
    * Escape HTML meta chars in string after stripping tags
    *
    * @param string $string
+   *
    * @return string
    */
   public static function escapeStripped($string) {
-    return htmlspecialchars(self::stripTags($string), ENT_QUOTES, 'UTF-8');
+    return \htmlspecialchars(self::stripTags($string), ENT_QUOTES, 'UTF-8');
   }
 
   /**
    * Strip HTML tags from string (positive match, result needs escaping)
    *
    * @param string $string
+   *
    * @return string
    */
   public static function stripTags($string) {
-    return preg_replace(self::PATTERN_HTML_TAG, '', $string);
+    return \preg_replace(self::PATTERN_HTML_TAG, '', $string);
   }
 
   /**
@@ -51,19 +52,20 @@ class HTML {
    * &auml;
    *
    * @param string $string
+   *
    * @return string
    */
   public static function decodeNamedEntities($string) {
     // @codeCoverageIgnoreStart
     if (empty(self::$_namedEntities)) {
-      self::$_namedEntities = array_flip(
-        array_diff(
-          get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),
-          get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')
+      self::$_namedEntities = \array_flip(
+        \array_diff(
+          \get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),
+          \get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')
         )
       );
     }
     // @codeCoverageIgnoreEnd
-    return strtr($string, self::$_namedEntities);
+    return \strtr($string, self::$_namedEntities);
   }
 }

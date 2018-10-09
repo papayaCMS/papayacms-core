@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown to report that a the value match not a specified type.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class UnexpectedType extends \Papaya\Filter\Exception {
-
+class UnexpectedType extends Filter\Exception {
   /**
    * expected type description
    *
@@ -37,7 +38,7 @@ class UnexpectedType extends \Papaya\Filter\Exception {
   public function __construct($expectedType) {
     $this->_expectedType = $expectedType;
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value is not a "%s".',
         $expectedType
       )

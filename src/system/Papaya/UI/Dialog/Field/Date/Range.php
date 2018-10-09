@@ -12,25 +12,18 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Date;
 
-/**
- * papaya CMS
- *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
- * @link http://www.papaya-cms.com/
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
- *
- *  You can redistribute and/or modify this script under the terms of the GNU General Public
- *  License (GPL) version 2, provided that the copyright and license notes, including these
- *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- *  FOR A PARTICULAR PURPOSE.
- */
-class Range extends \Papaya\UI\Dialog\Field {
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
 
-  private $_includeTime = FALSE;
+class Range extends UI\Dialog\Field {
+  /**
+   * @var int
+   */
+  private $_includeTime;
 
   /**
    * @var \Traversable additional labels for the field
@@ -42,24 +35,25 @@ class Range extends \Papaya\UI\Dialog\Field {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param boolean $mandatory
+   * @param bool $mandatory
    * @param int $includeTime
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct(
     $caption,
     $name,
     $mandatory = FALSE,
-    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME
+    $includeTime = Filter\Date::DATE_NO_TIME
   ) {
     if (
-      $includeTime !== \Papaya\Filter\Date::DATE_NO_TIME &&
-      $includeTime !== \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
-      $includeTime !== \Papaya\Filter\Date::DATE_MANDATORY_TIME
+      Filter\Date::DATE_NO_TIME !== $includeTime &&
+      Filter\Date::DATE_OPTIONAL_TIME !== $includeTime &&
+      Filter\Date::DATE_MANDATORY_TIME !== $includeTime
     ) {
       throw new \InvalidArgumentException(
-        sprintf(
-          'Argument must be a %s::DATE_* constant.', \Papaya\Filter\Date::class
+        \sprintf(
+          'Argument must be a %s::DATE_* constant.', Filter\Date::class
         )
       );
     }
@@ -67,19 +61,19 @@ class Range extends \Papaya\UI\Dialog\Field {
     $this->setCaption($caption);
     $this->setName($name);
     $this->setFilter(
-      new \Papaya\Filter\AssociativeArray(
+      new Filter\AssociativeArray(
         [
-          'start' => new \Papaya\Filter\LogicalOr(
-            new \Papaya\Filter\EmptyValue(),
-            new \Papaya\Filter\Date($this->_includeTime)
+          'start' => new Filter\LogicalOr(
+            new Filter\EmptyValue(),
+            new Filter\Date($this->_includeTime)
           ),
-          'end' => new \Papaya\Filter\LogicalOr(
-            new \Papaya\Filter\EmptyValue(),
-            new \Papaya\Filter\Date($this->_includeTime)
+          'end' => new Filter\LogicalOr(
+            new Filter\EmptyValue(),
+            new Filter\Date($this->_includeTime)
           ),
-          'mode' => new \Papaya\Filter\LogicalOr(
-            new \Papaya\Filter\EmptyValue(),
-            new \Papaya\Filter\ArrayElement(['fromTo', 'in', 'from', 'to'])
+          'mode' => new Filter\LogicalOr(
+            new Filter\EmptyValue(),
+            new Filter\ArrayElement(['fromTo', 'in', 'from', 'to'])
           )
         ]
       )
@@ -87,21 +81,24 @@ class Range extends \Papaya\UI\Dialog\Field {
     $this->setMandatory($mandatory);
   }
 
-  public function appendTo(\Papaya\XML\Element $parent) {
+  /**
+   * @param XML\Element $parent
+   */
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->setAttribute(
       'data-include-time',
-      ($this->_includeTime === \Papaya\Filter\Date::DATE_NO_TIME) ? 'false' : 'true'
+      (Filter\Date::DATE_NO_TIME === $this->_includeTime) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
     $values = $this->getCurrentValue();
     $start = '';
     $end = '';
     if (!empty($values['start'])) {
-      $start = \Papaya\Utility\Date::stringToTimestamp($values['start']);
+      $start = Utility\Date::stringToTimestamp($values['start']);
     }
     if (!empty($values['end'])) {
-      $end = \Papaya\Utility\Date::stringToTimestamp($values['end']);
+      $end = Utility\Date::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
     $labels = $group->appendElement('labels');
@@ -115,32 +112,36 @@ class Range extends \Papaya\UI\Dialog\Field {
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => (Filter\Date::DATE_NO_TIME === $this->_includeTime) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/start')
       ],
       $this->formatDateTime(
-        $start, $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
+        $start, Filter\Date::DATE_NO_TIME !== $this->_includeTime
       )
     );
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => (Filter\Date::DATE_NO_TIME === $this->_includeTime) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/end'),
         'value' => $end
       ],
       $this->formatDateTime(
-        $end, $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
+        $end, Filter\Date::DATE_NO_TIME !== $this->_includeTime
       )
     );
   }
 
+  /**
+   * @param \Traversable|null $labels
+   * @return \EmptyIterator|UI\Text\Translated\Collection|\Traversable
+   */
   public function labels(\Traversable $labels = NULL) {
-    if (isset($labels)) {
+    if (NULL !== $labels) {
       $this->_labels = $labels;
     } elseif (NULL === $this->_labels) {
       if ($this->papaya()->request->isAdministration) {
-        $this->_labels = new \Papaya\UI\Text\Translated\Collection(
+        $this->_labels = new UI\Text\Translated\Collection(
           [
             'page-in' => 'In (Year, Year-Month)',
             'page-fromto' => 'Date Between',
@@ -158,42 +159,43 @@ class Range extends \Papaya\UI\Dialog\Field {
   /**
    * Convert timestamp into a string
    *
-   * @param integer $timestamp
-   * @param boolean $includeTime
+   * @param int $timestamp
+   * @param bool $includeTime
+   *
    * @return string
    */
   private function formatDateTime($timestamp, $includeTime = TRUE) {
-    if ($timestamp == 0) {
+    if (0 === (int)$timestamp) {
       return '';
-    } elseif ($includeTime) {
-      return date('Y-m-d H:i:s', $timestamp);
-    } else {
-      return date('Y-m-d', $timestamp);
     }
+    if ($includeTime) {
+      return \date('Y-m-d H:i:s', $timestamp);
+    }
+    return \date('Y-m-d', $timestamp);
   }
 
   /**
    * If not mandatory allow the whole value as empty or each sub value.
    *
-   * @return NULL|\Papaya\Filter
+   * @return null|\Papaya\Filter
    */
   public function getFilter() {
     $filter = parent::getFilter();
-    if ($this->getMandatory() && isset($filter)) {
+    if (NULL !== $filter && $this->getMandatory()) {
       return $filter;
-    } elseif (isset($filter)) {
-      return new \Papaya\Filter\LogicalOr(
-        new \Papaya\Filter\AssociativeArray(
+    }
+    if (NULL !== $filter) {
+      return new Filter\LogicalOr(
+        new Filter\AssociativeArray(
           [
-            'start' => new \Papaya\Filter\EmptyValue(),
-            'end' => new \Papaya\Filter\EmptyValue(),
-            'mode' => new \Papaya\Filter\EmptyValue()
+            'start' => new Filter\EmptyValue(),
+            'end' => new Filter\EmptyValue(),
+            'mode' => new Filter\EmptyValue()
           ]
         ),
         $filter
       );
-    } else {
-      return NULL;
     }
+    return NULL;
   }
 }

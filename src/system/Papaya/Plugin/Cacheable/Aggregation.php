@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Cacheable;
+
+use Papaya\Cache;
+
 /**
  * Define the plugin output as cacheable. A cache definition allows to get
  * the cache values, but also the sources the are from.
@@ -22,20 +24,19 @@ namespace Papaya\Plugin\Cacheable;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
-   * @var \Papaya\Cache\Identifier\Definition
+   * @var Cache\Identifier\Definition
    */
   private $_cacheDefinition;
 
   /**
    * Provide the cache definition for the output.
    *
-   * @see \Papaya\Plugin\Cacheable::cacheable()
-   * @param \Papaya\Cache\Identifier\Definition $definition
-   * @return \Papaya\Cache\Identifier\Definition
+   * @param Cache\Identifier\Definition $definition
+   *
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL) {
+  public function cacheable(Cache\Identifier\Definition $definition = NULL) {
     if (NULL !== $definition) {
       $this->_cacheDefinition = $definition;
     } elseif (NULL === $this->_cacheDefinition) {
@@ -45,7 +46,7 @@ trait Aggregation {
   }
 
   /**
-   * @return \Papaya\Cache\Identifier\Definition
+   * @return Cache\Identifier\Definition
    */
   abstract public function createCacheDefinition();
 }

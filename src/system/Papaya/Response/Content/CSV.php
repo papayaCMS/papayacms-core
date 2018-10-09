@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content;
+
+use Papaya\Response;
 
 /**
  * Iterate the argument and output it as a CSV.
@@ -21,8 +22,7 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class CSV implements \Papaya\Response\Content {
-
+class CSV implements Response\Content {
   /**
    * string content buffer
    *
@@ -30,19 +30,30 @@ class CSV implements \Papaya\Response\Content {
    */
   private $_traversable;
 
+  /**
+   * @var string
+   */
   private $_quote = '"';
+
+  /**
+   * @var string
+   */
   private $_separator = ',';
+
+  /**
+   * @var string
+   */
   private $_linebreak = "\r\n";
+
+  /**
+   * @var string
+   */
   private $_encodedLinebreak = '\\n';
 
   /**
    * @var array
    */
   private $_columns;
-  /**
-   * @var callable
-   */
-  private $_onMapValue;
 
   /**
    * @var CSV\Callbacks
@@ -63,18 +74,18 @@ class CSV implements \Papaya\Response\Content {
    * needed definitions.
    *
    * @param CSV\Callbacks $callbacks
+   *
    * @return CSV\Callbacks
    */
   public function callbacks(CSV\Callbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    }
-    if (is_null($this->_callbacks)) {
+    } elseif (NULL === $this->_callbacks) {
       $this->_callbacks = new CSV\Callbacks();
-      $this->_callbacks->onMapRow = function ($value) {
+      $this->_callbacks->onMapRow = function($value) {
         return $value;
       };
-      $this->_callbacks->onMapField = function ($value) {
+      $this->_callbacks->onMapField = function($value) {
         return $value;
       };
     }
@@ -84,7 +95,7 @@ class CSV implements \Papaya\Response\Content {
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
     return -1;
@@ -92,14 +103,12 @@ class CSV implements \Papaya\Response\Content {
 
   /**
    * Output string content to standard output
-   *
-   * @return string
    */
   public function output() {
     $callbacks = $this->callbacks();
-    if (is_array($this->_columns)) {
+    if (\is_array($this->_columns)) {
       $this->outputCSVLine($this->_columns);
-      flush();
+      \flush();
       foreach ($this->_traversable as $values) {
         $values = $callbacks->onMapRow($values);
         $row = [];
@@ -111,7 +120,7 @@ class CSV implements \Papaya\Response\Content {
           }
         }
         echo $this->outputCSVLine($row);
-        flush();
+        \flush();
       }
     } else {
       foreach ($this->_traversable as $values) {
@@ -121,14 +130,17 @@ class CSV implements \Papaya\Response\Content {
           $row[] = $callbacks->onMapField($value, $key);
         }
         echo $this->outputCSVLine($row);
-        flush();
+        \flush();
       }
     }
   }
 
+  /**
+   * @param array $values
+   */
   private function outputCSVLine($values) {
     $separator = FALSE;
-    foreach (array_values($values) as $value) {
+    foreach (\array_values($values) as $value) {
       if ($separator) {
         echo $separator;
       } else {
@@ -143,26 +155,26 @@ class CSV implements \Papaya\Response\Content {
    * Prepare a header or data value for csv. The value is escaped and quotes if needed.
    *
    * @param string $value
+   *
    * @return string
    */
   private function csvQuote($value) {
     $quotesNeeded =
-      '('.preg_quote($this->_quote).'|'.preg_quote($this->_separator).'|[\r\n])';
-    if (preg_match($quotesNeeded, $value)) {
-      $encoded = preg_replace(
-        array(
-          '('.preg_quote($this->_quote).')',
+      '('.\preg_quote($this->_quote, '(').'|'.\preg_quote($this->_separator, '(').'|[\r\n])';
+    if (\preg_match($quotesNeeded, $value)) {
+      $encoded = \preg_replace(
+        [
+          '('.\preg_quote($this->_quote, '(').')',
           "(\r\n|\n\r|[\r\n])"
-        ),
-        array(
+        ],
+        [
           $this->_quote.'$0',
           $this->_encodedLinebreak
-        ),
+        ],
         $value
       );
       return $this->_quote.$encoded.$this->_quote;
-    } else {
-      return $value;
     }
+    return $value;
   }
 }

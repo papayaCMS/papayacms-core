@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
+
 /**
  * The actual content of an email part. This can be a list of other parts, text, html, binary data or
  * or special content.
@@ -22,7 +22,6 @@ namespace Papaya\Email;
  * @subpackage Email
  */
 interface Content {
-
   /**
    * Get the email content i a single encoded string
    *

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
+
+use Papaya\Administration;
+use Papaya\Content;
 
 /**
  * Synchronize box inheritance on the page workling copy and the page links
@@ -22,28 +24,27 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Boxes
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
-
+  implements Administration\Pages\Dependency\Synchronization {
   /**
    * Page boxes list database object
    *
    * @var Boxes
    */
-  private $_boxes = NULL;
+  private $_boxes;
 
   /**
    * Page working copy object
    *
-   * @var \Papaya\Content\Page\Work
+   * @var Content\Page\Work
    */
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     if ($this->page()->load($originId)) {
@@ -58,30 +59,32 @@ class Boxes
    *
    * @param array $targetIds
    * @param int $status
+   *
    * @return bool
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
-    $filter = $databaseAccess->getSqlCondition('topic_id', $targetIds);
+    $filter = $databaseAccess->getSqlCondition(['topic_id' => $targetIds]);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
-    $parameters = array(
-      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
+    $parameters = [
+      $databaseAccess->getTableName(Content\Tables::PAGES),
       $status
-    );
+    ];
     return FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters);
   }
 
   /**
    * Getter/Setter for the  page boxes list database object
    *
-   * @param \Papaya\Content\Page\Boxes $boxes
-   * @return \Papaya\Content\Page\Boxes
+   * @param Content\Page\Boxes $boxes
+   *
+   * @return Content\Page\Boxes
    */
-  public function boxes(\Papaya\Content\Page\Boxes $boxes = NULL) {
-    if (isset($boxes)) {
+  public function boxes(Content\Page\Boxes $boxes = NULL) {
+    if (NULL !== $boxes) {
       $this->_boxes = $boxes;
-    } elseif (is_null($this->_boxes)) {
-      $this->_boxes = new \Papaya\Content\Page\Boxes();
+    } elseif (NULL === $this->_boxes) {
+      $this->_boxes = new Content\Page\Boxes();
     }
     return $this->_boxes;
   }
@@ -89,14 +92,15 @@ class Boxes
   /**
    * Getter/Setter for the page working copy
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Content\Page\Work $page
+   *
+   * @return Content\Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+  public function page(Content\Page\Work $page = NULL) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
-      $this->_page = new \Papaya\Content\Page\Work();
+    } elseif (NULL === $this->_page) {
+      $this->_page = new Content\Page\Work();
     }
     return $this->_page;
   }

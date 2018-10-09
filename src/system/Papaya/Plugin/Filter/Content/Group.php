@@ -12,25 +12,36 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Filter\Content;
 
-class Group
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Plugin\Filter\Content, \IteratorAggregate {
+use Papaya\Application;
+use Papaya\BaseObject;
+use Papaya\Plugin;
+use Papaya\Utility;
 
-  private $_filters = array();
+class Group
+  implements Application\Access, Plugin\Filter\Content, \IteratorAggregate {
+  use Application\Access\Aggregation;
 
   /**
-   * @var \Papaya\BaseObject\Parameters
+   * @var array
+   */
+  private $_filters = [];
+
+  /**
+   * @var BaseObject\Parameters
    */
   private $_options;
-  private $_page = NULL;
+
+  /**
+   * @var
+   */
+  private $_page;
 
   public function __construct($page) {
-    \Papaya\Utility\Constraints::assertObject($page);
+    Utility\Constraints::assertObject($page);
     $this->_page = $page;
-    $this->_options = new \Papaya\BaseObject\Parameters([]);
+    $this->_options = new BaseObject\Parameters([]);
   }
 
   /**
@@ -40,53 +51,70 @@ class Group
     return $this->_page;
   }
 
+  /**
+   * @param Plugin\Filter\Content|\base_plugin $filterPlugin
+   */
   public function add($filterPlugin) {
-    $this->_filters[spl_object_hash($filterPlugin)] = $filterPlugin;
+    $this->_filters[\spl_object_hash($filterPlugin)] = $filterPlugin;
   }
 
+  /**
+   * @return \Traversable
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_filters);
   }
 
-  public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL) {
-    $this->_options = isset($options) ? $options : new \Papaya\BaseObject\Parameters([]);
+  /**
+   * @param string $content
+   * @param BaseObject\Parameters|null $options
+   */
+  public function prepare($content, BaseObject\Parameters $options = NULL) {
+    $this->_options = NULL !== $options ? $options : new BaseObject\Parameters([]);
     foreach ($this as $filter) {
-      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
+      if ($filter instanceof Plugin\Filter\Content) {
         $filter->prepare($content, $this->_options);
-      } elseif (method_exists($filter, 'prepareFilterData')) {
-        if (method_exists($filter, 'initialize')) {
+      } elseif (\method_exists($filter, 'prepareFilterData')) {
+        if (\method_exists($filter, 'initialize')) {
           $bc = new \stdClass();
           $bc->parentObj = $this->getPage();
           $filter->initialize($bc);
         }
-        $data = array('text' => $content);
-        $filter->prepareFilterData($data, array('text'));
-        if (method_exists($filter, 'loadFilterData')) {
+        $data = ['text' => $content];
+        $filter->prepareFilterData($data, ['text']);
+        if (\method_exists($filter, 'loadFilterData')) {
           $filter->loadFilterData($data);
         }
       }
     }
   }
 
+  /**
+   * @param string $content
+   * @return string
+   */
   public function applyTo($content) {
     $result = $content;
     foreach ($this as $filter) {
-      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
+      if ($filter instanceof Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
-      } elseif (method_exists($filter, 'applyFilterData')) {
-        $result = \Papaya\Utility\Text\XML::repairEntities($filter->applyFilterData($result));
+      } elseif (\method_exists($filter, 'applyFilterData')) {
+        $result = Utility\Text\XML::repairEntities($filter->applyFilterData($result));
       }
     }
     return $result;
   }
 
+  /**
+   * @param \Papaya\XML\Element $parent
+   */
   public function appendTo(\Papaya\XML\Element $parent) {
     foreach ($this as $filter) {
-      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
+      if ($filter instanceof Plugin\Filter\Content) {
         $parent->append($filter);
-      } elseif (method_exists($filter, 'getFilterData')) {
+      } elseif (\method_exists($filter, 'getFilterData')) {
         $parent->appendXML(
-          $filter->getFilterData(\Papaya\Utility\Arrays::ensure(iterator_to_array($this->_options)))
+          $filter->getFilterData(Utility\Arrays::ensure(\iterator_to_array($this->_options)))
         );
       }
     }

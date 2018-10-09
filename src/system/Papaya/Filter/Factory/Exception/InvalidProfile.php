@@ -12,23 +12,23 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Exception;
+
+use Papaya\Filter;
+
 /**
  * Exception: invalid filter factory profile name/profile not found.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidProfile extends \Papaya\Filter\Factory\Exception {
-
+class InvalidProfile extends Filter\Factory\Exception {
   /**
    * @param string $name
    */
   public function __construct($name) {
     parent::__construct(
-      sprintf('Invalid or unknown filter factory profile: "%s".', $name)
+      \sprintf('Invalid or unknown filter factory profile: "%s".', $name)
     );
   }
-
 }

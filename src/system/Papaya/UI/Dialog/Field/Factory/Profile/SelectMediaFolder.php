@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field display the media database folders
  *
@@ -22,14 +24,15 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectMediaFolder
   extends Select {
-
   /**
    * @param array|\Traversable $elements
-   * @return \Papaya\UI\Dialog\Field\Select\Media\Folder
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Select\Media\Folder
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select\Media\Folder(
+    return new UI\Dialog\Field\Select\Media\Folder(
       $this->options()->caption,
       $this->options()->name
     );

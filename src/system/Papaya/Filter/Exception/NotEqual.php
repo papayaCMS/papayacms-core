@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not equal to a given comparsion value.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotEqual extends \Papaya\Filter\Exception {
-
+class NotEqual extends Filter\Exception {
   /**
    * Construct object with value informations
    *
@@ -29,7 +30,7 @@ class NotEqual extends \Papaya\Filter\Exception {
    */
   public function __construct($expected) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value does not equal comparsion value. Expected "%s".',
         $expected
       )

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\URL\Transformer;
+
 /**
  * Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
  *
@@ -21,12 +21,12 @@ namespace Papaya\URL\Transformer;
  * @subpackage URL
  */
 class Relative {
-
   /**
    * Transforms a absolute url to a relative url.
    *
    * @param \Papaya\URL $currentURL current url
    * @param \Papaya\URL $targetURL url to transform
+   *
    * @return string
    */
   public function transform($currentURL, $targetURL) {
@@ -61,16 +61,15 @@ class Relative {
    *
    * @param string $portOne
    * @param string $portTwo
-   * @return boolean
+   *
+   * @return bool
    */
   private function _comparePorts($portOne, $portTwo) {
-    if ($portOne == $portTwo ||
-      ($portOne == '80' && empty($portTwo)) ||
-      ($portTwo == '80' && empty($portOne))) {
-      return TRUE;
-    } else {
-      return FALSE;
-    }
+    return (
+      (string)$portOne === (string)$portTwo ||
+      ('80' === (string)$portOne && empty($portTwo)) ||
+      ('80' === (string)$portTwo && empty($portOne))
+    );
   }
 
   /**
@@ -78,16 +77,17 @@ class Relative {
    *
    * @param string $currentPath
    * @param string $targetPath
+   *
    * @return string
    */
   public function getRelativePath($currentPath, $targetPath) {
-    $parts = explode('/', $currentPath);
-    array_pop($parts);
-    $partCount = count($parts);
+    $parts = \explode('/', $currentPath);
+    \array_pop($parts);
+    $partCount = \count($parts);
     $strippedPart = '';
     for ($i = 1; $i < $partCount; ++$i) {
       $part = $parts[$i];
-      if (0 === strpos($targetPath.'/', $strippedPart.'/'.$part.'/')) {
+      if (0 === \strpos($targetPath.'/', $strippedPart.'/'.$part.'/')) {
         $strippedPart .= '/'.$part;
       } else {
         break;
@@ -95,10 +95,10 @@ class Relative {
     }
     $result = '';
     if ($partCount - $i > 0) {
-      $result = str_repeat('../', $partCount - $i);
+      $result = \str_repeat('../', $partCount - $i);
     }
-    $result .= substr($targetPath, strlen($strippedPart) + 1);
-    if ($result == '') {
+    $result .= \substr($targetPath, \strlen($strippedPart) + 1);
+    if ('' === $result) {
       return './';
     }
     return $result;

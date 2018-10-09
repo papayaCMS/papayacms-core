@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator {
 
   /**
@@ -21,13 +20,22 @@ namespace Papaya\Iterator {
    * @method \RecursiveIteratorIterator getIteratorForTraversable($useCached = FALSE);
    */
   class RecursiveTraversableIterator extends TraversableIterator {
-
     const LEAVES_ONLY = \RecursiveIteratorIterator::LEAVES_ONLY;
+
     const SELF_FIRST = \RecursiveIteratorIterator::SELF_FIRST;
+
     const CHILD_FIRST = \RecursiveIteratorIterator::CHILD_FIRST;
+
     const CATCH_GET_CHILD = \RecursiveIteratorIterator::CATCH_GET_CHILD;
 
+    /**
+     * @var int
+     */
     private $_flags;
+
+    /**
+     * @var int
+     */
     private $_mode;
 
     /**
@@ -43,6 +51,7 @@ namespace Papaya\Iterator {
 
     /**
      * @param $traversable
+     *
      * @return \RecursiveIteratorIterator
      */
     protected function createIteratorForTraversable($traversable) {
@@ -53,24 +62,31 @@ namespace Papaya\Iterator {
       if ($traversable instanceof \IteratorAggregate) {
         $iterator = $traversable->getIterator();
       }
-      if (is_array($traversable)) {
+      if (\is_array($traversable)) {
         $iterator = new \RecursiveArrayIterator($traversable);
       }
       if (!$iterator instanceof \RecursiveIterator) {
         throw new \UnexpectedValueException(
-          sprintf(
+          \sprintf(
             'Could not get RecursiveIterator for/from provided %s.',
-            is_object($traversable) ? get_class($traversable) : gettype($traversable)
+            \is_object($traversable) ? \get_class($traversable) : \gettype($traversable)
           )
         );
       }
       return new \RecursiveIteratorIterator($iterator, $this->_mode, $this->_flags);
     }
 
+    /**
+     * @return int
+     */
     public function getDepth() {
       return $this->getIteratorForTraversable(TRUE)->getDepth();
     }
 
+    /**
+     * @param int $level
+     * @return \RecursiveIterator
+     */
     public function getSubIterator($level) {
       return $this->getIteratorForTraversable(TRUE)->getSubIterator($level);
     }
@@ -83,21 +99,27 @@ namespace Papaya\Iterator {
       $this->getIteratorForTraversable(TRUE)->endIteration();
     }
 
+    /**
+     * @return bool
+     */
     public function callHasChildren() {
       return $this->getIteratorForTraversable(TRUE)->callHasChildren();
     }
 
+    /**
+     * @return \RecursiveIterator
+     */
     public function callGetChildren() {
       return $this->getIteratorForTraversable(TRUE)->callGetChildren();
     }
 
     public function beginChildren() {
       $this->getIteratorForTraversable(TRUE)->beginChildren();
-     }
+    }
 
     public function endChildren() {
       $this->getIteratorForTraversable(TRUE)->endChildren();
-     }
+    }
 
     public function nextElement() {
       $this->getIteratorForTraversable(TRUE)->nextElement();
@@ -105,8 +127,11 @@ namespace Papaya\Iterator {
 
     public function setMaxDepth($maxDepth) {
       $this->getIteratorForTraversable(TRUE)->setMaxDepth($maxDepth);
-     }
+    }
 
+    /**
+     * @return int
+     */
     public function getMaxDepth() {
       return $this->getIteratorForTraversable(TRUE)->getDepth();
     }

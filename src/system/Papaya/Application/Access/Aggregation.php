@@ -14,21 +14,31 @@
  */
 namespace Papaya\Application\Access {
 
-  trait Aggregation {
+  use Papaya\Application;
 
+  /**
+   * Provides access to the papaya Application
+   * instance.
+   *
+   * This is an implementation for {@see Papaya\Application\Access}
+   *
+   * @package Papaya\Application\Access
+   */
+  trait Aggregation {
     private $_papayaApplicationObject;
 
     /**
      * An combined getter/setter for the Papaya Application object
      *
-     * @param \Papaya\Application $application
-     * @return \Papaya\Application\CMS|\Papaya\Application
+     * @param Application $application
+     *
+     * @return Application\CMS|Application
      */
-    public function papaya(\Papaya\Application $application = NULL) {
+    public function papaya(Application $application = NULL) {
       if (NULL !== $application) {
         $this->_papayaApplicationObject = $application;
       } elseif (NULL === $this->_papayaApplicationObject) {
-        $this->_papayaApplicationObject = \Papaya\Application::getInstance();
+        $this->_papayaApplicationObject = Application::getInstance();
       }
       return $this->_papayaApplicationObject;
     }

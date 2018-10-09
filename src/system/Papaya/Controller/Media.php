@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
+
+use Papaya\Application;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
 
 /**
  * Papaya controller superclass with media database access
@@ -21,8 +25,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller {
-
+class Media extends Application\BaseObject implements Controller {
   /**
    * @var \base_mediadb
    */
@@ -31,24 +34,23 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
   /**
    * Execute controller
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
-   * @return boolean|\Papaya\Controller
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
+   *
+   * @return bool|Controller
    */
   public function execute(
-    /** @noinspection ReferencingObjectsInspection */
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    /* @noinspection ReferencingObjectsInspection */
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     $this->papaya($application);
-    /** @var \Papaya\Request $request */
-    $request = $application->getObject('Request');
-    $isPreview = $request->getParameter('preview', '', NULL, \Papaya\Request::SOURCE_PATH);
-    $mediaId = $request->getParameter('media_id', '', NULL, \Papaya\Request::SOURCE_PATH);
+    $isPreview = $request->getParameter('preview', '', NULL, Request::SOURCE_PATH);
+    $mediaId = $request->getParameter('media_id', '', NULL, Request::SOURCE_PATH);
     $mediaVersion = $request->getParameter(
-      'media_version', 0, NULL, \Papaya\Request::SOURCE_PATH
+      'media_version', 0, NULL, Request::SOURCE_PATH
     );
     if (!empty($mediaId)) {
       $file = $this->getMediaDatabase()->getFile($mediaId, $mediaVersion);
@@ -71,7 +73,8 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Determine if the current surfer has the permission to retrieve the requested file.
    *
    * @param array $file
-   * @return boolean
+   *
+   * @return bool
    */
   protected function _outputPublicFile($file) {
     $folderPermissions = $this->getMediaDatabase()->getFolderPermissions($file['folder_id']);
@@ -84,7 +87,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
     if (isset($folderPermissions['surfer_view'])) {
       $surfer = $this->papaya()->getObject('Surfer');
       // the surfer has one of the folder permissions
-      if ($surfer->hasOnePermOf(array_keys($folderPermissions['surfer_view']))) {
+      if ($surfer->hasOnePermOf(\array_keys($folderPermissions['surfer_view']))) {
         $this->_outputFile($file);
         return TRUE;
       }
@@ -96,6 +99,7 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Determine if current admin user is valid to send given file to client
    *
    * @param array $file
+   *
    * @return bool
    */
   protected function _outputPreviewFile($file) {
@@ -118,13 +122,13 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
     $session->close();
     \papaya_file_delivery::outputFile($file['fileName'], $file);
   }
+
   // @codeCoverageIgnoreEnd
 
   /**
    * Set media database object
    *
    * @param \base_mediadb $mediaDatabase
-   * @return void
    */
   public function setMediaDatabase($mediaDatabase) {
     $this->_mediaDatabase = $mediaDatabase;

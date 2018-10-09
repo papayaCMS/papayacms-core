@@ -12,23 +12,23 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Exception;
+
+use Papaya\Filter;
+
 /**
  * Exception: options invalid for the profile class
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidOptions extends \Papaya\Filter\Factory\Exception {
-
+class InvalidOptions extends Filter\Factory\Exception {
   /**
    * @param string $name
    */
   public function __construct($name) {
     parent::__construct(
-      sprintf('Invalid options in filter profile class: "%s".', $name)
+      \sprintf('Invalid options in filter profile class: "%s".', $name)
     );
   }
-
 }

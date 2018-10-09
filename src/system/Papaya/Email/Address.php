@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
+
 /**
  * A single Email address, including properties for the parts and string casting.
  *
@@ -25,7 +25,6 @@ namespace Papaya\Email;
  * @property string $name
  */
 class Address {
-
   /**
    * Recipient name
    *
@@ -69,7 +68,7 @@ class Address {
    * @param $address
    */
   protected function setAddress($address) {
-    if (preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
+    if (\preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
       $this->_name = $matches[1];
       $this->_email = $matches[2];
     } else {
@@ -88,6 +87,7 @@ class Address {
 
   /**
    * @param $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -105,6 +105,7 @@ class Address {
    *
    * @param string $name
    * @param string $value
+   *
    * @throws \InvalidArgumentException
    */
   public function __set($name, $value) {
@@ -118,7 +119,7 @@ class Address {
         return;
     }
     throw new \InvalidArgumentException(
-      sprintf('InvalidArgumentException: Unknown property "%s".', $name)
+      \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
 
@@ -126,7 +127,9 @@ class Address {
    * Dynamic property getter
    *
    * @param string $name
+   *
    * @throws \InvalidArgumentException
+   *
    * @return string
    */
   public function __get($name) {
@@ -139,7 +142,7 @@ class Address {
         return $this->__toString();
     }
     throw new \InvalidArgumentException(
-      sprintf('InvalidArgumentException: Unknown property "%s".', $name)
+      \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
 }

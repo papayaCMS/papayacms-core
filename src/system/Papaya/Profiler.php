@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
 /**
  * Papaya profile, collects and stores profilng data for requests. A divisor is used to
  * define a probability that the profiling is activated.
@@ -21,13 +21,13 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Profiler
  */
-
 class Profiler {
+  private $_collector;
 
-  private $_collector = NULL;
-  private $_storage = NULL;
+  private $_storage;
 
   private $_divisor = 50;
+
   private $_allowRun = 50;
 
   private $_type = 'papaya';
@@ -53,7 +53,7 @@ class Profiler {
     $this->_allowRun = NULL;
     if ($divisor < 1) {
       $this->_allowRun = FALSE;
-    } elseif ($divisor == 1) {
+    } elseif (1 === (int)$divisor) {
       $this->_divisor = 1;
       $this->_allowRun = TRUE;
     } elseif ($divisor > 999999) {
@@ -64,21 +64,21 @@ class Profiler {
   }
 
   /**
-   * Return true if profilng data for the current run should be collected.
+   * Return true if profiling data for the current run should be collected.
    *
-   * If it is not defined otherwise, it willb e calculated using the $divisor.
+   * If it is not defined otherwise, it will e calculated using the $divisor.
    *
    * @return boolean.
    */
   public function allowRun() {
-    if (is_null($this->_allowRun)) {
-      $this->_allowRun = (rand(1, $this->_divisor) == 1);
+    if (NULL === $this->_allowRun) {
+      $this->_allowRun = (1 === \mt_rand(1, $this->_divisor));
     }
     return $this->_allowRun;
   }
 
   /**
-   * Start the profilning if allowed.
+   * Start the profiling if allowed.
    */
   public function start() {
     if ($this->allowRun()) {

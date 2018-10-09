@@ -12,22 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
 /**
  * An interface to define that an plugin provides a list of traversable key => value list of
  * named attributes.
+ *
+ * Boxes implement this interface to provide values to the page XML.
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
 interface Assignable {
-
   /**
    * Return a traversable key => value list of attributes
    *
    * @return \Traversable
    */
   public function getAttributes();
-
 }

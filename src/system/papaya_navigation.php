@@ -151,7 +151,7 @@ class papaya_navigation extends base_object {
         'Themes',
         'Configure Dynamic Themes',
         'items-theme',
-        Administration\Permissions::SYSTEM_THEMESET_MANAGE,
+        Administration\Permissions::SYSTEM_THEME_SKIN_MANAGE,
         'themes.php'
       ),
       array(

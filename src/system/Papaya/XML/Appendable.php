@@ -12,16 +12,14 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
 
 interface Appendable {
-
   /**
    * Create dom node structure of the given object and append it to the given xml
    * element node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent);
+  public function appendTo(Element $parent);
 }

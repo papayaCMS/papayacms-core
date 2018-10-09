@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Variable;
+
 /**
  * Abstract superclass for variable dumps
  *
@@ -24,30 +24,29 @@ namespace Papaya\Message\Context\Variable;
  * @subpackage Messages
  */
 abstract class Visitor {
-
   /**
    * maximum recursion depth
    *
-   * @var integer
+   * @var int
    */
   protected $_depth = 5;
 
   /**
    * maximum string output length
    *
-   * @var integer
+   * @var int
    */
   protected $_stringLength = 30;
 
   /**
    * @var array internal object stack for recursions
    */
-  protected $_objectStack = array();
+  protected $_objectStack = [];
 
   /**
    * @var array internal object list for duplicates
    */
-  protected $_objectList = array();
+  protected $_objectList = [];
 
   /**
    * compile result to string and return it
@@ -66,14 +65,14 @@ abstract class Visitor {
   /**
    * Visit a boolean variable
    *
-   * @param boolean $boolean
+   * @param bool $boolean
    */
   abstract public function visitBoolean($boolean);
 
   /**
    * Visit an integer variable
    *
-   * @param integer $integer
+   * @param int $integer
    */
   abstract public function visitInteger($integer);
 
@@ -87,7 +86,7 @@ abstract class Visitor {
   /**
    * Visit a NULL variable
    *
-   * @param NULL $null
+   * @param null $null
    */
   abstract public function visitNull($null);
 
@@ -115,8 +114,8 @@ abstract class Visitor {
   /**
    * Construct visitor object and set recursion depth and string length
    *
-   * @param integer $depth
-   * @param integer $stringLength
+   * @param int $depth
+   * @param int $stringLength
    */
   public function __construct($depth, $stringLength) {
     $this->_depth = $depth;
@@ -136,21 +135,21 @@ abstract class Visitor {
    * @param mixed $variable
    */
   public function visitVariable($variable) {
-    if (is_null($variable)) {
+    if (NULL === $variable) {
       $this->visitNull($variable);
-    } elseif (is_object($variable)) {
+    } elseif (\is_object($variable)) {
       $this->visitObject($variable);
-    } elseif (is_array($variable)) {
+    } elseif (\is_array($variable)) {
       $this->visitArray($variable);
-    } elseif (is_string($variable)) {
+    } elseif (\is_string($variable)) {
       $this->visitString($variable);
-    } elseif (is_bool($variable)) {
+    } elseif (\is_bool($variable)) {
       $this->visitBoolean($variable);
-    } elseif (is_resource($variable)) {
+    } elseif (\is_resource($variable)) {
       $this->visitResource($variable);
-    } elseif (is_int($variable)) {
+    } elseif (\is_int($variable)) {
       $this->visitInteger($variable);
-    } elseif (is_float($variable)) {
+    } elseif (\is_float($variable)) {
       $this->visitFloat($variable);
     }
   }
@@ -163,7 +162,7 @@ abstract class Visitor {
   protected function _pushObjectStack($hash) {
     $this->_objectStack[] = $hash;
     if (!isset($this->_objectList[$hash])) {
-      $this->_objectList[$hash] = count($this->_objectList) + 1;
+      $this->_objectList[$hash] = \count($this->_objectList) + 1;
     }
   }
 
@@ -171,37 +170,40 @@ abstract class Visitor {
    * pushes an object hash to the recursion stack and adds it to the object list
    *
    * @param string $hash
+   *
    * @throws \LogicException
    */
   protected function _popObjectStack($hash) {
-    $last = end($this->_objectStack);
-    if ($last != $hash) {
+    $last = \end($this->_objectStack);
+    if ($last !== $hash) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'Trying to remove %s from object stack, but %s found.',
           $hash,
           $last
         )
       );
     }
-    array_splice($this->_objectStack, -1, 1);
+    \array_splice($this->_objectStack, -1, 1);
   }
 
   /**
    * Check if object hash is in current recursion stack
    *
    * @param string $hash
-   * @return boolean
+   *
+   * @return bool
    */
   protected function _isObjectRecursion($hash) {
-    return in_array($hash, $this->_objectStack);
+    return \in_array($hash, $this->_objectStack, TRUE);
   }
 
   /**
    * Check if object hash is in object list (already visited)
    *
    * @param string $hash
-   * @return boolean
+   *
+   * @return bool
    */
   protected function _isObjectDuplicate($hash) {
     return isset($this->_objectList[$hash]);
@@ -211,7 +213,8 @@ abstract class Visitor {
    * Return index of object in this context
    *
    * @param string $hash
-   * @return integer
+   *
+   * @return int
    */
   protected function _getObjectIndex($hash) {
     return $this->_objectList[$hash];

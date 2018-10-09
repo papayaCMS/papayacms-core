@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field that translates the elements of the given list.
  *
@@ -22,19 +24,20 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  */
 class SelectTranslated
   extends Select {
-
   /**
    * Wrap elements in a string so they get translated
    *
    * @param array|\Traversable $elements
-   * @return \Papaya\UI\Dialog\Field\Select
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Select
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \Papaya\UI\Dialog\Field\Select(
+    return new UI\Dialog\Field\Select(
       $this->options()->caption,
       $this->options()->name,
-      new \Papaya\UI\Text\Translated\Collection($elements)
+      new UI\Text\Translated\Collection($elements)
     );
   }
 }

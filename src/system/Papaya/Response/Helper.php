@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response;
+
 /**
  * Papaya Response Helper Object
  *
@@ -21,7 +21,6 @@ namespace Papaya\Response;
  * @subpackage Response
  */
 class Helper {
-
   protected static $headerSent = FALSE;
 
   /**
@@ -30,22 +29,21 @@ class Helper {
    * @codeCoverageIgnore
    *
    * @param string $string
-   * @param boolean $replace
-   * @param integer|NULL $responseCode
-   * @return void
+   * @param bool $replace
+   * @param int|null $responseCode
    */
   public function header($string, $replace = TRUE, $responseCode = NULL) {
-    header($string, $replace, $responseCode);
+    \header($string, $replace, $responseCode);
   }
 
   /**
    * Check if http headers where already sent (wrapper for php function)
    *
-   * @return boolean
+   * @return bool
    */
   public function headersSent() {
     if (!self::$headerSent) {
-      self::$headerSent = headers_sent();
+      self::$headerSent = \headers_sent();
     }
     return self::$headerSent;
   }

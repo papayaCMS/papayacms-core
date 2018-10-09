@@ -12,24 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
+
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\XML;
+
 /**
  * A menu element group. This is a sublist of menu elements like buttons with an group caption.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
- * @property \Papaya\UI\Toolbar\Elements $elements
+ * @property string|StringCastable $caption
+ * @property Elements $elements
  */
 class Group
-  extends \Papaya\UI\Toolbar\Collection {
-
+  extends Collection {
   /**
    * A caption for the group
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = '';
 
@@ -38,10 +40,10 @@ class Group
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', '_caption'),
-    'elements' => array('elements', 'elements')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', '_caption'],
+    'elements' => ['elements', 'elements']
+  ];
 
   /**
    * Create object and store group caption
@@ -55,16 +57,17 @@ class Group
   /**
    * Append group and elements to the output xml.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @param XML\Element $parent
+   *
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (count($this->elements()) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (\count($this->elements()) > 0) {
       $group = $parent->appendElement(
         'group',
-        array(
+        [
           'title' => (string)$this->_caption
-        )
+        ]
       );
       $this->elements()->appendTo($group);
       return $group;

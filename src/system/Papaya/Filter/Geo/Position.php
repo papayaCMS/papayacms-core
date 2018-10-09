@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Geo;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class validating a geo position string
  *
@@ -23,8 +25,7 @@ namespace Papaya\Filter\Geo;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Position extends \Papaya\Filter\RegEx {
-
+class Position extends Filter\RegEx {
   /**
    * set pattern in superclass constructor
    */

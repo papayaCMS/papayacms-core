@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Icon;
+
 /**
  * A list of ui icons, generic handling to provide encapsulation.
  *
@@ -21,19 +21,19 @@ namespace Papaya\UI\Icon;
  * @subpackage UI
  */
 class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * The internal icon objects array
    *
    * @var array
    */
-  private $_icons = array();
+  private $_icons = [];
 
   /**
-   * ArrayAccess Interface: check if an icon is availiable
+   * ArrayAccess Interface: check if an icon is available
    *
    * @param string $offset
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($offset) {
     return isset($this->_icons[$offset]);
@@ -43,6 +43,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: return an icon from the internal list
    *
    * @param string $offset
+   *
    * @return \Papaya\UI\Icon
    */
   public function offsetGet($offset) {
@@ -55,10 +56,11 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string $offset
    * @param \Papaya\UI\Icon $icon
+   *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($offset, $icon) {
-    if (is_null($offset)) {
+    if (NULL === $offset) {
       throw new \InvalidArgumentException(
         'InvalidArgumentException: Please provide a valid offset for the icon.'
       );
@@ -76,7 +78,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    * ArrayAccess Interface: remove an icon from the internal list
    *
    * @param string $offset
-   * @return \Papaya\UI\Icon
    */
   public function offsetUnset($offset) {
     unset($this->_icons[$offset]);
@@ -85,10 +86,10 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * Countable Interface: return the icon count
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_icons);
+    return \count($this->_icons);
   }
 
   /**

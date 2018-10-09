@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
+
+use Papaya\Application;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
+
 /**
  * Papaya controller callback encapsulate one function to be used as a controller
  *
@@ -22,19 +27,19 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Callback implements \Papaya\Controller {
-
+class Callback implements Controller {
   /**
    * @var callable
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Create an object list for \Papaya\Controller instances, add all arguments as
    * elements of that list.
+   *
+   * @param callable $callback
    */
-  public function __construct($callback) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+  public function __construct(callable $callback) {
     $this->_callback = $callback;
   }
 
@@ -44,15 +49,17 @@ class Callback implements \Papaya\Controller {
    * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
-   * @return bool|\Papaya\Controller
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
+   *
+   * @return bool|Controller
    */
   public function execute(
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    /** @noinspection ReferencingObjectsInspection */
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     $callback = $this->_callback;
     return $callback($application, $request, $response);

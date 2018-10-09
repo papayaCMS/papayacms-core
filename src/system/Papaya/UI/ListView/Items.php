@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
+
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A list of list view items, used for the $items property of a {@see \Papaya\UI\ListView}
  *
@@ -21,8 +24,7 @@ namespace Papaya\UI\ListView;
  * @subpackage UI
  */
 class Items
-  extends \Papaya\UI\Control\Collection {
-
+  extends UI\Control\Collection {
   /**
    * Only {@see \Papaya\UI\ListView\Item} objects are allowed in this list
    *
@@ -42,27 +44,29 @@ class Items
    * A basic reference (link object) for the listview items. The reference object is cloned and
    * modified by the item using it's $actionParameters.
    *
-   * @var NULL|\Papaya\UI\Reference
+   * @var null|UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * Create object an set owner listview object.
    *
-   * @param \Papaya\UI\ListView $listview
+   * @param UI\ListView $listview
    */
-  public function __construct(\Papaya\UI\ListView $listview) {
+  public function __construct(UI\ListView $listview) {
     $this->owner($listview);
   }
 
   /**
    * Return the listview of this list
    *
-   * @param \Papaya\UI\ListView $listview
-   * @return \Papaya\UI\ListView
+   * @param UI\ListView $listview
+   *
+   * @return UI\ListView
    */
   public function owner($listview = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\Papaya\UI\ListView::class, $listview);
+    Utility\Constraints::assertInstanceOfOrNull(UI\ListView::class, $listview);
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
     return parent::owner($listview);
   }
 
@@ -70,14 +74,14 @@ class Items
    * Getter/Setter for the basic reference used by the list items. This will be the link on the
    * caption/image.
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    }
-    if (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = $this->owner()->reference();
     }
     return $this->_reference;

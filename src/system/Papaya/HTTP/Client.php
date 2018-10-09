@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\HTTP;
+
 /**
  * Simple HTTP client object - makes it a little easier to make HTTP requests
  *
@@ -24,13 +24,12 @@ namespace Papaya\HTTP;
  * @subpackage HTTP-Client
  */
 class Client {
-
   /**
    * internal socket object
    *
    * @var Client\Socket
    */
-  private $_socket = NULL;
+  private $_socket;
 
   /**
    * request method
@@ -58,26 +57,26 @@ class Client {
    *
    * @var array
    */
-  private $_proxy = NULL;
+  private $_proxy;
 
   /**
    * proxy server authorization
    *
    * @var array
    */
-  private $_proxyAuthorization = NULL;
+  private $_proxyAuthorization;
 
   /**
    * timeout in seconds for request while connecting
    *
-   * @var integer
+   * @var int
    */
   private $_timeout = 10;
 
   /**
    * timeout in seconds for request while reading data
    *
-   * @var integer
+   * @var int
    */
   private $_timeoutRead = 20;
 
@@ -93,57 +92,58 @@ class Client {
    *
    * @var \Papaya\HTTP\Headers
    */
-  private $_requestHeaders = NULL;
+  private $_requestHeaders;
+
   /**
    * http request headers
    *
    * @var string
    */
-  private $_defaultRequestHeaders = array(
+  private $_defaultRequestHeaders = [
     'Accept' => '*/*',
     'Accept-Charset' => 'utf-8,*',
     'Connection' => 'keep-alive'
-  );
+  ];
 
   /**
    * request data array
    *
    * @var array
    */
-  private $_requestData = array();
+  private $_requestData = [];
 
   /**
    * request files array
    *
    * @var \Papaya\HTTP\Client\File[]
    */
-  private $_requestFiles = array();
+  private $_requestFiles = [];
 
   /**
    * http response headers
    *
    * @var \Papaya\HTTP\Headers
    */
-  protected $_responseHeaders = NULL;
+  protected $_responseHeaders;
 
   /**
    * http response status code
    *
-   * @var integer
+   * @var int
    */
   private $_responseStatus = 0;
 
   /**
    * maximum internal redirects
    *
-   * @var integer
+   * @var int
    */
   private $_redirectLimit = 10;
 
   /**
    * internal redirect counter
    *
-   * @var integer
+   * @var int
    */
   private $_redirects = 0;
 
@@ -163,6 +163,7 @@ class Client {
    * set the url to request
    *
    * @param string $url
+   *
    * @throws \InvalidArgumentException
    */
   public function setURL($url) {
@@ -180,10 +181,10 @@ class Client {
       if (isset($this->_url['path'])) {
         $urlObject->path = $this->_url['path'];
       }
-      $transformer = new \Papaya\URL\Transformer\Absolute;
+      $transformer = new \Papaya\URL\Transformer\Absolute();
       $newURL = $transformer->transform($urlObject, $url);
       $url = $newURL;
-      $this->_url = parse_url($url);
+      $this->_url = \parse_url($url);
     } else {
       throw new \InvalidArgumentException('Invalid url');
     }
@@ -191,27 +192,25 @@ class Client {
 
   /**
    * reset request/response data
-   *
-   * @return void
    */
   public function reset() {
     $this->_requestHeaders = NULL;
-    $this->_requestData = array();
-    $this->_requestFiles = array();
+    $this->_requestData = [];
+    $this->_requestFiles = [];
     $this->_responseHeaders = NULL;
     $this->_responseStatus = 0;
     $this->_redirects = 0;
   }
 
   public function getRequestHeaders() {
-    if (is_null($this->_requestHeaders)) {
+    if (\is_null($this->_requestHeaders)) {
       $this->_requestHeaders = new \Papaya\HTTP\Headers($this->_defaultRequestHeaders);
     }
     return $this->_requestHeaders;
   }
 
   public function getResponseHeaders($reset = FALSE) {
-    if ($reset || is_null($this->_responseHeaders)) {
+    if ($reset || \is_null($this->_responseHeaders)) {
       $this->_responseHeaders = new \Papaya\HTTP\Headers();
     }
     return $this->_responseHeaders;
@@ -221,8 +220,6 @@ class Client {
    * Dependency injection of a socket object
    *
    * @param $socket
-   * @access public
-   * @return void
    */
   public function setSocket(Client\Socket $socket) {
     $this->_socket = $socket;
@@ -231,11 +228,10 @@ class Client {
   /**
    * return socket object
    *
-   * @access public
    * @return Client\Socket
    */
   public function getSocket() {
-    if (is_null($this->_socket)) {
+    if (\is_null($this->_socket)) {
       $this->_socket = new Client\Socket();
     }
     return $this->_socket;
@@ -245,11 +241,12 @@ class Client {
    * Set the transport protocol
    *
    * @param string $transport
-   * @return boolean TRUE if empty or available in stream_get_transports(), FALSE otherwise
+   *
+   * @return bool TRUE if empty or available in stream_get_transports(), FALSE otherwise
    */
   public function setTransport($transport) {
     $result = FALSE;
-    if ($transport == '' || in_array($transport, stream_get_transports())) {
+    if ('' == $transport || \in_array($transport, \stream_get_transports())) {
       $this->_transport = $transport;
       $result = TRUE;
     }
@@ -269,29 +266,28 @@ class Client {
    * set proxy server data
    *
    * @param string $server
-   * @param integer $port optional, default value NULL
+   * @param int $port optional, default value NULL
    * @param string $user optional, default value NULL
    * @param string $password optional, default value NULL
-   * @access public
-   * @return void
+   *
    * @throws \InvalidArgumentException
    */
   public function setProxy($server, $port = NULL, $user = NULL, $password = NULL) {
     $this->_proxy = NULL;
     $this->_proxyAuthorization = NULL;
     if (!empty($server)) {
-      $this->_proxy = array(
+      $this->_proxy = [
         'host' => $server
-      );
+      ];
       if (isset($port) && $port > 0) {
         $this->_proxy['port'] = (int)$port;
       } else {
         $this->_proxy['port'] = 80;
       }
       if (!empty($user)) {
-        $this->_proxyAuthorization = array(
+        $this->_proxyAuthorization = [
           'user' => $user
-        );
+        ];
         if (!empty($password)) {
           $this->_proxyAuthorization['password'] = $password;
         }
@@ -320,8 +316,7 @@ class Client {
   /**
    * send the request to the remote server
    *
-   * @access public
-   * @return boolean
+   * @return bool
    */
   public function send() {
     if ($socket = $this->open()) {
@@ -335,11 +330,11 @@ class Client {
         case 'POST' :
           $requestHeaders = $this->getRequestHeaders();
           if (isset($this->_requestFiles) &&
-            is_array($this->_requestFiles) &&
-            count($this->_requestFiles) > 0) {
+            \is_array($this->_requestFiles) &&
+            \count($this->_requestFiles) > 0) {
             $this->_sendMultipartFormData(
               isset($requestHeaders['Transfer-Encoding']) &&
-              $requestHeaders['Transfer-Encoding'] == 'chunked'
+              'chunked' == $requestHeaders['Transfer-Encoding']
             );
             break;
           }
@@ -358,9 +353,9 @@ class Client {
         break;
         case 'PUT' :
           if (isset($this->_requestFiles) &&
-            is_array($this->_requestFiles) &&
-            count($this->_requestFiles) > 0) {
-            $file = reset($this->_requestFiles);
+            \is_array($this->_requestFiles) &&
+            \count($this->_requestFiles) > 0) {
+            $file = \reset($this->_requestFiles);
             $socket->write(
               'Content-Length: '.$file->getSize().$this->_lineBreak.$this->_lineBreak
             );
@@ -389,22 +384,18 @@ class Client {
     } else {
       $server = empty($this->_url['host'])
         ? 'localhost' : $this->_url['host'];
-      $defaultPort = $this->_url['scheme'] == 'https' ? 443 : 80;
+      $defaultPort = 'https' == $this->_url['scheme'] ? 443 : 80;
       $port = empty($this->_url['port']) || $this->_url['port'] <= 0
         ? $defaultPort : (int)$this->_url['port'];
-      if ($this->_url['scheme'] == 'https' && empty($this->_transport)) {
+      if ('https' == $this->_url['scheme'] && empty($this->_transport)) {
         $this->setTransport('tls');
       }
     }
     $opened = $socket->open(
-      $server,
-      $port,
-      $this->_timeout,
-      $this->_url['scheme'],
-      $this->_transport
+      $server, $port, $this->_timeout, $this->_transport
     );
     if ($opened) {
-      if (strtolower($this->getHeader('Connection')) === 'close') {
+      if ('close' === \strtolower($this->getHeader('Connection'))) {
         $socket->setKeepAlive(FALSE);
       }
       $socket->write($this->getRequestHeaderString());
@@ -416,11 +407,10 @@ class Client {
   /**
    * send a multipart/form-data formatted request body
    *
-   * @param boolean $chunked optional, default value FALSE
-   * @return void
+   * @param bool $chunked optional, default value FALSE
    */
   private function _sendMultipartFormData($chunked = FALSE) {
-    $boundary = '-------------'.md5(rand(0, time()));
+    $boundary = '-------------'.\md5(\rand(0, \time()));
     $this->_socket->write(
       'Content-Type: multipart/form-data; boundary="'.$boundary.'"'.$this->_lineBreak
     );
@@ -432,11 +422,11 @@ class Client {
       $requestBody .= $value.$this->_lineBreak;
     }
     $requestBodyClose = '--'.$boundary.'--'.$this->_lineBreak;
-    $requestBodySize = strlen($requestBody) + strlen($requestBodyClose);
-    $requestFileHeaders = array();
+    $requestBodySize = \strlen($requestBody) + \strlen($requestBodyClose);
+    $requestFileHeaders = [];
     if (isset($this->_requestFiles) &&
-      is_array($this->_requestFiles) &&
-      count($this->_requestFiles) > 0) {
+      \is_array($this->_requestFiles) &&
+      \count($this->_requestFiles) > 0) {
       /** @var \Papaya\HTTP\Client\File $file */
       foreach ($this->_requestFiles as $name => $file) {
         $size = $file->getSize();
@@ -444,7 +434,7 @@ class Client {
           $requestFileHeader = '--'.$boundary.$this->_lineBreak;
           $requestFileHeader .= $file->getHeaders();
           $requestFileHeader .= $this->_lineBreak;
-          $requestBodySize += $size + strlen($requestFileHeader) + strlen($this->_lineBreak);
+          $requestBodySize += $size + \strlen($requestFileHeader) + \strlen($this->_lineBreak);
           $requestFileHeaders[$name] = $requestFileHeader;
         }
       }
@@ -475,33 +465,29 @@ class Client {
 
   /**
    * This method sends raw POST data without any conversion or additional headers.
-   *
-   * @return void
    */
   private function _sendRawPostData() {
     $data = $this->_lineBreak;
-    $data .= implode('', $this->_requestData);
+    $data .= \implode('', $this->_requestData);
     $data .= $this->_lineBreak;
     $this->_socket->write($data);
   }
 
   /**
    * send urlencoded form data request body (no file uploads)
-   *
-   * @return void
    */
   private function _sendURLEncodedFormData() {
     $data = '';
     foreach ($this->_requestData as $name => $value) {
-      $data .= '&'.rawurlencode($name).'='.rawurlencode($value);
+      $data .= '&'.\rawurlencode($name).'='.\rawurlencode($value);
     }
-    $data = substr($data, 1);
+    $data = \substr($data, 1);
     $requestHeaders = $this->getRequestHeaders();
     $additionalRequestHeaders = new \Papaya\HTTP\Headers();
     if (!isset($requestHeaders['Content-Type'])) {
       $additionalRequestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
-    $additionalRequestHeaders['Content-Length'] = strlen($data);
+    $additionalRequestHeaders['Content-Length'] = \strlen($data);
     $this->_socket->write($additionalRequestHeaders.$this->_lineBreak.$data);
   }
 
@@ -521,21 +507,21 @@ class Client {
     if (!empty($this->_url['query'])) {
       $path .= '?'.$this->_url['query'];
     }
-    if (is_array($this->_requestData) &&
-      count($this->_requestData) > 0 &&
-      in_array($this->_method, array('GET', 'HEAD', 'COPY', 'DELETE'))) {
+    if (\is_array($this->_requestData) &&
+      \count($this->_requestData) > 0 &&
+      \in_array($this->_method, ['GET', 'HEAD', 'COPY', 'DELETE'])) {
       $queryString = '';
       foreach ($this->_requestData as $name => $value) {
-        $queryString .= '&'.rawurlencode($name).'='.rawurlencode($value);
-        if (strlen($queryString) > 4048) {
-          $queryString = substr($queryString, 0, 4048);
+        $queryString .= '&'.\rawurlencode($name).'='.\rawurlencode($value);
+        if (\strlen($queryString) > 4048) {
+          $queryString = \substr($queryString, 0, 4048);
           break;
         }
       }
-      if (FALSE !== strpos($path, '?')) {
+      if (FALSE !== \strpos($path, '?')) {
         $path .= $queryString;
       } else {
-        $path .= '?'.substr($queryString, 1);
+        $path .= '?'.\substr($queryString, 1);
       }
     }
     if (isset($this->_proxy)) {
@@ -551,7 +537,6 @@ class Client {
   /**
    * get the request headers in one string
    *
-   * @access public
    * @return string
    */
   public function getRequestHeaderString() {
@@ -568,7 +553,7 @@ class Client {
         $proxyAuthorization .= ':';
         $proxyAuthorization .= $this->_proxyAuthorization['password'];
       }
-      $result .= 'Proxy-Authorization: basic '.base64_encode($proxyAuthorization).$this->_lineBreak;
+      $result .= 'Proxy-Authorization: basic '.\base64_encode($proxyAuthorization).$this->_lineBreak;
     }
     $result .= (string)$requestHeaders;
     return $result;
@@ -577,8 +562,7 @@ class Client {
   /**
    * close the current socket
    *
-   * @access public
-   * @return boolean
+   * @return bool
    */
   public function close() {
     if (isset($this->_socket)) {
@@ -591,11 +575,9 @@ class Client {
    * set the http method, note that not all methods support additional request data
    *
    * @param string $method
-   * @access public
-   * @return void
    */
   public function setMethod($method) {
-    $method = strtoupper($method);
+    $method = \strtoupper($method);
     switch ($method) {
       case 'COPY' :
       case 'DELETE' :
@@ -622,9 +604,9 @@ class Client {
    *
    * @param string $name header name
    * @param string $value
-   * @param boolean $allowDuplicates optional, default value FALSE
-   * @access public
-   * @return boolean
+   * @param bool $allowDuplicates optional, default value FALSE
+   *
+   * @return bool
    */
   public function setHeader($name, $value, $allowDuplicates = FALSE) {
     return $this->getRequestHeaders()->set($name, $value, $allowDuplicates);
@@ -634,7 +616,8 @@ class Client {
    * get a request http header value
    *
    * @param string $name
-   * @return string|array|NULL
+   *
+   * @return string|array|null
    */
   public function getHeader($name) {
     return $this->getRequestHeaders()->get($name);
@@ -645,18 +628,16 @@ class Client {
    *
    * @param mixed $data
    * @param mixed $value - if value is set $data should be an simple name string
-   * @access public
-   * @return void
    */
   public function addRequestData($data, $value = NULL) {
     if (isset($value)) {
-      $data = array(
+      $data = [
         (string)$data => $value
-      );
+      ];
     }
-    if (is_array($data)) {
+    if (\is_array($data)) {
       foreach ($data as $name => $value) {
-        if (is_array($value)) {
+        if (\is_array($value)) {
           $elements = $this->_flattenArray($name, $value);
           foreach ($elements as $flatName => $flatValue) {
             $this->_requestData[$flatName] = (string)$flatValue;
@@ -672,7 +653,8 @@ class Client {
    * add files to request
    *
    * @param \Papaya\HTTP\Client\File $file
-   * @return boolean
+   *
+   * @return bool
    */
   public function addRequestFile(\Papaya\HTTP\Client\File $file) {
     $this->_requestFiles[$file->getName()] = $file;
@@ -684,13 +666,14 @@ class Client {
    *
    * @param string $name
    * @param array $data
+   *
    * @return array
    */
   private function _flattenArray($name, $data) {
-    $result = array();
+    $result = [];
     foreach ($data as $elementName => $value) {
       $elementPath = $name.'['.$elementName.']';
-      if (is_array($value)) {
+      if (\is_array($value)) {
         $elements = $this->_flattenArray($elementPath, $value);
         foreach ($elements as $flatName => $flatValue) {
           $result[$flatName] = (string)$flatValue;
@@ -704,32 +687,30 @@ class Client {
 
   /**
    * read response headers from socket
-   *
-   * @return void
    */
   public function readResponseHeaders() {
     $responseHeaders = $this->getResponseHeaders(TRUE);
     if (isset($this->_socket) &&
       $this->_socket->isActive()) {
-      $headerLines = array();
+      $headerLines = [];
       $this->_socket->activateReadTimeout($this->_timeoutRead);
       while (!$this->_socket->eof()) {
-        $headerLine = chop($this->_socket->readLine());
+        $headerLine = \rtrim($this->_socket->readLine());
         if (empty($headerLine)) {
           break;
-        } elseif (preg_match('(^HTTP/1.[01]\s+(\d+))', $headerLine, $match)) {
+        } elseif (\preg_match('(^HTTP/1.[01]\s+(\d+))', $headerLine, $match)) {
           $this->_responseStatus = (int)$match[1];
-        } elseif (substr($headerLine, 0, 1) == "\t") {
-          $headerLines[count($headerLines) - 1] .= trim($headerLine);
+        } elseif ("\t" == \substr($headerLine, 0, 1)) {
+          $headerLines[\count($headerLines) - 1] .= \trim($headerLine);
         } else {
           $headerLines[] = $headerLine;
         }
       }
       foreach ($headerLines as $line) {
-        $pos = strpos($line, ':');
+        $pos = \strpos($line, ':');
         if ($pos > 0) {
-          $name = substr($line, 0, $pos);
-          $value = trim(substr($line, $pos + 1));
+          $name = \substr($line, 0, $pos);
+          $value = \trim(\substr($line, $pos + 1));
           $responseHeaders->set($name, $value);
         }
       }
@@ -744,16 +725,16 @@ class Client {
    */
   private function _actOnResponseHeaders($responseHeaders) {
     if (isset($responseHeaders['Connection']) &&
-      strtolower($responseHeaders['Connection']) === 'close') {
+      'close' === \strtolower($responseHeaders['Connection'])) {
       $this->_socket->setKeepAlive(FALSE);
     }
-    if ($this->_method === 'HEAD') {
+    if ('HEAD' === $this->_method) {
       $this->_socket->setContentLength(0);
     } elseif (isset($responseHeaders['Location']) &&
       $this->_redirectLimit > $this->_redirects++) {
       $this->_handleRedirect($responseHeaders['Location']);
     } elseif (isset($responseHeaders['Transfer-Encoding']) &&
-      strtolower($responseHeaders['Transfer-Encoding']) == 'chunked') {
+      'chunked' == \strtolower($responseHeaders['Transfer-Encoding'])) {
       $this->_socket->setContentLength(-2);
     } elseif (isset($responseHeaders['Content-Length']) &&
       $responseHeaders['Content-Length'] > 0) {
@@ -777,8 +758,7 @@ class Client {
   /**
    * return response status
    *
-   * @access public
-   * @return integer
+   * @return int
    */
   public function getResponseStatus() {
     return $this->_responseStatus;
@@ -788,7 +768,7 @@ class Client {
    * get response header value
    *
    * @param string $name
-   * @access public
+   *
    * @return mixed
    */
   public function getResponseHeader($name) {
@@ -798,7 +778,6 @@ class Client {
   /**
    * get response data and close socket
    *
-   * @access public
    * @return string
    */
   public function getResponseData() {

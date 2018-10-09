@@ -12,23 +12,34 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Option;
+
+use Papaya\Application;
+use Papaya\Plugin;
+use Papaya\Utility;
+
 /**
  * This is a list of the plugin options, the option of each plugin in one separate object.
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
+class Groups implements Application\Access, \ArrayAccess {
+  use Application\Access\Aggregation;
 
-  private $_groups = array();
+  /**
+   * @var \Papaya\Configuration[]
+   */
+  private $_groups = [];
 
   /**
    * Check if it is already created.
+   *
+   * @param string $guid
+   * @return bool
    */
   public function offsetExists($guid) {
-    $guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $guid = Utility\Text\Guid::toLower($guid);
     return isset($this->_groups[$guid]);
   }
 
@@ -36,10 +47,11 @@ class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
    * Get options object for a plugin, create it if needed
    *
    * @param string $guid
+   *
    * @return \Papaya\Configuration
    */
   public function offsetGet($guid) {
-    $guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $guid = Utility\Text\Guid::toLower($guid);
     $this->createLazy($guid);
     return $this->_groups[$guid];
   }
@@ -51,8 +63,8 @@ class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
    * @param \Papaya\Configuration $group
    */
   public function offsetSet($guid, $group) {
-    $guid = \Papaya\Utility\Text\Guid::toLower($guid);
-    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Configuration::class, $group);
+    $guid = Utility\Text\Guid::toLower($guid);
+    Utility\Constraints::assertInstanceOf(\Papaya\Configuration::class, $group);
     $this->_groups[$guid] = $group;
   }
 
@@ -62,7 +74,7 @@ class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
    * @param string $guid
    */
   public function offsetUnset($guid) {
-    $guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $guid = Utility\Text\Guid::toLower($guid);
     if ($this->offsetExists($guid)) {
       unset($this->_groups[$guid]);
     }
@@ -74,9 +86,9 @@ class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
    * @param string $guid
    */
   private function createLazy($guid) {
-    $guid = \Papaya\Utility\Text\Guid::toLower($guid);
+    $guid = Utility\Text\Guid::toLower($guid);
     if (!isset($this->_groups[$guid])) {
-      $this->_groups[$guid] = $options = new \Papaya\Plugin\Options($guid);
+      $this->_groups[$guid] = $options = new Plugin\Options($guid);
       $options->papaya($this->papaya());
     }
   }

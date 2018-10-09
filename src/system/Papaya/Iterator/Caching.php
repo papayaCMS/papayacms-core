@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
+
+use Papaya\Iterator;
+
 /**
  * A CachingIterator that fills itself using a callback on first rewind or a class to getCache.
  *
@@ -21,19 +23,19 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Caching extends \CachingIterator {
+  private $_callback;
 
-  private $_callback = NULL;
   private $_cached = FALSE;
 
   /**
    * Create object and store innter iterator.
    *
    * @param \Traversable $iterator
-   * @param NULL|\Callable Callback
+   * @param null|\Callable Callback
    */
   public function __construct(\Traversable $iterator, $callback = NULL) {
     parent::__construct(
-      $iterator instanceof \Iterator ? $iterator : new \Papaya\Iterator\TraversableIterator($iterator),
+      $iterator instanceof \Iterator ? $iterator : new TraversableIterator($iterator),
       \CachingIterator::FULL_CACHE
     );
     $this->setCallback($callback);
@@ -42,23 +44,18 @@ class Caching extends \CachingIterator {
   /**
    * Validate and store callback function
    *
-   * @param \Callable|NULL $callback
+   * @param \Callable|null $callback
+   *
    * @throws \InvalidArgumentException
    */
-  public function setCallback($callback) {
-    if (is_null($callback) || is_callable($callback)) {
-      $this->_callback = $callback;
-    } else {
-      throw new \InvalidArgumentException(
-        'Provided callback parameter is not valid.'
-      );
-    }
+  public function setCallback(callable $callback = NULL) {
+    $this->_callback = $callback;
   }
 
   /**
    * Get the current callback function
    *
-   * @return NULL|\Callable
+   * @return null|\Callable
    */
   public function getCallback() {
     return $this->_callback;
@@ -68,15 +65,15 @@ class Caching extends \CachingIterator {
    * Execute callback function
    */
   public function getCache() {
-    if (isset($this->_callback)) {
-      call_user_func($this->_callback);
+    if ($callback = $this->_callback) {
+      $callback();
     }
     parent::getCache();
     $this->_cached = TRUE;
   }
 
   /**
-   * Rewind iterator to first element and initailize cache if that has not already happend once.
+   * Rewind iterator to first element and initialize cache if that has not already happened once.
    */
   public function rewind() {
     if (!$this->_cached) {

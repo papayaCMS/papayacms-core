@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profiles;
 
 use Papaya\Application\Profile;
@@ -24,15 +23,15 @@ use Papaya\Application\Profile;
  * @subpackage Application
  */
 class CMS implements \Papaya\Application\Profiles {
-
   /**
    * Get a collection of application object profiles
    *
    * @param $application
+   *
    * @return array
    */
   public function getProfiles($application) {
-    $profiles = array();
+    $profiles = [];
     $profiles['Database'] = new Profile\Database();
     $profiles['Images'] = new Profile\Images();
     $profiles['Languages'] = new Profile\Languages();

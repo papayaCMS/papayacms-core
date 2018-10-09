@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameter;
+
+use Papaya\File\System as FileSystem;
+use Papaya\Request;
+use Papaya\Utility;
+
 /**
  * Encapsulate an uploaded file.
  *
@@ -21,43 +25,38 @@ namespace Papaya\Request\Parameter;
  * @subpackage Request
  */
 class File implements \ArrayAccess, \IteratorAggregate {
-
-  private $_values = array(
+  private $_values = [
     'temporary' => NULL,
     'name' => '',
     'type' => 'application/octet-stream',
     'size' => 0,
     'error' => 0
-  );
+  ];
 
   /**
-   * @var \Papaya\Request\Parameters\Name
+   * @var Request\Parameters\Name
    */
-  private $_name = '';
+  private $_name;
 
   private $_loaded = FALSE;
 
-  private $_fileSystem = NULL;
+  private $_fileSystem;
 
   /**
    * Create file object, provide name and group
    *
-   * @param string|\Papaya\Request\Parameters\Name $name
+   * @param string|Request\Parameters\Name $name
    * @param string $group
    */
   public function __construct($name, $group = NULL) {
-    if ($name instanceof \Papaya\Request\Parameters\Name) {
-      $this->_name = $name;
-    } else {
-      $this->_name = new \Papaya\Request\Parameters\Name($name);
-    }
-    if (!empty($group)) {
+    $this->_name = $name instanceof Request\Parameters\Name ? $name : new Request\Parameters\Name($name);
+    if (NULL !== $group && '' !== \trim($group)) {
       $this->_name->prepend($group);
     }
   }
 
   /**
-   * @return \Papaya\Request\Parameters\Name
+   * @return Request\Parameters\Name
    */
   public function getName() {
     return $this->_name;
@@ -76,7 +75,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
   /**
    * Return TRUE if here is an temporary uploaded file
    *
-   * @return boolean
+   * @return bool
    */
   public function isValid() {
     $this->lazyFetch();
@@ -87,6 +86,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Get the file parameter data as an Iterator
    *
    * @see \IteratorAggregate::getIterator()
+   *
    * @return \Iterator
    */
   public function getIterator() {
@@ -96,17 +96,21 @@ class File implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * @see \ArrayAccess::offsetExists()
+   * @param string $offset
+   * @return bool
    */
   public function offsetExists($offset) {
-    if ($offset == 'temporary') {
+    if ('temporary' === $offset) {
       $this->lazyFetch();
       return isset($this->_values['temporary']);
     }
-    return array_key_exists($offset, $this->_values);
+    return \array_key_exists($offset, $this->_values);
   }
 
   /**
    * @see \ArrayAccess::offsetGet()
+   * @param string $offset
+   * @return mixed
    */
   public function offsetGet($offset) {
     $this->lazyFetch();
@@ -117,6 +121,8 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Block changes trough array syntax
    *
    * @see \ArrayAccess::offsetSet()
+   * @param string $offset
+   * @param mixed $value
    */
   public function offsetSet($offset, $value) {
     $this->lazyFetch();
@@ -127,6 +133,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Block changes trough array syntax
    *
    * @see \ArrayAccess::offsetSet()
+   * @param string $offset
    */
   public function offsetUnset($offset) {
     $this->lazyFetch();
@@ -137,41 +144,44 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * Fetch the file data from $_FILES
    */
   private function lazyFetch() {
-    if (!$this->_loaded) {
-      if (count($this->getName())) {
-        $temporaryFile = $this->fetchValue('tmp_name');
-        if (!empty($temporaryFile) &&
-          $this->fileSystem()->getFile($temporaryFile)->isUploadedFile()) {
-          $this->_values['temporary'] = $temporaryFile;
-          $this->_values['name'] = $this->fetchValue('name', $this->_values['name']);
-          $this->_values['type'] = $this->fetchValue('type', $this->_values['type']);
-          $this->_values['size'] = $this->fetchValue('size', $this->_values['size']);
-        }
-        $this->_values['error'] = $this->fetchValue('error', 0);
+    if (!$this->_loaded && \count($this->getName())) {
+      $temporaryFile = $this->fetchValue('tmp_name');
+      if (!empty($temporaryFile) &&
+        $this->fileSystem()->getFile($temporaryFile)->isUploadedFile()) {
+        $this->_values['temporary'] = $temporaryFile;
+        $this->_values['name'] = $this->fetchValue('name', $this->_values['name']);
+        $this->_values['type'] = $this->fetchValue('type', $this->_values['type']);
+        $this->_values['size'] = $this->fetchValue('size', $this->_values['size']);
       }
+      $this->_values['error'] = $this->fetchValue('error', 0);
     }
   }
 
   /**
    * Fetch a specific file value from $_FILES
+   *
+   * @param string $key
+   * @param mixed $default
+   * @return mixed
    */
   private function fetchValue($key, $default = NULL) {
     $name = clone $this->getName();
     $name->insertBefore(1, $key);
-    return \Papaya\Utility\Arrays::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
+    return Utility\Arrays::getRecursive($_FILES, \iterator_to_array($name, FALSE), $default);
   }
 
   /**
    * Getter/Setter for the file system factory
    *
-   * @param \Papaya\File\System\Factory $fileSystem
-   * @return \Papaya\File\System\Factory
+   * @param FileSystem\Factory $fileSystem
+   *
+   * @return FileSystem\Factory
    */
-  public function fileSystem(\Papaya\File\System\Factory $fileSystem = NULL) {
-    if (isset($fileSystem)) {
+  public function fileSystem(FileSystem\Factory $fileSystem = NULL) {
+    if (NULL !== $fileSystem) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {
-      $this->_fileSystem = new \Papaya\File\System\Factory();
+      $this->_fileSystem = new FileSystem\Factory();
     }
     return $this->_fileSystem;
   }

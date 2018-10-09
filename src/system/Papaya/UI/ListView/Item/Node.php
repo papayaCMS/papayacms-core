@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\Item;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Provides a node marker for a listview item
  *
@@ -29,35 +32,40 @@ namespace Papaya\UI\ListView\Item;
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $status
- * @property \Papaya\UI\Reference $reference
- * @property-read \Papaya\UI\ListView\Item $item
+ * @property int $status
+ * @property UI\Reference $reference
+ * @property-read UI\ListView\Item $item
  */
-class Node extends \Papaya\UI\Control {
-
+class Node extends UI\Control {
   const NODE_HIDDEN = 0;
+
   const NODE_EMPTY = 1;
+
   const NODE_CLOSED = 2;
+
   const NODE_OPEN = 3;
 
-  private $_statusStrings = array(
+  /**
+   * @var array
+   */
+  private static $_statusStrings = [
     self::NODE_EMPTY => 'empty',
     self::NODE_CLOSED => 'closed',
     self::NODE_OPEN => 'open',
-  );
+  ];
 
   /**
-   * @var \Papaya\UI\ListView\Item
+   * @var UI\ListView\Item
    */
-  protected $_item = NULL;
+  protected $_item;
 
   /**
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
-   * @var integer
+   * @var int
    */
   protected $_status = self::NODE_EMPTY;
 
@@ -66,19 +74,19 @@ class Node extends \Papaya\UI\Control {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'status' => array('_status', 'setStatus'),
-    'reference' => array('reference', 'reference'),
-    'item' => array('_item')
-  );
+  protected $_declaredProperties = [
+    'status' => ['_status', 'setStatus'],
+    'reference' => ['reference', 'reference'],
+    'item' => ['_item']
+  ];
 
   /**
    * Store the owner item and set an status
    *
-   * @param \Papaya\UI\ListView\Item $item
-   * @param integer $status
+   * @param UI\ListView\Item $item
+   * @param int $status
    */
-  public function __construct(\Papaya\UI\ListView\Item $item, $status = self::NODE_HIDDEN) {
+  public function __construct(UI\ListView\Item $item, $status = self::NODE_HIDDEN) {
     $this->_item = $item;
     $this->setStatus($status);
   }
@@ -86,19 +94,20 @@ class Node extends \Papaya\UI\Control {
   /**
    * Append the listview item node marker to the parent xml element
    *
-   * @param \Papaya\XML\Element $parent
-   * @param \Papaya\XML\Element|NULL
-   * @return null|\Papaya\XML\Element
+   * @param XML\Element $parent
+   * @param XML\Element|null
+   *
+   * @return null|XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if ($this->status != self::NODE_HIDDEN) {
+  public function appendTo(XML\Element $parent) {
+    if (self::NODE_HIDDEN !== $this->status) {
       $node = $parent->appendElement(
         'node',
-        array(
-          'status' => $this->_statusStrings[$this->status]
-        )
+        [
+          'status' => self::$_statusStrings[$this->status]
+        ]
       );
-      if ($this->status != self::NODE_EMPTY) {
+      if (self::NODE_EMPTY !== $this->status) {
         $node->setAttribute('href', (string)$this->reference());
       }
       return $node;
@@ -109,10 +118,10 @@ class Node extends \Papaya\UI\Control {
   /**
    * Sett for the status
    *
-   * @param integer $status
+   * @param int $status
    */
   public function setStatus($status) {
-    if (isset($this->_statusStrings[$status])) {
+    if (isset(self::$_statusStrings[$status])) {
       $this->_status = (int)$status;
     } else {
       $this->_status = self::NODE_HIDDEN;
@@ -123,11 +132,12 @@ class Node extends \Papaya\UI\Control {
    * Getter/Setter for the node reference, if no reference is provided it is cloned
    * from the item.
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
       $this->_reference = clone $this->item->reference();

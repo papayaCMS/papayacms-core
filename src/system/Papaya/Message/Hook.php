@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
 /**
  * Papaya Message Hook, interface for hooks that that capture php events
  *
@@ -21,15 +21,13 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 interface Hook {
-
   /**
    * Activate message hook, make it capture the php events
    */
   public function activate();
 
   /**
-   * Dectivate message hook, restoring default behavour
+   * Deactivate message hook, restoring default behaviour
    */
   public function deactivate();
 }
-

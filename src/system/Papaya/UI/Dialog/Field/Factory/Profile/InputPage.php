@@ -12,23 +12,27 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * Field factory profiles for a input for a page id.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputPage extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class InputPage extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Input\Page
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Input\Page
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Page(
+    $field = new UI\Dialog\Field\Input\Page(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,
@@ -38,7 +42,7 @@ class InputPage extends \Papaya\UI\Dialog\Field\Factory\Profile {
       $field->setHint($hint);
     }
     $field->setFilter(
-      new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_DIGITS)
+      new Filter\Text(Filter\Text::ALLOW_DIGITS)
     );
     return $field;
   }

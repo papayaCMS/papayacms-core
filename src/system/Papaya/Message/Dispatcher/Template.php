@@ -12,9 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
 
 /**
@@ -27,10 +27,10 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Template
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
 
-  private static $_SEVERITY_STRINGS = array(
+  private static $_SEVERITY_STRINGS = [
     Message::SEVERITY_DEBUG => 'debug',
     Message::SEVERITY_INFO => 'info',
     Message::SEVERITY_NOTICE => 'notice',
@@ -39,7 +39,7 @@ class Template
     Message::SEVERITY_CRITICAL => 'critical',
     Message::SEVERITY_ALERT => 'alert',
     Message::SEVERITY_EMERGENCY => 'emergency'
-  );
+  ];
 
   /**
    * Add message to the output, for now uses the old error system.
@@ -47,23 +47,22 @@ class Template
    * Only messages that implements \Papaya\Message\Display are used, \all other message are ignored.
    *
    * @param Message $message
-   * @return boolean
+   *
+   * @return bool
    */
   public function dispatch(Message $message) {
-    if ($message instanceof Message\Displayable) {
-      if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
-        /** @var \Papaya\Template $layout */
-        $layout = $GLOBALS['PAPAYA_LAYOUT'];
-        $layout->values()->append(
-          '/page/messages',
-          'message',
-          array(
-            'severity' => self::$_SEVERITY_STRINGS[$message->getSeverity()]
-          ),
-          $message->getMessage()
-        );
-        return TRUE;
-      }
+    if ($message instanceof Message\Displayable && isset($GLOBALS['PAPAYA_LAYOUT'])) {
+      /** @var \Papaya\Template $layout */
+      $layout = $GLOBALS['PAPAYA_LAYOUT'];
+      $layout->values()->append(
+        '/page/messages',
+        'message',
+        [
+          'severity' => self::$_SEVERITY_STRINGS[$message->getSeverity()]
+        ],
+        $message->getMessage()
+      );
+      return TRUE;
     }
     return FALSE;
   }

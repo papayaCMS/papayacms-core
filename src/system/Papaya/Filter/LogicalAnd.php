@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical "and" links between other filters
  *
@@ -21,13 +23,14 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class LogicalAnd extends Logical {
-
   /**
    * Call validate() on each subfilter, the subfilter will throw an
    * exception and break the loop if the value is invalid.
    *
    * @param string $value
+   *
    * @return bool
+   *
    * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
@@ -44,8 +47,9 @@ class LogicalAnd extends Logical {
    * If NULL is return from a subfilter method call it is returned. In all other cases the returned
    * value is given to the next filter method call.
    *
-   * @param string $value
-   * @return mixed|null|string
+   * @param mixed $value
+   *
+   * @return mixed
    */
   public function filter($value) {
     /** @var \Papaya\Filter $filter */

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response;
+
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Papaya Response Headers Object
  *
@@ -24,13 +27,12 @@ namespace Papaya\Response;
  * @subpackage Response
  */
 class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
-
   /**
    * Internal headers list
    *
    * @var array
    */
-  private $_headers = array();
+  private $_headers = [];
 
   /**
    * Allow to iterate the headers.
@@ -44,10 +46,10 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
   /**
    * Countable Interface: return the number of different headers.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_headers);
+    return \count($this->_headers);
   }
 
   /**
@@ -58,20 +60,20 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @param string $header
    * @param mixed $value
-   * @param boolean $replace
+   * @param bool $replace
    */
   public function set($header, $value, $replace = TRUE) {
     $header = $this->_normalize($header);
-    $value = str_replace(array('\r', '\n'), ' ', (string)$value);
-    \Papaya\Utility\Constraints::assertNotEmpty($header);
+    $value = \str_replace(['\r', '\n'], ' ', (string)$value);
+    Utility\Constraints::assertNotEmpty($header);
     if ($replace || !isset($this->_headers[$header])) {
       $this->_headers[$header] = $value;
-    } elseif (is_array($this->_headers[$header])) {
+    } elseif (\is_array($this->_headers[$header])) {
       $this->_headers[$header][] = $value;
     } else {
-      $this->_headers[$header] = array(
+      $this->_headers[$header] = [
         $this->_headers[$header], $value
-      );
+      ];
     }
   }
 
@@ -103,7 +105,8 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * ArrayAccess: Check if a header is in the list
    *
    * @param string $header
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($header) {
     return isset($this->_headers[$this->_normalize($header)]);
@@ -124,6 +127,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * ArrayAccess: Get header value(s)
    *
    * @param string $header
+   *
    * @return mixed
    */
   public function offsetGet($header) {
@@ -135,10 +139,11 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * This method is used by the other methods to make the header name case insensitive.
    *
    * @param string $header
+   *
    * @return string
    */
   private function _normalize($header) {
-    $parts = explode('-', strtolower($header));
-    return implode('-', array_map('ucfirst', $parts));
+    $parts = \explode('-', \strtolower($header));
+    return \implode('-', \array_map('ucfirst', $parts));
   }
 }

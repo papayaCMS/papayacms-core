@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration;
+
 /**
  * Interface for the options storage (load)
  *
@@ -21,7 +21,6 @@ namespace Papaya\Configuration;
  * @subpackage Configuration
  */
 interface Storage extends \IteratorAggregate {
-
   /**
    * Load options from external data source
    */

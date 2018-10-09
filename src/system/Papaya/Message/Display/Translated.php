@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Display;
+
+use Papaya\Message;
+use Papaya\UI;
+
 /**
  * A language specific message displayed to the user.
  *
@@ -22,16 +25,15 @@ namespace Papaya\Message\Display;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Translated extends \Papaya\Message\Display {
-
+class Translated extends Message\Display {
   /**
    * Initialize object, convert message into translation object
    *
-   * @param integer $type
+   * @param int $type
    * @param string $message
    * @param array $parameters message parameters
    */
-  public function __construct($type, $message, array $parameters = array()) {
-    parent::__construct($type, new \Papaya\UI\Text\Translated($message, $parameters));
+  public function __construct($type, $message, array $parameters = []) {
+    parent::__construct($type, new UI\Text\Translated($message, $parameters));
   }
 }

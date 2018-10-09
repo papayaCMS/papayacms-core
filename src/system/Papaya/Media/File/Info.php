@@ -12,42 +12,83 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\File;
 
-abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAccess, \IteratorAggregate {
+use Papaya\Application;
 
+abstract class Info implements Application\Access, \ArrayAccess, \IteratorAggregate {
+  use Application\Access\Aggregation;
+
+  /**
+   * @var string
+   */
   private $_file;
+
+  /**
+   * @var array
+   */
   private $_properties;
+
+  /**
+   * @var string
+   */
   private $_originalFileName;
 
+  /**
+   * Info constructor.
+   *
+   * @param string $file
+   * @param string $originalFileName
+   */
   public function __construct($file, $originalFileName = '') {
     $this->_file = $file;
     $this->_originalFileName = $originalFileName;
   }
 
+  /**
+   * @return string
+   */
   public function getFile() {
     return $this->_file;
   }
 
+  /**
+   * @return string
+   */
   public function getOriginalFileName() {
     return $this->_originalFileName;
   }
 
-  public function isSupported(array $fileProperties = array()) {
+  /**
+   * @param array $fileProperties
+   * @return bool
+   */
+  public function isSupported(
+    /** @noinspection PhpUnusedParameterInspection */
+    array $fileProperties = []
+  ) {
     return TRUE;
   }
 
+  /**
+   * @return \Traversable
+   */
   public function getIterator() {
     return new \ArrayIterator($this->getProperties());
   }
 
+  /**
+   * @return array
+   */
   protected function fetchProperties() {
-    return array(
-      'filesize' => filesize($this->_file)
-    );
+    return [
+      'filesize' => \filesize($this->_file)
+    ];
   }
 
+  /**
+   * @return array
+   */
   private function getProperties() {
     if (NULL === $this->_properties) {
       $this->_properties = $this->fetchProperties();
@@ -55,20 +96,34 @@ abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAcce
     return $this->_properties;
   }
 
+  /**
+   * @param string $offset
+   * @return bool
+   */
   public function offsetExists($offset) {
-    return array_key_exists($offset, $this->getProperties());
+    return \array_key_exists($offset, $this->getProperties());
   }
 
+  /**
+   * @param string $offset
+   * @return bool
+   */
   public function offsetGet($offset) {
     return $this->getProperties()[$offset];
   }
 
+  /**
+   * @param string $offset
+   * @param mixed $value
+   */
   public function offsetSet($offset, $value) {
-    throw new \BadMethodCallException(sprintf('Object %s is immutable.', static::class));
+    throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
   }
 
+  /**
+   * @param string $offset
+   */
   public function offsetUnset($offset) {
-    throw new \BadMethodCallException(sprintf('Object %s is immutable.', static::class));
+    throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
   }
-
 }

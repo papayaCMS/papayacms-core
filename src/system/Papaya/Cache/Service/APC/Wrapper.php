@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Cache\Service\APC;
+
 /**
  * APC function wrapper
  *
@@ -21,24 +23,25 @@ namespace Papaya\Cache\Service\APC;
  * @subpackage Cache
  */
 class Wrapper {
-
   /**
    * APC is available
    *
-   * @return boolean
+   * @return bool
    */
   public function available() {
-    return extension_loaded('apc');
+    return \extension_loaded('apc');
   }
 
   /**
    * Cache a variable in the data store
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheId
    * @param mixed $data
-   * @param integer $expires
-   * @return boolean
+   * @param int $expires
+   *
+   * @return bool
    */
   public function store($cacheId, $data, $expires) {
     return apc_store($cacheId, $data, $expires);
@@ -48,7 +51,9 @@ class Wrapper {
    * Fetch a stored variable from the cache
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheId
+   *
    * @return mixed
    */
   public function fetch($cacheId) {
@@ -60,8 +65,10 @@ class Wrapper {
    * Clears the user/system cache.
    *
    * @codeCoverageIgnore
+   *
    * @param string $cacheType
-   * @return boolean
+   *
+   * @return bool
    */
   public function clearCache($cacheType) {
     return apc_clear_cache($cacheType);

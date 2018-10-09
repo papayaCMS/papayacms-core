@@ -130,7 +130,7 @@ class DialogTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array(
         'request' => $this->mockPapaya()->request(
-          array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
+          array('theme' => 'sample', 'skin_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
         )
       )
     );
@@ -146,8 +146,8 @@ class DialogTest extends \Papaya\TestCase {
       ->method('getDefinition')
       ->with('sample')
       ->will($this->returnValue($definition));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Set $themeSet */
-    $themeSet = $this->createMock(\Papaya\Content\Theme\Set::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Theme\Skin $themeSet */
+    $themeSet = $this->createMock(\Papaya\Content\Theme\Skin::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -177,7 +177,7 @@ class DialogTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array(
         'request' => $this->mockPapaya()->request(
-          array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
+          array('theme' => 'sample', 'skin_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
         )
       )
     );
@@ -241,66 +241,6 @@ class DialogTest extends \Papaya\TestCase {
     $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
     $command = new Dialog($record);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Factory::class, $command->fieldFactory());
-  }
-
-  /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackSaveValues
-   */
-  public function testCallbackSaveValues() {
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    $cache = $this->createMock(\Papaya\Cache\Service::class);
-    $cache
-      ->expects($this->once())
-      ->method('delete')
-      ->with('theme', '');
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
-    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
-    $command = new Dialog($record);
-    $command->papaya(
-      $this->mockPapaya()->application(
-        array('messages' => $messages)
-      )
-    );
-    $command->cache($cache);
-    $command->callbackSaveValues();
-  }
-
-  /**
-   * @covers \Papaya\Administration\Theme\Editor\Changes\Dialog::callbackShowError
-   */
-  public function testCallbackShowError() {
-    $errors = $this->createMock(\Papaya\UI\Dialog\Errors::class);
-    $errors
-      ->expects($this->once())
-      ->method('getSourceCaptions')
-      ->will($this->returnValue(array()));
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\UI\Dialog $dialog */
-    $dialog = $this->createMock(\Papaya\UI\Dialog::class);
-    $dialog
-      ->expects($this->once())
-      ->method('errors')
-      ->will($this->returnValue($errors));
-
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Record $record */
-    $record = $this->createMock(\Papaya\Database\Interfaces\Record::class);
-    $command = new Dialog($record);
-    $command->papaya(
-      $this->mockPapaya()->application(
-        array('messages' => $messages)
-      )
-    );
-    $command->callbackShowError(new \stdClass, $dialog);
   }
 
   /**

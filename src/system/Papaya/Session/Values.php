@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
 /**
  * Provide an array like access to session values. Allow to use complex identifiers. Handle
  * sessions that are not startet yet.
@@ -22,15 +22,14 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Values implements \ArrayAccess {
-
   /**
    * Linked session object
    *
    * @var \Papaya\Session
    */
-  private $_session = NULL;
+  private $_session;
 
-  private $_fallback = array();
+  private $_fallback = [];
 
   /**
    * Initialize object and link session object
@@ -45,28 +44,31 @@ class Values implements \ArrayAccess {
    * Check if the session variable exists
    *
    * @param mixed $identifier
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($identifier) {
     $key = $this->_compileKey($identifier);
-    if (isset($_SESSION) && is_array($_SESSION) && array_key_exists($key, $_SESSION)) {
+    /** @noinspection UnSafeIsSetOverArrayInspection */
+    if (isset($_SESSION) && \is_array($_SESSION) && \array_key_exists($key, $_SESSION)) {
       return TRUE;
-    } else {
-      return array_key_exists($key, $this->_fallback);
     }
+    return \array_key_exists($key, $this->_fallback);
   }
 
   /**
    * Get a session value if the session is active and the value exists. Return NULL otherwise.
    *
    * @param mixed $identifier
+   *
    * @return mixed
    */
   public function offsetGet($identifier) {
     $key = $this->_compileKey($identifier);
     if (isset($_SESSION[$key])) {
       return $_SESSION[$key];
-    } elseif (isset($this->_fallback[$key])) {
+    }
+    if (isset($this->_fallback[$key])) {
       return $this->_fallback[$key];
     }
     return NULL;
@@ -76,13 +78,14 @@ class Values implements \ArrayAccess {
    * Alias for {@see \Papaya\Session\Values::offsetGet()}.
    *
    * @param mixed $identifier
+   *
    * @return mixed
+   *
    * @internal param mixed $value
    */
   public function get($identifier) {
     return $this->offsetGet($identifier);
   }
-
 
   /**
    * Set a session value, if the session is inactive the value will not be stored.
@@ -115,13 +118,14 @@ class Values implements \ArrayAccess {
    */
   public function offsetUnset($identifier) {
     $key = $this->_compileKey($identifier);
-    if ($this->_session->isActive() &&
-      is_array($_SESSION)) {
-      if (array_key_exists($key, $_SESSION)) {
-        unset($_SESSION[$key]);
-      }
+    if (
+      \is_array($_SESSION) &&
+      \array_key_exists($key, $_SESSION) &&
+      $this->_session->isActive()
+    ) {
+      unset($_SESSION[$key]);
     }
-    if (array_key_exists($key, $this->_fallback)) {
+    if (\array_key_exists($key, $this->_fallback)) {
       unset($this->_fallback[$key]);
     }
   }
@@ -130,6 +134,7 @@ class Values implements \ArrayAccess {
    * Provide access to the used identifer string
    *
    * @param mixed $identifier
+   *
    * @return string
    */
   public function getKey($identifier) {
@@ -148,25 +153,26 @@ class Values implements \ArrayAccess {
    * All other identifier data is casted to a string.
    *
    * @param mixed $identifier
+   *
    * @return string
    */
   private function _compileKey($identifier) {
-    if (is_array($identifier)) {
+    if (\is_array($identifier)) {
       $result = '';
       foreach ($identifier as $part) {
-        if (is_object($part)) {
-          $result .= '_'.get_class($part);
-        } elseif (is_array($part)) {
-          $result .= '_'.md5(serialize($part));
+        if (\is_object($part)) {
+          $result .= '_'.\get_class($part);
+        } elseif (\is_array($part)) {
+          $result .= '_'.\md5(\serialize($part));
         } else {
           $result .= '_'.((string)$part);
         }
       }
-      return substr($result, 1);
-    } elseif (is_object($identifier)) {
-      return get_class($identifier);
-    } else {
-      return (string)$identifier;
+      return \substr($result, 1);
     }
+    if (\is_object($identifier)) {
+      return \get_class($identifier);
+    }
+    return (string)$identifier;
   }
 }

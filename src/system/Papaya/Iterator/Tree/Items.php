@@ -12,44 +12,48 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
+
+use Papaya\Iterator;
+use Papaya\Utility;
 
 /**
  * An iterator that converts any traversable or array into an RecursiveIterator you can attach
- * other Traverables or arrays as children to each element.
+ * other Traversable or arrays as children to each element.
  *
  * @package Papaya-Library
  * @subpackage Iterator
  */
 class Items implements \OuterIterator, \RecursiveIterator {
-
   const ATTACH_TO_KEYS = 0;
+
   const ATTACH_TO_VALUES = 1;
 
-  private $_mode = self::ATTACH_TO_KEYS;
+  private $_mode;
 
   /**
    * @var \Traversable|array
    */
-  private $_traversable = NULL;
+  private $_traversable;
+
   /**
    * @var \Iterator
    */
-  private $_iterator = NULL;
+  private $_iterator;
+
   /**
    * @var array
    */
-  private $_itemIterators = array();
+  private $_itemIterators = [];
 
   /**
    * Create object and store the traversable (or array)
    *
    * @param \Traversable|array $traversable
-   * @param integer $mode
+   * @param int $mode
    */
   public function __construct($traversable, $mode = self::ATTACH_TO_KEYS) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
     $this->_mode = $mode;
   }
@@ -64,26 +68,26 @@ class Items implements \OuterIterator, \RecursiveIterator {
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
       $this->_iterator = ($this->_traversable instanceof \Iterator)
-        ? $this->_traversable : new \Papaya\Iterator\TraversableIterator($this->_traversable);
+        ? $this->_traversable : new Iterator\TraversableIterator($this->_traversable);
     }
     return $this->_iterator;
   }
 
   /**
-   * Attach an Traversalbe as children to an element.
+   * Attach an Traversable as children to an element.
    *
-   * @param int|float|string|boolean $target
+   * @param int|float|string|bool $target
    * @param \Traversable|array $traversable
    */
   public function attachItemIterator($target, $traversable) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_itemIterators[(string)$target] = $traversable;
   }
 
   /**
    * Remove the children from an element
    *
-   * @param int|float|string|boolean $target
+   * @param int|float|string|bool $target
    */
   public function detachItemIterator($target) {
     $target = (string)$target;
@@ -96,7 +100,8 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * Return if here is an Traversable attached for the current target
    *
    * @see \RecursiveIterator::hasChildren()
-   * @return boolean
+   *
+   * @return bool
    */
   public function hasChildren() {
     return isset($this->_itemIterators[$this->getCurrentTarget()]);
@@ -108,7 +113,8 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * The method creates a new Instance of this class for the Traversable.   *
    *
    * @see \RecursiveIterator::hasChildren()
-   * @return boolean
+   *
+   * @return \RecursiveIterator
    */
   public function getChildren() {
     $iterator = $this->_itemIterators[$this->getCurrentTarget()];
@@ -121,7 +127,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * @return mixed
    */
   private function getCurrentTarget() {
-    if ($this->_mode == self::ATTACH_TO_VALUES) {
+    if (self::ATTACH_TO_VALUES === $this->_mode) {
       $result = $this->getInnerIterator()->current();
     } else {
       $result = $this->getInnerIterator()->key();
@@ -164,7 +170,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
   /**
    * Valid if the current element is valid.
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     return $this->getInnerIterator()->valid();

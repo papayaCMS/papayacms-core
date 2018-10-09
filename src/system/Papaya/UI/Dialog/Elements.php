@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
+
+use Papaya\UI;
+
 /**
  * A list of dialog elements
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Elements extends \Papaya\UI\Control\Collection {
-
+abstract class Elements extends UI\Control\Collection {
   /**
    * Only \Papaya\UI\Dialog\Element objects are allows in this list
    *
@@ -32,9 +33,9 @@ abstract class Elements extends \Papaya\UI\Control\Collection {
   /**
    * Initialize object an set owner dialog if available.
    *
-   * @param \Papaya\UI\Dialog $dialog
+   * @param UI\Dialog $dialog
    */
-  public function __construct(\Papaya\UI\Dialog $dialog = NULL) {
+  public function __construct(UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->owner($dialog);
     }

@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
+
+use Papaya\Utility;
 
 /**
  * Replacement for the DOMDocument adding some shortcuts for easier use
@@ -21,21 +22,20 @@ namespace Papaya\XML;
  * @package Papaya-Library
  * @subpackage XML
  *
- * @property \Papaya\XML\Element $documentElement
+ * @property Element $documentElement
  */
 class Document
   extends \DOMDocument
   implements Node {
-
   /**
-   * @var \Papaya\XML\Xpath
+   * @var Xpath
    */
-  private $_xpath = NULL;
+  private $_xpath;
 
   /**
    * @var array
    */
-  private $_namespaces = array();
+  private $_namespaces = [];
 
   /**
    * Namespace prefixes starting with the letters 'xml' are reserved by the w3c and
@@ -43,10 +43,10 @@ class Document
    *
    * @var array
    */
-  private $_reservedNamespaces = array(
+  private $_reservedNamespaces = [
     'xml' => 'http://www.w3.org/XML/1998/namespace',
     'xmlns' => 'http://www.w3.org/2000/xmlns/'
-  );
+  ];
 
   /**
    * @var bool
@@ -56,19 +56,18 @@ class Document
   /**
    * @var bool
    */
-  private $_canDisableEntityLoader = TRUE;
+  private $_canDisableEntityLoader;
 
   /**
-   * Initialize document object and register own nodeclass(es)
+   * Initialize document object and register own node class(es)
    *
    * @param string $version
    * @param string $encoding
-   * @return self
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
-    $this->registerNodeClass(\DOMElement::class, \Papaya\XML\Element::class);
-    $this->_canDisableEntityLoader = function_exists('libxml_disable_entity_loader');
+    $this->registerNodeClass(\DOMElement::class, Element::class);
+    $this->_canDisableEntityLoader = \function_exists('libxml_disable_entity_loader');
   }
 
   /**
@@ -78,8 +77,8 @@ class Document
    * @return \DOMXpath
    */
   public function xpath() {
-    if (is_null($this->_xpath) || $this->_xpath->document != $this) {
-      $this->_xpath = new \Papaya\XML\Xpath($this);
+    if (NULL === $this->_xpath || $this->_xpath->document !== $this) {
+      $this->_xpath = new Xpath($this);
       foreach ($this->_namespaces as $prefix => $namespace) {
         $this->_xpath->registerNamespace($prefix, $namespace);
       }
@@ -94,7 +93,7 @@ class Document
    * @param bool $registerOnXpath
    */
   public function registerNamespaces(array $namespaces, $registerOnXpath = TRUE) {
-    $registerOnXpath = $registerOnXpath && isset($this->_xpath);
+    $registerOnXpath = $registerOnXpath && NULL !== $this->_xpath;
     foreach ($namespaces as $prefix => $namespace) {
       $this->registerNamespace($prefix, $namespace, $registerOnXpath);
     }
@@ -106,14 +105,16 @@ class Document
    * @param string $prefix
    * @param string $namespace
    * @param bool $registerOnXpath
+   *
    * @throws \InvalidArgumentException
    */
   public function registerNamespace($prefix, $namespace, $registerOnXpath = TRUE) {
     if (
       isset($this->_reservedNamespaces[$prefix]) &&
-      !$this->_reservedNamespaces[$prefix] == $namespace) {
+      !$this->_reservedNamespaces[$prefix] === $namespace
+    ) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'XML prefix "%s" is reserved for the namespace "%s".',
           $prefix,
           $this->_reservedNamespaces[$prefix]
@@ -121,7 +122,7 @@ class Document
       );
     }
     $this->_namespaces[$prefix] = $namespace;
-    if ($registerOnXpath && isset($this->_xpath)) {
+    if ($registerOnXpath && NULL !== $this->_xpath) {
       $this->_xpath->registerNamespace($prefix, $namespace);
     }
   }
@@ -131,12 +132,14 @@ class Document
    * character will be used.
    *
    * @param string $prefix
+   *
    * @throws \UnexpectedValueException
+   *
    * @return string
    */
   public function getNamespace($prefix) {
-    if (FALSE !== ($position = strpos($prefix, ':'))) {
-      $prefix = substr($prefix, 0, $position);
+    if (FALSE !== ($position = \strpos($prefix, ':'))) {
+      $prefix = \substr($prefix, 0, $position);
     }
     if (isset($this->_reservedNamespaces[$prefix])) {
       return $this->_reservedNamespaces[$prefix];
@@ -148,15 +151,18 @@ class Document
   }
 
   /**
-   * Append an xml element with attributes and content
+   * Append an xml element with attributes and content.
+   * Strings will be appended as text nodes, arrays set as attributes, NULL will be ignored.
    *
    * @param string $name
-   * @param array $attributes
-   * @param string $content
-   * @return \Papaya\XML\Element new element
+   * @param string[]|array[]|Appendable[] $appendables
+   * @return Element new element
    */
-  public function appendElement($name, array $attributes = array(), $content = NULL) {
-    return $this->appendChild($this->createElement($name, $content, $attributes));
+  public function appendElement($name, ...$appendables) {
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
+    return $this->appendChild(
+      $this->createElement($name, ...$appendables)
+    );
   }
 
   /**
@@ -168,29 +174,28 @@ class Document
    * If a target is provided, it will append the xml to the target node.
    *
    * @param string $content
-   * @param \Papaya\XML\Element $target
-   * @return \Papaya\XML\Element|self $target
+   * @param Element|Document $target
+   *
+   * @return Element|self $target
    */
-  public function appendXML($content, \Papaya\XML\Element $target = NULL) {
+  public function appendXML($content, Element $target = NULL) {
     if (NULL === $target) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
-    $content = sprintf(
+    $content = \sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      \Papaya\Utility\Text\XML::removeControlCharacters(\Papaya\Utility\Text\UTF8::ensure($content))
+      Utility\Text\XML::removeControlCharacters(Utility\Text\UTF8::ensure($content))
     );
     $fragment->appendXML($content);
     if ($fragment->firstChild) {
       if ($target->ownerDocument instanceof self) {
         foreach ($fragment->firstChild->childNodes as $node) {
-          /** @var \DOMNode $node */
+          /* @var \DOMNode $node */
           $target->appendChild($node->cloneNode(TRUE));
         }
-      } else {
-        if ($fragment->firstChild->firstChild) {
-          $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
-        }
+      } elseif ($fragment->firstChild->firstChild) {
+        $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
       }
     }
     return $target;
@@ -199,27 +204,35 @@ class Document
   /**
    * Overload createDocument(), to look for an namespace prefix in the element name and create
    * an element in this namespace. The namespace needs to be registered on the document object.
-   * Fix the excaping bug for the $value argument, by creating the text node.
+   * Fix the escaping bug for the $value argument, by creating the text node.
    * Allow to provide attributes.
    *
    * @see \DOMDocument::createElement()
+   *
    * @param string $name
-   * @param string|NULL $value
-   * @param array|NULL $attributes
-   * @return \Papaya\XML\Element
+   * @param null $content
+   * @param array $appendables
+   * @return Element
    */
-  public function createElement($name, $value = NULL, array $attributes = NULL) {
-    if (FALSE !== strpos($name, ':')) {
+  public function createElement($name, $content = NULL, ...$appendables) {
+    /** @var Element $node */
+    if (FALSE !== \strpos($name, ':')) {
       $node = $this->createElementNS($this->getNamespace($name), $name);
     } else {
       $node = parent::createElement($name);
     }
-    if (!is_null($value)) {
-      $node->appendChild($this->createTextNode($value));
+    if (NULL !== $content) {
+      array_unshift($appendables, $content);
     }
-    if (!empty($attributes)) {
-      foreach ($attributes as $attributeName => $attributeValue) {
-        $node->setAttribute($attributeName, $attributeValue);
+    foreach ($appendables as $appendable) {
+      if ($appendable instanceof Appendable) {
+        $appendable->appendTo($node);
+      } elseif (is_array($appendable)) {
+        foreach ($appendable as $attributeName => $attributeValue) {
+          $node->setAttribute($attributeName, $attributeValue);
+        }
+      } else {
+        $node->appendChild($this->createTextNode($appendable));
       }
     }
     return $node;
@@ -232,22 +245,25 @@ class Document
    * Allow to provide the attribute value directly.
    *
    * @see \DOMDocument::createElement()
+   *
    * @param string $name
-   * @param string|NULL $value
-   * @return \DOMAttribute
+   * @param string|null $value
+   *
+   * @return \DOMAttr
    */
   public function createAttribute($name, $value = NULL) {
-    if (FALSE !== strpos($name, ':')) {
+    if (FALSE !== \strpos($name, ':')) {
       $node = $this->createAttributeNS($this->getNamespace($name), $name);
     } else {
       $node = parent::createAttribute($name);
     }
-    if (!is_null($value)) {
+    if (NULL !== $value) {
       $node->value = $value;
     }
     return $node;
   }
 
+  /** @noinspection PhpDocSignatureInspection */
   /**
    * Create an new element node for a given document
    *
@@ -255,11 +271,12 @@ class Document
    * @param string $name
    * @param array $attributes
    * @param string $content
+   *
+   * @return Element new node
    * @deprecated
-   * @return \Papaya\XML\Element new node
    */
   public static function createElementNode(
-    self $document, $name, array $attributes = array(), $content = NULL
+    self $document, $name, array $attributes = [], $content = NULL
   ) {
     return $document->createElement($name, $content, $attributes);
   }
@@ -267,7 +284,8 @@ class Document
   /**
    * Get/set the entry loader status
    *
-   * @param boolean $status
+   * @param bool $status
+   *
    * @return bool|null
    */
   public function activateEntityLoader($status = NULL) {
@@ -278,35 +296,48 @@ class Document
   }
 
   /**
-   * Load an xml string, but allow to disable the entitiy loader.
+   * Load an xml string, but allow to disable the entity loader.
    *
    * @see \DOMDocument::load()
+   * @param string $source
+   * @param int $options
+   * @return mixed
    */
   public function loadXML($source, $options = 0) {
-    $status = ($this->_canDisableEntityLoader)
-      ? libxml_disable_entity_loader(!$this->_activateEntityLoader) : FALSE;
+    $status = $this->_canDisableEntityLoader
+      ? \libxml_disable_entity_loader(!$this->_activateEntityLoader) : FALSE;
     $result = parent::loadXML($source, $options);
     if ($this->_canDisableEntityLoader) {
-      libxml_disable_entity_loader($status);
+      \libxml_disable_entity_loader($status);
     }
     return $result;
   }
 
   /**
    * create a DOM from an xml document, capture errors
+   *
+   * @param $xmlString
+   * @param bool $silent
+   * @return null|\Papaya\XML\Document
    */
   public static function createFromXML($xmlString, $silent = FALSE) {
-    $errors = new \Papaya\XML\Errors();
-    $dom = new self();
+    $errors = new Errors();
+    $document = new self();
     $success = $errors->encapsulate(
-      array($dom, 'loadXML'), array($xmlString), !$silent
+      function ($source, $options = 0) use ($document) { return $document->loadXML($source, $options); },
+      [$xmlString],
+      !$silent
     );
-    return ($success) ? $dom : NULL;
+    return $success ? $document : NULL;
   }
 
+  /**
+   * @param string $content
+   * @return \DOMText
+   */
   public function createTextNode($content) {
     return parent::createTextNode(
-      \Papaya\Utility\Text\XML::removeControlCharacters($content) ?: ''
+      Utility\Text\XML::removeControlCharacters($content) ?: ''
     );
   }
 }

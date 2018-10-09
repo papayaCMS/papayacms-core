@@ -12,23 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a textarea input.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Textarea extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class Textarea extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Textarea
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Textarea
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Textarea(
+    $field = new UI\Dialog\Field\Textarea(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

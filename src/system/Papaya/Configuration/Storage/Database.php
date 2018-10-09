@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration\Storage;
+
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\Content;
 
 /**
  * Load options from database table
@@ -21,27 +24,27 @@ namespace Papaya\Configuration\Storage;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Database extends \Papaya\Application\BaseObject
-  implements \Papaya\Configuration\Storage {
-
+class Database extends Application\BaseObject
+  implements Configuration\Storage {
   /**
    * Options database records list
    *
-   * @var \Papaya\Content\Configuration
+   * @var Content\Configuration
    */
   private $_records;
 
   /**
    * Getter/Setter for database records object
    *
-   * @param \Papaya\Content\Configuration $records
-   * @return \Papaya\Content\Configuration
+   * @param Content\Configuration $records
+   *
+   * @return Content\Configuration
    */
-  public function records(\Papaya\Content\Configuration $records = NULL) {
+  public function records(Content\Configuration $records = NULL) {
     if (NULL !== $records) {
       $this->_records = $records;
     } elseif (NULL === $this->_records) {
-      $this->_records = new \Papaya\Content\Configuration();
+      $this->_records = new Content\Configuration();
     }
     return $this->_records;
   }
@@ -49,16 +52,16 @@ class Database extends \Papaya\Application\BaseObject
   /**
    * Dispatch the error message as http header and be silent otherwise.
    *
-   * @param \Papaya\Database\Exception $exception
+   * @param \Exception $exception
    */
-  public function handleError(\Papaya\Database\Exception $exception) {
+  public function handleError(\Exception $exception) {
     if (
       isset($this->papaya()->response) &&
       $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)
     ) {
-      $message = str_replace(array('\r', '\n'), ' ', $exception->getMessage());
+      $message = \str_replace(['\r', '\n'], ' ', $exception->getMessage());
       $this->papaya()->response->sendHeader(
-        'X-Papaya-Error: '.get_class($exception).': '.$message
+        'X-Papaya-Error: '.\get_class($exception).': '.$message
       );
     }
   }
@@ -66,10 +69,14 @@ class Database extends \Papaya\Application\BaseObject
   /**
    * Load records from database
    *
-   * @return boolean
+   * @return bool
    */
   public function load() {
-    $this->records()->getDatabaseAccess()->errorHandler(array($this, 'handleError'));
+    $this->records()->getDatabaseAccess()->errorHandler(
+      function(\Exception $exception) {
+        $this->handleError($exception);
+      }
+    );
     return $this->records()->load();
   }
 
@@ -79,7 +86,7 @@ class Database extends \Papaya\Application\BaseObject
    * @return \Iterator
    */
   public function getIterator() {
-    $options = array();
+    $options = [];
     foreach ($this->records() as $option) {
       $options[$option['name']] = $option['value'];
     }

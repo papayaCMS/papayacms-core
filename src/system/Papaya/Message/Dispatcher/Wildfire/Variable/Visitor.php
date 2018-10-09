@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher\Wildfire\Variable;
+
+use Papaya\Message;
+
 /**
  * Visitor to convert a variable into a plain text string dump
  *
@@ -21,8 +23,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable;
  * @subpackage Messages
  */
 class Visitor
-  extends \Papaya\Message\Context\Variable\Visitor {
-
+  extends Message\Context\Variable\Visitor {
   /**
    * Suffix for truncated string values
    *
@@ -56,7 +57,7 @@ class Visitor
    *
    * @var mixed
    */
-  protected $_stack = array();
+  protected $_stack = [];
 
   /**
    * return compiled string result
@@ -64,7 +65,7 @@ class Visitor
    * @return string
    */
   public function get() {
-    return print_r($this->_dump, TRUE);
+    return \print_r($this->_dump, TRUE);
   }
 
   /**
@@ -88,7 +89,7 @@ class Visitor
    */
   public function visitArray(array $array) {
     if ($this->_checkIndentLimit()) {
-      $arrayDump = &$this->_addElement(array());
+      $arrayDump = &$this->_addElement([]);
       $this->_increaseIndent($arrayDump);
       foreach ($array as $key => $value) {
         $this->_currentKey = $key;
@@ -97,7 +98,7 @@ class Visitor
       $this->_decreaseIndent();
     } else {
       $this->_addElement(
-        sprintf(
+        \sprintf(
           '** Max Recursion Depth (%d) **', $this->_depth
         )
       );
@@ -120,7 +121,7 @@ class Visitor
    *
    * int(n)
    *
-   * @param integer $integer
+   * @param int $integer
    */
   public function visitInteger($integer) {
     $this->_addElement($integer);
@@ -142,7 +143,7 @@ class Visitor
    *
    * NULL
    *
-   * @param NULL $null
+   * @param null $null
    */
   public function visitNull($null) {
     $this->_addElement($null);
@@ -152,34 +153,35 @@ class Visitor
    * Visit an object variable, handle recursions and duplicates
    *
    * @param object $object
+   *
    * @throws \LogicException
    */
   public function visitObject($object) {
     $reflection = new \ReflectionObject($object);
-    $hash = spl_object_hash($object);
+    $hash = \spl_object_hash($object);
     $isRecursion = $this->_isObjectRecursion($hash);
     $isDuplicate = $this->_isObjectDuplicate($hash);
     if ($isRecursion) {
       $this->_addElement(
-        sprintf(
+        \sprintf(
           '** Object Recursion (%s #%d) **', $reflection->getName(), $this->_getObjectIndex($hash)
         )
       );
     } elseif ($isDuplicate) {
       $this->_addElement(
-        sprintf(
+        \sprintf(
           '** Object Duplication (%s #%d) **', $reflection->getName(), $this->_getObjectIndex($hash)
         )
       );
     } elseif ($this->_checkIndentLimit()) {
       $this->_pushObjectStack($hash);
       $objectDump = &$this->_addElement(
-        array(
+        [
           '__className' => $reflection->getName().' #'.$this->_getObjectIndex($hash)
-        )
+        ]
       );
       $this->_increaseIndent($objectDump);
-      $values = array_merge((array)$reflection->getStaticProperties(), (array)$object);
+      $values = \array_merge((array)$reflection->getStaticProperties(), (array)$object);
       foreach ($reflection->getProperties() as $property) {
         $propertyName = $property->getName();
         $visibility = '';
@@ -194,14 +196,14 @@ class Visitor
           $visibility .= 'public:';
         }
         $this->_currentKey = $visibility.$propertyName;
-        if (array_key_exists($propertyName, $values)) {
+        if (\array_key_exists($propertyName, $values)) {
           $this->visitVariable($values[$propertyName]);
         } elseif ($property->isProtected()) {
           $protectedName = "\0*\0".$propertyName;
           $this->visitVariable($values[$protectedName]);
         } elseif ($property->isPrivate()) {
           $privateName = "\0".$reflection->getName()."\0".$propertyName;
-          if (array_key_exists($privateName, $values)) {
+          if (\array_key_exists($privateName, $values)) {
             $this->visitVariable($values[$privateName]);
           }
         }
@@ -210,7 +212,7 @@ class Visitor
       $this->_decreaseIndent();
     } else {
       $this->_addElement(
-        sprintf(
+        \sprintf(
           '** Max Recursion Depth (%d) **', $this->_depth
         )
       );
@@ -225,7 +227,7 @@ class Visitor
    * @param resource $resource
    */
   public function visitResource($resource) {
-    $this->_addElement('** '.(string)$resource.' **');
+    $this->_addElement('** '.$resource.' **');
   }
 
   /**
@@ -237,9 +239,9 @@ class Visitor
    * @param string $string
    */
   public function visitString($string) {
-    $length = strlen($string);
-    if (strlen($string) > $this->_stringLength) {
-      $value = substr($string, 0, $this->_stringLength).$this->_truncateSuffix.'('.$length.')';
+    $length = \strlen($string);
+    if (\strlen($string) > $this->_stringLength) {
+      $value = \substr($string, 0, $this->_stringLength).$this->_truncateSuffix.'('.$length.')';
     } else {
       $value = $string;
     }
@@ -250,6 +252,7 @@ class Visitor
    * Add element to dump, and return a reference to it.
    *
    * @param mixed $element
+   *
    * @return mixed
    */
   private function &_addElement($element) {
@@ -264,10 +267,10 @@ class Visitor
   /**
    * Check if indent limit is reached
    *
-   * @return boolean
+   * @return bool
    */
   protected function _checkIndentLimit() {
-    return count($this->_stack) < $this->_depth;
+    return \count($this->_stack) < $this->_depth;
   }
 
   /**
@@ -282,11 +285,9 @@ class Visitor
 
   /**
    * Decrease indent, throw an exception if indent whould be negative
-   *
-   * @return void
    */
   protected function _decreaseIndent() {
-    array_pop($this->_stack);
-    $this->_parent = &$this->_stack[count($this->_stack) - 1];
+    \array_pop($this->_stack);
+    $this->_parent = &$this->_stack[\count($this->_stack) - 1];
   }
 }

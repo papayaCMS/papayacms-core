@@ -53,13 +53,13 @@ class DebugTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers \Papaya\Message\Debug::getType
+   * @covers \Papaya\Message\Debug::getSeverity
    */
-  public function testGetType() {
+  public function testGetSeverity() {
     $message = new Debug();
     $this->assertEquals(
       \Papaya\Message::SEVERITY_DEBUG,
-      $message->getType()
+      $message->getSeverity()
     );
   }
 

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order;
+
+use Papaya\BaseObject;
+use Papaya\Database;
 
 /**
  * An list storing several elements representing fields for an sql order by
@@ -22,18 +24,17 @@ namespace Papaya\Database\Record\Order;
  * @subpackage Database
  */
 class Collection
-  extends \Papaya\BaseObject\Collection
-  implements \Papaya\Database\Interfaces\Order {
-
+  extends BaseObject\Collection
+  implements Database\Interfaces\Order {
   /**
    * Setup item class limit and add all function arguments as items
+   *
+   * @param array $items
    */
-  public function __construct() {
-    parent::__construct(\Papaya\Database\Interfaces\Order::class);
-    if (func_num_args() > 0) {
-      foreach (func_get_args() as $item) {
-        $this->add($item);
-      }
+  public function __construct(...$items) {
+    parent::__construct(Database\Interfaces\Order::class);
+    foreach ($items as $item) {
+      $this->add($item);
     }
   }
 
@@ -41,6 +42,7 @@ class Collection
    * Casting the list to string generates the needed sql
    *
    * @see \Papaya\Database\Interfaces\Order::__toString()
+   *
    * @return string
    */
   public function __toString() {
@@ -49,7 +51,7 @@ class Collection
       foreach ($this as $item) {
         $result .= ', '.$item;
       }
-      return (string)substr($result, 2);
+      return (string)\substr($result, 2);
     }
     return '';
   }

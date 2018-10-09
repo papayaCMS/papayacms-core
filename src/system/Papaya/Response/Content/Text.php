@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content;
+
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Simple string response content
  *
@@ -22,14 +25,13 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class Text implements \Papaya\Response\Content {
-
+class Text implements Response\Content {
   /**
    * string content buffer
    *
    * @var string
    */
-  private $_content = '';
+  private $_content;
 
   /**
    * Initialize object from a string
@@ -37,23 +39,21 @@ class Text implements \Papaya\Response\Content {
    * @param string $contentString
    */
   public function __construct($contentString) {
-    \Papaya\Utility\Constraints::assertString($contentString);
+    Utility\Constraints::assertString($contentString);
     $this->_content = $contentString;
   }
 
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
-    return strlen($this->_content);
+    return \strlen($this->_content);
   }
 
   /**
    * Output string content to standard output
-   *
-   * @return string
    */
   public function output() {
     echo $this->_content;

@@ -12,13 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration;
+
+use Papaya\Request;
+use Papaya\UI;
 
 /**
  * Abstract superclass for an administration page.
  *
- * The administration page has thrre parts (content, navigation, information). The parts are executed
+ * The administration page has three parts (content, navigation, information). The parts are executed
  * one after another with the same parameters. Changes to the parameters of one part are assigned
  * to the next.
  *
@@ -28,9 +30,8 @@ namespace Papaya\Administration;
  * @subpackage Administration
  */
 abstract class Page extends \Papaya\Application\BaseObject {
-
   /**
-   * @var string|NULL
+   * @var string|null
    */
   private $_moduleId;
 
@@ -38,13 +39,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * @var \Papaya\Template
    */
   private $_layout;
+
   /**
    * @var Page\Parts
    */
   private $_parts;
 
   /**
-   * @var \Papaya\UI\Toolbar
+   * @var UI\Toolbar
    */
   private $_toolbar;
 
@@ -75,7 +77,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createContent() {
     return FALSE;
@@ -85,7 +87,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createNavigation() {
     return FALSE;
@@ -95,7 +97,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return Page\Part|FALSE
+   * @return Page\Part|false
    */
   protected function createInformation() {
     return FALSE;
@@ -106,21 +108,19 @@ abstract class Page extends \Papaya\Application\BaseObject {
    */
   public function execute() {
     if (!$this->validateAccess()) {
-      $this->papaya()->messages->display(
-        \Papaya\Message::SEVERITY_ERROR, 'Access forbidden.'
-      );
+      $this->papaya()->messages->displayError('Access forbidden.');
       return;
     }
     $parts = $this->parts();
     $restoreParameters = ('get' === $this->papaya()->request->method) && !empty($this->_parameterGroup);
-    $parametersName = array(get_class($this), 'parameters', $this->_parameterGroup);
+    $parametersName = [\get_class($this), 'parameters', $this->_parameterGroup];
     if ($restoreParameters && $parts->parameters()->isEmpty()) {
       $value = $this->papaya()->session->getValue($parametersName);
-      $parts->parameters()->merge(is_array($value) ? $value : array());
+      $parts->parameters()->merge(\is_array($value) ? $value : []);
       $this->papaya()->request->setParameters(
-        \Papaya\Request::SOURCE_QUERY,
-        $this->papaya()->request->getParameters(\Papaya\Request::SOURCE_QUERY)->set(
-          $this->_parameterGroup, is_array($value) ? $value : array()
+        Request::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(Request::SOURCE_QUERY)->set(
+          $this->_parameterGroup, \is_array($value) ? $value : []
         )
       );
     }
@@ -143,6 +143,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the parts list
    *
    * @param Page\Parts $parts
+   *
    * @return Page\Parts
    */
   public function parts(Page\Parts $parts = NULL) {
@@ -165,7 +166,8 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|Page\Part
+   *
+   * @return false|Page\Part
    */
   public function createPart($name) {
     switch ($name) {
@@ -183,14 +185,15 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param \Papaya\UI\Toolbar $toolbar
-   * @return \Papaya\UI\Toolbar
+   * @param UI\Toolbar $toolbar
+   *
+   * @return UI\Toolbar
    */
-  public function toolbar(\Papaya\UI\Toolbar $toolbar = NULL) {
+  public function toolbar(UI\Toolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new \Papaya\UI\Menu();
+      $this->_toolbar = new UI\Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }

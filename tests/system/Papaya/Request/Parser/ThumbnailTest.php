@@ -90,6 +90,19 @@ class ThumbnailTest extends \Papaya\TestCase {
         )
       ),
       array(
+        '/sid2fb2e3bd142f20e238d39b64eb6d3195/title.thumb.1897806da87c1b264444a5e685e76c3dv23_max_510x480_b3535db83dc50e27c1bb1392364c95a2.png',
+        array(
+          'mode' => 'thumbnail',
+          'media_id' => '1897806da87c1b264444a5e685e76c3d',
+          'media_uri' => '1897806da87c1b264444a5e685e76c3dv23_max_510x480_b3535db83dc50e27c1bb1392364c95a2.png',
+          'media_version' => 23,
+          'thumbnail_mode' => 'max',
+          'thumbnail_size' => '510x480',
+          'thumbnail_params' => 'b3535db83dc50e27c1bb1392364c95a2',
+          'thumbnail_format' => 'png'
+        )
+      ),
+      array(
         '/hn999sramon-7esrp-tours5.thumb.preview.d7e21e7a82c200090aa0e29327ad4581v23_max_200x150_b3535db83dc50e27c1bb1392364c95a2.png',
         array(
           'mode' => 'thumbnail',

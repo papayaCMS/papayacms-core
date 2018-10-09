@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
+
 /**
  * Replacement for the DOMElement adding some shortcuts for easier use
  *
@@ -25,36 +25,37 @@ namespace Papaya\XML;
 class Element
   extends \DOMElement
   implements Node {
-
   /**
    * Append a object (with interface Papaya\XML\Appendable) to the element
    *
    * @param Appendable $object
-   * @return self|NULL
+   *
+   * @return self|null
    */
   public function append(Appendable $object) {
     return $object->appendTo($this);
   }
 
   /**
-   * Append an xml element with attributes and content
+   * Append an xml element with attributes and content.
+   * Strings will be appended as text nodes, arrays set as attributes, NULL will be ignored.
    *
    * @param string $name
-   * @param array $attributes
-   * @param string $content
-   * @return self new element
+   * @param string[]|array[]|Appendable[] $appendables
+   * @return Element new element
    */
-  public function appendElement($name, array $attributes = array(), $content = NULL) {
+  public function appendElement($name, ...$appendables) {
+    /** @noinspection PhpIncompatibleReturnTypeInspection */
     return $this->appendChild(
-      $this->ownerDocument->createElement($name, $content, $attributes)
+      $this->ownerDocument->createElement($name, ...$appendables)
     );
-    return $node;
   }
 
   /**
    * Append a new text node into element
    *
    * @param string $content
+   *
    * @return self $this
    */
   public function appendText($content) {
@@ -67,10 +68,11 @@ class Element
    * Append a xml fragment into element
    *
    * @param string $content
+   *
    * @return self $this
    */
   public function appendXML($content) {
-    /** @noinspection PhpUndefinedMethodInspection */
+    /* @noinspection PhpUndefinedMethodInspection */
     return $this->ownerDocument->appendXML($content, $this);
   }
 
@@ -79,7 +81,8 @@ class Element
    *
    * Automatically imports the element into the target document if needed.
    *
-   * @param \DOMDocument|\DOMelement|\DOMNode $target
+   * @param \DOMDocument|\DOMElement|\DOMNode $target
+   *
    * @throws \InvalidArgumentException
    */
   public function appendTo(\DOMNode $target) {
@@ -92,7 +95,7 @@ class Element
         'Can only append to DOMDocument or DOMElement objects.'
       );
     }
-    if ($document != $this->ownerDocument) {
+    if ($document !== $this->ownerDocument) {
       $source = $document->importNode($this, TRUE);
     } else {
       $source = $this;
@@ -126,10 +129,12 @@ class Element
    * Allow to remove an attribute by setting an empty value
    *
    * @see \DOMElement::setAttribute()
+   * @param string $name
+   * @param string|NULL $value
    */
   public function setAttribute($name, $value) {
-    if (isset($value) && $value !== '') {
-      if (FALSE !== strpos($name, ':')) {
+    if (NULL !== $value && '' !== $value) {
+      if (FALSE !== \strpos($name, ':')) {
         parent::setAttributeNS($this->ownerDocument->getNamespace($name), $name, (string)$value);
       } else {
         parent::setAttribute($name, (string)$value);

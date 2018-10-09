@@ -44,13 +44,13 @@ class DisplayTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Message\Display::getType
+   * @covers \Papaya\Message\Display::getSeverity
    */
-  public function testGetType() {
+  public function testGetSeverity() {
     $message = new Display(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
       \Papaya\Message::SEVERITY_WARNING,
-      $message->getType()
+      $message->getSeverity()
     );
   }
 

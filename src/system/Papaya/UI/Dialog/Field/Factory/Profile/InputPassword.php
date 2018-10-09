@@ -12,23 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a input for a password.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputPassword extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class InputPassword extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Input
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Input\Password
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Password(
+    $field = new UI\Dialog\Field\Input\Password(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

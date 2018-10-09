@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Button;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A named submit button sets a value in the dialog data if it was "clicked".
  *
@@ -21,7 +24,6 @@ namespace Papaya\UI\Dialog\Button;
  * @subpackage UI
  */
 class NamedSubmit extends Submit {
-
   /**
    * Button name
    *
@@ -41,11 +43,11 @@ class NamedSubmit extends Submit {
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param int|float|boolean|string $value
+   * @param int|float|bool|string $value
    * @param int $align
    */
   public function __construct(
-    $caption, $name, $value = '1', $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT
+    $caption, $name, $value = '1', $align = UI\Dialog\Button::ALIGN_RIGHT
   ) {
     parent::__construct($caption, $align);
     \Papaya\Utility\Constraints::assertString($name);
@@ -56,18 +58,18 @@ class NamedSubmit extends Submit {
   }
 
   /**
-   * Append button ouptut to DOM
+   * Append button output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'button',
-      array(
+      [
         'type' => 'submit',
-        'align' => ($this->_align == \Papaya\UI\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right',
-        'name' => $this->_getParameterName(array($this->_name, $this->_value))
-      ),
+        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
+        'name' => $this->_getParameterName([$this->_name, $this->_value])
+      ],
       (string)$this->_caption
     );
   }
@@ -78,11 +80,11 @@ class NamedSubmit extends Submit {
    * The function checks for a existing parameter 'name_value'. The value of the parameter is not
    * used because it is the caption.
    *
-   * @return boolean
+   * @return bool
    */
   public function collect() {
     if (parent::collect()) {
-      $parameterName = $this->_getParameterName(array($this->_name, $this->_value), FALSE);
+      $parameterName = $this->_getParameterName([$this->_name, $this->_value], FALSE);
       if ($this->collection()->owner()->parameters()->has($parameterName)) {
         $this->collection()->owner()->data()->set($this->_name, $this->_value);
         return TRUE;

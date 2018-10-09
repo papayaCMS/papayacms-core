@@ -12,43 +12,49 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Message;
+
+use Papaya\BaseObject;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * User message with an xml fragment as message content.
  *
  * The given string is append as a text node. If it contains xml the special chars will be escaped.
  *
- * @property integer $severity
+ * @property int $severity
  * @property string $event
- * @property boolean $occured
+ * @property bool $occurred
  * @property string $content
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Text extends \Papaya\UI\Message {
-
+class Text extends UI\Message {
+  /**
+   * @var string|BaseObject\Interfaces\StringCastable
+   */
   private $_content = '';
 
-  protected $_declaredProperties = array(
-    'severity' => array('_severity', 'setSeverity'),
-    'event' => array('_event', 'setEvent'),
-    'occured' => array('_occured', 'setOccured'),
-    'content' => array('getContent', 'setContent')
-  );
-
+  protected $_declaredProperties = [
+    'severity' => ['_severity', 'setSeverity'],
+    'event' => ['_event', 'setEvent'],
+    'occured' => ['_occurred', 'setOccurred'],
+    'occurred' => ['_occurred', 'setOccurred'],
+    'content' => ['getContent', 'setContent']
+  ];
 
   /**
-   * Create object and store poroperties including the xml fragment string
+   * Create object and store properties including the xml fragment string
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $event
    * @param string $content
-   * @param boolean $occured
+   * @param bool $occurred
    */
-  public function __construct($severity, $event, $content, $occured = FALSE) {
-    parent::__construct($severity, $event, $occured);
+  public function __construct($severity, $event, $content, $occurred = FALSE) {
+    parent::__construct($severity, $event, $occurred);
     $this->setContent($content);
   }
 
@@ -56,10 +62,11 @@ class Text extends \Papaya\UI\Message {
    * Use the parent method to append the element and append the text content to the new
    * message xml element node.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $message = parent::appendMessageElement($parent);
     if ($content = $this->getContent()) {
       $message->appendText($content);
@@ -70,7 +77,7 @@ class Text extends \Papaya\UI\Message {
   /**
    * Set the content string. This can be an object, if it is castable.
    *
-   * @param string|\Papaya\UI\Text $content
+   * @param string|BaseObject\Interfaces\StringCastable $content
    */
   public function setContent($content) {
     $this->_content = $content;

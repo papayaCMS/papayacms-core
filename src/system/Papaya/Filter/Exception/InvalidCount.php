@@ -12,26 +12,27 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if the number of elements differ from the expected number.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCount extends \Papaya\Filter\Exception {
-
+class InvalidCount extends Filter\Exception {
   /**
    * The constructor expects the expected element count, the actual number and the element type.
    *
-   * @param integer $expected
-   * @param integer $actual
+   * @param int $expected
+   * @param int $actual
    * @param string $type
    */
   public function __construct($expected, $actual, $type) {
     parent::__construct(
-      sprintf(
+      \sprintf(
         '%d element(s) of type "%s" expected, %d found.',
         $expected,
         $type,

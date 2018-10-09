@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * An empty listview subitem.
  *
@@ -22,14 +25,14 @@ namespace Papaya\UI\ListView\SubItem;
  * @package Papaya-Library
  * @subpackage UI
  */
-class EmptyValue extends \Papaya\UI\ListView\SubItem {
-
+class EmptyValue extends UI\ListView\SubItem {
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $parent->appendElement('subitem');
+  public function appendTo(XML\Element $parent) {
+    return $this->_appendSubItemTo($parent);
   }
 }

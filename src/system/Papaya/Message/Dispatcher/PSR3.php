@@ -12,10 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
+use Psr\Log;
 
 /**
  * Papaya Message Dispatcher PSR-3 implements the PHP-FIG interface for logging
@@ -25,33 +26,41 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class PSR3
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
 
   const LEVEL_DEBUG = 0;
+
   const LEVEL_INFO = 0;
+
   const LEVEL_NOTICE = 0;
+
   const LEVEL_WARNING = 0;
+
   const LEVEL_ERROR = 0;
+
   const LEVEL_CRITICAL = 0;
+
   const LEVEL_ALERT = 0;
+
   const LEVEL_EMERGENCY = 0;
 
-  private static $_SEVERITY_LEVELS = array(
-    Message::SEVERITY_DEBUG => \Psr\Log\LogLevel::DEBUG,
-    Message::SEVERITY_INFO => \Psr\Log\LogLevel::INFO,
-    Message::SEVERITY_NOTICE => \Psr\Log\LogLevel::NOTICE,
-    Message::SEVERITY_WARNING => \Psr\Log\LogLevel::WARNING,
-    Message::SEVERITY_ERROR => \Psr\Log\LogLevel::ERROR,
-    Message::SEVERITY_CRITICAL => \Psr\Log\LogLevel::CRITICAL,
-    Message::SEVERITY_ALERT => \Psr\Log\LogLevel::ALERT,
-    Message::SEVERITY_EMERGENCY => \Psr\Log\LogLevel::EMERGENCY
-  );
+  private static $_SEVERITY_LEVELS = [
+    Message::SEVERITY_DEBUG => Log\LogLevel::DEBUG,
+    Message::SEVERITY_INFO => Log\LogLevel::INFO,
+    Message::SEVERITY_NOTICE => Log\LogLevel::NOTICE,
+    Message::SEVERITY_WARNING => Log\LogLevel::WARNING,
+    Message::SEVERITY_ERROR => Log\LogLevel::ERROR,
+    Message::SEVERITY_CRITICAL => Log\LogLevel::CRITICAL,
+    Message::SEVERITY_ALERT => Log\LogLevel::ALERT,
+    Message::SEVERITY_EMERGENCY => Log\LogLevel::EMERGENCY
+  ];
 
   private $_logger;
+
   private $_enabled = TRUE;
 
-  public function __construct(\Psr\Log\LoggerInterface $logger = NULL) {
+  public function __construct(Log\LoggerInterface $logger = NULL) {
     $this->_logger = $logger;
   }
 
@@ -59,7 +68,9 @@ class PSR3
    * Send log message to browser using the Wildfire protocol if possible
    *
    * @param Message $message
-   * @return boolean
+   *
+   * @return bool
+   *
    * @throws \InvalidArgumentException
    */
   public function dispatch(Message $message) {
@@ -76,15 +87,16 @@ class PSR3
    * Send log message using the Wildfire protocol
    *
    * @param Message\Logable $message
+   *
    * @throws \InvalidArgumentException
    */
   public function send(Message\Logable $message) {
     try {
       $this->_logger->log(
         isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
-          ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : \Psr\Log\LogLevel::DEBUG,
+          ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : Log\LogLevel::DEBUG,
         $message->getMessage(),
-        $this->getContextAsArray($message->context()) ?: array()
+        $this->getContextAsArray($message->context()) ?: []
       );
     } catch (\Exception $e) {
       $this->_enabled = FALSE;
@@ -120,7 +132,7 @@ class PSR3
             if (isset($lists[$label])) {
               $result[$label][] = $value;
             } else {
-              $result[$label] = array($result[$label], $value);
+              $result[$label] = [$result[$label], $value];
               $lists[$label] = TRUE;
             }
           } else {

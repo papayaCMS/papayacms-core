@@ -12,77 +12,80 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme\Editor;
-use Papaya\UI\ListView;
+
+use Papaya\Content;
+use Papaya\Iterator;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
- * Navigation part of the theme sets editor (dynamic values for a theme)
+ * Navigation part of the theme skins editor (dynamic values for a theme)
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
 class Navigation extends \Papaya\Administration\Page\Part {
-
   /**
-   * @var \Papaya\UI\ListView
+   * @var UI\ListView
    */
-  private $_listview = NULL;
+  private $_listview;
 
   /**
    * Append navigation to parent xml element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->append($this->listview());
-    if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
-      $setId = $this->parameters()->get('set_id', 0);
-      $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
-      $button->caption = new \Papaya\UI\Text\Translated('Add set');
+    if ('' !== ($themeName = $this->parameters()->get('theme', ''))) {
+      $skinId = $this->parameters()->get('skin_id', 0);
+      $this->toolbar()->elements[] = $button = new UI\Toolbar\Button();
+      $button->caption = new UI\Text\Translated('Add skin');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
-        array(
-          'cmd' => 'set_edit',
+        [
+          'cmd' => 'skin_edit',
           'theme' => $themeName,
-          'set_id' => 0
-        ),
+          'skin_id' => 0
+        ],
         $this->parameterGroup()
       );
-      if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
-        $button->caption = new \Papaya\UI\Text\Translated('Delete set');
+      if (0 < $skinId) {
+        $this->toolbar()->elements[] = $button = new UI\Toolbar\Button();
+        $button->caption = new UI\Text\Translated('Delete skin');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
-          array(
-            'cmd' => 'set_delete',
+          [
+            'cmd' => 'skin_delete',
             'theme' => $themeName,
-            'set_id' => $setId
-          ),
+            'skin_id' => $skinId
+          ],
           $this->parameterGroup()
         );
       }
-      $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
-      $button->caption = new \Papaya\UI\Text\Translated('Import');
+      $this->toolbar()->elements[] = $button = new UI\Toolbar\Button();
+      $button->caption = new UI\Text\Translated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
-        array(
-          'cmd' => 'set_import',
+        [
+          'cmd' => 'skin_import',
           'theme' => $themeName,
-          'set_id' => $setId
-        ),
+          'skin_id' => $skinId
+        ],
         $this->parameterGroup()
       );
-      if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new \Papaya\UI\Toolbar\Button();
-        $button->caption = new \Papaya\UI\Text\Translated('Export');
+      if (0 < $skinId) {
+        $this->toolbar()->elements[] = $button = new UI\Toolbar\Button();
+        $button->caption = new UI\Text\Translated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(
-          array(
-            'cmd' => 'set_export',
+          [
+            'cmd' => 'skin_export',
             'theme' => $themeName,
-            'set_id' => $setId
-          ),
+            'skin_id' => $skinId
+          ],
           $this->parameterGroup()
         );
       }
@@ -93,26 +96,29 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Getter/Setter for the theme navigation listview
    *
    * It displays the list of Themes, the Sets of the selected theme and the pages of the
-   * selected set.
+   * selected skin.
    *
-   * @param \Papaya\UI\ListView $listview
-   * @return \Papaya\UI\ListView
+   * @param UI\ListView $listview
+   *
+   * @return UI\ListView
    */
-  public function listview(\Papaya\UI\ListView $listview = NULL) {
-    if (isset($listview)) {
+  public function listview(UI\ListView $listview = NULL) {
+    if (NULL !== $listview) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new \Papaya\UI\ListView();
-      $this->_listview->caption = new \Papaya\UI\Text\Translated('Themes');
+      $this->_listview = new UI\ListView();
+      $this->_listview->caption = new UI\Text\Translated('Themes');
       $this->_listview->builder(
-        $builder = new \Papaya\UI\ListView\Items\Builder(
+        $builder = new UI\ListView\Items\Builder(
           new \RecursiveIteratorIterator(
             $this->createThemeList(), \RecursiveIteratorIterator::SELF_FIRST
           )
         )
       );
-      $this->_listview->builder()->callbacks()->onCreateItem = array($this, 'callbackCreateItem');
-      $this->_listview->builder()->callbacks()->onCreateItem->context = $builder;
+      $builder->callbacks()->onCreateItem = function($builder, $items, $element) {
+        $this->callbackCreateItem($builder, $items, $element);
+      };
+      $builder->callbacks()->onCreateItem->context = $builder;
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
     }
@@ -121,107 +127,109 @@ class Navigation extends \Papaya\Administration\Page\Part {
 
   /**
    * Get the Theme list for the listview. The result is an RecursiveIterator, the
-   * sets of the selected theme are attached as children to the theme element
+   * skins of the selected theme are attached as children to the theme element
    *
-   * If a set is selected, the value pages from the theme.xml are attached to the set
+   * If a skin is selected, the value pages from the theme.xml are attached to the skin
    *
    * @return \RecursiveIterator
    */
   private function createThemeList() {
-    $themes = new \Papaya\Theme\Collection();
+    $themes = new Theme\Collection();
     $themes->papaya($this->papaya());
-    $themeIterator = new \Papaya\Iterator\Tree\Items(
-      $themes, \Papaya\Iterator\Tree\Items::ATTACH_TO_VALUES
+    $themeIterator = new Iterator\Tree\Items(
+      $themes, Iterator\Tree\Items::ATTACH_TO_VALUES
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
-      $sets = new \Papaya\Content\Theme\Sets();
-      $sets->activateLazyLoad(array('theme' => $selectedTheme));
-      $setIterator = new \Papaya\Iterator\Tree\Items($sets);
-      $selectedSet = $this->parameters()->get('set_id', 0);
+      $skins = new Content\Theme\Skins();
+      $skins->activateLazyLoad(['theme' => $selectedTheme]);
+      $skinIterator = new Iterator\Tree\Items($skins);
+      $selectedSet = $this->parameters()->get('skin_id', 0);
       if ($selectedSet > 0) {
-        $setIterator->attachItemIterator(
+        $skinIterator->attachItemIterator(
           $selectedSet,
-          new \Papaya\Iterator\Generator(
-            array($themes, 'getDefinition'),
-            array($selectedTheme)
+          new Iterator\Generator(
+            function() use ($themes, $selectedTheme) {
+              return $themes->getDefinition($selectedTheme);
+            }
           )
         );
       }
-      $themeIterator->attachItemIterator($selectedTheme, $setIterator);
+      $themeIterator->attachItemIterator($selectedTheme, $skinIterator);
     }
     return $themeIterator;
   }
 
   /**
-   * Callback to create the items, depending on the depth here are the theme and set elements
+   * Callback to create the items, depending on the depth here are the theme and skin elements
    *
-   * @param \Papaya\UI\ListView\Items\Builder $builder
-   * @param \Papaya\UI\ListView\Items $items
+   * @param UI\ListView\Items\Builder $builder
+   * @param UI\ListView\Items $items
    * @param mixed $element
-   * @param mixed $index
-   * @return null|\Papaya\UI\ListView\Item
+   *
+   * @return null|UI\ListView\Item
    */
-  public function callbackCreateItem($builder, $items, $element, $index) {
-    /** @noinspection PhpUndefinedMethodInspection */
+  public function callbackCreateItem(UI\ListView\Items\Builder $builder, UI\ListView\Items $items, $element) {
+    /* @noinspection PhpUndefinedMethodInspection */
     switch ($builder->getDataSource()->getDepth()) {
       case 0 :
-        $items[] = $item = $this->createThemeItem($element, $index);
+        $items[] = $item = $this->createThemeItem($element);
         return $item;
       case 1 :
-        $items[] = $item = $this->createSetItem($element, $index);
+        $items[] = $item = $this->createSetItem($element);
         return $item;
       case 2 :
-        $items[] = $item = $this->createPageItem($element, $index);
+        $items[] = $item = $this->createPageItem($element);
         return $item;
     }
-    return NULL;
   }
 
   /**
    * Create the listitem for a theme
    *
    * @param string $element
-   * @return \Papaya\UI\ListView\Item
+   *
+   * @return UI\ListView\Item
    */
   private function createThemeItem($element) {
-    $item = new \Papaya\UI\ListView\Item('items-theme', (string)$element);
+    $item = new UI\ListView\Item('items-theme', (string)$element);
     $item->papaya($this->papaya());
     $item->reference->setParameters(
-      array(
+      [
         'cmd' => 'theme_show',
         'theme' => $element
-      ),
+      ],
       $this->parameterGroup()
     );
     $item->selected = (
-      !$this->parameters()->get('set_id', 0) &&
-      $this->parameters()->get('theme', '') == $element
+      !$this->parameters()->get('skin_id', 0) &&
+      $this->parameters()->get('theme', '') === $element
     );
     return $item;
   }
 
   /**
-   * Create the listitem for a set
+   * Create the listitem for a skin
    *
    * @param array $element
-   * @return \Papaya\UI\ListView\Item
+   *
+   * @return UI\ListView\Item
    */
   private function createSetItem($element) {
-    $item = new \Papaya\UI\ListView\Item('items-folder', (string)$element['title']);
+    $item = new UI\ListView\Item('items-folder', (string)$element['title']);
     $item->papaya($this->papaya());
     $item->indentation = 1;
     $item->reference->setParameters(
-      array(
-        'cmd' => 'set_edit',
+      [
+        'cmd' => 'skin_edit',
         'theme' => $element['theme'],
-        'set_id' => $element['id']
-      ),
+        'skin_id' => $element['id']
+      ],
       $this->parameterGroup()
     );
     $item->selected =
-      ($this->parameters()->get('page_identifier', '') == '') &&
-      $this->parameters()->get('set_id', 0) == $element['id'];
+      ('' == $this->parameters()->get('page_identifier', '')) &&
+      $this->parameters()->get('skin_id', 0) == $element['id'];
     return $item;
   }
 
@@ -229,19 +237,20 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * Create the listitem for a theme values page
    *
    * @param \Papaya\Content\Structure\Page $element
-   * @return \Papaya\UI\ListView\Item
+   *
+   * @return UI\ListView\Item
    */
   private function createPageItem(\Papaya\Content\Structure\Page $element) {
-    $item = new \Papaya\UI\ListView\Item('items-folder', (string)$element->title);
+    $item = new UI\ListView\Item('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;
     $item->reference->setParameters(
-      array(
+      [
         'cmd' => 'values_edit',
         'theme' => $this->parameters()->get('theme', ''),
-        'set_id' => $this->parameters()->get('set_id', 0),
+        'skin_id' => $this->parameters()->get('skin_id', 0),
         'page_identifier' => $element->getIdentifier()
-      ),
+      ],
       $this->parameterGroup()
     );
     $item->selected = $this->parameters()->get('page_identifier', '') == $element->getIdentifier();

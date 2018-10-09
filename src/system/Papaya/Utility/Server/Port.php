@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Server;
+
 /**
  * Static utility class to check if thttp or http is used.
  *
@@ -21,7 +21,6 @@ namespace Papaya\Utility\Server;
  * @subpackage Util
  */
 class Port {
-
   /**
    * Static utility class to get the current port
    *
@@ -29,7 +28,7 @@ class Port {
    * PAPAYA_HEADER_HTTPS_TOKEN. If the header equals the token and the token is 32 bytes the
    * default https port (443) is returned.
    *
-   * @return boolean
+   * @return bool
    */
   public static function get() {
     if (isset($_SERVER['X_PAPAYA_HTTPS'])) {
@@ -39,10 +38,12 @@ class Port {
     } else {
       $header = NULL;
     }
-    if (isset($header) &&
-      defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
-      strlen(PAPAYA_HEADER_HTTPS_TOKEN) == 32 &&
-      $header == PAPAYA_HEADER_HTTPS_TOKEN) {
+    if (
+      NULL !== $header &&
+      \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
+      PAPAYA_HEADER_HTTPS_TOKEN === $header &&
+      32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)
+    ) {
       return 443;
     }
     return empty($_SERVER['SERVER_PORT']) ? 80 : (int)$_SERVER['SERVER_PORT'];

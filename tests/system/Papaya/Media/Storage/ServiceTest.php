@@ -41,7 +41,7 @@ namespace Papaya\Media\Storage {
 
     public $configurationBuffer;
 
-    public function setConfiguration($configuration) {
+    public function setConfiguration(\Papaya\Configuration $configuration) {
       $this->configurationBuffer = $configuration;
     }
 

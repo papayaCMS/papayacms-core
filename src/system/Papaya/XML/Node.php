@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
+
 /**
  * Define a interface of additional functions implemented in \Papaya\XML\Document and \Papaya\XML\Element.
  *
@@ -23,7 +23,18 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 interface Node {
-  public function appendElement($name, array $attributes = array(), $content = NULL);
+  /**
+   * Append a new element. Strings will be appended as text nodes, arrays set as attributes
+   *
+   * @param string $name
+   * @param string[]|array[]|Appendable[] $appendables
+   * @return mixed
+   */
+  public function appendElement($name, ...$appendables);
 
+  /**
+   * @param $content
+   * @return mixed
+   */
   public function appendXML($content);
 }

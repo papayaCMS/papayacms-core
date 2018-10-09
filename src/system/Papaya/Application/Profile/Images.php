@@ -12,28 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\UI;
+
 /**
  * Application object profile for the images
  *
- * Looks fopr an array $GLOBALS['PAPAYA_IMAGES'] and creates an instance of
+ * Looks for an array $GLOBALS['PAPAYA_IMAGES'] and creates an instance of
  * Papaya\UI\Images with it.
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Images implements \Papaya\Application\Profile {
-
+class Images implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
-   * @return \Papaya\UI\Images
+   * @param Application $application
+   *
+   * @return UI\Images
    */
   public function createObject($application) {
-    $images = new \Papaya\UI\Images(
-      empty($GLOBALS['PAPAYA_IMAGES']) ? array() : $GLOBALS['PAPAYA_IMAGES']
+    $images = new UI\Images(
+      empty($GLOBALS['PAPAYA_IMAGES']) ? [] : $GLOBALS['PAPAYA_IMAGES']
     );
     return $images;
   }

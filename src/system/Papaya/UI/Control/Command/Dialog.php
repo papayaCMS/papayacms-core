@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
+
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
  * callbacks are executed.
@@ -21,17 +25,16 @@ namespace Papaya\UI\Control\Command;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Dialog extends \Papaya\UI\Control\Command {
-
+class Dialog extends UI\Control\Command {
   /**
    * Dialog object
    *
-   * @var \Papaya\UI\Dialog
+   * @var UI\Dialog
    */
   private $_dialog;
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_context;
 
@@ -45,24 +48,25 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * Hide dialog after it was executed successfully.
    *
-   * @var boolean
+   * @var bool
    */
   private $_hideAfterSuccess = FALSE;
 
   /**
    * Reset dialog after it was executed successfully. Ignored if hideAfterSuccess is TRUE.
    *
-   * @var boolean
+   * @var bool
    */
   private $_resetAfterSuccess = FALSE;
 
   /**
    * Execute command and append result to output xml
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog) {
@@ -89,10 +93,11 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * A context for the dialog - to be set as hidden values or used in links
    *
-   * @param \Papaya\Request\Parameters $context
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $context
+   *
+   * @return Request\Parameters
    */
-  public function context(\Papaya\Request\Parameters $context = NULL) {
+  public function context(Request\Parameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     }
@@ -102,10 +107,11 @@ class Dialog extends \Papaya\UI\Control\Command {
   /**
    * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
    *
-   * @param \Papaya\UI\Dialog $dialog
-   * @return \Papaya\UI\Dialog
+   * @param UI\Dialog $dialog
+   *
+   * @return UI\Dialog
    */
-  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
+  public function dialog(UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -122,6 +128,7 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Getter/Setter for the callbacks object
    *
    * @param Dialog\Callbacks $callbacks
+   *
    * @return Dialog\Callbacks
    */
   public function callbacks(Dialog\Callbacks $callbacks = NULL) {
@@ -137,10 +144,10 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Create and return a dialog object, can be overloaded by child classes to create specific
    * dialogs.
    *
-   * @return \Papaya\UI\Dialog
+   * @return UI\Dialog
    */
   protected function createDialog() {
-    $dialog = new \Papaya\UI\Dialog();
+    $dialog = new UI\Dialog();
     $dialog->papaya($this->papaya());
     return $dialog;
   }
@@ -149,8 +156,9 @@ class Dialog extends \Papaya\UI\Control\Command {
    * Getter/Setter for the hide dialog option. If it is set to TRUE the dialog will be hidden
    * (aka not added to the DOM) if it was executed successfully.
    *
-   * @param NULL|boolean $hide
-   * @return boolean
+   * @param null|bool $hide
+   *
+   * @return bool
    */
   public function hideAfterSuccess($hide = NULL) {
     if (NULL !== $hide) {
@@ -165,8 +173,9 @@ class Dialog extends \Papaya\UI\Control\Command {
    *
    * Ignored if the hide after success option is active.
    *
-   * @param NULL|boolean $reset
-   * @return boolean
+   * @param null|bool $reset
+   *
+   * @return bool
    */
   public function resetAfterSuccess($reset = NULL) {
     if (NULL !== $reset) {

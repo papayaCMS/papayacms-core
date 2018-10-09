@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
+
+use Papaya\Filter as InputFilter;
+use Papaya\Utility;
+
 /**
  * An filter iterator to filter an given iterator using a papaya filter object.
  *
@@ -21,41 +24,52 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Filter extends \FilterIterator {
-
   const FILTER_VALUES = 1;
+
   const FILTER_KEYS = 2;
+
   const FILTER_BOTH = 3;
 
-  private $_filter = '';
-  private $_target = self::FILTER_VALUES;
+  /**
+   * @var Filter
+   */
+  private $_filter;
+
+  /**
+   * @var int
+   */
+  private $_target;
 
   /**
    * Create object and store iterator, pattern, flags and offset.
    *
-   * @param \Iterator $iterator
-   * @param string $pattern
-   * @param integer $offset
-   * @param integer $target
+   * @param \Traversable $traversable
+   * @param InputFilter $filter
+   * @param int $target
    */
   public function __construct(
-    \Iterator $iterator, \Papaya\Filter $filter, $target = self::FILTER_VALUES
+    \Traversable $traversable, InputFilter $filter, $target = self::FILTER_VALUES
   ) {
-    parent::__construct($iterator);
+    parent::__construct(
+      $traversable instanceof \Iterator ? $traversable : new TraversableIterator($traversable)
+    );
     $this->_filter = $filter;
-    $this->_target = $target;
+    $this->_target = (int)$target;
   }
 
   /**
    * Validate the current item and/or key using the filter object.
    *
-   * @return boolean
+   * @return bool
    */
   public function accept() {
-    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
+    if (
+      Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->current())) {
       return FALSE;
     }
-    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
+    if (
+      Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->key())) {
       return FALSE;
     }
@@ -68,7 +82,7 @@ class Filter extends \FilterIterator {
    * @return mixed
    */
   public function current() {
-    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target)) {
+    if (Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target)) {
       return $this->_filter->filter(parent::current());
     }
     return parent::current();
@@ -80,7 +94,7 @@ class Filter extends \FilterIterator {
    * @return mixed
    */
   public function key() {
-    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target)) {
+    if (Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target)) {
       return $this->_filter->filter(parent::key());
     }
     return parent::current();
@@ -90,13 +104,14 @@ class Filter extends \FilterIterator {
    * Match pattern against a value (key or current). The value will be casted to string
    *
    * @param mixed $value
-   * @return boolean
+   *
+   * @return bool
    */
   private function isMatch($value) {
     try {
       $this->_filter->validate($value);
       return TRUE;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (InputFilter\Exception $e) {
     }
     return FALSE;
   }

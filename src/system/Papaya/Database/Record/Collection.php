@@ -12,24 +12,25 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
+
+use Papaya\BaseObject;
+use Papaya\Database;
+
 /**
  * List object to handle a collection of record objects, allows to save, delete all of them
  * with one method call
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
  */
 class Collection
-  extends \Papaya\BaseObject\Collection {
-
+  extends BaseObject\Collection {
   /**
    * Create list an set internal object type limitation
    */
   public function __construct() {
-    parent::__construct(\Papaya\Database\Interfaces\Record::class);
+    parent::__construct(Database\Interfaces\Record::class);
   }
 
   /**
@@ -39,8 +40,8 @@ class Collection
    * @return array
    */
   public function toArray() {
-    $result = array();
-    /** @var \Papaya\Database\Interfaces\Record $record */
+    $result = [];
+    /** @var Database\Interfaces\Record $record */
     foreach ($this as $record) {
       $result[] = $record->toArray();
     }
@@ -53,7 +54,7 @@ class Collection
    * @return bool
    */
   public function save() {
-    /** @var \Papaya\Database\Interfaces\Record $record */
+    /** @var Database\Interfaces\Record $record */
     foreach ($this as $record) {
       if (FALSE === $record->save()) {
         return FALSE;
@@ -68,7 +69,7 @@ class Collection
    * @return bool
    */
   public function delete() {
-    /** @var \Papaya\Database\Interfaces\Record $record */
+    /** @var Database\Interfaces\Record $record */
     foreach ($this as $record) {
       if (FALSE === $record->delete()) {
         return FALSE;

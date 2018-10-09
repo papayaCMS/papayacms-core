@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
 
 /**
@@ -22,21 +21,20 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Generator implements \IteratorAggregate {
-
   /**
    * @var callback
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * @var array
    */
-  private $_arguments = array();
+  private $_arguments = [];
 
   /**
    * @var \Iterator
    */
-  private $_iterator = NULL;
+  private $_iterator;
 
   /**
    * Store callback and arguments for later use.
@@ -44,8 +42,7 @@ class Generator implements \IteratorAggregate {
    * @param callback $callback
    * @param array $arguments
    */
-  public function __construct($callback, array $arguments = array()) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+  public function __construct(callable $callback, array $arguments = []) {
     $this->_callback = $callback;
     $this->_arguments = $arguments;
   }
@@ -57,7 +54,7 @@ class Generator implements \IteratorAggregate {
    * @return \Iterator
    */
   public function getIterator() {
-    if (NULL == $this->_iterator) {
+    if (NULL === $this->_iterator) {
       $this->_iterator = $this->createIterator();
     }
     return $this->_iterator;
@@ -76,17 +73,19 @@ class Generator implements \IteratorAggregate {
    * @return \Iterator
    */
   private function createIterator() {
-    $traversable = call_user_func_array($this->_callback, $this->_arguments);
-    if (is_array($traversable)) {
+    $callback = $this->_callback;
+    $traversable = $callback(...$this->_arguments);
+    if (\is_array($traversable)) {
       return new \ArrayIterator($traversable);
-    } elseif ($traversable instanceof \Iterator) {
-      return $traversable;
-    } elseif ($traversable instanceof \IteratorAggregate) {
-      return $traversable->getIterator();
-    } else {
-      return ($traversable instanceof \Traversable)
-        ? new \Papaya\Iterator\TraversableIterator($traversable)
-        : new \EmptyIterator();
     }
+    if ($traversable instanceof \Iterator) {
+      return $traversable;
+    }
+    if ($traversable instanceof \IteratorAggregate) {
+      return $traversable->getIterator();
+    }
+    return ($traversable instanceof \Traversable)
+      ? new TraversableIterator($traversable)
+      : new \EmptyIterator();
   }
 }

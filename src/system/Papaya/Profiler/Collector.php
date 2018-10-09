@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Profiler;
+
 /**
  * Profiling data collector interface.
  *
@@ -21,7 +21,6 @@ namespace Papaya\Profiler;
  * @subpackage Profiler
  */
 interface Collector {
-
   /**
    * Enable data collection
    */

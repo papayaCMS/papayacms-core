@@ -12,9 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use Papaya\Content\Page\Work;
+
+use Papaya\Content\Page;
 
 /**
  * Synchronize properties of the page working copy
@@ -24,20 +24,20 @@ use Papaya\Content\Page\Work;
  */
 class Properties
   extends Content {
-
   /**
    * Page database record object
    *
-   * @var Work
+   * @var Page\Work
    */
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -51,14 +51,15 @@ class Properties
   /**
    * Getter/Setter for the content page object
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Page\Work $page
+   *
+   * @return Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+  public function page(Page\Work $page = NULL) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
-      $this->_page = new \Papaya\Content\Page\Work();
+    } elseif (NULL === $this->_page) {
+      $this->_page = new Page\Work();
     }
     return $this->_page;
   }
@@ -66,39 +67,41 @@ class Properties
   /**
    * Update target translation properties
    *
-   * @param \Papaya\Content\Page\Translation $origin
+   * @param Page\Translation $origin
    * @param array $targetIds
-   * @return boolean
+   *
+   * @return bool
    */
-  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
+  protected function updateTranslations(Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
-        array(
+        [
           'topic_title' => $origin->title,
           'meta_title' => $origin->metaTitle,
           'meta_keywords' => $origin->metaKeywords,
           'meta_descr' => $origin->metaDescription
-        ),
-        array(
+        ],
+        [
           'lng_id' => $origin->languageId,
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
 
   /**
    * Update target page properties
    *
-   * @param \Papaya\Content\Page\Work $origin
+   * @param Page\Work $origin
    * @param array $targetIds
-   * @return boolean
+   *
+   * @return bool
    */
-  protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
+  protected function updatePages(Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
-        array(
+        [
           'topic_modified' => $databaseAccess->getTimestamp(),
           'topic_mainlanguage' => $origin->defaultLanguage,
           'linktype_id' => $origin->linkType,
@@ -109,11 +112,10 @@ class Properties
           'topic_cachetime' => $origin->cacheTime,
           'topic_expiresmode' => $origin->expiresMode,
           'topic_expirestime' => $origin->expiresTime
-        ),
-        array(
+        ],
+        [
           'topic_id' => $targetIds
-        )
+        ]
       );
   }
-
 }

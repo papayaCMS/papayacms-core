@@ -12,24 +12,28 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
+
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A menu/toolbar button with image and/or text.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\Reference $reference
- * @property string|\Papaya\UI\Text $caption
- * @property string|\Papaya\UI\Text $hint
- * @property boolean $selected
+ * @property UI\Reference $reference
+ * @property string|StringCastable $caption
+ * @property string|StringCastable $hint
+ * @property bool $selected
  * @property string $accessKey
  * @property string $target
  * @property string $image
  */
-class Button extends \Papaya\UI\Toolbar\Element {
-
+class Button extends Element {
   /**
    * Image or image index.  The button needs a cpation or/and an image.
    *
@@ -40,14 +44,14 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * Button caption. The button needs a caption or/and an image
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = '';
 
   /**
-   * Button quickinfo
+   * Button quick info
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_hint = '';
 
@@ -62,7 +66,7 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * If the button is selected/down
    *
-   * @var boolean
+   * @var bool
    */
   protected $_selected = FALSE;
 
@@ -78,25 +82,26 @@ class Button extends \Papaya\UI\Toolbar\Element {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'reference' => array('reference', 'reference'),
-    'image' => array('_image', '_image'),
-    'caption' => array('_caption', '_caption'),
-    'hint' => array('_hint', '_hint'),
-    'selected' => array('_selected', '_selected'),
-    'accessKey' => array('_accessKey', 'setAccessKey'),
-    'target' => array('_target', '_target')
-  );
+  protected $_declaredProperties = [
+    'reference' => ['reference', 'reference'],
+    'image' => ['_image', '_image'],
+    'caption' => ['_caption', '_caption'],
+    'hint' => ['_hint', '_hint'],
+    'selected' => ['_selected', '_selected'],
+    'accessKey' => ['_accessKey', 'setAccessKey'],
+    'target' => ['_target', '_target']
+  ];
 
   /**
    * Setter for access key character.
    *
    * @param string $key
+   *
    * @throws \InvalidArgumentException
    */
   public function setAccessKey($key) {
-    \Papaya\Utility\Constraints::assertString($key);
-    if (strlen($key) == 1) {
+    Utility\Constraints::assertString($key);
+    if (1 === \strlen($key)) {
       $this->_accessKey = $key;
     } else {
       throw new \InvalidArgumentException(
@@ -108,30 +113,30 @@ class Button extends \Papaya\UI\Toolbar\Element {
   /**
    * Append button xml to menu. The button needs at least a caption or image to be shown.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $image = $this->papaya()->images[(string)$this->_image];
     $caption = (string)$this->_caption;
     if (!(empty($image) && empty($caption))) {
       $button = $parent->appendElement(
         'button',
-        array(
+        [
           'href' => $this->reference()->getRelative(),
           'target' => $this->_target
-        )
+        ]
       );
-      if (!empty($image)) {
+      if ('' !== \trim($image)) {
         $button->setAttribute('glyph', $image);
       }
-      if (!empty($caption)) {
+      if ('' !== \trim($caption)) {
         $button->setAttribute('title', $caption);
       }
-      if (!empty($this->_accessKey)) {
+      if ('' !== \trim($this->_accessKey)) {
         $button->setAttribute('accesskey', $this->_accessKey);
       }
       $hint = (string)$this->_hint;
-      if (!empty($hint)) {
+      if ('' !== \trim($hint)) {
         $button->setAttribute('hint', $hint);
       }
       if ((bool)$this->_selected) {

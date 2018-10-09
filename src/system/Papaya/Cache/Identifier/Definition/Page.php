@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
+
+use Papaya\Application;
+use Papaya\Cache;
+use Papaya\Request;
+use Papaya\Utility;
+
 /**
  * Use page and category ids as cache identifier conditions
  *
@@ -21,50 +26,52 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Page
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Application\Access, Cache\Identifier\Definition {
+  use Application\Access\Aggregation;
 
   /**
    * Return data for the specified page
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return BooleanValue|array
+   *
+   * @return bool|array
    */
   public function getStatus() {
     $isPreview = $this->papaya()->request->getParameter(
-      'preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH
+      'preview', FALSE, NULL, Request::SOURCE_PATH
     );
     if ($isPreview) {
       return FALSE;
     }
-    $data = array(
-      'scheme' => \Papaya\Utility\Server\Protocol::get(),
-      'host' => \Papaya\Utility\Server\Name::get(),
-      'port' => \Papaya\Utility\Server\Port::get(),
+    $data = [
+      'scheme' => Utility\Server\Protocol::get(),
+      'host' => Utility\Server\Name::get(),
+      'port' => Utility\Server\Port::get(),
       'category_id' => $this->papaya()->request->getParameter(
-        'category_id', 0, NULL, \Papaya\Request::SOURCE_PATH
+        'category_id', 0, NULL, Request::SOURCE_PATH
       ),
       'page_id' => $this->papaya()->request->getParameter(
-        'page_id', 0, NULL, \Papaya\Request::SOURCE_PATH
+        'page_id', 0, NULL, Request::SOURCE_PATH
       ),
       'language' => $this->papaya()->request->getParameter(
-        'language', '', NULL, \Papaya\Request::SOURCE_PATH
+        'language', '', NULL, Request::SOURCE_PATH
       ),
       'output_mode' => $this->papaya()->request->getParameter(
         'output_mode',
         $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html'),
         NULL,
-        \Papaya\Request::SOURCE_PATH
+        Request::SOURCE_PATH
       )
-    );
-    return empty($data) ? TRUE : array(get_class($this) => $data);
+    ];
+    return empty($data) ? TRUE : [\get_class($this) => $data];
   }
 
   /**
    * page id and category id are from the url path.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_URL;

@@ -12,31 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
- * Papaya filter class that chcks if the value is an empty one
+ * Papaya filter class that checks if the value is an empty one
  *
- * The private typeMapping property is used to specifiy possible casts.
+ * The private typeMapping property is used to specify possible casts.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class EmptyValue implements \Papaya\Filter {
-
+class EmptyValue implements Filter {
   /**
    * zero will be considered as an empty value
    *
-   * @var integer
+   * @var int
    */
-  private $_ignoreZero = TRUE;
+  private $_ignoreZero;
 
   /**
    * values containing only whitespaces will be considered as an empty value
    *
-   * @var integer
+   * @var int
    */
-  private $_ignoreSpaces = TRUE;
+  private $_ignoreSpaces;
 
   /**
    * Construct object, check and store options
@@ -54,31 +55,34 @@ class EmptyValue implements \Papaya\Filter {
   /**
    * Check the value throw exception if value is not empty
    *
-   * @throws \Papaya\Filter\Exception\NotEmpty
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if (is_array($value)) {
-      if (count($value) == 0) {
+    if (\is_array($value)) {
+      if (0 === \count($value)) {
         return TRUE;
       }
     } else {
       $value = (string)$value;
-      if ($value === '' ||
-        ($this->_ignoreZero && $value === '0') ||
-        ($this->_ignoreSpaces && trim($value) === '')) {
+      if ('' === $value ||
+        ($this->_ignoreZero && '0' === $value) ||
+        ($this->_ignoreSpaces && '' === \trim($value))) {
         return TRUE;
       }
     }
-    throw new \Papaya\Filter\Exception\NotEmpty($value);
+    throw new Exception\NotEmpty($value);
   }
 
   /**
    * The filter function always returns NULL
    *
-   * @param string $value
-   * @return integer|NULL
+   * @param mixed $value
+   *
+   * @return int|null
    */
   public function filter($value) {
     return NULL;

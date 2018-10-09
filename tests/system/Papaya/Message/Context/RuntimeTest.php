@@ -22,7 +22,7 @@ class RuntimeTest extends \Papaya\TestCase {
    * @covers \Papaya\Message\Context\Runtime::__construct
    */
   public function testConstructorWithoutParameters() {
-    Runtime::setStartTime(0);
+    Runtime::setStartTime(NULL);
     $context = new Runtime();
     $this->assertAttributeGreaterThan(
       0,

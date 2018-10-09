@@ -12,24 +12,27 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\Content;
+
 /**
  * Application object profile for languages object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Languages implements \Papaya\Application\Profile {
-
+class Languages implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
-   * @return \Papaya\Content\Languages
+   * @param Application $application
+   *
+   * @return Content\Languages
    */
   public function createObject($application) {
-    $languages = new \Papaya\Content\Languages();
+    $languages = new Content\Languages();
     $languages->papaya($application);
     $languages->load();
     return $languages;

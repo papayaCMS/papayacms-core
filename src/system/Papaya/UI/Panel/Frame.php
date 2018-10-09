@@ -12,28 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Panel;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A panel containing an iframe showing an given reference.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|UI\Text $caption
  * @property string $name
  * @property string $height
- * @property \Papaya\UI\Reference $reference
- * @property \Papaya\UI\Toolbars $toolbars
+ * @property UI\Reference $reference
+ * @property UI\Toolbars $toolbars
  */
-class Frame extends \Papaya\UI\Panel {
-
+class Frame extends UI\Panel {
   /**
    * The url reference object.
    *
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * A name/identifier for the frame, that can be used in link targets.
@@ -50,22 +52,22 @@ class Frame extends \Papaya\UI\Panel {
   protected $_height = '400';
 
   /**
-   * Declared public properties, see property annotaiton of the class for documentation.
+   * Declared public properties, see property annotation of the class for documentation.
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', 'setCaption'),
-    'name' => array('_name', '_name'),
-    'height' => array('_height', '_height'),
-    'reference' => array('reference', 'reference'),
-    'toolbars' => array('toolbars', 'toolbars')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', 'setCaption'],
+    'name' => ['_name', '_name'],
+    'height' => ['_height', '_height'],
+    'reference' => ['reference', 'reference'],
+    'toolbars' => ['toolbars', 'toolbars']
+  ];
 
   /**
    * Initialize object and store parameters.
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    * @param string $name
    * @param string $height
    */
@@ -79,16 +81,18 @@ class Frame extends \Papaya\UI\Panel {
    * Append iframe to panel xml element.
    *
    * @see \Papaya\UI\Panel#appendTo($parent)
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',
-      array(
+      [
         'id' => (string)$this->_name,
         'src' => $this->reference()->getRelative(),
         'height' => (string)$this->_height
-      )
+      ]
     );
     return $panel;
   }
@@ -96,14 +100,15 @@ class Frame extends \Papaya\UI\Panel {
   /**
    * Getter/Setter for the reference object.
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
+  public function reference(UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference();
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

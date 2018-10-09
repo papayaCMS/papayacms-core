@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Configurable;
+
+use Papaya\Plugin;
+
 /**
  * An interface to define that an object is a module with global options
  * (It can be adapted to the current environment).
@@ -22,13 +24,12 @@ namespace Papaya\Plugin\Configurable;
  * @subpackage Plugins
  */
 interface Options {
-
   /**
    * Getter/Setter for the editable options.
    *
-   * @param \Papaya\Plugin\Editable\Options $content
-   * @return \Papaya\Plugin\Editable\Options
+   * @param Plugin\Editable\Options $content
+   *
+   * @return Plugin\Editable\Options
    */
-  public function options(\Papaya\Plugin\Editable\Options $content = NULL);
-
+  public function options(Plugin\Editable\Options $content = NULL);
 }

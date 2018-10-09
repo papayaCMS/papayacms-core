@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order\By;
+
+use Papaya\Database;
 
 /**
  * Define an order by using field names
@@ -22,10 +23,9 @@ namespace Papaya\Database\Record\Order\By;
  * @subpackage Database
  */
 class Fields
-  implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
-
+  implements Database\Interfaces\Order, \IteratorAggregate {
   /**
-   * @var \Papaya\Database\Record\Order\Collection
+   * @var Database\Record\Order\Collection
    */
   private $_list;
 
@@ -33,7 +33,7 @@ class Fields
    * @param array $fields
    */
   public function __construct(array $fields) {
-    $this->_list = new \Papaya\Database\Record\Order\Collection();
+    $this->_list = new Database\Record\Order\Collection();
     $this->setFields($fields);
   }
 
@@ -45,7 +45,7 @@ class Fields
   public function setFields(array $fields) {
     $this->_list->clear();
     foreach ($fields as $field => $direction) {
-      $this->_list[] = new \Papaya\Database\Record\Order\Field($field, $direction);
+      $this->_list[] = new Database\Record\Order\Field($field, $direction);
     }
   }
 

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
 /**
  * Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
  *
@@ -21,10 +21,9 @@ namespace Papaya;
  * @subpackage Phrases
  *
  * @property \Papaya\Phrases\Groups groups
- *
  */
-class Phrases extends Application\BaseObject {
-
+class Phrases implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * @var \Papaya\Phrases\Groups
    */
@@ -70,6 +69,7 @@ class Phrases extends Application\BaseObject {
 
   /**
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -82,6 +82,7 @@ class Phrases extends Application\BaseObject {
 
   /**
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -112,6 +113,7 @@ class Phrases extends Application\BaseObject {
    * $phrase = $group->get('PHRASE');
    *
    * @param \Papaya\Phrases\Groups $groups
+   *
    * @return \Papaya\Phrases\Groups
    */
   public function groups(Phrases\Groups $groups = NULL) {
@@ -127,6 +129,7 @@ class Phrases extends Application\BaseObject {
    * Getter/Setter for the default phrase group
    *
    * @param string $name
+   *
    * @return string
    */
   public function defaultGroup($name = NULL) {
@@ -140,12 +143,12 @@ class Phrases extends Application\BaseObject {
       $url = $this->papaya()->request->getURL();
       $requestUri = $url->getPath();
       $result = '';
-      if (preg_match($fileNamePattern, $requestUri, $regs)) {
-        $result = basename($regs[3].$regs[5]);
-      } elseif (preg_match($pathNamePattern, $requestUri, $regs)) {
-        $result = basename($regs[3]);
+      if (\preg_match($fileNamePattern, $requestUri, $regs)) {
+        $result = \basename($regs[3].$regs[5]);
+      } elseif (\preg_match($pathNamePattern, $requestUri, $regs)) {
+        $result = \basename($regs[3]);
       } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
-        $result = basename($_SERVER['SCRIPT_FILENAME']);
+        $result = \basename($_SERVER['SCRIPT_FILENAME']);
       }
       $this->_defaultGroup = empty($result) ? '#default' : $result;
     }
@@ -154,6 +157,7 @@ class Phrases extends Application\BaseObject {
 
   /**
    * @param string $groupName
+   *
    * @return string
    */
   private function getGroupName($groupName = NULL) {
@@ -172,10 +176,11 @@ class Phrases extends Application\BaseObject {
    *
    * @param string $phrase
    * @param array $arguments
-   * @param string|NULL $groupName
+   * @param string|null $groupName
+   *
    * @return \Papaya\UI\Text\Translated
    */
-  public function get($phrase, array $arguments = array(), $groupName = NULL) {
+  public function get($phrase, array $arguments = [], $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->get($phrase, $arguments);
   }
 
@@ -184,6 +189,7 @@ class Phrases extends Application\BaseObject {
    *
    * @param array|\Traversable $phrases
    * @param array $groupName
+   *
    * @return \Papaya\UI\Text\Translated\Collection
    */
   public function getList($phrases, $groupName = NULL) {
@@ -195,6 +201,7 @@ class Phrases extends Application\BaseObject {
    *
    * @param string $phrase
    * @param string $groupName
+   *
    * @return string
    */
   public function getText($phrase, $groupName = NULL) {
@@ -207,12 +214,14 @@ class Phrases extends Application\BaseObject {
    * This method is only implemented for backwards compatibility
    *
    * @deprecated
+   *
    * @param string $phrase
    * @param array $values
    * @param string $groupName
+   *
    * @return string
    */
-  public function getTextFmt($phrase, array $values = array(), $groupName = NULL) {
+  public function getTextFmt($phrase, array $values = [], $groupName = NULL) {
     $result = new UI\Text(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );

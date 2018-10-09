@@ -12,40 +12,43 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Domain;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Data encapsulation for a liust of domain groups
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \Papaya\Database\Records\Lazy {
-
+class Groups extends Database\Records\Lazy {
   /**
    * Map field names to more convinient property names
    *
    * @var string[]
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'domaingroup_id',
     'title' => 'domaingroup_title'
-  );
+  ];
 
   /**
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::DOMAIN_GROUPS;
+  protected $_tableName = Content\Tables::DOMAIN_GROUPS;
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
   /**
-   * @param int|array|NULL $filter
+   * @param int|array|null $filter
+   *
    * @return Group
    */
   public function getItem($filter = NULL) {
     $result = new Group();
-    if (is_scalar($filter)) {
+    if (\is_scalar($filter)) {
       $filter = ['id' => $filter];
     }
     $result->activateLazyLoad($filter);

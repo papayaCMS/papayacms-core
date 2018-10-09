@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration;
+
+use Papaya\Configuration;
 
 /**
  * Iterator for the \Papaya\Configuration class.
@@ -22,32 +23,31 @@ namespace Papaya\Configuration;
  * @subpackage Configuration
  */
 class Iterator implements \Iterator {
-
   /**
    * option names
    *
    * @var array(string)
    */
-  private $_names = array();
+  private $_names = [];
 
   /**
    * configuration object
    *
-   * @var \Papaya\Configuration
+   * @var Configuration
    */
-  private $_configuration = NULL;
+  private $_configuration;
 
   /**
    * Current iterator position
    *
-   * @var integer
+   * @var int
    */
   private $_position = 0;
 
   /**
    * iterator maximum
    *
-   * @var integer
+   * @var int
    */
   private $_maximum = 0;
 
@@ -55,11 +55,11 @@ class Iterator implements \Iterator {
    * Create object, store names and configuration object
    *
    * @param array $names
-   * @param \Papaya\Configuration $configuration
+   * @param Configuration $configuration
    */
-  public function __construct(array $names, \Papaya\Configuration $configuration) {
-    $this->_names = array_values($names);
-    $this->_maximum = count($names) - 1;
+  public function __construct(array $names, Configuration $configuration) {
+    $this->_names = \array_values($names);
+    $this->_maximum = \count($names) - 1;
     $this->_configuration = $configuration;
   }
 
@@ -72,6 +72,8 @@ class Iterator implements \Iterator {
 
   /**
    * Return option value form current iterator position
+   *
+   * return mixed
    */
   public function current() {
     if ($this->_position <= $this->_maximum) {
@@ -82,6 +84,8 @@ class Iterator implements \Iterator {
 
   /**
    * Return option name form current iterator position
+   *
+   * return string
    */
   public function key() {
     return $this->_names[$this->_position];
@@ -89,6 +93,8 @@ class Iterator implements \Iterator {
 
   /**
    * Move iterator to next position and return option value
+   *
+   * return mixed
    */
   public function next() {
     ++$this->_position;
@@ -97,6 +103,8 @@ class Iterator implements \Iterator {
 
   /**
    * Return if current iterator position is valid
+   *
+   * return bool
    */
   public function valid() {
     return $this->_position <= $this->_maximum;

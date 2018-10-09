@@ -12,32 +12,34 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Filter class making an encapsulated filter optional, allowing empty values
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Optional implements \Papaya\Filter {
+class Optional implements Filter {
+  private $_innerFilter;
 
-  private $_innerFilter = NULL;
-  private $_filter = NULL;
+  private $_filter;
 
   /**
    * Store inner filter object
    *
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    */
-  public function __construct(\Papaya\Filter $filter) {
+  public function __construct(Filter $filter) {
     $this->_innerFilter = $filter;
   }
 
   /**
    * Return the inner filter, the condition if the value is not empty
    *
-   * @return null|\Papaya\Filter
+   * @return null|Filter
    */
   public function getInnerFilter() {
     return $this->_innerFilter;
@@ -46,15 +48,15 @@ class Optional implements \Papaya\Filter {
   /**
    * Return the combined filter allowing empty values
    *
-   * @return null|\Papaya\Filter\LogicalOr
+   * @return Filter
    */
   public function getFilter() {
-    if (isset($this->_filter)) {
+    if (NULL !== $this->_filter) {
       return $this->_filter;
     }
-    return $this->_filter = new \Papaya\Filter\LogicalOr(
+    return $this->_filter = new LogicalOr(
       $this->getInnerFilter(),
-      new \Papaya\Filter\EmptyValue()
+      new EmptyValue()
     );
   }
 
@@ -62,7 +64,9 @@ class Optional implements \Papaya\Filter {
    * Validate the value using the combined filter
    *
    * @param mixed $value
-   * @return bool
+   *
+   * @return true
+   * @throws Exception
    */
   public function validate($value) {
     return $this->getFilter()->validate($value);
@@ -72,6 +76,7 @@ class Optional implements \Papaya\Filter {
    * Filter the value using the combined filter
    *
    * @param mixed $value
+   *
    * @return mixed
    */
   public function filter($value) {

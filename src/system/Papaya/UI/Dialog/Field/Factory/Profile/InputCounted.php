@@ -12,23 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\UI;
+
 /**
  * Field factory profiles for a generic input with an additional javascript based counter.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class InputCounted extends \Papaya\UI\Dialog\Field\Factory\Profile {
-
+class InputCounted extends UI\Dialog\Field\Factory\Profile {
   /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
-   * @return \Papaya\UI\Dialog\Field\Input
-   * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
+   *
+   * @return UI\Dialog\Field\Input\Counted
+   *
+   * @throws UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \Papaya\UI\Dialog\Field\Input\Counted(
+    $field = new UI\Dialog\Field\Input\Counted(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

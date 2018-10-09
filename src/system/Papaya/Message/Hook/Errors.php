@@ -12,34 +12,33 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Hook;
 
 use Papaya\Message;
 
-if (!defined('E_RECOVERABLE_ERROR')) {
-  /**
+if (!\defined('E_RECOVERABLE_ERROR')) {
+  /*
    * Available since PHP 5.2, define if not here
    *
    * @ignore
    */
-  define('E_RECOVERABLE_ERROR', 4096);
+  \define('E_RECOVERABLE_ERROR', 4096);
 }
-if (!defined('E_DEPRECATED')) {
-  /**
+if (!\defined('E_DEPRECATED')) {
+  /*
    * Available since PHP 5.3, define if not here
    *
    * @ignore
    */
-  define('E_DEPRECATED', 8192);
+  \define('E_DEPRECATED', 8192);
 }
-if (!defined('E_USER_DEPRECATED')) {
-  /**
+if (!\defined('E_USER_DEPRECATED')) {
+  /*
    * Available since PHP 5.3, define if not here
    *
    * @ignore
    */
-  define('E_USER_DEPRECATED', 16384);
+  \define('E_USER_DEPRECATED', 16384);
 }
 
 /**
@@ -53,7 +52,6 @@ if (!defined('E_USER_DEPRECATED')) {
  */
 class Errors
   implements Message\Hook {
-
   /**
    * Message manger object to dispatch the created messages
    *
@@ -66,8 +64,7 @@ class Errors
    *
    * @var array
    */
-  private $_previousErrors = array();
-
+  private $_previousErrors = [];
 
   /**
    * Store the exception hook, so it can be used directly instead of throwing the
@@ -82,11 +79,11 @@ class Errors
    *
    * @var array
    */
-  protected $_nonfatalErrors = array(
+  protected $_nonfatalErrors = [
     E_NOTICE, E_USER_NOTICE, E_WARNING, E_USER_WARNING,
     E_STRICT, E_RECOVERABLE_ERROR,
     E_DEPRECATED, E_USER_DEPRECATED
-  );
+  ];
 
   /**
    * Create hook and set message manager object
@@ -106,8 +103,8 @@ class Errors
    * we still have a lot of php 4 source.
    */
   public function activate() {
-    set_error_handler(
-      array($this, 'handle')
+    \set_error_handler(
+      [$this, 'handle']
     );
   }
 
@@ -115,25 +112,27 @@ class Errors
    * Deactivate hook, restore previous error handler
    */
   public function deactivate() {
-    restore_error_handler();
+    \restore_error_handler();
   }
 
   /**
    * Actual error handler callback
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $text
    * @param string $file
-   * @param integer $line
+   * @param int $line
    * @param mixed $context
+   *
    * @return bool
+   *
    * @throws \Exception
    */
   public function handle($severity, $text, $file, $line, $context) {
-    $errorReporting = error_reporting();
+    $errorReporting = \error_reporting();
     if (($errorReporting & $severity) === $severity) {
       try {
-        if (in_array($severity, $this->_nonfatalErrors, TRUE)) {
+        if (\in_array($severity, $this->_nonfatalErrors, TRUE)) {
           if (!$this->checkErrorDuplicates($severity, $file, $line)) {
             // @codeCoverageIgnoreStart
             /*
@@ -141,7 +140,7 @@ class Errors
             If the Autoloader is not working and the class does not exist yes,
             we disable the internal handling and let php take over.
             */
-            if (!class_exists(Message\PHP\Error::class)) {
+            if (!\class_exists(Message\PHP\Error::class)) {
               return FALSE;
             }
             // @codeCoverageIgnoreEnd
@@ -154,7 +153,7 @@ class Errors
             new \ErrorException($text, 0, $severity, $file, $line)
           );
         }
-      } /** @noinspection PhpRedundantCatchClauseInspection */ catch (\ErrorException $e) {
+      } /* @noinspection PhpRedundantCatchClauseInspection */ catch (\ErrorException $e) {
         return $this->handleException($e);
       } catch (\Exception $e) {
         return FALSE;
@@ -165,7 +164,9 @@ class Errors
 
   /**
    * @param \Exception $exception
+   *
    * @return bool
+   *
    * @throws \Exception
    */
   private function handleException(\Exception $exception) {
@@ -179,14 +180,16 @@ class Errors
   /**
    * Count errors grouped by severity, file and line. Used to recognize duplicates.
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $file
-   * @param integer $line
+   * @param int $line
+   *
    * @return int
+   *
    * @internal param string $text
    */
   public function checkErrorDuplicates($severity, $file, $line) {
-    $hash = md5($severity.'|'.$file.'|'.$line);
+    $hash = \md5($severity.'|'.$file.'|'.$line);
     if (isset($this->_previousErrors[$hash])) {
       return $this->_previousErrors[$hash]++;
     }

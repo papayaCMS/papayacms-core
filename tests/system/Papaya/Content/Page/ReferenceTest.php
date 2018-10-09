@@ -41,7 +41,7 @@ class ReferenceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Page\Reference::callbackSortPageIds
+   * @covers \Papaya\Content\Page\Reference
    * @dataProvider provideMappingData
    * @param array $expected
    * @param int $mode
@@ -50,9 +50,11 @@ class ReferenceTest extends \Papaya\TestCase {
    */
   public function testCallbackSortPageIds(array $expected, $mode, array $values, array $record) {
     $reference = new Reference();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $reference->mapping();
     $this->assertEquals(
       $expected,
-      $reference->callbackSortPageIds(new \stdClass, $mode, $values, $record)
+      $mapping->callbacks()->onAfterMapping($mode, $values, $record)
     );
   }
 

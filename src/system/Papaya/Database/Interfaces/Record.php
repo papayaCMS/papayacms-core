@@ -12,24 +12,40 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Interfaces;
+
+use Papaya\BaseObject\Interfaces\Properties;
 
 interface Record
   extends
-  \Papaya\Database\Interfaces\Access,
-  \Papaya\BaseObject\Interfaces\Properties,
+  Access,
+  Properties,
   \ArrayAccess,
   \IteratorAggregate {
-
+  /**
+   * @param $data
+   * @return array|\Traversable
+   */
   public function assign($data);
 
+  /**
+   * @return array
+   */
   public function toArray();
 
+  /**
+   * @param array $filter
+   * @return bool
+   */
   public function load($filter);
 
+  /**
+   * @return bool|Key
+   */
   public function save();
 
+  /**
+   * @return bool
+   */
   public function delete();
 }
-

@@ -12,28 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
+
+use Papaya\Application;
+
 /**
  * Papaya Request Parser super class
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-abstract class Parser extends \Papaya\Application\BaseObject {
+abstract class Parser implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * parse request
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   *
+   * @return false|array
    */
   abstract public function parse($url);
 
   /**
    * If a parser hast the "last" property, the loop is finished if it matches.
    *
-   * @return boolean
+   * @return bool
    */
   public function isLast() {
     return TRUE;

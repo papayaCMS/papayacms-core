@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
+
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide basic data encapsulation for the content page.
  *
@@ -50,14 +53,13 @@ namespace Papaya\Content;
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class Page extends \Papaya\Database\Record\Lazy {
-
+class Page extends Database\Record\Lazy {
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // page id
     'id' => 'topic_id',
     // parent id
@@ -100,14 +102,14 @@ class Page extends \Papaya\Database\Record\Lazy {
     'expires_time' => 'topic_expirestime',
     // unpublished translations counter
     'unpublished_translations' => 'topic_unpublished_languages'
-  );
+  ];
 
   /**
    * Pages table name for sql queries
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGES;
+  protected $_tableName = Tables::PAGES;
 
   /**
    * Page translations list object
@@ -128,6 +130,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * Load page record from database
    *
    * @param mixed $filter
+   *
    * @return bool
    */
   public function load($filter) {
@@ -146,57 +149,30 @@ class Page extends \Papaya\Database\Record\Lazy {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
-      $this, 'callbackMapValueFromFieldToProperty'
-    );
-    $mapping->callbacks()->onMapValueFromPropertyToField = array(
-      $this, 'callbackMapValueFromPropertyToField'
-    );
+    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+      /* @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'parent_path' :
+        case 'visitor_permissions' :
+          return Utility\Arrays::decodeIdList($value);
+      }
+      return $value;
+    };
+    $mapping->callbacks()->onMapValueFromPropertyToField = function(
+      /* @noinspection PhpUnusedParameterInspection */
+      $context, $property, $field, $value
+    ) {
+      switch ($property) {
+        case 'parent_path' :
+          return Utility\Arrays::encodeAndQuoteIdList(empty($value) ? [] : $value);
+        case 'visitor_permissions' :
+          return Utility\Arrays::encodeIdList(empty($value) ? [] : $value);
+      }
+      return $value;
+    };
     return $mapping;
-  }
-
-  /**
-   * Deserialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   * @return mixed
-   */
-  public function callbackMapValueFromFieldToProperty(
-    /** @noinspection PhpUnusedParameterInspection */
-    $context, $property, $field, $value
-  ) {
-    switch ($property) {
-      case 'parent_path' :
-      case 'visitor_permissions' :
-        return \Papaya\Utility\Arrays::decodeIdList($value);
-    }
-    return $value;
-  }
-
-
-  /**
-   * Serialize path and permissions field values
-   *
-   * @param object $context
-   * @param string $property
-   * @param string $field
-   * @param string $value
-   * @return mixed
-   */
-  public function callbackMapValueFromPropertyToField(
-    /** @noinspection PhpUnusedParameterInspection */
-    $context, $property, $field, $value
-  ) {
-    switch ($property) {
-      case 'parent_path' :
-        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? array() : $value);
-      case 'visitor_permissions' :
-        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? array() : $value);
-    }
-    return $value;
   }
 
   /**
@@ -205,6 +181,7 @@ class Page extends \Papaya\Database\Record\Lazy {
    * Allows to get/set the list object. Can create a list object if needed.
    *
    * @param Page\Translations $translations
+   *
    * @return Page\Translations
    */
   public function translations(Page\Translations $translations = NULL) {
@@ -218,26 +195,19 @@ class Page extends \Papaya\Database\Record\Lazy {
     return $this->_translations;
   }
 
+  /**
+   * @return Database\Record\Callbacks
+   */
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
-    $callbacks->onBeforeInsert = array($this, 'callbackOnBeforeInsert');
-    $callbacks->onBeforeUpdate = array($this, 'callbackOnBeforeUpdate');
+    $callbacks->onBeforeInsert = function() {
+      $this->modified = $this->created = \time();
+      return TRUE;
+    };
+    $callbacks->onBeforeUpdate = function() {
+      $this->modified = \time();
+      return TRUE;
+    };
     return $callbacks;
-  }
-
-  /**
-   * @return bool
-   */
-  public function callbackOnBeforeUpdate() {
-    $this->modified = time();
-    return TRUE;
-  }
-
-  /**
-   * @return bool
-   */
-  public function callbackOnBeforeInsert() {
-    $this->modified = $this->created = time();
-    return TRUE;
   }
 }

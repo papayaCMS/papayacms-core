@@ -12,30 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner\Status;
+
+use Papaya\Template\Simple;
+
 /**
  * Look for template tokens inside a CSS string
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class CSS extends \Papaya\Template\Simple\Scanner\Status {
-
-  private $_patterns = array(
-    '(/\\*\\$[^*\\r\\n]+\*/)S' => \Papaya\Template\Simple\Scanner\Token::VALUE_NAME,
-    '(\\s+)S' => \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
-    '(/\\*)S' => \Papaya\Template\Simple\Scanner\Token::COMMENT_START,
-    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => \Papaya\Template\Simple\Scanner\Token::TEXT,
-  );
+class CSS extends Simple\Scanner\Status {
+  private $_patterns = [
+    '(/\\*\\$[^*\\r\\n]+\*/)S' => Simple\Scanner\Token::VALUE_NAME,
+    '(\\s+)S' => Simple\Scanner\Token::WHITESPACE,
+    '(/\\*)S' => Simple\Scanner\Token::COMMENT_START,
+    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => Simple\Scanner\Token::TEXT,
+  ];
 
   /**
    * Match the patterns against the buffer string, return a new token if it is found at
    * offset position
    *
    * @param string $buffer
-   * @param integer $offset
-   * @return NULL|\Papaya\Template\Simple\Scanner\Token
+   * @param int $offset
+   *
+   * @return null|Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -45,15 +47,16 @@ class CSS extends \Papaya\Template\Simple\Scanner\Status {
    * If a token name is found, switch to value status, expecting a css value that can
    * be replaced (or not) by the defined value.
    *
-   * @param \Papaya\Template\Simple\Scanner\Token
-   * @return \Papaya\Template\Simple\Scanner\Status|NULL
+   * @param Simple\Scanner\Token
+   *
+   * @return Simple\Scanner\Status|null
    */
   public function getNewStatus($token) {
     switch ($token->type) {
-      case \Papaya\Template\Simple\Scanner\Token::VALUE_NAME :
-        return new \Papaya\Template\Simple\Scanner\Status\CSS\Value();
-      case \Papaya\Template\Simple\Scanner\Token::COMMENT_START :
-        return new \Papaya\Template\Simple\Scanner\Status\CSS\Comment();
+      case Simple\Scanner\Token::VALUE_NAME :
+        return new CSS\Value();
+      case Simple\Scanner\Token::COMMENT_START :
+        return new CSS\Comment();
     }
     return NULL;
   }

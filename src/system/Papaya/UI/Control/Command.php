@@ -12,42 +12,43 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
+
+use Papaya\Request;
+
 /**
  * Abstract superclass for ui commands, like executing a dialog.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Command extends \Papaya\UI\Control\Interactive {
-
+abstract class Command extends Interactive {
   /**
    * A permission that is validated for the current administration user,
    * before executing the command
    *
-   * @var NULL|array|integer
+   * @var null|array|int
    */
   private $_permission;
 
   /**
    * A condition that is validated, before executing the command
    *
-   * @var NULL|TRUE|Command\Condition
+   * @var null|true|Command\Condition
    */
   private $_condition;
 
   /**
    * The owner of the command. This is where the command gets it parameters from.
    *
-   * @param \Papaya\UI\Control\Interactive
+   * @param Interactive
    */
   private $_owner;
 
   /**
    * Validate if the command has to be executed. Can return a boolean or throw an exception.
    *
-   * @return boolean
+   * @return bool
    */
   public function validateCondition() {
     $condition = $this->condition();
@@ -61,6 +62,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Condition can be used to validate if an command can be executed.
    *
    * @param Command\Condition $condition
+   *
    * @return Command\Condition
    */
   public function condition(Command\Condition $condition = NULL) {
@@ -86,15 +88,16 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Validate the assigned permission.
    *
    * @throws \UnexpectedValueException
-   * @return boolean
+   *
+   * @return bool
    */
   public function validatePermission() {
     if ($permission = $this->permission()) {
-      if (is_array($permission) && 2 === count($permission)) {
+      if (\is_array($permission) && 2 === \count($permission)) {
         $user = $this->papaya()->administrationUser;
         return $user->hasPerm($permission[1], $permission[0]);
       }
-      if (is_int($permission)) {
+      if (\is_int($permission)) {
         $user = $this->papaya()->administrationUser;
         return $user->hasPerm($permission);
       }
@@ -109,7 +112,8 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * Getter/Setter for the permission
    *
    * @param int $permission
-   * @return NULL|array|integer
+   *
+   * @return null|array|int
    */
   public function permission($permission = NULL) {
     if (NULL !== $permission) {
@@ -125,18 +129,20 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * If the owner is emtpy and exception is thrown.
    *
    * @throws \LogicException
-   * @param \Papaya\Request\Parameters\Access|NULL $owner
-   * @return \Papaya\Request\Parameters\Access
+   *
+   * @param Request\Parameters\Access|null $owner
+   *
+   * @return Request\Parameters\Access
    */
-  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
+  public function owner(Request\Parameters\Access $owner = NULL) {
     if (NULL !== $owner) {
       $this->_owner = $owner;
       $this->papaya($owner->papaya());
     } elseif (NULL === $this->_owner) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'LogicException: Instance of "%s" has no owner assigned.',
-          get_class($this)
+          \get_class($this)
         )
       );
     }
@@ -146,7 +152,7 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
   /**
    * Validate if an owner object is assigned
    *
-   * @return boolean
+   * @return bool
    */
   public function hasOwner() {
     return NULL !== $this->_owner;
@@ -157,8 +163,9 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    *
    * If an owner is available, its parameterMethod function will be used.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   *
+   * @return int
    */
   public function parameterMethod($method = NULL) {
     if ($this->hasOwner()) {
@@ -173,8 +180,9 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * This puts/expects all parameters into/in a parameter group.
    * If an owner is available, its parameterGroup function will be used.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   *
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
     if ($this->hasOwner()) {
@@ -189,10 +197,11 @@ abstract class Command extends \Papaya\UI\Control\Interactive {
    * This method gives you access to request parameters.
    * If an owner is available, its parameters function will be used.
    *
-   * @param \Papaya\Request\Parameters $parameters
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $parameters
+   *
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if ($this->hasOwner()) {
       $parameters = $this->owner()->parameters($parameters);
     }

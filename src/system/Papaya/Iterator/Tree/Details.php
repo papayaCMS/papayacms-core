@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
+
+use Papaya\Iterator;
+use Papaya\Utility;
+
 /**
  * An iterator that attaches details from a second array or Traversable to the first.
  *
@@ -40,29 +43,28 @@ namespace Papaya\Iterator\Tree;
 class Details
   extends \IteratorIterator
   implements \RecursiveIterator {
-
   /**
    * @var array|\Traversable
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * @var array
    */
-  private $_tree = NULL;
+  private $_tree;
+
   /**
-   *
    * @var array
    */
-  private $_identifier = NULL;
+  private $_identifier;
 
   /**
    * @param array|\Traversable $main
    * @param array|\Traversable $details
-   * @param string|array|NULL $identifier
+   * @param string|array|null $identifier
    */
   public function __construct($main, $details, $identifier = NULL) {
-    parent::__construct(new \Papaya\Iterator\TraversableIterator($main));
+    parent::__construct(new Iterator\TraversableIterator($main));
     $this->setDetails($details, $identifier);
   }
 
@@ -71,12 +73,12 @@ class Details
    * read access
    *
    * @param array|\Traversable $details
-   * @param string|array|NULL $identifier
+   * @param string|array|null $identifier
    */
   public function setDetails($details, $identifier = NULL) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($details);
+    Utility\Constraints::assertArrayOrTraversable($details);
     $this->_list = $details;
-    $this->_identifier = isset($identifier) ? \Papaya\Utility\Arrays::ensure($identifier) : NULL;
+    $this->_identifier = isset($identifier) ? Utility\Arrays::ensure($identifier) : NULL;
     $this->_tree = NULL;
   }
 
@@ -86,8 +88,8 @@ class Details
    * @return array
    */
   private function getDetails() {
-    if (!isset($this->_tree)) {
-      $this->_tree = array();
+    if (NULL === $this->_tree) {
+      $this->_tree = [];
       foreach ($this->_list as $id => $element) {
         $identifier = $this->getIdentifier($element, $id);
         $this->_tree[$identifier][$id] = $element;
@@ -97,23 +99,23 @@ class Details
   }
 
   /**
-   * For each element in in the identifer definition, try to fetch a value from the
+   * For each element in in the identifier definition, try to fetch a value from the
    * element array. Join all values using the "|" character.
    *
    * @param array $element
    * @param mixed $key
+   *
    * @return string
    */
   protected function getIdentifier($element, $key) {
-    if (isset($this->_identifier)) {
-      $result = array();
-      foreach (\Papaya\Utility\Arrays::ensure($this->_identifier) as $property) {
-        $result[] = \Papaya\Utility\Arrays::get($element, $property, '');
+    if (NULL !== $this->_identifier) {
+      $result = [];
+      foreach (Utility\Arrays::ensure($this->_identifier) as $property) {
+        $result[] = Utility\Arrays::get($element, $property, '');
       }
-      return implode('|', $result);
-    } else {
-      return $key;
+      return \implode('|', $result);
     }
+    return $key;
   }
 
   /**
@@ -129,6 +131,6 @@ class Details
    */
   public function getChildren() {
     $details = $this->getDetails();
-    return new \Papaya\Iterator\Tree\Items($details[$this->key()]);
+    return new Items($details[$this->key()]);
   }
 }

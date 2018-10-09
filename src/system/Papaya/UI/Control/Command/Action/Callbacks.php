@@ -12,33 +12,37 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Action;
+
+use Papaya\BaseObject;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Callbacks that are used by the action command
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\BaseObject\Callback $onValidationSuccessful
- * @property \Papaya\BaseObject\Callback $onValidationFailed
- * @property \Papaya\BaseObject\Callback $getDefinition
- * @method void onValidationSuccessful(\Papaya\UI\Control\Command\Action $action, \Papaya\XML\Element $parentNode)
- * @method void onValidationFailed(\Papaya\UI\Control\Command\Action $action, \Papaya\XML\Element $parentNode)
+ * @property BaseObject\Callback $onValidationSuccessful
+ * @property BaseObject\Callback $onValidationFailed
+ * @property BaseObject\Callback $getDefinition
+ *
+ * @method void onValidationSuccessful(UI\Control\Command\Action $action, XML\Element $parentNode)
+ * @method void onValidationFailed(UI\Control\Command\Action $action, XML\Element $parentNode)
  * @method array getDefinition()
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
-
+class Callbacks extends BaseObject\Callbacks {
   /**
    * Initialize object and set callback definition
    */
   public function __construct() {
     parent::__construct(
-      array(
-        'getDefinition' => array(),
+      [
+        'getDefinition' => [],
         'onValidationSuccessful' => NULL,
         'onValidationFailed' => NULL
-      )
+      ]
     );
   }
 }

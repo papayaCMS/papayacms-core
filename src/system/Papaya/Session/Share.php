@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
+use Papaya\Application;
+
 /**
  * This is the generic papaya session share object which can be used in projects to share related,
  * session-persistent data conveniently between different modules.
@@ -32,21 +34,22 @@ namespace Papaya\Session;
  * @package Papaya-Library
  * @subpackage Session
  */
-abstract class Share extends \Papaya\Application\BaseObject {
+abstract class Share implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * The list of those properties that are stored in the session.
    *
    * @var array key: propertyName, value: TRUE, e.g array('myProperty' => TRUE)
    */
-  protected $_definitions = array();
+  protected $_definitions = [];
 
   /**
    * Internal variable for an session values object used for dependency injection
    *
-   * @var \Papaya\Session\Values
+   * @var Values
    */
-  private $_sessionValues = NULL;
+  private $_sessionValues;
 
   /**
    * If set to true, the object will normalize the session variable names.
@@ -55,14 +58,13 @@ abstract class Share extends \Papaya\Application\BaseObject {
    */
   protected $_normalizeNames = TRUE;
 
-
   /**
    * Getter for session values object
    *
-   * @return \Papaya\Session\Values $values
+   * @return Values $values
    */
   public function getSessionValues() {
-    if (isset($this->_sessionValues)) {
+    if (NULL !== $this->_sessionValues) {
       return $this->_sessionValues;
     }
     return $this->papaya()->session->values();
@@ -71,9 +73,9 @@ abstract class Share extends \Papaya\Application\BaseObject {
   /**
    * Setter for session values object, allows dependency injection if needed.
    *
-   * @param \Papaya\Session\Values $values
+   * @param Values $values
    */
-  public function setSessionValues(\Papaya\Session\Values $values) {
+  public function setSessionValues(Values $values) {
     $this->_sessionValues = $values;
   }
 
@@ -81,26 +83,28 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Checks if a session property is available.
    *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     $name = $this->preparePropertyName($name);
     $values = $this->getSessionValues();
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    return isset($values[array($this->getGroupName(), $name)]);
+    /* @noinspection PhpIllegalArrayKeyTypeInspection */
+    return isset($values[[$this->getGroupName(), $name]]);
   }
 
   /**
    * Retrieves a property from the session
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
     $name = $this->preparePropertyName($name);
     $values = $this->getSessionValues();
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    return $values[array($this->getGroupName(), $name)];
+    /* @noinspection PhpIllegalArrayKeyTypeInspection */
+    return $values[[$this->getGroupName(), $name]];
   }
 
   /**
@@ -112,21 +116,22 @@ abstract class Share extends \Papaya\Application\BaseObject {
   public function __set($name, $value) {
     $name = $this->preparePropertyName($name);
     $values = $this->getSessionValues();
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    $values[array($this->getGroupName(), $name)] = $value;
+    /* @noinspection PhpIllegalArrayKeyTypeInspection */
+    $values[[$this->getGroupName(), $name]] = $value;
   }
 
   /**
    * Sets a session property defined in the list of persistent properties.
    *
    * @param string $name
+   *
    * @internal param mixed $value
    */
   public function __unset($name) {
     $name = $this->preparePropertyName($name);
     $values = $this->getSessionValues();
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    unset($values[array($this->getGroupName(), $name)]);
+    /* @noinspection PhpIllegalArrayKeyTypeInspection */
+    unset($values[[$this->getGroupName(), $name]]);
   }
 
   /**
@@ -134,24 +139,26 @@ abstract class Share extends \Papaya\Application\BaseObject {
    *
    * @param string $functionName
    * @param array $arguments
+   *
    * @throws \LogicException
+   *
    * @return mixed
    */
   public function __call($functionName, $arguments) {
-    $mode = substr($functionName, 0, 3);
+    $mode = \substr($functionName, 0, 3);
     switch ($mode) {
       case 'get' :
-        $propertyName = substr($functionName, 3);
+        $propertyName = \substr($functionName, 3);
         return $this->$propertyName;
       case 'set' :
-        $propertyName = substr($functionName, 3);
+        $propertyName = \substr($functionName, 3);
         $this->$propertyName = $arguments[0];
         return $this->$propertyName;
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'LogicException: Unknown method "%s::%s".',
-        get_class($this),
+        \get_class($this),
         $functionName
       )
     );
@@ -161,24 +168,24 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * Validate and prepare the property name
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
+   *
    * @return string
    */
   protected function preparePropertyName($name) {
-    if ($this->_normalizeNames) {
-      if (preg_match('(^[a-zA-Z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
-        $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
-        if (preg_match_all($camelCasePattern, $name, $matches)) {
-          $name = implode('_', $matches[0]);
-        }
-        $name = strToLower($name);
+    if ($this->_normalizeNames && \preg_match('(^[a-zA-Z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
+      $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
+      if (\preg_match_all($camelCasePattern, $name, $matches)) {
+        $name = \implode('_', $matches[0]);
       }
+      $name = \strtolower($name);
     }
     if (isset($this->_definitions[$name])) {
       return $name;
     }
     throw new \InvalidArgumentException(
-      sprintf(
+      \sprintf(
         'InvalidArgumentException: Invalid session share property name "%s".',
         $name
       )
@@ -192,6 +199,6 @@ abstract class Share extends \Papaya\Application\BaseObject {
    * @return string
    */
   protected function getGroupName() {
-    return get_class($this);
+    return \get_class($this);
   }
 }

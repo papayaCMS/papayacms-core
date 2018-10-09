@@ -230,7 +230,7 @@ namespace Papaya\Database {
         )
         ->will($this->returnValue($databaseResult));
       $records = new Records_TestProxy();
-      $records->_identifierProperties = 'id';
+      $records->_identifierProperties = ['id'];
       $records->setDatabaseAccess($databaseAccess);
       $this->assertTrue($records->load(42));
       $this->assertEquals(

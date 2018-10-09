@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is empty and should not.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsEmpty extends \Papaya\Filter\Exception {
-
+class IsEmpty extends Filter\Exception {
   /**
    * Construct object and set (static) message.
    */

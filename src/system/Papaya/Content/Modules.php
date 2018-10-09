@@ -12,22 +12,23 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
+
+use Papaya\Database;
+
 /**
  * This object loads module/plugin records into a list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Modules extends \Papaya\Database\Records\Lazy {
-
+class Modules extends Database\Records\Lazy {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'module_guid',
     'type' => 'module_type',
     'group_id' => 'modulegroup_id',
@@ -40,20 +41,20 @@ class Modules extends \Papaya\Database\Records\Lazy {
     'use_filter' => 'module_useoutputfilter',
     'is_active' => 'module_active',
     'title_original' => 'module_title_org'
-  );
+  ];
 
   /**
    * Table containing module/plugin informations
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::MODULES;
+  protected $_tableName = Tables::MODULES;
 
-  protected $_orderByProperties = array(
-    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'title_original' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  protected $_orderByProperties = [
+    'title' => Database\Interfaces\Order::ASCENDING,
+    'title_original' => Database\Interfaces\Order::ASCENDING,
+    'id' => Database\Interfaces\Order::ASCENDING
+  ];
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 }

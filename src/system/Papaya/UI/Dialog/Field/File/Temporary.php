@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\File;
+
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A file input that moves the uploaded file to the temp directory an returns the path
  * to the temporary file.
@@ -21,8 +25,7 @@ namespace Papaya\UI\Dialog\Field\File;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Temporary extends \Papaya\UI\Dialog\Field {
-
+class Temporary extends UI\Dialog\Field {
   /**
    * An input field is always an single line text input field.
    *
@@ -35,7 +38,7 @@ class Temporary extends \Papaya\UI\Dialog\Field {
   protected $_type = 'file';
 
   /**
-   * @var \Papaya\Request\Parameter\File
+   * @var Request\Parameter\File
    */
   private $_file;
 
@@ -53,16 +56,16 @@ class Temporary extends \Papaya\UI\Dialog\Field {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName())
-      )
+      ]
     );
   }
 
@@ -95,16 +98,17 @@ class Temporary extends \Papaya\UI\Dialog\Field {
 
   /**
    * Getter/Setter for the file values subobject. It encapsulates the data from the $_FILES
-   * superglobal array
+   * super global array
    *
-   * @param \Papaya\Request\Parameter\File $file
-   * @return \Papaya\Request\Parameter\File
+   * @param Request\Parameter\File $file
+   *
+   * @return Request\Parameter\File
    */
-  public function file(\Papaya\Request\Parameter\File $file = NULL) {
+  public function file(Request\Parameter\File $file = NULL) {
     if (NULL !== $file) {
       $this->_file = $file;
     } elseif (NULL === $this->_file) {
-      $this->_file = new \Papaya\Request\Parameter\File(
+      $this->_file = new Request\Parameter\File(
         $this->_getParameterName($this->getName())
       );
     }

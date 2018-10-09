@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier;
+
+use Papaya\Utility;
+
 /**
  * An class to get the sources in a more readable way
  *
@@ -21,24 +23,23 @@ namespace Papaya\Cache\Identifier;
  * @subpackage Plugins
  */
 class Sources implements \IteratorAggregate {
-
-  private $_names = array(
+  private $_names = [
     Definition::SOURCE_URL => 'URL',
     Definition::SOURCE_REQUEST => 'Request',
     Definition::SOURCE_SESSION => 'Session',
     Definition::SOURCE_DATABASE => 'Database',
     Definition::SOURCE_VARIABLES => 'Variables'
-  );
+  ];
 
   private $_sources = 0;
 
   public function __construct($sources) {
-    \Papaya\Utility\Constraints::assertInteger($sources);
+    Utility\Constraints::assertInteger($sources);
     $this->_sources = $sources;
   }
 
   public function __toString() {
-    return implode(', ', $this->toArray());
+    return \implode(', ', $this->toArray());
   }
 
   /**
@@ -49,13 +50,12 @@ class Sources implements \IteratorAggregate {
   }
 
   private function toArray() {
-    $result = array();
+    $result = [];
     foreach ($this->_names as $source => $name) {
-      if (\Papaya\Utility\Bitwise::inBitmask($source, $this->_sources)) {
+      if (Utility\Bitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
       }
     }
     return $result;
   }
-
 }

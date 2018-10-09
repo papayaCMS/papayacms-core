@@ -233,8 +233,7 @@ class papaya_installer extends base_db {
       }
       $this->setSessionValue($this->sessionParamName, $this->sessionParams);
     } elseif ($dialog->isSubmitted()) {
-      $this->papaya()->messages->display(
-        \Papaya\Message::SEVERITY_ERROR,
+      $this->papaya()->messages->displayError(
         'Please check your input in the following fields: %s',
         [implode(', ', $dialog->errors()->getSourceCaptions()]
       );
@@ -921,7 +920,7 @@ class papaya_installer extends base_db {
       if ($database->connect($this, FALSE)) {
         return TRUE;
       }
-    } catch (\Papaya\Database\Exception\Connect $e) {
+    } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
     } catch (InvalidArgumentException $e) {
     }
     return FALSE;

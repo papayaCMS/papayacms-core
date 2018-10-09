@@ -12,28 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
+
+use Papaya\Application;
+use Papaya\UI;
+
 /**
- * Abstract superclass for ui command condition, allow to specify conditions that hav to
- * be fullfilled to execute the command.
+ * Abstract superclass for UI command condition, allow to specify conditions that hav to
+ * be fulfilled to execute the command.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Condition extends \Papaya\Application\BaseObject {
+abstract class Condition implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * The command of the condition.
    *
-   * @param \Papaya\UI\Control\Command
+   * @param UI\Control\Command
    */
   private $_command;
 
   /**
    * Validate needs to be implemented in chzild classes.
    *
-   * @return boolean
+   * @return bool
    */
   abstract public function validate();
 
@@ -43,19 +47,21 @@ abstract class Condition extends \Papaya\Application\BaseObject {
    * If the owner is emtpy and exception is thrown.
    *
    *
-   * @param \Papaya\UI\Control\Command $command
+   * @param UI\Control\Command $command
+   *
    * @throws \LogicException
-   * @return \Papaya\UI\Control\Command
+   *
+   * @return UI\Control\Command
    */
-  public function command(\Papaya\UI\Control\Command $command = NULL) {
+  public function command(UI\Control\Command $command = NULL) {
     if (NULL !== $command) {
       $this->_command = $command;
       $this->papaya($command->papaya());
     } elseif (NULL === $this->_command) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'LogicException: Instance of "%s" has no command assigned.',
-          get_class($this)
+          \get_class($this)
         )
       );
     }
@@ -65,7 +71,7 @@ abstract class Condition extends \Papaya\Application\BaseObject {
   /**
    * Validate if an command object is assigned
    *
-   * @return boolean
+   * @return bool
    */
   public function hasCommand() {
     return NULL !== $this->_command;

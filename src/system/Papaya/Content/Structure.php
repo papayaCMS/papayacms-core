@@ -12,17 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
 
+use Papaya\XML;
+
 /**
- * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
+ * A content structure based on an XML definition (for example the theme skin XML).
  *
  * @package Papaya-Library
  * @subpackage Theme
  */
 class Structure implements \IteratorAggregate {
-
   /**
    * @var Structure\Pages
    */
@@ -34,22 +34,21 @@ class Structure implements \IteratorAggregate {
    * @param string|\DOMElement $data
    */
   public function load($data) {
-    if (is_string($data)) {
-      $data = trim($data);
+    if (\is_string($data)) {
+      $data = \trim($data);
       if (empty($data)) {
         return;
       }
-      $dom = new \Papaya\XML\Document();
-      if (0 === strpos($data, '<')) {
-        $dom->loadXML($data);
+      $document = new XML\Document();
+      if (0 === \strpos($data, '<')) {
+        $document->loadXML($data);
       } else {
-        $dom->load($data);
+        $document->load($data);
       }
-      if (isset($dom->documentElement)) {
-        /** @noinspection PhpParamsInspection */
-        $this->pages()->load($dom->documentElement);
+      if (isset($document->documentElement)) {
+        $this->pages()->load($document->documentElement);
       }
-    } elseif ($data instanceof \Papaya\XML\Element) {
+    } elseif ($data instanceof XML\Element) {
       $this->pages()->load($data);
     }
   }
@@ -58,6 +57,7 @@ class Structure implements \IteratorAggregate {
    * Getter/Setter for the dynamic value definition pages
    *
    * @param Structure\Pages $pages
+   *
    * @return Structure\Pages
    */
   public function pages(Structure\Pages $pages = NULL) {
@@ -82,7 +82,8 @@ class Structure implements \IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
-   * @return Structure\Page|NULL
+   *
+   * @return Structure\Page|null
    */
   public function getPage($identifier) {
     /** @var Structure\Page $page */
@@ -95,14 +96,15 @@ class Structure implements \IteratorAggregate {
   }
 
   /**
-   * Convert the definition into an xml variable tree. If the Name of an element is not
+   * Convert the definition into an xml variable tree. If the name of an element is not
    * a valid QName, the element will be ignored.
    *
    * @param array $currentValues
-   * @return \Papaya\XML\Document
+   *
+   * @return XML\Document
    */
   public function getXMLDocument(array $currentValues) {
-    $document = new \Papaya\XML\Document();
+    $document = new XML\Document();
     $rootNode = $document->appendElement('values');
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -114,19 +116,19 @@ class Structure implements \IteratorAggregate {
         foreach ($group->values() as $value) {
           $current = '';
           if (isset($currentValues[$page->name][$group->name][$value->name])) {
-            $current = trim($currentValues[$page->name][$group->name][$value->name]);
+            $current = \trim($currentValues[$page->name][$group->name][$value->name]);
           }
           if (empty($current) || '0' === $current || 0 === $current) {
-            $current = trim($value->default);
+            $current = \trim($value->default);
           }
           if (!empty($current) || '0' === $current || 0 === $current) {
             $type = empty($value->type) ? 'text' : $value->type;
             if ('xhtml' === $type) {
               $groupNode
-                ->appendElement($value->name, array('type' => 'xhtml'))->appendXML($current);
+                ->appendElement($value->name, ['type' => 'xhtml'])->appendXML($current);
             } else {
               $groupNode
-                ->appendElement($value->name, array('type' => $type), $current);
+                ->appendElement($value->name, ['type' => $type], $current);
             }
           }
         }
@@ -138,12 +140,13 @@ class Structure implements \IteratorAggregate {
   /**
    * Read the data from an xml document into an recursive array.
    *
-   * @param \Papaya\XML\Element $dataNode
+   * @param XML\Element $dataNode
+   *
    * @return array
    */
-  public function getArray(\Papaya\XML\Element $dataNode) {
-    $result = array();
-    /** @var \Papaya\XML\Document $document */
+  public function getArray(XML\Element $dataNode) {
+    $result = [];
+    /** @var XML\Document $document */
     $document = $dataNode->ownerDocument;
     /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
@@ -156,13 +159,13 @@ class Structure implements \IteratorAggregate {
             /** @var Structure\Value $value */
             foreach ($group->values() as $value) {
               if ($document->xpath()->evaluate('count('.$value->name.')', $groupNode)) {
-                /** @var \Papaya\XML\Element $valueNode */
+                /** @var XML\Element $valueNode */
                 $valueNode = $document->xpath()->evaluate($value->name, $groupNode)->item(0);
                 $type = empty($value->type) ? 'text' : $value->type;
                 if ('xhtml' === $type) {
-                  $current = trim($valueNode->saveFragment());
+                  $current = \trim($valueNode->saveFragment());
                 } else {
-                  $current = trim($valueNode->textContent);
+                  $current = \trim($valueNode->textContent);
                 }
                 if (!empty($current) || '0' === $current) {
                   $result[$page->name][$group->name][$value->name] = $current;

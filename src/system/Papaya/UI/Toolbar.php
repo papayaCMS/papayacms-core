@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
 /**
  * A toolbar gui control. This is a list of elements like buttons, separators and selects.
  *
@@ -23,11 +23,10 @@ namespace Papaya\UI;
  * @property Toolbar\Elements $elements
  */
 class Toolbar extends Control {
-
   /**
    * menu elements collection
    *
-   * @var NULL|Toolbar\Elements
+   * @var null|Toolbar\Elements
    */
   protected $_elements;
 
@@ -36,14 +35,15 @@ class Toolbar extends Control {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'elements' => array('elements', 'elements')
-  );
+  protected $_declaredProperties = [
+    'elements' => ['elements', 'elements']
+  ];
 
   /**
    * Getter/setter for elements collection
    *
    * @param Toolbar\Elements $elements
+   *
    * @return Toolbar\Elements
    */
   public function elements(Toolbar\Elements $elements = NULL) {
@@ -60,15 +60,15 @@ class Toolbar extends Control {
    * Append toolbar and elements and set identifier if available
    *
    * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   *
+   * @return \Papaya\XML\Element|null
    */
   public function appendTo(\Papaya\XML\Element $parent) {
-    if (count($this->elements()) > 0) {
+    if (\count($this->elements()) > 0) {
       $toolbar = $parent->appendElement('toolbar');
       $this->elements()->appendTo($toolbar);
       return $toolbar;
     }
     return NULL;
   }
-
 }

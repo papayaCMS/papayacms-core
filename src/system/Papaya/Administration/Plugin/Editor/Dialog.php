@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Plugin\Editor;
+
+use Papaya\Administration;
+use Papaya\Plugin;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
  * An PluginEditor implementation that build a dialog based on an array of field definitions
@@ -21,18 +25,19 @@ namespace Papaya\Administration\Plugin\Editor;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Dialog extends \Papaya\Plugin\Editor {
-
+class Dialog extends Plugin\Editor {
   private $_dialog;
+
   private $_onExecuteCallback;
 
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
    * @see \Papaya\XML\Appendable::appendTo()
-   * @param \Papaya\XML\Element $parent
+   *
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $context = $this->context();
     if (!$context->isEmpty()) {
       $this->dialog()->hiddenValues()->merge($context);
@@ -45,12 +50,9 @@ class Dialog extends \Papaya\Plugin\Editor {
         $this->getData()->assign($this->dialog()->data());
       }
     } elseif ($this->dialog()->isSubmitted()) {
-      $this->papaya()->messages->dispatch(
-        new \Papaya\Message\Display\Translated(
-          \Papaya\Message::SEVERITY_ERROR,
-          'Invalid input. Please check the field(s) "%s".',
-          array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
-        )
+      $this->papaya()->messages->displayError(
+        'Invalid input. Please check the field(s) "%s".',
+        [\implode(', ', $this->dialog()->errors()->getSourceCaptions())]
       );
     }
     $parent->append($this->dialog());
@@ -68,10 +70,11 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Getter/Setter for the dialog subobject.
    *
-   * @param \Papaya\UI\Dialog $dialog
-   * @return \Papaya\UI\Dialog
+   * @param UI\Dialog $dialog
+   *
+   * @return UI\Dialog
    */
-  public function dialog(\Papaya\UI\Dialog $dialog = NULL) {
+  public function dialog(UI\Dialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -83,29 +86,29 @@ class Dialog extends \Papaya\Plugin\Editor {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return \Papaya\UI\Dialog
+   * @return UI\Dialog
    */
   protected function createDialog() {
-    $dialog = new \Papaya\UI\Dialog();
+    $dialog = new UI\Dialog();
     $dialog->papaya($this->papaya());
 
-    if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {
-      $dialog->caption = new \Papaya\Administration\Languages\Caption(
-        new \Papaya\UI\Text\Translated('Edit content')
+    if ($this->getData() instanceof Plugin\Editable\Content) {
+      $dialog->caption = new Administration\Languages\Caption(
+        new UI\Text\Translated('Edit content')
       );
-      $dialog->image = new \Papaya\Administration\Languages\Image();
+      $dialog->image = new Administration\Languages\Image();
       $dialog->parameterGroup('content');
-    } elseif ($this->getData() instanceof \Papaya\Plugin\Editable\Options) {
-      $dialog->caption = new \Papaya\UI\Text\Translated('Edit options');
+    } elseif ($this->getData() instanceof Plugin\Editable\Options) {
+      $dialog->caption = new UI\Text\Translated('Edit options');
       $dialog->parameterGroup('options');
     } else {
-      $dialog->caption = new \Papaya\UI\Text\Translated('Edit properties');
+      $dialog->caption = new UI\Text\Translated('Edit properties');
       $dialog->parameterGroup('properties');
     }
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(new \Papaya\UI\Text\Translated('Save'));
+    $dialog->buttons[] = new UI\Dialog\Button\Submit(new UI\Text\Translated('Save'));
 
     return $dialog;
   }

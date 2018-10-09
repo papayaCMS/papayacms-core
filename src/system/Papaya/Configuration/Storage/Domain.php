@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Configuration\Storage;
+
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\Content;
+use Papaya\Utility;
 
 /**
  * Loads the domain specific options from the database
@@ -21,15 +25,14 @@ namespace Papaya\Configuration\Storage;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Domain extends \Papaya\Application\BaseObject
-  implements \Papaya\Configuration\Storage {
-
+class Domain extends Application\BaseObject
+  implements Configuration\Storage {
   /**
    * member variable for the url scheme, set in constructor used in load()
    *
    * @var int
    */
-  private $_scheme = \Papaya\Utility\Server\Protocol::BOTH;
+  private $_scheme = Utility\Server\Protocol::BOTH;
 
   /**
    * member variable for the host name, set in constructor used in load()
@@ -51,10 +54,10 @@ class Domain extends \Papaya\Application\BaseObject
    * @param string $hostURL
    */
   public function __construct($hostURL) {
-    if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostURL, $match)) {
+    if (\preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))i', $hostURL, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ('https' === $match['scheme'])
-        ? \Papaya\Utility\Server\Protocol::HTTPS : \Papaya\Utility\Server\Protocol::HTTP;
+        ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP;
     } else {
       $this->_host = $hostURL;
     }
@@ -63,14 +66,15 @@ class Domain extends \Papaya\Application\BaseObject
   /**
    * Getter/Setter for domain record object
    *
-   * @param \Papaya\Content\Domain $domain
-   * @return \Papaya\Content\Domain
+   * @param Content\Domain $domain
+   *
+   * @return Content\Domain
    */
-  public function domain(\Papaya\Content\Domain $domain = NULL) {
+  public function domain(Content\Domain $domain = NULL) {
     if (NULL !== $domain) {
       $this->_domain = $domain;
     } elseif (NULL === $this->_domain) {
-      $this->_domain = new \Papaya\Content\Domain();
+      $this->_domain = new Content\Domain();
     }
     return $this->_domain;
   }
@@ -78,14 +82,14 @@ class Domain extends \Papaya\Application\BaseObject
   /**
    * Load domain record from database using the defined host name
    *
-   * @return boolean
+   * @return bool
    */
   public function load() {
     return $this->domain()->load(
-      array(
+      [
         'host' => $this->_host,
-        'scheme' => array(0, $this->_scheme)
-      )
+        'scheme' => [0, $this->_scheme]
+      ]
     );
   }
 
@@ -96,8 +100,8 @@ class Domain extends \Papaya\Application\BaseObject
    */
   public function getIterator() {
     if (
-      \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
-      is_array($this->domain()->options)
+      Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
+      \is_array($this->domain()->options)
     ) {
       return new \ArrayIterator($this->domain()->options);
     }

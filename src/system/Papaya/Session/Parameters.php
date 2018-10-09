@@ -12,43 +12,48 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
+use Papaya\Application;
+use Papaya\Request;
+use Papaya\Utility;
+
 /**
- * Session persistance for request parameters
+ * Session persistence for request parameters
  *
  * @package Papaya-Library
  * @subpackage Session
  */
-class Parameters extends \Papaya\Application\BaseObject {
+class Parameters implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
-   * A group identifer for the session data, if an object is provided, it's classname will be used.
+   * A group identifier for the session data, if an object is provided, it's classname will be used.
    *
    * @var object|string
    */
-  private $_group = NULL;
+  private $_group;
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
-  private $_parameters = NULL;
+  private $_parameters;
 
   /**
    * Session values
    *
-   * @var \Papaya\Session\Values
+   * @var Values
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * Initialize object, set a group and the parameters object. The group can be an string or
-   * an object. If it is an object, the classname is used.
+   * an object. If it is an object, the class name is used.
    *
    * @param object|string $group
-   * @param \Papaya\Request\Parameters $parameters
+   * @param Request\Parameters $parameters
    */
-  public function __construct($group, \Papaya\Request\Parameters $parameters) {
+  public function __construct($group, Request\Parameters $parameters) {
     $this->_group = $group;
     $this->parameters($parameters);
   }
@@ -66,8 +71,9 @@ class Parameters extends \Papaya\Application\BaseObject {
    *
    * @param string|array $name
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param \Papaya\Filter|null $filter
    * @param array|string $dependencies
+   *
    * @return mixed
    */
   public function load($name, $default = NULL, $filter = NULL, $dependencies = NULL) {
@@ -76,18 +82,19 @@ class Parameters extends \Papaya\Application\BaseObject {
     if ($this->parameters()->has($name)) {
       $value = $this->parameters()->get($name, $default, $filter);
       $this->values()->set($sessionName, $value);
+      /** @noinspection TypeUnsafeComparisonInspection */
       if ($sessionValue != $value && !empty($dependencies)) {
-        foreach (\Papaya\Utility\Arrays::ensure($dependencies) as $dependency) {
+        foreach (Utility\Arrays::ensure($dependencies) as $dependency) {
           $this->remove($dependency);
         }
       }
       return $value;
-    } elseif (isset($sessionValue)) {
+    }
+    if (NULL !== $sessionValue) {
       $this->parameters()->set($name, $sessionValue);
       return $this->parameters()->get($name, $default, $filter);
-    } else {
-      return $default;
     }
+    return $default;
   }
 
   /**
@@ -114,11 +121,12 @@ class Parameters extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for the associated request parameters
    *
-   * @param \Papaya\Request\Parameters $parameters
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $parameters
+   *
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
-    if (isset($parameters)) {
+  public function parameters(Request\Parameters $parameters = NULL) {
+    if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     }
     return $this->_parameters;
@@ -127,13 +135,14 @@ class Parameters extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for the associated session values
    *
-   * @param \Papaya\Session\Values $values
-   * @return \Papaya\Session\Values
+   * @param Values $values
+   *
+   * @return Values
    */
-  public function values(\Papaya\Session\Values $values = NULL) {
-    if (isset($values)) {
+  public function values(Values $values = NULL) {
+    if (NULL !== $values) {
       $this->_values = $values;
-    } elseif (is_null($this->_values)) {
+    } elseif (NULL === $this->_values) {
       $this->_values = $this->papaya()->session->values;
     }
     return $this->_values;
@@ -143,10 +152,11 @@ class Parameters extends \Papaya\Application\BaseObject {
    * Get a clean session identifer
    *
    * @param string|array $parameterName
+   *
    * @return array string
    */
   private function getIdentifier($parameterName) {
-    $name = new \Papaya\Request\Parameters\Name($parameterName);
-    return array($this->_group, $name->getString());
+    $name = new Request\Parameters\Name($parameterName);
+    return [$this->_group, $name->getString()];
   }
 }

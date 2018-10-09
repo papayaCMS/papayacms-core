@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
 /**
  * Wrapper class for php session functions. Allow to access them using oop.
  *
@@ -23,28 +23,29 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 class Wrapper {
-
   /**
    * Register a {@see \Papaya\Session\Handler} object, or more specific its methods in
    * {@see session_set_save_handler}.
    *
    * @param string $handler
+   *
    * @throws \InvalidArgumentException
+   *
    * @return bool
    */
   public function registerHandler($handler) {
-    if (!class_exists($handler)) {
+    if (!\class_exists($handler)) {
       throw new \InvalidArgumentException(
-        sprintf('Invalid session handler class "%s".', $handler)
+        \sprintf('Invalid session handler class "%s".', $handler)
       );
     }
-    return session_set_save_handler(
-      array($handler, 'open'),
-      array($handler, 'close'),
-      array($handler, 'read'),
-      array($handler, 'write'),
-      array($handler, 'destroy'),
-      array($handler, 'gc')
+    return \session_set_save_handler(
+      [$handler, 'open'],
+      [$handler, 'close'],
+      [$handler, 'read'],
+      [$handler, 'write'],
+      [$handler, 'destroy'],
+      [$handler, 'gc']
     );
   }
 
@@ -54,10 +55,11 @@ class Wrapper {
    * Returns an empty string if the session is not started yet.
    *
    * @see session_id()
+   *
    * @return string
    */
   public function getId() {
-    return session_id();
+    return \session_id();
   }
 
   /**
@@ -66,21 +68,24 @@ class Wrapper {
    * Returns the previous session id.
    *
    * @see session_id()
+   *
    * @param string $sessionId
+   *
    * @return string
    */
   public function setId($sessionId) {
-    return session_id($sessionId);
+    return \session_id($sessionId);
   }
 
   /**
    * Get the current session name (parameter name).
    *
    * @see session_name()
+   *
    * @return string
    */
   public function getName() {
-    return session_name();
+    return \session_name();
   }
 
   /**
@@ -89,21 +94,24 @@ class Wrapper {
    * Returns the previous session name value.
    *
    * @see session_name()
+   *
    * @param string $sessionName
+   *
    * @return string
    */
   public function setName($sessionName) {
-    return session_name($sessionName);
+    return \session_name($sessionName);
   }
 
   /**
    * Start the session, create/loads the session.
    *
    * @see session_start()
-   * @return boolean
+   *
+   * @return bool
    */
   public function start() {
-    return session_start();
+    return \session_start();
   }
 
   /**
@@ -114,7 +122,7 @@ class Wrapper {
    * @see session_write_close()
    */
   public function writeClose() {
-    session_write_close();
+    \session_write_close();
   }
 
   /**
@@ -122,10 +130,11 @@ class Wrapper {
    * logins.
    *
    * @see session_regenerate_id()
-   * @return boolean
+   *
+   * @return bool
    */
   public function regenerateId() {
-    return session_regenerate_id(TRUE);
+    return \session_regenerate_id(TRUE);
   }
 
   /**
@@ -135,33 +144,35 @@ class Wrapper {
    * @see session_destroy()
    */
   public function destroy() {
-    session_unset();
-    session_destroy();
-    $_SESSION = array();
+    \session_unset();
+    \session_destroy();
+    $_SESSION = [];
   }
 
   /**
    * Return the current session cookie parameters.
    *
    * @see session_get_cookie_params()
+   *
    * @return array
    */
   public function getCookieParameters() {
-    return session_get_cookie_params();
+    return \session_get_cookie_params();
   }
 
   /**
    * Change the session cookie parameters
    *
    * @see session_set_cookie_params()
+   *
    * @param array $cookieParameters
    */
   public function setCookieParameters(array $cookieParameters) {
     if (PHP_VERSION_ID >= 70300) {
-      /** @noinspection PhpParamsInspection */
-      session_set_cookie_params($cookieParameters);
+      /* @noinspection PhpParamsInspection */
+      \session_set_cookie_params($cookieParameters);
     } else {
-      session_set_cookie_params(
+      \session_set_cookie_params(
         $cookieParameters['lifetime'],
         $cookieParameters['path'],
         $cookieParameters['domain'],
@@ -175,20 +186,23 @@ class Wrapper {
    * Get the session cache limiter
    *
    * @see session_cache_limiter()
+   *
    * @return string
    */
   public function getCacheLimiter() {
-    return session_cache_limiter();
+    return \session_cache_limiter();
   }
 
   /**
    * Set the session cache limiter. Returns the previous value.
    *
    * @see session_cache_limiter()
+   *
    * @param string $cacheLimiter
+   *
    * @return string
    */
   public function setCacheLimiter($cacheLimiter) {
-    return session_cache_limiter($cacheLimiter);
+    return \session_cache_limiter($cacheLimiter);
   }
 }

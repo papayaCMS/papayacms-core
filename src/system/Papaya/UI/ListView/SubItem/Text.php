@@ -12,21 +12,23 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple listview subitem displaying text.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property string|\Papaya\UI\Text $text
  * @property array $actionParameters
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  */
-class Text extends \Papaya\UI\ListView\SubItem {
-
+class Text extends Link {
   /**
    * buffer for text variable
    *
@@ -37,26 +39,26 @@ class Text extends \Papaya\UI\ListView\SubItem {
   /**
    * Basic reference/link
    *
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
    * @var null
    */
-  protected $_actionParameters = NULL;
+  protected $_actionParameters;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'text' => array('_text', '_text'),
-    'actionParameters' => array('_actionParameters', 'setActionParameters'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'text' => ['_text', '_text'],
+    'actionParameters' => ['_actionParameters', 'setActionParameters'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Create subitem object, set text content and alignment.
@@ -65,68 +67,24 @@ class Text extends \Papaya\UI\ListView\SubItem {
    * @param array $actionParameters
    */
   public function __construct($text, array $actionParameters = NULL) {
+    parent::__construct($actionParameters);
     $this->_text = $text;
     $this->setActionParameters($actionParameters);
   }
 
   /**
-   * Getter/Setter for the reference subobject, this will be initalized from the listview
-   * if not set.
-   *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
-   */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
-      $this->_reference = $reference;
-    }
-    if (is_null($this->_reference)) {
-      // directly return the reference, so it is possible to recognice if it was set.
-      /** @noinspection PhpUndefinedMethodInspection */
-      return $this->collection()->getListview()->reference();
-    }
-    return $this->_reference;
-  }
-
-  /**
    * Append subitem xml data to parent node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $subitem = $parent->appendElement(
-      'subitem',
-      array(
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
-    );
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
     if (!empty($this->_actionParameters)) {
-      $subitem->appendElement('a', array('href' => $this->getURL()), (string)$this->_text);
+      $subitem->appendElement('a', ['href' => $this->getURL()], (string)$this->_text);
     } else {
       $subitem->appendText((string)$this->_text);
     }
-  }
-
-  /**
-   * Use the action parameter and the reference from the items to get an url for the output xml.
-   *
-   * If you assigned a reference object the action parameters will be applied without an additional
-   * parameter group. If the reference is fetched from the listview, the listview parameter group
-   * will be used.
-   *
-   * @return string
-   */
-  protected function getURL() {
-    $reference = clone $this->reference();
-    if (isset($this->_reference)) {
-      $reference->setParameters($this->_actionParameters);
-    } else {
-      /** @noinspection PhpUndefinedMethodInspection */
-      $reference->setParameters(
-        $this->_actionParameters,
-        $this->collection()->getListview()->parameterGroup()
-      );
-    }
-    return $reference->getRelative();
+    return $subitem;
   }
 }

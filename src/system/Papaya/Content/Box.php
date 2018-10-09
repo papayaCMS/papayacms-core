@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
+
+use Papaya\Content;
+use Papaya\Database;
 
 /**
  * Provide a superclass data encapsulation for the content box itself. Here are two children
@@ -23,10 +25,11 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-abstract class Box extends \Papaya\Database\BaseObject\Record {
-
+abstract class Box extends Database\BaseObject\Record {
   const DELIVERY_MODE_STATIC = 0;
+
   const DELIVERY_MODE_ESI = 1;
+
   const DELIVERY_MODE_JAVASCRIPT = 2;
 
   /**
@@ -34,7 +37,7 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // box id
     'id' => 'box_id',
     // box group id
@@ -54,17 +57,21 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
     'expires_time' => 'box_expirestime',
     // unpublished translations counter
     'unpublished_translations' => 'box_unpublished_languages'
-  );
+  ];
 
-  protected $_tableName = \Papaya\Content\Tables::BOXES;
+  protected $_tableName = Tables::BOXES;
 
   /**
    * Box translations list object
    *
    * @var Box\Translations
    */
-  protected $_translations = NULL;
+  protected $_translations;
 
+  /**
+   * @param mixed $id
+   * @return bool
+   */
   public function load($id) {
     if (parent::load($id)) {
       $this->translations()->load($id);
@@ -79,13 +86,13 @@ abstract class Box extends \Papaya\Database\BaseObject\Record {
    * Allows to get/set the list object. Can create a list object if needed.
    *
    * @param Box\Translations $translations
+   *
    * @return Box\Translations
    */
   public function translations(Box\Translations $translations = NULL) {
-    if (isset($translations)) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
-    }
-    if (is_null($this->_translations)) {
+    } elseif (NULL === $this->_translations) {
       $this->_translations = new Box\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }

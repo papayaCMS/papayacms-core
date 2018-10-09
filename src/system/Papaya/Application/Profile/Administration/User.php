@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile\Administration;
+
+use Papaya\Application;
 
 /**
  * Application object profile for default options object
@@ -21,12 +22,12 @@ namespace Papaya\Application\Profile\Administration;
  * @package Papaya-Library
  * @subpackage Application
  */
-class User implements \Papaya\Application\Profile {
-
+class User implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
+   * @param Application|Application\CMS $application
+   *
    * @return object
    */
   public function createObject($application) {

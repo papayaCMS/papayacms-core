@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
+use Papaya\Request;
+use Papaya\Response;
+use Papaya\URL;
+
 /**
  * Papaya Session Redirect, special response object for session redirects (needed to add/remove)
  * the session id to the url if the cookie is not available
@@ -21,66 +25,68 @@ namespace Papaya\Session;
  * @package Papaya-Library
  * @subpackage Session
  */
-class Redirect extends \Papaya\Response {
-
+class Redirect extends Response {
   /**
    * session name - used as parameter name, too.
    *
    * @var string
    */
-  private $_sessionName = 'sid';
+  private $_sessionName;
+
   /**
    * session id, can be empty
    *
    * @var string
    */
-  private $_sessionId = '';
+  private $_sessionId;
+
   /**
    * transportation target for the session id parameter
    *
-   * @var integer
+   * @var int
    */
-  private $_transport = 0;
+  private $_transport;
+
   /**
    * redirect reason (for debugging), creates an custom http header
    *
    * @var string
    */
-  private $_reason = 'session';
+  private $_reason;
 
   /**
    * url handling object
    *
-   * @var \Papaya\URL
+   * @var URL
    */
-  private $_url = NULL;
+  private $_url;
 
   /**
    * Initialize object and store parameters for later use
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param integer $transport
+   * @param int $transport
    * @param string $reason
    */
   public function __construct($sessionName, $sessionId = '', $transport = 0, $reason = 'session') {
-    $this->_sessionName = $sessionName;
-    $this->_sessionId = $sessionId;
-    $this->_transport = $transport;
-    $this->_reason = $reason;
+    $this->_sessionName = (string)$sessionName;
+    $this->_sessionId = (string)$sessionId;
+    $this->_transport = (int)$transport;
+    $this->_reason = (string)$reason;
   }
 
   /**
    * Getter/Setter for the redirect target url object
    *
-   * @param \Papaya\URL $url
-   * @return \Papaya\URL
+   * @param URL $url
+   *
+   * @return URL
    */
-  public function url(\Papaya\URL $url = NULL) {
-    if (isset($url)) {
+  public function url(URL $url = NULL) {
+    if (NULL !== $url) {
       $this->_url = $url;
-    }
-    if (is_null($this->_url)) {
+    } elseif (NULL === $this->_url) {
       $this->_url = clone $this->papaya()->request->getURL();
     }
     return $this->_url;
@@ -91,10 +97,10 @@ class Redirect extends \Papaya\Response {
    */
   public function prepare() {
     $this->_setQueryParameter(
-      $this->_sessionName, $this->_sessionId, $this->_transport & \Papaya\Session\Id::SOURCE_QUERY
+      $this->_sessionName, $this->_sessionId, $this->_transport & Id::SOURCE_QUERY
     );
     $this->_setPathParameter(
-      $this->_sessionName, $this->_sessionId, $this->_transport & \Papaya\Session\Id::SOURCE_PATH
+      $this->_sessionName, $this->_sessionId, $this->_transport & Id::SOURCE_PATH
     );
     $this->setStatus(302);
     $this->setCache('none');
@@ -118,14 +124,14 @@ class Redirect extends \Papaya\Response {
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param boolean $include Include session id in query string
+   * @param bool $include Include session id in query string
    */
   private function _setQueryParameter($sessionName, $sessionId, $include) {
     $application = $this->papaya();
-    $query = new \Papaya\Request\Parameters\QueryString($application->request->getParameterGroupSeparator());
+    $query = new Request\Parameters\QueryString($application->request->getParameterGroupSeparator());
     $query->setString($this->url()->getQuery());
     $query->values()->merge(
-      $application->request->getParameters(\Papaya\Request::SOURCE_QUERY)
+      $application->request->getParameters(Request::SOURCE_QUERY)
     );
     if ($include) {
       $query->values()->set($sessionName, $sessionId);
@@ -140,15 +146,15 @@ class Redirect extends \Papaya\Response {
    *
    * @param string $sessionName
    * @param string $sessionId
-   * @param boolean $include Include session id in query string
+   * @param bool $include Include session id in query string
    */
   private function _setPathParameter($sessionName, $sessionId, $include) {
     $url = $this->url();
     $pattern = '(^/sid[^/]+)';
     $replacement = ($include && !empty($sessionId)) ? '/'.$sessionName.$sessionId : '';
     $path = $url->getPath();
-    if (preg_match($pattern, $path)) {
-      $url->setPath(preg_replace($pattern, $replacement, $path));
+    if (\preg_match($pattern, $path)) {
+      $url->setPath(\preg_replace($pattern, $replacement, $path));
     } elseif ($include) {
       $url->setPath($replacement.$path);
     }

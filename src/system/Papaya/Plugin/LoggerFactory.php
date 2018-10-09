@@ -12,13 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin {
 
   interface LoggerFactory {
-
     /**
-     * @return \Papaya\Message\Dispatcher|NULL
+     * @return \Papaya\Message\Dispatcher|null
      */
     public function createLogger();
   }

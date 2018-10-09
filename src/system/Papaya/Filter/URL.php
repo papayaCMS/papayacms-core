@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * This filter class checks an url.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class URL implements \Papaya\Filter {
-
+class URL implements Filter {
   /**
    * Pattern to check for a linebreak
    *
@@ -50,13 +51,15 @@ class URL implements \Papaya\Filter {
   /**
    * Check the value if it's a valid url, if not throw an exception.
    *
-   * @throws \Papaya\Filter\Exception\UnexpectedType
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_patternCheck, $value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('url');
+    if (!\preg_match($this->_patternCheck, $value)) {
+      throw new Exception\UnexpectedType('url');
     }
     return TRUE;
   }
@@ -64,14 +67,15 @@ class URL implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
+   * @param mixed $value
+   *
    * @return string
    */
   public function filter($value) {
     try {
       $this->validate($value);
-      return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+      return (string)$value;
+    } catch (Exception $e) {
       return NULL;
     }
   }

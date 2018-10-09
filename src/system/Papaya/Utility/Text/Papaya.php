@@ -12,40 +12,42 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - Papaya functions
  *
  * @package Papaya-Library
  * @subpackage Util
+ *
  * @deprecated
  */
 class Papaya {
-
   const PAPAYA_TAG_PATTERN = '(<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?)ims';
-  const PAPAYA_INPUT_PATTERN = '(^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$)i';
 
+  const PAPAYA_INPUT_PATTERN = '(^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$)i';
 
   /**
    * Get papaya image tag <papaya:media...
    *
    * @param string $str this is the string the dialog type image(?)
    *                    contains like "32242...,max,200,300"
-   * @param integer $width optional, default value 0
-   * @param integer $height optional, default value 0
+   * @param int $width optional, default value 0
+   * @param int $height optional, default value 0
    * @param string $alt optional, default value ''
    * @param mixed $resize optional, default value NULL
    * @param string $subTitle
+   *
    * @return string tag or ''
    */
   public static function getImageTag(
     $str, $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
   ) {
-    if (preg_match(self::PAPAYA_TAG_PATTERN, $str, $regs)) {
+    if (\preg_match(self::PAPAYA_TAG_PATTERN, $str, $regs)) {
       return $regs[0];
-    } elseif (preg_match(self::PAPAYA_INPUT_PATTERN, $str, $regs)) {
-      $result = '<papaya:media src="'.\Papaya\Utility\Text\XML::escape($regs[1]).'"';
+    }
+    if (\preg_match(self::PAPAYA_INPUT_PATTERN, $str, $regs)) {
+      $result = '<papaya:media src="'.XML::escape($regs[1]).'"';
       if ($width > 0) {
         $result .= ' width="'.(int)$width.'"';
       } elseif (isset($regs[4])) {
@@ -56,16 +58,16 @@ class Papaya {
       } elseif (isset($regs[6])) {
         $result .= ' height="'.(int)$regs[6].'"';
       }
-      if (isset($resize)) {
-        $result .= ' resize="'.\Papaya\Utility\Text\XML::escape($resize).'"';
+      if (NULL !== $resize) {
+        $result .= ' resize="'.XML::escape($resize).'"';
       } elseif (isset($regs[8])) {
-        $result .= ' resize="'.\Papaya\Utility\Text\XML::escape($regs[8]).'"';
+        $result .= ' resize="'.XML::escape($regs[8]).'"';
       }
-      if (isset($alt) && trim($alt) != '') {
-        $result .= ' alt="'.\Papaya\Utility\Text\XML::escape($alt).'"';
+      if (NULL !== $alt && '' !== \trim($alt)) {
+        $result .= ' alt="'.XML::escape($alt).'"';
       }
       if (!empty($subTitle)) {
-        $result .= ' subtitle="'.\Papaya\Utility\Text\XML::escape($subTitle).'"';
+        $result .= ' subtitle="'.XML::escape($subTitle).'"';
       }
       return $result.'/>';
     }

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Tree;
+
 /**
  * This iterator allows to iterator over a parent-child tree using a list of elements
  * and an list of children for each element.
@@ -22,38 +22,48 @@ namespace Papaya\Iterator\Tree;
  * @subpackage Iterator
  */
 class Children implements \RecursiveIterator {
+  /**
+   * @var array
+   */
+  private $_elements;
 
-  private $_elements = array();
-  private $_tree = array();
-  private $_list = array();
+  /**
+   * @var array
+   */
+  private $_tree;
+
+  /**
+   * @var array
+   */
+  private $_list;
 
   /**
    * Create iterator, store elements, tree and child-ids
    *
    * @param array $elements
-   * @param array $tree
+   * @param array[] $tree
    * @param int|string $id
    */
   public function __construct(array $elements, array $tree, $id = 0) {
     $this->_elements = $elements;
     $this->_tree = $tree;
-    $this->_list = ($id !== FALSE && isset($this->_tree[$id]))
-      ? $this->_tree[$id] : array();
+    $this->_list = (FALSE !== $id && isset($this->_tree[$id]))
+      ? $this->_tree[$id] : [];
   }
 
   /**
    * reset the current element id list
    */
   public function rewind() {
-    reset($this->_list);
+    \reset($this->_list);
   }
 
   /**
    * move to the next element until the end of the list. Stop if an valid element is found.
    */
   public function next() {
-    while (FALSE !== ($key = next($this->_list))) {
-      if (array_key_exists($this->key(), $this->_elements)) {
+    while (FALSE !== ($key = \next($this->_list))) {
+      if (\array_key_exists($key, $this->_elements)) {
         return;
       }
     }
@@ -71,28 +81,29 @@ class Children implements \RecursiveIterator {
   /**
    * return the current element key
    *
-   * @return integer|float|string
+   * @return int|float|string
    */
   public function key() {
-    return current($this->_list);
+    return \current($this->_list);
   }
 
   /**
    * return if here is a valid element to return
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     $key = $this->key();
-    return isset($key) &&
-      $key != FALSE &&
-      array_key_exists($this->key(), $this->_elements);
+    return
+      NULL !== $key &&
+      FALSE !== $key &&
+      \array_key_exists($key, $this->_elements);
   }
 
   /**
    * validate if the current element has children
    *
-   * @return boolean
+   * @return bool
    */
   public function hasChildren() {
     return isset($this->_tree[$this->key()]);

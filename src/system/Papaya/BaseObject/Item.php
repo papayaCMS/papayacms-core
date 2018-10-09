@@ -12,26 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
+
+use Papaya\Application;
+use Papaya\BaseObject\Interfaces\Properties;
+use Papaya\Utility;
+
 /**
  * The item class allows to define objects that have a set of properties, the properties are
- * accessible through property and array syntax and it is possbile to iterate over them.
- **
+ * accessible through property and array syntax and it is possible to iterate over them.
+ *
+ * The property/offset names are normalized to lowercase with underscore.
  *
  * @package Papaya-Library
  * @subpackage Objects
  */
 class Item
-  extends \Papaya\Application\BaseObject
-  implements \ArrayAccess, \IteratorAggregate {
+  implements Application\Access, Properties, \ArrayAccess, \IteratorAggregate {
+  use Application\Access\Aggregation;
 
   /**
    * Internal value store
    *
    * @var array
    */
-  private $_values = array();
+  private $_values = [];
 
   /**
    * Create object and define properties provided as an list.
@@ -40,7 +45,7 @@ class Item
    */
   public function __construct(array $properties) {
     foreach ($properties as $name) {
-      $this->_values[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)] = NULL;
+      $this->_values[Utility\Text\Identifier::toUnderscoreLower($name)] = NULL;
     }
   }
 
@@ -48,19 +53,20 @@ class Item
    * Assign the data from another object (like an array)
    *
    * @param array|\Traversable $data
+   *
    * @throws \InvalidArgumentException
    */
   public function assign($data) {
-    if (!(is_array($data) || $data instanceof \Traversable)) {
+    if (!(\is_array($data) || $data instanceof \Traversable)) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument $data must be an array or instance of Traversable.'
         )
       );
     }
     foreach ($data as $name => $value) {
-      $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-      if (array_key_exists($name, $this->_values)) {
+      $name = Utility\Text\Identifier::toUnderscoreLower($name);
+      if (\array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
       }
     }
@@ -97,7 +103,8 @@ class Item
    * Validate if the defined value is set.
    *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     return isset($this->_values[$this->_prepareName($name)]);
@@ -107,7 +114,9 @@ class Item
    * Return the defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -118,6 +127,7 @@ class Item
    * Change a defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -129,6 +139,7 @@ class Item
    * Set the deifned value to NULL.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    */
   public function __unset($name) {
@@ -139,18 +150,21 @@ class Item
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    return array_key_exists($name, $this->_values);
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
+    return \array_key_exists($name, $this->_values);
   }
 
   /**
    * ArrayAccess: Return the defined vbalue
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -161,6 +175,7 @@ class Item
    * ArrayAccess: Change the defined value.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -173,6 +188,7 @@ class Item
    *
    *
    * @param string $name
+   *
    * @internal param mixed $value
    */
   public function offsetUnset($name) {
@@ -184,17 +200,19 @@ class Item
    * if the property/index is not defined.
    *
    * @param string $name
+   *
    * @throws \OutOfBoundsException
+   *
    * @return string
    */
   private function _prepareName($name) {
-    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
-    if (!array_key_exists($name, $this->_values)) {
+    $name = Utility\Text\Identifier::toUnderscoreLower($name);
+    if (!\array_key_exists($name, $this->_values)) {
       throw new \OutOfBoundsException(
-        sprintf(
+        \sprintf(
           'Property/Index "%s" is not defined for item class "%s".',
           $name,
-          get_class($this)
+          \get_class($this)
         )
       );
     }

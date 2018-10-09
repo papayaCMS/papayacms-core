@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\Plugin;
 
 /**
  * Application object profile for the plugin loader
@@ -21,16 +23,16 @@ namespace Papaya\Application\Profile;
  * @package Papaya-Library
  * @subpackage Application
  */
-class Plugins implements \Papaya\Application\Profile {
-
+class Plugins implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param Application $application
+   *
    * @return object
    */
   public function createObject($application) {
-    $plugins = new \Papaya\Plugin\Loader();
+    $plugins = new Plugin\Loader();
     $plugins->papaya($application);
     return $plugins;
   }

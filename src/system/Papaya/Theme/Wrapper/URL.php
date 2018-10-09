@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme\Wrapper;
+
+use Papaya\Request;
+use Papaya\URL\Current as CurrentURL;
+
 /**
  * Extract theme wrapper data from an url object
  *
@@ -31,20 +34,22 @@ namespace Papaya\Theme\Wrapper;
  * @subpackage Theme
  */
 class URL {
-
   /**
    * @var \Papaya\URL
    */
-  private $_requestURL = NULL;
+  private $_requestURL;
 
-  private $_mimetypeIdentification = array(
+  /**
+   * @var array
+   */
+  private $_mimetypeIdentification = [
     'text/javascript' => '((/[^/]+)/js(\\.php)?$)',
     'text/css' => '((/[^/]+)/css(\\.php)?$)',
     'image/*' => '((/[^/]+)/image(\\.php)?$)',
-  );
+  ];
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -54,22 +59,18 @@ class URL {
    * @param \Papaya\URL $url
    */
   public function __construct(\Papaya\URL $url = NULL) {
-    if (isset($url)) {
-      $this->_requestURL = $url;
-    } else {
-      $this->_requestURL = new \Papaya\URL\Current();
-    }
+    $this->_requestURL = NULL !== $url ? $url : new CurrentURL();
   }
 
   /**
    * Get mimetype from url path
    *
-   * @return string|NULL
+   * @return string|null
    */
   public function getMimetype() {
     $path = $this->_requestURL->getPath();
     foreach ($this->_mimetypeIdentification as $type => $pattern) {
-      if (preg_match($pattern, $path)) {
+      if (\preg_match($pattern, $path)) {
         return $type;
       }
     }
@@ -82,14 +83,15 @@ class URL {
    * If the $_parameters property is not set it will be initialized using the query string of the
    * $_requestURL property.
    *
-   * @param \Papaya\Request\Parameters $parameters
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $parameters
+   *
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     } elseif (NULL === $parameters) {
-      $query = new \Papaya\Request\Parameters\QueryString();
+      $query = new Request\Parameters\QueryString();
       $query->setString($this->_requestURL->getQuery());
       $this->_parameters = $query->values();
     }
@@ -124,7 +126,7 @@ class URL {
    * @return array
    */
   public function getFiles() {
-    return explode(',', $this->parameters()->get('files'));
+    return \explode(',', $this->parameters()->get('files'));
   }
 
   /**
@@ -135,18 +137,16 @@ class URL {
    * @return string
    */
   public function getTheme() {
-    $path = strrchr(dirname($this->_requestURL->getPath()), '/');
-    return substr($path, 1);
+    $path = \strrchr(\dirname($this->_requestURL->getPath()), '/');
+    return \substr($path, 1);
   }
 
   /**
    * Return if subdirectores are allowed.
    *
-   * @return boolean
+   * @return bool
    */
   public function allowDirectories() {
     return 'yes' === $this->parameters()->get('rec', 'no');
   }
-
 }
-

@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System\Action;
+
+use Papaya\File\System as FileSystem;
+
 /**
  * Read an url to trigger an remote script
  *
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class URL implements \Papaya\File\System\Action {
-
+class URL implements FileSystem\Action {
   private $_url;
 
   public function __construct($url) {
@@ -32,24 +33,26 @@ class URL implements \Papaya\File\System\Action {
    * Load an external url to trigger a script on the (remote) server
    *
    * @param array $parameters
+   *
    * @return bool
    */
-  public function execute(array $parameters = array()) {
+  public function execute(array $parameters = []) {
     $queryString = '';
     foreach ($parameters as $name => $value) {
-      $queryString .= '&'.urlencode($name).'='.urlencode($value);
+      $queryString .= '&'.\urlencode($name).'='.\urlencode($value);
     }
-    return $this->fetch($this->_url.'?'.substr($queryString, 1));
+    return $this->fetch($this->_url.'?'.\substr($queryString, 1));
   }
 
   /**
    * fetch the external resource (trigger the script)
    *
    * @param string $url
+   *
    * @return bool
    * @codeCoverageIgnore
    */
   protected function fetch($url) {
-    return (boolean)file_get_contents($url);
+    return (bool)\file_get_contents($url);
   }
 }

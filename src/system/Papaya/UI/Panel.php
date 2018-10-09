@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\XML;
+
 /**
  * Abstract superclass for controls inside a panel.
  *
@@ -21,7 +23,6 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 abstract class Panel extends Control {
-
   /**
    * Panel caption/title
    *
@@ -32,17 +33,18 @@ abstract class Panel extends Control {
   /**
    * Panel caption/title
    *
-   * @var \Papaya\UI\Toolbars
+   * @var Toolbars
    */
-  protected $_toolbars = NULL;
+  protected $_toolbars;
 
   /**
    * Append panel to output xml
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element $panel
+   * @param XML\Element $parent
+   *
+   * @return XML\Element $panel
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $panel = $parent->appendElement('panel');
     if (!empty($this->_caption)) {
       $panel->setAttribute('title', (string)$this->_caption);
@@ -63,18 +65,18 @@ abstract class Panel extends Control {
   /**
    * Toolbars for the four corners of the panel
    *
-   * @param \Papaya\UI\Toolbars $toolbars
-   * @return \Papaya\UI\Toolbars
+   * @param Toolbars $toolbars
+   *
+   * @return Toolbars
    */
-  public function toolbars(\Papaya\UI\Toolbars $toolbars = NULL) {
+  public function toolbars(Toolbars $toolbars = NULL) {
     if (NULL !== $toolbars) {
       $this->_toolbars = $toolbars;
     }
     if (NULL === $this->_toolbars) {
-      $this->_toolbars = new \Papaya\UI\Toolbars();
+      $this->_toolbars = new Toolbars();
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;
   }
-
 }

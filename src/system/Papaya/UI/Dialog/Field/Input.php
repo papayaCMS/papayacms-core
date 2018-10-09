@@ -12,20 +12,24 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A simple single line input field with a caption.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Input extends \Papaya\UI\Dialog\Field {
-
+class Input extends UI\Dialog\Field {
   /**
    * Field maximum input length
    *
-   * @var integer
+   * @var int
    */
   protected $_maximumLength = 0;
 
@@ -43,18 +47,18 @@ class Input extends \Papaya\UI\Dialog\Field {
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    * @param string $name
-   * @param integer $length
+   * @param int $length
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param Filter|null $filter
    */
   public function __construct(
     $caption,
     $name,
     $length = 1024,
     $default = NULL,
-    \Papaya\Filter $filter = NULL
+    Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);
@@ -68,10 +72,10 @@ class Input extends \Papaya\UI\Dialog\Field {
   /**
    * Set the maximum field length of this element.
    *
-   * @param integer $maximumLength
+   * @param int $maximumLength
    */
   public function setMaximumLength($maximumLength) {
-    \Papaya\Utility\Constraints::assertInteger($maximumLength);
+    Utility\Constraints::assertInteger($maximumLength);
     if ($maximumLength > 0) {
       $this->_maximumLength = $maximumLength;
     } else {
@@ -91,8 +95,8 @@ class Input extends \Papaya\UI\Dialog\Field {
    * @param string $type
    */
   public function setType($type) {
-    \Papaya\Utility\Constraints::assertString($type);
-    \Papaya\Utility\Constraints::assertNotEmpty($type);
+    Utility\Constraints::assertString($type);
+    Utility\Constraints::assertNotEmpty($type);
     $this->_type = $type;
   }
 
@@ -106,19 +110,19 @@ class Input extends \Papaya\UI\Dialog\Field {
   }
 
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
-      array(
+      [
         'type' => $this->getType(),
         'name' => $this->_getParameterName($this->getName()),
         'maxlength' => $this->_maximumLength
-      ),
+      ],
       $this->getCurrentValue()
     );
   }

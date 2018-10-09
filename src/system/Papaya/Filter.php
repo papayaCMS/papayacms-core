@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
 /**
  * Papaya filter superclass
  *
@@ -21,33 +21,58 @@ namespace Papaya;
  * @subpackage Filter
  */
 interface Filter {
-
   const IS_CSS_COLOR = 'isCssColor';
+
   const IS_CSS_SIZE = 'isCssSize';
+
   const IS_EMAIL = 'isEmail';
+
   const IS_FILE_NAME = 'isFileName';
+
   const IS_FILE_PATH = 'isFilePath';
+
   const IS_FLOAT = 'isFloat';
-  const IS_GEO_POSITON = 'isGeoPosition';
+
+  const IS_GEO_POSITION = 'isGeoPosition';
+
   const IS_GERMAN_DATE = 'isGermanDate';
+
   const IS_GERMAN_ZIP = 'isGermanZip';
+
   const IS_GUID = 'isGuid';
+
   const IS_INTEGER = 'isInteger';
+
   const IS_IP_ADDRESS = 'isIpAddress';
+
   const IS_IP_ADDRESS_V4 = 'isIpAddressV4';
+
   const IS_IP_ADDRESS_V6 = 'isIpAddressV6';
+
   const IS_ISO_DATE = 'isIsoDate';
+
   const IS_ISO_DATE_TIME = 'isIsoDateTime';
+
   const IS_NOT_EMPTY = 'isNotEmpty';
+
   const IS_NOT_XML = 'isNotXML';
+
   const IS_PASSWORD = 'isPassword';
+
   const IS_PHONE = 'isPhone';
+
   const IS_TEXT = 'isText';
+
   const IS_TIME = 'isTime';
+
   const IS_TEXT_WITH_NUMBERS = 'isTextWithNumbers';
+
   const IS_URL = 'isURL';
+
   const IS_URL_HOST = 'isURLHost';
+
   const IS_URL_HTTP = 'isURLWeb';
+
   const IS_XML = 'isXML';
 
   /**
@@ -58,10 +83,10 @@ interface Filter {
    *
    * If the input is invalid it should NULL
    *
-   * @param mixed|NULL $value
-   * @return mixed
+   * @param mixed $value
+   * @return mixed|null
    */
-  function filter($value);
+  public function filter($value);
 
   /**
    * Checks an input and return true if it is valid.
@@ -69,8 +94,10 @@ interface Filter {
    * It will throw an \Papaya\Filter\Exception if the input is invalid.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
-   * @return boolean
+   *
+   * @return true
    */
-  function validate($value);
+  public function validate($value);
 }

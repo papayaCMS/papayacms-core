@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier;
+
 /**
  * An interface to get an cache condition status. This status is used to decide if an element
  * is cacheable and with which condition data.
@@ -22,35 +22,38 @@ namespace Papaya\Cache\Identifier;
  * @subpackage Plugins
  */
 interface Definition {
-
   /**
    * The data of the condition is contained in the url
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_URL = 1;
+
   /**
    * The data of the condition is from the generic request data
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_REQUEST = 2;
+
   /**
    * The data of the condition is stored in the session
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_SESSION = 4;
+
   /**
    * The condition loads data from the database like the maximum of a last_modified column
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_DATABASE = 8;
+
   /**
    * The condition needs data from the initializing object.
    *
-   * @var integer
+   * @var int
    */
   const SOURCE_VARIABLES = 16;
 
@@ -61,7 +64,7 @@ interface Definition {
    * TRUE - cacheable but, this definition is irrelevant
    * array - cache condition data (to distinguish cached data)
    *
-   * @return boolean|array
+   * @return bool|array
    */
   public function getStatus();
 
@@ -72,7 +75,7 @@ interface Definition {
    * If the data source is only URL the browser cache is usable. In all other cases a roundtrip to
    * the server is needed and different levels of bootstrap need to be initialized.
    *
-   * @return integer
+   * @return int
    */
   public function getSources();
 }

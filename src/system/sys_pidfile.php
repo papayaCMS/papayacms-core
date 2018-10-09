@@ -79,7 +79,7 @@ class pidfile {
     $this->oldPid = 0;
     $fileSystem = new \Papaya\File\System\Factory();
     $directory = $fileSystem->getDirectory($directoryName = dirname($this->pidfile));
-    if (!$directory->isWriteable()) {
+    if (!$directory->isWritable()) {
       throw new LogicException(
         sprintf(
           'Directory %s not writeable, can not create process lock file.',

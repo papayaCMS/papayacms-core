@@ -12,15 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Exception;
 
-abstract class Parser extends \Papaya\Template\Simple\Exception {
+use Papaya\Template\Simple;
 
+abstract class Parser extends Simple\Exception {
   /**
    * An array of tokens which would have been expected to be found.
    *
    * @var array(PhpCssScannerToken)
    */
-  public $expectedTokens = array();
+  public $expectedTokens = [];
 }

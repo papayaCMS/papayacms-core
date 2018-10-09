@@ -34,7 +34,7 @@ class LogTest extends \Papaya\TestCase {
     );
     $this->assertAttributeEquals(
       \Papaya\Message::SEVERITY_WARNING,
-      '_type',
+      '_severity',
       $message
     );
     $this->assertAttributeEquals(
@@ -61,9 +61,9 @@ class LogTest extends \Papaya\TestCase {
 
 
   /**
-   * @covers \Papaya\Message\Log::getType
+   * @covers \Papaya\Message\Log::getSeverity
    */
-  public function testGetType() {
+  public function testGetSeverity() {
     $message = new Log(
       Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
@@ -71,7 +71,7 @@ class LogTest extends \Papaya\TestCase {
     );
     $this->assertEquals(
       \Papaya\Message::SEVERITY_WARNING,
-      $message->getType()
+      $message->getSeverity()
     );
   }
 

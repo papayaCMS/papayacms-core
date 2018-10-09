@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory;
+
 /**
  * Superclass for papaya filter factory profiles, definition how a filter is created
  *
@@ -21,7 +21,6 @@ namespace Papaya\Filter\Factory;
  * @subpackage Filter
  */
 abstract class Profile {
-
   /**
    * @var mixed
    */
@@ -38,6 +37,7 @@ abstract class Profile {
    * The filter options data
    *
    * @param mixed $options
+   *
    * @return mixed|null
    */
   public function options($options = NULL) {

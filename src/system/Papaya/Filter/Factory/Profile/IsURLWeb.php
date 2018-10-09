@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a http url with or without the protocol
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsURLWeb extends \Papaya\Filter\Factory\Profile {
-
+class IsURLWeb extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\URL\Web();
+    return new Filter\URL\Web();
   }
 }

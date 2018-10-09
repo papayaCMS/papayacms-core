@@ -12,9 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Application;
 use Papaya\Message;
 
 /**
@@ -31,10 +31,10 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Wildfire
-  extends \Papaya\Application\BaseObject
-  implements Message\Dispatcher {
+  implements Application\Access, Message\Dispatcher {
+  use Application\Access\Aggregation;
 
-  private static $_SEVERITY_TYPES = array(
+  private static $_SEVERITY_TYPES = [
     Message::SEVERITY_DEBUG => 'LOG',
     Message::SEVERITY_INFO => 'INFO',
     Message::SEVERITY_NOTICE => 'INFO',
@@ -43,8 +43,9 @@ class Wildfire
     Message::SEVERITY_CRITICAL => 'ERROR',
     Message::SEVERITY_ALERT => 'ERROR',
     Message::SEVERITY_EMERGENCY => 'ERROR'
-  );
-  private static $_SEVERITY_LABELS = array(
+  ];
+
+  private static $_SEVERITY_LABELS = [
     Message::SEVERITY_DEBUG => 'Debug',
     Message::SEVERITY_INFO => 'Information',
     Message::SEVERITY_NOTICE => 'Notice',
@@ -53,7 +54,7 @@ class Wildfire
     Message::SEVERITY_CRITICAL => 'Critical',
     Message::SEVERITY_ALERT => 'Alert',
     Message::SEVERITY_EMERGENCY => 'Emergency'
-  );
+  ];
 
   private $_handler;
 
@@ -61,7 +62,9 @@ class Wildfire
    * Send log message to browser using the Wildfire protocol if possible
    *
    * @param Message $message
-   * @return boolean
+   *
+   * @return bool
+   *
    * @throws \InvalidArgumentException
    */
   public function dispatch(Message $message) {
@@ -78,7 +81,8 @@ class Wildfire
    * Check if it is allowed to use the dispatcher
    *
    * @param \Callback $usableCallback function to test technical conditions, if it is not set
-   *   self::usable is used.
+   *                                  self::usable is used.
+   *
    * @return bool|mixed
    */
   public function allow($usableCallback = NULL) {
@@ -89,7 +93,7 @@ class Wildfire
         isset($_SERVER['HTTP_X_FIREPHP_VERSION']) ||
         (
           isset($_SERVER['HTTP_USER_AGENT']) &&
-          FALSE !== strpos($_SERVER['HTTP_USER_AGENT'], 'FirePHP')
+          FALSE !== \strpos($_SERVER['HTTP_USER_AGENT'], 'FirePHP')
         )
       )
     ) {
@@ -104,10 +108,10 @@ class Wildfire
   /**
    * Check if WildFire can be used
    *
-   * @return boolean
+   * @return bool
    */
   public static function usable() {
-    return (function_exists('json_encode') && 'cli' !== PHP_SAPI && !headers_sent());
+    return (\function_exists('json_encode') && 'cli' !== PHP_SAPI && !\headers_sent());
   }
 
   /**
@@ -123,6 +127,7 @@ class Wildfire
    * Get Wildfire protocol handler object, create one if none ist set
    *
    * @return Wildfire\Handler
+   *
    * @throws \InvalidArgumentException
    */
   public function getHandler() {
@@ -136,11 +141,12 @@ class Wildfire
    * Send log message using the Wildfire protocol
    *
    * @param Message\Logable $message
+   *
    * @throws \InvalidArgumentException
    */
   public function send(Message\Logable $message) {
     $wildfire = $this->getHandler();
-    if (count($message->context()) > 0) {
+    if (\count($message->context()) > 0) {
       $wildfire->startGroup($this->getWildfireGroupLabelFromType($message->getSeverity()));
       $messageText = $message->getMessage();
       if (!empty($messageText)) {
@@ -163,6 +169,7 @@ class Wildfire
    * Send a message context using the Wildfire protocol
    *
    * @param \Papaya\Message\Context\Data $context
+   *
    * @throws \InvalidArgumentException
    */
   public function sendContext($context) {
@@ -193,7 +200,8 @@ class Wildfire
   /**
    * Convert internal type to Wildfire message type
    *
-   * @param integer $type
+   * @param int $type
+   *
    * @return string
    */
   public function getWildfireMessageType($type) {
@@ -206,7 +214,8 @@ class Wildfire
   /**
    * Convert internal type to a group label
    *
-   * @param integer $type
+   * @param int $type
+   *
    * @return string
    */
   public function getWildfireGroupLabelFromType($type) {
@@ -222,6 +231,7 @@ class Wildfire
    * Variables dumps need to have a special format to display as much informations as possible.
    *
    * @param Message\Context\Variable $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextVariable(Message\Context\Variable $context) {
@@ -239,14 +249,15 @@ class Wildfire
    * output a list.
    *
    * @param Message\Context\Backtrace $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextTrace(Message\Context\Backtrace $context) {
     $trace = $context->getBacktrace();
-    $count = count($trace);
+    $count = \count($trace);
     if ($count > 0) {
       $element = $this->_traceElementToArray($trace[0]);
-      $data = array(
+      $data = [
         'Class' => $this->_getArrayElement($element, 'class'),
         'Type' => $this->_getArrayElement($element, 'type'),
         'Message' => $context->getLabel(),
@@ -254,7 +265,7 @@ class Wildfire
         'File' => $this->_getArrayElement($element, 'file'),
         'Line' => $this->_getArrayElement($element, 'line'),
         'Args' => $this->_getArrayElement($element, 'args'),
-      );
+      ];
       for ($i = 1; $i < $count; $i++) {
         $data['Trace'][] = $this->_traceElementToArray($trace[$i]);
       }
@@ -268,6 +279,7 @@ class Wildfire
    * @param array $array
    * @param string $index
    * @param mixed $default
+   *
    * @return mixed|null
    */
   private function _getArrayElement($array, $index, $default = NULL) {
@@ -281,16 +293,17 @@ class Wildfire
    * for arguments avoiding recursions.
    *
    * @param array $element
+   *
    * @return array
    */
   private function _traceElementToArray(array $element) {
-    $trace = array(
+    $trace = [
       'class' => $this->_getArrayElement($element, 'class'),
       'type' => $this->_getArrayElement($element, 'type'),
       'function' => $this->_getArrayElement($element, 'function'),
       'file' => $this->_getArrayElement($element, 'file'),
       'line' => $this->_getArrayElement($element, 'line'),
-    );
+    ];
     if (!empty($element['args'])) {
       $arguments = new Message\Context\Variable($element['args']);
       $visitor = new Wildfire\Variable\Visitor(
@@ -308,21 +321,22 @@ class Wildfire
    * FirePHP has a special formatted output for tables.
    *
    * @param Message\Context\Interfaces\Table $context
+   *
    * @throws \InvalidArgumentException
    */
   private function _sendContextTable(Message\Context\Interfaces\Table $context) {
-    $table = array();
+    $table = [];
     $columns = $context->getColumns();
     if (NULL !== $columns) {
-      $table[] = array_values($columns);
+      $table[] = \array_values($columns);
     } else {
-      $table[] = array();
+      $table[] = [];
     }
     $count = $context->getRowCount();
     for ($i = 0; $i < $count; $i++) {
-      $table[] = array_map(
-        array($this, 'formatTableValue'),
-        array_values($context->getRow($i))
+      $table[] = \array_map(
+        [$this, 'formatTableValue'],
+        \array_values($context->getRow($i))
       );
     }
     $this->getHandler()->sendMessage($table, 'TABLE', $context->getLabel());
@@ -334,6 +348,7 @@ class Wildfire
    * This has to be a public function, so it is possible to call it using array_map
    *
    * @param mixed $value
+   *
    * @return string
    */
   public function formatTableValue($value) {

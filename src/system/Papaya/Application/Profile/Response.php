@@ -12,20 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+
 /**
  * Application object profile for the standard response object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Response implements \Papaya\Application\Profile {
-
+class Response implements Application\Profile {
   /**
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
+   *
    * @return \Papaya\Response
    */
   public function createObject($application) {

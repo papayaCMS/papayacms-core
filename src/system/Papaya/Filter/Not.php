@@ -12,29 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical not, wrapping another filter.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Not implements \Papaya\Filter {
-
+class Not implements Filter {
   /**
-   * Wrappend filter
+   * Wrapped filter
    *
-   * @var \Papaya\Filter
+   * @var Filter
    */
   protected $_filter;
 
   /**
    * Construct object and store subfilter
    *
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    */
-  public function __construct(\Papaya\Filter $filter) {
+  public function __construct(Filter $filter) {
     $this->_filter = $filter;
   }
 
@@ -43,8 +44,10 @@ class Not implements \Papaya\Filter {
    * throw an exception. In result the wrapped filter is used as a negative criterion.
    *
    * @throws Exception\InvalidValue
-   * @param string $value
-   * @return TRUE
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
     try {
@@ -58,8 +61,9 @@ class Not implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
-   * @return string|NULL
+   * @param mixed $value
+   *
+   * @return mixed
    */
   public function filter($value) {
     return $value;

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
+use Papaya\XML;
+
 /**
  * An interface to define that an plugin with a teaser appendable to an DOM element. It
  * is provides an additional method to \Papaya\Plugin\Appendable to append a "quote"/short version
@@ -23,12 +25,12 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Quoteable {
-
   /**
    * Append short content (aka "quote") to the parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return null|XML\Element
    */
-  public function appendQuoteTo(\Papaya\XML\Element $parent);
+  public function appendQuoteTo(XML\Element $parent);
 }

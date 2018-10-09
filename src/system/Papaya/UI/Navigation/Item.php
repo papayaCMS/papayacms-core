@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Navigation;
+
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * An navigation item for a list of navigation items.
  *
@@ -22,20 +26,33 @@ namespace Papaya\UI\Navigation;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Item extends \Papaya\UI\Control\Collection\Item {
+abstract class Item extends UI\Control\Collection\Item {
+  /**
+   * @var UI\Reference
+   */
+  private $_reference;
 
-  private $_reference = NULL;
+  /**
+   * @var bool
+   */
   private $_selected = FALSE;
 
-  protected $_sourceValue = NULL;
-  protected $_sourceIndex = NULL;
+  /**
+   * @var mixed
+   */
+  protected $_sourceValue;
+
+  /**
+   * @var string|int|null
+   */
+  protected $_sourceIndex;
 
   /**
    * Create object, store the source the navigation element is for and its index in a list if
    * available.
    *
    * @param mixed $sourceValue
-   * @param mixed $sourceIndex
+   * @param string|int|null $sourceIndex
    */
   public function __construct($sourceValue, $sourceIndex = NULL) {
     $this->_sourceValue = $sourceValue;
@@ -45,15 +62,16 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append a item to the xml and return it for further modifications in child classes.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $link = $parent->appendElement(
       'link',
-      array(
+      [
         'href' => $this->reference()->getRelative()
-      )
+      ]
     );
     if ($this->_selected) {
       $link->setAttribute('selected', 'selected');
@@ -65,12 +83,13 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
    * Getter/Setter for the selected status. If it is set to true, an boolean attribute will be added
    * to the xml element
    *
-   * @param boolean|NULL $selected
-   * @return boolean
+   * @param bool|null $selected
+   *
+   * @return bool
    */
   public function selected($selected = NULL) {
-    if (isset($selected)) {
-      \Papaya\Utility\Constraints::assertBoolean($selected);
+    if (NULL !== $selected) {
+      Utility\Constraints::assertBoolean($selected);
       $this->_selected = $selected;
     }
     return $this->_selected;
@@ -79,19 +98,20 @@ abstract class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Getter/Setter for a reference subobject to create detail page links
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       if ($this->hasCollection()) {
         /** @var \Papaya\UI\Navigation\Items $collection */
         $collection = $this->collection();
         $this->_reference = clone $collection->reference();
       } else {
-        $this->_reference = new \Papaya\UI\Reference\Page();
+        $this->_reference = new UI\Reference\Page();
         $this->_reference->papaya($this->papaya());
       }
     }

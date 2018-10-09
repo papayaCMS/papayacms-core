@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
+
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A single line input for a page id
  *
@@ -23,15 +26,14 @@ namespace Papaya\UI\Dialog\Field\Input;
  * @property string|\Papaya\UI\Text $caption
  * @property string $name
  * @property string|\Papaya\UI\Text $hint
- * @property integer|NULL $defaultValue
- * @property boolean $mandatory
+ * @property int|null $defaultValue
+ * @property bool $mandatory
  */
-class Page extends \Papaya\UI\Dialog\Field\Input {
-
+class Page extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
-   * @var boolean
+   * @var bool
    */
   protected $_type = 'page';
 
@@ -40,27 +42,27 @@ class Page extends \Papaya\UI\Dialog\Field\Input {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'name' => array('getName', 'setName'),
-    'hint' => array('getHint', 'setHint'),
-    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-    'mandatory' => array('getMandatory', 'setMandatory')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'name' => ['getName', 'setName'],
+    'hint' => ['getHint', 'setHint'],
+    'defaultValue' => ['getDefaultValue', 'setDefaultValue'],
+    'mandatory' => ['getMandatory', 'setMandatory']
+  ];
 
   /**
    * Create field, set caption, name, defaultvalue and mandatory status
    *
    * @param string|\Papaya\UI\Text $caption
    * @param string $name
-   * @param integer|NULL $default
-   * @param boolean $mandatory
+   * @param int|null $default
+   * @param bool $mandatory
    */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \Papaya\Filter\IntegerValue(1)
+      new Filter\IntegerValue(1)
     );
   }
 }

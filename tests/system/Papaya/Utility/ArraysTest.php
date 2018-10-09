@@ -24,7 +24,7 @@ namespace Papaya\Utility {
      * @dataProvider mergeDataProvider
      * @param array|NULL $arrayOne
      * @param array|NULL $arrayTwo
-     * @param array|NULL $expected
+     * @param array $expected
      */
     public function testMerge($arrayOne, $arrayTwo, $expected) {
       $actual = Arrays::merge($arrayOne, $arrayTwo);
@@ -261,7 +261,7 @@ namespace Papaya\Utility {
         array(
           NULL,
           NULL,
-          NULL
+          []
         ),
         array(
           array('cmd' => 'show'),

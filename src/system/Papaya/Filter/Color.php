@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * This filter class checks a color.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Color implements \Papaya\Filter {
-
+class Color implements Filter {
   /**
    * Pattern to check for a linebreak
    *
@@ -38,13 +39,15 @@ class Color implements \Papaya\Filter {
   /**
    * Check the value if it's a valid color, if not throw an exception.
    *
-   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws Exception\UnexpectedType
+   *
    * @param string $value
-   * @return TRUE
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_patternCheck, $value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('color');
+    if (!\preg_match($this->_patternCheck, $value)) {
+      throw new Exception\UnexpectedType('color');
     }
     return TRUE;
   }
@@ -53,13 +56,14 @@ class Color implements \Papaya\Filter {
    * The filter function is used to read an input value if it is valid.
    *
    * @param string $value
+   *
    * @return string
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
       return NULL;
     }
   }

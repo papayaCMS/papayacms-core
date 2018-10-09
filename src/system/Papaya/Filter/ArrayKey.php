@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
+use Papaya\Utility;
+
 /**
  * Papaya filter class that validates if given value is in the list of keys
  *
@@ -25,8 +29,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArrayKey implements \Papaya\Filter {
-
+class ArrayKey implements Filter {
   /**
    * elements list
    *
@@ -40,25 +43,27 @@ class ArrayKey implements \Papaya\Filter {
    * @param array|\Traversable $elements
    */
   public function __construct($elements) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
+    Utility\Constraints::assertArrayOrTraversable($elements);
     $this->_list = $elements;
   }
 
   /**
    * Check the input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
+   *
    * @param mixed $value
-   * @return TRUE
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!(is_string($value) || is_int($value) || is_float($value))) {
+    if (!(\is_string($value) || \is_int($value) || \is_float($value))) {
       throw new Exception\UnexpectedType('integer, float, string');
     }
     if ('' === (string)$value) {
       throw new Exception\IsEmpty();
     }
-    if (is_array($this->_list) && array_key_exists($value, $this->_list)) {
+    if (\is_array($this->_list) && \array_key_exists($value, $this->_list)) {
       return TRUE;
     }
     if ($this->_list instanceof \ArrayAccess && isset($this->_list[(string)$value])) {
@@ -76,13 +81,14 @@ class ArrayKey implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param mixed $value
-   * @return integer|NULL
+   *
+   * @return mixed|null
    */
   public function filter($value) {
-    if (!(is_string($value) || is_int($value) || is_float($value))) {
+    if (!(\is_string($value) || \is_int($value) || \is_float($value))) {
       return NULL;
     }
-    if (is_array($this->_list) && !array_key_exists($value, $this->_list)) {
+    if (\is_array($this->_list) && !\array_key_exists($value, $this->_list)) {
       return NULL;
     }
     if ($this->_list instanceof \ArrayAccess && !isset($this->_list[$value])) {

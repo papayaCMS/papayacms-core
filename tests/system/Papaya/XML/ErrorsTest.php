@@ -154,7 +154,7 @@ class ErrorsTest extends \Papaya\TestCase {
       \Papaya\Message\Logable::GROUP_SYSTEM, $message->getGroup()
     );
     $this->assertEquals(
-      \Papaya\Message::SEVERITY_WARNING, $message->getType()
+      \Papaya\Message::SEVERITY_WARNING, $message->getSeverity()
     );
     $this->assertEquals(
       '42: Test in line 23 at char 21', $message->getMessage()

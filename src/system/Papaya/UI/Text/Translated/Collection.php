@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Text\Translated;
+
+use Papaya\Application;
+use Papaya\Iterator;
+use Papaya\Phrases;
+
 /**
  * A list of string (objects) that will be translated if cast to string.
  *
@@ -25,34 +29,33 @@ namespace Papaya\UI\Text\Translated;
  */
 class Collection
   extends \IteratorIterator
-  implements \Papaya\Application\Access {
-
+  implements Application\Access {
   /**
-   * @var \Papaya\Phrases
+   * @var Phrases
    */
-  private $_phrases = NULL;
+  private $_phrases;
 
   /**
    * @var string
    */
-  private $_phrasesGroupName = NULL;
+  private $_phrasesGroupName;
 
   /**
    * Application object
    *
    * @var string
    */
-  protected $_applicationObject = NULL;
+  protected $_applicationObject;
 
   /**
    * Create object and store traversable as iterator
    *
    * @param array|\Traversable $traversable
-   * @param \Papaya\Phrases $phrases
-   * @param NULL $groupName
+   * @param Phrases $phrases
+   * @param null $groupName
    */
-  public function __construct($traversable, \Papaya\Phrases $phrases = NULL, $groupName = NULL) {
-    parent::__construct(new \Papaya\Iterator\TraversableIterator($traversable));
+  public function __construct($traversable, Phrases $phrases = NULL, $groupName = NULL) {
+    parent::__construct(new Iterator\TraversableIterator($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;
   }
@@ -61,12 +64,13 @@ class Collection
    * Wrap the current element into an translated string and return it.
    *
    * @see \IteratorIterator::current()
+   *
    * @return string
    */
   public function current() {
     $current = new \Papaya\UI\Text\Translated(
       (string)parent::current(),
-      array(),
+      [],
       $this->_phrases,
       $this->_phrasesGroupName
     );
@@ -77,14 +81,15 @@ class Collection
   /**
    * An combined getter/setter for the Papaya Application object
    *
-   * @param \Papaya\Application $application
-   * @return \Papaya\Application\CMS|\Papaya\Application
+   * @param Application $application
+   *
+   * @return \Papaya\Application\CMS|Application
    */
-  public function papaya(\Papaya\Application $application = NULL) {
+  public function papaya(Application $application = NULL) {
     if (NULL !== $application) {
       $this->_applicationObject = $application;
     } elseif (NULL === $this->_applicationObject) {
-      $this->_applicationObject = \Papaya\Application::getInstance();
+      $this->_applicationObject = Application::getInstance();
     }
     return $this->_applicationObject;
   }

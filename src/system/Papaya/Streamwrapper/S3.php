@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Streamwrapper;
+
 /**
  * Papaya Streamwrapper for Amazon S3
  *
@@ -21,7 +21,6 @@ namespace Papaya\Streamwrapper;
  * @subpackage Streamwrapper
  */
 class S3 {
-
   const SECRET_PATTERN = '(^[^@\r\n]{40}$)';
 
   const PATH_PATTERN = '(^
@@ -37,16 +36,16 @@ class S3 {
    *
    * @var array
    */
-  static private $_secrets = array();
+  private static $_secrets = [];
 
   /**
    * Bitmask with options.
    *
-   * All funktions that set this should not unset STREAM_REPORT_ERRORS
+   * All functions that set this should not unset STREAM_REPORT_ERRORS
    * except when we should really stay quiet (e.g. for url_stat form
    * file_exists), because that constant will not be set by php itself.
    *
-   * @var integer
+   * @var int
    */
   private $_options = STREAM_REPORT_ERRORS;
 
@@ -55,7 +54,7 @@ class S3 {
    *
    * @var array
    */
-  private $_location = array();
+  private $_location = [];
 
   /**
    * resource location data
@@ -67,21 +66,21 @@ class S3 {
   /**
    * resource size
    *
-   * @var integer
+   * @var int
    */
   private $_size = 0;
 
   /**
    * resource modification date
    *
-   * @var integer
+   * @var int
    */
   private $_lastModified = 0;
 
   /**
    * internal file pointer position
    *
-   * @var integer
+   * @var int
    */
   private $_position = 0;
 
@@ -99,26 +98,26 @@ class S3 {
    *
    * @var array
    */
-  private $_directoryCache = array();
+  private $_directoryCache = [];
 
   /**
    * Amazon S3 handler object
    *
-   * @var \Papaya\Streamwrapper\S3\Handler
+   * @var S3\Handler
    */
-  private $_handler = NULL;
+  private $_handler;
 
   /**
    * buffer for reads
    *
    * @var string
    */
-  private $_buffer = "";
+  private $_buffer = '';
 
   /**
    * position in the file where the buffer starts
    *
-   * @var integer
+   * @var int
    */
   private $_bufferStartPosition = 0;
 
@@ -127,13 +126,15 @@ class S3 {
    *
    * @param string $id
    * @param string $secret
-   * @return boolean
+   *
+   * @return bool
    */
   public static function setSecret($id, $secret) {
-    if (is_null($secret)) {
+    if (NULL === $secret) {
       unset(self::$_secrets[$id]);
       return FALSE;
-    } elseif (1 === preg_match(self::SECRET_PATTERN, $secret)) {
+    }
+    if (1 === \preg_match(self::SECRET_PATTERN, $secret)) {
       self::$_secrets[$id] = $secret;
       return TRUE;
     }
@@ -144,35 +145,36 @@ class S3 {
    * Register stream wrapper if not defined
    *
    * @param string $protocol
+   *
    * @return bool
    */
   public static function register($protocol) {
-    $wrappers = stream_get_wrappers();
+    $wrappers = \stream_get_wrappers();
     foreach ($wrappers as $wrapper) {
       if ($wrapper === $protocol) {
-        stream_wrapper_unregister($protocol);
+        \stream_wrapper_unregister($protocol);
       }
     }
-    return stream_wrapper_register($protocol, __CLASS__, STREAM_IS_URL);
+    return \stream_wrapper_register($protocol, __CLASS__, STREAM_IS_URL);
   }
 
   /**
    * Set Amazon S3 handler object
    *
-   * @param \Papaya\Streamwrapper\S3\Handler $handler
+   * @param S3\Handler $handler
    */
-  public function setHandler(\Papaya\Streamwrapper\S3\Handler $handler) {
+  public function setHandler(S3\Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
    * Get the Amazon S3 handler object
    *
-   * @return \Papaya\Streamwrapper\S3\Handler
+   * @return S3\Handler
    */
   public function getHandler() {
-    if (!($this->_handler instanceof \Papaya\Streamwrapper\S3\Handler)) {
-      $this->_handler = new \Papaya\Streamwrapper\S3\Handler();
+    if (!($this->_handler instanceof S3\Handler)) {
+      $this->_handler = new S3\Handler();
     }
     return $this->_handler;
   }
@@ -181,15 +183,16 @@ class S3 {
    * Parse the given path into needed parts
    *
    * @param string $path
-   * @param integer $options
-   * @return array|boolean array with the path information or FALSE
+   * @param int $options
+   *
+   * @return array|bool array with the path information or FALSE
    */
   public function parsePath($path, $options) {
-    if (preg_match(self::PATH_PATTERN, $path, $matches)) {
+    if (\preg_match(self::PATH_PATTERN, $path, $matches)) {
       if (empty($matches['secret'])) {
         if (empty(self::$_secrets[$matches['id']])) {
           if ($options & STREAM_REPORT_ERRORS) {
-            trigger_error(
+            \trigger_error(
               'No secret for Amazon S3 ID found',
               E_USER_WARNING
             );
@@ -198,14 +201,15 @@ class S3 {
         }
         $matches['secret'] = self::$_secrets[$matches['id']];
       }
-      return array(
+      return [
         'bucket' => $matches['bucket'],
         'id' => $matches['id'],
         'secret' => $matches['secret'],
         'object' => $matches['object']
-      );
-    } elseif ($options & STREAM_REPORT_ERRORS) {
-      trigger_error(
+      ];
+    }
+    if ($options & STREAM_REPORT_ERRORS) {
+      \trigger_error(
         'Invalid Amazon S3 resource string',
         E_USER_WARNING
       );
@@ -216,50 +220,55 @@ class S3 {
   /**
    * return TRUE if file pointer is at the end of the file
    *
-   * @return integer
+   * @return int
    */
   public function stream_eof() {
     return $this->_position >= $this->_size;
   }
 
   /**
-   * Open file resource and cache informations
+   * Open file resource and cache information
    *
    * @param string $path
    * @param string $mode
    * @param string $options
    * @param string $openedPath
-   * @return boolean success
+   *
+   * @return bool success
    */
-  public function stream_open($path, $mode, $options, &$openedPath) {
-    if (in_array($mode, array('r', 'w', 'rt', 'rb', 'wt', 'wb'))) {
+  public function stream_open(
+    /** @noinspection PhpUnusedParameterInspection */
+    $path, $mode, $options, &$openedPath
+  ) {
+    if (\in_array($mode, ['r', 'w', 'rt', 'rb', 'wt', 'wb'])) {
       $this->_options |= $options;
       if ($this->_location = $this->parsePath($path, $this->_options)) {
-        if (in_array($mode, array('w', 'wt', 'wb'))) {
-          $this->_lastModified = strtotime(gmdate(DATE_RFC1123));
+        if (\in_array($mode, ['w', 'wt', 'wb'])) {
+          $this->_lastModified = \strtotime(\gmdate(DATE_RFC1123));
           $this->_writeable = TRUE;
           return $this->getHandler()->openWriteFile(
             $this->_location,
             $this->_options
           );
-        } else {
-          $resourceData = $this->fillBuffer(TRUE);
-          if (is_null($resourceData)) {
-            if ($this->_options & STREAM_REPORT_ERRORS) {
-              trigger_error(
-                'Can not find amazon resource.',
-                E_USER_WARNING
-              );
-            }
-          } else {
-            $this->_size = $resourceData['size'];
-            $this->_lastModified = $resourceData['modified'];
-            return TRUE;
+        }
+        $resourceData = $this->fillBuffer(TRUE);
+        if (NULL === $resourceData) {
+          if ($this->_options & STREAM_REPORT_ERRORS) {
+            \trigger_error(
+              'Can not find amazon resource.',
+              E_USER_WARNING
+            );
           }
+        } else {
+          $this->_size = $resourceData['size'];
+          $this->_lastModified = $resourceData['modified'];
+          return TRUE;
         }
       }
-    } elseif ($this->_options & STREAM_REPORT_ERRORS) {
-      trigger_error(
+      return FALSE;
+    }
+    if ($this->_options & STREAM_REPORT_ERRORS) {
+      \trigger_error(
         'Mode not support by stream wrapper: '.$mode,
         E_USER_WARNING
       );
@@ -270,7 +279,8 @@ class S3 {
   /**
    * Read given count of bytes and return them
    *
-   * @param integer $count
+   * @param int $count
+   *
    * @return string
    */
   public function stream_read($count) {
@@ -278,16 +288,16 @@ class S3 {
       $this->_position < $this->_size) {
       /* use a bigger buffer internally because
          php will only ever do reads of max size 8K */
-      if ($this->_bufferStartPosition === $this->_position && strlen($this->_buffer) > 0) {
-        $result = substr($this->_buffer, 0, $count);
-        $this->_buffer = substr($this->_buffer, $count);
+      if ($this->_bufferStartPosition === $this->_position && \strlen($this->_buffer) > 0) {
+        $result = \substr($this->_buffer, 0, $count);
+        $this->_buffer = \substr($this->_buffer, $count);
       } else {
         $this->fillBuffer();
-        $result = substr($this->_buffer, 0, $count);
-        $this->_buffer = substr($this->_buffer, $count);
+        $result = \substr($this->_buffer, 0, $count);
+        $this->_buffer = \substr($this->_buffer, $count);
       }
       if (!empty($result)) {
-        $this->_position += strlen($result);
+        $this->_position += \strlen($result);
         $this->_bufferStartPosition = $this->_position;
         return $result;
       }
@@ -298,8 +308,9 @@ class S3 {
   /**
    * Fill the read buffer and return the stat information
    *
-   * @param boolean $force an request when the size is not yet known
-   * @return array|NULL stat information or NULL
+   * @param bool $force an request when the size is not yet known
+   *
+   * @return array|null stat information or NULL
    */
   public function fillBuffer($force = FALSE) {
     if ($this->_position < $this->_size) {
@@ -322,14 +333,15 @@ class S3 {
   /**
    * Move internal file pointer
    *
-   * @param integer $offset
-   * @param integer $whence
-   * @return boolean success
+   * @param int $offset
+   * @param int $whence
+   *
+   * @return bool success
    */
   public function stream_seek($offset, $whence = SEEK_SET) {
     if (FALSE !== $this->_writeable) {
       if ($this->_options & STREAM_REPORT_ERRORS) {
-        trigger_error(
+        \trigger_error(
           'Seek ist not supported for writeable streams',
           E_USER_WARNING
         );
@@ -341,26 +353,20 @@ class S3 {
         if ($offset >= 0) {
           $this->_position = $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       case SEEK_CUR :
         if ($offset >= 0) {
           $this->_position += $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       case SEEK_END :
         if ($this->_size + $offset >= 0) {
           $this->_position = $this->_size + $offset;
           return TRUE;
-        } else {
-          return FALSE;
         }
-      break;
+        return FALSE;
       default:
         return FALSE;
     }
@@ -369,7 +375,7 @@ class S3 {
   /**
    * Return current file pointer position
    *
-   * @return integer
+   * @return int
    */
   public function stream_tell() {
     return $this->_position;
@@ -381,7 +387,7 @@ class S3 {
    * @return array with stat information
    */
   public function stream_stat() {
-    return array(
+    return [
       'dev' => 0,
       'ino' => 0,
       'mode' => 0100006,
@@ -395,33 +401,34 @@ class S3 {
       'ctime' => $this->_lastModified,
       'blksize' => 0,
       'blocks' => -1
-    );
+    ];
   }
 
   /**
    * Return information about specified resource
    *
    * @param string $path
-   * @param integer $flags bitmask
-   * @return array|NULL stat information or NULL
+   * @param int $flags bitmask
+   *
+   * @return array|null stat information or NULL
    */
   public function url_stat($path, $flags) {
     $resourceData = NULL;
     if ($location = $this->parsePath($path, $this->_options)) {
-      if (substr($location['object'], -1) != '/') {
+      if ('/' !== \substr($location['object'], -1)) {
         $resourceData = $this->getHandler()->getFileInformations(
           $location,
           $this->_options
         );
       }
-      if (is_null($resourceData)) {
+      if (NULL === $resourceData) {
         $resourceData = $this->getHandler()->getDirectoryInformations(
           $location,
           $this->_options
         );
       }
-      if (!is_null($resourceData)) {
-        return array(
+      if (NULL !== $resourceData) {
+        return [
           'dev' => 0,
           'ino' => 0,
           'mode' => $resourceData['mode'],
@@ -435,10 +442,13 @@ class S3 {
           'ctime' => $resourceData['modified'],
           'blksize' => 0,
           'blocks' => -1
-        );
-      } elseif ($this->_options & STREAM_REPORT_ERRORS &&
-        !($flags & STREAM_URL_STAT_QUIET)) {
-        trigger_error(
+        ];
+      }
+      if (
+        $this->_options & STREAM_REPORT_ERRORS &&
+        !($flags & STREAM_URL_STAT_QUIET)
+      ) {
+        \trigger_error(
           'Can not find amazon resource.',
           E_USER_WARNING
         );
@@ -451,8 +461,9 @@ class S3 {
    * Open the specified directory
    *
    * @param string $path
-   * @param integer $options bitmask
-   * @return boolean success
+   * @param int $options bitmask
+   *
+   * @return bool success
    */
   public function dir_opendir($path, $options) {
     $this->_options |= $options;
@@ -461,9 +472,9 @@ class S3 {
         $location,
         $this->_options
       );
-      if (is_null($resourceData)) {
+      if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Can not find amazon resource.',
             E_USER_WARNING
           );
@@ -480,13 +491,13 @@ class S3 {
   /**
    * Read the next entry from the directory
    *
-   * @return string|boolean name of the entry or
-   *   FALSE for the end of entries or failure
+   * @return string|bool name of the entry or
+   *                     FALSE for the end of entries or failure
    */
   public function dir_readdir() {
-    while (FALSE === $result = current($this->_directoryCache['contents'])) {
+    while (FALSE === $result = \current($this->_directoryCache['contents'])) {
       // load more
-      if ($this->_directoryCache['moreContent'] !== TRUE) {
+      if (TRUE !== $this->_directoryCache['moreContent']) {
         // no more entries in this directory
         return FALSE;
       }
@@ -496,9 +507,9 @@ class S3 {
         4000,
         $this->_directoryPosition
       );
-      if (is_null($resourceData)) {
+      if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Can not find amazon resource.',
             E_USER_WARNING
           );
@@ -508,7 +519,7 @@ class S3 {
       $this->_directoryCache = $resourceData;
     }
 
-    next($this->_directoryCache['contents']);
+    \next($this->_directoryCache['contents']);
     $this->_directoryPosition = $result;
     return $result;
   }
@@ -516,15 +527,15 @@ class S3 {
   /**
    * Reset status like just after dir_opendir was called
    *
-   * @return boolean success
+   * @return bool success
    */
   public function dir_rewinddir() {
-    if ($this->_directoryCache['startMarker'] !== '') {
+    if ('' !== $this->_directoryCache['startMarker']) {
       $this->_directoryCache['startMarker'] = '';
-      $this->_directoryCache['contents'] = array();
+      $this->_directoryCache['contents'] = [];
       $this->_directoryCache['moreContent'] = TRUE;
     } else {
-      reset($this->_directoryCache['contents']);
+      \reset($this->_directoryCache['contents']);
     }
     $this->_directoryPosition = '';
     return TRUE;
@@ -534,7 +545,8 @@ class S3 {
    * Write $data to stream
    *
    * @param string $data
-   * @return integer amount of bytes written
+   *
+   * @return int amount of bytes written
    */
   public function stream_write($data) {
     $result = $this->getHandler()->writeFileContent($this->_options, $data);
@@ -545,8 +557,6 @@ class S3 {
 
   /**
    * Close the stream, necessary for writeable streams
-   *
-   * @return void
    */
   public function stream_close() {
     if (TRUE === $this->_writeable) {
@@ -558,14 +568,15 @@ class S3 {
    * Remove a file.
    *
    * @param string $path
-   * @return boolean success
+   *
+   * @return bool success
    */
   public function unlink($path) {
     if ($location = $this->parsePath($path, $this->_options)) {
       $handler = $this->getHandler();
       if (NULL === $handler->getFileInformations($location, $this->_options)) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Can not find amazon resource.',
             E_USER_WARNING
           );
@@ -581,22 +592,26 @@ class S3 {
    * Create a direktory.
    *
    * @param string $path
-   * @param integer $mode permission mask
-   * @param integer $options bitmask
-   * @return boolean success
+   * @param int $mode permission mask
+   * @param int $options bitmask
+   *
+   * @return bool success
    */
-  public function mkdir($path, $mode, $options) {
+  public function mkdir(
+    /** @noinspection PhpUnusedParameterInspection */
+    $path, $mode, $options
+  ) {
     $this->_options |= $options;
     if ($location = $this->parsePath($path, $this->_options)) {
       $handler = $this->getHandler();
-      if (substr($location['object'], -1) === '/') {
-        $location['object'] = substr($location['object'], 0, -1);
+      if ('/' === \substr($location['object'], -1)) {
+        $location['object'] = \substr($location['object'], 0, -1);
       }
 
       $status = $handler->getDirectoryInformations($location, $this->_options);
       if (NULL !== $status) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Directory already present.',
             E_USER_WARNING
           );
@@ -607,7 +622,7 @@ class S3 {
       $status = $handler->getFileInformations($location, $this->_options);
       if (NULL !== $status) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'File already present.',
             E_USER_WARNING
           );
@@ -646,8 +661,9 @@ class S3 {
    * Removes a direktory.
    *
    * @param string $path
-   * @param integer $options bitmask
-   * @return boolean success
+   * @param int $options bitmask
+   *
+   * @return bool success
    */
   public function rmdir($path, $options) {
     $this->_options |= $options;
@@ -657,16 +673,16 @@ class S3 {
         $handler->getDirectoryInformations($location, $this->_options, 2);
       if (NULL === $directoryInformation) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Can not find amazon resource.',
             E_USER_WARNING
           );
         }
         return FALSE;
       }
-      if ($directoryInformation['moreContent'] === TRUE) {
+      if (TRUE === $directoryInformation['moreContent']) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Directory not empty.',
             E_USER_WARNING
           );
@@ -675,22 +691,22 @@ class S3 {
       }
       $empty = TRUE;
       foreach ($directoryInformation['contents'] as $value) {
-        if ($value !== '$') {
+        if ('$' !== $value) {
           $empty = FALSE;
           break;
         }
       }
-      if ($empty === FALSE) {
+      if (FALSE === $empty) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          trigger_error(
+          \trigger_error(
             'Directory not empty.',
             E_USER_WARNING
           );
         }
         return FALSE;
       }
-      if (substr($location['object'], -1) === '/') {
-        $location['object'] = substr($location['object'], 0, -1);
+      if ('/' === \substr($location['object'], -1)) {
+        $location['object'] = \substr($location['object'], 0, -1);
       }
       // remove file with the same name as the directory (s3fs style)
       $handler->removeFile($location, $this->_options);
@@ -705,4 +721,3 @@ class S3 {
     return FALSE;
   }
 }
-

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Button;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple button with a caption and without a name. That links to the specified reference.
  *
@@ -30,8 +33,7 @@ namespace Papaya\UI\Dialog\Button;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Link extends \Papaya\UI\Dialog\Button {
-
+class Link extends UI\Dialog\Button {
   /**
    * Button caption
    *
@@ -40,7 +42,7 @@ class Link extends \Papaya\UI\Dialog\Button {
   protected $_caption = 'Submit';
 
   /**
-   * @var \Papaya\UI\Reference
+   * @var UI\Reference
    */
   private $_reference;
 
@@ -48,9 +50,9 @@ class Link extends \Papaya\UI\Dialog\Button {
    * Initialize object, set caption and alignment
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
-  public function __construct($caption, $align = \Papaya\UI\Dialog\Button::ALIGN_RIGHT) {
+  public function __construct($caption, $align = UI\Dialog\Button::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
@@ -58,29 +60,30 @@ class Link extends \Papaya\UI\Dialog\Button {
   /**
    * Append button output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'button',
-      array(
+      [
         'type' => 'link',
-        'align' => ($this->_align == \Papaya\UI\Dialog\Button::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
         'href' => $this->reference()
-      ),
+      ],
       (string)$this->_caption
     );
   }
 
   /**
-   * @param \Papaya\UI\Reference|NULL $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference|null $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(UI\Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference();
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

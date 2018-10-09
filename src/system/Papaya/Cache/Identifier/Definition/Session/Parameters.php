@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition\Session;
+
+use Papaya\Application;
+use Papaya\Cache;
 
 /**
  * Request parameters are used to create cache condition data.
@@ -22,34 +24,34 @@ namespace Papaya\Cache\Identifier\Definition\Session;
  * @subpackage Plugins
  */
 class Parameters
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Application\Access, Cache\Identifier\Definition {
+  use Application\Access\Aggregation;
 
   /**
    * @var array
    */
-  private $_identifiers = array();
+  private $_identifiers;
 
   /**
    * Provide the request parameter names, a parameter group and a method.
    *
-   * @param mixed $identifier multiple identifiers possible
+   * @param mixed ...$identifiers multiple identifiers possible
    */
-  public function __construct($identifier) {
-    $this->_identifiers = func_get_args();
+  public function __construct(...$identifiers) {
+    $this->_identifiers = $identifiers;
   }
 
   /**
    * Read request parameters into an condition data array. Prefix it with the class name and
    * return it.
    *
-   * If a paramter does not exist in the request, it will not be added to the condition data,
+   * If a parameter does not exist in the request, it will not be added to the condition data,
    * if none of the specified parameters exists the result will be TRUE.
    *
-   * @return TRUE|array
+   * @return true|array
    */
   public function getStatus() {
-    $data = array();
+    $data = [];
     if ($this->papaya()->session && $this->papaya()->session->isActive()) {
       /** @var \Papaya\Session\Values $values */
       $values = $this->papaya()->session->values();
@@ -60,14 +62,15 @@ class Parameters
         }
       }
     }
-    return empty($data) ? TRUE : array(get_class($this) => $data);
+    return empty($data) ? TRUE : [\get_class($this) => $data];
   }
 
   /**
    * Any kind of data from the session
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_SESSION;

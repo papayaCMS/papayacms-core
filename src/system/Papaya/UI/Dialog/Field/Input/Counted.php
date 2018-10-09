@@ -12,21 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Input;
+
+use Papaya\UI;
+
 /**
  * A single line input for that displays the maximum character left to input using javascript.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Counted extends \Papaya\UI\Dialog\Field\Input {
-
+class Counted extends UI\Dialog\Field\Input {
   /**
    * Field type, used in template
    *
    * @var string
    */
   protected $_type = 'counted';
-
 }

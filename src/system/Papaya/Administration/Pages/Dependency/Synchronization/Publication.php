@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
+
+use Papaya\Administration;
+use Papaya\Content\Page;
+
 /**
  * Synchronize a publication to assigned target page. This is done duplicating the publish action.
  *
@@ -21,18 +24,29 @@ namespace Papaya\Administration\Pages\Dependency\Synchronization;
  * @subpackage Administration
  */
 class Publication
-  implements \Papaya\Administration\Pages\Dependency\Synchronization {
+  implements Administration\Pages\Dependency\Synchronization {
+  /**
+   * @var Page\Publication
+   */
+  private $_publication;
 
-  private $_publication = NULL;
-  private $_page = NULL;
-  private $_version = NULL;
+  /**
+   * @var Page\Work
+   */
+  private $_page;
+
+  /**
+   * @var Page\Version
+   */
+  private $_version;
 
   /**
    * Synchronize a dependency, publish target pages
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
+   *
    * @return bool
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
@@ -58,14 +72,15 @@ class Publication
    * Getter/Setter for publication page object. This is used to validate the origin
    * and fetch the publication period limits
    *
-   * @param \Papaya\Content\Page\Publication $publication
-   * @return \Papaya\Content\Page\Publication
+   * @param Page\Publication $publication
+   *
+   * @return Page\Publication
    */
-  public function publication(\Papaya\Content\Page\Publication $publication = NULL) {
-    if (isset($publication)) {
+  public function publication(Page\Publication $publication = NULL) {
+    if (NULL !== $publication) {
       $this->_publication = $publication;
-    } elseif (is_null($this->_publication)) {
-      $this->_publication = new \Papaya\Content\Page\Publication();
+    } elseif (NULL === $this->_publication) {
+      $this->_publication = new Page\Publication();
     }
     return $this->_publication;
   }
@@ -73,14 +88,15 @@ class Publication
   /**
    * Getter/Setter for working copy page object. This is used to publish the target pages.
    *
-   * @param \Papaya\Content\Page\Work $page
-   * @return \Papaya\Content\Page\Work
+   * @param Page\Work $page
+   *
+   * @return Page\Work
    */
-  public function page(\Papaya\Content\Page\Work $page = NULL) {
-    if (isset($page)) {
+  public function page(Page\Work $page = NULL) {
+    if (NULL !== $page) {
       $this->_page = $page;
-    } elseif (is_null($this->_page)) {
-      $this->_page = new \Papaya\Content\Page\Work();
+    } elseif (NULL === $this->_page) {
+      $this->_page = new Page\Work();
     }
     return $this->_page;
   }
@@ -88,14 +104,15 @@ class Publication
   /**
    * Getter/Setter for a page version object. This is used to create version for the target pages.
    *
-   * @param \Papaya\Content\Page\Version $version
-   * @return \Papaya\Content\Page\Version
+   * @param Page\Version $version
+   *
+   * @return Page\Version
    */
-  public function version(\Papaya\Content\Page\Version $version = NULL) {
-    if (isset($version)) {
+  public function version(Page\Version $version = NULL) {
+    if (NULL !== $version) {
       $this->_version = $version;
-    } elseif (is_null($this->_version)) {
-      $this->_version = new \Papaya\Content\Page\Version();
+    } elseif (NULL === $this->_version) {
+      $this->_version = new Page\Version();
     }
     return $this->_version;
   }
@@ -103,8 +120,9 @@ class Publication
   /**
    * Fetch the needed version data (owner, message, change level).
    *
-   * @param integer $pageId
-   * @return array
+   * @param int $pageId
+   *
+   * @return array|false
    */
   private function getVersionData($pageId) {
     $databaseAccess = $this->publication()->getDatabaseAccess();
@@ -112,17 +130,17 @@ class Publication
               FROM %s
              WHERE topic_id = '%d'
              ORDER BY version_time DESC";
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_VERSIONS),
       $pageId
-    );
+    ];
     if (($databaseResult = $databaseAccess->queryFmt($sql, $parameters, 1)) &&
       ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC))) {
-      return array(
+      return [
         'owner' => $row['version_author_id'],
         'message' => $row['version_message'],
         'level' => $row['topic_change_level']
-      );
+      ];
     }
     return FALSE;
   }

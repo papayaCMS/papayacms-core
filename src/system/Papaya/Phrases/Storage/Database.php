@@ -12,30 +12,51 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases\Storage;
 
+use Papaya\Application;
+use Papaya\Content;
+use Papaya\Phrases;
+
 class Database
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Phrases\Storage {
-
-  private $_cache = array();
-  private $_loadedGroups = array();
-  private $_errors = array();
+  implements Application\Access, Phrases\Storage {
+  use Application\Access\Aggregation;
 
   /**
-   * @var \Papaya\Content\Phrases
+   * @var array
    */
-  private $_phrases = NULL;
+  private $_cache = [];
 
   /**
-   * @var \Papaya\Content\Phrase\Messages
+   * @var array
+   */
+  private $_loadedGroups = [];
+
+  /**
+   * @var array
+   */
+  private $_errors = [];
+
+  /**
+   * @var Content\Phrases
+   */
+  private $_phrases;
+
+  /**
+   * @var Content\Phrase\Messages
    */
   private $_messages;
 
+  /**
+   * @param string $identifier
+   * @param string $group
+   * @param int $languageId
+   * @return string
+   */
   public function get($identifier, $group, $languageId) {
-    (string)$identifier = $identifier;
-    $key = strtolower($identifier);
+    $identifier = (string)$identifier;
+    $key = \strtolower($identifier);
+    $phrase = NULL;
     if (!isset($this->_loadedGroups[$languageId][$group])) {
       $this->loadGroup($group, $languageId);
     }
@@ -43,7 +64,7 @@ class Database
       $phrase = $this->loadPhrase($key, $languageId);
       if (!$phrase->isLoaded()) {
         $this->log(
-          sprintf('Phrase not found: %s.', $identifier),
+          \sprintf('Phrase not found: %s.', $identifier),
           $identifier,
           NULL,
           $group,
@@ -52,7 +73,7 @@ class Database
         $phrase['translation'] = $identifier;
       } elseif (empty($phrase['translation'])) {
         $this->log(
-          sprintf('Phrase translation not found: %s.', $identifier),
+          \sprintf('Phrase translation not found: %s.', $identifier),
           $identifier,
           $phrase['id'],
           $group,
@@ -60,13 +81,15 @@ class Database
         );
         $phrase['translation'] = $identifier;
       }
-      $this->_cache[$languageId][$key] = iterator_to_array($phrase);
+      $this->_cache[$languageId][$key] = \iterator_to_array($phrase);
     }
     if (!empty($this->_cache[$languageId][$key])) {
-      if (!isset($this->_cache[$languageId][$key]['GROUPS'][$group])) {
-        if (isset($phrase) && $phrase->isLoaded()) {
-          $phrase->addToGroup($group);
-        }
+      if (
+        NULL !== $phrase &&
+        !isset($this->_cache[$languageId][$key]['GROUPS'][$group]) &&
+        $phrase->isLoaded()
+      ) {
+        $phrase->addToGroup($group);
       }
       return (string)$this->_cache[$languageId][$key]['translation'];
     }
@@ -74,13 +97,13 @@ class Database
   }
 
   private function loadGroup($group, $languageId) {
-    $group = strtolower(trim($group));
+    $group = \strtolower(\trim($group));
     $phrases = $this->phrases();
     $loaded = $phrases->load(
-      array(
+      [
         'group' => $group,
         'language_id' => $languageId
-      )
+      ]
     );
     if ($loaded) {
       $this->_loadedGroups[$languageId][$group] = TRUE;
@@ -94,39 +117,56 @@ class Database
     }
   }
 
+  /**
+   * @param string $key
+   * @param int $languageId
+   * @return Content\Phrase
+   */
   public function loadPhrase($key, $languageId) {
     return $this->phrases()->getItem(
-      array(
+      [
         'identifier' => $key,
         'language_id' => $languageId
-      )
+      ]
     );
   }
 
-  public function phrases(\Papaya\Content\Phrases $phrases = NULL) {
-    if (isset($phrases)) {
+  /**
+   * @param Content\Phrases|null $phrases
+   * @return Content\Phrases
+   */
+  public function phrases(Content\Phrases $phrases = NULL) {
+    if (NULL !== $phrases) {
       $this->_phrases = $phrases;
     } elseif (NULL === $this->_phrases) {
-      $this->_phrases = new \Papaya\Content\Phrases();
+      $this->_phrases = new Content\Phrases();
       $this->_phrases->papaya($this->papaya());
     }
     return $this->_phrases;
   }
 
   /**
-   * @param \Papaya\Content\Phrase\Messages $messages
-   * @return \Papaya\Content\Phrase\Messages
+   * @param Content\Phrase\Messages $messages
+   *
+   * @return Content\Phrase\Messages
    */
-  public function messages(\Papaya\Content\Phrase\Messages $messages = NULL) {
-    if (isset($messages)) {
+  public function messages(Content\Phrase\Messages $messages = NULL) {
+    if (NULL !== $messages) {
       $this->_messages = $messages;
     } elseif (NULL === $this->_messages) {
-      $this->_messages = new \Papaya\Content\Phrase\Messages();
+      $this->_messages = new Content\Phrase\Messages();
       $this->_messages->papaya($this->papaya());
     }
     return $this->_messages;
   }
 
+  /**
+   * @param string $message
+   * @param string $phrase
+   * @param int $phraseId
+   * @param string $group
+   * @param int $languageId
+   */
   public function log($message, $phrase, $phraseId, $group, $languageId) {
     $phrase = (string)$phrase;
     if (
@@ -136,16 +176,15 @@ class Database
     ) {
       $this->_errors[$phrase] = TRUE;
       $this->messages()->add(
-        array(
+        [
           'text' => (string)$message,
           'phrase' => (string)$phrase,
           'phrase_id' => (int)$phraseId,
           'group' => (string)$group,
           'language_id' => (int)$languageId,
-          'created' => time()
-        )
+          'created' => \time()
+        ]
       );
     }
   }
-
 }

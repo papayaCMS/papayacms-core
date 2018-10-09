@@ -12,17 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Text;
+
+use Papaya\Filter;
+use Papaya\Utility;
+
 /**
  * Papaya filter class normalizing a string
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Normalize implements \Papaya\Filter {
-
+class Normalize implements Filter {
   const OPTION_LOWERCASE = 1;
+
   const OPTION_ALLOW_ASTERISK = 2;
 
   /**
@@ -36,34 +39,35 @@ class Normalize implements \Papaya\Filter {
 
   /**
    * @param mixed $value
+   *
    * @return bool
-   * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \Papaya\Filter\Exception\UnexpectedType
+   *
+   * @throws Filter\Exception
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new \Papaya\Filter\Exception\IsEmpty();
-    } elseif (!is_scalar($value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('string');
+      throw new Filter\Exception\IsEmpty();
+    } elseif (!\is_scalar($value)) {
+      throw new Filter\Exception\UnexpectedType('string');
     }
     return TRUE;
   }
 
   /**
-   * @param mixed|NULL $value
+   * @param mixed $value
+   *
    * @return string|null
    */
   public function filter($value) {
-    if (!(isset($value) && is_scalar($value))) {
+    if (!(NULL !== $value && \is_scalar($value))) {
       return NULL;
     }
-    $asterisk = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
+    $asterisk = Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
     $pattern = '([^\pL\pN'.($asterisk).']+)u';
-    $value = trim(preg_replace($pattern, ' ', $value));
-    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
-      $value = \Papaya\Utility\Text\UTF8::toLowerCase($value);
+    $value = \trim(\preg_replace($pattern, ' ', $value));
+    if (Utility\Bitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
+      $value = Utility\Text\UTF8::toLowerCase($value);
     }
-    return $value !== '' ? $value : NULL;
+    return '' !== $value ? $value : NULL;
   }
-
 }

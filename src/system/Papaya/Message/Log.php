@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Log, standard log message class
  *
@@ -21,19 +23,18 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 class Log
-  implements \Papaya\Message\Logable {
-
+  implements Logable {
   /**
    * Message group
    */
-  protected $_group = \Papaya\Message\Logable::GROUP_SYSTEM;
+  protected $_group = Logable::GROUP_SYSTEM;
 
   /**
    * Message type
    *
-   * @var integer
+   * @var int
    */
-  protected $_type = \Papaya\Message::SEVERITY_INFO;
+  protected $_severity = Message::SEVERITY_INFO;
 
   /**
    * Message text
@@ -45,46 +46,37 @@ class Log
   /**
    * Message context
    *
-   * @var NULL|\Papaya\Message\Context\Group
+   * @var null|Context\Group
    */
-  protected $_context = NULL;
+  protected $_context;
 
   /**
-   * @param integer $group
-   * @param integer $type
+   * @param int $group
+   * @param int $type
    * @param string $message
    */
   public function __construct($group, $type, $message) {
     $this->_group = $group;
-    $this->_type = $type;
+    $this->_severity = $type;
     $this->_message = $message;
   }
 
   /**
    * Get group of message (system, php, content, ...)
    *
-   * @return integer
+   * @return int
    */
   public function getGroup() {
     return $this->_group;
   }
 
   /**
-   * Get severity/type of message (info, warning, error)
-   *
-   * @return integer
-   */
-  public function getType() {
-    return $this->_type;
-  }
-
-  /**
    * Get severity of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getSeverity() {
-    return $this->_type;
+    return $this->_severity;
   }
 
   /**
@@ -99,11 +91,11 @@ class Log
   /**
    * Return a context object containing additional data about where and why the message happened.
    *
-   * @return \Papaya\Message\Context\Group
+   * @return Context\Group
    */
   public function context() {
-    if (is_null($this->_context)) {
-      $this->_context = new \Papaya\Message\Context\Group();
+    if (NULL === $this->_context) {
+      $this->_context = new Context\Group();
     }
     return $this->_context;
   }
@@ -111,9 +103,9 @@ class Log
   /**
    * Set a context group object to the message.
    *
-   * @param \Papaya\Message\Context\Group $context
+   * @param Context\Group $context
    */
-  public function setContext(\Papaya\Message\Context\Group $context) {
+  public function setContext(Context\Group $context) {
     $this->_context = $context;
   }
 }

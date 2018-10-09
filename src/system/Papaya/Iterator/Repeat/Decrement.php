@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Repeat;
+
 /**
  * This iterator decrements a value by step until an minimum is reached.
  *
@@ -22,46 +22,34 @@ namespace Papaya\Iterator\Repeat;
  * @subpackage Iterator
  */
 class Decrement extends Callback {
-
-  private $_minimum;
-  private $_step;
-  private $_mode;
-
   const MODE_LIST = 0;
+
   const MODE_ASSOC = 1;
 
   /**
    * Create object, store maximum and step vor callback method.
    *
-   * @param integer $maximum
-   * @param integer $minimum
-   * @param integer $step
+   * @param int $maximum
+   * @param int $minimum
+   * @param int $step
    * @param int $mode
    */
   public function __construct($maximum, $minimum, $step = 1, $mode = self::MODE_LIST) {
-    $this->_minimum = $minimum;
-    $this->_step = $step;
-    $this->_mode = $mode;
-    parent::__construct(array($this, 'decrement'), $maximum + $step, -1);
-  }
-
-  /**
-   * Increment the current value by step until it is larger then the maximim.
-   *
-   * @param integer $value
-   * @param integer $key
-   * @return FALSE|array
-   */
-  public function decrement($value, $key) {
-    $value -= $this->_step;
-    if ($this->_mode === self::MODE_ASSOC) {
-      $key = $value;
-    } else {
-      ++$key;
-    }
-    if ($value >= $this->_minimum) {
-      return array($value, $key);
-    }
-    return FALSE;
+    parent::__construct(
+      function($value, $key) use ($minimum, $step, $mode) {
+        $value -= $step;
+        if (self::MODE_ASSOC === $mode) {
+          $key = $value;
+        } else {
+          ++$key;
+        }
+        if ($value >= $minimum) {
+          return [$value, $key];
+        }
+        return FALSE;
+      },
+      $maximum + $step,
+      -1
+    );
   }
 }

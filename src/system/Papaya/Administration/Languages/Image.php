@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Languages;
+
+use Papaya\Application;
+use Papaya\Utility;
+
 /**
  * Language image source administration control.
  *
@@ -23,19 +26,22 @@ namespace Papaya\Administration\Languages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Image extends \Papaya\Application\BaseObject {
+class Image  implements Application\Access {
+  use Application\Access\Aggregation;
 
   private $_languageId;
+
   private $_language;
+
   private $_image;
 
   /**
    * Create language image for the current or a specified language
    *
-   * @param integer $languageId
+   * @param int $languageId
    */
   public function __construct($languageId = 0) {
-    \Papaya\Utility\Constraints::assertInteger($languageId);
+    Utility\Constraints::assertInteger($languageId);
     $this->_languageId = $languageId;
   }
 

@@ -12,19 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A list view column represent one part of the column header in a {@see \Papaya\UI\ListView}.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $align
+ * @property int $align
  * @property string|\Papaya\UI\Text $caption
  */
-class Column extends \Papaya\UI\Control\Collection\Item {
-
+class Column extends UI\Control\Collection\Item {
   /**
    * Current caption value
    *
@@ -35,27 +37,27 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   /**
    * Current alignment value
    *
-   * @var integer
+   * @var int
    */
-  protected $_align = \Papaya\UI\Option\Align::LEFT;
+  protected $_align = UI\Option\Align::LEFT;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'caption' => array('_caption', '_caption')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'caption' => ['_caption', '_caption']
+  ];
 
   /**
    * Initialize object and set standard values.
    *
    * @param string|\Papaya\UI\Text $caption
-   * @param integer $align
+   * @param int $align
    */
-  public function __construct($caption, $align = \Papaya\UI\Option\Align::LEFT) {
+  public function __construct($caption, $align = UI\Option\Align::LEFT) {
     $this->_caption = $caption;
     $this->setAlign($align);
   }
@@ -64,17 +66,18 @@ class Column extends \Papaya\UI\Control\Collection\Item {
    * Set the alignment if it is valid throw an exception if not.
    *
    * @throws \InvalidArgumentException
-   * @param integer $align
+   *
+   * @param int $align
    */
   public function setAlign($align) {
-    \Papaya\UI\Option\Align::validate($align);
+    UI\Option\Align::validate($align);
     $this->_align = $align;
   }
 
   /**
    * Read the current alignment
    *
-   * @return integer
+   * @return int
    */
   public function getAlign() {
     return $this->_align;
@@ -83,14 +86,14 @@ class Column extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append column xml to parent node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $parent->appendElement(
       'col',
-      array(
-        'align' => \Papaya\UI\Option\Align::getString($this->_align)
-      ),
+      [
+        'align' => UI\Option\Align::getString($this->_align)
+      ],
       (string)$this->_caption
     );
   }

@@ -12,36 +12,45 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
+
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Encapsulation for translated phrase (get text like system)
  *
  * @package Papaya-Library
  * @subpackage Content
+ *
+ * @property int $id
+ * @property string $identifier
+ * @property string $text
+ * @property string $translation
+ * @property int $languageId
  */
-class Phrase extends \Papaya\Database\Record {
-
+class Phrase extends Database\Record {
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
-   * @var array(string=>string)
+   * @var string[]
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'p.phrase_id',
     'identifier' => 'p.phrase_text_lower',
     'text' => 'p.phrase_text',
     'translation' => 'pt.translation',
     'language_id' => 'pt.lng_id'
-  );
+  ];
 
-  protected $_tableName = \Papaya\Content\Tables::PHRASES;
+  protected $_tableName = Tables::PHRASES;
+
   protected $_tableAlias = 'p';
 
   public function load($filter = NULL) {
-    $fields = implode(', ', $this->mapping()->getFields());
+    $fields = \implode(', ', $this->mapping()->getFields());
     $databaseAccess = $this->getDatabaseAccess();
-    if (is_array($filter) && isset($filter['language_id'])) {
+    if (\is_array($filter) && isset($filter['language_id'])) {
       $languageId = (int)$filter['language_id'];
       unset($filter['language_id']);
     } else {
@@ -50,14 +59,14 @@ class Phrase extends \Papaya\Database\Record {
     $sql = "SELECT $fields
               FROM %s AS p
               LEFT JOIN %s AS pt ON (pt.phrase_id = p.phrase_id AND pt.lng_id = '%d')";
-    $sql .= \Papaya\Utility\Text::escapeForPrintf(
+    $sql .= Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter)
     );
-    $parameters = array(
+    $parameters = [
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
+      $databaseAccess->getTableName(Tables::PHRASE_TRANSLATIONS),
       $languageId
-    );
+    ];
     return $this->_loadRecord($sql, $parameters);
   }
 
@@ -67,17 +76,17 @@ class Phrase extends \Papaya\Database\Record {
       $groupId = $group->id;
     } else {
       $group->assign(
-        array(
-          'identifier' => strtolower(trim($title)),
+        [
+          'identifier' => \strtolower(\trim($title)),
           'title' => $title
-        )
+        ]
       );
       $groupId = $group->save();
     }
     $databaseAccess = $this->getDatabaseAccess();
-    $linkTable = $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUP_LINKS);
+    $linkTable = $databaseAccess->getTableName(Tables::PHRASE_GROUP_LINKS);
     $sql = "SELECT COUNT(*) FROM %s WHERE phrase_id = '%d' AND module_id = '%d'";
-    $parameters = array($linkTable, $this->id, $groupId);
+    $parameters = [$linkTable, $this->id, $groupId];
     if (
       ($result = $databaseAccess->queryFmt($sql, $parameters)) &&
       0 === $result->fetchField()
@@ -85,22 +94,21 @@ class Phrase extends \Papaya\Database\Record {
       return FALSE !== $databaseAccess->insertRecord(
           $linkTable,
           NULL,
-          array(
+          [
             'phrase_id' => $this->id,
             'module_id' => $groupId
-          )
+          ]
         );
     }
     return FALSE;
   }
 
   public function getGroup($title = NULL) {
-    $identifier = strtolower(trim($title));
-    $group = new \Papaya\Content\Phrase\Group();
+    $identifier = \strtolower(\trim($title));
+    $group = new Phrase\Group();
     $group->papaya($this->papaya());
     $group->setDatabaseAccess($this->getDatabaseAccess());
-    $group->activateLazyLoad(array('identifier' => $identifier));
+    $group->activateLazyLoad(['identifier' => $identifier]);
     return $group;
   }
-
 }

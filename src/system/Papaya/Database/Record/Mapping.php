@@ -12,43 +12,45 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
+
+use Papaya\Database;
+
 /**
  * Mapper object to convert a database fields into object properties and back
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
  */
-class Mapping implements \Papaya\Database\Interfaces\Mapping {
-
+class Mapping implements Database\Interfaces\Mapping {
   /**
    * Properties to fields mapping
    *
    * @var array(string=>string|NULL)
    */
-  private $_properties = array();
+  private $_properties = [];
+
   /**
    * Field to properties mapping
    *
    * @var array(string=>string|NULL)
    */
-  private $_fields = array();
+  private $_fields = [];
+
   /**
    * Field to properties mapping excluding table aliases, this is only used if the original
    * field name contains an . - indicating the use of an table alias.
    *
    * @var array(string=>string|NULL)
    */
-  private $_fieldsWithoutAlias = array();
+  private $_fieldsWithoutAlias = [];
 
   /**
    * Callbacks to modify the mapping behaviour
    *
-   * @var \Papaya\Database\Record\Mapping\Callbacks
+   * @var Mapping\Callbacks
    */
-  private $_callbacks = NULL;
+  private $_callbacks;
 
   /**
    * Create object and define mapping
@@ -63,17 +65,18 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Define mapping
    *
    * @param array(string=>string|NULL) $definition
+   *
    * @throws \LogicException
    */
   private function setDefinition($definition) {
-    $this->_properties = array();
-    $this->_fields = array();
+    $this->_properties = [];
+    $this->_fields = [];
     foreach ($definition as $property => $field) {
       $this->_properties[$property] = $field;
       if (!empty($field)) {
         if (isset($this->_fields[$field])) {
           throw new \LogicException(
-            sprintf(
+            \sprintf(
               'Duplicate database field "%s" in mapping definition.',
               $field
             )
@@ -89,11 +92,12 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Strip the alias from the field if here was one.
    *
    * @param $field
+   *
    * @return string
    */
   private function stripAliasFromField($field) {
-    if (FALSE !== ($position = strpos($field, '.'))) {
-      return substr($field, $position + 1);
+    if (FALSE !== ($position = \strpos($field, '.'))) {
+      return \substr($field, $position + 1);
     }
     return $field;
   }
@@ -102,11 +106,12 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Map the database fields of an record to the object properties
    *
    * @param array $record
+   *
    * @return array
    */
   public function mapFieldsToProperties(array $record) {
     $callbacks = $this->callbacks();
-    $values = array();
+    $values = [];
     if (isset($callbacks->onBeforeMappingFieldsToProperties)) {
       $values = $callbacks->onBeforeMappingFieldsToProperties(
         $values, $record
@@ -162,11 +167,12 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param array $values
    * @param bool $withAlias
+   *
    * @return array
    */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->callbacks();
-    $record = array();
+    $record = [];
     if (isset($callbacks->onBeforeMappingPropertiesToFields)) {
       $record = $callbacks->onBeforeMappingPropertiesToFields(
         $values, $record
@@ -223,33 +229,32 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * @return array
    */
   public function getProperties() {
-    return array_keys($this->_properties);
+    return \array_keys($this->_properties);
   }
 
   /**
    * Get a list of the used database fields
    *
    * @param bool|string $withAlias
+   *
    * @return array
    */
   public function getFields($withAlias = TRUE) {
     if ($withAlias) {
-      if (is_string($withAlias)) {
+      if (\is_string($withAlias)) {
         $prefix = $withAlias.'.';
-        $prefixLength = strlen($prefix);
-        $result = array();
+        $prefixLength = \strlen($prefix);
+        $result = [];
         foreach ($this->_fields as $field => $property) {
-          if (0 === strpos($field, $prefix)) {
-            $result[] = substr($field, $prefixLength);
+          if (0 === \strpos($field, $prefix)) {
+            $result[] = \substr($field, $prefixLength);
           }
         }
         return $result;
-      } else {
-        return array_keys($this->_fields);
       }
-    } else {
-      return array_keys($this->_fieldsWithoutAlias);
+      return \array_keys($this->_fields);
     }
+    return \array_keys($this->_fieldsWithoutAlias);
   }
 
   /**
@@ -257,7 +262,8 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    *
    * @param string $property
    * @param bool|string $withAlias
-   * @return string|NULL
+   *
+   * @return string|null
    */
   public function getField($property, $withAlias = TRUE) {
     $callbacks = $this->callbacks();
@@ -265,19 +271,17 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
     if (isset($callbacks->onGetFieldForProperty)) {
       $result = $callbacks->onGetFieldForProperty($property, $withAlias);
     }
-    if (empty($result) && isset($this->_properties[$property])) {
+    if (NULL === $result && isset($this->_properties[$property])) {
       $field = $this->_properties[$property];
       if ($withAlias) {
-        if (is_string($withAlias)) {
-          return (0 === strpos($field, $withAlias.'.'))
+        if (\is_string($withAlias)) {
+          return (0 === \strpos($field, $withAlias.'.'))
             ? $this->stripAliasFromField($field)
             : NULL;
-        } else {
-          return $field;
         }
-      } else {
-        return $this->stripAliasFromField($field);
+        return $field;
       }
+      return $this->stripAliasFromField($field);
     }
     return $result;
   }
@@ -286,7 +290,8 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
    * Get the property name for a database fields
    *
    * @param string $field
-   * @return string|NULL
+   *
+   * @return string|null
    */
   public function getProperty($field) {
     $callbacks = $this->callbacks();
@@ -294,10 +299,11 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
     if (isset($callbacks->onGetPropertyForField)) {
       $result = $callbacks->onGetPropertyForField($field);
     }
-    if (empty($result)) {
+    if (NULL === $result) {
       if (isset($this->_fields[$field])) {
         return $this->_fields[$field];
-      } elseif (isset($this->_fieldsWithoutAlias[$field])) {
+      }
+      if (isset($this->_fieldsWithoutAlias[$field])) {
         return $this->_fieldsWithoutAlias[$field];
       }
     }
@@ -307,14 +313,15 @@ class Mapping implements \Papaya\Database\Interfaces\Mapping {
   /**
    * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
    *
-   * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
-   * @return \Papaya\Database\Record\Mapping\Callbacks
+   * @param Mapping\Callbacks $callbacks
+   *
+   * @return Mapping\Callbacks
    */
-  public function callbacks(\Papaya\Database\Record\Mapping\Callbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+  public function callbacks(Mapping\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \Papaya\Database\Record\Mapping\Callbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Mapping\Callbacks();
     }
     return $this->_callbacks;
   }

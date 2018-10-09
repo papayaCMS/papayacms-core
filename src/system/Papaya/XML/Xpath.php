@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\XML;
+
 /**
  * Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
  *
@@ -21,33 +21,33 @@ namespace Papaya\XML;
  * @subpackage XML
  */
 class Xpath extends \DOMXpath {
-
   /**
-   * @var boolean
+   * @var bool
    */
   private $_registerNodeNamespaces = FALSE;
 
   /**
    * Create object and disable the automatic namespace registration if possible.
    *
-   * @param \DOMDocument $dom
+   * @param \DOMDocument $document
    */
-  public function __construct(\DOMDocument $dom) {
-    parent::__construct($dom);
-    $this->registerNodeNamespaces(version_compare(PHP_VERSION, '<', '5.3.3'));
+  public function __construct(\DOMDocument $document) {
+    parent::__construct($document);
+    $this->registerNodeNamespaces(\version_compare(PHP_VERSION, '<', '5.3.3'));
   }
 
   /**
    * @param string $prefix
    * @param string $namespaceUri
+   *
    * @return bool
    */
   public function registerNamespace($prefix, $namespaceUri) {
     $result = parent::registerNamespace($prefix, $namespaceUri);
     if ($result && $this->document instanceof Document) {
-      /** @noinspection PhpUndefinedMethodInspection */
+      /* @noinspection PhpUndefinedMethodInspection */
       $this->document->registerNamespaces(
-        array($prefix => $namespaceUri),
+        [$prefix => $namespaceUri],
         FALSE
       );
     }
@@ -57,12 +57,13 @@ class Xpath extends \DOMXpath {
   /**
    * Enable/Disable the automatic namespace registration, return the current status
    *
-   * @param boolean|NULL $enabled
-   * @return boolean
+   * @param bool|null $enabled
+   *
+   * @return bool
    */
   public function registerNodeNamespaces($enabled = NULL) {
     if (NULL !== $enabled) {
-      $this->_registerNodeNamespaces = (boolean)$enabled;
+      $this->_registerNodeNamespaces = (bool)$enabled;
     }
     return $this->_registerNodeNamespaces;
   }
@@ -71,12 +72,17 @@ class Xpath extends \DOMXpath {
    * Evaluate an xpath expression an return the result
    *
    * @see \DOMXPath::evaluate()
+   *
    * @param string $expression
-   * @param \DOMNode|NULL $contextNode
-   * @param null|boolean $registerNodeNS
-   * @return \DOMNodeList|string|float|int|bool|FALSE
+   * @param \DOMNode|null $contextNode
+   * @param null|bool $registerNodeNS
+   *
+   * @return \DOMNodeList|string|float|int|bool|false
    */
-  public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function evaluate(
+    /** @noinspection PhpSignatureMismatchDuringInheritanceInspection */
+    $expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL
+  ) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
       $result = NULL !== $contextNode
         ? parent::evaluate($expression, $contextNode)
@@ -84,25 +90,29 @@ class Xpath extends \DOMXpath {
     } else {
       $result = parent::evaluate($expression, $contextNode, FALSE);
     }
-    if (is_float($result) && is_nan($result)) {
+    if (\is_float($result) && \is_nan($result)) {
       return 0.0;
     }
     return $result;
   }
 
+  /** @noinspection OverridingDeprecatedMethodInspection */
   /**
    * Query should not be used, but evaluate. Block it.
    *
    * @deprecated
    * @see \DOMXPath::query()
+   *
    * @param string $expression
-   * @param \DOMNode|NULL $contextNode
-   * @param null|boolean $registerNodeNS
+   * @param \DOMNode|null $contextNode
+   * @param null|bool $registerNodeNS
+   *
    * @throws \LogicException
-   * @return \DOMNodeList
    */
-  public function query($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function query(
+    /** @noinspection PhpSignatureMismatchDuringInheritanceInspection */
+    $expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL
+  ) {
     throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
-
 }

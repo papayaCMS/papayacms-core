@@ -12,35 +12,38 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record;
+
+use Papaya\Database;
+
 /**
  * Papaya Database Record Lazy, superclass for easy database record encapsulation that
  * can store loading parameters until needed.
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
  */
 abstract class Lazy
-  extends \Papaya\Database\Record {
-
+  extends Database\Record {
+  /**
+   * @var null|array
+   */
   private $_loadingParameters;
 
   /**
    * Define lazy load parameters and activate it.
    *
-   * @param mixed $filter
+   * @param array|int|string $filter
    */
   public function activateLazyLoad($filter) {
-    $this->_loadingParameters = func_get_args();
+    $this->_loadingParameters = [$filter];
     $this->clear();
   }
 
   /**
    * Return the lazy loading parameters, NULL if here are none.
    *
-   * @return array|NULL
+   * @return array|null
    */
   public function getLazyLoadParameters() {
     return $this->_loadingParameters;
@@ -51,7 +54,7 @@ abstract class Lazy
    */
   protected function lazyLoad() {
     if (NULL !== $this->_loadingParameters) {
-      call_user_func_array(array($this, 'load'), $this->_loadingParameters);
+      $this->load(...$this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
@@ -62,6 +65,7 @@ abstract class Lazy
    *
    * @param string $sql
    * @param array|null $parameters
+   *
    * @return bool
    */
   protected function _loadRecord($sql, array $parameters = NULL) {
@@ -83,6 +87,7 @@ abstract class Lazy
    * Deactivate lazy loading if data is assigned
    *
    * @see \Papaya\BaseObject\Item::assign()
+   *
    * @param array|\Traversable $data
    */
   public function assign($data) {
@@ -91,10 +96,11 @@ abstract class Lazy
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Key|NULL $key
-   * @return \Papaya\Database\Interfaces\Key
+   * @param Database\Interfaces\Key|null $key
+   *
+   * @return Database\Interfaces\Key
    */
-  public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
+  public function key(Database\Interfaces\Key $key = NULL) {
     $key = parent::key($key);
     $this->lazyLoad();
     return $key;
@@ -114,7 +120,8 @@ abstract class Lazy
    * Validate if the defined value is set.
    *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     $this->lazyLoad();
@@ -125,7 +132,9 @@ abstract class Lazy
    * Return the defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -137,6 +146,7 @@ abstract class Lazy
    * Change a defined value
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -149,6 +159,7 @@ abstract class Lazy
    * Set the deifned value to NULL.
    *
    * @throws \OutOfBoundsException
+   *
    * @param string $name
    */
   public function __unset($name) {
@@ -160,7 +171,8 @@ abstract class Lazy
    * ArrayAccess: Validate if a index/property exists at all
    *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($name) {
     $this->lazyLoad();

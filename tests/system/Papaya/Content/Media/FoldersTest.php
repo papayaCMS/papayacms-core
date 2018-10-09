@@ -24,60 +24,68 @@ class FoldersTest extends \Papaya\TestCase {
    */
   public function testCreateMapping() {
     $records = new Folders();
-    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
     $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));
   }
 
   /**
-   * @covers \Papaya\Content\Media\Folders::callbackMapValueFromFieldToProperty
+   * @covers \Papaya\Content\Media\Folders
    */
   public function testCallbackMapValueFromFieldToProperty() {
     $records = new Folders();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $records->mapping();
     $this->assertEquals(
       23,
-      $records->callbackMapValueFromFieldToProperty(
-        new \stdClass(), 'id', 'folder', '23'
+      $mapping->callbacks()->onMapValueFromFieldToProperty(
+        'id', 'folder', '23'
       )
     );
   }
 
   /**
-   * @covers \Papaya\Content\Media\Folders::callbackMapValueFromFieldToProperty
+   * @covers \Papaya\Content\Media\Folders
    */
   public function testCallbackMapValueFromFieldToPropertyDecodesAncestors() {
     $records = new Folders();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $records->mapping();
     $this->assertEquals(
       array(21, 42),
-      $records->callbackMapValueFromFieldToProperty(
-        new \stdClass(), 'ancestors', 'parent_path', ';21;42;'
+      $mapping->callbacks()->onMapValueFromFieldToProperty(
+        'ancestors', 'parent_path', ';21;42;'
       )
     );
   }
 
   /**
-   * @covers \Papaya\Content\Media\Folders::callbackGetFieldForProperty
+   * @covers \Papaya\Content\Media\Folders
    */
   public function testCallbackGetFieldForPropertyUnknownPropertyExpectingNull() {
     $records = new Folders();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $records->mapping();
     $this->assertNull(
-      $records->callbackGetFieldForProperty(
-        new \stdClass(), 'unknown_property_name'
+      $mapping->getField(
+        'unknown_property_name'
       )
     );
   }
 
   /**
-   * @covers \Papaya\Content\Media\Folders::callbackGetFieldForProperty
+   * @covers \Papaya\Content\Media\Folders
    * @dataProvider providePropertyToFieldValues
    * @param string $expected
    * @param string $property
    */
   public function testCallbackGetFieldForProperty($expected, $property) {
     $records = new Folders();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $records->mapping();
     $this->assertEquals(
-      $expected, $records->callbackGetFieldForProperty(new \stdClass, $property)
+      $expected, $mapping->getField($property)
     );
   }
 

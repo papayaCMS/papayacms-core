@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Exception;
+
+use Papaya\UI;
+
 /**
  * The option name is invalid, aka the option does not exist
  *
@@ -21,8 +23,7 @@ namespace Papaya\UI\Dialog\Field\Factory\Exception;
  * @subpackage UI
  */
 class InvalidOption
-  extends \Papaya\UI\Dialog\Field\Factory\Exception {
-
+  extends UI\Dialog\Field\Factory\Exception {
   /**
    * Create exception with compiled message
    *
@@ -30,7 +31,7 @@ class InvalidOption
    */
   public function __construct($optionName) {
     parent::__construct(
-      sprintf('Invalid field factory option name "%s".', $optionName)
+      \sprintf('Invalid field factory option name "%s".', $optionName)
     );
   }
 }

@@ -33,7 +33,7 @@ namespace Papaya\HTTP\Client\File {
     }
 
     public function testConstructorExpectingError() {
-      $this->expectException(\LogicException::class);
+      $this->expectException(\UnexpectedValueException::class);
       new Name('', '', '');
     }
 

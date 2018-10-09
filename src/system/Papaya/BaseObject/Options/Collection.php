@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Options;
+
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
  * A options list if a list of name => value pairs. The names consists of letters and
  * underscores (the first char can not be an underscore). Lowercase letters, will be converted
@@ -28,20 +30,21 @@ namespace Papaya\BaseObject\Options;
  * @subpackage Objects
  */
 class Collection
-  implements \ArrayAccess, \Countable, \IteratorAggregate {
-
+  implements \ArrayAccess, \Countable, \IteratorAggregate, Properties {
   /**
    * Options storage
    *
    * @var array
    */
-  protected $_options = array();
+  protected $_options = [];
 
   /**
-   * Constrcutor: create object with optional default data
+   * create object with optional default data
+   *
+   * @param array|null $options
    */
   public function __construct(array $options = NULL) {
-    if (is_array($options)) {
+    if (\is_array($options)) {
       foreach ($options as $name => $value) {
         $this->offsetSet($name, $value);
       }
@@ -52,22 +55,24 @@ class Collection
    * Convert to uppercase letters and check name
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
+   *
    * @return string
    */
   protected function _prepareName($name) {
-    if (preg_match('(^[a-z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
+    if (\preg_match('(^[a-z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
       $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
-      if (preg_match_all($camelCasePattern, $name, $matches)) {
-        $name = implode('_', $matches[0]);
+      if (\preg_match_all($camelCasePattern, $name, $matches)) {
+        $name = \implode('_', $matches[0]);
       }
     }
-    $name = strToUpper($name);
-    if (preg_match('(^[A-Z]+[A-Z_]+$)DS', $name)) {
+    $name = \strtoupper($name);
+    if (\preg_match('(^[A-Z]+[A-Z_]+$)DS', $name)) {
       return $name;
     }
     throw new \InvalidArgumentException(
-      sprintf('Invalid option name "%s".', $name)
+      \sprintf('Invalid option name "%s".', $name)
     );
   }
 
@@ -75,6 +80,7 @@ class Collection
    * Read an option value
    *
    * @param $name
+   *
    * @return mixed
    */
   protected function _read($name) {
@@ -95,16 +101,18 @@ class Collection
    * Check if an option value exists
    *
    * @param $name
+   *
    * @return bool
    */
   protected function _exists($name) {
-    return array_key_exists($name, $this->_options);
+    return \array_key_exists($name, $this->_options);
   }
 
   /**
    * ArrayAccess interface: return option
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -115,22 +123,22 @@ class Collection
    * ArrayAccess interface, set option value
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
    * @param mixed $value
-   * @return string
    */
   public function offsetSet($name, $value) {
     $name = $this->_prepareName($name);
-    if (is_scalar($value)) {
+    if (\is_scalar($value)) {
       $this->_write($name, $value);
-    } elseif (is_null($value)) {
-      if (array_key_exists($name, $this->_options)) {
+    } elseif (NULL === $value) {
+      if (\array_key_exists($name, $this->_options)) {
         unset($this->_options[$name]);
       }
     } else {
       throw new \InvalidArgumentException(
-        sprintf(
-          'Option value must be a skalar: "%s" given.', gettype($value)
+        \sprintf(
+          'Option value must be a scalar: "%s" given.', \gettype($value)
         )
       );
     }
@@ -140,6 +148,7 @@ class Collection
    * ArrayAccess interface, check if option exists
    *
    * @param string $name
+   *
    * @return bool
    */
   public function offsetExists($name) {
@@ -158,16 +167,17 @@ class Collection
   /**
    * Countable interface: return options count
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_options);
+    return \count($this->_options);
   }
 
   /**
    * Magic Method: read access to options as properties
    *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -188,6 +198,7 @@ class Collection
    * Magic Method: access to options as properties to check if they exists
    *
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -219,6 +230,8 @@ class Collection
 
   /**
    * Assign a list of options
+   *
+   * @param array|\Traversable $values
    */
   public function assign($values) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
@@ -229,6 +242,9 @@ class Collection
 
   /**
    * Set an option
+   *
+   * @param string $name
+   * @param mixed $value
    */
   public function set($name, $value) {
     $this->offsetSet($name, $value);

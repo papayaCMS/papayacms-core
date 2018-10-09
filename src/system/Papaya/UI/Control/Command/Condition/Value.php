@@ -12,37 +12,39 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Condition;
+
+use Papaya\UI;
+
 /**
  * A command condition based on a value.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Value extends \Papaya\UI\Control\Command\Condition {
-
+class Value extends UI\Control\Command\Condition {
   /**
    * member variable to store the value
    *
-   * @var boolean
+   * @var bool
    */
   private $_value;
 
   /**
    * Create object and store callback.
    *
-   * @param boolean $value
+   * @param bool $value
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($value) {
-    $this->_value = (boolean)$value;
+    $this->_value = (bool)$value;
   }
 
   /**
    * Execute callback and return value.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return $this->_value;

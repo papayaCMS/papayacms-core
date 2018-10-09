@@ -12,63 +12,66 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\XML;
+
 /**
  * A listview gui control.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property \Papaya\UI\ListView\Columns $columns
- * @property \Papaya\UI\ListView\Items $items
- * @property \Papaya\UI\Toolbars $toolbars
+ * @property ListView\Columns $columns
+ * @property ListView\Items $items
+ * @property Toolbars $toolbars
  * @property string|\Papaya\UI\Text $caption
  * @property string $mode
- * @property \Papaya\UI\Reference $reference
+ * @property Reference $reference
  */
 class ListView extends Control\Interactive {
-
   const MODE_DETAILS = 'details';
+
   const MODE_TILES = 'tiles';
+
   const MODE_THUMBNAILS = 'thumbnails';
 
   /**
    * Object buffer for listview items.
    *
-   * @var \Papaya\UI\ListView\Items
+   * @var ListView\Items
    */
-  private $_items = NULL;
+  private $_items;
 
   /**
    * Object buffer for listview items builder (is this is set before the actual items are
    * requested, it is used to create them).
    *
-   * @var \Papaya\UI\ListView\Items
+   * @var ListView\Items
    */
-  private $_builder = NULL;
+  private $_builder;
 
   /**
    * Defines if the builder should be used to fill the items on next access. This
    * will be set to true if an builder is assigned and back to false after the builder was called.
    *
-   * @var boolean
+   * @var bool
    */
   private $_useBuilder = FALSE;
 
   /**
    * Object buffer for listview columns.
    *
-   * @var \Papaya\UI\ListView\Columns
+   * @var ListView\Columns
    */
-  private $_columns = NULL;
+  private $_columns;
 
   /**
    * Helper object to manage the four toolbars for the different positions.
    *
-   * @var \Papaya\UI\Toolbars
+   * @var Toolbars
    */
-  private $_toolbars = NULL;
+  private $_toolbars;
 
   /**
    * List view caption/title
@@ -87,36 +90,37 @@ class ListView extends Control\Interactive {
   /**
    * List view reference object for links
    *
-   * @var \Papaya\UI\Reference
+   * @var Reference
    */
-  private $_reference = NULL;
+  private $_reference;
 
   /**
    * Declared public properties, see property annotaiton of the class for documentation.
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'columns' => array('columns', 'columns'),
-    'items' => array('items', 'items'),
-    'toolbars' => array('toolbars', 'toolbars'),
-    'caption' => array('_caption', '_caption'),
-    'mode' => array('_mode', 'setMode'),
-    'reference' => array('reference', 'reference')
-  );
+  protected $_declaredProperties = [
+    'columns' => ['columns', 'columns'],
+    'items' => ['items', 'items'],
+    'toolbars' => ['toolbars', 'toolbars'],
+    'caption' => ['_caption', '_caption'],
+    'mode' => ['_mode', 'setMode'],
+    'reference' => ['reference', 'reference']
+  ];
 
   /**
    * Append listview output to parent element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return null|XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $listview = $parent->appendElement('listview');
     if (!empty($this->_caption)) {
       $listview->setAttribute('title', (string)$this->_caption);
     }
-    if ($this->mode != self::MODE_DETAILS) {
+    if (self::MODE_DETAILS !== $this->mode) {
       $listview->setAttribute('mode', $this->mode);
     }
     $this->toolbars()->appendTo($listview);
@@ -128,19 +132,21 @@ class ListView extends Control\Interactive {
   /**
    * The list of listview items
    *
-   * @param \Papaya\UI\ListView\Items $items
-   * @return null|\Papaya\UI\ListView\Items
+   * @param ListView\Items $items
+   *
+   * @return ListView\Items
    */
-  public function items(\Papaya\UI\ListView\Items $items = NULL) {
-    if (isset($items)) {
+  public function items(ListView\Items $items = NULL) {
+    if (NULL !== $items) {
       $this->_items = $items;
-    } elseif (is_null($this->_items)) {
-      $this->_items = new \Papaya\UI\ListView\Items($this);
+    } elseif (NULL === $this->_items) {
+      $this->_items = new ListView\Items($this);
       $this->_items->papaya($this->papaya());
     }
-    if ($this->_useBuilder && count($this->_items) == 0) {
+    $builder = $this->builder();
+    if ($this->_useBuilder && NULL !== $builder && 0 === \count($this->_items)) {
       $this->_useBuilder = FALSE;
-      $this->builder()->fill($this->_items);
+      $builder->fill($this->_items);
     }
     return $this->_items;
   }
@@ -149,11 +155,12 @@ class ListView extends Control\Interactive {
    * The builder subobject allows you to change the creation process of the items and
    * add some items from a data source for example.
    *
-   * @param \Papaya\UI\ListView\Items\Builder $builder
-   * @return NULL|\Papaya\UI\ListView\Items\Builder
+   * @param ListView\Items\Builder $builder
+   *
+   * @return null|ListView\Items\Builder
    */
-  public function builder(\Papaya\UI\ListView\Items\Builder $builder = NULL) {
-    if (isset($builder)) {
+  public function builder(ListView\Items\Builder $builder = NULL) {
+    if (NULL !== $builder) {
       $this->_builder = $builder;
       $this->_useBuilder = TRUE;
     }
@@ -163,15 +170,15 @@ class ListView extends Control\Interactive {
   /**
    * The list of listview columns
    *
-   * @param \Papaya\UI\ListView\Columns $columns
-   * @return \Papaya\UI\ListView\Columns
+   * @param ListView\Columns $columns
+   *
+   * @return ListView\Columns
    */
-  public function columns(\Papaya\UI\ListView\Columns $columns = NULL) {
-    if (isset($columns)) {
+  public function columns(ListView\Columns $columns = NULL) {
+    if (NULL !== $columns) {
       $this->_columns = $columns;
-    }
-    if (is_null($this->_columns)) {
-      $this->_columns = new \Papaya\UI\ListView\Columns($this);
+    } elseif (NULL === $this->_columns) {
+      $this->_columns = new ListView\Columns($this);
       $this->_columns->papaya($this->papaya());
     }
     return $this->_columns;
@@ -180,15 +187,15 @@ class ListView extends Control\Interactive {
   /**
    * The list of listview toolbars
    *
-   * @param \Papaya\UI\Toolbars $toolbars
-   * @return \Papaya\UI\Toolbars
+   * @param Toolbars $toolbars
+   *
+   * @return Toolbars
    */
-  public function toolbars(\Papaya\UI\Toolbars $toolbars = NULL) {
-    if (isset($toolbars)) {
+  public function toolbars(Toolbars $toolbars = NULL) {
+    if (NULL !== $toolbars) {
       $this->_toolbars = $toolbars;
-    }
-    if (is_null($this->_toolbars)) {
-      $this->_toolbars = new \Papaya\UI\Toolbars($this);
+    } elseif (NULL === $this->_toolbars) {
+      $this->_toolbars = new Toolbars();
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;
@@ -200,15 +207,15 @@ class ListView extends Control\Interactive {
    * It is possible to assign individual reference objects to the subobjects, but if you do not they
    * will use this one.
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param Reference $reference
+   *
+   * @return Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
-    if (isset($reference)) {
+  public function reference(Reference $reference = NULL) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    }
-    if (is_null($this->_reference)) {
-      $this->_reference = new \Papaya\UI\Reference();
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

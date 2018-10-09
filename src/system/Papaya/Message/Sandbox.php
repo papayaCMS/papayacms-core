@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
+use Papaya\Application;
+
 /**
  * Papaya Message Exception, message object representing a php exception. This allows to convert
  * any exception into an error log message.
@@ -21,17 +23,21 @@ namespace Papaya\Message;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Sandbox extends \Papaya\Application\BaseObject {
+class Sandbox
+  implements Application\Access {
+  use Application\Access\Aggregation;
 
-  private $_callback = NULL;
+  /**
+   * @var callable
+   */
+  private $_callback;
 
   /**
    * Create object and set values from exception object
    *
    * @param \Callable $callback
    */
-  public function __construct($callback) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+  public function __construct(callable $callback) {
     $this->_callback = $callback;
   }
 
@@ -40,17 +46,20 @@ class Sandbox extends \Papaya\Application\BaseObject {
    * message and return NULL.
    *
    * @param mixed,... $argument
+   *
    * @return mixed
    */
-  public function __invoke() {
+  public function __invoke(...$arguments) {
     $result = NULL;
     try {
-      $arguments = func_num_args() > 0 ? func_get_args() : array();
-      $result = call_user_func_array($this->_callback, $arguments);
-    } catch (\ErrorException $e) {
-      $this->papaya()->messages->dispatch(new \Papaya\Message\PHP\Exception($e));
+      $callback = $this->_callback;
+      $result = $callback(...$arguments);
+    } /** @noinspection PhpRedundantCatchClauseInspection */ catch (
+      \ErrorException $e
+    ) {
+      $this->papaya()->messages->dispatch(new PHP\Exception($e));
     } catch (\Exception $e) {
-      $this->papaya()->messages->dispatch(new \Papaya\Message\Exception($e));
+      $this->papaya()->messages->dispatch(new Exception($e));
     }
     return $result;
   }

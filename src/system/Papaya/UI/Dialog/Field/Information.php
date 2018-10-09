@@ -12,16 +12,18 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A field that output a message inside the dialog
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Information extends \Papaya\UI\Dialog\Field {
-
+class Information extends UI\Dialog\Field {
   /**
    * Information text
    *
@@ -44,21 +46,21 @@ class Information extends \Papaya\UI\Dialog\Field {
    */
   public function __construct($text, $image = NULL) {
     $this->_text = $text;
-    $this->_image = $image;
+    $this->_image = (string)$image;
   }
 
   /**
    * Append message field to dialog xml dom
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(
-      'message', array(), (string)$this->_text
+      'message', [], (string)$this->_text
     );
-    $image = empty($this->_image) ? '' : $this->papaya()->images[$this->_image];
-    if (!empty($image)) {
+    $image = (string)('' !== $this->_image ? $this->papaya()->images[$this->_image] : '');
+    if ('' !== $image) {
       $message->setAttribute('image', $image);
     }
   }

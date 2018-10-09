@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory;
+
 /**
  * Abstract superclass for field factory profiles.
  *
@@ -24,16 +24,16 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @subpackage UI
  */
 abstract class Profile {
-
   /**
    * @var Options
    */
-  private $_options = NULL;
+  private $_options;
 
   /**
    * Create the field and return it. Throw an exception if something goes wrong
    *
    * @return \Papaya\UI\Dialog\Field
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception
    */
   abstract public function getField();
@@ -42,7 +42,9 @@ abstract class Profile {
    * Getter/Setter for the options subobject
    *
    * @param Options $options
+   *
    * @return Options
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function options(Options $options = NULL) {

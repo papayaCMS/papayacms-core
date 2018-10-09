@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Spam;
+
 /**
  * Spam filter classes calculate a spam rating for a given token list. The rating is
  * between 0 (ham) and 1 (spam).
@@ -22,14 +22,14 @@ namespace Papaya\Spam;
  * @subpackage Spam
  */
 interface Filter {
-
   /**
    * Classify the token list as spam or ham. The return value will be a value
    * between 0 (ham) and 1 (spam).
    *
    * @param string $text
    * @param array|string $tokens an array containing tokens and count
-   * @param integer $languageId
+   * @param int $languageId
+   *
    * @return float
    */
   public function classify($text, array $tokens, $languageId);

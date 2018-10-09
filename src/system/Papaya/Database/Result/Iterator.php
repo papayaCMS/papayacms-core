@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Result;
+
+use Papaya\Database;
+
 /**
  * Papaya Database Result Iterator, allows to iterate on an object implementing \Papaya\Database\Result
  *
@@ -23,21 +25,39 @@ namespace Papaya\Database\Result;
  * @subpackage Database
  */
 class Iterator implements \Iterator {
-
+  /**
+   * @var Database\Result
+   */
   private $_databaseResult;
+
+  /**
+   * @var Database\Interfaces\Mapping
+   */
   private $_mapping;
+
+  /**
+   * @var int
+   */
   private $_fetchMode;
+
+  /**
+   * @var array|null
+   */
   private $_current;
+
+  /**
+   * @var int
+   */
   private $_offset = -1;
 
   /**
    * Create object, store result object and fetch mode
    *
-   * @param \Papaya\Database\Result $databaseResult
-   * @param integer $mode
+   * @param Database\Result $databaseResult
+   * @param int $mode
    */
   public function __construct(
-    \Papaya\Database\Result $databaseResult = NULL, $mode = \Papaya\Database\Result::FETCH_ASSOC
+    Database\Result $databaseResult = NULL, $mode = Database\Result::FETCH_ASSOC
   ) {
     $this->_databaseResult = $databaseResult;
     $this->_fetchMode = $mode;
@@ -49,9 +69,9 @@ class Iterator implements \Iterator {
    *
    * If no mapping is provided, the mapping object will be removed.
    *
-   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @param Database\Interfaces\Mapping $mapping
    */
-  public function setMapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
+  public function setMapping(Database\Interfaces\Mapping $mapping = NULL) {
     $this->_mapping = $mapping;
   }
 
@@ -59,7 +79,7 @@ class Iterator implements \Iterator {
    * Getter for the mapping subobject. This is used to convert the property values into
    * a database record and back.
    *
-   * @return \Papaya\Database\Interfaces\Mapping
+   * @return Database\Interfaces\Mapping
    */
   public function getMapping() {
     return $this->_mapping;
@@ -81,6 +101,7 @@ class Iterator implements \Iterator {
   public function current() {
     if (
       NULL !== $this->_current &&
+      Database\Result::FETCH_ASSOC === $this->_fetchMode &&
       ($mapping = $this->getMapping())
     ) {
       return $mapping->mapFieldsToProperties($this->_current);
@@ -99,7 +120,7 @@ class Iterator implements \Iterator {
    * Fetch the next record and store it in the object
    */
   public function next() {
-    if ($this->_offset < 0 || is_array($this->_current)) {
+    if ($this->_offset < 0 || \is_array($this->_current)) {
       $this->_current = $this->_databaseResult->fetchRow($this->_fetchMode);
       ++$this->_offset;
     }
@@ -109,6 +130,6 @@ class Iterator implements \Iterator {
    * Check if a valid record was fetched
    */
   public function valid() {
-    return is_array($this->_current);
+    return \is_array($this->_current);
   }
 }

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Structure;
+
+use Papaya\BaseObject;
+use Papaya\XML;
 
 /**
  * Content structure pages, defines the main items list of a constent structure.
@@ -24,8 +26,7 @@ namespace Papaya\Content\Structure;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Pages extends \Papaya\BaseObject\Collection {
-
+class Pages extends BaseObject\Collection {
   public function __construct() {
     parent::__construct(Page::class);
   }
@@ -33,12 +34,12 @@ class Pages extends \Papaya\BaseObject\Collection {
   /**
    * Load page data from xml
    *
-   * @param \Papaya\XML\Element $structure
+   * @param XML\Element $structure
    */
-  public function load(\Papaya\XML\Element $structure) {
-    /** @var \Papaya\XML\Document $document */
+  public function load(XML\Element $structure) {
+    /** @var XML\Document $document */
     $document = $structure->ownerDocument;
-    /** @var \Papaya\XML\Element $node */
+    /** @var XML\Element $node */
     foreach ($document->xpath()->evaluate('page', $structure) as $node) {
       $this[] = $page = new Page();
       $page->name = $node->getAttribute('name');

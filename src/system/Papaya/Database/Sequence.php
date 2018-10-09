@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
+
+use Papaya\Utility;
+
 /**
  * Papaya Database Sequence, handles manual client side sequence
  *
@@ -21,7 +23,7 @@ namespace Papaya\Database;
  *
  * Usage:
  *   $sequence = new \Papaya\Database\Sequence\Sample(
- *     'tablename', 'fieldname'
+ *     'table_name', 'field_name'
  *   );
  *   $newId = $sequence->next();
  *
@@ -32,13 +34,13 @@ namespace Papaya\Database;
  * @subpackage Database
  */
 abstract class Sequence extends BaseObject {
-
   /**
    * Database table name
    *
    * @var string
    */
   protected $_table = '';
+
   /**
    * Identifier table column name
    *
@@ -58,6 +60,7 @@ abstract class Sequence extends BaseObject {
    *
    * @param string $table
    * @param string $field
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($table, $field) {
@@ -78,10 +81,10 @@ abstract class Sequence extends BaseObject {
   /**
    * Return the next sequence identifier
    *
-   * @return string|FALSE
+   * @return string|false
    */
   public function next() {
-    $ids = array();
+    $ids = [];
     while (empty($ids)) {
       $ids = $this->createIdentifiers(10);
       $ids = $this->checkIdentifiers($ids);
@@ -89,17 +92,18 @@ abstract class Sequence extends BaseObject {
         return FALSE;
       }
     }
-    return reset($ids);
+    return \reset($ids);
   }
 
   /**
    * Create a several ids at once
    *
-   * @param integer $count
+   * @param int $count
+   *
    * @return array
    */
   protected function createIdentifiers($count) {
-    $result = array();
+    $result = [];
     for ($i = 0; $i < $count; $i++) {
       $id = $this->create();
       if (!empty($id)) {
@@ -113,14 +117,14 @@ abstract class Sequence extends BaseObject {
    * Check identifiers agains table, return only identifiers not already used.
    *
    * @param array $identifiers
+   *
    * @throws \InvalidArgumentException
-   * @return array|FALSE $identifiers
+   *
+   * @return array|false $identifiers
    */
   protected function checkIdentifiers(array $identifiers) {
-    $identifiers = array_values($identifiers);
-    $filter = str_replace(
-      '%',
-      '%%',
+    $identifiers = \array_values($identifiers);
+    $filter = Utility\Text::escapeForPrintf(
       $this->databaseGetSqlCondition($this->_field, $identifiers)
     );
     if (empty($filter)) {
@@ -129,15 +133,14 @@ abstract class Sequence extends BaseObject {
       );
     }
     $sql = "SELECT %s FROM %s WHERE $filter";
-    $parameters = array($this->_field, $this->_table);
+    $parameters = [$this->_field, $this->_table];
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      $found = array();
+      $found = [];
       while ($row = $res->fetchRow()) {
         $found[] = $row[0];
       }
-      return array_diff($identifiers, $found);
-    } else {
-      return FALSE;
+      return \array_diff($identifiers, $found);
     }
+    return FALSE;
   }
 }

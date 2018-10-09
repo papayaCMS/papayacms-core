@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
+use Papaya\Message;
+
 /**
  * Standard debug message
  *
@@ -25,11 +27,11 @@ namespace Papaya\Message;
  */
 class Debug
   implements Logable {
-
   /**
    * Message group
    */
   protected $_group = Logable::GROUP_DEBUG;
+
   /**
    * Message text
    *
@@ -40,12 +42,12 @@ class Debug
   /**
    * Message context
    *
-   * @var NULL|Context\Group
+   * @var null|Context\Group
    */
-  protected $_context = NULL;
+  protected $_context;
 
   /**
-   * @param integer $group
+   * @param int $group
    * @param string $message
    */
   public function __construct($group = Logable::GROUP_DEBUG, $message = '') {
@@ -62,28 +64,19 @@ class Debug
   /**
    * Get group of message (system, php, content, ...)
    *
-   * @return integer
+   * @return int
    */
   public function getGroup() {
     return $this->_group;
   }
 
   /**
-   * Get type of message, always "debug" for this class
-   *
-   * @return integer
-   */
-  public function getType() {
-    return \Papaya\Message::SEVERITY_DEBUG;
-  }
-
-  /**
    * Get type of message (info, warning, error)
    *
-   * @return integer
+   * @return int
    */
   public function getSeverity() {
-    return \Papaya\Message::SEVERITY_DEBUG;
+    return Message::SEVERITY_DEBUG;
   }
 
   /**

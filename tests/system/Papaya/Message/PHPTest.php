@@ -56,13 +56,13 @@ namespace Papaya\Message {
     }
 
     /**
-     * @covers \Papaya\Message\PHP::getType
+     * @covers \Papaya\Message\PHP::getSeverity
      */
-    public function testGetType() {
+    public function testGetSeverity() {
       $message = new  PHPMessage_TestProxy();
       $this->assertEquals(
         \Papaya\Message::SEVERITY_ERROR,
-        $message->getType()
+        $message->getSeverity()
       );
     }
 

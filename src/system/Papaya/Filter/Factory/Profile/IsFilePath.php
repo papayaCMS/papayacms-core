@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating a file path/directory string filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsFilePath extends \Papaya\Filter\Factory\Profile {
-
+class IsFilePath extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\File\Path();
+    return new Filter\File\Path();
   }
 }

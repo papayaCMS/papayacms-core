@@ -12,25 +12,29 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\URL;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class validating a url host name
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Web extends \Papaya\Filter\URL {
-
+class Web extends Filter\URL {
   /**
-   * @see \Papaya\Filter::validate()
+   * @param mixed $value
+   * @return true
+   * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
     return parent::validate($this->prepare($value));
   }
 
   /**
-   * @see \Papaya\Filter::filter()
+   * @param mixed $value
+   * @return string
    */
   public function filter($value) {
     return parent::filter($this->prepare($value));
@@ -39,11 +43,12 @@ class Web extends \Papaya\Filter\URL {
   /**
    * prefix the value if needed with http://
    *
-   * @param string $value
+   * @param mixed $value
+   *
    * @return string
    */
   private function prepare($value) {
-    if (!empty($value) && !preg_match('(^https?://)', $value)) {
+    if (!empty($value) && \is_string($value) && !\preg_match('(^https?://)', $value)) {
       return 'http://'.$value;
     }
     return $value;

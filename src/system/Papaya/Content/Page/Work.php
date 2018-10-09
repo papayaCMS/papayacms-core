@@ -12,40 +12,42 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the working copy of content page.
  *
  * Allows to edit the pages. It contains no validation, only the database access
  * encapsulation.
  *
- * @property integer $id page id
- * @property integer $parentId direct page parent/ancestor id,
+ * @property int $id page id
+ * @property int $parentId direct page parent/ancestor id,
  * @property array $parentPath all page ancestor ids,
  * @property string $owner administration user that own this page
- * @property integer $group administration user group that own this page
+ * @property int $group administration user group that own this page
  * @property string $permissions administration permissions,
- * @property integer $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
+ * @property int $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
  * @property array $visitorPermissions visitor permission for this node
- * @property integer $created page creation timestamp
- * @property integer $modified last modification timestamp
- * @property integer $position page position relative to its siblings
- * @property boolean $inheritBoxes box inheritance
- * @property integer $defaultLanguage default/fallback language,
- * @property integer $linkType page link type for navigations,
- * @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
- * @property integer $changeFrequency change frequency (for search engines)
- * @property integer $priority content priority (for search engines)
- * @property integer $scheme page scheme (http, https or both)
- * @property integer $cacheMode page content cache mode (system, none, own)
- * @property integer $cacheTime page content cache time, if mode == own
- * @property integer $expiresMode page browser cache mode (system, none, own)
- * @property integer $expiresTime page browser cache time, if mode == own
- * @property integer $unpublishedTranslations internal counter for unpublished translations
+ * @property int $created page creation timestamp
+ * @property int $modified last modification timestamp
+ * @property int $position page position relative to its siblings
+ * @property bool $inheritBoxes box inheritance
+ * @property int $defaultLanguage default/fallback language,
+ * @property int $linkType page link type for navigations,
+ * @property bool $inheritMetaInfo inherit meta informations like page title and keywords,
+ * @property int $changeFrequency change frequency (for search engines)
+ * @property int $priority content priority (for search engines)
+ * @property int $scheme page scheme (http, https or both)
+ * @property int $cacheMode page content cache mode (system, none, own)
+ * @property int $cacheTime page content cache time, if mode == own
+ * @property int $expiresMode page browser cache mode (system, none, own)
+ * @property int $expiresTime page browser cache time, if mode == own
+ * @property int $unpublishedTranslations internal counter for unpublished translations
  */
-class Work extends \Papaya\Content\Page {
-
+class Work extends Content\Page {
   /**
    * Create child page object (but do not save it yet)
    *
@@ -67,13 +69,13 @@ class Work extends \Papaya\Content\Page {
     $parentPath = $this->parentPath;
     $parentPath[] = $this->id;
     $child->assign(
-      array(
+      [
         'parent_path' => $parentPath,
         'owner' => $this->owner,
         'group' => $this->group,
         'permissions' => $this->permissions,
-        'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_PARENT,
-        'visitor_permissions' => array(),
+        'inherit_visitor_permissions' => Content\Options::INHERIT_PERMISSIONS_PARENT,
+        'visitor_permissions' => [],
         'position' => 999999,
         'inherit_boxes' => TRUE,
         'default_language' => $this->defaultLanguage,
@@ -88,7 +90,7 @@ class Work extends \Papaya\Content\Page {
         'expires_mode' => $this->expiresMode,
         'expires_time' => $this->expiresTime,
         'unpublished_translations' => 0
-      )
+      ]
     );
     return $child;
   }
@@ -108,9 +110,10 @@ class Work extends \Papaya\Content\Page {
    * Publish the currently loaded page data and the defined translations.
    *
    * @param array $languageIds
-   * @param integer $publishedFrom
-   * @param integer $publishedTo
-   * @return boolean
+   * @param int $publishedFrom
+   * @param int $publishedTo
+   *
+   * @return bool
    */
   public function publish(array $languageIds = NULL, $publishedFrom = 0, $publishedTo = 0) {
     if ($this->id > 0) {
@@ -130,7 +133,8 @@ class Work extends \Papaya\Content\Page {
    *
    * @param Publication $publication
    * @param array $languageIds
-   * @return boolean
+   *
+   * @return bool
    */
   private function _publishTranslations(
     Publication $publication, array $languageIds = NULL
@@ -138,15 +142,15 @@ class Work extends \Papaya\Content\Page {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {
       $deleted = $databaseAccess->deleteRecord(
-        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
-        array(
+        $databaseAccess->getTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+        [
           'topic_id' => $this->id,
           'lng_id' => $languageIds
-        )
+        ]
       );
       if (FALSE !== $deleted) {
-        $filter = str_replace('%', '%%', $databaseAccess->getSqlCondition('lng_id', $languageIds));
-        $now = time();
+        $filter = \str_replace('%', '%%', $databaseAccess->getSqlCondition(['lng_id' => $languageIds]));
+        $now = \time();
         $sql = "INSERT INTO %s
                        (topic_id, lng_id, topic_title,
                         topic_content, author_id, view_id,
@@ -159,28 +163,27 @@ class Work extends \Papaya\Content\Page {
                        t.meta_title, t.meta_keywords, t.meta_descr
                   FROM %s t
                  WHERE t.topic_id = %d AND $filter";
-        $parameters = array(
-          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+        $parameters = [
+          $databaseAccess->getTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
           $now,
           $now,
-          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+          $databaseAccess->getTableName(Content\Tables::PAGE_TRANSLATIONS),
           $this->id
-        );
+        ];
         if (FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters)) {
           $publication->load($this->id);
           $this->unpublishedTranslations =
-            count($this->translations()) - count($publication->translations());
-          $data = array(
+            \count($this->translations()) - \count($publication->translations());
+          $data = [
             'topic_unpublished_languages' => $this->unpublishedTranslations
-          );
+          ];
           return FALSE !== $databaseAccess->updateRecord(
-              $databaseAccess->getTableName($this->_tableName), $data, array('topic_id' => $this->id)
+              $databaseAccess->getTableName($this->_tableName), $data, ['topic_id' => $this->id]
             );
         }
       }
       return FALSE;
-    } else {
-      return TRUE;
     }
+    return TRUE;
   }
 }

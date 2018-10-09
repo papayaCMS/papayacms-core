@@ -12,29 +12,44 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
+
+use Papaya\Content;
+use Papaya\Iterator;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
- * A selection field displaing the available languages
+ * A selection field displaying the available languages
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Language extends \Papaya\UI\Dialog\Field\Select {
-
+class Language extends UI\Dialog\Field\Select {
   const OPTION_ALLOW_ANY = 1;
+
   const OPTION_USE_IDENTIFIER = 2;
 
+  /**
+   * Language constructor.
+   *
+   * @param $caption
+   * @param $name
+   * @param Content\Languages|null $languages
+   * @param int $options
+   */
   public function __construct(
-    $caption, $name, \Papaya\Content\Languages $languages = NULL, $options = 0
+    $caption, $name, Content\Languages $languages = NULL, $options = 0
   ) {
     // @codeCoverageIgnoreStart
     if (NULL === $languages) {
+      /** @noinspection CallableParameterUseCaseInTypeContextInspection */
       $languages = $this->papaya()->languages;
     }
     // @codeCoverageIgnoreEnd
-    $items = array();
-    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
+    $items = [];
+    if (Utility\Bitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
       foreach ($languages as $language) {
         $items[$language['identifier']] = $language;
       }
@@ -43,10 +58,10 @@ class Language extends \Papaya\UI\Dialog\Field\Select {
       $items = $languages;
       $any = 0;
     }
-    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
-      $values = new \Papaya\Iterator\Union(
-        \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
-        array($any => new \Papaya\UI\Text\Translated('Any')),
+    if (Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
+      $values = new Iterator\Union(
+        Iterator\Union::MIT_KEYS_ASSOC,
+        [$any => new UI\Text\Translated('Any')],
         $items
       );
     } else {
@@ -55,16 +70,20 @@ class Language extends \Papaya\UI\Dialog\Field\Select {
     parent::__construct($caption, $name, $values);
   }
 
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $this->callbacks()->getOptionCaption = array($this, 'callbackGetLanguageCaption');
-    return parent::appendTo($parent);
-  }
-
-  public function callbackGetLanguageCaption($context, $language) {
-    if (is_array($language)) {
-      return $language['title'].' ('.$language['code'].')';
-    } else {
+  /**
+   * @param XML\Element $parent
+   * @return XML\Element
+   */
+  public function appendTo(XML\Element $parent) {
+    $this->callbacks()->getOptionCaption = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $language
+    ) {
+      if (\is_array($language)) {
+        return $language['title'].' ('.$language['code'].')';
+      }
       return (string)$language;
-    }
+    };
+    return parent::appendTo($parent);
   }
 }

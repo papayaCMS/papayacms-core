@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
+
 /**
  * Interface definition for the page synchronization actions.
  *
@@ -21,13 +21,12 @@ namespace Papaya\Administration\Pages\Dependency;
  * @subpackage Administration
  */
 interface Synchronization {
-
   /**
    * Synchronize a dependency
    *
    * @param array $targetIds
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $originId
+   * @param array|null $languages
    */
-  function synchronize(array $targetIds, $originId, array $languages = NULL);
+  public function synchronize(array $targetIds, $originId, array $languages = NULL);
 }

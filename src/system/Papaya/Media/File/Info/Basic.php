@@ -12,17 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\File\Info;
 
-class Basic extends \Papaya\Media\File\Info {
+use Papaya\Media;
 
+class Basic extends Media\File\Info {
   protected function fetchProperties() {
     $fileName = $this->getFile();
-    return array(
-      'size' => filesize($fileName)
-    );
+    return [
+      'size' => \filesize($fileName)
+    ];
   }
-
-
 }

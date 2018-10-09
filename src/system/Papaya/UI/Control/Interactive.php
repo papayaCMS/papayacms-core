@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
+
+use Papaya\Request;
+
 /**
  * Abstract superclass implementing basic features for handling request parameters in ui.
  *
@@ -22,34 +24,34 @@ namespace Papaya\UI\Control;
  */
 abstract class Interactive
   extends \Papaya\UI\Control
-  implements \Papaya\Request\Parameters\Access {
-
+  implements Request\Parameters\Access {
   /**
    * Parameter request method
    *
-   * @var NULL|string
+   * @var null|string
    */
   protected $_parameterMethod = self::METHOD_MIXED_POST;
 
   /**
    * Parameter group name
    *
-   * @var NULL|string
+   * @var null|string
    */
   protected $_parameterGroup;
 
   /**
    * Request parameters object
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
   /**
    * Get/Set parameter handling method. This will be used to define the parameter sources.
    *
-   * @param integer $method
-   * @return integer
+   * @param int $method
+   *
+   * @return int
    */
   public function parameterMethod($method = NULL) {
     if (NULL !== $method) {
@@ -64,8 +66,9 @@ abstract class Interactive
    *
    * This puts all field parameters (except the hidden fields) into a parameter group.
    *
-   * @param string|NULL $groupName
-   * @return string|NULL
+   * @param string|null $groupName
+   *
+   * @return string|null
    */
   public function parameterGroup($groupName = NULL) {
     if (NULL !== $groupName) {
@@ -81,19 +84,20 @@ abstract class Interactive
    *
    * This method gives you access to request parameters.
    *
-   * @param \Papaya\Request\Parameters $parameters
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $parameters
+   *
+   * @return Request\Parameters
    */
-  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
+  public function parameters(Request\Parameters $parameters = NULL) {
     if (NULL !== $parameters) {
       $this->_parameters = $parameters;
     } elseif (NULL === $this->_parameters) {
-      $sourceMapping = array(
-        self::METHOD_GET => \Papaya\Request::SOURCE_QUERY,
-        self::METHOD_POST => \Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_POST => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_GET => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
-      );
+      $sourceMapping = [
+        self::METHOD_GET => Request::SOURCE_QUERY,
+        self::METHOD_POST => Request::SOURCE_BODY,
+        self::METHOD_MIXED_POST => Request::SOURCE_QUERY | Request::SOURCE_BODY,
+        self::METHOD_MIXED_GET => Request::SOURCE_QUERY | Request::SOURCE_BODY
+      ];
       if (NULL !== $this->_parameterGroup) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(
           $this->_parameterGroup, $sourceMapping[$this->_parameterMethod]
@@ -110,7 +114,7 @@ abstract class Interactive
   /**
    * Check if the current request uses POST
    *
-   * @return boolean
+   * @return bool
    */
   public function isPostRequest() {
     return ('post' === $this->papaya()->request->getMethod());

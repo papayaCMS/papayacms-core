@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for a css size string including a unit
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsCssSize extends \Papaya\Filter\Factory\Profile {
-
+class IsCssSize extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\NumberWithUnit(array('em', 'px', 'pt', '%'));
+    return new Filter\NumberWithUnit(['em', 'px', 'pt', '%']);
   }
 }

@@ -12,26 +12,29 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Toolbar;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
- * A menu/toolbar select box. This creates a seperate form (method get) with a <select>-field.
+ * A menu/toolbar select box. This creates a separate form (method get) with a <select>-field.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
  * @property \Papaya\UI\Reference $reference
  * @property string $parameterName
- * @property string|\Papaya\UI\Text $caption
+ * @property string|StringCastable $caption
  * @property \Traversable|array $options
- * @property string|\Papaya\UI\Text $defaultOption
- * @property string|integer|boolean $currentValue
+ * @property string|StringCastable $defaultOption
+ * @property string|int|bool $currentValue
  * @property mixed defaultValue
  * @property mixed defaultCaption
  */
 class Select extends Element {
-
   /**
    * parameter name for the select box
    *
@@ -51,7 +54,7 @@ class Select extends Element {
    *
    * @var array|\Traversable
    */
-  protected $_options = NULL;
+  protected $_options;
 
   /**
    * Caption for a default option, added as first element. The value of this option element will
@@ -64,31 +67,31 @@ class Select extends Element {
   /**
    * the default value is only used if a default caption is provided.
    *
-   * @var string|integer|boolean
+   * @var string|int|bool
    */
   protected $_defaultValue = '';
 
   /**
    * buffer variable for the current value, if it is null it will be fetched from the request.
    *
-   * @var string|integer|boolean|NULL
+   * @var string|int|bool|null
    */
-  protected $_currentValue = NULL;
+  protected $_currentValue;
 
   /**
    * Define public properties.
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', '_caption'),
-    'options' => array('options', 'options'),
-    'defaultCaption' => array('_defaultCaption', '_defaultCaption'),
-    'defaultValue' => array('_defaultValue', '_defaultValue'),
-    'reference' => array('reference', 'reference'),
-    'parameterName' => array('_parameterName', '_parameterName'),
-    'currentValue' => array('getCurrentValue', 'setCurrentValue')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', '_caption'],
+    'options' => ['options', 'options'],
+    'defaultCaption' => ['_defaultCaption', '_defaultCaption'],
+    'defaultValue' => ['_defaultValue', '_defaultValue'],
+    'reference' => ['reference', 'reference'],
+    'parameterName' => ['_parameterName', '_parameterName'],
+    'currentValue' => ['getCurrentValue', 'setCurrentValue']
+  ];
 
   /**
    * Initialize object, store parameter name and options
@@ -105,12 +108,14 @@ class Select extends Element {
    * Store options list. The options must be an array or implement the Traversable interface.
    *
    * @param array|\Traversable $options
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array|\Traversable
    */
   public function options($options = NULL) {
-    if (isset($options)) {
-      if (is_array($options) ||
+    if (NULL !== $options) {
+      if (\is_array($options) ||
         ($options instanceof \Traversable)) {
         $this->_options = $options;
       } else {
@@ -125,11 +130,11 @@ class Select extends Element {
   /**
    * Check if a current value is set. If not read the current value from the request and return it.
    *
-   * @return string|integer|boolean
+   * @return string|int|bool
    */
   public function getCurrentValue() {
-    if (is_null($this->_currentValue)) {
-      $name = new \Papaya\Request\Parameters\Name(
+    if (NULL === $this->_currentValue) {
+      $name = new Request\Parameters\Name(
         $this->_parameterName, $this->reference()->getParameterGroupSeparator()
       );
       $this->_currentValue = $this->validateCurrentValue(
@@ -142,7 +147,7 @@ class Select extends Element {
   /**
    * Simple setter for the current value
    *
-   * @param string|integer|boolean $value
+   * @param string|int|bool $value
    */
   public function setCurrentValue($value) {
     $this->_currentValue = $this->validateCurrentValue($value);
@@ -152,10 +157,12 @@ class Select extends Element {
    * Checks if the given value equals one of the keys in the options, return default value if not.
    *
    * @param $currentValue
+   *
    * @return mixed
    */
   private function validateCurrentValue($currentValue) {
     foreach ($this->_options as $value => $caption) {
+      /** @noinspection TypeUnsafeComparisonInspection */
       if ($value == $currentValue) {
         return $value;
       }
@@ -166,22 +173,23 @@ class Select extends Element {
   /**
    * Append select xml elements to xml document
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $select = $parent->appendElement(
       'combo',
-      array(
-        'name' => new \Papaya\Request\Parameters\Name(
+      [
+        'name' => new Request\Parameters\Name(
           $this->_parameterName, $this->reference()->getParameterGroupSeparator()
         ),
         'action' => $this->reference()->getRelative(NULL, FALSE)
-      )
+      ]
     );
     foreach ($this->reference()->getParametersList() as $name => $value) {
       $select->appendElement(
-        'parameter', array('name' => $name, 'value' => $value)
+        'parameter', ['name' => $name, 'value' => $value]
       );
     }
     $caption = (string)$this->_caption;
@@ -191,14 +199,15 @@ class Select extends Element {
     $default = (string)$this->defaultCaption;
     if (!empty($default)) {
       $select->appendElement(
-        'option', array('value' => (string)$this->_defaultValue), (string)$default
+        'option', ['value' => (string)$this->_defaultValue], $default
       );
     }
     $currentValue = $this->getCurrentValue();
     foreach ($this->_options as $value => $caption) {
       $option = $select->appendElement(
-        'option', array('value' => (string)$value), (string)$caption
+        'option', ['value' => (string)$value], (string)$caption
       );
+      /** @noinspection TypeUnsafeComparisonInspection */
       if ($currentValue == $value) {
         $option->setAttribute('selected', 'selected');
       }

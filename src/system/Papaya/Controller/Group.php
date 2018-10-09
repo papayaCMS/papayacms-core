@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Controller;
+
+use Papaya\Application;
+use Papaya\BaseObject;
+use Papaya\Controller;
+use Papaya\Request;
+use Papaya\Response;
 
 /**
  * Papaya controller group, groups a list of controllers to be handled like one.
@@ -21,15 +26,14 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller {
-
+class Group extends BaseObject\Collection implements Controller {
   /**
    * Create an object list for \Papaya\Controller instances, add all arguments as
    * elements of that list.
    */
   public function __construct() {
-    parent::__construct(\Papaya\Controller::class);
-    foreach (func_get_args() as $controller) {
+    parent::__construct(Controller::class);
+    foreach (\func_get_args() as $controller) {
       parent::add($controller);
     }
   }
@@ -40,21 +44,22 @@ class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller 
    * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *
-   * @param \Papaya\Application $application
-   * @param \Papaya\Request &$request
-   * @param \Papaya\Response &$response
-   * @return bool|\Papaya\Controller
+   * @param Application $application
+   * @param Request &$request
+   * @param Response &$response
+   *
+   * @return bool|Controller
    */
   public function execute(
-    /** @noinspection ReferencingObjectsInspection */
-    \Papaya\Application $application,
-    \Papaya\Request &$request,
-    \Papaya\Response &$response
+    /* @noinspection ReferencingObjectsInspection */
+    Application $application,
+    Request &$request,
+    Response &$response
   ) {
     foreach ($this as $controller) {
       $limit = 20;
       do {
-        /** @var bool|\Papaya\Controller $controller */
+        /** @var bool|Controller $controller */
         $controller = $controller->execute($application, $request, $response);
         if (TRUE === $controller) {
           return TRUE;
@@ -62,9 +67,9 @@ class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller 
         if (--$limit < 1) {
           break;
         }
-        $application->setObject('request', $request, \Papaya\Application::DUPLICATE_OVERWRITE);
-        $application->setObject('response', $response, \Papaya\Application::DUPLICATE_OVERWRITE);
-      } while ($controller instanceof \Papaya\Controller);
+        $application->setObject('request', $request, Application::DUPLICATE_OVERWRITE);
+        $application->setObject('response', $response, Application::DUPLICATE_OVERWRITE);
+      } while ($controller instanceof Controller);
     }
     return FALSE;
   }

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parameters;
+
 /**
  * Papaya Request Parameter Name Handling, coverts a parameter name between array and string
  * representation.
@@ -22,13 +22,12 @@ namespace Papaya\Request\Parameters;
  * @subpackage Request
  */
 class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * Name parts list
    *
    * @var array
    */
-  protected $_parts = array();
+  protected $_parts = [];
 
   /**
    * Default separator, used for typecasting to string
@@ -53,17 +52,20 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Getter/Setter for parameter group separator
    *
    * @param string $groupSeparator
+   *
    * @throws \InvalidArgumentException
+   *
    * @internal param array|string $name
+   *
    * @return string
    */
   public function separator($groupSeparator = NULL) {
     if (NULL !== $groupSeparator) {
-      if (in_array($groupSeparator, array('', '[]', ',', ':', '/', '*', '!'), TRUE)) {
+      if (\in_array($groupSeparator, ['', '[]', ',', ':', '/', '*', '!'], TRUE)) {
         $this->_separator = (string)$groupSeparator;
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             'Invalid parameter group separator: "%s".', $groupSeparator
           )
         );
@@ -76,8 +78,10 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
-   * @param string|integer|array|self $name
+   *
+   * @param string|int|array|self $name
    * @param string $groupSeparator
    */
   public function set($name, $groupSeparator = NULL) {
@@ -95,40 +99,46 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Append name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
-   * @param string|integer|array|\Papaya\Request\Parameters\Name $name
+   *
+   * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
    */
   public function append($name, $groupSeparator = NULL) {
     $parsed = $this->parse($name, $groupSeparator);
-    $this->_parts = array_merge($this->_parts, $parsed);
+    $this->_parts = \array_merge($this->_parts, $parsed);
   }
 
   /**
    * Prepend name parts.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
-   * @param string|integer|array|\Papaya\Request\Parameters\Name $name
+   *
+   * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
    */
   public function prepend($name, $groupSeparator = NULL) {
     $parsed = $this->parse($name, $groupSeparator);
-    $this->_parts = array_merge($parsed, $this->_parts);
+    $this->_parts = \array_merge($parsed, $this->_parts);
   }
 
   /**
    * Insert name parts before the specified index, append if the index does not exists.
    *
    * @see \Papaya\Request\Parameters\Name::parse
+   *
    * @throws \InvalidArgumentException
-   * @param integer $index
-   * @param string|integer|array|\Papaya\Request\Parameters\Name $name
+   *
+   * @param int $index
+   * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
    */
   public function insertBefore($index, $name, $groupSeparator = NULL) {
     $parsed = $this->parse($name, $groupSeparator);
-    array_splice($this->_parts, $index, 0, $parsed);
+    \array_splice($this->_parts, $index, 0, $parsed);
   }
 
   /**
@@ -137,15 +147,18 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @see \Papaya\Request\Parameters\Name::parseString()
    * @see \Papaya\Request\Parameters\Name::parseArray()
+   *
    * @throws \InvalidArgumentException
-   * @param string|integer|array|\Papaya\Request\Parameters\Name $name
+   *
+   * @param string|int|array|\Papaya\Request\Parameters\Name $name
    * @param string $groupSeparator
+   *
    * @return array|string
    */
   public function parse($name, $groupSeparator = NULL) {
-    if (is_array($name)) {
+    if (\is_array($name)) {
       $parsed = $this->parseArray($name);
-    } elseif (is_string($name) || is_int($name)) {
+    } elseif (\is_string($name) || \is_int($name)) {
       $parsed = $this->parseString($name, $groupSeparator);
     } elseif ($name instanceof self) {
       $parsed = $name->getArray();
@@ -162,6 +175,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set name parts using an array.
    *
    * @see \Papaya\Request\Parameters\Name::parseArray()
+   *
    * @param array $name
    */
   public function setArray(array $name) {
@@ -172,10 +186,11 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * All array elements are converted to strings.
    *
    * @param array $name
+   *
    * @return array
    */
   public function parseArray(array $name) {
-    $parts = array();
+    $parts = [];
     foreach ($name as $part) {
       $parts[] = (string)$part;
     }
@@ -186,6 +201,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Set the name parts using a string.
    *
    * @see \Papaya\Request\Parameters\Name::parseString()
+   *
    * @param string $name
    * @param string $groupSeparator
    */
@@ -201,47 +217,47 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string $name
    * @param string $groupSeparator delimiter
+   *
    * @return array
    */
   public function parseString($name, $groupSeparator = '') {
     $maximumLevels = 42;
-    $name = str_replace('.', '_', $name);
-    $separators = array(
-      array('[', ']'), ',', ':', '/', '*', '!'
-    );
+    $name = \str_replace('.', '_', $name);
+    $separators = [
+      ['[', ']'], ',', ':', '/', '*', '!'
+    ];
     if (empty($groupSeparator)) {
       $groupSeparator = $this->separator();
     }
     if (!empty($groupSeparator) &&
-      is_string($groupSeparator) &&
+      \is_string($groupSeparator) &&
       '[]' !== $groupSeparator) {
-      array_unshift($separators, $groupSeparator);
-
+      \array_unshift($separators, $groupSeparator);
     }
-    if ($isList = ('[]' === substr($name, -2))) {
-      $name = substr($name, 0, -2);
+    if ($isList = ('[]' === \substr($name, -2))) {
+      $name = \substr($name, 0, -2);
       $maximumLevels--;
     }
-    $result = array($name);
+    $result = [$name];
     foreach ($separators as $separator) {
-      if (is_array($separator)) {
-        /** @noinspection MultiAssignmentUsageInspection */
+      if (\is_array($separator)) {
+        /* @noinspection MultiAssignmentUsageInspection */
         list($delimiter, $suffix) = $separator;
-        $suffixOffset = strlen($suffix) * -1;
+        $suffixOffset = \strlen($suffix) * -1;
       } else {
         $delimiter = $separator;
         $suffix = '';
         $suffixOffset = 0;
       }
-      if (FALSE !== strpos($name, $delimiter)) {
-        $parts = explode($delimiter, $name, $maximumLevels);
+      if (FALSE !== \strpos($name, $delimiter)) {
+        $parts = \explode($delimiter, $name, $maximumLevels);
         if ($suffixOffset < 0) {
-          $result = array(
-            array_shift($parts)
-          );
+          $result = [
+            \array_shift($parts)
+          ];
           foreach ($parts as $part) {
-            if (substr($part, $suffixOffset) === $suffix) {
-              $result[] = substr($part, 0, $suffixOffset);
+            if (\substr($part, $suffixOffset) === $suffix) {
+              $result[] = \substr($part, 0, $suffixOffset);
             }
           }
           break;
@@ -260,22 +276,23 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * Get the name as a string
    *
    * @param string $groupSeparator
+   *
    * @return string
    */
   public function getString($groupSeparator = '') {
-    if (count($this->_parts) > 0) {
+    if (\count($this->_parts) > 0) {
       if (empty($groupSeparator)) {
         $groupSeparator = $this->separator();
       }
-      if (count($this->_parts) > 1) {
+      if (\count($this->_parts) > 1) {
         if ('[]' === $groupSeparator || '' === $groupSeparator) {
           $subParts = $this->_parts;
-          $firstPart = array_shift($subParts);
-          return $firstPart.'['.implode('][', $subParts).']';
+          $firstPart = \array_shift($subParts);
+          return $firstPart.'['.\implode('][', $subParts).']';
         }
-        return implode($groupSeparator, $this->_parts);
+        return \implode($groupSeparator, $this->_parts);
       }
-      return reset($this->_parts);
+      return \reset($this->_parts);
     }
     return '';
   }
@@ -302,7 +319,8 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * ArrayAccess: check if an name parts exists
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -312,7 +330,8 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * ArrayAccess: get the specified name part
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @return string
    */
   public function offsetGet($offset) {
@@ -322,32 +341,31 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * ArrayAccess: change the specified name part. This will reset the offset.
    *
-   * @param integer $offset
+   * @param int $offset
    * @param string $value
    */
   public function offsetSet($offset, $value) {
     $this->_parts[$offset] = (string)$value;
-    $this->_parts = array_values($this->_parts);
+    $this->_parts = \array_values($this->_parts);
   }
-
 
   /**
    * ArrayAccess: remove the specified name part. This will reset the offset.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function offsetUnset($offset) {
     unset($this->_parts[$offset]);
-    $this->_parts = array_values($this->_parts);
+    $this->_parts = \array_values($this->_parts);
   }
 
   /**
    * Countable: return the number of name parts stored in the internal array
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_parts);
+    return \count($this->_parts);
   }
 
   /**

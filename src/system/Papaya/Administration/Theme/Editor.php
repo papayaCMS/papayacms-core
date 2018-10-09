@@ -12,16 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Theme;
+
 /**
- * Edit theme sets (dynamic values for a theme)
+ * Edit theme skins (dynamic values for a theme)
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
 class Editor extends \Papaya\Administration\Page {
-
   protected $_parameterGroup = 'theme';
 
   protected function createContent() {

@@ -12,16 +12,18 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Condition;
+
+use Papaya\Filter;
+use Papaya\UI;
+
 /**
  * A command condition testing a request parameter.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Parameter extends \Papaya\UI\Control\Command\Condition {
-
+class Parameter extends UI\Control\Command\Condition {
   /**
    * The parameter name
    *
@@ -32,7 +34,7 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
   /**
    * the filter object
    *
-   * @var \Papaya\Filter
+   * @var Filter
    */
   private $_filter;
 
@@ -40,9 +42,9 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
    * Create object, store parameter and filter.
    *
    * @param string|array|\Papaya\Request\Parameters\Name $parameterName
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
    */
-  public function __construct($parameterName, \Papaya\Filter $filter) {
+  public function __construct($parameterName, Filter $filter) {
     $this->_parameterName = $parameterName;
     $this->_filter = $filter;
   }
@@ -51,7 +53,7 @@ class Parameter extends \Papaya\UI\Control\Command\Condition {
    * Validate the condition by fetch the parameter value and filtering it. If it is not NULL
    * it is a usable value.
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return NULL !== $this->_filter->filter(

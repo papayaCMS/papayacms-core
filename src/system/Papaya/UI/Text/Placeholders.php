@@ -12,13 +12,14 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Text;
+
+use Papaya\UI;
+
 /**
  * Class Papaya\UI\Text\Placeholders
  */
-class Placeholders extends \Papaya\UI\Text {
-
+class Placeholders extends UI\Text {
   /**
    * Allow to cast the object into a string, replacing the {key} placeholders in the string.
    *
@@ -26,9 +27,9 @@ class Placeholders extends \Papaya\UI\Text {
    */
   public function __toString() {
     if (NULL === $this->_string) {
-      $this->_string = preg_replace_callback(
+      $this->_string = \preg_replace_callback(
         '(\\{(?P<key>[^}\r\n ]+)\\})u',
-        function ($match) {
+        function($match) {
           if (isset($match['key'], $this->_values[$match['key']])) {
             return $this->_values[$match['key']];
           }

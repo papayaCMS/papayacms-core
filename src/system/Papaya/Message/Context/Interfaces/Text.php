@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Interfaces;
+
+use Papaya\Message;
+
 /**
  * Interface for message string contexts
  *
@@ -23,13 +25,11 @@ namespace Papaya\Message\Context\Interfaces;
  * @subpackage Messages
  */
 interface Text
-  extends \Papaya\Message\Context\Data {
-
+  extends Message\Context\Data {
   /**
    * Get context as simple string, without formatting
    *
    * return @string
    */
-  function asString();
-
+  public function asString();
 }

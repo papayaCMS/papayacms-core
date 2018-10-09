@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class that validates if all values in a given are in another predefined list
  *
@@ -25,12 +27,11 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArrayValues implements \Papaya\Filter {
-
+class ArrayValues implements Filter {
   /**
    * elements list
    *
-   * @var integer
+   * @var int
    */
   private $_list;
 
@@ -48,16 +49,18 @@ class ArrayValues implements \Papaya\Filter {
    * Check the integer input and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
-   * @return TRUE
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!is_array($value)) {
-      throw new \Papaya\Filter\Exception\UnexpectedType('array');
+    if (!\is_array($value)) {
+      throw new Exception\UnexpectedType('array');
     }
     foreach ($value as $element) {
-      if (!in_array($element, $this->_list, FALSE)) {
-        throw new \Papaya\Filter\Exception\NotIncluded($element);
+      if (!\in_array($element, $this->_list, FALSE)) {
+        throw new Exception\NotIncluded($element);
       }
     }
     return TRUE;
@@ -66,15 +69,18 @@ class ArrayValues implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param array $value
+   * @param mixed $value
+   *
    * @return array
    */
   public function filter($value) {
-    $result = array();
-    foreach ((array)$value as $element) {
-      $index = array_search($element, $this->_list, FALSE);
-      if (0 === $index || $index > 0) {
-        $result[] = $this->_list[$index];
+    $result = [];
+    if (\is_array($value)) {
+      foreach ($value as $element) {
+        $index = \array_search($element, $this->_list, FALSE);
+        if (0 === $index || $index > 0) {
+          $result[] = $this->_list[$index];
+        }
       }
     }
     return $result;

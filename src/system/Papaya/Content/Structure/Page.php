@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Structure;
+
 /**
  * Content structure page element
  *
@@ -27,15 +27,14 @@ namespace Papaya\Content\Structure;
  * @property string $name
  */
 class Page extends Node {
-
   private $_groups;
 
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'name' => 'page',
         'title' => ''
-      )
+      ]
     );
   }
 
@@ -43,6 +42,7 @@ class Page extends Node {
    * Groups defined for this page
    *
    * @param Groups $groups
+   *
    * @return Groups
    */
   public function groups(Groups $groups = NULL) {

@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
+use Papaya\Application;
+use Papaya\Configuration;
+use Papaya\Utility;
+
 /**
  * The PluginFactory is a superclass for specialized plguin factories. It allows to define
  * an array of name => guid pairs and access the plugin by the "local" name.
@@ -23,35 +27,37 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-abstract class Factory extends \Papaya\Application\BaseObject {
+abstract class Factory
+  implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * The plugin name => guid list.
    *
    * @var array(string=>string,...)
    */
-  protected $_plugins = array();
+  protected $_plugins = [];
 
   /**
    * Plugin options objects
    *
    * @var array
    */
-  private $_options = array();
+  private $_options = [];
 
   /**
    * plugin loader object
    *
-   * @var \Papaya\Plugin\Loader
+   * @var Loader
    */
-  private $_pluginLoader = NULL;
+  private $_pluginLoader;
 
   /**
    * An optional owner object, given to the plugin on create.
    *
-   * @var NULL|object
+   * @var null|object
    */
-  protected $_owner = NULL;
+  protected $_owner;
 
   /**
    * Initialize plugin factory and store the owner object.
@@ -59,16 +65,17 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * @param object $owner
    */
   public function __construct($owner = NULL) {
-    \Papaya\Utility\Constraints::assertObjectOrNull($owner);
+    Utility\Constraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 
   /**
-   * @param \Papaya\Plugin\Loader $pluginLoader
-   * @return \Papaya\Plugin\Loader
+   * @param Loader $pluginLoader
+   *
+   * @return Loader
    */
-  public function loader(\Papaya\Plugin\Loader $pluginLoader = NULL) {
-    if ($pluginLoader !== NULL) {
+  public function loader(Loader $pluginLoader = NULL) {
+    if (NULL !== $pluginLoader) {
       $this->_pluginLoader = $pluginLoader;
     } elseif (NULL === $this->_pluginLoader) {
       $this->_pluginLoader = $this->papaya()->plugins;
@@ -80,34 +87,36 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * Validate if a guid for the given plugin name was defined.
    *
    * @param string $pluginName
-   * @return boolean
+   *
+   * @return bool
    */
   public function has($pluginName) {
-    return array_key_exists($pluginName, $this->_plugins);
+    return \array_key_exists($pluginName, $this->_plugins);
   }
 
   /**
    * Fetch a plugin from plugin loader using the guid definition in self::$_plugins.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $pluginName
-   * @param boolean $singleInstance
-   * @return NULL|object
+   * @param bool $singleInstance
+   *
+   * @return null|object
    */
   public function get($pluginName, $singleInstance = FALSE) {
     if ($this->has($pluginName)) {
       return $this->loader()->get(
         $this->_plugins[$pluginName], $this->_owner, NULL, $singleInstance
       );
-    } else {
-      throw new \InvalidArgumentException(
-        sprintf(
-          'InvalidArgumentException: "%s" does not know plugin "%s".',
-          get_class($this),
-          $pluginName
-        )
-      );
     }
+    throw new \InvalidArgumentException(
+      \sprintf(
+        'InvalidArgumentException: "%s" does not know plugin "%s".',
+        \get_class($this),
+        $pluginName
+      )
+    );
   }
 
   /**
@@ -115,8 +124,10 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * plugin instance.
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $pluginName
-   * @return NULL|object
+   *
+   * @return null|object
    */
   public function __get($pluginName) {
     return $this->get($pluginName);
@@ -124,6 +135,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
 
   /**
    * @param $pluginName
+   *
    * @return bool
    */
   public function __isset($pluginName) {
@@ -149,12 +161,13 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * Getter/setter the module options object of the given plugin.
    *
    * @param string $pluginName
-   * @param \Papaya\Configuration $options
-   * @return NULL|\Papaya\Configuration
+   * @param Configuration $options
+   *
+   * @return null|Configuration
    */
-  public function options($pluginName, \Papaya\Configuration $options = NULL) {
+  public function options($pluginName, Configuration $options = NULL) {
     if ($this->has($pluginName)) {
-      if ($options !== NULL) {
+      if (NULL !== $options) {
         $this->_options[$pluginName] = $options;
       } elseif (!isset($this->_options[$pluginName])) {
         $this->_options[$pluginName] = $this
@@ -173,6 +186,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * @param string $optionName
    * @param mixed $default
    * @param \Papaya\Filter $filter
+   *
    * @return mixed
    */
   public function getOption($pluginName, $optionName, $default = NULL, $filter = NULL) {

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Abstract filter class implementing logical "OR" links between other filters
  *
@@ -21,17 +23,18 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class LogicalOr extends Logical {
-
   /**
    * Call validate() on subfilters, capture exceptions,
    * if a filter does not throw an exception break the loop and return TRUE.
    *
    * The method throws the first captured exception if all filter failed.
    *
-   * @param string $value
+   * @param mixed $value
+   *
    * @throws \Exception
    * @throws null
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
+   *
    * @return bool
    */
   public function validate($value) {
@@ -41,8 +44,8 @@ class LogicalOr extends Logical {
       try {
         $filter->validate($value);
         return TRUE;
-      } catch (\Papaya\Filter\Exception $e) {
-        if (is_null($firstException)) {
+      } catch (Exception $e) {
+        if (NULL === $firstException) {
           $firstException = $e;
         }
       }
@@ -53,14 +56,15 @@ class LogicalOr extends Logical {
   /**
    * Call filter() on each subfilter while NULL is returned.
    *
-   * @param string $value
-   * @return mixed|null
+   * @param mixed $value
+   *
+   * @return mixed
    */
   public function filter($value) {
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $filterValue = $filter->filter($value);
-      if (!is_null($filterValue)) {
+      if (NULL !== $filterValue) {
         return $filterValue;
       }
     }

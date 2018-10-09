@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\PHP;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Hook Exception, capture exceptions and handle them
  *
@@ -21,17 +23,16 @@ namespace Papaya\Message\PHP;
  * @subpackage Messages
  */
 class Exception
-  extends \Papaya\Message\PHP {
-
+  extends Message\PHP {
   /**
    * Create object and set values from erorr exception object
    *
    * @param \ErrorException $exception
-   * @param \Papaya\Message\Context\Backtrace $trace
+   * @param Message\Context\Backtrace $trace
    */
   public function __construct(
     \ErrorException $exception,
-    \Papaya\Message\Context\Backtrace $trace = NULL
+    Message\Context\Backtrace $trace = NULL
   ) {
     parent::__construct();
     $this->setSeverity($exception->getSeverity());
@@ -40,7 +41,7 @@ class Exception
       ->_context
       ->append(
         NULL === $trace
-          ? new \Papaya\Message\Context\Exception($exception)
+          ? new Message\Context\Exception($exception)
           : $trace
       );
   }

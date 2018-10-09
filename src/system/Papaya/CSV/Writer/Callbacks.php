@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\CSV\Writer;
+
+use Papaya\BaseObject;
 
 /**
  * Callbacks that are used by the csv writer
@@ -23,17 +24,17 @@ namespace Papaya\CSV\Writer;
  *
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapHeader
- * @method array onMapRow
- * @method array onMapHeader
+ *
+ * @method array onMapRow(array|\Traversable $row)
+ * @method array onMapHeader(array|\Traversable $row)
  */
-class Callbacks extends \Papaya\BaseObject\Callbacks {
-
+class Callbacks extends BaseObject\Callbacks {
   public function __construct() {
     parent::__construct(
-      array(
-        'onMapRow' => array(),
-        'onMapHeader' => array()
-      )
+      [
+        'onMapRow' => [],
+        'onMapHeader' => []
+      ]
     );
   }
 }

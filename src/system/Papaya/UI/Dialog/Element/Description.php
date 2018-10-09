@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Element;
+
+use Papaya\UI;
+
 /**
  * Superclass for dialog element description. In the most cases this is a separate page opened
  * directly or in an popup, so it needs a reference
@@ -22,12 +24,15 @@ namespace Papaya\UI\Dialog\Element;
  *
  * @package Papaya-Library
  * @subpackage UI
- *
- * @codeCoverageIgnore
  */
-class Description extends \Papaya\UI\Control\Collection {
-
+class Description extends UI\Control\Collection {
+  /**
+   * @var string
+   */
   protected $_itemClass = Description\Item::class;
 
+  /**
+   * @var string
+   */
   protected $_tagName = 'description';
 }

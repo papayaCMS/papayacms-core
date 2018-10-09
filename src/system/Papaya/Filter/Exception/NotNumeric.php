@@ -12,15 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value is not considered as float.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotNumeric extends \Papaya\Filter\Exception {
+class NotNumeric extends Filter\Exception {
   public function __construct($value) {
     parent::__construct("Value is not numeric: $value");
   }

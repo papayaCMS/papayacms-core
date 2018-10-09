@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple listview subitem displaying date time.
  *
@@ -24,11 +27,12 @@ namespace Papaya\UI\ListView\SubItem;
  * @property string|\Papaya\UI\Text $text
  * @property int $timestamp
  */
-class Date extends \Papaya\UI\ListView\SubItem {
+class Date extends UI\ListView\SubItem {
+  const SHOW_DATE = UI\Text\Date::SHOW_DATE;
 
-  const SHOW_DATE = \Papaya\UI\Text\Date::SHOW_DATE;
-  const SHOW_TIME = \Papaya\UI\Text\Date::SHOW_TIME;
-  const SHOW_SECONDS = \Papaya\UI\Text\Date::SHOW_SECONDS;
+  const SHOW_TIME = UI\Text\Date::SHOW_TIME;
+
+  const SHOW_SECONDS = UI\Text\Date::SHOW_SECONDS;
 
   /**
    * @var int
@@ -45,17 +49,18 @@ class Date extends \Papaya\UI\ListView\SubItem {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'align' => array('getAlign', 'setAlign'),
-    'timestamp' => array('_timestamp', '_timestamp'),
-    'options' => array('_options', '_options')
-  );
+  protected $_declaredProperties = [
+    'align' => ['getAlign', 'setAlign'],
+    'timestamp' => ['_timestamp', '_timestamp'],
+    'options' => ['_options', '_options']
+  ];
 
   /**
    * Create subitem object, set text content and alignment.
    *
    * @param int $timestamp
    * @param int $options
+   *
    * @throws \UnexpectedValueException
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {
@@ -68,17 +73,14 @@ class Date extends \Papaya\UI\ListView\SubItem {
   /**
    * Append subitem xml data to parent node.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $parent->appendElement(
-      'subitem',
-      array(
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      ),
-      (string)(
-      $this->_timestamp > 0 ? new \Papaya\UI\Text\Date($this->_timestamp, $this->_options) : ''
-      )
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
+    $subitem->appendText(
+      (string)($this->_timestamp > 0 ? new UI\Text\Date($this->_timestamp, $this->_options) : '')
     );
+    return $subitem;
   }
 }

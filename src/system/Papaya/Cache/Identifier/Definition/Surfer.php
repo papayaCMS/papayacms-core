@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
+
+use Papaya\Application;
+use Papaya\Cache;
+
 /**
  * A boolean value or callback returning a boolean value defines if caching is allowed
  *
@@ -21,19 +24,20 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Surfer
-  extends \Papaya\Application\BaseObject
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Application\Access, Cache\Identifier\Definition {
+  use Application\Access\Aggregation;
 
   /**
    * Check the surfer, return the id if it valid, TRUE otherwise
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return array|TRUE
+   *
+   * @return array|true
    */
   public function getStatus() {
     $surfer = $this->papaya()->surfer;
     if ($surfer->isValid) {
-      return array(get_class($this) => $surfer->id);
+      return [\get_class($this) => $surfer->id];
     }
     return TRUE;
   }
@@ -42,7 +46,8 @@ class Surfer
    * The surfer is defined by request data
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_REQUEST;

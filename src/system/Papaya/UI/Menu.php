@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\XML;
+
 /**
  * A menu gui control. This is a list of menu elements like buttons, separators and selects,
  * maybe grouped.
@@ -22,10 +24,9 @@ namespace Papaya\UI;
  * @subpackage UI
  *
  * @property string $identifier
- * @property \Papaya\UI\Toolbar\Elements $elements
+ * @property Toolbar\Elements $elements
  */
 class Menu extends Toolbar {
-
   /**
    * An identifier/name for the menu
    *
@@ -34,23 +35,24 @@ class Menu extends Toolbar {
   protected $_identifier = '';
 
   /**
-   * Delcare public properties
+   * Declare public properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'identifier' => array('_identifier', '_identifier'),
-    'elements' => array('elements', 'elements')
-  );
+  protected $_declaredProperties = [
+    'identifier' => ['_identifier', '_identifier'],
+    'elements' => ['elements', 'elements']
+  ];
 
   /**
    * Append menu and elements and set identifier if available
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL
+   * @param XML\Element $parent
+   *
+   * @return XML\Element|null
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (count($this->elements()) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (\count($this->elements()) > 0) {
       $menu = $parent->appendElement('menu');
       if (!empty($this->_identifier)) {
         $menu->setAttribute('ident', (string)$this->_identifier);
@@ -60,5 +62,4 @@ class Menu extends Toolbar {
     }
     return NULL;
   }
-
 }

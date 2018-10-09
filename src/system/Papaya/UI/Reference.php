@@ -12,36 +12,41 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\Application;
+use Papaya\Request;
+use Papaya\URL;
+
 /**
  * Papaya Interface Reference (Hyperlink Reference)
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Reference extends \Papaya\Application\BaseObject {
+class Reference implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * URL group separator
    *
    * @var string
    */
-  private $_parameterGroupSeparator = NULL;
+  private $_parameterGroupSeparator;
 
   /**
    * parameters list
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
-  private $_parametersObject = NULL;
+  private $_parametersObject;
 
   /**
    * Internal url object
    *
-   * @var \Papaya\URL
+   * @var URL
    */
-  private $_url = NULL;
+  private $_url;
 
   /**
    * Base web path
@@ -60,10 +65,10 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * create object and load url if provided.
    *
-   * @param \Papaya\URL $url
+   * @param URL $url
    */
-  public function __construct(\Papaya\URL $url = NULL) {
-    if (isset($url)) {
+  public function __construct(URL $url = NULL) {
+    if (NULL !== $url) {
       $this->url($url);
     }
   }
@@ -72,11 +77,12 @@ class Reference extends \Papaya\Application\BaseObject {
    * Other object can mark an reference as valid or invalid after testing it. An invalid reference
    * will return an empty string as url (get() and getRelative()).
    *
-   * @param boolean $isValid
-   * @return boolean
+   * @param bool $isValid
+   *
+   * @return bool
    */
   public function valid($isValid = NULL) {
-    if (isset($isValid)) {
+    if (NULL !== $isValid) {
       $this->_valid = $isValid;
     }
     return $this->_valid;
@@ -85,10 +91,11 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Static create function to allow fluent calls.
    *
-   * @param \Papaya\URL $url
+   * @param URL $url
+   *
    * @return self
    */
-  public static function create(\Papaya\URL $url = NULL) {
+  public static function create(URL $url = NULL) {
     return new self($url);
   }
 
@@ -104,8 +111,8 @@ class Reference extends \Papaya\Application\BaseObject {
    * no other url was set before.
    */
   protected function prepare() {
-    if (!isset($this->_url)) {
-      /** @noinspection PhpParamsInspection */
+    if (NULL === $this->_url) {
+      /* @noinspection PhpParamsInspection */
       $this->load(
         $this->papaya()->request
       );
@@ -115,8 +122,9 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Get the reference string relative to the current request url
    *
-   * @param \Papaya\URL|NULL $currentURL
+   * @param URL|null $currentURL
    * @param bool $includeQueryString
+   *
    * @return string
    */
   public function getRelative($currentURL = NULL, $includeQueryString = TRUE) {
@@ -124,15 +132,15 @@ class Reference extends \Papaya\Application\BaseObject {
       return '';
     }
     $this->url()->setURLString($this->get());
-    $transformer = new \Papaya\URL\Transformer\Relative();
+    $transformer = new URL\Transformer\Relative();
     if (!$includeQueryString) {
       $this->url()->setQuery('');
     }
     $relative = $transformer->transform(
-      isset($currentURL) ? $currentURL : new \Papaya\URL\Current(),
+      NULL !== $currentURL ? $currentURL : new URL\Current(),
       $this->url()
     );
-    return is_null($relative) ? $this->get() : $relative;
+    return NULL === $relative ? $this->get() : $relative;
   }
 
   /**
@@ -141,7 +149,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * @param string $relativeURL
    */
   public function setRelative($relativeURL) {
-    $transformer = new \Papaya\URL\Transformer\Absolute();
+    $transformer = new URL\Transformer\Absolute();
     $absoluteURL = $transformer->transform($this->url(), $relativeURL);
     $this->url()->setURLString($absoluteURL);
     $this->getParameters()->setQueryString($this->url()->getQuery());
@@ -151,6 +159,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Get reference string
    *
    * @param bool $forPublic URL is for public use (do not include the session id)
+   *
    * @return string
    */
   public function get($forPublic = FALSE) {
@@ -158,18 +167,23 @@ class Reference extends \Papaya\Application\BaseObject {
       return '';
     }
     return $this->cleanupPath($this->url()
-        ->getPathURL(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
+      ->getPathURL(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
   }
 
   /**
    * @param $path
    * @param bool $forPublic URL is for public use (do not include the session id)
+   *
    * @return string
    */
   protected function cleanupPath($path, $forPublic = FALSE) {
     $sessionParameterName = isset($this->papaya()->session) ? $this->papaya()->session->name : 'sid';
-    if ($forPublic && $sessionParameterName !== '') {
-      return preg_replace('(/'.preg_quote($sessionParameterName, '(').'[^/?#]+)', '', $path);
+    if ($forPublic && '' !== $sessionParameterName) {
+      return \preg_replace(
+        '(/'.\preg_quote($sessionParameterName, '(').'[^/?#]+)',
+        '',
+        $path
+      );
     }
     return $path;
   }
@@ -177,11 +191,12 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Set/Get attached url object or use the request to load one.
    *
-   * @param \Papaya\URL $url
-   * @return \Papaya\URL
+   * @param URL $url
+   *
+   * @return URL
    */
-  public function url(\Papaya\URL $url = NULL) {
-    if (isset($url)) {
+  public function url(URL $url = NULL) {
+    if (NULL !== $url) {
       $this->_url = $url;
     }
     $this->prepare();
@@ -191,13 +206,14 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * load request data to reference
    *
-   * @param \Papaya\Request $request
+   * @param Request $request
+   *
    * @return self
    */
-  public function load(\Papaya\Request $request) {
+  public function load(Request $request) {
     $url = $request->getURL();
-    $this->_url = clone (($url instanceof \Papaya\URL) ? $url : new \Papaya\URL);
-    if (is_null($this->_parameterGroupSeparator)) {
+    $this->_url = clone (($url instanceof URL) ? $url : new URL());
+    if (NULL === $this->_parameterGroupSeparator) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }
     $this->setBasePath($request->getBasePath());
@@ -208,13 +224,15 @@ class Reference extends \Papaya\Application\BaseObject {
    * Specifiy a custom parameter group separator
    *
    * @param string $separator Allowed values: '[]', ',', ':', '/', '*', '!'
+   *
    * @throws \InvalidArgumentException
+   *
    * @return self
    */
   public function setParameterGroupSeparator($separator) {
-    if ($separator == '') {
+    if ('' === (string)$separator) {
       $this->_parameterGroupSeparator = '[]';
-    } elseif (in_array($separator, array('[]', ',', ':', '/', '*', '!'))) {
+    } elseif (\in_array($separator, ['[]', ',', ':', '/', '*', '!'])) {
       $this->_parameterGroupSeparator = $separator;
     } else {
       throw new \InvalidArgumentException(
@@ -239,24 +257,25 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Set several parameters at once
    *
-   * @param array|\Papaya\Request\Parameters $parameters
-   * @param string|NULL $parameterGroup
+   * @param array|Request\Parameters $parameters
+   * @param string|null $parameterGroup
+   *
    * @return self
    */
   public function setParameters($parameters, $parameterGroup = NULL) {
     if (NULL === $this->_parametersObject) {
-      $this->_parametersObject = new \Papaya\Request\Parameters();
+      $this->_parametersObject = new Request\Parameters();
     }
     if (
-      is_array($parameters) ||
-      $parameters instanceof \Papaya\Request\Parameters
+      \is_array($parameters) ||
+      $parameters instanceof Request\Parameters
     ) {
-      if (NULL !== $parameterGroup && '' !== trim($parameterGroup)) {
+      if (NULL !== $parameterGroup && '' !== \trim($parameterGroup)) {
         $this->_parametersObject->merge(
-          array(
-            $parameterGroup => $parameters instanceof \Papaya\Request\Parameters
+          [
+            $parameterGroup => $parameters instanceof Request\Parameters
               ? $parameters->toArray() : $parameters
-          )
+          ]
         );
       } else {
         $this->_parametersObject->merge($parameters);
@@ -268,11 +287,11 @@ class Reference extends \Papaya\Application\BaseObject {
   /**
    * Provides access to the parameters object of the reference
    *
-   * @return \Papaya\Request\Parameters $parameters
+   * @return Request\Parameters $parameters
    */
   public function getParameters() {
     if (NULL === $this->_parametersObject) {
-      $this->_parametersObject = new \Papaya\Request\Parameters();
+      $this->_parametersObject = new Request\Parameters();
     }
     return $this->_parametersObject;
   }
@@ -281,6 +300,7 @@ class Reference extends \Papaya\Application\BaseObject {
    * Get reference query string prefixed by "?"
    *
    * @param bool $forPublic remove session id parameter for public urls
+   *
    * @return string
    */
   public function getQueryString($forPublic = FALSE) {
@@ -304,11 +324,12 @@ class Reference extends \Papaya\Application\BaseObject {
    * Set fragment
    *
    * @param string $fragment
+   *
    * @return self
    */
   public function setFragment($fragment) {
-    if (0 === strpos($fragment, '#')) {
-      $fragment = substr($fragment, 1);
+    if (0 === \strpos($fragment, '#')) {
+      $fragment = \substr($fragment, 1);
     }
     $this->url()->setFragment($fragment);
     return $this;
@@ -333,21 +354,21 @@ class Reference extends \Papaya\Application\BaseObject {
     if (NULL !== $this->_parametersObject) {
       return $this->_parametersObject->getList($this->_parameterGroupSeparator);
     }
-    return array();
+    return [];
   }
 
   /**
    * Set web base path
    *
    * @param string $path
-   * @access public
+   *
    * @return self
    */
   public function setBasePath($path) {
-    if (0 !== strpos($path, '/')) {
+    if (0 !== \strpos($path, '/')) {
       $path = '/'.$path;
     }
-    if ('/' !== substr($path, -1)) {
+    if ('/' !== \substr($path, -1)) {
       $path .= '/';
     }
     $this->_basePath = $path;

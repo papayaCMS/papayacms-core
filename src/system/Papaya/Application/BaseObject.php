@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application;
+
 /**
  * Papaya Object - papaya basic object
  *
@@ -21,13 +21,13 @@ namespace Papaya\Application;
  * @subpackage Objects
  */
 abstract class BaseObject implements Access {
-
   use Access\Aggregation;
 
   /**
    * Get application object
    *
    * @deprecated {@see \Papaya\Application\Access\Aggregation::papaya()}
+   *
    * @return \Papaya\Application
    */
   public function getApplication() {
@@ -38,6 +38,7 @@ abstract class BaseObject implements Access {
    * Set application object
    *
    * @deprecated {@see \Papaya\Application\Access\Aggregation::papaya()}
+   *
    * @param \Papaya\Application $application
    */
   public function setApplication($application) {

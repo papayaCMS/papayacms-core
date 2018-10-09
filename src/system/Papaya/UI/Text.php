@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\Application;
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Utility;
+
 /**
  * Papaya Interface String, an object representing a text for interface usage.
  *
@@ -23,7 +27,8 @@ namespace Papaya\UI;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Text extends \Papaya\Application\BaseObject {
+class Text implements Application\Access, StringCastable {
+  use Application\Access\Aggregation;
 
   /**
    * String pattern
@@ -37,14 +42,14 @@ class Text extends \Papaya\Application\BaseObject {
    *
    * @var array
    */
-  protected $_values = array();
+  protected $_values = [];
 
   /**
    * Buffered/cached result string
    *
-   * @var string
+   * @var string|null
    */
-  protected $_string = NULL;
+  private $_string;
 
   /**
    * Create object and store arguments into variables
@@ -52,9 +57,9 @@ class Text extends \Papaya\Application\BaseObject {
    * @param $pattern
    * @param $values
    */
-  public function __construct($pattern, array $values = array()) {
-    \Papaya\Utility\Constraints::assertString($pattern);
-    \Papaya\Utility\Constraints::assertNotEmpty($pattern);
+  public function __construct($pattern, array $values = []) {
+    Utility\Constraints::assertString($pattern);
+    Utility\Constraints::assertNotEmpty($pattern);
     $this->_pattern = $pattern;
     $this->_values = $values;
   }
@@ -65,10 +70,10 @@ class Text extends \Papaya\Application\BaseObject {
    * return string
    */
   public function __toString() {
-    if (is_null($this->_string)) {
+    if (NULL === $this->_string) {
       $this->_string = $this->compile($this->_pattern, $this->_values);
     }
-    return $this->_string;
+    return (string)$this->_string;
   }
 
   /**
@@ -76,13 +81,13 @@ class Text extends \Papaya\Application\BaseObject {
    *
    * @param string $pattern
    * @param array $values
+   *
    * @return string
    */
   protected function compile($pattern, $values) {
-    if (count($values) > 0) {
-      return vsprintf($pattern, $values);
-    } else {
-      return $pattern;
+    if (\count($values) > 0) {
+      return \vsprintf($pattern, $values);
     }
+    return $pattern;
   }
 }

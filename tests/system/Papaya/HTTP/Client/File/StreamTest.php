@@ -16,7 +16,7 @@
 namespace Papaya\HTTP\Client\File;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ResourceTest extends \Papaya\TestCase {
+class StreamTest extends \Papaya\TestCase {
 
   private $_fileResource;
 
@@ -31,10 +31,10 @@ class ResourceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::__construct
+   * @covers \Papaya\HTTP\Client\File\Stream::__construct
    */
   public function testConstructor() {
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
@@ -44,18 +44,18 @@ class ResourceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::__construct
+   * @covers \Papaya\HTTP\Client\File\Stream::__construct
    */
   public function testConstructorExpectingError() {
-    $this->expectException(\InvalidArgumentException::class);
-    new Resource('', '', NULL, '');
+    $this->expectException(\UnexpectedValueException::class);
+    new Stream('', '', NULL, '');
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::getSize
+   * @covers \Papaya\HTTP\Client\File\Stream::getSize
    */
   public function testGetSize() {
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $this->assertEquals(6, $file->getSize());
@@ -63,7 +63,7 @@ class ResourceTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::send
+   * @covers \Papaya\HTTP\Client\File\Stream::send
    */
   public function testSend() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
@@ -74,14 +74,14 @@ class ResourceTest extends \Papaya\TestCase {
     $socket->expects($this->at(1))
       ->method('write')
       ->with($this->equalTo('sample'));
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket);
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::send
+   * @covers \Papaya\HTTP\Client\File\Stream::send
    */
   public function testSendLimited() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
@@ -95,14 +95,14 @@ class ResourceTest extends \Papaya\TestCase {
     $socket->expects($this->at(2))
       ->method('write')
       ->with($this->equalTo('le'));
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket, FALSE, 4);
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::send
+   * @covers \Papaya\HTTP\Client\File\Stream::send
    */
   public function testSendChunked() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
@@ -116,19 +116,19 @@ class ResourceTest extends \Papaya\TestCase {
     $socket->expects($this->at(2))
       ->method('writeChunk')
       ->with($this->equalTo("\r\n"));
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $file->send($socket, TRUE);
   }
 
   /**
-   * @covers \Papaya\HTTP\Client\File\Resource::send
+   * @covers \Papaya\HTTP\Client\File\Stream::send
    */
   public function testSendInvalidResourceExpectingError() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client\Socket $socket */
     $socket = $this->createMock(\Papaya\HTTP\Client\Socket::class);
-    $file = new Resource(
+    $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     fclose($this->_fileResource);

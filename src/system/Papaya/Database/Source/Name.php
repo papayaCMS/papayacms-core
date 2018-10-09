@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Source;
+
+use Papaya\Database;
+use Papaya\Request;
 
 /**
  * Database source name (DSN) specifies a data structure that contains the information
@@ -31,10 +33,9 @@ namespace Papaya\Database\Source;
  * @property string $port
  * @property string $socket
  * @property string $database
- * @property \Papaya\Request\Parameters $parameters
+ * @property Request\Parameters $parameters
  */
 class Name {
-
   /**
    * Raw dsn string
    *
@@ -47,12 +48,12 @@ class Name {
    *
    * @var array
    */
-  private $_properties = array();
+  private $_properties = [];
 
   /**
    * Additional parameters
    *
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_parameters;
 
@@ -60,8 +61,10 @@ class Name {
    * Construct a dsn object and set it's properties from a dsn string
    *
    * @throws \InvalidArgumentException
+   *
    * @param string $name
-   * @throws \Papaya\Database\Exception\Connect
+   *
+   * @throws Database\Exception\ConnectionFailed
    */
   public function __construct($name) {
     $this->setName($name);
@@ -97,11 +100,12 @@ class Name {
    *
    *
    * @param string $name
-   * @throws \Papaya\Database\Exception\Connect
+   *
+   * @throws Database\Exception\ConnectionFailed
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new Database\Exception\ConnectionFailed(
         'Can not initialize database connection from empty dsn.'
       );
     }
@@ -136,16 +140,16 @@ class Name {
         (?:[.]{1,2}(?:[/\\\\][^?<>/\\\\:*|]+)+) # relative file name
       )
     $)xD';
-    $queryStringStart = strpos($name, '?');
+    $queryStringStart = \strpos($name, '?');
     if ($queryStringStart > 0) {
-      $dsn = substr($name, 0, $queryStringStart - 1);
+      $dsn = \substr($name, 0, $queryStringStart - 1);
     } else {
       $dsn = $name;
     }
-    if (preg_match($patternServer, $dsn, $matches) ||
-      preg_match($patternFile, $dsn, $matches)) {
+    if (\preg_match($patternServer, $dsn, $matches) ||
+      \preg_match($patternFile, $dsn, $matches)) {
       $this->_name = $name;
-      $this->_properties = array(
+      $this->_properties = [
         'api' => $matches['api'],
         'platform' => $this->_getMatchValue($matches, 'platform', $matches['api']),
         'filename' => $this->_getMatchValue($matches, 'file'),
@@ -155,15 +159,15 @@ class Name {
         'port' => (int)$this->_getMatchValue($matches, 'port'),
         'socket' => $this->_getMatchValue($matches, 'socket'),
         'database' => $this->_getMatchValue($matches, 'database')
-      );
+      ];
       if ($queryStringStart > 0) {
-        $query = new \Papaya\Request\Parameters\QueryString();
-        $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
+        $query = new Request\Parameters\QueryString();
+        $this->_parameters = $query->setString(\substr($name, $queryStringStart + 1))->values();
       } else {
-        $this->_parameters = new \Papaya\Request\Parameters();
+        $this->_parameters = new Request\Parameters();
       }
     } else {
-      throw new \Papaya\Database\Exception\Connect(
+      throw new Database\Exception\ConnectionFailed(
         'Can not initialize database connection from invalid dsn.'
       );
     }
@@ -175,6 +179,7 @@ class Name {
    * @param array $matches
    * @param string $name
    * @param mixed $default
+   *
    * @return mixed|null
    */
   private function _getMatchValue($matches, $name, $default = NULL) {
@@ -188,7 +193,8 @@ class Name {
    * Check if a dsn property does exists (contains a value in this case)
    *
    * @param name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     if (empty($this->_properties[$name])) {
@@ -203,18 +209,20 @@ class Name {
    * Provides read access to the values in the _properties array and the parameters property.
    *
    * @throws \ErrorException
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
-    if (array_key_exists($name, $this->_properties)) {
+    if (\array_key_exists($name, $this->_properties)) {
       return $this->_properties[$name];
     }
     if ('parameters' === $name) {
       return $this->_parameters;
     }
     throw new \ErrorException(
-      sprintf('Undefined property: %s::$%s', __CLASS__, $name),
+      \sprintf('Undefined property: %s::$%s', __CLASS__, $name),
       0,
       0,
       __FILE__,
@@ -227,11 +235,12 @@ class Name {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
     throw new \BadMethodCallException(
-      sprintf('Property %s::$%s is not writable.', __CLASS__, $name)
+      \sprintf('Property %s::$%s is not writable.', __CLASS__, $name)
     );
   }
 }

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page translations list.
  *
@@ -23,23 +26,23 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Boxes extends \Papaya\Database\BaseObject\Records {
-
+class Boxes extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'topic_id' => 'page_id',
     'box_id' => 'box_id',
     'box_sort' => 'position'
-  );
+  ];
 
   /**
    * Load boxes links into records list
    *
-   * @param integer $pageId
+   * @param int $pageId
+   *
    * @return bool
    */
   public function load($pageId) {
@@ -47,22 +50,23 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
               FROM %s
              WHERE topic_id = '%d'
              ORDER BY box_sort, box_id";
-    $parameters = array(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+    $parameters = [
+      $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
       $pageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters);
   }
 
   /**
    * Delete box links on the given page ids
    *
-   * @param array|integer $pageIds
-   * @return boolean
+   * @param array|int $pageIds
+   *
+   * @return bool
    */
   public function delete($pageIds) {
     return FALSE !== $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+        $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
         'topic_id',
         \Papaya\Utility\Arrays::ensure($pageIds)
       );
@@ -71,8 +75,9 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
   /**
    * Copy currently loaded box links to the given page ids
    *
-   * @param array|integer $pageIds
-   * @return boolean
+   * @param array|int $pageIds
+   *
+   * @return bool
    */
   public function copyTo($pageIds) {
     $pageIds = \Papaya\Utility\Arrays::ensure($pageIds);
@@ -80,18 +85,18 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
       return TRUE;
     }
     if ($this->delete($pageIds)) {
-      $records = array();
+      $records = [];
       foreach ($pageIds as $pageId) {
         foreach ($this->_records as $record) {
-          $records[] = array(
+          $records[] = [
             'box_id' => $record['box_id'],
             'topic_id' => $pageId,
             'box_sort' => $record['position']
-          );
+          ];
         }
       }
       return FALSE !== $this->databaseInsertRecords(
-          $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
+          $this->databaseGetTableName(Content\Tables::PAGE_BOXES),
           $records
         );
     }

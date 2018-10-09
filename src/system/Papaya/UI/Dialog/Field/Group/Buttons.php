@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Group;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple single line input field with a caption.
  *
@@ -21,26 +24,25 @@ namespace Papaya\UI\Dialog\Field\Group;
  * @subpackage UI
  *
  * @property string|\Papaya\UI\Text $caption
- * @property \Papaya\UI\Dialog\Buttons $buttons
+ * @property UI\Dialog\Buttons $buttons
  */
-class Buttons extends \Papaya\UI\Dialog\Field {
-
+class Buttons extends UI\Dialog\Field {
   /**
    * Grouped input buttons
    *
-   * @var \Papaya\UI\Dialog\Buttons
+   * @var UI\Dialog\Buttons
    */
-  protected $_buttons = NULL;
+  protected $_buttons;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'buttons' => array('_buttons', '_buttons')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'buttons' => ['_buttons', '_buttons']
+  ];
 
   /**
    * Initialize object, set caption
@@ -54,18 +56,19 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Group buttons getter/setter
    *
-   * @param \Papaya\UI\Dialog\Buttons $buttons
-   * @return \Papaya\UI\Dialog\Buttons
+   * @param UI\Dialog\Buttons $buttons
+   *
+   * @return UI\Dialog\Buttons
    */
-  public function buttons(\Papaya\UI\Dialog\Buttons $buttons = NULL) {
-    if (isset($buttons)) {
+  public function buttons(UI\Dialog\Buttons $buttons = NULL) {
+    if (NULL !== $buttons) {
       $this->_buttons = $buttons;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
         $buttons->owner($this->collection()->owner());
       }
     }
-    if (is_null($this->_buttons)) {
-      $this->_buttons = new \Papaya\UI\Dialog\Buttons(
+    if (NULL === $this->_buttons) {
+      $this->_buttons = new UI\Dialog\Buttons(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
     }
@@ -75,12 +78,13 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Return the owner collection of the item.
    *
-   * @param \Papaya\UI\Control\Collection $collection
-   * @return \Papaya\UI\Control\Collection
+   * @param UI\Control\Collection $collection
+   *
+   * @return UI\Control\Collection
    */
-  public function collection(\Papaya\UI\Control\Collection $collection = NULL) {
+  public function collection(UI\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
-    if ($collection != NULL && $collection->hasOwner()) {
+    if (NULL !== $collection && $collection->hasOwner()) {
       $this->buttons()->owner($collection->owner());
     }
     return $result;
@@ -89,7 +93,7 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Validate field group
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return TRUE;
@@ -98,11 +102,10 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Collect field group data
    *
-   * @return boolean
+   * @return bool
    */
   public function collect() {
-    if (parent::collect() &&
-      isset($this->_buttons)) {
+    if (NULL !== $this->_buttons && parent::collect()) {
       $this->_buttons->collect();
       return TRUE;
     }
@@ -112,16 +115,16 @@ class Buttons extends \Papaya\UI\Dialog\Field {
   /**
    * Append group and buttons in this group to the DOM.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (isset($this->_buttons) && count($this->_buttons) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (NULL !== $this->_buttons && \count($this->_buttons) > 0) {
       $group = $parent->appendElement(
         'field-group',
-        array(
+        [
           'caption' => $this->getCaption(),
           'id' => $this->getId()
-        )
+        ]
       );
       $this->_buttons->appendTo($group);
     }

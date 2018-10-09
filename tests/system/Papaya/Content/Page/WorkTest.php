@@ -362,7 +362,7 @@ namespace Papaya\Content\Page {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->with($this->equalTo('lng_id'), $this->equalTo(array(23, 42)))
+        ->with($this->equalTo(['lng_id' => array(23, 42)]))
         ->will($this->returnValue("lng_id IN ('23', '42')"));
       $databaseAccess
         ->expects($this->once())
@@ -422,7 +422,7 @@ namespace Papaya\Content\Page {
      * @covers \Papaya\Content\Page\Work::publish
      * @covers \Papaya\Content\Page\Work::_publishTranslations
      */
-    public function testPublishTranslationFailedExpetingFalse() {
+    public function testPublishTranslationFailedExpectingFalse() {
       $page = $this->getContentPageFixture();
 
       $publication = $this->createMock(Publication::class);
@@ -447,7 +447,7 @@ namespace Papaya\Content\Page {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->with($this->equalTo('lng_id'), $this->equalTo(array(23, 42)))
+        ->with($this->equalTo(['lng_id' => array(23, 42)]))
         ->will($this->returnValue("lng_id IN ('23', '42')"));
       $databaseAccess
         ->expects($this->once())

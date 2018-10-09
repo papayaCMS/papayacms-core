@@ -12,13 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Interfaces;
 
 interface Order {
-
   const ASCENDING = 0;
+
   const DESCENDING = 1;
 
+  /**
+   * @return string
+   */
   public function __toString();
 }

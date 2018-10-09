@@ -12,29 +12,34 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Sheet;
+
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * A list of subtitle elements for a sheet
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Subtitles extends \Papaya\UI\Control\Collection {
-
+class Subtitles extends UI\Control\Collection {
+  /**
+   * @var string
+   */
   protected $_itemClass = Subtitle::class;
 
   /**
    * Papaya\UI\Sheet\Subtitles constructor.
    *
-   * @param array|\Traversable|NULL $subtitles
+   * @param array|\Traversable|null $subtitles
    */
   public function __construct($subtitles = NULL) {
     if (NULL !== $subtitles) {
-      \Papaya\Utility\Constraints::assertArrayOrTraversable($subtitles);
+      Utility\Constraints::assertArrayOrTraversable($subtitles);
       /** @var array|\Traversable $subtitles */
       foreach ($subtitles as $subtitle) {
-        if (is_string($subtitle) || method_exists($subtitle, '__toString')) {
+        if (\is_string($subtitle) || \method_exists($subtitle, '__toString')) {
           $this->addString($subtitle);
         } else {
           $this->add($subtitle);
@@ -43,6 +48,10 @@ class Subtitles extends \Papaya\UI\Control\Collection {
     }
   }
 
+  /**
+   * @param $string
+   * @return \Papaya\UI\Control\Collection
+   */
   public function addString($string) {
     return $this->add(new Subtitle($string));
   }

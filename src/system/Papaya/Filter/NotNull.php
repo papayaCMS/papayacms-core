@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class that chcks if the value is an empty one
  *
@@ -22,26 +24,28 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotNull implements \Papaya\Filter {
-
+class NotNull implements Filter {
   /**
    * Check the value throw exception if value is not set
    *
-   * @param string $value
-   * @throws \Papaya\Filter\Exception\IsUndefined
-   * @return TRUE
+   * @param mixed $value
+   *
+   * @throws Exception\IsUndefined
+   *
+   * @return true
    */
   public function validate($value) {
-    if (isset($value)) {
+    if (NULL !== $value) {
       return TRUE;
     }
-    throw new \Papaya\Filter\Exception\IsUndefined();
+    throw new Exception\IsUndefined();
   }
 
   /**
    * The filter function always returns the value if it is set or NULL
    *
-   * @param string $value
+   * @param mixed $value
+   *
    * @return mixed
    */
   public function filter($value) {

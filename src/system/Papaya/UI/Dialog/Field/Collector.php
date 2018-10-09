@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A virtual dialog field, this will be part of the dialog but has no XML output. It can collect data
  * from a parameter depending on the filter.
@@ -21,19 +25,18 @@ namespace Papaya\UI\Dialog\Field;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Collector extends \Papaya\UI\Dialog\Field {
-
+class Collector extends UI\Dialog\Field {
   /**
    * Initialize object, field name, default value and filter
    *
    * @param string $name
    * @param mixed $default
-   * @param \Papaya\Filter|NULL $filter
+   * @param Filter|null $filter
    */
-  public function __construct($name, $default, \Papaya\Filter $filter = NULL) {
+  public function __construct($name, $default, Filter $filter = NULL) {
     $this->setName($name);
     $this->setDefaultValue($default);
-    if (isset($filter)) {
+    if (NULL !== $filter) {
       $this->setFilter($filter);
     }
   }
@@ -41,8 +44,8 @@ class Collector extends \Papaya\UI\Dialog\Field {
   /**
    * Empty, this field does not append anything to the DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
   }
 }

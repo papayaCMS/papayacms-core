@@ -12,24 +12,25 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
- * Load status informations about a page.
+ * Load status information about a page.
  *
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id
- * @property integer $sessionMode
+ * @property int $id
+ * @property int $sessionMode
  */
-class Status extends \Papaya\Database\Record {
-
-  protected $_fields = array(
+class Status extends Database\Record {
+  protected $_fields = [
     'id' => 'topic_id',
     'sessionMode' => 'topic_sessionmode'
-  );
+  ];
 
-  protected $_tableName = \Papaya\Content\Tables::PAGES;
-
+  protected $_tableName = Content\Tables::PAGES;
 }

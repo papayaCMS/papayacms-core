@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\AST\Node;
+
+use Papaya\Template\Simple;
+
 /**
  * AST node containing an output.
  *
@@ -22,8 +24,7 @@ namespace Papaya\Template\Simple\AST\Node;
  *
  * @property-read string $text
  */
-class Output extends \Papaya\Template\Simple\AST\Node {
-
+class Output extends Simple\AST\Node {
   protected $_text = '';
 
   /**

@@ -12,37 +12,39 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the reference between two pages.
  *
  * The two pages of the reference have the same weight. On mapping the informations the object
  * will put the lower id into source and the higher into target.
  *
- * @property integer $sourceId page id, smaller one
- * @property integer $targetId page id, larger one
+ * @property int $sourceId page id, smaller one
+ * @property int $targetId page id, larger one
  * @property string $note - a small text describing the reference
  */
-class Reference extends \Papaya\Database\Record {
-
+class Reference extends Database\Record {
   /**
    * Mapping fields
    *
    * @var array
    */
-  protected $_fields = array(
+  protected $_fields = [
     'target_id' => 'topic_target_id',
     'source_id' => 'topic_source_id',
     'note' => 'topic_note'
-  );
+  ];
 
   /**
    * References table name
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGE_REFERENCES;
+  protected $_tableName = Content\Tables::PAGE_REFERENCES;
 
   /**
    * Create a multi field key object containg both page id properties
@@ -50,10 +52,10 @@ class Reference extends \Papaya\Database\Record {
    * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
-    return new \Papaya\Database\Record\Key\Fields(
+    return new Database\Record\Key\Fields(
       $this,
       $this->_tableName,
-      array('source_id', 'target_id')
+      ['source_id', 'target_id']
     );
   }
 
@@ -64,55 +66,46 @@ class Reference extends \Papaya\Database\Record {
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onAfterMapping = array(
-      $this, 'callbackSortPageIds'
-    );
+    $mapping->callbacks()->onAfterMapping = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $mode, $values, $record
+    ) {
+      if (Database\Record\Mapping::PROPERTY_TO_FIELD === $mode) {
+        $result = $record;
+        if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
+          $result['topic_target_id'] = $record['topic_source_id'];
+          $result['topic_source_id'] = $record['topic_target_id'];
+        }
+      } else {
+        $result = $values;
+        if ((int)$values['source_id'] > (int)$values['target_id']) {
+          $result['target_id'] = $values['source_id'];
+          $result['source_id'] = $values['target_id'];
+        }
+      }
+      return $result;
+    };
     return $mapping;
-  }
-
-  /**
-   * The callbacks sorts the page ids, to lower value is made the source id.
-   *
-   * @param object $context
-   * @param integer $mode
-   * @param array $values
-   * @param array $record
-   * @return array
-   */
-  public function callbackSortPageIds($context, $mode, $values, $record) {
-    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
-      $result = $record;
-      if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
-        $result['topic_target_id'] = $record['topic_source_id'];
-        $result['topic_source_id'] = $record['topic_target_id'];
-      }
-    } else {
-      $result = $values;
-      if ((int)$values['source_id'] > (int)$values['target_id']) {
-        $result['target_id'] = $values['source_id'];
-        $result['source_id'] = $values['target_id'];
-      }
-    }
-    return $result;
   }
 
   /**
    * Check if a callback exists
    *
-   * @param integer $sourceId
-   * @param integer $targetId
-   * @return boolean
+   * @param int $sourceId
+   * @param int $targetId
+   *
+   * @return bool
    */
   public function exists($sourceId, $targetId) {
     $sql = "SELECT COUNT(*)
               FROM %s
              WHERE topic_source_id = '%d'
                AND topic_target_id = '%d'";
-    $parameters = array(
+    $parameters = [
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       (int)$sourceId > (int)$targetId ? $targetId : $sourceId,
       (int)$sourceId > (int)$targetId ? $sourceId : $targetId
-    );
+    ];
     if ($databaseResult = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
       return $databaseResult->fetchField() > 0;
     }

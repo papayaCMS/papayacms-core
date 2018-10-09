@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Spam\Filter\Statistical;
+
+use Papaya\Database;
+
 /**
  * The refennce list provides the statistical spam filter with the spam/ham count for a given list of
  * words.
@@ -23,57 +25,57 @@ namespace Papaya\Spam\Filter\Statistical;
  * @package Papaya-Library
  * @subpackage Spam
  */
-class Reference extends \Papaya\Database\BaseObject\Records {
-
+class Reference extends Database\BaseObject\Records {
   /**
    * buffer array for the text count loaded from database
    *
    * @var array(string=>integer)
    */
-  private $_totals = array(
+  private $_totals = [
     'ham' => 0,
     'spam' => 0
-  );
+  ];
 
   /**
    * Loads the spam/ham counts for a given list of word in a language.
    *
    *
    * @param array $words
-   * @param integer $languageId
-   * @return boolean
+   * @param int $languageId
+   *
+   * @return bool
    */
   public function load(array $words, $languageId) {
-    $this->_records = array();
+    $this->_records = [];
     $this->_recordCount = 0;
-    $this->_totals = array(
+    $this->_totals = [
       'ham' => 0,
       'spam' => 0
-    );
+    ];
     if (!empty($words)) {
       $filter = $this->databaseGetSqlCondition('spamword', $words);
       $sql = "SELECT spamword, spamword_count, spamcategory_ident
                 FROM %s
                WHERE spamword_lngid = '%s'
                  AND $filter";
-      $parameters = array(
+      $parameters = [
         $this->databaseGetTableName('spamwords'),
         $languageId
-      );
+      ];
       if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-        while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
+        while ($row = $res->fetchRow(Database\Result::FETCH_ASSOC)) {
           $word = $row['spamword'];
           if (!isset($this->_records[$word])) {
-            $this->_records[$word] = array(
+            $this->_records[$word] = [
               'word' => $word,
               'ham' => 0,
               'spam' => 0
-            );
+            ];
           }
-          $category = strtolower($row['spamcategory_ident']);
+          $category = \strtolower($row['spamcategory_ident']);
           $this->_records[$word][$category] = $row['spamword_count'];
         }
-        $this->_recordCount = count($this->_records);
+        $this->_recordCount = \count($this->_records);
         $this->loadTotals($languageId);
         return TRUE;
       }
@@ -84,20 +86,20 @@ class Reference extends \Papaya\Database\BaseObject\Records {
   /**
    * Load the text counts for both categories from database.
    *
-   * @param integer $languageId
+   * @param int $languageId
    */
   private function loadTotals($languageId) {
     $sql = "SELECT spamcategory_ident, count(*) text_count
               FROM %s
              WHERE spamreference_lngid = '%s'
              GROUP BY spamcategory_ident";
-    $parameters = array(
+    $parameters = [
       $this->databaseGetTableName('spamreferences'),
       $languageId
-    );
+    ];
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
-        $category = strtolower($row['spamcategory_ident']);
+      while ($row = $res->fetchRow(Database\Result::FETCH_ASSOC)) {
+        $category = \strtolower($row['spamcategory_ident']);
         $this->_totals[$category] = $row['text_count'];
       }
     }
@@ -106,7 +108,7 @@ class Reference extends \Papaya\Database\BaseObject\Records {
   /**
    * Return the total count of texts learned as ham.
    *
-   * @return integer
+   * @return int
    */
   public function getHamCount() {
     return $this->_totals['ham'];
@@ -115,10 +117,9 @@ class Reference extends \Papaya\Database\BaseObject\Records {
   /**
    * Return the total count of texts learned as spam.
    *
-   * @return integer
+   * @return int
    */
   public function getSpamCount() {
     return $this->_totals['spam'];
   }
-
 }

@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
 
 /**
  * Application object profile for default request object
@@ -21,12 +22,12 @@ namespace Papaya\Application\Profile;
  * @package Papaya-Library
  * @subpackage Application
  */
-class Surfer implements \Papaya\Application\Profile {
-
+class Surfer implements Application\Profile {
   /**
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
+   *
    * @return object
    */
   public function createObject($application) {

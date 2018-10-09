@@ -12,28 +12,28 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template;
+
+use Papaya\XML;
+
 /**
  * Wrapper object for a DOMElement, defining a template value.
  *
  * @package Papaya-Library
  * @subpackage Template
- *
  */
 class Value {
-
   /**
    * Wrapped DOM element
    *
-   * @var \Papaya\XML\Element
+   * @var XML\Element
    */
-  private $_node = NULL;
+  private $_node;
 
   /**
    * Construct object from DOMNode
    *
-   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   * @param XML\Document|XML\Element $node
    */
   public function __construct($node) {
     $this->node($node);
@@ -45,32 +45,32 @@ class Value {
    * @return \DOMDocument
    */
   private function _getDocument() {
-    if ($this->_node instanceof \Papaya\XML\Document) {
-      return $this->_node;
-    } else {
-      return $this->_node->ownerDocument;
-    }
+    return $this->_node instanceof XML\Document ? $this->_node : $this->_node->ownerDocument;
   }
 
   /**
    * Get/Set node property
    *
-   * @param \Papaya\XML\Document|\Papaya\XML\Element $node
+   * @param XML\Document|XML\Element $node
+   *
    * @throws \InvalidArgumentException
-   * @return \Papaya\XML\Element|null
+   *
+   * @return XML\Element
    */
   public function node($node = NULL) {
-    if (isset($node)) {
-      if ($node instanceof \Papaya\XML\Document ||
-        $node instanceof \Papaya\XML\Element) {
+    if (NULL !== $node) {
+      if (
+        $node instanceof XML\Document ||
+        $node instanceof XML\Element
+      ) {
         $this->_node = $node;
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             '%1$s or %2$s expected, got %3$s',
-            \Papaya\XML\Document::class,
-            \Papaya\XML\Element::class,
-            is_object($node) ? get_class($node) : gettype($node)
+            XML\Document::class,
+            XML\Element::class,
+            \is_object($node) ? \get_class($node) : \gettype($node)
           )
         );
       }
@@ -81,10 +81,11 @@ class Value {
   /**
    * Append the node represented by this value to a parent node.
    *
-   * @param \Papaya\XML\Element $parentNode
+   * @param XML\Element $parentNode
+   *
    * @return $this
    */
-  public function appendTo(\Papaya\XML\Element $parentNode) {
+  public function appendTo(XML\Element $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
   }
@@ -102,17 +103,19 @@ class Value {
    * @param string|\DOMElement $element
    * @param array $attributes
    * @param string $textContent
+   *
    * @throws \InvalidArgumentException
-   * @return self|NULL
+   *
+   * @return self|null
    */
-  public function append($element, array $attributes = array(), $textContent = '') {
-    if (is_string($element)) {
+  public function append($element, array $attributes = [], $textContent = '') {
+    if (\is_string($element)) {
       $element = $this->_getDocument()->createElement($element);
-    } elseif ($element instanceof \Papaya\XML\Appendable) {
+    } elseif ($element instanceof XML\Appendable) {
       $element->appendTo($this->_node);
       return NULL;
     } elseif ($element instanceof \DOMDocument) {
-      if (isset($element->documentElement)) {
+      if (NULL !== $element->documentElement) {
         $element = $element->documentElement;
       } else {
         throw new \InvalidArgumentException(
@@ -122,10 +125,10 @@ class Value {
     }
     if (!$element instanceof \DOMElement) {
       throw new \InvalidArgumentException(
-        sprintf(
+        \sprintf(
           'Argument 1 passed to %s must be a string or DOMElement, %s given.',
           __CLASS__.'::'.__METHOD__.'()',
-          is_object($element) ? get_class($element) : gettype($element)
+          \is_object($element) ? \get_class($element) : \gettype($element)
         )
       );
     }
@@ -135,9 +138,9 @@ class Value {
     if (!empty($textContent)) {
       $element->nodeValue = (string)$textContent;
     }
-    $this->_node->appendChild($this->_getDocument()->importNode($element, TRUE));
-    $class = get_class($this);
-    return new $class($element);
+    /** @var XML\Element $imported */
+    $imported = $this->_node->appendChild($this->_getDocument()->importNode($element, TRUE));
+    return new static($imported);
   }
 
   /**
@@ -148,11 +151,13 @@ class Value {
    * An instance of this class containing the appended element is returned.
    *
    * @param string $xml
+   *
    * @return $this
+   *
    * @throws \Papaya\XML\Exception
    */
   public function appendXML($xml) {
-    $errors = new \Papaya\XML\Errors();
+    $errors = new XML\Errors();
     $errors->activate();
     $this->node()->appendXML($xml);
     $errors->emit();
@@ -170,29 +175,31 @@ class Value {
    * or a list of DOMNodes as well.
    *
    * @param \DOMNode|array|string $xml
+   *
    * @throws \InvalidArgumentException
    * @throws \Papaya\XML\Exception
+   *
    * @return string
    */
   public function xml($xml = NULL) {
-    if (isset($xml)) {
+    if (NULL !== $xml) {
       for ($i = $this->_node->childNodes->length - 1; $i >= 0; $i--) {
         $this->_node->removeChild($this->_node->childNodes->item($i));
       }
-      if (is_string($xml)) {
+      if (\is_string($xml)) {
         $this->appendXML($xml);
       } elseif ($xml instanceof \DOMNode) {
         $this->_node->appendChild($xml);
-      } elseif (is_array($xml)) {
+      } elseif (\is_array($xml)) {
         foreach ($xml as $index => $node) {
           if ($node instanceof \DOMNode) {
             $this->_node->appendChild($node);
           } else {
             throw new \InvalidArgumentException(
-              sprintf(
+              \sprintf(
                 'Argument 1 passed to %s must be an array of DOMNodes, %s given at index "%s".',
                 __CLASS__.'::'.__METHOD__.'()',
-                is_object($node) ? get_class($node) : gettype($node),
+                \is_object($node) ? \get_class($node) : \gettype($node),
                 $index
               )
             );
@@ -200,10 +207,10 @@ class Value {
         }
       } else {
         throw new \InvalidArgumentException(
-          sprintf(
+          \sprintf(
             'Argument 1 passed to %s must be a string, array or DOMNode, %s given.',
             __CLASS__.'::'.__METHOD__.'()',
-            is_object($xml) ? get_class($xml) : gettype($xml)
+            \is_object($xml) ? \get_class($xml) : \gettype($xml)
           )
         );
       }

@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
+
 /**
  * A bunch of file related utility functions.
  *
@@ -21,17 +21,17 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class File {
-
   /**
    * Format a given bytes value into a human readable string
    *
-   * @param integer $bytes
+   * @param int $bytes
    * @param int $decimals
    * @param string $decimalSeparator
+   *
    * @return string
    */
   public static function formatBytes($bytes, $decimals = 2, $decimalSeparator = '.') {
-    return \Papaya\Utility\Bytes::toString($bytes, $decimals, $decimalSeparator);
+    return Bytes::toString($bytes, $decimals, $decimalSeparator);
   }
 
   /**
@@ -41,24 +41,26 @@ class File {
    * @param int $maxLength
    * @param string $language
    * @param string $unknown
+   *
    * @internal param int $bytes
+   *
    * @return string
    */
   public static function normalizeName($utf8string, $maxLength, $language = '', $unknown = '-') {
     $transliterator = new \Papaya\Text\Transliteration\ASCII();
-    $result = trim(
-      preg_replace(
+    $result = \trim(
+      \preg_replace(
         '([^a-zA-Z\d]+)',
         $unknown,
         $transliterator->transliterate($utf8string, $language)
       ),
       $unknown
     );
-    if ($maxLength > 0 && strlen($result) > $maxLength) {
-      $result = substr($result, 0, $maxLength);
-      $p = strrpos($result, $unknown);
+    if ($maxLength > 0 && \strlen($result) > $maxLength) {
+      $result = \substr($result, 0, $maxLength);
+      $p = \strrpos($result, $unknown);
       if ($p > 0) {
-        $result = substr($result, 0, $p);
+        $result = \substr($result, 0, $p);
       }
     }
     return $result;

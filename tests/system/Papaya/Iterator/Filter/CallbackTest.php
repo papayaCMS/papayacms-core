@@ -32,14 +32,6 @@ class CallbackTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Iterator\Filter\Callback::setCallback
-   */
-  public function testSetCallbackWithInvalidCallbackExpectingException() {
-    $this->expectException(\UnexpectedValueException::class);
-    new Callback(new \EmptyIterator(), NULL);
-  }
-
-  /**
    * @covers \Papaya\Iterator\Filter\Callback::accept
    */
   public function testAccept() {

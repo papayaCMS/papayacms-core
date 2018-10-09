@@ -25,7 +25,7 @@ class EmptyValueTest extends \Papaya\TestCase {
     $subitem = new EmptyValue();
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<subitem/>',
+      '<subitem align="left"/>',
       $subitem->getXML()
     );
   }

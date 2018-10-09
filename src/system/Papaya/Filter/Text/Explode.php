@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Text;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for an string consisting of several parts
  *
@@ -23,8 +25,7 @@ namespace Papaya\Filter\Text;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Explode implements \Papaya\Filter {
-
+class Explode implements Filter {
   const TRIM_TOKENS = 1;
 
   /**
@@ -33,7 +34,7 @@ class Explode implements \Papaya\Filter {
   private $_separator = ',';
 
   /**
-   * @var \Papaya\Filter
+   * @var Filter
    */
   private $_filter;
 
@@ -43,9 +44,9 @@ class Explode implements \Papaya\Filter {
   private $_options;
 
   public function __construct(
-    $separator = NULL, \Papaya\Filter $elementFilter = NULL, $options = self::TRIM_TOKENS
+    $separator = NULL, Filter $elementFilter = NULL, $options = self::TRIM_TOKENS
   ) {
-    if (is_string($separator)) {
+    if (\is_string($separator)) {
       $this->_separator = $separator;
     }
     $this->_filter = $elementFilter;
@@ -54,18 +55,20 @@ class Explode implements \Papaya\Filter {
 
   /**
    * @param mixed $value
+   *
    * @return bool
-   * @throws \Papaya\Filter\Exception\IsEmpty
+   *
+   * @throws Filter\Exception
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new \Papaya\Filter\Exception\IsEmpty();
+      throw new Filter\Exception\IsEmpty();
     }
-    $tokens = explode($this->_separator, (string)$value);
-    if ($this->_filter instanceof \Papaya\Filter) {
+    $tokens = \explode($this->_separator, (string)$value);
+    if ($this->_filter instanceof Filter) {
       foreach ($tokens as $token) {
         if (\Papaya\Utility\Bitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
-          $token = trim($token);
+          $token = \trim($token);
         }
         $this->_filter->validate($token);
       }
@@ -74,17 +77,18 @@ class Explode implements \Papaya\Filter {
   }
 
   /**
-   * @param mixed|NULL $value
+   * @param mixed $value
+   *
    * @return array|null
    */
   public function filter($value) {
-    $tokens = explode($this->_separator, (string)$value);
+    $tokens = \explode($this->_separator, (string)$value);
     $result = [];
     foreach ($tokens as $token) {
       if (\Papaya\Utility\Bitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
-        $token = trim($token);
+        $token = \trim($token);
       }
-      if ($this->_filter instanceof \Papaya\Filter) {
+      if ($this->_filter instanceof Filter) {
         $filteredToken = $this->_filter->filter($token);
       } else {
         $filteredToken = empty($token) ? NULL : $token;
@@ -95,5 +99,4 @@ class Explode implements \Papaya\Filter {
     }
     return empty($result) ? NULL : $result;
   }
-
 }

@@ -12,28 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Scanner\Status\CSS;
+
+use Papaya\Template\Simple;
+
 /**
  * After a simple template value name comment, this status looks for the default value.
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class Value extends \Papaya\Template\Simple\Scanner\Status {
-
-  private $_patterns = array(
-    '(\\s+)S' => \Papaya\Template\Simple\Scanner\Token::WHITESPACE,
-    '([^\\s;,!\\r\\n]+)S' => \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT
-  );
+class Value extends Simple\Scanner\Status {
+  private $_patterns = [
+    '(\\s+)S' => Simple\Scanner\Token::WHITESPACE,
+    '([^\\s;,!\\r\\n]+)S' => Simple\Scanner\Token::VALUE_DEFAULT
+  ];
 
   /**
    * Match the patterns against the buffer string, return a new token if it is found at
    * offset position.
    *
    * @param string $buffer
-   * @param integer $offset
-   * @return NULL|\Papaya\Template\Simple\Scanner\Token
+   * @param int $offset
+   *
+   * @return null|Simple\Scanner\Token
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -43,10 +45,11 @@ class Value extends \Papaya\Template\Simple\Scanner\Status {
    * Return TRUE if the token is a default value - which is the only possible token
    * in this status for now.
    *
-   * @param \Papaya\Template\Simple\Scanner\Token $token
-   * @return boolean
+   * @param Simple\Scanner\Token $token
+   *
+   * @return bool
    */
   public function isEndToken($token) {
-    return ($token->type == \Papaya\Template\Simple\Scanner\Token::VALUE_DEFAULT);
+    return (Simple\Scanner\Token::VALUE_DEFAULT === $token->type);
   }
 }

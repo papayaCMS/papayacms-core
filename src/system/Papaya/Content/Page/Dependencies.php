@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page dependencies list.
  *
@@ -23,14 +26,13 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Dependencies extends \Papaya\Database\BaseObject\Records {
-
+class Dependencies extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'topic_id' => 'id',
     'topic_origin_id' => 'origin_id',
     'topic_synchronization' => 'synchronization',
@@ -42,16 +44,17 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
     'published_from' => 'published_from',
     'published_to' => 'published_to',
     'topic_unpublished_languages' => 'unpublished_languages'
-  );
+  ];
 
   /**
    * Load a list of references for a specified origin page id
    *
-   * @param integer $originId
-   * @param integer $languageId
-   * @param integer $limit
-   * @param integer $offset
-   * @return boolean
+   * @param int $originId
+   * @param int $languageId
+   * @param int $limit
+   * @param int $offset
+   *
+   * @return bool
    */
   public function load($originId, $languageId = 0, $limit = NULL, $offset = NULL) {
     $sql = "SELECT td.topic_id, td.topic_origin_id, td.topic_synchronization, td.topic_note,
@@ -65,14 +68,14 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
               LEFT JOIN %s AS tp ON (tp.topic_id = td.topic_id)
              WHERE td.topic_origin_id = '%d'
              ORDER BY tt.topic_title, t.topic_id";
-    $parameters = array(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+    $parameters = [
+      $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(Content\Tables::PAGES),
+      $this->databaseGetTableName(Content\Tables::PAGE_TRANSLATIONS),
       (int)$languageId,
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATIONS),
+      $this->databaseGetTableName(Content\Tables::PAGE_PUBLICATIONS),
       (int)$originId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'topic_id', $limit, $offset);
   }
 
@@ -82,11 +85,12 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
    * If a valid page id is provided that exists in the list, the data will be assigned to the new
    * record object.
    *
-   * @param integer $pageId
-   * @return \Papaya\Content\Page\Dependency
+   * @param int $pageId
+   *
+   * @return Dependency
    */
   public function getDependency($pageId) {
-    $result = new \Papaya\Content\Page\Dependency();
+    $result = new Dependency();
     if (isset($this->_records[$pageId])) {
       $result->assign($this->_records[$pageId]);
     }
@@ -96,12 +100,13 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
   /**
    * Delete a defined dependency by the target/clone page id.
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   *
+   * @return bool
    */
   public function delete($pageId) {
     $result = $this->databaseDeleteRecord(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
       'topic_id',
       (int)$pageId
     );
@@ -114,33 +119,32 @@ class Dependencies extends \Papaya\Database\BaseObject\Records {
   /**
    * Change to origin if of a list of referenced defined by the origin.
    *
-   * @param integer $originId
-   * @param integer $newOriginId
+   * @param int $originId
+   * @param int $newOriginId
+   *
    * @return bool|int
    */
   public function changeOrigin($originId, $newOriginId) {
     $result = FALSE;
-    $dependency = new \Papaya\Content\Page\Dependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($this->getDatabaseAccess());
     $dependency->load($newOriginId);
     if ($this->delete($newOriginId)) {
       $result = $this->databaseUpdateRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
-        array('topic_origin_id' => $newOriginId),
-        array('topic_origin_id' => $originId)
+        $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
+        ['topic_origin_id' => $newOriginId],
+        ['topic_origin_id' => $originId]
       );
       if (FALSE !== $result) {
         $dependency->assign(
-          array(
+          [
             'id' => $originId,
             'origin_id' => $newOriginId
-          )
+          ]
         );
         $result = $dependency->save();
       }
     }
     return $result;
   }
-
-
 }

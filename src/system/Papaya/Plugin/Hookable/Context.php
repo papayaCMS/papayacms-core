@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Hookable;
+
+use Papaya\Plugin;
+use Papaya\Utility;
+
 /**
  * An context for an hookable plugin. Meaning that the current object provides context data
  * to the plugin. Like itself or another object and data in an parameters object
@@ -22,28 +25,28 @@ namespace Papaya\Plugin\Hookable;
  * @subpackage Plugins
  */
 class Context {
+  /**
+   * @var null|object
+   */
+  private $_parent;
 
   /**
-   * @var NULL|object
+   * @var null|Plugin\Editable\Content
    */
-  private $_parent = NULL;
-  /**
-   * @var NULL|\Papaya\Plugin\Editable\Content
-   */
-  private $_data = NULL;
+  private $_data;
 
   /**
    * Create the context with data
    *
    * @param object $parent
-   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
+   * @param Plugin\Editable\Content|array|\Traversable|null $data
    */
   public function __construct($parent = NULL, $data = NULL) {
-    if (isset($parent)) {
-      \Papaya\Utility\Constraints::assertObject($parent);
+    if (NULL !== $parent) {
+      Utility\Constraints::assertObject($parent);
       $this->_parent = $parent;
     }
-    if (isset($data)) {
+    if (NULL !== $data) {
       $this->data($data);
     }
   }
@@ -52,13 +55,11 @@ class Context {
    * Check if an parent object was provided to the context.
    */
   public function hasParent() {
-    return isset($this->_parent);
+    return NULL !== $this->_parent;
   }
-
 
   /**
    * Return the parent object if it was provided
-   *
    */
   public function getParent() {
     if (NULL === $this->_parent) {
@@ -72,18 +73,15 @@ class Context {
    * be set a new context data, if an array or \Traversable ist provided a new editable content will be created an the
    * data assigned.
    *
-   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
-   * @return \Papaya\Plugin\Editable\Content
+   * @param Plugin\Editable\Content|array|\Traversable|null $data
+   *
+   * @return Plugin\Editable\Content
    */
   public function data($data = NULL) {
-    if (isset($data)) {
-      if ($data instanceof \Papaya\Plugin\Editable\Content) {
-        $this->_data = $data;
-      } else {
-        $this->_data = new \Papaya\Plugin\Editable\Content($data);
-      }
+    if (NULL !== $data) {
+      $this->_data = $data instanceof Plugin\Editable\Content ? $data : new Plugin\Editable\Content($data);
     } elseif (NULL === $this->_data) {
-      $this->_data = new \Papaya\Plugin\Editable\Content();
+      $this->_data = new Plugin\Editable\Content();
     }
     return $this->_data;
   }

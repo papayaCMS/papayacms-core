@@ -12,14 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\AST;
 
-class Nodes
-  extends \Papaya\BaseObject\Collection
-  implements \Papaya\Template\Simple\AST {
+use Papaya\BaseObject;
+use Papaya\Template\Simple;
 
-  public function __construct(array $nodes = array()) {
+class Nodes
+  extends BaseObject\Collection
+  implements Simple\AST {
+  /**
+   * Nodes constructor.
+   *
+   * @param array $nodes
+   */
+  public function __construct(array $nodes = []) {
     parent::__construct(Node::class);
     foreach ($nodes as $node) {
       $this[] = $node;
@@ -29,10 +35,10 @@ class Nodes
   /**
    * Tell the nodes about the visitor.
    *
-   * @param \Papaya\Template\Simple\Visitor $visitor
+   * @param Simple\Visitor $visitor
    */
-  public function accept(\Papaya\Template\Simple\Visitor $visitor) {
-    /** @var \Papaya\Template\Simple\AST $node */
+  public function accept(Simple\Visitor $visitor) {
+    /** @var Simple\AST $node */
     foreach ($this as $node) {
       $node->accept($visitor);
     }

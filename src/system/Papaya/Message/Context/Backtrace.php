@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
+
+use Papaya\Utility;
+
 /**
  * Message string context containing a backtrace
  *
@@ -24,16 +26,12 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Backtrace
-  implements
-  \Papaya\Message\Context\Interfaces\Items,
-  \Papaya\Message\Context\Interfaces\Text,
-  \Papaya\Message\Context\Interfaces\XHTML {
-
+  implements Interfaces\Items, Interfaces\Text, Interfaces\XHTML {
   /**
    * The offset is used to ignore the first elements of a backtrace,
    * if they do not provide useful informations
    *
-   * @var integer
+   * @var int
    */
   private $_offset = 0;
 
@@ -42,16 +40,16 @@ class Backtrace
    *
    * @var array
    */
-  private $_backtrace = NULL;
+  private $_backtrace;
 
   /**
    * Create backtrace
    *
-   * @param integer $offset ignore first several items of the backtrace
+   * @param int $offset ignore first several items of the backtrace
    * @param array $backtrace
    */
   public function __construct($offset = 0, array $backtrace = NULL) {
-    if (isset($backtrace)) {
+    if (NULL !== $backtrace) {
       $this->setBacktrace($backtrace, $offset);
     } else {
       $this->setOffset($offset + 1);
@@ -62,11 +60,12 @@ class Backtrace
   /**
    * Check an set backtrace offset
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @throws \InvalidArgumentException
    */
   public function setOffset($offset) {
-    if (!is_int($offset) || $offset < 0) {
+    if (!\is_int($offset) || $offset < 0) {
       throw new \InvalidArgumentException('$offset must be an integer greater or equal zero.');
     }
     $this->_offset = $offset;
@@ -76,7 +75,7 @@ class Backtrace
    * Set backtrace
    *
    * @param array $backtrace
-   * @param integer $offset
+   * @param int $offset
    */
   public function setBacktrace(array $backtrace, $offset = 0) {
     $this->_backtrace = $backtrace;
@@ -89,11 +88,11 @@ class Backtrace
    * @return array
    */
   public function getBacktrace() {
-    if (is_null($this->_backtrace)) {
-      return $this->_backtrace = debug_backtrace();
+    if (NULL === $this->_backtrace) {
+      return $this->_backtrace = \debug_backtrace();
     }
     $trace = $this->_backtrace;
-    array_splice($trace, 0, $this->_offset);
+    \array_splice($trace, 0, $this->_offset);
     return $trace;
   }
 
@@ -104,7 +103,7 @@ class Backtrace
    */
   public function asString() {
     $list = $this->asArray();
-    return implode("\n", $list);
+    return \implode("\n", $list);
   }
 
   /**
@@ -119,7 +118,7 @@ class Backtrace
       if ($key > 0) {
         $result .= "<br />\n";
       }
-      $result .= \Papaya\Utility\Text\XML::escape($element);
+      $result .= Utility\Text\XML::escape($element);
     }
     return $result;
   }
@@ -131,7 +130,7 @@ class Backtrace
    */
   public function asArray() {
     $backtrace = $this->getBacktrace();
-    $lines = array();
+    $lines = [];
     foreach ($backtrace as $item) {
       $line = '';
       if (!empty($item['class'])) {

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
+use Papaya\Request;
+
 /**
  * An interface to define that an object is editable.
  *
@@ -23,12 +25,12 @@ namespace Papaya\Plugin;
  * @subpackage Plugins
  */
 interface Addressable {
-
   /**
    * Getter/Setter for the content.
    *
-   * @param \Papaya\Request $request
-   * @return FALSE|string|TRUE
+   * @param Request $request
+   *
+   * @return bool|string
    */
-  public function validateURL(\Papaya\Request $request);
+  public function validateURL(Request $request);
 }

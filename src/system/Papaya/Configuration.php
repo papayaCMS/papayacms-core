@@ -12,43 +12,40 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
  * A superclass for configurations. The actual configuration class needs to extend this class and
  * define option names and default values in the internal $_options array.
  *
- * Option names are alayways normalized to uppercase with underscores. It is possible to use
+ * Option names are always normalized to uppercase with underscores. It is possible to use
  * camel case property syntax.
  *
  * @package Papaya-Library
  * @subpackage Configuration
  */
 class Configuration
-  extends Application\BaseObject
   implements \IteratorAggregate, \ArrayAccess {
-
   /**
    * Internal options array
    *
    * @var array
    */
-  protected $_options = array();
+  protected $_options = [];
 
   /**
    * Storage object, used to load/save the options.
    *
-   * @var \Papaya\Configuration\Storage
+   * @var Configuration\Storage
    */
-  private $_storage = NULL;
+  private $_storage;
 
   /**
    * An hash identifying the options status.
    *
-   * @var string|NULL
+   * @var string|null
    */
-  private $_hash = NULL;
+  private $_hash;
 
   /**
    * Create object and defined the given options.
@@ -63,29 +60,27 @@ class Configuration
    * Validate and define the options.
    *
    * @param array $options
+   *
    * @throws \UnexpectedValueException
    */
   protected function defineOptions(array $options) {
     foreach ($options as $name => $default) {
-      if (!is_scalar($default) && !is_null($default)) {
+      if (!\is_scalar($default) && NULL !== $default) {
         $name = Utility\Text\Identifier::toUnderscoreUpper($name);
         throw new \UnexpectedValueException(
-          sprintf('Default value for option "%s" is not a scalar.', $name)
+          \sprintf('Default value for option "%s" is not a scalar.', $name)
         );
-      } else {
-        $this->_options[$name] = $default;
       }
+      $this->_options[$name] = $default;
     }
   }
 
   /**
    * compile and return and hash from the currently defined option values.
-   *
-   *
    */
   public function getHash() {
-    if (is_null($this->_hash)) {
-      $this->_hash = md5(serialize($this->_options));
+    if (NULL === $this->_hash) {
+      $this->_hash = \md5(\serialize($this->_options));
     }
     return $this->_hash;
   }
@@ -100,16 +95,16 @@ class Configuration
    *
    * @param string $name
    * @param string $default
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
+   *
    * @return mixed
    */
-  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
+  public function get($name, $default = NULL, Filter $filter = NULL) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
-    if (array_key_exists($name, $this->_options)) {
+    if (\array_key_exists($name, $this->_options)) {
       return $this->filter($this->_options[$name], $default, $filter);
-    } else {
-      return $default;
     }
+    return $default;
   }
 
   /**
@@ -117,21 +112,21 @@ class Configuration
    *
    * @param mixed $value
    * @param mixed $default
-   * @param \Papaya\Filter $filter
+   * @param Filter $filter
+   *
    * @return mixed
    */
-  protected function filter($value, $default = NULL, \Papaya\Filter $filter = NULL) {
-    if (isset($filter)) {
+  protected function filter($value, $default = NULL, Filter $filter = NULL) {
+    if (NULL !== $filter) {
       $value = $filter->filter($value);
     }
-    if (isset($value)) {
-      if (isset($default) && is_scalar($default)) {
-        settype($value, gettype($default));
+    if (NULL !== $value) {
+      if (NULL !== $default && \is_scalar($default)) {
+        \settype($value, \gettype($default));
       }
       return $value;
-    } else {
-      return $default;
     }
+    return $default;
   }
 
   /**
@@ -139,8 +134,10 @@ class Configuration
    * uses the get() method.
    *
    * @deprecated {@see \Papaya\Configuration::get()}
+   *
    * @param string $name
    * @param mixed $default
+   *
    * @return mixed
    */
   public function getOption($name, $default = NULL) {
@@ -155,9 +152,11 @@ class Configuration
    */
   public function set($name, $value) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
-    if ($this->has($name) &&
-      array_key_exists($name, $this->_options) &&
-      ($this->_options[$name] !== $value)) {
+    if (
+      \array_key_exists($name, $this->_options) &&
+      $this->_options[$name] !== $value &&
+      $this->has($name)
+    ) {
       $this->_options[$name] = $this->filter($value, $this->_options[$name]);
       $this->_hash = NULL;
     }
@@ -168,21 +167,23 @@ class Configuration
    * $_options array.
    *
    * @param string $name
+   *
    * @return bool
    */
   public function has($name) {
     $name = Utility\Text\Identifier::toUnderscoreUpper($name);
-    return array_key_exists($name, $this->_options);
+    return \array_key_exists($name, $this->_options);
   }
 
   /**
    * Assign the values of an array or traverseable object to the current configuration object.
    *
    * @param array|\Traversable $source
+   *
    * @throws \InvalidArgumentException
    */
   public function assign($source) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($source);
+    Utility\Constraints::assertArrayOrTraversable($source);
     foreach ($source as $name => $value) {
       $this->set($name, $value);
     }
@@ -190,9 +191,12 @@ class Configuration
 
   /**
    * Load options using a storage object. This will throw an exception if no storage is assigned.
+   *
+   * @param \Papaya\Configuration\Storage|null $storage
+   * @return bool
    */
-  public function load(\Papaya\Configuration\Storage $storage = NULL) {
-    if (isset($storage)) {
+  public function load(Configuration\Storage $storage = NULL) {
+    if (NULL !== $storage) {
       $this->storage($storage);
     }
     if ($this->storage()->load()) {
@@ -208,24 +212,28 @@ class Configuration
    * Getter/Setter for the storage object
    *
    * @throws \LogicException
-   * @param \Papaya\Configuration\Storage $storage
-   * @return \Papaya\Configuration\Storage
+   *
+   * @param Configuration\Storage $storage
+   *
+   * @return Configuration\Storage
    */
-  public function storage(\Papaya\Configuration\Storage $storage = NULL) {
-    if (isset($storage)) {
+  public function storage(Configuration\Storage $storage = NULL) {
+    if (NULL !== $storage) {
       $this->_storage = $storage;
-    } elseif (is_null($this->_storage)) {
+    } elseif (NULL === $this->_storage) {
       throw new \LogicException('No storage assigned to configuration.');
     }
     return $this->_storage;
   }
 
   /**
-   * Magic method, property syntax for options existance check
+   * Magic method, property syntax for options existence check
    *
    * @see self::has()
+   *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     return $this->has($name);
@@ -235,7 +243,9 @@ class Configuration
    * Magic method, property syntax for options read
    *
    * @see self::get()
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -246,6 +256,7 @@ class Configuration
    * Magic method, property syntax for options write
    *
    * @see self::set()
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -257,8 +268,10 @@ class Configuration
    * ArrayAccess interface: check if an option exists
    *
    * @see self::has()
+   *
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($name) {
     return $this->has($name);
@@ -268,7 +281,9 @@ class Configuration
    * ArrayAccess interface: read an option
    *
    * @see self::get()
+   *
    * @param string $name
+   *
    * @return mixed
    */
   public function offsetGet($name) {
@@ -279,6 +294,7 @@ class Configuration
    * ArrayAccess interface: write an option
    *
    * @see self::set()
+   *
    * @param string $name
    * @param mixed $value
    */
@@ -292,6 +308,7 @@ class Configuration
    *
    *
    * @param string $name
+   *
    * @throws \LogicException
    */
   public function offsetUnset($name) {
@@ -307,6 +324,6 @@ class Configuration
    * @return \Iterator
    */
   public function getIterator() {
-    return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
+    return new Configuration\Iterator(\array_keys($this->_options), $this);
   }
 }

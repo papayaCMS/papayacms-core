@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for a float numeric
  *
@@ -26,53 +28,54 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class FloatValue implements \Papaya\Filter {
-
+class FloatValue implements Filter {
   /**
    * Minimum float value
    *
    * @var float
    */
-  protected $_min = NULL;
+  protected $_minimum;
 
   /**
    * Maximum float value
    *
    * @var float
    */
-  protected $_max = NULL;
+  protected $_maximum;
 
   /**
    * Construct object and initialize minimum and maximum limits for the float value
    *
-   * @param float $min
-   * @param float $max
+   * @param float $minimum
+   * @param float $maximum
    */
-  public function __construct($min = NULL, $max = NULL) {
-    if (!is_null($min)) {
-      $this->_min = $min;
+  public function __construct($minimum = NULL, $maximum = NULL) {
+    if (NULL !== $minimum) {
+      $this->_minimum = $minimum;
     }
-    if (!is_null($max)) {
-      $this->_max = $max;
+    if (NULL !== $maximum) {
+      $this->_maximum = $maximum;
     }
   }
 
   /**
    * Check the float input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!is_numeric($value)) {
-      throw new \Papaya\Filter\Exception\NotNumeric($value);
+    if (!\is_numeric($value)) {
+      throw new Exception\NotNumeric($value);
     }
-    if (!is_null($this->_min) && $value < $this->_min) {
-      throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_min, $value);
+    if (NULL !== $this->_minimum && $value < $this->_minimum) {
+      throw new Exception\OutOfRange\ToSmall($this->_minimum, $value);
     }
-    if (!is_null($this->_max) && $value > $this->_max) {
-      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_max, $value);
+    if (NULL !== $this->_maximum && $value > $this->_maximum) {
+      throw new Exception\OutOfRange\ToLarge($this->_maximum, $value);
     }
     return TRUE;
   }
@@ -81,15 +84,16 @@ class FloatValue implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid. The value is always converted
    * into a float numeric before the validation. So only given limits are validated.
    *
-   * @param string $value
-   * @return float|NULL
+   * @param mixed $value
+   *
+   * @return float|null
    */
   public function filter($value) {
     $value = (float)$value;
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
     }
     return NULL;
   }

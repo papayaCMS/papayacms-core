@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
 
 /**
@@ -22,5 +21,4 @@ namespace Papaya;
  * @subpackage Base
  */
 abstract class Exception extends \Exception {
-
 }

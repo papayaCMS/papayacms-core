@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response\Content;
+
+use Papaya\Response;
+use Papaya\Utility;
+
 /**
  * Simple file response content
  *
@@ -22,14 +25,13 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class File implements \Papaya\Response\Content {
-
+class File implements Response\Content {
   /**
    * string content buffer
    *
    * @var string
    */
-  private $_filename = '';
+  private $_filename;
 
   /**
    * Initialize object from a string
@@ -37,26 +39,24 @@ class File implements \Papaya\Response\Content {
    * @param string $filename
    */
   public function __construct($filename) {
-    \Papaya\Utility\Constraints::assertString($filename);
+    Utility\Constraints::assertString($filename);
     $this->_filename = $filename;
   }
 
   /**
    * Return content length for the http header
    *
-   * @return integer
+   * @return int
    */
   public function length() {
-    return filesize($this->_filename);
+    return \filesize($this->_filename);
   }
 
   /**
    * Output string content to standard output
-   *
-   * @return string
    */
   public function output() {
-    readfile($this->_filename);
+    \readfile($this->_filename);
   }
 
   /**
@@ -65,6 +65,6 @@ class File implements \Papaya\Response\Content {
    * @return string
    */
   public function __toString() {
-    return file_get_contents($this->_filename);
+    return (string)\file_get_contents($this->_filename);
   }
 }

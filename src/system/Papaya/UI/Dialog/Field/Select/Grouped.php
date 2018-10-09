@@ -12,16 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A select field with grouped options.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Grouped extends \Papaya\UI\Dialog\Field\Select {
-
+class Grouped extends UI\Dialog\Field\Select {
   /**
    * Set option groups and options.
    *
@@ -37,7 +41,7 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
    *     ...
    *   );
    *
-   * To allow more komplex group labels an advanced structure is supported:
+   * To allow more complex group labels an advanced structure is supported:
    *
    *   array(
    *     array(
@@ -56,23 +60,25 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
    * @param array $values
    */
   public function setValues($values) {
-    \Papaya\Utility\Constraints::assertArray($values);
+    Utility\Constraints::assertArray($values);
     $this->_values = $values;
-    $allowedValues = array();
+    $allowedValues = [];
     foreach ($values as $group) {
-      $groupValues = array_keys(isset($group['options']) ? $group['options'] : $group);
-      $allowedValues = array_merge($allowedValues, $groupValues);
+      $groupValues = \array_keys(isset($group['options']) ? $group['options'] : $group);
+      /** @noinspection SlowArrayOperationsInLoopInspection */
+      $allowedValues = \array_merge($allowedValues, $groupValues);
     }
-    $this->setFilter(new \Papaya\Filter\ArrayElement($allowedValues));
+    $this->setFilter(new Filter\ArrayElement($allowedValues));
   }
 
   /**
    * Append field output to DOM
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $this->_appendOptionGroups(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -85,24 +91,23 @@ class Grouped extends \Papaya\UI\Dialog\Field\Select {
   /**
    * Append option groups to DOM.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    * @param array $groups
    */
-  protected function _appendOptionGroups(\Papaya\XML\Element $parent, array $groups) {
+  protected function _appendOptionGroups(XML\Element $parent, array $groups) {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;
-      if (is_array($options) &&
-        count($options) > 0) {
+      if (\is_array($options) &&
+        \count($options) > 0) {
         $this->_appendOptions(
           $parent->appendElement(
             'group',
-            array('caption' => (string)$label)
+            ['caption' => (string)$label]
           ),
           $options
         );
       }
     }
   }
-
 }

@@ -12,20 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Media\Thumbnail\Calculation;
-class Maximum {
 
+class Maximum {
   private $_width;
+
   private $_height;
+
   private $_maximumWidth;
+
   private $_maximumHeight;
 
   public function __construct($width, $height, $maximumWidth, $maximumHeight) {
     $this->_width = $width;
     $this->_height = $height;
-    $this->_maximumWidth = $width;
-    $this->_maximumHeight = $height;
+    $this->_maximumWidth = $maximumWidth;
+    $this->_maximumHeight = $maximumHeight;
   }
 
   public function getTargetSize() {
@@ -34,9 +36,9 @@ class Maximum {
     $targetWidth = $this->_maximumWidth;
     $targetHeight = $this->_maximumHeight;
     if ($factorX >= $factorY) {
-      $targetHeight = round($this->_height / $factorX);
+      $targetHeight = \round($this->_height / $factorX);
     } else {
-      $targetWidth = round($this->_width / $factorY);
+      $targetWidth = \round($this->_width / $factorY);
     }
     return [$targetWidth, $targetHeight];
   }

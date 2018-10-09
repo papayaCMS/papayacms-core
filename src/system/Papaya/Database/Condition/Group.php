@@ -12,61 +12,68 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Condition;
+
+use Papaya\Database;
+
 /**
- * @method Group logicalAnd()
- * @method Group logicalOr()
- * @method Group logicalNot()
- * @method Group isEqual(string $field, mixed $value)
- * @method Group isNotEqual(string $field, mixed $value)
- * @method Group isNull(string $field, mixed $value)
- * @method Group isGreaterThan(string $field, mixed $value)
- * @method Group isGreaterThanOrEqual(string $field, mixed $value)
- * @method Group isLessThan(string $field, mixed $value)
- * @method Group isLessThanOrEqual(string $field, mixed $value)
- * @method Group contains(string $field, mixed $value)
- * @method Group like(string $field, mixed $value)
- * @method Group match(string $field, mixed $value)
- * @method Group matchBoolean(string $field, mixed $value)
- * @method Group matchContains(string $field, mixed $value)
+ * @method self logicalAnd()
+ * @method self logicalOr()
+ * @method self logicalNot()
+ * @method $this isEqual(string $field, mixed $value)
+ * @method $this isNotEqual(string $field, mixed $value)
+ * @method $this isNull(string $field, mixed $value)
+ * @method $this isGreaterThan(string $field, mixed $value)
+ * @method $this isGreaterThanOrEqual(string $field, mixed $value)
+ * @method $this isLessThan(string $field, mixed $value)
+ * @method $this isLessThanOrEqual(string $field, mixed $value)
+ * @method $this contains(string $field, mixed $value)
+ * @method $this like(string $field, mixed $value)
+ * @method $this match(string $field, mixed $value)
+ * @method $this matchBoolean(string $field, mixed $value)
+ * @method $this matchContains(string $field, mixed $value)
  */
 class Group
   extends Element
   implements \IteratorAggregate, \Countable {
-
-  private $_conditions = array();
-  private $_databaseAccess;
-  private $_mapping;
-
-  private $_classes = array(
-    'isequal' => array(Element::class, '='),
-    'isnotequal' => array(Element::class, '!='),
-    'isnull' => array(Element::class, 'ISNULL'),
-    'isgreaterthan' => array(Element::class, '>'),
-    'isgreaterthanorequal' => array(Element::class, '>='),
-    'islessthan' => array(Element::class, '<'),
-    'islessthanorequal' => array(Element::class, '<=')
-  );
+  private $_conditions = [];
 
   /**
-   * @param self|\Papaya\Database\Access|\Papaya\Database\Interfaces\Access $parent
-   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @var Database\Access
+   */
+  private $_databaseAccess;
+
+  private $_mapping;
+
+  private $_classes = [
+    'isequal' => [Element::class, '='],
+    'isnotequal' => [Element::class, '!='],
+    'isnull' => [Element::class, 'ISNULL'],
+    'isgreaterthan' => [Element::class, '>'],
+    'isgreaterthanorequal' => [Element::class, '>='],
+    'islessthan' => [Element::class, '<'],
+    'islessthanorequal' => [Element::class, '<=']
+  ];
+
+  /**
+   * @param self|Database\Access|Database\Interfaces\Access $parent
+   * @param Database\Interfaces\Mapping $mapping
    * @param string $operator
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct(
-    $parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL, $operator = 'AND'
+    $parent, Database\Interfaces\Mapping $mapping = NULL, $operator = 'AND'
   ) {
     if ($parent instanceof self) {
       parent::__construct($parent, NULL, NULL, $operator);
-    } elseif ($parent instanceof \Papaya\Database\Interfaces\Access) {
+    } elseif ($parent instanceof Database\Interfaces\Access) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
-    } elseif ($parent instanceof \Papaya\Database\Access) {
+    } elseif ($parent instanceof Database\Access) {
       $this->_databaseAccess = $parent;
     } else {
       throw new \InvalidArgumentException(
-        sprintf('Invalid parent class %s in %s', get_class($parent), __METHOD__)
+        \sprintf('Invalid parent class %s in %s', \get_class($parent), __METHOD__)
       );
     }
     $this->_mapping = $mapping;
@@ -77,6 +84,9 @@ class Group
     return $this->getParent();
   }
 
+  /**
+   * @return Database\Access
+   */
   public function getDatabaseAccess() {
     if (NULL !== $this->_databaseAccess) {
       return $this->_databaseAccess;
@@ -84,6 +94,9 @@ class Group
     return parent::getDatabaseAccess();
   }
 
+  /**
+   * @return null|Database\Interfaces\Mapping
+   */
   public function getMapping() {
     if (NULL !== $this->_mapping) {
       return $this->_mapping;
@@ -91,8 +104,13 @@ class Group
     return parent::getMapping();
   }
 
+  /**
+   * @param string $methodName
+   * @param array $arguments
+   * @return $this|self
+   */
   public function __call($methodName, $arguments) {
-    $name = strtolower($methodName);
+    $name = \strtolower($methodName);
     switch ($name) {
       case 'logicaland' :
         $this->_conditions[] = $condition = new self($this, NULL, 'AND');
@@ -104,25 +122,20 @@ class Group
         $this->_conditions[] = $condition = new self($this, NULL, 'NOT');
         return $condition;
       case 'contains' :
-        list($field, $value) = $arguments;
-        $this->_conditions[] = $condition = new Contains($this, $field, $value);
-        return $condition;
+        $this->_conditions[] = $condition = new Contains($this, ...$arguments);
+        return $this;
       case 'like' :
-        list($field, $value) = $arguments;
-        $this->_conditions[] = $condition = new Like($this, $field, $value);
-        return $condition;
+        $this->_conditions[] = $condition = new Like($this, ...$arguments);
+        return $this;
       case 'match' :
-        list($fields, $value) = $arguments;
-        $this->_conditions[] = $condition = new Fulltext\Match($this, $fields, $value);
-        return $condition;
+        $this->_conditions[] = $condition = new Fulltext\Match($this, ...$arguments);
+        return $this;
       case 'matchboolean' :
-        list($fields, $value) = $arguments;
-        $this->_conditions[] = $condition = new Fulltext\Boolean($this, $fields, $value);
-        return $condition;
+        $this->_conditions[] = $condition = new Fulltext\Boolean($this, ...$arguments);
+        return $this;
       case 'matchcontains' :
-        list($fields, $value) = $arguments;
-        $this->_conditions[] = $condition = new Fulltext\Contains($this, $fields, $value);
-        return $condition;
+        $this->_conditions[] = $condition = new Fulltext\Contains($this, ...$arguments);
+        return $this;
       default :
         if (isset($this->_classes[$name])) {
           list($field, $value) = $arguments;
@@ -132,42 +145,52 @@ class Group
         }
     }
     throw new \BadMethodCallException(
-      sprintf('Invalid condition create method %s::%s().', get_class($this), $methodName)
+      \sprintf('Invalid condition create method %s::%s().', \get_class($this), $methodName)
     );
   }
 
+  /**
+   * @return \Traversable
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_conditions);
   }
 
+  /**
+   * @return int
+   */
   public function count() {
-    return count($this->_conditions);
+    return \count($this->_conditions);
   }
 
+  /**
+   * @param bool $silent
+   * @return string
+   */
   public function getSql($silent = FALSE) {
     switch ($this->_operator) {
       case 'OR' :
-        $concatinator = ' OR ';
+        $glue = ' OR ';
       break;
       case 'NOT' :
       case 'AND' :
       default:
-        $concatinator = ' AND ';
+        $glue = ' AND ';
     }
     $result = '';
     /** @var Element $condition */
     foreach ($this as $condition) {
       if ($sql = $condition->getSql($silent)) {
-        $result .= $concatinator.$sql;
+        $result .= $glue.$sql;
       }
     }
-    $result = substr($result, strlen($concatinator));
+    $result = \substr($result, \strlen($glue));
     if (empty($result)) {
       return '';
-    } elseif ('NOT' === $this->_operator) {
-      return 'NOT('.$result.')';
-    } else {
-      return '('.$result.')';
     }
+    if ('NOT' === $this->_operator) {
+      return 'NOT('.$result.')';
+    }
+    return '('.$result.')';
   }
 }

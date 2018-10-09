@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Theme;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * This object loads the available theme sets into a list.
  *
@@ -23,30 +26,28 @@ namespace Papaya\Content\Theme;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Sets extends \Papaya\Database\Records\Lazy {
-
+class Skins extends Database\Records\Lazy {
   /**
    * Map field names to more convinient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'themeset_id',
     'title' => 'themeset_title',
     'theme' => 'theme_name'
-  );
+  ];
 
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
-  protected $_orderByFields = array(
-    'themeset_title' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  protected $_orderByFields = [
+    'themeset_title' => Database\Interfaces\Order::ASCENDING
+  ];
 
   /**
    * Table containing view information
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
-
+  protected $_tableName = Content\Tables::THEME_SKINS;
 }

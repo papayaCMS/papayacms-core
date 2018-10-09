@@ -25,7 +25,7 @@ class XMLTest extends \Papaya\TestCase {
     $message = new XML(\Papaya\UI\Message::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertEquals(
     /** @lang XML */
-      '<error event="sample" occured="yes">content</error>', $message->getXML()
+      '<error event="sample" occurred="yes" occured="yes">content</error>', $message->getXML()
     );
   }
 
@@ -39,7 +39,7 @@ class XMLTest extends \Papaya\TestCase {
     );
     $this->assertEquals(
     /** @lang XML */
-      '<error event="sample" occured="yes"><b>foo</b></error>', $message->getXML()
+      '<error event="sample" occurred="yes" occured="yes"><b>foo</b></error>', $message->getXML()
     );
   }
 }

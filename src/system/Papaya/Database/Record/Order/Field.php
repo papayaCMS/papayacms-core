@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order;
+
+use Papaya\Database;
+use Papaya\Utility;
 
 /**
  * Encapsulate data for an sql order by element
@@ -22,33 +24,33 @@ namespace Papaya\Database\Record\Order;
  * @subpackage Database
  */
 class Field
-  implements \Papaya\Database\Interfaces\Order {
-
+  implements Database\Interfaces\Order {
   /**
    * @var string
    */
   private $_field;
+
   /**
-   * @var integer
+   * @var int
    */
   private $_direction;
 
   /**
    * @var array
    */
-  private $_directions = array(
+  private $_directions = [
     self::ASCENDING => 'ASC',
     self::DESCENDING => 'DESC'
-  );
+  ];
 
   /**
    * Create object store field name and order by direction
    *
    * @param string $field
-   * @param integer $direction
+   * @param int $direction
    */
   public function __construct($field, $direction = self::ASCENDING) {
-    \Papaya\Utility\Constraints::assertNotEmpty($field);
+    Utility\Constraints::assertNotEmpty($field);
     $this->_field = (string)$field;
     $this->_direction = (int)$direction;
   }
@@ -65,7 +67,8 @@ class Field
   /**
    * Get sql identifier string for the order by direction (ASC or DESC)
    *
-   * @param integer $direction
+   * @param int $direction
+   *
    * @return string
    */
   protected function getDirectionString($direction) {

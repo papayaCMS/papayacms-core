@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
+
 /**
  * An file system iterator encapsulating the glob() function
  *
@@ -21,10 +21,20 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class Glob implements \IteratorAggregate, \Countable {
+  /**
+   * @var string
+   */
+  private $_path;
 
-  private $_path = '';
+  /**
+   * @var int
+   */
   private $_flags = 0;
-  private $_files = NULL;
+
+  /**
+   * @var array|null
+   */
+  private $_files;
 
   /**
    * Create object and store path and flags.
@@ -39,20 +49,20 @@ class Glob implements \IteratorAggregate, \Countable {
    * GLOB_ERR - Stop on read errors (like unreadable directories), by default errors are ignored.
    *
    * @param string $path
-   * @param integer $flags
+   * @param int $flags
    */
   public function __construct($path, $flags = 0) {
-    $this->_path = $path;
+    $this->_path = (string)$path;
     $this->setFlags($flags);
   }
 
   /**
    * Set the flags
    *
-   * @param integer $flags
+   * @param int $flags
    */
   public function setFlags($flags) {
-    $this->_flags = $flags;
+    $this->_flags = (int)$flags;
     $this->rewind();
   }
 
@@ -66,7 +76,7 @@ class Glob implements \IteratorAggregate, \Countable {
   /**
    * Get the currently set flags
    *
-   * @return integer
+   * @return int
    */
   public function getFlags() {
     return $this->_flags;
@@ -79,9 +89,9 @@ class Glob implements \IteratorAggregate, \Countable {
    * @return array
    */
   private function getFilesLazy() {
-    if (is_null($this->_files)) {
-      $this->_files = array();
-      foreach (glob($this->_path, $this->_flags) as $file) {
+    if (NULL === $this->_files) {
+      $this->_files = [];
+      foreach (\glob($this->_path, $this->_flags) as $file) {
         $this->_files[] = $file;
       }
     }
@@ -101,6 +111,6 @@ class Glob implements \IteratorAggregate, \Countable {
    * Return the file count.
    */
   public function count() {
-    return count($this->getFilesLazy());
+    return \count($this->getFilesLazy());
   }
 }

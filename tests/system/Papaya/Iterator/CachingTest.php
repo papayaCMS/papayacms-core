@@ -63,19 +63,6 @@ class CachingTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Iterator\Caching::__construct
-   * @covers \Papaya\Iterator\Caching::setCallback
-   */
-  public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->expectException(\InvalidArgumentException::class);
-    $this->expectExceptionMessage('Provided callback parameter is not valid.');
-    new Caching(
-      $innerIterator = new \EmptyIterator(),
-      new \stdClass()
-    );
-  }
-
-  /**
    * @covers \Papaya\Iterator\Caching::getCache
    * @covers \Papaya\Iterator\Caching::rewind
    */

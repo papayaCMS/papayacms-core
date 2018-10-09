@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
+
 /**
  * Papaya Utilities - string functions for Javascript
  *
@@ -21,21 +21,20 @@ namespace Papaya\Utility\Text;
  * @subpackage Util
  */
 class Javascript {
-
   /**
    * Escape and quote javascript string
    *
    * @param string $string
    * @param string $quoteChar
+   *
    * @return string
    */
   public static function quote($string, $quoteChar = "'") {
-    $result = str_replace(
-      array('\\', "\r", "\n", $quoteChar, '--'),
-      array('\\\\', "\\r", "\\n", '\\'.$quoteChar, '-'.$quoteChar.' + '.$quoteChar.'-'),
+    $result = \str_replace(
+      ['\\', "\r", "\n", $quoteChar, '--'],
+      ['\\\\', '\\r', '\\n', '\\'.$quoteChar, '-'.$quoteChar.' + '.$quoteChar.'-'],
       $string
     );
     return $quoteChar.$result.$quoteChar;
   }
-
 }

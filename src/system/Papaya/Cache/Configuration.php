@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache;
+
 /**
  * Cache configuration class, defines the options curretly used by the cache services
  *
@@ -21,19 +21,18 @@ namespace Papaya\Cache;
  * @subpackage Cache
  */
 class Configuration extends \Papaya\Configuration {
-
   /**
    * Create object and define options
    */
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'SERVICE' => 'file',
         'FILESYSTEM_PATH' => '/tmp',
         'FILESYSTEM_NOTIFIER_SCRIPT' => '',
         'FILESYSTEM_DISABLE_CLEAR' => FALSE,
         'MEMCACHE_SERVERS' => ''
-      )
+      ]
     );
   }
 }

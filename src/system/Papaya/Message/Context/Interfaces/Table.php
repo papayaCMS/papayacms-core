@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Interfaces;
+
 /**
  * Interface for message string contexts
  *
@@ -23,27 +23,27 @@ namespace Papaya\Message\Context\Interfaces;
  * @subpackage Messages
  */
 interface Table
-  extends \Papaya\Message\Context\Interfaces\Items {
-
+  extends Items {
   /**
    * Get table column header if available
    *
-   * @return array|NULL
+   * @return array|null
    */
-  function getColumns();
+  public function getColumns();
 
   /**
    * Get the data row count
    *
-   * @return integer
+   * @return int
    */
-  function getRowCount();
+  public function getRowCount();
 
   /**
    * Get data row by position
    *
    * @param $position
+   *
    * @return array
    */
-  function getRow($position);
+  public function getRow($position);
 }

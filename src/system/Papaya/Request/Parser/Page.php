@@ -12,21 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parser;
+
+use Papaya\Request;
+
 /**
  * Papaya request parser for page links
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Page extends \Papaya\Request\Parser {
-
+class Page extends Request\Parser {
   /**
-  * PCRE pattern for page links
-  *
-  * @var string
-  */
+   * PCRE pattern for page links
+   *
+   * @var string
+   */
   private $_pattern = '(
     ^(/[^/\n?#]+)*/ # anything before the last path /
     (?:(?P<page_title>(?:%[\\dA-Fa-f]{2}|[\\sa-zA-Z\\d_-]+)+)\\.) # title
@@ -44,11 +45,12 @@ class Page extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   *
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'page';
       $result['output_mode'] = $matches['mode'];
       if (!empty($matches['preview'])) {

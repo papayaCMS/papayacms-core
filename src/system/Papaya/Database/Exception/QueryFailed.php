@@ -12,23 +12,41 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Exception;
+
+use Papaya\Database;
+
 /**
- * Papaya database connection exception, thrown if an error occurs during connect
+ * Papaya database query exception, thrown on sql errors
  *
  * @package Papaya-Library
  * @subpackage Database
  */
-class Connect extends \Papaya\Database\Exception {
+class QueryFailed extends Database\Exception {
+  /**
+   * Sent sql query
+   *
+   * @var string
+   */
+  private $_sql;
 
   /**
-   * Create exception and store values
+   * Initialize exception and store values.
    *
    * @param string $message
-   * @param integer $code
+   * @param int $code
+   * @param int $severity
+   * @param string $sql
    */
-  public function __construct($message, $code = 0) {
-    parent::__construct($message, $code, \Papaya\Database\Exception::SEVERITY_ERROR);
+  public function __construct($message, $code = 0, $severity = NULL, $sql = '') {
+    parent::__construct($message, $code, $severity);
+    $this->_sql = $sql;
+  }
+
+  /**
+   * Return sql query
+   */
+  public function getStatement() {
+    return $this->_sql;
   }
 }

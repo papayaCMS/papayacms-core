@@ -12,37 +12,40 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Condition;
+
+use Papaya\Database;
+use Papaya\UI;
+
 /**
  * A command condition based on a database records existence.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Record extends \Papaya\UI\Control\Command\Condition {
-
+class Record extends UI\Control\Command\Condition {
   /**
    * member variable to store the record
    *
-   * @var \Papaya\Database\Record
+   * @var Database\Record
    */
   private $_record;
 
   /**
    * Create object and store callback.
    *
-   * @param \Papaya\Database\Record $record
+   * @param Database\Record $record
+   *
    * @throws \InvalidArgumentException
    */
-  public function __construct(\Papaya\Database\Record $record) {
+  public function __construct(Database\Record $record) {
     $this->_record = $record;
   }
 
   /**
    * Execute callback and return value. Returns true if the record exists
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
     return $this->_record->key()->exists();

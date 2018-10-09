@@ -12,10 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator\Filter;
+
+use Papaya\Iterator\TraversableIterator;
+use Papaya\Utility;
+
 /**
- * An filter iterator to filter an given iterator using a callback function.
+ * An filter iterator to filter a given iterator using a callback function.
  *
  * Unlike PHP 5.4 {@see FilterIteratorCallback} this class allows to iterate a traversable, too.
  *
@@ -23,20 +26,22 @@ namespace Papaya\Iterator\Filter;
  * @subpackage Iterator
  */
 class Callback extends \FilterIterator {
-
-  private $_callback = NULL;
+  /**
+   * @var callable
+   */
+  private $_callback;
 
   /**
    * Create filter iterator and store values, if the provided Iterator is only a
    * Traversable, wrap it using IteratorIterator.
    *
    *
-   * @param \Traversable $iterator
+   * @param \Traversable $traversable
    * @param callable $callback
    */
-  public function __construct(\Traversable $iterator, $callback) {
+  public function __construct(\Traversable $traversable, $callback) {
     parent::__construct(
-      $iterator instanceof \Iterator ? $iterator : new \IteratorIterator($iterator)
+      $traversable instanceof \Iterator ? $traversable : new TraversableIterator($traversable)
     );
     $this->setCallback($callback);
   }
@@ -46,11 +51,10 @@ class Callback extends \FilterIterator {
    *
    * @param callable $callback
    */
-  public function setCallback($callback) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+  public function setCallback(callable $callback) {
+    Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
-
 
   /**
    * return stored the callback
@@ -64,11 +68,11 @@ class Callback extends \FilterIterator {
   /**
    * Use the callback to validate an element
    *
-   * @return boolean
+   * @return bool
    */
   public function accept() {
-    return call_user_func(
-      $this->_callback,
+    $callback = $this->_callback;
+    return $callback(
       $this->getInnerIterator()->current(),
       $this->getInnerIterator()->key()
     );

@@ -12,25 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject\Text;
 
 /**
- * A list of strings that is castable to a string using a default offset
+ * A list of strings that can be cast into a string using a default offset
  *
  * If you cast is to a string the default element will be casted to string and returned.
  *
  * But you can treat it like an array, too.
  *
+ * It makes it easier to handle lists that contain a single value typically or
+ * a main value. HTTP headers are an example for that.
+ *
  * @package Papaya-Library
  * @subpackage Objects
  */
 class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * @var \ArrayObject
    */
-  private $_values = NULL;
+  private $_values;
 
   /**
    * @var int|string
@@ -43,7 +44,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @param mixed $values
    * @param int|string $defaultOffset
    */
-  public function __construct($values = array(), $defaultOffset = 0) {
+  public function __construct($values = [], $defaultOffset = 0) {
     $this->_defaultOffset = $defaultOffset;
     $this->assign($values);
   }
@@ -55,8 +56,8 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @param mixed $values
    */
   public function assign($values) {
-    $this->_values = new \ArrayObject;
-    if (is_array($values) || $values instanceof \Traversable) {
+    $this->_values = new \ArrayObject();
+    if (\is_array($values) || $values instanceof \Traversable) {
       foreach ($values as $key => $value) {
         $this->_values[$key] = (string)$value;
       }
@@ -71,6 +72,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string|int $offset
    * @param string $defaultValue
+   *
    * @return string
    */
   public function get($offset, $defaultValue = NULL) {
@@ -118,7 +120,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @see \Countable::count()
    */
   public function count() {
-    return count($this->_values);
+    return \count($this->_values);
   }
 
   /**

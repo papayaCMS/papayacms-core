@@ -12,29 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A field containing a listview control.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class ListView extends \Papaya\UI\Dialog\Field {
-
+class ListView extends UI\Dialog\Field {
   /**
    * listview object buffer
    *
-   * @var \Papaya\UI\ListView
+   * @var UI\ListView
    */
-  private $_listview = NULL;
+  private $_listview;
 
   /**
    * Create object and assign needed values.
    *
-   * @param \Papaya\UI\ListView $listview
+   * @param UI\ListView $listview
    */
-  public function __construct(\Papaya\UI\ListView $listview) {
+  public function __construct(UI\ListView $listview) {
     $this->listview($listview);
   }
 
@@ -42,11 +44,12 @@ class ListView extends \Papaya\UI\Dialog\Field {
    * Getter/Setter for the listview, the listview is always set in the constructor and
    * can never be NULL, so no implicit create is needed.
    *
-   * @param \Papaya\UI\ListView $listview
-   * @return \Papaya\UI\ListView
+   * @param UI\ListView $listview
+   *
+   * @return UI\ListView
    */
-  public function listview(\Papaya\UI\ListView $listview = NULL) {
-    if (isset($listview)) {
+  public function listview(UI\ListView $listview = NULL) {
+    if (NULL !== $listview) {
       $this->_listview = $listview;
     }
     return $this->_listview;
@@ -55,10 +58,11 @@ class ListView extends \Papaya\UI\Dialog\Field {
   /**
    * Append field to dialog xml element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->append($this->listview());
     return $field;

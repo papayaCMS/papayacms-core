@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
+
 /**
  * Papaya Utilities for Arrays
  *
@@ -21,24 +21,28 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class Arrays {
-
   /**
    * recursive merge for two arrays with out changing the keys
    *
    * @param array|\Traversable $arrayOne
    * @param array|\Traversable $arrayTwo
-   * @param integer $recursion
+   * @param int $recursion
+   *
    * @return array
    */
   public static function merge($arrayOne, $arrayTwo, $recursion = 20) {
-    if (is_array($arrayOne) || $arrayOne instanceof \Traversable) {
+    $isTraversableOne = \is_array($arrayOne) || $arrayOne instanceof \Traversable;
+    $isTraversableTwo = \is_array($arrayTwo) || $arrayTwo instanceof \Traversable;
+    if ($isTraversableOne) {
       $result = self::ensure($arrayOne);
-      if (is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
+      if ($isTraversableTwo) {
         foreach ($arrayTwo as $key => $value) {
-          if (isset($result[$key]) &&
-            (is_array($result[$key]) || $result[$key] instanceof \Traversable) &&
-            $recursion > 1) {
-            $result[$key] = \Papaya\Utility\Arrays::merge(
+          if (
+            $recursion > 1 &&
+            isset($result[$key]) &&
+            (\is_array($result[$key]) || $result[$key] instanceof \Traversable)
+          ) {
+            $result[$key] = self::merge(
               self::ensure($result[$key]), $value, $recursion - 1
             );
           } else {
@@ -46,10 +50,10 @@ class Arrays {
           }
         }
       }
-    } elseif (is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
+    } elseif ($isTraversableTwo) {
       $result = self::ensure($arrayTwo);
     } else {
-      return NULL;
+      return [];
     }
     return $result;
   }
@@ -63,15 +67,16 @@ class Arrays {
    *
    * @param mixed $input
    * @param bool $useKeys
+   *
    * @return array
    */
   public static function ensure($input, $useKeys = TRUE) {
-    if (is_array($input)) {
-      return ($useKeys) ? $input : array_values($input);
+    if (\is_array($input)) {
+      return ($useKeys) ? $input : \array_values($input);
     } elseif ($input instanceof \Traversable) {
-      return iterator_to_array($input, $useKeys);
+      return \iterator_to_array($input, $useKeys);
     } else {
-      return array($input);
+      return [$input];
     }
   }
 
@@ -83,19 +88,19 @@ class Arrays {
    * @param \Callable $callback
    */
   public static function normalize(&$value, $callback = NULL) {
-    if (is_array($value)) {
+    if (\is_array($value)) {
       foreach ($value as &$subValue) {
         self::normalize($subValue);
       }
-    } elseif (is_callable($callback)) {
-      $value = call_user_func($callback, $value);
-    } elseif (is_object($value)) {
-      if (method_exists($value, '__toString')) {
+    } elseif (\is_callable($callback)) {
+      $value = \call_user_func($callback, $value);
+    } elseif (\is_object($value)) {
+      if (\method_exists($value, '__toString')) {
         $value = (string)$value;
       } else {
-        $value = get_class($value);
+        $value = \get_class($value);
       }
-    } elseif (!is_string($value)) {
+    } elseif (!\is_string($value)) {
       $value = (string)$value;
     }
   }
@@ -107,18 +112,19 @@ class Arrays {
    * @param array $array
    * @param mixed $index
    * @param mixed $default
+   *
    * @return mixed
    */
   public static function get(array $array, $index, $default = NULL) {
-    if (is_array($index) || $index instanceof \Traversable) {
+    if (\is_array($index) || $index instanceof \Traversable) {
       foreach ($index as $key) {
-        if (array_key_exists($key, $array)) {
+        if (\array_key_exists($key, $array)) {
           return $array[$key];
         }
       }
       return $default;
-    } elseif (is_scalar($index)) {
-      return array_key_exists($index, $array) ? $array[$index] : $default;
+    } elseif (\is_scalar($index)) {
+      return \array_key_exists($index, $array) ? $array[$index] : $default;
     }
     return $default;
   }
@@ -130,14 +136,15 @@ class Arrays {
    * @param array $array
    * @param array $keys
    * @param mixed $default
+   *
    * @return mixed
    */
   public static function getRecursive(array $array, array $keys, $default = NULL) {
-    if (count($array) > 0) {
+    if (\count($array) > 0) {
       $data = $array;
       foreach ($keys as $key) {
-        if (is_array($data) && array_key_exists($key, $data)) {
-          $data =& $data[$key];
+        if (\is_array($data) && \array_key_exists($key, $data)) {
+          $data = &$data[$key];
         } else {
           $data = $default;
           break;
@@ -152,13 +159,14 @@ class Arrays {
    * Extract all positive integer numbers from a stirng into an array
    *
    * @param string $string
+   *
    * @return array
    */
   public static function decodeIdList($string) {
-    if (preg_match_all('([+-]?\d+)', $string, $matches)) {
-      return is_array($matches[0]) ? $matches[0] : array();
+    if (\preg_match_all('([+-]?\d+)', $string, $matches)) {
+      return \is_array($matches[0]) ? $matches[0] : [];
     }
-    return array();
+    return [];
   }
 
   /**
@@ -166,10 +174,11 @@ class Arrays {
    *
    * @param array $list
    * @param string $separator
+   *
    * @return string
    */
   public static function encodeIdList(array $list, $separator = ';') {
-    return implode($separator, $list);
+    return \implode($separator, $list);
   }
 
   /**
@@ -178,6 +187,7 @@ class Arrays {
    * @param array $list
    * @param string $quote
    * @param string $separator
+   *
    * @return string
    */
   public static function encodeAndQuoteIdList(array $list, $quote = ';', $separator = ';') {

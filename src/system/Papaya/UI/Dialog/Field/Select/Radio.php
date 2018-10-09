@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Select;
+
+use Papaya\UI;
+
 /**
  * A selection field displayed as radio boxes, only a single value can be selected.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Radio extends \Papaya\UI\Dialog\Field\Select {
-
+class Radio extends UI\Dialog\Field\Select {
   /**
    * type of the select control, used in the xslt template
    *

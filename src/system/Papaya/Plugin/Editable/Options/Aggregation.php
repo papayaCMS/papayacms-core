@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable\Options;
+
+use Papaya\Plugin;
+
 /**
  * This a standard implementation for editable plugin options. It
  * makes implements the \Papaya\Plugin\Editable interface and
@@ -25,7 +27,6 @@ namespace Papaya\Plugin\Editable\Options;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
    * @var \Papaya\Plugin\Editable\Content
    */
@@ -35,17 +36,22 @@ trait Aggregation {
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
    * @see \Papaya\Plugin\Adaptable::options()
-   * @param \Papaya\Plugin\Editable\Options $options
-   * @return \Papaya\Plugin\Editable\Options
+   *
+   * @param Plugin\Editable\Options $options
+   *
+   * @return Plugin\Editable\Options
    */
-  public function options(\Papaya\Plugin\Editable\Options $options = NULL) {
+  public function options(Plugin\Editable\Options $options = NULL) {
     if (NULL !== $options) {
       $this->_options = $options;
     } elseif (NULL === $this->_options) {
-      $this->_options = new \Papaya\Plugin\Editable\Options(
-        new \Papaya\Plugin\Options($this->getPluginGuid())
+      $this->_options = new Plugin\Editable\Options(
+        new Plugin\Options($this->getPluginGuid())
       );
-      $this->_options->callbacks()->onCreateEditor = function ($context, \Papaya\Plugin\Editable\Options $content) {
+      $this->_options->callbacks()->onCreateEditor = function(
+        /** @noinspection PhpUnusedParameterInspection */
+        $context, Plugin\Editable\Options $content
+      ) {
         return $this->createOptionsEditor($content);
       };
     }
@@ -53,10 +59,11 @@ trait Aggregation {
   }
 
   /**
-   * @param \Papaya\Plugin\Editable\Options $content
+   * @param Plugin\Editable\Options $content
+   *
    * @return \Papaya\Plugin\Editor
    */
-  abstract public function createOptionsEditor(\Papaya\Plugin\Editable\Options $content);
+  abstract public function createOptionsEditor(Plugin\Editable\Options $content);
 
   /**
    * The plugin guid will be set as a public property by the plugin manager.

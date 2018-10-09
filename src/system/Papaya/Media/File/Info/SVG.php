@@ -13,40 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+/** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Media\File\Info;
-class SVG extends \Papaya\Media\File\Info {
 
+class SVG extends \Papaya\Media\File\Info {
   public $forceDOM = FALSE;
 
   const XMLNS_SVG = 'http://www.w3.org/2000/svg';
 
   public function isSupported(array $fileProperties = []) {
-    $extension = strrchr($this->getOriginalFileName(), '.');
+    $extension = \strrchr($this->getOriginalFileName(), '.');
     return (
       (
         isset($fileProperties['mimetype']) &&
         (
-          $fileProperties['mimetype'] === 'image/svg' ||
-          $fileProperties['mimetype'] === 'image/svg+xml'
+          'image/svg' === $fileProperties['mimetype'] ||
+          'image/svg+xml' === $fileProperties['mimetype']
         )
       ) ||
       (
-        $extension === '.svg'
+        '.svg' === $extension
       )
     );
   }
 
   protected function fetchProperties() {
-    $properties = array(
+    $properties = [
       'is_valid' => FALSE,
       'width' => 0,
       'height' => 0
-    );
-    if (!$this->forceDOM && class_exists('XMLReader')) {
+    ];
+    if (!$this->forceDOM && \class_exists('XMLReader')) {
       $reader = new \XMLReader();
       if (@$reader->open($this->getFile())) {
         $found = @$reader->read();
-        while ($found && !($reader->localName === 'svg' && $reader->namespaceURI === self::XMLNS_SVG)) {
+        while ($found && !('svg' === $reader->localName && self::XMLNS_SVG === $reader->namespaceURI)) {
           $found = $reader->next('svg');
         }
         if ($found) {
@@ -59,7 +60,7 @@ class SVG extends \Papaya\Media\File\Info {
       $document = new \Papaya\XML\Document();
       if (@$document->load($this->getFile())) {
         $node = $document->documentElement;
-        if ($node && $node->localName === 'svg' && $node->namespaceURI === self::XMLNS_SVG) {
+        if ($node && 'svg' === $node->localName && self::XMLNS_SVG === $node->namespaceURI) {
           $properties['is_valid'] = TRUE;
           $properties['width'] = (int)$node->getAttribute('width');
           $properties['height'] = (int)$node->getAttribute('height');

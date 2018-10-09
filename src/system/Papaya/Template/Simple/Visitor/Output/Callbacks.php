@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\Visitor\Output;
+
 /**
  * Callbacks that are used by the simple template output visitor
  *
@@ -21,15 +21,15 @@ namespace Papaya\Template\Simple\Visitor\Output;
  * @subpackage Database
  *
  * @property \Papaya\BaseObject\Callback $onGetValue
+ *
  * @method string onGetValue(string $nodeName)
  */
 class Callbacks extends \Papaya\BaseObject\Callbacks {
-
   public function __construct() {
     parent::__construct(
-      array(
+      [
         'onGetValue' => NULL
-      )
+      ]
     );
   }
 }

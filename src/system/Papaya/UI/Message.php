@@ -12,76 +12,102 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\BaseObject\Interfaces\StringCastable;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Abstract/Basic superclass for the user messages.
  *
- * This are messages diplayed to the user on a page. They can have differnt kind of severities
+ * This are messages displayed to the user on a page. They can have different kind of severities
  * and always have a event. This is a string identifier for the event the message is for.
  *
- * Occured is an boolean attribute, that is true if the message actually occured in the current
+ * Occurred is an boolean attribute, that is true if the message actually occurred in the current
  * request. It is sometimes needed to output a message to the xml even if the event did not happen.
  * A typical case for this is a javascript action/event.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property integer $severity
- * @property boolean $occured
- * @property string|\Papaya\UI\Text $event
+ * @property int $severity
+ * @property bool $occurred
+ * @property string|StringCastable $event
  */
-abstract class Message
-  extends Control {
-
+abstract class Message extends Control {
   const SEVERITY_INFORMATION = 0;
+
   const SEVERITY_WARNING = 1;
+
   const SEVERITY_ERROR = 2;
+
   const SEVERITY_CONFIRMATION = 3;
 
-  private $_tagNames = array(
+  /**
+   * @var array
+   */
+  private $_tagNames = [
     self::SEVERITY_INFORMATION => 'information',
     self::SEVERITY_WARNING => 'warning',
     self::SEVERITY_ERROR => 'error',
     self::SEVERITY_CONFIRMATION => 'confirmation'
-  );
+  ];
 
+  /**
+   * @var int
+   */
   protected $_severity = self::SEVERITY_INFORMATION;
-  protected $_event = '';
-  protected $_occured = FALSE;
 
-  protected $_declaredProperties = array(
-    'severity' => array('_severity', 'setSeverity'),
-    'event' => array('_event', 'setEvent'),
-    'occured' => array('_occured', 'setOccured')
-  );
+  /**
+   * @var string
+   */
+  protected $_event = '';
+
+  /**
+   * @var bool
+   */
+  protected $_occurred = FALSE;
+
+  /**
+   * @var array
+   */
+  protected $_declaredProperties = [
+    'severity' => ['_severity', 'setSeverity'],
+    'event' => ['_event', 'setEvent'],
+    'occured' => ['_occurred', 'setOccurred'],
+    'occurred' => ['_occurred', 'setOccurred']
+  ];
 
   /**
    * Create object and store basic properties
    *
-   * @param integer $severity
+   * @param int $severity
    * @param string $event
-   * @param boolean $occured
+   * @param bool $occurred
    */
-  public function __construct($severity, $event, $occured = FALSE) {
+  public function __construct($severity, $event, $occurred = FALSE) {
     $this->setSeverity($severity);
     $this->setEvent($event);
-    $this->setOccured($occured);
+    $this->setOccurred($occurred);
   }
 
   /**
    * Append message to parent xml element and return it.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element the appended message xml element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element the appended message xml element
    */
-  protected function appendMessageElement(\Papaya\XML\Element $parent) {
+  protected function appendMessageElement(XML\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
-      array(
+      [
         'event' => $this->event,
-        'occured' => $this->occured ? 'yes' : 'no'
-      )
+        'occurred' => $this->occurred ? 'yes' : 'no',
+        /* @todo remove property and attribute */
+        'occured' => $this->occurred ? 'yes' : 'no'
+      ]
     );
   }
 
@@ -89,11 +115,12 @@ abstract class Message
    * Validate and set the message severity.
    *
    * @throws \InvalidArgumentException
-   * @param integer $severity
+   *
+   * @param int $severity
    */
   public function setSeverity($severity) {
-    \Papaya\Utility\Constraints::assertInteger($severity);
-    if (!array_key_exists($severity, $this->_tagNames)) {
+    Utility\Constraints::assertInteger($severity);
+    if (!\array_key_exists($severity, $this->_tagNames)) {
       throw new \InvalidArgumentException('Invalid severity for message.');
     }
     $this->_severity = $severity;
@@ -102,27 +129,28 @@ abstract class Message
   /**
    * Validate and set the message event identifier string.
    *
-   * @param string $event
+   * @param string|StringCastable $event
    */
   public function setEvent($event) {
     $event = (string)$event;
-    \Papaya\Utility\Constraints::assertNotEmpty($event);
+    Utility\Constraints::assertNotEmpty($event);
     $this->_event = $event;
   }
 
   /**
-   * Validate and set the message occured status.
+   * Validate and set the message occurred status.
    *
-   * @param boolean $occured
+   * @param bool $occurred
    */
-  public function setOccured($occured) {
-    $this->_occured = (boolean)$occured;
+  public function setOccurred($occurred) {
+    $this->_occurred = (bool)$occurred;
   }
 
   /**
    * Get the tag name. The xml element name depends on the severity.
    *
-   * @param integer $severity
+   * @param int $severity
+   *
    * @return string
    */
   protected function getTagName($severity) {

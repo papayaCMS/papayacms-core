@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parser;
+
+use Papaya\Request;
+
 /**
  * Papaya request parser for media database thumbnail links
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Thumbnail extends \Papaya\Request\Parser {
-
+class Thumbnail extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *
@@ -45,11 +46,12 @@ class Thumbnail extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   *
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'thumbnail';
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;

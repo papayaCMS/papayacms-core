@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
 
 /**
  * Provide data encapsulation for a single content page version and access to its translations.
@@ -23,30 +25,29 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $id
- * @property integer $created
+ * @property int $id
+ * @property int $created
  * @property string $owner
  * @property string $message
- * @property integer $level
- * @property integer $pageId
- * @property integer $modified
- * @property integer $position page position relative to its siblings
- * @property boolean $inheritBoxes box inheritance
- * @property integer $defaultLanguage default/fallback language,
- * @property integer $linkType page link type for navigation,
- * @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
- * @property integer $changeFrequency change frequency (for search engines)
- * @property integer $priority content priority (for search engines)
- * @property integer $scheme page scheme (http, https or both)
+ * @property int $level
+ * @property int $pageId
+ * @property int $modified
+ * @property int $position page position relative to its siblings
+ * @property bool $inheritBoxes box inheritance
+ * @property int $defaultLanguage default/fallback language,
+ * @property int $linkType page link type for navigation,
+ * @property bool $inheritMetaInfo inherit meta information like page title and keywords,
+ * @property int $changeFrequency change frequency (for search engines)
+ * @property int $priority content priority (for search engines)
+ * @property int $scheme page scheme (http, https or both)
  */
-class Version extends \Papaya\Database\BaseObject\Record {
-
+class Version extends Database\BaseObject\Record {
   /**
    * Map properties to database fields
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     // auto increment version id
     'id' => 'version_id',
     // version timestamp
@@ -79,14 +80,14 @@ class Version extends \Papaya\Database\BaseObject\Record {
     'link_type' => 'linktype_id',
     // page scheme/protocol
     'scheme' => 'topic_protocol'
-  );
+  ];
 
   /**
    * version table name for default load() implementations
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSIONS;
+  protected $_tableName = Content\Tables::PAGE_VERSIONS;
 
   /**
    * version translations list subobject
@@ -101,7 +102,8 @@ class Version extends \Papaya\Database\BaseObject\Record {
    *
    * @throws \LogicException
    * @throws \UnexpectedValueException
-   * @return boolean
+   *
+   * @return bool
    */
   public function save() {
     if (isset($this->id)) {
@@ -118,10 +120,10 @@ class Version extends \Papaya\Database\BaseObject\Record {
   /**
    * Create and store a backup of the current page working copy and its translations
    *
-   * @return integer|FALSE
+   * @return int|false
    */
   private function create() {
-    $sql = /** @lang Text */
+    $sql = /* @lang Text */
       "INSERT INTO %s (
              version_time, version_author_id, version_message, topic_change_level,
              topic_id, topic_modified, topic_weight, topic_changefreq, topic_priority,
@@ -133,20 +135,20 @@ class Version extends \Papaya\Database\BaseObject\Record {
              meta_useparent, box_useparent, topic_mainlanguage, linktype_id, topic_protocol
         FROM %s
        WHERE topic_id = '%d'";
-    $parameters = array(
+    $parameters = [
       $this->databaseGetTableName($this->_tableName),
-      isset($this->created) ? $this->created : time(),
+      isset($this->created) ? $this->created : \time(),
       $this->owner,
       $this->message,
       isset($this->level) ? $this->level : -1,
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
+      $this->databaseGetTableName(Content\Tables::PAGES),
       $this->pageId
-    );
+    ];
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
       $newId = $this->databaseLastInsertId(
         $this->databaseGetTableName($this->_tableName), 'version_id'
       );
-      $sql = /** @lang Text */
+      $sql = /* @lang Text */
         "INSERT INTO %s (
                version_id, lng_id, version_published,
                topic_id, topic_title, topic_content, author_id,
@@ -157,12 +159,12 @@ class Version extends \Papaya\Database\BaseObject\Record {
                tt.view_id, tt.meta_title, tt.meta_keywords, tt.meta_descr
           FROM %s tt
          WHERE tt.topic_id = %d";
-      $parameters = array(
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS),
+      $parameters = [
+        $this->databaseGetTableName(Content\Tables::PAGE_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+        $this->databaseGetTableName(Content\Tables::PAGE_TRANSLATIONS),
         $this->pageId
-      );
+      ];
       $this->databaseQueryFmtWrite($sql, $parameters);
       return $newId;
     }
@@ -173,6 +175,7 @@ class Version extends \Papaya\Database\BaseObject\Record {
    * Access to the version translations
    *
    * @param Version\Translations $translations
+   *
    * @return Version\Translations
    */
   public function translations(Version\Translations $translations = NULL) {

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\UI;
+use Papaya\Utility;
+
 /**
  * Create dialog fields using profile objects.
  *
@@ -25,17 +28,18 @@ namespace Papaya\UI\Dialog\Field;
  * @subpackage UI
  */
 class Factory {
-
   /**
    * @var array
    */
-  private $_profiles = array();
+  private $_profiles = [];
 
   /**
    * Get the profile object for the given name.
    *
    * @param string $name
+   *
    * @return Factory\Profile
+   *
    * @throws Factory\Exception\InvalidProfile
    */
   public function getProfile($name) {
@@ -49,7 +53,9 @@ class Factory {
    *
    * @param string|Factory\Profile $profile
    * @param Factory\Options $options
+   *
    * @return \Papaya\UI\Dialog\Field
+   *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception
    */
   public function getField($profile, Factory\Options $options = NULL) {
@@ -68,11 +74,13 @@ class Factory {
    * converted to camel case with the first letter uppercase.
    *
    * @param string $name
+   *
    * @throws Factory\Exception\InvalidProfile
+   *
    * @return string
    */
   private function getProfileClass($name) {
-    $name = \Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
+    $name = Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (isset($this->_profiles[$name])) {
       return $this->_profiles[$name];
     }
@@ -80,7 +88,7 @@ class Factory {
       return __CLASS__.'\\Profile\\Input';
     }
     $class = __CLASS__.'\\Profile\\'.$name;
-    if (class_exists($class)) {
+    if (\class_exists($class)) {
       return $class;
     }
     throw new Factory\Exception\InvalidProfile($name);
@@ -95,9 +103,9 @@ class Factory {
    * @param array|\Traversable $profiles
    */
   public function registerProfiles($profiles) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($profiles);
+    Utility\Constraints::assertArrayOrTraversable($profiles);
     foreach ($profiles as $name => $profile) {
-      $this->_profiles[\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
+      $this->_profiles[Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
     }
   }
 }

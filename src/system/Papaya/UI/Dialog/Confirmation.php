@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
+
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * Confirmation dialog control
  *
@@ -22,12 +26,11 @@ namespace Papaya\UI\Dialog;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Confirmation extends \Papaya\UI\Dialog {
-
+class Confirmation extends UI\Dialog {
   /**
    * Dialog form method - should always be post for confirmation dialogs
    *
-   * @var NULL|integer
+   * @var null|int
    */
   protected $_method = self::METHOD_POST;
 
@@ -49,12 +52,12 @@ class Confirmation extends \Papaya\UI\Dialog {
    * Initialize object, set owner, field data and parameters group
    *
    * @param object $owner
-   * @param \Papaya\Request\Parameters|array $hiddenFields
+   * @param Request\Parameters|array $hiddenFields
    * @param string $parameterGroup
    */
   public function __construct($owner, $hiddenFields, $parameterGroup = NULL) {
     parent::__construct($owner);
-    if (isset($parameterGroup)) {
+    if (NULL !== $parameterGroup) {
       $this->parameterGroup($parameterGroup);
     }
     $this->hiddenFields()->merge($hiddenFields);
@@ -63,11 +66,11 @@ class Confirmation extends \Papaya\UI\Dialog {
   /**
    * Check if this dialog was submitted
    *
-   * @return boolean
+   * @return bool
    */
   public function isSubmitted() {
     if ($this->isPostRequest()) {
-      return $this->parameters()->get('confirmation') == $this->hiddenFields()->getChecksum();
+      return $this->parameters()->get('confirmation') === $this->hiddenFields()->getChecksum();
     }
     return FALSE;
   }
@@ -75,10 +78,10 @@ class Confirmation extends \Papaya\UI\Dialog {
   /**
    * Validate dialog (check the dialog token)
    *
-   * @return boolean
+   * @return bool
    */
   public function execute() {
-    if (is_null($this->_executionResult)) {
+    if (NULL === $this->_executionResult) {
       if ($this->isSubmitted()) {
         $this->_executionResult = $this->tokens()->validate(
           $this->parameters()->get('token'), $this->_owner
@@ -93,27 +96,28 @@ class Confirmation extends \Papaya\UI\Dialog {
   /**
    * Append dialog elements to dom
    *
-   * @param \Papaya\XML\Element $parent
-   * @return NULL|\Papaya\XML\Element|void
+   * @param XML\Element $parent
+   *
+   * @return null|XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $dialog = $parent->appendElement(
       'confirmation-dialog',
-      array('action' => $this->action(), 'method' => 'post')
+      ['action' => $this->action(), 'method' => 'post']
     );
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
-    $values = new \Papaya\Request\Parameters(
-      array(
-        'confirmation' => $this->hiddenFields()->getCheckSum(),
+    $values = new Request\Parameters(
+      [
+        'confirmation' => $this->hiddenFields()->getChecksum(),
         'token' => $this->tokens()->create($this->_owner)
-      )
+      ]
     );
     $this->appendHidden($dialog, $values, $this->parameterGroup());
-    $dialog->appendElement('message', array(), (string)$this->_message);
+    $dialog->appendElement('message', [], (string)$this->_message);
     $dialog->appendElement(
       'dialog-button',
-      array('type' => 'submit', 'caption' => (string)$this->_button)
+      ['type' => 'submit', 'caption' => (string)$this->_button]
     );
     $dialog->appendTo($parent);
     return $dialog;

@@ -12,30 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Locale\Germany;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for German zip code
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Zip implements \Papaya\Filter {
-
+class Zip implements Filter {
   /**
    * Check flag for country prefix
    *
-   * @var boolean|NULL
+   * @var bool|null
    */
   private $_allowCountryPrefix;
 
   /**
    * Constructor
    *
-   * @param bool|NULL $allowCountryPrefix
+   * @param bool|null $allowCountryPrefix
    */
   public function __construct($allowCountryPrefix = NULL) {
-    if (NULL !== $allowCountryPrefix && is_bool($allowCountryPrefix)) {
+    if (NULL !== $allowCountryPrefix && \is_bool($allowCountryPrefix)) {
       $this->_allowCountryPrefix = $allowCountryPrefix;
     }
   }
@@ -44,15 +45,18 @@ class Zip implements \Papaya\Filter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @throws \Papaya\Filter\Exception\InvalidLength\ToShort
-   * @throws \Papaya\Filter\Exception\InvalidLength\ToLong
-   * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @return TRUE
+   * @throws Filter\Exception
+   *
+   * @param mixed $value
+   *
+   * @throws Filter\Exception\InvalidLength\ToShort
+   * @throws Filter\Exception\InvalidLength\ToLong
+   * @throws Filter\Exception\InvalidCharacter
+   *
+   * @return true
    */
   public function validate($value) {
-    $matches = array();
+    $matches = [];
     $regexp = '(^
         (?P<prefix>
           D[ -]?
@@ -61,24 +65,24 @@ class Zip implements \Papaya\Filter {
           .*
         )
       $)Dix';
-    $found = preg_match(
+    $found = \preg_match(
       $regexp,
       $value,
       $matches
     );
     if ($found && TRUE === $this->_allowCountryPrefix && empty($matches['prefix'])) {
-      throw new \Papaya\Filter\Exception\InvalidCharacter($value, 0);
+      throw new Filter\Exception\InvalidCharacter($value, 0);
     }
-    if (!$found || empty($matches['zipcode']) || strlen($matches['zipcode']) < 5) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToShort(5, strlen($matches['zipcode']));
+    if (!$found || empty($matches['zipcode']) || \strlen($matches['zipcode']) < 5) {
+      throw new Filter\Exception\InvalidLength\ToShort(5, \strlen($matches['zipcode']));
     }
-    if (strlen($matches['zipcode']) > 5) {
-      throw new \Papaya\Filter\Exception\InvalidLength\ToLong(5, strlen($matches['zipcode']));
+    if (\strlen($matches['zipcode']) > 5) {
+      throw new Filter\Exception\InvalidLength\ToLong(5, \strlen($matches['zipcode']));
     }
-    $wrongMatches = array();
-    $wrongFound = preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);
+    $wrongMatches = [];
+    $wrongFound = \preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);
     if ($wrongFound) {
-      throw new \Papaya\Filter\Exception\InvalidCharacter($matches['zipcode'], $wrongMatches[0][1]);
+      throw new Filter\Exception\InvalidCharacter($matches['zipcode'], $wrongMatches[0][1]);
     }
     return TRUE;
   }
@@ -86,16 +90,16 @@ class Zip implements \Papaya\Filter {
   /**
    * The filter function is used to read a input value if it is valid.
    *
-   * @param string $value
-   * @return string|NULL
+   * @param mixed $value
+   *
+   * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Filter\Exception $e) {
       return NULL;
     }
   }
-
 }

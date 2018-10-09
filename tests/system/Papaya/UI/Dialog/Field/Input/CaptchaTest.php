@@ -115,7 +115,7 @@ namespace Papaya\UI\Dialog\Field\Input {
       $session
         ->expects($this->once())
         ->method('getValue')
-        ->with('PAPAYA_SESS_CAPTCHA', array())
+        ->with('PAPAYA_SESS_CAPTCHA')
         ->will($this->returnValue(array()));
       $field->collection($collection);
       $field->papaya($this->mockPapaya()->application(array('session' => $session)));
@@ -151,7 +151,7 @@ namespace Papaya\UI\Dialog\Field\Input {
       $session
         ->expects($this->once())
         ->method('getValue')
-        ->with('PAPAYA_SESS_CAPTCHA', array())
+        ->with('PAPAYA_SESS_CAPTCHA')
         ->will($this->returnValue(array()));
       $field->collection($collection);
       $field->papaya($this->mockPapaya()->application(array('session' => $session)));
@@ -188,7 +188,7 @@ namespace Papaya\UI\Dialog\Field\Input {
       $session
         ->expects($this->once())
         ->method('getValue')
-        ->with('PAPAYA_SESS_CAPTCHA', array())
+        ->with('PAPAYA_SESS_CAPTCHA')
         ->will($this->returnValue(array('someident' => 'somevalue', 'otherident' => 'othervalue')));
       $session
         ->expects($this->once())

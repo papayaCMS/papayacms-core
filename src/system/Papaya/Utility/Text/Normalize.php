@@ -12,23 +12,23 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Text;
+
 /**
  * @package Papaya-Library
  * @subpackage Util
  */
 class Normalize {
-
   /**
    * Format http header names lowercase but each first char
    * (at string start or after a -) has to be uppercase
    *
    * @param string $string
+   *
    * @return string
    */
   public static function toHTTPHeaderName($string) {
-    $parts = explode('-', strtolower($string));
-    return implode('-', array_map('ucfirst', $parts));
+    $parts = \explode('-', \strtolower($string));
+    return \implode('-', \array_map('ucfirst', $parts));
   }
 }

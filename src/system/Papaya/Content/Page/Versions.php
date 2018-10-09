@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page version list. The versions are created if
  * a page is published. They are not changeable.
@@ -24,58 +27,59 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Versions extends \Papaya\Database\BaseObject\Records {
-
+class Versions extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'version_id' => 'id',
     'version_time' => 'created',
     'version_author_id' => 'owner',
     'version_message' => 'message',
     'topic_change_level' => 'level',
     'topic_id' => 'page_id'
-  );
+  ];
 
   /**
    * Version table name
    *
    * @var string
    */
-  protected $_versionsTableName = \Papaya\Content\Tables::PAGE_VERSIONS;
+  protected $_versionsTableName = Content\Tables::PAGE_VERSIONS;
 
   /**
    * Load version list informations
    *
-   * @param integer $pageId
-   * @param NULL|integer $limit maximum records returned
-   * @param NULL|integer $offset start offset for limited results
-   * @return boolean
+   * @param int $pageId
+   * @param null|int $limit maximum records returned
+   * @param null|int $offset start offset for limited results
+   *
+   * @return bool
    */
   public function load($pageId, $limit = NULL, $offset = NULL) {
-    $sql = "SELECT version_id, version_time, version_author_id, version_message,
+    $sql = 'SELECT version_id, version_time, version_author_id, version_message,
                    topic_change_level, topic_id
               FROM %s
              WHERE topic_id = %d
-             ORDER BY version_time DESC";
-    $parameters = array(
+             ORDER BY version_time DESC';
+    $parameters = [
       $this->databaseGetTableName($this->_versionsTableName),
       (int)$pageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'version_id', $limit, $offset);
   }
 
   /**
    * Create a new version record object and load the specified version data
    *
-   * @param integer $versionId
-   * @return \Papaya\Content\Page\Version|NULL
+   * @param int $versionId
+   *
+   * @return Version|null
    */
   public function getVersion($versionId) {
-    $result = new \Papaya\Content\Page\Version();
+    $result = new Version();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load($versionId);
     return $result;

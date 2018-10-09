@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System;
+
 /**
  * A factory object that creates file and directory wrapper objects
  *
@@ -21,21 +21,22 @@ namespace Papaya\File\System;
  * @subpackage FileSystem
  */
 class Factory {
-
   /**
    * Return an object wrapping a file in the file system
    *
    * @param string $filename
-   * @return \Papaya\File\System\File
+   *
+   * @return File
    */
   public function getFile($filename) {
-    return new \Papaya\File\System\File($filename);
+    return new File($filename);
   }
 
   /**
    * Return an object wrapping a directory in the file system
    *
    * @param string $directory
+   *
    * @return Directory
    */
   public function getDirectory($directory) {

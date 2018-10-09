@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin;
+
+use Papaya\Request;
+use Papaya\UI;
+
 /**
  * An abstract superclass for plugin content editors. They need access to the plugin,
  * so it is stored in a buffer variable.
@@ -21,15 +24,14 @@ namespace Papaya\Plugin;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-abstract class Editor extends \Papaya\UI\Control\Interactive {
-
+abstract class Editor extends UI\Control\Interactive {
   /**
    * @var Editable\Data
    */
   private $_data;
 
   /**
-   * @var \Papaya\Request\Parameters
+   * @var Request\Parameters
    */
   private $_context;
 
@@ -55,6 +57,7 @@ abstract class Editor extends \Papaya\UI\Control\Interactive {
    * Return the stored data object - bc for old API
    *
    * @deprecated
+   *
    * @return Editable\Data
    */
   public function getContent() {
@@ -65,16 +68,16 @@ abstract class Editor extends \Papaya\UI\Control\Interactive {
    * The context specifies a parameter status needed to reach the editor/dialog. These
    * parameters need to be added to links and dialogs
    *
-   * @param \Papaya\Request\Parameters $context
-   * @return \Papaya\Request\Parameters
+   * @param Request\Parameters $context
+   *
+   * @return Request\Parameters
    */
-  public function context(\Papaya\Request\Parameters $context = NULL) {
+  public function context(Request\Parameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
-      $this->_context = new \Papaya\Request\Parameters();
+      $this->_context = new Request\Parameters();
     }
     return $this->_context;
   }
-
 }

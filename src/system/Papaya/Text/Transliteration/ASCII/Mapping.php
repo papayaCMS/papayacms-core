@@ -12,10 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Text\Transliteration\ASCII;
+
+use Papaya\Utility;
+
 /**
- * Map unicode codepoints to ascii characters.
+ * Map unicode code points to ascii characters.
  *
  * This is used to generate an ascii representation of a unicode string. The mapping can be language
  * specific. A German "ä" will be mapped to "ae" while an English "ä" will be mapped to "a".
@@ -24,16 +26,21 @@ namespace Papaya\Text\Transliteration\ASCII;
  * @subpackage String
  */
 class Mapping {
+  /**
+   * @var array
+   */
+  private $_mappingTables = [];
 
-  private $_mappingTables = array();
-
+  /**
+   * @var string
+   */
   private $_mappingFilesPath;
 
   /**
    * Create object and store mapping file path
    */
   public function __construct() {
-    $this->_mappingFilesPath = \Papaya\Utility\File\Path::cleanup(
+    $this->_mappingFilesPath = Utility\File\Path::cleanup(
       __DIR__.'/../../../../utf8/external', FALSE
     );
   }
@@ -41,12 +48,13 @@ class Mapping {
   /**
    * Get a mapping for a given code point. The mapping can be language specific
    *
-   * @param integer $codePoint
+   * @param int $codePoint
    * @param string $language
-   * @return null
+   *
+   * @return null|string
    */
   public function get($codePoint, $language) {
-    \Papaya\Utility\Constraints::assertNotEmpty($language);
+    Utility\Constraints::assertNotEmpty($language);
     $bank = $codePoint >> 8;
     $this->lazyLoad($bank, $language);
     $index = $codePoint & 255;
@@ -66,22 +74,23 @@ class Mapping {
    * Clear the mapping data
    */
   public function clear() {
-    $this->_mappingTables = array();
+    $this->_mappingTables = [];
   }
 
   /**
    * Validate if the needed group of code point mappings is loaded.
    *
-   * @param integer $bank
+   * @param int $bank
    * @param string $language
+   *
    * @return bool
    */
   public function isLoaded($bank, $language) {
-    \Papaya\Utility\Constraints::assertNotEmpty($language);
+    Utility\Constraints::assertNotEmpty($language);
     return (
       isset($this->_mappingTables[$language]) &&
-      is_array($this->_mappingTables[$language]) &&
-      array_key_exists($bank, $this->_mappingTables[$language])
+      \is_array($this->_mappingTables[$language]) &&
+      \array_key_exists($bank, $this->_mappingTables[$language])
     );
   }
 
@@ -89,23 +98,23 @@ class Mapping {
    * Load the needed group of code point mappings into the internal buffer. If the language
    * specific mapping does not exist the generic mapping will be loaded and referenced.
    *
-   * @param integer $bank
+   * @param int $bank
    * @param string $language
    */
   public function lazyLoad($bank, $language) {
     if (!$this->isLoaded($bank, $language)) {
       $mappingFile = $this->getFile($bank, $language);
-      if (FALSE !== strpos($language, '-') && !file_exists($mappingFile)) {
-        $mappingFile = $this->getFile($bank, strstr($language, '-', TRUE));
+      if (FALSE !== \strpos($language, '-') && !\file_exists($mappingFile)) {
+        $mappingFile = $this->getFile($bank, \strstr($language, '-', TRUE));
       }
-      if (file_exists($mappingFile)) {
-        $UTF8_TO_ASCII = array();
+      if (\file_exists($mappingFile)) {
+        $UTF8_TO_ASCII = [];
         /** @noinspection PhpIncludeInspection */
         include $mappingFile;
         $this->add(
           $bank,
           $language,
-          isset($UTF8_TO_ASCII[$bank]) ? $UTF8_TO_ASCII[$bank] : array()
+          isset($UTF8_TO_ASCII[$bank]) ? $UTF8_TO_ASCII[$bank] : []
         );
       } elseif (!(empty($language) || 'generic' === $language)) {
         $this->lazyLoad($bank, 'generic');
@@ -117,7 +126,7 @@ class Mapping {
   /**
    * Add a group of code point mappings to the internal buffer
    *
-   * @param integer $bank
+   * @param int $bank
    * @param string $language
    * @param array $mapping
    */
@@ -128,7 +137,7 @@ class Mapping {
   /**
    * Link the code point groups to two languages, this is used to avoid unessesary loading tries
    *
-   * @param integer $bank
+   * @param int $bank
    * @param string $languageTo
    * @param string $languageFrom
    */
@@ -141,12 +150,13 @@ class Mapping {
   /**
    * Get the filename for the given group of code point mappings
    *
-   * @param integer $bank
+   * @param int $bank
    * @param string $language
+   *
    * @return string
    */
   public function getFile($bank, $language) {
-    return $this->_mappingFilesPath.sprintf(
+    return $this->_mappingFilesPath.\sprintf(
         '/%sx%02x.php',
         (empty($language) || 'generic' === $language) ? '' : $language.'/',
         $bank

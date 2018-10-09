@@ -12,29 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Community;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the surfer permission records.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Permissions extends \Papaya\Database\Records {
-
-  protected $_fields = array(
+class Permissions extends Database\Records {
+  protected $_fields = [
     'id' => 'surferperm_id',
     'title' => 'surferperm_title',
     'active' => 'surferperm_active'
-  );
+  ];
 
-  protected $_orderByFields = array(
-    'surferperm_title' => \Papaya\Database\Interfaces\Order::ASCENDING,
-    'surferperm_id' => \Papaya\Database\Interfaces\Order::ASCENDING
-  );
+  protected $_orderByFields = [
+    'surferperm_title' => Database\Interfaces\Order::ASCENDING,
+    'surferperm_id' => Database\Interfaces\Order::ASCENDING
+  ];
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_PERMISSIONS;
-
+  protected $_tableName = Content\Tables::COMMUNITY_PERMISSIONS;
 }

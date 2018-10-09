@@ -24,13 +24,13 @@ class OptionsTest extends \Papaya\TestCase {
    */
   public function testCreateMapping() {
     $content = new Options();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $content->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
   /**
-   * @covers \Papaya\Content\Module\Options::callbackConvertValueByType
+   * @covers \Papaya\Content\Module\Options
    * @dataProvider providePropertiesToFieldsData
    * @param array $expected
    * @param array $properties
@@ -38,10 +38,11 @@ class OptionsTest extends \Papaya\TestCase {
    */
   public function testCallbackConvertValueByTypeIntoFields(array $expected, array $properties, array $fields) {
     $content = new Options();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $content->mapping();
     $this->assertEquals(
       $expected,
-      $content->callbackConvertValueByType(
-        new \stdClass(),
+      $mapping->callbacks()->onAfterMapping(
         \Papaya\Database\Interfaces\Mapping::PROPERTY_TO_FIELD,
         $properties,
         $fields
@@ -50,7 +51,7 @@ class OptionsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Module\Options::callbackConvertValueByType
+   * @covers \Papaya\Content\Module\Options
    * @dataProvider provideFieldsToPropertiesData
    * @param array $expected
    * @param array $properties
@@ -58,10 +59,11 @@ class OptionsTest extends \Papaya\TestCase {
    */
   public function testCallbackConvertValueByTypeIntoProperties(array $expected, array $properties, array $fields) {
     $content = new Options();
+    /** @var \Papaya\Database\Record\Mapping $mapping */
+    $mapping = $content->mapping();
     $this->assertEquals(
       $expected,
-      $content->callbackConvertValueByType(
-        new \stdClass(),
+      $mapping->callbacks()->onAfterMapping(
         \Papaya\Database\Interfaces\Mapping::FIELD_TO_PROPERTY,
         $properties,
         $fields

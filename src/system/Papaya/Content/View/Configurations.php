@@ -12,32 +12,38 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\View;
+
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Plugin;
+use Papaya\Utility;
+
 /**
  * This object loads view records into a list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Configurations extends \Papaya\Database\Records\Lazy {
+class Configurations extends Database\Records\Lazy {
+  const TYPE_OUTPUT = Plugin\Types::OUTPUT;
 
-  const TYPE_OUTPUT = \Papaya\Plugin\Types::OUTPUT;
-  const TYPE_FILTER = \Papaya\Plugin\Types::FILTER;
-  const TYPE_IMPORT = \Papaya\Plugin\Types::IMPORT;
+  const TYPE_FILTER = Plugin\Types::FILTER;
+
+  const TYPE_IMPORT = Plugin\Types::IMPORT;
 
   /**
    * Map field names to more convenient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'vl.view_id',
     'mode_id' => 'viewmode_id',
     'module_guid' => 'module_guid',
     'type' => 'm.module_type',
     'options' => 'viewlink_data'
-  );
+  ];
 
   protected $_identifierProperties = ['id', 'mode_id', 'type'];
 
@@ -46,15 +52,16 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
+  protected $_tableName = Content\Tables::VIEW_CONFIGURATIONS;
 
   /**
    * @param array|string|int $filter
    * @param int|null $limit
    * @param int|null $offset
+   *
    * @return bool
    */
-  public function load($filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = [], $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $prefix = ' WHERE ';
     if (\is_array($filter) && \array_key_exists('mode_id', $filter)) {
@@ -65,10 +72,10 @@ class Configurations extends \Papaya\Database\Records\Lazy {
     } else {
       $conditionOutput = $conditionData = '';
     }
-    $conditionOutput = \Papaya\Utility\Text::escapeForPrintf(
+    $conditionOutput = Utility\Text::escapeForPrintf(
       $conditionOutput.$this->_compileCondition($filter, $prefix)
     );
-    $conditionData = \Papaya\Utility\Text::escapeForPrintf(
+    $conditionData = Utility\Text::escapeForPrintf(
       $conditionData.$this->_compileCondition($filter, $prefix)
     );
     $sql = "SELECT vl.view_id,
@@ -90,14 +97,14 @@ class Configurations extends \Papaya\Database\Records\Lazy {
                JOIN %s vm ON (vm.datafilter_id = vl.datafilter_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
                $conditionData";
-    $parameters = array(
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_CONFIGURATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_MODES),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTERS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES)
-    );
+    $parameters = [
+      $databaseAccess->getTableName(Content\Tables::VIEW_CONFIGURATIONS),
+      $databaseAccess->getTableName(Content\Tables::VIEW_MODES),
+      $databaseAccess->getTableName(Content\Tables::MODULES),
+      $databaseAccess->getTableName(Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
+      $databaseAccess->getTableName(Content\Tables::VIEW_DATAFILTERS),
+      $databaseAccess->getTableName(Content\Tables::MODULES)
+    ];
     return parent::_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
   }
 }

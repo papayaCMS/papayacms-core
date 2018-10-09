@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog;
+
+use Papaya\UI;
+
 /**
  * Superclass for dialog elements
  *
@@ -23,8 +25,7 @@ namespace Papaya\UI\Dialog;
  * @package Papaya-Library
  * @subpackage UI
  */
-abstract class Element extends \Papaya\UI\Control\Collection\Item {
-
+abstract class Element extends UI\Control\Collection\Item {
   /**
    * Collect filtered dialog input data into $this->_dialog->data()
    */
@@ -41,11 +42,12 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
    * compatible to PHPs parameter array syntax.
    *
    * @param string|array $key
-   * @param boolean $withGroup
+   * @param bool $withGroup
+   *
    * @return string
    */
   protected function _getParameterName($key, $withGroup = TRUE) {
-    $name = new \Papaya\UI\Dialog\Field\Parameter\Name(
+    $name = new Field\Parameter\Name(
       $key, $this->hasDialog() ? $this->getDialog() : NULL
     );
     return $name->get($withGroup);
@@ -59,7 +61,7 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
   public function hasDialog() {
     if ($this->hasCollection() &&
       $this->collection()->hasOwner()) {
-      return ($this->collection()->owner() instanceof \Papaya\UI\Dialog);
+      return ($this->collection()->owner() instanceof UI\Dialog);
     }
     return FALSE;
   }
@@ -67,11 +69,11 @@ abstract class Element extends \Papaya\UI\Control\Collection\Item {
   /**
    * Return the dialog the elements collection is attached to.
    *
-   * @return null|\Papaya\UI\Dialog
+   * @return null|UI\Dialog
    */
   public function getDialog() {
     if ($this->hasDialog()) {
-      /** @noinspection PhpIncompatibleReturnTypeInspection */
+      /* @noinspection PhpIncompatibleReturnTypeInspection */
       return $this->collection()->owner();
     }
     return NULL;

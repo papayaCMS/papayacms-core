@@ -45,11 +45,11 @@ class NavigationTest extends \Papaya\TestCase {
     $this->assertXmlFragmentEqualsXmlFragment(
     /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
-         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
+         href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=0&amp;theme=default"
          target="_self"
-         title="Add set"/>
+         title="Add skin"/>
       <button
-         href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=0&amp;theme=default"
+         href="http://www.test.tld/test.html?cmd=skin_import&amp;skin_id=0&amp;theme=default"
          target="_self"
          title="Import"/>',
       $navigation->toolbar()->getXML()
@@ -59,28 +59,28 @@ class NavigationTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Administration\Theme\Editor\Navigation::appendTo
    */
-  public function testToolbarButtonsWithSelectedSet() {
+  public function testToolbarButtonsWithSelectedSkin() {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(\Papaya\UI\ListView::class));
     $navigation->parameters(
-      new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 42))
+      new \Papaya\Request\Parameters(array('theme' => 'default', 'skin_id' => 42))
     );
     $navigation->getXML();
     $this->assertXmlFragmentEqualsXmlFragment(
     /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
-         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
+         href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=0&amp;theme=default"
          target="_self"
-         title="Add set"/>
+         title="Add skin"/>
       <button
-         href="http://www.test.tld/test.html?cmd=set_delete&amp;set_id=42&amp;theme=default"
+         href="http://www.test.tld/test.html?cmd=skin_delete&amp;skin_id=42&amp;theme=default"
          target="_self"
-         title="Delete set"/>
-      <button href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=42&amp;theme=default"
+         title="Delete skin"/>
+      <button href="http://www.test.tld/test.html?cmd=skin_import&amp;skin_id=42&amp;theme=default"
          target="_self"
          title="Import"/>
-      <button href="http://www.test.tld/test.html?cmd=set_export&amp;set_id=42&amp;theme=default"
+      <button href="http://www.test.tld/test.html?cmd=skin_export&amp;skin_id=42&amp;theme=default"
          target="_self"
          title="Export"/>',
       $navigation->toolbar()->getXML()
@@ -129,7 +129,7 @@ class NavigationTest extends \Papaya\TestCase {
   public function testListViewImplicitCreateWithSelectedSet() {
     $navigation = new Navigation();
     $navigation->parameters(
-      new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 23))
+      new \Papaya\Request\Parameters(array('theme' => 'default', 'skin_id' => 23))
     );
     $this->assertInstanceOf(
       \Papaya\UI\ListView::class, $navigation->listview()
@@ -219,10 +219,10 @@ class NavigationTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Theme\Editor\Navigation::callbackCreateItem
    * @covers \Papaya\Administration\Theme\Editor\Navigation::createThemeItem
    */
-  public function testCallbackCreateItemForSelectedThemeAndSelectedSet() {
+  public function testCallbackCreateItemForSelectedThemeAndSelectedSkin() {
     $papaya = $this->mockPapaya()->application(
       array(
-        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'set_id' => 23)),
+        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'skin_id' => 23)),
         'images' => array('items-theme' => 'theme.png')
       )
     );
@@ -280,7 +280,7 @@ class NavigationTest extends \Papaya\TestCase {
       '<listitem
          title="sample title"
          image="folder.png"
-         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
+         href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=23&amp;theme=sample"
          indent="1"/>',
       $item->getXML()
     );
@@ -293,7 +293,7 @@ class NavigationTest extends \Papaya\TestCase {
   public function testCallbackCreateItemForSelectedSet() {
     $papaya = $this->mockPapaya()->application(
       array(
-        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'set_id' => 23)),
+        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'skin_id' => 23)),
         'images' => array('items-folder' => 'folder.png')
       )
     );
@@ -319,7 +319,7 @@ class NavigationTest extends \Papaya\TestCase {
       '<listitem
          title="sample title"
          image="folder.png"
-         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
+         href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=23&amp;theme=sample"
          indent="1"
          selected="selected"/>',
       $item->getXML()
@@ -333,7 +333,7 @@ class NavigationTest extends \Papaya\TestCase {
   public function testCallbackPageItemForPage() {
     $papaya = $this->mockPapaya()->application(
       array(
-        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'set_id' => 23)),
+        'request' => $this->mockPapaya()->request(array('theme' => 'sample', 'skin_id' => 23)),
         'images' => array('items-folder' => 'folder.png')
       )
     );
@@ -364,7 +364,7 @@ class NavigationTest extends \Papaya\TestCase {
       '<listitem
          title="Page title"
          image="folder.png"
-         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
+         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;skin_id=23&amp;theme=sample"
          indent="2"/>',
       $item->getXML()
     );
@@ -378,7 +378,7 @@ class NavigationTest extends \Papaya\TestCase {
     $papaya = $this->mockPapaya()->application(
       array(
         'request' => $this->mockPapaya()->request(
-          array('theme' => 'sample', 'set_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
+          array('theme' => 'sample', 'skin_id' => 23, 'page_identifier' => 'SAMPLE_PAGE')
         ),
         'images' => array('items-folder' => 'folder.png')
       )
@@ -410,7 +410,7 @@ class NavigationTest extends \Papaya\TestCase {
       '<listitem
          title="Page title"
          image="folder.png"
-         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
+         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;skin_id=23&amp;theme=sample"
          indent="2"
          selected="selected"/>',
       $item->getXML()

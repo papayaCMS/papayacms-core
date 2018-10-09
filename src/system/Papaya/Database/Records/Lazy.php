@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
+
+use Papaya\Database;
+
 /**
  * Papaya Database List, represents a list of records fetched from the database. Additionally
  * to the loading prozess is triggered by access the data.
@@ -27,26 +29,25 @@ namespace Papaya\Database\Records;
  * @package Papaya-Library
  * @subpackage Database
  */
-abstract class Lazy extends \Papaya\Database\Records {
-
+abstract class Lazy extends Database\Records {
   private $_loadingParameters;
 
   /**
    * Define lazy load parameters and activate it.
    *
    * @param array $filter
-   * @param NULL|integer $limit
-   * @param NULL|integer $offset
+   * @param null|int $limit
+   * @param null|int $offset
    */
-  public function activateLazyLoad($filter = array(), $limit = NULL, $offset = NULL) {
-    $this->_loadingParameters = func_get_args();
+  public function activateLazyLoad($filter = [], $limit = NULL, $offset = NULL) {
+    $this->_loadingParameters = [$filter, $limit, $offset];
     $this->_records = NULL;
   }
 
   /**
    * Return the lazy loading parameters, NULL if here are none.
    *
-   * @return array|NULL
+   * @return array|null
    */
   public function getLazyLoadParameters() {
     return $this->_loadingParameters;
@@ -57,7 +58,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    */
   protected function lazyLoad() {
     if (NULL !== $this->_loadingParameters) {
-      call_user_func_array(array($this, 'load'), $this->_loadingParameters);
+      $this->load(...$this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
@@ -67,13 +68,14 @@ abstract class Lazy extends \Papaya\Database\Records {
    * will reset them, too.
    *
    * @param string $sql
-   * @param array|NULL $parameters
-   * @param int|NULL $limit
-   * @param int|NULL $offset
+   * @param array|null $parameters
+   * @param int|null $limit
+   * @param int|null $offset
    * @param array $idProperties
+   *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
+  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
     $this->_loadingParameters = NULL;
     return parent::_loadRecords($sql, $parameters, $limit, $offset, $idProperties);
   }
@@ -82,6 +84,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    *Absolute Count for limited results
    *
    * @return int
+   *
    * @internal param mixed $offset
    */
   public function absCount() {
@@ -112,7 +115,7 @@ abstract class Lazy extends \Papaya\Database\Records {
   /**
    * Get Record count, trigger lazy load
    *
-   * @return integer
+   * @return int
    */
   public function count() {
     $this->lazyLoad();
@@ -123,7 +126,8 @@ abstract class Lazy extends \Papaya\Database\Records {
    * ArrayAccess Interface, validate if record exists, after triggering lazy load.
    *
    * @param mixed $offset
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($offset) {
     $this->lazyLoad();
@@ -134,6 +138,7 @@ abstract class Lazy extends \Papaya\Database\Records {
    * ArrayAccess Interface, return record, after triggering lazy load.
    *
    * @param mixed $offset
+   *
    * @return array
    */
   public function offsetGet($offset) {

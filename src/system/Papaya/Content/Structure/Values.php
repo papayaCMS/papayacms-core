@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Structure;
+
+use Papaya\BaseObject;
+use Papaya\XML;
 
 /**
  * Content structure values list
@@ -24,10 +26,14 @@ namespace Papaya\Content\Structure;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Values extends \Papaya\BaseObject\Collection {
-
+class Values extends BaseObject\Collection {
   private $_group;
 
+  /**
+   * Values constructor.
+   *
+   * @param Group $group
+   */
   public function __construct(Group $group) {
     parent::__construct(Value::class);
     $this->_group = $group;
@@ -36,12 +42,12 @@ class Values extends \Papaya\BaseObject\Collection {
   /**
    * Load value data from xml
    *
-   * @param \Papaya\XML\Element $groupNode
+   * @param XML\Element $groupNode
    */
-  public function load(\Papaya\XML\Element $groupNode) {
-    /** @var \Papaya\XML\Document $document */
+  public function load(XML\Element $groupNode) {
+    /** @var XML\Document $document */
     $document = $groupNode->ownerDocument;
-    /** @var \Papaya\XML\Element $node */
+    /** @var XML\Element $node */
     foreach ($document->xpath()->evaluate('value', $groupNode) as $node) {
       $this[] = $value = new Value($this->_group);
       $value->name = $node->getAttribute('name');
@@ -61,8 +67,8 @@ class Values extends \Papaya\BaseObject\Collection {
       } else {
         $parameterNodes = $document->xpath()->evaluate('field-parameter', $node);
         if ($parameterNodes->length > 0) {
-          $fieldParameters = array();
-          /** @var \Papaya\XML\Element $parameterNode */
+          $fieldParameters = [];
+          /** @var XML\Element $parameterNode */
           foreach ($parameterNodes as $parameterNode) {
             $key = $parameterNode->getAttribute('key');
             $text = $parameterNode->textContent;

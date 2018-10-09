@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Service;
+
+use Papaya\Cache;
+use Papaya\File\System as FileSystem;
+use Papaya\Utility;
 
 /**
  * Papaya Cache Service for file system cache
@@ -21,40 +24,37 @@ namespace Papaya\Cache\Service;
  * @package Papaya-Library
  * @subpackage Cache
  */
-class File extends \Papaya\Cache\Service {
-
+class File extends Cache\Service {
   /**
    * cache base directory
    *
    * @var string $cacheDirectory
    */
-  private $_cacheDirectory = NULL;
+  private $_cacheDirectory;
 
   /**
    * notifier script for cache update syncs
    *
    * @var string $_notifierScript
    */
-  private $_notifierScript = NULL;
+  private $_notifierScript;
 
   /**
-   * @var \Papaya\File\System\Change\Notifier
+   * @var FileSystem\Change\Notifier
    */
-  private $_notifier = NULL;
-
+  private $_notifier;
 
   /**
-   * @var boolean
+   * @var bool
    */
-  private $_allowUnlink = NULL;
+  private $_allowUnlink;
 
   /**
    * Set configuration option
    *
-   * @param \Papaya\Cache\Configuration $configuration
-   * @return void
+   * @param Cache\Configuration $configuration
    */
-  public function setConfiguration(\Papaya\Cache\Configuration $configuration) {
+  public function setConfiguration(Cache\Configuration $configuration) {
     $this->_cacheDirectory = $configuration['FILESYSTEM_PATH'];
     $this->_notifierScript =
       empty($configuration['FILESYSTEM_NOTIFIER_SCRIPT'])
@@ -69,17 +69,19 @@ class File extends \Papaya\Cache\Service {
   /**
    * Check cache is usable
    *
-   * @param boolean $silent
+   * @param bool $silent
+   *
    * @throws \LogicException
-   * @return boolean
+   *
+   * @return bool
    */
   public function verify($silent = TRUE) {
     if (empty($this->_cacheDirectory)) {
       $message = 'No cache directory defined';
-    } elseif (file_exists($this->_cacheDirectory) &&
-      is_dir($this->_cacheDirectory) &&
-      is_readable($this->_cacheDirectory) &&
-      is_writeable($this->_cacheDirectory)) {
+    } elseif (\file_exists($this->_cacheDirectory) &&
+      \is_dir($this->_cacheDirectory) &&
+      \is_readable($this->_cacheDirectory) &&
+      \is_writable($this->_cacheDirectory)) {
       return TRUE;
     } else {
       $message = 'Cache directory does not exist or has invalid permissions';
@@ -97,22 +99,25 @@ class File extends \Papaya\Cache\Service {
    * @param string $element
    * @param string $parameters
    * @param string $data Element data
-   * @param integer $expires Maximum age in seconds
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   *
+   * @return bool
    */
   public function write($group, $element, $parameters, $data, $expires = NULL) {
     $oldMask = NULL;
-    if ($this->verify() &&
+    if (
+      $this->verify() &&
       ($identifiers = $this->_getCacheIdentification($group, $element, $parameters)) &&
       $this->_ensureLocalDirectory($identifiers['group'], $oldMask) &&
-      $this->_ensureLocalDirectory($identifiers['element'], $oldMask)) {
-      if (!is_null($oldMask)) {
-        umask($oldMask);
+      $this->_ensureLocalDirectory($identifiers['element'], $oldMask)
+    ) {
+      if (NULL !== $oldMask) {
+        \umask($oldMask);
       }
-      if ($fh = fopen($identifiers['file'], 'w')) {
-        fwrite($fh, $data);
-        fclose($fh);
-        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_MODIFIED, $identifiers['file']);
+      if ($fh = \fopen($identifiers['file'], 'wb')) {
+        \fwrite($fh, $data);
+        \fclose($fh);
+        $this->notify(FileSystem\Change\Notifier::ACTION_MODIFIED, $identifiers['file']);
         return $identifiers['identifier'];
       }
       // @codeCoverageIgnoreStart
@@ -125,25 +130,26 @@ class File extends \Papaya\Cache\Service {
    * Create local directory
    *
    * @param string $directory
-   * @param integer $oldMask
-   * @return boolean
+   * @param int $oldMask
+   *
+   * @return bool
    */
   private function _ensureLocalDirectory($directory, &$oldMask) {
-    if (file_exists($directory) && is_dir($directory)) {
+    if (\file_exists($directory) && \is_dir($directory)) {
       return TRUE;
-    } else {
-      if (is_null($oldMask)) {
-        $oldMask = umask(0);
-      }
-      @mkdir($directory, 0777);
-      if (file_exists($directory)) {
-        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_ADD, NULL, $directory);
-        return TRUE;
-        // @codeCoverageIgnoreStart
-      }
-      return FALSE;
-      // @codeCoverageIgnoreEnd
     }
+    if (NULL === $oldMask) {
+      $oldMask = \umask(0);
+    }
+    /** @noinspection MkdirRaceConditionInspection */
+    @\mkdir($directory, 0777);
+    if (\file_exists($directory)) {
+      $this->notify(FileSystem\Change\Notifier::ACTION_ADD, NULL, $directory);
+      return TRUE;
+      // @codeCoverageIgnoreStart
+    }
+    return FALSE;
+    // @codeCoverageIgnoreEnd
   }
 
   /**
@@ -152,14 +158,15 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return string|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return string|false
    */
   public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
     if ($this->exists($group, $element, $parameters, $expires, $ifModifiedSince)) {
       $identifiers = $this->_getCacheIdentification($group, $element, $parameters);
-      return file_get_contents($identifiers['file']);
+      return \file_get_contents($identifiers['file']);
     }
     return FALSE;
   }
@@ -170,24 +177,13 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return bool
    */
   public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
-    if ($this->verify() &&
-      $expires > 0 &&
-      ($identifiers = $this->_getCacheIdentification($group, $element, $parameters))) {
-      if (file_exists($identifiers['file']) && is_readable($identifiers['file'])) {
-        $created = filemtime($identifiers['file']);
-        if (($created + $expires) > time()) {
-          if (is_null($ifModifiedSince) || $ifModifiedSince < $created) {
-            return TRUE;
-          }
-        }
-      }
-    }
-    return FALSE;
+    return (FALSE !== $this->created($group, $element, $parameters, $expires, $ifModifiedSince));
   }
 
   /**
@@ -196,20 +192,23 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return integer|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return int|false
    */
   public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL) {
-    if ($this->verify() &&
+    if (
       $expires > 0 &&
-      ($identifiers = $this->_getCacheIdentification($group, $element, $parameters))) {
-      if (file_exists($identifiers['file']) && is_readable($identifiers['file'])) {
-        $created = filemtime($identifiers['file']);
-        if (($created + $expires) > time()) {
-          if (is_null($ifModifiedSince) || $ifModifiedSince < $created) {
-            return $created;
-          }
+      $this->verify() &&
+      ($identifiers = $this->_getCacheIdentification($group, $element, $parameters)) &&
+      \file_exists($identifiers['file']) &&
+      \is_readable($identifiers['file'])
+    ) {
+      $created = \filemtime($identifiers['file']);
+      if (($created + $expires) > \time()) {
+        if (NULL === $ifModifiedSince || $ifModifiedSince < $created) {
+          return $created;
         }
       }
     }
@@ -221,34 +220,35 @@ class File extends \Papaya\Cache\Service {
    *
    * @param string $group
    * @param string $element
-   * @param string $parameters
-   * @return integer|boolean
+   * @param mixed $parameters
+   *
+   * @return int|bool
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     if ($this->verify()) {
-      $cache = \Papaya\Utility\File\Path::cleanup($this->_cacheDirectory);
-      if (!empty($group)) {
+      $cache = Utility\File\Path::cleanup($this->_cacheDirectory);
+      if (NULL !== $group) {
         $cache .= $this->_escapeIdentifierString($group).'/';
       }
-      if (!empty($element)) {
+      if (NULL !== $element) {
         $cache .= $this->_escapeIdentifierString($element).'/';
       }
-      if (!empty($parameters)) {
+      if (NULL !== $parameters) {
         $cache .= $this->_escapeIdentifierString(
           $this->_serializeParameters($parameters)
         );
       }
-      if (file_exists($cache) && is_file($cache)) {
-        unlink($cache);
-        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_DELETED, $cache);
+      if (\file_exists($cache) && \is_file($cache)) {
+        \unlink($cache);
+        $this->notify(FileSystem\Change\Notifier::ACTION_DELETED, $cache);
         return 1;
-      } elseif (file_exists($cache) && is_dir($cache) && $this->_allowUnlink) {
-        $count = \Papaya\Utility\File\Path::clear($cache);
-        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_CLEARED, NULL, $cache);
-        return $count;
-      } else {
-        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_INVALIDATED, NULL, $cache);
       }
+      if ($this->_allowUnlink && \file_exists($cache) && \is_dir($cache)) {
+        $count = Utility\File\Path::clear($cache);
+        $this->notify(FileSystem\Change\Notifier::ACTION_CLEARED, NULL, $cache);
+        return $count;
+      }
+      $this->notify(FileSystem\Change\Notifier::ACTION_INVALIDATED, NULL, $cache);
       return TRUE;
     }
     return FALSE;
@@ -260,51 +260,54 @@ class File extends \Papaya\Cache\Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
     $identification = parent::_getCacheIdentification($group, $element, $parameters);
-    $groupDirectory = \Papaya\Utility\File\Path::cleanup($this->_cacheDirectory).$identification['group'];
+    $groupDirectory = Utility\File\Path::cleanup($this->_cacheDirectory).$identification['group'];
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
-    if (strlen($cacheId) > 255) {
+    if (\strlen($cacheId) > 255) {
       throw new \InvalidArgumentException('Cache id string to large');
     }
-    return array(
+    return [
       'group' => $groupDirectory,
       'element' => $groupDirectory.'/'.$identification['element'],
       'file' => $groupDirectory.'/'.$identification['element'].'/'.$identification['parameters'],
       'identifier' => $cacheId
-    );
+    ];
   }
 
   /**
    * Notify the sync script about the change
    *
-   * @param integer $action
-   * @param string|NULL $file
-   * @param string|NULL $path
+   * @param int $action
+   * @param string|null $file
+   * @param string|null $path
    */
   private function notify($action, $file = NULL, $path = NULL) {
     if ($notifier = $this->notifier()) {
       $notifier->notify($action, $file, $path);
-    };
+    }
   }
 
   /**
    * Getter/Setter for a notifer object - this will notify an external script or url
    * about the file change.
    *
-   * @param \Papaya\File\System\Change\Notifier $notifier
-   * @return \Papaya\File\System\Change\Notifier|FALSE
+   * @param FileSystem\Change\Notifier $notifier
+   *
+   * @return FileSystem\Change\Notifier|false
    */
-  public function notifier(\Papaya\File\System\Change\Notifier $notifier = NULL) {
+  public function notifier(FileSystem\Change\Notifier $notifier = NULL) {
     if (NULL !== $notifier) {
       $this->_notifier = $notifier;
     } elseif (NULL === $this->_notifier) {
       if ($this->_notifierScript) {
-        $this->_notifier = new \Papaya\File\System\Change\Notifier($this->_notifierScript);
+        $this->_notifier = new FileSystem\Change\Notifier($this->_notifierScript);
       } else {
         $this->_notifier = FALSE;
       }

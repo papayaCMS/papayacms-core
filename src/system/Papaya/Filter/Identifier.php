@@ -12,9 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter {
-  /**
+
+use Papaya\Filter;
+
+/**
    * Papaya filter class for an identifier/name
    *
    * Identifiers are only allowed to include ASCII letters, digits and underscore.
@@ -23,14 +25,17 @@ namespace Papaya\Filter {
    * @package Papaya-Library
    * @subpackage Filter
    */
-  class Identifier implements \Papaya\Filter {
-
+  class Identifier implements Filter {
     const CASE_INSENSITIVE = 0;
+
     const LOWERCASE = 1;
+
     const UPPERCASE = 2;
 
     private $_minimumLength;
+
     private $_maximumLength;
+
     private $_mode;
 
     /**
@@ -60,34 +65,37 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @param mixed|NULL $value
+     * @param mixed $value
+     *
      * @return bool|mixed|null|string|string[]
      */
     public function filter($value) {
-      $value = preg_replace('([^a-zA-Z\d_]+)', '', (string)$value);
+      $value = \preg_replace('([^a-zA-Z\d_]+)', '', (string)$value);
       if ($this->_maximumLength > 0) {
-        $value = substr($value, 0, $this->_maximumLength);
+        $value = \substr($value, 0, $this->_maximumLength);
       }
-      if (strlen($value) < $this->_minimumLength) {
+      if (\strlen($value) < $this->_minimumLength) {
         return NULL;
       }
-      if ($this->_mode === self::LOWERCASE) {
-        return strtolower($value);
+      if (self::LOWERCASE === $this->_mode) {
+        return \strtolower($value);
       }
-      if ($this->_mode === self::UPPERCASE) {
-        return strtoupper($value);
+      if (self::UPPERCASE === $this->_mode) {
+        return \strtoupper($value);
       }
       return $value;
     }
 
     /**
      * @param mixed $value
-     * @return bool
+     *
+     * @return true
+     *
      * @throws Exception\InvalidValue
      * @throws Exception\UnexpectedType
      */
     public function validate($value) {
-      if (!is_string($value)) {
+      if (!\is_string($value)) {
         throw new Exception\UnexpectedType('string');
       }
       switch ($this->_mode) {
@@ -101,8 +109,8 @@ namespace Papaya\Filter {
         $pattern = '(^[a-zA-Z\d_]{%d,%s}+$)D';
         break;
       }
-      $pattern = sprintf($pattern, $this->_minimumLength, $this->_maximumLength ?: '');
-      if (!preg_match($pattern, $value)) {
+      $pattern = \sprintf($pattern, $this->_minimumLength, $this->_maximumLength ?: '');
+      if (!\preg_match($pattern, $value)) {
         throw new Exception\InvalidValue($value);
       }
       return TRUE;

@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Statement {
 
   /**
@@ -35,15 +34,16 @@ namespace Papaya\Database\Statement {
    */
   class Prepared
     implements \Papaya\Database\Interfaces\Statement {
-
     /**
      * @var \Papaya\Database\Access
      */
     private $_databaseAccess;
+
     /**
      * @var string
      */
     private $_sql;
+
     /**
      * @var array
      */
@@ -66,9 +66,9 @@ namespace Papaya\Database\Statement {
       $quoteCharacters = ["'", '"', '`'];
       $patterns = [];
       foreach ($quoteCharacters as $quoteCharacter) {
-        $patterns[] = sprintf('(?:%1$s(?:[^%1$s]|\\\\%1$s|%1$s{2})*%1$s)', $quoteCharacter);
+        $patterns[] = \sprintf('(?:%1$s(?:[^%1$s]|\\\\%1$s|%1$s{2})*%1$s)', $quoteCharacter);
       }
-      $pattern = '(('.implode('|', $patterns).'))';
+      $pattern = '(('.\implode('|', $patterns).'))';
       $parts = \preg_split($pattern, $this->_sql, -1, PREG_SPLIT_DELIM_CAPTURE);
       $result = '';
       foreach ($parts as $part) {
@@ -108,7 +108,7 @@ namespace Papaya\Database\Statement {
           }
           if (\is_scalar($subValue)) {
             $encodedValues[] = $filterFunction($subValue);
-          } elseif (\is_object($subValue) && method_exists($subValue, '__toString')) {
+          } elseif (\is_object($subValue) && \method_exists($subValue, '__toString')) {
             $encodedValues[] = $filterFunction((string)$subValue);
           } else {
             throw new \UnexpectedValueException(
@@ -168,7 +168,9 @@ namespace Papaya\Database\Statement {
      * @return $this
      */
     public function addNull($parameterName) {
-      $this->addValue($parameterName, NULL, function() { return 'NULL'; });
+      $this->addValue($parameterName, NULL, function() {
+        return 'NULL';
+      });
       return $this;
     }
 
@@ -247,7 +249,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $value,
         function($value) use ($decimals) {
-          return number_format((float)$value, $decimals);
+          return \number_format((float)$value, $decimals);
         }
       );
       return $this;
@@ -279,7 +281,7 @@ namespace Papaya\Database\Statement {
       $this->addValue(
         $parameterName,
         $tableName,
-        function($tableName) use($usePrefix) {
+        function($tableName) use ($usePrefix) {
           return $this->_databaseAccess->quoteIdentifier(
             $this->_databaseAccess->getTableName($tableName, $usePrefix)
           );
@@ -293,7 +295,7 @@ namespace Papaya\Database\Statement {
      * @return bool
      */
     public function has($parameterName) {
-      $parameterName = strtolower($parameterName);
+      $parameterName = \strtolower($parameterName);
       return \array_key_exists($parameterName, $this->_parameters);
     }
 
@@ -301,7 +303,7 @@ namespace Papaya\Database\Statement {
      * @param string $parameterName
      */
     public function remove($parameterName) {
-      $parameterName = strtolower($parameterName);
+      $parameterName = \strtolower($parameterName);
       if (\array_key_exists($parameterName, $this->_parameters)) {
         unset($this->_parameters[$parameterName]);
       }

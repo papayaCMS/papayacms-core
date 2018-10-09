@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parser;
+
+use Papaya\Request;
+
 /**
  * Papaya request parser for links path and file name
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class File extends \Papaya\Request\Parser {
-
+class File extends Request\Parser {
   /**
    * PCRE pattern for thumbnail links
    *
@@ -42,11 +43,12 @@ class File extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   *
+   * @return false|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['file_path'] = $matches['path'];
       if (!empty($matches['file'])) {
         $result['file_name'] = $matches['file'];
@@ -65,10 +67,9 @@ class File extends \Papaya\Request\Parser {
   /**
    * Allow other parsers after this
    *
-   * @return boolean
+   * @return bool
    */
   public function isLast() {
     return FALSE;
   }
 }
-

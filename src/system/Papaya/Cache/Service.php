@@ -12,9 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache;
-use Papaya\Configuration;
 
 /**
  * Abstract class for Papaya Cache Services
@@ -23,7 +21,6 @@ use Papaya\Configuration;
  * @subpackage Cache
  */
 abstract class Service {
-
   /**
    * Configuration object
    *
@@ -34,9 +31,9 @@ abstract class Service {
   /**
    * constructor
    *
-   * @param \Papaya\Cache\Configuration|NULL $configuration
+   * @param Configuration|null $configuration
    */
-  public function __construct(\Papaya\Cache\Configuration $configuration = NULL) {
+  public function __construct(Configuration $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
@@ -45,15 +42,14 @@ abstract class Service {
   /**
    * Set configuration
    *
-   * @param \Papaya\Cache\Configuration $configuration
-   * @return void
+   * @param Configuration $configuration
    */
-  abstract public function setConfiguration(\Papaya\Cache\Configuration $configuration);
+  abstract public function setConfiguration(Configuration $configuration);
 
   /**
    * Verify that the cache has a valid configuration
    *
-   * @param boolean $silent
+   * @param bool $silent
    */
   abstract public function verify($silent = TRUE);
 
@@ -64,8 +60,9 @@ abstract class Service {
    * @param string $element
    * @param string|array $parameters
    * @param string $data Element data
-   * @param integer $expires Maximum age in seconds
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   *
+   * @return bool
    */
   abstract public function write($group, $element, $parameters, $data, $expires = NULL);
 
@@ -75,9 +72,10 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return string|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return string|false
    */
   abstract public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
@@ -87,9 +85,10 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return boolean
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return bool
    */
   abstract public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
@@ -99,9 +98,10 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
-   * @param integer $expires Maximum age in seconds
-   * @param integer $ifModifiedSince first possible creation time
-   * @return integer|FALSE
+   * @param int $expires Maximum age in seconds
+   * @param int $ifModifiedSince first possible creation time
+   *
+   * @return int|false
    */
   abstract public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
@@ -111,7 +111,8 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
-   * @return integer
+   *
+   * @return int
    */
   abstract public function delete($group = NULL, $element = NULL, $parameters = NULL);
 
@@ -121,7 +122,9 @@ abstract class Service {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
+   *
    * @throws \InvalidArgumentException
+   *
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
@@ -134,13 +137,13 @@ abstract class Service {
     if (empty($parameters)) {
       throw new \InvalidArgumentException('Invalid cache parameters specified');
     }
-    return array(
+    return [
       'group' => $this->_escapeIdentifierString($group),
       'element' => $this->_escapeIdentifierString($element),
       'parameters' => $this->_escapeIdentifierString(
         $this->_serializeParameters($parameters)
       )
-    );
+    ];
   }
 
   /**
@@ -150,14 +153,16 @@ abstract class Service {
    * @param $element
    * @param $parameters
    * @param int $maximumLength
+   *
    * @throws \InvalidArgumentException
+   *
    * @return string
    */
   public function getCacheIdentifier($group, $element, $parameters, $maximumLength = 255) {
     $identification = $this->_getCacheIdentification($group, $element, $parameters);
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
-    if (strlen($cacheId) > $maximumLength) {
+    if (\strlen($cacheId) > $maximumLength) {
       throw new \InvalidArgumentException('Cache id string to large');
     }
     return $cacheId;
@@ -167,22 +172,24 @@ abstract class Service {
    * escape identifier string using rawurlencode() if needed
    *
    * @param string $string
+   *
    * @return string
    */
   protected function _escapeIdentifierString($string) {
-    if (preg_match('(^[A-Za-z\d.-]+$)D', $string)) {
+    if (\preg_match('(^[A-Za-z\d.-]+$)D', $string)) {
       return $string;
     }
-    return rawurlencode($string);
+    return '' !== $string ? \rawurlencode($string) : '__';
   }
 
   /**
    * serialize parameters to string
    *
    * @param mixed $parameters
+   *
    * @return string
    */
   protected function _serializeParameters($parameters) {
-    return is_array($parameters) || is_object($parameters) ? md5(serialize($parameters)) : (string)$parameters;
+    return \is_array($parameters) || \is_object($parameters) ? \md5(\serialize($parameters)) : (string)$parameters;
   }
 }

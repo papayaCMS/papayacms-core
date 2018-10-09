@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception\Password;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a password value is considered to weak.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Weak extends \Papaya\Filter\Exception {
-
+class Weak extends Filter\Exception {
   /**
    * Construct object and set (static) message.
    */

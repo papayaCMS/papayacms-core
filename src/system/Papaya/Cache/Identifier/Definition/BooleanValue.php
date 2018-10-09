@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
+
+use Papaya\Cache;
+use Papaya\Utility;
+
 /**
  * A boolean value or callback returning a boolean value defines if caching is allowed
  *
@@ -21,16 +24,16 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class BooleanValue
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Cache\Identifier\Definition {
+  private $_callback;
 
-  private $_callback = NULL;
-  private $_cacheable = NULL;
+  private $_cacheable;
 
   public function __construct($condition) {
-    if (is_bool($condition)) {
+    if (\is_bool($condition)) {
       $this->_cacheable = $condition;
     } else {
-      \Papaya\Utility\Constraints::assertCallable($condition);
+      Utility\Constraints::assertCallable($condition);
       $this->_callback = $condition;
     }
   }
@@ -40,11 +43,12 @@ class BooleanValue
    * call it.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return BooleanValue
+   *
+   * @return bool
    */
   public function getStatus() {
     if (NULL === $this->_cacheable) {
-      $this->_cacheable = (boolean)call_user_func($this->_callback);
+      $this->_cacheable = (bool)\call_user_func($this->_callback);
     }
     return $this->_cacheable;
   }
@@ -53,7 +57,8 @@ class BooleanValue
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_VARIABLES;

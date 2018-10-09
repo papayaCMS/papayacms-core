@@ -12,29 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class that uses a callback function to validate the value
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Callback implements \Papaya\Filter {
-
+class Callback implements Filter {
   /**
    * callback function or method
    *
    * @var string
    */
-  private $_callback = '';
+  private $_callback;
 
   /**
-   * Addiitonal arguments for the callback
+   * Additional arguments for the callback
    *
-   * @var string
+   * @var array
    */
-  private $_arguments = array();
+  private $_arguments;
 
   /**
    * Construct object and initialize function name and optional arguments.
@@ -46,7 +47,7 @@ class Callback implements \Papaya\Filter {
    * @param \Callback $callback
    * @param array $arguments
    */
-  public function __construct($callback, array $arguments = array()) {
+  public function __construct($callback, array $arguments = []) {
     $this->_callback = $callback;
     $this->_arguments = $arguments;
   }
@@ -55,16 +56,21 @@ class Callback implements \Papaya\Filter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throws \Papaya\Filter\Exception
+   * @throws Exception
+   *
    * @param string $value
-   * @return TRUE
+   *
+   * @return true
    */
   public function validate($value) {
-    $this->_isCallback($this->_callback);
+    $callback = $this->_callback;
+    if (!\is_callable($callback)) {
+      throw new Exception\InvalidCallback($callback);
+    }
     $arguments = $this->_arguments;
-    array_unshift($arguments, $value);
-    if (!call_user_func_array($this->_callback, $arguments)) {
-      throw new \Papaya\Filter\Exception\FailedCallback($this->_callback);
+    \array_unshift($arguments, $value);
+    if (!$callback(...$arguments)) {
+      throw new Exception\FailedCallback($callback);
     }
     return TRUE;
   }
@@ -73,26 +79,15 @@ class Callback implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid.
    *
    * @param string $value
-   * @return string|NULL
+   *
+   * @return string|null
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
       return NULL;
-    }
-  }
-
-  /**
-   * Check if the callback function is callable
-   *
-   * @param \Callback $callback
-   * @throws \Papaya\Filter\Exception\InvalidCallback
-   */
-  public function _isCallback($callback) {
-    if (!is_callable($callback)) {
-      throw new \Papaya\Filter\Exception\InvalidCallback($callback);
     }
   }
 }

@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if an invalid character is found in the given input
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCharacter extends \Papaya\Filter\Exception {
-
+class InvalidCharacter extends Filter\Exception {
   /**
    * Position of invalid character
    *
-   * @var integer
+   * @var int
    */
   private $_characterPosition = 0;
 
@@ -33,11 +34,11 @@ class InvalidCharacter extends \Papaya\Filter\Exception {
    * Initialize object, store character position and generate error message.
    *
    * @param string $value
-   * @param integer $offset
+   * @param int $offset
    */
   public function __construct($value, $offset) {
     $this->_characterPosition = $offset;
-    if (strlen($value) > 50) {
+    if (\strlen($value) > 50) {
       if ($offset > 50) {
         $from = $offset - 50;
         $length = 50;
@@ -46,15 +47,15 @@ class InvalidCharacter extends \Papaya\Filter\Exception {
         $length = $offset;
       }
       parent::__construct(
-        sprintf(
+        \sprintf(
           'Invalid character at offset #%d near "%s".',
           $offset,
-          substr($value, $from, $length)
+          \substr($value, $from, $length)
         )
       );
     } else {
       parent::__construct(
-        sprintf(
+        \sprintf(
           'Invalid character in value "%s" at offset #%d.',
           $value,
           $offset
@@ -66,7 +67,7 @@ class InvalidCharacter extends \Papaya\Filter\Exception {
   /**
    * Return the character position
    *
-   * @return integer
+   * @return int
    */
   public function getCharacterPosition() {
     return $this->_characterPosition;

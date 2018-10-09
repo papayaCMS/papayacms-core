@@ -12,17 +12,24 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
+
+use Papaya\Application;
+use Papaya\Iterator;
+
 /**
  * Load a list of themes. The themes are subdirectories in a local directory.
  *
  * @package Papaya-Library
  * @subpackage Theme
  */
-class Collection extends \Papaya\Application\BaseObject implements \IteratorAggregate {
+class Collection implements Application\Access, \IteratorAggregate {
+  use Application\Access\Aggregation;
 
-  private $_handler = NULL;
+  /**
+   * @var
+   */
+  private $_handler;
 
   /**
    * Return an iterator for the theme list.
@@ -30,26 +37,19 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
-    return new \Papaya\Iterator\Callback(
-      new \Papaya\Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
-      array($this, 'callbackGetName')
+    return new Iterator\Callback(
+      new Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
+      function($element) {
+        return \basename($element);
+      }
     );
-  }
-
-  /**
-   * strip path information from returned directory name
-   *
-   * @param string $element
-   * @return string
-   */
-  public function callbackGetName($element) {
-    return basename($element);
   }
 
   /**
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
+   *
    * @return \Papaya\Content\Structure
    */
   public function getDefinition($theme) {
@@ -60,14 +60,15 @@ class Collection extends \Papaya\Application\BaseObject implements \IteratorAggr
    * The handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param \Papaya\Theme\Handler $handler
-   * @return \Papaya\Theme\Handler
+   * @param Handler $handler
+   *
+   * @return Handler
    */
-  public function handler(\Papaya\Theme\Handler $handler = NULL) {
-    if (isset($handler)) {
+  public function handler(Handler $handler = NULL) {
+    if (NULL !== $handler) {
       $this->_handler = $handler;
     } elseif (NULL === $this->_handler) {
-      $this->_handler = new \Papaya\Theme\Handler();
+      $this->_handler = new Handler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;

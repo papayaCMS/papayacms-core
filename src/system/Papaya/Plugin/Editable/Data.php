@@ -12,13 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Editable;
 
-abstract class Data extends \Papaya\BaseObject\Parameters {
+use Papaya\BaseObject;
 
+use Papaya\Plugin;
+
+abstract class Data extends BaseObject\Parameters {
   /**
-   * @var \Papaya\Plugin\Editor
+   * @var Plugin\Editor
    */
   private $_editor;
 
@@ -30,21 +32,23 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
   /**
    * Getter/Setter for the editor object
    *
-   * @param \Papaya\Plugin\Editor $editor
+   * @param Plugin\Editor $editor
+   *
    * @throws \LogicException
-   * @return \Papaya\Plugin\Editor
+   *
+   * @return Plugin\Editor
    */
-  public function editor(\Papaya\Plugin\Editor $editor = NULL) {
+  public function editor(Plugin\Editor $editor = NULL) {
     if (NULL !== $editor) {
       $this->_editor = $editor;
     } elseif (NULL === $this->_editor) {
       if (isset($this->callbacks()->onCreateEditor)) {
         $this->_editor = $this->callbacks()->onCreateEditor($this);
-        if (!($this->_editor instanceof \Papaya\Plugin\Editor)) {
+        if (!($this->_editor instanceof Plugin\Editor)) {
           throw new \LogicException(
-            sprintf(
+            \sprintf(
               'Callback did not return a valid %s instance.',
-              \Papaya\Plugin\Editor::class
+              Plugin\Editor::class
             )
           );
         }
@@ -59,6 +63,7 @@ abstract class Data extends \Papaya\BaseObject\Parameters {
    * Getter/Setter for the callbacks subobject
    *
    * @param Callbacks $callbacks
+   *
    * @return Callbacks
    */
   public function callbacks(Callbacks $callbacks = NULL) {

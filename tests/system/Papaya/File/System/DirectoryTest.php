@@ -59,12 +59,12 @@ class DirectoryTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\File\System\Directory::isWriteable
+   * @covers \Papaya\File\System\Directory::isWritable
    */
   public function testIsWriteableExpectingTrue() {
     $path = $this->createTemporaryDirectory();
     $directory = new Directory($path);
-    $this->assertTrue($directory->isWriteable());
+    $this->assertTrue($directory->isWritable());
   }
 
   /**

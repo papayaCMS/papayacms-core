@@ -12,46 +12,46 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Key;
+
+use Papaya\Database;
+
 /**
  * An single field key, provided by a sequence object, the sequence is created on the
  * client side and the sequence object validates the existance in the database.
  *
  * @package Papaya-Library
  * @subpackage Database
- * @version $Id: Sequence.php 39197 2014-02-11 13:36:56Z weinert $
  */
-class Sequence implements \Papaya\Database\Interfaces\Key {
-
+class Sequence implements Database\Interfaces\Key {
   /**
    * Sequence object to create new identifiers
    *
-   * @var \Papaya\Database\Sequence
+   * @var Database\Sequence
    */
-  private $_sequence = NULL;
+  private $_sequence;
 
   /**
    * the property name of the identifier field
    *
    * @var string
    */
-  private $_property = 'id';
+  private $_property;
 
   /**
    * the current field value
    *
-   * @var NULL|string|integer
+   * @var null|string|int
    */
-  private $_value = NULL;
+  private $_value;
 
   /**
    * Create objecd and store sequence and property.
    *
-   * @param \Papaya\Database\Sequence $sequence
+   * @param Database\Sequence $sequence
    * @param string $property
    */
-  public function __construct(\Papaya\Database\Sequence $sequence, $property = 'id') {
+  public function __construct(Database\Sequence $sequence, $property = 'id') {
     $this->_sequence = $sequence;
     $this->_property = $property;
   }
@@ -59,17 +59,19 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
   /**
    * Provide information about the key
    *
-   * @var integer
+   * @var int
+   *
    * @return int
    */
   public function getQualities() {
-    return \Papaya\Database\Interfaces\Key::CLIENT_GENERATED;
+    return Database\Interfaces\Key::CLIENT_GENERATED;
   }
 
   /**
    * Assign data to the key. This is an array because others keys can consist of multiple fields
    *
    * @param array $data
+   *
    * @return bool
    */
   public function assign(array $data) {
@@ -88,7 +90,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    *
    * The key is provided by the key sequence object so it should always exists if it is set.
    *
-   * @return boolean
+   * @return bool
    */
   public function exists() {
     return !empty($this->_value);
@@ -116,7 +118,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * @return array(string)
    */
   public function getProperties() {
-    return array($this->_property);
+    return [$this->_property];
   }
 
   /**
@@ -126,13 +128,14 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
    * If the filter for a create action (insert) is requested, a new id is created using the sequence
    * object.
    *
-   * @param integer $for the action the filter ist fetched for
+   * @param int $for the action the filter ist fetched for
+   *
    * @return array(string)
    */
   public function getFilter($for = self::ACTION_FILTER) {
-    if ($for == self::ACTION_CREATE) {
-      return array($this->_property => $this->_sequence->next());
+    if (self::ACTION_CREATE === $for) {
+      return [$this->_property => $this->_sequence->next()];
     }
-    return array($this->_property => $this->_value);
+    return [$this->_property => $this->_value];
   }
 }

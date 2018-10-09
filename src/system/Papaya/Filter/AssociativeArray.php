@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for an array with specific elements. It validates the specified elements
  * in the array.
@@ -23,32 +25,31 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class AssociativeArray implements \Papaya\Filter {
-
+class AssociativeArray implements Filter {
   /**
    * Filters for each array element
    *
-   * @var integer
+   * @var Filter[]
    */
-  private $_filters = array();
+  private $_filters = [];
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
    * @param array $filtersByName
+   *
    * @throws \RangeException
    */
   public function __construct(array $filtersByName) {
-    $this->_filters = [];
     if (empty($filtersByName)) {
       throw new \InvalidArgumentException('Empty filter definition.');
     }
     foreach ($filtersByName as $name => $filter) {
-      if ($filter instanceof \Papaya\Filter) {
+      if ($filter instanceof Filter) {
         $this->_filters[$name] = $filter;
       } else {
         throw new \InvalidArgumentException(
-          sprintf('Invalid filter definition for element "%s".', $name)
+          \sprintf('Invalid filter definition for element "%s".', $name)
         );
       }
     }
@@ -58,11 +59,13 @@ class AssociativeArray implements \Papaya\Filter {
    * Check the array elements against each filter.
    *
    * @throws \Papaya\Filter\Exception
+   *
    * @param mixed $value
-   * @return TRUE
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!is_array($value)) {
+    if (!\is_array($value)) {
       throw new Exception\UnexpectedType('array');
     }
     foreach ($value as $name => $subValue) {
@@ -78,10 +81,11 @@ class AssociativeArray implements \Papaya\Filter {
    * Use the filter for each element. Build a result of the filtered values that are not NULL
    *
    * @param mixed $value
-   * @return array|NULL
+   *
+   * @return array|null
    */
   public function filter($value) {
-    if (!is_array($value)) {
+    if (!\is_array($value)) {
       return NULL;
     }
     $result = [];

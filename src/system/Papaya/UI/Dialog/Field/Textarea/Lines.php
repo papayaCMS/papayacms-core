@@ -12,44 +12,47 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Textarea;
+
+use Papaya\Filter;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
- * A textarea (multiline input) field, that will use the filter on each line
+ * A textarea (multiple line input) field, that will use the filter on each line
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Lines extends \Papaya\UI\Dialog\Field\Textarea {
-
+class Lines extends UI\Dialog\Field\Textarea {
   protected $_type = 'lines';
 
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, \Papaya\Filter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, Filter $filter = NULL
   ) {
     parent::__construct(
       $caption,
       $name,
       $lines,
       $default,
-      new \Papaya\Filter\Lines($filter)
+      new Filter\Lines($filter)
     );
   }
 
   /**
    * Append field and textarea output to DOM
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',
-      array(
+      [
         'type' => $this->_type,
         'name' => $this->_getParameterName($this->getName()),
         'lines' => $this->_lineCount
-      ),
+      ],
       (string)$this->getCurrentValue()
     );
   }

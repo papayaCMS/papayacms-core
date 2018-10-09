@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
+use Papaya\Message;
+
 /**
  * Papaya Message Dispatcher, interface for message dispatchers
  *
@@ -24,12 +26,12 @@ namespace Papaya\Message;
  * @subpackage Messages
  */
 interface Dispatcher {
-
   /**
    * Dispatch/handle a message
    *
-   * @param \Papaya\Message $message
-   * @return boolean message dispatched
+   * @param Message $message
+   *
+   * @return bool message dispatched
    */
-  function dispatch(\Papaya\Message $message);
+  public function dispatch(Message $message);
 }

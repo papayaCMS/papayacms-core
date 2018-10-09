@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Pages\Dependency;
+
+use Papaya\Content;
+use Papaya\UI;
+use Papaya\Utility;
 
 /**
  * Encapsulate the synchronization definitions and provide access in different formats for other
@@ -23,91 +26,90 @@ namespace Papaya\Administration\Pages\Dependency;
  * @subpackage Administration
  */
 class Synchronizations {
-
   /**
    * Synchronization definitions
    *
    * @var array
    */
-  private $_definitions = array(
-    \Papaya\Content\Page\Dependency::SYNC_PROPERTIES => array(
+  private $_definitions = [
+    Content\Page\Dependency::SYNC_PROPERTIES => [
       'caption' => 'Properties',
       'hint' => 'Page properties',
       'image' => 'categories-properties',
       'class' => Synchronization\Properties::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_VIEW => array(
+    ],
+    Content\Page\Dependency::SYNC_VIEW => [
       'caption' => 'View',
       'hint' => 'Page view',
       'image' => 'items-view',
       'class' => Synchronization\View::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_CONTENT => array(
+    ],
+    Content\Page\Dependency::SYNC_CONTENT => [
       'caption' => 'Content',
       'hint' => 'Page content',
       'image' => 'categories-content',
       'class' => Synchronization\Content::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_BOXES => array(
+    ],
+    Content\Page\Dependency::SYNC_BOXES => [
       'caption' => 'Boxes',
       'hint' => 'Box links',
       'image' => 'items-box',
       'class' => Synchronization\Boxes::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_TAGS => array(
+    ],
+    Content\Page\Dependency::SYNC_TAGS => [
       'caption' => 'Tags',
       'hint' => 'Page tags/labels',
       'image' => 'items-tag',
       'class' => Synchronization\Tags::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_ACCESS => array(
+    ],
+    Content\Page\Dependency::SYNC_ACCESS => [
       'caption' => 'Access',
       'hint' => 'Access permissions for visitors',
       'image' => 'categories-access',
       'class' => Synchronization\Access::class
-    ),
-    \Papaya\Content\Page\Dependency::SYNC_PUBLICATION => array(
+    ],
+    Content\Page\Dependency::SYNC_PUBLICATION => [
       'caption' => 'Publication',
       'hint' => 'Publication action',
       'image' => 'items-publication',
       'class' => Synchronization\Publication::class
-    )
-  );
+    ]
+  ];
 
   /**
    * Buffer variable for icon list
    *
-   * @var \Papaya\UI\Icon\Collection
+   * @var UI\Icon\Collection
    */
-  private $_icons = NULL;
+  private $_icons;
 
   /**
    * Buffer variable for array(id => caption).
    *
    * @var array(integer => string)
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * Dependencies records list.
    *
-   * @var \Papaya\Content\Page\Dependencies
+   * @var Content\Page\Dependencies
    */
-  private $_dependencies = NULL;
+  private $_dependencies;
 
   /**
    * Create {@see \Papaya\UI\Icon\Collection} from definitions and return it.
    *
-   * @return \Papaya\UI\Icon\Collection
+   * @return UI\Icon\Collection
    */
   public function getIcons() {
-    if (is_null($this->_icons)) {
-      $this->_icons = new \Papaya\UI\Icon\Collection;
+    if (NULL === $this->_icons) {
+      $this->_icons = new UI\Icon\Collection();
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_icons[$synchronization] = new \Papaya\UI\Icon(
+        $this->_icons[$synchronization] = new UI\Icon(
           $data['image'],
-          new \Papaya\UI\Text\Translated($data['caption']),
-          new \Papaya\UI\Text\Translated($data['hint'])
+          new UI\Text\Translated($data['caption']),
+          new UI\Text\Translated($data['hint'])
         );
       }
     }
@@ -120,26 +122,27 @@ class Synchronizations {
    * @return array
    */
   public function getList() {
-    if (is_null($this->_list)) {
-      $this->_list = array();
+    if (NULL === $this->_list) {
+      $this->_list = [];
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_list[$synchronization] = new \Papaya\UI\Text\Translated($data['caption']);
+        $this->_list[$synchronization] = new UI\Text\Translated($data['caption']);
       }
     }
     return $this->_list;
   }
 
   /**
-   * Getter/setter for the dependcies database list
+   * Getter/setter for the dependencies database list
    *
-   * @param \Papaya\Content\Page\Dependencies|NULL $dependencies
-   * @return \Papaya\Content\Page\Dependencies
+   * @param Content\Page\Dependencies|null $dependencies
+   *
+   * @return Content\Page\Dependencies
    */
-  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
-    if (isset($dependencies)) {
+  public function dependencies(Content\Page\Dependencies $dependencies = NULL) {
+    if (NULL !== $dependencies) {
       $this->_dependencies = $dependencies;
-    } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
+    } elseif (NULL === $this->_dependencies) {
+      $this->_dependencies = new Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
@@ -147,27 +150,29 @@ class Synchronizations {
   /**
    * Get the action object for an synchronization.
    *
-   * @param integer $synchronization
-   * @return NULL|\Papaya\Administration\Pages\Dependency\Synchronization
+   * @param int $synchronization
+   *
+   * @return null|\Papaya\Administration\Pages\Dependency\Synchronization
    */
   public function getAction($synchronization) {
     if (isset($this->_definitions[$synchronization])) {
       $className = $this->_definitions[$synchronization]['class'];
       return new $className();
     }
-    return NULL;
+    return;
   }
 
   /**
-   * Get the targets for an given synchonization. The targets are dependent pages that
-   * are configured to be syncronized.
+   * Get the targets for an given synchronization. The targets are dependent pages that
+   * are configured to be synchronized.
    *
-   * @param integer $originId
-   * @param integer $synchronization
-   * @return array|NULL
+   * @param int $originId
+   * @param int $synchronization
+   *
+   * @return array|null
    */
   public function getTargets($originId, $synchronization) {
-    $targetIds = array();
+    $targetIds = [];
     $this->dependencies()->load($originId);
     foreach ($this->dependencies() as $dependency) {
       if ($dependency['synchronization'] & $synchronization) {
@@ -180,14 +185,15 @@ class Synchronizations {
   /**
    * Synchronize a dependency - this is called is a dependency is created or changed.
    *
-   * @param \Papaya\Content\Page\Dependency $dependency
+   * @param Content\Page\Dependency $dependency
    */
-  public function synchronizeDependency(\Papaya\Content\Page\Dependency $dependency) {
+  public function synchronizeDependency(Content\Page\Dependency $dependency) {
     foreach ($this->_definitions as $synchronization => $data) {
-      if ($dependency->synchronization & $synchronization &&
-        $synchronization != \Papaya\Content\Page\Dependency::SYNC_PUBLICATION &&
+      if (
+        Content\Page\Dependency::SYNC_PUBLICATION !== (int)$synchronization &&
+        Utility\Bitwise::inBitmask($synchronization, $dependency->synchronization) &&
         ($action = $this->getAction($synchronization))) {
-        $action->synchronize(array($dependency->id), $dependency->originId);
+        $action->synchronize([$dependency->id], $dependency->originId);
       }
     }
   }
@@ -195,18 +201,18 @@ class Synchronizations {
   /**
    * Synchronize all dependencies if the original ist changed. This is triggered by an action.
    *
-   * @param integer $synchronizations
-   * @param integer $originId
-   * @param array|NULL $languages
+   * @param int $synchronizations
+   * @param int $originId
+   * @param array|null $languages
    */
   public function synchronizeAction($synchronizations, $originId, array $languages = NULL) {
     foreach ($this->_definitions as $identifier => $data) {
-      if ($synchronizations & $identifier) {
-        if ($targetIds = $this->getTargets($originId, $identifier)) {
-          if ($action = $this->getAction($identifier)) {
-            $action->synchronize($targetIds, $originId, $languages);
-          }
-        }
+      if (
+        Utility\Bitwise::inBitmask($identifier, $synchronizations) &&
+        ($targetIds = $this->getTargets($originId, $identifier)) &&
+        ($action = $this->getAction($identifier))
+      ) {
+        $action->synchronize($targetIds, $originId, $languages);
       }
     }
   }

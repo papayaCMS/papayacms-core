@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI;
+
+use Papaya\XML;
+
 /**
  * Abstract superclass implementing basic features for user interface control.
  *
@@ -21,18 +23,17 @@ namespace Papaya\UI;
  * @subpackage UI
  */
 abstract class Control extends Control\Part {
-
   /**
    * Compile output xml for the user interface element.
    *
    * @return string
    */
   public function getXML() {
-    $dom = new \Papaya\XML\Document();
-    $control = $dom->appendElement('control');
+    $document = new XML\Document();
+    $control = $document->appendElement('control');
     $this->appendTo($control);
     $xml = '';
-    foreach ($dom->documentElement->childNodes as $node) {
+    foreach ($document->documentElement->childNodes as $node) {
       $xml .= $node->ownerDocument->saveXML($node);
     }
     return $xml;

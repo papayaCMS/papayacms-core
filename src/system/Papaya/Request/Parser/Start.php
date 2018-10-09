@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request\Parser;
+
+use Papaya\Request;
+
 /**
  * Papaya request parser for default page links (no page id)
  *
  * @package Papaya-Library
  * @subpackage Request
  */
-class Start extends \Papaya\Request\Parser {
-
+class Start extends Request\Parser {
   /**
    * PCRE pattern
    *
@@ -41,18 +42,20 @@ class Start extends \Papaya\Request\Parser {
    * Parse url and return data
    *
    * @param \Papaya\URL $url
-   * @return FALSE|array
+   *
+   * @return false|array
    */
   public function parse($url) {
-    if ($url->getPath() == $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')) {
-      return array(
+    if ($url->getPath() === $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')) {
+      return [
         'mode' => 'page',
         'is_startpage' => TRUE,
         'output_mode' => 'html',
         'preview' => FALSE
-      );
-    } elseif (preg_match($this->_pattern, $url->getPath(), $matches)) {
-      $result = array();
+      ];
+    }
+    if (\preg_match($this->_pattern, $url->getPath(), $matches)) {
+      $result = [];
       $result['mode'] = 'page';
       $result['is_startpage'] = TRUE;
       $result['output_mode'] = $matches['mode'];

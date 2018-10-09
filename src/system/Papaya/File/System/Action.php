@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\File\System;
+
 /**
  * An interface for action on the file system. This can be a script call or an stream wrapper read.
  *
@@ -21,6 +21,5 @@ namespace Papaya\File\System;
  * @subpackage FileSystem
  */
 interface Action {
-
   public function execute(array $parameters);
 }

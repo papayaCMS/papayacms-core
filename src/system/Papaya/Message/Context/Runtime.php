@@ -12,10 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context;
+
 /**
- * Message context containing the timing infotmations
+ * Message context containing the timing information
  *
  * It is not possible to get the actual runtime of the php script, so all calls are relative to
  * the first instance of this class.
@@ -24,19 +24,18 @@ namespace Papaya\Message\Context;
  * @subpackage Messages
  */
 class Runtime
-  implements
-  \Papaya\Message\Context\Interfaces\Text {
-
+  implements Interfaces\Text {
   /**
-   * Global mode sets the timeing in relation to script runtime
+   * Global mode sets the timing in relation to script runtime
    *
-   * @var integer
+   * @var int
    */
   const MODE_GLOBAL = 0;
+
   /**
    * Single mode just calculates and outputs a single timing,
    *
-   * @var integer
+   * @var int
    */
   const MODE_SINGLE = 1;
 
@@ -48,16 +47,16 @@ class Runtime
   /**
    * Class variable to remember script start time
    *
-   * @var integer
+   * @var int
    */
   private static $_startTime = 0;
 
   /**
    * Class variable to remember last memory usage status and calculate differences
    *
-   * @var integer
+   * @var int|null
    */
-  private static $_previousTime = 0;
+  private static $_previousTime;
 
   /**
    * Time value
@@ -65,6 +64,7 @@ class Runtime
    * @var float
    */
   protected $_neededTime = 0;
+
   /**
    * Stop Time
    *
@@ -78,15 +78,15 @@ class Runtime
    *
    * @see \Papaya\Message\Context\Runtime::setTimeValues()
    *
-   * @param NULL|float|string $start
-   * @param NULL|float|string $stop
+   * @param null|float|string $start
+   * @param null|float|string $stop
    */
   public function __construct($start = NULL, $stop = NULL) {
-    if (self::$_previousTime == 0) {
-      self::setStartTime(microtime(TRUE));
+    if (NULL === self::$_previousTime) {
+      self::setStartTime(\microtime(TRUE));
     }
-    if (is_null($start)) {
-      $stop = microtime(TRUE);
+    if (NULL === $start) {
+      $stop = \microtime(TRUE);
       $this->setTimeValues(
         self::$_previousTime,
         $stop
@@ -96,7 +96,7 @@ class Runtime
     } else {
       $this->setTimeValues(
         $start,
-        is_null($stop) ? microtime(TRUE) : $stop
+        NULL === $stop ? \microtime(TRUE) : $stop
       );
       $this->_mode = self::MODE_SINGLE;
     }
@@ -137,7 +137,7 @@ class Runtime
   /**
    * Remember stop time, for next timing
    *
-   * @param integer $current
+   * @param int $current
    */
   public static function rememberTime($current) {
     self::$_previousTime = $current;
@@ -148,21 +148,23 @@ class Runtime
    * part considered milliseconds, second part seconds
    *
    * @param float|string $value
+   *
    * @return float
    */
   private static function _prepareTimeValue($value) {
-    if (is_string($value) && strpos($value, ' ')) {
-      list($milliSeconds, $seconds) = explode(' ', $value, 2);
+    if (\is_string($value) && \strpos($value, ' ')) {
+      list($milliSeconds, $seconds) = \explode(' ', $value, 2);
       return ((float)$seconds + (float)$milliSeconds);
-    } else {
-      return (float)$value;
     }
+    return (float)$value;
   }
 
   /**
    * Initialize a start time.
+   *
+   * @param float|null $startTime
    */
   public static function setStartTime($startTime) {
-    self::$_previousTime = self::$_startTime = self::_prepareTimeValue($startTime);
+    self::$_previousTime = self::$_startTime = NULL !== $startTime ? self::_prepareTimeValue($startTime) : NULL;
   }
 }

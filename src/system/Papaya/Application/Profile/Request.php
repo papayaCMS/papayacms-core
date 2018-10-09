@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\URL as CurrentURL;
 
 /**
  * Application object profile for default request object
@@ -21,18 +23,18 @@ namespace Papaya\Application\Profile;
  * @package Papaya-Library
  * @subpackage Application
  */
-class Request implements \Papaya\Application\Profile {
-
+class Request implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
+   * @param Application|Application\CMS $application
+   *
    * @return \Papaya\Request
    */
   public function createObject($application) {
     $request = new \Papaya\Request($application->options);
     $request->papaya($application);
-    $request->load(new \Papaya\URL\Current());
+    $request->load(new CurrentURL());
     return $request;
   }
 }

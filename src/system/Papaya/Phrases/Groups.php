@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Phrases;
+
+use Papaya\Phrases;
+use Papaya\Utility;
+
 /**
  * Array Access implementation for phrase group objects.
  *
@@ -21,24 +24,24 @@ namespace Papaya\Phrases;
  * @subpackage Phrases
  */
 class Groups implements \ArrayAccess {
-
   /**
    * @var array
    */
-  private $_groups = array();
+  private $_groups = [];
 
   /**
-   * @var \Papaya\Phrases
+   * @var Phrases
    */
-  private $_phrases = NULL;
+  private $_phrases;
 
-  public function __construct(\Papaya\Phrases $phrases) {
+  public function __construct(Phrases $phrases) {
     $this->_phrases = $phrases;
   }
 
   /**
    * @param string $name
-   * @return \Papaya\Phrases\Group
+   *
+   * @return Group
    */
   public function get($name) {
     return $this->offsetGet($name);
@@ -46,29 +49,31 @@ class Groups implements \ArrayAccess {
 
   /**
    * @param string $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function offsetExists($name) {
-    return array_key_exists($name, $this->_groups);
+    return \array_key_exists($name, $this->_groups);
   }
 
   /**
    * @param string $name
-   * @return \Papaya\Phrases\Group
+   *
+   * @return Group
    */
   public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
-      $this->_groups[$name] = new \Papaya\Phrases\Group($this->_phrases, $name);
+      $this->_groups[$name] = new Group($this->_phrases, $name);
     }
     return $this->_groups[$name];
   }
 
   /**
    * @param string $name
-   * @param \Papaya\Phrases\Group $group
+   * @param Group $group
    */
   public function offsetSet($name, $group) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Phrases\Group::class, $group);
+    Utility\Constraints::assertInstanceOf(Group::class, $group);
     $this->_groups[$name] = $group;
   }
 

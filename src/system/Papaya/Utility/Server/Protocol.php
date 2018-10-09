@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Server;
+
 /**
  * Static utility class to check if thttp or http is used.
  *
@@ -21,9 +21,10 @@ namespace Papaya\Utility\Server;
  * @subpackage Util
  */
 class Protocol {
-
   const BOTH = 0;
+
   const HTTP = 1;
+
   const HTTPS = 2;
 
   /**
@@ -33,7 +34,7 @@ class Protocol {
    * PAPAYA_HEADER_HTTPS_TOKEN. If the header equals the token and the token is 32 bytes the
    * request is threated as HTTPS always.
    *
-   * @return boolean
+   * @return bool
    */
   public static function isSecure() {
     if (isset($_SERVER['X_PAPAYA_HTTPS'])) {
@@ -43,27 +44,28 @@ class Protocol {
     } else {
       $header = NULL;
     }
-    if (isset($header) &&
-      defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
-      strlen(PAPAYA_HEADER_HTTPS_TOKEN) == 32 &&
-      $header == PAPAYA_HEADER_HTTPS_TOKEN) {
+    if (
+      NULL !== $header &&
+      \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
+      PAPAYA_HEADER_HTTPS_TOKEN === $header &&
+      32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)) {
       return TRUE;
     }
-    return (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on');
+    return (isset($_SERVER['HTTPS']) && 'on' === \strtolower($_SERVER['HTTPS']));
   }
 
   /**
    * Return the currently used protocol. "http" or "https".
    *
-   * @param integer $mode
+   * @param int $mode
+   *
    * @return string
    */
   public static function get($mode = self::BOTH) {
-    if ($mode != self::BOTH) {
-      return $mode == self::HTTPS ? 'https' : 'http';
-    } else {
-      return self::isSecure() ? 'https' : 'http';
+    if (self::BOTH !== $mode) {
+      return self::HTTPS === $mode ? 'https' : 'http';
     }
+    return self::isSecure() ? 'https' : 'http';
   }
 
   /**
@@ -72,7 +74,7 @@ class Protocol {
    * @return string
    */
   public static function getDefaultPort() {
-    return (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on')
+    return (isset($_SERVER['HTTPS']) && 'on' === \strtolower($_SERVER['HTTPS']))
       ? 443 : 80;
   }
 }

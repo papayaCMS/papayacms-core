@@ -12,22 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\ListView\SubItem;
+
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * An listview subitem with a checkbox element.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Checkbox extends \Papaya\UI\ListView\SubItem {
-
+class Checkbox extends UI\ListView\SubItem {
   /**
-   * @var \Papaya\Request\Parameters\Name
+   * @var Request\Parameters\Name
    */
   private $_parameterName;
+
   /**
-   * @var \Papaya\UI\Dialog
+   * @var UI\Dialog
    */
   private $_dialog;
 
@@ -36,47 +40,47 @@ class Checkbox extends \Papaya\UI\ListView\SubItem {
    */
   private $_value;
 
-  public function __construct(\Papaya\UI\Dialog $dialog, $parameterName, $value) {
+  public function __construct(UI\Dialog $dialog, $parameterName, $value) {
     $this->_dialog = $dialog;
-    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
+    $this->_parameterName = new Request\Parameters\Name($parameterName);
     $this->_value = $value;
   }
 
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $item = $parent->appendElement(
-      'subitem',
-      array(
-        'align' => \Papaya\UI\Option\Align::getString($this->getAlign())
-      )
-    );
+  public function appendTo(XML\Element $parent) {
+    $subitem = $this->_appendSubItemTo($parent);
     $parameterName = clone $this->_parameterName;
     if ($group = $this->_dialog->parameterGroup()) {
       $parameterName->insertBefore(0, $this->_dialog->parameterGroup());
     }
-    $checkbox = $item->appendElement(
+    $checkbox = $subitem->appendElement(
       'input',
-      array(
+      [
         'type' => 'checkbox',
-        'name' => (string)$parameterName.'[]',
-        'value' => (string)$this->_value
-      )
+        'name' => $parameterName.'[]',
+        'value' => $this->_value
+      ]
     );
     if ($this->isSelected()) {
       $checkbox->setAttribute('checked', 'checked');
     }
+    return $subitem;
   }
 
+  /**
+   * @return bool
+   */
   public function isSelected() {
     if ($this->_dialog->parameters()->has($this->_parameterName)) {
       $currentValues = $this->_dialog->parameters()->get($this->_parameterName, []);
     } else {
       $currentValues = $this->_dialog->data()->get($this->_parameterName, []);
     }
-    return (in_array($this->_value, $currentValues));
+    return \in_array($this->_value, $currentValues, FALSE);
   }
 }

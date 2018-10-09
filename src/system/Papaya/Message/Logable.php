@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message;
+
+use Papaya\Message;
+
 /**
  * Interface for protocol messages
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
-interface Logable extends \Papaya\Message {
-
+interface Logable extends Message {
   /**
    * log group for user messages (login/logout)
    */
@@ -70,7 +71,7 @@ interface Logable extends \Papaya\Message {
   /**
    * Get log group of message
    *
-   * @return integer
+   * @return int
    */
   public function getGroup();
 

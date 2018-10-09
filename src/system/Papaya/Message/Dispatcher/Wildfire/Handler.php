@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Dispatcher\Wildfire;
+
 /**
  * Papaya Message Dispatcher Wildfire Handler, provides functions to use the wildfire protocol
  *
@@ -24,29 +24,31 @@ namespace Papaya\Message\Dispatcher\Wildfire;
  * @subpackage Messages
  */
 class Handler {
-
   /**
    * Header type main
    *
-   * @var integer
+   * @var int
    */
   const HEADER_MAIN = 0;
+
   /**
    * Header type console (messages)
    *
-   * @var integer
+   * @var int
    */
   const HEADER_CONSOLE = 1;
+
   /**
    * Header type dump (variable dumps)
    *
-   * @var integer
+   * @var int
    */
   const HEADER_DUMP = 2;
+
   /**
    * Header type data (headers with the actual data)
    *
-   * @var integer
+   * @var int
    */
   const HEADER_DATA = 3;
 
@@ -55,17 +57,17 @@ class Handler {
    *
    * @var array
    */
-  private static $_counter = array(
+  private static $_counter = [
     self::HEADER_MAIN => 0,
     self::HEADER_CONSOLE => 0,
     self::HEADER_DUMP => 0,
     self::HEADER_DATA => 0
-  );
+  ];
 
   /**
    * Length limit for headers
    *
-   * @var integer
+   * @var int
    */
   public static $lengthLimit = 5000;
 
@@ -74,19 +76,19 @@ class Handler {
    *
    * @var array[]
    */
-  private static $_initializationHeaders = array(
-    self::HEADER_MAIN => array(
+  private static $_initializationHeaders = [
+    self::HEADER_MAIN => [
       'X-Wf-Protocol-1' => 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
       'X-Wf-1-Plugin-1' => 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3'
-    ),
-    self::HEADER_CONSOLE => array(
+    ],
+    self::HEADER_CONSOLE => [
       'X-Wf-1-Structure-1' =>
-        'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1'
-    ),
-    self::HEADER_DUMP => array(
+      'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1'
+    ],
+    self::HEADER_DUMP => [
       'X-Wf-1-Structure-2' => 'http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1'
-    )
-  );
+    ]
+  ];
 
   /**
    * Callback function for sending headers  *
@@ -99,10 +101,11 @@ class Handler {
    * Create Handler and set callback function
    *
    * @param \Callback $callback
+   *
    * @throws \InvalidArgumentException
    */
   public function __construct($callback) {
-    if (is_callable($callback)) {
+    if (\is_callable($callback)) {
       $this->_callback = $callback;
     } else {
       throw new \InvalidArgumentException('Valid callback needed, to send HTTP headers.');
@@ -113,12 +116,12 @@ class Handler {
    * Reset class counters to inital values
    */
   public function resetCounters() {
-    self::$_counter = array(
+    self::$_counter = [
       self::HEADER_MAIN => 0,
       self::HEADER_CONSOLE => 0,
       self::HEADER_DUMP => 0,
       self::HEADER_DATA => 0
-    );
+    ];
   }
 
   /**
@@ -129,14 +132,14 @@ class Handler {
    */
   private function _send($name, $value) {
     if (NULL !== $this->_callback) {
-      call_user_func($this->_callback, $name.': '.$value);
+      \call_user_func($this->_callback, $name.': '.$value);
     }
   }
 
   /**
    * Send initialization headers if needed
    *
-   * @param integer $type
+   * @param int $type
    */
   public function sendInitialization($type) {
     if (isset(self::$_initializationHeaders[$type]) && 0 === self::$_counter[$type]) {
@@ -155,9 +158,9 @@ class Handler {
    * @param string $label
    */
   public function sendMessage($content, $type = 'LOG', $label = '') {
-    $meta = array(
+    $meta = [
       'Type' => $type
-    );
+    ];
     if (!empty($label)) {
       $meta['Label'] = $label;
     }
@@ -170,7 +173,7 @@ class Handler {
    * @param mixed $content
    */
   public function sendDump($content) {
-    $this->sendData(self::HEADER_CONSOLE, array('Type' => 'LOG'), $content);
+    $this->sendData(self::HEADER_CONSOLE, ['Type' => 'LOG'], $content);
   }
 
   /**
@@ -179,12 +182,10 @@ class Handler {
    * @param string $label
    */
   public function startGroup($label = ' ') {
-    /**
-     */
-    $meta = array(
+    $meta = [
       'Type' => 'GROUP_START',
       'Label' => empty($label) ? ' ' : $label
-    );
+    ];
     $this->sendData(self::HEADER_CONSOLE, $meta, NULL);
   }
 
@@ -192,41 +193,41 @@ class Handler {
    * End the previously opened group
    */
   public function endGroup() {
-    $meta = array(
+    $meta = [
       'Type' => 'GROUP_END'
-    );
+    ];
     $this->sendData(self::HEADER_CONSOLE, $meta, NULL);
   }
 
   /**
    * Send a header containing data
    *
-   * @param integer $structure
+   * @param int $structure
    * @param array $meta
    * @param mixed $content
    */
   public function sendData($structure, $meta, $content) {
     $this->sendInitialization(self::HEADER_MAIN);
     $this->sendInitialization($structure);
-    $structureIndex = ($structure === self::HEADER_DUMP) ? 2 : 1;
+    $structureIndex = (self::HEADER_DUMP === $structure) ? 2 : 1;
     switch ($structure) {
       case self::HEADER_DUMP :
-        $value = json_encode($content);
+        $value = \json_encode($content);
       break;
       case self::HEADER_CONSOLE :
       default :
-        $value = '['.json_encode($meta).','.json_encode($content).']';
+        $value = '['.\json_encode($meta).','.\json_encode($content).']';
     }
-    $lines = str_split(
+    $lines = \str_split(
       $value,
       self::$lengthLimit > 0 ? (int)self::$lengthLimit : 5000
     );
-    $max = count($lines) - 1;
+    $max = \count($lines) - 1;
     foreach ($lines as $i => $line) {
       $name = 'X-Wf-1-'.$structureIndex.'-1-'.(++self::$_counter[self::HEADER_DATA]);
       $suffix = ($i < $max) ? '\\' : '';
       if (0 === $i) {
-        $this->_send($name, strlen($value).'|'.$line.'|'.$suffix);
+        $this->_send($name, \strlen($value).'|'.$line.'|'.$suffix);
       } else {
         $this->_send($name, '|'.$line.'|'.$suffix);
       }

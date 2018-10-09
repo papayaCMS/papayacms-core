@@ -12,21 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
-class Bitwise {
 
+class Bitwise {
+  /**
+   * @param int $bit
+   * @param int $bitmask
+   * @return bool
+   */
   public static function inBitmask($bit, $bitmask) {
     return ($bitmask & $bit) === (int)$bit;
   }
 
   /**
-   * @param integer ,... $bit
+   * @param int[] $bits
+   *
    * @return int
    */
-  public static function union() {
+  public static function union(...$bits) {
     $result = 0;
-    foreach (func_get_args() as $bit) {
+    foreach ($bits as $bit) {
       $result |= $bit;
     }
     return $result;

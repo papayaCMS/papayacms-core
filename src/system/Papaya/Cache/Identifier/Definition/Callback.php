@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
+
+use Papaya\Cache;
+use Papaya\Utility;
+
 /**
  * A boolean value or callback returing a boolean value defines if caching is allowed
  *
@@ -21,13 +24,13 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Callback
-  implements \Papaya\Cache\Identifier\Definition {
+  implements Cache\Identifier\Definition {
+  private $_callback;
 
-  private $_callback = NULL;
-  private $_data = NULL;
+  private $_data;
 
   public function __construct($callback) {
-    \Papaya\Utility\Constraints::assertCallable($callback);
+    Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 
@@ -35,22 +38,25 @@ class Callback
    * Return cache identification data from a callback, return FALSE if it is nor cacheable
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return array|FALSE
+   *
+   * @return array|false
    */
   public function getStatus() {
     if (NULL === $this->_data) {
-      if (!($this->_data = call_user_func($this->_callback))) {
+      $callback = $this->_callback;
+      if (!($this->_data = $callback())) {
         $this->_data = FALSE;
       }
     }
-    return ($this->_data) ? array(get_class($this) => $this->_data) : FALSE;
+    return $this->_data ? [\get_class($this) => $this->_data] : FALSE;
   }
 
   /**
    * Values are from variables provided creating the object.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     return self::SOURCE_VARIABLES;

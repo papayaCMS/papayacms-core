@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Session;
+
 /**
  * An interface which defines the method needed for user defined session handlers.
  * {@see session_set_save_handler}
@@ -25,7 +25,6 @@ namespace Papaya\Session;
  * @subpackage Session
  */
 interface Handler {
-
   /**
    * Open function, this works like a constructor in classes and is executed when the session
    * is being opened. The open function expects two parameters, where the first is the
@@ -33,7 +32,8 @@ interface Handler {
    *
    * @param string $savePath
    * @param string $sessionName
-   * @return boolean
+   *
+   * @return bool
    */
   public static function open($savePath, $sessionName);
 
@@ -41,7 +41,7 @@ interface Handler {
    * Close function, this works like a destructor in classes and is executed when the
    * session operation is done.
    *
-   * @return boolean
+   * @return bool
    */
   public static function close();
 
@@ -51,6 +51,7 @@ interface Handler {
    * are converted to boolean expression. TRUE for success, FALSE for failure.
    *
    * @param string $id
+   *
    * @return string
    */
   public static function read($id);
@@ -61,7 +62,8 @@ interface Handler {
    *
    * @param string $id
    * @param string $sessionData
-   * @return boolean
+   *
+   * @return bool
    */
   public static function write($id, $sessionData);
 
@@ -70,7 +72,8 @@ interface Handler {
    * and takes the session id as its only parameter.
    *
    * @param string $id
-   * @return boolean
+   *
+   * @return bool
    */
   public static function destroy($id);
 
@@ -78,8 +81,8 @@ interface Handler {
    * The garbage collector, this is executed when the session garbage collector is executed
    * and takes the max session lifetime as its only parameter.
    *
-   * @param int $maxlifetime
-   * @return boolean
+   * @param int $maxLifeTime
+   * @return bool
    */
-  public static function gc($maxlifetime);
+  public static function gc($maxLifeTime);
 }

@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Reference\Page;
+
+use Papaya\Application;
+use Papaya\Content;
+use Papaya\Domains;
+use Papaya\UI;
+use Papaya\Utility;
 
 /**
  * A application width object that provides data for references
@@ -21,17 +26,18 @@ namespace Papaya\UI\Reference\Page;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Factory extends \Papaya\Application\BaseObject {
+class Factory implements Application\Access {
+  use Application\Access\Aggregation;
 
   /**
    * @var array
    */
-  private $_pageData = array();
+  private $_pageData = [];
 
   /**
    * @var \Papaya\Content\Language
    */
-  private $_currentLanguage = NULL;
+  private $_currentLanguage;
 
   /**
    * @var bool
@@ -39,40 +45,41 @@ class Factory extends \Papaya\Application\BaseObject {
   private $_preview = FALSE;
 
   /**
-   * @var \Papaya\Content\Pages
+   * @var Content\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   /**
-   * @var \Papaya\Content\Languages
+   * @var Content\Languages
    */
-  private $_languages = NULL;
+  private $_languages;
 
   /**
-   * @var \Papaya\Domains
+   * @var Domains
    */
-  private $_domains = NULL;
+  private $_domains;
 
   /**
-   * @var \Papaya\Content\Link\Types
+   * @var Content\Link\Types
    */
-  private $_linkTypes = NULL;
+  private $_linkTypes;
 
   /**
    * Create a page reference
    *
-   * @return \Papaya\UI\Reference\Page
+   * @return UI\Reference\Page
    */
   public function create() {
-    return new \Papaya\UI\Reference\Page();
+    return new UI\Reference\Page();
   }
 
   /**
    * Create and configure a page reference
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
-   * @return \Papaya\UI\Reference\Page
+   * @param int $pageId
+   *
+   * @return UI\Reference\Page
    */
   public function get($languageIdentifier, $pageId) {
     $languageIdentifier = $this->validateLanguageIdentifier($languageIdentifier);
@@ -87,10 +94,11 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Configure a given page reference
    *
-   * @param \Papaya\UI\Reference\Page $reference
-   * @return \Papaya\UI\Reference\Page
+   * @param UI\Reference\Page $reference
+   *
+   * @return UI\Reference\Page
    */
-  public function configure(\Papaya\UI\Reference\Page $reference) {
+  public function configure(UI\Reference\Page $reference) {
     $languageIdentifier = $this->validateLanguageIdentifier($reference->getPageLanguage());
     $pageId = $reference->getPageId();
     $reference->setPreview($this->isPreview());
@@ -100,11 +108,12 @@ class Factory extends \Papaya\Application\BaseObject {
         $reference->setPageTitle($this->prepareTitle($data['title'], $languageIdentifier));
         if ($this->isPreview()) {
           return $reference;
-        } elseif (is_array($domain = $this->getDomainData($languageIdentifier, $pageId))) {
+        }
+        if (\is_array($domain = $this->getDomainData($languageIdentifier, $pageId))) {
           $reference->url()->setHost($domain['host']);
-          if ($domain['scheme'] != \Papaya\Utility\Server\Protocol::BOTH) {
+          if (Utility\Server\Protocol::BOTH !== $domain['scheme']) {
             $reference->url()->setScheme(
-              \Papaya\Utility\Server\Protocol::get($domain['scheme'])
+              Utility\Server\Protocol::get($domain['scheme'])
             );
           } elseif (!$reference->url()->getScheme()) {
             $reference->url()->setScheme('http');
@@ -112,9 +121,9 @@ class Factory extends \Papaya\Application\BaseObject {
         } elseif (!$domain) {
           $reference->valid(FALSE);
         }
-        if ($data['scheme'] != \Papaya\Utility\Server\Protocol::BOTH) {
+        if (Utility\Server\Protocol::BOTH !== $data['scheme']) {
           $reference->url()->setScheme(
-            \Papaya\Utility\Server\Protocol::get($data['scheme'])
+            Utility\Server\Protocol::get($data['scheme'])
           );
         }
       } else {
@@ -129,11 +138,12 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param string $title
    * @param string $languageIdentifier
+   *
    * @return string
    */
   private function prepareTitle($title, $languageIdentifier) {
-    return strtolower(
-      \Papaya\Utility\File::normalizeName(
+    return \strtolower(
+      Utility\File::normalizeName(
         $title,
         $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
         $languageIdentifier
@@ -144,7 +154,7 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Check if the object/cms is in preview mode or not
    *
-   * @return boolean
+   * @return bool
    */
   public function isPreview() {
     return $this->_preview;
@@ -153,11 +163,11 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Set the preview stat, unset the pages subobject if needed.
    *
-   * @param boolean $preview
+   * @param bool $preview
    */
   public function setPreview($preview) {
-    if ($this->_preview != $preview) {
-      $this->_preview = (boolean)$preview;
+    if ($this->_preview !== (bool)$preview) {
+      $this->_preview = (bool)$preview;
       $this->_pages = NULL;
     }
   }
@@ -166,15 +176,17 @@ class Factory extends \Papaya\Application\BaseObject {
    * Get the page data
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
-   * @return array|FALSE
+   * @param int $pageId
+   *
+   * @return array|false
    */
   public function getPageData($languageIdentifier, $pageId) {
     $languageIdentifier = $this->validateLanguageIdentifier($languageIdentifier);
     $this->lazyLoadPage($languageIdentifier, $pageId);
     if (
-      $this->isPageLoaded($languageIdentifier, $pageId) &&
-      is_array($this->_pageData[$languageIdentifier][$pageId])
+      isset($this->_pageData[$languageIdentifier][$pageId]) &&
+      \is_array($this->_pageData[$languageIdentifier][$pageId]) &&
+      $this->isPageLoaded($languageIdentifier, $pageId)
     ) {
       return $this->_pageData[$languageIdentifier][$pageId];
     }
@@ -185,7 +197,7 @@ class Factory extends \Papaya\Application\BaseObject {
    * Lazy load the data for given page (translation)
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
+   * @param int $pageId
    */
   private function lazyLoadPage($languageIdentifier, $pageId) {
     if (!$this->isPageLoaded($languageIdentifier, $pageId)) {
@@ -205,15 +217,12 @@ class Factory extends \Papaya\Application\BaseObject {
    * Check if the data for a given language and page id is loaded.
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   *
+   * @return bool
    */
   private function isPageLoaded($languageIdentifier, $pageId) {
-    if (isset($this->_pageData[$languageIdentifier][$pageId])) {
-      return TRUE;
-    } else {
-      return FALSE;
-    }
+    return isset($this->_pageData[$languageIdentifier][$pageId]) ? TRUE : FALSE;
   }
 
   /**
@@ -226,8 +235,9 @@ class Factory extends \Papaya\Application\BaseObject {
    * The data ist stored for each page, so it needs to be caclulated only once for each page.
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
-   * @return array|boolean
+   * @param int $pageId
+   *
+   * @return array|bool
    */
   public function getDomainData($languageIdentifier, $pageId) {
     $result = FALSE;
@@ -236,11 +246,11 @@ class Factory extends \Papaya\Application\BaseObject {
         $result = $pageData['domain'];
       } else {
         $path = $pageData['path'];
-        array_push($path, $pageData['parent'], $pageData['id']);
+        \array_push($path, $pageData['parent'], $pageData['id']);
         $domains = $this->domains()->getDomainsByPath($path);
         $current = $this->domains()->getCurrent();
         $language = $this->languages()->getLanguage(
-          $languageIdentifier, \Papaya\Content\Languages::FILTER_IS_CONTENT
+          $languageIdentifier, Content\Languages::FILTER_IS_CONTENT
         );
         $languageId = $language ? $language->id : 0;
         if ($current &&
@@ -258,7 +268,7 @@ class Factory extends \Papaya\Application\BaseObject {
               if (!$result) {
                 $result = $domain;
               }
-              if ($domain['group_id'] == $current['group_id']) {
+              if ((int)$domain['group_id'] === (int)$current['group_id']) {
                 $result = $domain;
                 break;
               }
@@ -281,16 +291,17 @@ class Factory extends \Papaya\Application\BaseObject {
    * can not be filtered on loading.
    *
    * @param array $domain
+   *
    * @return bool
    */
   public function isDomainWithoutWildcards($domain) {
-    return FALSE === strpos($domain['host'], '*');
+    return FALSE === \strpos($domain['host'], '*');
   }
 
   private function isDomainWithLanguage($domain, $languageId) {
     return (
-      $domain['language_id'] == 0 ||
-      $domain['language_id'] == $languageId
+      0 === (int)$domain['language_id'] ||
+      (int)$domain['language_id'] === (int)$languageId
     );
   }
 
@@ -298,58 +309,59 @@ class Factory extends \Papaya\Application\BaseObject {
    * Get link attributes object for the given page
    *
    * @param string $languageIdentifier
-   * @param integer $pageId
-   * @return NULL|\Papaya\UI\Link\Attributes
+   * @param int $pageId
+   *
+   * @return null|UI\Link\Attributes
    */
   public function getLinkAttributes($languageIdentifier, $pageId) {
     if ($pageData = $this->getPageData($languageIdentifier, $pageId)) {
       $linkTypes = $this->linkTypes();
       if (isset($linkTypes[$pageData['linktype_id']])) {
         $linkType = $linkTypes[$pageData['linktype_id']];
-        $attributes = new \Papaya\UI\Link\Attributes();
+        $attributes = new UI\Link\Attributes();
         $attributes->class = $linkType['class'];
         if ($linkType['is_popup']) {
-          $width = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_width', '80%');
-          $height = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_height', '80%');
-          $top = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_top', NULL);
-          $left = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_left', NULL);
+          $width = Utility\Arrays::get($linkType['popup_options'], 'popup_width', '80%');
+          $height = Utility\Arrays::get($linkType['popup_options'], 'popup_height', '80%');
+          $top = Utility\Arrays::get($linkType['popup_options'], 'popup_top', NULL);
+          $left = Utility\Arrays::get($linkType['popup_options'], 'popup_left', NULL);
           $options = 0;
           $options = $this->setLinkPopupOption(
             $options,
-            \Papaya\UI\Link\Attributes::OPTION_RESIZEABLE,
+            UI\Link\Attributes::OPTION_RESIZEABLE,
             $linkType['popup_options'],
             'popup_resizable'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \Papaya\UI\Link\Attributes::OPTION_TOOLBAR,
+            UI\Link\Attributes::OPTION_TOOLBAR,
             $linkType['popup_options'],
             'popup_toolbar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \Papaya\UI\Link\Attributes::OPTION_MENUBAR,
+            UI\Link\Attributes::OPTION_MENUBAR,
             $linkType['popup_options'],
             'popup_menubar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \Papaya\UI\Link\Attributes::OPTION_LOCATIONBAR,
+            UI\Link\Attributes::OPTION_LOCATIONBAR,
             $linkType['popup_options'],
             'popup_location'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            \Papaya\UI\Link\Attributes::OPTION_STATUSBAR,
+            UI\Link\Attributes::OPTION_STATUSBAR,
             $linkType['popup_options'],
             'popup_status'
           );
-          $scrollbarOptions = array(
-            0 => \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_NEVER,
-            1 => \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS,
-            2 => \Papaya\UI\Link\Attributes::OPTION_SCROLLBARS_AUTO
-          );
-          $scrollbarOptionIndex = \Papaya\Utility\Arrays::get(
+          $scrollbarOptions = [
+            0 => UI\Link\Attributes::OPTION_SCROLLBARS_NEVER,
+            1 => UI\Link\Attributes::OPTION_SCROLLBARS_ALWAYS,
+            2 => UI\Link\Attributes::OPTION_SCROLLBARS_AUTO
+          ];
+          $scrollbarOptionIndex = Utility\Arrays::get(
             $linkType['popup_options'], 'popup_scrollbars', 2
           );
           if (!empty($scrollbarOptions[$scrollbarOptionIndex])) {
@@ -368,15 +380,16 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * set a bit in the options bitmask, depending on a true/false option value
    *
-   * @param integer $bitmask
-   * @param integer $bit
+   * @param int $bitmask
+   * @param int $bit
    * @param array $options
    * @param string $name
-   * @param boolean $default
+   * @param bool $default
+   *
    * @return int
    */
   private function setLinkPopupOption($bitmask, $bit, $options, $name, $default = FALSE) {
-    if (\Papaya\Utility\Arrays::get($options, $name, $default)) {
+    if (Utility\Arrays::get($options, $name, $default)) {
       $bitmask |= $bit;
     }
     return $bitmask;
@@ -385,15 +398,16 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * The pages subobject is used to load the acutal page data
    *
-   * @param \Papaya\Content\Pages $pages
-   * @return \Papaya\Content\Pages
+   * @param Content\Pages $pages
+   *
+   * @return Content\Pages
    */
-  public function pages(\Papaya\Content\Pages $pages = NULL) {
-    if (isset($pages)) {
+  public function pages(Content\Pages $pages = NULL) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
-    } elseif (is_null($this->_pages)) {
+    } elseif (NULL === $this->_pages) {
       $this->_pages = $this->isPreview()
-        ? new \Papaya\Content\Pages(TRUE) : new \Papaya\Content\Page\Publications(TRUE);
+        ? new Content\Pages(TRUE) : new Content\Page\Publications(TRUE);
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;
@@ -402,14 +416,15 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Access to the link types
    *
-   * @param \Papaya\Content\Link\Types $linkTypes
-   * @return \Papaya\Content\Link\Types
+   * @param Content\Link\Types $linkTypes
+   *
+   * @return Content\Link\Types
    */
-  public function linkTypes(\Papaya\Content\Link\Types $linkTypes = NULL) {
-    if (isset($linkTypes)) {
+  public function linkTypes(Content\Link\Types $linkTypes = NULL) {
+    if (NULL !== $linkTypes) {
       $this->_linkTypes = $linkTypes;
-    } elseif (is_null($this->_linkTypes)) {
-      $this->_linkTypes = new \Papaya\Content\Link\Types();
+    } elseif (NULL === $this->_linkTypes) {
+      $this->_linkTypes = new Content\Link\Types();
       $this->_linkTypes->papaya($this->papaya());
       $this->_linkTypes->activateLazyLoad();
     }
@@ -419,14 +434,15 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * The domains subobject is used to load get domain data for the page id
    *
-   * @param \Papaya\Domains $domains
-   * @return \Papaya\Domains
+   * @param Domains $domains
+   *
+   * @return Domains
    */
-  public function domains(\Papaya\Domains $domains = NULL) {
-    if (isset($domains)) {
+  public function domains(Domains $domains = NULL) {
+    if (NULL !== $domains) {
       $this->_domains = $domains;
-    } elseif (is_null($this->_domains)) {
-      $this->_domains = new \Papaya\Domains();
+    } elseif (NULL === $this->_domains) {
+      $this->_domains = new Domains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;
@@ -435,13 +451,14 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Getter/Setter for a content languages record list.
    *
-   * @param \Papaya\Content\Languages $languages
-   * @return \Papaya\Content\Languages
+   * @param Content\Languages $languages
+   *
+   * @return Content\Languages
    */
-  public function languages(\Papaya\Content\Languages $languages = NULL) {
-    if (isset($languages)) {
+  public function languages(Content\Languages $languages = NULL) {
+    if (NULL !== $languages) {
       $this->_languages = $languages;
-    } elseif (is_null($this->_languages)) {
+    } elseif (NULL === $this->_languages) {
       $this->_languages = $this->papaya()->languages;
     }
     return $this->_languages;
@@ -453,16 +470,17 @@ class Factory extends \Papaya\Application\BaseObject {
    * for a repeated call.
    *
    * @param string $languageIdentifier
+   *
    * @return string
    */
   public function validateLanguageIdentifier($languageIdentifier) {
     $language = NULL;
     $languages = $this->languages();
-    if (preg_match('(^[a-z]{1,6}$)', $languageIdentifier)) {
+    if (\preg_match('(^[a-z]{1,6}$)', $languageIdentifier)) {
       $language = $languages->getLanguageByIdentifier($languageIdentifier);
     }
     if (!($language && $language->isContent)) {
-      if (isset($this->_currentLanguage)) {
+      if (NULL !== $this->_currentLanguage) {
         return $this->_currentLanguage->identifier;
       }
       $language = $languages->getLanguageByIdentifier(
@@ -473,7 +491,7 @@ class Factory extends \Papaya\Application\BaseObject {
       if (!($language && $language->isContent)) {
         $language = $languages->getLanguage(
           $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1),
-          \Papaya\Content\Languages::FILTER_IS_CONTENT
+          Content\Languages::FILTER_IS_CONTENT
         );
       }
       $this->_currentLanguage = $language;
@@ -484,15 +502,15 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Preload page data for a given list of page ids
    *
-   * @param string|integer $language Identifier or id
+   * @param string|int $languageIdentifier or id
    * @param array $pageIds
    */
-  public function preload($language, array $pageIds) {
-    $language = $this->languages()->getLanguage($language, \Papaya\Content\Languages::FILTER_IS_CONTENT);
+  public function preload($languageIdentifier, array $pageIds) {
+    $language = $this->languages()->getLanguage($languageIdentifier, Content\Languages::FILTER_IS_CONTENT);
     if ($language) {
       if (isset($this->_pageData[$language->identifier])) {
-        $pageIds = array_values(
-          array_diff($pageIds, array_keys($this->_pageData[$language->identifier]))
+        $pageIds = \array_values(
+          \array_diff($pageIds, \array_keys($this->_pageData[$language->identifier]))
         );
       }
       $pages = $this->pages();
@@ -513,15 +531,16 @@ class Factory extends \Papaya\Application\BaseObject {
    *
    * @param array|int $pageId
    * @param $languageId
+   *
    * @return array
    */
   private function getFilter($pageId, $languageId) {
-    $filter = array(
+    $filter = [
       'id' => $pageId,
       'language_id' => $languageId
-    );
+    ];
     if (!$this->isPreview()) {
-      $filter['time'] = time();
+      $filter['time'] = \time();
     }
     return $filter;
   }
@@ -529,10 +548,11 @@ class Factory extends \Papaya\Application\BaseObject {
   /**
    * Set start page reference
    *
-   * @param \Papaya\UI\Reference\Page $page
-   * @return boolean
+   * @param UI\Reference\Page $page
+   *
+   * @return bool
    */
-  public function isStartPage(\Papaya\UI\Reference\Page $page) {
+  public function isStartPage(UI\Reference\Page $page) {
     return $this->domains()->isStartPage($page);
   }
 }

@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Records;
+
+use Papaya\Database;
+use Papaya\Iterator;
+
 /**
  * Papaya Database Records Tree - reads an parent child tree from database.
  *
@@ -21,42 +24,43 @@ namespace Papaya\Database\Records;
  * @subpackage Database
  */
 abstract class Tree extends Lazy {
-
   /**
-   * identifing a record - the child identifier
+   * identifying a record - the child identifier
    *
    * @var array
    */
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
   /**
-   * identifing a parent record - the parent identifier
+   * identifying a parent record - the parent identifier
    *
    * @var array
    */
-  protected $_parentIdentifierProperties = array('parent_id');
+  protected $_parentIdentifierProperties = ['parent_id'];
 
   /**
    * An buffer for the children of each parent
    *
    * @var array
    */
-  protected $_children = array();
+  protected $_children = [];
 
   /**
    * Load the records, read them from database and create the children buffer.
    *
    * @param string $sql
    * @param array $parameters
-   * @param integer|NULL $limit
-   * @param integer|NULL $offset
+   * @param int|null $limit
+   * @param int|null $offset
    * @param array $idProperties
+   *
    * @throws \LogicException
+   *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
-    $this->_children = array();
-    $this->_records = array();
+  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+    $this->_children = [];
+    $this->_records = [];
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);
@@ -82,10 +86,10 @@ abstract class Tree extends Lazy {
    * Return a tree iterator for the loaded records starting with the children of the virtual
    * element zero.
    *
-   * @return \Papaya\Iterator\Tree\Children
+   * @return Iterator\Tree\Children
    */
   public function getIterator() {
     $this->lazyLoad();
-    return new \Papaya\Iterator\Tree\Children($this->_records, $this->_children);
+    return new Iterator\Tree\Children($this->_records, $this->_children);
   }
 }

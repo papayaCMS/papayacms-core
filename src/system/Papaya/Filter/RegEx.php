@@ -12,26 +12,28 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for using a pcre pattern
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class RegEx implements \Papaya\Filter {
-
+class RegEx implements Filter {
   /**
    * Minimum password length
    *
-   * @var integer
+   * @var int
    */
   private $_pattern = 0;
+
   /**
    * Maximum password length
    *
-   * @var integer|string
+   * @var int|string
    */
   private $_subMatch = 0;
 
@@ -41,7 +43,7 @@ class RegEx implements \Papaya\Filter {
    * The submatch identifier can be a string (named subpattern) or an integer (index)
    *
    * @param string $pattern
-   * @param integer|string $subMatch
+   * @param int|string $subMatch
    */
   public function __construct($pattern, $subMatch = 0) {
     $this->_pattern = $pattern;
@@ -52,11 +54,13 @@ class RegEx implements \Papaya\Filter {
    * Check the input value and throw an exception if it does not match the condition.
    *
    * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @return TRUE
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if (!preg_match($this->_pattern, $value)) {
+    if (!\preg_match($this->_pattern, $value)) {
       throw new Exception\RegEx\NoMatch($this->_pattern);
     }
     return TRUE;
@@ -67,11 +71,12 @@ class RegEx implements \Papaya\Filter {
    *
    * If a submatch identifier is available, it returns the submatch.
    *
-   * @param string $value
-   * @return string|NULL
+   * @param mixed $value
+   *
+   * @return string|null
    */
   public function filter($value) {
-    if (preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
+    if (\preg_match($this->_pattern, $value, $matches) && isset($matches[$this->_subMatch])) {
       return $matches[$this->_subMatch];
     }
     return NULL;

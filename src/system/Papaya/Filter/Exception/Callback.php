@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * A callback exception is thrown if an callback is not callable or returns FALSE
  *
@@ -22,12 +24,11 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class Callback extends \Papaya\Filter\Exception {
-
+abstract class Callback extends Filter\Exception {
   /**
    * Private property containing the callback
    *
-   * @var Callback
+   * @var callback
    */
   protected $_callback;
 
@@ -55,18 +56,19 @@ abstract class Callback extends \Papaya\Filter\Exception {
    * Convert a callback into a human readable string
    *
    * @param \Callback $callback
+   *
    * @return string
    */
   protected function callbackToString($callback) {
-    if (is_array($callback)) {
-      if (is_object($callback[0])) {
-        return get_class($callback[0]).'->'.$callback[1];
+    if (\is_array($callback)) {
+      if (\is_object($callback[0])) {
+        return \get_class($callback[0]).'->'.$callback[1];
       } else {
         return $callback[0].'::'.$callback[1];
       }
-    } elseif (is_string($callback) &&
-      FALSE === strpos($callback, '{') &&
-      0 !== strpos($callback, "\x00")) {
+    } elseif (\is_string($callback) &&
+      FALSE === \strpos($callback, '{') &&
+      0 !== \strpos($callback, "\x00")) {
       return $callback;
     } else {
       return 'function() {...}';

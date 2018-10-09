@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+use Papaya\Utility;
+
 /**
  * Provide data encapsulation for the content page translations list.
  *
@@ -23,23 +27,22 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \Papaya\Database\BaseObject\Records {
-
+class Translations extends Database\BaseObject\Records {
   /**
-   * Map field names to value identfiers
+   * Map field names to value identifiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'topic_id' => 'id',
     'lng_id' => 'language_id',
     'topic_title' => 'title',
     'topic_trans_modified' => 'modified',
     'topic_trans_published' => 'published',
     'view_title' => 'view',
-  );
+  ];
 
-  protected $_translationsTableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
+  protected $_translationsTableName = Content\Tables::PAGE_TRANSLATIONS;
 
   /**
    * Change the main page table name
@@ -47,46 +50,48 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * @param string $tableName
    */
   public function setTranslationsTableName($tableName) {
-    \Papaya\Utility\Constraints::assertString($tableName);
-    \Papaya\Utility\Constraints::assertNotEmpty($tableName);
+    Utility\Constraints::assertString($tableName);
+    Utility\Constraints::assertNotEmpty($tableName);
     $this->_translationsTableName = $tableName;
   }
 
   /**
    * Load translation list informations
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   *
+   * @return bool
    */
   public function load($pageId) {
-    $sql = "SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
+    $sql = 'SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
                    tt.topic_title, ttp.topic_trans_modified as topic_trans_published,
                    v.view_title
               FROM %s tt
               LEFT OUTER JOIN %s ttp
                 ON (ttp.topic_id = tt.topic_id AND ttp.lng_id = tt.lng_id)
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
-             WHERE tt.topic_id = %d";
-    $parameters = array(
+             WHERE tt.topic_id = %d';
+    $parameters = [
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
       (int)$pageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
   }
 
   /**
    * Get a detail object for a single translation to edit it.
    *
-   * @param integer $pageId
-   * @param integer $languageId
-   * @return \Papaya\Content\Page\Translation
+   * @param int $pageId
+   * @param int $languageId
+   *
+   * @return Translation
    */
   public function getTranslation($pageId, $languageId) {
-    $result = new \Papaya\Content\Page\Translation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
-    $result->activateLazyLoad(array('id' => $pageId, 'language_id' => $languageId));
+    $result->activateLazyLoad(['id' => $pageId, 'language_id' => $languageId]);
     return $result;
   }
 }

@@ -12,35 +12,37 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\XHTML;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A field that outputs a link inside the dialog.
  *
  * @package Papaya-Library
  * @subpackage UI
  */
-class Link extends \Papaya\UI\Dialog\Field {
-
+class Link extends UI\Dialog\Field {
   /**
    * Link url
    *
-   * @var string
+   * @var string|UI\Text
    */
   protected $_url = '';
 
   /**
    * Link caption
    *
-   * @var string
+   * @var string|UI\Text
    */
   protected $_urlCaption = '';
 
   /**
    * Create object and assign needed values.
    *
-   * @param string|\Papaya\UI\Text $url
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $url
+   * @param string|UI\Text $caption
    */
   public function __construct($url, $caption = NULL) {
     $this->_url = $url;
@@ -52,12 +54,12 @@ class Link extends \Papaya\UI\Dialog\Field {
   /**
    * Append xhtml field to dialog xml dom.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field
       ->appendElement('xhtml')
-      ->appendElement('a', array('href' => $this->_url), (string)$this->_urlCaption);
+      ->appendElement('a', ['href' => $this->_url], (string)$this->_urlCaption);
   }
 }

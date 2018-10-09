@@ -217,7 +217,7 @@ namespace Papaya\Content\Box {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->with($this->equalTo('lng_id'), $this->equalTo(array(23, 42)))
+        ->with($this->equalTo(['lng_id' => array(23, 42)]))
         ->will($this->returnValue("lng_id IN ('23', '42')"));
       $databaseAccess
         ->expects($this->once())
@@ -302,7 +302,7 @@ namespace Papaya\Content\Box {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->with($this->equalTo('lng_id'), $this->equalTo(array(23, 42)))
+        ->with($this->equalTo(['lng_id' => array(23, 42)]))
         ->will($this->returnValue("lng_id IN ('23', '42')"));
       $databaseAccess
         ->expects($this->once())

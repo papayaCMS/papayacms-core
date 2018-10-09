@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command\Dialog\Plugin;
+
+use Papaya\Database;
+use Papaya\Plugin;
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A command that executes a dialog. After dialog creation, and after successfull/failed execution
  * callbacks are executed. This class adds read and write the data to an plugin content object
@@ -21,23 +26,22 @@ namespace Papaya\UI\Control\Command\Dialog\Plugin;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Content extends \Papaya\UI\Control\Command\Dialog {
-
+class Content extends UI\Control\Command\Dialog {
   private $_content;
 
   /**
    * This dialog command uses database record objects
    *
-   * @param \Papaya\Plugin\Editable\Content $content
+   * @param Plugin\Editable\Content $content
    */
-  public function __construct(\Papaya\Plugin\Editable\Content $content) {
+  public function __construct(Plugin\Editable\Content $content) {
     $this->_content = $content;
   }
 
   /**
    * Getter/Setter for the database record
    *
-   * @return \Papaya\Plugin\Editable\Content
+   * @return Plugin\Editable\Content
    */
   public function getContent() {
     return $this->_content;
@@ -46,10 +50,11 @@ class Content extends \Papaya\UI\Control\Command\Dialog {
   /**
    * Execute command and append result to output xml
    *
-   * @param \Papaya\XML\Element
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog->execute()) {
@@ -69,6 +74,7 @@ class Content extends \Papaya\UI\Control\Command\Dialog {
    * Create the dialog object and assign the content data to it.
    *
    * @see \Papaya\UI\Control\Command\Dialog::createDialog()
+   *
    * @return \Papaya\UI\Dialog
    */
   protected function createDialog() {

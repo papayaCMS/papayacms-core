@@ -12,51 +12,54 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+namespace Papaya\Administration\Theme\Editor\Changes\Skin;
 
-namespace Papaya\Administration\Theme\Editor\Changes\Set;
+use Papaya\Content;
+use Papaya\Theme;
+use Papaya\UI;
+use Papaya\XML;
 
 /**
- * Import theme set values from an uploaded file
+ * Import theme skin values from an uploaded file
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
 class Export
-  extends \Papaya\UI\Control\Command {
+  extends UI\Control\Command {
+  /**
+   * @var Content\Theme\Skin
+   */
+  private $_themeSet;
 
   /**
-   * @var \Papaya\Content\Theme\Set
+   * @var Theme\Handler
    */
-  private $_themeSet = NULL;
+  private $_themeHandler;
 
   /**
-   * @var \Papaya\Theme\Handler
+   * @param Content\Theme\Skin $themeSet
+   * @param Theme\Handler $themeHandler
    */
-  private $_themeHandler = NULL;
-
-  /**
-   * @param \Papaya\Content\Theme\Set $themeSet
-   * @param \Papaya\Theme\Handler $themeHandler
-   */
-  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
+  public function __construct(Content\Theme\Skin $themeSet, Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
 
   /**
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $this->_themeSet->load($this->parameters()->get('set_id', 0));
+  public function appendTo(XML\Element $parent) {
+    $this->_themeSet->load($this->parameters()->get('skin_id', 0));
     $themeName = $this->_themeSet['theme'];
     $response = $this->papaya()->response;
     $response->setStatus(200);
     $response->sendHeader(
-      sprintf(
+      \sprintf(
         'Content-Disposition: attachment; filename="%s.xml"',
-        str_replace(
-          array('\\', '"'),
-          array('\\\\', '\\"'),
+        \str_replace(
+          ['\\', '"'],
+          ['\\\\', '\\"'],
           $themeName.' '.$this->_themeSet['title']
         )
       )

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Administration\Languages;
+
+use Papaya\Application;
+
 /**
  * Language caption administration control. A string castable object that fetches
  * the current language title from the language switch and puts if before the
@@ -22,9 +24,11 @@ namespace Papaya\Administration\Languages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Caption extends \Papaya\Application\BaseObject {
+class Caption implements Application\Access {
+  use Application\Access\Aggregation;
 
   private $_suffix;
+
   private $_separator;
 
   private $_string;
@@ -62,5 +66,4 @@ class Caption extends \Papaya\Application\BaseObject {
     }
     return (string)$this->_string;
   }
-
 }

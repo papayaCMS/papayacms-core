@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\URL;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class validating a url host name
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Host extends \Papaya\Filter\RegEx {
-
+class Host extends Filter\RegEx {
   /**
    * set pattern in superclass constructor
    */

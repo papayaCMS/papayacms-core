@@ -12,8 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control\Command;
+
+use Papaya\Request;
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A command that executes a list of other commands. This can be used to combine separate commands
  * into a single one.
@@ -22,21 +27,22 @@ namespace Papaya\UI\Control\Command;
  * @subpackage UI
  */
 class Collection
-  extends \Papaya\UI\Control\Command
+  extends UI\Control\Command
   implements \ArrayAccess, \Countable, \IteratorAggregate {
-
   /**
    * List of commands
    *
    * @var array
    */
-  private $_commands = array();
+  private $_commands = [];
 
   /**
    * Create object, assign all arguments as commands to the internal list.
+   *
+   * @param \Papaya\UI\Control\Command ...$commands
    */
-  public function __construct() {
-    foreach (func_get_args() as $command) {
+  public function __construct(UI\Control\Command ...$commands) {
+    foreach ($commands as $command) {
       $this->offsetSet(NULL, $command);
     }
   }
@@ -44,10 +50,10 @@ class Collection
   /**
    * Execute commands and append result to output xml
    *
-   * @param \Papaya\XML\Element
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    /** @var \Papaya\UI\Control\Command $command */
+  public function appendTo(XML\Element $parent) {
+    /** @var UI\Control\Command $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&
         $command->validatePermission()) {
@@ -59,13 +65,14 @@ class Collection
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param \Papaya\Request\Parameters\Access|\Papaya\UI\Control\Interactive $owner
-   * @return \Papaya\Request\Parameters\Access
+   * @param Request\Parameters\Access|UI\Control\Interactive $owner
+   *
+   * @return Request\Parameters\Access
    */
-  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\UI\Control\Interactive::class, $owner);
+  public function owner(Request\Parameters\Access $owner = NULL) {
+    Utility\Constraints::assertInstanceOf(UI\Control\Interactive::class, $owner);
     if (NULL !== $owner) {
-      /** @var \Papaya\UI\Control\Command $command */
+      /** @var UI\Control\Command $command */
       foreach ($this->_commands as $command) {
         $command->owner($owner);
       }
@@ -76,7 +83,8 @@ class Collection
   /**
    * ArrayAccess interface: validate if command with the offset is set.
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @return bool
    */
   public function offsetExists($offset) {
@@ -86,8 +94,9 @@ class Collection
   /**
    * ArrayAccess interface: get command at given offset.
    *
-   * @param integer $offset
-   * @return \Papaya\UI\Control\Command
+   * @param int $offset
+   *
+   * @return UI\Control\Command
    */
   public function offsetGet($offset) {
     return $this->_commands[$offset];
@@ -96,19 +105,20 @@ class Collection
   /**
    * ArrayAccess interface: add/replace command
    *
-   * @param integer $offset
-   * @param \Papaya\UI\Control\Command $command
+   * @param int $offset
+   * @param UI\Control\Command $command
+   *
    * @throws \UnexpectedValueException
    */
   public function offsetSet($offset, $command) {
-    if ($command instanceof \Papaya\UI\Control\Command) {
+    if ($command instanceof UI\Control\Command) {
       $this->_commands[$offset] = $command;
-      $this->_commands = array_values($this->_commands);
+      $this->_commands = \array_values($this->_commands);
     } else {
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Expected instance of "Papaya\UI\Control\Command" but "%s" was given.',
-          is_object($command) ? get_class($command) : gettype($command)
+          \is_object($command) ? \get_class($command) : \gettype($command)
         )
       );
     }
@@ -117,20 +127,20 @@ class Collection
   /**
    * ArrayAccess interface: remove command at given offset.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   public function offsetUnset($offset) {
     unset($this->_commands[$offset]);
-    $this->_commands = array_values($this->_commands);
+    $this->_commands = \array_values($this->_commands);
   }
 
   /**
    * Countable interface: get command count.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_commands);
+    return \count($this->_commands);
   }
 
   /**

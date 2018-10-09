@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Message\Context\Interfaces;
+
+use Papaya\Message;
+
 /**
  * Interface for an addition label for contexts.
  *
@@ -24,12 +26,11 @@ namespace Papaya\Message\Context\Interfaces;
  * @subpackage Messages
  */
 interface Labeled
-  extends \Papaya\Message\Context\Data {
-
+  extends Message\Context\Data {
   /**
    * Get label for the context
    *
    * @return string
    */
-  function getLabel();
+  public function getLabel();
 }

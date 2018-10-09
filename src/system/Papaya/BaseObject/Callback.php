@@ -12,11 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\BaseObject;
 
+use Papaya\BaseObject\Interfaces\Properties;
+
 /**
- * Encapsulate a php callback, to allow a default returnvalue and a context.
+ * Encapsulate a php callback, to allow a default return value and a context.
  *
  * @package Papaya-Library
  * @subpackage UI
@@ -25,33 +26,32 @@ namespace Papaya\BaseObject;
  * @property object $context
  * @property callable $callback
  */
-class Callback {
-
+class Callback implements Properties {
   /**
    * Default return value, returned by execute if no php callback is set.
    *
    * @var mixed
    */
-  private $_defaultReturn = NULL;
+  private $_defaultReturn;
 
   /**
    * The wrapped php callback
    *
    * @var callable
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * Context object, an instance of stdClass by default.
    *
    * @var object
    */
-  private $_context = NULL;
+  private $_context;
 
   /**
    * @var bool
    */
-  private $_addContext = TRUE;
+  private $_addContext;
 
   /**
    * Create callback object, set default return value and create context object.
@@ -68,25 +68,27 @@ class Callback {
   /**
    * Execute the callback if defined, just return the default return value otherwise.
    *
+   * @param array $arguments
+   *
    * @return mixed
    */
-  public function execute() {
-    if (isset($this->_callback)) {
-      $arguments = func_get_args();
+  public function execute(...$arguments) {
+    if (NULL !== $this->_callback) {
       if ($this->_addContext) {
-        array_unshift($arguments, $this->_context);
+        \array_unshift($arguments, $this->_context);
       }
-      return call_user_func_array($this->_callback, $arguments);
-    } else {
-      return $this->_defaultReturn;
+      $callback = $this->_callback;
+      return $callback(...$arguments);
     }
+    return $this->_defaultReturn;
   }
 
   /**
    * Check status of $defaultReturn, $callback and $context properties.
    *
    * @param $name
-   * @return boolean
+   *
+   * @return bool
    */
   public function __isset($name) {
     $property = $this->getPropertyName($name);
@@ -97,6 +99,7 @@ class Callback {
    * Get value of $defaultReturn, $callback and $context properties.
    *
    * @param $name
+   *
    * @return mixed
    */
   public function __get($name) {
@@ -121,7 +124,7 @@ class Callback {
         $this->_defaultReturn = $value;
       break;
       case 'callback' :
-        if (is_null($value) || is_callable($value)) {
+        if (NULL === $value || \is_callable($value)) {
           $this->_callback = $value;
         }
       break;
@@ -134,8 +137,8 @@ class Callback {
    * @param $name
    */
   public function __unset($name) {
-    if ($name == 'context') {
-      $this->_context = new \stdClass;
+    if ('context' === $name) {
+      $this->_context = new \stdClass();
       return;
     }
     $property = $this->getPropertyName($name);
@@ -146,7 +149,9 @@ class Callback {
    * Validate the property name and return the private object variable name.
    *
    * @throws \UnexpectedValueException
+   *
    * @param string $name
+   *
    * @return string
    */
   private function getPropertyName($name) {
@@ -157,7 +162,7 @@ class Callback {
         return '_'.$name;
     }
     throw new \UnexpectedValueException(
-      sprintf('Unknown property %s::$%s', __CLASS__, $name)
+      \sprintf('Unknown property %s::$%s', __CLASS__, $name)
     );
   }
 }

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter;
+
+use Papaya\Filter;
+
 /**
  * Papaya filter class for an integer number
  *
@@ -26,37 +28,39 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IntegerValue implements \Papaya\Filter {
-
+class IntegerValue implements Filter {
   /**
    * Minimum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_minimum = NULL;
+  private $_minimum;
+
   /**
    * Maximum limit for integer value
    *
-   * @var integer
+   * @var int
    */
-  private $_maximum = NULL;
+  private $_maximum;
 
   /**
    * Construct object and initialize minimum and maximum limits for the integer value
    *
-   * @param integer|NULL $minimum
-   * @param integer|NULL $maximum
+   * @param int|null $minimum
+   * @param int|null $maximum
+   *
    * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
     $this->_minimum = $minimum;
-    if (isset($minimum)) {
-      if (isset($maximum) &&
+    if (NULL !== $minimum) {
+      if (
+        NULL !== $maximum &&
         $maximum < $minimum) {
         throw new \RangeException('The maximum needs to be larger then the minimum.');
       }
       $this->_maximum = $maximum;
-    } elseif (isset($maximum)) {
+    } elseif (NULL !== $maximum) {
       throw new \RangeException('A maximum was given, but minimum was not.');
     }
   }
@@ -64,21 +68,23 @@ class IntegerValue implements \Papaya\Filter {
   /**
    * Check the integer input and throw an exception if it does not match the condition.
    *
-   * @throws \Papaya\Filter\Exception
-   * @param string $value
-   * @return TRUE
+   * @throws Exception
+   *
+   * @param mixed $value
+   *
+   * @return true
    */
   public function validate($value) {
-    if (preg_match('(^[+-]?\d+$)D', $value)) {
+    if (\preg_match('(^[+-]?\d+$)D', $value)) {
       $value = (int)$value;
-      if (isset($this->_minimum) && $value < $this->_minimum) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $value);
+      if (NULL !== $this->_minimum && $value < $this->_minimum) {
+        throw new Exception\OutOfRange\ToSmall($this->_minimum, $value);
       }
-      if (isset($this->_maximum) && $value > $this->_maximum) {
-        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, $value);
+      if (NULL !== $this->_maximum && $value > $this->_maximum) {
+        throw new Exception\OutOfRange\ToLarge($this->_maximum, $value);
       }
     } else {
-      throw new \Papaya\Filter\Exception\UnexpectedType('integer number');
+      throw new Exception\UnexpectedType('integer number');
     }
     return TRUE;
   }
@@ -87,15 +93,16 @@ class IntegerValue implements \Papaya\Filter {
    * The filter function is used to read a input value if it is valid. The value is always converted
    * into an integer before the validation. So only given limits are validated.
    *
-   * @param string $value
-   * @return integer|NULL
+   * @param mixed $value
+   *
+   * @return int|null
    */
   public function filter($value) {
     $value = (int)$value;
     try {
       $this->validate($value);
       return $value;
-    } catch (\Papaya\Filter\Exception $e) {
+    } catch (Exception $e) {
       return NULL;
     }
   }

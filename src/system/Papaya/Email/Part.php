@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
+
 /**
  * An email consists of one or more parts, each part has indivdual headers an a content. The
  * content can be a list of other parts.
@@ -25,7 +25,6 @@ namespace Papaya\Email;
  * @property Content $content
  */
 class Part {
-
   /**
    * Internal variable for the headers subobject
    *
@@ -53,6 +52,7 @@ class Part {
    * Getter/Setter vor header subobject
    *
    * @param Headers $headers
+   *
    * @return Headers
    */
   public function headers(Headers $headers = NULL) {
@@ -69,6 +69,7 @@ class Part {
    * Getter/Setter for content subobject
    *
    * @param Content $content
+   *
    * @return Content
    */
   public function content(Content $content = NULL) {
@@ -80,6 +81,7 @@ class Part {
 
   /**
    * @param string $name
+   *
    * @return bool
    */
   public function __isset($name) {
@@ -95,7 +97,9 @@ class Part {
    * Allow headers() and content() to be used as properties.
    *
    * @param string $name
+   *
    * @throws \LogicException
+   *
    * @return Content|Headers
    */
   public function __get($name) {
@@ -106,9 +110,9 @@ class Part {
         return $this->content();
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'LogicException: Unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
@@ -119,6 +123,7 @@ class Part {
    *
    * @param string $name
    * @param mixed $value
+   *
    * @throws \LogicException
    */
   public function __set($name, $value) {
@@ -131,9 +136,9 @@ class Part {
         return;
     }
     throw new \LogicException(
-      sprintf(
+      \sprintf(
         'LogicException: Unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );

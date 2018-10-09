@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content;
+
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the languages list.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Languages extends \Papaya\Database\Records {
-
+class Languages extends Database\Records {
   /**
    * All languages - filter disabled
    */
@@ -38,11 +39,11 @@ class Languages extends \Papaya\Database\Records {
   const FILTER_IS_INTERFACE = 2;
 
   /**
-   * Map field names to value identfiers
+   * Map field names to value identifiers
    *
    * @var array
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'lng_id',
     'identifier' => 'lng_ident',
     'code' => 'lng_short',
@@ -50,39 +51,40 @@ class Languages extends \Papaya\Database\Records {
     'image' => 'lng_glyph',
     'is_interface' => 'is_interface_lng',
     'is_content' => 'is_content_lng'
-  );
+  ];
 
   /**
    * Languages table
    *
    * @var string
    */
-  protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
+  protected $_tableName = Tables::LANGUAGES;
 
   /**
    * @var string
    */
-  protected $_identifierProperties = array('id');
+  protected $_identifierProperties = ['id'];
 
   /**
    * A mapping of the unique language codes (de-DE) to the internal id
    *
    * @var array(string=>string,...)
    */
-  protected $_mapCodes = array();
+  protected $_mapCodes = [];
 
   /**
    * A mapping of the unique language identifiers (de) to the internal id
    *
    * @var array(string=>string,...)
    */
-  protected $_mapIdentifiers = array();
+  protected $_mapIdentifiers = [];
 
   /**
    * load languages from database, this can be filtered by usage
    *
-   * @param integer $usageFilter
-   * @return boolean
+   * @param int $usageFilter
+   *
+   * @return bool
    */
   public function loadByUsage($usageFilter = self::FILTER_NONE) {
     $filter = [];
@@ -103,11 +105,12 @@ class Languages extends \Papaya\Database\Records {
    * @param array $filter
    * @param null $limit
    * @param int $offset
+   *
    * @return bool
    */
   public function load($filter = [], $limit = NULL, $offset = 0) {
-    $this->_mapCodes = array();
-    $this->_mapIdentifiers = array();
+    $this->_mapCodes = [];
+    $this->_mapIdentifiers = [];
     if ($result = parent::load($filter, $limit, $offset)) {
       foreach ($this as $language) {
         $this->_mapCodes[$language['code']] = $language['id'];
@@ -123,17 +126,19 @@ class Languages extends \Papaya\Database\Records {
    * object is called.
    *
    * @param string|int $language
-   * @return \Papaya\Content\Language
+   *
+   * @param int $usageFilter
+   * @return Language
    */
   public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
-    if (is_int($language) || preg_match('(^\\d+$)D', $language)) {
+    if (\is_int($language) || \preg_match('(^\\d+$)D', $language)) {
       $id = (int)$language;
     } else {
       $id = 0;
     }
     $result = NULL;
     if ($id > 0) {
-      $result = new \Papaya\Content\Language();
+      $result = new Language();
       $result->papaya($this->papaya());
       $result->setDatabaseAccess($this->getDatabaseAccess());
       if (isset($this[$id])) {
@@ -141,9 +146,9 @@ class Languages extends \Papaya\Database\Records {
       } elseif (!$result->load($id)) {
         $result = NULL;
       }
-    } elseif (preg_match('(^[a-zA-Z\\d]+-[a-zA-Z\\d]+$)', $language)) {
+    } elseif (\preg_match('(^[a-zA-Z\\d]+-[a-zA-Z\\d]+$)', $language)) {
       $result = $this->getLanguageByCode($language);
-    } elseif (preg_match('(^[a-zA-Z\\d]+$)', $language)) {
+    } elseif (\preg_match('(^[a-zA-Z\\d]+$)', $language)) {
       $result = $this->getLanguageByIdentifier($language);
     }
     if ($result) {
@@ -167,12 +172,12 @@ class Languages extends \Papaya\Database\Records {
    * Create a new language record object and assign the data from the list if available.
    *
    * @param string $code
-   * @return \Papaya\Content\Language
+   *
+   * @return Language
    */
   public function getLanguageByCode($code) {
-    $result = new \Papaya\Content\Language();
-    if (isset($this->_mapCodes[$code]) &&
-      isset($this[$this->_mapCodes[$code]])) {
+    $result = new Language();
+    if (isset($this->_mapCodes[$code], $this[$this->_mapCodes[$code]])) {
       $result->assign($this[$this->_mapCodes[$code]]);
       return $result;
     }
@@ -183,12 +188,12 @@ class Languages extends \Papaya\Database\Records {
    * Create a new language record object and assign the data from the list if available.
    *
    * @param string $identifier
-   * @return \Papaya\Content\Language
+   *
+   * @return Language
    */
   public function getLanguageByIdentifier($identifier) {
-    $result = new \Papaya\Content\Language();
-    if (isset($this->_mapIdentifiers[$identifier]) &&
-      isset($this[$this->_mapIdentifiers[$identifier]])) {
+    $result = new Language();
+    if (isset($this->_mapIdentifiers[$identifier], $this[$this->_mapIdentifiers[$identifier]])) {
       $result->assign($this[$this->_mapIdentifiers[$identifier]]);
       return $result;
     }
@@ -199,9 +204,10 @@ class Languages extends \Papaya\Database\Records {
    * Get the language code by the id.
    *
    * @param int $languageId
-   * @return string|NULL
+   *
+   * @return string|null
    */
-  public function getIdentiferById($languageId) {
+  public function getIdentifierById($languageId) {
     if ($language = $this->getLanguage($languageId)) {
       return $language->identifier;
     }
@@ -209,13 +215,12 @@ class Languages extends \Papaya\Database\Records {
   }
 
   /**
-   * @return \Papaya\Content\Language
+   * @return Language
    */
   public function getDefault() {
-    if (count($this->_records) > 0 && ($id = array_keys($this->_records)[0])) {
+    if (\count($this->_records) > 0 && ($id = \array_keys($this->_records)[0])) {
       return $this->getLanguage($id);
-    } else {
-      return NULL;
     }
+    return NULL;
   }
 }

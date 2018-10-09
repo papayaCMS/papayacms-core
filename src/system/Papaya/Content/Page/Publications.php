@@ -12,28 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+
 /**
  * This object loads public page data by different conditions.
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Publications extends \Papaya\Content\Pages {
+class Publications extends Content\Pages {
   /**
-   * Table containing page informations
+   * Table containing page information
    *
    * @var string
    */
-  protected $_tablePages = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
+  protected $_tablePages = Content\Tables::PAGE_PUBLICATIONS;
 
   /**
-   * Table containing language specific page informations
+   * Table containing language specific page information
    *
    * @var string
    */
-  protected $_tablePageTranslations = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
+  protected $_tablePageTranslations = Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 
   /**
    * Loading published stuff using a timestamp so that only pages are loaded, that are really
@@ -41,13 +43,14 @@ class Publications extends \Papaya\Content\Pages {
    *
    * @param mixed $filter
    * @param string $prefix
-   * @return array
+   *
+   * @return string
    */
   protected function _compileCondition($filter, $prefix = 'WHERE') {
     $conditions = parent::_compileCondition($filter, $prefix);
     if (isset($filter['time'])) {
       $conditions .= empty($conditions) ? $prefix : ' AND ';
-      $conditions .= sprintf(
+      $conditions .= \sprintf(
         " ((t.published_from <= '%1\$d' AND t.published_to >= '%1\$d')
          OR t.published_to <= t.published_from)",
         (int)$filter['time']
@@ -56,6 +59,9 @@ class Publications extends \Papaya\Content\Pages {
     return $conditions;
   }
 
+  /**
+   * @return bool
+   */
   public function isPublic() {
     return TRUE;
   }

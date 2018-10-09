@@ -12,20 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya;
+
 /**
  * @package Papaya-Library
  * @subpackage Response
  */
-class Response extends Application\BaseObject {
-
+class Response implements Application\Access {
+  use Application\Access\Aggregation;
   /**
    * Status codes
    *
    * @var array
    */
-  private $_statusCodes = array(
+  private $_statusCodes = [
     100 => 'Continue',
     101 => 'Switching Protocols',
     102 => 'Processing',
@@ -76,12 +76,12 @@ class Response extends Application\BaseObject {
     506 => 'Variant Also Negotiates',
     507 => 'Insufficient Storage',
     510 => 'Not Extended'
-  );
+  ];
 
   /**
    * Response status code
    *
-   * @var integer
+   * @var int
    */
   private $_status = 200;
 
@@ -112,6 +112,7 @@ class Response extends Application\BaseObject {
    * Get response helper
    *
    * @param \Papaya\Response\Helper $helper
+   *
    * @return \Papaya\Response\Helper
    */
   public function helper(Response\Helper $helper = NULL) {
@@ -127,6 +128,7 @@ class Response extends Application\BaseObject {
    * Get response http headers list
    *
    * @param \Papaya\Response\Headers $headers
+   *
    * @return \Papaya\Response\Headers
    */
   public function headers(Response\Headers $headers = NULL) {
@@ -142,6 +144,7 @@ class Response extends Application\BaseObject {
    * Get/Set response content object
    *
    * @param \Papaya\Response\Content $content
+   *
    * @return \Papaya\Response\Content
    */
   public function content(Response\Content $content = NULL) {
@@ -156,7 +159,8 @@ class Response extends Application\BaseObject {
   /**
    * Set response status
    *
-   * @param integer $status
+   * @param int $status
+   *
    * @throws \UnexpectedValueException
    */
   public function setStatus($status) {
@@ -170,7 +174,7 @@ class Response extends Application\BaseObject {
   /**
    * Get response status
    *
-   * @return integer
+   * @return int
    */
   public function getStatus() {
     return $this->_status;
@@ -181,7 +185,6 @@ class Response extends Application\BaseObject {
    *
    * @param string $contentType
    * @param string $encoding
-   * @return void
    */
   public function setContentType($contentType, $encoding = 'UTF-8') {
     $contentType .= empty($encoding) ? '' : '; charset='.$encoding;
@@ -192,16 +195,16 @@ class Response extends Application\BaseObject {
    * Set caching headers
    *
    * @param string $cacheMode nocache, private, public
-   * @param integer $cachePeriod
-   * @param integer|NULL $cacheStartTime
-   * @param integer|NULL $currentTime
+   * @param int $cachePeriod
+   * @param int|null $cacheStartTime
+   * @param int|null $currentTime
    */
   public function setCache(
     $cacheMode, $cachePeriod = 0, $cacheStartTime = NULL, $currentTime = NULL
   ) {
-    if ($cachePeriod > 0 && in_array($cacheMode, array('private', 'public'), TRUE)) {
+    if ($cachePeriod > 0 && \in_array($cacheMode, ['private', 'public'], TRUE)) {
       if (NULL === $currentTime) {
-        $currentTime = time();
+        $currentTime = \time();
       }
       if (NULL === $cacheStartTime) {
         $cacheStartTime = $currentTime;
@@ -211,7 +214,7 @@ class Response extends Application\BaseObject {
       }
       $this->headers()->set(
         'Cache-Control',
-        sprintf(
+        \sprintf(
           '%s, max-age=%s, pre-check=%s, no-transform',
           $cacheMode,
           $cachePeriodDelta,
@@ -220,10 +223,10 @@ class Response extends Application\BaseObject {
       );
       $this->headers()->set('Pragma', '');
       $this->headers()->set(
-        'Expires', gmdate('D, d M Y H:i:s', $cacheStartTime + $cachePeriod).' GMT'
+        'Expires', \gmdate('D, d M Y H:i:s', $cacheStartTime + $cachePeriod).' GMT'
       );
       $this->headers()->set(
-        'Last-Modified', gmdate('D, d M Y H:i:s', $cacheStartTime).' GMT'
+        'Last-Modified', \gmdate('D, d M Y H:i:s', $cacheStartTime).' GMT'
       );
     } else {
       $this->headers()->set(
@@ -261,7 +264,7 @@ class Response extends Application\BaseObject {
         $this->headers()->set('Content-Length', $length);
       }
       foreach ($this->headers() as $name => $value) {
-        if (is_array($value)) {
+        if (\is_array($value)) {
           foreach ($value as $subValue) {
             $this->sendHeader($name.': '.$subValue, $disableXHeaders, FALSE);
           }
@@ -290,7 +293,7 @@ class Response extends Application\BaseObject {
     if (!isset($this->_statusCodes[$status])) {
       $status = 200;
     }
-    $isCgiApi = in_array(strtolower(PHP_SAPI), array('cgi', 'cgi-fcgi', 'fpm-fcgi'), TRUE);
+    $isCgiApi = \in_array(\strtolower(PHP_SAPI), ['cgi', 'cgi-fcgi', 'fpm-fcgi'], TRUE);
     $prefix = $isCgiApi ? 'Status: ' : 'HTTP/1.1 ';
     $this->helper()->header($prefix.$status.' '.$this->_statusCodes[$status], TRUE, $status);
   }
@@ -299,9 +302,8 @@ class Response extends Application\BaseObject {
    * Send HTTP header
    *
    * @param string $header
-   * @param boolean|NULL $disableXHeaders
-   * @param boolean $force
-   * @return void
+   * @param bool|null $disableXHeaders
+   * @param bool $force
    */
   public function sendHeader($header, $disableXHeaders = NULL, $force = FALSE) {
     if (NULL === $disableXHeaders) {
@@ -312,11 +314,11 @@ class Response extends Application\BaseObject {
     if ($force || !$this->helper()->headersSent()) {
       if (
         $disableXHeaders &&
-        0 === strpos($header, 'X-')
+        0 === \strpos($header, 'X-')
       ) {
         return;
       }
-      $header = str_replace(array("\r", "\n"), '', $header);
+      $header = \str_replace(["\r", "\n"], '', $header);
       $this->helper()->header($header);
     }
   }
@@ -329,5 +331,6 @@ class Response extends Application\BaseObject {
   public function end() {
     exit();
   }
+
   //@codeCoverageIgnoreEnd
 }

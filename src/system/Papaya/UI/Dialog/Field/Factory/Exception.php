@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory;
+
 /**
  * Abstract superclass for field factory exceptions.
  *
@@ -23,5 +23,4 @@ namespace Papaya\UI\Dialog\Field\Factory;
  * @subpackage UI
  */
 abstract class Exception extends \Papaya\Exception {
-
 }

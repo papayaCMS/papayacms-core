@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
 
 /**
@@ -22,5 +21,4 @@ namespace Papaya\Email;
  * @subpackage Email
  */
 class Headers extends \Papaya\HTTP\Headers {
-
 }

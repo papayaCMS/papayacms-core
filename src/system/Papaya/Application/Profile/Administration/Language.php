@@ -12,10 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile\Administration;
 
-use Papaya\Administration\Languages\Selector;
+use Papaya\Administration\Languages\Selector as LanguageToggle;
+use Papaya\Application;
 
 /**
  * Application object profile for the content language switcher
@@ -23,16 +23,16 @@ use Papaya\Administration\Languages\Selector;
  * @package Papaya-Library
  * @subpackage Application
  */
-class Language implements \Papaya\Application\Profile {
-
+class Language implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
-   * @return Selector
+   * @param Application $application
+   *
+   * @return LanguageToggle
    */
   public function createObject($application) {
-    $selector = new Selector();
+    $selector = new LanguageToggle();
     $selector->papaya($application);
     return $selector;
   }

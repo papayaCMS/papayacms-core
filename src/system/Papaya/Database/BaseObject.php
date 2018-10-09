@@ -12,7 +12,6 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database;
 
 /**
@@ -23,6 +22,5 @@ namespace Papaya\Database;
  */
 class BaseObject
   implements \Papaya\Application\Access, Interfaces\Access {
-
   use Interfaces\Access\Delegation;
 }

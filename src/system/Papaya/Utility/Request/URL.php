@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility\Request;
+
+use Papaya\Utility\Server;
+
 /**
  * Static utility class to fetch the absolute request url.
  *
@@ -21,25 +23,23 @@ namespace Papaya\Utility\Request;
  * @subpackage Util
  */
 class URL {
-
   /**
    * fetch the current request url from environment
    *
    * @return string
    */
   public static function get() {
-    $host = \Papaya\Utility\Server\Name::get();
-    $port = \Papaya\Utility\Server\Port::get();
+    $host = Server\Name::get();
+    $port = Server\Port::get();
     if (empty($host)) {
       return '';
-    } else {
-      return sprintf(
-        '%s://%s%s%s',
-        \Papaya\Utility\Server\Protocol::get(),
-        $host,
-        $port != \Papaya\Utility\Server\Protocol::getDefaultPort() ? ':'.$port : '',
-        empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI']
-      );
     }
+    return \sprintf(
+      '%s://%s%s%s',
+      Server\Protocol::get(),
+      $host,
+      $port !== Server\Protocol::getDefaultPort() ? ':'.$port : '',
+      empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI']
+    );
   }
 }

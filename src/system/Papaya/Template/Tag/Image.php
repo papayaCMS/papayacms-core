@@ -12,14 +12,13 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Tag;
 
 class Image extends \Papaya\Template\Tag {
   /**
    * @var string
    */
-  private $_mediaPropertyString = '';
+  private $_mediaPropertyString;
 
   /**
    * @var string
@@ -29,42 +28,42 @@ class Image extends \Papaya\Template\Tag {
   /**
    * @var int
    */
-  private $_width = 0;
+  private $_width;
 
   /**
    * @var int
    */
-  private $_height = 0;
+  private $_height;
 
   /**
    * @var string
    */
-  private $_alt = '';
+  private $_alt;
 
   /**
    * @var string
    */
-  private $_resize = '';
+  private $_resize;
 
   /**
    * @var string
    */
-  private $_subTitle = '';
+  private $_subTitle;
 
   /**
    * Papaya tag pattern
    *
    * @var string
    */
-  private $_papayaTagPattern = '/<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims';
+  private $_papayaTagPattern = '(<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?)im';
 
   /**
    * Constructor
    *
    * @param string $mediaPropertyString this is the string the dialog type image(?)
-   *                    contains like "32242...,max,200,300"
-   * @param integer $width optional, default value 0
-   * @param integer $height optional, default value 0
+   *                                    contains like "32242...,max,200,300"
+   * @param int $width optional, default value 0
+   * @param int $height optional, default value 0
    * @param string $alt optional, default value ''
    * @param string $resize optional, default value NULL
    * @param string $subTitle optional, default value ''
@@ -73,8 +72,8 @@ class Image extends \Papaya\Template\Tag {
     $mediaPropertyString, $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
   ) {
     $this->_mediaPropertyString = $mediaPropertyString;
-    $this->_width = $width;
-    $this->_height = $height;
+    $this->_width = (int)$width;
+    $this->_height = (int)$height;
     $this->_alt = $alt;
     $this->_resize = $resize;
     $this->_subTitle = $subTitle;
@@ -99,13 +98,13 @@ class Image extends \Papaya\Template\Tag {
     if ($this->_height > 0) {
       $attributes['height'] = $this->_height;
     }
-    if (!empty($this->_alt)) {
+    if ('' !== \trim($this->_alt)) {
       $attributes['alt'] = $this->_alt;
     }
-    if (!empty($this->_resize)) {
+    if ('' !== \trim($this->_resize)) {
       $attributes['resize'] = $this->_resize;
     }
-    if (!empty($this->_subTitle)) {
+    if ('' !== \trim($this->_subTitle)) {
       $attributes['subtitle'] = $this->_subTitle;
     }
     $document = $parent->ownerDocument;
@@ -117,23 +116,23 @@ class Image extends \Papaya\Template\Tag {
   }
 
   private function parseImageData() {
-    if (preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
+    if (\preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
       $this->parseMediaTag($this->_mediaPropertyString);
     } elseif (
-    preg_match(
+    \preg_match(
       '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
       $this->_mediaPropertyString,
       $regs
     )
     ) {
       $this->_source = \papaya_strings::escapeHTMLChars($regs[1]);
-      if ($this->_width == 0 && isset($regs[4])) {
+      if (0 === $this->_width && isset($regs[4])) {
         $this->_width = (int)$regs[4];
       }
-      if ($this->_height == 0 && isset($regs[6])) {
+      if (0 === $this->_height && isset($regs[6])) {
         $this->_height = (int)$regs[6];
       }
-      if (empty($this->_resize) && isset($regs[8])) {
+      if (isset($regs[8]) && '' === \trim($this->_resize)) {
         $this->_resize = \papaya_strings::escapeHTMLChars($regs[8]);
       }
     }

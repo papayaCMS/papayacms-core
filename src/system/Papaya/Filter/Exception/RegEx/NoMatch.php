@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception\RegEx;
+
+use Papaya\Filter;
+
 /**
  * This exception is thrown if a value does not match a given pcre pattern.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NoMatch extends \Papaya\Filter\Exception {
-
+class NoMatch extends Filter\Exception {
   /**
    * Pcre pattern used for validation
    *
@@ -37,7 +38,7 @@ class NoMatch extends \Papaya\Filter\Exception {
   public function __construct($pattern) {
     $this->_pattern = $pattern;
     parent::__construct(
-      sprintf(
+      \sprintf(
         'Value does not match pattern "%s"',
         $pattern
       )

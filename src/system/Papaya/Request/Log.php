@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Request;
+
 /**
  * Request log, a debugging object, colleting and omitting informations about the events during the
  * request processing.
@@ -22,7 +22,6 @@ namespace Papaya\Request;
  * @subpackage Request
  */
 class Log extends \Papaya\Application\BaseObject {
-
   /**
    * Same instance to make it usable like a singleton
    *
@@ -49,15 +48,15 @@ class Log extends \Papaya\Application\BaseObject {
    *
    * @var array(string)
    */
-  private $_events = array();
+  private $_events = [];
 
   /**
    * Construct object and initialize start time.
    */
   public function __construct() {
-    $now = microtime(TRUE);
-    $dateString = date('Y-m-d H:i:s:');
-    $dateString .= round(($now - (int)$now) * 1000);
+    $now = \microtime(TRUE);
+    $dateString = \date('Y-m-d H:i:s:');
+    $dateString .= \round(($now - (int)$now) * 1000);
     $this->_startTime = $now;
     $this->_events[] = 'Started at '.$dateString;
   }
@@ -67,7 +66,8 @@ class Log extends \Papaya\Application\BaseObject {
    *
    * This object can be used like a singleton, or created normally.
    *
-   * @param boolean $reset create new instance
+   * @param bool $reset create new instance
+   *
    * @return self
    */
   public static function getInstance($reset = FALSE) {
@@ -83,7 +83,7 @@ class Log extends \Papaya\Application\BaseObject {
    * @param string $message
    */
   public function logTime($message) {
-    $now = microtime(TRUE);
+    $now = \microtime(TRUE);
     $message .= ' after '.\Papaya\Utility\Date::periodToString(
         $now - $this->_startTime
       );

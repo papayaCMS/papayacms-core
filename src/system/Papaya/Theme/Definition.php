@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Theme;
+
+use Papaya\Content;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
  *
@@ -29,14 +33,13 @@ namespace Papaya\Theme;
  * @property string $templatePath
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
-class Definition extends \Papaya\Content\Structure {
-
+class Definition extends Content\Structure {
   /**
    * Theme data
    *
    * @var array
    */
-  private $_properties = array(
+  private $_properties = [
     'name' => '',
     'title' => '',
     'version' => '',
@@ -44,17 +47,17 @@ class Definition extends \Papaya\Content\Structure {
     'author' => '',
     'description' => '',
     'template_path' => ''
-  );
+  ];
 
   /**
    * Theme thunbnails
    *
    * @var array
    */
-  private $_thumbnails = array(
+  private $_thumbnails = [
     'medium' => '',
     'large' => ''
-  );
+  ];
 
   /**
    * Load theme data from an xml file
@@ -62,10 +65,10 @@ class Definition extends \Papaya\Content\Structure {
    * @param string $location
    */
   public function load($location) {
-    $dom = new \Papaya\XML\Document();
+    $dom = new XML\Document();
     $dom->load($location);
     $xpath = $dom->xpath();
-    $this->_properties['name'] = basename(dirname($location));
+    $this->_properties['name'] = \basename(\dirname($location));
     $this->_properties['title'] = $xpath->evaluate('string(/papaya-theme/name)');
     $this->_properties['version'] = $xpath->evaluate('string(/papaya-theme/version/@number)');
     $this->_properties['version_date'] = $xpath->evaluate('string(/papaya-theme/version/@date)');
@@ -86,27 +89,61 @@ class Definition extends \Papaya\Content\Structure {
     }
   }
 
+  public function __isset($name) {
+    $identifier = Utility\Text\Identifier::toUnderscoreLower($name);
+    return ('thumbnails' === $identifier || isset($this->_properties[$identifier]));
+  }
+
   /**
    * Get a theme property
    *
    * @param string $name
+   *
    * @throws \UnexpectedValueException
+   *
    * @return array
    */
   public function __get($name) {
-    $identifier = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
+    $identifier = Utility\Text\Identifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
-    } elseif ($identifier == 'thumbnails') {
+    }
+    if ('thumbnails' === $identifier) {
       return $this->_thumbnails;
     }
     throw new \UnexpectedValueException(
-      sprintf(
+      \sprintf(
         'Can not read unknown property "%s::$%s".',
-        get_class($this),
+        \get_class($this),
         $name
       )
     );
   }
 
+  /**
+   * @param string $name
+   * @param mixed $value
+   */
+  public function __set($name, $value) {
+    throw new \UnexpectedValueException(
+      \sprintf(
+        'Can not write property "%s::$%s".',
+        \get_class($this),
+        $name
+      )
+    );
+  }
+
+  /**
+   * @param string $name
+   */
+  public function __unset($name) {
+    throw new \UnexpectedValueException(
+      \sprintf(
+        'Can not unset property "%s::$%s".',
+        \get_class($this),
+        $name
+      )
+    );
+  }
 }

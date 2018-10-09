@@ -12,31 +12,33 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Phrase;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Log messages for phrases system
  *
  * @package Papaya-Library
  * @subpackage Content
  */
-class Messages extends \Papaya\Database\Records {
-
+class Messages extends Database\Records {
   /**
    * Map field names to more convenient property names
    *
    * @var array(string=>string)
    */
-  protected $_fields = array(
+  protected $_fields = [
     'id' => 'log_id',
     'phrase' => 'log_phrase',
     'phrase_id' => 'log_phrase_id',
     'text' => 'log_msg',
     'group' => 'log_module',
     'created' => 'log_datetime'
-  );
+  ];
 
-  protected $_tableName = \Papaya\Content\Tables::PHRASE_LOG;
+  protected $_tableName = Content\Tables::PHRASE_LOG;
 
   public function add(array $data) {
     $values = $this->mapping()->mapPropertiesToFields($data);

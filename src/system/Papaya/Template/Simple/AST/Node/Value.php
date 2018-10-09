@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple\AST\Node;
+
+use Papaya\Template\Simple;
+
 /**
  * AST node representing a node value placeholder with a default value
  *
@@ -23,9 +25,9 @@ namespace Papaya\Template\Simple\AST\Node;
  * @property-read string $name
  * @property-read string $default
  */
-class Value extends \Papaya\Template\Simple\AST\Node {
-
+class Value extends Simple\AST\Node {
   protected $_name = '';
+
   protected $_default = '';
 
   /**

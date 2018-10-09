@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Hierarchy;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A hierarchy item represent one element in {@see \Papaya\UI\Hierarchy\Items}.
  *
@@ -25,12 +28,13 @@ namespace Papaya\UI\Hierarchy;
  * @property string|\Papaya\UI\Text $caption
  * @property string|\Papaya\UI\Text $hint
  * @property int $displayMode
- * @property \Papaya\UI\Reference $reference
+ * @property UI\Reference $reference
  */
-class Item extends \Papaya\UI\Control\Collection\Item {
-
+class Item extends UI\Control\Collection\Item {
   const DISPLAY_BOTH = 1;
+
   const DISPLAY_IMAGE_ONLY = 2;
+
   const DISPLAY_TEXT_ONLY = 3;
 
   /**
@@ -39,11 +43,11 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array(integer => string)
    */
-  protected static $_displayModes = array(
+  protected static $_displayModes = [
     self::DISPLAY_BOTH => 'both',
     self::DISPLAY_IMAGE_ONLY => 'image',
     self::DISPLAY_TEXT_ONLY => 'text',
-  );
+  ];
 
   /**
    * Image index or url
@@ -69,7 +73,7 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Reference object
    *
-   * @var NULL|\Papaya\UI\Reference
+   * @var null|UI\Reference
    */
   protected $_reference;
 
@@ -85,13 +89,13 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('_caption', '_caption'),
-    'hint' => array('_hint', '_hint'),
-    'image' => array('_image', '_image'),
-    'reference' => array('reference', 'reference'),
-    'displayMode' => array('_displayMode', 'setDisplayMode')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['_caption', '_caption'],
+    'hint' => ['_hint', '_hint'],
+    'image' => ['_image', '_image'],
+    'reference' => ['reference', 'reference'],
+    'displayMode' => ['_displayMode', 'setDisplayMode']
+  ];
 
   /**
    * Create object and set caption text
@@ -105,18 +109,19 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Append item xml to parent xml element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element
+   * @param XML\Element $parent
+   *
+   * @return XML\Element
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
+  public function appendTo(XML\Element $parent) {
     $itemNode = $parent->appendElement(
       'item',
-      array(
+      [
         'caption' => (string)$this->_caption,
         'hint' => (string)$this->_hint,
         'image' => $this->papaya()->images[(string)$this->_image],
         'mode' => self::$_displayModes[$this->_displayMode]
-      )
+      ]
     );
     if (NULL !== $this->_reference) {
       $itemNode->setAttribute('href', $this->reference()->getRelative());
@@ -127,14 +132,15 @@ class Item extends \Papaya\UI\Control\Collection\Item {
   /**
    * Getter/Setter for the reference subobject
    *
-   * @param \Papaya\UI\Reference $reference
-   * @return \Papaya\UI\Reference
+   * @param UI\Reference $reference
+   *
+   * @return UI\Reference
    */
-  public function reference(\Papaya\UI\Reference $reference = NULL) {
+  public function reference(UI\Reference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new \Papaya\UI\Reference();
+      $this->_reference = new UI\Reference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -144,14 +150,15 @@ class Item extends \Papaya\UI\Control\Collection\Item {
    * Read a cleaned display mode value
    *
    * @param int $mode
+   *
    * @throws \OutOfBoundsException
    */
   public function setDisplayMode($mode) {
-    if (array_key_exists($mode, self::$_displayModes)) {
+    if (\array_key_exists($mode, self::$_displayModes)) {
       $this->_displayMode = (int)$mode;
     } else {
       throw new \OutOfBoundsException(
-        sprintf('Invalid display mode for "%s".', __CLASS__)
+        \sprintf('Invalid display mode for "%s".', __CLASS__)
       );
     }
   }

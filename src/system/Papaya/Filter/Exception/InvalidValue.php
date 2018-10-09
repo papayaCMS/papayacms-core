@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Exception;
+
+use Papaya\Filter;
+
 /**
  * A length exception is thrown if a certain length is expected and another if found
  *
@@ -22,8 +24,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidValue extends \Papaya\Filter\Exception {
-
+class InvalidValue extends Filter\Exception {
   /**
    * The actual value
    *
@@ -32,17 +33,17 @@ class InvalidValue extends \Papaya\Filter\Exception {
   private $_actualValue = 0;
 
   /**
-   * @param integer $actualValue
+   * @param int $actualValue
    */
   public function __construct($actualValue) {
     $this->_actualValue = $actualValue;
-    parent::__construct(sprintf('Invalid value "%s".', $actualValue));
+    parent::__construct(\sprintf('Invalid value "%s".', $actualValue));
   }
 
   /**
    * Read private actual value property
    *
-   * @return integer
+   * @return int
    */
   public function getActualValue() {
     return $this->_actualValue;

@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Box\Version;
+
+use Papaya\Content;
+
 /**
  * Provide data encapsulation for a single content box version translation details.
  *
@@ -22,19 +24,17 @@ namespace Papaya\Content\Box\Version;
  * @package Papaya-Library
  * @subpackage Content
  *
- * @property integer $boxId
- * @property integer $languageId
+ * @property int $boxId
+ * @property int $languageId
  * @property string $title
  * @property array $content
- * @property-read integer $created
- * @property-read integer $modified
- * @property integer $viewId
+ * @property-read int $created
+ * @property-read int $modified
+ * @property int $viewId
  * @property-read string $viewTitle
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \Papaya\Content\Box\Translation {
-
-  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
-
+class Translation extends Content\Box\Translation {
+  protected $_tableNameBoxTranslations = Content\Tables::BOX_VERSION_TRANSLATIONS;
 }

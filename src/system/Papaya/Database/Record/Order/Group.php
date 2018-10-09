@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Database\Record\Order;
+
+use Papaya\Database;
 
 /**
  * Group several order by definitions into one.
@@ -22,16 +23,20 @@ namespace Papaya\Database\Record\Order;
  * @subpackage Database
  */
 class Group
-  implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
-
+  implements Database\Interfaces\Order, \IteratorAggregate {
+  /**
+   * @var \Papaya\Iterator\Union
+   */
   private $_lists;
 
   /**
    * Create iterator to store lists and attach all function arguments to it.
+   *
+   * @param Database\Interfaces\Order[] $lists
    */
-  public function __construct() {
+  public function __construct(Database\Interfaces\Order ...$lists) {
     $this->_lists = new \Papaya\Iterator\Union();
-    foreach (func_get_args() as $list) {
+    foreach ($lists as $list) {
       $this->add($list);
     }
   }
@@ -39,21 +44,21 @@ class Group
   /**
    * Attach an additional list to the group
    *
-   * @param \Papaya\Database\Interfaces\Order $list
+   * @param Database\Interfaces\Order $list
    */
-  public function add(\Papaya\Database\Interfaces\Order $list) {
+  public function add(Database\Interfaces\Order $list) {
     $this->remove($list);
-    /** @noinspection PhpParamsInspection */
+    /* @noinspection PhpParamsInspection */
     $this->_lists->attachIterator($list);
   }
 
   /**
    * Remove a list to the group
    *
-   * @param \Papaya\Database\Interfaces\Order $list
+   * @param Database\Interfaces\Order $list
    */
-  public function remove(\Papaya\Database\Interfaces\Order $list) {
-    /** @noinspection PhpParamsInspection */
+  public function remove(Database\Interfaces\Order $list) {
+    /* @noinspection PhpParamsInspection */
     $this->_lists->detachIterator($list);
   }
 
@@ -61,6 +66,7 @@ class Group
    * Return the internal multiple iterator to allow to iterate over all items in all atached lists
    *
    * @see \IteratorAggregate::getIterator()
+   *
    * @return \Iterator
    */
   public function getIterator() {
@@ -70,7 +76,6 @@ class Group
   /**
    * Casting the list to string generates the needed sql
    *
-   * @see \Papaya\Database\Interfaces\Order::__toString()
    * @return string
    */
   public function __toString() {
@@ -78,6 +83,6 @@ class Group
     foreach ($this as $item) {
       $result .= ', '.$item;
     }
-    return (string)substr($result, 2);
+    return (string)\substr($result, 2);
   }
 }

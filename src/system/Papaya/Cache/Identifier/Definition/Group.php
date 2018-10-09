@@ -12,8 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Cache\Identifier\Definition;
+
+use Papaya\Cache;
 
 /**
  * Use the all values provided in the constructor as cache condition data
@@ -22,20 +23,19 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Group
-  implements \Papaya\Cache\Identifier\Definition {
-
+  implements Cache\Identifier\Definition {
   /**
-   * @var array(\Papaya\Cache\Identifier\Definition)
+   * @var Cache\Identifier\Definition[]
    */
-  private $_definitions = array();
+  private $_definitions = [];
 
   /**
    * Just store all arguments into an private member variable
    *
-   * @param \Papaya\Cache\Identifier\Definition,... $definition
+   * @param Cache\Identifier\Definition ...$definitions
    */
-  public function __construct(\Papaya\Cache\Identifier\Definition $definition = NULL) {
-    foreach (func_get_args() as $definition) {
+  public function __construct(Cache\Identifier\Definition ...$definitions) {
+    foreach ($definitions as $definition) {
       $this->add($definition);
     }
   }
@@ -43,9 +43,9 @@ class Group
   /**
    * Add a definition to the internal list
    *
-   * @param \Papaya\Cache\Identifier\Definition $definition
+   * @param Cache\Identifier\Definition $definition
    */
-  public function add(\Papaya\Cache\Identifier\Definition $definition) {
+  public function add(Cache\Identifier\Definition $definition) {
     $this->_definitions[] = $definition;
   }
 
@@ -56,32 +56,35 @@ class Group
    * If no arguments whre stored, return TRUE.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return BooleanValue|array
+   *
+   * @return bool|array
    */
   public function getStatus() {
-    $result = array();
-    /** @var \Papaya\Cache\Identifier\Definition $definition */
+    $result = [];
+    /** @var Cache\Identifier\Definition $definition */
     foreach ($this->_definitions as $definition) {
       $data = $definition->getStatus();
       if (FALSE === $data) {
         return FALSE;
-      } elseif (TRUE === $data) {
+      }
+      if (TRUE === $data) {
         continue;
       }
       $result[] = $data;
     }
-    return empty($result) ? TRUE : array(get_class($this) => $result);
+    return empty($result) ? TRUE : [\get_class($this) => $result];
   }
 
   /**
    * Compile a bitmask with all the source from the definitions.
    *
    * @see \Papaya\Cache\Identifier\Definition::getSources()
-   * @return integer
+   *
+   * @return int
    */
   public function getSources() {
     $result = 0;
-    /** @var \Papaya\Cache\Identifier\Definition $definition */
+    /** @var Cache\Identifier\Definition $definition */
     foreach ($this->_definitions as $definition) {
       $result |= $definition->getSources();
     }

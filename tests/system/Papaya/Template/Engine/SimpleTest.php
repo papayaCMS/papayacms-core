@@ -81,40 +81,6 @@ class SimpleTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Template\Engine\Simple::callbackGetValue
-   */
-  public function testCallbackGetValueWithName() {
-    $values = new \Papaya\XML\Document();
-    $values
-      ->appendElement('values')
-      ->appendElement('page')
-      ->appendElement('group')
-      ->appendElement('value', array(), 'success');
-    $engine = new Simple();
-    $engine->values($values->documentElement);
-    $this->assertEquals(
-      'success', $engine->callbackGetValue(new \stdClass, 'page.group.value')
-    );
-  }
-
-  /**
-   * @covers \Papaya\Template\Engine\Simple::callbackGetValue
-   */
-  public function testCallbackGetValueWithXpath() {
-    $values = new \Papaya\XML\Document();
-    $values
-      ->appendElement('values')
-      ->appendElement('page')
-      ->appendElement('group')
-      ->appendElement('value', array(), 'success');
-    $engine = new Simple();
-    $engine->values($values->documentElement);
-    $this->assertEquals(
-      'success', $engine->callbackGetValue(new \stdClass, 'xpath(page/group/value)')
-    );
-  }
-
-  /**
    * @covers \Papaya\Template\Engine\Simple::setTemplateString
    */
   public function testSetTemplateString() {

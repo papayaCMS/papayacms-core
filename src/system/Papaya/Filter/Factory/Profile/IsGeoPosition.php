@@ -12,20 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating an geo position value filter
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsGeoPosition extends \Papaya\Filter\Factory\Profile {
-
+class IsGeoPosition extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\Geo\Position();
+    return new Filter\Geo\Position();
   }
 }

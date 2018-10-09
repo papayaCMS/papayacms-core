@@ -12,9 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
-
 namespace Papaya\HTTP\Client\Socket;
+
 /**
  * Papaya HTTP Client Socket Pool - Manages a pool of connections (resources)
  *
@@ -22,28 +21,28 @@ namespace Papaya\HTTP\Client\Socket;
  * @subpackage HTTP-Client
  */
 class Pool {
-
   /**
    * connection pool array(host => array(port => array(resource)))
    *
    * @var array
    */
-  private static $_connectionPool = array();
+  private static $_connectionPool = [];
 
   /**
    * Get a connection from pool
    *
    * @param string $host
-   * @param integer $port
+   * @param int $port
+   *
    * @return mixed|null
    */
   public function getConnection($host, $port) {
     if (
       isset(self::$_connectionPool[$host][$port]) &&
-      NULL !== ($connection = array_pop(self::$_connectionPool[$host][$port]))
+      NULL !== ($connection = \array_pop(self::$_connectionPool[$host][$port]))
     ) {
-      if (feof($connection)) {
-        fclose($connection);
+      if (\feof($connection)) {
+        \fclose($connection);
       } else {
         return $connection;
       }
@@ -56,11 +55,9 @@ class Pool {
    *
    * @param resource|object $connection
    * @param string $host
-   * @param integer $port
+   * @param int $port
    */
   public function putConnection($connection, $host, $port) {
     self::$_connectionPool[$host][$port][] = $connection;
   }
 }
-
-

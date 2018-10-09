@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Email;
+
 /**
  * A list of email recipients. If you add a address using a string it will
  * be converted into a {@see \Papaya\Email\Address) object.
@@ -22,7 +22,6 @@ namespace Papaya\Email;
  * @subpackage Email
  */
 class Recipients extends \Papaya\BaseObject\Collection {
-
   /**
    * Initialize object and set class restriction
    */
@@ -34,10 +33,11 @@ class Recipients extends \Papaya\BaseObject\Collection {
    * Overload prepareItem method to convert a string into an object if needed.
    *
    * @param string|Address $value
+   *
    * @return Address
    */
   protected function prepareItem($value) {
-    if (is_string($value)) {
+    if (\is_string($value)) {
       $item = new Address();
       $item->address = $value;
     } else {

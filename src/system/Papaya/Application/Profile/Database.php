@@ -12,24 +12,27 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Application\Profile;
+
+use Papaya\Application;
+use Papaya\Database\Manager as DatabaseManager;
+
 /**
  * Application object profile for database (manager) object
  *
  * @package Papaya-Library
  * @subpackage Application
  */
-class Database implements \Papaya\Application\Profile {
-
+class Database implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application|\Papaya\Application\CMS $application
-   * @return \Papaya\Database\Manager
+   * @param Application|Application\CMS $application
+   *
+   * @return DatabaseManager
    */
   public function createObject($application) {
-    $database = new \Papaya\Database\Manager();
+    $database = new DatabaseManager();
     $database->papaya($application);
     $database->setConfiguration($application->options);
     return $database;

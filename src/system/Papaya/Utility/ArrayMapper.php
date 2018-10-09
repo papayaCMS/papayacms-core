@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Utility;
+
 /**
  * Map values of an array into another array.
  *
@@ -21,7 +21,6 @@ namespace Papaya\Utility;
  * @subpackage Util
  */
 class ArrayMapper {
-
   /**
    * Target array uses teh same keys, the values are array elements, the subelement specified
    * by $indexName is used in the result.
@@ -36,20 +35,21 @@ class ArrayMapper {
    * @param array|\Traversable $array
    * @param string|int|array $elementIndex
    * @param string|int|array $keyIndex
+   *
    * @return array
    */
   public static function byIndex($array, $elementIndex = NULL, $keyIndex = NULL) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($array);
-    $result = array();
+    Constraints::assertArrayOrTraversable($array);
+    $result = [];
     foreach ($array as $key => $value) {
-      if (isset($keyIndex)) {
-        $key = \Papaya\Utility\Arrays::get($value, $keyIndex, NULL);
+      if (NULL !== $keyIndex) {
+        $key = Arrays::get($value, $keyIndex, NULL);
       }
-      if (isset($elementIndex)) {
-        $value = \Papaya\Utility\Arrays::get($value, $elementIndex, NULL);
+      if (NULL !== $elementIndex) {
+        $value = Arrays::get($value, $elementIndex, NULL);
       }
-      if (isset($value)) {
-        if (isset($key)) {
+      if (NULL !== $value) {
+        if (NULL !== $key) {
           $result[$key] = $value;
         } else {
           $result[] = $value;

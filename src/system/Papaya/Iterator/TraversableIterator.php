@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Iterator;
+
+use Papaya\Utility;
+
 /**
  * An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
  * with a lazy initialization.
@@ -25,8 +27,14 @@ namespace Papaya\Iterator;
  * @subpackage Iterator
  */
 class TraversableIterator implements \OuterIterator {
-
+  /**
+   * @var array|\Traversable
+   */
   private $_traversable;
+
+  /**
+   * @var \Iterator
+   */
   private $_iterator;
 
   /**
@@ -35,7 +43,7 @@ class TraversableIterator implements \OuterIterator {
    * @param \Traversable|array $traversable
    */
   public function __construct($traversable) {
-    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
+    Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
   }
 
@@ -44,7 +52,8 @@ class TraversableIterator implements \OuterIterator {
    * by the methods of the iterator interface. The methods use the $useCached argument
    * to reuse an already fetched/created iterator.
    *
-   * @param boolean $useCached
+   * @param bool $useCached
+   *
    * @return \Iterator
    */
   public function getIteratorForTraversable($useCached = FALSE) {
@@ -61,7 +70,7 @@ class TraversableIterator implements \OuterIterator {
     if ($traversable instanceof \IteratorAggregate) {
       return $traversable->getIterator();
     }
-    if (is_array($traversable)) {
+    if (\is_array($traversable)) {
       return new \ArrayIterator($traversable);
     }
     return new \IteratorIterator($traversable);
@@ -109,7 +118,7 @@ class TraversableIterator implements \OuterIterator {
   /**
    * Valid if the current element is valid.
    *
-   * @return boolean
+   * @return bool
    */
   public function valid() {
     return $this->getIteratorForTraversable(TRUE)->valid();

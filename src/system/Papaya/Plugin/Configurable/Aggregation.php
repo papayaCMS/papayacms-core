@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Plugin\Configurable;
+
+use Papaya\BaseObject;
+
 /**
  * This a standard implementation for a configurable plugin. It
  * add a configuration() getter/setter method to the plugin.
@@ -24,26 +26,26 @@ namespace Papaya\Plugin\Configurable;
  * @subpackage Plugins
  */
 trait Aggregation {
-
   /**
-   * @var \Papaya\BaseObject\Parameters
+   * @var BaseObject\Parameters
    */
   private $_configuration;
-
 
   /**
    * The configuration is an {@see ArrayObject} containing options that can affect the
    * execution of other methods (like appendTo()).
    *
    * @see \Papaya\Plugin\Configurable::configuration()
-   * @param \Papaya\BaseObject\Parameters $configuration
-   * @return \Papaya\BaseObject\Parameters
+   *
+   * @param BaseObject\Parameters $configuration
+   *
+   * @return BaseObject\Parameters
    */
-  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL) {
+  public function configuration(BaseObject\Parameters $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->_configuration = $configuration;
     } elseif (NULL === $this->_configuration) {
-      $this->_configuration = new \Papaya\BaseObject\Parameters();
+      $this->_configuration = new BaseObject\Parameters();
     }
     return $this->_configuration;
   }

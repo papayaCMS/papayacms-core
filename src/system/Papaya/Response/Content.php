@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Response;
+
 /**
  * Abstract superclass for response content
  *
@@ -24,21 +24,18 @@ namespace Papaya\Response;
  * @subpackage Response
  */
 interface Content {
-
   /**
    * Return the content length in bytes for the http header.
    *
    * If -1 is returned, the content length header will not be set, which means
    * transfer encoding chunked is used.
    *
-   * @return integer
+   * @return int
    */
   public function length();
 
   /**
    * Outputs the content to the standard output.
-   *
-   * @return void
    */
   public function output();
 }

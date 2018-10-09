@@ -12,8 +12,8 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Template\Simple;
+
 /**
  * The scanner uses scanner status objects to create a token stream from the input string
  *
@@ -21,30 +21,31 @@ namespace Papaya\Template\Simple;
  * @subpackage Template
  */
 class Scanner {
-
   /**
    * Scanner status object
    *
-   * @var \Papaya\Template\Simple\Scanner\Status
+   * @var Scanner\Status
    */
-  private $_status = NULL;
+  private $_status;
+
   /**
    * string to parse
    *
    * @var string
    */
   private $_buffer = '';
+
   /**
    * current offset
    *
-   * @var integer
+   * @var int
    */
   private $_offset = 0;
 
   /**
    * Constructor, set status object
    *
-   * @param \Papaya\Template\Simple\Scanner\Status $status
+   * @param Scanner\Status $status
    */
   public function __construct(Scanner\Status $status) {
     $this->_status = $status;
@@ -55,9 +56,11 @@ class Scanner {
    *
    * @param array $target token target
    * @param string $string content string
-   * @param integer $offset start offset
+   * @param int $offset start offset
+   *
    * @throws \UnexpectedValueException
-   * @return integer new offset
+   *
+   * @return int new offset
    */
   public function scan(&$target, $string, $offset = 0) {
     $this->_buffer = $string;
@@ -74,15 +77,15 @@ class Scanner {
         $this->_offset = $this->_delegate($target, $newStatus);
       }
     }
-    if ($this->_offset < strlen($this->_buffer)) {
-      /**
+    if ($this->_offset < \strlen($this->_buffer)) {
+      /*
        * @todo a some substring logic for large strings
        */
       throw new \UnexpectedValueException(
-        sprintf(
+        \sprintf(
           'Invalid char "%s" for status "%s" at offset #%d in "%s"',
-          substr($this->_buffer, $this->_offset, 1),
-          get_class($this->_status),
+          \substr($this->_buffer, $this->_offset, 1),
+          \get_class($this->_status),
           $this->_offset,
           $this->_buffer
         )
@@ -94,7 +97,7 @@ class Scanner {
   /**
    * Get next token
    *
-   * @return \Papaya\Template\Simple\Scanner\Token|NULL
+   * @return Scanner\Token|null
    */
   private function _next() {
     if (($token = $this->_status->getToken($this->_buffer, $this->_offset)) &&
@@ -111,7 +114,8 @@ class Scanner {
    * If the status returns a new status object, a new scanner is created to handle it.
    *
    * @param array $target
-   * @param \Papaya\Template\Simple\Scanner\Status $status
+   * @param Scanner\Status $status
+   *
    * @return int offset
    */
   private function _delegate(&$target, $status) {

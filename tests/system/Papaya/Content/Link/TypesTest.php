@@ -32,7 +32,7 @@ class TypesTest extends \Papaya\TestCase {
           array(
             'linktype_id' => 3,
             'linktype_name' => 'external',
-            'linktype_is_visisble' => TRUE,
+            'linktype_is_visible' => TRUE,
             'linktype_class' => 'externalLink',
             'linktype_target' => '_blank',
             'linktype_popup' => FALSE,
@@ -55,7 +55,7 @@ class TypesTest extends \Papaya\TestCase {
         1 => array(
           'id' => 1,
           'name' => 'visible',
-          'is_visisble' => TRUE,
+          'is_visible' => TRUE,
           'class' => '',
           'target' => '_self',
           'is_popup' => FALSE,
@@ -64,7 +64,7 @@ class TypesTest extends \Papaya\TestCase {
         2 => array(
           'id' => 2,
           'name' => 'hidden',
-          'is_visisble' => FALSE,
+          'is_visible' => FALSE,
           'class' => '',
           'target' => '_self',
           'is_popup' => FALSE,
@@ -73,7 +73,7 @@ class TypesTest extends \Papaya\TestCase {
         3 => array(
           'id' => 3,
           'name' => 'external',
-          'is_visisble' => TRUE,
+          'is_visible' => TRUE,
           'class' => 'externalLink',
           'target' => '_blank',
           'is_popup' => FALSE,
@@ -89,7 +89,7 @@ class TypesTest extends \Papaya\TestCase {
    */
   public function testCreateMapping() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
       \Papaya\Database\Interfaces\Mapping::class,
       $mapping = $linkTypes->mapping()
@@ -99,11 +99,11 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Link\Types::mapFieldToProperty
+   * @covers \Papaya\Content\Link\Types
    */
   public function testMapFieldToPropertyPassthru() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       'success',
@@ -114,11 +114,11 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Link\Types::mapFieldToProperty
+   * @covers \Papaya\Content\Link\Types
    */
   public function testMapFieldToPropertyUnserialize() {
     $linkTypes = new Types();
-    /** @var \Papaya\Database\Interfaces\Mapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       array(

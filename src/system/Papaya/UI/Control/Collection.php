@@ -12,8 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Control;
+
+use Papaya\UI;
+use Papaya\Utility;
+use Papaya\XML;
+
 /**
  * A collection list of interface controls with the same superclass. Allows access with array syntax
  * and iterations.
@@ -22,9 +26,8 @@ namespace Papaya\UI\Control;
  * @subpackage UI
  */
 class Collection
-  extends \Papaya\UI\Control
+  extends UI\Control
   implements \IteratorAggregate, \Countable, \ArrayAccess {
-
   /**
    * Most collection have an owner object, the generic handling stores it in this property
    */
@@ -35,7 +38,7 @@ class Collection
    *
    * @var \Papaya\UI\Control\Collection\Item[]
    */
-  protected $_items = array();
+  protected $_items = [];
 
   /**
    * Superclass for items, only items of this class may be added.
@@ -63,12 +66,13 @@ class Collection
    * Append item output to parent element. If a tag name was provided, the items will be wrapped
    * in an additional element.
    *
-   * @param \Papaya\XML\Element $parent
-   * @return \Papaya\XML\Element|NULL parent the elements where appended to,
-   *    NULL if no items are appended.
+   * @param XML\Element $parent
+   *
+   * @return XML\Element|null parent the elements where appended to,
+   *                          NULL if no items are appended.
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (count($this->_items) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (\count($this->_items) > 0) {
       if (!empty($this->_tagName)) {
         $parent = $parent->appendElement($this->_tagName);
       }
@@ -86,14 +90,16 @@ class Collection
    * some generic handling for that.
    *
    * @param object $owner
+   *
    * @throws \LogicException
+   *
    * @return object
    */
   public function owner($owner = NULL) {
-    if (isset($owner)) {
-      \Papaya\Utility\Constraints::assertObject($owner);
-      if (isset($this->_ownerClass)) {
-        \Papaya\Utility\Constraints::assertInstanceOf($this->_ownerClass, $owner);
+    if (NULL !== $owner) {
+      Utility\Constraints::assertObject($owner);
+      if (NULL !== $this->_ownerClass) {
+        Utility\Constraints::assertInstanceOf($this->_ownerClass, $owner);
       }
       $this->_owner = $owner;
       if ($owner instanceof \Papaya\Application\Access) {
@@ -103,11 +109,11 @@ class Collection
         $this->prepareItem($item);
       }
     }
-    if (is_null($this->_owner)) {
+    if (NULL === $this->_owner) {
       throw new \LogicException(
-        sprintf(
+        \sprintf(
           'LogicException: Collection "%s" has no owner object.',
-          get_class($this)
+          \get_class($this)
         )
       );
     }
@@ -117,27 +123,29 @@ class Collection
   /**
    * Allow the items to check if the collection has an owner.
    *
-   * @return boolean
+   * @return bool
    */
   public function hasOwner() {
-    return isset($this->_owner);
+    return NULL !== $this->_owner;
   }
 
   /**
    * Access an item of the internal list defined by $offset. If $offset is negative it will return
    * the item counting from the end of the list.
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @throws \OutOfBoundsException
-   * @return \Papaya\UI\Control
+   *
+   * @return UI\Control
    */
   public function get($offset) {
     $offset = $this->prepareOffset($offset);
-    if (array_key_exists($offset, $this->_items)) {
+    if (\array_key_exists($offset, $this->_items)) {
       return $this->_items[$offset];
     }
     throw new \OutOfBoundsException(
-      sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+      \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
     );
   }
 
@@ -145,12 +153,13 @@ class Collection
    * Validate that the $offset defines a valid item. If $offset is negative it will return
    * the item counting from the end of the list.
    *
-   * @param integer $offset
-   * @return boolean
+   * @param int $offset
+   *
+   * @return bool
    */
   public function has($offset) {
     $offset = $this->prepareOffset($offset);
-    return array_key_exists($offset, $this->_items);
+    return \array_key_exists($offset, $this->_items);
   }
 
   /**
@@ -158,12 +167,13 @@ class Collection
    * provide a fluent api.
    *
    * @param Collection\Item $item
+   *
    * @return self
    */
   public function add(Collection\Item $item) {
     $this->validateItemClass($item);
     $this->_items[] = $this->prepareItem($item);
-    $item->index(count($this->_items) - 1);
+    $item->index(\count($this->_items) - 1);
     return $this;
   }
 
@@ -172,23 +182,24 @@ class Collection
    * the item counting from the end of the list. The method return the collection itself to
    * provide a fluent api.
    *
-   * @param integer $offset
+   * @param int $offset
    * @param Collection\Item $item
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function set($offset, Collection\Item $item) {
     $offset = $this->prepareOffset($offset);
-    if (array_key_exists($offset, $this->_items)) {
+    if (\array_key_exists($offset, $this->_items)) {
       $this->validateItemClass($item);
       $this->_items[$offset] = $this->prepareItem($item);
       $item->index($offset);
       return $this;
-    } else {
-      throw new \OutOfBoundsException(
-        sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
-      );
     }
+    throw new \OutOfBoundsException(
+      \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+    );
   }
 
   /**
@@ -196,23 +207,24 @@ class Collection
    * insert the item counting from the end of the list. The method return the collection itself to
    * provide a fluent api.
    *
-   * @param integer $offset
+   * @param int $offset
    * @param Collection\Item $item
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function insertBefore($offset, Collection\Item $item) {
     $this->validateItemClass($item);
     $offset = $this->prepareOffset($offset);
     if (isset($this->_items[$offset])) {
-      array_splice($this->_items, $offset, 0, array($this->prepareItem($item)));
+      \array_splice($this->_items, $offset, 0, [$this->prepareItem($item)]);
       $this->updateItemIndex($offset);
       return $this;
-    } else {
-      throw new \OutOfBoundsException(
-        sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
-      );
     }
+    throw new \OutOfBoundsException(
+      \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+    );
   }
 
   /**
@@ -220,19 +232,21 @@ class Collection
    * remove the item counting from the end of the list. The method return the collection itself to
    * provide a fluent api.
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @throws \OutOfBoundsException
+   *
    * @return self
    */
   public function remove($offset) {
     $offset = $this->prepareOffset($offset);
     if (isset($this->_items[$offset])) {
       unset($this->_items[$offset]);
-      $this->_items = array_values($this->_items);
+      $this->_items = \array_values($this->_items);
       $this->updateItemIndex($offset);
     } else {
       throw new \OutOfBoundsException(
-        sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
+        \sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
       );
     }
     return $this;
@@ -245,7 +259,7 @@ class Collection
    * @return self
    */
   public function clear() {
-    $this->_items = array();
+    $this->_items = [];
     return $this;
   }
 
@@ -270,17 +284,18 @@ class Collection
   /**
    * Countable Interface, returns the item count.
    *
-   * @return integer
+   * @return int
    */
   public function count() {
-    return count($this->_items);
+    return \count($this->_items);
   }
 
   /**
    * ArrayAccess interface, return true if an item at $offset exists. Negative values are possible.
    *
-   * @param integer $offset
-   * @return boolean
+   * @param int $offset
+   *
+   * @return bool
    */
   public function offsetExists($offset) {
     return $this->has($offset);
@@ -289,8 +304,9 @@ class Collection
   /**
    * ArrayAccess interface, return tha item at $offset. Negative values are possible.
    *
-   * @param integer $offset
-   * @return Collection\Item
+   * @param int $offset
+   *
+   * @return Collection\Item|UI\Control
    */
   public function offsetGet($offset) {
     return $this->get($offset);
@@ -300,11 +316,11 @@ class Collection
    * ArrayAccess interface, Replace the item defined by $offset. If $offset is NULL, the item will
    * be added to the end of the item list. Negative values are possible.
    *
-   * @param integer $offset
+   * @param int $offset
    * @param Collection\Item $item
    */
   public function offsetSet($offset, $item) {
-    if (is_null($offset)) {
+    if (NULL === $offset) {
       $this->add($item);
     } else {
       $this->set($offset, $item);
@@ -314,7 +330,8 @@ class Collection
   /**
    * ArrayAccess interface, Remove the item defined by $offset. Negative values are possible.
    *
-   * @param integer $offset
+   * @param int $offset
+   *
    * @return self
    */
   public function offsetUnset($offset) {
@@ -323,10 +340,11 @@ class Collection
 
   /**
    * Prepare the item before adding it to the internal item list. This allows to do things like
-   * setting the application object or parameter group in subclasses. It sets the colelction so
-   * the item knopws the list it is in.
+   * setting the application object or parameter group in subclasses. It sets the collection so
+   * the item knows the list it is in.
    *
    * @param Collection\Item $item
+   *
    * @return Collection\Item
    */
   protected function prepareItem($item) {
@@ -339,17 +357,19 @@ class Collection
    * Validate the class of an item.
    *
    * @throws \InvalidArgumentException
+   *
    * @param $item
+   *
    * @return bool
    */
   protected function validateItemClass(Collection\Item $item) {
-    if (is_a($item, $this->_itemClass)) {
+    if (\is_a($item, $this->_itemClass)) {
       return TRUE;
     }
     throw new \InvalidArgumentException(
-      sprintf(
+      \sprintf(
         'InvalidArgumentException: Invalid item class "%s" expected "%s".',
-        get_class($item),
+        \get_class($item),
         $this->_itemClass
       )
     );
@@ -358,25 +378,25 @@ class Collection
   /**
    * Make sure that $offset is an integer. If it is an negative value calcluate the real $offset.
    *
-   * @param integer $offset
-   * @return integer
+   * @param int $offset
+   *
+   * @return int
    */
   protected function prepareOffset($offset) {
-    \Papaya\Utility\Constraints::assertInteger($offset);
+    Utility\Constraints::assertInteger($offset);
     if ($offset < 0) {
-      return count($this->_items) + $offset;
-    } else {
-      return $offset;
+      return \count($this->_items) + $offset;
     }
+    return $offset;
   }
 
   /**
    * Store the item index in the item to allow backwards access without loops.
    *
-   * @param integer $offset
+   * @param int $offset
    */
   protected function updateItemIndex($offset = 0) {
-    $count = count($this->_items);
+    $count = \count($this->_items);
     for ($i = $offset; $i < $count; ++$i) {
       /** @var Collection\Item $item */
       $item = $this->_items[$i];

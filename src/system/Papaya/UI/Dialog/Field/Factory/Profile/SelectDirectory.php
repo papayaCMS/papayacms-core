@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
+
+use Papaya\File\System as FileSystem;
+use Papaya\UI;
+
 /**
  * Field factory profiles for a select field for a subdirectory list.
  *
@@ -21,7 +24,6 @@ namespace Papaya\UI\Dialog\Field\Factory\Profile;
  * @subpackage UI
  */
 class SelectDirectory
-  extends \Papaya\UI\Dialog\Field\Factory\Profile\SelectFile {
-
-  protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_DIRECTORIES;
+  extends SelectFile {
+  protected $_fileSystemItems = FileSystem\Directory::FETCH_DIRECTORIES;
 }

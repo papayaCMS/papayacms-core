@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page\Version;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page version translations list.
  *
@@ -23,56 +26,56 @@ namespace Papaya\Content\Page\Version;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \Papaya\Database\BaseObject\Records {
-
-
+class Translations extends Database\BaseObject\Records {
   /**
    * Map field names to value identfiers
    *
    * @var array
    */
-  protected $_fieldMapping = array(
+  protected $_fieldMapping = [
     'topic_id' => 'id',
     'lng_id' => 'language_id',
     'topic_title' => 'title',
     'topic_trans_modified' => 'modified',
     'view_title' => 'view',
-  );
+  ];
 
-  protected $_translationsTableName = \Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS;
+  protected $_translationsTableName = Content\Tables::PAGE_VERSION_TRANSLATIONS;
 
   /**
    * Load translation list informations
    *
-   * @param integer $pageId
-   * @return boolean
+   * @param int $pageId
+   *
+   * @return bool
    */
   public function load($pageId) {
-    $sql = "SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
+    $sql = 'SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
                    tt.topic_title,
                    v.view_title
               FROM %s tt
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
-             WHERE tt.topic_id = %d";
-    $parameters = array(
+             WHERE tt.topic_id = %d';
+    $parameters = [
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(Content\Tables::VIEWS),
       (int)$pageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters, 'lng_id');
   }
 
   /**
    * Get a detail object for a single translation.
    *
-   * @param integer $pageId
-   * @param integer $languageId
+   * @param int $pageId
+   * @param int $languageId
+   *
    * @return \Papaya\Content\Page\Translation
    */
   public function getTranslation($pageId, $languageId) {
     $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
-    $result->activateLazyLoad(array('id' => $pageId, 'language_id' => $languageId));
+    $result->activateLazyLoad(['id' => $pageId, 'language_id' => $languageId]);
     return $result;
   }
 }

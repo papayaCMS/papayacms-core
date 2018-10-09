@@ -12,40 +12,42 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\UI\Dialog\Field;
+
+use Papaya\UI;
+use Papaya\XML;
+
 /**
  * A simple single line input field with a caption.
  *
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
- * @property \Papaya\UI\Dialog\Fields $fields
+ * @property string|UI\Text $caption
+ * @property UI\Dialog\Fields $fields
  */
-class Group extends \Papaya\UI\Dialog\Field {
-
+class Group extends UI\Dialog\Field {
   /**
    * Grouped input fields
    *
-   * @var \Papaya\UI\Dialog\Fields
+   * @var UI\Dialog\Fields
    */
-  protected $_fields = NULL;
+  protected $_fields;
 
   /**
    * declare dynamic properties
    *
    * @var array
    */
-  protected $_declaredProperties = array(
-    'caption' => array('getCaption', 'setCaption'),
-    'fields' => array('fields', 'fields')
-  );
+  protected $_declaredProperties = [
+    'caption' => ['getCaption', 'setCaption'],
+    'fields' => ['fields', 'fields']
+  ];
 
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|UI\Text $caption
    */
   public function __construct($caption) {
     $this->setCaption($caption);
@@ -54,18 +56,18 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Group fields getter/setter
    *
-   * @param \Papaya\UI\Dialog\Fields $fields
-   * @return \Papaya\UI\Dialog\Fields
+   * @param UI\Dialog\Fields $fields
+   *
+   * @return UI\Dialog\Fields
    */
-  public function fields(\Papaya\UI\Dialog\Fields $fields = NULL) {
-    if (isset($fields)) {
+  public function fields(UI\Dialog\Fields $fields = NULL) {
+    if (NULL !== $fields) {
       $this->_fields = $fields;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
         $fields->owner($this->collection()->owner());
       }
-    }
-    if (is_null($this->_fields)) {
-      $this->_fields = new \Papaya\UI\Dialog\Fields(
+    } elseif (NULL === $this->_fields) {
+      $this->_fields = new UI\Dialog\Fields(
         $this->hasDialog() ? $this->getDialog() : NULL
       );
     }
@@ -75,13 +77,13 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Validate field group
    *
-   * @return boolean
+   * @return bool
    */
   public function validate() {
-    if (isset($this->_validationResult)) {
+    if (NULL !== $this->_validationResult) {
       return $this->_validationResult;
     }
-    if (isset($this->_fields)) {
+    if (NULL !== $this->_fields) {
       $this->_validationResult = $this->_fields->validate();
     } else {
       $this->_validationResult = TRUE;
@@ -92,11 +94,13 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Collect field group data
    *
-   * @return boolean
+   * @return bool
    */
   public function collect() {
-    if (parent::collect() &&
-      isset($this->_fields)) {
+    if (
+      NULL !== $this->_fields &&
+      parent::collect()
+    ) {
       $this->_fields->collect();
       return TRUE;
     }
@@ -106,15 +110,15 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Append group and fields in this group to the DOM.
    *
-   * @param \Papaya\XML\Element $parent
+   * @param XML\Element $parent
    */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    if (isset($this->_fields) && count($this->_fields) > 0) {
+  public function appendTo(XML\Element $parent) {
+    if (NULL !== $this->_fields && \count($this->_fields) > 0) {
       $group = $parent->appendElement(
         'field-group',
-        array(
+        [
           'caption' => $this->getCaption()
-        )
+        ]
       );
       $id = $this->getId();
       if (!empty($id)) {
@@ -127,12 +131,13 @@ class Group extends \Papaya\UI\Dialog\Field {
   /**
    * Return the owner collection of the item.
    *
-   * @param \Papaya\UI\Control\Collection $collection
-   * @return \Papaya\UI\Control\Collection
+   * @param UI\Control\Collection $collection
+   *
+   * @return UI\Control\Collection
    */
-  public function collection(\Papaya\UI\Control\Collection $collection = NULL) {
+  public function collection(UI\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
-    if ($collection != NULL && $collection->hasOwner()) {
+    if (NULL !== $collection && $collection->hasOwner()) {
       $this->fields()->owner($collection->owner());
     }
     return $result;

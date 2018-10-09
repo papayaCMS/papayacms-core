@@ -12,8 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Page;
+
+use Papaya\Content;
+use Papaya\Database;
+
 /**
  * Provide data encapsulation for the content page references list.
  *
@@ -22,8 +25,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class References extends \Papaya\Database\BaseObject\Records {
-
+class References extends Database\BaseObject\Records {
   /**
    * page id used to load the references, will be the source_id in the resulting record arrays
    */
@@ -33,8 +35,9 @@ class References extends \Papaya\Database\BaseObject\Records {
    * Load the references for a page, if a lanauge id is provided, try to loade page titles for the
    * language.
    *
-   * @param integer $pageId
-   * @param integer $languageId
+   * @param int $pageId
+   * @param int $languageId
+   *
    * @return bool
    */
   public function load($pageId, $languageId = 0) {
@@ -54,13 +57,13 @@ class References extends \Papaya\Database\BaseObject\Records {
              WHERE tr.topic_source_id = '%4\$d' OR
                    tr.topic_target_id = '%4\$d'
              ORDER BY tr.topic_source_id, tr.topic_target_id";
-    $parameters = array(
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
-      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+    $parameters = [
+      $this->databaseGetTableName(Content\Tables::PAGE_REFERENCES),
+      $this->databaseGetTableName(Content\Tables::PAGES),
+      $this->databaseGetTableName(Content\Tables::PAGE_TRANSLATIONS),
       $pageId,
       $languageId
-    );
+    ];
     return $this->_loadRecords($sql, $parameters);
   }
 
@@ -69,28 +72,28 @@ class References extends \Papaya\Database\BaseObject\Records {
    * the reference could be saved in either direction, the mapping converts it so that the
    * id used to load the refrences is always the source id.
    *
-   * @param \Papaya\Database\Result $databaseResult
+   * @param Database\Result $databaseResult
    * @param string $idField
    */
   protected function _fetchRecords($databaseResult, $idField = '') {
-    $this->_records = array();
-    while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
-      if ($row['topic_source_id'] == $this->_pageId) {
-        $record = array(
+    $this->_records = [];
+    while ($row = $databaseResult->fetchRow(Database\Result::FETCH_ASSOC)) {
+      if ($row['topic_source_id'] === $this->_pageId) {
+        $record = [
           'source_id' => $row['topic_source_id'],
           'target_id' => $targetId = $row['topic_target_id'],
           'title' => $row['topic_target_title'],
           'modified' => $row['topic_target_modified'],
           'note' => $row['topic_note']
-        );
+        ];
       } else {
-        $record = array(
+        $record = [
           'source_id' => $row['topic_target_id'],
           'target_id' => $targetId = $row['topic_source_id'],
           'title' => $row['topic_source_title'],
           'modified' => $row['topic_source_modified'],
           'note' => $row['topic_note']
-        );
+        ];
       }
       $this->_records[$targetId] = $record;
     }

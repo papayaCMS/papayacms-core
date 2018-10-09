@@ -12,8 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Filter\Factory\Profile;
+
+use Papaya\Filter;
+
 /**
  * Profile creating a filter for string that contains an char that triggers a
  * status change in xml (<, > ") and whould need escaping
@@ -21,12 +23,11 @@ namespace Papaya\Filter\Factory\Profile;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsNotXML extends \Papaya\Filter\Factory\Profile {
-
+class IsNotXML extends Filter\Factory\Profile {
   /**
-   * @see \Papaya\Filter\Factory\Profile::getFilter()
+   * @return \Papaya\Filter
    */
   public function getFilter() {
-    return new \Papaya\Filter\RegEx('(^[^<>&]+$)Du');
+    return new Filter\RegEx('(^[^<>&]+$)Du');
   }
 }
