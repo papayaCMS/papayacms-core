@@ -88,14 +88,14 @@ class Counter extends Database\BaseObject {
       'dependencies' => 0,
       'references' => 0
     ];
-    $sql = "SELECT 'dependencies' AS name, COUNT(*) counter
-              FROM %1\\\$s
-             WHERE topic_origin_id = %3\\\$d
+    $sql = 'SELECT \'dependencies\' AS name, COUNT(*) counter
+              FROM %1$s
+             WHERE topic_origin_id = %3$d
             UNION ALL
-            SELECT 'references' AS name, COUNT(*) counter
-              FROM %2\\\$s
-             WHERE topic_source_id = %3\\\$d
-                OR topic_target_id = %3\\\$d";
+            SELECT \'references\' AS name, COUNT(*) counter
+              FROM %2$s
+             WHERE topic_source_id = %3$d
+                OR topic_target_id = %3$d';
     $parameters = [
       $this->databaseGetTableName(Content\Tables::PAGE_DEPENDENCIES),
       $this->databaseGetTableName(Content\Tables::PAGE_REFERENCES),
