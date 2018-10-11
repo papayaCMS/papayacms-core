@@ -41,7 +41,7 @@ class CollectionTest extends \Papaya\TestCase {
       ->will($this->returnValue('bar'));
     $list = new Collection(array('foo'));
     $list->papaya(
-      $this->mockPapaya()->application(array('Phrases' => $phrases))
+      $this->mockPapaya()->application(array('AdministrationPhrases' => $phrases))
     );
     $this->assertEquals(
       array('bar'),

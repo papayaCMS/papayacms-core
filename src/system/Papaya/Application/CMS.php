@@ -33,7 +33,7 @@ namespace Papaya\Application;
  * @property \Papaya\Administration\Languages\Selector $administrationLanguage
  * @property \Papaya\UI\Reference\Factory $references
  * @property \Papaya\UI\Reference\Page\Factory $pageReferences
- * @property \Papaya\Phrases $phrases
+ * @property \Papaya\Phrases $administrationPhrases
  */
 abstract class CMS extends \Papaya\Application {
 }

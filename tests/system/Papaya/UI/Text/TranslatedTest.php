@@ -34,7 +34,7 @@ class TranslatedTest extends \Papaya\TestCase {
       ->will($this->returnValue('Hi %s!'));
     $string = new Translated('Hello %s!', array('World'));
     $string->papaya(
-      $this->mockPapaya()->application(array('Phrases' => $phrases))
+      $this->mockPapaya()->application(array('AdministrationPhrases' => $phrases))
     );
     $this->assertEquals(
       'Hi World!', (string)$string

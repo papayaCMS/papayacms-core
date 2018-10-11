@@ -563,20 +563,6 @@ class papaya_installer extends base_db {
     }
     return FALSE;
   }
-  /**
-  * Initialize Phrases
-  *
-  * @access public
-  */
-  function initPhrases() {
-    $application = $this->papaya();
-    $application->phrases = new base_phrases();
-    $application->phrases->getLngId(
-      isset($this->administrationUser)
-        ? $this->administrationUser->options['PAPAYA_UI_LANGUAGE']
-        : $this->papaya()->options->get('PAPAYA_UI_LANGUAGE')
-    );
-  }
 
   /**
   * Get tables list view

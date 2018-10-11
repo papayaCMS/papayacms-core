@@ -20,8 +20,8 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Request
  *
- * @property \Papaya\Content\Language $language
- * @property \Papaya\Content\View\Mode $mode
+ * @property Content\Language $language
+ * @property Content\View\Mode $mode
  * @property-read URL $url
  * @property-read string $method
  * @property-read bool $allowCompression
@@ -149,7 +149,7 @@ class Request
    * @param \Papaya\Configuration $options
    */
   public function __construct($options = NULL) {
-    if (isset($options)) {
+    if (NULL !== $options) {
       $this->setConfiguration($options);
     }
   }
@@ -295,15 +295,15 @@ class Request
   /**
    * Getter/Setter for the request language
    *
-   * @param \Papaya\Content\Language $language
+   * @param Content\Language $language
    *
-   * @return \Papaya\Content\Language
+   * @return Content\Language
    */
-  public function language(\Papaya\Content\Language $language = NULL) {
+  public function language(Content\Language $language = NULL) {
     if (NULL !== $language) {
       $this->_language = $language;
     } elseif (NULL === $this->_language) {
-      $this->_language = new \Papaya\Content\Language();
+      $this->_language = new Content\Language();
       $this->_language->papaya($this->papaya());
       if ($identifier = $this->getParameter('language', '', NULL, self::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(
@@ -321,15 +321,15 @@ class Request
   /**
    * Getter/Setter for view mode object
    *
-   * @param \Papaya\Content\View\Mode $mode
+   * @param Content\View\Mode $mode
    *
-   * @return \Papaya\Content\View\Mode
+   * @return Content\View\Mode
    */
-  public function mode(\Papaya\Content\View\Mode $mode = NULL) {
-    if (isset($mode)) {
+  public function mode(Content\View\Mode $mode = NULL) {
+    if (NULL !== $mode) {
       $this->_mode = $mode;
-    } elseif (NULL == $this->_mode) {
-      $this->_mode = new \Papaya\Content\View\Mode();
+    } elseif (NULL === $this->_mode) {
+      $this->_mode = new Content\View\Mode();
       $this->_mode->papaya($this->papaya());
       $extension = $this->getParameter(
         'output_mode', 'html', NULL, self::SOURCE_PATH
@@ -372,7 +372,7 @@ class Request
    * @return string
    */
   public function setParameterGroupSeparator($separator) {
-    if ('' == $separator) {
+    if ('' === (string)$separator) {
       $this->_separator = '[]';
     } elseif (\in_array($separator, ['[]', ',', ':', '/', '*', '!'])) {
       $this->_separator = $separator;
@@ -442,7 +442,7 @@ class Request
     foreach ($this->_parsers as $parser) {
       /** @var \Papaya\Request\Parser $parser */
       if ($requestData = $parser->parse($url)) {
-        $this->_pathData = \Papaya\Utility\Arrays::merge(
+        $this->_pathData = Utility\Arrays::merge(
           $this->_pathData,
           $requestData
         );
@@ -483,7 +483,7 @@ class Request
         );
       break;
       case self::SOURCE_QUERY :
-        if (isset($this->_url)) {
+        if (NULL !== $this->_url) {
           $query = new Request\Parameters\QueryString($this->_separator);
           $parameters->merge(
             $query->setString($this->_url->getQuery())->values()
@@ -541,6 +541,7 @@ class Request
           $this->_loadParametersForSource(self::SOURCE_BODY)
         );
       }
+      /** @noinspection NotOptimalIfConditionsInspection */
       if (!isset($this->_parameterCache[$sources])) {
         $this->_parameterCache[$sources] = $parameters;
       }
@@ -631,11 +632,7 @@ class Request
    */
   public function getMethod() {
     $method = empty($_SERVER['REQUEST_METHOD']) ? '' : \strtolower($_SERVER['REQUEST_METHOD']);
-    if (\in_array($method, self::$_allowedMethods)) {
-      return $method;
-    } else {
-      return 'get';
-    }
+    return \in_array($method, self::$_allowedMethods, TRUE) ? $method : 'get';
   }
 
   /**
@@ -678,7 +675,7 @@ class Request
         $header = $_SERVER[$name];
       }
     }
-    return (isset($header) && 'yes' === \strtolower($header));
+    return (NULL !== $header && 'yes' === \strtolower($header));
   }
 
   /**
@@ -714,7 +711,7 @@ class Request
    * @return \Papaya\Request\Content
    */
   public function content(Request\Content $content = NULL) {
-    if (isset($content)) {
+    if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
       $this->_content = new Request\Content();

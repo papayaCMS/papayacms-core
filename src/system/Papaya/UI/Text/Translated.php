@@ -88,8 +88,8 @@ class Translated extends UI\Text {
     if (NULL !== $this->_phrases) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);
     }
-    if (isset($application->phrases)) {
-      return $application->phrases->getText($string, $this->_phrasesGroupName);
+    if (isset($application->administrationPhrases)) {
+      return $application->administrationPhrases->getText($string, $this->_phrasesGroupName);
     }
     return $string;
   }
