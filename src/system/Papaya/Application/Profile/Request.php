@@ -15,7 +15,7 @@
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
-use Papaya\URL as CurrentURL;
+use Papaya\URL\Current as CurrentURL;
 
 /**
  * Application object profile for default request object
