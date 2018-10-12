@@ -47,6 +47,7 @@ class CMS implements \Papaya\Application\Profiles {
     $profiles['AdministrationUser'] = new Profile\Administration\User();
     $profiles['AdministrationLanguage'] = new Profile\Administration\Language();
     $profiles['AdministrationPhrases'] = new Profile\Administration\Phrases();
+    $profiles['AdministrationRichText'] = new Profile\Administration\RichText();
 
     $profiles['References'] = new Profile\References();
     $profiles['PageReferences'] = new Profile\Page\References();

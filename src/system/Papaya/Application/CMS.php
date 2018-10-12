@@ -29,11 +29,12 @@ namespace Papaya\Application;
  * @property \Papaya\Response $response$response
  * @property \Papaya\Session $session
  * @property \base_surfer $surfer
- * @property \base_auth $administrationUser
- * @property \Papaya\Administration\Languages\Selector $administrationLanguage
  * @property \Papaya\UI\Reference\Factory $references
  * @property \Papaya\UI\Reference\Page\Factory $pageReferences
+ * @property \base_auth $administrationUser
+ * @property \Papaya\Administration\Languages\Selector $administrationLanguage
  * @property \Papaya\Phrases $administrationPhrases
+ * @property \Papaya\Administration\RichText\Toggle $administrationRichText
  */
 abstract class CMS extends \Papaya\Application {
 }
