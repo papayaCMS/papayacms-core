@@ -14,6 +14,8 @@
  */
 namespace Papaya\Session;
 
+use Papaya\Filter;
+
 /**
  * Provide an array like access to session values. Allow to use complex identifiers. Handle
  * sessions that are not startet yet.
@@ -79,12 +81,34 @@ class Values implements \ArrayAccess {
    *
    * @param mixed $identifier
    *
+   * @param null $defaultValue
+   * @param Filter|null $filter
    * @return mixed
    *
-   * @internal param mixed $value
    */
-  public function get($identifier) {
-    return $this->offsetGet($identifier);
+  public function get($identifier, $defaultValue = NULL, Filter $filter = NULL) {
+    $value = $this->offsetGet($identifier);
+    if (NULL !== $value && $filter instanceof Filter) {
+      $value = $filter->filter($value);
+    }
+    if (NULL === $value) {
+      return $defaultValue;
+    }
+    if (NULL === $defaultValue) {
+      return $value;
+    }
+    if (\is_array($defaultValue)) {
+      return \is_array($value) ? $value : $defaultValue;
+    }
+    if (\is_object($defaultValue) && \method_exists($defaultValue, '__toString')) {
+      return \is_string($value) ? $value : (string)$defaultValue;
+    }
+    if (\is_scalar($defaultValue)) {
+      $type = \gettype($defaultValue);
+      \settype($value, $type);
+      return $value;
+    }
+    return $defaultValue;
   }
 
   /**

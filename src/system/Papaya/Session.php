@@ -227,10 +227,12 @@ class Session implements Application\Access {
    *
    * @param string|array $name
    *
+   * @param null $defaultValue
+   * @param Filter|null $filter
    * @return mixed
    */
-  public function getValue($name) {
-    return $this->values->get($name);
+  public function getValue($name, $defaultValue = NULL, Filter $filter = NULL) {
+    return $this->values->get($name, $defaultValue, $filter);
   }
 
   /**

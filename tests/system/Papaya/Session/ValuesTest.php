@@ -178,6 +178,32 @@ class ValuesTest extends \Papaya\TestCase {
   }
 
   /**
+   * @backupGlobals
+   * @covers \Papaya\Session\Values::get
+   */
+  public function testGetWithCastToDefaultValueType() {
+    $_SESSION = array('sample' => 'fail');
+    $session = $this->getSessionFixture(TRUE);
+    $values = new Values($session);
+    $this->assertSame(0, $values->get('sample', 21));
+  }
+
+  /**
+   * @backupGlobals
+   * @covers \Papaya\Session\Values::get
+   */
+  public function testGetWithFilterReturnDefaultValue() {
+    $_SESSION = array('sample' => 'fail');
+    $session = $this->getSessionFixture(TRUE);
+    $values = new Values($session);
+    $this->assertSame(
+      21,
+      $values->get('sample', 21, new \Papaya\Filter\IntegerValue(3))
+    );
+  }
+
+
+  /**
    * @covers \Papaya\Session\Values::getKey
    * @dataProvider provideIdentifierData
    * @param mixed $expected
