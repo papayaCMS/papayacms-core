@@ -46,6 +46,7 @@ class CMSTest extends \Papaya\TestCase {
         'AdministrationUser' => new Profile\Administration\User(),
         'AdministrationLanguage' => new Profile\Administration\Language(),
         'AdministrationPhrases' => new Profile\Administration\Phrases(),
+        'AdministrationRichText' => new Profile\Administration\RichText(),
 
         'References' => new Profile\References(),
         'PageReferences' => new Profile\Page\References()
