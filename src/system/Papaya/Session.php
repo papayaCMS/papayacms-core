@@ -25,7 +25,7 @@ namespace Papaya;
  * @property-read string $name
  * @property-read string $id
  * @property-read \Papaya\Session\Values $values
- * @property-read \Papaya\Session\Options $options
+ * @property-read Session\Options $options
  */
 class Session implements Application\Access {
   use Application\Access\Aggregation;
@@ -45,7 +45,7 @@ class Session implements Application\Access {
   /**
    * Session options
    *
-   * @var \Papaya\Session\Options
+   * @var Session\Options
    */
   private $_options;
 
@@ -76,13 +76,18 @@ class Session implements Application\Access {
   private $_active = FALSE;
 
   /**
+   * @var bool|null
+   */
+  private $_isAdministration;
+
+  /**
    * Set the session name (include sid)
    *
    * @param string $name
    */
   public function setName($name) {
-    \Papaya\Utility\Constraints::assertString($name);
-    \Papaya\Utility\Constraints::assertNotEmpty($name);
+    Utility\Constraints::assertString($name);
+    Utility\Constraints::assertNotEmpty($name);
     $this->_sessionName = $name;
   }
 
@@ -104,10 +109,10 @@ class Session implements Application\Access {
    * @return \Papaya\Session\Values
    */
   public function values(Session\Values $values = NULL) {
-    if (isset($values)) {
+    if (NULL !== $values) {
       $this->_values = $values;
     }
-    if (\is_null($this->_values)) {
+    if (NULL === $this->_values) {
       $this->_values = new Session\Values($this);
     }
     return $this->_values;
@@ -116,15 +121,15 @@ class Session implements Application\Access {
   /**
    * Getter/Setter for session options object
    *
-   * @param \Papaya\Session\Options $options
+   * @param Session\Options $options
    *
-   * @return \Papaya\Session\Options
+   * @return Session\Options
    */
   public function options(Session\Options $options = NULL) {
-    if (isset($options)) {
+    if (NULL !== $options) {
       $this->_options = $options;
     }
-    if (\is_null($this->_options)) {
+    if (NULL === $this->_options) {
       $this->_options = new Session\Options();
     }
     return $this->_options;
@@ -138,10 +143,10 @@ class Session implements Application\Access {
    * @return \Papaya\Session\Id
    */
   public function id(Session\Id $id = NULL) {
-    if (isset($id)) {
+    if (NULL !== $id) {
       $this->_id = $id;
     }
-    if (\is_null($this->_id)) {
+    if (NULL === $this->_id) {
       $this->_id = new Session\Id($this->_sessionName);
     }
     return $this->_id;
@@ -155,13 +160,30 @@ class Session implements Application\Access {
    * @return \Papaya\Session\Wrapper
    */
   public function wrapper(Session\Wrapper $wrapper = NULL) {
-    if (isset($wrapper)) {
+    if (NULL !== $wrapper) {
       $this->_wrapper = $wrapper;
     }
-    if (\is_null($this->_wrapper)) {
+    if (NULL === $this->_wrapper) {
       $this->_wrapper = new Session\Wrapper();
     }
     return $this->_wrapper;
+  }
+
+  /**
+   * @param string $name
+   * @return bool
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'active' :
+      case 'name' :
+      case 'id' :
+      case 'values' :
+      case 'options' :
+      case 'isAdministration' :
+        return TRUE;
+    }
+    return FALSE;
   }
 
   /**
@@ -184,6 +206,8 @@ class Session implements Application\Access {
         return $this->_sessionName;
       case 'id' :
         return (string)$this->id();
+      case 'isAdministration' :
+        return $this->isAdministration();
       case 'values' :
         return $this->values();
       case 'options' :
@@ -205,6 +229,17 @@ class Session implements Application\Access {
    * @param mixed $value
    */
   public function __set($name, $value) {
+    throw new \LogicException(
+      \sprintf(
+        'All dynamic properties are read only in class "%s"', \get_class($this)
+      )
+    );
+  }
+
+  /**
+   * @param $name
+   */
+  public function __unset($name) {
     throw new \LogicException(
       \sprintf(
         'All dynamic properties are read only in class "%s"', \get_class($this)
@@ -253,12 +288,10 @@ class Session implements Application\Access {
     if ($this->isSecureOnly()) {
       if (Utility\Server\Protocol::isSecure()) {
         return TRUE;
-      } else {
-        return FALSE;
       }
-    } else {
-      return TRUE;
+      return FALSE;
     }
+    return TRUE;
   }
 
   /**
@@ -277,14 +310,41 @@ class Session implements Application\Access {
     }
     if (
       $options->get('PAPAYA_UI_SECURE', FALSE) &&
-      (
-        $options->get('PAPAYA_ADMIN_SESSION', FALSE) ||
-        $options->get('PAPAYA_ADMIN_PAGE', FALSE)
-      )
+      $this->isAdministration()
     ) {
       return TRUE;
     }
     return FALSE;
+  }
+
+  /**
+   * @param bool $isAdministration
+   * @return bool
+   */
+  public function isAdministration($isAdministration = NULL) {
+    if (
+      NULL !== $isAdministration &&
+      $isAdministration !== $this->_isAdministration
+    ) {
+      if ($this->isActive()) {
+        throw new \LogicException('Active sessions can not be changed.');
+      }
+      if ($isAdministration) {
+        $this->setName(
+          'sid'.$this->papaya()->options->get('PAPAYA_SESSION_NAME', '').'admin'
+        );
+        $this->options->cache = Session\Options::CACHE_NONE;
+      } else {
+        $this->setName(
+          'sid'.$this->papaya()->options->get('PAPAYA_SESSION_NAME', '')
+        );
+        $this->options->cache = $this->papaya()->options->get(
+          'PAPAYA_SESSION_CACHE', Session\Options::CACHE_PRIVATE
+        );
+      }
+      $this->_isAdministration = (bool)$isAdministration;
+    }
+    return $this->_isAdministration;
   }
 
   /**
@@ -312,7 +372,7 @@ class Session implements Application\Access {
         return $this->redirectIfNeeded();
       }
     }
-    return;
+    return NULL;
   }
 
   private function configure() {
@@ -362,15 +422,16 @@ class Session implements Application\Access {
           }
         break;
       }
-      return;
-    } elseif (
-    $this->id()->existsIn(
-      Session\Id::SOURCE_PATH | Session\Id::SOURCE_QUERY
-    )
+      return NULL;
+    }
+    if (
+      $this->id()->existsIn(
+        Session\Id::SOURCE_PATH | Session\Id::SOURCE_QUERY
+      )
     ) {
       return $this->_createRedirect();
     }
-    return;
+    return NULL;
   }
 
   /**
@@ -413,7 +474,7 @@ class Session implements Application\Access {
   public function regenerateId($targetURL = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
-      if (isset($targetURL) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
+      if (NULL !== $targetURL || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
         $transports = [
           Session\Id::SOURCE_COOKIE,
           Session\Id::SOURCE_PATH,

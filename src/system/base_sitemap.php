@@ -985,8 +985,9 @@ class base_sitemap extends base_db {
             $row['topic_title'],
             0
           );
-          if (defined('PAPAYA_ADMIN_SESSION') && PAPAYA_ADMIN_SESSION &&
-              defined('PAPAYA_UI_SECURE') && PAPAYA_UI_SECURE) {
+          if (
+            $this->papaya()->session->isSecureOnly()
+          ) {
             $linkProtocol = 2;
           } elseif (isset($row['topic_protocol']) && $row['topic_protocol'] > 0) {
             $linkProtocol = $row['topic_protocol'];

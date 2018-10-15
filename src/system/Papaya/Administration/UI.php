@@ -28,11 +28,25 @@ namespace Papaya\Administration {
     }
 
     public function execute() {
-
+      $this->prepare();
     }
 
     public function getOutput() {
 
+    }
+
+    private function prepare() {
+      $application = $this->papaya();
+      $application->messages->setUp($application->options);
+      if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+        \Papaya\Request\Log::getInstance();
+      }
+      $application->request->isAdministration = TRUE;
+      $application->session->isAdministration(TRUE);
+      if ($redirect = $application->session->activate(TRUE)) {
+        $redirect->send(TRUE);
+      }
+      $application->pageReferences->setPreview(TRUE);
     }
 
     public function template(Template $template = NULL) {

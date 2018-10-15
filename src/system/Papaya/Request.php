@@ -30,6 +30,7 @@ namespace Papaya;
  * @property-read string $languageIdentifier
  * @property-read int $modeId
  * @property-read bool $isPreview
+ * @property bool $isAdministration
  * @property-read \Papaya\Request\Content $content
  * @property-read int $contentLength
  */
@@ -144,6 +145,11 @@ class Request
   private $_content;
 
   /**
+   * @var bool|null
+   */
+  private $_isAdministration;
+  
+  /**
    * Create object and set options if given.
    *
    * @param \Papaya\Configuration $options
@@ -220,7 +226,9 @@ class Request
           'preview', FALSE, NULL, self::SOURCE_PATH
         );
       case 'isAdministration' :
-        return \defined('PAPAYA_ADMIN_PAGE') && \constant('PAPAYA_ADMIN_PAGE');
+        return NULL !== $this->_isAdministration
+          ? $this->_isAdministration 
+          : \defined('PAPAYA_ADMIN_PAGE') && \constant('PAPAYA_ADMIN_PAGE');
       case 'content' :
         return $this->content();
       case 'contentLength' :
@@ -249,6 +257,9 @@ class Request
         return;
       case 'mode' :
         $this->mode($value);
+        return;
+      case 'isAdministration' :
+        $this->_isAdministration = (bool)$value;
         return;
     }
     throw new \LogicException(

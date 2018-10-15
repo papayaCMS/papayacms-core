@@ -384,18 +384,41 @@ class SessionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Session::isSecureOnly
-   * @dataProvider provideValidOptionsForSecureSession
-   * @param array $options
    */
-  public function testIsSecureOnlyExpectingTrue(array $options) {
+  public function testIsSecureOnlyExpectingTrue() {
     $session = new Session();
     $session->papaya(
       $this->mockPapaya()->application(
         array(
-          'options' => $this->mockPapaya()->options($options)
+          'options' => $this->mockPapaya()->options(
+            array(
+              'PAPAYA_SESSION_SECURE' => TRUE
+            )
+          )
         )
       )
     );
+    $this->assertTrue($session->isSecureOnly());
+  }
+
+  /**
+   * @covers \Papaya\Session::isSecureOnly
+   */
+  public function testIsSecureOnlyAdministrationExpectingTrue() {
+    $session = new Session();
+    $session->papaya(
+      $this->mockPapaya()->application(
+        array(
+          'options' => $this->mockPapaya()->options(
+            array(
+              'PAPAYA_SESSION_SECURE' => FALSE,
+              'PAPAYA_UI_SECURE' => TRUE
+            )
+          )
+        )
+      )
+    );
+    $session->isAdministration(TRUE);
     $this->assertTrue($session->isSecureOnly());
   }
 
@@ -698,22 +721,6 @@ class SessionTest extends \Papaya\TestCase {
   /**************************
    * Data Provider
    **************************/
-
-  public static function provideValidOptionsForSecureSession() {
-    return array(
-      'secure session' => array(
-        array(
-          'PAPAYA_SESSION_SECURE' => TRUE
-        )
-      ),
-      'secure administration' => array(
-        array(
-          'PAPAYA_ADMIN_PAGE' => TRUE,
-          'PAPAYA_UI_SECURE' => TRUE
-        )
-      )
-    );
-  }
 
   public static function provideInvalidOptionsForSecureSession() {
     return array(

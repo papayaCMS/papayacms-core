@@ -292,7 +292,7 @@ class papaya_page extends base_object {
     $this->requestData = base_object::parseRequestURI();
     if ($this->isPreview()) {
       $this->sessionName .= 'admin';
-      define('PAPAYA_ADMIN_SESSION', TRUE);
+      $application->session->isAdministration(TRUE);
       define('PAPAYA_SESSION_DOMAIN', $baseSessionDomain);
       if (
         $options->get('PAPAYA_UI_SECURE', FALSE) &&
@@ -303,7 +303,7 @@ class papaya_page extends base_object {
         $this->doRedirect(301, $url->getURL(), 'Secure administration');
       }
     } else {
-      define('PAPAYA_ADMIN_SESSION', FALSE);
+      $application->session->isAdministration(FALSE);
     }
 
     $this->initializeParams();
