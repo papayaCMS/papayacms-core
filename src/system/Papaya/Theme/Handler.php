@@ -138,25 +138,30 @@ class Handler implements Application\Access {
    * @return string
    */
   public function getThemeSkin() {
-    $themeSet = 0;
-    $isPreview = $this
-      ->papaya()
-      ->request
-      ->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH);
+    $themeSkin = 0;
+    $isPreview = $this->papaya()->request->isPreview;
     if ($isPreview) {
-      $themeSet = $this
+      $themeSkin = $this
         ->papaya()
         ->session
         ->values
-        ->get('PapayaPreviewThemeSet');
+        ->get('PapayaPreviewThemeSkin');
     }
-    if ($themeSet <= 0) {
-      $themeSet = $this
+    if ($themeSkin <= 0) {
+      $themeSkin = $this
         ->papaya()
         ->options
         ->get('PAPAYA_LAYOUT_THEME_SET', 0);
     }
-    return (int)$themeSet;
+    return (int)$themeSkin;
+  }
+
+  /**
+   * @deprecated
+   * @return string
+   */
+  public function getThemeSet() {
+    return $this->getThemeSkin();
   }
 
   /**

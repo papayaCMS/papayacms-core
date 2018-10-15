@@ -332,11 +332,12 @@ class HandlerTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Theme\Handler::getThemeSkin
    */
-  public function testGetThemeSetInPublicMode() {
+  public function testGetThemeSkinInPublicMode() {
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
-      ->method('getParameter')
+      ->method('__get')
+      ->with('isPreview')
       ->will($this->returnValue(FALSE));
     $handler = new Handler();
     $handler->papaya(
@@ -364,7 +365,8 @@ class HandlerTest extends \Papaya\TestCase {
     $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
-      ->method('getParameter')
+      ->method('__get')
+      ->with('isPreview')
       ->will($this->returnValue(TRUE));
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this
@@ -374,7 +376,7 @@ class HandlerTest extends \Papaya\TestCase {
     $values
       ->expects($this->once())
       ->method('get')
-      ->with($this->equalTo('PapayaPreviewThemeSet'))
+      ->with($this->equalTo('PapayaPreviewThemeSkin'))
       ->will($this->returnValue('42 (yeah)'));
     $session
       ->expects($this->once())
