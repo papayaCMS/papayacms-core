@@ -401,7 +401,7 @@ class Access extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Call the given eror handler callback or if none is defined dipatch a log message.
+   * Call the given error handler callback or if none is defined dispatch a log message.
    *
    * @param Exception $exception
    */
@@ -409,7 +409,7 @@ class Access extends \Papaya\Application\BaseObject {
     $errorHandler = $this->errorHandler();
     if (NULL !== $errorHandler) {
       $errorHandler($exception);
-    } else {
+    } elseif (isset($this->papaya->messages)) {
       $mapSeverity = [
         Exception::SEVERITY_INFO => Message::SEVERITY_INFO,
         Exception::SEVERITY_WARNING => Message::SEVERITY_WARNING,
