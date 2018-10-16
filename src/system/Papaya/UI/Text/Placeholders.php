@@ -20,6 +20,14 @@ use Papaya\UI;
  * Class Papaya\UI\Text\Placeholders
  */
 class Placeholders extends UI\Text {
+
+  /**
+   * Buffered/cached result string
+   *
+   * @var string|null
+   */
+  private $_string;
+
   /**
    * Allow to cast the object into a string, replacing the {key} placeholders in the string.
    *
