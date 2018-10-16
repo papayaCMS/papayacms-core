@@ -31,9 +31,10 @@ if (
   file_exists(PAPAYA_DOCUMENT_ROOT.$requestedPath)
 ) {
   if (is_file(PAPAYA_DOCUMENT_ROOT.$requestedPath)) {
-    header('Location: '.$requestedPath);
-  } elseif (is_dir(PAPAYA_DOCUMENT_ROOT.$requestedPath) && '/' !== substr($requestedPath, -1)) {
-    header('Location: '.$requestedPath.'/');
+    header('Location: '.$requestedPath); exit();
+  }
+  if (is_dir(PAPAYA_DOCUMENT_ROOT.$requestedPath) && '/' !== substr($requestedPath, -1)) {
+    header('Location: '.$requestedPath.'/'); exit();
   }
   chdir(PAPAYA_DOCUMENT_ROOT.$requestedPath);
   include 'index.php';
