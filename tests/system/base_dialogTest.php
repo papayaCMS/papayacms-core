@@ -49,24 +49,10 @@ class base_dialogTest extends \Papaya\TestCase {
       ->with($this->isInstanceOf(\Papaya\Message\Display::class));
 
     $session = $this->createMock(\Papaya\Session::class);
-    $values = $this
-      ->getMockBuilder(\Papaya\Session\Values::class)
-      ->setConstructorArgs(array($session))
-      ->getMock();
-    $values
-      ->expects($this->once())
-      ->method('offsetGet')
-      ->with($this->equalTo('PAPAYA_SESS_CAPTCHA'))
-      ->will($this->returnValue(array('identifier' => 'answer')));
-    $values
-      ->expects($this->once())
-      ->method('offsetSet')
-      ->with($this->equalTo('PAPAYA_SESS_CAPTCHA'), $this->equalTo(array()));
     $session
       ->expects($this->any())
-      ->method('__get')
-      ->with($this->equalTo('values'))
-      ->will($this->returnValue($values));
+      ->method('setValue')
+      ->with('PAPAYA_SESS_CAPTCHA', []);
 
     $dialog->papaya(
       $this->mockPapaya()->application(
