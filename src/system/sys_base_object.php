@@ -167,7 +167,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
    * @access public
    */
   function setSessionValue($name, $value) {
-    return $this->papaya()->session->values[$name] = $value;
+    return $this->papaya()->session->setValue($name, $value);
   }
 
   /**
@@ -925,7 +925,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     }
     $pathAdmin = $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/');
     $href = preg_replace(
-      '('.preg_quote($pathAdmin).'/../)', '/', $href
+      '('.preg_quote($pathAdmin, '(').'/../)', '/', $href
     );
     $transformer = new \Papaya\URL\Transformer\Cleanup();
     return $transformer->transform($href.$urlAppend);
@@ -1098,7 +1098,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
    */
   public function parameterMethod($method = NULL) {
     if (isset($method)) {
-      throw new LogicException('Can not change parameter method of %s', __CLASS__);
+      throw new LogicException(sprintf('Can not change parameter method of %s', __CLASS__));
     }
     return self::METHOD_MIXED_POST;
   }
