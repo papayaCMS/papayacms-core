@@ -70,7 +70,7 @@ class Options
    *
    * @var array
    */
-  protected $_definitions = [
+  private static $_definitions = [
     'FALLBACK' => [self::FALLBACK_NONE, self::FALLBACK_PARAMETER, self::FALLBACK_REWRITE],
     'CACHE' => [self::CACHE_NONE, self::CACHE_PRIVATE]
   ];
@@ -84,4 +84,13 @@ class Options
     'FALLBACK' => self::FALLBACK_REWRITE,
     'CACHE' => self::CACHE_PRIVATE
   ];
+
+  /**
+   * Options constructor.
+   *
+   * @param array|NULL $options
+   */
+  public function __construct(array $options = NULL) {
+    parent::__construct(self::$_definitions, $options);
+  }
 }

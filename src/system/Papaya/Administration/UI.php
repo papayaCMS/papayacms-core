@@ -47,6 +47,25 @@ namespace Papaya\Administration {
         $redirect->send(TRUE);
       }
       $application->pageReferences->setPreview(TRUE);
+
+      // validate options and show warnings
+      if (
+        '' !== ($path = $application->options->get('PAPAYA_PATH_DATA')) &&
+        FALSE !== strpos($path, $_SERVER['DOCUMENT_ROOT']) &&
+        file_exists($path) && (!file_exists($path.'.htaccess'))
+      ) {
+        $application->messages->displayWarning(
+          'The file ".htaccess" in the directory "papaya-data/" '.
+          'is missing or not accessible. Please secure the directory.'
+        );
+      }
+      if (!$application->options->get('PAPAYA_PASSWORD_REHASH', FALSE)) {
+        $application->messages->displayWarning(
+          'The password rehashing is not active. Please activate PAPAYA_PASSWORD_REHASH.'.
+          ' Make sure the authentication tables are up to date before activating'.
+          ' this option, otherwise the logins can become locked.'
+        );
+      }
     }
 
     public function template(Template $template = NULL) {

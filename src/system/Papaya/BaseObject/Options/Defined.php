@@ -26,14 +26,25 @@ namespace Papaya\BaseObject\Options;
  * @package Papaya-Library
  * @subpackage Objects
  */
-abstract class Defined
+class Defined
   extends Collection {
   /**
    * Dialog option definitions: The key is the option name, the element a list of possible values.
    *
    * @var array
    */
-  protected $_definitions = [];
+  private $_definitions;
+
+  /**
+   * Defined constructor.
+   *
+   * @param array $definitions
+   * @param array|NULL $options
+   */
+  public function __construct(array $definitions, array $options = NULL) {
+    $this->_definitions = $definitions;
+    parent::__construct($options);
+  }
 
   /**
    * Convert options into an array with name => value pairs

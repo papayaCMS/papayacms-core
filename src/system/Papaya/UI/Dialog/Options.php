@@ -104,7 +104,7 @@ class Options
    *
    * @var array
    */
-  protected $_definitions = [
+  private static $_definitions = [
     'USE_CONFIRMATION' => [TRUE, FALSE],
     'USE_TOKEN' => [TRUE, FALSE],
     'PROTECT_CHANGES' => [TRUE, FALSE],
@@ -124,6 +124,15 @@ class Options
     'DIALOG_WIDTH' => self::SIZE_MEDIUM,
     'TOP_BUTTONS' => FALSE,
   ];
+
+  /**
+   * Options constructor.
+   *
+   * @param array|NULL $options
+   */
+  public function __construct(array $options = NULL) {
+    parent::__construct(self::$_definitions, $options);
+  }
 
   /**
    * Append options to an xml element

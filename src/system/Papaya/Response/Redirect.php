@@ -14,6 +14,9 @@
  */
 namespace Papaya\Response;
 
+use Papaya\URL\Current as CurrentURL;
+use Papaya\URL\Transformer\Absolute;
+
 /**
  * @package Papaya-Library
  * @subpackage Response
@@ -35,7 +38,7 @@ class Redirect extends \Papaya\Response {
    * @param string $reason A reason send as an X-Header
    */
   public function __construct($location, $status = 302, $reason = '') {
-    $this->_location = $location;
+    $this->_location = Absolute::transform(new CurrentURL(), $location);
     $this->_reason = $reason;
     $this->setStatus($status);
   }

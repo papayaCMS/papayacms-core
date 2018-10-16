@@ -26,13 +26,16 @@ class Absolute {
   /**
    * Calculates an absolute url from a url and a (possibly relative) path
    *
-   * @param URL $currentURL current url
+   * @param URL|string $currentURL current url
    * @param string $target url to transform
    *
    * @return string
    */
-  public function transform(URL $currentURL, $target) {
+  public static function transform($currentURL, $target) {
     $result = NULL;
+    if (is_string($currentURL)) {
+      $currentURL = new URL($currentURL);
+    }
     if (($url = \parse_url($target)) && isset($url['host'])) {
       return $target;
     }
@@ -45,7 +48,7 @@ class Absolute {
       $newPath = $basePath.'/'.$target;
     }
     if (!empty($newPath)) {
-      $result = $currentURL->getHostURL().$this->_calculateRealPath($newPath);
+      $result = $currentURL->getHostURL().self::_calculateRealPath($newPath);
     }
     return $result;
   }
@@ -57,7 +60,7 @@ class Absolute {
    *
    * @return string
    */
-  protected function _calculateRealPath($path) {
+  private static function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
     $leadingSlash = (0 === \strpos($path, '/'));
     $trailingSlash = ('/' === \substr($path, -1));

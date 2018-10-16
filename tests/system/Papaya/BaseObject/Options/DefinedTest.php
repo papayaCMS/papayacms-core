@@ -115,9 +115,13 @@ namespace Papaya\BaseObject\Options {
    */
   class Defined_TestProxy extends Defined {
 
-    protected $_definitions = array(
-      'VALID_OPTION' => array(TRUE, FALSE)
-    );
-
+    public function __construct(array $options = NULL) {
+      parent::__construct(
+        array(
+          'VALID_OPTION' => array(TRUE, FALSE)
+        ),
+        $options
+      );
+    }
   }
 }

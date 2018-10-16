@@ -14,6 +14,8 @@
  */
 namespace Papaya\URL\Transformer;
 
+use Papaya\URL;
+
 /**
  * Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
  *
@@ -24,23 +26,29 @@ class Relative {
   /**
    * Transforms a absolute url to a relative url.
    *
-   * @param \Papaya\URL $currentURL current url
-   * @param \Papaya\URL $targetURL url to transform
+   * @param \Papaya\URL|string $currentURL current url
+   * @param \Papaya\URL|string $targetURL url to transform
    *
    * @return string
    */
-  public function transform($currentURL, $targetURL) {
+  public static function transform($currentURL, $targetURL) {
+    if (is_string($currentURL)) {
+      $currentURL = new URL($currentURL);
+    }
+    if (is_string($targetURL)) {
+      $targetURL = new URL($targetURL);
+    }
     if (
       '' !== (string)$targetURL->getHost() &&
       $targetURL->getScheme() === (string)$currentURL->getScheme() &&
       $targetURL->getHost() === (string)$currentURL->getHost() &&
-      $this->_comparePorts($targetURL->getPort(), $currentURL->getPort())
+      self::_comparePorts($targetURL->getPort(), $currentURL->getPort())
     ) {
       if (
         '' === (string)$targetURL->getUser() ||
         (string)$targetURL->getUser() === (string)$currentURL->getUser()
       ) {
-        $path = $this->getRelativePath(
+        $path = self::getRelativePath(
           $currentURL->getPath(),
           $targetURL->getPath()
         );
@@ -64,7 +72,7 @@ class Relative {
    *
    * @return bool
    */
-  private function _comparePorts($portOne, $portTwo) {
+  private static function _comparePorts($portOne, $portTwo) {
     return (
       (string)$portOne === (string)$portTwo ||
       ('80' === (string)$portOne && empty($portTwo)) ||
@@ -80,7 +88,7 @@ class Relative {
    *
    * @return string
    */
-  public function getRelativePath($currentPath, $targetPath) {
+  public static function getRelativePath($currentPath, $targetPath) {
     $parts = \explode('/', $currentPath);
     \array_pop($parts);
     $partCount = \count($parts);

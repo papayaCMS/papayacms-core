@@ -14,6 +14,8 @@
  */
 namespace Papaya\URL\Transformer;
 
+use Papaya\Utility;
+
 /**
  * Papaya URL Transformer Cleanup, parses a url, removes "./", "../" and "//" from it.
  *
@@ -28,10 +30,10 @@ class Cleanup {
    *
    * @return string
    */
-  public function transform($target) {
+  public static function transform($target) {
     $result = '';
     if ($url = \parse_url($target)) {
-      $url['path'] = empty($url['path']) ? '/' : $this->_calculateRealPath($url['path']);
+      $url['path'] = empty($url['path']) ? '/' : self::_calculateRealPath($url['path']);
       if (isset($url['host'])) {
         $result .= empty($url['scheme']) ? 'http://' : $url['scheme'].'://';
         if (isset($url['user'])) {
@@ -46,7 +48,7 @@ class Cleanup {
           $result .= ':'.$url['port'];
         }
       }
-      $result .= \Papaya\Utility\Arrays::get($url, 'path', '');
+      $result .= Utility\Arrays::get($url, 'path', '');
       if (isset($url['query'])) {
         $result .= '?'.$url['query'];
       }
@@ -64,7 +66,7 @@ class Cleanup {
    *
    * @return string
    */
-  protected function _calculateRealPath($path) {
+  private static function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
     $leadingSlash = (0 === \strpos($path, '/'));
     $trailingSlash = ('/' === \substr($path, -1));

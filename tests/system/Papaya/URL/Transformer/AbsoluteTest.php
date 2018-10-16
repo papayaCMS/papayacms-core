@@ -71,13 +71,9 @@ class AbsoluteTest extends \Papaya\TestCase {
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetPath, $expected) {
-    $transformer = new \Papaya\URL\Transformer\Absolute();
     $this->assertSame(
       $expected,
-      $transformer->transform(
-        $this->getURLMockFixture($currentUrl),
-        $targetPath
-      )
+      Absolute::transform($currentUrl, $targetPath)
     );
   }
 
@@ -147,6 +143,11 @@ class AbsoluteTest extends \Papaya\TestCase {
         '/',
         'http://www.example.com/'
       ),
+      'Valid: to installer' => array(
+        'http://www.example.com/papaya/',
+        'install.php',
+        'http://www.example.com/papaya/install.php'
+      )
     );
   }
 }

@@ -172,9 +172,9 @@ class base_auth extends base_db {
   );
   /**
   * options
-  * @var array
+  * @var \Papaya\BaseObject\Parameters
   */
-  var $options = array();
+  var $options;
 
   /**
   * list of user modules
@@ -222,6 +222,11 @@ class base_auth extends base_db {
    * @var array
    */
   protected $fieldErrors = array();
+
+  public function __construct() {
+    parent::__construct();
+    $this->options = new Papaya\BaseObject\Parameters();
+  }
 
   /**
   * Initialisation of parameters
@@ -471,7 +476,7 @@ class base_auth extends base_db {
   * @return void
   */
   function loadOptions() {
-    $this->options = array();
+    $this->options->clear();
     if ($this->isValid) {
       $sql = "SELECT opt_name, opt_value
                 FROM %s
@@ -493,11 +498,7 @@ class base_auth extends base_db {
     }
     foreach ($this->userOptions as $opt) {
       if (!isset($this->options[$opt])) {
-        if (defined($opt)) {
-          $this->options[$opt] = constant($opt);
-        } else {
-          $this->options[$opt] = NULL;
-        }
+        $this->options[$opt] = $this->papaya()->options[$opt];
       }
     }
   }
