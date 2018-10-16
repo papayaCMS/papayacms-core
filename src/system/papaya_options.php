@@ -1031,25 +1031,6 @@ class papaya_options extends base_options {
         return FALSE;
       }
       break;
-    case 'PAPAYA_PAGE_STATISTIC' :
-      if ($value) {
-        $statisticOverviewGuid = 'bb76cc5fed2a37e3257f2e666f82ce90';
-        if ($this->papaya()->plugins->has($statisticOverviewGuid)) {
-          return TRUE;
-        }
-        $this->papaya()->messages->dispatch(
-          new \Papaya\Message\Display(
-            \Papaya\Message::SEVERITY_ERROR,
-            sprintf(
-              $this->_gt('Statistic module (%s) not found.'),
-              $statisticOverviewGuid
-            )
-          )
-        );
-        return FALSE;
-      } else {
-        return TRUE;
-      }
     }
     return TRUE;
   }

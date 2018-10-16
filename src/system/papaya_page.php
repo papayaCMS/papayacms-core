@@ -84,11 +84,6 @@ class papaya_page extends base_object {
   public $contentLanguage;
 
   /**
-   * @var string
-   */
-  public $statisticRequestId = NULL;
-
-  /**
    * @var int
    */
   private $boxId = 0;
@@ -327,7 +322,6 @@ class papaya_page extends base_object {
         );
       } else {
         $targetURL = $_GET['exit'];
-        $this->logRequestExitPage($targetURL);
         $this->protectedRedirect(301, $targetURL);
       }
     } else {
@@ -1450,7 +1444,6 @@ class papaya_page extends base_object {
                   Request\Log::getInstance()->logTime('Page delivered');
                 }
                 $response->send();
-                $this->logRequest($this->topic->getContentLanguageId());
                 return $str;
               } else {
                 $this->getError(
@@ -1946,7 +1939,6 @@ class papaya_page extends base_object {
         );
         print('</body></html>');
       } else {
-        $this->logRequest();
         $this->outputFile($file['FILENAME'], $file);
       }
       exit;
@@ -1961,7 +1953,6 @@ class papaya_page extends base_object {
   function getMediaFile() {
     if (isset($this->requestData['media_id'])) {
       if ($file = $this->checkMediaPerm($this->requestData['media_id'])) {
-        $this->logRequest();
         $this->outputFile($file['FILENAME'], $file);
       } else {
         $this->getError(404, 'File not found', PAPAYA_PAGE_ERROR_MEDIA_FILE);
@@ -2033,14 +2024,12 @@ class papaya_page extends base_object {
                 $file['mimetype']
               );
             }
-            $this->logRequest();
             $this->outputFile($fileName, $file);
           } else {
             $this->getError(404, 'Thumbnail not found', PAPAYA_PAGE_ERROR_MEDIA_THUMBNAIL);
           }
         }
       } elseif ($file = $this->checkMediaPerm($mediaId)) {
-        $this->logRequest();
         $this->outputFile($file['FILENAME'], $file);
       } else {
         $this->getError(404, 'Invalid FileId', PAPAYA_PAGE_ERROR_MEDIA);
@@ -2100,7 +2089,6 @@ class papaya_page extends base_object {
   function outputDownload() {
     if (isset($this->requestData['media_id'])) {
       if ($data = $this->checkMediaPerm($this->requestData['media_id'])) {
-        $this->logRequest();
         $this->papaya()->session->close();
         if (papaya_file_delivery::outputDownload($data['FILENAME'], $data)) {
           return TRUE;
@@ -2256,11 +2244,6 @@ class papaya_page extends base_object {
                   $this->papaya()->response->getStatus() == 200) {
                 $this->setCache($cacheId, $topicId, $page);
               }
-            } else {
-              $this->logRequest(
-                $this->topic->languageIdentToId($this->requestData['language']),
-                TRUE
-              );
             }
           } else {
             $this->getPage();
@@ -2413,42 +2396,6 @@ class papaya_page extends base_object {
       }
     }
     $this->acceptGzip = FALSE;
-  }
-
-  /**
-  * This method logs the request to the statistic.
-  *
-  * @param integer $lngId optional, default value 0
-   * @param bool $cachedPage optional, default value FALSE
-  * @access public
-  */
-  function logRequest($lngId = 0, $cachedPage = FALSE) {
-    $this->papaya()->session->close();
-    if ($this->papaya()->options->get('PAPAYA_PAGE_STATISTIC', FALSE)) {
-      $statObj = new base_statistic_logging();
-      if (!isset($this->requestData)) {
-        $this->requestData = base_object::parseRequestURI();
-      }
-      $this->statisticRequestId =
-        $statObj->logRequest($this->requestData, $lngId, $cachedPage);
-    }
-  }
-
-  /**
-  * This method logs the exit page of a request.
-  *
-  * @see base_statistic_logging::logRequest
-  * @see base_statistic_logging::logExitPage
-  * @param string $url
-  * @access public
-  */
-  function logRequestExitPage($url) {
-    $this->papaya()->session->close();
-    if ($this->papaya()->options->get('PAPAYA_PAGE_STATISTIC', FALSE)) {
-      $statObj = new base_statistic_logging();
-      $this->statisticRequestId = $statObj->logRequest($this->requestData);
-      $statObj->logExitPage($this->statisticRequestId, $url);
-    }
   }
 
   /**

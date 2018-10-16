@@ -2462,9 +2462,6 @@ class papaya_modulemanager extends base_db {
               case 'parser':
                 $glyph = $images['items-plugin'];
                 break;
-              case 'statistic':
-                $glyph = $images['items-statistic'];
-                break;
               case 'datafilter':
                 $glyph = $images['items-filter-convert'];
                 break;

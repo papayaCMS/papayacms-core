@@ -331,9 +331,6 @@ class base_selectview extends base_db {
   /**
    * generate list of selected views (similar to active boxes)
    *
-   * @todo determine whether this is the correct place for this function
-   *       or whether it should go to actbox_page_tatistic or elsewhere
-   * @see actbox_page_statistic::getModulesList()
    * @param array $displayViews list of view_ids to select
    * @param boolean $displaySelected if TRUE, shows selected views,
    *          else it shows all views NOT selected
