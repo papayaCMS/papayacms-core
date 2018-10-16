@@ -235,7 +235,7 @@ class papaya_installer extends base_db {
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->displayError(
         'Please check your input in the following fields: %s',
-        [implode(', ', $dialog->errors()->getSourceCaptions()]
+        [implode(', ', $dialog->errors()->getSourceCaptions())]
       );
     }
     $this->layout->add($this->getXMLDefaults());
