@@ -29,11 +29,11 @@ class Handler implements Application\Access {
   /**
    * Get url for theme files, is $themeName is empty the current theme is used.
    *
-   * @param string $themeName
-   *
+   * @param string|null $themeName
+   * @param string|null $fileName
    * @return string
    */
-  public function getURL($themeName = NULL) {
+  public function getURL($themeName = NULL, $fileName = NULL) {
     $options = $this->papaya()->options;
     $baseURL = '';
     if (Utility\Server\Protocol::isSecure()) {
@@ -53,9 +53,14 @@ class Handler implements Application\Access {
       );
     }
     if ('' === \trim($themeName)) {
-      return $baseURL.$this->getTheme().'/';
+      $url = $baseURL.$this->getTheme().'/';
+    } else {
+      $url = $baseURL.$themeName.'/';
     }
-    return $baseURL.$themeName.'/';
+    if (NULL !== $fileName) {
+      return '' !== $this->getLocalThemeFile($themeName, $fileName) ? $url.$fileName : '';
+    }
+    return $url;
   }
 
   /**
@@ -88,6 +93,30 @@ class Handler implements Application\Access {
     return Utility\File\Path::cleanup(
       $this->getLocalPath().$themeName
     );
+  }
+
+  /**
+   * Get local path on server to theme files
+   *
+   * @param string $fileName
+   * @param string $themeName
+   *
+   * @return string
+   */
+  public function getLocalThemeFile($fileName, $themeName = NULL) {
+    if ('' === \trim($fileName)) {
+      return FALSE;
+    }
+    if ('' === \trim($themeName)) {
+      $themeName = $this->getTheme();
+    }
+    $fileName = Utility\File\Path::cleanup(
+      $this->getLocalPath().$themeName.'/'.$fileName
+    );
+    if (file_exists($fileName) && is_file($fileName)) {
+      return $fileName;
+    }
+    return '';
   }
 
   /**

@@ -22,6 +22,7 @@ namespace Papaya\Administration {
     use Application\Access\Aggregation;
 
     private $_template;
+    private $_themeHandler;
 
     public function __construct(Application $application) {
       $this->papaya($application);
@@ -32,7 +33,35 @@ namespace Papaya\Administration {
     }
 
     public function getOutput() {
-
+      $application = $this->papaya();
+      $template = $this->template();
+      $template->parameters()->assign(
+        [
+          'PAGE_PROJECT' => $application->options->get('PAPAYA_PROJECT_TITLE', 'CMS Project'),
+          'PAGE_REVISION' => trim(constant('PAPAYA_WEBSITE_REVISION')),
+          'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
+          'PAPAYA_LOGINPAGE' => !$application->administrationUser->isValid,
+          'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
+          'PAPAYA_UI_THEME' => $application->options->get('PAPAYA_UI_THEME', 'green'),
+          'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
+          'PAPAYA_RICHTEXT_CONTENT_CSS' =>
+            $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
+          'PAPAYA_RICHTEXT_TEMPLATES_FULL' =>
+            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
+          'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' =>
+            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
+          'PAPAYA_RICHTEXT_LINK_TARGET' =>
+            $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
+          'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
+            $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
+        ]
+      );
+      if ($application->administrationUser->isValid) {
+        $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
+        $template->add($application->administrationLanguage->getXML(), 'title-menu');
+        $template->add($application->administrationRichText->getXML(), 'title-menu');
+      }
+      return $template->getOutput();
     }
 
     private function prepare() {
@@ -83,6 +112,16 @@ namespace Papaya\Administration {
         );
       }
       return $this->_template;
+    }
+
+    public function theme(\Papaya\Theme\Handler $themeHandler = NULL) {
+      if (NULL !== $themeHandler) {
+        $this->_themeHandler = $themeHandler;
+      } elseif (NULL === $this->_themeHandler) {
+        $this->_themeHandler = new \Papaya\Theme\Handler();
+        $this->_themeHandler->papaya($this->papaya());
+      }
+      return $this->_themeHandler;
     }
   }
 }

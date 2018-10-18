@@ -1324,7 +1324,6 @@ class base_auth extends base_db {
         'PAGE_ICON',
         $this->papaya()->images['status-system-locked']
       );
-      $this->layout->parameters()->set('PAGE_USER', $this->_gt('Unknown'));
       $this->layout->add($result);
     }
   }
@@ -1395,7 +1394,6 @@ class base_auth extends base_db {
       $this->layout->parameters()->set(
         'PAGE_ICON', $this->papaya()->images['status-system-locked']
       );
-      $this->layout->parameters()->set('PAGE_USER', $this->_gt('Unknown'));
       $this->layout->add($result);
     } else {
       $result = sprintf(
@@ -1441,7 +1439,6 @@ class base_auth extends base_db {
       $this->layout->parameters()->set(
         'PAGE_ICON', $this->papaya()->images['status-system-locked']
       );
-      $this->layout->parameters()->set('PAGE_USER', $this->_gt('Unknown'));
       $this->layout->add($result);
     }
   }
@@ -1512,7 +1509,6 @@ class base_auth extends base_db {
         $this->layout->parameters()->set(
           'PAGE_ICON', $this->papaya()->images['status-system-locked']
         );
-        $this->layout->parameters()->set('PAGE_USER', $this->_gt('Unknown'));
         $this->layout->add($result);
       }
     }
