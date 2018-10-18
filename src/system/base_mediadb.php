@@ -1467,7 +1467,7 @@ class base_mediadb extends base_db {
       $mimetypeExt = 'flv';
     }
 
-    if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
+    if ($this->papaya()->request->isAdministration) {
       $flvPlayerFile = 'flash/flvplayer.swf';
       $relativePath = '../';
     } else {
@@ -1543,7 +1543,7 @@ class base_mediadb extends base_db {
   * </code>
   */
   function callbackFolders($name, $field, $data) {
-    if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
+    if ($this->papaya()->request->isAdministration) {
       $mediaDB = base_mediadb::getInstance();
       $folders = $mediaDB->getFolderComboArray($this->papaya()->administrationLanguage->id);
       $result = sprintf(

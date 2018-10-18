@@ -136,7 +136,7 @@ class papaya_swfobject extends base_object {
     }
 
     if (empty($this->_expressInstall)) {
-      if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
+      if ($this->papaya()->request->isAdministration) {
         $this->_expressInstall = 'script/swfobject/expressInstall.swf';
       } else {
         $themeHandler = new \Papaya\Theme\Handler();

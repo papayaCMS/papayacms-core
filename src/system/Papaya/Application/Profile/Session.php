@@ -26,13 +26,16 @@ class Session implements Application\Profile {
   /**
    * Create the profile object and return it
    *
-   * @param \Papaya\Application $application
+   * @param Application|Application\CMS $application
    *
    * @return \Papaya\Session
    */
   public function createObject($application) {
     $session = new \Papaya\Session();
     $session->papaya($application);
+    $session->isAdministration(
+      $application->request->isAdministration
+    );
     return $session;
   }
 }

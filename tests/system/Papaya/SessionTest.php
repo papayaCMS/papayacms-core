@@ -436,6 +436,7 @@ class SessionTest extends \Papaya\TestCase {
         )
       )
     );
+    $session->isAdministration(FALSE);
     $this->assertFalse($session->isSecureOnly());
   }
 
@@ -727,7 +728,6 @@ class SessionTest extends \Papaya\TestCase {
       'default' => array(array()),
       'admin only' => array(
         array(
-          'PAPAYA_ADMIN_PAGE' => FALSE,
           'PAPAYA_UI_SECURE' => TRUE
         )
       )

@@ -23,8 +23,9 @@ class SessionTest extends \Papaya\TestCase {
    * @covers \Papaya\Application\Profile\Session::createObject
    */
   public function testCreateObject() {
+    $application = $this->mockPapaya()->application();
     $profile = new Session();
-    $session = $profile->createObject($application = NULL);
+    $session = $profile->createObject($application);
     $this->assertInstanceOf(
       \Papaya\Session::class, $session
     );

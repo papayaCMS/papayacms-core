@@ -226,9 +226,7 @@ class Request
           'preview', FALSE, NULL, self::SOURCE_PATH
         );
       case 'isAdministration' :
-        return NULL !== $this->_isAdministration
-          ? $this->_isAdministration 
-          : \defined('PAPAYA_ADMIN_PAGE') && \constant('PAPAYA_ADMIN_PAGE');
+        return NULL !== $this->_isAdministration ? $this->_isAdministration : FALSE;
       case 'content' :
         return $this->content();
       case 'contentLength' :

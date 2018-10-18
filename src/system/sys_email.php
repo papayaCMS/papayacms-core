@@ -492,11 +492,12 @@ class email extends base_object {
       $basePath = $this->getBasePath(TRUE);
     }
     $fileSrcInternal = $fileSrc;
-    if (defined('PAPAYA_ADMIN_PAGE') &&
-        PAPAYA_ADMIN_PAGE &&
-        substr($fileSrcInternal, 0, 3) == '../') {
+    if (
+      $this->papaya()->request->isAdministration &&
+      0 === strpos($fileSrcInternal, '../')
+    ) {
       $fileSrcInternal = substr($fileSrcInternal, 3);
-    } elseif (substr($fileSrc, 0, 2) == './') {
+    } elseif (0 === strpos($fileSrc, './')) {
       $fileSrcInternal = substr($fileSrcInternal, 2);
     }
     if (defined('PAPAYA_PATH_WEB')) {

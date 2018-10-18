@@ -232,9 +232,6 @@ class papaya_page extends base_object {
       new Application\Profiles\CMS()
     );
     $application->profiler->start();
-    if (!defined('PAPAYA_ADMIN_PAGE')) {
-      define('PAPAYA_ADMIN_PAGE', FALSE);
-    }
     if (!defined('PAPAYA_WEBSITE_REVISION')) {
       define('PAPAYA_WEBSITE_REVISION', '');
     }

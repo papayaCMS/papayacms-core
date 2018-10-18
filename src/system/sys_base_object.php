@@ -448,7 +448,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $pId = (int)$pageId;
     } elseif ($data['page_id'] > 0) {
       $pId = (int)$data['page_id'];
-    } elseif (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
+    } elseif ($this->papaya()->request->isAdministration) {
       $pId = 0;
     } elseif (isset($GLOBALS['PAPAYA_PAGE']) &&
               is_object($GLOBALS['PAPAYA_PAGE']) &&
@@ -517,7 +517,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     }
     $fileTitle = 'index';
     $ext = 'php';
-    if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
+    if ($this->papaya()->request->isAdministration) {
       $fileNamePattern = '~([a-z_\.-]+)\.([a-z_-]+)(\?|$)~';
       if (preg_match($fileNamePattern, $_SERVER['SCRIPT_FILENAME'], $regs)) {
         $fileTitle = $regs[1];
