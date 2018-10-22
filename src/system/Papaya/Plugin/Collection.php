@@ -34,6 +34,8 @@ class Collection extends Database\Records\Lazy {
     'guid' => 'm.module_guid',
     'type' => 'm.module_type',
     'class' => 'm.module_class',
+    'title' => 'm.module_title',
+    'image' => 'm.module_glyph',
     'path' => 'm.module_path',
     'file' => 'm.module_file',
     'active' => 'm.module_active',
