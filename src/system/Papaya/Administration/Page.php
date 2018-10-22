@@ -104,6 +104,13 @@ abstract class Page extends \Papaya\Application\BaseObject {
   }
 
   /**
+   * Make module executable (like a function)
+   */
+  public function __invoke() {
+    $this->execute();
+  }
+
+  /**
    * Execute the module and add the xml to the layout object
    */
   public function execute() {

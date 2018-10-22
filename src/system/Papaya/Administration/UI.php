@@ -15,21 +15,47 @@
 namespace Papaya\Administration {
 
   use Papaya\Application;
-  use Papaya\Utility;
   use Papaya\Template;
+  use Papaya\Utility;
 
   class UI implements Application\Access {
     use Application\Access\Aggregation;
 
     private $_template;
+
     private $_themeHandler;
 
-    public function __construct(Application $application) {
+    /**
+     * @var string
+     */
+    private $_path;
+
+    private $_route;
+
+    public function __construct($path, Application $application) {
+      $this->_path = \str_replace(DIRECTORY_SEPARATOR, '/', $path);
       $this->papaya($application);
     }
 
+    /**
+     * @return null|\Papaya\Response
+     */
     public function execute() {
       $this->prepare();
+      $application = $this->papaya();
+      if (!$application->options->loadAndDefine()) {
+        return new \Papaya\Response\Redirect('install.php');
+      }
+      if (
+        $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
+        !Utility\Server\Protocol::isSecure()
+      ) {
+        return new \Papaya\Response\Redirect\Secure();
+      }
+      $address = \iterator_to_array(new UI\Route\Address());
+      $route = $this->route();
+      $route($address);
+      return NULL;
     }
 
     public function getOutput() {
@@ -38,30 +64,41 @@ namespace Papaya\Administration {
       $template->parameters()->assign(
         [
           'PAGE_PROJECT' => $application->options->get('PAPAYA_PROJECT_TITLE', 'CMS Project'),
-          'PAGE_REVISION' => trim(constant('PAPAYA_WEBSITE_REVISION')),
+          'PAGE_REVISION' => \trim(\constant('PAPAYA_WEBSITE_REVISION')),
           'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
           'PAPAYA_LOGINPAGE' => !$application->administrationUser->isValid,
           'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
           'PAPAYA_UI_THEME' => $application->options->get('PAPAYA_UI_THEME', 'green'),
           'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
           'PAPAYA_RICHTEXT_CONTENT_CSS' =>
-            $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
+          $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
           'PAPAYA_RICHTEXT_TEMPLATES_FULL' =>
-            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
+          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
           'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' =>
-            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
+          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
           'PAPAYA_RICHTEXT_LINK_TARGET' =>
-            $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
+          $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
           'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-            $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
+          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK'),
+          'PAPAYA_MESSAGES_INBOX_NEW' => $this->getNewMessageCount()
         ]
       );
       if ($application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
         $template->add($application->administrationLanguage->getXML(), 'title-menu');
         $template->add($application->administrationRichText->getXML(), 'title-menu');
+        $template->add((new UI\Navigation\Main())->getXML(), 'menus');
       }
       return $template->getOutput();
+    }
+
+    /**
+     * Get count of new message for the current user
+     */
+    private function getNewMessageCount() {
+      $messages = new \base_messages();
+      $counts = $messages->loadMessageCounts([0], TRUE);
+      return empty($counts[0]) ? 0 : (int)$counts[0];
     }
 
     private function prepare() {
@@ -80,8 +117,8 @@ namespace Papaya\Administration {
       // validate options and show warnings
       if (
         '' !== ($path = $application->options->get('PAPAYA_PATH_DATA')) &&
-        FALSE !== strpos($path, $_SERVER['DOCUMENT_ROOT']) &&
-        file_exists($path) && (!file_exists($path.'.htaccess'))
+        FALSE !== \strpos($path, $_SERVER['DOCUMENT_ROOT']) &&
+        \file_exists($path) && (!\file_exists($path.'.htaccess'))
       ) {
         $application->messages->displayWarning(
           'The file ".htaccess" in the directory "papaya-data/" '.
@@ -95,6 +132,29 @@ namespace Papaya\Administration {
           ' this option, otherwise the logins can become locked.'
         );
       }
+    }
+
+    public function route(callable $route = NULL) {
+      if (NULL !== $route) {
+        $this->_route = $route;
+      } elseif (NULL === $this->_themeHandler) {
+        $this->_route = new UI\Route\Group();
+        $this->_route->before(
+          function() {
+            //var_dump('Authorization');
+            return TRUE;
+          }
+        );
+        $routes = new UI\Route\Choice();
+        $routes['index'] = function() {
+          //var_dump('INDEX');
+        };
+        $routes['options'] = function() {
+          //var_dump('OPTIONS');
+        };
+        $this->_route[] = $routes;
+      }
+      return $this->_route;
     }
 
     public function template(Template $template = NULL) {
