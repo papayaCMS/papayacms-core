@@ -440,9 +440,14 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string $baseLink URL
   */
   function getBaseLink($pageId = 0, $categId = 0) {
+    if ($this->papaya()->request->isAdministration) {
+      return (string)$this->papaya()->request->getURL()->getPathURL();
+    }
     $data = $this->parseRequestURI();
-    if (isset($data['output']) &&
-        ($data['output'] == 'media' || $data['output'] == 'image')) {
+    if (
+      isset($data['output']) &&
+      ($data['output'] == 'media' || $data['output'] == 'image')
+    ) {
       return $data['filename'];
     } elseif ($pageId > 0) {
       $pId = (int)$pageId;
@@ -450,9 +455,11 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $pId = (int)$data['page_id'];
     } elseif ($this->papaya()->request->isAdministration) {
       $pId = 0;
-    } elseif (isset($GLOBALS['PAPAYA_PAGE']) &&
-              is_object($GLOBALS['PAPAYA_PAGE']) &&
-              is_a($GLOBALS['PAPAYA_PAGE'], 'papaya_page')) {
+    } elseif (
+      isset($GLOBALS['PAPAYA_PAGE']) &&
+      is_object($GLOBALS['PAPAYA_PAGE']) &&
+      is_a($GLOBALS['PAPAYA_PAGE'], 'papaya_page')
+    ) {
       $pId = $GLOBALS['PAPAYA_PAGE']->topicId;
     } elseif (isset($_GET['p_id']) && $_GET['p_id'] > 0) {
       $pId = (int)$_GET['p_id'];
