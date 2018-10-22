@@ -25,15 +25,17 @@ namespace Papaya\Administration\UI {
 
     const PAGES_EDIT = 'topic.php';
 
-    const CONTENT_BOXES = 'content-boxes';
+    const CONTENT = 'content';
 
-    const CONTENT_FILES = 'mediadb.php';
+    const CONTENT_BOXES = self::CONTENT.'.boxes';
 
-    const CONTENT_ALIASES = 'alias';
+    const CONTENT_FILES = self::CONTENT.'.files';
+
+    const CONTENT_ALIASES = self::CONTENT.'.alias';
 
     const CONTENT_TAGS = 'tags.php';
 
-    const CONTENT_IMAGES = 'imggen.php';
+    const CONTENT_IMAGES = self::CONTENT.'.images';
 
     const EXTENSIONS = 'extension';
 
@@ -49,11 +51,17 @@ namespace Papaya\Administration\UI {
 
     const ADMINISTRATION_SETTINGS = 'options.php';
 
-    const ADMINISTRATION_PROTOCOL = 'log.php';
+    const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
+
+    const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
 
     const ADMINISTRATION_PHRASES = 'phrases.php';
 
     const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
+
+    const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
+
+    const HELP = 'help';
 
     public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }

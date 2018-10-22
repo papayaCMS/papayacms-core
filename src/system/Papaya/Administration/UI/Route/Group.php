@@ -30,6 +30,12 @@ namespace Papaya\Administration\UI\Route {
 
     private $_after = [];
 
+    public function __construct(...$routes) {
+      foreach ($routes as $route) {
+        $this[] = $route;
+      }
+    }
+
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $success = TRUE;
       foreach ($this->_before as list($callback, $filter)) {

@@ -161,7 +161,95 @@ namespace Papaya\Administration {
         $this->_route = $route;
       } elseif (NULL === $this->_themeHandler) {
         $images = $this->papaya()->images;
-        $this->_route = new UI\Route\Group();
+        $this->_route = new UI\Route\Group(
+            new UI\Route\Choice(
+            [
+              // General
+
+              // Pages
+
+              // Additional Content
+              Administration\UI\Route::CONTENT => new UI\Route\Choice(
+                [
+                  Administration\UI\Route::CONTENT_BOXES => new Administration\UI\Route\Page(
+                    $images['items-box'],
+                    ['Content', 'Boxes'],
+                    \papaya_boxes::class,
+                    Administration\Permissions::BOX_MANAGE
+                  ),
+                  Administration\UI\Route::CONTENT_FILES => new Administration\UI\Route\Page(
+                    $images['items-folder'],
+                    ['Content', 'Files'],
+                    \papaya_mediadb::class,
+                    Administration\Permissions::FILE_MANAGE
+                  ),
+                  Administration\UI\Route::CONTENT_IMAGES => new Administration\UI\Route\Page(
+                    $images['items-graphic'],
+                    ['Content', 'Dynamic Images'],
+                    \papaya_imagegenerator::class,
+                    Administration\Permissions::IMAGE_GENERATOR
+                  ),
+                  Administration\UI\Route::CONTENT_ALIASES => new Administration\UI\Route\Page(
+                    $images['items-alias'],
+                    ['Content', 'Alias'],
+                    \papaya_alias_tree::class,
+                    Administration\Permissions::ALIAS_MANAGE
+                  )
+                ]
+              ),
+              // Extensions/Applications
+              Administration\UI\Route::EXTENSIONS => new Administration\UI\Route\Extensions(
+                $images['categories-applications'],
+                'Applications'
+              ),
+              // Administration
+              Administration\UI\Route::ADMINISTRATION => new UI\Route\Choice(
+                [
+                  Administration\UI\Route::ADMINISTRATION_USERS => new Administration\UI\Route\Page(
+                    $images['items-user-group'],
+                    ['Administration', 'Users'],
+                    \papaya_user::class,
+                    Administration\Permissions::USER_MANAGE
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
+                    [
+                      Administration\UI\Route::ADMINISTRATION_PROTOCOL => new Administration\UI\Route\Page(
+                        $images['categories-protocol'],
+                        ['Administration', 'Protocol'],
+                        \papaya_log::class,
+                        Administration\Permissions::SYSTEM_PROTOCOL
+                      ),
+                      Administration\UI\Route::ADMINISTRATION_PROTOCOL_LOGIN => new Administration\UI\Route\Page(
+                        $images['categories-protocol'],
+                        ['Administration', 'Protocol', 'Login'],
+                        \papaya_auth_secure::class,
+                        Administration\Permissions::SYSTEM_PROTOCOL
+                      )
+                    ]
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_CRONJOBS => new Administration\UI\Route\Page(
+                    $images['items-cronjob'],
+                    ['Administration', 'Settings', 'Cronjobs'],
+                    \base_cronjobs::class,
+                    Administration\Permissions::SYSTEM_CRONJOBS
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_LINK_TYPES => new Administration\UI\Route\Page(
+                    $images['items-link'],
+                    ['Administration', 'Settings', 'Link types'],
+                    \papaya_linktypes::class,
+                    Administration\Permissions::SYSTEM_LINKTYPES_MANAGE
+                  )
+                ]
+              ),
+              // Others
+              Administration\UI\Route::HELP => new Administration\UI\Route\Page(
+                $images['categories-help'],
+                'Help',
+                \papaya_help::class
+              )
+            ]
+          )
+        );
         $this->_route->before(
           function() {
             $application = $this->papaya();
@@ -177,45 +265,6 @@ namespace Papaya\Administration {
             return $this->papaya()->administrationUser->isValid;
           }
         );
-        $routes = new UI\Route\Choice();
-        // General
-
-        // Pages
-
-        // Additional Content
-        $routes[Administration\UI\Route::CONTENT_BOXES] = new Administration\UI\Route\Page(
-          $images['items-box'],
-          ['Content', 'Boxes'],
-          \papaya_boxes::class,
-          Administration\Permissions::BOX_MANAGE
-        );
-        $routes[Administration\UI\Route::CONTENT_ALIASES] = new Administration\UI\Route\Page(
-          $images['items-alias'],
-          ['Content', 'Alias'],
-          \papaya_alias_tree::class,
-          Administration\Permissions::ALIAS_MANAGE
-        );
-        // Applications / Extensions
-        $routes[Administration\UI\Route::EXTENSIONS] = new Administration\UI\Route\Extensions(
-          $images['categories-applications'],
-          'Applications'
-        );
-        // Administration
-        $administrationRoutes = new UI\Route\Choice();
-        $administrationRoutes[Administration\UI\Route::ADMINISTRATION_USERS] = new Administration\UI\Route\Page(
-          $images['items-user-group'],
-          ['Administration', 'Users'],
-          \papaya_user::class,
-          Administration\Permissions::USER_MANAGE
-        );
-        $administrationRoutes[Administration\UI\Route::ADMINISTRATION_CRONJOBS] = new Administration\UI\Route\Page(
-          $images['items-cronjob'],
-          ['Administration', 'Settings', 'Cronjobs'],
-          \base_cronjobs::class,
-          Administration\Permissions::SYSTEM_CRONJOBS
-        );
-        $routes[Administration\UI\Route::ADMINISTRATION] = $administrationRoutes;
-        $this->_route[] = $routes;
       }
       return $this->_route;
     }

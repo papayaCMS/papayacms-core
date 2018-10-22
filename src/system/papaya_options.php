@@ -90,12 +90,14 @@ class papaya_options extends base_options {
     $toolbar->images = $this->papaya()->images;
     $toolbar->addButton('Install/Upgrade', 'install.php', 'categories-installer', '', FALSE);
     $toolbar->addSeperator();
-    $toolbar->addButton('Link types', 'linktypes.php', 'items-link', 'Configure Link types', FALSE);
+    $toolbar->addButton(
+      'Link types', Administration\UI\Route::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE
+    );
     $toolbar->addButton(
       'Mime types', 'mediamime.php', 'items-mimetype-group', 'Configure Mime types', FALSE
     );
     $toolbar->addButton(
-      'Cronjobs', Papaya\Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
+      'Cronjobs', Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
     );
     $toolbar->addButton('Spamfilter', 'spam.php', 'items-junk', '', FALSE);
     $toolbar->addSeperator();
