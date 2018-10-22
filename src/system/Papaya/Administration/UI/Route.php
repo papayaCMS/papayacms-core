@@ -15,9 +15,11 @@
 namespace Papaya\Administration\UI {
 
   interface Route {
-    const OVERVIEW = 'index.php';
+    const OVERVIEW = 'overview';
 
-    const MESSAGES = 'msgbox.php';
+    const MESSAGES = 'messages';
+
+    const MESSAGES_TASKS = self::MESSAGES.'.tasks';
 
     const PAGES_SITEMAP = 'tree.php';
 
@@ -41,17 +43,19 @@ namespace Papaya\Administration\UI {
 
     const EXTENSIONS = 'extension';
 
+    const EXTENSIONS_IMAGE = self::EXTENSIONS.'.image';
+
     const ADMINISTRATION = 'administration';
 
     const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
 
     const ADMINISTRATION_VIEWS = 'views.php';
 
-    const ADMINISTRATION_PLUGINS = 'modules.php';
+    const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
 
     const ADMINISTRATION_THEMES = 'themes.php';
 
-    const ADMINISTRATION_SETTINGS = 'options.php';
+    const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
 
     const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
 
@@ -62,6 +66,8 @@ namespace Papaya\Administration\UI {
     const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
 
     const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
+
+    const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
 
     const HELP = 'help';
 

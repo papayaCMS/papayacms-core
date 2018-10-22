@@ -543,7 +543,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('msg_id' => $values['msg_id']),
                 'msg',
-                'msgbox.php'
+                Papaya\Administration\UI\Route::MESSAGES
               )
             ),
             papaya_strings::escapeHTMLChars(
@@ -692,7 +692,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('todo_id' => $values['todo_id']),
                 'todo',
-                'todo.php'
+                Papaya\Administration\UI\Route::MESSAGES_TASKS
               )
             ),
             papaya_strings::escapeHTMLChars($images[$iconIndex])

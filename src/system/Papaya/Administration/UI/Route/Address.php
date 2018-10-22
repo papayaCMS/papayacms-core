@@ -36,7 +36,7 @@ namespace Papaya\Administration\UI\Route {
 
     private function getPath() {
       if (NULL === $this->_path) {
-        if (\preg_match('([^?#]*/(?<path>[^?#/]+))', $this->_url->path, $matches)) {
+        if (\preg_match('([^?#]*/(?<path>[^?#/]*))', $this->_url->path, $matches)) {
           $this->_path = \explode('.', $matches['path']) ?: [];
         } else {
           $this->_path = [];
@@ -58,7 +58,7 @@ namespace Papaya\Administration\UI\Route {
     }
 
     public function offsetGet($offset) {
-      return $this->getPath()[$offset];
+      return $this->offsetExists($offset) ? $this->getPath()[$offset] : NULL;
     }
 
     public function offsetSet($offset, $value) {

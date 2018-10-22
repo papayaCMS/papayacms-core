@@ -29,15 +29,19 @@ namespace Papaya\Administration\UI\Route {
     private $_routes = [];
 
     private $_after = [];
+    private $_defaultChoice;
 
-    public function __construct(array $choices = []) {
+    public function __construct(array $choices = [], $defaultChoice = NULL) {
       foreach ($choices as $path => $route) {
         $this[$path] = $route;
+      }
+      if (NULL !== $defaultChoice) {
+        $this->_defaultChoice = $defaultChoice;
       }
     }
 
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $command = $path->getRoute($level);
+      $command = $path->getRoute($level) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
         return;
       }

@@ -165,6 +165,25 @@ namespace Papaya\Administration {
             new UI\Route\Choice(
             [
               // General
+              Administration\UI\Route::OVERVIEW => new Administration\UI\Route\Page(
+                $images['places-home'],
+                ['General', 'Overview'],
+                \papaya_overview::class
+              ),
+              Administration\UI\Route::MESSAGES => new UI\Route\Choice(
+                [
+                  Administration\UI\Route::MESSAGES => new Administration\UI\Route\Page(
+                    $images['status-mail-open'],
+                    ['General', 'Messages'],
+                    \papaya_messages::class
+                  ),
+                  Administration\UI\Route::MESSAGES_TASKS => new Administration\UI\Route\Page(
+                    $images['items-task'],
+                    ['General', 'Messages', 'Tasks'],
+                    \papaya_todo::class
+                  ),
+                ]
+              ),
 
               // Pages
 
@@ -221,6 +240,12 @@ namespace Papaya\Administration {
                     \papaya_user::class,
                     Administration\Permissions::USER_MANAGE
                   ),
+                  Administration\UI\Route::ADMINISTRATION_PLUGINS => new Administration\UI\Route\Page(
+                    $images['items-plugin'],
+                    ['Administration', 'Plugins / Modules'],
+                    \papaya_modulemanager::class,
+                    Administration\Permissions::MODULE_MANAGE
+                  ),
                   Administration\UI\Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
                     [
                       Administration\UI\Route::ADMINISTRATION_PROTOCOL => new Administration\UI\Route\Page(
@@ -237,6 +262,12 @@ namespace Papaya\Administration {
                       )
                     ]
                   ),
+                  Administration\UI\Route::ADMINISTRATION_SETTINGS => new Administration\UI\Route\Page(
+                    $images['items-option'],
+                    ['Administration', 'Settings'],
+                    \papaya_options::class,
+                    Administration\Permissions::SYSTEM_SETTINGS
+                  ),
                   Administration\UI\Route::ADMINISTRATION_CRONJOBS => new Administration\UI\Route\Page(
                     $images['items-cronjob'],
                     ['Administration', 'Settings', 'Cronjobs'],
@@ -248,6 +279,12 @@ namespace Papaya\Administration {
                     ['Administration', 'Settings', 'Link types'],
                     \papaya_linktypes::class,
                     Administration\Permissions::SYSTEM_LINKTYPES_MANAGE
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_MIME_TYPES => new Administration\UI\Route\Page(
+                    $images['items-option'],
+                    ['Administration', 'Settings', 'Mime types'],
+                    \papaya_mediadb_mime::class,
+                    Administration\Permissions::SYSTEM_MIMETYPES_MANAGE
                   )
                 ]
               ),
@@ -257,7 +294,8 @@ namespace Papaya\Administration {
                 'Help',
                 \papaya_help::class
               )
-            ]
+            ],
+            UI\Route::OVERVIEW
           )
         );
         $this->_route->before(

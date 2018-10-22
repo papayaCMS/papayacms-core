@@ -194,9 +194,10 @@ class papaya_messages extends base_messages {
     $counts = $this->loadMessageCounts(array(0, -1, -2));
     $result = '<iconpanel align="left">';
     $result .= sprintf(
-      '<icon src="%s" subtitle="%s" href="todo.php"/>',
+      '<icon src="%s" subtitle="%s" href="%s"/>',
       papaya_strings::escapeHTMLChars($images['items-task']),
-      papaya_strings::escapeHTMLChars($this->getFolderTitle(-3))
+      papaya_strings::escapeHTMLChars($this->getFolderTitle(-3)),
+      papaya_strings::escapeHTMLChars(Papaya\Administration\UI\Route::MESSAGES_TASKS)
     );
     $result .= sprintf(
       '<icon src="%s" subtitle="%s" href="%s"/>',
@@ -207,7 +208,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(0)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => 0), NULL, 'msgbox.php')
+        $this->getLink(array('folder_id' => 0), NULL, Papaya\Administration\UI\Route::MESSAGES)
       )
     );
     $result .= sprintf(
@@ -219,7 +220,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(-1)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => '-1'), NULL, 'msgbox.php')
+        $this->getLink(array('folder_id' => '-1'), NULL, Papaya\Administration\UI\Route::MESSAGES)
       )
     );
     $result .= sprintf(
@@ -229,7 +230,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(-2)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => '-2'), NULL, 'msgbox.php')
+        $this->getLink(array('folder_id' => '-2'), NULL, Papaya\Administration\UI\Route::MESSAGES)
       )
     );
     $result .= '</iconpanel>';
@@ -1000,7 +1001,9 @@ class papaya_messages extends base_messages {
 
     $toolbar->addButton(
       'Add task',
-      $this->getLink(array('cmd' => 'new', 'todo_id' => 0), 'todo', 'todo.php'),
+      $this->getLink(
+        array('cmd' => 'new', 'todo_id' => 0), 'todo', Papaya\Administration\UI\Route::MESSAGES_TASKS
+      ),
       'actions-task-add',
       'Add a new task'
     );

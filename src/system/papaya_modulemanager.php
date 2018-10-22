@@ -943,124 +943,6 @@ class papaya_modulemanager extends base_db {
   }
 
   /**
-   * Get glyph, swf or js file from module directory
-   *
-   * @access public
-   * @return void
-   */
-  function getGlyph() {
-    if (isset($_GET['module']) && preg_match('/^[a-fA-F\d]{32}$/D', $_GET['module'])) {
-      $sql = "SELECT module_path, module_glyph
-                FROM %s
-               WHERE module_guid = '%s'";
-      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
-      if ($res = $this->databaseQueryFmt($sql, array($tableModules, $_GET['module']))) {
-        if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $pattern = '(^((?:script)/)([\w-]+\.(js|vbs|css|html|xml))$)D';
-          if (isset($_GET['src']) && preg_match($pattern, $_GET['src'], $regs)) {
-            $scriptPath = $this->prependModulePath($row['module_path'].'script/');
-            $scriptFileName = $scriptPath.$regs[2];
-            if (
-              file_exists($scriptFileName) &&
-              is_file($scriptFileName) &&
-              is_readable($scriptFileName)
-            ) {
-              header(
-                'Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($scriptFileName)).' GMT'
-              );
-              header('Expires: '.gmdate('D, d M Y H:i:s', (time() + 2592000)).' GMT');
-              switch ($regs[3]) {
-              case 'vbs' :
-                header('Content-type: text/vbscript');
-                break;
-              case 'css' :
-                header('Content-type: text/css');
-                break;
-              case 'html' :
-                header('Content-type: text/html');
-                break;
-              case 'xml' :
-                header('Content-type: application/xml');
-                break;
-              case 'js' :
-              default :
-                header('Content-type: text/javascript');
-                break;
-              }
-              readfile($scriptFileName);
-            } else {
-              header('Content-type: text/javascript');
-              printf(
-                'if (console.error) { console.error("Script file %%s not found", "%s"); }',
-                $regs[2]
-              );
-            }
-            exit;
-          } elseif (
-            isset($_GET['src']) &&
-            preg_match('~^((?:flash)/)?([\w-]+\.(?:swf))$~D', $_GET['src'], $regs)
-          ) {
-            $imageFileName = $regs[2];
-            $imagePath = $row['module_path'].'flash/';
-            $imageFiles = array(
-              $imagePath.$imageFileName
-            );
-          } else {
-            $imagePath = $this->prependModulePath($row['module_path'].'pics/');
-            $imageFilePattern = '(^((?:pics|images)/)?([\w-]+\.(?:gif|png|jpg|jpeg))$)D';
-            if (
-              isset($_GET['src']) &&
-              preg_match($imageFilePattern, $_GET['src'], $regs)
-            ) {
-              $imageFileName = $regs[2];
-            } else {
-              $imageFileName = $row['module_glyph'];
-            }
-            if (isset($_GET['size']) && in_array((int)$_GET['size'], array(16, 20, 22, 48))) {
-              $imageSizePath = (int)$_GET['size'].'x'.(int)$_GET['size'].'/';
-            } else {
-              $imageSizePath = '16x16/';
-            }
-            $imageFiles = array(
-              $imagePath.$imageSizePath.$imageFileName,
-              $imagePath.$imageFileName
-            );
-          }
-          foreach ($imageFiles as $imageFile) {
-            if (file_exists($imageFile) && is_file($imageFile) && is_readable($imageFile)) {
-              list(, , $type) = getImageSize($imageFile);
-              $imageTypes = array(
-                IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_SWF, IMAGETYPE_SWC
-              );
-              if (in_array($type, $imageTypes)) {
-                if ($fh = @fopen($imageFile, 'r')) {
-                  header(
-                    'Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($imageFile)).' GMT'
-                  );
-                  header('Expires: '.gmdate('D, d M Y H:i:s', (time() + 2592000)).' GMT');
-                  header('Content-type: '.image_type_to_mime_type($type));
-                  fpassthru($fh);
-                  fclose($fh);
-                  exit;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    header('Content-type: image/gif');
-    // @codingStandardsIgnoreStart
-    printf(
-      '%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%',
-      71, 73, 70, 56, 57, 97, 1, 0, 1, 0, 128, 255, 0, 192, 192, 192, 0, 0, 0, 33,
-      249, 4, 1, 0, 0, 0, 0, 44, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 68, 1, 0, 59
-    );
-    // @codingStandardsIgnoreEnd
-    exit;
-  }
-
-  /**
    * Update data module table
    *
    * @access public
@@ -2426,7 +2308,7 @@ class papaya_modulemanager extends base_db {
             if (isset($module['error']) && $module['error']) {
               $glyph = $images['status-dialog-error'];
             } elseif (trim($module['glyph']) != '') {
-              $glyph = './modglyph.php?module='.urlencode($module['guid']);
+              $glyph = \Papaya\Administration\UI\Route::EXTENSIONS_IMAGE.'?module='.urlencode($module['guid']);
             } else {
               switch ($module['type']) {
               case 'alias':

@@ -94,17 +94,13 @@ class papaya_options extends base_options {
       'Link types', Administration\UI\Route::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE
     );
     $toolbar->addButton(
-      'Mime types', 'mediamime.php', 'items-mimetype-group', 'Configure Mime types', FALSE
+      'Mime types', Papaya\Administration\UI\Route::ADMINISTRATION_MIME_TYPES, 'items-mimetype-group', 'Configure Mime types', FALSE
     );
     $toolbar->addButton(
       'Cronjobs', Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
     );
     $toolbar->addButton('Spamfilter', 'spam.php', 'items-junk', '', FALSE);
     $toolbar->addSeperator();
-    /*
-     * @todo uncomment after theme sets are implemented
-    $toolbar->addButton('Theme sets', 'theme.php', 'items-page', '', FALSE);
-    */
     $toolbar->addButton('View icons', 'glyphview.php', 'categories-view-icons', '', FALSE);
     $toolbar->addSeperator();
     $toolbar->addButton(

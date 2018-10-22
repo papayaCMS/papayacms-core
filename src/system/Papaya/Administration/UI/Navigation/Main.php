@@ -191,7 +191,7 @@ namespace Papaya\Administration\UI\Navigation {
               Administration\UI\Route::EXTENSIONS.'.'.$favorite['guid']
             );
             if ('' !== \trim($favorite['image'])) {
-              $button->image = 'modglyph.php?module='.\urlencode($favorite['guid']);
+              $button->image = Administration\UI\Route::EXTENSIONS_IMAGE.'?module='.\urlencode($favorite['guid']);
             }
             $button->caption = new UI\Text\Translated($favorite['title']);
             $button->target = '_self';

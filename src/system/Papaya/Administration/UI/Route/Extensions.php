@@ -42,9 +42,14 @@ namespace Papaya\Administration\UI\Route {
         $pluginGuid = \Papaya\Filter\Factory::isGuid($path[$c - 1]) ? $path[$c - 1] : NULL;
       }
       $module = new \papaya_editmodules($pluginGuid);
-      $module->layout = $ui->template();
-      $module->initialize();
-      $module->execute();
+      if ('image' === $path[1]) {
+        $module->getGlyph();
+      } else {
+        $module = new \papaya_editmodules($pluginGuid);
+        $module->layout = $ui->template();
+        $module->initialize();
+        $module->execute();
+      }
     }
   }
 }

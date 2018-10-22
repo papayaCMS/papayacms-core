@@ -200,6 +200,9 @@ class papaya_todo extends base_db {
         break;
       }
       $this->getXMLButtons();
+      $messageBox = new papaya_messages();
+      $messageBox->layout = $this->layout;
+      $messageBox->getFolderPanel();
     } else {
       $this->addMsg(MSG_WARNING, $this->_gt('No permission active.'));
     }
@@ -592,7 +595,7 @@ class papaya_todo extends base_db {
     );
     $toolbar->addButton(
       'Compose message',
-      $this->getLink(array('cmd' => 'new'), 'msg', 'msgbox.php'),
+      $this->getLink(array('cmd' => 'new'), 'msg', Papaya\Administration\UI\Route::MESSAGES),
       'actions-mail-add',
       'Compose a new message'
     );
