@@ -97,6 +97,7 @@ class Xpath extends \DOMXpath {
   }
 
   /** @noinspection OverridingDeprecatedMethodInspection */
+
   /**
    * Query should not be used, but evaluate. Block it.
    *

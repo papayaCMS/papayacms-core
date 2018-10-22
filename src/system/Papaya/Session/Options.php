@@ -88,7 +88,7 @@ class Options
   /**
    * Options constructor.
    *
-   * @param array|NULL $options
+   * @param array|null $options
    */
   public function __construct(array $options = NULL) {
     parent::__construct(self::$_definitions, $options);

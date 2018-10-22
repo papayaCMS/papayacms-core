@@ -20,7 +20,6 @@ use Papaya\UI;
  * Class Papaya\UI\Text\Placeholders
  */
 class Placeholders extends UI\Text {
-
   /**
    * Buffered/cached result string
    *

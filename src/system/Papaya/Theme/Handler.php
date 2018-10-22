@@ -113,7 +113,7 @@ class Handler implements Application\Access {
     $fileName = Utility\File\Path::cleanup(
       $this->getLocalPath().$themeName.'/'.$fileName
     );
-    if (file_exists($fileName) && is_file($fileName)) {
+    if (\file_exists($fileName) && \is_file($fileName)) {
       return $fileName;
     }
     return '';

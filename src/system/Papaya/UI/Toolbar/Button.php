@@ -35,7 +35,7 @@ use Papaya\XML;
  */
 class Button extends Element {
   /**
-   * Image or image index.  The button needs a cpation or/and an image.
+   * Image or image index.  The button needs a caption or/and an image.
    *
    * @var string
    */

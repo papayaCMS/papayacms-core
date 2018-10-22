@@ -20,6 +20,7 @@ namespace Papaya;
  */
 class Response implements Application\Access {
   use Application\Access\Aggregation;
+
   /**
    * Status codes
    *

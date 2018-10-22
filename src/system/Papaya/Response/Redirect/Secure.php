@@ -18,7 +18,6 @@ namespace Papaya\Response\Redirect {
   use Papaya\URL\Current as CurrentURL;
 
   class Secure extends Redirect {
-
     public function __construct() {
       $url = new CurrentURL();
       $url->setScheme('https');

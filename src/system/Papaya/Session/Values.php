@@ -84,7 +84,6 @@ class Values implements \ArrayAccess {
    * @param null $defaultValue
    * @param Filter|null $filter
    * @return mixed
-   *
    */
   public function get($identifier, $defaultValue = NULL, Filter $filter = NULL) {
     $value = $this->offsetGet($identifier);

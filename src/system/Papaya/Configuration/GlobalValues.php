@@ -15,8 +15,8 @@
 namespace Papaya\Configuration;
 
 use Papaya\Configuration;
-use Papaya\Utility;
 use Papaya\Filter;
+use Papaya\Utility;
 
 /**
  * The global configuration uses constants for fixed options. Constants are superglobal, so

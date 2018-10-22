@@ -130,7 +130,7 @@ class Element
    *
    * @see \DOMElement::setAttribute()
    * @param string $name
-   * @param string|NULL $value
+   * @param string|null $value
    */
   public function setAttribute($name, $value) {
     if (NULL !== $value && '' !== $value) {

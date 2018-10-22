@@ -31,6 +31,7 @@ namespace Papaya;
  */
 abstract class Template implements Application\Access {
   use Application\Access\Aggregation;
+
   /**
    * Strip the XML processing instruction <?xml ...?>
    */

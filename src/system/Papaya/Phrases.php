@@ -24,6 +24,7 @@ namespace Papaya;
  */
 class Phrases implements Application\Access {
   use Application\Access\Aggregation;
+
   /**
    * @var \Papaya\Phrases\Groups
    */

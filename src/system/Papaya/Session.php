@@ -29,6 +29,7 @@ namespace Papaya;
  */
 class Session implements Application\Access {
   use Application\Access\Aggregation;
+
   const ACTIVATION_ALWAYS = 1;
 
   const ACTIVATION_NEVER = 2;

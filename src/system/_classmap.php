@@ -115,7 +115,6 @@ return array(
   'papaya_messages' => '/papaya_messages.php',
   'papaya_module_options' => '/papaya_module_options.php',
   'papaya_modulemanager' => '/papaya_modulemanager.php',
-  'papaya_navigation' => '/papaya_navigation.php',
   'papaya_options' => '/papaya_options.php',
   'papaya_output' => '/papaya_output.php',
   'papaya_overview' => '/papaya_overview.php',

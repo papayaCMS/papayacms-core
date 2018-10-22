@@ -14,16 +14,16 @@
  */
 namespace Papaya\Administration\RichText {
 
+  use Papaya\Response;
   use Papaya\UI;
   use Papaya\XML\Element as XMLElement;
-  use Papaya\Response;
 
   class Toggle extends UI\Control\Interactive {
-
     /**
      * @var bool|null
      */
     private $_isAvailable;
+
     /**
      * @var bool|null
      */

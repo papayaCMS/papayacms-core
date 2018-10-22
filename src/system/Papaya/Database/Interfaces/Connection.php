@@ -15,7 +15,6 @@
 namespace Papaya\Database\Interfaces {
 
   interface Connection {
-
     public function execute(Statement $statement);
 
     public function escapeString($value);

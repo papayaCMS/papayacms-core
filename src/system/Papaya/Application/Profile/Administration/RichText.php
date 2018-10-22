@@ -14,8 +14,8 @@
  */
 namespace Papaya\Application\Profile\Administration;
 
-use Papaya\Application;
 use Papaya\Administration;
+use Papaya\Application;
 
 /**
  * Application object profile for the phrase translations (used in Administration UI)

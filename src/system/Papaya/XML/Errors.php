@@ -28,6 +28,7 @@ use Papaya\Message;
  */
 class Errors implements Application\Access {
   use Application\Access\Aggregation;
+
   /**
    * @var bool
    */

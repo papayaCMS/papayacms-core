@@ -33,7 +33,7 @@ class Absolute {
    */
   public static function transform($currentURL, $target) {
     $result = NULL;
-    if (is_string($currentURL)) {
+    if (\is_string($currentURL)) {
       $currentURL = new URL($currentURL);
     }
     if (($url = \parse_url($target)) && isset($url['host'])) {

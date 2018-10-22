@@ -222,12 +222,12 @@ class Document
       $node = parent::createElement($name);
     }
     if (NULL !== $content) {
-      array_unshift($appendables, $content);
+      \array_unshift($appendables, $content);
     }
     foreach ($appendables as $appendable) {
       if ($appendable instanceof Appendable) {
         $appendable->appendTo($node);
-      } elseif (is_array($appendable)) {
+      } elseif (\is_array($appendable)) {
         foreach ($appendable as $attributeName => $attributeValue) {
           $node->setAttribute($attributeName, $attributeValue);
         }
@@ -264,6 +264,7 @@ class Document
   }
 
   /** @noinspection PhpDocSignatureInspection */
+
   /**
    * Create an new element node for a given document
    *
@@ -324,7 +325,9 @@ class Document
     $errors = new Errors();
     $document = new self();
     $success = $errors->encapsulate(
-      function ($source, $options = 0) use ($document) { return $document->loadXML($source, $options); },
+      function($source, $options = 0) use ($document) {
+        return $document->loadXML($source, $options);
+      },
       [$xmlString],
       !$silent
     );

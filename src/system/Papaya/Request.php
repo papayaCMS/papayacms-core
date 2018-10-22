@@ -37,6 +37,7 @@ namespace Papaya;
 class Request
   implements Application\Access, BaseObject\Interfaces\Properties {
   use Application\Access\Aggregation;
+
   /**
    * Paramter source type: url path
    *
@@ -148,7 +149,7 @@ class Request
    * @var bool|null
    */
   private $_isAdministration;
-  
+
   /**
    * Create object and set options if given.
    *

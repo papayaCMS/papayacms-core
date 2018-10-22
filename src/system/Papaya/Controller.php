@@ -36,7 +36,7 @@ interface Controller {
    * @return bool|self
    */
   public function execute(
-  /** @noinspection ReferencingObjectsInspection */
+    /** @noinspection ReferencingObjectsInspection */
     Application $application, Request &$request, Response &$response
   );
 }

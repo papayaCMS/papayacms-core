@@ -39,7 +39,7 @@ class Defined
    * Defined constructor.
    *
    * @param array $definitions
-   * @param array|NULL $options
+   * @param array|null $options
    */
   public function __construct(array $definitions, array $options = NULL) {
     $this->_definitions = $definitions;

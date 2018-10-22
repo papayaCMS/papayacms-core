@@ -32,10 +32,10 @@ class Relative {
    * @return string
    */
   public static function transform($currentURL, $targetURL) {
-    if (is_string($currentURL)) {
+    if (\is_string($currentURL)) {
       $currentURL = new URL($currentURL);
     }
-    if (is_string($targetURL)) {
+    if (\is_string($targetURL)) {
       $targetURL = new URL($targetURL);
     }
     if (
