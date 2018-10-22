@@ -177,11 +177,21 @@ namespace Papaya\Administration {
                     \papaya_boxes::class,
                     Administration\Permissions::BOX_MANAGE
                   ),
-                  Administration\UI\Route::CONTENT_FILES => new Administration\UI\Route\Page(
-                    $images['items-folder'],
-                    ['Content', 'Files'],
-                    \papaya_mediadb::class,
-                    Administration\Permissions::FILE_MANAGE
+                  Administration\UI\Route::CONTENT_FILES => new UI\Route\Choice(
+                    [
+                      Administration\UI\Route::CONTENT_FILES => new Administration\UI\Route\Page(
+                        $images['items-folder'],
+                        ['Content', 'Files'],
+                        \papaya_mediadb::class,
+                        Administration\Permissions::FILE_MANAGE
+                      ),
+                      Administration\UI\Route::CONTENT_FILES_BROWSER => new Administration\UI\Route\Page(
+                        $images['items-folder'],
+                        ['Content', 'Files'],
+                        \papaya_mediadb_browser::class,
+                        Administration\Permissions::FILE_BROWSE
+                      )
+                    ]
                   ),
                   Administration\UI\Route::CONTENT_IMAGES => new Administration\UI\Route\Page(
                     $images['items-graphic'],

@@ -31,6 +31,8 @@ namespace Papaya\Administration\UI {
 
     const CONTENT_FILES = self::CONTENT.'.files';
 
+    const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
+
     const CONTENT_ALIASES = self::CONTENT.'.alias';
 
     const CONTENT_TAGS = 'tags.php';

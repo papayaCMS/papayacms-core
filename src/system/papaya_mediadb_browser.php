@@ -70,6 +70,8 @@ class papaya_mediadb_browser extends base_mediadb {
   * initialize languageselector and session parameters
   */
   function initialize() {
+    $this->dataDirectory = $this->papaya()->options->get('PAPAYA_PATH_MEDIAFILES');
+    $this->thumbnailDirectory = $this->papaya()->options->get('PAPAYA_PATH_THUMBFILES');
     $this->sessionParamName = 'PAPAYA_SESS_'.$this->paramName;
     $this->initializeParams();
     $this->sessionParams = $this->getSessionValue($this->sessionParamName);
@@ -142,7 +144,7 @@ class papaya_mediadb_browser extends base_mediadb {
   function getXML() {
     $this->layout->parameters()->set('PAGE_MODE', 'frame');
     if (!isset($this->params['mode'])) {
-      $this->params['mode'] = 0;
+      $this->params['mode'] = NULL;
     }
     switch ($this->params['mode']) {
     case 'thumbs':
