@@ -14,8 +14,10 @@
  */
 namespace Papaya\Administration {
 
+  use Papaya\Administration;
   use Papaya\Application;
   use Papaya\Template;
+  use Papaya\UI\Text\Translated;
   use Papaya\Utility;
 
   class UI implements Application\Access {
@@ -52,9 +54,8 @@ namespace Papaya\Administration {
       ) {
         return new \Papaya\Response\Redirect\Secure();
       }
-      $address = \iterator_to_array(new UI\Route\Address());
       $route = $this->route();
-      $route($address);
+      $route($this, new UI\Route\Address());
       return NULL;
     }
 
@@ -90,6 +91,27 @@ namespace Papaya\Administration {
         $template->add((new UI\Navigation\Main())->getXML(), 'menus');
       }
       return $template->getOutput();
+    }
+
+    /**
+     * @param string $image
+     * @param array|string $caption
+     */
+    public function setTitle($image, $caption) {
+      $template = $this->template();
+      $template->parameters()->set('PAGE_ICON', $image);
+      if (is_array($caption)) {
+        $caption = implode(
+          ' - ',
+          array_map(
+            function($captionPart) {
+              return new Translated($captionPart);
+            },
+            $caption
+          )
+        );
+      }
+      $template->parameters()->set('PAGE_TITLE', $caption);
     }
 
     /**
@@ -138,20 +160,61 @@ namespace Papaya\Administration {
       if (NULL !== $route) {
         $this->_route = $route;
       } elseif (NULL === $this->_themeHandler) {
+        $images = $this->papaya()->images;
         $this->_route = new UI\Route\Group();
         $this->_route->before(
           function() {
-            //var_dump('Authorization');
-            return TRUE;
+            $application = $this->papaya();
+            $user = $application->administrationUser;
+            $user->layout = $this->template();
+            $user->initialize();
+            $user->execLogin();
+            $application->administrationPhrases->setLanguage(
+              $application->languages->getLanguage(
+                $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
+              )
+            );
+            return $this->papaya()->administrationUser->isValid;
           }
         );
         $routes = new UI\Route\Choice();
-        $routes['index'] = function() {
-          //var_dump('INDEX');
-        };
-        $routes['options'] = function() {
-          //var_dump('OPTIONS');
-        };
+        // General
+
+        // Pages
+
+        // Additional Content
+        $routes[Administration\UI\Route::CONTENT_BOXES] = new Administration\UI\Route\Page(
+          $images['items-box'],
+          ['Content', 'Boxes'],
+          \papaya_boxes::class,
+          Administration\Permissions::BOX_MANAGE
+        );
+        $routes[Administration\UI\Route::CONTENT_ALIASES] = new Administration\UI\Route\Page(
+          $images['items-alias'],
+          ['Content', 'Alias'],
+          \papaya_alias_tree::class,
+          Administration\Permissions::ALIAS_MANAGE
+        );
+        // Applications / Extensions
+        $routes[Administration\UI\Route::EXTENSIONS] = new Administration\UI\Route\Extensions(
+          $images['categories-applications'],
+          'Applications'
+        );
+        // Administration
+        $administrationRoutes = new UI\Route\Choice();
+        $administrationRoutes[Administration\UI\Route::ADMINISTRATION_USERS] = new Administration\UI\Route\Page(
+          $images['items-user-group'],
+          ['Administration', 'Users'],
+          \papaya_user::class,
+          Administration\Permissions::USER_MANAGE
+        );
+        $administrationRoutes[Administration\UI\Route::ADMINISTRATION_CRONJOBS] = new Administration\UI\Route\Page(
+          $images['items-cronjob'],
+          ['Administration', 'Settings', 'Cronjobs'],
+          \base_cronjobs::class,
+          Administration\Permissions::SYSTEM_CRONJOBS
+        );
+        $routes[Administration\UI\Route::ADMINISTRATION] = $administrationRoutes;
         $this->_route[] = $routes;
       }
       return $this->_route;

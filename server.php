@@ -27,6 +27,7 @@ if (
   return FALSE;
 }
 
+
 if (
   file_exists(PAPAYA_DOCUMENT_ROOT.$requestedPath)
 ) {
@@ -41,6 +42,9 @@ if (
 } elseif (preg_match('(^(?<path>/papaya)/module_(?<module>.*)\.php)', $requestedPath, $match)) {
   chdir(PAPAYA_DOCUMENT_ROOT.'/papaya');
   include PAPAYA_DOCUMENT_ROOT.'/papaya/module.php';
+} elseif (preg_match('(^(?<path>/papaya)/[^?#/]*)', $requestedPath, $match)) {
+  chdir(PAPAYA_DOCUMENT_ROOT.'/papaya');
+  include PAPAYA_DOCUMENT_ROOT.'/papaya/index.php';
 } elseif (preg_match('(^(?:/papaya-themes/.*(css|js)\\.php))', $requestedPath, $match)) {
   chdir(PAPAYA_DOCUMENT_ROOT);
   include PAPAYA_DOCUMENT_ROOT.'/index.php';

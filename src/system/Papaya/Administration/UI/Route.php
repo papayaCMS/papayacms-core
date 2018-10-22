@@ -25,19 +25,21 @@ namespace Papaya\Administration\UI {
 
     const PAGES_EDIT = 'topic.php';
 
-    const CONTENT_BOXES = 'boxes.php';
+    const CONTENT_BOXES = 'content-boxes';
 
     const CONTENT_FILES = 'mediadb.php';
 
-    const CONTENT_ALIASES = 'alias.php';
+    const CONTENT_ALIASES = 'alias';
 
     const CONTENT_TAGS = 'tags.php';
 
     const CONTENT_IMAGES = 'imggen.php';
 
-    const APPLICATIONS = 'module.php';
+    const EXTENSIONS = 'extension';
 
-    const ADMINISTRATION_USERS = 'auth.php';
+    const ADMINISTRATION = 'administration';
+
+    const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
 
     const ADMINISTRATION_VIEWS = 'views.php';
 
@@ -51,6 +53,8 @@ namespace Papaya\Administration\UI {
 
     const ADMINISTRATION_PHRASES = 'phrases.php';
 
-    public function __invoke(array $path);
+    const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
+
+    public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }
 }

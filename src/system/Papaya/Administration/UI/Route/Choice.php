@@ -30,25 +30,25 @@ namespace Papaya\Administration\UI\Route {
 
     private $_after = [];
 
-    public function __invoke(array $path) {
-      $command = \array_shift($path);
+    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
+      $command = $path->getRoute($level);
       if (!isset($this[$command])) {
         return;
       }
       $success = TRUE;
       foreach ($this->_before as list($callback, $filter)) {
         if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback()) {
+          if (!$callback($ui)) {
             $success = FALSE;
           }
         }
       }
       if ($success) {
-        $this[$command]($path);
+        $this[$command]($ui, $path, ++$level);
       }
       foreach ($this->_after as list($callback, $filter)) {
         if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback()) {
+          if (!$callback($ui)) {
             $success = FALSE;
           }
         }

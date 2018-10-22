@@ -104,11 +104,10 @@ namespace Papaya\Administration\UI\Navigation {
         ]
       ],
       'Applications' => [
-        Administration\UI\Route::APPLICATIONS => [
+        Administration\UI\Route::EXTENSIONS => [
           'categories-applications',
           'Applications',
-          'Applications list',
-          Administration\Permissions::BOX_MANAGE
+          'Applications list'
         ]
       ],
       'Administration' => [
@@ -188,7 +187,9 @@ namespace Papaya\Administration\UI\Navigation {
         if (self::$_moduleGroupCaption === $groupCaption) {
           foreach ($this->favorites() as $favorite) {
             $button = new UI\Toolbar\Button();
-            $button->reference->setRelative('module_'.$favorite['guid'].'.php');
+            $button->reference->setRelative(
+              Administration\UI\Route::EXTENSIONS.'.'.$favorite['guid']
+            );
             if ('' !== \trim($favorite['image'])) {
               $button->image = 'modglyph.php?module='.\urlencode($favorite['guid']);
             }
@@ -233,6 +234,7 @@ namespace Papaya\Administration\UI\Navigation {
         $this->_favorites = new \Papaya\Iterator\Filter\Callback(
           $this->papaya()->plugins->plugins()->withType(\Papaya\Plugin\Types::ADMINISTRATION),
           function(
+            /** @noinspection PhpUnusedParameterInspection */
             $plugin, $pluginGuid
           ) use ($administrationUser) {
             return (

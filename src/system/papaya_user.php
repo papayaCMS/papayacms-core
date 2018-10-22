@@ -92,6 +92,10 @@ class papaya_user extends base_auth {
    */
   private $optionDialog;
 
+  function initialize($paramName = 'usredit') {
+    parent::initialize($paramName);
+  }
+
   /**
   * Base Function for handling parameters
   *

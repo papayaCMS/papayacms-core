@@ -14,11 +14,15 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  class Address implements \IteratorAggregate {
+  class Address implements \IteratorAggregate, \Countable, \ArrayAccess {
     /**
      * @var \Papaya\URL\Current
      */
     private $_url;
+    /**
+     * @var null|array
+     */
+    private $_path;
 
     public function __construct(\Papaya\URL $url = NULL) {
       if (NULL === $url) {
@@ -27,11 +31,42 @@ namespace Papaya\Administration\UI\Route {
     }
 
     public function getIterator() {
-      if (\preg_match('([^?#]*/(?<path>[^?#/]+))', $this->_url->path, $matches)) {
-        $path = \explode('.', $matches['path']);
-        return new \ArrayIterator($path);
+      return new \ArrayIterator($this->getPath());
+    }
+
+    private function getPath() {
+      if (NULL === $this->_path) {
+        if (\preg_match('([^?#]*/(?<path>[^?#/]+))', $this->_url->path, $matches)) {
+          $this->_path = \explode('.', $matches['path']) ?: [];
+        } else {
+          $this->_path = [];
+        }
       }
-      return new \EmptyIterator();
+      return $this->_path;
+    }
+
+    public function getRoute($level) {
+      return implode('.', array_slice($this->getPath(), 0, $level + 1));
+    }
+
+    public function count() {
+      return count($this->getPath());
+    }
+
+    public function offsetExists($offset) {
+      return array_key_exists($offset, $this->getPath());
+    }
+
+    public function offsetGet($offset) {
+      return $this->getPath()[$offset];
+    }
+
+    public function offsetSet($offset, $value) {
+      throw new \LogicException(sprintf('%s is immutable', static::class));
+    }
+
+    public function offsetUnset($offset) {
+      throw new \LogicException(sprintf('%s is immutable', static::class));
     }
   }
 }

@@ -94,7 +94,9 @@ class papaya_options extends base_options {
     $toolbar->addButton(
       'Mime types', 'mediamime.php', 'items-mimetype-group', 'Configure Mime types', FALSE
     );
-    $toolbar->addButton('Cronjobs', 'cronjobs.php', 'items-cronjob', '', FALSE);
+    $toolbar->addButton(
+      'Cronjobs', Papaya\Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
+    );
     $toolbar->addButton('Spamfilter', 'spam.php', 'items-junk', '', FALSE);
     $toolbar->addSeperator();
     /*

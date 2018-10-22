@@ -348,7 +348,9 @@ class papaya_editmodules extends base_db {
           $result .= sprintf(
             '<listitem image="%s" href="%s" title="%s" subtitle="%s">',
             papaya_strings::escapeHTMLChars($glyph),
-            papaya_strings::escapeHTMLChars('module_'.$module['module_guid'].'.php'),
+            papaya_strings::escapeHTMLChars(
+              Papaya\Administration\UI\Route::EXTENSIONS.'.'.$module['module_guid']
+            ),
             papaya_strings::escapeHTMLChars($module['module_title']),
             papaya_strings::escapeHTMLChars($basePath.'/...')
           );
@@ -356,7 +358,11 @@ class papaya_editmodules extends base_db {
             $result .= sprintf(
               '<subitem align="center"><a href="%s"><glyph src="%s" hint="%s"/></a></subitem>',
               papaya_strings::escapeHTMLChars(
-                $this->getLink(array('cmd' => 'switch_favorite', 'module_id' => $id))
+                sprintf(
+                  Papaya\Administration\UI\Route::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
+                  'switch_favorite',
+                  $id
+                )
               ),
               papaya_strings::escapeHTMLChars($images['items-favorite']),
               papaya_strings::escapeHTMLChars($this->_gt('Remove from menu'))
@@ -365,7 +371,11 @@ class papaya_editmodules extends base_db {
             $result .= sprintf(
               '<subitem align="center"><a href="%s"><glyph src="%s" hint="%s"/></a></subitem>',
               papaya_strings::escapeHTMLChars(
-                $this->getLink(array('cmd' => 'switch_favorite', 'module_id' => $id))
+                sprintf(
+                  Papaya\Administration\UI\Route::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
+                  'switch_favorite',
+                  $id
+                )
               ),
               papaya_strings::escapeHTMLChars($images['status-favorite-disabled']),
               papaya_strings::escapeHTMLChars($this->_gt('Add to menu'))
