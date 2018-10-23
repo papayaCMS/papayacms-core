@@ -20,14 +20,10 @@ use Papaya\BaseObject;
  * An interface to define that an object can be configured from a controller.
  * Page content modules get parameters like "fullpage" this way.
  *
+ * @deprecated
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface Configurable {
-  /**
-   * @param BaseObject\Parameters $configuration
-   *
-   * @return BaseObject\Parameters
-   */
-  public function configuration(BaseObject\Parameters $configuration = NULL);
+interface Configurable extends Configurable\Context {
+
 }

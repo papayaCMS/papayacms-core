@@ -12,7 +12,9 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Plugin\Configurable;
+namespace Papaya\Plugin\Configurable\Context;
+
+use Papaya\BaseObject;
 
 /**
  * This a standard implementation for a configurable plugin. It
@@ -20,10 +22,31 @@ namespace Papaya\Plugin\Configurable;
  *
  * It contains information from the output filter/configuration.
  *
- * @deprecated
  * @package Papaya-Library
  * @subpackage Plugins
  */
 trait Aggregation {
-  use Context\Aggregation;
+  /**
+   * @var BaseObject\Parameters
+   */
+  private $_configuration;
+
+  /**
+   * The configuration is an {@see ArrayObject} containing options that can affect the
+   * execution of other methods (like appendTo()).
+   *
+   * @see \Papaya\Plugin\Configurable::configuration()
+   *
+   * @param BaseObject\Parameters $configuration
+   *
+   * @return BaseObject\Parameters
+   */
+  public function configuration(BaseObject\Parameters $configuration = NULL) {
+    if (NULL !== $configuration) {
+      $this->_configuration = $configuration;
+    } elseif (NULL === $this->_configuration) {
+      $this->_configuration = new BaseObject\Parameters();
+    }
+    return $this->_configuration;
+  }
 }

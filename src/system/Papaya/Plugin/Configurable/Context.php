@@ -14,16 +14,20 @@
  */
 namespace Papaya\Plugin\Configurable;
 
+use Papaya\BaseObject;
+
 /**
- * This a standard implementation for a configurable plugin. It
- * add a configuration() getter/setter method to the plugin.
+ * An interface to define that an object can be configured from a controller.
+ * Page content modules get parameters like "fullpage" this way.
  *
- * It contains information from the output filter/configuration.
- *
- * @deprecated
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait Aggregation {
-  use Context\Aggregation;
+interface Context {
+  /**
+   * @param BaseObject\Parameters $configuration
+   *
+   * @return BaseObject\Parameters
+   */
+  public function configuration(BaseObject\Parameters $configuration = NULL);
 }
