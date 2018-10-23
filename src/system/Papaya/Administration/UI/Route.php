@@ -21,11 +21,13 @@ namespace Papaya\Administration\UI {
 
     const MESSAGES_TASKS = self::MESSAGES.'.tasks';
 
-    const PAGES_SITEMAP = 'tree.php';
+    const PAGES = 'pages';
 
-    const PAGES_SEARCH = 'search.php';
+    const PAGES_SITEMAP = self::PAGES.'.sitemap';
 
-    const PAGES_EDIT = 'topic.php';
+    const PAGES_SEARCH = self::PAGES.'.search';
+
+    const PAGES_EDIT = self::PAGES.'.edit';
 
     const CONTENT = 'content';
 
@@ -35,9 +37,9 @@ namespace Papaya\Administration\UI {
 
     const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
 
-    const CONTENT_ALIASES = self::CONTENT.'.alias';
+    const CONTENT_ALIASES = self::CONTENT.'.aliases';
 
-    const CONTENT_TAGS = 'tags.php';
+    const CONTENT_TAGS = self::CONTENT.'.tags';
 
     const CONTENT_IMAGES = self::CONTENT.'.images';
 
@@ -49,11 +51,11 @@ namespace Papaya\Administration\UI {
 
     const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
 
-    const ADMINISTRATION_VIEWS = 'views.php';
+    const ADMINISTRATION_VIEWS = self::ADMINISTRATION.'.views';
 
     const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
 
-    const ADMINISTRATION_THEMES = 'themes.php';
+    const ADMINISTRATION_THEMES = self::ADMINISTRATION.'.themes';
 
     const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
 
@@ -61,13 +63,15 @@ namespace Papaya\Administration\UI {
 
     const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
 
-    const ADMINISTRATION_PHRASES = 'phrases.php';
+    const ADMINISTRATION_PHRASES = self::ADMINISTRATION.'.phrases';
 
     const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
 
     const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
 
     const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
+
+    const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
 
     const HELP = 'help';
 

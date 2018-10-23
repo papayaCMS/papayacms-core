@@ -374,7 +374,11 @@ class papaya_todo extends base_db {
             $result .= sprintf(
               '<subitem align="center"><a href="%s"><glyph src="%s"/></a></subitem>'.LF,
               papaya_strings::escapeHTMLChars(
-                $this->getLink(array('page_id' => $values['topic_id']), 'tt', 'topic.php')
+                $this->getLink(
+                  array('page_id' => $values['topic_id']),
+                  'tt',
+                  Papaya\Administration\UI\Route::PAGES_EDIT
+                )
               ),
               papaya_strings::escapeHTMLChars($images['items-page'])
             );

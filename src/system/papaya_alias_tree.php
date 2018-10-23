@@ -448,7 +448,10 @@ class papaya_alias_tree extends base_db {
               $result .= sprintf(
                 '<subitem align="right"><a href="%s"><glyph src="%s" /></a></subitem>',
                 papaya_strings::escapeHTMLChars(
-                  $this->getLink(array('page_id' => $val['topic_id']), 'tt', 'topic.php')
+                  $this->getLink(array('page_id' => $val['topic_id']),
+                                 'tt',
+                                 Papaya\Administration\UI\Route::PAGES_EDIT
+                  )
                 ),
                 papaya_strings::escapeHTMLChars($this->papaya()->images['actions-edit'])
               );

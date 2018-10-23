@@ -419,7 +419,7 @@ class papaya_overview extends base_db {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
-        $item->reference()->setRelative('topic.php');
+        $item->reference()->setRelative(Papaya\Administration\UI\Route::PAGES_EDIT);
         $item->reference()->setParameters(array('page_id' => $topic['topic_id']), 'tt');
 
         if ($showDetails) {

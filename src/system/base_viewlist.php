@@ -2056,7 +2056,7 @@ class base_viewlist extends base_db {
                 $this->getLink(
                   array('page_id' => (int)$viewLimit['topic_id']),
                   'tt',
-                  'topic.php'
+                  Papaya\Administration\UI\Route::PAGES_EDIT
                 )
               ),
               papaya_strings::escapeHTMLChars($this->_gt('View Page')),

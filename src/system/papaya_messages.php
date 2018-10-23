@@ -455,12 +455,12 @@ class papaya_messages extends base_messages {
         $result .= '<line>';
         if ($this->message['msg_rel_topic_id'] > 0) {
           $result .= sprintf(
-            '<a href="topic.php?p_id=%d"><glyph src="%s" hint="%s"/></a>',
+            '<a href="%s"><glyph src="%s" hint="%s"/></a>',
             papaya_strings::escapeHTMLChars(
               $this->getLink(
                 array('page_id' => $this->message['msg_rel_topic_id']),
                 'tt',
-                'topic.php'
+                Papaya\Administration\UI\Route::PAGES_EDIT
               )
             ),
             $this->papaya()->images['items-page'],

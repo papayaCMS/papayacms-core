@@ -99,7 +99,9 @@ class papaya_options extends base_options {
     $toolbar->addButton(
       'Cronjobs', Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
     );
-    $toolbar->addButton('Spamfilter', 'spam.php', 'items-junk', '', FALSE);
+    $toolbar->addButton(
+      'Spam filter', Administration\UI\Route::ADMINISTRATION_SPAM_FILTER, 'items-junk', '', FALSE
+    );
     $toolbar->addSeperator();
     $toolbar->addButton('View icons', 'glyphview.php', 'categories-view-icons', '', FALSE);
     $toolbar->addSeperator();

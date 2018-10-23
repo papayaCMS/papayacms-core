@@ -85,6 +85,7 @@ class Groups implements \IteratorAggregate {
     ],
     self::PAGES => [
       Administration\Permissions::PAGE_MANAGE => 'Manage pages',
+      Administration\Permissions::PAGE_SEARCH => 'Search pages',
       Administration\Permissions::PAGE_CREATE => 'Create pages',
       Administration\Permissions::PAGE_MOVE => 'Move pages',
       Administration\Permissions::PAGE_COPY => 'Copy pages',

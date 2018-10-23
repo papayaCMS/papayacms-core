@@ -893,6 +893,11 @@ class papaya_topic_tree extends base_topic_tree {
     }
   }
 
+  public function getXML() {
+    $this->get();
+    $this->getButtonsXML();
+  }
+
   /**
   * Get sub tree
   *
@@ -1040,7 +1045,9 @@ class papaya_topic_tree extends base_topic_tree {
           $result .= sprintf(
             '<a href="%s"><glyph src="%s" hint="%s"/></a>',
             papaya_strings::escapeHTMLChars(
-              $this->getLink(array('page_id' => (int)$id), NULL, 'topic.php')
+              $this->getLink(
+                array('page_id' => (int)$id), NULL, Papaya\Administration\UI\Route::PAGES_EDIT
+              )
             ),
             papaya_strings::escapeHTMLChars($images['actions-edit']),
             papaya_strings::escapeHTMLChars($this->_gt('Edit page'))
@@ -1072,5 +1079,12 @@ class papaya_topic_tree extends base_topic_tree {
       $this->_synchronizations = new Administration\Pages\Dependency\Synchronizations();
     }
     return $this->_synchronizations;
+  }
+
+  public function initialize($id = NULL) {
+    if (NULL === $id) {
+      $id = empty($_REQUEST['p_id']) ? 0 : (int)$_REQUEST['p_id'];
+    }
+    parent::initialize($id);
   }
 }

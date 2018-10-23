@@ -118,6 +118,7 @@ return array(
   'papaya_options' => '/papaya_options.php',
   'papaya_output' => '/papaya_output.php',
   'papaya_overview' => '/papaya_overview.php',
+  'papaya_overview_search' => '/papaya_overview_search.php',
   'papaya_page' => '/papaya_page.php',
   'papaya_paging_buttons' => '/papaya_paging_buttons.php',
   'papaya_parser' => '/papaya_parser.php',

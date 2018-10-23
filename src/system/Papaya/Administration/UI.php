@@ -186,6 +186,28 @@ namespace Papaya\Administration {
               ),
 
               // Pages
+              Administration\UI\Route::PAGES => new UI\Route\Choice(
+                [
+                  Administration\UI\Route::PAGES_SITEMAP => new Administration\UI\Route\Page(
+                    $images['categories-sitemap'],
+                    ['Pages', 'Sitemap'],
+                    \papaya_topic_tree::class,
+                    Administration\Permissions::PAGE_MANAGE
+                  ),
+                  Administration\UI\Route::PAGES_SEARCH => new Administration\UI\Route\Page(
+                    $images['actions-search'],
+                    ['Pages', 'Search'],
+                    \papaya_overview_search::class,
+                    Administration\Permissions::PAGE_SEARCH
+                  ),
+                  Administration\UI\Route::PAGES_EDIT => new Administration\UI\Route\Page(
+                    $images['items-page'],
+                    'Pages',
+                    \papaya_topic::class,
+                    Administration\Permissions::PAGE_MANAGE
+                  )
+                ]
+              ),
 
               // Additional Content
               Administration\UI\Route::CONTENT => new UI\Route\Choice(
@@ -223,6 +245,12 @@ namespace Papaya\Administration {
                     ['Content', 'Alias'],
                     \papaya_alias_tree::class,
                     Administration\Permissions::ALIAS_MANAGE
+                  ),
+                  Administration\UI\Route::CONTENT_TAGS => new Administration\UI\Route\Page(
+                    $images['items-tag'],
+                    ['Content', 'Tags'],
+                    \papaya_tags::class,
+                    Administration\Permissions::TAG_MANAGE
                   )
                 ]
               ),
@@ -240,11 +268,23 @@ namespace Papaya\Administration {
                     \papaya_user::class,
                     Administration\Permissions::USER_MANAGE
                   ),
+                  Administration\UI\Route::ADMINISTRATION_VIEWS => new Administration\UI\Route\Page(
+                    $images['items-view'],
+                    ['Administration', 'Views'],
+                    \base_viewlist::class,
+                    Administration\Permissions::VIEW_MANAGE
+                  ),
                   Administration\UI\Route::ADMINISTRATION_PLUGINS => new Administration\UI\Route\Page(
                     $images['items-plugin'],
                     ['Administration', 'Plugins / Modules'],
                     \papaya_modulemanager::class,
                     Administration\Permissions::MODULE_MANAGE
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_THEMES => new Administration\UI\Route\Page(
+                    $images['items-theme'],
+                    ['Administration', 'Themes', 'Skins'],
+                    Theme\Editor::class,
+                    Administration\Permissions::SYSTEM_THEME_SKIN_MANAGE
                   ),
                   Administration\UI\Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
                     [
@@ -285,7 +325,19 @@ namespace Papaya\Administration {
                     ['Administration', 'Settings', 'Mime types'],
                     \papaya_mediadb_mime::class,
                     Administration\Permissions::SYSTEM_MIMETYPES_MANAGE
-                  )
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_SPAM_FILTER => new Administration\UI\Route\Page(
+                    $images['items-option'],
+                    ['Administration', 'Settings', 'Spam filter'],
+                    \papaya_spamfilter::class,
+                    Administration\Permissions::SYSTEM_SETTINGS
+                  ),
+                  Administration\UI\Route::ADMINISTRATION_PHRASES => new Administration\UI\Route\Page(
+                    $images['items-translation'],
+                    ['Administration', 'Translations'],
+                    \base_languages::class,
+                    Administration\Permissions::SYSTEM_TRANSLATE
+                  ),
                 ]
               ),
               // Others
