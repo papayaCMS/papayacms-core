@@ -22,7 +22,7 @@ namespace Papaya\UI;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Images implements \ArrayAccess {
+class Images implements \ArrayAccess, \IteratorAggregate {
   /**
    * Ignore duplicates (keep existing)
    *
@@ -121,5 +121,9 @@ class Images implements \ArrayAccess {
    */
   public function offsetUnset($offset) {
     $this->remove([$offset]);
+  }
+
+  public function getIterator() {
+    return new \ArrayIterator($this->_images);
   }
 }
