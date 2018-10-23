@@ -26,6 +26,7 @@ use Papaya\XML;
  * @property string $image
  * @property string|\Papaya\UI\Text $caption
  * @property string|\Papaya\UI\Text $text
+ * @property string|\Papaya\UI\Text $hint
  * @property null|array $actionParameters
  * @property int $indentation
  * @property int $columnSpan
@@ -56,25 +57,32 @@ class Item extends UI\Control\Collection\Item {
   protected $_image = '';
 
   /**
-   * Listitem caption/title
+   * caption/title
    *
    * @var string
    */
   protected $_caption = '';
 
   /**
-   * Listitem text/subtitle
+   * text/subtitle
    *
    * @var string
    */
   protected $_text = '';
 
   /**
-   * Listitem caption/title
+   * hint/quick info
    *
    * @var string
    */
-  protected $_selected = '';
+  protected $_hint = '';
+
+  /**
+   * Selected status
+   *
+   * @var bool
+   */
+  protected $_selected = FALSE;
 
   /**
    * Parameters for the standard link (on caption and image)
@@ -121,6 +129,7 @@ class Item extends UI\Control\Collection\Item {
     'node' => ['node', 'node'],
     'caption' => ['_caption', '_caption'],
     'text' => ['_text', '_text'],
+    'hint' => ['_hint', '_hint'],
     'image' => ['_image', '_image'],
     'actionParameters' => ['_actionParameters', 'setActionParameters'],
     'selected' => ['_selected', '_selected'],
@@ -277,6 +286,9 @@ class Item extends UI\Control\Collection\Item {
     }
     if (!empty($this->_text)) {
       $itemNode->setAttribute('subtitle', (string)$this->_text);
+    }
+    if (!empty($this->_hint)) {
+      $itemNode->setAttribute('hint', (string)$this->_hint);
     }
     if (!empty($this->_actionParameters) || NULL !== $this->_reference) {
       $itemNode->setAttribute('href', $this->reference()->getRelative());
