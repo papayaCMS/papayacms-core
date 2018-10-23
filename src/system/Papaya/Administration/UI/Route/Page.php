@@ -35,11 +35,14 @@ namespace Papaya\Administration\UI\Route {
           ) {
             $reflection = new \ReflectionClass($pageClass);
             if ($reflection->isSubclassOf(Administration\Page::class)) {
-              $page = new $pageClass($ui->template());
+              $page = new $pageClass($ui);
               /** @noinspection PhpUndefinedMethodInspection */
               $page->execute();
-            } elseif ($reflection->hasMethod('getXML')) {
+              return $ui->getOutput();
+            }
+            if ($reflection->hasMethod('getXML')) {
               $page = new $pageClass();
+              $page->administrationUI = $ui;
               $page->layout = $ui->template();
               if ($reflection->hasMethod('initialize')) {
                 /** @noinspection PhpUndefinedMethodInspection */
@@ -51,8 +54,10 @@ namespace Papaya\Administration\UI\Route {
               }
               /** @noinspection PhpUndefinedMethodInspection */
               $page->getXML();
+              return $ui->getOutput();
             }
           }
+          return NULL;
         }
       );
     }

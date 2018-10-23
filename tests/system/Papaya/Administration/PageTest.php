@@ -23,31 +23,26 @@ class PageTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Page::__construct
    */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this->createMock(\Papaya\Template::class);
-    $page = new Page_TestProxy($layout);
-    $this->assertAttributeSame(
-      $layout, '_layout', $page
-    );
+    $page = new Page_TestProxy($ui = $this->mockPapaya()->administrationUI());
+    $this->assertSame($ui, $page->getUI());
   }
 
   /**
    * @covers \Papaya\Administration\Page
    */
   public function testPageWithoutParts() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this
-      ->getMockBuilder(\Papaya\Template::class)
-      ->setMethods(array('add', 'addMenu', 'parse'))
-      ->getMock();
-    $layout
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Administration\UI $ui */
+    $ui =  $this->mockPapaya()->administrationUI();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */
+    $template = $ui->template();
+    $template
       ->expects($this->never())
       ->method('add');
-    $layout
+    $template
       ->expects($this->once())
       ->method('addMenu')
       ->with('');
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($ui);
     $page->papaya($this->mockPapaya()->application());
     $page->execute();
   }
@@ -56,18 +51,17 @@ class PageTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Page
    */
   public function testPageWithContentPart() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this
-      ->getMockBuilder(\Papaya\Template::class)
-      ->setMethods(array('add', 'addMenu', 'parse'))
-      ->getMock();
-    $layout
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Administration\UI $ui */
+    $ui =  $this->mockPapaya()->administrationUI();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $template */
+    $template = $ui->template();
+    $template
       ->expects($this->once())
       ->method('add')
       ->with(
       /** @lang XML */
         '<foo/>', 'centercol');
-    $layout
+    $template
       ->expects($this->once())
       ->method('addMenu');
     $content = $this->createMock(Page\Part::class);
@@ -76,7 +70,7 @@ class PageTest extends \Papaya\TestCase {
       ->method('getXml')
       ->willReturn(/** @lang XML */
         '<foo/>');
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($ui);
     $page->papaya($this->mockPapaya()->application());
     $page->parts()->content = $content;
     $page->execute();
@@ -86,9 +80,7 @@ class PageTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Page::createPart
    */
   public function testCreatePartWithUnknownNameExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this->createMock(\Papaya\Template::class);
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($this->mockPapaya()->administrationUI());
     $this->assertFalse($page->createPart('NonExistingPart'));
   }
 
@@ -100,9 +92,7 @@ class PageTest extends \Papaya\TestCase {
       ->getMockBuilder(Page\Parts::class)
       ->disableOriginalConstructor()
       ->getMock();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this->createMock(\Papaya\Template::class);
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($this->mockPapaya()->administrationUI());
     $page->parts($parts);
     $this->assertSame($parts, $page->parts());
   }
@@ -111,9 +101,7 @@ class PageTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Page::toolbar
    */
   public function testToolbarGetAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this->createMock(\Papaya\Template::class);
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($this->mockPapaya()->administrationUI());
     $page->toolbar($toolbar = $this->createMock(\Papaya\UI\Toolbar::class));
     $this->assertSame($toolbar, $page->toolbar());
   }
@@ -122,9 +110,7 @@ class PageTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Page::toolbar
    */
   public function testToolbarGetImplicitCreate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Template $layout */
-    $layout = $this->createMock(\Papaya\Template::class);
-    $page = new Page_TestProxy($layout);
+    $page = new Page_TestProxy($this->mockPapaya()->administrationUI());
     $this->assertInstanceOf(\Papaya\UI\Toolbar::class, $page->toolbar());
   }
 }

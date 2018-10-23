@@ -28,8 +28,6 @@ namespace Papaya\Administration\UI\Route {
 
     private $_routes = [];
 
-    private $_after = [];
-
     public function __construct(...$routes) {
       foreach ($routes as $route) {
         $this[] = $route;
@@ -47,24 +45,16 @@ namespace Papaya\Administration\UI\Route {
       }
       if ($success) {
         foreach ($this->_routes as $route) {
-          $route($ui, $path, $level);
-        }
-      }
-      foreach ($this->_after as list($callback, $filter)) {
-        if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback($ui)) {
-            $success = FALSE;
+          if ($response = $route($ui, $path, $level)) {
+            return $response;
           }
         }
       }
+      return NULL;
     }
 
     public function before(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
       $this->_before[] = [$callback, $executionFilter];
-    }
-
-    public function after(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
-      $this->_after[] = [$callback, $executionFilter];
     }
 
     public function offsetExists($offset) {

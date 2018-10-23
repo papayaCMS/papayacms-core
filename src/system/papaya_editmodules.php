@@ -46,11 +46,6 @@ class papaya_editmodules extends base_db {
   var $favoriteMax = 5;
 
   /**
-   * @var \Papaya\Template
-   */
-  public $layout = NULL;
-
-  /**
    * @var array|NULL
    */
   public $modules = NULL;
@@ -69,6 +64,11 @@ class papaya_editmodules extends base_db {
    * @var string
    */
   private $_moduleGuid;
+
+  /**
+   * @var \Papaya\Administration\UI
+   */
+  public $administrationUI;
 
   /**
    * Constructor
@@ -177,17 +177,18 @@ class papaya_editmodules extends base_db {
     if ($this->loadModule()) {
       if ($this->checkTables($this->module['modulegroup_tables'])) {
         $this->_moduleInstance = $this->papaya()->plugins->get(
-          $this->module['module_guid'], $this->layout
+          $this->module['module_guid'], $this->administrationUI
         );
         if ($this->_moduleInstance instanceof \Papaya\Administration\Page) {
 
         } elseif ($this->_moduleInstance instanceof base_module) {
-          $this->_moduleInstance->layout = $this->layout;
+          $this->_moduleInstance->administrationUI = $this->administrationUI;
+          $this->_moduleInstance->layout = $this->administrationUI->template();
           $this->_moduleInstance->images = $this->papaya()->images;
           $this->_moduleInstance->authUser = $this->papaya()->administrationUser;
         }
         if (NULL !== $this->_moduleInstance) {
-          $this->layout->parameters()->assign(
+          $this->administrationUI->template()->parameters()->assign(
             array(
               'PAGE_TITLE' =>
                 $this->_gt('Applications').' - '.$this->module['module_title'],
@@ -200,11 +201,12 @@ class papaya_editmodules extends base_db {
       }
     } else {
       $this->loadModulesList();
-      if (isset($this->modules) &&
-          is_array($this->modules) &&
-          count($this->modules) > 0) {
+      if (
+        is_array($this->modules) &&
+        count($this->modules) > 0
+      ) {
         $this->initializeParams();
-        $this->layout->parameters()->assign(
+        $this->administrationUI->template()->parameters()->assign(
           array(
             'PAGE_TITLE' => $this->_gt('Applications'),
             'PAGE_ICON' => $this->papaya()->images['categories-applications']
@@ -307,7 +309,7 @@ class papaya_editmodules extends base_db {
             $dialog->buttonTitle = 'Goto';
             $dialog->baseLink = 'modules.php';
             if ($str = $dialog->getMsgDialog()) {
-              $this->layout->add($str);
+              $this->administrationUI->template()->add($str);
             }
             return FALSE;
           }
@@ -396,7 +398,7 @@ class papaya_editmodules extends base_db {
         $result .= '</items>';
         $result .= '</listview>';
       }
-      $this->layout->add($result);
+      $this->administrationUI->template()->add($result);
     }
   }
 

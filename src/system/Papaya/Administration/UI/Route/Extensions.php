@@ -34,6 +34,7 @@ namespace Papaya\Administration\UI\Route {
      * @param \Papaya\Administration\UI $ui
      * @param Address $path
      * @param int $level
+     * @return null|\Papaya\Response
      */
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $ui->setTitle($this->_image, $this->_caption);
@@ -45,11 +46,12 @@ namespace Papaya\Administration\UI\Route {
       if ('image' === $path[1]) {
         $module->getGlyph();
       } else {
-        $module = new \papaya_editmodules($pluginGuid);
-        $module->layout = $ui->template();
+        $module->administrationUI = $ui;
         $module->initialize();
         $module->execute();
+        return $ui->getOutput();
       }
+      return NULL;
     }
   }
 }

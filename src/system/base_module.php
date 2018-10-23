@@ -27,14 +27,19 @@ class base_module extends base_plugin {
   * Guid
   * @var string $guid
   */
-  var $guid;
+  public $guid;
+
+  /**
+   * @var \Papaya\Administration\UI  administration UI
+   */
+  public $administrationUI;
 
   /**
    * layout object
    *
    * @var \Papaya\Template $layout
    */
-  var $layout = NULL;
+  public $layout;
 
   /**
   * Get XML
@@ -42,7 +47,7 @@ class base_module extends base_plugin {
   * @access public
   */
   function getXML() {
-    if (is_object($this->layout)) {
+    if (is_object($this->administrationUI)) {
       $this->execModule();
     }
   }

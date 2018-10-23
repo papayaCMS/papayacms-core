@@ -16,6 +16,7 @@ namespace Papaya\Administration {
 
   use Papaya\Administration;
   use Papaya\Application;
+  use Papaya\Response;
   use Papaya\Template;
   use Papaya\UI\Text\Translated;
   use Papaya\Utility;
@@ -39,6 +40,10 @@ namespace Papaya\Administration {
       $this->papaya($application);
     }
 
+    public function getLocalPath() {
+      return $this->_path;
+    }
+
     /**
      * @return null|\Papaya\Response
      */
@@ -46,17 +51,16 @@ namespace Papaya\Administration {
       $this->prepare();
       $application = $this->papaya();
       if (!$application->options->loadAndDefine()) {
-        return new \Papaya\Response\Redirect('install.php');
+        return new Response\Redirect('install.php');
       }
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
         !Utility\Server\Protocol::isSecure()
       ) {
-        return new \Papaya\Response\Redirect\Secure();
+        return new Response\Redirect\Secure();
       }
       $route = $this->route();
-      $route($this, new UI\Route\Address());
-      return NULL;
+      return $route($this, new UI\Route\Address());
     }
 
     public function getOutput() {
@@ -90,7 +94,13 @@ namespace Papaya\Administration {
         $template->add($application->administrationRichText->getXML(), 'title-menu');
         $template->add((new UI\Navigation\Main())->getXML(), 'menus');
       }
-      return $template->getOutput();
+      $response = new Response();
+      $response->content(new Response\Content\Text($template->getOutput()));
+      if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+        \Papaya\Request\Log::getInstance()->emit();
+        $application->database->close();
+      }
+      return $response;
     }
 
     /**
@@ -332,6 +342,12 @@ namespace Papaya\Administration {
                     \papaya_spamfilter::class,
                     Administration\Permissions::SYSTEM_SETTINGS
                   ),
+                  Administration\UI\Route::ADMINISTRATION_ICONS => new Administration\UI\Route\Page(
+                    $images['items-option'],
+                    ['Administration', 'Settings', 'Icons'],
+                    Settings\Icons\Page::class,
+                    Administration\Permissions::SYSTEM_SETTINGS
+                  ),
                   Administration\UI\Route::ADMINISTRATION_PHRASES => new Administration\UI\Route\Page(
                     $images['items-translation'],
                     ['Administration', 'Translations'],
@@ -340,12 +356,30 @@ namespace Papaya\Administration {
                   ),
                 ]
               ),
-              // Others
+              // Help
               Administration\UI\Route::HELP => new Administration\UI\Route\Page(
                 $images['categories-help'],
                 'Help',
                 \papaya_help::class
-              )
+              ),
+              // XML
+              Administration\UI\Route::XML_API => new Administration\UI\Route\Callback(
+                '',
+                '',
+                function() {
+                  $rpcCall = new \papaya_rpc();
+                  $rpcCall->initialize();
+                  $rpcCall->execute();
+                  $response = new Response();
+                  $response->setContentType('application/xml');
+                  $response->content(new Response\Content\Text($rpcCall->getXML()));
+                  if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+                    \Papaya\Request\Log::getInstance()->emit();
+                    $this->papaya()->database->close();
+                  }
+                  return $response;
+                }
+              ),
             ],
             UI\Route::OVERVIEW
           )

@@ -34,12 +34,14 @@ namespace Papaya\Administration\UI\Route {
      * @param \Papaya\Administration\UI $ui
      * @param Address $path
      * @param int $level
+     * @return null|\Papaya\Response
      */
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       if ($ui->papaya()->administrationUser->hasPerm($this->_permission)) {
         $route = $this->_route;
-        $route($ui, $path, $level);
+        return $route($ui, $path, $level);
       }
+      return NULL;
     }
   }
 }

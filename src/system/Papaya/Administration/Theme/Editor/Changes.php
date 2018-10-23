@@ -25,8 +25,6 @@ use Papaya\UI;
  * @subpackage Administration
  */
 class Changes extends \Papaya\Administration\Page\Part {
-  private $_commands;
-
   /**
    * @var Content\Theme\Skin
    */

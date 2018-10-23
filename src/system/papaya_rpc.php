@@ -203,7 +203,7 @@ class papaya_rpc extends base_object {
       $this->topicTree->loadSimplyAll(
         $this->papaya()->administrationLanguage->id
       );
-      return $this->topicTree->getXML();
+      return $this->topicTree->getItemsXML();
     }
   }
 

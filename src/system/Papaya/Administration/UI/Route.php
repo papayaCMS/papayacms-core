@@ -73,7 +73,11 @@ namespace Papaya\Administration\UI {
 
     const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
 
+    const ADMINISTRATION_ICONS = self::ADMINISTRATION.'.icons';
+
     const HELP = 'help';
+
+    const XML_API = 'xml-api';
 
     public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }

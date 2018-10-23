@@ -36,11 +36,13 @@ namespace Papaya\Administration\UI\Route {
     /**
      * @param \Papaya\Administration\UI $ui
      * @param Address $path
+     * @param int $level
+     * @return null|\Papaya\Response
      */
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $ui->setTitle($this->_image, $this->_caption);
       $callback = $this->_callback;
-      $callback($ui, $path, $level);
+      return $callback($ui, $path, $level);
     }
   }
 }

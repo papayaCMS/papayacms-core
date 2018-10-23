@@ -103,7 +103,9 @@ class papaya_options extends base_options {
       'Spam filter', Administration\UI\Route::ADMINISTRATION_SPAM_FILTER, 'items-junk', '', FALSE
     );
     $toolbar->addSeperator();
-    $toolbar->addButton('View icons', 'glyphview.php', 'categories-view-icons', '', FALSE);
+    $toolbar->addButton(
+      'View icons', Papaya\Administration\UI\Route::ADMINISTRATION_ICONS, 'categories-view-icons', '', FALSE
+    );
     $toolbar->addSeperator();
     $toolbar->addButton(
       'Check paths',

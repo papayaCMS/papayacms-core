@@ -16,6 +16,7 @@ namespace Papaya\Administration;
 
 use Papaya\Request;
 use Papaya\UI;
+use Papaya\Administration\UI as AdministrationUI;
 
 /**
  * Abstract superclass for an administration page.
@@ -36,9 +37,9 @@ abstract class Page extends \Papaya\Application\BaseObject {
   private $_moduleId;
 
   /**
-   * @var \Papaya\Template
+   * @var \Papaya\Administration\UI
    */
-  private $_layout;
+  private $_ui;
 
   /**
    * @var Page\Parts
@@ -56,14 +57,21 @@ abstract class Page extends \Papaya\Application\BaseObject {
   protected $_parameterGroup = '';
 
   /**
-   * Create page object and store layout object for later use
+   * Create page object and store administration UI for later use
    *
-   * @param \Papaya\Template $layout
+   * @param AdministrationUI $ui
    * @param null|string $moduleId
    */
-  public function __construct($layout, $moduleId = NULL) {
-    $this->_layout = $layout;
+  public function __construct(AdministrationUI $ui, $moduleId = NULL) {
+    $this->_ui = $ui;
     $this->_moduleId = $moduleId;
+  }
+
+  /**
+   * @return AdministrationUI
+   */
+  public function getUI() {
+    return $this->_ui;
   }
 
   /**
@@ -136,14 +144,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
         $part instanceof Page\Part &&
         ($xml = $part->getXML())
       ) {
-        $this->_layout->add($xml, $this->parts()->getTarget($name));
+        $this->_ui->template()->add($xml, $this->parts()->getTarget($name));
       }
     }
     if ($restoreParameters) {
       $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
     }
     $this->parts()->toolbar()->toolbar($this->toolbar());
-    $this->_layout->addMenu($this->parts()->toolbar()->getXML());
+    $this->_ui->template()->addMenu($this->parts()->toolbar()->getXML());
   }
 
   /**

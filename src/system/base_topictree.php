@@ -671,7 +671,7 @@ class base_topic_tree extends base_db {
   * @access public
   * @return string $result
   */
-  function getXML() {
+  function getItemsXML() {
     $result = '<items>';
     if (isset($this->topicLinks) && is_array($this->topicLinks)) {
       $result .= $this->getXMLSubTree(0, 0);

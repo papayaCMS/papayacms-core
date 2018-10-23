@@ -28,7 +28,6 @@ namespace Papaya\Administration\UI\Route {
 
     private $_routes = [];
 
-    private $_after = [];
     private $_defaultChoice;
 
     public function __construct(array $choices = [], $defaultChoice = NULL) {
@@ -43,7 +42,7 @@ namespace Papaya\Administration\UI\Route {
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $command = $path->getRoute($level) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
-        return;
+        return NULL;
       }
       $success = TRUE;
       foreach ($this->_before as list($callback, $filter)) {
@@ -54,23 +53,13 @@ namespace Papaya\Administration\UI\Route {
         }
       }
       if ($success) {
-        $this[$command]($ui, $path, ++$level);
+        return $this[$command]($ui, $path, ++$level);
       }
-      foreach ($this->_after as list($callback, $filter)) {
-        if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback($ui)) {
-            $success = FALSE;
-          }
-        }
-      }
+      return NULL;
     }
 
     public function before(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
       $this->_before[] = [$callback, $executionFilter];
-    }
-
-    public function after(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
-      $this->_after[] = [$callback, $executionFilter];
     }
 
     public function offsetExists($command) {
