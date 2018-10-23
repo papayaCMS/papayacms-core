@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-administration.git",
-                "reference": "869fe1ea49d67b197ef4136880ed4e6366170d37"
+                "reference": "e74e45baa7574b185e66f6667f9d1b0f2edaa43b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/869fe1ea49d67b197ef4136880ed4e6366170d37",
-                "reference": "869fe1ea49d67b197ef4136880ed4e6366170d37",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/e74e45baa7574b185e66f6667f9d1b0f2edaa43b",
+                "reference": "e74e45baa7574b185e66f6667f9d1b0f2edaa43b",
                 "shasum": ""
             },
             "require": {
@@ -74,7 +74,7 @@
             },
             "type": "papaya-administration-ui",
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2018-10-05T10:46:20+00:00"
+            "time": "2018-10-23T17:29:13+00:00"
         },
         {
             "name": "papaya/composer-plugins",
@@ -267,12 +267,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-test-framework.git",
-                "reference": "fb665a6df83da90cd916b0d3b4c51dc1eb204c03"
+                "reference": "4c1a1777b4985fd2b2cc258036bf9d524c858a00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/fb665a6df83da90cd916b0d3b4c51dc1eb204c03",
-                "reference": "fb665a6df83da90cd916b0d3b4c51dc1eb204c03",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/4c1a1777b4985fd2b2cc258036bf9d524c858a00",
+                "reference": "4c1a1777b4985fd2b2cc258036bf9d524c858a00",
                 "shasum": ""
             },
             "type": "library",
@@ -287,7 +287,7 @@
             ],
             "description": "papaya CMS unittest framework",
             "homepage": "http://www.papaya-cms.com/",
-            "time": "2018-08-17T18:58:11+00:00"
+            "time": "2018-10-16T17:25:43+00:00"
         },
         {
             "name": "papaya/theme-dynamic",
