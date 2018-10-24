@@ -60,7 +60,10 @@ namespace Papaya\Administration {
         return new Response\Redirect\Secure();
       }
       $route = $this->route();
-      return $route($this, new Route\Address());
+      return $route(
+        $this,
+        new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''))
+      );
     }
 
     public function getOutput() {
@@ -317,7 +320,8 @@ namespace Papaya\Administration {
                 UI\Route::OVERVIEW
               )
             )
-          )
+          ),
+          new Route\Error('Unknown route!', 404)
         );
       }
       return $this->_route;

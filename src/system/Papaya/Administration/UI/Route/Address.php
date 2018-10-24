@@ -23,8 +23,13 @@ namespace Papaya\Administration\UI\Route {
      * @var null|array
      */
     private $_path;
+    /**
+     * @var string
+     */
+    private $_basePath;
 
-    public function __construct(\Papaya\URL $url = NULL) {
+    public function __construct($basePath, \Papaya\URL $url = NULL) {
+      $this->_basePath = $basePath;
       if (NULL === $url) {
         $this->_url = new \Papaya\URL\Current();
       }
@@ -36,8 +41,9 @@ namespace Papaya\Administration\UI\Route {
 
     private function getPath() {
       if (NULL === $this->_path) {
-        if (\preg_match('([^?#]*/(?<path>[^?#/]*))', $this->_url->path, $matches)) {
-          $this->_path = \explode('.', $matches['path']) ?: [];
+        $pattern = '('.preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
+        if (\preg_match($pattern, $this->_url->path, $matches)) {
+          $this->_path = \preg_split('([/.])', $matches['path']) ?: [];
         } else {
           $this->_path = [];
         }
