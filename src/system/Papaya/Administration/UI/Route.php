@@ -79,6 +79,8 @@ namespace Papaya\Administration\UI {
 
     const XML_API = 'xml-api';
 
+    const LOGOUT = 'logout';
+
     public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }
 }

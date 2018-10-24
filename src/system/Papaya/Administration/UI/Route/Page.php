@@ -21,27 +21,27 @@ namespace Papaya\Administration\UI\Route {
     /**
      * @param string $image
      * @param array|string $caption
-     * @param string $pageClass
+     * @param string $className
      * @param null $permission
      */
-    public function __construct($image, $caption, $pageClass, $permission = NULL) {
+    public function __construct($image, $caption, $className, $permission = NULL) {
       parent::__construct(
         $image,
         $caption,
-        function(Administration\UI $ui) use ($pageClass, $permission) {
+        function(Administration\UI $ui) use ($className, $permission) {
           if (
             NULL === $permission ||
             $ui->papaya()->administrationUser->hasPerm($permission)
           ) {
-            $reflection = new \ReflectionClass($pageClass);
+            $reflection = new \ReflectionClass($className);
             if ($reflection->isSubclassOf(Administration\Page::class)) {
-              $page = new $pageClass($ui);
+              $page = new $className($ui);
               /** @noinspection PhpUndefinedMethodInspection */
               $page->execute();
               return $ui->getOutput();
             }
             if ($reflection->hasMethod('getXML')) {
-              $page = new $pageClass();
+              $page = new $className();
               $page->administrationUI = $ui;
               $page->layout = $ui->template();
               if ($reflection->hasMethod('initialize')) {

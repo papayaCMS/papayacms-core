@@ -14,7 +14,7 @@
  */
 namespace Papaya\Administration {
 
-  use Papaya\Administration;
+  use Papaya\Administration\UI\Route;
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Template;
@@ -60,7 +60,7 @@ namespace Papaya\Administration {
         return new Response\Redirect\Secure();
       }
       $route = $this->route();
-      return $route($this, new UI\Route\Address());
+      return $route($this, new Route\Address());
     }
 
     public function getOutput() {
@@ -171,233 +171,153 @@ namespace Papaya\Administration {
         $this->_route = $route;
       } elseif (NULL === $this->_themeHandler) {
         $images = $this->papaya()->images;
-        $this->_route = new UI\Route\Group(
-            new UI\Route\Choice(
+        $this->_route = new Route\Group(
+          new Route\Choice(
             [
-              // General
-              Administration\UI\Route::OVERVIEW => new Administration\UI\Route\Page(
-                $images['places-home'],
-                ['General', 'Overview'],
-                \papaya_overview::class
-              ),
-              Administration\UI\Route::MESSAGES => new UI\Route\Choice(
+              Route::LOGOUT => new Route\LogOut()
+            ]
+          ),
+          // Authentication needed
+          new Route\Authenticated(
+            new Route\Group(
+              new Route\Choice(
                 [
-                  Administration\UI\Route::MESSAGES => new Administration\UI\Route\Page(
-                    $images['status-mail-open'],
-                    ['General', 'Messages'],
-                    \papaya_messages::class
+                  // General
+                  Route::OVERVIEW => new Route\Page(
+                    $images['places-home'], ['General', 'Overview'], \papaya_overview::class
                   ),
-                  Administration\UI\Route::MESSAGES_TASKS => new Administration\UI\Route\Page(
-                    $images['items-task'],
-                    ['General', 'Messages', 'Tasks'],
-                    \papaya_todo::class
-                  ),
-                ]
-              ),
-
-              // Pages
-              Administration\UI\Route::PAGES => new UI\Route\Choice(
-                [
-                  Administration\UI\Route::PAGES_SITEMAP => new Administration\UI\Route\Page(
-                    $images['categories-sitemap'],
-                    ['Pages', 'Sitemap'],
-                    \papaya_topic_tree::class,
-                    Administration\Permissions::PAGE_MANAGE
-                  ),
-                  Administration\UI\Route::PAGES_SEARCH => new Administration\UI\Route\Page(
-                    $images['actions-search'],
-                    ['Pages', 'Search'],
-                    \papaya_overview_search::class,
-                    Administration\Permissions::PAGE_SEARCH
-                  ),
-                  Administration\UI\Route::PAGES_EDIT => new Administration\UI\Route\Page(
-                    $images['items-page'],
-                    'Pages',
-                    \papaya_topic::class,
-                    Administration\Permissions::PAGE_MANAGE
-                  )
-                ]
-              ),
-
-              // Additional Content
-              Administration\UI\Route::CONTENT => new UI\Route\Choice(
-                [
-                  Administration\UI\Route::CONTENT_BOXES => new Administration\UI\Route\Page(
-                    $images['items-box'],
-                    ['Content', 'Boxes'],
-                    \papaya_boxes::class,
-                    Administration\Permissions::BOX_MANAGE
-                  ),
-                  Administration\UI\Route::CONTENT_FILES => new UI\Route\Choice(
+                  Route::MESSAGES => new UI\Route\Choice(
                     [
-                      Administration\UI\Route::CONTENT_FILES => new Administration\UI\Route\Page(
-                        $images['items-folder'],
-                        ['Content', 'Files'],
-                        \papaya_mediadb::class,
-                        Administration\Permissions::FILE_MANAGE
+                      Route::MESSAGES => new Route\Page(
+                        $images['status-mail-open'], ['General', 'Messages'], \papaya_messages::class
                       ),
-                      Administration\UI\Route::CONTENT_FILES_BROWSER => new Administration\UI\Route\Page(
-                        $images['items-folder'],
-                        ['Content', 'Files'],
-                        \papaya_mediadb_browser::class,
-                        Administration\Permissions::FILE_BROWSE
+                      Route::MESSAGES_TASKS => new Route\Page(
+                        $images['items-task'], ['General', 'Messages', 'Tasks'], \papaya_todo::class
+                      ),
+                    ]
+                  ),
+
+                  // Pages
+                  Route::PAGES => new UI\Route\Choice(
+                    [
+                      Route::PAGES_SITEMAP => new Route\Page(
+                        $images['categories-sitemap'], ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
+                      ),
+                      Route::PAGES_SEARCH => new Route\Page(
+                        $images['actions-search'], ['Pages', 'Search'], \papaya_overview_search::class, Permissions::PAGE_SEARCH
+                      ),
+                      Route::PAGES_EDIT => new Route\Page(
+                        $images['items-page'], 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
                       )
                     ]
                   ),
-                  Administration\UI\Route::CONTENT_IMAGES => new Administration\UI\Route\Page(
-                    $images['items-graphic'],
-                    ['Content', 'Dynamic Images'],
-                    \papaya_imagegenerator::class,
-                    Administration\Permissions::IMAGE_GENERATOR
-                  ),
-                  Administration\UI\Route::CONTENT_ALIASES => new Administration\UI\Route\Page(
-                    $images['items-alias'],
-                    ['Content', 'Alias'],
-                    \papaya_alias_tree::class,
-                    Administration\Permissions::ALIAS_MANAGE
-                  ),
-                  Administration\UI\Route::CONTENT_TAGS => new Administration\UI\Route\Page(
-                    $images['items-tag'],
-                    ['Content', 'Tags'],
-                    \papaya_tags::class,
-                    Administration\Permissions::TAG_MANAGE
-                  )
-                ]
-              ),
-              // Extensions/Applications
-              Administration\UI\Route::EXTENSIONS => new Administration\UI\Route\Extensions(
-                $images['categories-applications'],
-                'Applications'
-              ),
-              // Administration
-              Administration\UI\Route::ADMINISTRATION => new UI\Route\Choice(
-                [
-                  Administration\UI\Route::ADMINISTRATION_USERS => new Administration\UI\Route\Page(
-                    $images['items-user-group'],
-                    ['Administration', 'Users'],
-                    \papaya_user::class,
-                    Administration\Permissions::USER_MANAGE
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_VIEWS => new Administration\UI\Route\Page(
-                    $images['items-view'],
-                    ['Administration', 'Views'],
-                    \base_viewlist::class,
-                    Administration\Permissions::VIEW_MANAGE
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_PLUGINS => new Administration\UI\Route\Page(
-                    $images['items-plugin'],
-                    ['Administration', 'Plugins / Modules'],
-                    \papaya_modulemanager::class,
-                    Administration\Permissions::MODULE_MANAGE
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_THEMES => new Administration\UI\Route\Page(
-                    $images['items-theme'],
-                    ['Administration', 'Themes', 'Skins'],
-                    Theme\Editor::class,
-                    Administration\Permissions::SYSTEM_THEME_SKIN_MANAGE
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
+
+                  // Additional Content
+                  Route::CONTENT => new UI\Route\Choice(
                     [
-                      Administration\UI\Route::ADMINISTRATION_PROTOCOL => new Administration\UI\Route\Page(
-                        $images['categories-protocol'],
-                        ['Administration', 'Protocol'],
-                        \papaya_log::class,
-                        Administration\Permissions::SYSTEM_PROTOCOL
+                      Route::CONTENT_BOXES => new Route\Page(
+                        $images['items-box'], ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
                       ),
-                      Administration\UI\Route::ADMINISTRATION_PROTOCOL_LOGIN => new Administration\UI\Route\Page(
-                        $images['categories-protocol'],
-                        ['Administration', 'Protocol', 'Login'],
-                        \papaya_auth_secure::class,
-                        Administration\Permissions::SYSTEM_PROTOCOL
+                      Route::CONTENT_FILES => new UI\Route\Choice(
+                        [
+                          Route::CONTENT_FILES => new Route\Page(
+                            $images['items-folder'], ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
+                          ),
+                          Route::CONTENT_FILES_BROWSER => new Route\Page(
+                            $images['items-folder'], ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
+                          )
+                        ]
+                      ),
+                      Route::CONTENT_IMAGES => new Route\Page(
+                        $images['items-graphic'], ['Content', 'Dynamic Images'], \papaya_imagegenerator::class, Permissions::IMAGE_GENERATOR
+                      ),
+                      Route::CONTENT_ALIASES => new Route\Page(
+                        $images['items-alias'], ['Content', 'Alias'], \papaya_alias_tree::class, Permissions::ALIAS_MANAGE
+                      ),
+                      Route::CONTENT_TAGS => new Route\Page(
+                        $images['items-tag'], ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
                       )
                     ]
                   ),
-                  Administration\UI\Route::ADMINISTRATION_SETTINGS => new Administration\UI\Route\Page(
-                    $images['items-option'],
-                    ['Administration', 'Settings'],
-                    \papaya_options::class,
-                    Administration\Permissions::SYSTEM_SETTINGS
+                  // Extensions/Applications
+                  Route::EXTENSIONS => new Route\Extensions(
+                    $images['categories-applications'], 'Applications'
                   ),
-                  Administration\UI\Route::ADMINISTRATION_CRONJOBS => new Administration\UI\Route\Page(
-                    $images['items-cronjob'],
-                    ['Administration', 'Settings', 'Cronjobs'],
-                    \base_cronjobs::class,
-                    Administration\Permissions::SYSTEM_CRONJOBS
+                  // Administration
+                  Route::ADMINISTRATION => new UI\Route\Choice(
+                    [
+                      Route::ADMINISTRATION_USERS => new Route\Page(
+                        $images['items-user-group'], ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
+                      ),
+                      Route::ADMINISTRATION_VIEWS => new Route\Page(
+                        $images['items-view'], ['Administration', 'Views'], \base_viewlist::class, Permissions::VIEW_MANAGE
+                      ),
+                      Route::ADMINISTRATION_PLUGINS => new Route\Page(
+                        $images['items-plugin'], ['Administration', 'Plugins / Modules'], \papaya_modulemanager::class, Permissions::MODULE_MANAGE
+                      ),
+                      Route::ADMINISTRATION_THEMES => new Route\Page(
+                        $images['items-theme'], ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
+                      ),
+                      Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
+                        [
+                          Route::ADMINISTRATION_PROTOCOL => new Route\Page(
+                            $images['categories-protocol'], ['Administration', 'Protocol'], \papaya_log::class, Permissions::SYSTEM_PROTOCOL
+                          ),
+                          Route::ADMINISTRATION_PROTOCOL_LOGIN => new Route\Page(
+                            $images['categories-protocol'], ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
+                          )
+                        ]
+                      ),
+                      Route::ADMINISTRATION_SETTINGS => new Route\Page(
+                        $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
+                      ),
+                      Route::ADMINISTRATION_CRONJOBS => new Route\Page(
+                        $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
+                      ),
+                      Route::ADMINISTRATION_LINK_TYPES => new Route\Page(
+                        $images['items-link'], ['Administration', 'Settings', 'Link types'], \papaya_linktypes::class, Permissions::SYSTEM_LINKTYPES_MANAGE
+                      ),
+                      Route::ADMINISTRATION_MIME_TYPES => new Route\Page(
+                        $images['items-option'], ['Administration', 'Settings', 'Mime types'], \papaya_mediadb_mime::class, Permissions::SYSTEM_MIMETYPES_MANAGE
+                      ),
+                      Route::ADMINISTRATION_SPAM_FILTER => new Route\Page(
+                        $images['items-option'], ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
+                      ),
+                      Route::ADMINISTRATION_ICONS => new Route\Page(
+                        $images['items-option'], ['Administration', 'Settings', 'Icons'], Settings\Icons\Page::class, Permissions::SYSTEM_SETTINGS
+                      ),
+                      Route::ADMINISTRATION_PHRASES => new Route\Page(
+                        $images['items-translation'], ['Administration', 'Translations'], \base_languages::class, Permissions::SYSTEM_TRANSLATE
+                      ),
+                    ]
                   ),
-                  Administration\UI\Route::ADMINISTRATION_LINK_TYPES => new Administration\UI\Route\Page(
-                    $images['items-link'],
-                    ['Administration', 'Settings', 'Link types'],
-                    \papaya_linktypes::class,
-                    Administration\Permissions::SYSTEM_LINKTYPES_MANAGE
+                  // Help
+                  Route::HELP => new Route\Page(
+                    $images['categories-help'], 'Help', \papaya_help::class
                   ),
-                  Administration\UI\Route::ADMINISTRATION_MIME_TYPES => new Administration\UI\Route\Page(
-                    $images['items-option'],
-                    ['Administration', 'Settings', 'Mime types'],
-                    \papaya_mediadb_mime::class,
-                    Administration\Permissions::SYSTEM_MIMETYPES_MANAGE
+                  // XML
+                  Route::XML_API => new Route\Callback(
+                    '',
+                    '',
+                    function() {
+                      $rpcCall = new \papaya_rpc();
+                      $rpcCall->initialize();
+                      $rpcCall->execute();
+                      $response = new Response();
+                      $response->setContentType('application/xml');
+                      $response->content(new Response\Content\Text($rpcCall->getXML()));
+                      if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+                        \Papaya\Request\Log::getInstance()->emit();
+                        $this->papaya()->database->close();
+                      }
+                      return $response;
+                    }
                   ),
-                  Administration\UI\Route::ADMINISTRATION_SPAM_FILTER => new Administration\UI\Route\Page(
-                    $images['items-option'],
-                    ['Administration', 'Settings', 'Spam filter'],
-                    \papaya_spamfilter::class,
-                    Administration\Permissions::SYSTEM_SETTINGS
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_ICONS => new Administration\UI\Route\Page(
-                    $images['items-option'],
-                    ['Administration', 'Settings', 'Icons'],
-                    Settings\Icons\Page::class,
-                    Administration\Permissions::SYSTEM_SETTINGS
-                  ),
-                  Administration\UI\Route::ADMINISTRATION_PHRASES => new Administration\UI\Route\Page(
-                    $images['items-translation'],
-                    ['Administration', 'Translations'],
-                    \base_languages::class,
-                    Administration\Permissions::SYSTEM_TRANSLATE
-                  ),
-                ]
-              ),
-              // Help
-              Administration\UI\Route::HELP => new Administration\UI\Route\Page(
-                $images['categories-help'],
-                'Help',
-                \papaya_help::class
-              ),
-              // XML
-              Administration\UI\Route::XML_API => new Administration\UI\Route\Callback(
-                '',
-                '',
-                function() {
-                  $rpcCall = new \papaya_rpc();
-                  $rpcCall->initialize();
-                  $rpcCall->execute();
-                  $response = new Response();
-                  $response->setContentType('application/xml');
-                  $response->content(new Response\Content\Text($rpcCall->getXML()));
-                  if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                    \Papaya\Request\Log::getInstance()->emit();
-                    $this->papaya()->database->close();
-                  }
-                  return $response;
-                }
-              ),
-            ],
-            UI\Route::OVERVIEW
-          )
-        );
-        $this->_route->before(
-          function() {
-            $application = $this->papaya();
-            $user = $application->administrationUser;
-            $user->layout = $this->template();
-            $user->initialize();
-            $user->execLogin();
-            $application->administrationPhrases->setLanguage(
-              $application->languages->getLanguage(
-                $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
+                ],
+                UI\Route::OVERVIEW
               )
-            );
-            return $this->papaya()->administrationUser->isValid;
-          }
+            )
+          )
         );
       }
       return $this->_route;
