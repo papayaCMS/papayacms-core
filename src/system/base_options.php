@@ -478,9 +478,6 @@ class base_options extends base_db {
       ),
       'green'
     ),
-    'PAPAYA_UI_SKIN' => array(
-      11, 'isAlphaNum', 'dircombo', array('skins/', 'admin'), 'default'
-    ),
     'PAPAYA_USE_RICHTEXT' => array(
       11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 1
     ),
