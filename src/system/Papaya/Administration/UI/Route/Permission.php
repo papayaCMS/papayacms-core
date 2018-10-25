@@ -14,29 +14,40 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
+  use Papaya\Response;
 
+  /**
+   * Execute the inner route if the current user has the permission
+   */
   class Permission implements Route {
-
+    /**
+     * @var int
+     */
     private $_permission;
+
+    /**
+     * @var Route|callable
+     */
     private $_route;
 
     /**
      * @param int $permission
-     * @param Route $route
+     * @param callable|Route $route
      */
-    public function __construct($permission, Route $route) {
+    public function __construct($permission, callable $route) {
       $this->_permission = (int)$permission;
       $this->_route = $route;
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
+     * @param UI $ui
      * @param Address $path
      * @param int $level
-     * @return null|\Papaya\Response
+     * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
+    public function __invoke(UI $ui, Address $path, $level = 0) {
       if ($ui->papaya()->administrationUser->hasPerm($this->_permission)) {
         $route = $this->_route;
         return $route($ui, $path, $level);

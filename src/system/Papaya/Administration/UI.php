@@ -24,8 +24,14 @@ namespace Papaya\Administration {
   class UI implements Application\Access {
     use Application\Access\Aggregation;
 
+    /**
+     * @var Template
+     */
     private $_template;
 
+    /**
+     * @var \Papaya\Theme\Handler
+     */
     private $_themeHandler;
 
     /**
@@ -33,13 +39,25 @@ namespace Papaya\Administration {
      */
     private $_path;
 
+    /**
+     * @var callable
+     */
     private $_route;
 
+    /**
+     * UI constructor.
+     *
+     * @param string $path
+     * @param \Papaya\Application $application
+     */
     public function __construct($path, Application $application) {
       $this->_path = \str_replace(DIRECTORY_SEPARATOR, '/', $path);
       $this->papaya($application);
     }
 
+    /**
+     * @return string Local path to administration directory
+     */
     public function getLocalPath() {
       return $this->_path;
     }
@@ -51,7 +69,7 @@ namespace Papaya\Administration {
       $this->prepare();
       $application = $this->papaya();
       $address = new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''));
-      if (!$application->options->loadAndDefine() && $address->getRoute(0) !== Route::INSTALLER) {
+      if (!$application->options->loadAndDefine() && Route::INSTALLER !== $address->getRoute(0)) {
         return new Response\Redirect(Route::INSTALLER);
       }
       $route = $this->route();
@@ -105,10 +123,10 @@ namespace Papaya\Administration {
     public function setTitle($image, $caption) {
       $template = $this->template();
       $template->parameters()->set('PAGE_ICON', $image);
-      if (is_array($caption)) {
-        $caption = implode(
+      if (\is_array($caption)) {
+        $caption = \implode(
           ' - ',
-          array_map(
+          \array_map(
             function($captionPart) {
               return new Translated($captionPart);
             },
@@ -144,6 +162,10 @@ namespace Papaya\Administration {
       $application->pageReferences->setPreview(TRUE);
     }
 
+    /**
+     * @param callable|null $route
+     * @return callable|Route
+     */
     public function route(callable $route = NULL) {
       if (NULL !== $route) {
         $this->_route = $route;
@@ -280,23 +302,19 @@ namespace Papaya\Administration {
                     $images['categories-help'], 'Help', \papaya_help::class
                   ),
                   // XML
-                  Route::XML_API => new Route\Callback(
-                    '',
-                    '',
-                    function() {
-                      $rpcCall = new \papaya_rpc();
-                      $rpcCall->initialize();
-                      $rpcCall->execute();
-                      $response = new Response();
-                      $response->setContentType('application/xml');
-                      $response->content(new Response\Content\Text($rpcCall->getXML()));
-                      if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                        \Papaya\Request\Log::getInstance()->emit();
-                        $this->papaya()->database->close();
-                      }
-                      return $response;
+                  Route::XML_API => function() {
+                    $rpcCall = new \papaya_rpc();
+                    $rpcCall->initialize();
+                    $rpcCall->execute();
+                    $response = new Response();
+                    $response->setContentType('application/xml');
+                    $response->content(new Response\Content\Text($rpcCall->getXML()));
+                    if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+                      \Papaya\Request\Log::getInstance()->emit();
+                      $this->papaya()->database->close();
                     }
-                  ),
+                    return $response;
+                  }
                 ],
                 UI\Route::OVERVIEW
               )
@@ -308,6 +326,10 @@ namespace Papaya\Administration {
       return $this->_route;
     }
 
+    /**
+     * @param Template|null $template
+     * @return Template
+     */
     public function template(Template $template = NULL) {
       if (NULL !== $template) {
         $this->_template = $template;
@@ -325,6 +347,10 @@ namespace Papaya\Administration {
       return $this->_template;
     }
 
+    /**
+     * @param \Papaya\Theme\Handler|null $themeHandler
+     * @return \Papaya\Theme\Handler
+     */
     public function theme(\Papaya\Theme\Handler $themeHandler = NULL) {
       if (NULL !== $themeHandler) {
         $this->_themeHandler = $themeHandler;

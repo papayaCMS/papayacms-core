@@ -14,39 +14,42 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Response;
   use Papaya\Utility;
 
+  /**
+   * Return error document
+   */
   class Error implements Route {
-
     /**
      * HTTP response status
      *
      * @var int
      */
-    protected $_status = 500;
+    private $_status;
 
     /**
      * Error message
      *
      * @var string
      */
-    protected $_errorMessage = 'Service unavailable.';
+    private $_errorMessage;
 
     /**
      * Error identifier
      *
-     * @var string
+     * @var string|null
      */
-    protected $_errorIdentifier = '';
+    private $_errorIdentifier;
 
     /**
      * Error template
      *
      * @var string
      */
-    protected $_template =
+    private $_template =
       '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
      <html>
        <head>
@@ -102,13 +105,24 @@ namespace Papaya\Administration\UI\Route {
        </body>
      </html>';
 
+    /**
+     * @param string $message
+     * @param int $status
+     * @param null|int|string $identifier
+     */
     public function __construct($message, $status, $identifier = NULL) {
       $this->_status = (int)$status;
       $this->_errorMessage = $message;
       $this->_errorIdentifier = $identifier;
     }
 
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
+    /**
+     * @param UI $ui
+     * @param Address $path
+     * @param int $level
+     * @return \Papaya\Response
+     */
+    public function __invoke(UI $ui, Address $path, $level = 0) {
       $response = new Response();
       $response->setStatus($this->_status);
       $response->setContentType('text/html');

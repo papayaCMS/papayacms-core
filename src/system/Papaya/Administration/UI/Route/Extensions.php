@@ -16,9 +16,16 @@ namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration\UI\Route;
 
+  /**
+   * Route for the papaya administration plugins/extensions.
+   *
+   *   $routeName - shows extension list
+   *   $routeName.$guid - executes module
+   *   $routeName.'image' - returns extension image (module guid as query string parameter)
+   */
   class Extensions implements Route {
-
     private $_image;
+
     private $_caption;
 
     /**
@@ -39,7 +46,7 @@ namespace Papaya\Administration\UI\Route {
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $ui->setTitle($this->_image, $this->_caption);
       $pluginGuid = NULL;
-      if (($c = count($path)) > 0) {
+      if (($c = \count($path)) > 0) {
         $pluginGuid = \Papaya\Filter\Factory::isGuid($path[$c - 1]) ? $path[$c - 1] : NULL;
       }
       $module = new \papaya_editmodules($pluginGuid);

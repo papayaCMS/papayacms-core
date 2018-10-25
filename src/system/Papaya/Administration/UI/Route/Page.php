@@ -15,51 +15,84 @@
 namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration;
+  use Papaya\Administration\UI\Route;
 
-  class Page extends Callback {
+  /**
+   * Execute an \Papaya\Administration\Page or one of
+   * the old classes and return them as an HTML response.
+   */
+  class Page implements Route {
+    /**
+     * @var string
+     */
+    private $_image;
+
+    /**
+     * @var array|string
+     */
+    private $_caption;
+
+    /**
+     * @var string
+     */
+    private $_className;
+
+    /**
+     * @var int|null
+     */
+    private $_permission;
 
     /**
      * @param string $image
      * @param array|string $caption
      * @param string $className
-     * @param null $permission
+     * @param null|int $permission
      */
     public function __construct($image, $caption, $className, $permission = NULL) {
-      parent::__construct(
-        $image,
-        $caption,
-        function(Administration\UI $ui) use ($className, $permission) {
-          if (
-            NULL === $permission ||
-            $ui->papaya()->administrationUser->hasPerm($permission)
-          ) {
-            $reflection = new \ReflectionClass($className);
-            if ($reflection->isSubclassOf(Administration\Page::class)) {
-              $page = new $className($ui);
-              /** @noinspection PhpUndefinedMethodInspection */
-              $page->execute();
-              return $ui->getOutput();
-            }
-            if ($reflection->hasMethod('getXML')) {
-              $page = new $className();
-              $page->administrationUI = $ui;
-              $page->layout = $ui->template();
-              if ($reflection->hasMethod('initialize')) {
-                /** @noinspection PhpUndefinedMethodInspection */
-                $page->initialize();
-              }
-              if ($reflection->hasMethod('execute')) {
-                /** @noinspection PhpUndefinedMethodInspection */
-                $page->execute();
-              }
-              /** @noinspection PhpUndefinedMethodInspection */
-              $page->getXML();
-              return $ui->getOutput();
-            }
-          }
-          return NULL;
+      $this->_image = $image;
+      $this->_caption = $caption;
+      $this->_className = $className;
+      $this->_permission = $permission;
+    }
+
+    /**
+     * @param Administration\UI $ui
+     * @param Address $path
+     * @param int $level
+     * @return null|\Papaya\Response
+     * @throws \ReflectionException
+     */
+    public function __invoke(Administration\UI $ui, Address $path, $level = 0) {
+      if (
+        NULL === $this->_permission ||
+        $ui->papaya()->administrationUser->hasPerm($this->_permission)
+      ) {
+        $ui->setTitle($this->_image, $this->_caption);
+        $reflection = new \ReflectionClass($this->_className);
+        if ($reflection->isSubclassOf(Administration\Page::class)) {
+          $page = $reflection->newInstance($ui);
+          /** @noinspection PhpUndefinedMethodInspection */
+          $page->execute();
+          return $ui->getOutput();
         }
-      );
+        if ($reflection->hasMethod('getXML')) {
+          $page = $reflection->newInstance();
+          $page->administrationUI = $ui;
+          $page->layout = $ui->template();
+          if ($reflection->hasMethod('initialize')) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $page->initialize();
+          }
+          if ($reflection->hasMethod('execute')) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $page->execute();
+          }
+          /** @noinspection PhpUndefinedMethodInspection */
+          $page->getXML();
+          return $ui->getOutput();
+        }
+      }
+      return NULL;
     }
   }
 }

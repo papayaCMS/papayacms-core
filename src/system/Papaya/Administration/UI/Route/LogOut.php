@@ -17,7 +17,6 @@ namespace Papaya\Administration\UI\Route {
   use Papaya\Administration\UI\Route;
 
   class LogOut implements Route {
-
     /**
      * @param \Papaya\Administration\UI $ui
      * @param Address $path

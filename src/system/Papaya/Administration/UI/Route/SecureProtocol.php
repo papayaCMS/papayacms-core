@@ -14,19 +14,22 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
-  use Papaya\Utility;
   use Papaya\Response;
+  use Papaya\Utility;
 
+  /**
+   * Redirect to HTTPS if options is enabled, output an error message if not on localhost otherwise.
+   */
   class SecureProtocol implements Route {
-
     /**
-     * @param \Papaya\Administration\UI $ui
+     * @param UI $ui
      * @param Address $path
      * @param int $level
-     * @return null|\Papaya\Response
+     * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
+    public function __invoke(UI $ui, Address $path, $level = 0) {
       $application = $ui->papaya();
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
@@ -37,7 +40,7 @@ namespace Papaya\Administration\UI\Route {
       if (
         !(
           Utility\Server\Protocol::isSecure() ||
-          preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())
+          \preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())
         )
       ) {
         $dialog = new \Papaya\UI\Dialog();

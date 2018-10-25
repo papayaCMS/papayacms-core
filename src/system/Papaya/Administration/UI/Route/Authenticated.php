@@ -16,8 +16,13 @@ namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration\UI\Route;
 
+  /**
+   * Execute the inner route if the session contains an authorized user.
+   * Return the login page, otherwise.
+   *
+   * @package Papaya\Administration\UI\Route
+   */
   class Authenticated implements Route {
-
     private $_route;
 
     /**

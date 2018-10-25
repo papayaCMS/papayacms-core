@@ -14,53 +14,54 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Utility;
 
+  /**
+   * A list of routes that will be executed one after each other until
+   * one of them returns an response.
+   */
   class Group implements Route, \ArrayAccess {
-    const EXECUTE_ALWAYS = 'always';
-
-    const EXECUTE_ON_SUCCESS = 'success';
-
-    const EXECUTE_ON_FAILURE = 'failure';
-
-    private $_before = [];
-
     private $_routes = [];
 
+    /**
+     * Group constructor.
+     *
+     * @param callable|Route ...$routes
+     */
     public function __construct(...$routes) {
       foreach ($routes as $route) {
         $this[] = $route;
       }
     }
 
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $success = TRUE;
-      foreach ($this->_before as list($callback, $filter)) {
-        if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback($ui)) {
-            $success = FALSE;
-          }
-        }
-      }
-      if ($success) {
-        foreach ($this->_routes as $route) {
-          if ($response = $route($ui, $path, $level)) {
-            return $response;
-          }
+    /**
+     * @param UI $ui
+     * @param Address $path
+     * @param int $level
+     */
+    public function __invoke(UI $ui, Address $path, $level = 0) {
+      foreach ($this->_routes as $route) {
+        if ($response = $route($ui, $path, $level)) {
+          return $response;
         }
       }
       return NULL;
     }
 
-    public function before(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
-      $this->_before[] = [$callback, $executionFilter];
-    }
-
+    /**
+     * @param int $offset
+     * @return bool
+     */
     public function offsetExists($offset) {
       return isset($this->_routes[$offset]);
     }
 
+    /**
+     * @param int $offset
+     * @param callable|Route $route
+     */
     public function offsetSet($offset, $route) {
       Utility\Constraints::assertCallable($route);
       if (NULL === $offset) {
@@ -72,10 +73,17 @@ namespace Papaya\Administration\UI\Route {
       }
     }
 
+    /**
+     * @param int $offset
+     * @return callable|Route $route
+     */
     public function offsetGet($offset) {
       return $this->_routes[$offset];
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetUnset($offset) {
       unset($this->_routes[$offset]);
       $this->_routes = \array_values($this->_routes);

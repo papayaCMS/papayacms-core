@@ -15,10 +15,8 @@
 namespace Papaya\Administration\Settings\Icons {
 
   class Page extends \Papaya\Administration\Page {
-
     public function createContent() {
       return new Viewer($this);
     }
-
   }
 }

@@ -14,9 +14,9 @@
  */
 namespace Papaya\Administration;
 
+use Papaya\Administration\UI as AdministrationUI;
 use Papaya\Request;
 use Papaya\UI;
-use Papaya\Administration\UI as AdministrationUI;
 
 /**
  * Abstract superclass for an administration page.

@@ -19,7 +19,6 @@ namespace Papaya\Administration\Settings\Icons {
   use Papaya\XML;
 
   class Viewer extends \Papaya\Administration\Page\Part {
-
     public function appendTo(XML\Element $parent) {
       parent::appendTo($parent);
       $groups = new Iterator\Tree\Groups\RegEx(
@@ -42,7 +41,7 @@ namespace Papaya\Administration\Settings\Icons {
           $sizesAvailable = [];
           foreach ($sizes as $size) {
             $imageFile = 'pics/icons/'.$size.'/'.$fileName;
-            if (file_exists($path.'/'.$imageFile)) {
+            if (\file_exists($path.'/'.$imageFile)) {
               $image = $imageFile;
               $sizesAvailable[] = $size;
               $fileCount++;
@@ -51,12 +50,12 @@ namespace Papaya\Administration\Settings\Icons {
           $imageCount++;
           $listView->items[] = $item = new UI\ListView\Item(
             './'.$image,
-            substr($index, strlen($groupName) + 1)
+            \substr($index, \strlen($groupName) + 1)
           );
-          $item->text = implode(', ', $sizesAvailable);
+          $item->text = \implode(', ', $sizesAvailable);
           $item->hint = $index.': '.$fileName;
         }
-        $listView->caption = sprintf(
+        $listView->caption = \sprintf(
           '%s (%s: %d / %s: %d)',
           $groupName,
           new UI\Text\Translated('Icons'),

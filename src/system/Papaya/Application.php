@@ -222,7 +222,6 @@ class Application implements \ArrayAccess, Properties {
    * @param string $identifier
    *
    * @param bool $removeProfile
-   * @return void
    */
   public function removeObject($identifier, $removeProfile = FALSE) {
     if ($this->hasObject($identifier)) {

@@ -14,23 +14,36 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Utility;
 
+  /**
+   * Select and execute route by path.
+   */
   class Choice implements Route, \ArrayAccess {
-    const EXECUTE_ALWAYS = 'always';
-
-    const EXECUTE_ON_SUCCESS = 'success';
-
-    const EXECUTE_ON_FAILURE = 'failure';
-
-    private $_before = [];
-
+    /**
+     * @var array
+     */
     private $_routes = [];
 
+    /**
+     * @var null
+     */
     private $_defaultChoice;
 
-    public function __construct(array $choices = [], $defaultChoice = NULL) {
+    /**
+     * @var int
+     */
+    private $_offset;
+
+    /**
+     * @param array $choices
+     * @param null|string $defaultChoice default choice if route path is empty
+     * @param int $offset offset while fetching current route path
+     */
+    public function __construct(array $choices = [], $defaultChoice = NULL, $offset = 0) {
+      $this->_offset = (int)$offset;
       foreach ($choices as $path => $route) {
         $this[$path] = $route;
       }
@@ -39,43 +52,48 @@ namespace Papaya\Administration\UI\Route {
       }
     }
 
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $command = $path->getRoute($level) ?: $this->_defaultChoice;
+    /**
+     * @param UI $ui
+     * @param Address $path
+     * @param int $level
+     */
+    public function __invoke(UI $ui, Address $path, $level = 0) {
+      $command = $path->getRoute($level, $this->_offset) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
         return NULL;
       }
-      $success = TRUE;
-      foreach ($this->_before as list($callback, $filter)) {
-        if ($success || self::EXECUTE_ALWAYS === $filter || self::EXECUTE_ON_FAILURE === $filter) {
-          if (!$callback($ui)) {
-            $success = FALSE;
-          }
-        }
-      }
-      if ($success) {
-        return $this[$command]($ui, $path, ++$level);
-      }
-      return NULL;
+      return $this[$command]($ui, $path, ++$level);
     }
 
-    public function before(callable $callback, $executionFilter = self::EXECUTE_ON_SUCCESS) {
-      $this->_before[] = [$callback, $executionFilter];
-    }
-
+    /**
+     * @param string $command
+     * @return bool
+     */
     public function offsetExists($command) {
       return isset($this->_routes[$command]);
     }
 
+    /**
+     * @param string $command
+     * @return callable|Route
+     */
+    public function offsetGet($command) {
+      return $this->_routes[$command];
+    }
+
+    /**
+     * @param string $command
+     * @param callable $route
+     */
     public function offsetSet($command, $route) {
       Utility\Constraints::assertString($command);
       Utility\Constraints::assertCallable($route);
       $this->_routes[$command] = $route;
     }
 
-    public function offsetGet($command) {
-      return $this->_routes[$command];
-    }
-
+    /**
+     * @param string $command
+     */
     public function offsetUnset($command) {
       unset($this->_routes[$command]);
     }
