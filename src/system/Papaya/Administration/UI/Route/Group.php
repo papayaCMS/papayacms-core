@@ -40,6 +40,7 @@ namespace Papaya\Administration\UI\Route {
      * @param UI $ui
      * @param Address $path
      * @param int $level
+     * @return null|TRUE|\Papaya\Response|callable
      */
     public function __invoke(UI $ui, Address $path, $level = 0) {
       foreach ($this->_routes as $route) {

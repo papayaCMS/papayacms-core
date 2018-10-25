@@ -83,6 +83,12 @@ namespace Papaya\Administration\UI {
 
     const INSTALLER = 'install';
 
+    /**
+     * @param \Papaya\Administration\UI $ui
+     * @param \Papaya\Administration\UI\Route\Address $path
+     * @param int $level
+     * @return null|TRUE|\Papaya\Response|callable
+     */
     public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }
 }

@@ -25,6 +25,7 @@ namespace Papaya\Administration\UI\Route {
      * @param UI $ui
      * @param Address $path
      * @param int $level
+     * @return null
      */
     public function __invoke(UI $ui, Address $path, $level = 0) {
       $application = $ui->papaya();
@@ -45,6 +46,7 @@ namespace Papaya\Administration\UI\Route {
           ' this option, otherwise the logins can become locked.'
         );
       }
+      return NULL;
     }
   }
 }

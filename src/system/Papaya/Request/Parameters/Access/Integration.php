@@ -24,7 +24,7 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage Objects
  *
- * @method Application\CMS papaya()
+ * @method Application\CMS papaya(Application $papaya = NULL)
  */
 trait Integration {
   use Application\Access\Aggregation;

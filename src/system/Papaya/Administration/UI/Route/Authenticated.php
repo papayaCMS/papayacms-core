@@ -36,7 +36,7 @@ namespace Papaya\Administration\UI\Route {
      * @param \Papaya\Administration\UI $ui
      * @param Address $path
      * @param int $level
-     * @return null|\Papaya\Response
+     * @return null|TRUE|\Papaya\Response|callable
      */
     public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
       $application = $ui->papaya();

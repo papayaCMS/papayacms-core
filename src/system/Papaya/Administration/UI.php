@@ -63,6 +63,14 @@ namespace Papaya\Administration {
     }
 
     /**
+     * Initialize application and options and execute routes depending on the URL.
+     *
+     * Possible return values for routes:
+     *   \Papaya\Response - returned from this method
+     *   TRUE - request was handled, do not execute other routes
+     *   NULL - not handled, continue route execution
+     *   callable - new route, execute
+     *
      * @return null|\Papaya\Response
      */
     public function execute() {
@@ -73,7 +81,13 @@ namespace Papaya\Administration {
         return new Response\Redirect(Route::INSTALLER);
       }
       $route = $this->route();
-      return $route($this, $address);
+      do {
+        $route = $route($this, $address);
+        if ($route instanceof Response) {
+          return $route;
+        }
+      } while (is_callable($route));
+      return NULL;
     }
 
     public function getOutput() {
@@ -334,14 +348,8 @@ namespace Papaya\Administration {
       if (NULL !== $template) {
         $this->_template = $template;
       } elseif (NULL === $this->_template) {
-        $application = $this->papaya();
-        $administrationPath = Utility\File\Path::cleanup(
-          Utility\File\Path::getDocumentRoot(
-            $application->options
-          ).$application->options->get('PAPAYA_PATH_ADMIN')
-        );
         $this->_template = new Template\XSLT(
-          $administrationPath.'skins/'.$application->options->get('PAPAYA_UI_SKIN').'/style.xsl'
+          $this->getLocalPath().'/template/style.xsl'
         );
       }
       return $this->_template;
