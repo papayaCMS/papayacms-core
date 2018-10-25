@@ -290,7 +290,7 @@ Configuration_ section of this document.
 
 ### 1. Start install script
 
-Open http://www.domain.tld/papaya/install.php with your webbrowser
+Open http://www.domain.tld/papaya/install with your webbrowser
 (replace www.domain.tld with your own domain). The start page of the
 installation script is displayed. The start page contains a couple of
 links to the FAQ, the installation forum, the support page, and the

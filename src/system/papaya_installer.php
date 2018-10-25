@@ -89,9 +89,10 @@ class papaya_installer extends base_db {
 
   /**
   * Installer wants to output a xml for rpc response
-  * @var boolean $rpcResponseSent
+  *
+  * @var null|\Papaya\XML\Document $rpcResponse
   */
-  var $rpcResponseSent = FALSE;
+  private $rpcResponse = FALSE;
 
   /**
   * Path to Framework
@@ -143,7 +144,7 @@ class papaya_installer extends base_db {
         //authenticated
         switch ($this->params['step']) {
         case 'database' :
-          $this->executeInstaller();
+          return $this->executeInstaller();
           break;
         case 'info' :
         default :
@@ -158,6 +159,7 @@ class papaya_installer extends base_db {
           ),
           'authNeeded'
         );
+        return $this->outputRPCResponseFinish();
       }
     } else {
       //authentication will not work yet
@@ -174,7 +176,7 @@ class papaya_installer extends base_db {
         }
         if ($this->checkTableExists(PAPAYA_DB_TBL_OPTIONS)) {
           $this->initModuleManager();
-          $this->executeInstaller();
+          return $this->executeInstaller();
         } elseif ($status['optionfile_exists']) {
           $this->dialogCreateTable(PAPAYA_DB_TBL_OPTIONS);
         } else {
@@ -200,9 +202,6 @@ class papaya_installer extends base_db {
       default :
         $this->executeWelcome();
       }
-    }
-    if (!defined('PAPAYA_VERSION_STRING')) {
-      define('PAPAYA_VERSION_STRING', '5');
     }
   }
 
@@ -410,7 +409,7 @@ class papaya_installer extends base_db {
       $this->getProgressBarPanel();
       break;
     }
-    $this->outputRPCResponseFinish();
+    return $this->outputRPCResponseFinish();
   }
 
   /**
@@ -658,7 +657,6 @@ class papaya_installer extends base_db {
   */
   function getProgressJavascript(&$tableCounts) {
     $images = $this->papaya()->images;
-    //$result = '<script type="text/javascript" src="script/xmlrpc.js"></script>'.LF;
     $result = '<script type="text/javascript" src="script/jquery.papayaInstaller.js"></script>'.LF;
     $result .= '<script type="text/javascript">'.LF;
     $result .= 'jQuery(document).ready(function() {'.LF;
@@ -1173,24 +1171,19 @@ class papaya_installer extends base_db {
   * @access public
   */
   function outputRPCResponse($idx, $success, $msg, $cmd) {
-    if ($this->outputMode == 'xml') {
-      if (!$this->rpcResponseSent) {
-        $this->rpcResponseSent = TRUE;
-        header('Content-type: application/xml; charset=utf-8');
-        echo '<?xml version="1.0" encoding="UTF-8"?>';
-        echo '<responses>';
+    if ('xml' === $this->outputMode) {
+      if (!($this->rpcResponse instanceof \Papaya\XML\Document)) {
+        $this->rpcResponse = $document = new \Papaya\XML\Document();
+        $document->appendElement('responses');
+      } else {
+        $document = $this->rpcResponse;
       }
-      echo '<response>';
-      printf(
-        '<method>rpcCallbackInstaller%s</method>',
-        papaya_strings::escapeHTMLChars(ucfirst($cmd))
-      );
-      printf('<param name="idx" value="%d" />', (int)$idx);
-      printf('<param name="success" value="%d" />', (int)$success);
-      printf('<param name="message" value="%s" />', papaya_strings::escapeHTMLChars($msg));
-      echo '<data></data>';
-      echo '</response>';
-      flush();
+      $response = $document->documentElement->appendElement('response');
+      $response->appendElement('method', 'rpcCallbackInstaller'.\ucfirst($cmd));
+      $response->appendElement('param', ['name' => 'idx', 'value' => (int)$idx]);
+      $response->appendElement('param', ['name' => 'success', 'value' => (int)$success]);
+      $response->appendElement('param', ['name' => 'message', 'value' => $msg]);
+      $response->appendElement('data');
     }
   }
 
@@ -1200,9 +1193,13 @@ class papaya_installer extends base_db {
   * @access public
   */
   function outputRPCResponseFinish() {
-    if ($this->outputMode == 'xml' && $this->rpcResponseSent) {
-      echo '</responses>';
+    if ('xml' === $this->outputMode && $this->rpcResponse) {
+      $response = new \Papaya\Response();
+      $response->setContentType('application/xml');
+      $response->content(new \Papaya\Response\Content\Text($this->rpcResponse->saveXML()));
+      return $response;
     }
+    return NULL;
   }
 
   /**
@@ -1228,7 +1225,7 @@ class papaya_installer extends base_db {
           );
         }
       }
-      $rpcResponse = ((!ini_get('session.use_trans_sid')) && $this->rpcResponseSent);
+      $rpcResponse = ((!ini_get('session.use_trans_sid')) && $this->rpcResponse);
       if ($rpcResponse) {
         $this->outputRPCResponse(
           (int)$this->params['table_idx'], TRUE, 'Reading ', 'update'

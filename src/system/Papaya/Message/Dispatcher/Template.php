@@ -20,8 +20,8 @@ use Papaya\Message;
 /**
  * Papaya Message Dispatcher Template, handle messages to be shown to the user in browser
  *
- * Make sure that the dispatcher does not initialize it's resources only if needed,
- * It will be created at the start of the script, unused initialzation will slow the script down.
+ * Make sure that the dispatcher does initialize it's resources only if needed,
+ * It will be created at the start of the script, unused initialization will slow the system down.
  *
  * @package Papaya-Library
  * @subpackage Messages
@@ -51,10 +51,12 @@ class Template
    * @return bool
    */
   public function dispatch(Message $message) {
-    if ($message instanceof Message\Displayable && isset($GLOBALS['PAPAYA_LAYOUT'])) {
-      /** @var \Papaya\Template $layout */
-      $layout = $GLOBALS['PAPAYA_LAYOUT'];
-      $layout->values()->append(
+    if (
+      $message instanceof Message\Displayable &&
+      ($messages = $this->papaya()->messages) &&
+      ($template = $messages->getTemplate())
+    ) {
+      $template->values()->append(
         '/page/messages',
         'message',
         [

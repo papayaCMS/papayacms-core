@@ -69,8 +69,15 @@ class Translated extends UI\Text {
    */
   public function __toString() {
     if (NULL === $this->_string) {
+      try {
+        return $this->_string = $this->compile(
+          $this->translate($this->_pattern), $this->_values
+        );
+      } catch (\Exception $e) {
+      } catch (\Throwable $e) {
+      }
       $this->_string = $this->compile(
-        $this->translate($this->_pattern), $this->_values
+        $this->_pattern, $this->_values
       );
     }
     return $this->_string;
@@ -88,8 +95,8 @@ class Translated extends UI\Text {
     if (NULL !== $this->_phrases) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);
     }
-    if (isset($application->administrationPhrases)) {
-      return $application->administrationPhrases->getText($string, $this->_phrasesGroupName);
+    if ($phrases = $application->administrationPhrases) {
+      return $phrases->getText($string, $this->_phrasesGroupName);
     }
     return $string;
   }

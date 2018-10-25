@@ -88,7 +88,9 @@ class papaya_options extends base_options {
   function getXMLButtons() {
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->papaya()->images;
-    $toolbar->addButton('Install/Upgrade', 'install.php', 'categories-installer', '', FALSE);
+    $toolbar->addButton(
+      'Install/Upgrade', Papaya\Administration\UI\Route::INSTALLER, 'categories-installer', '', FALSE
+    );
     $toolbar->addSeperator();
     $toolbar->addButton(
       'Link types', Administration\UI\Route::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE

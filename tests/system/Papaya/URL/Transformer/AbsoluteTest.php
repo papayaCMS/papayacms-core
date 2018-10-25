@@ -145,8 +145,8 @@ class AbsoluteTest extends \Papaya\TestCase {
       ),
       'Valid: to installer' => array(
         'http://www.example.com/papaya/',
-        'install.php',
-        'http://www.example.com/papaya/install.php'
+        'install',
+        'http://www.example.com/papaya/install'
       )
     );
   }

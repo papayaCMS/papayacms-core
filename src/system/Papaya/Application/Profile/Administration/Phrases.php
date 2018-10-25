@@ -32,13 +32,16 @@ class Phrases implements Application\Profile {
    * @return object
    */
   public function createObject($application) {
+    $language = $application->languages->getLanguage(
+      isset($this->administrationUser)
+        ? $this->administrationUser->options['PAPAYA_UI_LANGUAGE']
+        : $application->options['PAPAYA_UI_LANGUAGE']
+    );
+    if (!$language) {
+      $language = new \Papaya\Content\Language();
+    }
     return new PhraseTranslations(
-      new PhraseTranslations\Storage\Database(),
-      $application->languages->getLanguage(
-        isset($this->administrationUser)
-          ? $this->administrationUser->options['PAPAYA_UI_LANGUAGE']
-          : $application->options['PAPAYA_UI_LANGUAGE']
-      )
+      new PhraseTranslations\Storage\Database(), $language
     );
   }
 }

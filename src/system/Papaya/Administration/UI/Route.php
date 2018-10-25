@@ -81,6 +81,8 @@ namespace Papaya\Administration\UI {
 
     const LOGOUT = 'logout';
 
+    const INSTALLER = 'install';
+
     public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
   }
 }

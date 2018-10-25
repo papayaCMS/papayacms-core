@@ -140,12 +140,10 @@ class Application implements \ArrayAccess, Properties {
    * used to create a new object, if provided.
    *
    * @param string $identifier
-   *
-   * @throws \InvalidArgumentException
-   *
+   * @param bool $silent
    * @return object
    */
-  public function getObject($identifier) {
+  public function getObject($identifier, $silent = FALSE) {
     $index = \strtolower($identifier);
     if (isset($this->_objects[$index]) &&
         \is_object($this->_objects[$index])) {
@@ -157,6 +155,9 @@ class Application implements \ArrayAccess, Properties {
         return $this->_objects[$index] = $profile->createObject($this);
       }
       return $this->_objects[$index] = $profile($this);
+    }
+    if ($silent) {
+      return NULL;
     }
     throw new \InvalidArgumentException(
       'Unknown profile identifier: '.$identifier
@@ -216,29 +217,29 @@ class Application implements \ArrayAccess, Properties {
   }
 
   /**
-   * Check if an object or an profile for an object exists
+   * Remove and existing object and optionally its profile
    *
    * @param string $identifier
    *
-   * @throws \InvalidArgumentException
-   *
-   * @return bool
+   * @param bool $removeProfile
+   * @return void
    */
-  public function removeObject($identifier) {
-    $index = \strtolower($identifier);
-    if (
-      isset($this->_objects[$index]) &&
-      \is_object($this->_objects[$index])
-    ) {
-      unset($this->_objects[$index]);
-      return TRUE;
+  public function removeObject($identifier, $removeProfile = FALSE) {
+    if ($this->hasObject($identifier)) {
+      $index = \strtolower($identifier);
+      if (
+        isset($this->_objects[$index])
+      ) {
+        unset($this->_objects[$index]);
+      }
+      if ($removeProfile && isset($this->_profiles[$index])) {
+        unset($this->_profiles[$index]);
+      }
+    } else {
+      throw new \InvalidArgumentException(
+        'Unknown profile identifier: '.$identifier
+      );
     }
-    if (isset($this->_profiles[$index])) {
-      return TRUE;
-    }
-    throw new \InvalidArgumentException(
-      'Unknown profile identifier: '.$identifier
-    );
   }
 
   /**
@@ -265,7 +266,7 @@ class Application implements \ArrayAccess, Properties {
    * @return object
    */
   public function __get($name) {
-    return $this->getObject($name);
+    return $this->getObject($name, TRUE);
   }
 
   /**

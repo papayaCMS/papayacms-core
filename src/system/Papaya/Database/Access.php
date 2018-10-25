@@ -409,7 +409,7 @@ class Access extends \Papaya\Application\BaseObject {
     $errorHandler = $this->errorHandler();
     if (NULL !== $errorHandler) {
       $errorHandler($exception);
-    } elseif (isset($this->papaya()->messages)) {
+    } elseif ($messages = $this->papaya()->messages) {
       $mapSeverity = [
         Exception::SEVERITY_INFO => Message::SEVERITY_INFO,
         Exception::SEVERITY_WARNING => Message::SEVERITY_WARNING,

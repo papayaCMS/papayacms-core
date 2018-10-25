@@ -50,20 +50,12 @@ namespace Papaya\Administration {
     public function execute() {
       $this->prepare();
       $application = $this->papaya();
-      if (!$application->options->loadAndDefine()) {
-        return new Response\Redirect('install.php');
-      }
-      if (
-        $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
-        !Utility\Server\Protocol::isSecure()
-      ) {
-        return new Response\Redirect\Secure();
+      $address = new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''));
+      if (!$application->options->loadAndDefine() && $address->getRoute(0) !== Route::INSTALLER) {
+        return new Response\Redirect(Route::INSTALLER);
       }
       $route = $this->route();
-      return $route(
-        $this,
-        new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''))
-      );
+      return $route($this, $address);
     }
 
     public function getOutput() {
@@ -74,7 +66,7 @@ namespace Papaya\Administration {
           'PAGE_PROJECT' => $application->options->get('PAPAYA_PROJECT_TITLE', 'CMS Project'),
           'PAGE_REVISION' => \trim(\constant('PAPAYA_WEBSITE_REVISION')),
           'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
-          'PAPAYA_LOGINPAGE' => !$application->administrationUser->isValid,
+          'PAPAYA_USER_AUTHORIZED' => $application->administrationUser->isValid,
           'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
           'PAPAYA_UI_THEME' => $application->options->get('PAPAYA_UI_THEME', 'green'),
           'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
@@ -93,9 +85,9 @@ namespace Papaya\Administration {
       );
       if ($application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
-        $template->add($application->administrationLanguage->getXML(), 'title-menu');
-        $template->add($application->administrationRichText->getXML(), 'title-menu');
-        $template->add((new UI\Navigation\Main())->getXML(), 'menus');
+        $template->add($application->administrationLanguage, 'title-menu');
+        $template->add($application->administrationRichText, 'title-menu');
+        $template->add(new UI\Navigation\Main(), 'menus');
       }
       $response = new Response();
       $response->content(new Response\Content\Text($template->getOutput()));
@@ -131,14 +123,16 @@ namespace Papaya\Administration {
      * Get count of new message for the current user
      */
     private function getNewMessageCount() {
-      $messages = new \base_messages();
-      $counts = $messages->loadMessageCounts([0], TRUE);
-      return empty($counts[0]) ? 0 : (int)$counts[0];
+      if ($this->papaya()->administrationUser->isValid) {
+        $messages = new \base_messages();
+        $counts = $messages->loadMessageCounts([0], TRUE);
+        return empty($counts[0]) ? 0 : (int)$counts[0];
+      }
     }
 
     private function prepare() {
       $application = $this->papaya();
-      $application->messages->setUp($application->options);
+      $application->messages->setUp($application->options, $this->template());
       if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
         \Papaya\Request\Log::getInstance();
       }
@@ -148,25 +142,6 @@ namespace Papaya\Administration {
         $redirect->send(TRUE);
       }
       $application->pageReferences->setPreview(TRUE);
-
-      // validate options and show warnings
-      if (
-        '' !== ($path = $application->options->get('PAPAYA_PATH_DATA')) &&
-        FALSE !== \strpos($path, $_SERVER['DOCUMENT_ROOT']) &&
-        \file_exists($path) && (!\file_exists($path.'.htaccess'))
-      ) {
-        $application->messages->displayWarning(
-          'The file ".htaccess" in the directory "papaya-data/" '.
-          'is missing or not accessible. Please secure the directory.'
-        );
-      }
-      if (!$application->options->get('PAPAYA_PASSWORD_REHASH', FALSE)) {
-        $application->messages->displayWarning(
-          'The password rehashing is not active. Please activate PAPAYA_PASSWORD_REHASH.'.
-          ' Make sure the authentication tables are up to date before activating'.
-          ' this option, otherwise the logins can become locked.'
-        );
-      }
     }
 
     public function route(callable $route = NULL) {
@@ -175,14 +150,20 @@ namespace Papaya\Administration {
       } elseif (NULL === $this->_themeHandler) {
         $images = $this->papaya()->images;
         $this->_route = new Route\Group(
+          // enforce https (if configured)
+          new Route\SecureProtocol(),
+          // installer and logout need to work without login/authentication
           new Route\Choice(
             [
-              Route::LOGOUT => new Route\LogOut()
+              Route::LOGOUT => new Route\LogOut(),
+              Route::INSTALLER => new Route\Installer()
             ]
           ),
           // Authentication needed
           new Route\Authenticated(
             new Route\Group(
+              // validate options and add warnings
+              new Route\ValidateOptions(),
               new Route\Choice(
                 [
                   // General

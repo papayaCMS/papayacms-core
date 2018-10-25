@@ -21,7 +21,6 @@ class TemplateTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\Template::dispatch
-   * @backupGlobals enabled
    */
   public function testDispatch() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Displayable $message */
@@ -46,12 +45,20 @@ class TemplateTest extends \Papaya\TestCase {
         ),
         $this->equalTo('Sample message')
       );
-    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(\Papaya\Template::class);
-    $GLOBALS['PAPAYA_LAYOUT']
+    $template = $this->createMock(\Papaya\Template::class);
+    $template
       ->expects($this->once())
       ->method('values')
       ->will($this->returnValue($values));
+    $messageManager = $this->createMock(\Papaya\Message\Manager::class);
+    $messageManager
+      ->expects($this->any())
+      ->method('getTemplate')
+      ->willReturn($template);
+
+    $application = $this->mockPapaya()->application(['messages' => $messageManager]);
     $dispatcher = new Template();
+    $dispatcher->papaya($application);
     $this->assertTrue($dispatcher->dispatch($message));
   }
 

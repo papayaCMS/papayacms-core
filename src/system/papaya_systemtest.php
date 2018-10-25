@@ -192,15 +192,12 @@ class papaya_systemtest {
   * @return string
   */
   public static function infoInstallPath() {
-    $path = strtr($_SERVER['DOCUMENT_ROOT'], '\\', '/');
-    $subPath = dirname(dirname($_SERVER['PHP_SELF']));
-    if (substr($subPath, 0, 1) == '/') {
-      $subPath = substr($subPath, 1);
-    }
-    if (substr($path, -1) != '/') {
-      $path .= '/'.$subPath;
-    } else {
+    $path = \Papaya\Utility\File\Path::getDocumentRoot();
+    $subPath = self::getInstallationSubPath();
+    if ('/' !== substr($path, -1)) {
       $path .= $subPath;
+    } else {
+      $path .= substr($subPath, 1);
     }
     return $path;
   }
@@ -212,13 +209,28 @@ class papaya_systemtest {
   * @return string
   */
   function infoInstallURL() {
-    $subPath = dirname(dirname($_SERVER['PHP_SELF']));
-    if (substr($subPath, 0, 1) != '/') {
+    $protocol = \Papaya\Utility\Server\Protocol::get();
+    return $protocol.'://'.$_SERVER['HTTP_HOST'].self::getInstallationSubPath();
+  }
+
+  /**
+   * @return mixed|string
+   */
+  private static function getInstallationSubPath() {
+    $subPath =
+      str_replace(
+        '\\',
+        '/',
+        dirname(
+          dirname(
+          isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : $_SERVER['PHP_SELF']
+        )
+      )
+    );
+    if (0 !== strpos($subPath, '/')) {
       $subPath = '/'.$subPath;
     }
-    $protocol = \Papaya\Utility\Server\Protocol::get();
-    $url = $protocol.'://'.$_SERVER['HTTP_HOST'].$subPath;
-    return $url;
+    return $subPath;
   }
 
   /**

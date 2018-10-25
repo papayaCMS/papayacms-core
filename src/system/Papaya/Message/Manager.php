@@ -42,6 +42,11 @@ class Manager
   private $_hooks;
 
   /**
+   * @var \Papaya\Template
+   */
+  private $_template;
+
+  /**
    * Add a dispatcher to the list
    *
    * @param Dispatcher $dispatcher
@@ -177,13 +182,24 @@ class Manager
    * php messages and exceptions.
    *
    * @param \Papaya\Configuration $options
+   * @param \Papaya\Template|null $template
    */
-  public function setUp($options) {
+  public function setUp($options, \Papaya\Template $template = NULL) {
     Context\Runtime::setStartTime(\microtime(TRUE));
     \error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
     /** @var \Papaya\Message\Hook $hook */
     foreach ($this->hooks() as $hook) {
       $hook->activate();
     }
+    if (NULL !== $template) {
+      $this->_template = $template;
+    }
+  }
+
+  /**
+   * @return \Papaya\Template|null
+   */
+  public function getTemplate() {
+    return $this->_template;
   }
 }
