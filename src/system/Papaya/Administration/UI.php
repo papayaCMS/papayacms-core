@@ -19,7 +19,6 @@ namespace Papaya\Administration {
   use Papaya\Response;
   use Papaya\Template;
   use Papaya\UI\Text\Translated;
-  use Papaya\Utility;
 
   class UI implements Application\Access {
     use Application\Access\Aggregation;
@@ -192,7 +191,28 @@ namespace Papaya\Administration {
           new Route\Choice(
             [
               Route::LOGOUT => new Route\LogOut(),
-              Route::INSTALLER => new Route\Installer()
+              Route::INSTALLER => new Route\Installer(),
+              Route::STYLES => function(self $ui) {
+                $stylePath = $ui->getLocalPath().'/styles';
+                $themePath = $stylePath.'/themes';
+                return new Route\Choice(
+                  [
+                    Route::STYLES_CSS => new Route\Choice(
+                      [
+                        Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themePath),
+                        Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themePath),
+                        Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themePath)
+                      ]
+                    ),
+                    Route::STYLES_JAVASCRIPT => new Route\JavaScript(
+                      [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
+                    )
+                  ],
+                  NULL,
+                  0,
+                  1
+                );
+              }
             ]
           ),
           // Authentication needed

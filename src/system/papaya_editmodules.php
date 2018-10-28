@@ -307,7 +307,7 @@ class papaya_editmodules extends base_db {
             $msg = $this->_gt('Missing tables - Go to module managment?');
             $dialog = new base_msgdialog($this, 'mods', $hidden, $msg, 'warning');
             $dialog->buttonTitle = 'Goto';
-            $dialog->baseLink = 'modules.php';
+            $dialog->baseLink = \Papaya\Administration\UI\Route::ADMINISTRATION_PLUGINS;
             if ($str = $dialog->getMsgDialog()) {
               $this->administrationUI->template()->add($str);
             }

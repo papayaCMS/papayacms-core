@@ -1476,7 +1476,7 @@ class base_viewlist extends base_db {
           $module['module_type'] == 'page' ? 'items-page' : 'items-box',
           $module['module_title']
         );
-      $item->reference()->setRelative('modules.php');
+      $item->reference()->setRelative(\Papaya\Administration\UI\Route::ADMINISTRATION_PLUGINS);
       $item->reference()->setParameters(
         array(
           'pkg_id' => $module['modulegroup_id'],

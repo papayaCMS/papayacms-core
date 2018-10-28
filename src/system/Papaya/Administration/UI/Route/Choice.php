@@ -38,12 +38,19 @@ namespace Papaya\Administration\UI\Route {
     private $_offset;
 
     /**
+     * @var int
+     */
+    private $_baseLevel;
+
+    /**
      * @param array $choices
      * @param null|string $defaultChoice default choice if route path is empty
      * @param int $offset offset while fetching current route path
+     * @param int $baseLevel
      */
-    public function __construct(array $choices = [], $defaultChoice = NULL, $offset = 0) {
+    public function __construct(array $choices = [], $defaultChoice = NULL, $offset = 0, $baseLevel = 0) {
       $this->_offset = (int)$offset;
+      $this->_baseLevel = (int)$baseLevel;
       foreach ($choices as $path => $route) {
         $this[$path] = $route;
       }
@@ -59,11 +66,11 @@ namespace Papaya\Administration\UI\Route {
      * @return null|TRUE|\Papaya\Response|callable
      */
     public function __invoke(UI $ui, Address $path, $level = 0) {
-      $command = $path->getRoute($level, $this->_offset) ?: $this->_defaultChoice;
+      $command = $path->getRoute($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
         return NULL;
       }
-      return $this[$command]($ui, $path, ++$level);
+      return $this[$command]($ui, $path, $this->_baseLevel + $level + 1);
     }
 
     /**

@@ -27,6 +27,12 @@ use Papaya\Utility;
 class Document
   extends \DOMDocument
   implements Node {
+
+  /**
+   * Avoid loosing the overloaded class
+   * @var self
+   */
+  private $_document;
   /**
    * @var Xpath
    */
@@ -66,6 +72,8 @@ class Document
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
+    /** @noinspection UnusedConstructorDependenciesInspection */
+    $this->_document = $this;
     $this->registerNodeClass(\DOMElement::class, Element::class);
     $this->_canDisableEntityLoader = \function_exists('libxml_disable_entity_loader');
   }

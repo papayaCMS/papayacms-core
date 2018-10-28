@@ -83,6 +83,16 @@ namespace Papaya\Administration\UI {
 
     const INSTALLER = 'install';
 
+    const STYLES = 'styles';
+
+    const STYLES_CSS = self::STYLES.'/css';
+
+    const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
+
+    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.rte';
+
+    const STYLES_JAVASCRIPT = self::STYLES.'/js';
+
     /**
      * @param \Papaya\Administration\UI $ui
      * @param \Papaya\Administration\UI\Route\Address $path

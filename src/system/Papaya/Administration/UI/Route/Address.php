@@ -37,6 +37,11 @@ namespace Papaya\Administration\UI\Route {
     private $_parts;
 
     /**
+     * @var null|array
+     */
+    private $_separators;
+
+    /**
      * @var string
      */
     private $_basePath;
@@ -110,23 +115,46 @@ namespace Papaya\Administration\UI\Route {
       if (NULL === $this->_parts) {
         $pattern = '('.\preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
         if (\preg_match($pattern, $this->_url->path, $matches)) {
-          $this->_parts = \preg_split('([/.])', $matches['path']) ?: [];
+          $values = \preg_split('(([/.]))', $matches['path'], -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
+          $this->_parts = array_values(
+            array_filter(
+              $values,
+              function($key) { return !($key % 2); },
+              ARRAY_FILTER_USE_KEY
+            )
+          );
+          $this->_separators = array_values(
+            array_filter(
+              $values,
+              function($key) { return $key % 2; },
+              ARRAY_FILTER_USE_KEY
+            )
+          );
         } else {
           $this->_parts = [];
+          $this->_separators = [];
         }
       }
       return $this->_parts;
     }
 
     /**
-     * Return the route as an . separated string
+     * Return the route as a string
      *
      * @param int $level - level depth starting with 0
      * @param int $offset - offset starting with 0
      * @return string
      */
     public function getRoute($level, $offset = 0) {
-      return \implode('.', \array_slice($this->getParts(), $offset, $level + 1));
+      $parts = $this->getParts();
+      $result = '';
+      for ($i = $offset, $c = \count($parts); $i < $c && $i <= $level; $i++) {
+        if ($i > $offset) {
+          $result .= isset($this->_separators[$i - 1]) ? $this->_separators[$i - 1] : '.';
+        }
+        $result .= $parts[$i];
+      }
+      return $result;
     }
   }
 }
