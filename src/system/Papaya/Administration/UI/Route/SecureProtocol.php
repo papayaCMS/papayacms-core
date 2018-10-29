@@ -59,6 +59,7 @@ namespace Papaya\Administration\UI\Route {
         );
         $ui->template()->add($dialog);
       }
+      return NULL;
     }
   }
 }
