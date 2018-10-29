@@ -26,7 +26,7 @@ class Response implements Application\Access {
    *
    * @var array
    */
-  private $_statusCodes = [
+  private static $_statusCodes = [
     100 => 'Continue',
     101 => 'Switching Protocols',
     102 => 'Processing',
@@ -101,6 +101,16 @@ class Response implements Application\Access {
   private $_content;
 
   /**
+   * @var string
+   */
+  private $_contentType;
+
+  /**
+   * @var string
+   */
+  private $_contentEncoding;
+
+  /**
    * Helper object (wraps php functions)
    *
    * @var \Papaya\Response\Helper
@@ -165,7 +175,7 @@ class Response implements Application\Access {
    * @throws \UnexpectedValueException
    */
   public function setStatus($status) {
-    if (isset($this->_statusCodes[$status])) {
+    if (isset(self::$_statusCodes[$status])) {
       $this->_status = $status;
     } else {
       throw new \UnexpectedValueException('Unknown response status code: '.$status);
@@ -188,8 +198,28 @@ class Response implements Application\Access {
    * @param string $encoding
    */
   public function setContentType($contentType, $encoding = 'UTF-8') {
+    $this->_contentType = $contentType;
+    $this->_contentEncoding = $encoding;
     $contentType .= empty($encoding) ? '' : '; charset='.$encoding;
     $this->headers()->set('Content-Type', $contentType);
+  }
+
+  /**
+   * Set Content-Type header
+   *
+   * @return string
+   */
+  public function getContentType() {
+    return $this->_contentType;
+  }
+
+  /**
+   * Set Content-Type header
+   *
+   * @return string
+   */
+  public function getContentEncoding() {
+    return $this->_contentEncoding;
   }
 
   /**
@@ -291,12 +321,12 @@ class Response implements Application\Access {
     if (empty($status)) {
       $status = $this->_status;
     }
-    if (!isset($this->_statusCodes[$status])) {
+    if (!isset(self::$_statusCodes[$status])) {
       $status = 200;
     }
     $isCgiApi = \in_array(\strtolower(PHP_SAPI), ['cgi', 'cgi-fcgi', 'fpm-fcgi'], TRUE);
     $prefix = $isCgiApi ? 'Status: ' : 'HTTP/1.1 ';
-    $this->helper()->header($prefix.$status.' '.$this->_statusCodes[$status], TRUE, $status);
+    $this->helper()->header($prefix.$status.' '.self::$_statusCodes[$status], TRUE, $status);
   }
 
   /**

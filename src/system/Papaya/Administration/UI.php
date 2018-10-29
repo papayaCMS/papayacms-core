@@ -195,22 +195,32 @@ namespace Papaya\Administration {
               Route::STYLES => function(self $ui) {
                 $stylePath = $ui->getLocalPath().'/styles';
                 $themePath = $stylePath.'/themes';
-                return new Route\Choice(
-                  [
-                    Route::STYLES_CSS => new Route\Choice(
-                      [
-                        Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themePath),
-                        Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themePath),
-                        Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themePath)
-                      ]
-                    ),
-                    Route::STYLES_JAVASCRIPT => new Route\JavaScript(
-                      [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
-                    )
-                  ],
-                  NULL,
-                  0,
-                  1
+                $themeName = empty($_GET['theme'])
+                  ? $ui->papaya()->options->get('PAPAYA_UI_THEME', '')
+                  : $_GET['theme'];
+                $cacheTime = $ui->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
+                  ? $ui->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0)
+                  : 0;
+                return new Route\Cache(
+                  new Route\Choice(
+                    [
+                      Route::STYLES_CSS => new Route\Choice(
+                        [
+                          Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
+                          Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
+                          Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
+                        ]
+                      ),
+                      Route::STYLES_JAVASCRIPT => new Route\JavaScript(
+                        [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
+                      )
+                    ],
+                    NULL,
+                    0,
+                    1
+                  ),
+                  $themeName,
+                  $cacheTime
                 );
               }
             ]

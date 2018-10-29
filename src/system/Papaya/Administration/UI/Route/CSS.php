@@ -15,7 +15,6 @@
 namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration\UI;
-  use Papaya\Administration\UI\Route;
   use Papaya\Response;
 
   /**
@@ -25,23 +24,24 @@ namespace Papaya\Administration\UI\Route {
    * @package Papaya\Administration\UI\Route
    */
   class CSS extends Files {
-    /**
-     * @var string|string[]
-     */
-    private $_files;
 
     /**
      * @var string
      */
-    private $_themeVariablesPath;
+    private $_themesPath;
+    /**
+     * @var
+     */
+    private $_themeName;
 
     /**
      * @param string|string[] $files
-     * @param string $themeVariablesPath
+     * @param string $themesPath
      */
-    public function __construct($files, $themeVariablesPath = '') {
+    public function __construct($files, $themeName, $themesPath = '') {
       parent::__construct($files, 'text/css');
-      $this->_themeVariablesPath = \trim($themeVariablesPath);
+      $this->_themeName = $themeName;
+      $this->_themesPath = \trim($themesPath);
     }
 
     /**
@@ -53,11 +53,7 @@ namespace Papaya\Administration\UI\Route {
     public function __invoke(UI $ui, Address $path, $level = 0) {
       $css = $this->getFilesContent();
 
-      $variables = $this->getThemeVariables(
-        $this->_themeVariablesPath, empty($_GET['theme'])
-          ? $ui->papaya()->options->get('PAPAYA_UI_THEME', '')
-          : $_GET['theme']
-      );
+      $variables = $this->getThemeVariables();
       if ($variables) {
         $engine = new \Papaya\Template\Engine\Simple();
         $engine->loaders()->add(new \Papaya\Template\Engine\Values\ArrayLoader());
@@ -76,9 +72,9 @@ namespace Papaya\Administration\UI\Route {
      * @param string $themeName
      * @return bool|array
      */
-    private function getThemeVariables($basePath, $themeName) {
-      if ('' !== $this->_themeVariablesPath && preg_match('(^[a-z\d_]+)', $themeName)) {
-        $fileName = \Papaya\Utility\File\Path::cleanup($basePath.'/').$themeName.'.ini';
+    private function getThemeVariables() {
+      if ('' !== $this->_themesPath && preg_match('(^[a-z\d_]+)', $this->_themeName)) {
+        $fileName = \Papaya\Utility\File\Path::cleanup($this->_themesPath.'/').$this->_themeName.'.ini';
         if (file_exists($fileName) && is_readable($fileName)) {
           return parse_ini_file($fileName, TRUE,INI_SCANNER_NORMAL) ?: FALSE;
         }
