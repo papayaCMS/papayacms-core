@@ -307,13 +307,14 @@ class papaya_systemtest {
    * Get information about availabe unicode extensions
    */
   public function infoUnicodeSupport() {
+    $info = '';
     if (extension_loaded('intl')) {
-      return 'ext/intl'.(class_exists('Transliterator', FALSE) ? '' : ' (Transliterator missing)');
+      $info = 'ext/intl'.(class_exists('Transliterator', FALSE) ? '' : ' (Transliterator missing)');
     }
-    if (extension_loaded('mb_string')) {
-      return (extension_loaded('intl')  ? ', ' : '').'ext/mb_string';
+    if (extension_loaded('mbstring')) {
+      $info .= (extension_loaded('intl')  ? ', ' : '').'ext/mbstring';
     }
-    return 'None';
+    return empty($info) ? 'None' : $info;
   }
 
   /**
@@ -537,7 +538,7 @@ class papaya_systemtest {
     if (extension_loaded('intl') && class_exists('Transliterator', FALSE)) {
       return TESTRESULT_OK;
     }
-    if (extension_loaded('mb_string')) {
+    if (extension_loaded('mbstring')) {
       return TESTRESULT_OK;
     }
     return TESTRESULT_FAILED;
