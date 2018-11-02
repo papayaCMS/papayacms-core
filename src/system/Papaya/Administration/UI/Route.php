@@ -83,6 +83,18 @@ namespace Papaya\Administration\UI {
 
     const INSTALLER = 'install';
 
+    const POPUP = 'popup';
+
+    const POPUP_COLOR = self::POPUP.'/color';
+    const POPUP_GOOGLE_MAPS = self::POPUP.'/googlemaps';
+    const POPUP_IMAGE = self::POPUP.'/image';
+    const POPUP_PAGE = self::POPUP.'/page';
+
+    const POPUP_MEDIA_BROWSER_HEADER = self::POPUP.'/media-header';
+    const POPUP_MEDIA_BROWSER_FOOTER = self::POPUP.'/media-footer';
+    const POPUP_MEDIA_BROWSER_IMAGES = self::POPUP.'/media-images';
+    const POPUP_MEDIA_BROWSER_FILES = self::POPUP.'/media-files';
+
     const STYLES = 'styles';
 
     const STYLES_CSS = self::STYLES.'/css';

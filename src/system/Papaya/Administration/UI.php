@@ -184,6 +184,7 @@ namespace Papaya\Administration {
         $this->_route = $route;
       } elseif (NULL === $this->_themeHandler) {
         $images = $this->papaya()->images;
+        $localPath = $this->getLocalPath();
         $this->_route = new Route\Group(
           // enforce https (if configured)
           new Route\SecureProtocol(),
@@ -344,6 +345,19 @@ namespace Papaya\Administration {
                   // Help
                   Route::HELP => new Route\Page(
                     $images['categories-help'], 'Help', \papaya_help::class
+                  ),
+                  // Popups
+                  Route::POPUP => new Route\Choice(
+                    [
+                      Route::POPUP_COLOR => new Route\Popup($localPath.'/popup/color.xsl'),
+                      Route::POPUP_GOOGLE_MAPS => new Route\Popup($localPath.'/popup/googlemaps.xsl'),
+                      Route::POPUP_IMAGE => new Route\Popup($localPath.'/popup/image.xsl'),
+                      Route::POPUP_PAGE => new Route\Popup($localPath.'/popup/page.xsl'),
+                      Route::POPUP_MEDIA_BROWSER_HEADER => new Route\Popup($localPath.'/popup/media-header.xsl'),
+                      Route::POPUP_MEDIA_BROWSER_FOOTER => new Route\Popup($localPath.'/popup/media-footer.xsl'),
+                      Route::POPUP_MEDIA_BROWSER_FILES => new Route\Popup($localPath.'/popup/media-files.xsl'),
+                      Route::POPUP_MEDIA_BROWSER_IMAGES => new Route\Popup($localPath.'/popup/media-images.xsl')
+                    ]
                   ),
                   // XML
                   Route::XML_API => function() {

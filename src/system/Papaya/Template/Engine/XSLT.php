@@ -46,7 +46,7 @@ class XSLT extends Template\Engine {
   /**
    * Transformation xslt template string
    *
-   * @var string
+   * @var string|\Papaya\XML\Document
    */
   private $_template = '';
 
@@ -78,6 +78,17 @@ class XSLT extends Template\Engine {
    */
   public function setTemplateString($string) {
     $this->_template = $string;
+    $this->_templateFile = FALSE;
+    $this->useCache(FALSE);
+  }
+
+  /**
+   * Set the template directly as string, not as file.
+   *
+   * @param \DOMDocument $document
+   */
+  public function setTemplateDocument(\DOMDocument $document) {
+    $this->_template = $document;
     $this->_templateFile = FALSE;
     $this->useCache(FALSE);
   }
@@ -193,12 +204,14 @@ class XSLT extends Template\Engine {
   public function prepare() {
     $errors = $this->getErrorHandler();
     $errors->activate();
-    if (!$this->_templateFile) {
+    if (!$this->_templateFile || $this->_template instanceof \DOMDocument) {
       $this->useCache(FALSE);
     }
     $processor = $this->getProcessor();
     if ($processor instanceof \XsltCache) {
       $processor->importStylesheet($this->_templateFile, $this->_useCache);
+    } elseif ($this->_template instanceof \DOMDocument) {
+      $processor->importStylesheet($this->_template);
     } elseif ($this->_templateFile) {
       $xslDom = new \DOMDocument('1.0', 'UTF-8');
       $xslDom->load($this->_templateFile);
