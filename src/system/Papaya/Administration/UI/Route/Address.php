@@ -148,6 +148,9 @@ namespace Papaya\Administration\UI\Route {
     public function getRoute($level, $offset = 0) {
       $parts = $this->getParts();
       $result = '';
+      if ($level < 0) {
+        $level = \count($parts);
+      }
       for ($i = $offset, $c = \count($parts); $i < $c && $i <= $level; $i++) {
         if ($i > $offset) {
           $result .= isset($this->_separators[$i - 1]) ? $this->_separators[$i - 1] : '.';

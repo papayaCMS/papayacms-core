@@ -185,6 +185,8 @@ namespace Papaya\Administration {
       } elseif (NULL === $this->_themeHandler) {
         $images = $this->papaya()->images;
         $localPath = $this->getLocalPath();
+        $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
+          ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
         $this->_route = new Route\Group(
           // enforce https (if configured)
           new Route\SecureProtocol(),
@@ -193,15 +195,12 @@ namespace Papaya\Administration {
             [
               Route::LOGOUT => new Route\LogOut(),
               Route::INSTALLER => new Route\Installer(),
-              Route::STYLES => function(self $ui) {
-                $stylePath = $ui->getLocalPath().'/styles';
+              Route::STYLES => function(self $ui) use ($localPath, $cacheTime) {
+                $stylePath = $localPath.'/styles';
                 $themePath = $stylePath.'/themes';
                 $themeName = empty($_GET['theme'])
                   ? $ui->papaya()->options->get('PAPAYA_UI_THEME', '')
                   : $_GET['theme'];
-                $cacheTime = $ui->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
-                  ? $ui->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0)
-                  : 0;
                 return new Route\Cache(
                   new Route\Choice(
                     [
@@ -347,17 +346,21 @@ namespace Papaya\Administration {
                     $images['categories-help'], 'Help', \papaya_help::class
                   ),
                   // Popups
-                  Route::POPUP => new Route\Choice(
-                    [
-                      Route::POPUP_COLOR => new Route\Popup($localPath.'/popup/color.xsl'),
-                      Route::POPUP_GOOGLE_MAPS => new Route\Popup($localPath.'/popup/googlemaps.xsl'),
-                      Route::POPUP_IMAGE => new Route\Popup($localPath.'/popup/image.xsl'),
-                      Route::POPUP_PAGE => new Route\Popup($localPath.'/popup/page.xsl'),
-                      Route::POPUP_MEDIA_BROWSER_HEADER => new Route\Popup($localPath.'/popup/media-header.xsl'),
-                      Route::POPUP_MEDIA_BROWSER_FOOTER => new Route\Popup($localPath.'/popup/media-footer.xsl'),
-                      Route::POPUP_MEDIA_BROWSER_FILES => new Route\Popup($localPath.'/popup/media-files.xsl'),
-                      Route::POPUP_MEDIA_BROWSER_IMAGES => new Route\Popup($localPath.'/popup/media-images.xsl')
-                    ]
+                  Route::POPUP => new Route\Cache(
+                    new Route\Choice(
+                      [
+                        Route::POPUP_COLOR => new Route\Popup($localPath.'/popup/color.xsl'),
+                        Route::POPUP_GOOGLE_MAPS => new Route\Popup($localPath.'/popup/googlemaps.xsl'),
+                        Route::POPUP_IMAGE => new Route\Popup($localPath.'/popup/image.xsl'),
+                        Route::POPUP_PAGE => new Route\Popup($localPath.'/popup/page.xsl'),
+                        Route::POPUP_MEDIA_BROWSER_HEADER => new Route\Popup($localPath.'/popup/media-header.xsl'),
+                        Route::POPUP_MEDIA_BROWSER_FOOTER => new Route\Popup($localPath.'/popup/media-footer.xsl'),
+                        Route::POPUP_MEDIA_BROWSER_FILES => new Route\Popup($localPath.'/popup/media-files.xsl'),
+                        Route::POPUP_MEDIA_BROWSER_IMAGES => new Route\Popup($localPath.'/popup/media-images.xsl')
+                      ]
+                    ),
+                    $this->papaya()->administrationLanguage->code,
+                    $cacheTime
                   ),
                   // XML
                   Route::XML_API => function() {

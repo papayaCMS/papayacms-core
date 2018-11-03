@@ -90,7 +90,7 @@ namespace Papaya\Administration\UI\Route {
       if ($this->_cacheTime < 1) {
         return $route($ui, $path, $level);
       }
-      $cacheId = $this->getCacheIdentifier($path->getRoute($level + 1));
+      $cacheId = $this->getCacheIdentifier($path->getRoute(-1));
       $data = NULL;
       $lastModified = $this->cache()->created($this->_group, $this->_element, $cacheId, $this->_cacheTime);
       if ($application->request->validateBrowserCache($cacheId, $lastModified)) {
@@ -109,7 +109,9 @@ namespace Papaya\Administration\UI\Route {
         $response->headers()->set('Etag', $cacheId);
         $response->setContentType($data['type']);
         $response->content(new Response\Content\Text($data['content']));
-      } elseif (($response = $route($ui, $path, $level)) instanceof Response) {
+        return $response;
+      }
+      if (($response = $route($ui, $path, $level)) instanceof Response) {
         /** @var Response $response */
         if ($this->_cacheTime > 0 && 200 === $response->getStatus()) {
           ob_start();
@@ -145,8 +147,8 @@ namespace Papaya\Administration\UI\Route {
         $this->_cacheService = $service;
       } elseif (NULL === $this->_cacheService) {
         /* @noinspection PhpParamsInspection */
-        $this->_cacheService = \Papaya\Cache::getService(
-          $this->papaya()->options
+        $this->_cacheService = \Papaya\Cache::get(
+          \Papaya\Cache::OUTPUT, $this->papaya()->options
         );
       }
       return $this->_cacheService;
