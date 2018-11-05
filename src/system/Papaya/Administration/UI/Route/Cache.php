@@ -38,7 +38,7 @@ namespace Papaya\Administration\UI\Route {
     /**
      * @var string
      */
-    private $_element = 'theme';
+    private $_element = 'ui';
 
     /**
      * @var mixed

@@ -101,10 +101,11 @@ namespace Papaya\Administration\UI {
 
     const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
 
-    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.rte';
+    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.richtext';
 
     const STYLES_JAVASCRIPT = self::STYLES.'/js';
 
+    const SCRIPTS = 'scripts';
     /**
      * @param \Papaya\Administration\UI $ui
      * @param \Papaya\Administration\UI\Route\Address $path

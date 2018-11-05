@@ -13,10 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Administration\UI\Route {
-
-  use Papaya\Administration\UI;
-  use Papaya\Response;
-
   /**
    * Execute the inner route if the session contains an authorized user.
    * Return the login page, otherwise.

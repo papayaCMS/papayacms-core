@@ -152,6 +152,7 @@ namespace Papaya\Administration {
 
     /**
      * Get count of new message for the current user
+     * @return int|string
      */
     private function getNewMessageCount() {
       if ($this->papaya()->administrationUser->isValid) {
@@ -159,6 +160,7 @@ namespace Papaya\Administration {
         $counts = $messages->loadMessageCounts([0], TRUE);
         return empty($counts[0]) ? 0 : (int)$counts[0];
       }
+      return '';
     }
 
     private function prepare() {
@@ -201,25 +203,46 @@ namespace Papaya\Administration {
                 $themeName = empty($_GET['theme'])
                   ? $ui->papaya()->options->get('PAPAYA_UI_THEME', '')
                   : $_GET['theme'];
+                return new Route\Gzip(
+                  new Route\Cache(
+                    new Route\Choice(
+                      [
+                        Route::STYLES_CSS => new Route\Choice(
+                          [
+                            Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
+                            Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
+                            Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
+                          ]
+                        ),
+                        Route::STYLES_JAVASCRIPT => new Route\JavaScript(
+                          [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
+                        )
+                      ],
+                      NULL,
+                      0,
+                      1
+                    ),
+                    $themeName,
+                    $cacheTime
+                  )
+                );
+              },
+              Route::SCRIPTS => function() use ($localPath, $cacheTime) {
+                $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
+                $files = array_map(
+                  function($file) use ($localPath) {
+                    return $localPath.'/script/'.$file;
+                  },
+                  array_filter(
+                    $files,
+                    function($file) {
+                      return preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
+                    }
+                  )
+                );
                 return new Route\Cache(
-                  new Route\Choice(
-                    [
-                      Route::STYLES_CSS => new Route\Choice(
-                        [
-                          Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
-                          Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
-                          Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
-                        ]
-                      ),
-                      Route::STYLES_JAVASCRIPT => new Route\JavaScript(
-                        [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
-                      )
-                    ],
-                    NULL,
-                    0,
-                    1
-                  ),
-                  $themeName,
+                  new Route\JavaScript($files),
+                  $files,
                   $cacheTime
                 );
               }

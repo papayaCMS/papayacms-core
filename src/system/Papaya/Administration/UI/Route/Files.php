@@ -30,7 +30,10 @@ namespace Papaya\Administration\UI\Route {
     /**
      * @var string
      */
-    private $_commentPattern = "/* Failed: %s */\n";
+    private $_commentPatterns = [
+      'success' => "/* File: %s */\n",
+      'error' => "/* Failed: %s */\n"
+    ];
 
     /**
      * @var string
@@ -56,8 +59,11 @@ namespace Papaya\Administration\UI\Route {
       return $this->createResponse($this->getFilesContent());
     }
 
-    public function setCommentPattern($commentPattern) {
-      $this->_commentPattern = (string)$commentPattern;
+    public function setCommentPattern($success, $error) {
+      $this->_commentPatterns = [
+        'success' => (string)$success,
+        'error' => (string)$error
+      ];
     }
 
     protected function createResponse($content) {
@@ -72,9 +78,10 @@ namespace Papaya\Administration\UI\Route {
       $result = '';
       foreach ($files as $file) {
         if ($contents = @file_get_contents($file)) {
+          $result .= sprintf($this->_commentPatterns['success'], basename($file));
           $result .= $contents."\n";
         } else {
-          $result .= sprintf($this->_commentPattern, basename($file));
+          $result .= sprintf($this->_commentPatterns['error'], basename($file));
         }
       }
       return $result;
