@@ -17,6 +17,7 @@ namespace Papaya\Administration\UI\Route {
   use Papaya\Administration\UI;
   use Papaya\Response;
   use Papaya\Template\Engine\XSLT;
+  use Papaya\XML\Element;
   use Papaya\XML\Errors;
 
   /**
@@ -34,10 +35,17 @@ namespace Papaya\Administration\UI\Route {
     private $_file;
 
     /**
-     * @param string| $file
+     * @var callable
      */
-    public function __construct($file) {
+    private $_fetch;
+
+    /**
+     * @param string| $file
+     * @param callable|null $fetchData
+     */
+    public function __construct($file, callable $fetchData = NULL) {
       $this->_file = $file;
+      $this->_fetch = $fetchData;
     }
 
     /**
@@ -58,21 +66,7 @@ namespace Papaya\Administration\UI\Route {
         $xmlDocument->registerNamespace('popup', self::XMLNS);
         $popup = $xmlDocument->appendChild($xmlDocument->importNode($popup, TRUE));
 
-        /** @var \Papaya\XML\Element $node */
-
-        // translate phrases to current language
-        $phrases = $ui->papaya()->administrationPhrases;
-        foreach ($xmlDocument->xpath()->evaluate('//popup:phrase', $popup) as $node) {
-          $identifier = $node->getAttribute('identifier') ?: $node->textContent;
-          $node->setAttribute('identifier', $identifier);
-          $node->textContent = $phrases->get($node->textContent, [], 'popups');
-        }
-
-        // add option values
-        $options = $ui->papaya()->options;
-        foreach ($xmlDocument->xpath()->evaluate('//popup:option[@name != ""]', $popup) as $node) {
-          $node->textContent = $options->get($node->getAttribute('name'), '');
-        }
+        $this->fetchData($ui, $popup);
 
         $template = new XSLT();
         $template->setTemplateDocument($xslDocument);
@@ -96,6 +90,27 @@ namespace Papaya\Administration\UI\Route {
       return new Error(
         'Broken route.', 500
       );
+    }
+
+    private function fetchData(UI $ui, Element $popup) {
+      $document = $popup->ownerDocument;
+      /** @var \Papaya\XML\Element $node */
+      // translate phrases to current language
+      $phrases = $ui->papaya()->administrationPhrases;
+      foreach ($document->xpath()->evaluate('//popup:phrase', $popup) as $node) {
+        $identifier = $node->getAttribute('identifier') ?: $node->textContent;
+        $node->setAttribute('identifier', $identifier);
+        $node->textContent = $phrases->get($node->textContent, [], 'popups');
+      }
+      // add option values
+      $options = $ui->papaya()->options;
+      foreach ($document->xpath()->evaluate('//popup:option[@name != ""]', $popup) as $node) {
+        $node->textContent = $options->get($node->getAttribute('name'), '');
+      }
+
+      if (NULL !== ($fetcher = $this->_fetch)) {
+        $fetcher($popup);
+      }
     }
   }
 }

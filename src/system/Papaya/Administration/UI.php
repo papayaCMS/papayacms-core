@@ -227,25 +227,34 @@ namespace Papaya\Administration {
                   )
                 );
               },
-              Route::SCRIPTS => function() use ($localPath, $cacheTime) {
-                $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
-                $files = array_map(
-                  function($file) use ($localPath) {
-                    return $localPath.'/script/'.$file;
+              Route::SCRIPTS => new Route\Choice(
+                [
+                  Route::SCRIPTS => function() use ($localPath, $cacheTime) {
+                    $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
+                    $files = array_map(
+                      function ($file) use ($localPath) {
+                        return $localPath.'/script/'.$file;
+                      },
+                      array_filter(
+                        $files,
+                        function ($file) {
+                          return preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
+                        }
+                      )
+                    );
+                    return new Route\Cache(
+                      new Route\JavaScript($files),
+                      $files,
+                      $cacheTime
+                    );
                   },
-                  array_filter(
-                    $files,
-                    function($file) {
-                      return preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
-                    }
+                  Route::SCRIPTS_TINYMCE => new Route\Choice(
+                    [
+                      Route::SCRIPTS_TINYMCE_FILES => new Route\TinyMCE()
+                    ]
                   )
-                );
-                return new Route\Cache(
-                  new Route\JavaScript($files),
-                  $files,
-                  $cacheTime
-                );
-              }
+                ]
+              )
             ]
           ),
           // Authentication needed

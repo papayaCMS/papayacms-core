@@ -105,7 +105,10 @@ namespace Papaya\Administration\UI {
 
     const STYLES_JAVASCRIPT = self::STYLES.'/js';
 
-    const SCRIPTS = 'scripts';
+    const SCRIPTS = 'script';
+
+    const SCRIPTS_TINYMCE = self::SCRIPTS.'/tiny_mce3';
+    const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
     /**
      * @param \Papaya\Administration\UI $ui
      * @param \Papaya\Administration\UI\Route\Address $path

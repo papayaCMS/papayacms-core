@@ -41,12 +41,26 @@ namespace Papaya\Administration\UI\Route {
     private $_contentType;
 
     /**
+     * @var string
+     */
+    private $_prefix;
+
+    /**
+     * @var string
+     */
+    private $_suffix;
+
+    /**
      * @param string|string[] $files
      * @param string $contentType
+     * @param string $prefix
+     * @param string $suffix
      */
-    public function __construct($files, $contentType) {
+    public function __construct($files, $contentType, $prefix = '', $suffix = '') {
       $this->_files = $files;
       $this->_contentType = $contentType;
+      $this->_prefix = $prefix;
+      $this->_suffix = $suffix;
     }
 
     /**
@@ -75,7 +89,7 @@ namespace Papaya\Administration\UI\Route {
 
     protected function getFilesContent() {
       $files = is_array($this->_files) ? $this->_files : [$this->_files];
-      $result = '';
+      $result = $this->_prefix;
       foreach ($files as $file) {
         if ($contents = @file_get_contents($file)) {
           $result .= sprintf($this->_commentPatterns['success'], basename($file));
@@ -84,6 +98,7 @@ namespace Papaya\Administration\UI\Route {
           $result .= sprintf($this->_commentPatterns['error'], basename($file));
         }
       }
+      $result .= $this->_suffix;
       return $result;
     }
   }

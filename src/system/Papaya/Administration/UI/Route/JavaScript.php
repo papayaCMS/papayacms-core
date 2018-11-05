@@ -23,9 +23,11 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param string|string[] $files
+     * @param string $prefix
+     * @param string $suffix
      */
-    public function __construct($files) {
-      parent::__construct($files, 'application/javascript');
+    public function __construct($files, $prefix = '', $suffix = '') {
+      parent::__construct($files, 'application/javascript', $prefix, $suffix);
     }
   }
 }
