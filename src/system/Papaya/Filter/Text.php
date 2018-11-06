@@ -44,9 +44,9 @@ class Text implements Filter {
   }
 
   /**
-   * Return a pattern matching invali characters depending on the stored options.
+   * Return a pattern matching invalid characters depending on the stored options.
    *
-   * @return string^
+   * @return string
    */
   private function getPattern() {
     $result = '([^\\pL\\pP';
