@@ -53,21 +53,21 @@ class Request
   const SOURCE_QUERY = 2;
 
   /**
-   * Paramter source type: request body ($_POST)
+   * Parameter source type: request body ($_POST)
    *
    * @var int
    */
   const SOURCE_BODY = 4;
 
   /**
-   * Paramter source group: body, query, path (in this priority)
+   * Parameter source group: body, query, path (in this priority)
    *
    * @var int
    */
   const SOURCE_ALL = 7;
 
   /**
-   * Paramter source type: cookie (not included in SOURCE_ALL)
+   * Parameter source type: cookie (not included in SOURCE_ALL)
    *
    * @var int
    */
@@ -174,6 +174,7 @@ class Request
       case 'method' :
       case 'allowCompression' :
       case 'pageId' :
+      case 'categoryId' :
       case 'languageId' :
       case 'languageIdentifier' :
       case 'mode' :
@@ -211,6 +212,13 @@ class Request
         return $this->getParameter(
           'page_id',
           $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
+          NULL,
+          self::SOURCE_PATH
+        );
+      case 'categoryId' :
+        return $this->getParameter(
+          'category_id',
+          0,
           NULL,
           self::SOURCE_PATH
         );
