@@ -33,7 +33,7 @@ namespace Papaya\Plugin {
 
     const ADMINISTRATION = 'admin';
 
-    const ADMINISTRATION_PARSER = 'parser';
+    const PARSER = 'parser';
 
     const DATE = 'date';
 
@@ -49,7 +49,7 @@ namespace Papaya\Plugin {
       self::OUTPUT, self::IMPORT, self::FILTER,
       self::DATE, self::TIME, self::CRON_JOB,
       self::LOGGER,
-      self::ADMINISTRATION, self::ADMINISTRATION_PARSER
+      self::ADMINISTRATION, self::PARSER
     ];
   }
 }

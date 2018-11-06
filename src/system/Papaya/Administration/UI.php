@@ -394,6 +394,71 @@ namespace Papaya\Administration {
                     $this->papaya()->administrationLanguage->code,
                     $cacheTime
                   ),
+                  // TinyMCE popups
+                  Route::SCRIPTS => function() use ($localPath) {
+                    $pluginPath = $localPath.'/script/tiny_mce3/plugins/papaya';
+                    return new Route\Choice(
+                      [
+                        Route::SCRIPTS_TINYMCE_POPUP_LINK => new Route\Popup($pluginPath.'/link.xsl'),
+                        Route::SCRIPTS_TINYMCE_POPUP_IMAGE => new Route\Popup(
+                          $pluginPath.'/dynamic-image.xsl',
+                          function(\Papaya\XML\Element $popupNode) {
+                            /** @var \Papaya\XML\Document $document */
+                            $document = $popupNode->ownerDocument;
+                            $document->registerNamespace('popup', $popupNode->namespaceURI);
+                            /** @var \Papaya\XML\Element $parentNode */
+                            $parentNode = $document->xpath()->evaluate('.//popup:image-generators[1]', $popupNode)[0];
+                            if ($parentNode) {
+                              $imgGenerator = new \papaya_imagegenerator();
+                              $imgGenerator->loadImageConfs();
+                              if (
+                                is_array($imgGenerator->imageConfs) &&
+                                count($imgGenerator->imageConfs) > 0
+                              ) {
+                                foreach ($imgGenerator->imageConfs as $image) {
+                                  $parentNode->appendElement(
+                                    'popup:image',
+                                    [
+                                      'name'=> $image['image_ident'],
+                                      'title' => $image['image_title']
+                                    ]
+                                  );
+                                }
+                              }
+                            }
+                          }
+                        ),
+                        Route::SCRIPTS_TINYMCE_POPUP_PLUGIN => new Route\Popup(
+                          $pluginPath.'/plugin.xsl',
+                          function(\Papaya\XML\Element $popupNode) {
+                            /** @var \Papaya\XML\Document $document */
+                            $document = $popupNode->ownerDocument;
+                            $document->registerNamespace('popup', $popupNode->namespaceURI);
+                            foreach ($document->xpath()->evaluate('.//popup:plugins', $popupNode) as $parentNode) {
+                              /** @var \Papaya\XML\Element $parentNode */
+                              if ($parentNode) {
+                                $plugins = $this->papaya()->plugins->plugins()->withType(
+                                  $parentNode->getAttribute('type') ?: \Papaya\Plugin\Types::PARSER
+                                );
+                                foreach ($plugins as $plugin) {
+                                  $parentNode->appendElement(
+                                    'popup:plugin',
+                                    [
+                                      'guid' => $plugin['guid'],
+                                      'title' => $plugin['title']
+                                    ]
+                                  );
+                                }
+                              }
+                            }
+                          }
+                        )
+                      ],
+                      NULL,
+                      0,
+                      4
+                    );
+                  },
                   // XML
                   Route::XML_API => function() {
                     $rpcCall = new \papaya_rpc();

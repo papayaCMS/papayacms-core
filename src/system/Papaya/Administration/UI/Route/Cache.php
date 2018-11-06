@@ -36,9 +36,11 @@ namespace Papaya\Administration\UI\Route {
      */
     private $_group = 'administration';
     /**
+     * If empty the current papaya revision or 'dev' will be used
+     *
      * @var string
      */
-    private $_element = 'ui';
+    private $_element = '';
 
     /**
      * @var mixed
@@ -90,9 +92,12 @@ namespace Papaya\Administration\UI\Route {
       if ($this->_cacheTime < 1) {
         return $route($ui, $path, $level);
       }
+      $cacheElement = '' !== trim($this->_element)
+        ? $this->_element
+        : $application->options->get('PAPAYA_VERSION_STRING', 'dev', new \Papaya\Filter\NotEmpty());
       $cacheId = $this->getCacheIdentifier($path->getRoute(-1));
       $data = NULL;
-      $lastModified = $this->cache()->created($this->_group, $this->_element, $cacheId, $this->_cacheTime);
+      $lastModified = $this->cache()->created($this->_group, $cacheElement, $cacheId, $this->_cacheTime);
       if ($application->request->validateBrowserCache($cacheId, $lastModified)) {
         $response = new Response();
         $response->setStatus(304);
@@ -100,7 +105,7 @@ namespace Papaya\Administration\UI\Route {
         $response->headers()->set('Etag', $cacheId);
         return $response;
       }
-      if ($data = $this->cache()->read($this->_group, $this->_element, $cacheId, $this->_cacheTime)) {
+      if ($data = $this->cache()->read($this->_group, $cacheElement, $cacheId, $this->_cacheTime)) {
         $data = unserialize($data);
       }
       if ($data && isset($data['type'], $data['content'])) {
@@ -119,7 +124,7 @@ namespace Papaya\Administration\UI\Route {
           $content = ob_get_clean();
           $this->cache()->write(
             $this->_group,
-            $this->_element,
+            $cacheElement,
             $cacheId,
             serialize(
               ['type' => $response->getContentType(), 'content' => $content]

@@ -109,6 +109,10 @@ namespace Papaya\Administration\UI {
 
     const SCRIPTS_TINYMCE = self::SCRIPTS.'/tiny_mce3';
     const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
+    const SCRIPTS_TINYMCE_POPUP = self::SCRIPTS_TINYMCE.'/plugins/papaya';
+    const SCRIPTS_TINYMCE_POPUP_LINK = self::SCRIPTS_TINYMCE_POPUP.'/link';
+    const SCRIPTS_TINYMCE_POPUP_IMAGE = self::SCRIPTS_TINYMCE_POPUP.'/dynamic-image';
+    const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
     /**
      * @param \Papaya\Administration\UI $ui
      * @param \Papaya\Administration\UI\Route\Address $path
