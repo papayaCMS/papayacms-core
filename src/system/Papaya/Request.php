@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Request Handling
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Request.php 39745 2014-04-23 14:48:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Request Handling
@@ -29,6 +25,7 @@
 * @property-read string $method
 * @property-read boolean $allowCompression
 * @property-read integer $pageId
+* @property-read integer $categoryId
 * @property-read integer $languageId
 * @property-read string $languageIdentifier
 * @property-read integer $modeId
@@ -163,7 +160,14 @@ class PapayaRequest
         'page_id',
         $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
         NULL,
-        PapayaRequest::SOURCE_PATH
+        self::SOURCE_PATH
+      );
+    case 'categoryId' :
+      return $this->getParameter(
+        'category_id',
+        0,
+        NULL,
+        self::SOURCE_PATH
       );
     case 'languageId' :
       return (int)$this->language->id;

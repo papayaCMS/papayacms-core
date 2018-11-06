@@ -1615,8 +1615,13 @@ class papaya_page extends base_object {
         'PAGE_REQUEST_URL', (string)$this->papaya()->request->url
       );
       $this->layout->parameters()->set(
-        'PAGE_TITLE',
-        $this->topic->topic['TRANSLATION']['topic_title']
+        'PAGE_TITLE', $this->topic->topic['TRANSLATION']['topic_title']
+      );
+      $this->layout->parameters()->set(
+        'PAGE_ID', $this->topic->topicId
+      );
+      $this->layout->parameters()->set(
+        'PAGE_CATEGORY_ID', $this->papaya()->request->categoryId > 0 ? $this->papaya()->request->categoryId : ''
       );
       if (defined('PAPAYA_WEBSITE_REVISION') && trim(PAPAYA_WEBSITE_REVISION) != '') {
         $this->layout->parameters()->set('PAPAYA_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
