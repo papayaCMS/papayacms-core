@@ -193,7 +193,7 @@ class papaya_imagegenerator extends base_imagegenerator {
         $this->imageConf['image_data']
       );
       if (isset($moduleObj) && is_object($moduleObj)) {
-        $moduleObj->images = $this->images;
+        $moduleObj->images = $this->images ?: $this->papaya()->images;
         $moduleObj->paramName = $this->paramName;
         $hidden = array(
           'image_id' => $this->imageConf['image_id'],
@@ -230,7 +230,7 @@ class papaya_imagegenerator extends base_imagegenerator {
         $this->imageConf['image_data']
       );
       if (isset($moduleObj) && is_object($moduleObj)) {
-        $moduleObj->images = $this->images;
+        $moduleObj->images = $this->images ?: $this->papaya()->images;
         $moduleObj->paramName = $this->paramName;
         $this->layout->add($moduleObj->getAttributeDialog());
         foreach ($moduleObj->attributeFields as $fieldName => $field) {
@@ -297,7 +297,7 @@ class papaya_imagegenerator extends base_imagegenerator {
   */
   function getButtonsXML() {
     $menubar = new base_btnbuilder;
-    $menubar->images = $this->images;
+    $menubar->images = $this->images ?: $this->papaya()->images;
     $menubar->addButton(
       'Add image',
       $this->getLink(
@@ -334,7 +334,7 @@ class papaya_imagegenerator extends base_imagegenerator {
         'actions-edit-clear'
       );
       $toolbar = new base_btnbuilder;
-      $toolbar->images = $this->images;
+      $toolbar->images = $this->images ?: $this->papaya()->images;
       $toolbar->addButton(
         'Properties',
         $this->getLink(
@@ -392,7 +392,7 @@ class papaya_imagegenerator extends base_imagegenerator {
   * @access public
   */
   function loadImageConfs() {
-    unset($this->imageConfs);
+    $this->imageConfs = NULL;
     $sql = "SELECT image_id, image_ident, image_title
               FROM %s
              ORDER BY image_title";
@@ -682,6 +682,7 @@ class papaya_imagegenerator extends base_imagegenerator {
       papaya_strings::escapeHTMLChars($this->_gt('Images'))
     );
     $result .= '<items>';
+    $this->images = $this->images ?: $this->papaya()->images;
     if (isset($this->imageConfs) && is_array($this->imageConfs)) {
       foreach ($this->imageConfs as $imageConf) {
         if (isset($this->params['image_id']) &&
