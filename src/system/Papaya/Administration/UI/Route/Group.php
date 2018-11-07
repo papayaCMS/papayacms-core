@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Utility;
 
@@ -37,14 +36,14 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
-     * @return null|TRUE|\Papaya\Response|callable
+     * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
       foreach ($this->_routes as $route) {
-        if ($response = $route($ui, $path, $level)) {
+        if ($response = $route($router, $address, $level)) {
           return $response;
         }
       }

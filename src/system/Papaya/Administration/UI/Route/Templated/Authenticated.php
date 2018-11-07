@@ -12,9 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Administration\UI\Route\Templated {
 
   use Papaya\Administration\UI\Route;
+  use Papaya\Administration\UI\Route\Address;
+  use Papaya\Administration\UI\Route\Templated;
 
   /**
    * Execute the inner route if the session contains an authorized user.
@@ -22,26 +24,28 @@ namespace Papaya\Administration\UI\Route {
    *
    * @package Papaya\Administration\UI\Route
    */
-  class Authenticated implements Route {
+  class Authenticated extends Templated {
     private $_route;
 
     /**
+     * @param \Papaya\Template $template
      * @param Route $route
      */
-    public function __construct(Route $route) {
+    public function __construct(\Papaya\Template $template, Route $route) {
+      parent::__construct($template);
       $this->_route = $route;
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
-     * @return null|TRUE|\Papaya\Response|callable
+     * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $application = $ui->papaya();
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
       $user = $application->administrationUser;
-      $user->layout = $ui->template();
+      $user->layout = $this->getTemplate();
       $user->initialize();
       $user->execLogin();
       $application->administrationPhrases->setLanguage(
@@ -51,9 +55,9 @@ namespace Papaya\Administration\UI\Route {
       );
       if ($application->administrationUser->isValid) {
         $route = $this->_route;
-        return $route($ui, $path, $level);
+        return $route($router, $address, $level);
       }
-      return $ui->getOutput();
+      return $this->getOutput();
     }
   }
 }

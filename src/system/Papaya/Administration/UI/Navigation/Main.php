@@ -36,12 +36,12 @@ namespace Papaya\Administration\UI\Navigation {
      */
     private static $_groups = [
       'General' => [
-        Administration\UI\Route::OVERVIEW => [
+        Administration\UI::OVERVIEW => [
           'places-home',
           'Overview',
           'Last messages, todos and page changes'
         ],
-        Administration\UI\Route::MESSAGES => [
+        Administration\UI::MESSAGES => [
           'status-mail-open',
           'Messages',
           'Messages, ToDo',
@@ -49,20 +49,20 @@ namespace Papaya\Administration\UI\Navigation {
         ]
       ],
       'Pages' => [
-        Administration\UI\Route::PAGES_SITEMAP => [
+        Administration\UI::PAGES_SITEMAP => [
           'categories-sitemap',
           'Sitemap',
           'All pages in a tree view',
           Administration\Permissions::PAGE_MANAGE,
           'T'
         ],
-        Administration\UI\Route::PAGES_SEARCH => [
+        Administration\UI::PAGES_SEARCH => [
           'actions-search',
           'Search',
           'Search pages',
           Administration\Permissions::PAGE_MANAGE
         ],
-        Administration\UI\Route::PAGES_EDIT => [
+        Administration\UI::PAGES_EDIT => [
           'items-page',
           'Edit',
           'Edit pages',
@@ -71,32 +71,32 @@ namespace Papaya\Administration\UI\Navigation {
         ]
       ],
       'Additional Content' => [
-        Administration\UI\Route::CONTENT_BOXES => [
+        Administration\UI::CONTENT_BOXES => [
           'items-box',
           'Boxes',
           'Edit boxes',
           Administration\Permissions::BOX_MANAGE
         ],
-        Administration\UI\Route::CONTENT_FILES => [
+        Administration\UI::CONTENT_FILES => [
           'items-folder',
           'Files',
           'Media database',
           Administration\Permissions::FILE_MANAGE,
           'M'
         ],
-        Administration\UI\Route::CONTENT_IMAGES => [
+        Administration\UI::CONTENT_IMAGES => [
           'items-graphic',
           'Images',
           'Configure dynamic/generated images',
           Administration\Permissions::IMAGE_GENERATOR
         ],
-        Administration\UI\Route::CONTENT_ALIASES => [
+        Administration\UI::CONTENT_ALIASES => [
           'items-alias',
           'Aliases',
           'Manage page aliases',
           Administration\Permissions::BOX_MANAGE
         ],
-        Administration\UI\Route::CONTENT_TAGS => [
+        Administration\UI::CONTENT_TAGS => [
           'items-tag',
           'Tags',
           'Manage tags',
@@ -104,50 +104,50 @@ namespace Papaya\Administration\UI\Navigation {
         ]
       ],
       'Applications' => [
-        Administration\UI\Route::EXTENSIONS => [
+        Administration\UI::EXTENSIONS => [
           'categories-applications',
           'Applications',
           'Applications list'
         ]
       ],
       'Administration' => [
-        Administration\UI\Route::ADMINISTRATION_USERS => [
+        Administration\UI::ADMINISTRATION_USERS => [
           'items-user-group',
           'Users',
           'Manage users',
           Administration\Permissions::USER_MANAGE
         ],
-        Administration\UI\Route::ADMINISTRATION_VIEWS => [
+        Administration\UI::ADMINISTRATION_VIEWS => [
           'items-view',
           'Views',
           'Manage views',
           Administration\Permissions::VIEW_MANAGE
         ],
-        Administration\UI\Route::ADMINISTRATION_PLUGINS => [
+        Administration\UI::ADMINISTRATION_PLUGINS => [
           'items-plugin',
           'Plugins',
           'Manage Plugins',
           Administration\Permissions::MODULE_MANAGE
         ],
-        Administration\UI\Route::ADMINISTRATION_THEMES => [
+        Administration\UI::ADMINISTRATION_THEMES => [
           'items-theme',
           'Themes',
           'Manage theme skins',
           Administration\Permissions::SYSTEM_THEME_SKIN_MANAGE
         ],
-        Administration\UI\Route::ADMINISTRATION_SETTINGS => [
+        Administration\UI::ADMINISTRATION_SETTINGS => [
           'items-option',
           'Settings',
           'System configuration',
           Administration\Permissions::SYSTEM_SETTINGS
         ],
-        Administration\UI\Route::ADMINISTRATION_PROTOCOL => [
+        Administration\UI::ADMINISTRATION_PROTOCOL => [
           'categories-protocol',
           'Protocol',
           'System protocol',
           Administration\Permissions::SYSTEM_PROTOCOL
         ],
-        Administration\UI\Route::ADMINISTRATION_PHRASES => [
+        Administration\UI::ADMINISTRATION_PHRASES => [
           'items-translation',
           'Translation',
           'Manage languages and interface translations',
@@ -188,10 +188,10 @@ namespace Papaya\Administration\UI\Navigation {
           foreach ($this->favorites() as $favorite) {
             $button = new UI\Toolbar\Button();
             $button->reference->setRelative(
-              Administration\UI\Route::EXTENSIONS.'.'.$favorite['guid']
+              Administration\UI::EXTENSIONS.'.'.$favorite['guid']
             );
             if ('' !== \trim($favorite['image'])) {
-              $button->image = Administration\UI\Route::EXTENSIONS_IMAGE.'?module='.\urlencode($favorite['guid']);
+              $button->image = Administration\UI::EXTENSIONS_IMAGE.'?module='.\urlencode($favorite['guid']);
             }
             $button->caption = new UI\Text\Translated($favorite['title']);
             $button->target = '_self';

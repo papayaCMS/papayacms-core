@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Application\Access;
   use Papaya\Response;
@@ -23,7 +22,6 @@ namespace Papaya\Administration\UI\Route {
    * Cache Response
    */
   class Cache implements Route, Access {
-
     use Access\Aggregation;
 
     /**
@@ -35,6 +33,7 @@ namespace Papaya\Administration\UI\Route {
      * @var string
      */
     private $_group = 'administration';
+
     /**
      * If empty the current papaya revision or 'dev' will be used
      *
@@ -46,10 +45,12 @@ namespace Papaya\Administration\UI\Route {
      * @var mixed
      */
     private $_identifier;
+
     /**
      * @var string
      */
     private $_cacheMode;
+
     /**
      * @var int
      */
@@ -74,28 +75,28 @@ namespace Papaya\Administration\UI\Route {
     }
 
     public function getCacheIdentifier($routePath, $compress = FALSE) {
-      $result = str_replace('/', '.', $routePath);
+      $result = \str_replace('/', '.', $routePath);
       $result .= '.'.\md5(\serialize($this->_identifier));
       $result .= ($compress ? '.gz' : '');
       return $result;
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
-      $application = $this->papaya($ui->papaya());
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $this->papaya($router->papaya());
       $route = $this->_route;
       if ($this->_cacheTime < 1) {
-        return $route($ui, $path, $level);
+        return $route($router, $address, $level);
       }
-      $cacheElement = '' !== trim($this->_element)
+      $cacheElement = '' !== \trim($this->_element)
         ? $this->_element
         : $application->options->get('PAPAYA_VERSION_STRING', 'dev', new \Papaya\Filter\NotEmpty());
-      $cacheId = $this->getCacheIdentifier($path->getRoute(-1));
+      $cacheId = $this->getCacheIdentifier($address->getRoute(-1));
       $data = NULL;
       $lastModified = $this->cache()->created($this->_group, $cacheElement, $cacheId, $this->_cacheTime);
       if ($application->request->validateBrowserCache($cacheId, $lastModified)) {
@@ -106,7 +107,7 @@ namespace Papaya\Administration\UI\Route {
         return $response;
       }
       if ($data = $this->cache()->read($this->_group, $cacheElement, $cacheId, $this->_cacheTime)) {
-        $data = unserialize($data);
+        $data = \unserialize($data);
       }
       if ($data && isset($data['type'], $data['content'])) {
         $response = new Response();
@@ -116,17 +117,17 @@ namespace Papaya\Administration\UI\Route {
         $response->content(new Response\Content\Text($data['content']));
         return $response;
       }
-      if (($response = $route($ui, $path, $level)) instanceof Response) {
+      if (($response = $route($router, $address, $level)) instanceof Response) {
         /** @var Response $response */
         if ($this->_cacheTime > 0 && 200 === $response->getStatus()) {
-          ob_start();
+          \ob_start();
           $response->content()->output();
-          $content = ob_get_clean();
+          $content = \ob_get_clean();
           $this->cache()->write(
             $this->_group,
             $cacheElement,
             $cacheId,
-            serialize(
+            \serialize(
               ['type' => $response->getContentType(), 'content' => $content]
             ),
             $this->_cacheTime
@@ -138,7 +139,6 @@ namespace Papaya\Administration\UI\Route {
       }
       return NULL;
     }
-
 
     /**
      * Getter/setter for cache service object

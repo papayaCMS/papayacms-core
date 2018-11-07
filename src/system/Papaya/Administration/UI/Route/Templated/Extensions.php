@@ -12,9 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI\Route;
+  use Papaya\Administration\UI\Route\Address;
+  use Papaya\Administration\UI\Route\Templated;
 
   /**
    * Route for the papaya administration plugins/extensions.
@@ -23,40 +24,48 @@ namespace Papaya\Administration\UI\Route {
    *   $routeName.$guid - executes module
    *   $routeName.'image' - returns extension image (module guid as query string parameter)
    */
-  class Extensions implements Route {
+  class Extensions extends Templated {
+    /**
+     * @var string
+     */
     private $_image;
 
+    /**
+     * @var array|string
+     */
     private $_caption;
 
     /**
+     * @param \Papaya\Template $template
      * @param string $image
      * @param array|string $caption
      */
-    public function __construct($image, $caption) {
+    public function __construct(\Papaya\Template $template, $image, $caption) {
+      parent::__construct($template);
       $this->_image = $image;
       $this->_caption = $caption;
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $ui->setTitle($this->_image, $this->_caption);
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $this->setTitle($this->_image, $this->_caption);
       $pluginGuid = NULL;
-      if (($c = \count($path)) > 0) {
-        $pluginGuid = \Papaya\Filter\Factory::isGuid($path[$c - 1]) ? $path[$c - 1] : NULL;
+      if (($c = \count($address)) > 0) {
+        $pluginGuid = \Papaya\Filter\Factory::isGuid($address[$c - 1]) ? $address[$c - 1] : NULL;
       }
       $module = new \papaya_editmodules($pluginGuid);
-      if ('image' === $path[1]) {
+      if ('image' === $address[1]) {
         $module->getGlyph();
       } else {
-        $module->administrationUI = $ui;
+        $module->administrationUI = $router;
         $module->initialize();
         $module->execute();
-        return $ui->getOutput();
+        return $this->getOutput();
       }
       return NULL;
     }

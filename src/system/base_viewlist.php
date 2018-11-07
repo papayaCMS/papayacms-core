@@ -1476,7 +1476,7 @@ class base_viewlist extends base_db {
           $module['module_type'] == 'page' ? 'items-page' : 'items-box',
           $module['module_title']
         );
-      $item->reference()->setRelative(\Papaya\Administration\UI\Route::ADMINISTRATION_PLUGINS);
+      $item->reference()->setRelative(\Papaya\Administration\UI::ADMINISTRATION_PLUGINS);
       $item->reference()->setParameters(
         array(
           'pkg_id' => $module['modulegroup_id'],
@@ -2056,7 +2056,7 @@ class base_viewlist extends base_db {
                 $this->getLink(
                   array('page_id' => (int)$viewLimit['topic_id']),
                   'tt',
-                  Papaya\Administration\UI\Route::PAGES_EDIT
+                  Papaya\Administration\UI::PAGES_EDIT
                 )
               ),
               papaya_strings::escapeHTMLChars($this->_gt('View Page')),

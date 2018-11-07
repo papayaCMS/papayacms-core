@@ -14,17 +14,15 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
-  use Papaya\Response;
   use Papaya\Filter;
+  use Papaya\Response;
 
   /**
    * Output one or more files
    */
   class TinyMCE extends \Papaya\BaseObject\Interactive implements Route {
-
-    public function __invoke(UI $ui, Route\Address $address, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0) {
       $isJS = $this->parameters()->get('js', TRUE);
       $core = $this->parameters()->get('core', TRUE);
       $filter = new Filter\Text\Explode(',', new Filter\NotEmpty());
@@ -35,12 +33,12 @@ namespace Papaya\Administration\UI\Route {
 
       if (!$isJS) {
         return new JavaScript(
-          $ui->getLocalPath().'/script/tiny_mce3/tiny_mce_gzip.js',
+          $router->getLocalPath().'/script/tiny_mce3/tiny_mce_gzip.js',
           '',
           "\ntinyMCE_GZ.init({});\n"
         );
       }
-      $path = $ui->getLocalPath().'/script/tiny_mce3/';
+      $path = $router->getLocalPath().'/script/tiny_mce3/';
       $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
         ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
 
@@ -50,17 +48,17 @@ namespace Papaya\Administration\UI\Route {
       if ($core) {
         $content .= $this->getFile($path.'/tiny_mce'.$suffix.'.js');
         // Patch loading functions
-        $content .= "tinyMCE_GZ.start(); ";
+        $content .= 'tinyMCE_GZ.start(); ';
       }
 
       //Add custom files
-      $custom = array(
-        dirname($path).'/xmlrpc.js',
+      $custom = [
+        \dirname($path).'/xmlrpc.js',
         $path.'/plugins/papaya/js/jsonclass.js',
         $path.'/plugins/papaya/js/papayaparser.js',
         $path.'/plugins/papaya/js/papayatag.js',
         $path.'/plugins/papaya/js/papayautils.js'
-      );
+      ];
       foreach ($custom as $file) {
         $content .= $this->getFile($file);
       }
@@ -91,9 +89,9 @@ namespace Papaya\Administration\UI\Route {
     }
 
     private function getFile($path) {
-      $path = realpath($path);
-      if (!empty($path) && is_file($path) && is_readable($path)) {
-        return "\n".file_get_contents($path)."\n\n".$this->getLoadingMarker($path);
+      $path = \realpath($path);
+      if (!empty($path) && \is_file($path) && \is_readable($path)) {
+        return "\n".\file_get_contents($path)."\n\n".$this->getLoadingMarker($path);
       }
       return '';
     }
@@ -117,12 +115,11 @@ namespace Papaya\Administration\UI\Route {
 
     private function getLoadingMarker($fileName) {
       $protocol = \Papaya\Utility\Server\Protocol::get();
-      $systemURL = $protocol.'://'.strtolower($_SERVER['HTTP_HOST']);
-      $file = substr($fileName, strlen($_SERVER['DOCUMENT_ROOT']));
-      $file = preg_replace('(^[/\\\'"\r\n]+)', '', $file);
-      $file = '/'.str_replace('\\', '/', $file);
+      $systemURL = $protocol.'://'.\strtolower($_SERVER['HTTP_HOST']);
+      $file = \substr($fileName, \strlen($_SERVER['DOCUMENT_ROOT']));
+      $file = \preg_replace('(^[/\\\'"\r\n]+)', '', $file);
+      $file = '/'.\str_replace('\\', '/', $file);
       return "tinymce.ScriptLoader.markDone('".$systemURL.$file."');\n\n";
     }
-
   }
 }

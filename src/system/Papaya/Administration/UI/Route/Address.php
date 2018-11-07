@@ -116,17 +116,21 @@ namespace Papaya\Administration\UI\Route {
         $pattern = '('.\preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
         if (\preg_match($pattern, $this->_url->path, $matches)) {
           $values = \preg_split('(([/.]))', $matches['path'], -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
-          $this->_parts = array_values(
-            array_filter(
+          $this->_parts = \array_values(
+            \array_filter(
               $values,
-              function($key) { return !($key % 2); },
+              function($key) {
+                return !($key % 2);
+              },
               ARRAY_FILTER_USE_KEY
             )
           );
-          $this->_separators = array_values(
-            array_filter(
+          $this->_separators = \array_values(
+            \array_filter(
               $values,
-              function($key) { return $key % 2; },
+              function($key) {
+                return $key % 2;
+              },
               ARRAY_FILTER_USE_KEY
             )
           );

@@ -12,38 +12,39 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI;
-  use Papaya\Administration\UI\Route;
+  use Papaya\Administration\UI\Route\Address;
+  use Papaya\Administration\UI\Route\Templated;
 
-  class Installer implements Route {
+  class Installer extends Templated {
+
     /**
-     * @param UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
-      $application = $ui->papaya();
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
       $installer = new \papaya_installer();
       $installer->getCurrentStatus();
       if (!$application->administrationUser->isValid) {
         $application->removeObject('administrationPhrases', TRUE);
       }
-      $ui->setTitle(
+      $this->setTitle(
         $application->images['categories-installer'], ['Administration', 'Installation / Update']
       );
       if ($redirect = $application->session->activate(TRUE)) {
         return $redirect->send();
       }
-      $installer->layout = $ui->template();
+      $installer->layout = $this->getTemplate();
       $installer->initialize();
       if ($response = $installer->execute()) {
         return $response;
       }
-      $ui->template()->parameters()->set('PAGE_MODE', 'installer');
-      return $ui->getOutput();
+      $this->getTemplate()->parameters()->set('PAGE_MODE', 'installer');
+      return $this->getOutput();
     }
   }
 }

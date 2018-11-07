@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Response;
 
@@ -42,15 +41,15 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
-      if ($ui->papaya()->administrationUser->hasPerm($this->_permission)) {
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      if ($router->papaya()->administrationUser->hasPerm($this->_permission)) {
         $route = $this->_route;
-        return $route($ui, $path, $level);
+        return $route($router, $address, $level);
       }
       return NULL;
     }

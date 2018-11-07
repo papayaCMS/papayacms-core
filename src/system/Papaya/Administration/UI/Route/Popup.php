@@ -26,7 +26,6 @@ namespace Papaya\Administration\UI\Route {
    * @package Papaya\Administration\UI\Route
    */
   class Popup implements UI\Route {
-
     const XMLNS = 'http://papaya-cms.com/administration/popup';
 
     /**
@@ -49,12 +48,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response|\Papaya\Administration\UI\Route
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
       $xslDocument = new \Papaya\XML\Document();
       $xslDocument->load($this->_file);
       $xslDocument->registerNamespace('popup', self::XMLNS);
@@ -64,9 +63,9 @@ namespace Papaya\Administration\UI\Route {
       if ($popup) {
         $xmlDocument = new \Papaya\XML\Document();
         $xmlDocument->registerNamespace('popup', self::XMLNS);
+        /** @var \Papaya\XML\Element $popup */
         $popup = $xmlDocument->appendChild($xmlDocument->importNode($popup, TRUE));
-
-        $this->fetchData($ui, $popup);
+        $this->fetchData($router, $popup);
 
         $template = new XSLT();
         $template->setTemplateDocument($xslDocument);
@@ -92,18 +91,18 @@ namespace Papaya\Administration\UI\Route {
       );
     }
 
-    private function fetchData(UI $ui, Element $popup) {
+    private function fetchData(\Papaya\Administration\Router $router, Element $popup) {
       $document = $popup->ownerDocument;
       /** @var \Papaya\XML\Element $node */
       // translate phrases to current language
-      $phrases = $ui->papaya()->administrationPhrases;
+      $phrases = $router->papaya()->administrationPhrases;
       foreach ($document->xpath()->evaluate('//popup:phrase', $popup) as $node) {
         $identifier = $node->getAttribute('identifier') ?: $node->textContent;
         $node->setAttribute('identifier', $identifier);
         $node->textContent = $phrases->get($node->textContent, [], 'popups');
       }
       // add option values
-      $options = $ui->papaya()->options;
+      $options = $router->papaya()->options;
       foreach ($document->xpath()->evaluate('//popup:option[@name != ""]', $popup) as $node) {
         $node->textContent = $options->get($node->getAttribute('name'), '');
       }

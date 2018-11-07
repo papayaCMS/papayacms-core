@@ -12,16 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Administration\UI\Route\Templated {
 
   use Papaya\Administration;
-  use Papaya\Administration\UI\Route;
+  use Papaya\Administration\UI\Route\Address;
+  use Papaya\Administration\UI\Route\Templated;
 
   /**
    * Execute an \Papaya\Administration\Page or one of
    * the old classes and return them as an HTML response.
    */
-  class Page implements Route {
+  class Page extends Templated {
     /**
      * @var string
      */
@@ -43,12 +44,14 @@ namespace Papaya\Administration\UI\Route {
     private $_permission;
 
     /**
+     * @param \Papaya\Template $template
      * @param string $image
      * @param array|string $caption
      * @param string $className
      * @param null|int $permission
      */
-    public function __construct($image, $caption, $className, $permission = NULL) {
+    public function __construct(\Papaya\Template $template, $image, $caption, $className, $permission = NULL) {
+      parent::__construct($template);
       $this->_image = $image;
       $this->_caption = $caption;
       $this->_className = $className;
@@ -56,29 +59,29 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param Administration\UI $ui
-     * @param Address $path
+     * @param Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|\Papaya\Response
      * @throws \ReflectionException
      */
-    public function __invoke(Administration\UI $ui, Address $path, $level = 0) {
+    public function __invoke(Administration\Router $router, Address $address, $level = 0) {
       if (
         NULL === $this->_permission ||
-        $ui->papaya()->administrationUser->hasPerm($this->_permission)
+        $router->papaya()->administrationUser->hasPerm($this->_permission)
       ) {
-        $ui->setTitle($this->_image, $this->_caption);
+        $this->setTitle($this->_image, $this->_caption);
         $reflection = new \ReflectionClass($this->_className);
         if ($reflection->isSubclassOf(Administration\Page::class)) {
-          $page = $reflection->newInstance($ui);
+          $page = $reflection->newInstance($router);
           /** @noinspection PhpUndefinedMethodInspection */
           $page->execute();
-          return $ui->getOutput();
+          return $this->getOutput();
         }
         if ($reflection->hasMethod('getXML')) {
           $page = $reflection->newInstance();
-          $page->administrationUI = $ui;
-          $page->layout = $ui->template();
+          $page->administrationUI = $router;
+          $page->layout = $this->getTemplate();
           if ($reflection->hasMethod('initialize')) {
             /** @noinspection PhpUndefinedMethodInspection */
             $page->initialize();
@@ -89,7 +92,7 @@ namespace Papaya\Administration\UI\Route {
           }
           /** @noinspection PhpUndefinedMethodInspection */
           $page->getXML();
-          return $ui->getOutput();
+          return $this->getOutput();
         }
       }
       return NULL;

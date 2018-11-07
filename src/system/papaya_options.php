@@ -89,24 +89,24 @@ class papaya_options extends base_options {
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->papaya()->images;
     $toolbar->addButton(
-      'Install/Upgrade', Papaya\Administration\UI\Route::INSTALLER, 'categories-installer', '', FALSE
+      'Install/Upgrade', Papaya\Administration\UI::INSTALLER, 'categories-installer', '', FALSE
     );
     $toolbar->addSeperator();
     $toolbar->addButton(
-      'Link types', Administration\UI\Route::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE
+      'Link types', Administration\UI::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE
     );
     $toolbar->addButton(
-      'Mime types', Papaya\Administration\UI\Route::ADMINISTRATION_MIME_TYPES, 'items-mimetype-group', 'Configure Mime types', FALSE
+      'Mime types', Papaya\Administration\UI::ADMINISTRATION_MIME_TYPES, 'items-mimetype-group', 'Configure Mime types', FALSE
     );
     $toolbar->addButton(
-      'Cronjobs', Administration\UI\Route::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
+      'Cronjobs', Administration\UI::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
     );
     $toolbar->addButton(
-      'Spam filter', Administration\UI\Route::ADMINISTRATION_SPAM_FILTER, 'items-junk', '', FALSE
+      'Spam filter', Administration\UI::ADMINISTRATION_SPAM_FILTER, 'items-junk', '', FALSE
     );
     $toolbar->addSeperator();
     $toolbar->addButton(
-      'View icons', Papaya\Administration\UI\Route::ADMINISTRATION_ICONS, 'categories-view-icons', '', FALSE
+      'View icons', Papaya\Administration\UI::ADMINISTRATION_ICONS, 'categories-view-icons', '', FALSE
     );
     $toolbar->addSeperator();
     $toolbar->addButton(

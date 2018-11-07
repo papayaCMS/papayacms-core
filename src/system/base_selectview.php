@@ -284,7 +284,7 @@ class base_selectview extends base_db {
                   $this->getLink(
                     array('mode' => 0, 'cmd' => 'view_select', 'view_id' => (int)$viewId),
                     'vl',
-                    Papaya\Administration\UI\Route::ADMINISTRATION_VIEWS
+                    Papaya\Administration\UI::ADMINISTRATION_VIEWS
                   ),
                   papaya_strings::escapeHTMLChars($images['actions-edit']),
                   papaya_strings::escapeHTMLChars('Edit view')
@@ -315,7 +315,7 @@ class base_selectview extends base_db {
         $result .= '<menu>'.LF;
         $result .= sprintf(
           '<button href="%s" title="%s" glyph="%s"/>'.LF,
-          papaya_strings::escapeHTMLChars(Papaya\Administration\UI\Route::ADMINISTRATION_VIEWS),
+          papaya_strings::escapeHTMLChars(Papaya\Administration\UI::ADMINISTRATION_VIEWS),
           papaya_strings::escapeHTMLChars($this->_gt('Add view')),
           papaya_strings::escapeHTMLChars($images['actions-view-add'])
         );

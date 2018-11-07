@@ -18,13 +18,13 @@ namespace Papaya\Administration\UI\Route {
 
   class LogOut implements Route {
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Address $path, $level = 0) {
-      $application = $ui->papaya();
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
       $locking = \papaya_locking::getInstance();
       $locking->removeLocks($application->session->id);
       $application->session->activate(FALSE);

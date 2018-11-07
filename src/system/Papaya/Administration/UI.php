@@ -15,13 +15,119 @@
 namespace Papaya\Administration {
 
   use Papaya\Administration\UI\Route;
-  use Papaya\Application;
   use Papaya\Response;
   use Papaya\Template;
-  use Papaya\UI\Text\Translated;
 
-  class UI implements Application\Access {
-    use Application\Access\Aggregation;
+  class UI extends Router {
+    const OVERVIEW = 'overview';
+
+    const MESSAGES = 'messages';
+
+    const MESSAGES_TASKS = self::MESSAGES.'.tasks';
+
+    const PAGES = 'pages';
+
+    const PAGES_SITEMAP = self::PAGES.'.sitemap';
+
+    const PAGES_SEARCH = self::PAGES.'.search';
+
+    const PAGES_EDIT = self::PAGES.'.edit';
+
+    const CONTENT = 'content';
+
+    const CONTENT_BOXES = self::CONTENT.'.boxes';
+
+    const CONTENT_FILES = self::CONTENT.'.files';
+
+    const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
+
+    const CONTENT_ALIASES = self::CONTENT.'.aliases';
+
+    const CONTENT_TAGS = self::CONTENT.'.tags';
+
+    const CONTENT_IMAGES = self::CONTENT.'.images';
+
+    const EXTENSIONS = 'extension';
+
+    const EXTENSIONS_IMAGE = self::EXTENSIONS.'.image';
+
+    const ADMINISTRATION = 'administration';
+
+    const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
+
+    const ADMINISTRATION_VIEWS = self::ADMINISTRATION.'.views';
+
+    const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
+
+    const ADMINISTRATION_THEMES = self::ADMINISTRATION.'.themes';
+
+    const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
+
+    const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
+
+    const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
+
+    const ADMINISTRATION_PHRASES = self::ADMINISTRATION.'.phrases';
+
+    const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
+
+    const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
+
+    const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
+
+    const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
+
+    const ADMINISTRATION_ICONS = self::ADMINISTRATION.'.icons';
+
+    const HELP = 'help';
+
+    const XML_API = 'xml-api';
+
+    const LOGOUT = 'logout';
+
+    const INSTALLER = 'install';
+
+    const POPUP = 'popup';
+
+    const POPUP_COLOR = self::POPUP.'/color';
+
+    const POPUP_GOOGLE_MAPS = self::POPUP.'/googlemaps';
+
+    const POPUP_IMAGE = self::POPUP.'/image';
+
+    const POPUP_PAGE = self::POPUP.'/page';
+
+    const POPUP_MEDIA_BROWSER_HEADER = self::POPUP.'/media-header';
+
+    const POPUP_MEDIA_BROWSER_FOOTER = self::POPUP.'/media-footer';
+
+    const POPUP_MEDIA_BROWSER_IMAGES = self::POPUP.'/media-images';
+
+    const POPUP_MEDIA_BROWSER_FILES = self::POPUP.'/media-files';
+
+    const STYLES = 'styles';
+
+    const STYLES_CSS = self::STYLES.'/css';
+
+    const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
+
+    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.richtext';
+
+    const STYLES_JAVASCRIPT = self::STYLES.'/js';
+
+    const SCRIPTS = 'script';
+
+    const SCRIPTS_TINYMCE = self::SCRIPTS.'/tiny_mce3';
+
+    const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
+
+    const SCRIPTS_TINYMCE_POPUP = self::SCRIPTS_TINYMCE.'/plugins/papaya';
+
+    const SCRIPTS_TINYMCE_POPUP_LINK = self::SCRIPTS_TINYMCE_POPUP.'/link';
+
+    const SCRIPTS_TINYMCE_POPUP_IMAGE = self::SCRIPTS_TINYMCE_POPUP.'/dynamic-image';
+
+    const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
 
     /**
      * @var Template
@@ -29,37 +135,9 @@ namespace Papaya\Administration {
     private $_template;
 
     /**
-     * @var \Papaya\Theme\Handler
-     */
-    private $_themeHandler;
-
-    /**
-     * @var string
-     */
-    private $_path;
-
-    /**
      * @var callable
      */
     private $_route;
-
-    /**
-     * UI constructor.
-     *
-     * @param string $path
-     * @param \Papaya\Application $application
-     */
-    public function __construct($path, Application $application) {
-      $this->_path = \str_replace(DIRECTORY_SEPARATOR, '/', $path);
-      $this->papaya($application);
-    }
-
-    /**
-     * @return string Local path to administration directory
-     */
-    public function getLocalPath() {
-      return $this->_path;
-    }
 
     /**
      * Initialize application and options and execute routes depending on the URL.
@@ -73,97 +151,6 @@ namespace Papaya\Administration {
      * @return null|\Papaya\Response
      */
     public function execute() {
-      $this->prepare();
-      $application = $this->papaya();
-      $address = new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''));
-      if (!$application->options->loadAndDefine() && Route::INSTALLER !== $address->getRoute(0)) {
-        return new Response\Redirect(Route::INSTALLER);
-      }
-      $route = $this->route();
-      do {
-        $route = $route($this, $address);
-        if ($route instanceof Response) {
-          return $route;
-        }
-      } while (is_callable($route));
-      return NULL;
-    }
-
-    public function getOutput() {
-      $application = $this->papaya();
-      $template = $this->template();
-      $template->parameters()->assign(
-        [
-          'PAGE_PROJECT' => $application->options->get('PAPAYA_PROJECT_TITLE', 'CMS Project'),
-          'PAGE_REVISION' => \trim(\constant('PAPAYA_WEBSITE_REVISION')),
-          'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
-          'PAPAYA_USER_AUTHORIZED' => $application->administrationUser->isValid,
-          'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
-          'PAPAYA_UI_THEME' => $application->options->get('PAPAYA_UI_THEME', 'green'),
-          'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
-          'PAPAYA_RICHTEXT_CONTENT_CSS' =>
-          $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
-          'PAPAYA_RICHTEXT_TEMPLATES_FULL' =>
-          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
-          'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' =>
-          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
-          'PAPAYA_RICHTEXT_LINK_TARGET' =>
-          $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
-          'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK'),
-          'PAPAYA_MESSAGES_INBOX_NEW' => $this->getNewMessageCount()
-        ]
-      );
-      if ($application->administrationUser->isValid) {
-        $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
-        $template->add($application->administrationLanguage, 'title-menu');
-        $template->add($application->administrationRichText, 'title-menu');
-        $template->add(new UI\Navigation\Main(), 'menus');
-      }
-      $response = new Response();
-      $response->content(new Response\Content\Text($template->getOutput()));
-      if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-        \Papaya\Request\Log::getInstance()->emit();
-        $application->database->close();
-      }
-      return $response;
-    }
-
-    /**
-     * @param string $image
-     * @param array|string $caption
-     */
-    public function setTitle($image, $caption) {
-      $template = $this->template();
-      $template->parameters()->set('PAGE_ICON', $image);
-      if (\is_array($caption)) {
-        $caption = \implode(
-          ' - ',
-          \array_map(
-            function($captionPart) {
-              return new Translated($captionPart);
-            },
-            $caption
-          )
-        );
-      }
-      $template->parameters()->set('PAGE_TITLE', $caption);
-    }
-
-    /**
-     * Get count of new message for the current user
-     * @return int|string
-     */
-    private function getNewMessageCount() {
-      if ($this->papaya()->administrationUser->isValid) {
-        $messages = new \base_messages();
-        $counts = $messages->loadMessageCounts([0], TRUE);
-        return empty($counts[0]) ? 0 : (int)$counts[0];
-      }
-      return '';
-    }
-
-    private function prepare() {
       $application = $this->papaya();
       $application->messages->setUp($application->options, $this->template());
       if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
@@ -175,6 +162,7 @@ namespace Papaya\Administration {
         $redirect->send(TRUE);
       }
       $application->pageReferences->setPreview(TRUE);
+      return parent::execute();
     }
 
     /**
@@ -184,20 +172,22 @@ namespace Papaya\Administration {
     public function route(callable $route = NULL) {
       if (NULL !== $route) {
         $this->_route = $route;
-      } elseif (NULL === $this->_themeHandler) {
+      } elseif (NULL === $this->_route) {
+        $template = $this->template();
         $images = $this->papaya()->images;
         $localPath = $this->getLocalPath();
         $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
           ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
         $this->_route = new Route\Group(
+          new Route\ValidateInstall(),
           // enforce https (if configured)
-          new Route\SecureProtocol(),
+          new Route\Templated\SecureProtocol($template),
           // installer and logout need to work without login/authentication
           new Route\Choice(
             [
-              Route::LOGOUT => new Route\LogOut(),
-              Route::INSTALLER => new Route\Installer(),
-              Route::STYLES => function(self $ui) use ($localPath, $cacheTime) {
+              self::LOGOUT => new Route\LogOut(),
+              self::INSTALLER => new Route\Templated\Installer($template),
+              self::STYLES => function(self $ui) use ($localPath, $cacheTime) {
                 $stylePath = $localPath.'/styles';
                 $themePath = $stylePath.'/themes';
                 $themeName = empty($_GET['theme'])
@@ -207,14 +197,14 @@ namespace Papaya\Administration {
                   new Route\Cache(
                     new Route\Choice(
                       [
-                        Route::STYLES_CSS => new Route\Choice(
+                        self::STYLES_CSS => new Route\Choice(
                           [
-                            Route::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
-                            Route::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
-                            Route::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
+                            self::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
+                            self::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
+                            self::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
                           ]
                         ),
-                        Route::STYLES_JAVASCRIPT => new Route\JavaScript(
+                        self::STYLES_JAVASCRIPT => new Route\JavaScript(
                           [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
                         )
                       ],
@@ -227,18 +217,18 @@ namespace Papaya\Administration {
                   )
                 );
               },
-              Route::SCRIPTS => new Route\Choice(
+              self::SCRIPTS => new Route\Choice(
                 [
-                  Route::SCRIPTS => function() use ($localPath, $cacheTime) {
+                  self::SCRIPTS => function() use ($localPath, $cacheTime) {
                     $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
-                    $files = array_map(
-                      function ($file) use ($localPath) {
+                    $files = \array_map(
+                      function($file) use ($localPath) {
                         return $localPath.'/script/'.$file;
                       },
-                      array_filter(
+                      \array_filter(
                         $files,
-                        function ($file) {
-                          return preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
+                        function($file) {
+                          return \preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
                         }
                       )
                     );
@@ -248,9 +238,9 @@ namespace Papaya\Administration {
                       $cacheTime
                     );
                   },
-                  Route::SCRIPTS_TINYMCE => new Route\Choice(
+                  self::SCRIPTS_TINYMCE => new Route\Choice(
                     [
-                      Route::SCRIPTS_TINYMCE_FILES => new Route\TinyMCE()
+                      self::SCRIPTS_TINYMCE_FILES => new Route\TinyMCE()
                     ]
                   )
                 ]
@@ -258,149 +248,150 @@ namespace Papaya\Administration {
             ]
           ),
           // Authentication needed
-          new Route\Authenticated(
+          new Route\Templated\Authenticated(
+            $template,
             new Route\Group(
               // validate options and add warnings
               new Route\ValidateOptions(),
               new Route\Choice(
                 [
                   // General
-                  Route::OVERVIEW => new Route\Page(
-                    $images['places-home'], ['General', 'Overview'], \papaya_overview::class
+                  self::OVERVIEW => new Route\Templated\Page(
+                    $template, $images['places-home'], ['General', 'Overview'], \papaya_overview::class
                   ),
-                  Route::MESSAGES => new UI\Route\Choice(
+                  self::MESSAGES => new UI\Route\Choice(
                     [
-                      Route::MESSAGES => new Route\Page(
-                        $images['status-mail-open'], ['General', 'Messages'], \papaya_messages::class
+                      self::MESSAGES => new Route\Templated\Page(
+                        $template, $images['status-mail-open'], ['General', 'Messages'], \papaya_messages::class
                       ),
-                      Route::MESSAGES_TASKS => new Route\Page(
-                        $images['items-task'], ['General', 'Messages', 'Tasks'], \papaya_todo::class
+                      self::MESSAGES_TASKS => new Route\Templated\Page(
+                        $template, $images['items-task'], ['General', 'Messages', 'Tasks'], \papaya_todo::class
                       ),
                     ]
                   ),
 
                   // Pages
-                  Route::PAGES => new UI\Route\Choice(
+                  self::PAGES => new UI\Route\Choice(
                     [
-                      Route::PAGES_SITEMAP => new Route\Page(
-                        $images['categories-sitemap'], ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
+                      self::PAGES_SITEMAP => new Route\Templated\Page(
+                        $template, $images['categories-sitemap'], ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
                       ),
-                      Route::PAGES_SEARCH => new Route\Page(
-                        $images['actions-search'], ['Pages', 'Search'], \papaya_overview_search::class, Permissions::PAGE_SEARCH
+                      self::PAGES_SEARCH => new Route\Templated\Page(
+                        $template, $images['actions-search'], ['Pages', 'Search'], \papaya_overview_search::class, Permissions::PAGE_SEARCH
                       ),
-                      Route::PAGES_EDIT => new Route\Page(
-                        $images['items-page'], 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
+                      self::PAGES_EDIT => new Route\Templated\Page(
+                        $template, $images['items-page'], 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
                       )
                     ]
                   ),
 
                   // Additional Content
-                  Route::CONTENT => new UI\Route\Choice(
+                  self::CONTENT => new UI\Route\Choice(
                     [
-                      Route::CONTENT_BOXES => new Route\Page(
-                        $images['items-box'], ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
+                      self::CONTENT_BOXES => new Route\Templated\Page(
+                        $template, $images['items-box'], ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
                       ),
-                      Route::CONTENT_FILES => new UI\Route\Choice(
+                      self::CONTENT_FILES => new UI\Route\Choice(
                         [
-                          Route::CONTENT_FILES => new Route\Page(
-                            $images['items-folder'], ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
+                          self::CONTENT_FILES => new Route\Templated\Page(
+                            $template, $images['items-folder'], ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
                           ),
-                          Route::CONTENT_FILES_BROWSER => new Route\Page(
-                            $images['items-folder'], ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
+                          self::CONTENT_FILES_BROWSER => new Route\Templated\Page(
+                            $template, $images['items-folder'], ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
                           )
                         ]
                       ),
-                      Route::CONTENT_IMAGES => new Route\Page(
-                        $images['items-graphic'], ['Content', 'Dynamic Images'], \papaya_imagegenerator::class, Permissions::IMAGE_GENERATOR
+                      self::CONTENT_IMAGES => new Route\Templated\Page(
+                        $template, $images['items-graphic'], ['Content', 'Dynamic Images'], \papaya_imagegenerator::class, Permissions::IMAGE_GENERATOR
                       ),
-                      Route::CONTENT_ALIASES => new Route\Page(
-                        $images['items-alias'], ['Content', 'Alias'], \papaya_alias_tree::class, Permissions::ALIAS_MANAGE
+                      self::CONTENT_ALIASES => new Route\Templated\Page(
+                        $template, $images['items-alias'], ['Content', 'Alias'], \papaya_alias_tree::class, Permissions::ALIAS_MANAGE
                       ),
-                      Route::CONTENT_TAGS => new Route\Page(
-                        $images['items-tag'], ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
+                      self::CONTENT_TAGS => new Route\Templated\Page(
+                        $template, $images['items-tag'], ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
                       )
                     ]
                   ),
                   // Extensions/Applications
-                  Route::EXTENSIONS => new Route\Extensions(
-                    $images['categories-applications'], 'Applications'
+                  self::EXTENSIONS => new Route\Templated\Extensions(
+                    $template, $images['categories-applications'], 'Applications'
                   ),
                   // Administration
-                  Route::ADMINISTRATION => new UI\Route\Choice(
+                  self::ADMINISTRATION => new UI\Route\Choice(
                     [
-                      Route::ADMINISTRATION_USERS => new Route\Page(
-                        $images['items-user-group'], ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
+                      self::ADMINISTRATION_USERS => new Route\Templated\Page(
+                        $template, $images['items-user-group'], ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
                       ),
-                      Route::ADMINISTRATION_VIEWS => new Route\Page(
-                        $images['items-view'], ['Administration', 'Views'], \base_viewlist::class, Permissions::VIEW_MANAGE
+                      self::ADMINISTRATION_VIEWS => new Route\Templated\Page(
+                        $template, $images['items-view'], ['Administration', 'Views'], \base_viewlist::class, Permissions::VIEW_MANAGE
                       ),
-                      Route::ADMINISTRATION_PLUGINS => new Route\Page(
-                        $images['items-plugin'], ['Administration', 'Plugins / Modules'], \papaya_modulemanager::class, Permissions::MODULE_MANAGE
+                      self::ADMINISTRATION_PLUGINS => new Route\Templated\Page(
+                        $template, $images['items-plugin'], ['Administration', 'Plugins / Modules'], \papaya_modulemanager::class, Permissions::MODULE_MANAGE
                       ),
-                      Route::ADMINISTRATION_THEMES => new Route\Page(
-                        $images['items-theme'], ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
+                      self::ADMINISTRATION_THEMES => new Route\Templated\Page(
+                        $template, $images['items-theme'], ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
                       ),
-                      Route::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
+                      self::ADMINISTRATION_PROTOCOL => new UI\Route\Choice(
                         [
-                          Route::ADMINISTRATION_PROTOCOL => new Route\Page(
-                            $images['categories-protocol'], ['Administration', 'Protocol'], \papaya_log::class, Permissions::SYSTEM_PROTOCOL
+                          self::ADMINISTRATION_PROTOCOL => new Route\Templated\Page(
+                            $template, $images['categories-protocol'], ['Administration', 'Protocol'], \papaya_log::class, Permissions::SYSTEM_PROTOCOL
                           ),
-                          Route::ADMINISTRATION_PROTOCOL_LOGIN => new Route\Page(
-                            $images['categories-protocol'], ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
+                          self::ADMINISTRATION_PROTOCOL_LOGIN => new Route\Templated\Page(
+                            $template, $images['categories-protocol'], ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
                           )
                         ]
                       ),
-                      Route::ADMINISTRATION_SETTINGS => new Route\Page(
-                        $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
+                      self::ADMINISTRATION_SETTINGS => new Route\Templated\Page(
+                        $template, $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
                       ),
-                      Route::ADMINISTRATION_CRONJOBS => new Route\Page(
-                        $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
+                      self::ADMINISTRATION_CRONJOBS => new Route\Templated\Page(
+                        $template, $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
                       ),
-                      Route::ADMINISTRATION_LINK_TYPES => new Route\Page(
-                        $images['items-link'], ['Administration', 'Settings', 'Link types'], \papaya_linktypes::class, Permissions::SYSTEM_LINKTYPES_MANAGE
+                      self::ADMINISTRATION_LINK_TYPES => new Route\Templated\Page(
+                        $template, $images['items-link'], ['Administration', 'Settings', 'Link types'], \papaya_linktypes::class, Permissions::SYSTEM_LINKTYPES_MANAGE
                       ),
-                      Route::ADMINISTRATION_MIME_TYPES => new Route\Page(
-                        $images['items-option'], ['Administration', 'Settings', 'Mime types'], \papaya_mediadb_mime::class, Permissions::SYSTEM_MIMETYPES_MANAGE
+                      self::ADMINISTRATION_MIME_TYPES => new Route\Templated\Page(
+                        $template, $images['items-option'], ['Administration', 'Settings', 'Mime types'], \papaya_mediadb_mime::class, Permissions::SYSTEM_MIMETYPES_MANAGE
                       ),
-                      Route::ADMINISTRATION_SPAM_FILTER => new Route\Page(
-                        $images['items-option'], ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
+                      self::ADMINISTRATION_SPAM_FILTER => new Route\Templated\Page(
+                        $template, $images['items-option'], ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
                       ),
-                      Route::ADMINISTRATION_ICONS => new Route\Page(
-                        $images['items-option'], ['Administration', 'Settings', 'Icons'], Settings\Icons\Page::class, Permissions::SYSTEM_SETTINGS
+                      self::ADMINISTRATION_ICONS => new Route\Templated\Page(
+                        $template, $images['items-option'], ['Administration', 'Settings', 'Icons'], Settings\Icons\Page::class, Permissions::SYSTEM_SETTINGS
                       ),
-                      Route::ADMINISTRATION_PHRASES => new Route\Page(
-                        $images['items-translation'], ['Administration', 'Translations'], \base_languages::class, Permissions::SYSTEM_TRANSLATE
+                      self::ADMINISTRATION_PHRASES => new Route\Templated\Page(
+                        $template, $images['items-translation'], ['Administration', 'Translations'], \base_languages::class, Permissions::SYSTEM_TRANSLATE
                       ),
                     ]
                   ),
                   // Help
-                  Route::HELP => new Route\Page(
-                    $images['categories-help'], 'Help', \papaya_help::class
+                  self::HELP => new Route\Templated\Page(
+                    $template, $images['categories-help'], 'Help', \papaya_help::class
                   ),
                   // Popups
-                  Route::POPUP => new Route\Cache(
+                  self::POPUP => new Route\Cache(
                     new Route\Choice(
                       [
-                        Route::POPUP_COLOR => new Route\Popup($localPath.'/popup/color.xsl'),
-                        Route::POPUP_GOOGLE_MAPS => new Route\Popup($localPath.'/popup/googlemaps.xsl'),
-                        Route::POPUP_IMAGE => new Route\Popup($localPath.'/popup/image.xsl'),
-                        Route::POPUP_PAGE => new Route\Popup($localPath.'/popup/page.xsl'),
-                        Route::POPUP_MEDIA_BROWSER_HEADER => new Route\Popup($localPath.'/popup/media-header.xsl'),
-                        Route::POPUP_MEDIA_BROWSER_FOOTER => new Route\Popup($localPath.'/popup/media-footer.xsl'),
-                        Route::POPUP_MEDIA_BROWSER_FILES => new Route\Popup($localPath.'/popup/media-files.xsl'),
-                        Route::POPUP_MEDIA_BROWSER_IMAGES => new Route\Popup($localPath.'/popup/media-images.xsl')
+                        self::POPUP_COLOR => new Route\Popup($localPath.'/popup/color.xsl'),
+                        self::POPUP_GOOGLE_MAPS => new Route\Popup($localPath.'/popup/googlemaps.xsl'),
+                        self::POPUP_IMAGE => new Route\Popup($localPath.'/popup/image.xsl'),
+                        self::POPUP_PAGE => new Route\Popup($localPath.'/popup/page.xsl'),
+                        self::POPUP_MEDIA_BROWSER_HEADER => new Route\Popup($localPath.'/popup/media-header.xsl'),
+                        self::POPUP_MEDIA_BROWSER_FOOTER => new Route\Popup($localPath.'/popup/media-footer.xsl'),
+                        self::POPUP_MEDIA_BROWSER_FILES => new Route\Popup($localPath.'/popup/media-files.xsl'),
+                        self::POPUP_MEDIA_BROWSER_IMAGES => new Route\Popup($localPath.'/popup/media-images.xsl')
                       ]
                     ),
                     $this->papaya()->administrationLanguage->code,
                     $cacheTime
                   ),
                   // TinyMCE popups
-                  Route::SCRIPTS => function() use ($localPath) {
+                  self::SCRIPTS => function() use ($localPath) {
                     $pluginPath = $localPath.'/script/tiny_mce3/plugins/papaya';
                     return new Route\Choice(
                       [
-                        Route::SCRIPTS_TINYMCE_POPUP_LINK => new Route\Popup($pluginPath.'/link.xsl'),
-                        Route::SCRIPTS_TINYMCE_POPUP_IMAGE => new Route\Popup(
+                        self::SCRIPTS_TINYMCE_POPUP_LINK => new Route\Popup($pluginPath.'/link.xsl'),
+                        self::SCRIPTS_TINYMCE_POPUP_IMAGE => new Route\Popup(
                           $pluginPath.'/dynamic-image.xsl',
                           function(\Papaya\XML\Element $popupNode) {
                             /** @var \Papaya\XML\Document $document */
@@ -412,14 +403,14 @@ namespace Papaya\Administration {
                               $imgGenerator = new \papaya_imagegenerator();
                               $imgGenerator->loadImageConfs();
                               if (
-                                is_array($imgGenerator->imageConfs) &&
-                                count($imgGenerator->imageConfs) > 0
+                                \is_array($imgGenerator->imageConfs) &&
+                                \count($imgGenerator->imageConfs) > 0
                               ) {
                                 foreach ($imgGenerator->imageConfs as $image) {
                                   $parentNode->appendElement(
                                     'popup:image',
                                     [
-                                      'name'=> $image['image_ident'],
+                                      'name' => $image['image_ident'],
                                       'title' => $image['image_title']
                                     ]
                                   );
@@ -428,7 +419,7 @@ namespace Papaya\Administration {
                             }
                           }
                         ),
-                        Route::SCRIPTS_TINYMCE_POPUP_PLUGIN => new Route\Popup(
+                        self::SCRIPTS_TINYMCE_POPUP_PLUGIN => new Route\Popup(
                           $pluginPath.'/plugin.xsl',
                           function(\Papaya\XML\Element $popupNode) {
                             /** @var \Papaya\XML\Document $document */
@@ -460,7 +451,7 @@ namespace Papaya\Administration {
                     );
                   },
                   // XML
-                  Route::XML_API => function() {
+                  self::XML_API => function() {
                     $rpcCall = new \papaya_rpc();
                     $rpcCall->initialize();
                     $rpcCall->execute();
@@ -474,7 +465,7 @@ namespace Papaya\Administration {
                     return $response;
                   }
                 ],
-                UI\Route::OVERVIEW
+                self::OVERVIEW
               )
             )
           ),
@@ -497,20 +488,6 @@ namespace Papaya\Administration {
         );
       }
       return $this->_template;
-    }
-
-    /**
-     * @param \Papaya\Theme\Handler|null $themeHandler
-     * @return \Papaya\Theme\Handler
-     */
-    public function theme(\Papaya\Theme\Handler $themeHandler = NULL) {
-      if (NULL !== $themeHandler) {
-        $this->_themeHandler = $themeHandler;
-      } elseif (NULL === $this->_themeHandler) {
-        $this->_themeHandler = new \Papaya\Theme\Handler();
-        $this->_themeHandler->papaya($this->papaya());
-      }
-      return $this->_themeHandler;
     }
   }
 }

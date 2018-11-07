@@ -419,7 +419,7 @@ class papaya_overview extends base_db {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
-        $item->reference()->setRelative(Papaya\Administration\UI\Route::PAGES_EDIT);
+        $item->reference()->setRelative(Papaya\Administration\UI::PAGES_EDIT);
         $item->reference()->setParameters(array('page_id' => $topic['topic_id']), 'tt');
 
         if ($showDetails) {
@@ -543,7 +543,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('msg_id' => $values['msg_id']),
                 'msg',
-                Papaya\Administration\UI\Route::MESSAGES
+                Papaya\Administration\UI::MESSAGES
               )
             ),
             papaya_strings::escapeHTMLChars(
@@ -692,7 +692,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('todo_id' => $values['todo_id']),
                 'todo',
-                Papaya\Administration\UI\Route::MESSAGES_TASKS
+                Papaya\Administration\UI::MESSAGES_TASKS
               )
             ),
             papaya_strings::escapeHTMLChars($images[$iconIndex])

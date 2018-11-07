@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Response;
 
@@ -28,7 +27,7 @@ namespace Papaya\Administration\UI\Route {
     private $_files;
 
     /**
-     * @var string
+     * @var string[]
      */
     private $_commentPatterns = [
       'success' => "/* File: %s */\n",
@@ -64,12 +63,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
       return $this->createResponse($this->getFilesContent());
     }
 
@@ -88,14 +87,14 @@ namespace Papaya\Administration\UI\Route {
     }
 
     protected function getFilesContent() {
-      $files = is_array($this->_files) ? $this->_files : [$this->_files];
+      $files = \is_array($this->_files) ? $this->_files : [$this->_files];
       $result = $this->_prefix;
       foreach ($files as $file) {
-        if ($contents = @file_get_contents($file)) {
-          $result .= sprintf($this->_commentPatterns['success'], basename($file));
+        if ($contents = @\file_get_contents($file)) {
+          $result .= \sprintf($this->_commentPatterns['success'], \basename($file));
           $result .= $contents."\n";
         } else {
-          $result .= sprintf($this->_commentPatterns['error'], basename($file));
+          $result .= \sprintf($this->_commentPatterns['error'], \basename($file));
         }
       }
       $result .= $this->_suffix;

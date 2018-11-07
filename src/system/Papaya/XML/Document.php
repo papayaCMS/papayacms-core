@@ -27,12 +27,12 @@ use Papaya\Utility;
 class Document
   extends \DOMDocument
   implements Node {
-
   /**
    * Avoid loosing the overloaded class
    * @var self
    */
   private $_document;
+
   /**
    * @var Xpath
    */

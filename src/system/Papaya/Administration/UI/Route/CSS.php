@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Response;
 
   /**
@@ -24,11 +23,11 @@ namespace Papaya\Administration\UI\Route {
    * @package Papaya\Administration\UI\Route
    */
   class CSS extends Files {
-
     /**
      * @var string
      */
     private $_themesPath;
+
     /**
      * @var
      */
@@ -36,6 +35,7 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param string|string[] $files
+     * @param string $themeName
      * @param string $themesPath
      */
     public function __construct($files, $themeName, $themesPath = '') {
@@ -45,12 +45,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
       $css = $this->getFilesContent();
 
       $variables = $this->getThemeVariables();
@@ -68,15 +68,13 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param string $basePath
-     * @param string $themeName
      * @return bool|array
      */
     private function getThemeVariables() {
-      if ('' !== $this->_themesPath && preg_match('(^[a-z\d_]+)', $this->_themeName)) {
+      if ('' !== $this->_themesPath && \preg_match('(^[a-z\d_]+)', $this->_themeName)) {
         $fileName = \Papaya\Utility\File\Path::cleanup($this->_themesPath.'/').$this->_themeName.'.ini';
-        if (file_exists($fileName) && is_readable($fileName)) {
-          return parse_ini_file($fileName, TRUE,INI_SCANNER_NORMAL) ?: FALSE;
+        if (\file_exists($fileName) && \is_readable($fileName)) {
+          return \parse_ini_file($fileName, TRUE, INI_SCANNER_NORMAL) ?: FALSE;
         }
       }
       return FALSE;

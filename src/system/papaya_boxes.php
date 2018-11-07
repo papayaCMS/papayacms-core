@@ -1621,7 +1621,7 @@ class papaya_boxes extends base_boxes {
       foreach ($topicIds as $topicId => $title) {
         $result .= sprintf(
           '<listitem href="%s" image="%s" title="%s (#%d)"/>'.LF,
-          $this->getLink(NULL, NULL, Papaya\Administration\UI\Route::PAGES_EDIT, $topicId),
+          $this->getLink(NULL, NULL, Papaya\Administration\UI::PAGES_EDIT, $topicId),
           papaya_strings::escapeHTMLChars($images['items-page']),
           papaya_strings::escapeHTMLChars($title),
           (int)$topicId

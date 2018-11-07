@@ -12,25 +12,25 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI;
-  use Papaya\Administration\UI\Route;
+  use Papaya\Administration\UI\Route\Address;
+  use Papaya\Administration\UI\Route\Templated;
   use Papaya\Response;
   use Papaya\Utility;
 
   /**
    * Redirect to HTTPS if options is enabled, output an error message if not on localhost otherwise.
    */
-  class SecureProtocol implements Route {
+  class SecureProtocol extends Templated {
     /**
-     * @param UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
-      $application = $ui->papaya();
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
         !Utility\Server\Protocol::isSecure()
@@ -57,7 +57,7 @@ namespace Papaya\Administration\UI\Route {
         $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
           new \Papaya\UI\Text\Translated('Use https')
         );
-        $ui->template()->add($dialog);
+        $this->getTemplate()->add($dialog);
       }
       return NULL;
     }

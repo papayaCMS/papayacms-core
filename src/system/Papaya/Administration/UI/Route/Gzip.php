@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
   use Papaya\Response;
 
@@ -34,40 +33,42 @@ namespace Papaya\Administration\UI\Route {
       $this->_route = $route;
     }
 
-    public function __invoke(UI $ui, Route\Address $path, $level = 0) {
+    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0) {
       $route = $this->_route;
       do {
-        $route = $route($ui, $path, $level);
+        $route = $route($router, $address, $level);
         if ($route instanceof Response) {
           if ($this->canUseOutputCompression() && $route->content()->length() > 0) {
             $response = clone $route;
-            ob_start();
+            \ob_start();
             $route->content()->output();
             /** @noinspection PhpComposerExtensionStubsInspection */
             $response->content(
-              new Response\Content\Text(gzencode(ob_get_clean()))
+              new Response\Content\Text(\gzencode(\ob_get_clean()))
             );
             $response->headers()->set('Content-Encoding', 'gzip');
             return $response;
           }
           return $route;
         }
-      } while (is_callable($route));
+      } while (\is_callable($route));
       return $route;
     }
 
     private function canUseOutputCompression() {
       if (
-        function_exists('ob_gzhandler') &&
-        TRUE !== (bool)@ini_get('zlib.output_compression') &&
-        !headers_sent()
+        \function_exists('ob_gzhandler') &&
+        TRUE !== (bool)@\ini_get('zlib.output_compression') &&
+        !\headers_sent()
       ) {
-        $status = ob_get_status(TRUE);
-        array_pop($status);
-        return 0 === count(
-          array_filter(
+        $status = \ob_get_status(TRUE);
+        \array_pop($status);
+        return 0 === \count(
+          \array_filter(
             $status,
-            function($status) { return !isset($status['buffer_used']) || 0 !== $status['buffer_used']; }
+            function($status) {
+              return !isset($status['buffer_used']) || 0 !== $status['buffer_used'];
+            }
           )
         );
       }

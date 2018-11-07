@@ -450,7 +450,7 @@ class papaya_alias_tree extends base_db {
                 papaya_strings::escapeHTMLChars(
                   $this->getLink(array('page_id' => $val['topic_id']),
                                  'tt',
-                                 Papaya\Administration\UI\Route::PAGES_EDIT
+                                 Papaya\Administration\UI::PAGES_EDIT
                   )
                 ),
                 papaya_strings::escapeHTMLChars($this->papaya()->images['actions-edit'])

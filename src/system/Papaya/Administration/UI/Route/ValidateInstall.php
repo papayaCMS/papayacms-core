@@ -13,20 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 namespace Papaya\Administration\UI\Route {
+
+  use Papaya\Administration\UI;
+  use Papaya\Administration\UI\Route;
+  use Papaya\Response;
+
   /**
-   * Execute the inner route if the session contains an authorized user.
-   * Return the login page, otherwise.
-   *
-   * @package Papaya\Administration\UI\Route
+   * Validate options an add warnings
    */
-  class JavaScript extends Files {
+  class ValidateInstall implements Route {
     /**
-     * @param string|string[] $files
-     * @param string $prefix
-     * @param string $suffix
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
+     * @param int $level
+     * @return null|\Papaya\Response
      */
-    public function __construct($files, $prefix = '', $suffix = '') {
-      parent::__construct($files, 'application/javascript', $prefix, $suffix);
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
+      if (!$application->options->loadAndDefine() && UI::INSTALLER !== $address->getRoute(0)) {
+        return new Response\Redirect(UI::INSTALLER);
+      }
+      return NULL;
     }
   }
 }

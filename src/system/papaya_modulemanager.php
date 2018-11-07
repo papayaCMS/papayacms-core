@@ -2308,7 +2308,7 @@ class papaya_modulemanager extends base_db {
             if (isset($module['error']) && $module['error']) {
               $glyph = $images['status-dialog-error'];
             } elseif (trim($module['glyph']) != '') {
-              $glyph = \Papaya\Administration\UI\Route::EXTENSIONS_IMAGE.'?module='.urlencode($module['guid']);
+              $glyph = \Papaya\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['guid']);
             } else {
               switch ($module['type']) {
               case 'alias':

@@ -801,7 +801,7 @@ class papaya_log extends base_db {
     $button = new \Papaya\UI\Toolbar\Button();
     $button->caption = new \Papaya\UI\Text\Translated('Login try');
     $button->image = 'categories-log-access';
-    $button->reference->setRelative(Papaya\Administration\UI\Route::ADMINISTRATION_PROTOCOL_LOGIN);
+    $button->reference->setRelative(Papaya\Administration\UI::ADMINISTRATION_PROTOCOL_LOGIN);
     $menu->elements[] = $button;
 
     $menu->elements[] = new \Papaya\UI\Toolbar\Separator();
@@ -840,7 +840,7 @@ class papaya_log extends base_db {
       $button->caption = new \Papaya\UI\Text\Translated('Bug Report');
       $button->hint = new \Papaya\UI\Text\Translated('Report this error message.');
       $button->image = 'items-bug';
-      $button->reference->setRelative(Papaya\Administration\UI\Route::HELP);
+      $button->reference->setRelative(Papaya\Administration\UI::HELP);
       $button->reference->setParameters(
         array('ohmode' => 'bugreport', 'log_id' => $this->selected), 'help'
       );

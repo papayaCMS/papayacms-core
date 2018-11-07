@@ -15,110 +15,12 @@
 namespace Papaya\Administration\UI {
 
   interface Route {
-    const OVERVIEW = 'overview';
-
-    const MESSAGES = 'messages';
-
-    const MESSAGES_TASKS = self::MESSAGES.'.tasks';
-
-    const PAGES = 'pages';
-
-    const PAGES_SITEMAP = self::PAGES.'.sitemap';
-
-    const PAGES_SEARCH = self::PAGES.'.search';
-
-    const PAGES_EDIT = self::PAGES.'.edit';
-
-    const CONTENT = 'content';
-
-    const CONTENT_BOXES = self::CONTENT.'.boxes';
-
-    const CONTENT_FILES = self::CONTENT.'.files';
-
-    const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
-
-    const CONTENT_ALIASES = self::CONTENT.'.aliases';
-
-    const CONTENT_TAGS = self::CONTENT.'.tags';
-
-    const CONTENT_IMAGES = self::CONTENT.'.images';
-
-    const EXTENSIONS = 'extension';
-
-    const EXTENSIONS_IMAGE = self::EXTENSIONS.'.image';
-
-    const ADMINISTRATION = 'administration';
-
-    const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
-
-    const ADMINISTRATION_VIEWS = self::ADMINISTRATION.'.views';
-
-    const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
-
-    const ADMINISTRATION_THEMES = self::ADMINISTRATION.'.themes';
-
-    const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
-
-    const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
-
-    const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
-
-    const ADMINISTRATION_PHRASES = self::ADMINISTRATION.'.phrases';
-
-    const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
-
-    const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
-
-    const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
-
-    const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
-
-    const ADMINISTRATION_ICONS = self::ADMINISTRATION.'.icons';
-
-    const HELP = 'help';
-
-    const XML_API = 'xml-api';
-
-    const LOGOUT = 'logout';
-
-    const INSTALLER = 'install';
-
-    const POPUP = 'popup';
-
-    const POPUP_COLOR = self::POPUP.'/color';
-    const POPUP_GOOGLE_MAPS = self::POPUP.'/googlemaps';
-    const POPUP_IMAGE = self::POPUP.'/image';
-    const POPUP_PAGE = self::POPUP.'/page';
-
-    const POPUP_MEDIA_BROWSER_HEADER = self::POPUP.'/media-header';
-    const POPUP_MEDIA_BROWSER_FOOTER = self::POPUP.'/media-footer';
-    const POPUP_MEDIA_BROWSER_IMAGES = self::POPUP.'/media-images';
-    const POPUP_MEDIA_BROWSER_FILES = self::POPUP.'/media-files';
-
-    const STYLES = 'styles';
-
-    const STYLES_CSS = self::STYLES.'/css';
-
-    const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
-
-    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.richtext';
-
-    const STYLES_JAVASCRIPT = self::STYLES.'/js';
-
-    const SCRIPTS = 'script';
-
-    const SCRIPTS_TINYMCE = self::SCRIPTS.'/tiny_mce3';
-    const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
-    const SCRIPTS_TINYMCE_POPUP = self::SCRIPTS_TINYMCE.'/plugins/papaya';
-    const SCRIPTS_TINYMCE_POPUP_LINK = self::SCRIPTS_TINYMCE_POPUP.'/link';
-    const SCRIPTS_TINYMCE_POPUP_IMAGE = self::SCRIPTS_TINYMCE_POPUP.'/dynamic-image';
-    const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
     /**
-     * @param \Papaya\Administration\UI $ui
-     * @param \Papaya\Administration\UI\Route\Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param \Papaya\Administration\UI\Route\Address $address
      * @param int $level
-     * @return null|TRUE|\Papaya\Response|callable
+     * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(\Papaya\Administration\UI $ui, Route\Address $path, $level = 0);
+    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0);
   }
 }

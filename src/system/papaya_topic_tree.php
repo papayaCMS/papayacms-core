@@ -1046,7 +1046,7 @@ class papaya_topic_tree extends base_topic_tree {
             '<a href="%s"><glyph src="%s" hint="%s"/></a>',
             papaya_strings::escapeHTMLChars(
               $this->getLink(
-                array('page_id' => (int)$id), NULL, Papaya\Administration\UI\Route::PAGES_EDIT
+                array('page_id' => (int)$id), NULL, Papaya\Administration\UI::PAGES_EDIT
               )
             ),
             papaya_strings::escapeHTMLChars($images['actions-edit']),

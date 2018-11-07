@@ -19,7 +19,6 @@ namespace Papaya\Template\Engine\Values {
   use Papaya\XML\Element;
 
   class ArrayLoader implements Loadable {
-
     public function load($values) {
       Constraints::assertArrayOrTraversable($values);
       $document = new Document();
@@ -29,11 +28,11 @@ namespace Papaya\Template\Engine\Values {
 
     private function appendArray(Element $parent, $data) {
       foreach ($data as $key => $value) {
-        $nodeName = preg_replace('([^A-Za-z_-])', '', $key) ?: NULL;
+        $nodeName = \preg_replace('([^A-Za-z_-])', '', $key) ?: NULL;
         if (!$nodeName) {
           continue;
         }
-        if (is_array($value) || $value instanceof \Traversable) {
+        if (\is_array($value) || $value instanceof \Traversable) {
           $this->appendArray($parent->appendElement($nodeName), $value);
         } else {
           $parent->appendElement($nodeName, (string)$value);

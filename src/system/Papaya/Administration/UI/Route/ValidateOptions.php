@@ -14,7 +14,6 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Administration\UI\Route;
 
   /**
@@ -22,13 +21,13 @@ namespace Papaya\Administration\UI\Route {
    */
   class ValidateOptions implements Route {
     /**
-     * @param UI $ui
-     * @param Address $path
+     * @param \Papaya\Administration\Router $router
+     * @param Address $address
      * @param int $level
      * @return null
      */
-    public function __invoke(UI $ui, Address $path, $level = 0) {
-      $application = $ui->papaya();
+    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+      $application = $router->papaya();
       if (
         '' !== ($dataPath = $application->options->get('PAPAYA_PATH_DATA')) &&
         FALSE !== \strpos($dataPath, $_SERVER['DOCUMENT_ROOT']) &&
