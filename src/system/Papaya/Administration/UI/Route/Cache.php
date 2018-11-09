@@ -14,14 +14,14 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI\Route;
   use Papaya\Application\Access;
   use Papaya\Response;
+  use Papaya\Router;
 
   /**
    * Cache Response
    */
-  class Cache implements Route, Access {
+  class Cache implements Router\Route, Access {
     use Access\Aggregation;
 
     /**
@@ -82,12 +82,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $this->papaya($router->papaya());
       $route = $this->_route;
       if ($this->_cacheTime < 1) {
@@ -96,7 +96,7 @@ namespace Papaya\Administration\UI\Route {
       $cacheElement = '' !== \trim($this->_element)
         ? $this->_element
         : $application->options->get('PAPAYA_VERSION_STRING', 'dev', new \Papaya\Filter\NotEmpty());
-      $cacheId = $this->getCacheIdentifier($address->getRoute(-1));
+      $cacheId = $this->getCacheIdentifier($address->getRouteString(-1));
       $data = NULL;
       $lastModified = $this->cache()->created($this->_group, $cacheElement, $cacheId, $this->_cacheTime);
       if ($application->request->validateBrowserCache($cacheId, $lastModified)) {

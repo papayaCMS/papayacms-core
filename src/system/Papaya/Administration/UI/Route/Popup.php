@@ -14,8 +14,8 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI;
   use Papaya\Response;
+  use Papaya\Router;
   use Papaya\Template\Engine\XSLT;
   use Papaya\XML\Element;
   use Papaya\XML\Errors;
@@ -23,9 +23,9 @@ namespace Papaya\Administration\UI\Route {
   /**
    * Popups are defined by an XML structure inside an XSLT template.
    *
-   * @package Papaya\Administration\UI\Route
+   * @package Papaya\Router\Route
    */
-  class Popup implements UI\Route {
+  class Popup implements \Papaya\Router\Route {
     const XMLNS = 'http://papaya-cms.com/administration/popup';
 
     /**
@@ -48,12 +48,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
-     * @return null|Response|\Papaya\Administration\UI\Route
+     * @return null|Response|\Papaya\Router\Route
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $xslDocument = new \Papaya\XML\Document();
       $xslDocument->load($this->_file);
       $xslDocument->registerNamespace('popup', self::XMLNS);
@@ -86,12 +86,12 @@ namespace Papaya\Administration\UI\Route {
           return $response;
         }
       }
-      return new Error(
+      return new Router\Route\Error(
         'Broken route.', 500
       );
     }
 
-    private function fetchData(\Papaya\Administration\Router $router, Element $popup) {
+    private function fetchData(Router $router, Element $popup) {
       $document = $popup->ownerDocument;
       /** @var \Papaya\XML\Element $node */
       // translate phrases to current language

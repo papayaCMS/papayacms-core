@@ -15,8 +15,8 @@
 namespace Papaya\Administration\UI\Route\Templated {
 
   use Papaya\Administration;
-  use Papaya\Administration\UI\Route\Address;
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Router;
 
   /**
    * Execute an \Papaya\Administration\Page or one of
@@ -59,13 +59,13 @@ namespace Papaya\Administration\UI\Route\Templated {
     }
 
     /**
-     * @param Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|\Papaya\Response
      * @throws \ReflectionException
      */
-    public function __invoke(Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       if (
         NULL === $this->_permission ||
         $router->papaya()->administrationUser->hasPerm($this->_permission)

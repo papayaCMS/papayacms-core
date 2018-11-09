@@ -12,16 +12,16 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
-  use Papaya\Administration\UI\Route;
+  use Papaya\Router;
   use Papaya\Utility;
 
   /**
    * A list of routes that will be executed one after each other until
    * one of them returns an response.
    */
-  class Group implements Route, \ArrayAccess {
+  class Group implements Router\Route, \ArrayAccess {
     private $_routes = [];
 
     /**
@@ -36,12 +36,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       foreach ($this->_routes as $route) {
         if ($response = $route($router, $address, $level)) {
           return $response;
@@ -75,7 +75,7 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param int $offset
-     * @return callable|Route $route
+     * @return callable|\Papaya\Router\Route $route
      */
     public function offsetGet($offset) {
       return $this->_routes[$offset];

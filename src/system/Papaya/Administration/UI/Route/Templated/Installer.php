@@ -14,18 +14,17 @@
  */
 namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI\Route\Address;
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Router;
 
   class Installer extends Templated {
-
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
       $installer = new \papaya_installer();
       $installer->getCurrentStatus();

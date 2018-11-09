@@ -12,15 +12,21 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI {
-
-  interface Route {
+namespace Papaya\Router\Route {
+  /**
+   * Execute the inner route if the session contains an authorized user.
+   * Return the login page, otherwise.
+   *
+   * @package Papaya\Router\Route
+   */
+  class JavaScript extends Files {
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param \Papaya\Administration\UI\Route\Address $address
-     * @param int $level
-     * @return null|true|\Papaya\Response|callable
+     * @param string|string[] $files
+     * @param string $prefix
+     * @param string $suffix
      */
-    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0);
+    public function __construct($files, $prefix = '', $suffix = '') {
+      parent::__construct($files, 'application/javascript', $prefix, $suffix);
+    }
   }
 }

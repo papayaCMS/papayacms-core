@@ -12,7 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router {
 
   /**
    * Parse URL into a route address
@@ -23,41 +23,23 @@ namespace Papaya\Administration\UI\Route {
    *   'administration.settings' -> ['administration', 'settings']
    *   'css/main' -> ['css', 'main']
    *
-   * @package Papaya\Administration\UI\Route
+   * @package Papaya\Router\Route
    */
-  class Address implements \IteratorAggregate, \Countable, \ArrayAccess {
+  abstract class Address implements \IteratorAggregate, \Countable, \ArrayAccess {
     /**
-     * @var \Papaya\URL\Current
-     */
-    private $_url;
-
-    /**
-     * @var null|array
-     */
-    private $_parts;
-
-    /**
-     * @var null|array
-     */
-    private $_separators;
-
-    /**
-     * @var string
-     */
-    private $_basePath;
-
-    /**
-     * Address constructor.
+     * Lazy parsing for the route path
      *
-     * @param string $basePath
-     * @param \Papaya\URL|null $url
+     * @return array|null
      */
-    public function __construct($basePath, \Papaya\URL $url = NULL) {
-      $this->_basePath = $basePath;
-      if (NULL === $url) {
-        $this->_url = new \Papaya\URL\Current();
-      }
-    }
+    abstract public function getRouteArray();
+
+    /**
+     * Lazy parsing for the route path
+     *
+     * @param $offset
+     * @return string
+     */
+    abstract public function getSeparator($offset);
 
     /**
      * Returns the route path as an traversable list
@@ -65,14 +47,14 @@ namespace Papaya\Administration\UI\Route {
      * @return \ArrayIterator|\Traversable
      */
     public function getIterator() {
-      return new \ArrayIterator($this->getParts());
+      return new \ArrayIterator($this->getRouteArray());
     }
 
     /**
      * @return int
      */
     public function count() {
-      return \count($this->getParts());
+      return \count($this->getRouteArray());
     }
 
     /**
@@ -80,7 +62,7 @@ namespace Papaya\Administration\UI\Route {
      * @return bool
      */
     public function offsetExists($offset) {
-      return \array_key_exists($offset, $this->getParts());
+      return \array_key_exists($offset, $this->getRouteArray());
     }
 
     /**
@@ -88,7 +70,7 @@ namespace Papaya\Administration\UI\Route {
      * @return string
      */
     public function offsetGet($offset) {
-      return $this->offsetExists($offset) ? $this->getParts()[$offset] : NULL;
+      return $this->offsetExists($offset) ? $this->getRouteArray()[$offset] : NULL;
     }
 
     /**
@@ -107,57 +89,21 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * Lazy parsing for the route path
-     *
-     * @return array|null
-     */
-    private function getParts() {
-      if (NULL === $this->_parts) {
-        $pattern = '('.\preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
-        if (\preg_match($pattern, $this->_url->path, $matches)) {
-          $values = \preg_split('(([/.]))', $matches['path'], -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
-          $this->_parts = \array_values(
-            \array_filter(
-              $values,
-              function($key) {
-                return !($key % 2);
-              },
-              ARRAY_FILTER_USE_KEY
-            )
-          );
-          $this->_separators = \array_values(
-            \array_filter(
-              $values,
-              function($key) {
-                return $key % 2;
-              },
-              ARRAY_FILTER_USE_KEY
-            )
-          );
-        } else {
-          $this->_parts = [];
-          $this->_separators = [];
-        }
-      }
-      return $this->_parts;
-    }
-
-    /**
      * Return the route as a string
      *
      * @param int $level - level depth starting with 0
      * @param int $offset - offset starting with 0
      * @return string
      */
-    public function getRoute($level, $offset = 0) {
-      $parts = $this->getParts();
+    public function getRouteString($level, $offset = 0) {
+      $parts = $this->getRouteArray();
       $result = '';
       if ($level < 0) {
         $level = \count($parts);
       }
       for ($i = $offset, $c = \count($parts); $i < $c && $i <= $level; $i++) {
         if ($i > $offset) {
-          $result .= isset($this->_separators[$i - 1]) ? $this->_separators[$i - 1] : '.';
+          $result .= $this->getSeparator($i - 1);
         }
         $result .= $parts[$i];
       }

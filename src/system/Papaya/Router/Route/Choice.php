@@ -12,15 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
-  use Papaya\Administration\UI\Route;
+  use Papaya\Router;
   use Papaya\Utility;
 
   /**
    * Select and execute route by path.
    */
-  class Choice implements Route, \ArrayAccess {
+  class Choice implements Router\Route, \ArrayAccess {
     /**
      * @var array
      */
@@ -59,13 +59,13 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
-      $command = $address->getRoute($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+      $command = $address->getRouteString($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
         return NULL;
       }
@@ -82,7 +82,7 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param string $command
-     * @return callable|Route
+     * @return callable|\Papaya\Router\Route
      */
     public function offsetGet($command) {
       return $this->_routes[$command];

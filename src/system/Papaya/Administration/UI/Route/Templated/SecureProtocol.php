@@ -14,9 +14,9 @@
  */
 namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI\Route\Address;
   use Papaya\Administration\UI\Route\Templated;
   use Papaya\Response;
+  use Papaya\Router;
   use Papaya\Utility;
 
   /**
@@ -24,12 +24,12 @@ namespace Papaya\Administration\UI\Route\Templated {
    */
   class SecureProtocol extends Templated {
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&

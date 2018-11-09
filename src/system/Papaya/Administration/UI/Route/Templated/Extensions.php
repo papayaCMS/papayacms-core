@@ -14,8 +14,8 @@
  */
 namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI\Route\Address;
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Router;
 
   /**
    * Route for the papaya administration plugins/extensions.
@@ -47,12 +47,12 @@ namespace Papaya\Administration\UI\Route\Templated {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $this->setTitle($this->_image, $this->_caption);
       $pluginGuid = NULL;
       if (($c = \count($address)) > 0) {

@@ -14,35 +14,34 @@
  */
 namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI\Route;
-  use Papaya\Administration\UI\Route\Address;
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Router;
 
   /**
    * Execute the inner route if the session contains an authorized user.
    * Return the login page, otherwise.
    *
-   * @package Papaya\Administration\UI\Route
+   * @package Papaya\Router\Route
    */
   class Authenticated extends Templated {
     private $_route;
 
     /**
      * @param \Papaya\Template $template
-     * @param Route $route
+     * @param \Papaya\Router\Route $route
      */
-    public function __construct(\Papaya\Template $template, Route $route) {
+    public function __construct(\Papaya\Template $template, Router\Route $route) {
       parent::__construct($template);
       $this->_route = $route;
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
       $user = $application->administrationUser;
       $user->layout = $this->getTemplate();

@@ -12,16 +12,16 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
-  use Papaya\Administration\UI\Route;
   use Papaya\Response;
+  use Papaya\Router;
   use Papaya\Utility;
 
   /**
    * Return error document
    */
-  class Error implements Route {
+  class Error implements Router\Route {
     /**
      * HTTP response status
      *
@@ -116,12 +116,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return \Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $response = new Response();
       $response->setStatus($this->_status);
       $response->setContentType('text/html');

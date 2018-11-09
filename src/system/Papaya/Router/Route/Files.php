@@ -12,15 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
-  use Papaya\Administration\UI\Route;
   use Papaya\Response;
+  use Papaya\Router;
 
   /**
    * Output one or more files
    */
-  class Files implements Route {
+  class Files implements Router\Route {
     /**
      * @var string|string[]
      */
@@ -63,12 +63,12 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       return $this->createResponse($this->getFilesContent());
     }
 

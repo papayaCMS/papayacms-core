@@ -15,22 +15,22 @@
 namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration\UI;
-  use Papaya\Administration\UI\Route;
   use Papaya\Response;
+  use Papaya\Router;
 
   /**
    * Validate options an add warnings
    */
-  class ValidateInstall implements Route {
+  class ValidateInstall implements Router\Route {
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
-      if (!$application->options->loadAndDefine() && UI::INSTALLER !== $address->getRoute(0)) {
+      if (!$application->options->loadAndDefine() && UI::INSTALLER !== $address->getRouteString(0)) {
         return new Response\Redirect(UI::INSTALLER);
       }
       return NULL;

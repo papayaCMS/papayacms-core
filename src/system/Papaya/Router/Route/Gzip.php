@@ -12,15 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
-  use Papaya\Administration\UI\Route;
   use Papaya\Response;
+  use Papaya\Router;
 
   /**
    * Cache Response
    */
-  class Gzip implements Route {
+  class Gzip implements Router\Route {
     /**
      * @var callable
      */
@@ -33,7 +33,13 @@ namespace Papaya\Administration\UI\Route {
       $this->_route = $route;
     }
 
-    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0) {
+    /**
+     * @param Router $router
+     * @param Router\Address $address
+     * @param int $level
+     * @return callable|null|\Papaya\Response|true
+     */
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $route = $this->_route;
       do {
         $route = $route($router, $address, $level);
@@ -55,6 +61,9 @@ namespace Papaya\Administration\UI\Route {
       return $route;
     }
 
+    /**
+     * @return bool
+     */
     private function canUseOutputCompression() {
       if (
         \function_exists('ob_gzhandler') &&

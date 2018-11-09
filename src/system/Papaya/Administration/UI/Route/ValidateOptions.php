@@ -14,19 +14,18 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI\Route;
+  use Papaya\Router;
 
   /**
    * Validate options an add warnings
    */
-  class ValidateOptions implements Route {
+  class ValidateOptions implements Router\Route {
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
-     * @return null
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
       if (
         '' !== ($dataPath = $application->options->get('PAPAYA_PATH_DATA')) &&

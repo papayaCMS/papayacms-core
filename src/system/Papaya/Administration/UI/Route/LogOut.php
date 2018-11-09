@@ -14,22 +14,23 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI\Route;
+  use Papaya\Response;
+  use Papaya\Router;
 
-  class LogOut implements Route {
+  class LogOut implements Router\Route {
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
       $locking = \papaya_locking::getInstance();
       $locking->removeLocks($application->session->id);
       $application->session->activate(FALSE);
       $application->session->destroy();
-      return new \Papaya\Response\Redirect('./');
+      return new Response\Redirect('./');
     }
   }
 }

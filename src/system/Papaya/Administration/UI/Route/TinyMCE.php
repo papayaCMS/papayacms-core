@@ -14,15 +14,21 @@
  */
 namespace Papaya\Administration\UI\Route {
 
-  use Papaya\Administration\UI\Route;
   use Papaya\Filter;
   use Papaya\Response;
+  use Papaya\Router;
 
   /**
    * Output one or more files
    */
-  class TinyMCE extends \Papaya\BaseObject\Interactive implements Route {
-    public function __invoke(\Papaya\Administration\Router $router, Route\Address $address, $level = 0) {
+  class TinyMCE extends \Papaya\BaseObject\Interactive implements Router\Route {
+    /**
+     * @param Router $router
+     * @param Router\Address $address
+     * @param int $level
+     * @return callable|null|\Papaya\Response|Router\Route|true
+     */
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $isJS = $this->parameters()->get('js', TRUE);
       $core = $this->parameters()->get('core', TRUE);
       $filter = new Filter\Text\Explode(',', new Filter\NotEmpty());
@@ -32,7 +38,7 @@ namespace Papaya\Administration\UI\Route {
       $suffix = '_src' === $this->parameters()->get('suffix', '_src') ? '_src' : '';
 
       if (!$isJS) {
-        return new JavaScript(
+        return new Router\Route\JavaScript(
           $router->getLocalPath().'/script/tiny_mce3/tiny_mce_gzip.js',
           '',
           "\ntinyMCE_GZ.init({});\n"
@@ -77,8 +83,8 @@ namespace Papaya\Administration\UI\Route {
       $response = new Response();
       $response->setContentType('text/javascript');
       $response->content(new Response\Content\Text($content));
-      return new Gzip(
-        new Cache(
+      return new Router\Route\Gzip(
+        new \Papaya\Administration\UI\Route\Cache(
           function() use ($response) {
             return $response;
           },

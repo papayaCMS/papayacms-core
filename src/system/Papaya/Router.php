@@ -12,25 +12,10 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration {
-
-  use Papaya\Administration\UI\Route;
-  use Papaya\Application;
-  use Papaya\Response;
-  use Papaya\Template;
+namespace Papaya {
 
   abstract class Router implements Application\Access {
     use Application\Access\Aggregation;
-
-    /**
-     * @var Template
-     */
-    private $_template;
-
-    /**
-     * @var \Papaya\Theme\Handler
-     */
-    private $_themeHandler;
 
     /**
      * @var string
@@ -38,7 +23,7 @@ namespace Papaya\Administration {
     private $_path;
 
     /**
-     * @var callable
+     * @var callable|Router\Route
      */
     private $_route;
 
@@ -72,8 +57,7 @@ namespace Papaya\Administration {
      * @return null|\Papaya\Response
      */
     public function execute() {
-      $application = $this->papaya();
-      $address = new Route\Address($application->options->get('PAPAYA_PATH_ADMIN', ''));
+      $address = $this->address();
       $route = $this->route();
       do {
         $route = $route($this, $address);
@@ -85,7 +69,13 @@ namespace Papaya\Administration {
     }
 
     /**
-     * @param callable|null $route
+     * @param Router\Address|null $address
+     * @return Router\Address
+     */
+    abstract public function address(Router\Address $address = NULL);
+
+    /**
+     * @param callable|null|Router\Route $route
      * @return mixed
      */
     abstract public function route(callable $route = NULL);

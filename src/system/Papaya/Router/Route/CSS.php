@@ -12,15 +12,17 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\UI\Route {
+namespace Papaya\Router\Route {
 
   use Papaya\Response;
+  use Papaya\Router;
+  use Papaya\Template\Engine as TemplateEngine;
 
   /**
    * Execute the inner route if the session contains an authorized user.
    * Return the login page, otherwise.
    *
-   * @package Papaya\Administration\UI\Route
+   * @package Papaya\Router\Route
    */
   class CSS extends Files {
     /**
@@ -45,18 +47,18 @@ namespace Papaya\Administration\UI\Route {
     }
 
     /**
-     * @param \Papaya\Administration\Router $router
-     * @param Address $address
+     * @param Router $router
+     * @param Router\Address $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(\Papaya\Administration\Router $router, Address $address, $level = 0) {
+    public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $css = $this->getFilesContent();
 
       $variables = $this->getThemeVariables();
       if ($variables) {
-        $engine = new \Papaya\Template\Engine\Simple();
-        $engine->loaders()->add(new \Papaya\Template\Engine\Values\ArrayLoader());
+        $engine = new TemplateEngine\Simple();
+        $engine->loaders()->add(new TemplateEngine\Values\ArrayLoader());
         $engine->setTemplateString($css);
         $engine->values($variables);
         $engine->prepare();
