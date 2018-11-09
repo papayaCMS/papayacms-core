@@ -27,7 +27,7 @@ namespace Papaya\Router\Route {
     /**
      * Group constructor.
      *
-     * @param callable|Route ...$routes
+     * @param callable|Router\Route ...$routes
      */
     public function __construct(...$routes) {
       foreach ($routes as $route) {
@@ -60,7 +60,7 @@ namespace Papaya\Router\Route {
 
     /**
      * @param int $offset
-     * @param callable|Route $route
+     * @param callable|Router\Route $route
      */
     public function offsetSet($offset, $route) {
       Utility\Constraints::assertCallable($route);

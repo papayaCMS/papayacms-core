@@ -129,6 +129,8 @@ namespace Papaya\Administration {
 
     const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
 
+    const ICON = 'icon';
+
     /**
      * @var Template
      */
@@ -261,7 +263,8 @@ namespace Papaya\Administration {
                     ]
                   )
                 ]
-              )
+              ),
+              self::ICON => new UI\Route\Icon($localPath.'/pics/icons', TRUE)
             ]
           ),
           // Authentication needed

@@ -62,9 +62,10 @@ namespace Papaya\Administration\UI {
     /**
      * Lazy parsing for the route path
      *
+     * @param int $offset
      * @return array|null
      */
-    public function getRouteArray() {
+    public function getRouteArray($offset = 0) {
       if (NULL === $this->_parts) {
         $pattern = '('.\preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
         if (\preg_match($pattern, $this->_url->path, $matches)) {
@@ -92,7 +93,7 @@ namespace Papaya\Administration\UI {
           $this->_separators = [];
         }
       }
-      return $this->_parts;
+      return \array_slice($this->_parts, $offset);
     }
 
     /**

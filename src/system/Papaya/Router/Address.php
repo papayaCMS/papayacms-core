@@ -29,9 +29,10 @@ namespace Papaya\Router {
     /**
      * Lazy parsing for the route path
      *
+     * @param int $offset
      * @return array|null
      */
-    abstract public function getRouteArray();
+    abstract public function getRouteArray($offset = 0);
 
     /**
      * Lazy parsing for the route path
