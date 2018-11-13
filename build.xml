@@ -129,6 +129,8 @@
   -->
   <target name="run" depends="setup" description="Start the PHP built-in webserver">
     <delete file="${directory.base}/php-server.log"/>
+    <delete dir="${directory.base}/papaya-data/cache"/>
+    <mkdir dir="${directory.base}/papaya-data/cache"/>
     <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
     <echo message="Administration-UI available at http://${configuration.run.host}:${configuration.run.port}/papaya/"/>
     <exec executable="php">
