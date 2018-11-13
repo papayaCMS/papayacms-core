@@ -121,6 +121,7 @@ namespace Papaya\Administration\UI\Route {
       $svg = $document->documentElement;
       $document->registerNamespace('#default', 'http://www.w3.org/2000/svg');
       $document->registerNamespace('svg', 'http://www.w3.org/2000/svg');
+      $document->registerNamespace('xlink', 'http://www.w3.org/1999/xlink');
       if ('disabled' === $name) {
         $group = $svg
           ->appendElement('g', ['opacity' => '0.75', 'filter' => 'url(#disabled)']);
@@ -144,10 +145,19 @@ namespace Papaya\Administration\UI\Route {
         $modifierDocument = new Document();
         $modifierDocument->load($modifierFile);
         $modifierDocument->registerNamespace('svg', 'http://www.w3.org/2000/svg');
+        $group = $svg->appendElement('g');
         foreach ($modifierDocument->xpath()->evaluate('(/svg:svg/svg:*)') as $node) {
-          $svg->appendChild(
-            $document->importNode($node, TRUE)
-          );
+          $group->appendChild($document->importNode($node, TRUE));
+        }
+        foreach ($document->xpath()->evaluate('.//*/@id', $group) as $idAttribute) {
+          $oldId = $idAttribute->value;
+          $idAttribute->value = $name.'-'.$oldId;
+          foreach ($document->xpath()->evaluate('.//svg:*/@*[. = "url(#'.$oldId.')"]', $group) as $reference) {
+            $reference->value = 'url(#'.$name.'-'.$oldId.')';
+          }
+          foreach ($document->xpath()->evaluate('.//svg:*/@xlink:href[. = "#'.$oldId.'"]', $group) as $reference) {
+            $reference->value = '#'.$name.'-'.$oldId;
+          }
         }
       }
     }

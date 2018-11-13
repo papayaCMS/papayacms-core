@@ -264,7 +264,9 @@ namespace Papaya\Administration {
                   )
                 ]
               ),
-              self::ICON => new UI\Route\Icon($localPath.'/pics/icons', TRUE)
+              self::ICON => new Route\Gzip(
+                new UI\Route\Icon($localPath.'/pics/icons')
+              )
             ]
           ),
           // Authentication needed
