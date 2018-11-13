@@ -33,35 +33,40 @@ namespace Papaya\Administration\Settings\Icons {
         $listView->mode = UI\ListView::MODE_TILES;
 
         $group = $groups->getChildren();
-        $fileCount = 0;
         $imageCount = 0;
         foreach ($group as $index => $fileName) {
           $sizes = ['16x16', '22x22', '48x48'];
           $image = 'pics/tpoint.gif';
           $sizesAvailable = [];
           foreach ($sizes as $size) {
-            $imageFile = 'pics/icons/'.$size.'/'.$fileName;
-            if (\file_exists($path.'/'.$imageFile)) {
-              $image = $imageFile;
-              $sizesAvailable[] = $size;
-              $fileCount++;
+            if (0 === strpos($fileName, 'icon.')) {
+              list(, $category, $name) = \explode('.', $fileName);
+              $imageFile = 'pics/icons/'.$size.'/'.$category.'/'.$name.'.svg';
+              if (\file_exists($path.'/'.$imageFile)) {
+                $image = $fileName;
+                $sizesAvailable[] = $size;
+              }
+            } else {
+              $imageFile = 'pics/icons/'.$size.'/'.$fileName;
+              if (\file_exists($path.'/'.$imageFile)) {
+                $image = './'.$imageFile;
+                $sizesAvailable[] = $size;
+              }
             }
           }
           $imageCount++;
           $listView->items[] = $item = new UI\ListView\Item(
-            './'.$image,
+            $image,
             \substr($index, \strlen($groupName) + 1)
           );
           $item->text = \implode(', ', $sizesAvailable);
           $item->hint = $index.': '.$fileName;
         }
         $listView->caption = \sprintf(
-          '%s (%s: %d / %s: %d)',
+          '%s (%s: %d)',
           $groupName,
           new UI\Text\Translated('Icons'),
-          $imageCount,
-          new UI\Text\Translated('Files'),
-          $fileCount
+          $imageCount
         );
 
         $parent->append($listView);

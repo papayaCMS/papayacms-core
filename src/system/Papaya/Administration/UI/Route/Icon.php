@@ -144,7 +144,7 @@ namespace Papaya\Administration\UI\Route {
         $modifierDocument = new Document();
         $modifierDocument->load($modifierFile);
         $modifierDocument->registerNamespace('svg', 'http://www.w3.org/2000/svg');
-        if ($node = $modifierDocument->xpath()->evaluate('(/svg:svg/svg:g)[1]')[0]) {
+        foreach ($modifierDocument->xpath()->evaluate('(/svg:svg/svg:*)') as $node) {
           $svg->appendChild(
             $document->importNode($node, TRUE)
           );
