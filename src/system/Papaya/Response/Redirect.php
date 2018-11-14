@@ -37,7 +37,7 @@ class Redirect extends \Papaya\Response {
    * @param int $status redirect status code (default 302)
    * @param string $reason A reason send as an X-Header
    */
-  public function __construct($location, $status = 302, $reason = '') {
+  public function __construct($location, $status = Status::FOUND_302, $reason = '') {
     $this->_location = Absolute::transform(new CurrentURL(), $location);
     $this->_reason = $reason;
     $this->setStatus($status);
