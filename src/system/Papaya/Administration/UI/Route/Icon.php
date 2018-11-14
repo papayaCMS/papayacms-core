@@ -26,7 +26,7 @@ namespace Papaya\Administration\UI\Route {
     /**
      * @var array
      */
-    private static $_sizes = [48, 22, 16];
+    const SIZES = [48, 22, 16];
 
     /**
      * @var string
@@ -39,7 +39,7 @@ namespace Papaya\Administration\UI\Route {
 
     public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $size = $this->parameters()->get(
-        'size', 16, new \Papaya\Filter\ArrayElement(self::$_sizes)
+        'size', 16, new \Papaya\Filter\ArrayElement(self::SIZES)
       );
       $parameters = $address->getRouteArray($level);
       $category = Utility\Arrays::get($parameters, 0, '');
@@ -99,7 +99,7 @@ namespace Papaya\Administration\UI\Route {
         }
         return $response;
       }
-      foreach (self::$_sizes as $possibleSize) {
+      foreach (self::SIZES as $possibleSize) {
         if ($possibleSize < $size) {
           return $this->getIcon($category, $name, $possibleSize, $modifiers);
         }

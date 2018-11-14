@@ -21,6 +21,10 @@ namespace Papaya;
 class Response implements Application\Access {
   use Application\Access\Aggregation;
 
+
+  const CACHE_PRIVATE = 'private';
+  const CACHE_PUBLIC = 'public';
+
   /**
    * Status codes
    *
@@ -233,7 +237,7 @@ class Response implements Application\Access {
   public function setCache(
     $cacheMode, $cachePeriod = 0, $cacheStartTime = NULL, $currentTime = NULL
   ) {
-    if ($cachePeriod > 0 && \in_array($cacheMode, ['private', 'public'], TRUE)) {
+    if ($cachePeriod > 0 && \in_array($cacheMode, [self::CACHE_PRIVATE, self::CACHE_PUBLIC], TRUE)) {
       if (NULL === $currentTime) {
         $currentTime = \time();
       }

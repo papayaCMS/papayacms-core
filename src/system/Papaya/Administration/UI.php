@@ -232,7 +232,8 @@ namespace Papaya\Administration {
                       1
                     ),
                     $themeName,
-                    $cacheTime
+                    $cacheTime,
+                    UI\Route\Cache::CACHE_PUBLIC
                   )
                 );
               },
@@ -254,7 +255,8 @@ namespace Papaya\Administration {
                     return new UI\Route\Cache(
                       new Route\JavaScript($files),
                       $files,
-                      $cacheTime
+                      $cacheTime,
+                      UI\Route\Cache::CACHE_PUBLIC
                     );
                   },
                   self::SCRIPTS_TINYMCE => new Route\Choice(
@@ -265,7 +267,13 @@ namespace Papaya\Administration {
                 ]
               ),
               self::ICON => new Route\Gzip(
-                new UI\Route\Icon($localPath.'/pics/icons')
+                new UI\Route\Cache(
+                  new UI\Route\Icon($localPath.'/pics/icons'),
+                  isset($_GET['size']) && \in_array((int)$_GET['size'], UI\Route\Icon::SIZES, TRUE)
+                     ? (int)$_GET['size'] : 16,
+                  $cacheTime,
+                  UI\Route\Cache::CACHE_PUBLIC
+                )
               )
             ]
           ),

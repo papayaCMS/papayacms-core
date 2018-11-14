@@ -24,6 +24,9 @@ namespace Papaya\Administration\UI\Route {
   class Cache implements Router\Route, Access {
     use Access\Aggregation;
 
+    const CACHE_PRIVATE = Response::CACHE_PRIVATE;
+    const CACHE_PUBLIC = Response::CACHE_PUBLIC;
+
     /**
      * @var callable
      */
@@ -67,7 +70,7 @@ namespace Papaya\Administration\UI\Route {
      * @param int $seconds
      * @param string $mode
      */
-    public function __construct(callable $route, $identifier, $seconds, $mode = 'private') {
+    public function __construct(callable $route, $identifier, $seconds, $mode = self::CACHE_PRIVATE) {
       $this->_identifier = $identifier;
       $this->_cacheMode = (string)$mode;
       $this->_cacheTime = (int)$seconds;
