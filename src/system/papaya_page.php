@@ -1075,7 +1075,12 @@ class papaya_page extends base_object {
       $this->mode = 'xml';
       break;
     case 'php':
-      $this->mode = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
+      $defaultExtension = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
+      $response = new \PapayaResponseRedirect(
+        $url = new \PapayaURLCurrent()
+      );
+      $url->setPath(preg_replace('(.php$)i', '.'.$defaultExtension, $url->getPath()));
+      $response->send(TRUE);
       break;
     default:
       $this->mode = $pathParameters['output_mode'];
