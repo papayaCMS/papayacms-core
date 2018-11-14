@@ -1077,7 +1077,7 @@ class papaya_page extends base_object {
     case 'php':
       $defaultExtension = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
       $response = new \PapayaResponseRedirect(
-        $url = new \PapayaURLCurrent()
+        $url = new \PapayaURLCurrent(), 301
       );
       $url->setPath(preg_replace('(.php$)i', '.'.$defaultExtension, $url->getPath()));
       $response->send(TRUE);
