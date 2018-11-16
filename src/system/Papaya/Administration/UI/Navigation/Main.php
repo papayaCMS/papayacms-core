@@ -86,7 +86,7 @@ namespace Papaya\Administration\UI\Navigation {
         ],
         Administration\UI::CONTENT_IMAGES => [
           'items-graphic',
-          'Images',
+          'Graphics',
           'Configure dynamic/generated images',
           Administration\Permissions::IMAGE_GENERATOR
         ],

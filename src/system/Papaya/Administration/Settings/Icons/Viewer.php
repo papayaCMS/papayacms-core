@@ -37,20 +37,31 @@ namespace Papaya\Administration\Settings\Icons {
         foreach ($group as $index => $fileName) {
           $sizes = ['16x16', '22x22', '48x48'];
           $image = 'pics/tpoint.gif';
-          $sizesAvailable = [];
+          $sizesAvailable = [
+            'svg' => [],
+            'png' => []
+          ];
           foreach ($sizes as $size) {
             if (0 === strpos($fileName, 'icon.')) {
               list(, $category, $name) = \explode('.', $fileName);
+              $imageFile = 'pics/icons/'.$size.'/'.$category.'/'.$name.'.png';
+              if (\file_exists($path.'/'.$imageFile)) {
+                $image = $fileName;
+                $sizesAvailable['png'][] = $size;
+              }
               $imageFile = 'pics/icons/'.$size.'/'.$category.'/'.$name.'.svg';
               if (\file_exists($path.'/'.$imageFile)) {
                 $image = $fileName;
-                $sizesAvailable[] = $size;
+                $sizesAvailable['svg'][] = $size;
               }
             } else {
               $imageFile = 'pics/icons/'.$size.'/'.$fileName;
               if (\file_exists($path.'/'.$imageFile)) {
                 $image = './'.$imageFile;
-                $sizesAvailable[] = $size;
+                $matches = NULL;
+                if (preg_match('(\.(svg|png)$)', $fileName, $matches)) {
+                  $sizesAvailable[$matches[1]][] = $size;
+                }
               }
             }
           }
@@ -59,7 +70,11 @@ namespace Papaya\Administration\Settings\Icons {
             $image,
             \substr($index, \strlen($groupName) + 1)
           );
-          $item->text = \implode(', ', $sizesAvailable);
+          $item->text = \sprintf(
+            'SVG: %s, PNG: %s',
+            \implode(', ', $sizesAvailable['svg']),
+            \implode(', ', $sizesAvailable['png'])
+          );
           $item->hint = $index.': '.$fileName;
         }
         $listView->caption = \sprintf(
