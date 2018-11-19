@@ -76,6 +76,9 @@ namespace Papaya\Administration\Settings\Icons {
             \implode(', ', $sizesAvailable['png'])
           );
           $item->hint = $index.': '.$fileName;
+          if (\count($sizesAvailable['svg']) < \count($sizesAvailable['png'])) {
+            $item->subitems[] = new UI\ListView\SubItem\Image('status-dialog-warning');
+          }
         }
         $listView->caption = \sprintf(
           '%s (%s: %d)',
