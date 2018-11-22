@@ -897,7 +897,7 @@ class papaya_modulemanager extends base_db {
         $menubar->addButton(
           'Disable package',
           $this->getLink(array('cmd' => 'pkg_disable', 'pkg_id' => (int)$this->params['pkg_id'])),
-          'status-package-closed-disabled',
+          'status-package-disabled',
           'Disable all package modules'
         );
       }
@@ -2005,13 +2005,13 @@ class papaya_modulemanager extends base_db {
           $package['modulegroup_id'] == $this->params['pkg_id']
         ) {
           $selected = TRUE;
-          $itemImage = 'items-package';
+          $itemImage = 'status-package-opened';
         } elseif ($activeModules > 0) {
           $selected = FALSE;
-          $itemImage = 'status-package-closed';
+          $itemImage = 'items-package';
         } else {
           $selected = FALSE;
-          $itemImage = 'status-package-closed-disabled';
+          $itemImage = 'items-package-disabled';
         }
         if ($activeModules == $summaryModules) {
           $moduleStatus = $summaryModules;
