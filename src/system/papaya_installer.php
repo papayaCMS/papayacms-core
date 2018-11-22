@@ -731,7 +731,7 @@ class papaya_installer extends base_db {
       ' onclick="jQuery.papayaInstaller.startStep(\''.$id.'\');">'.$title.'</a></th>'.LF;
     $result .= '</tr>'.LF;
     $result .= '<tr id="headerDisabled'.$id.'"'.$styleActiveLayer.'>'.LF;
-    $result .= '<td class="bullet"><span title="Step '.$no.'" class="installerStepNumber">'.$no.'</span></td>'.LF;
+    $result .= '<td class="bullet disabled"><span title="Step '.$no.'" class="installerStepNumber">'.$no.'</span></td>'.LF;
     $result .= '<th>'.$title.'</th>'.LF;
     $result .= '</tr>'.LF;
     if (isset($text)) {
