@@ -726,13 +726,12 @@ class papaya_installer extends base_db {
     }
     $result = '<tr id="header'.$id.'"'.$styleDefaultLayer.'>'.LF;
     $result .= '<td class="bullet"><a href="#" onclick="initInstall'.$id.
-      '();"><img src="pics/steps/step'.$no.'.gif" alt="Step '.$no.'" /></a></td>'.LF;
+      '();" title="Step '.$no.'" class="installerStepNumber">'.$no.'</a></td>'.LF;
     $result .= '<th><a href="#"'.
       ' onclick="jQuery.papayaInstaller.startStep(\''.$id.'\');">'.$title.'</a></th>'.LF;
     $result .= '</tr>'.LF;
     $result .= '<tr id="headerDisabled'.$id.'"'.$styleActiveLayer.'>'.LF;
-    $result .= '<td class="bullet"><img src="pics/steps/step'.$no.
-      '_disabled.gif" alt="Step '.$no.'" /></td>'.LF;
+    $result .= '<td class="bullet"><span title="Step '.$no.'" class="installerStepNumber">'.$no.'</span></td>'.LF;
     $result .= '<th>'.$title.'</th>'.LF;
     $result .= '</tr>'.LF;
     if (isset($text)) {
@@ -1336,24 +1335,24 @@ class papaya_installer extends base_db {
     $result .= '<p>The Installer has run some tests.</p>'.LF;
     $result .= '<table>';
     if ($testSummary[TESTRESULT_FAILED] > 0) {
-      $result .= '<tr><td><img src="pics/icons/16x16/'.
+      $result .= '<tr><td><img src="'.
          papaya_strings::escapeHTMLChars($images['status-sign-problem']).
-         '" class="glyph16"/></td>';
+         '?size=16" class="glyph16"/></td>';
       $result .= '<td><p>One or more tests <b>FAILED</b>. Please check the list to'.
         ' the left for details and compare it with the system requirements.'.
         '</p></td></tr>'.LF;
     }
     if ($testSummary[TESTRESULT_UNKNOWN] > 0) {
-      $result .= '<tr><td><img src="pics/icons/16x16/'.
+      $result .= '<tr><td><img src="'.
         papaya_strings::escapeHTMLChars($images['status-sign-info']).
-        '" class="glyph16"/></td>';
+        '?size=16" class="glyph16"/></td>';
       $result .= '<td><p>One or more features could not be tested. You need to check'.
         ' these features manually.</p></td></tr>'.LF;
     }
     if ($testSummary[TESTRESULT_OPTIONAL] > 0) {
-      $result .= '<tr><td><img src="pics/icons/16x16/'.
+      $result .= '<tr><td><img src="'.
         papaya_strings::escapeHTMLChars($images['status-sign-warning']).
-        '" class="glyph16"/></td>';
+        '?size=16" class="glyph16"/></td>';
       $result .= '<td><p>One or more optional features are not available. Plase check'.
         ' the lists to the left for  details.</p></td></tr>'.LF;
     }
