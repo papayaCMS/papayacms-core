@@ -34,6 +34,8 @@
 
 # default database file
 /papaya.sqlite
+/papaya.sqlite-shm
+/papaya.sqlite-wal
 
 # modules test directory
 /src/modules/test/
