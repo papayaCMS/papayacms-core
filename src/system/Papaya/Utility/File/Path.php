@@ -113,7 +113,7 @@ class Path {
   public static function getBasePath($includeDocumentRoot = TRUE) {
     $path = \dirname($_SERVER['SCRIPT_FILENAME']);
     if ($includeDocumentRoot) {
-      $result = $path;
+      $result = self::getDocumentRoot();
     } elseif (
       \preg_match('~^\w:~', $_SERVER['DOCUMENT_ROOT']) &&
       !\preg_match('~^\w:~', $_SERVER['SCRIPT_FILENAME'])

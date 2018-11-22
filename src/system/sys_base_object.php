@@ -501,7 +501,11 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function getBasePath($withDocumentRoot = FALSE) {
-    return \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
+    $path = \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
+    if ($this->papaya()->request->isAdministration) {
+      $path .= $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/papaya').'/';
+    }
+    return \Papaya\Utility\File\Path::cleanup($path);
   }
 
   /**

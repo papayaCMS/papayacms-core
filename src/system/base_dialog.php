@@ -1112,6 +1112,7 @@ class base_dialog extends base_object {
   function getFileCombo(
     $name, $element, $data, $path, $regEx, $emptyAllowed = FALSE, $baseDirectory = ''
   ) {
+
     $result = '';
     switch ($baseDirectory) {
     case 'theme':
@@ -1152,74 +1153,72 @@ class base_dialog extends base_object {
       $dir .= '/';
     }
 
-    if (is_dir($dir) && is_readable($dir)) {
+    try {
+      $files = array_keys(iterator_to_array(new \FilesystemIterator($dir, \FilesystemIterator::KEY_AS_FILENAME)));
       $result = sprintf(
         '<select name="%s[%s]" class="dialogSelect dialogScale" fid="%s">'.LF,
         papaya_strings::escapeHTMLChars($this->paramName),
         papaya_strings::escapeHTMLChars($name),
         papaya_strings::escapeHTMLChars($name)
       );
-      if ($dh = opendir($dir)) {
-        if ($emptyAllowed) {
+      if ($emptyAllowed) {
+        $result .= sprintf(
+          '<option value="">%s</option>'.LF,
+          papaya_strings::escapeHTMLChars($this->_gt('None'))
+        );
+      }
+      sort($files);
+      $fileGroups = array();
+      foreach ($files as $file) {
+        if (!preg_match($regEx, $file)) {
+          continue;
+        }
+        if (preg_match('~^(.+)_([^_]+\\.[^.]+)$~', $file, $match)) {
+          $fileGroups[$match[1]][] = $file;
+        } else {
+          $fileGroups['-'][] = $file;
+        }
+      }
+      foreach ($fileGroups as $groupTitle => $fileGroup) {
+        if (\count($fileGroup) > 0) {
+          if (\count($fileGroups) > 1 ) {
+            $result .= sprintf(
+              '<optgroup label="%s">'.LF,
+              papaya_strings::escapeHTMLChars($groupTitle)
+            );
+          }
+          foreach ($fileGroup as $file) {
+            $fileName = $file;
+            $selected = ((string)$fileName == (string)$data)
+              ? ' selected="selected"' : '';
+            $result .= sprintf(
+              '<option value="%s"%s>%s</option>'.LF,
+              papaya_strings::escapeHTMLChars($fileName),
+              $selected,
+              papaya_strings::escapeHTMLChars($fileName)
+            );
+          }
+          if (\count($fileGroups) > 1 ) {
+            $result .= '</optgroup>';
+          }
+        } else {
+          if (\is_array($fileGroup)) {
+            $fileName = $fileGroup[0];
+          } else {
+            $fileName = $fileGroup;
+          }
+          $selected = ((string)$fileName == (string)$data)
+            ? ' selected="selected"' : '';
           $result .= sprintf(
-            '<option value="">%s</option>'.LF,
-            papaya_strings::escapeHTMLChars($this->_gt('None'))
+            '<option value="%s"%s>%s</option>'.LF,
+            papaya_strings::escapeHTMLChars($fileName),
+            $selected,
+            papaya_strings::escapeHTMLChars($fileName)
           );
-        }
-        while (FALSE !== ($file = readdir($dh))) {
-          if (preg_match($regEx, $file)) {
-            $files[] = $file;
-          }
-        }
-        closedir($dh);
-        if (isset($files) && is_array($files)) {
-          sort($files);
-          $fileGroups = array();
-          foreach ($files as $file) {
-            if (preg_match('~^(.+)_([^_]+\\.[^.]+)$~', $file, $match)) {
-              $fileGroups[$match[1]][] = $file;
-            } else {
-              $fileGroups['-'][] = $file;
-            }
-          }
-          foreach ($fileGroups as $groupTitle => $fileGroup) {
-            if (is_array($fileGroup) && count($fileGroup) > 0) {
-              $result .= sprintf(
-                '<optgroup label="%s">'.LF,
-                papaya_strings::escapeHTMLChars($groupTitle)
-              );
-              foreach ($fileGroup as $file) {
-                $fileName = $file;
-                $selected = ((string)$fileName == (string)$data)
-                  ? ' selected="selected"' : '';
-                $result .= sprintf(
-                  '<option value="%s"%s>%s</option>'.LF,
-                  papaya_strings::escapeHTMLChars($fileName),
-                  $selected,
-                  papaya_strings::escapeHTMLChars($fileName)
-                );
-              }
-              $result .= '</optgroup>';
-            } else {
-              if (is_array($fileGroup)) {
-                $fileName = $fileGroup[0];
-              } else {
-                $fileName = $fileGroup;
-              }
-              $selected = ((string)$fileName == (string)$data)
-                ? ' selected="selected"' : '';
-              $result .= sprintf(
-                '<option value="%s"%s>%s</option>'.LF,
-                papaya_strings::escapeHTMLChars($fileName),
-                $selected,
-                papaya_strings::escapeHTMLChars($fileName)
-              );
-            }
-          }
         }
       }
       $result .= '</select>'.LF;
-    } else {
+    } catch (\UnexpectedValueException $e) {
       $result .= sprintf(
         '<div class="dialogInfo dialogScale">%s</div>',
         papaya_strings::escapeHTMLChars($this->_gt('Cannot open directory.'))
