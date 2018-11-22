@@ -592,7 +592,7 @@ class base_phraseeditor extends base_db {
              ORDER BY lng_title ASC";
     if ($res = $this->databaseQueryFmt($sql, array($this->tableLanguage))) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        if (preg_match('~^\w+-(\w+\.gif)~', $row['lng_glyph'], $match)) {
+        if (preg_match('~^\w+-(\w+\.(gif|svg))~', $row['lng_glyph'], $match)) {
           $row['lng_glyph'] = $match[1];
         }
         $this->languages[$row['lng_id']] = $row;

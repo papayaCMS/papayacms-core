@@ -408,7 +408,7 @@ class base_languages extends base_db {
         'lng_ident' => array('Ident', '/^[a-z]{2,3}$/', TRUE, 'input', 3, '', 'en'),
         'lng_title' => array('Title', 'isNoHTML', TRUE, 'input', 30, '', 'New Language'),
         'lng_glyph' => array ('Image file', 'isFile', FALSE, 'filecombo',
-          array($path, '/^[a-zA-Z0-9\-]+\.gif$/i', TRUE), ''),
+          array($path, '/^[a-zA-Z0-9\-]+\.(gif|svg)$/i', TRUE), ''),
         'is_interface_lng' => array('Backend Language', 'isNum', TRUE, 'yesno', '', '', 1),
         'is_content_lng' => array('Content', 'isNum', TRUE, 'yesno', '', '', 1),
       );
