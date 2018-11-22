@@ -565,7 +565,7 @@ class papaya_options extends base_options {
               ' node="open" nhref="%s"',
               papaya_strings::escapeHTMLChars($nodeHref)
             );
-            $imageIdx = 'items-folder';
+            $imageIdx = 'status-folder-open';
           } elseif (isset($this->optLinks[$groupId]) &&
                     is_array($this->optLinks[$groupId])) {
             $nodeHref = $this->getLink(
@@ -578,7 +578,7 @@ class papaya_options extends base_options {
               ' node="close" nhref="%s"',
               papaya_strings::escapeHTMLChars($nodeHref)
             );
-            $imageIdx = 'status-folder-open';
+            $imageIdx = 'items-folder';
           } else {
             $node = ' indent="1"';
             $imageIdx = 'items-folder';
