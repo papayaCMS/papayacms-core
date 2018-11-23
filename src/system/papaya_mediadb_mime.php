@@ -537,7 +537,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
       'group_title' => array('Title', 'isNoHTML', TRUE, 'input', 100),
       'Language independent',
       'group_icon' => array('Icon', 'isNoHTML', FALSE, 'filecombo',
-      array($path, '/^[a-zA-Z0-9\-]+\.(gif|png)$/i', TRUE), ''),
+      array($path, '/^[a-zA-Z0-9\-]+\.(svg)$/i', TRUE), ''),
     );
     if ($cmd == 'edit_group' &&
         isset($this->params['group_id']) &&
@@ -554,6 +554,9 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         if ($group = current($groupData)) {
           $data = array('group_icon' => $group['mimegroup_icon']);
         }
+      }
+      if (isset($data['group_icon'])) {
+        preg_replace('(\.(gif|png)$)', '.svg', $data['group_icon']);
       }
     } elseif ($cmd == 'edit_group') {
       $this->addMsg(MSG_WARNING, $this->_gt('No mimegroup selected.'));
@@ -767,7 +770,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
       'mimetype' => array('Mimetype', 'isNoHTML', TRUE, 'input', 100),
       'mimegroup_id' => array('Mimegroup', 'isNum', TRUE, 'combo', $mimeGroupNames),
       'mimetype_icon' => array('Icon', 'isNoHTML', FALSE, 'filecombo',
-        array($path, '/^[a-zA-Z0-9\-]+\.(gif|png)$/i', TRUE), ''),
+        array($path, '/^[a-zA-Z0-9\-]+\.(svg)$/i', TRUE), ''),
       'mimetype_ext' => array('Default extension', 'isAlphaNum', TRUE, 'input', 10),
       'Delivering options',
       'range_support' => array('Range header support', 'isNum', TRUE, 'combo',
@@ -795,7 +798,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
       $data = array(
         'mimetype' => $mimeTypeData['mimetype'],
         'mimegroup_id' => $mimeTypeData['mimegroup_id'],
-        'mimetype_icon' => $mimeTypeData['mimetype_icon'],
+        'mimetype_icon' => preg_replace('(\.(gif|png)$)', '.svg', $mimeTypeData['mimetype_icon']),
         'mimetype_ext' => $mimeTypeData['mimetype_ext'],
         'range_support' => $mimeTypeData['range_support'],
         'shaping' => $mimeTypeData['shaping'],

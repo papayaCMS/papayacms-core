@@ -303,7 +303,7 @@ class base_mediadb_mimetypes extends base_db {
       break;
     }
     return papaya_strings::escapeHTMLChars(
-      './pics/icons/'.$size.'x'.$size.'/mimetypes/'.$mimeTypeIcon
+      'icon.mimetypes.'.preg_replace('(\.(gif|png|svg)$)', '', $mimeTypeIcon).'?size='.$size
     );
   }
 

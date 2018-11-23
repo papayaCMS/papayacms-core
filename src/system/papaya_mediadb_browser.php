@@ -494,9 +494,8 @@ class papaya_mediadb_browser extends base_mediadb {
         $mimeIcon = $this->defaultTypeIcon;
       }
       $result .= sprintf(
-        '<listitem image="./pics/mimetypes/%s"'.
-        ' id="file%s" title="%s" href="%s" hint="%s" %s>'.LF,
-        papaya_strings::escapeHTMLChars($mimeIcon),
+        '<listitem image="icon.mimetypes.%s?size=16" id="file%s" title="%s" href="%s" hint="%s" %s>'.LF,
+        papaya_strings::escapeHTMLChars(preg_replace('(\.(gif|png|svg)$)', '', $mimeIcon)),
         papaya_strings::escapeHTMLChars($fileId),
         papaya_strings::escapeHTMLChars($file['file_name']),
         papaya_strings::escapeHTMLChars($href),
