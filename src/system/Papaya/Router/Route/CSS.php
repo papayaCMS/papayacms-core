@@ -74,7 +74,10 @@ namespace Papaya\Router\Route {
      */
     private function getThemeVariables() {
       if ('' !== $this->_themesPath && \preg_match('(^[a-z\d_]+)', $this->_themeName)) {
-        $fileName = \Papaya\Utility\File\Path::cleanup($this->_themesPath.'/').$this->_themeName.'.ini';
+        $fileName = \Papaya\Utility\File\Path::cleanup($this->_themesPath.'/').$this->_themeName;
+        if (!substr($fileName, -4) === '.ini') {
+          $fileName .= '.ini';
+        }
         if (\file_exists($fileName) && \is_readable($fileName)) {
           return \parse_ini_file($fileName, TRUE, INI_SCANNER_NORMAL) ?: FALSE;
         }

@@ -464,19 +464,11 @@ class base_options extends base_db {
     ),
     'PAPAYA_UI_THEME' => array(
       11,
-      'isAlpha',
-      'combo',
-      array(
-        'green' => 'Green (Default)',
-        'black' => 'Black',
-        'blue' => 'Blue',
-        'brown' => 'Brown',
-        'orange' => 'Orange',
-        'pink' => 'Pink',
-        'purple' => 'Purple',
-        'red' => 'Red'
-      ),
-      'green'
+      'isAlphaChar',
+      'filecombo',
+      array('styles/themes/', '(^.+\.ini)', TRUE, 'admin'),
+      'green.ini',
+      TRUE
     ),
     'PAPAYA_USE_RICHTEXT' => array(
       11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 1
