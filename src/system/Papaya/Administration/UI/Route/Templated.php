@@ -91,7 +91,7 @@ namespace Papaya\Administration\UI\Route {
           ' - ',
           \array_map(
             function($captionPart) {
-              return new \Papaya\Ui\Text\Translated($captionPart);
+              return new \Papaya\UI\Text\Translated($captionPart);
             },
             $caption
           )

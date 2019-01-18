@@ -27,7 +27,7 @@ use Papaya\Utility;
 class SubItems
   extends UI\Control\Collection {
   /**
-   * Only {@see \Papaya\Ui\ListView\SubItem} objects are allowed in this list
+   * Only {@see \Papaya\UI\ListView\SubItem} objects are allowed in this list
    *
    * @var string
    */
