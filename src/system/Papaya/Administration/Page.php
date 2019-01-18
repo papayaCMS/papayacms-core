@@ -16,6 +16,8 @@ namespace Papaya\Administration;
 
 use Papaya\Administration\UI as AdministrationUI;
 use Papaya\Request;
+use Papaya\Template;
+use Papaya\Template\XSLT;
 use Papaya\UI;
 
 /**
@@ -40,6 +42,10 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * @var \Papaya\Administration\UI
    */
   private $_ui;
+  /**
+   * @var \Papaya\Template\XSLT
+   */
+  private $_template;
 
   /**
    * @var Page\Parts
@@ -59,19 +65,46 @@ abstract class Page extends \Papaya\Application\BaseObject {
   /**
    * Create page object and store administration UI for later use
    *
-   * @param AdministrationUI $ui
+   * @param \Papaya\Administration\UI|\Papaya\Template\XSLT $ui
    * @param null|string $moduleId
    */
-  public function __construct(AdministrationUI $ui, $moduleId = NULL) {
-    $this->_ui = $ui;
+  public function __construct($ui, $moduleId = NULL) {
+    if ($ui instanceof XSLT) {
+      // BC, allow old calls
+      $this->_template = $ui;
+    } elseif ($ui instanceof AdministrationUI) {
+      $this->_ui = $ui;
+    } else {
+      throw new \InvalidArgumentException(
+        sprintf(
+          'Argument should be a "%s" and can be a "%s" for old code.',
+          AdministrationUI::class,
+          XSLT::class
+        )
+      );
+    }
     $this->_moduleId = $moduleId;
   }
 
   /**
-   * @return AdministrationUI
+   * @return AdministrationUI|null
    */
   public function getUI() {
     return $this->_ui;
+  }
+
+
+  /**
+   * @return \Papaya\Template
+   */
+  public function getTemplate() {
+    if ($this->_template instanceof Template) {
+      return $this->_template;
+    }
+    if ($ui = $this->getUI()) {
+      return $ui->template();
+    }
+    throw new \LogicException('No template object available');
   }
 
   /**
@@ -144,14 +177,14 @@ abstract class Page extends \Papaya\Application\BaseObject {
         $part instanceof Page\Part &&
         ($xml = $part->getXML())
       ) {
-        $this->_ui->template()->add($xml, $this->parts()->getTarget($name));
+        $this->getTemplate()->add($xml, $this->parts()->getTarget($name));
       }
     }
     if ($restoreParameters) {
       $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
     }
     $this->parts()->toolbar()->toolbar($this->toolbar());
-    $this->_ui->template()->addMenu($this->parts()->toolbar()->getXML());
+    $this->getTemplate()->addMenu($this->parts()->toolbar()->getXML());
   }
 
   /**
