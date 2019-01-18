@@ -313,7 +313,7 @@ class searchStringParser {
         break;
       case ':':
         $connector = "\n ".$token['str'].LF;
-        continue;
+        continue 2;
       }
     }
     if ($indent > 0) {
@@ -376,7 +376,7 @@ class searchStringParser {
         break;
       case ':':
         $connector = "\n ".$token['str'].LF;
-        continue;
+        continue 2;
       }
     }
     if ($indent > 0) {
@@ -456,7 +456,7 @@ class searchStringParser {
         break;
       case ':':
         //$connector = " ".$token['str']." ";
-        continue;
+        continue 2;
       }
     }
     if ($indent > 0) {
@@ -595,7 +595,7 @@ class searchStringParser {
           }
           break;
         case ':':
-          continue;
+          continue 2;
         }
       }
       if ($indent > 1) {
@@ -642,7 +642,7 @@ class searchStringParser {
           }
           break;
         case ':':
-          continue;
+          continue 2;
         }
       }
       if ($indent > 1) {
