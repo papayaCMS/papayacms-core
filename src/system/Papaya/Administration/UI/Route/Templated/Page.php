@@ -62,7 +62,7 @@ namespace Papaya\Administration\UI\Route\Templated {
      * @param Router $router
      * @param Router\Address $address
      * @param int $level
-     * @return null|\Papaya\Response
+     * @return null|\Papaya\Response|callable
      * @throws \ReflectionException
      */
     public function __invoke(Router $router, Router\Address $address, $level = 0) {
@@ -94,6 +94,8 @@ namespace Papaya\Administration\UI\Route\Templated {
           $page->getXML();
           return $this->getOutput();
         }
+      } else {
+        return new Router\Route\Error('Can not access route - permission denied.', 403);
       }
       return NULL;
     }
