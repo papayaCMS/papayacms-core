@@ -17,7 +17,6 @@ namespace Papaya\Administration;
 use Papaya\Administration\UI as AdministrationUI;
 use Papaya\Request;
 use Papaya\Template;
-use Papaya\Template\XSLT;
 use Papaya\UI;
 
 /**
@@ -65,11 +64,11 @@ abstract class Page extends \Papaya\Application\BaseObject {
   /**
    * Create page object and store administration UI for later use
    *
-   * @param \Papaya\Administration\UI|\Papaya\Template\XSLT $ui
+   * @param \Papaya\Administration\UI|\Papaya\Template $ui
    * @param null|string $moduleId
    */
   public function __construct($ui, $moduleId = NULL) {
-    if ($ui instanceof XSLT) {
+    if ($ui instanceof Template) {
       // BC, allow old calls
       $this->_template = $ui;
     } elseif ($ui instanceof AdministrationUI) {
@@ -79,7 +78,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
         sprintf(
           'Argument should be a "%s" and can be a "%s" for old code.',
           AdministrationUI::class,
-          XSLT::class
+          Template::class
         )
       );
     }
