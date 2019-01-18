@@ -14,6 +14,9 @@
  */
 namespace Papaya\Administration\Page;
 
+// trigger alias creation for type hint BC
+class_exists('PapayaXmlElement');
+
 use Papaya\Administration;
 use Papaya\UI;
 use Papaya\XML;
