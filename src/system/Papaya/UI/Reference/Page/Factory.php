@@ -111,7 +111,7 @@ class Factory implements Application\Access {
         }
         if (\is_array($domain = $this->getDomainData($languageIdentifier, $pageId))) {
           $reference->url()->setHost($domain['host']);
-          if (Utility\Server\Protocol::BOTH !== $domain['scheme']) {
+          if (Utility\Server\Protocol::BOTH !== (int)$domain['scheme']) {
             $reference->url()->setScheme(
               Utility\Server\Protocol::get($domain['scheme'])
             );
@@ -121,7 +121,7 @@ class Factory implements Application\Access {
         } elseif (!$domain) {
           $reference->valid(FALSE);
         }
-        if (Utility\Server\Protocol::BOTH !== $data['scheme']) {
+        if (Utility\Server\Protocol::BOTH !== (int)$data['scheme']) {
           $reference->url()->setScheme(
             Utility\Server\Protocol::get($data['scheme'])
           );
