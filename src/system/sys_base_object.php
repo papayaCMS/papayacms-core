@@ -179,8 +179,10 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function _gt($phrase, $module = NULL) {
-    if ($this->papaya()->hasObject('Phrases') &&
-        trim($phrase) != '') {
+    if (
+      trim($phrase) !== '' &&
+      isset($this->papaya()->administrationPhrases)
+    ) {
       return $this->papaya()->administrationPhrases->getText($phrase, $module);
     }
     return $phrase;
@@ -196,7 +198,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function _gtf($phrase, $vals, $module = NULL) {
-    if (trim($phrase) != '' && isset($this->papaya()->administrationPhrases)) {
+    if (trim($phrase) !== '' && isset($this->papaya()->administrationPhrases)) {
       return $this->papaya()->administrationPhrases->getTextFmt(
         $phrase,
         is_array($vals) ? $vals : array($vals),
