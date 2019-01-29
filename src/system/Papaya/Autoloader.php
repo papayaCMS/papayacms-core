@@ -53,6 +53,7 @@ class Autoloader {
 
     'PapayaContentPagesPublications' => Content\Page\Publications::class,
 
+    'PapayaDatabaseObjectList' => Database\BaseObject\Records::class,
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
     'PapayaDatabaseRecordList' => Database\Record\Collection::class,
 
