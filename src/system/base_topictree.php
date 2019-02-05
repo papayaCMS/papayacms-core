@@ -82,12 +82,12 @@ class base_topic_tree extends base_db {
   /**
    * @var array
    */
-  protected $topicLinks;
+  public $topicLinks;
 
   /**
    * @var int
    */
-  protected $topicId = 0;
+  public $topicId = 0;
 
   /**
    * @var string
