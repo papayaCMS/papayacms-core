@@ -150,12 +150,12 @@ class Selector extends UI\Control\Interactive {
       $languages->loadByUsage(Content\Languages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
         $this->_current = $languages->getLanguage($id);
+        $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
       } elseif ($id = $application->session->values()->get([$this, 'CONTENT_LANGUAGE'])) {
         $this->_current = $languages->getLanguage($id);
-      } elseif (isset($application->administrationUser->options['PAPAYA_CONTENT_LANGUAGE'])) {
-        $this->_current = $languages->getLanguage(
-          $application->administrationUser->options['PAPAYA_CONTENT_LANGUAGE']
-        );
+      } elseif ($id = $application->administrationUser->options->get('PAPAYA_CONTENT_LANGUAGE')) {
+        $this->_current = $languages->getLanguage($id);
+        $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
       } elseif ($id = $application->options->get('PAPAYA_CONTENT_LANGUAGE')) {
         $this->_current = $languages->getLanguage($id);
       } elseif ($code = $application->options->get('PAPAYA_UI_LANGUAGE')) {
@@ -168,8 +168,6 @@ class Selector extends UI\Control\Interactive {
       } else {
         $this->_current = $this->getDefault();
       }
-    } else {
-      $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
     }
   }
 
