@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration;
+use Papaya\Cache;
 use Papaya\Content;
 
 /**
