@@ -115,9 +115,11 @@ namespace Papaya\Administration {
 
     const STYLES_JAVASCRIPT = self::STYLES.'/js';
 
-    const SCRIPTS = 'script';
+    const SCRIPTS = 'scripts';
 
-    const SCRIPTS_TINYMCE = self::SCRIPTS.'/tiny_mce3';
+    const SCRIPTS_RTE = 'script';
+
+    const SCRIPTS_TINYMCE = self::SCRIPTS_RTE.'/tiny_mce3';
 
     const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
 
@@ -237,28 +239,28 @@ namespace Papaya\Administration {
                   )
                 );
               },
-              self::SCRIPTS => new Route\Choice(
-                [
-                  self::SCRIPTS => function() use ($localPath, $cacheTime) {
-                    $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
-                    $files = \array_map(
-                      function($file) use ($localPath) {
-                        return $localPath.'/script/'.$file;
-                      },
-                      \array_filter(
-                        $files,
-                        function($file) {
-                          return \preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
-                        }
-                      )
-                    );
-                    return new UI\Route\Cache(
-                      new Route\JavaScript($files),
-                      $files,
-                      $cacheTime,
-                      UI\Route\Cache::CACHE_PUBLIC
-                    );
+              self::SCRIPTS => function() use ($localPath, $cacheTime) {
+                $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
+                $files = \array_map(
+                  function($file) use ($localPath) {
+                    return $localPath.'/script/'.$file;
                   },
+                  \array_filter(
+                    $files,
+                    function($file) {
+                      return \preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
+                    }
+                  )
+                );
+                return new UI\Route\Cache(
+                  new Route\JavaScript($files),
+                  $files,
+                  $cacheTime,
+                  UI\Route\Cache::CACHE_PUBLIC
+                );
+              },
+              self::SCRIPTS_RTE => new Route\Choice(
+                [
                   self::SCRIPTS_TINYMCE => new Route\Choice(
                     [
                       self::SCRIPTS_TINYMCE_FILES => new UI\Route\TinyMCE()
