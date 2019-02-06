@@ -49,7 +49,7 @@ class SelectorTest extends \Papaya\TestCase {
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
-          'Session' => $this->getSessionFixture(21, 21)
+          'Session' => $this->getSessionFixture(NULL, 21)
         )
       )
     );
@@ -65,7 +65,7 @@ class SelectorTest extends \Papaya\TestCase {
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
-          'Session' => $this->getSessionFixture(21, 21)
+          'Session' => $this->getSessionFixture(NULL, 21)
         )
       )
     );
@@ -81,7 +81,7 @@ class SelectorTest extends \Papaya\TestCase {
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
-          'Session' => $this->getSessionFixture(21, 21)
+          'Session' => $this->getSessionFixture(NULL, 21)
         )
       )
     );
@@ -119,7 +119,7 @@ class SelectorTest extends \Papaya\TestCase {
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
-          'Session' => $this->getSessionFixture(21, 21)
+          'Session' => $this->getSessionFixture(NULL, 21)
         )
       )
     );
@@ -209,15 +209,14 @@ class SelectorTest extends \Papaya\TestCase {
    * @covers \Papaya\Administration\Languages\Selector::prepare
    */
   public function testLanguagesGetCurrentFromUserOptionContent() {
-    $user = new StubForLanguageSwitch();
-    $user->options = array('PAPAYA_CONTENT_LANGUAGE' => 21);
+    $user = new StubForLanguageSwitch(array('PAPAYA_CONTENT_LANGUAGE' => 21));
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
           'AdministrationUser' => $user,
-          'Session' => $this->getSessionFixture()
+          'Session' => $this->getSessionFixture(21)
         )
       )
     );
@@ -408,5 +407,9 @@ class SelectorTest extends \Papaya\TestCase {
 
 class StubForLanguageSwitch {
 
-  public $options = array();
+  public $options;
+
+  public function __construct(array $options =[]) {
+    $this->options = new \Papaya\Request\Parameters($options);
+  }
 }
