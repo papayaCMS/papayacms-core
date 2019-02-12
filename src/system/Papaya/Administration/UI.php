@@ -401,7 +401,7 @@ namespace Papaya\Administration {
                     $template, $images['categories-help'], 'Help', \papaya_help::class
                   ),
                   // Popups
-                  self::POPUP => function() {
+                  self::POPUP => function() use ($cacheTime, $localPath) {
                     return new UI\Route\Cache(
                       new Route\Choice(
                         [
@@ -413,14 +413,17 @@ namespace Papaya\Administration {
                           self::POPUP_MEDIA_BROWSER_FOOTER => new UI\Route\Popup($localPath.'/popup/media-footer.xsl'),
                           self::POPUP_MEDIA_BROWSER_FILES => new UI\Route\Popup($localPath.'/popup/media-files.xsl'),
                           self::POPUP_MEDIA_BROWSER_IMAGES => new UI\Route\Popup($localPath.'/popup/media-images.xsl')
-                        ]
+                        ],
+                        NULL,
+                        0,
+                        1
                       ),
                       $this->papaya()->administrationLanguage->code,
                       $cacheTime
                     );
                   },
                   // TinyMCE popups
-                  self::SCRIPTS => function() use ($localPath) {
+                  self::SCRIPTS_RTE => function() use ($localPath) {
                     $pluginPath = $localPath.'/script/tiny_mce3/plugins/papaya';
                     return new Route\Choice(
                       [
