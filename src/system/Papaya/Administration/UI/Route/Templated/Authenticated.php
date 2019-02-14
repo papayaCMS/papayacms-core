@@ -47,11 +47,12 @@ namespace Papaya\Administration\UI\Route\Templated {
       $user->layout = $this->getTemplate();
       $user->initialize();
       $user->execLogin();
-      $application->administrationPhrases->setLanguage(
-        $application->languages->getLanguage(
-          $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
-        )
+      $uiLanguage = $application->languages->getLanguage(
+        $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
       );
+      if ($uiLanguage) {
+        $application->administrationPhrases->setLanguage($uiLanguage);
+      }
       if ($application->administrationUser->isValid) {
         $route = $this->_route;
         return $route($router, $address, $level);
