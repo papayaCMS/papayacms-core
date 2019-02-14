@@ -136,6 +136,7 @@ class Autoloader {
     'PapayaUiDialogFieldInputGeoPosition' => UI\Dialog\Field\Input\GeoPosition::class,
     'PapayaUiDialogFieldInputMediaImageResized' => UI\Dialog\Field\Input\Media\ImageResized::class,
     'PapayaUiListviewSubitemImageList' => UI\ListView\SubItem\Images::class,
+    'PapayaUiListviewSubitemEmpty' => UI\ListView\SubItem\EmptyValue::class,
     'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   ];
