@@ -1122,7 +1122,7 @@ class base_sitemap extends base_db {
       }
       $result .= sprintf(
         '<mapitem id="%d" %s title="%s" enctitle="%s" children="%d"'.
-          ' allchildren="%d" visible="1" gens="%d" is_popup="%s" %s %s %s %s'.
+          ' allchildren="%d" visible="%d" gens="%d" is_popup="%s" %s %s %s %s'.
           ' changefreq="%s" priority="%s" lastmod="%s" %s>'.LF,
         $id,
         empty($href) ? '' : ' href="'.papaya_strings::escapeHTMLChars($href).'"',
@@ -1131,6 +1131,7 @@ class base_sitemap extends base_db {
         isset($this->topicTree[$id]['childcount'])
           ? (int)$this->topicTree[$id]['childcount'] : 0,
         $subCounter,
+        $this->linkTypes[$row['linktype_id']] ["linktype_is_visible"] ? 1 : 0,
         $gen,
         $isPopup,
         $popupData,
