@@ -889,7 +889,7 @@ class papaya_modulemanager extends base_db {
         $menubar->addButton(
           'Enable package',
           $this->getLink(array('cmd' => 'pkg_enable', 'pkg_id' => (int)$this->params['pkg_id'])),
-          'items-package',
+          'items.package',
           'Enable all package modules'
         );
       }
@@ -897,7 +897,7 @@ class papaya_modulemanager extends base_db {
         $menubar->addButton(
           'Disable package',
           $this->getLink(array('cmd' => 'pkg_disable', 'pkg_id' => (int)$this->params['pkg_id'])),
-          'status-package-disabled',
+          'items.package.disabled',
           'Disable all package modules'
         );
       }
@@ -2008,10 +2008,10 @@ class papaya_modulemanager extends base_db {
           $itemImage = 'status-package-opened';
         } elseif ($activeModules > 0) {
           $selected = FALSE;
-          $itemImage = 'items-package';
+          $itemImage = 'items.package';
         } else {
           $selected = FALSE;
-          $itemImage = 'items-package-disabled';
+          $itemImage = 'items.package.disabled';
         }
         if ($activeModules == $summaryModules) {
           $moduleStatus = $summaryModules;
@@ -3238,7 +3238,7 @@ class papaya_modulemanager extends base_db {
         $this->module['module_guid'],
         $this
       );
-      if ($pluginObject instanceof \Papaya\Plugin\Adaptable) {
+      if ($pluginObject instanceof \Papaya\Plugin\Configurable\Options) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/rightcol');
         if ($editor = $pluginObject->options()->editor()) {
           $editor->context()->merge(

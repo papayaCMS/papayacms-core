@@ -35,10 +35,7 @@ trait Aggregation {
   /**
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
-   * @see \Papaya\Plugin\Adaptable::options()
-   *
    * @param Plugin\Editable\Options $options
-   *
    * @return Plugin\Editable\Options
    */
   public function options(Plugin\Editable\Options $options = NULL) {
