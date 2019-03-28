@@ -58,7 +58,7 @@ class Text implements Application\Access, StringCastable {
    * @param $values
    */
   public function __construct($pattern, array $values = []) {
-    if (is_object($pattern) && method_exists('__toString')) {
+    if (is_object($pattern) && method_exists($pattern, '__toString')) {
       $pattern = (string)$pattern;
     }
     Utility\Constraints::assertString($pattern);
