@@ -100,7 +100,7 @@ namespace Papaya\Administration\UI\Navigation {
           'items-tag',
           'Tags',
           'Manage tags',
-          Administration\Permissions::BOX_MANAGE
+          Administration\Permissions::TAG_MANAGE
         ]
       ],
       'Applications' => [
