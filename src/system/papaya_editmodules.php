@@ -467,7 +467,7 @@ class papaya_editmodules extends base_db {
             );
           } else {
             $imagePath = $this->prependModulePath($row['module_path'].'pics/');
-            $imageFilePattern = '(^((?:pics|images)/)?([\w-]+\.(?:gif|png|jpg|jpeg))$)D';
+            $imageFilePattern = '(^((?:pics|images)/)?([\w-]+\.(?:gif|png|jpg|jpeg|svg))$)D';
             if (
               isset($_GET['src']) &&
               preg_match($imageFilePattern, $_GET['src'], $regs)
@@ -488,6 +488,19 @@ class papaya_editmodules extends base_db {
           }
           foreach ($imageFiles as $imageFile) {
             if (file_exists($imageFile) && is_file($imageFile) && is_readable($imageFile)) {
+              if (
+                preg_match('(\.svg$)D', $imageFile) &&
+                ($fh = @fopen($imageFile, 'r'))
+              ) {
+                header(
+                  'Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($imageFile)).' GMT'
+                );
+                header('Expires: '.gmdate('D, d M Y H:i:s', (time() + 2592000)).' GMT');
+                header('Content-type: image/svg+xml');
+                fpassthru($fh);
+                fclose($fh);
+                exit;
+              }
               list(, , $type) = getImageSize($imageFile);
               $imageTypes = array(
                 IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_SWF, IMAGETYPE_SWC
