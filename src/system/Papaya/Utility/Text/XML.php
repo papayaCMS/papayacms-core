@@ -389,10 +389,11 @@ class XML {
    * @return string
    */
   public static function removeControlCharacters($string) {
-    return \preg_replace(
+    $result = \preg_replace(
       '([^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+)u',
       '',
       $string
-    ) ?: '';
+    );
+    return (is_string($result)) ? $result : '';
   }
 }

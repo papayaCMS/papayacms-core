@@ -348,7 +348,7 @@ class Document
    */
   public function createTextNode($content) {
     return parent::createTextNode(
-      Utility\Text\XML::removeControlCharacters($content) ?: ''
+      Utility\Text\XML::removeControlCharacters($content)
     );
   }
 }
