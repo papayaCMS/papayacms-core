@@ -89,11 +89,6 @@ class base_surferlinks extends base_db {
   public $modeList;
 
   /**
-   * @var array|\Papaya\UI\Images
-   */
-  public $images = array();
-
-  /**
   * base surfer links
   *
   * @param integer $id
@@ -348,7 +343,7 @@ class base_surferlinks extends base_db {
         $result .= sprintf(
           '<listitem title="%s" image="%s">',
           papaya_strings::escapeHTMLChars($this->surferPermissionList[$id]['surferperm_title']),
-          papaya_strings::escapeHTMLChars($this->images['items-permission'])
+          papaya_strings::escapeHTMLChars($this->papaya()->images['items-permission'])
         );
         $result .= '<subitem align="right">';
         $result .= sprintf(
@@ -360,7 +355,7 @@ class base_surferlinks extends base_db {
               'perm_id' => $this->surferPermissionList[$id]['surferperm_id']
             )
           ),
-          papaya_strings::escapeHTMLChars($this->images['actions-list-remove']),
+          papaya_strings::escapeHTMLChars($this->papaya()->images['actions-list-remove']),
           papaya_strings::escapeHTMLChars($this->_gt('Delete'))
         );
         $result .= '</subitem>';
@@ -389,7 +384,7 @@ class base_surferlinks extends base_db {
         $result .= sprintf(
           '<listitem title="%s" image="%s">',
           papaya_strings::escapeHTMLChars($this->surferPermissionList[$id]['surferperm_title']),
-          papaya_strings::escapeHTMLChars($this->images['status-permission-inherited'])
+          papaya_strings::escapeHTMLChars($this->papaya()->images['status-permission-inherited'])
         );
         if ($this->topicList[$pid]['topic_title'] != '') {
           $title = papaya_strings::escapeHTMLChars($this->topicList[$pid]['topic_title']);
@@ -416,7 +411,7 @@ class base_surferlinks extends base_db {
         $result .= sprintf(
           '<listitem title="%s" image="%s">',
           papaya_strings::escapeHTMLChars($this->surferPermissionList[$id]['surferperm_title']),
-          papaya_strings::escapeHTMLChars($this->images['items-permission'])
+          papaya_strings::escapeHTMLChars($this->papaya()->images['items-permission'])
         );
         $result .= '<subitem align="right">';
         $result .= sprintf(
@@ -428,7 +423,7 @@ class base_surferlinks extends base_db {
               'perm_id' => $this->surferPermissionList[$id]['surferperm_id']
             )
           ),
-          papaya_strings::escapeHTMLChars($this->images['actions-list-add']),
+          papaya_strings::escapeHTMLChars($this->papaya()->images['actions-list-add']),
           papaya_strings::escapeHTMLChars($this->_gt('Link'))
         );
         $result .= '</subitem>';
