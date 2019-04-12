@@ -38,6 +38,7 @@ namespace Papaya\Administration\UI\Route\Templated {
         return new Response\Redirect\Secure();
       }
       if (
+        $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE) &&
         !(
           Utility\Server\Protocol::isSecure() ||
           \preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())
