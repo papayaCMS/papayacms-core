@@ -1481,7 +1481,6 @@ class base_surfer extends base_db {
       if (isset($GLOBALS['PAPAYA_PAGE']) && is_object($GLOBALS['PAPAYA_PAGE'])) {
         /** @var papaya_page $page */
         $page = $GLOBALS['PAPAYA_PAGE'];
-        $page->logRequest();
         if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
           header('X-Papaya-Redirect-Note: surfer logout');
         }
