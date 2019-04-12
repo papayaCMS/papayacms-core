@@ -17,7 +17,8 @@ namespace Papaya\Administration;
 use Papaya\Administration\UI as AdministrationUI;
 use Papaya\Request;
 use Papaya\Template;
-use Papaya\UI;
+use Papaya\UI\Menu;
+use Papaya\UI\Toolbar;
 
 /**
  * Abstract superclass for an administration page.
@@ -52,7 +53,7 @@ abstract class Page extends \Papaya\Application\BaseObject {
   private $_parts;
 
   /**
-   * @var UI\Toolbar
+   * @var Toolbar
    */
   private $_toolbar;
 
@@ -232,15 +233,15 @@ abstract class Page extends \Papaya\Application\BaseObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param UI\Toolbar $toolbar
+   * @param Toolbar $toolbar
    *
-   * @return UI\Toolbar
+   * @return Toolbar
    */
-  public function toolbar(UI\Toolbar $toolbar = NULL) {
+  public function toolbar(Toolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new UI\Menu();
+      $this->_toolbar = new Menu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }
