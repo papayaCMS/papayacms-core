@@ -1537,7 +1537,7 @@ class papaya_page extends base_object {
   */
   function checkURLPathLevel() {
     $pageURL = $this->getWebLink();
-    if (FALSE !== strpos($pageURL, '/')) {
+    if ($pageURL !== './' && FALSE !== strpos($pageURL, '/')) {
       return $this->getAbsoluteURL($pageURL);
     }
     return FALSE;
