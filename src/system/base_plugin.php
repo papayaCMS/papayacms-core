@@ -413,7 +413,7 @@ class base_plugin extends base_object {
           papaya_strings::escapeHTMLChars($this->_gt('Edit content'));
       } else {
         $this->dialog->dialogTitle =
-          papaya_strings::escapeHTMLChars($dialogTitlePrefix).
+          papaya_strings::escapeHTMLChars($dialogTitlePrefix).' - '.
           papaya_strings::escapeHTMLChars($this->_gt('Edit content'));
       }
       if (!empty($dialogIcon)) {
