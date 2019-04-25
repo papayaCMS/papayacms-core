@@ -35,4 +35,26 @@ class Description extends UI\Control\Collection {
    * @var string
    */
   protected $_tagName = 'description';
+
+  /**
+   * @param $name
+   * @param $value
+   * @return Description\Property
+   */
+  public function addProperty($name, $value) {
+    $this->add($property = new Description\Property($name, $value));
+    return $property;
+  }
+
+  /**
+   * @param UI\Reference|NULL $reference
+   * @return Description\Link
+   */
+  public function addLink(UI\Reference $reference = NULL) {
+    $this->add($link = new Description\Link());
+    if (isset($reference)) {
+      $link->reference($reference);
+    }
+    return $link;
+  }
 }
