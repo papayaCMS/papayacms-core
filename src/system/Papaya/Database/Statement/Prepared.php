@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Statement {
 
+  use Papaya\Database;
+
   /**
    * A client side prepared statement. All parameters have to be named.
    * Parameter type specific methods have to be used to add them. The
@@ -33,11 +35,7 @@ namespace Papaya\Database\Statement {
    * @package Papaya\Database\Statement
    */
   class Prepared
-    implements \Papaya\Database\Interfaces\Statement {
-    /**
-     * @var \Papaya\Database\Access
-     */
-    private $_databaseAccess;
+    extends Database\Statement {
 
     /**
      * @var string
@@ -49,8 +47,8 @@ namespace Papaya\Database\Statement {
      */
     private $_parameters = [];
 
-    public function __construct(\Papaya\Database\Access $databaseAccess, $sql) {
-      $this->_databaseAccess = $databaseAccess;
+    public function __construct(Database\Access $databaseAccess, $sql) {
+      parent::__construct($databaseAccess);
       $this->_sql = $sql;
     }
 
