@@ -68,7 +68,8 @@ class NamedSubmit extends Submit {
       [
         'type' => 'submit',
         'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
-        'name' => $this->_getParameterName([$this->_name, $this->_value])
+        'name' => $this->_getParameterName([$this->_name, $this->_value]),
+        'hint' => $this->getHint()
       ],
       (string)$this->_caption
     );

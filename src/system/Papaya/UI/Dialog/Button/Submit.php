@@ -40,6 +40,12 @@ class Submit extends UI\Dialog\Button {
    * @var string|\Papaya\UI\Text
    */
   protected $_caption = 'Submit';
+  /**
+   * Button caption
+   *
+   * @var string|\Papaya\UI\Text
+   */
+  private $_hint = 'Submit';
 
   /**
    * Initialize object, set caption and alignment
@@ -62,9 +68,25 @@ class Submit extends UI\Dialog\Button {
       'button',
       [
         'type' => 'submit',
-        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right'
+        'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
+        'hint' => $this->getHint()
       ],
       (string)$this->_caption
     );
+  }
+
+  /**
+   * @param string|object $hint
+   */
+  public function setHint($hint) {
+    \Papaya\Utility\Constraints::assertStringCastable($hint);
+    $this->_hint = $hint;
+  }
+
+  /**
+   * @return string $hint
+   */
+  public function getHint() {
+    return (string)$this->_hint;
   }
 }
