@@ -41,11 +41,11 @@ class Submit extends UI\Dialog\Button {
    */
   protected $_caption = 'Submit';
   /**
-   * Button caption
+   * Button hint
    *
    * @var string|\Papaya\UI\Text
    */
-  private $_hint = 'Submit';
+  private $_hint = '';
 
   /**
    * Initialize object, set caption and alignment
