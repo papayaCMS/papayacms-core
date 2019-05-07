@@ -17,7 +17,7 @@ namespace Papaya\Database\Statement {
   use Papaya\Database;
 
   class Formatted
-    implements Database\Interfaces\Statement {
+    extends Database\Statement {
     /**
      * @var string
      */
@@ -29,11 +29,6 @@ namespace Papaya\Database\Statement {
     private $_parameters;
 
     /**
-     * @var \Papaya\Database\Access
-     */
-    private $_databaseAccess;
-
-    /**
      * Formatted constructor.
      *
      * @param \Papaya\Database\Access $databaseAccess
@@ -41,7 +36,7 @@ namespace Papaya\Database\Statement {
      * @param array $parameters
      */
     public function __construct(Database\Access $databaseAccess, $sql, array $parameters = []) {
-      $this->_databaseAccess = $databaseAccess;
+      parent::__construct($databaseAccess);
       $this->_sql = $sql;
       $this->_parameters = $parameters;
     }

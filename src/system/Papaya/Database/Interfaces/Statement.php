@@ -24,4 +24,10 @@ interface Statement {
    * @return string
    */
   public function __toString();
+
+  /**
+   * @param bool $forceWriteConnection
+   * @return FALSE|\Papaya\Database\Result
+   */
+  public function execute($forceWriteConnection = FALSE);
 }
