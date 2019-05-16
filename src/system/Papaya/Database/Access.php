@@ -204,6 +204,16 @@ class Access extends \Papaya\Application\BaseObject {
   }
 
   /**
+   * Create a new prepared statement from an SQL string.
+   *
+   * @param string $sql
+   * @return Statement\Prepared
+   */
+  public function prepare($sql) {
+    return new Statement\Prepared($this, $sql);
+  }
+
+  /**
    * Get table name with prefix (if needed)
    *
    * @param string $tableName

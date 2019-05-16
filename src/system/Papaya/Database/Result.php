@@ -54,6 +54,13 @@ interface Result extends \IteratorAggregate {
   public function fetchRow($mode = self::FETCH_ORDERED);
 
   /**
+   * Fetch row from result into associative array
+   *
+   * @return array
+   */
+  public function fetchAssoc();
+
+  /**
    * Fetch field from result
    *
    * @param int|string $column

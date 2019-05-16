@@ -618,52 +618,44 @@ abstract class dbcon_base extends base_object {
 class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * @var dbcon_base $connection connection object
-  * @access private
   */
-  var $connection = NULL;
+  private $connection;
   /**
-  * @var resource $result result ressources
-  * @access private
+  * @var resource $result result resource
   */
-  var $result = NULL;
+  private $result;
 
   /**
   * @var string $query database query string
-  * @access private
   */
-  var $query = '';
+  protected $query;
 
   /**
   * @var boolean $hasLimit data record limit
   * @access public
   */
-  var $hasLimit = FALSE;
+  public $hasLimit = FALSE;
 
   /**
   * @var integer $limitMax data record limit amount
   */
-  var $limitMax = NULL;
+  public $limitMax;
 
   /**
   * @var integer $limitOffset data record limit offset
   */
-  var $limitOffset = NULL;
-
-  /**
-  * @var integer $recNo current data record
-  */
-  var $recNo = 0;
+  public $limitOffset;
 
   /**
   * @var string $_absCount absolute number
   */
-  var $_absCount = 0;
+  private $_absCount = 0;
 
   /**
    * Constructor
    *
    * @param dbcon_base $connection connection object
-   * @param resource|object $result result ressource
+   * @param resource|object $result result resource
    * @param $query
    */
   function __construct($connection, $result, $query) {
@@ -682,10 +674,10 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   }
 
   /**
-  * Destruktor
+  * Destructor
   * @access public
   */
-  function free() {
+  public function free() {
     if (isset($this->result) && is_resource($this->result)) {
       unset($this->result);
     }
@@ -694,12 +686,23 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * data record as array
   *
-  * @param integer $mode modus (numeric oder fieldname)
+  * @param integer $mode mode (numeric oder field name)
   * @access public
-  * @return array data record
+  * @return array|FALSE data record
   */
   public function fetchRow($mode = DB_FETCHMODE_DEFAULT) {
     return FALSE;
+  }
+
+
+  /**
+  * data record as array
+  *
+  * @access public
+  * @return array data record
+  */
+  public function fetchAssoc() {
+    return $this->fetchRow($mode = DB_FETCHMODE_DEFAULT);
   }
 
   /**
@@ -709,32 +712,16 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @access public
   * @return string
   */
-  function fetchField($fieldIndex = 0) {
+  public function fetchField($fieldIndex = 0) {
     if (is_int($fieldIndex)) {
       $data = $this->fetchRow(DB_FETCHMODE_ORDERED);
       return $data[$fieldIndex];
-    } elseif (is_string($fieldIndex)) {
+    }
+    if (is_string($fieldIndex)) {
       $data = $this->fetchRow(DB_FETCHMODE_ASSOC);
       return $data[$fieldIndex];
     }
     return FALSE;
-  }
-
-  /**
-  * Put data records in an array
-  *
-  * @param array $row Array for data records
-  * @param integer $mode Modus (numeric oder fieldname)
-  * @access public
-  * @return integer|boolean 0 or FALSE
-  */
-  function fetchInto($row, $mode = DB_FETCHMODE_DEFAULT) {
-    $row = $this->fetchRow($mode);
-    if (isset($row) && is_array($row)) {
-      return 0;
-    } else {
-      return NULL;
-    }
   }
 
   /**
@@ -743,7 +730,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @return boolean FALSE
   * @access public
   */
-  function count() {
+  public function count() {
     return FALSE;
   }
 
@@ -753,7 +740,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @return integer|FALSE
   * @access public
   */
-  function absCount() {
+  public function absCount() {
     if ($this->_absCount === -1) {
       $absCount = $this->connection->queryRecordCount($this->query);
       $this->_absCount = (FALSE === $absCount) ? FALSE : (int)$absCount;
@@ -768,7 +755,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @access public
   * @return boolean success ?
   */
-  function seek($index) {
+  public function seek($index) {
     return FALSE;
   }
 
@@ -778,7 +765,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @access public
   * @return boolean success ?
   */
-  function seekFirst() {
+  public function seekFirst() {
     return $this->seek(0);
   }
 
@@ -788,7 +775,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @access public
   * @return boolean success ?
   */
-  function seekLast() {
+  public function seekLast() {
     if (FALSE !== ($count = $this->count())) {
       return $this->seek($count);
     }
@@ -802,15 +789,14 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * @param integer $offset start index data record limit
   * @return int
   */
-  function setLimit($max = NULL, $offset = NULL) {
+  public function setLimit($max = NULL, $offset = NULL) {
     if ($max > 0) {
       $this->hasLimit = TRUE;
       $this->limitMax = (int)$max;
-      $this->limitOffset = (isset($offset)) ? (int)$offset : NULL;
+      $this->limitOffset = isset($offset) ? (int)$offset : NULL;
     } else {
       $this->hasLimit = FALSE;
-      unset($this->limitMax);
-      unset($this->limitOffset);
+      unset($this->limitMax,$this->limitOffset);
     }
     return 0;
   }
