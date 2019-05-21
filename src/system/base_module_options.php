@@ -39,7 +39,7 @@ class base_module_options extends base_db {
   * @access public
   * @return base_module_options
   */
-  function &getInstance() {
+  public static function getInstance() {
     static $instance;
     if (!isset($instance)) {
       $instance = new base_module_options();
@@ -58,7 +58,7 @@ class base_module_options extends base_db {
   * @access public
   * @return string | array
   */
-  public function readOption($moduleGuid, $optionName, $defaultValue = NULL) {
+  public static function readOption($moduleGuid, $optionName, $defaultValue = NULL) {
     $instance = base_module_options::getInstance();
     $optionName = strtoupper($optionName);
     if (!isset($instance->_options[$moduleGuid])) {
@@ -81,7 +81,7 @@ class base_module_options extends base_db {
   * @access public
   * @return boolean
   */
-  public function writeOption($moduleGuid, $optionName, $value) {
+  public static function writeOption($moduleGuid, $optionName, $value) {
     $instance = base_module_options::getInstance();
     if ($instance->saveOption($moduleGuid, $optionName, $value)) {
       //if the option is changed in the database - and already loaded
