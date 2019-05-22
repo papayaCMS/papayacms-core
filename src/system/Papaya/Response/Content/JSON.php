@@ -38,7 +38,7 @@ class JSON implements Response\Content {
    * @param int $options
    * @param int $depth
    */
-  public function __construct($data, $options, $depth = 512) {
+  public function __construct($data, $options = 0, $depth = 512) {
     $this->_content = json_encode($data, $options, $depth);
   }
 
