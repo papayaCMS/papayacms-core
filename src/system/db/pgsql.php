@@ -147,21 +147,19 @@ class dbcon_pgsql extends dbcon_base {
   }
 
   /**
-  * Execute PostgreSQL-query
-  *
-  * @param string $sql SQL-String with query
-  * @param integer $max maximum number of returned records
-  * @param integer $offset Offset
-  * @param boolean $freeLastResult free last result (if here is one)
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  */
-  function &query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE) {
-    if ($freeLastResult &&
-        is_object($this->lastResult) &&
-        is_a($this->lastResult, 'dbresult_pgsql')) {
-      $this->lastResult->free();
-    }
+   * Execute PostgreSQL-query
+   *
+   * @param string $sql SQL-String with query
+   * @param integer $max maximum number of returned records
+   * @param integer $offset Offset
+   * @param boolean $freeLastResult free last result (if here is one)
+   * @param bool $enableCounter
+   * @return mixed FALSE or number of affected_rows or database result object
+   * @throws \Papaya\Database\Exception\QueryFailed
+   * @access public
+   */
+  function &query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
+    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     $limitSQL = '';
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
       $limitSQL .= (isset($offset) && $offset >= 0)

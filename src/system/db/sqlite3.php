@@ -168,15 +168,10 @@ class dbcon_sqlite3 extends dbcon_base {
    * @param boolean $enableCounter free last result (if here is one)
    * @access public
    * @return mixed FALSE or number of affected_rows or database result object
+   * @throws \Papaya\Database\Exception\QueryFailed
    */
-  function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = false) {
-    if (
-      $freeLastResult &&
-      is_object($this->lastResult) &&
-      is_a($this->lastResult, 'dbresult_sqlite3')
-    ) {
-      $this->lastResult->free();
-    }
+  function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
+    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
       $limitSQL = (isset($offset) && $offset >= 0) ?
         ' LIMIT '.(int)$offset.','.(int)$max : ' LIMIT '.(int)$max;
@@ -191,14 +186,12 @@ class dbcon_sqlite3 extends dbcon_base {
         $this->lastResult->setLimit($max, $offset);
         $this->lastResult->_absCount = -1;
         return $this->lastResult;
-      } else {
-        $result = $this->databaseConnection->changes();
-        return $result;
       }
-    } else {
-      $result = FALSE;
+      $result = $this->databaseConnection->changes();
       return $result;
     }
+    $result = FALSE;
+    return $result;
   }
 
   /**

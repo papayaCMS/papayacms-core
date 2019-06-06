@@ -136,28 +136,23 @@ class dbcon_mysql extends dbcon_base {
   }
 
   /**
-  * Execute MySQL-query
-  *
-  * @param string $sql SQL-String with query
-  * @param integer $max maximum number of returned records
-  * @param integer $offset Offset
-  * @param boolean $freeLastResult free last result (if here is one)
-  * @param boolean $enableCounter enable direct calculation of
-  *                               absolute record count for limited queries
-  * @access public
-  * @return boolean|integer|dbresult_mysql on failure FALSE; on success number
-  *   of affected rows or a database result object
-  */
+   * Execute MySQL-query
+   *
+   * @param string $sql SQL-String with query
+   * @param integer $max maximum number of returned records
+   * @param integer $offset Offset
+   * @param boolean $freeLastResult free last result (if here is one)
+   * @param boolean $enableCounter enable direct calculation of
+   *                               absolute record count for limited queries
+   * @access public
+   * @return boolean|integer|dbresult_mysql on failure FALSE; on success number
+   *   of affected rows or a database result object
+   * @throws \Papaya\Database\Exception\QueryFailed
+   */
   function &query(
     $sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE
   ) {
-    if (
-      $freeLastResult &&
-      is_object($this->lastResult) &&
-      is_a($this->lastResult, 'dbresult_mysql')
-    ) {
-      $this->lastResult->free();
-    }
+    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     $queryRowCount = FALSE;
     $limitSQL = '';
     if (isset($max) && $max > 0 && strpos(trim(strtoupper($sql)), 'SELECT') === 0) {

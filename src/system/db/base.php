@@ -158,12 +158,21 @@ abstract class dbcon_base extends base_object {
    * @return dbresult_base|boolean|integer false or number of affected_rows or
    *                                                database result object
    */
-  function query(
+  public function query(
     $sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE
   ) {
+    $this->cleanup($freeLastResult);
+    return FALSE;
+  }
+
+  private function cleanup($freeLastResult) {
     $this->lastSQLQuery = '';
-    $result = FALSE;
-    return $result;
+    if (
+      $freeLastResult &&
+      $this->lastResult instanceof dbresult_base
+    ) {
+      $this->lastResult->free();
+    }
   }
 
   /**
