@@ -149,6 +149,27 @@ namespace Papaya\Database\Statement {
       );
     }
 
+    public function testGetSQLWithLimitParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('getSqlSource')
+        ->with('LIMIT', [12, 23])
+        ->willReturn(' LIMIT 23,12');
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM tablename ORDER BY fieldname :limit'
+      );
+      $statement
+        ->addLimit('limit', 12, 23);
+
+      $this->assertEquals(
+        'SELECT * FROM tablename ORDER BY fieldname  LIMIT 23,12',
+        $statement->getSQL()
+      );
+    }
+
     public function testPlaceholdersInsideStringLiteralAreNotReplaced() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
 

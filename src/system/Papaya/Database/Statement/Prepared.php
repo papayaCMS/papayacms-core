@@ -270,6 +270,26 @@ namespace Papaya\Database\Statement {
     }
 
     /**
+     * Adds a limit parameter if the limit value > 0. Otherwise
+     * it will add an empty string for the parameter name.
+     *
+     * @param string $parameterName
+     * @param int $limit
+     * @param int $offset
+     * @return \Papaya\Database\Statement\Prepared
+     */
+    public function addLimit($parameterName, $limit, $offset) {
+      $this->addValue(
+        $parameterName,
+        NULL,
+        function() use ($limit, $offset) {
+          return $this->_databaseAccess->getSqlSource('LIMIT', [$limit, $offset]);
+        }
+      );
+      return $this;
+    }
+
+    /**
      * @param string $parameterName
      * @param string $tableName
      * @param bool $usePrefix
