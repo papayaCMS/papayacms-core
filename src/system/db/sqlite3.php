@@ -173,8 +173,7 @@ class dbcon_sqlite3 extends dbcon_base {
   function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
     parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      $limitSQL = (isset($offset) && $offset >= 0) ?
-        ' LIMIT '.(int)$offset.','.(int)$max : ' LIMIT '.(int)$max;
+      $limitSQL = $this->getSQLSource('LIMIT', [$max, $offset]);
     } else {
       $limitSQL = '';
     }
@@ -921,6 +920,16 @@ class dbcon_sqlite3 extends dbcon_base {
       return ' LOCATE('.$this->getSQLFunctionParams($params).')';
     case 'RANDOM' :
       return ' RANDOM()';
+    case 'LIMIT' :
+      $limit = isset($params[0]) && $params[0] > 0 ? (int)$params[0] : 0;
+      $offset = isset($params[1]) && $params[1] > 0 ? (int)$params[1] : 0;
+      if ($limit > 0) {
+        if ($offset > 0) {
+          return sprintf(' LIMIT %d,%d', $offset, $limit);
+        }
+        return sprintf(' LIMIT %d', $limit);
+      }
+      return '';
     case 'LIKE' :
       return ' LIKE '.$this->getSQLFunctionParams($params).' ESCAPE \'\\\\\'';
     }

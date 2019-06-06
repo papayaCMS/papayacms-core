@@ -178,8 +178,7 @@ class dbcon_mysqli extends dbcon_base {
         $sql = 'SELECT SQL_CALC_FOUND_ROWS '.substr(trim($sql), 6);
         $queryRowCount = TRUE;
       }
-      $limitSQL .= (isset($offset) && $offset >= 0) ?
-        ' LIMIT '.(int)$offset.','.(int)$max : ' LIMIT '.(int)$max;
+      $limitSQL .= $this->getSQLSource('LIMIT', [$max, $offset]);
     }
     $this->lastSQLQuery = $sql.$limitSQL;
     $res = $this->executeQuery($sql.$limitSQL);
@@ -955,6 +954,16 @@ class dbcon_mysqli extends dbcon_base {
       return ' LOCATE('.$this->getSQLFunctionParams($params).')';
     case 'RANDOM' :
       return ' RAND()';
+    case 'LIMIT' :
+      $limit = isset($params[0]) && $params[0] > 0 ? (int)$params[0] : 0;
+      $offset = isset($params[1]) && $params[1] > 0 ? (int)$params[1] : 0;
+      if ($limit > 0) {
+        if ($offset > 0) {
+          return sprintf(' LIMIT %d,%d', $offset, $limit);
+        }
+        return sprintf(' LIMIT %d', $limit);
+      }
+      return '';
     case 'LIKE' :
       // Default escape character is "\"
       return ' LIKE '.$this->getSQLFunctionParams($params).' ESCAPE \'\\\\\'';

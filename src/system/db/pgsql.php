@@ -162,10 +162,7 @@ class dbcon_pgsql extends dbcon_base {
     parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     $limitSQL = '';
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      $limitSQL .= (isset($offset) && $offset >= 0)
-        ? ' OFFSET '.(int)$offset
-        : '';
-      $limitSQL .= ' LIMIT '.(int)$max;
+      $limitSQL .= $this->getSQLSource('LIMIT', [$max, $offset]);
     }
     $this->lastSQLQuery = $sql.$limitSQL;
     $res = $this->executeQuery($sql.$limitSQL);
@@ -989,6 +986,16 @@ class dbcon_pgsql extends dbcon_base {
       return $result;
     case 'RANDOM' :
       return ' RANDOM()';
+    case 'LIMIT' :
+      $limit = isset($params[0]) && $params[0] > 0 ? (int)$params[0] : 0;
+      $offset = isset($params[1]) && $params[1] > 0 ? (int)$params[1] : 0;
+      if ($limit > 0) {
+        if ($offset > 0) {
+          return sprintf(' OFFSET %d LIMIT %d', $offset, $limit);
+        }
+        return sprintf(' LIMIT %d', $limit);
+      }
+      return '';
     case 'LIKE' :
       // Default escape character is "\"
       return ' LIKE '.$this->getSQLFunctionParams($params).' ESCAPE \'\\\\\'';
