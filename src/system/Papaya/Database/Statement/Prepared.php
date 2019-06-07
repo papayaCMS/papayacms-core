@@ -61,6 +61,14 @@ namespace Papaya\Database\Statement {
     }
 
     public function getSQL() {
+      return (string)$this->compile(FALSE)[0];
+    }
+
+    public function getPreparedSQL() {
+      return $this->compile(TRUE);
+    }
+
+    private function compile($allowPrepared) {
       $quoteCharacters = ["'", '"', '`'];
       $patterns = [];
       foreach ($quoteCharacters as $quoteCharacter) {
@@ -68,28 +76,41 @@ namespace Papaya\Database\Statement {
       }
       $pattern = '(('.\implode('|', $patterns).'))';
       $parts = \preg_split($pattern, $this->_sql, -1, PREG_SPLIT_DELIM_CAPTURE);
-      $result = '';
+      $sql = '';
+      $values = [];
       foreach ($parts as $part) {
         if (\in_array(\substr($part, 0, 1), $quoteCharacters, TRUE)) {
-          $result .= $part;
+          $sql .= $part;
           continue;
         }
-        $result .= \preg_replace_callback(
+        $sql .= \preg_replace_callback(
           '(:(?<name>[a-zA-Z][a-zA-Z\d_]*))',
-          function($match) {
+          function($match) use ($allowPrepared, &$values) {
             $parameterName = \strtolower($match['name']);
             if (!\array_key_exists($parameterName, $this->_parameters)) {
               throw new \LogicException(\sprintf('Unknown parameter name: %s', $parameterName));
             }
-            return $this->encodeParameterValue(
-              $this->_parameters[$parameterName]['value'],
-              $this->_parameters[$parameterName]['filter']
-            );
+            $parameter = $this->_parameters[$parameterName];
+            if ($allowPrepared && $parameter['allow_prepared']) {
+              $parameterValue = $parameter['value'];
+              if (
+                $parameterValue instanceof \Traversable
+              ) {
+                $parameterValue = iterator_to_array($parameter['value']);
+              }
+              if (is_array($parameter['value'])) {
+                array_push($values,...$parameterValue);
+                return '('.implode(', ', array_fill(0, count($parameterValue), ':?')).')';
+              }
+              $values[] = $parameterValue;
+              return ':?';
+            }
+            return $this->encodeParameterValue($parameter['value'], $parameter['filter']);
           },
           $part
         );
       }
-      return $result;
+      return [$sql, $values];
     }
 
     /**
@@ -123,22 +144,29 @@ namespace Papaya\Database\Statement {
      * @param string $parameterName
      * @param mixed $value
      * @param callable $filterFunction
+     * @param bool $allowPrepared Allow parameter to be used in a server side prepared statement
      */
-    private function addValue($parameterName, $value, callable $filterFunction) {
+    private function addValue($parameterName, $value, callable $filterFunction, $allowPrepared) {
       $parameterName = $this->validateParameterName($parameterName);
-      $this->_parameters[$parameterName] = ['value' => $value, 'filter' => $filterFunction];
+      $this->_parameters[$parameterName] = [
+        'value' => $value,
+        'filter' => $filterFunction,
+        'allow_prepared' => $allowPrepared
+      ];
     }
 
     /**
      * @param string $parameterName
      * @param mixed $values
      * @param callable $filterFunction
+     * @param bool $allowPrepared
      */
-    private function addValueList($parameterName, $values, callable $filterFunction) {
+    private function addValueList($parameterName, $values, callable $filterFunction, $allowPrepared) {
       $this->addValue(
         $parameterName,
         \is_array($values) || $values instanceof \Traversable ? $values : [$values],
-        $filterFunction
+        $filterFunction,
+        $allowPrepared
       );
     }
 
@@ -166,9 +194,14 @@ namespace Papaya\Database\Statement {
      * @return $this
      */
     public function addNull($parameterName) {
-      $this->addValue($parameterName, NULL, function() {
-        return 'NULL';
-      });
+      $this->addValue(
+        $parameterName,
+        NULL,
+        static function() {
+            return 'NULL';
+        },
+        FALSE
+      );
       return $this;
     }
 
@@ -183,7 +216,8 @@ namespace Papaya\Database\Statement {
         $value,
         function($value) {
           return $this->_databaseAccess->quoteString((string)$value);
-        }
+        },
+        TRUE
       );
       return $this;
     }
@@ -199,7 +233,8 @@ namespace Papaya\Database\Statement {
         $values,
         function($value) {
           return $this->_databaseAccess->quoteString((string)$value);
-        }
+        },
+        TRUE
       );
       return $this;
     }
@@ -213,9 +248,10 @@ namespace Papaya\Database\Statement {
       $this->addValue(
         $parameterName,
         $value,
-        function($value) {
+        static function($value) {
           return (string)(int)$value;
-        }
+        },
+        TRUE
       );
       return $this;
     }
@@ -229,9 +265,10 @@ namespace Papaya\Database\Statement {
       $this->addValueList(
         $parameterName,
         $values,
-        function($value) {
+        static function($value) {
           return (string)(int)$value;
-        }
+        },
+        TRUE
       );
       return $this;
     }
@@ -246,9 +283,10 @@ namespace Papaya\Database\Statement {
       $this->addValue(
         $parameterName,
         $value,
-        function($value) use ($decimals) {
+        static function($value) use ($decimals) {
           return \number_format((float)$value, $decimals);
-        }
+        },
+        TRUE
       );
       return $this;
     }
@@ -262,9 +300,10 @@ namespace Papaya\Database\Statement {
       $this->addValue(
         $parameterName,
         $value,
-        function($value) {
+        static function($value) {
           return $value ? 'true' : 'false';
-        }
+        },
+        FALSE
       );
       return $this;
     }
@@ -284,7 +323,8 @@ namespace Papaya\Database\Statement {
         NULL,
         function() use ($limit, $offset) {
           return $this->_databaseAccess->getSqlSource('LIMIT', [$limit, $offset]);
-        }
+        },
+        FALSE
       );
       return $this;
     }
@@ -303,7 +343,8 @@ namespace Papaya\Database\Statement {
           return $this->_databaseAccess->quoteIdentifier(
             $this->_databaseAccess->getTableName($tableName, $usePrefix)
           );
-        }
+        },
+        FALSE
       );
       return $this;
     }

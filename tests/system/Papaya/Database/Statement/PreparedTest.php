@@ -44,6 +44,29 @@ namespace Papaya\Database\Statement {
       );
     }
 
+    public function testGetPreparedSQLWithTableAndStringParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->never())
+        ->method('quoteString');
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM :a_table WHERE id = :id'
+      );
+      $statement
+        ->addTableName('a_table', 'test')
+        ->addString('id', 'ab123');
+
+      $this->assertEquals(
+        [
+          'SELECT * FROM table_test WHERE id = :?',
+          ['ab123']
+        ],
+        $statement->getPreparedSQL()
+      );
+    }
+
     public function testGetSQLWithTableAndStringListParameter() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -72,6 +95,29 @@ namespace Papaya\Database\Statement {
       );
     }
 
+    public function testGetPreparedSQLWithTableAndStringListParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->never())
+        ->method('quoteString');
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM :a_table WHERE id IN :id'
+      );
+      $statement
+        ->addTableName('a_table', 'test')
+        ->addStringList('id', ['ab123', 'ef456']);
+
+      $this->assertEquals(
+        [
+          'SELECT * FROM table_test WHERE id IN (:?, :?)',
+          ['ab123', 'ef456']
+        ],
+        $statement->getPreparedSQL()
+      );
+    }
+
     public function testGetSQLWithFloatParameter() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
 
@@ -84,6 +130,24 @@ namespace Papaya\Database\Statement {
       $this->assertEquals(
         'SELECT * FROM test WHERE field > 42.2100',
         (string)$statement
+      );
+    }
+
+    public function testGetPreparedSQLWithFloatParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM test WHERE field > :number'
+      );
+      $statement->addFloat('number', 42.21, 4);
+
+      $this->assertEquals(
+        [
+          'SELECT * FROM test WHERE field > :?',
+          [42.2100]
+        ],
+        $statement->getPreparedSQL()
       );
     }
 
@@ -102,6 +166,24 @@ namespace Papaya\Database\Statement {
       );
     }
 
+    public function testGetPreparedSQLWithIntParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM test WHERE field > :number'
+      );
+      $statement->addInt('number', 42);
+
+      $this->assertEquals(
+        [
+          'SELECT * FROM test WHERE field > :?',
+          [42]
+        ],
+        $statement->getPreparedSQL()
+      );
+    }
+
     public function testGetSQLWithIntListParameter() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
 
@@ -114,6 +196,24 @@ namespace Papaya\Database\Statement {
       $this->assertEquals(
         'SELECT * FROM test WHERE id IN (21, 42)',
         $statement->getSQL()
+      );
+    }
+
+    public function testGetPreparedSQLWithIntListParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'SELECT * FROM test WHERE id IN :IDs'
+      );
+      $statement->addIntList('IDs', [21, 42]);
+
+      $this->assertEquals(
+        [
+          'SELECT * FROM test WHERE id IN (:?, :?)',
+          [21, 42]
+        ],
+        $statement->getPreparedSQL()
       );
     }
 
@@ -146,6 +246,26 @@ namespace Papaya\Database\Statement {
       $this->assertEquals(
         'INSERT INTO test VALUES (21, NULL)',
         $statement->getSQL()
+      );
+    }
+
+    public function testGetPreparedSQLWithNULLParameter() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $statement = new Prepared(
+        $databaseAccess,
+        'INSERT INTO test VALUES (:field1, :field2)'
+      );
+      $statement
+        ->addInt('field1', 21)
+        ->addNull('field2');
+
+      $this->assertEquals(
+        [
+          'INSERT INTO test VALUES (:?, NULL)',
+          [21]
+        ],
+        $statement->getPreparedSQL()
       );
     }
 
