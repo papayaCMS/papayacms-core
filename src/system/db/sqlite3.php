@@ -183,7 +183,6 @@ class dbcon_sqlite3 extends dbcon_base {
       if ($res instanceof SQLite3Result) {
         $this->lastResult = new dbresult_sqlite3($this, $res, $sql);
         $this->lastResult->setLimit($max, $offset);
-        $this->lastResult->_absCount = -1;
         return $this->lastResult;
       }
       $result = $this->databaseConnection->changes();
@@ -1018,7 +1017,7 @@ class dbresult_sqlite3 extends dbresult_base {
   /**
    * @var SQLite3Result
    */
-  var $result = NULL;
+  protected $result;
 
   /**
    * destructor
@@ -1072,7 +1071,7 @@ class dbresult_sqlite3 extends dbresult_base {
         $result = $this->result->fetchArray(SQLITE3_NUM);
       }
       if (isset($result) && is_array($result)) {
-        $this->recNo++;
+        $this->_recordNumber++;
       }
       return $result;
     }
@@ -1104,15 +1103,15 @@ class dbresult_sqlite3 extends dbresult_base {
    */
   function seek($index) {
     if ($this->isValid()) {
-      if ($index < $this->recNo) {
+      if ($index < $this->_recordNumber) {
         $this->result->reset();
-        $this->recNo = 0;
+        $this->_recordNumber = 0;
       }
-      while ($this->recNo < $index) {
+      while ($this->_recordNumber < $index) {
         $this->result->fetchArray(SQLITE3_NUM);
-        ++$this->recNo;
+        ++$this->_recordNumber;
       }
-      return ($this->recNo == $index);
+      return ($this->_recordNumber == $index);
     }
     return FALSE;
   }

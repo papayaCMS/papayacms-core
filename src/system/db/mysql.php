@@ -169,11 +169,10 @@ class dbcon_mysql extends dbcon_base {
       if (is_resource($res)) {
         $this->lastResult = new dbresult_mysql($this, $res, $sql);
         $this->lastResult->setLimit($max, $offset);
-        $this->lastResult->_absCount = -1;
         if ($queryRowCount) {
           if ($res2 = $this->executeQuery("SELECT FOUND_ROWS()")) {
             if ($row = mysql_fetch_row($res2)) {
-              $this->lastResult->_absCount = (int)$row[0];
+              $this->lastResult->setAbsCount($row[0]);
             }
             mysql_free_result($res2);
           }
@@ -1087,7 +1086,7 @@ class dbresult_mysql extends dbresult_base {
         $result = @mysql_fetch_row($this->result);
       }
       if (isset($result) && is_array($result)) {
-        $this->recNo++;
+        $this->_recordNumber++;
       }
       return $result;
     }
@@ -1120,7 +1119,7 @@ class dbresult_mysql extends dbresult_base {
   function seek($index) {
     if (isset($this->result) && is_resource($this->result)) {
       if (@mysql_data_seek($this->result, $index)) {
-        $this->recNo = $index;
+        $this->_recordNumber = $index;
         return TRUE;
       }
     }

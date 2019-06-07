@@ -169,7 +169,6 @@ class dbcon_pgsql extends dbcon_base {
     if (is_resource($res)) {
       $this->lastResult = new dbresult_pgsql($this, $res, $sql);
       $this->lastResult->setLimit($max, $offset);
-      $this->lastResult->_absCount = -1;
       return $this->lastResult;
     } else {
       $result = pg_affected_rows($res);
@@ -1098,7 +1097,7 @@ class dbresult_pgsql extends dbresult_base {
         $result = pg_fetch_row($this->result);
       }
       if (isset($result) && is_array($result)) {
-        $this->recNo++;
+        $this->_recordNumber++;
       }
       return $result;
     }
@@ -1131,7 +1130,7 @@ class dbresult_pgsql extends dbresult_base {
   function seek($index) {
     if (isset($this->result) && is_resource($this->result)) {
       if (pg_result_seek($this->result, $index)) {
-        $this->recNo = $index;
+        $this->_recordNumber = $index;
         return TRUE;
       }
     }

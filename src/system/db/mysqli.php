@@ -186,12 +186,11 @@ class dbcon_mysqli extends dbcon_base {
       if (is_object($res)) {
         $this->lastResult = new dbresult_mysqli($this, $res, $sql);
         $this->lastResult->setLimit($max, $offset);
-        $this->lastResult->_absCount = -1;
         if ($queryRowCount) {
           $resCount = $this->executeQuery("SELECT FOUND_ROWS()");
           if ($resCount) {
             if ($row = $resCount->fetch_row()) {
-              $this->lastResult->_absCount = $row[0];
+              $this->lastResult->setAbsCount($row[0]);
             }
             $resCount->free();
           }
@@ -1054,7 +1053,7 @@ class dbresult_mysqli extends dbresult_base {
         $result = $this->result->fetch_row();
       }
       if (isset($result) && is_array($result)) {
-        $this->recNo++;
+        $this->_recordNumber++;
       }
       return $result;
     }
@@ -1087,7 +1086,7 @@ class dbresult_mysqli extends dbresult_base {
   function seek($index) {
     if (isset($this->result) && is_object($this->result)) {
       if ($this->result->data_seek($index)) {
-        $this->recNo = $index;
+        $this->_recordNumber = $index;
         return TRUE;
       }
     }

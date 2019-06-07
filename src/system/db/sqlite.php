@@ -167,7 +167,6 @@ class dbcon_sqlite extends dbcon_base {
       if (is_resource($res)) {
         $this->lastResult = new dbresult_sqlite($this, $res, $sql);
         $this->lastResult->setLimit($max, $offset);
-        $this->lastResult->_absCount = -1;
         return $this->lastResult;
       } else {
         $result = @sqlite_changes($this->databaseConnection);
@@ -1033,7 +1032,7 @@ class dbresult_sqlite extends dbresult_base {
         $result = sqlite_fetch_array($this->result, SQLITE_NUM);
       }
       if (isset($result) && is_array($result)) {
-        $this->recNo++;
+        $this->_recordNumber++;
       }
       return $result;
     }
@@ -1066,7 +1065,7 @@ class dbresult_sqlite extends dbresult_base {
   function seek($index) {
     if (isset($this->result) && is_resource($this->result)) {
       if (sqlite_seek($this->result, $index)) {
-        $this->recNo = $index;
+        $this->_recordNumber = $index;
         return TRUE;
       }
     }

@@ -628,11 +628,11 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * @var dbcon_base $connection connection object
   */
-  private $connection;
+  protected $connection;
   /**
   * @var resource $result result resource
   */
-  private $result;
+  protected $result;
 
   /**
   * @var string $query database query string
@@ -658,19 +658,26 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * @var string $_absCount absolute number
   */
-  private $_absCount = 0;
+  private $_absCount;
+
+  /**
+   * @var int|null
+   */
+  protected $_recordNumber;
 
   /**
    * Constructor
    *
    * @param dbcon_base $connection connection object
    * @param resource|object $result result resource
-   * @param $query
+   * @param string $query
+   * @param int $absCount
    */
-  function __construct($connection, $result, $query) {
+  function __construct($connection, $result, $query, $absCount = -1) {
     $this->connection = $connection;
     $this->result = $result;
     $this->query = $query;
+    $this->_absCount = $absCount;
   }
 
   /**
@@ -741,6 +748,13 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   */
   public function count() {
     return FALSE;
+  }
+
+  /**
+   * @param int $absCount
+   */
+  public function setAbsCount($absCount) {
+    $this->_absCount = (int)$absCount;
   }
 
   /**
