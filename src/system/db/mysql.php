@@ -58,37 +58,37 @@ class dbcon_mysql extends dbcon_base {
     if (isset($this->databaseConnection) && is_resource($this->databaseConnection)) {
       return TRUE;
     } else {
-      if (isset($this->databaseConfiguration->socket)) {
-        $server = 'localhost:'.$this->databaseConfiguration->socket;
+      if (isset($this->getDSN()->socket)) {
+        $server = 'localhost:'.$this->getDSN()->socket;
       } else {
-        $server = ($this->databaseConfiguration->port > 0)
-          ? ($this->databaseConfiguration->host.':'.$this->databaseConfiguration->port)
-          : $this->databaseConfiguration->host;
+        $server = ($this->getDSN()->port > 0)
+          ? ($this->getDSN()->host.':'.$this->getDSN()->port)
+          : $this->getDSN()->host;
       }
       if (defined('PAPAYA_DB_CONNECT_PERSISTENT') && PAPAYA_DB_CONNECT_PERSISTENT) {
         $connection = @mysql_pconnect(
           $server,
-          $this->databaseConfiguration->username,
-          $this->databaseConfiguration->password
+          $this->getDSN()->username,
+          $this->getDSN()->password
         );
       } else {
         $connection = @mysql_connect(
           $server,
-          $this->databaseConfiguration->username,
-          $this->databaseConfiguration->password,
+          $this->getDSN()->username,
+          $this->getDSN()->password,
           TRUE
         );
       }
       if ($connection) {
         $selected = mysql_select_db(
-          $this->databaseConfiguration->database,
+          $this->getDSN()->database,
           $connection
         );
         if (!$selected) {
           throw new \Papaya\Database\Exception\ConnectionFailed(
             sprintf(
               'Could not select database "%s".',
-              $this->databaseConfiguration->database
+              $this->getDSN()->database
             )
           );
         } elseif ($this->mysqlVersion = @mysql_get_server_info($connection)) {

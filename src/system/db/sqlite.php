@@ -64,7 +64,7 @@ class dbcon_sqlite extends dbcon_base {
       return TRUE;
     } else {
       $error = '';
-      $connection = @sqlite_open($this->databaseConfiguration->filename, 0666, $error);
+      $connection = @sqlite_open($this->getDSN()->filename, 0666, $error);
       if (isset($connection) &&
           is_resource($connection)) {
         $this->databaseConnection = $connection;

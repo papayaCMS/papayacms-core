@@ -69,7 +69,7 @@ class dbcon_sqlite3 extends dbcon_base {
       return $this->databaseConnection;
     } else {
       try {
-        $fileName = $this->databaseConfiguration->filename;
+        $fileName = $this->getDSN()->filename;
         if (\substr($fileName, 0, 1) === '.') {
           $fileName = \Papaya\Utility\File\Path::cleanup(
             \Papaya\Utility\File\Path::getDocumentRoot().'../'.$fileName, FALSE

@@ -54,24 +54,24 @@ class dbcon_mysqli extends dbcon_base {
     if (isset($this->databaseConnection) && is_object($this->databaseConnection)) {
       return TRUE;
     } else {
-      if (isset($this->databaseConfiguration->socket)) {
+      if (isset($this->getDSN()->socket)) {
         $server = 'localhost';
         $port = NULL;
-        $socket = $this->databaseConfiguration->socket;
-      } elseif ($this->databaseConfiguration->port > 0) {
-        $server = $this->databaseConfiguration->host;
-        $port = $this->databaseConfiguration->port;
+        $socket = $this->getDSN()->socket;
+      } elseif ($this->getDSN()->port > 0) {
+        $server = $this->getDSN()->host;
+        $port = $this->getDSN()->port;
         $socket = NULL;
       } else {
-        $server = $this->databaseConfiguration->host;
+        $server = $this->getDSN()->host;
         $port = NULL;
         $socket = NULL;
       }
       $connection = @mysqli_connect(
         $server,
-        $this->databaseConfiguration->username,
-        $this->databaseConfiguration->password,
-        $this->databaseConfiguration->database,
+        $this->getDSN()->username,
+        $this->getDSN()->password,
+        $this->getDSN()->database,
         $port,
         $socket
       );

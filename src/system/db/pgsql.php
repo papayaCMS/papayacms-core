@@ -54,13 +54,13 @@ class dbcon_pgsql extends dbcon_base {
     if (isset($this->databaseConnection) && is_resource($this->databaseConnection)) {
       return TRUE;
     } else {
-      $connectStr = 'host='.$this->databaseConfiguration->host;
-      if ($this->databaseConfiguration->port > 0) {
-        $connectStr .= ' port='.$this->databaseConfiguration->port;
+      $connectStr = 'host='.$this->getDSN()->host;
+      if ($this->getDSN()->port > 0) {
+        $connectStr .= ' port='.$this->getDSN()->port;
       }
-      $connectStr .= ' user='.$this->databaseConfiguration->username;
-      $connectStr .= ' password='.$this->databaseConfiguration->password;
-      $connectStr .= ' dbname='.$this->databaseConfiguration->database;
+      $connectStr .= ' user='.$this->getDSN()->username;
+      $connectStr .= ' password='.$this->getDSN()->password;
+      $connectStr .= ' dbname='.$this->getDSN()->database;
       $connection = NULL;
       try {
         set_error_handler(

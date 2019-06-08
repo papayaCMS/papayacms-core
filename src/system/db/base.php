@@ -40,12 +40,7 @@ if (!defined("DB_FETCHMODE_ASSOC")) {
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class dbcon_base extends base_object {
-  /**
-  * @var array $databaseConfiguration Configuration
-  * @access private
-  */
-  var $databaseConfiguration;
+abstract class dbcon_base extends Papaya\Database\Connector {
 
   /**
   * @var resource|object $databaseConnection Connection-ID
@@ -81,7 +76,7 @@ abstract class dbcon_base extends base_object {
    * @return \dbcon_base
    */
   public function __construct(\Papaya\Database\Source\Name $conf) {
-    $this->databaseConfiguration = $conf;
+    parent::__construct($conf);
   }
 
   /**
@@ -624,7 +619,7 @@ abstract class dbcon_base extends base_object {
 * @subpackage Database
 * @author Thomas Weinert <info@papaya-cms.com>
 */
-class dbresult_base extends base_object implements \Papaya\Database\Result {
+class dbresult_base implements \Papaya\Database\Result {
   /**
   * @var dbcon_base $connection connection object
   */
