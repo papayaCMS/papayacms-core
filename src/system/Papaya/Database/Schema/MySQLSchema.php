@@ -2,19 +2,7 @@
 
 namespace Papaya\Database\Schema {
 
-  use Papaya\Database\Connector;
-  use Papaya\Database\Schema;
-
-  class MySQLSchema implements Schema {
-
-    /**
-     * @var \Papaya\Database\Connector
-     */
-    private $_connector;
-
-    public function __construct(Connector $connector) {
-      $this->_connector = $connector;
-    }
+  class MySQLSchema extends AbstractSchema {
 
     /**
      * @return array
@@ -359,21 +347,6 @@ namespace Papaya\Database\Schema {
       ];
     }
 
-    private function getIdentifier($name, $prefix = '') {
-      if (trim($prefix) !== '') {
-        $result = trim($prefix).'_'.trim($name);
-      } else {
-        $result = trim($name['name']);
-      }
-      $result = strtolower($result);
-      if (!preg_match('(^[a-z\\d_ ]$)D', $result)) {
-        throw new \InvalidArgumentException(
-          "Invalid identifier name: $result"
-        );
-      }
-      return $result;
-    }
-
     /**
      * @param string $table
      * @param array $fieldData
@@ -545,6 +518,56 @@ namespace Papaya\Database\Schema {
           $this->getIdentifier($name).'`';
       }
       return ($this->_connector->execute($sql) !== FALSE);
+    }
+
+    /**
+     * @param array $xmlField
+     * @param array $databaseField
+     * @return bool
+     */
+    public function isFieldStructureDifferent($xmlField, $databaseField) {
+      if ($xmlField['type'] !== $databaseField['type']) {
+        return TRUE;
+      }
+      if ($xmlField['size'] !== $databaseField['size']) {
+        return TRUE;
+      }
+      if ($xmlField['null'] !== $databaseField['null']) {
+        return TRUE;
+      }
+      if ($xmlField['autoinc'] === 'yes' && $databaseField['autoinc'] !== 'yes') {
+        return TRUE;
+      }
+      if ($xmlField['default'] !== $databaseField['default']) {
+        return TRUE;
+      }
+      return FALSE;
+    }
+
+    /**
+     * @param array $xmlKey
+     * @param array $databaseKey
+     * @return bool
+     */
+    public function isKeyStructureDifferent($xmlKey, $databaseKey) {
+      if (
+        ($xmlKey['unique'] === 'yes' || $xmlKey['name'] === 'PRIMARY') !==
+        ($databaseKey['unique'] === 'yes' || $databaseKey['name'] === 'PRIMARY')
+      ) {
+        return TRUE;
+      }
+      if ($xmlKey['fulltext'] === 'yes' && $databaseKey['fulltext'] !== 'yes') {
+        return TRUE;
+      }
+      if (count(array_diff_assoc($xmlKey['keysize'], $databaseKey['keysize'])) > 0) {
+        return TRUE;
+      }
+      if (
+        count(array_diff($xmlKey['fields'], $databaseKey['fields'])) > 0
+      ) {
+        return TRUE;
+      }
+      return FALSE;
     }
   }
 }

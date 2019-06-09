@@ -10,6 +10,13 @@ namespace Papaya\Database {
     public function getTables();
 
     /**
+     * @param string $tableName
+     * @param string $tablePrefix
+     * @return array
+     */
+    public function describeTable($tableName, $tablePrefix = '');
+
+    /**
      * @param array $tableData
      * @param string $tablePrefix
      * @return bool
