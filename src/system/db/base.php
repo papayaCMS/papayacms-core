@@ -170,6 +170,18 @@ abstract class dbcon_base extends Papaya\Database\Connector {
     }
   }
 
+  public function execute($statement, array $parameters = NULL, $options = 0) {
+    throw new \LogicException(
+      sprintf('Not implemented: %s::%s()', __CLASS__, __METHOD__)
+    );
+  }
+
+  public function registerFunction($name, callable $function) {
+    throw new \LogicException(
+      sprintf('Not implemented: %s::%s()', __CLASS__, __METHOD__)
+    );
+  }
+
   /**
   * Rewrite query to get record count of a limited query and execute it.
   *
