@@ -33,7 +33,7 @@ namespace Papaya\Database\Schema {
       } else {
         $table = $tableName;
       }
-      $sql = 'SHOW TABLE STATUS LIKE :?';
+      $sql = 'SHOW TABLE STATUS LIKE ?';
       $tableType = NULL;
       if (
         ($result = $this->_connector->execute($sql, [$table])) &&
@@ -316,7 +316,7 @@ namespace Papaya\Database\Schema {
         $default = $field['default'];
       }
       if (isset($default)) {
-        $defaultStr = ' DEFAULT :?';
+        $defaultStr = ' DEFAULT ?';
         switch (strtolower($field['type'])) {
         case 'integer':
           $default = (int)$default;

@@ -100,10 +100,10 @@ namespace Papaya\Database\Statement {
               }
               if (is_array($parameter['value'])) {
                 array_push($values,...$parameterValue);
-                return '('.implode(', ', array_fill(0, count($parameterValue), ':?')).')';
+                return '('.implode(', ', array_fill(0, count($parameterValue), '?')).')';
               }
               $values[] = $parameterValue;
-              return ':?';
+              return '?';
             }
             return $this->encodeParameterValue($parameter['value'], $parameter['filter']);
           },

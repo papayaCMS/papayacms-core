@@ -8,7 +8,7 @@ namespace Papaya\Database\Syntax {
 
     public function __construct($name = '') {
       if (empty($name)) {
-        $this->_name = ':?';
+        $this->_name = '?';
       } else {
         if (!preg_match('(^[a-z\\d_]$)Di', $name)) {
           throw new \InvalidArgumentException(

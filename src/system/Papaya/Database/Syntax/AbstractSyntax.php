@@ -31,8 +31,8 @@ namespace Papaya\Database\Syntax {
       ) {
         return (string)$parameter;
       }
-      if ($parameter === ':?') {
-        return ':?';
+      if ($parameter === '?') {
+        return '?';
       }
       return $this->_connector->quoteString($parameter);
     }

@@ -60,7 +60,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'SELECT * FROM table_test WHERE id = :?',
+          'SELECT * FROM table_test WHERE id = ?',
           ['ab123']
         ],
         $statement->getPreparedSQL()
@@ -111,7 +111,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'SELECT * FROM table_test WHERE id IN (:?, :?)',
+          'SELECT * FROM table_test WHERE id IN (?, ?)',
           ['ab123', 'ef456']
         ],
         $statement->getPreparedSQL()
@@ -144,7 +144,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'SELECT * FROM test WHERE field > :?',
+          'SELECT * FROM test WHERE field > ?',
           [42.2100]
         ],
         $statement->getPreparedSQL()
@@ -177,7 +177,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'SELECT * FROM test WHERE field > :?',
+          'SELECT * FROM test WHERE field > ?',
           [42]
         ],
         $statement->getPreparedSQL()
@@ -210,7 +210,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'SELECT * FROM test WHERE id IN (:?, :?)',
+          'SELECT * FROM test WHERE id IN (?, ?)',
           [21, 42]
         ],
         $statement->getPreparedSQL()
@@ -262,7 +262,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         [
-          'INSERT INTO test VALUES (:?, NULL)',
+          'INSERT INTO test VALUES (?, NULL)',
           [21]
         ],
         $statement->getPreparedSQL()
