@@ -17,55 +17,68 @@ namespace Papaya\Database {
     public function describeTable($tableName, $tablePrefix = '');
 
     /**
-     * @param array $tableData
+     * @param array $tableStructure
      * @param string $tablePrefix
      * @return bool
      */
-    public function createTable($tableData, $tablePrefix);
+    public function createTable(array $tableStructure, $tablePrefix = '');
 
     /**
-     * @param string $table
-     * @param array $fieldData
+     * @param string $tableName
+     * @param array $fieldStructure
      * @return bool
      */
-    public function addField($table, $fieldData);
+    public function addField($tableName, array $fieldStructure);
 
     /**
-     * @param string $table
-     * @param array $fieldData
+     * @param string $tableName
+     * @param array $fieldStructure
      * @return bool
      */
-    public function changeField($table, $fieldData);
+    public function changeField($tableName, array $fieldStructure);
 
     /**
-     * @param string $table
-     * @param string $field
+     * @param string $tableName
+     * @param string $fieldName
      * @return bool
      */
-    public function dropField($table, $field);
+    public function dropField($tableName, $fieldName);
 
     /**
-     * @param string $table
-     * @param array $index
+     * @param string $tableName
+     * @param array $indexStructure
      * @return bool
      */
-    public function addIndex($table, $index);
+    public function addIndex($tableName, array $indexStructure);
 
     /**
-     * @param string $table
-     * @param array $index
+     * @param string $tableName
+     * @param array $indexStructure
      * @param bool $dropCurrent
      * @return bool
      */
-    public function changeIndex($table, $index, $dropCurrent = TRUE);
+    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE);
 
     /**
-     * @param string $table
-     * @param string $name
+     * @param string $tableName
+     * @param string $indexName
      * @return bool
      */
-    public function dropIndex($table, $name);
+    public function dropIndex($tableName, $indexName);
 
+    /**
+     * @param array $expectedStructure
+     * @param array $currentStructure
+     * @return bool
+     */
+    public function isFieldDifferent(array $expectedStructure, array $currentStructure);
+
+    /**
+     * @param array $expectedStructure
+     * @param array $currentStructure
+     * @return bool
+     */
+    public function isIndexDifferent(array $expectedStructure, array $currentStructure);
   }
 
 }

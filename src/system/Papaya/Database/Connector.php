@@ -7,6 +7,7 @@ namespace Papaya\Database {
     const REQUIRE_ABSOLUTE_COUNT = 1;
     const KEEP_PREVIOUS_RESULT = 2;
 
+
     /**
      * @var \Papaya\Database\Source\Name
      */

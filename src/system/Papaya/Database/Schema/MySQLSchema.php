@@ -8,14 +8,13 @@ namespace Papaya\Database\Schema {
      * @return array
      */
     public function getTables() {
-      return array_map(
-        static function ($row) {
-          return $row[0];
-        },
-        iterator_to_array(
-          $this->_connector->execute('SHOW TABLES')
-        )
-      );
+      $tables = [];
+      if ($result = $this->_connector->execute('SHOW TABLES')) {
+        while($tableName = $result->fetchField()) {
+          $tables[] = $tableName;
+        }
+      }
+      return $tables;
     }
 
     /**
@@ -28,11 +27,7 @@ namespace Papaya\Database\Schema {
      */
     public function describeTable($tableName, $tablePrefix = '') {
       $fields = [];
-      if ($tablePrefix) {
-        $table = $tablePrefix.'_'.$tableName;
-      } else {
-        $table = $tableName;
-      }
+      $table = $this->$this->getIdentifier($tableName, $tablePrefix);
       $sql = 'SHOW TABLE STATUS LIKE ?';
       $tableType = NULL;
       if (
@@ -166,32 +161,32 @@ namespace Papaya\Database\Schema {
     }
 
     /**
-     * @param array $tableData
+     * @param array $tableStructure
      * @param string $tablePrefix
      * @access public
      * @return boolean
      */
-    public function createTable($tableData, $tablePrefix) {
+    public function createTable(array $tableStructure, $tablePrefix = '') {
       $fulltextIndex = FALSE;
       if (
-        isset($tableData['fields'], $tableData['name']) &&
-        is_array($tableData['fields']) &&
-        trim($tableData['name']) !== ''
+        isset($tableStructure['fields'], $tableStructure['name']) &&
+        is_array($tableStructure['fields']) &&
+        trim($tableStructure['name']) !== ''
       ) {
-        $table = $this->getIdentifier($tableData['name'], $tablePrefix);
+        $table = $this->getIdentifier($tableStructure['name'], $tablePrefix);
         $sql = "CREATE TABLE `$table` (\n";
         $parameters = [];
         $autoIncrementField = FALSE;
-        foreach ($tableData['fields'] as $field) {
+        foreach ($tableStructure['fields'] as $field) {
           $extra = $this->getFieldExtras($field, !$autoIncrementField);
           $sql .= '  `'.$this->getIdentifier($field['name']).'` '.
             $this->getFieldType($field['type'], $field['size']).
             $extra[0].",\n";
           array_push($parameters, ...$extra[1]);
         }
-        if (isset($tableData['keys']) && is_array($tableData['keys'])) {
-          if (isset($tableData['keys']['PRIMARY'])) {
-            $key = $tableData['keys']['PRIMARY'];
+        if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
+          if (isset($tableStructure['keys']['PRIMARY'])) {
+            $key = $tableStructure['keys']['PRIMARY'];
             $fieldStr = '(';
             foreach ($key['fields'] as $fieldName) {
               if (
@@ -206,7 +201,7 @@ namespace Papaya\Database\Schema {
             }
             $sql .= 'PRIMARY KEY '.substr($fieldStr, 0, -2)."),\n";
           }
-          foreach ($tableData['keys'] as $keyName => $key) {
+          foreach ($tableStructure['keys'] as $keyName => $key) {
             if ($keyName !== 'PRIMARY') {
               if (isset($key['unique']) && $key['unique'] === 'yes') {
                 $sql .= '  UNIQUE ';
@@ -235,7 +230,7 @@ namespace Papaya\Database\Schema {
         $sql = substr($sql, 0, -2)."\n) ";
         if ($fulltextIndex) {
           $sql .= ' ENGINE=MyISAM';
-        } elseif (isset($tableData['type']) && $tableData['type'] === 'transactions') {
+        } elseif (isset($tableStructure['type']) && $tableStructure['type'] === 'transactions') {
           $sql .= ' ENGINE=InnoDB';
         }
         $sql .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
@@ -300,11 +295,11 @@ namespace Papaya\Database\Schema {
      * Get MySQL field extras
      *
      * @param array $field
-     * @param bool $allowAutoInrement
-     * @access private
-     * @return array
+     * @param bool $allowAutoIncrement
+     * @return array SQL instruction and parameters
      */
-    private function getFieldExtras($field, $allowAutoInrement = FALSE) {
+    private function getFieldExtras($field, $allowAutoIncrement = FALSE) {
+      $parameters = [];
       if (isset($field['null']) && $field['null'] === 'yes') {
         $default = NULL;
         $notNullStr = '';
@@ -319,14 +314,16 @@ namespace Papaya\Database\Schema {
         $defaultStr = ' DEFAULT ?';
         switch (strtolower($field['type'])) {
         case 'integer':
-          $default = (int)$default;
+          $parameters[] = (int)$default;
           break;
         case 'float':
-          $default = (float)$default;
+          $parameters[] = (float)$default;
           break;
         case 'string' :
           if ($field['size'] > 255) {
             $defaultStr = '';
+          } else {
+            $parameters[] = (string)$default;
           }
           break;
         }
@@ -334,7 +331,7 @@ namespace Papaya\Database\Schema {
         $defaultStr = ' DEFAULT NULL';
       }
       if (
-        $allowAutoInrement &&
+        $allowAutoIncrement &&
         isset($field['autoinc']) && $field['autoinc'] === 'yes'
       ) {
         $autoIncrementString = ' auto_increment';
@@ -343,42 +340,43 @@ namespace Papaya\Database\Schema {
         $autoIncrementString = '';
       }
       return [
-        $defaultStr.$notNullStr.$autoIncrementString, $default
+        $defaultStr.$notNullStr.$autoIncrementString,
+        $parameters
       ];
     }
 
     /**
-     * @param string $table
-     * @param array $fieldData
+     * @param string $tableName
+     * @param array $fieldStructure
      * @return bool
      */
-    public function addField($table, $fieldData) {
+    public function addField($tableName, array $fieldStructure) {
       $sql = sprintf(
       /** @lang text */
         'ALTER TABLE `%s` ADD COLUMN `%s` %s %s',
-        $this->getIdentifier($table),
-        $this->getIdentifier($fieldData['name']),
-        $this->getFieldType($fieldData['type'], $fieldData['size']),
-        $this->getFieldExtras($fieldData)
+        $this->getIdentifier($tableName),
+        $this->getIdentifier($fieldStructure['name']),
+        $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
+        $this->getFieldExtras($fieldStructure)
       );
       return ($this->_connector->execute($sql) !== FALSE);
     }
 
     /**
-     * @param string $table
-     * @param array $fieldData
+     * @param string $tableName
+     * @param array $fieldStructure
      * @return bool
      */
-    public function changeField($table, $fieldData) {
+    public function changeField($tableName, array $fieldStructure) {
       $allowAutoIncrement = FALSE;
-      if (isset($fieldData['autoinc']) && $fieldData['autoinc'] === 'yes') {
-        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($table).'`';
+      if (isset($fieldStructure['autoinc']) && $fieldStructure['autoinc'] === 'yes') {
+        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
         if ($result = $this->_connector->execute($sql)) {
           $autoIncrementField = NULL;
           $fieldExists = FALSE;
-          while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+          while ($row = $result->fetchAssoc()) {
             $isAutoIncrement = strtolower($row['Extra']) === 'auto_increment';
-            if ($row['Field'] === $fieldData['name']) {
+            if ($row['Field'] === $fieldStructure['name']) {
               $allowAutoIncrement = (trim($row['Key']) !== '');
               if ($isAutoIncrement) {
                 unset($autoIncrementField);
@@ -398,7 +396,7 @@ namespace Papaya\Database\Schema {
             $sql = sprintf(
             /** @lang text */
               'ALTER TABLE `%s` MODIFY COLUMN `%s` %s %s',
-              $this->getIdentifier($table),
+              $this->getIdentifier($tableName),
               $this->getIdentifier($autoIncrementField['name']),
               $this->getFieldType(
                 $autoIncrementField['type'], $autoIncrementField['size']
@@ -412,54 +410,54 @@ namespace Papaya\Database\Schema {
       $sql = sprintf(
       /** @lang text */
         'ALTER TABLE `%s` MODIFY COLUMN `%s` %s %s',
-        $this->getIdentifier($table),
-        $this->getIdentifier($fieldData['name']),
-        $this->getFieldType($fieldData['type'], $fieldData['size']),
-        $this->getFieldExtras($fieldData, $allowAutoIncrement)
+        $this->getIdentifier($tableName),
+        $this->getIdentifier($fieldStructure['name']),
+        $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
+        $this->getFieldExtras($fieldStructure, $allowAutoIncrement)
       );
       return ($this->_connector->execute($sql) !== FALSE);
     }
 
     /**
-     * @param string $table
-     * @param string $field
+     * @param string $tableName
+     * @param string $fieldName
      * @return bool
      */
-    public function dropField($table, $field) {
+    public function dropField($tableName, $fieldName) {
       $sql = sprintf(
       /** @lang text */
         'ALTER TABLE `%s` DROP COLUMN `%s`',
-        $this->getIdentifier($table),
-        $this->getIdentifier($field)
+        $this->getIdentifier($tableName),
+        $this->getIdentifier($fieldName)
       );
       return ($this->_connector->execute($sql) !== FALSE);
     }
 
     /**
-     * @param string $table
-     * @param array $index
+     * @param string $tableName
+     * @param array $indexStructure
      * @return bool
      */
-    public function addIndex($table, $index) {
-      return $this->changeIndex($table, $index, FALSE);
+    public function addIndex($tableName, array $indexStructure) {
+      return $this->changeIndex($tableName, $indexStructure, FALSE);
     }
 
     /**
-     * @param string $table
-     * @param array $index
+     * @param string $tableName
+     * @param array $indexStructure
      * @param bool $dropCurrent
      * @return bool
      */
-    public function changeIndex($table, $index, $dropCurrent = TRUE) {
-      if (isset($index['fields']) && is_array($index['fields'])) {
-        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($table).'`';
+    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE) {
+      if (isset($indexStructure['fields']) && is_array($indexStructure['fields'])) {
+        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
         if ($res = $this->_connector->execute($sql)) {
-          $needed = count($index['fields']);
+          $needed = count($indexStructure['fields']);
           $existsInDatabase = 0;
           while ($row = $res->fetchAssoc()) {
             if (
               ++$existsInDatabase >= $needed &&
-              in_array($row['Field'], $index['fields'], FALSE)
+              in_array($row['Field'], $indexStructure['fields'], FALSE)
             ) {
               break;
             }
@@ -467,32 +465,32 @@ namespace Papaya\Database\Schema {
           $res->free();
           if ($existsInDatabase >= $needed) {
             $fields = '(';
-            foreach ($index['fields'] as $fieldName) {
+            foreach ($indexStructure['fields'] as $fieldName) {
               if (
-                isset($index['keysize'][$fieldName]) &&
-                $index['keysize'][$fieldName] > 0
+                isset($indexStructure['keysize'][$fieldName]) &&
+                $indexStructure['keysize'][$fieldName] > 0
               ) {
                 $fields .= '`'.$this->getIdentifier($fieldName).'` ('.
-                  (int)$index['keysize'][$fieldName].'), ';
+                  (int)$indexStructure['keysize'][$fieldName].'), ';
               } else {
                 $fields .= '`'.$this->getIdentifier($fieldName).'`, ';
               }
             }
             $fields = substr($fields, 0, -2).')';
             $drop = $dropCurrent
-              ? ' DROP INDEX `'.$this->getIdentifier($index['name']).'`,' : '';
-            if ($index['name'] === 'PRIMARY') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($table).'`'.$drop.
+              ? ' DROP INDEX `'.$this->getIdentifier($indexStructure['name']).'`,' : '';
+            if ($indexStructure['name'] === 'PRIMARY') {
+              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
                 ' ADD PRIMARY KEY '.$fields;
-            } elseif (isset($index['fulltext']) && $index['fulltext'] === 'yes') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($table).'`'.$drop.
-                ' ADD FULLTEXT `'.$this->getIdentifier($index['name']).'` '.$fields;
-            } elseif (isset($index['unique']) && $index['unique'] === 'yes') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($table).'`'.$drop.
-                ' ADD UNIQUE `'.$this->getIdentifier($index['name']).'` '.$fields;
+            } elseif (isset($indexStructure['fulltext']) && $indexStructure['fulltext'] === 'yes') {
+              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
+                ' ADD FULLTEXT `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
+            } elseif (isset($indexStructure['unique']) && $indexStructure['unique'] === 'yes') {
+              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
+                ' ADD UNIQUE `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
             } else {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($table).'`'.$drop.
-                ' ADD INDEX `'.$this->getIdentifier($index['name']).'` '.$fields;
+              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
+                ' ADD INDEX `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
             }
             return ($this->_connector->execute($sql) !== FALSE);
           }
@@ -502,68 +500,68 @@ namespace Papaya\Database\Schema {
     }
 
     /**
-     * @param string $table
-     * @param string $name
+     * @param string $tableName
+     * @param string $indexName
      * @return bool
      */
-    public function dropIndex($table, $name) {
-      if ($name === 'PRIMARY') {
+    public function dropIndex($tableName, $indexName) {
+      if ($indexName === 'PRIMARY') {
         $sql =
           /** @lang text */
-          'ALTER TABLE `'.$this->getIdentifier($table).'` DROP PRIMARY KEY';
+          'ALTER TABLE `'.$this->getIdentifier($tableName).'` DROP PRIMARY KEY';
       } else {
         $sql =
           /** @lang text */
-          'ALTER TABLE `'.$this->getIdentifier($table).'` DROP INDEX `'.
-          $this->getIdentifier($name).'`';
+          'ALTER TABLE `'.$this->getIdentifier($tableName).'` DROP INDEX `'.
+          $this->getIdentifier($indexName).'`';
       }
       return ($this->_connector->execute($sql) !== FALSE);
     }
 
     /**
-     * @param array $xmlField
-     * @param array $databaseField
+     * @param array $expectedStructure
+     * @param array $currentStructure
      * @return bool
      */
-    public function isFieldStructureDifferent($xmlField, $databaseField) {
-      if ($xmlField['type'] !== $databaseField['type']) {
+    public function isFieldDifferent(array $expectedStructure, array $currentStructure) {
+      if ($expectedStructure['type'] !== $currentStructure['type']) {
         return TRUE;
       }
-      if ($xmlField['size'] !== $databaseField['size']) {
+      if ($expectedStructure['size'] !== $currentStructure['size']) {
         return TRUE;
       }
-      if ($xmlField['null'] !== $databaseField['null']) {
+      if ($expectedStructure['null'] !== $currentStructure['null']) {
         return TRUE;
       }
-      if ($xmlField['autoinc'] === 'yes' && $databaseField['autoinc'] !== 'yes') {
+      if ($expectedStructure['autoinc'] === 'yes' && $currentStructure['autoinc'] !== 'yes') {
         return TRUE;
       }
-      if ($xmlField['default'] !== $databaseField['default']) {
+      if ($expectedStructure['default'] !== $currentStructure['default']) {
         return TRUE;
       }
       return FALSE;
     }
 
     /**
-     * @param array $xmlKey
-     * @param array $databaseKey
+     * @param array $expectedStructure
+     * @param array $currentStructure
      * @return bool
      */
-    public function isKeyStructureDifferent($xmlKey, $databaseKey) {
+    public function isIndexDifferent(array $expectedStructure, array $currentStructure) {
       if (
-        ($xmlKey['unique'] === 'yes' || $xmlKey['name'] === 'PRIMARY') !==
-        ($databaseKey['unique'] === 'yes' || $databaseKey['name'] === 'PRIMARY')
+        ($expectedStructure['unique'] === 'yes' || $expectedStructure['name'] === 'PRIMARY') !==
+        ($currentStructure['unique'] === 'yes' || $currentStructure['name'] === 'PRIMARY')
       ) {
         return TRUE;
       }
-      if ($xmlKey['fulltext'] === 'yes' && $databaseKey['fulltext'] !== 'yes') {
+      if ($expectedStructure['fulltext'] === 'yes' && $currentStructure['fulltext'] !== 'yes') {
         return TRUE;
       }
-      if (count(array_diff_assoc($xmlKey['keysize'], $databaseKey['keysize'])) > 0) {
+      if (count(array_diff_assoc($expectedStructure['keysize'], $currentStructure['keysize'])) > 0) {
         return TRUE;
       }
       if (
-        count(array_diff($xmlKey['fields'], $databaseKey['fields'])) > 0
+        count(array_diff($expectedStructure['fields'], $currentStructure['fields'])) > 0
       ) {
         return TRUE;
       }

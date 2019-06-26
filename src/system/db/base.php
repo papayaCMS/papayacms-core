@@ -80,10 +80,10 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   }
 
   /**
-   * @param $explainQuery
+   * @param $sql
    * @return mixed
    */
-  abstract public function executeQuery($explainQuery);
+  abstract public function executeQuery($sql);
 
   /**
   * extension needed for abstraction layer found
