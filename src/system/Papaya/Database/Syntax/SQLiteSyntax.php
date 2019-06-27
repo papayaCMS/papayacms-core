@@ -64,7 +64,7 @@ namespace Papaya\Database\Syntax {
      */
     public function locate($haystack, $needle, $offset = 0) {
       if (!isset($this->_callbacks['LOCATE'])) {
-        $this->_connector->registerFunction(
+        $this->_connection->registerFunction(
           'LOCATE',
           static function ($needle, $haystack, $offset = 0) {
             $pos = strpos($haystack, $needle, $offset);

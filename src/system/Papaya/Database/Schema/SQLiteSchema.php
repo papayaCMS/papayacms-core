@@ -2,6 +2,8 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\SQLStatement;
+
   class SQLiteSchema extends AbstractSchema {
     const ACTION_CHANGE_FIELD = 'change';
     const ACTION_DROP_FIELD = 'drop';
@@ -12,10 +14,10 @@ namespace Papaya\Database\Schema {
     public function getTables() {
       return array_map(
         static function ($row) {
-          return $row[0];
+          return $row['name'];
         },
         iterator_to_array(
-          $this->_connector->execute(
+          $this->connection->execute(
             "SELECT name FROM sqlite_master WHERE type = 'table'"
           )
         )
@@ -58,12 +60,12 @@ namespace Papaya\Database\Schema {
         'keys' => $structure['keys'],
         'fields' => $structure['fields'],
       ];
-      $this->_connector->execute(
+      $this->connection->execute(
         sprintf('DROP TABLE IF EXISTS "%s"', $temporaryTableName)
       );
       $this->createTable($temporaryTableStructure);
       // copy data from old table to temporary table (insert select)
-      $this->_connector->execute(
+      $this->connection->execute(
         sprintf(
           'INSERT INTO "%1$s" (%2$s) SELECT %2$s FROM "%3$s"',
           $temporaryTableName,
@@ -80,7 +82,7 @@ namespace Papaya\Database\Schema {
         )
       );
       // drop old table
-      $this->_connector->execute(sprintf('DROP TABLE "%s"', $tableName));
+      $this->connection->execute(sprintf('DROP TABLE "%s"', $tableName));
 
       // calculate new table definitions
       $newTableStructure = [
@@ -105,7 +107,7 @@ namespace Papaya\Database\Schema {
       // create new table with new table definitions
       $this->createTable($newTableStructure);
       // copy data from temporary table to new table (insert select)
-      $result = (bool)$this->_connector->execute(
+      $result = (bool)$this->connection->execute(
         sprintf(
           'INSERT INTO "%1$s" (%2$s) SELECT %2$s FROM "%3$s"',
           $tableName,
@@ -136,7 +138,7 @@ namespace Papaya\Database\Schema {
       $keys = [];
       $table = $this->getIdentifier($tableName, $tablePrefix);
 
-      if ($res = $this->_connector->execute('PRAGMA table_info(?);', [$table])) {
+      if ($res = $this->connection->execute('PRAGMA table_info("'.$table.'");')) {
         while ($row = $res->fetchAssoc()) {
           $fields[$row['name']] = $this->parseFieldData($row);
           if ($row['pk'] > 0) {
@@ -155,7 +157,7 @@ namespace Papaya\Database\Schema {
           }
         }
       }
-      if ($res = $this->_connector->execute('PRAGMA index_list(?)', [$table])) {
+      if ($res = $this->connection->execute('PRAGMA index_list("'.$table.'")')) {
         while ($row = $res->fetchAssoc()) {
           if ($row['origin'] === 'pk' || $row['origin'] === 'u') {
             continue;
@@ -172,7 +174,8 @@ namespace Papaya\Database\Schema {
           $keys[$keyName]['fulltext'] = 'no';
         }
         foreach ($keys as $keyName => $keyData) {
-          if ($res = $this->_connector->execute('PRAGMA index_info(?)', [$keyData['orgname']])) {
+          $sql = 'PRAGMA index_info("'.$this->getIdentifier($keyData['orgname']).'")';
+          if ($res = $this->connection->execute($sql)) {
             while ($row = $res->fetchAssoc()) {
               $keys[$keyName]['fields'][] = $row['name'];
             }
@@ -305,7 +308,7 @@ namespace Papaya\Database\Schema {
           }
         }
         $sql = substr($sql, 0, -2)."\n)\n";
-        if ($this->_connector->execute($sql, $parameters) !== FALSE) {
+        if ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
           foreach ($tableStructure['keys'] as $key) {
             $this->addIndex($table, $key);
           }
@@ -428,7 +431,7 @@ namespace Papaya\Database\Schema {
         } else {
           $sql = 'CREATE INDEX "'.$indexName.'" ON '.$this->getIdentifier($tableName).' '.$fields;
         }
-        return (!$sql || ($this->_connector->execute($sql) !== FALSE));
+        return (!$sql || ($this->connection->execute($sql) !== FALSE));
       }
       return FALSE;
     }
@@ -444,8 +447,8 @@ namespace Papaya\Database\Schema {
     private function getIndexInfo($tableName, $indexName) {
       $result = FALSE;
       if ($indexName === 'PRIMARY') {
-        $sql = 'PRAGMA table_info(?);';
-        if ($res = $this->_connector->execute($sql, [$tableName])) {
+        $sql = 'PRAGMA table_info("'.$this->getIdentifier($tableName).'");';
+        if ($res = $this->connection->execute($sql)) {
           while ($row = $res->fetchAssoc()) {
             if ((int)$row['pk'] === 1) {
               if (!is_array($result)) {
@@ -462,8 +465,8 @@ namespace Papaya\Database\Schema {
         }
       } else {
         $keyName = $this->getIdentifier($indexName);
-        $sql = "PRAGMA index_list(?')";
-        if ($res = $this->_connector->execute($sql, [$tableName])) {
+        $sql = 'PRAGMA index_list("'.$this->getIdentifier($tableName).'")';
+        if ($res = $this->connection->execute($sql)) {
           while ($row = $res->fetchAssoc()) {
             if (
               strpos($row['name'], $tableName) === 0 &&
@@ -475,7 +478,7 @@ namespace Papaya\Database\Schema {
               $result['fields'] = [];
               $result['fulltext'] = 'no';
               $sql = "PRAGMA index_info(?')";
-              if ($res = $this->_connector->execute($sql, [$result['orgname']])) {
+              if ($res = $this->connection->execute(new SQLStatement($sql, [$result['orgname']]))) {
                 while ($row = $res->fetchAssoc()) {
                   $result['fields'][] = $row['name'];
                 }
@@ -495,8 +498,8 @@ namespace Papaya\Database\Schema {
      * @return bool
      */
     public function dropIndex($tableName, $indexName) {
-      $sql = 'PRAGMA index_list(?)';
-      if ($res = $this->_connector->execute($sql, [$tableName])) {
+      $sql = 'PRAGMA index_list("'.$this->getIdentifier($tableName).'")';
+      if ($res = $this->connection->execute($sql)) {
         $keyName = NULL;
         $keys = [];
         while ($row = $res->fetchAssoc()) {
@@ -516,7 +519,7 @@ namespace Papaya\Database\Schema {
         }
         if ($keyName && $keys[$keyName]) {
           $sql = 'DROP INDEX '.$keys[$keyName]['orgname'];
-          return ($this->_connector->execute($sql) !== FALSE);
+          return ($this->connection->execute($sql) !== FALSE);
         }
       }
       return FALSE;
@@ -540,7 +543,7 @@ namespace Papaya\Database\Schema {
       if ($expectedStructure['type'] !== $currentStructure['type']) {
         return TRUE;
       }
-      if ($expectedStructure['size'] !== $currentStructure['size']) {
+      if ((int)$expectedStructure['size'] !== (int)$currentStructure['size']) {
         if (
           $expectedStructure['type'] === 'string' &&
           $expectedStructure['size'] > 255 &&

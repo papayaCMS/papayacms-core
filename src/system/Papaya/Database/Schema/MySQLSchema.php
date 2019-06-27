@@ -2,6 +2,8 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\SQLStatement;
+
   class MySQLSchema extends AbstractSchema {
 
     /**
@@ -9,7 +11,7 @@ namespace Papaya\Database\Schema {
      */
     public function getTables() {
       $tables = [];
-      if ($result = $this->_connector->execute('SHOW TABLES')) {
+      if ($result = $this->connection->execute('SHOW TABLES')) {
         while($tableName = $result->fetchField()) {
           $tables[] = $tableName;
         }
@@ -31,21 +33,21 @@ namespace Papaya\Database\Schema {
       $sql = 'SHOW TABLE STATUS LIKE ?';
       $tableType = NULL;
       if (
-        ($result = $this->_connector->execute($sql, [$table])) &&
+        ($result = $this->connection->execute(new SQLStatement($sql, [$table]))) &&
         ($row = $result->fetchAssoc())
       ) {
         $tableType = (strtoupper($row['Engine']) === 'INNODB')
           ? 'transactions' : NULL;
       }
       $sql = "SHOW FIELDS FROM $table";
-      if ($result = $this->_connector->execute($sql)) {
+      if ($result = $this->connection->execute($sql)) {
         while ($row = $result->fetchAssoc()) {
           $fields[$row['Field']] = $this->parseFieldData($row);
         }
       }
       $keys = [];
       $sql = "SHOW KEYS FROM $table";
-      if ($result = $this->_connector->execute($sql)) {
+      if ($result = $this->connection->execute($sql)) {
         while ($row = $result->fetchAssoc()) {
           $keyName = $row['Key_name'];
           $keys[$keyName]['name'] = $keyName;
@@ -234,7 +236,7 @@ namespace Papaya\Database\Schema {
           $sql .= ' ENGINE=InnoDB';
         }
         $sql .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
-        return ($this->_connector->execute($sql, $parameters) !== FALSE);
+        return ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
       }
       return FALSE;
     }
@@ -359,7 +361,7 @@ namespace Papaya\Database\Schema {
         $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
         $this->getFieldExtras($fieldStructure)
       );
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -371,7 +373,7 @@ namespace Papaya\Database\Schema {
       $allowAutoIncrement = FALSE;
       if (isset($fieldStructure['autoinc']) && $fieldStructure['autoinc'] === 'yes') {
         $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
-        if ($result = $this->_connector->execute($sql)) {
+        if ($result = $this->connection->execute($sql)) {
           $autoIncrementField = NULL;
           $fieldExists = FALSE;
           while ($row = $result->fetchAssoc()) {
@@ -403,7 +405,7 @@ namespace Papaya\Database\Schema {
               ),
               $this->getFieldExtras($autoIncrementField)
             );
-            $this->_connector->execute($sql);
+            $this->connection->execute($sql);
           }
         }
       }
@@ -415,7 +417,7 @@ namespace Papaya\Database\Schema {
         $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
         $this->getFieldExtras($fieldStructure, $allowAutoIncrement)
       );
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -430,7 +432,7 @@ namespace Papaya\Database\Schema {
         $this->getIdentifier($tableName),
         $this->getIdentifier($fieldName)
       );
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -451,7 +453,7 @@ namespace Papaya\Database\Schema {
     public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE) {
       if (isset($indexStructure['fields']) && is_array($indexStructure['fields'])) {
         $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
-        if ($res = $this->_connector->execute($sql)) {
+        if ($res = $this->connection->execute($sql)) {
           $needed = count($indexStructure['fields']);
           $existsInDatabase = 0;
           while ($row = $res->fetchAssoc()) {
@@ -492,7 +494,7 @@ namespace Papaya\Database\Schema {
               $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
                 ' ADD INDEX `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
             }
-            return ($this->_connector->execute($sql) !== FALSE);
+            return ($this->connection->execute($sql) !== FALSE);
           }
         }
       }
@@ -515,7 +517,7 @@ namespace Papaya\Database\Schema {
           'ALTER TABLE `'.$this->getIdentifier($tableName).'` DROP INDEX `'.
           $this->getIdentifier($indexName).'`';
       }
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -527,7 +529,7 @@ namespace Papaya\Database\Schema {
       if ($expectedStructure['type'] !== $currentStructure['type']) {
         return TRUE;
       }
-      if ($expectedStructure['size'] !== $currentStructure['size']) {
+      if ((int)$expectedStructure['size'] !== (int)$currentStructure['size']) {
         return TRUE;
       }
       if ($expectedStructure['null'] !== $currentStructure['null']) {

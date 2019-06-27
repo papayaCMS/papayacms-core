@@ -35,7 +35,7 @@ class dbcon_sqlite3 extends dbcon_base {
   /**
    * @var SQLite3|NULL
    */
-  var $databaseConnection = NULL;
+  private $_sqlite3;
 
   /**
    * Callbacks
@@ -43,13 +43,21 @@ class dbcon_sqlite3 extends dbcon_base {
    */
   var $callbacks = array();
 
+  public function __construct(\Papaya\Database\Source\Name $dsn) {
+    parent::__construct(
+      $dsn,
+      new Papaya\Database\Syntax\SQLiteSyntax($this),
+      new Papaya\Database\Schema\SQLiteSchema($this)
+    );
+  }
+
   /**
    * Check for sqlite database extension found
    *
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
-  public function extensionFound() {
+  public function isExtensionAvailable() {
     if (!extension_loaded('sqlite3')){
       throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "sqlite" not available.'
@@ -65,8 +73,8 @@ class dbcon_sqlite3 extends dbcon_base {
    * @return SQLite3 $this->databaseConnection connection ID
    */
   public function connect() {
-    if (isset($this->databaseConnection) && ($this->databaseConnection instanceof SQLite3)) {
-      return $this->databaseConnection;
+    if (isset($this->_sqlite3) && ($this->_sqlite3 instanceof SQLite3)) {
+      return $this->_sqlite3;
     } else {
       try {
         $fileName = $this->getDSN()->filename;
@@ -75,11 +83,11 @@ class dbcon_sqlite3 extends dbcon_base {
             \Papaya\Utility\File\Path::getDocumentRoot().'../'.$fileName, FALSE
           );
         }
-        $this->databaseConnection = new SQLite3($fileName);
-        $this->databaseConnection->enableExceptions(TRUE);
-        $this->databaseConnection->busyTimeout(10000);
-        $this->databaseConnection->exec('PRAGMA journal_mode = WAL');
-        return $this->databaseConnection;
+        $this->_sqlite3 = new SQLite3($fileName);
+        $this->_sqlite3->enableExceptions(TRUE);
+        $this->_sqlite3->busyTimeout(10000);
+        $this->_sqlite3->exec('PRAGMA journal_mode = WAL');
+        return $this->_sqlite3;
       } catch (\Exception $e) {
         throw new \Papaya\Database\Exception\ConnectionFailed($e->getMessage());
       }
@@ -87,43 +95,70 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-   * close connection
+   * @param \Papaya\Database\Interfaces\Statement|string $statement
+   * @param int $options
+   * @return \Papaya\Database\Result|int
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws \Papaya\Database\Exception\QueryFailed
    */
-  public function close() {
-    if (
-      isset($this->databaseConnection) &&
-      ($this->databaseConnection instanceof SQLite3)
-    ) {
-      $this->databaseConnection->close();
-      $this->databaseConnection = NULL;
+  public function execute($statement, $options = 0) {
+    if (!Papaya\Utility\Bitwise::inBitmask(self::KEEP_PREVIOUS_RESULT, $options)) {
+      $this->cleanup();
     }
+    $this->connect();
+    if (!$statement instanceof \Papaya\Database\Interfaces\Statement) {
+      $statement = new \Papaya\Database\SQLStatement((string)$statement, []);
+    }
+    $dbmsResult = $this->process($statement);
+    if ($dbmsResult instanceof SQLite3Result) {
+      return new dbresult_sqlite3($this, $dbmsResult, $statement);
+    }
+    return $dbmsResult;
+  }
+
+  private function process(\Papaya\Database\Interfaces\Statement $statement) {
+    $sql = $statement->getSQLString();
+    $parameters = $statement->getSQLParameters();
+    $dbmsResult = FALSE;
+    if (empty($parameters)) {
+      $dbmsResult = @$this->_sqlite3->query($sql);
+    } elseif ($dbmsStatement = @$this->_sqlite3->prepare($sql)) {
+      foreach ($parameters as $position => $value) {
+        $dbmsStatement->bindValue($position + 1, $value, SQLITE3_TEXT);
+      }
+      $dbmsResult = @$dbmsStatement->execute();
+    }
+    if ($dbmsResult instanceof SQLite3Result) {
+      return $dbmsResult;
+    }
+    if ($dbmsResult) {
+      return $this->_sqlite3->changes();
+    }
+    throw $this->_createQueryException($statement);
   }
 
   /**
-   * Wrap query execution so we can convert the erorr to an exception
-   *
-   * @throws \Papaya\Database\Exception\QueryFailed
-   * @param string $sql
-   * @return \SQLite3Result
+   * close connection
    */
-  public function executeQuery($sql) {
-    try {
-      $result = $this->databaseConnection->query($sql);
-      return $result;
-    } catch (Exception $e) {
-      throw $this->_createQueryException($sql);
+  public function disconnect() {
+    if (
+      isset($this->_sqlite3) &&
+      ($this->_sqlite3 instanceof SQLite3)
+    ) {
+      $this->_sqlite3->close();
+      $this->_sqlite3 = NULL;
     }
   }
 
   /**
    * If a query fails, throw an database exception
    *
-   * @param string $sql
+   * @param \Papaya\Database\Interfaces\Statement $statement
    * @return \Papaya\Database\Exception\QueryFailed
    */
-  private function _createQueryException($sql) {
-    $errorCode = $this->databaseConnection->lastErrorCode();
-    $errorMessage = $this->databaseConnection->lastErrorMsg();
+  private function _createQueryException(\Papaya\Database\Interfaces\Statement $statement) {
+    $errorCode = $this->_sqlite3->lastErrorCode();
+    $errorMessage = $this->_sqlite3->lastErrorMsg();
     $severityMapping = array(
       // 5 - The database file is locked
       5 => \Papaya\Database\Exception::SEVERITY_WARNING,
@@ -142,7 +177,7 @@ class dbcon_sqlite3 extends dbcon_base {
       $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
     return new \Papaya\Database\Exception\QueryFailed(
-      $errorMessage, $errorCode, $severity, $sql
+      $errorMessage, $errorCode, $severity, $statement
     );
   }
 
@@ -155,7 +190,7 @@ class dbcon_sqlite3 extends dbcon_base {
    */
   function escapeString($value) {
     $value = parent::escapeString($value);
-    return $this->databaseConnection->escapeString($value);
+    return $this->_sqlite3->escapeString($value);
   }
 
   /**
@@ -169,43 +204,23 @@ class dbcon_sqlite3 extends dbcon_base {
    * @access public
    * @return mixed FALSE or number of affected_rows or database result object
    * @throws \Papaya\Database\Exception\QueryFailed
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
     parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      $limitSQL = $this->getSQLSource('LIMIT', [$max, $offset]);
+      $limitSQL = $this->syntax()->limit($max, $offset);
     } else {
       $limitSQL = '';
     }
     $this->lastSQLQuery = $sql.$limitSQL;
-    $res = $this->executeQuery($sql.$limitSQL, $this->databaseConnection);
-    if ($res) {
-      if ($res instanceof SQLite3Result) {
-        $this->lastResult = new dbresult_sqlite3($this, $res, $sql);
-        $this->lastResult->setLimit($max, $offset);
-        return $this->lastResult;
-      }
-      $result = $this->databaseConnection->changes();
-      return $result;
+    $result = $this->execute($sql.$limitSQL);
+    if ($result instanceof \Papaya\Database\Result) {
+      $this->lastResult = $result;
+      $this->lastResult->setLimit($max, $offset);
+      return $this->lastResult;
     }
-    $result = FALSE;
     return $result;
-  }
-
-  /**
-   * Rewrite query to get record count of a limited query and execute it.
-   *
-   * @param string $sql SQL string
-   * @access public
-   * @return integer | FALSE record count or failure
-   */
-  function queryRecordCount($sql) {
-    if ($countSql = $this->getCountQuerySql($sql)) {
-      if ($res = $this->executeQuery($countSql, $this->databaseConnection)) {
-        return $res->fetchArray(SQLITE3_NUM)[0];
-      }
-    }
-    return FALSE;
   }
 
   /**
@@ -244,7 +259,7 @@ class dbcon_sqlite3 extends dbcon_base {
         if (isset($idField)) {
           return $this->lastInsertId($table, $idField);
         } else {
-          return $this->databaseConnection->changes();
+          return $this->_sqlite3->changes();
         }
       }
     }
@@ -258,7 +273,7 @@ class dbcon_sqlite3 extends dbcon_base {
    * @return int|string|null
    */
   public function lastInsertId($table, $idField) {
-    return $this->databaseConnection->lastInsertRowID();
+    return $this->_sqlite3->lastInsertRowID();
   }
 
 
@@ -320,688 +335,6 @@ class dbcon_sqlite3 extends dbcon_base {
       }
     } else {
       $this->lastSQLQuery = '';
-    }
-    return FALSE;
-  }
-
-  /**
-   * Delete records by filter
-   *
-   * @param string $table table name
-   * @param string $filter Filter string without WHERE condition
-   * @access public
-   * @return mixed FALSE or number of affected_rows or database result object
-   */
-  function deleteRecord($table, $filter) {
-    $sql = "DELETE FROM $table
-             WHERE ".$this->getSQLCondition($filter);
-    return $this->query($sql, NULL, NULL, FALSE);
-  }
-
-  /**
-   * Get table names
-   *
-   * @access public
-   * @return array
-   */
-  function queryTableNames() {
-    $sql = "SELECT name
-              FROM sqlite_master
-             WHERE type = 'table'";
-    $result = array();
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow()) {
-        $result[] = $row[0];
-      }
-    }
-    return $result;
-  }
-
-  /**
-   * Parse SQLite field data
-   *
-   * @param array $row
-   * @access private
-   * @return array
-   */
-  function parseSQLiteFieldData($row) {
-    $autoIncrement = FALSE;
-    $default = NULL;
-    switch ($row['type']) {
-    case 'BIGSERIAL':
-    case 'BIGINT':
-      $type = 'integer';
-      $size = 8;
-      break;
-    case 'SERIAL':
-    case 'INT':
-    case 'INTEGER':
-      $type = 'integer';
-      $size = 4;
-      if ($row['pk'] == 1) {
-        $autoIncrement = TRUE;
-      }
-      break;
-    case 'SMALLINT':
-      $type = 'integer';
-      $size = 2;
-      break;
-    case 'TEXT':
-      $type = 'string';
-      $size = 65535;
-      break;
-    default:
-      if (preg_match('~NUMERIC\((\d+,\d+)\)~', $row['type'], $regs)) {
-        $type = 'float';
-        $size = $regs[1];
-      } elseif (preg_match('~VARCHAR\((\d+)\)~', $row['type'], $regs)) {
-        $type = 'string';
-        $size = (int)$regs[1];
-      } elseif (preg_match('~CHAR\((\d+)\)~', $row['type'], $regs)) {
-        $type = 'string';
-        $size = (int)$regs[1];
-      } else {
-        $type = 'string';
-        $size = 16777215;
-      }
-    }
-    if ($autoIncrement) {
-      $notNull = TRUE;
-    } elseif (isset($row['notnull']) && $row['notnull'] != 0) {
-      $notNull = TRUE;
-      if (isset($row['dflt_value'])) {
-        $default = $row['dflt_value'];
-      }
-      if (substr($default, 0, 1) === "'" && substr($default, -1) === "'") {
-        $default = substr($default, 1, -1);
-      }
-    } else {
-      $notNull = FALSE;
-    }
-    $result = array(
-      'name' => $row['name'],
-      'type' => $type,
-      'size' => $size,
-      'null' => $notNull ? 'no' : 'yes',
-      'autoinc' => $autoIncrement ? 'yes' : 'no',
-      'default' => $default
-    );
-
-    return $result;
-  }
-
-  /**
-   * get field type
-   *
-   * @param array $field
-   * @param bool $primaryKey
-   * @access private
-   * @return string
-   */
-  function getSQLiteFieldType($field, $primaryKey = FALSE) {
-    if ($primaryKey && isset($field['autoinc']) && $field['autoinc'] == 'yes') {
-      return 'INTEGER PRIMARY KEY';
-    } else {
-      if (isset($field['null']) && $field['null'] == 'yes') {
-        $default = NULL;
-        $notNullStr = '';
-      } else {
-        $default = '';
-        $notNullStr = ' NOT NULL';
-      }
-      if (isset($field['default'])) {
-        $default = $field['default'];
-      }
-      $defaultStr = '';
-      if (isset($default)) {
-        switch (strtolower($field['type'])) {
-        case 'integer':
-          $defaultStr = " DEFAULT '".(int)$default."'";
-          break;
-        case 'float':
-          $defaultStr = " DEFAULT '".(double)$default."'";
-          break;
-        default:
-          $defaultStr = " DEFAULT '".$this->escapeString($default)."'";
-          break;
-        }
-      }
-      switch (strtolower(trim($field['type']))) {
-      case 'integer':
-        $size = ($field['size'] > 0) ? (int)$field['size'] : 1;
-        if ($size <= 2) {
-          $result = "SMALLINT";
-        } elseif ($size <= 4) {
-          $result = "INTEGER";
-        } else {
-          $result = "BIGINT";
-        }
-        break;
-      case 'float':
-        if (FALSE !== strpos($field['size'], ',')) {
-          list($before,$after) = explode(',', $field['size']);
-          $before = ($before > 0) ? (int)$before : 1;
-          $after = (int)$after;
-          if ($after > $before) {
-            $before += $after;
-          }
-          $result = "NUMERIC(".$before.','.$after.")";
-        } else {
-          $result = "NUMERIC(".(int)$field['size'].',0)';
-        }
-        break;
-      case 'string':
-      default:
-        $size = ($field['size'] > 0) ? (int)$field['size'] : 1;
-        if ($size <= 4) {
-          $result = "CHAR(".$field['size'].")";
-        } elseif ($size <= 255) {
-          $result = "VARCHAR(".$field['size'].")";
-        } else {
-          $result = "TEXT";
-        }
-        break;
-      }
-      if ($primaryKey) {
-        $result .= ' PRIMARY KEY';
-      }
-      return $result.$defaultStr.$notNullStr;
-    }
-  }
-
-  /**
-   * Query table structure
-   *
-   * @param string $tableName
-   * @param string $tablePrefix optional, default value ''
-   * @access public
-   * @return array
-   */
-  function queryTableStructure($tableName, $tablePrefix = '') {
-    $fields = array();
-    $keys = array();
-    if ($tablePrefix) {
-      $table = $tablePrefix.'_'.$tableName;
-    } else {
-      $table = $tableName;
-    }
-    $sql = "PRAGMA table_info('".$this->escapeString($table)."');";
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $fields[$row['name']] = $this->parseSQLiteFieldData($row);
-        if ($row['pk'] > 0) {
-          if (isset($keys['PRIMARY']) && is_array($keys['PRIMARY'])) {
-            $keys['PRIMARY']['fields'][$row['pk']] = $row['name'];
-          } else {
-            $keys['PRIMARY']['orgname'] = 'PRIMARY';
-            $keys['PRIMARY']['name'] = 'PRIMARY';
-            $keys['PRIMARY']['unique'] = 'yes';
-            $keys['PRIMARY']['fields'] = array($row['pk'] => $row['name']);
-            $keys['PRIMARY']['fulltext'] = 'no';
-            $keys['PRIMARY']['autoinc'] = ($row['type'] == 'INTEGER')
-              ? 'yes' : 'no';
-          }
-          ksort($keys['PRIMARY']['fields']);
-        }
-      }
-    }
-    $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        if ($row['origin'] == 'pk' || $row['origin'] == 'u') {
-          continue;
-        } elseif (strpos($row['name'], $table) === 0) {
-          $keyName = substr($row['name'], strlen($table) + 1);
-        } else {
-          $keyName = $row['name'];
-        }
-        $keys[$keyName]['orgname'] = $row['name'];
-        $keys[$keyName]['name'] = $keyName;
-        $keys[$keyName]['unique'] = ($row['unique'] == '1') ? 'yes' : 'no';
-        $keys[$keyName]['fields'] = array();
-        $keys[$keyName]['fulltext'] = 'no';
-      }
-      foreach ($keys as $keyName => $keyData) {
-        $sql = "PRAGMA index_info('".$this->escapeString($keyData['orgname'])."')";
-        if ($res = $this->query($sql)) {
-          while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            $keys[$keyName]['fields'][] = $row['name'];
-          }
-        }
-      }
-    }
-    return array(
-      'name' => $tableName,
-      'fields' => $fields,
-      'keys' => $keys
-    );
-  }
-
-  /**
-   * Create given table
-   *
-   * @param string $tableData
-   * @param string $tablePrefix
-   * @access public
-   * @return boolean
-   */
-  function createTable($tableData, $tablePrefix = '') {
-    if (is_array($tableData['fields']) && trim($tableData['name']) != '') {
-      if ($tablePrefix) {
-        $table = $tablePrefix.'_'.trim($tableData['name']);
-      } else {
-        $table = trim($tableData['name']);
-      }
-      if (
-        isset($tableData['keys']) &&
-        isset($tableData['keys']['PRIMARY']) &&
-        isset($tableData['keys']['PRIMARY']['fields']) &&
-        is_array($tableData['keys']['PRIMARY']['fields']) &&
-        count($tableData['keys']['PRIMARY']['fields']) == 1
-      ) {
-        $primaryKeyField = reset($tableData['keys']['PRIMARY']['fields']);
-      } else {
-        $primaryKeyField = '';
-      }
-      $sql = 'CREATE TABLE '.$this->escapeString(strtolower($table)).' ('.LF;
-      foreach ($tableData['fields'] as $field) {
-        $sql .= '  '.strtolower($field['name']).' '.
-          $this->getSQLiteFieldType(
-            $field,
-            $field['name'] == $primaryKeyField
-          ).",\n";
-      }
-      if (is_array($tableData['keys'])) {
-        foreach ($tableData['keys'] as $keyName => $key) {
-          if ($keyName == 'PRIMARY' && is_array($key['fields']) &&
-            count($key['fields']) > 1) {
-            $sql .= 'PRIMARY KEY ('.implode(',', $key['fields'])."),\n";
-          } elseif ($keyName != 'PRIMARY' &&
-            isset($key['unique']) && $key['unique'] == 'yes') {
-            $sql .= 'CONSTRAINT '.$this->escapeString(strtolower($table)).'_'.
-              $keyName.' UNIQUE ';
-            $sql .= '('.implode(',', $key['fields'])."),\n";
-          }
-        }
-      }
-      $sql = substr($sql, 0, -2)."\n)\n";
-      if ($this->query($sql) !== FALSE) {
-        foreach ($tableData['keys'] as $key) {
-          $this->addIndex($table, $key);
-        }
-        return TRUE;
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-   * Add Field
-   *
-   * @param string $table
-   * @param array $fieldData
-   * @access public
-   * @return boolean
-   */
-  function addField($table, $fieldData) {
-    return $this->changeField($table, $fieldData);
-  }
-
-  /**
-   * Change Field
-   *
-   * @param string $table
-   * @param array $fieldData
-   * @access public
-   * @return boolean
-   */
-  function changeField($table, $fieldData) {
-    return $this->alterTable($table, 'change', $fieldData);
-  }
-
-  /**
-   * Drop field
-   *
-   * @param string $table
-   * @param string $field fieldname
-   * @access public
-   * @return boolean
-   */
-  function dropField($table, $field) {
-    return $this->alterTable($table, 'drop', $field);
-  }
-
-  /**
-   * Change table structure
-   *
-   * @param string $table
-   * @param string $action
-   * @param array|string $fieldData
-   * @return boolean
-   */
-  function alterTable($table, $action, $fieldData) {
-    $result = FALSE;
-    // get current table definitions
-    $structure = $this->queryTableStructure($table);
-    // create temporary table with old table definitions
-    $tmpTableName = 'tmp_'.$table;  // .'_'.time();
-    $tmpTableData = array(
-      'name' => $tmpTableName,
-      'keys' => $structure['keys'],
-      'fields' => $structure['fields'],
-    );
-    $this->query(sprintf("DROP TABLE IF EXISTS %s", $tmpTableName));
-
-    $this->createTable($tmpTableData);
-
-    // copy data from old table to temporary table (insert select)
-    $sqlCopyToTmp = "INSERT INTO %s (%s) SELECT %s FROM %s";
-    $paramsCopyToTmp = array(
-      $tmpTableName,
-      implode(',', array_keys($structure['fields'])),
-      implode(',', array_keys($structure['fields'])),
-      $table,
-    );
-    $this->query(vsprintf($sqlCopyToTmp, $paramsCopyToTmp));
-
-    // drop old table
-    $this->query(sprintf("DROP TABLE %s", $table));
-
-    // calculate new table definitions
-    $newTableData = array(
-      'name' => $table,
-      'keys' => $structure['keys'],
-    );
-    switch ($action) {
-    case 'drop':
-      foreach ($structure['fields'] as $fieldName => $field) {
-        if ($fieldData != $fieldName) {
-          $newTableData['fields'][$fieldName] = $field;
-        }
-      }
-      unset($structure['fields'][$fieldData]);
-      break;
-    case 'change':
-      $newTableData['fields'] = $structure['fields'];
-      $newTableData['fields'][$fieldData['name']] = $fieldData;
-      break;
-    }
-
-    // create new table with new table definitions
-    $this->createTable($newTableData);
-    // copy data from temporary table to new table (insert select)
-    $sqlCopyToNew = "INSERT INTO %s (%s) SELECT %s FROM %s";
-    $paramsCopyToNew = array(
-      $table,
-      implode(', ', array_keys($structure['fields'])),
-      implode(', ', array_keys($structure['fields'])),
-      $tmpTableName,
-    );
-    if ($this->query(vsprintf($sqlCopyToNew, $paramsCopyToNew))) {
-      $result = TRUE;
-    }
-    // drop temporary table
-
-    $this->query(sprintf("DROP TABLE %s", $tmpTableName));
-    return $result;
-  }
-
-  /**
-   * Get index info
-   *
-   * @param string $table
-   * @param string $key
-   * @access public
-   * @return array $result
-   */
-  function getIndexInfo($table, $key) {
-    $result = FALSE;
-    if ($key == 'PRIMARY') {
-      $sql = "PRAGMA table_info('".$this->escapeString($table)."');";
-      if ($res = $this->query($sql)) {
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          if ($row['pk'] == 1) {
-            if (!is_array($result)) {
-              $result['name'] = 'PRIMARY';
-              $result['unique'] = 1;
-              $result['fields'] = array($row['name']);
-              $result['fulltext'] = 'no';
-              $result['autoinc'] = ($row['type'] == 'INTEGER') ? 'yes' : 'no';
-            } else {
-              $result['fields'][] = $row['name'];
-            }
-          }
-        }
-      }
-    } else {
-      $keyName = $this->escapeString($key);
-      $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
-      if ($res = $this->query($sql)) {
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          if (strpos($row['name'], $table) === 0 &&
-            $keyName == substr($row['name'], strlen($table) + 1)) {
-            $result['orgname'] = $row['name'];
-            $result['name'] = $keyName;
-            $result['unique'] = ($row['unique'] == '1') ? 'yes' : 'no';
-            $result['fields'] = array();
-            $result['fulltext'] = 'no';
-            $sql = "PRAGMA index_info('".$this->escapeString($result['orgname'])."')";
-            if ($res = $this->query($sql)) {
-              while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-                $result['fields'][] = $row['name'];
-              }
-            }
-          } else {
-            continue;
-          }
-        }
-      }
-    }
-    return $result;
-  }
-
-  /**
-   * Add index
-   *
-   * @param string $table
-   * @param array $index
-   * @access public
-   * @return boolean
-   */
-  function addIndex($table, $index) {
-    return $this->changeIndex($table, $index, FALSE);
-  }
-
-  /**
-   * Change Index
-   *
-   * @param string $table
-   * @param array $index
-   * @param boolean $dropCurrent optional, default value TRUE
-   * @access public
-   * @return boolean
-   */
-  function changeIndex($table, $index, $dropCurrent = TRUE) {
-    $key = $this->getIndexInfo($table, $index['name']);
-    if ($dropCurrent && $key) {
-      $this->dropIndex($table, $index['name']);
-    }
-    if (isset($index['fields']) && is_array($index['fields'])) {
-      $fields = '('.implode(',', $index['fields']).")";
-      if ($index['name'] == 'PRIMARY') {
-        //$sql = "ALTER TABLE ".$this->escapeString($table)." ADD PRIMARY KEY ".$fields;
-        $sql = '';
-      } elseif (isset($index['unique']) && $index['unique'] == 'yes') {
-        $sql = 'CREATE UNIQUE INDEX '.$this->escapeString($table).'_'.
-          $this->escapeString($index['name']).' ON '.$this->escapeString($table).
-          ' '.$fields;
-      } else {
-        $sql = 'CREATE INDEX '.$this->escapeString($table).'_'.
-          $this->escapeString($index['name']).' ON '.
-          $this->escapeString($table).' '.$fields;
-      }
-      return (!$sql || ($this->query($sql) !== FALSE));
-    }
-    return FALSE;
-  }
-
-  /**
-   * Drop Index
-   *
-   * @param string $table
-   * @param string $name
-   * @access public
-   * @return boolean
-   */
-  function dropIndex($table, $name) {
-    $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
-    if ($res = $this->query($sql)) {
-      $keyName = NULL;
-      $keys = array();
-      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        if ($row['origin'] == 'pk' || $row['origin'] == 'u') {
-          continue;
-        }
-        if (strpos($row['name'], $name) === 0 || strpos($row['name'], $table.'_'.$name) === 0) {
-          $keyName = $row['name'];
-        } else {
-          continue;
-        }
-        $keys[$keyName]['orgname'] = $row['name'];
-        $keys[$keyName]['name'] = $keyName;
-      }
-      if ($keyName && $keys[$keyName]) {
-        $sql = 'DROP INDEX '.$keys[$keyName]['orgname'];
-        return ($this->query($sql) !== FALSE);
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-   * DBMS spezific SQL source
-   *
-   * @param string $function sql function
-   * @param array $params params
-   * @access public
-   * @return mixed sql string or FALSE
-   */
-  function getSQLSource($function, array $params = NULL) {
-    switch (strtoupper($function)) {
-    case 'CONCAT':
-      $result = '';
-      for ($i = 0; $i < count($params); $i += 2) {
-        if (isset($params[$i + 1]) && $params[$i + 1] = FALSE) {
-          $result .= $params[$i].'  ||';
-        } else {
-          $result .= "'".$this->escapeString($params[$i])."' ||";
-        }
-      }
-      return substr($result, 0, -2);
-    case 'SUBSTRING':
-      return ' SUBSTRING('.$this->getSQLFunctionParams($params).')';
-    case 'LENGTH' :
-      return ' LENGTH('.$this->getSQLFunctionParams($params).')';
-    case 'LOWER':
-      return ' LOWER('.$this->getSQLFunctionParams($params).')';
-    case 'UPPER':
-      return ' UPPER('.$this->getSQLFunctionParams($params).')';
-    case 'LOCATE':
-      if (!isset($this->callbacks['LOCATE'])) {
-        /** @noinspection PhpParamsInspection */
-        sqlite_create_function(
-          $this->databaseConnection,
-          'LOCATE',
-          array($this, 'sqliteCallBackLOCATE')
-        );
-        $this->callbacks['LOCATE'] = TRUE;
-      }
-      return ' LOCATE('.$this->getSQLFunctionParams($params).')';
-    case 'RANDOM' :
-      return ' RANDOM()';
-    case 'LIMIT' :
-      $limit = isset($params[0]) && $params[0] > 0 ? (int)$params[0] : 0;
-      $offset = isset($params[1]) && $params[1] > 0 ? (int)$params[1] : 0;
-      if ($limit > 0) {
-        if ($offset > 0) {
-          return sprintf(' LIMIT %d,%d', $offset, $limit);
-        }
-        return sprintf(' LIMIT %d', $limit);
-      }
-      return '';
-    case 'LIKE' :
-      return ' LIKE '.$this->getSQLFunctionParams($params).' ESCAPE \'\\\\\'';
-    }
-    return FALSE;
-  }
-
-  /**
-   * sqllite callback locate position
-   *
-   * @param string $needle
-   * @param string $haystack
-   * @param integer $offset optional, default value 0
-   * @access public
-   * @return integer position
-   */
-  function sqliteCallBackLOCATE($needle, $haystack, $offset = 0) {
-    $pos = strpos($haystack, $needle, $offset);
-    if ($pos !== FALSE) {
-      return ++$pos;
-    } else {
-      return 0;
-    }
-  }
-
-  /**
-   * Compare field structure
-   *
-   * @param array $xmlField
-   * @param array $databaseField
-   * @access public
-   * @return boolean
-   */
-  function compareFieldStructure($xmlField, $databaseField) {
-    if ($xmlField['type'] != $databaseField['type']) {
-      return TRUE;
-    } elseif ($xmlField['size'] != $databaseField['size']) {
-      if ($xmlField['type'] == 'string' &&
-        $xmlField['size'] > 255 &&
-        $databaseField['size'] > 255) {
-        return FALSE;
-      }
-      if ($xmlField['type'] == 'integer' &&
-        $databaseField['autoinc'] == 'yes' &&
-        $xmlField['autoinc'] == 'yes') {
-        return FALSE;
-      }
-      return TRUE;
-    } elseif ($xmlField['autoinc'] == 'yes' &&
-      $databaseField['autoinc'] != 'yes') {
-      return TRUE;
-    } elseif ($xmlField['default'] != $databaseField['default']) {
-      if (!(empty($xmlField['default']) && empty($databaseField['default']))) {
-        return TRUE;
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-   * Compare key structure
-   *
-   * @param array $xmlKey
-   * @param array $databaseKey
-   * @access public
-   * @return boolean
-   */
-  function compareKeyStructure($xmlKey, $databaseKey) {
-    if (($xmlKey['unique'] == 'yes' || $xmlKey['name'] == "PRIMARY") !=
-      ($databaseKey['unique'] == 'yes' || $databaseKey['name'] == "PRIMARY")) {
-      return TRUE;
-    } elseif (count(array_intersect($xmlKey['fields'], $databaseKey['fields'])) !=
-      count($xmlKey['fields'])) {
-      return TRUE;
     }
     return FALSE;
   }
@@ -1123,15 +456,15 @@ class dbresult_sqlite3 extends dbresult_base {
    */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
-    /** @var SQLite3Result $res */
-    if ($res = $this->connection->executeQuery($explainQuery)) {
-      if ($res->numColumns() > 0) {
-        $explain = new \Papaya\Message\Context\Table('Explain');
-        while ($row = $res->fetchArray(SQLITE3_NUM)) {
-          $explain->addRow($row);
-        }
-        return $explain;
+    $result = $this->connection->execute(
+      $explainQuery, \Papaya\Database\Interfaces\Connection::KEEP_PREVIOUS_RESULT
+    );
+    if ($result && count($result) > 0) {
+      $explain = new \Papaya\Message\Context\Table('Explain');
+      while ($row = $result->fetchRow(self::FETCH_ORDERED)) {
+        $explain->addRow($row);
       }
+      return $explain;
     }
     return NULL;
   }

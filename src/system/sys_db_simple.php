@@ -129,7 +129,7 @@ class db_simple extends base_object {
     if (!(isset($this->databaseObjects[$mode]) && is_object($this->databaseObjects[$mode]))) {
       unset($this->databaseObjects[$mode]);
       return FALSE;
-    } elseif ($this->getConnection($mode)->extensionFound()) {
+    } elseif ($this->getConnection($mode)->isExtensionAvailable()) {
       return $this->getConnection($mode)->connect(NULL, $readOnly);
     } else {
       unset($this->databaseObjects[$mode]);
@@ -158,10 +158,10 @@ class db_simple extends base_object {
       );
     }
     if ($connection = $this->getConnection('read')) {
-      $connection->close();
+      $connection->disconnect();
     }
     if ($connection = $this->getConnection('write')) {
-      $connection->close();
+      $connection->disconnect();
     }
   }
 
@@ -192,7 +192,7 @@ class db_simple extends base_object {
     $this->databaseConfiguration[$mode] = new \Papaya\Database\Source\Name($uriString);
     if (isset($this->databaseObjects[$mode]) &&
         is_object($this->databaseObjects[$mode])) {
-      if ($this->getConnection($mode)->extensionFound()) {
+      if ($this->getConnection($mode)->isExtensionAvailable()) {
         $this->getConnection($mode)->connect();
         return TRUE;
       }
@@ -205,7 +205,7 @@ class db_simple extends base_object {
       }
       if ($found) {
         $this->databaseObjects[$mode] = new $className($this->databaseConfiguration[$mode]);
-        $this->getConnection($mode)->extensionFound();
+        $this->getConnection($mode)->isExtensionAvailable();
         $this->getConnection($mode)->connect($object);
       } else {
         throw new \Papaya\Database\Exception\ConnectionFailed(
@@ -708,26 +708,26 @@ class db_simple extends base_object {
   * Get all table names
   *
   * @param object $object calling object
-  * @access public
   * @return array
+  * @deprecated
   */
-  function queryTableNames($object) {
+  public function queryTableNames($object) {
     $this->connect($object);
-    return $this->getConnection('read')->queryTableNames();
+    return $this->getConnection('read')->schema()->getTables();
   }
 
   /**
-  * Return table structur as arrays
+  * Return table structure as arrays
   *
   * @param object $object calling object
   * @param string $tableName table name
   * @param string $tablePrefix Prefix
-  * @access public
   * @return array
+   * @deprecated
   */
-  function queryTableStructure($object, $tableName, $tablePrefix = '') {
+  public function queryTableStructure($object, $tableName, $tablePrefix = '') {
     $this->connect($object);
-    return $this->getConnection('read')->queryTableStructure(
+    return $this->getConnection('read')->schema()->describeTable(
       $tableName, $tablePrefix
     );
   }
@@ -741,10 +741,11 @@ class db_simple extends base_object {
   * @param string $tablePrefix
   * @access public
   * @return boolean
+   * @deprecated
   */
-  function createTable($object, $tableData, $tablePrefix) {
+  public function createTable($object, $tableData, $tablePrefix) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->createTable($tableData, $tablePrefix);
+    return $this->getConnection('write')->schema()->createTable($tableData, $tablePrefix);
   }
 
   /**
@@ -753,12 +754,12 @@ class db_simple extends base_object {
   * @param object $object calling object
   * @param string $table
   * @param array $fieldData
-  * @access public
   * @return boolean
+   * @deprecated
   */
-  function addField($object, $table, $fieldData) {
+  public function addField($object, $table, $fieldData) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->addField($table, $fieldData);
+    return $this->getConnection('write')->schema()->addField($table, $fieldData);
   }
 
   /**
@@ -767,12 +768,12 @@ class db_simple extends base_object {
   * @param object $object calling object
   * @param string $table
   * @param array $fieldData
-  * @access public
   * @return boolean
+   * @deprecated
   */
-  function changeField($object, $table, $fieldData) {
+  public function changeField($object, $table, $fieldData) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->changeField($table, $fieldData);
+    return $this->getConnection('write')->schema()->changeField($table, $fieldData);
   }
 
   /**
@@ -781,12 +782,12 @@ class db_simple extends base_object {
   * @param object $object calling object
   * @param string $table
   * @param string $field
-  * @access public
   * @return boolean
+   * @deprecated
   */
-  function dropField($object, $table, $field) {
+  public function dropField($object, $table, $field) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->dropField($table, $field);
+    return $this->getConnection('write')->schema()->dropField($table, $field);
   }
 
   /**
@@ -797,10 +798,11 @@ class db_simple extends base_object {
   * @param array $index
   * @access public
   * @return boolean
+   * @deprecated
   */
-  function addIndex($object, $table, $index) {
+  public function addIndex($object, $table, $index) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->addIndex($table, $index);
+    return $this->getConnection('write')->schema()->addIndex($table, $index);
   }
 
   /**
@@ -811,10 +813,12 @@ class db_simple extends base_object {
   * @param array $index
   * @access public
   * @return boolean
+   * @deprecated
+   *
   */
-  function changeIndex($object, $table, $index) {
+  public function changeIndex($object, $table, $index) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->changeIndex($table, $index);
+    return $this->getConnection('write')->schema()->changeIndex($table, $index);
   }
 
   /**
@@ -822,18 +826,23 @@ class db_simple extends base_object {
    *
    * @param object $object calling object
    * @param string $function sql function
-   * @param mixed ...$param
-   * @access public
+   * @param array $parameters
    * @return mixed sql string or FALSE
+   * @deprecated
    */
-  function getSQLSource($object, $function) {
+  public function getSQLSource($object, $function, ...$parameters) {
     $this->connect($object, FALSE);
-    $params = func_get_args();
-    array_splice($params, 0, 2);
-    if ($str = $this->getConnection('write')->getSQLSource($function, $params)) {
-      return $str;
+    $arguments = [];
+    for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
+      if (isset($parameters[$i + 1]) && !$parameters[$i + 1]) {
+        $arguments[] = new \Papaya\Database\Syntax\SQLSource($parameters[$i]);
+      } else {
+        $arguments[] = (string)$parameters[$i];
+      }
     }
-    return FALSE;
+    $call = [$this->getConnection('write')->syntax(), $function];
+    $source = $call(...$arguments);
+    return $source ?: FALSE;
   }
 
   /**
@@ -899,12 +908,12 @@ class db_simple extends base_object {
   * @param object $object calling object
   * @param array $xmlField
   * @param array $databaseField
-  * @access public
   * @return boolean
+   * @deprecated
   */
-  function compareFieldStructure($object, $xmlField, $databaseField) {
+  public function compareFieldStructure($object, $xmlField, $databaseField) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->compareFieldStructure(
+    return $this->getConnection('write')->schema()->isFieldDifferent(
       $xmlField, $databaseField
     );
   }
@@ -915,12 +924,12 @@ class db_simple extends base_object {
   * @param object $object calling object
   * @param array $xmlKey
   * @param array $databaseKey
-  * @access public
   * @return boolean
+   * @deprecated
   */
-  function compareKeyStructure($object, $xmlKey, $databaseKey) {
+  public function compareKeyStructure($object, $xmlKey, $databaseKey) {
     $this->connect($object, FALSE);
-    return $this->getConnection('write')->compareKeyStructure($xmlKey, $databaseKey);
+    return $this->getConnection('write')->schema()->isIndexDifferent($xmlKey, $databaseKey);
   }
 
   /**

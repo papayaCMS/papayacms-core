@@ -14,8 +14,9 @@
  */
 namespace Papaya\Database {
 
-  abstract class Statement
-    implements Interfaces\Statement {
+  use Papaya\Database\Interfaces\Statement;
+
+  abstract class ExecutableStatement implements Statement {
 
     /**
      * @var \Papaya\Database\Access
@@ -37,5 +38,8 @@ namespace Papaya\Database {
       return $this->_databaseAccess->query($forceWriteConnection);
     }
 
+    public function __toString() {
+      return $this->getSQLString();
+    }
   }
 }

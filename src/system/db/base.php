@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database;
+
 /**
 * Data record as array with fieldname and Indizes
 */
@@ -40,13 +42,7 @@ if (!defined("DB_FETCHMODE_ASSOC")) {
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class dbcon_base extends Papaya\Database\Connector {
-
-  /**
-  * @var resource|object $databaseConnection Connection-ID
-  * @access public
-  */
-  var $databaseConnection = NULL;
+abstract class dbcon_base extends Papaya\Database\Connection {
 
   /**
   * @var object dbresult_base $lastResult last database result
@@ -70,63 +66,17 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   );
 
   /**
-   * Constructor
-   *
-   * @param array|\Papaya\Database\Source\Name $conf
-   * @return \dbcon_base
-   */
-  public function __construct(\Papaya\Database\Source\Name $conf) {
-    parent::__construct($conf);
-  }
-
-  /**
-   * @param $sql
-   * @return mixed
-   */
-  abstract public function executeQuery($sql);
-
-  /**
-  * extension needed for abstraction layer found
-  * @return boolean
-  */
-  function extensionFound() {
-    return FALSE;
-  }
-
-  /**
-  * connect to Database
-  *
-  * @return boolean Erfolg
-  * @access public
-  */
-  function connect() {
-    return FALSE;
-  }
-
-  /**
-   * Escape a string for database sql
-   *
-   * @deprecated
-   * @param mixed $value
-   * @return string
-   */
-  function escapeStr($value) {
-    return $this->escapeString($value);
-  }
-
-  /**
   * Escape a string for database sql
   *
-  * @param mixed $value Value to escape
+  * @param mixed $literal Value to escape
   * @return string escaped value.
   */
-  function escapeString($value) {
-    if (is_bool($value)) {
-      return $value ? 1 : 0;
-    } elseif (is_int($value)) {
-      return $value;
-    } elseif (isset($value)) {
-      return (string)$value;
+  public function escapeString($literal) {
+    if (is_bool($literal)) {
+      return $literal ? 1 : 0;
+    }
+    if (isset($literal)) {
+      return (string)$literal;
     }
     return '';
   }
@@ -134,11 +84,25 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   /**
   * Eascpae and quote a string for the database sql
   *
-  * @param mixed $value Value to escape
+  * @param mixed $literal Value to escape
   * @return string escaped value.
   */
-  function quoteString($value) {
-    return "'".$this->escapeString($value)."'";
+  public function quoteString($literal) {
+    return "'".$this->escapeString($literal)."'";
+  }
+
+  /**
+   * @param string $name
+   * @return string
+   */
+  public function quoteIdentifier($name) {
+    $result = strtolower(trim($name));
+    if (!preg_match('(^[a-z\\d_ ]+$)D', $result)) {
+      throw new \InvalidArgumentException(
+        "Invalid identifier name: $result"
+      );
+    }
+    return '"'.$result.'"';
   }
 
   /**
@@ -156,41 +120,24 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   public function query(
     $sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE
   ) {
-    $this->cleanup($freeLastResult);
+    if ($freeLastResult) {
+      $this->cleanup();
+    }
     return FALSE;
   }
 
-  private function cleanup($freeLastResult) {
-    $this->lastSQLQuery = '';
+  protected function cleanup() {
     if (
-      $freeLastResult &&
-      $this->lastResult instanceof dbresult_base
+      $this->lastResult instanceof Database\Result
     ) {
       $this->lastResult->free();
     }
   }
 
-  public function execute($statement, array $parameters = NULL, $options = 0) {
-    throw new \LogicException(
-      sprintf('Not implemented: %s::%s()', __CLASS__, __METHOD__)
-    );
-  }
-
   public function registerFunction($name, callable $function) {
     throw new \LogicException(
-      sprintf('Not implemented: %s::%s()', __CLASS__, __METHOD__)
+      sprintf('Not implemented: %s::registerFunction()', static::class)
     );
-  }
-
-  /**
-  * Rewrite query to get record count of a limited query and execute it.
-  *
-  * @param string $sql SQL string
-  * @access public
-  * @return integer | FALSE record count or failure
-  */
-  function queryRecordCount($sql) {
-    return FALSE;
   }
 
   /**
@@ -200,48 +147,12 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   * @access public
   * @return string | FALSE
   */
-  function getCountQuerySQL($sql) {
+  public function getCountQuerySQL($sql) {
     foreach ($this->sqlSelectPatterns as $pattern) {
       if (preg_match($pattern, $sql, $match)) {
         return 'SELECT COUNT(*) '.$match[1];
       }
     }
-    return FALSE;
-  }
-
-  /**
-  * Insert new record
-  *
-  * @param string $table table
-  * @param string $idField Index column
-  * @param array $values values
-  * @access public
-  * @return boolean|integer FALSE or Id of new record
-  */
-  function insertRecord($table, $idField, $values = NULL) {
-    $this->lastSQLQuery = '';
-    return FALSE;
-  }
-
-  /**
-  * Fetch the last inserted id
-  *
-  * @param string $table
-  * @param string $idField
-  * @return string|int|null
-  */
-  abstract function lastInsertId($table, $idField);
-
-  /**
-  * Insert many records at once
-  *
-  * @param string $table tablen
-  * @param array $values values
-  * @access public
-  * @return boolean|integer FALSE or Id of new record
-  */
-  function insertRecords($table, $values) {
-    $this->lastSQLQuery = '';
     return FALSE;
   }
 
@@ -424,204 +335,17 @@ abstract class dbcon_base extends Papaya\Database\Connector {
   }
 
   /**
-  * delete database record
-  *
-  * @param string $table table
-  * @param string $filter condition
-  * @access public
-  * @return dbresult_base|boolean|integer false or number of affected_rows or
-  *                                                database result object
-  */
-  function deleteRecord($table, $filter) {
-    $this->lastSQLQuery = '';
-    return FALSE;
-  }
-
-  /**
-  * Get all table names
-  *
-  * @access public
-  * @return array
-  */
-  function queryTableNames() {
-    return array();
-  }
-
-  /**
-  * table structur as array
-  *
-  * @param string $tableName table name
-  * @param string $tablePrefix Prefix
-  * @access public
-  * @return array
-  */
-  function queryTableStructure($tableName, $tablePrefix = '') {
-    return array();
-  }
-
-  /**
-  * Create table
-  *
-  * @param string $tableData
-  * @param string $tablePrefix
-  * @access public
-  * @return boolean
-  */
-  function createTable($tableData, $tablePrefix) {
-    return FALSE;
-  }
-
-  /**
-  * Add field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
-  function addField($table, $fieldData) {
-    return FALSE;
-  }
-
-  /**
-  * Change field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
-  function changeField($table, $fieldData) {
-    return FALSE;
-  }
-
-  /**
-  * Delete field
-  *
-  * @param string $table
-  * @param string $field
-  * @access public
-  * @return boolean
-  */
-  function dropField($table, $field) {
-    return FALSE;
-  }
-
-  /**
-  * Add index
-  *
-  * @param string $table
-  * @param array $index
-  * @access public
-  * @return boolean
-  */
-  function addIndex($table, $index) {
-    return FALSE;
-  }
-
-  /**
-  * Change index
-  *
-  * @param string $table
-  * @param array $index
-  * @param boolean $dropCurrent
-  * @access public
-  * @return boolean
-  */
-  function changeIndex($table, $index, $dropCurrent = TRUE) {
-    return FALSE;
-  }
-
-  /**
-  * Delete index
-  *
-  * @param string $table
-  * @param string $name
-  * @access public
-  * @return boolean
-  */
-  function dropIndex($table, $name) {
-    return FALSE;
-  }
-
-  /**
-  * DBMS specific SQL source
-  *
-  * @param string $function sql function
-  * @param array $params params
-  * @access public
-  * @return mixed sql string or FALSE
-  */
-  function getSQLSource($function, array $params = NULL) {
-    return FALSE;
-  }
-
-  /**
-  * Get sql function through parameters
-  *
-  * @param array $params
-  * @access public
-  * @return string
-  */
-  function getSQLFunctionParams(array $params = NULL) {
-    if (empty($params)) {
-      return '';
-    }
-    $result = '';
-    for ($i = 0; $i < count($params); $i += 2) {
-      $result .= $this->getSQLFunctionParam(
-        $params[$i], isset($params[$i + 1]) ? $params[$i + 1] : TRUE
-      ).',';
-    }
-    return substr($result, 0, -1);
-  }
-
-  /**
-  * Get sql function through parameter
-  *
-  * @param string $value
-  * @param boolean $escaping
-  * @access public
-  * @return string
-  */
-  function getSQLFunctionParam($value, $escaping) {
-    if ($escaping === FALSE) {
-      return $value;
-    } else {
-      return "'".$this->escapeString($value)."'";
-    }
-  }
-
-
-  /**
-  * Compare the field structure
-  *
-  * @param array $xmlField
-  * @param array $databaseField
-  * @access public
-  * @return boolean different
-  */
-  function compareFieldStructure($xmlField, $databaseField) {
-    return FALSE;
-  }
-
-  /**
-  * Compare the key/index structure
-  *
-  * @param array $xmlKey
-  * @param array $databaseKey
-  * @access public
-  * @return boolean different
-  */
-  function compareKeyStructure($xmlKey, $databaseKey) {
-    return FALSE;
-  }
-
-  /**
-   * Declare close function
-   * @return bool
+   * Delete records by filter
+   *
+   * @param string $table table name
+   * @param string $filter Filter string without WHERE condition
+   * @access public
+   * @return mixed FALSE or number of affected_rows or database result object
    */
-  abstract function close();
+  public function deleteRecord($table, $filter) {
+    $sql = 'DELETE FROM '.$this->quoteIdentifier($table).' WHERE '.$this->getSQLCondition($filter);
+    return $this->execute($sql, self::KEEP_PREVIOUS_RESULT);
+  }
 }
 
 /**
@@ -725,7 +449,7 @@ class dbresult_base implements \Papaya\Database\Result {
   * @return array data record
   */
   public function fetchAssoc() {
-    return $this->fetchRow($mode = DB_FETCHMODE_DEFAULT);
+    return $this->fetchRow(DB_FETCHMODE_ASSOC);
   }
 
   /**
@@ -772,10 +496,29 @@ class dbresult_base implements \Papaya\Database\Result {
   */
   public function absCount() {
     if ($this->_absCount === -1) {
-      $absCount = $this->connection->queryRecordCount($this->query);
+      $absCount = $this->queryRecordCount($this->query);
       $this->_absCount = (FALSE === $absCount) ? FALSE : (int)$absCount;
     }
     return $this->_absCount;
+  }
+
+  /**
+  * Rewrite query to get record count of a limited query and execute it.
+  *
+  * @param string $sql SQL string
+  * @access public
+  * @return integer | FALSE record count or failure
+  */
+  private function queryRecordCount($sql) {
+    if (
+      ($countSql = $this->connection->getCountQuerySql($sql)) &&
+      ($dbmsResult = $this->connection->execute($countSql))
+    ) {
+      $result = $dbmsResult->fetchField();
+      $dbmsResult->free();
+      return $result;
+    }
+    return FALSE;
   }
 
   /**

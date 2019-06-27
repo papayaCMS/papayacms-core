@@ -15,18 +15,54 @@
 namespace Papaya\Database\Interfaces {
 
   interface Connection {
-    public function execute(Statement $statement);
 
-    public function escapeString($value);
+    /**
+     * @param \Papaya\Database\Interfaces\Statement|string $statement
+     * @param int $options
+     * @return mixed
+     */
+    public function execute($statement, $options = 0);
 
-    public function quoteString($value);
+    /**
+     * @param string $literal
+     * @return string
+     */
+    public function escapeString($literal);
 
-    public function quoteIdentifier($value);
+    /**
+     * @param string $literal
+     * @return string
+     */
+    public function quoteString($literal);
 
-    public function createSQL($featureName, ...$arguments);
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function quoteIdentifier($name);
+
+    /**
+     * @return \Papaya\Database\Schema
+     */
+    public function schema();
+
+    /**
+     * @return \Papaya\Database\Syntax
+     */
+    public function syntax();
+
+    public function isExtensionAvailable();
+    public function connect();
+    public function disconnect();
 
     public function insertRecord($table, $identifierField, $values);
-
     public function insertRecords($table, $values);
+    public function lastInsertId($table, $idField);
+
+    /**
+     * @param string $name
+     * @param callable $function
+     */
+    public function registerFunction($name, callable $function);
   }
 }

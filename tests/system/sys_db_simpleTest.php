@@ -70,7 +70,7 @@ class DbConnection_TestProxy extends dbcon_base {
     return TRUE;
   }
 
-  public function extensionFound() {
+  public function isExtensionAvailable() {
     return TRUE;
   }
 
@@ -83,7 +83,7 @@ class DbConnection_TestProxy extends dbcon_base {
     return FALSE;
   }
 
-  public function close() {
+  public function disconnect() {
     return FALSE;
   }
 }

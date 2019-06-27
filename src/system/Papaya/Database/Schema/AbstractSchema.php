@@ -2,28 +2,28 @@
 
 namespace Papaya\Database\Schema {
 
-  use Papaya\Database\Connector;
+  use Papaya\Database\Interfaces\Connection;
   use Papaya\Database\Schema;
 
   abstract class AbstractSchema implements Schema {
 
     /**
-     * @var \Papaya\Database\Connector
+     * @var Connection
      */
-    protected $_connector;
+    protected $connection;
 
-    public function __construct(Connector $connector) {
-      $this->_connector = $connector;
+    public function __construct(Connection $connection) {
+      $this->connection = $connection;
     }
 
     protected function getIdentifier($name, $prefix = '') {
       if (trim($prefix) !== '') {
         $result = trim($prefix).'_'.trim($name);
       } else {
-        $result = trim($name['name']);
+        $result = trim($name);
       }
       $result = strtolower($result);
-      if (!preg_match('(^[a-z\\d_ ]$)D', $result)) {
+      if (!preg_match('(^[a-z\\d_ ]+$)D', $result)) {
         throw new \InvalidArgumentException(
           "Invalid identifier name: $result"
         );

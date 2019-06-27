@@ -2,7 +2,7 @@
 
 namespace Papaya\Database\Syntax {
 
-  class Identifier implements Parameter {
+  class Identifier extends SQLSource {
 
     private $_name;
 
@@ -12,11 +12,7 @@ namespace Papaya\Database\Syntax {
           "Invalid identifier name: $name"
         );
       }
-      $this->_name = $name;
-    }
-
-    public function __toString() {
-      return $this->_name;
+      parent::__construct($name);
     }
   }
 }

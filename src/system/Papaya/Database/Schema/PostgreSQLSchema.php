@@ -2,6 +2,8 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\SQLStatement;
+
   class PostgreSQLSchema extends AbstractSchema {
 
     /**
@@ -14,7 +16,7 @@ namespace Papaya\Database\Schema {
           return $row['tablename'];
         },
         iterator_to_array(
-          $this->_connector->execute($sql)
+          $this->connection->execute($sql)
         )
       );
     }
@@ -44,7 +46,7 @@ namespace Papaya\Database\Schema {
                AND a.atttypid = t.oid
                AND a.attrelid = c.oid
              ORDER BY a.attnum";
-      if ($result = $this->_connector->execute($sql)) {
+      if ($result = $this->connection->execute($sql)) {
         while ($row = $result->fetchAssoc()) {
           $fields[$row['fieldname']] = $this->parseFieldData($row);
         }
@@ -61,7 +63,7 @@ namespace Papaya\Database\Schema {
                AND a.attrelid = bc.oid
                AND bc.relname = '$table'
              ORDER BY a.attnum";
-      if ($result = $this->_connector->execute($sql)) {
+      if ($result = $this->connection->execute($sql)) {
         while ($row = $result->fetchAssoc()) {
           if ($row['primary_key'] === 't') {
             $keyName = 'PRIMARY';
@@ -193,7 +195,7 @@ namespace Papaya\Database\Schema {
           }
         }
         $sql = substr($sql, 0, -2)."\n)\n";
-        if ($this->_connector->execute($sql, $parameters) !== FALSE) {
+        if ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
           if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
             foreach ($tableStructure['keys'] as $key) {
               $this->addIndex($table, $key);
@@ -333,7 +335,7 @@ namespace Papaya\Database\Schema {
             $this->getIdentifier($indexStructure['name']).'" ON "'.
             $this->getIdentifier($tableName).'" '.$fields;
         }
-        return ($this->_connector->execute($sql) !== FALSE);
+        return ($this->connection->execute($sql) !== FALSE);
       }
       return FALSE;
     }
@@ -370,7 +372,7 @@ namespace Papaya\Database\Schema {
         $tableName, $tableName.'_'.$keyName
       ];
       if (
-        ($res = $this->_connector->execute($sql, $parameters)) &&
+        ($res = $this->connection->execute(new SQLStatement($sql, $parameters))) &&
         ($row = $res->fetchAssoc())
       ) {
         if ($row['primary_key'] === 't') {
@@ -402,7 +404,7 @@ namespace Papaya\Database\Schema {
         } else {
           $sql = 'DROP INDEX "'.$keyName.'"';
         }
-        return ($this->_connector->execute($sql) !== FALSE);
+        return ($this->connection->execute($sql) !== FALSE);
       }
       return FALSE;
     }
@@ -452,13 +454,13 @@ namespace Papaya\Database\Schema {
                    ALTER COLUMN \"$fieldName\"\n";
           $sql .= empty($sqlData['not_null']) ? ' DROP NOT NULL ' : ' SET NOT NULL ';
           $sql .= ";\n";
-          return ($this->_connector->execute($sql, $parameters) !== FALSE);
+          return ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
         }
         return TRUE;
       }
       $sql = "ALTER TABLE \"$tableName\"
               ADD COLUMN \"$fieldName\" $xmlType;\n";
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -492,7 +494,7 @@ namespace Papaya\Database\Schema {
         $table, $fieldName
       ];
       if (
-        ($res = $this->_connector->execute($sql, $parameters)) &&
+        ($res = $this->connection->execute(new SQLStatement($sql, $parameters))) &&
         ($row = $res->fetchAssoc())
       ) {
         return $this->parseFieldData($row);
@@ -511,7 +513,7 @@ namespace Papaya\Database\Schema {
         $this->getIdentifier($tableName),
         $this->getIdentifier($fieldName)
       );
-      return ($this->_connector->execute($sql) !== FALSE);
+      return ($this->connection->execute($sql) !== FALSE);
     }
 
     /**

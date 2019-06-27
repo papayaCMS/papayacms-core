@@ -2,18 +2,18 @@
 
 namespace Papaya\Database\Syntax {
 
-  use Papaya\Database\Connector;
+  use Papaya\Database\Interfaces\Connection;
   use Papaya\Database\Syntax;
 
   abstract class AbstractSyntax implements Syntax {
 
     /**
-     * @var \Papaya\Database\Connector
+     * @var Connection
      */
-    protected $_connector;
+    protected $_connection;
 
-    public function __construct(Connector $connector) {
-      $this->_connector = $connector;
+    public function __construct(Connection $connector) {
+      $this->_connection = $connector;
     }
 
     public function identifier($name) {
@@ -25,16 +25,18 @@ namespace Papaya\Database\Syntax {
     }
 
     protected function getParameter($parameter) {
+      if ($parameter instanceof Identifier) {
+        return $this->_connection->quoteIdentifier($parameter);
+      }
       if (
-        $parameter instanceof Identifier ||
-        $parameter instanceof Placeholder
+        $parameter instanceof SQLSource
       ) {
         return (string)$parameter;
       }
       if ($parameter === '?') {
         return '?';
       }
-      return $this->_connector->quoteString($parameter);
+      return $this->_connection->quoteString($parameter);
     }
   }
 }

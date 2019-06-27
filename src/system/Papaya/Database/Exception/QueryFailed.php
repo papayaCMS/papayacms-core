@@ -26,9 +26,9 @@ class QueryFailed extends Database\Exception {
   /**
    * Sent sql query
    *
-   * @var string
+   * @var string|\Papaya\Database\Interfaces\Statement
    */
-  private $_sql;
+  private $_statement;
 
   /**
    * Initialize exception and store values.
@@ -36,17 +36,17 @@ class QueryFailed extends Database\Exception {
    * @param string $message
    * @param int $code
    * @param int $severity
-   * @param string $sql
+   * @param string|\Papaya\Database\Interfaces\Statement $statement
    */
-  public function __construct($message, $code = 0, $severity = NULL, $sql = '') {
+  public function __construct($message, $code = 0, $severity = NULL, $statement = '') {
     parent::__construct($message, $code, $severity);
-    $this->_sql = $sql;
+    $this->_statement = $statement;
   }
 
   /**
    * Return sql query
    */
   public function getStatement() {
-    return $this->_sql;
+    return (string)$this->_statement;
   }
 }

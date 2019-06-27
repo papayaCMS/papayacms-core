@@ -26,6 +26,18 @@ require_once __DIR__.'/base.php';
 */
 class dbcon_mysqli extends dbcon_base {
 
+  /**
+  * @var \mysqli $_mysqli Connection-ID
+  */
+  private $_mysqli;
+
+  public function __construct(\Papaya\Database\Source\Name $dsn) {
+    parent::__construct(
+      $dsn,
+      new Papaya\Database\Syntax\MySQLSyntax($this),
+      new Papaya\Database\Schema\MySQLSchema($this)
+    );
+  }
 
   /**
    * Check that the mysqli extension is available
@@ -34,7 +46,7 @@ class dbcon_mysqli extends dbcon_base {
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
-  function extensionFound() {
+  function isExtensionAvailable() {
     if (!extension_loaded('mysqli')) {
       throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "mysqli" not available.'
@@ -51,7 +63,7 @@ class dbcon_mysqli extends dbcon_base {
    * @return boolean
    */
   function connect() {
-    if (isset($this->databaseConnection) && is_object($this->databaseConnection)) {
+    if (isset($this->_mysqli) && is_object($this->_mysqli)) {
       return TRUE;
     } else {
       if (isset($this->getDSN()->socket)) {
@@ -76,11 +88,13 @@ class dbcon_mysqli extends dbcon_base {
         $socket
       );
       if ($connection) {
-        $this->databaseConnection = $connection;
+        $this->_mysqli = $connection;
         if (defined('PAPAYA_DATABASE_COLLATION')) {
-          $this->executeQuery("SET NAMES 'utf8' COLLATE '".PAPAYA_DATABASE_COLLATION."'");
+          $this->process(
+            new \Papaya\Database\SQLStatement("SET NAMES 'utf8' COLLATE ?'", [PAPAYA_DATABASE_COLLATION])
+          );
         } else {
-          $this->executeQuery("SET NAMES 'utf8'");
+          $this->_mysqli->set_charset('utf8');
         }
         return TRUE;
       }
@@ -93,37 +107,73 @@ class dbcon_mysqli extends dbcon_base {
   *
   * @access public
   */
-  function close() {
-    if (isset($this->databaseConnection) &&
-        is_object($this->databaseConnection)) {
-      $this->databaseConnection->close();
-      $this->databaseConnection = NULL;
+  public function disconnect() {
+    if (isset($this->_mysqli) &&
+        is_object($this->_mysqli)) {
+      $this->_mysqli->close();
+      $this->_mysqli = NULL;
     }
   }
 
   /**
-   * Wrap query execution so we can convert the erorr to an exception
-   *
-   * @param string $sql
+   * @param \Papaya\Database\Interfaces\Statement|string $statement
+   * @param int $options
+   * @return \Papaya\Database\Result|int
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
-   * @return MySQLi_result
    */
-  public function executeQuery($sql) {
-    if ($result = @$this->databaseConnection->query($sql, MYSQLI_STORE_RESULT)) {
-      return $result;
+  public function execute($statement, $options = 0) {
+    if (!Papaya\Utility\Bitwise::inBitmask(self::KEEP_PREVIOUS_RESULT, $options)) {
+      $this->cleanup();
     }
-    throw $this->_createQueryException($sql);
+    $this->connect();
+    if (!$statement instanceof \Papaya\Database\Interfaces\Statement) {
+      $statement = new \Papaya\Database\SQLStatement((string)$statement, []);
+    }
+    $dbmsResult = $this->process($statement);
+    if ($dbmsResult instanceof mysqli_result) {
+      return new dbresult_mysqli($this, $dbmsResult, $statement);
+    }
+    return $dbmsResult;
+  }
+
+  private function process(\Papaya\Database\Interfaces\Statement $statement) {
+    $sql = $statement->getSQLString();
+    $parameters = $statement->getSQLParameters();
+    $dbmsResult = FALSE;
+    if (empty($parameters)) {
+      if ($dbmsResult = @$this->_mysqli->query($sql)) {
+        if ($dbmsResult instanceof mysqli_result) {
+          $dbmsResult;
+        }
+        if ($dbmsResult) {
+          return $this->_mysqli->affected_rows;
+        }
+      }
+    } elseif ($dbmsStatement = @$this->_mysqli->prepare($sql)) {
+      $dbmsStatement->bind_param(
+        str_repeat('s', count($parameters)),
+        ...$parameters
+      );
+      if (@$dbmsStatement->execute()) {
+        if ($dbmsResult = $dbmsStatement->get_result()) {
+          $dbmsResult;
+        }
+        return $dbmsStatement->affected_rows;
+      }
+    }
+    throw $this->_createQueryException($statement);
   }
 
   /**
    * If a query failes, trow an database exception
    *
-   * @param string $sql
+   * @param \Papaya\Database\Interfaces\Statement $sql
    * @return \Papaya\Database\Exception\QueryFailed
    */
-  private function _createQueryException($sql) {
-    $errorCode = $this->databaseConnection->errno;
-    $errorMessage = $this->databaseConnection->error;
+  private function _createQueryException(\Papaya\Database\Interfaces\Statement $sql) {
+    $errorCode = $this->_mysqli->errno;
+    $errorMessage = $this->_mysqli->error;
     $severityMapping = array(
       // 1062 - duplicate entry
       1062 => \Papaya\Database\Exception::SEVERITY_WARNING,
@@ -138,7 +188,7 @@ class dbcon_mysqli extends dbcon_base {
       $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
     return new \Papaya\Database\Exception\QueryFailed(
-      $errorMessage, $errorCode, $severity, $sql
+      $errorMessage, $errorCode, $severity, (string)$sql
     );
   }
 
@@ -149,9 +199,17 @@ class dbcon_mysqli extends dbcon_base {
   * @access public
   * @return string escaped value.
   */
-  function escapeString($value) {
+  public function escapeString($value) {
     $value = parent::escapeString($value);
-    return $this->databaseConnection->escape_string($value);
+    return $this->_mysqli->escape_string($value);
+  }
+
+  /**
+   * @param string $name
+   * @return string
+   */
+  public function quoteIdentifier($name) {
+    return '`'.substr(parent::quoteIdentifier($name), 1, -1).'`';
   }
 
   /**
@@ -163,14 +221,22 @@ class dbcon_mysqli extends dbcon_base {
    * @param boolean $freeLastResult free last result (if here is one)
    * @param boolean $enableCounter enable direct calculation of
    *                               absolute record count for limited queries
-   * @access public
-   * @return mixed FALSE or number of affected_rows or database result object
+   * @return FALSE|int|\Papaya\Database\Result FALSE or number of affected_rows or database result object
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
+   * @access public
    */
-  function &query(
+  function query(
     $sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE
   ) {
     parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
+    $options = 0;
+    if (!$freeLastResult) {
+      $options |= self::KEEP_PREVIOUS_RESULT;
+    }
+    if ($enableCounter) {
+      $options |= self::REQUIRE_ABSOLUTE_COUNT;
+    }
     $limitSQL = '';
     $queryRowCount = FALSE;
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
@@ -178,54 +244,22 @@ class dbcon_mysqli extends dbcon_base {
         $sql = 'SELECT SQL_CALC_FOUND_ROWS '.substr(trim($sql), 6);
         $queryRowCount = TRUE;
       }
-      $limitSQL .= $this->getSQLSource('LIMIT', [$max, $offset]);
+      $limitSQL .= $this->syntax()->limit($max, $offset);
     }
     $this->lastSQLQuery = $sql.$limitSQL;
-    $res = $this->executeQuery($sql.$limitSQL);
-    if ($res) {
-      if (is_object($res)) {
-        $this->lastResult = new dbresult_mysqli($this, $res, $sql);
-        $this->lastResult->setLimit($max, $offset);
-        if ($queryRowCount) {
-          $resCount = $this->executeQuery("SELECT FOUND_ROWS()");
-          if ($resCount) {
-            if ($row = $resCount->fetch_row()) {
-              $this->lastResult->setAbsCount($row[0]);
-            }
-            $resCount->free();
-          }
+    $result = $this->execute($sql.$limitSQL, $options);
+    if ($result instanceof \Papaya\Database\Result) {
+      $this->lastResult = $result;
+      $this->lastResult->setLimit($max, $offset);
+      if ($queryRowCount) {
+        $resCount = $this->execute('SELECT FOUND_ROWS()', self::KEEP_PREVIOUS_RESULT);
+        if ($resCount) {
+          $this->lastResult->setAbsCount((int)$resCount->fetchField());
+          $resCount->free();
         }
-        return $this->lastResult;
-      } else {
-        $result = $this->databaseConnection->affected_rows;
-        return $result;
-      }
-    } else {
-      $result = FALSE;
-      return $result;
-    }
-  }
-
-  /**
-  * Rewrite query to get record count of a limited query and execute it.
-  *
-  * @param string $sql SQL string
-  * @access public
-  * @return integer | FALSE record count or failure
-  */
-  function queryRecordCount($sql) {
-    if ($countSql = $this->getCountQuerySql($sql)) {
-      if ($res = $this->executeQuery($countSql)) {
-        if ($row = $res->fetch_row()) {
-          $result = $row[0];
-        } else {
-          $result = 0;
-        }
-        $res->free();
-        return $result;
       }
     }
-    return FALSE;
+    return $result;
   }
 
   /**
@@ -265,7 +299,7 @@ class dbcon_mysqli extends dbcon_base {
         if (isset($idField)) {
           return $this->lastInsertId($table, $idField);
         } else {
-          return $this->databaseConnection->affected_rows;
+          return $this->_mysqli->affected_rows;
         }
       }
     }
@@ -280,12 +314,10 @@ class dbcon_mysqli extends dbcon_base {
   * @return string|int|null
   */
   public function lastInsertId($table, $idField) {
-    if ($res = $this->executeQuery('SELECT LAST_INSERT_ID()')) {
-      $row = mysqli_fetch_row($res);
-      return $row[0];
-    } else {
-      return NULL;
+    if ($result = $this->execute('SELECT LAST_INSERT_ID()', self::KEEP_PREVIOUS_RESULT)) {
+      return $result->fetchField();
     }
+    return NULL;
   }
 
   /**
@@ -388,632 +420,6 @@ class dbcon_mysqli extends dbcon_base {
     }
     return FALSE;
   }
-
-  /**
-  * Delete records by filter
-  *
-  * @param string $table table name
-  * @param string $filter Filter string without WHERE condition
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  */
-  function deleteRecord($table, $filter) {
-    $sql = "DELETE FROM $table
-             WHERE ".$this->getSQLCondition($filter);
-    return $this->query($sql, NULL, NULL, FALSE);
-  }
-
-  /**
-  * Get table names
-  *
-  * @access public
-  * @return array
-  */
-  function queryTableNames() {
-    $sql = "SHOW TABLES";
-    $result = array();
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow()) {
-        $result[] = $row[0];
-      }
-    }
-    return $result;
-  }
-
-  /**
-  * Parse MySQL Field type
-  *
-  * @param string $typeString
-  * @access private
-  * @return array
-  */
-  function parseMySQLFieldType($typeString) {
-    $p = strpos($typeString, '(');
-    if ($p !== FALSE) {
-      $mysqliType = trim(substr($typeString, 0, $p));
-      $size = trim(substr($typeString, $p + 1, strpos($typeString, ')') - $p - 1));
-    } else {
-      $mysqliType = trim($typeString);
-      $size = 0;
-    }
-    switch (strtoupper($mysqliType)) {
-    case 'TINYINT':
-    case 'SMALLINT':
-      $type = 'integer';
-      $size = 2;
-      break;
-    case 'MEDIUMINT':
-    case 'INT':
-    case 'INTEGER':
-      $type = 'integer';
-      $size = 4;
-      break;
-    case 'BIGINT':
-      $size = 8;
-      $type = 'integer';
-      break;
-    case 'FLOAT':
-    case 'DOUBLE':
-    case 'REAL':
-    case 'DECIMAL':
-    case 'NUMERIC':
-      $type = 'float';
-      break;
-    case 'TINYTEXT':
-      $type = 'string';
-      $size = '255';
-      break;
-    case 'TEXT':
-      $type = 'string';
-      $size = '65535';
-      break;
-    case 'MEDIUMTEXT':
-      $type = 'string';
-      $size = '16777215';
-      break;
-    case 'LONGTEXT':
-      $type = 'string';
-      $size = '4294967295';
-      break;
-    case 'CHAR':
-    case 'VARCHAR':
-    default :
-      $type = 'string';
-      break;
-    }
-    return array($type, $size);
-  }
-
-  /**
-  * Parse MySQL field data
-  *
-  * @param array $row
-  * @access private
-  * @return array
-  */
-  function parseMySQLFieldData($row) {
-    $type = $this->parseMySQLFieldType($row['Type']);
-    $autoIncrement = (strtolower($row['Extra']) == 'auto_increment');
-    $default = NULL;
-    if (isset($row['Default'])) {
-      if ($type[0] == 'integer') {
-        $default = (int)$row['Default'];
-      } elseif ($type[0] == 'float') {
-        $default = (float)$row['Default'];
-      } elseif (empty($row['Default']) && strtolower($row['Null']) == 'yes') {
-        $default = NULL;
-      } else {
-        $default = $row['Default'];
-      }
-    }
-    return array(
-      'name' => $row['Field'],
-      'type' => $type[0],
-      'size' => $type[1],
-      'null' => (strtolower($row['Null']) == 'yes') ? 'yes' : 'no',
-      'default' => isset($default) ? (string)$default : NULL,
-      'autoinc' => $autoIncrement ? 'yes' : 'no'
-    );
-  }
-
-  /**
-  * MySQL field type
-  *
-  * @param string $type
-  * @param string $size
-  * @access private
-  * @return string
-  */
-  function getMySQLFieldType($type, $size) {
-    switch (strtolower(trim($type))) {
-    case 'integer':
-      $size = ($size > 0) ? (int)$size : 1;
-      if ($size <= 2) {
-        $result = "TINYINT";
-      } elseif ($size <= 4) {
-        $result = "INT";
-      } else {
-        $result = "BIGINT";
-      }
-      break;
-    case 'float':
-      if (FALSE !== strpos($size, ',')) {
-        list($before, $after) = explode(',', $size);
-        $before = ($before > 0) ? (int)$before : 1;
-        $after = (int)$after;
-        if ($after > $before) {
-          $before += $after;
-        }
-        $result = "DECIMAL(".$before.','.$after.")";
-      } else {
-        $result = "DECIMAL(".(int)$size.',0)';
-      }
-      break;
-    case 'string':
-    default:
-      $size = ($size > 0) ? (int)$size : 1;
-      if ($size <= 4) {
-        $result = "CHAR(".$size.")";
-      } elseif ($size <= 255) {
-        $result = "VARCHAR(".$size.")";
-      } elseif ($size <= 65535) {
-        $result = "TEXT";
-      } elseif ($size <= 16777215) {
-        $result = "MEDIUMTEXT";
-      } else {
-        $result = "LONGTEXT";
-      }
-      break;
-    }
-    return $result;
-  }
-
-  /**
-   * Get MySQL field extras
-   *
-   * @param array $field
-   * @param bool $allowAutoInrement
-   * @access private
-   * @return string
-   */
-  function getMySQLFieldExtras($field, $allowAutoInrement = FALSE) {
-    if (isset($field['null']) && $field['null'] == 'yes') {
-      $default = NULL;
-      $notNullStr = '';
-    } else {
-      $default = '';
-      $notNullStr = ' NOT NULL';
-    }
-    if (isset($field['default'])) {
-      $default = $field['default'];
-    }
-    if (isset($default)) {
-      switch(strtolower($field['type'])) {
-      case 'integer':
-        $defaultStr = " DEFAULT '".(int)$default."'";
-        break;
-      case 'float':
-        $defaultStr = " DEFAULT '".(double)$default."'";
-        break;
-      case 'string' :
-        if ($field['size'] > 255) {
-          $defaultStr = "";
-        } else {
-          $defaultStr = " DEFAULT '".$this->escapeString($default)."'";
-        }
-        break;
-      default:
-        $defaultStr = " DEFAULT '".$this->escapeString($default)."'";
-        break;
-      }
-    } else {
-      $defaultStr = " DEFAULT NULL";
-    }
-    if (($allowAutoInrement) &&
-        isset($field['autoinc']) && $field['autoinc'] == 'yes') {
-      $autoIncrementString = ' auto_increment';
-      $defaultStr = '';
-    } else {
-      $autoIncrementString = '';
-    }
-    return $defaultStr.$notNullStr.$autoIncrementString;
-  }
-
-  /**
-  * Query table structure
-  *
-  * @param string $tableName
-  * @param string $tablePrefix optional, default value ''
-  * @access public
-  * @return array
-  */
-  function queryTableStructure($tableName, $tablePrefix = '') {
-    $fields = array();
-    if ($tablePrefix) {
-      $table = $tablePrefix.'_'.$tableName;
-    } else {
-      $table = $tableName;
-    }
-    $sql = "SHOW TABLE STATUS LIKE '$table'";
-    $tableType = NULL;
-    if ($res = $this->query($sql)) {
-      if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $tableType = (strtoupper($row['Engine']) == 'INNODB') ?
-          'transactions' : NULL;
-      }
-    }
-    $sql = "SHOW FIELDS
-            FROM $table";
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $fields[$row['Field']] = $this->parseMySQLFieldData($row);
-      }
-    }
-    $keys = array();
-    $sql = "SHOW KEYS
-            FROM $table";
-    if ($res = $this->query($sql)) {
-      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $keyName = $row['Key_name'];
-        $keys[$keyName]['name'] = $keyName;
-        $keys[$keyName]['unique'] = ($row['Non_unique'] == 0) ? 'yes' : 'no';
-        $keys[$keyName]['fields'][$row['Seq_in_index']] = $row['Column_name'];
-        if (isset($row['Sub_part'])) {
-          $keys[$keyName]['keysize'][$row['Column_name']] = (int)$row['Sub_part'];
-        } elseif ($fields[$row['Column_name']] == 'string' &&
-                  $fields[$row['Column_name']] > 255) {
-          $keys[$keyName]['keysize'][$row['Column_name']] = (int)255;
-        } else {
-          $keys[$keyName]['keysize'][$row['Column_name']] = 0;
-        }
-        if (isset($row['Index_type']) && $row['Index_type'] == 'FULLTEXT') {
-          $keys[$keyName]['fulltext'] = 'yes';
-        } elseif ($row['Comment'] == 'FULLTEXT') {
-          $keys[$keyName]['fulltext'] = 'yes';
-        } else {
-          $keys[$keyName]['fulltext'] = 'no';
-        }
-      }
-    }
-    return array(
-      'name' => $tableName,
-      'type' => $tableType,
-      'fields' => $fields,
-      'keys' => $keys
-    );
-  }
-
-  /**
-  * Create given table
-  *
-  * @param string $tableData
-  * @param string $tablePrefix
-  * @access public
-  * @return boolean
-  */
-  function createTable($tableData, $tablePrefix) {
-    $fulltextIndex = FALSE;
-    if (isset($tableData['fields']) &&
-        is_array($tableData['fields']) &&
-        isset($tableData['name']) &&
-        trim($tableData['name']) != '') {
-      if ($tablePrefix) {
-        $table = $tablePrefix.'_'.trim($tableData['name']);
-      } else {
-        $table = trim($tableData['name']);
-      }
-      $sql = 'CREATE TABLE `'.$this->escapeString(strtolower($table)).'` ('.LF;
-      $autoIncrementField = FALSE;
-      foreach ($tableData['fields'] as $field) {
-        $sql .= '  `'.strtolower($field['name']).'` '.
-          $this->getMySQLFieldType($field['type'], $field['size']).
-          $this->getMySQLFieldExtras($field, !$autoIncrementField).",\n";
-      }
-      if (isset($tableData['keys']) && is_array($tableData['keys'])) {
-        if (isset($tableData['keys']['PRIMARY'])) {
-          $key = $tableData['keys']['PRIMARY'];
-          $fieldStr = '(';
-          foreach ($key['fields'] as $fieldName) {
-            if (isset($key['keysize'][$fieldName]) &&
-                $key['keysize'][$fieldName] > 0) {
-              $fieldStr .= '`'.$this->escapeString($fieldName).'` ('.
-                (int)$key['keysize'][$fieldName].'), ';
-            } else {
-              $fieldStr .= '`'.$this->escapeString($fieldName).'`, ';
-            }
-          }
-          $sql .= 'PRIMARY KEY '.substr($fieldStr, 0, -2)."),\n";
-        }
-        foreach ($tableData['keys'] as $keyName => $key) {
-          if ($keyName != 'PRIMARY') {
-            if (isset($key['unique']) && $key['unique'] == 'yes') {
-              $sql .= '  UNIQUE ';
-            } elseif (isset($key['fulltext']) && $key['fulltext'] == 'yes') {
-              $sql .= '  FULLTEXT ';
-              $fulltextIndex = TRUE;
-            } else {
-              $sql .= ' KEY ';
-            }
-            $fieldStr = '(';
-            foreach ($key['fields'] as $fieldName) {
-              if (isset($key['keysize'][$fieldName]) &&
-                  $key['keysize'][$fieldName] > 0) {
-                $fieldStr .= '`'.$this->escapeString($fieldName).'` ('.
-                  (int)$key['keysize'][$fieldName].'), ';
-              } else {
-                $fieldStr .= '`'.$this->escapeString($fieldName).'`, ';
-              }
-            }
-            $sql .= '`'.$keyName.'` '.substr($fieldStr, 0, -2)."),\n";
-          }
-        }
-      }
-      $sql = substr($sql, 0, -2)."\n) ";
-      if ($fulltextIndex) {
-        $sql .= ' ENGINE=MyISAM';
-      } elseif (isset($tableData['type']) && $tableData['type'] == 'transactions') {
-        $sql .= ' ENGINE=InnoDB';
-      }
-      $sql .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
-      return ($this->query($sql) !== FALSE);
-    }
-    return FALSE;
-  }
-
-  /**
-  * Add Field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
-  function addField($table, $fieldData) {
-    $sql = "ALTER TABLE `".$this->escapeString($table).
-      "` ADD COLUMN `".$this->escapeString($fieldData['name'])."` ".
-      $this->getMySQLFieldType($fieldData['type'], $fieldData['size']).
-      $this->getMySQLFieldExtras($fieldData);
-    return ($this->query($sql) !== FALSE);
-  }
-
-  /**
-  * Change Field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
-  function changeField($table, $fieldData) {
-    $allowAutoInrement = FALSE;
-    if (isset($fieldData['autoinc']) && $fieldData['autoinc'] == 'yes') {
-      $sql = "SHOW COLUMNS FROM `".$this->escapeString($table)."`";
-      if ($res = $this->query($sql)) {
-        $autoIncrementField = NULL;
-        $fieldExists = FALSE;
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          if ($row['Field'] == $fieldData['name']) {
-            $allowAutoInrement = (trim($row['Key']) != '');
-            if (strtolower($row['Extra']) == 'auto_increment') {
-              unset($autoIncrementField);
-              break;
-            }
-            $fieldExists = TRUE;
-          } elseif (strtolower($row['Extra']) == 'auto_increment') {
-            $autoIncrementField = $this->parseMySQLFieldData($row);
-          }
-          if ($fieldExists && isset($autoIncrementField)) {
-            break;
-          }
-        }
-        $res->free();
-        if (isset($autoIncrementField)) {
-          $autoIncrementField['autoinc'] = 'no';
-          $sql = "ALTER TABLE `".$this->escapeString($table)."` MODIFY COLUMN `".
-            $this->escapeString($autoIncrementField['name'])."` ".
-            $this->getMySQLFieldType(
-              $autoIncrementField['type'],
-              $autoIncrementField['size']
-            ).
-            $this->getMySQLFieldExtras($autoIncrementField);
-          $this->query($sql);
-        }
-      }
-    }
-    $sql = "ALTER TABLE `".$this->escapeString($table).
-       "` MODIFY COLUMN `".$this->escapeString($fieldData['name'])."` ".
-       $this->getMySQLFieldType($fieldData['type'], $fieldData['size']).
-       $this->getMySQLFieldExtras($fieldData, $allowAutoInrement);
-    return ($this->query($sql) !== FALSE);
-  }
-
-  /**
-  * Drop field
-  *
-  * @param string $table
-  * @param string $field fieldname
-  * @access public
-  * @return boolean
-  */
-  function dropField($table, $field) {
-    $sql = "ALTER TABLE `".$this->escapeString($table).
-      "` DROP COLUMN `".$this->escapeString($field)."`";
-    return ($this->query($sql) !== FALSE);
-  }
-
-  /**
-  * Add index
-  *
-  * @param string $table
-  * @param array $index
-  * @access public
-  * @return boolean
-  */
-  function addIndex($table, $index) {
-    return $this->changeIndex($table, $index, FALSE);
-  }
-
-  /**
-  * Change Index
-  *
-  * @param string $table
-  * @param array $index
-  * @param boolean $dropCurrent optional, default value TRUE
-  * @access public
-  * @return boolean
-  */
-  function changeIndex($table, $index, $dropCurrent = TRUE) {
-    if (isset($index['fields']) && is_array($index['fields'])) {
-      $sql = "SHOW COLUMNS FROM `".$this->escapeString($table)."`";
-      if ($res = $this->query($sql)) {
-        $needed = count($index['fields']);
-        $indb = 0;
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          if (in_array($row['Field'], $index['fields'])) {
-            if (++$indb >= $needed) {
-              break;
-            }
-          }
-        }
-        $res->free();
-        if ($indb >= $needed) {
-          $fields = '(';
-          foreach ($index['fields'] as $fieldName) {
-            if (isset($index['keysize'][$fieldName]) &&
-                $index['keysize'][$fieldName] > 0) {
-              $fields .= '`'.$this->escapeString($fieldName).'` ('.
-                (int)$index['keysize'][$fieldName].'), ';
-            } else {
-              $fields .= '`'.$this->escapeString($fieldName).'`, ';
-            }
-          }
-          $fields = substr($fields, 0, -2).")";
-          $drop = ($dropCurrent) ? " DROP INDEX `".$this->escapeString($index['name']).
-            "`," : '';
-          if ($index['name'] == 'PRIMARY') {
-            $sql = "ALTER TABLE `".$this->escapeString($table)."`".$drop.
-              " ADD PRIMARY KEY ".$fields;
-          } elseif (isset($index['fulltext']) && $index['fulltext'] == 'yes') {
-            $sql = "ALTER TABLE `".$this->escapeString($table)."`".$drop.
-              " ADD FULLTEXT `".$this->escapeString($index['name'])."` ".$fields;
-          } elseif (isset($index['unique']) && $index['unique'] == 'yes') {
-            $sql = "ALTER TABLE `".$this->escapeString($table)."`".$drop.
-              " ADD UNIQUE `".$this->escapeString($index['name'])."` ".$fields;
-          } else {
-            $sql = "ALTER TABLE `".$this->escapeString($table)."`".$drop.
-              " ADD INDEX `".$this->escapeString($index['name'])."` ".$fields;
-          }
-          return ($this->query($sql) !== FALSE);
-        }
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-  * Drop Index
-  *
-  * @param string $table
-  * @param string $name
-  * @access public
-  * @return boolean
-  */
-  function dropIndex($table, $name) {
-    if ($name == 'PRIMARY') {
-      $sql = "ALTER TABLE `".$this->escapeString($table)."` DROP PRIMARY KEY";
-    } else {
-      $sql = "ALTER TABLE `".$this->escapeString($table)."` DROP INDEX `".
-        $this->escapeString($name)."`";
-    }
-    return ($this->query($sql) !== FALSE);
-  }
-
-  /**
-  * DBMS spezific SQL source
-  *
-  * @param string $function sql function
-  * @param array $params params
-  * @access public
-  * @return mixed sql string or FALSE
-  */
-  function getSQLSource($function, array $params = NULL) {
-    switch (strtoupper($function)) {
-    case 'CONCAT':
-      return ' CONCAT('.$this->getSQLFunctionParams($params).')';
-      break;
-    case 'SUBSTRING':
-      return ' SUBSTRING('.$this->getSQLFunctionParams($params).')';
-    case 'LENGTH' :
-      return ' LENGTH('.$this->getSQLFunctionParams($params).')';
-    case 'LOWER':
-      return ' LOWER('.$this->getSQLFunctionParams($params).')';
-    case 'UPPER':
-      return ' UPPER('.$this->getSQLFunctionParams($params).')';
-    case 'LOCATE':
-      return ' LOCATE('.$this->getSQLFunctionParams($params).')';
-    case 'RANDOM' :
-      return ' RAND()';
-    case 'LIMIT' :
-      $limit = isset($params[0]) && $params[0] > 0 ? (int)$params[0] : 0;
-      $offset = isset($params[1]) && $params[1] > 0 ? (int)$params[1] : 0;
-      if ($limit > 0) {
-        if ($offset > 0) {
-          return sprintf(' LIMIT %d,%d', $offset, $limit);
-        }
-        return sprintf(' LIMIT %d', $limit);
-      }
-      return '';
-    case 'LIKE' :
-      // Default escape character is "\"
-      return ' LIKE '.$this->getSQLFunctionParams($params).' ESCAPE \'\\\\\'';
-    }
-    return FALSE;
-  }
-
-  /**
-  * Compare field structure
-  *
-  * @param array $xmlField
-  * @param array $databaseField
-  * @access public
-  * @return boolean
-  */
-  function compareFieldStructure($xmlField, $databaseField) {
-    if ($xmlField['type'] != $databaseField['type']) {
-      return TRUE;
-    } elseif ($xmlField['size'] != $databaseField['size']) {
-      return TRUE;
-    } elseif ($xmlField['null'] != $databaseField['null']) {
-      return TRUE;
-    } elseif ($xmlField['autoinc'] == 'yes' && $databaseField['autoinc'] != 'yes') {
-      return TRUE;
-    } elseif ($xmlField['default'] !== $databaseField['default']) {
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-  /**
-  * Compare key structure
-  *
-  * @param array $xmlKey
-  * @param array $databaseKey
-  * @access public
-  * @return boolean
-  */
-  function compareKeyStructure($xmlKey, $databaseKey) {
-    if (($xmlKey['unique'] == 'yes' || $xmlKey['name'] == "PRIMARY") !=
-          ($databaseKey['unique'] == 'yes' || $databaseKey['name'] == "PRIMARY")) {
-      return TRUE;
-    } elseif ($xmlKey['fulltext'] == 'yes' && $databaseKey['fulltext'] != 'yes') {
-      return TRUE;
-    } elseif (count(array_diff_assoc($xmlKey['keysize'], $databaseKey['keysize'])) > 0) {
-      return TRUE;
-    } elseif (count(array_diff($xmlKey['fields'], $databaseKey['fields'])) > 0) {
-      return TRUE;
-    }
-    return FALSE;
-  }
 }
 
 /**
@@ -1101,28 +507,29 @@ class dbresult_mysqli extends dbresult_base {
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
-    if ($res = $this->connection->executeQuery($explainQuery)) {
-      if ($res->num_rows > 0) {
-        $explain = new \Papaya\Message\Context\Table('Explain');
-        $explain->setColumns(
-          array(
-            'id' => 'Id',
-            'select_type' => 'Select Type',
-            'table' => 'Table',
-            'type' => 'Type',
-            'possible_keys' => 'Possible Keys',
-            'key' => 'Key',
-            'key_len' => 'Key Length',
-            'ref' => 'Reference',
-            'rows' => 'Rows',
-            'Extra' => 'Extra'
-          )
-        );
-        while ($row = $res->fetch_assoc()) {
-          $explain->addRow($row);
-        }
-        return $explain;
+    $dbmsResult = $res = $this->connection->execute(
+      $explainQuery, \Papaya\Database\Interfaces\Connection::KEEP_LAST_QUERY
+    );
+    if ($dbmsResult && count($dbmsResult) > 0) {
+      $explain = new \Papaya\Message\Context\Table('Explain');
+      $explain->setColumns(
+        array(
+          'id' => 'Id',
+          'select_type' => 'Select Type',
+          'table' => 'Table',
+          'type' => 'Type',
+          'possible_keys' => 'Possible Keys',
+          'key' => 'Key',
+          'key_len' => 'Key Length',
+          'ref' => 'Reference',
+          'rows' => 'Rows',
+          'Extra' => 'Extra'
+        )
+      );
+      while ($row = $res->fetchAssoc()) {
+        $explain->addRow($row);
       }
+      return $explain;
     }
     return NULL;
   }

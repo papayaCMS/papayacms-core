@@ -17,7 +17,7 @@ namespace Papaya\Database\Statement {
   use Papaya\Database;
 
   class Formatted
-    extends Database\Statement {
+    extends Database\ExecutableStatement {
     /**
      * @var string
      */
@@ -44,18 +44,7 @@ namespace Papaya\Database\Statement {
     /**
      * @return string
      */
-    public function __toString() {
-      try {
-        return $this->getSQL();
-      } catch (\Exception $e) {
-        return '';
-      }
-    }
-
-    /**
-     * @return string
-     */
-    public function getSQL() {
+    public function getSQLString() {
       return \vsprintf(
         $this->_sql,
         \array_map(
@@ -65,6 +54,13 @@ namespace Papaya\Database\Statement {
           $this->_parameters
         )
       );
+    }
+
+    /**
+     * @return array
+     */
+    public function getSQLParameters() {
+      return [];
     }
   }
 }
