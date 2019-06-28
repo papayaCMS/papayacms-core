@@ -74,13 +74,13 @@ class Manager implements Application\Access {
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
    *
-   * @return \db_simple
+   * @return \Papaya\Database\Connector
    */
   public function getConnector($readUri = NULL, $writeUri = NULL) {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
     if (!isset($this->_connectors[$identifier])) {
-      $connector = new \db_simple();
+      $connector = new \Papaya\Database\Connector();
       $connector->papaya($this->papaya());
       $connector->databaseURIs = [
         'read' => $readUri,
@@ -94,7 +94,7 @@ class Manager implements Application\Access {
   /**
    * Get connector for given URIs, existing connector will be overwritten
    *
-   * @param \db_simple $connector connector object
+   * @param \Papaya\Database\Connector $connector connector object
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
    */
@@ -131,7 +131,7 @@ class Manager implements Application\Access {
    * Close all open connections to database servers
    */
   public function close() {
-    /** @var \db_simple $connector */
+    /** @var \Papaya\Database\Connector $connector */
     foreach ($this->_connectors as $connector) {
       $connector->disconnect();
     }

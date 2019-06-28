@@ -49,7 +49,7 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testSetConnector() {
     $manager = new Manager();
-    $connector = new \db_simple();
+    $connector = new \Papaya\Database\Connector();
     $manager->setConnector($connector, 'READ', 'WRITE');
     $this->assertAttributeSame(
       array("READ\nWRITE" => $connector),
@@ -64,7 +64,7 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testSetConnectorWithoutWriteUri() {
     $manager = new Manager();
-    $connector = new \db_simple();
+    $connector = new \Papaya\Database\Connector();
     $manager->setConnector($connector, 'READ');
     $this->assertAttributeSame(
       array("READ\nREAD" => $connector),
@@ -79,7 +79,7 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testSetConnectorWithoutReadUri() {
     $manager = new Manager();
-    $connector = new \db_simple();
+    $connector = new \Papaya\Database\Connector();
     $manager->setConfiguration(
       $this->mockPapaya()->options(
         array(
@@ -101,7 +101,7 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testGetConnector() {
     $manager = new Manager();
-    $connector = new \db_simple();
+    $connector = new \Papaya\Database\Connector();
     $manager->setConnector($connector, 'READ');
     $this->assertSame(
       $connector,
@@ -115,7 +115,7 @@ class ManagerTest extends \Papaya\TestCase {
   public function testGetConnectorImplicitCreate() {
     $manager = new Manager();
     $this->assertInstanceOf(
-      \db_simple::class,
+      \Papaya\Database\Connector::class,
       $manager->getConnector('READ')
     );
   }
@@ -125,8 +125,8 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testDisconnect() {
     $manager = new Manager();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('disconnect');

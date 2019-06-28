@@ -37,8 +37,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getDatabaseConnector
    */
   public function testGetDatabaseConnector() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
     $this->assertEquals(
       $connector,
@@ -62,8 +62,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::setDatabaseConnector
    */
   public function testGetDatabaseConnectorAfterSetDatabaseConnector() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $access = new Access(new \stdClass, 'read', 'write');
     $access->setDatabaseConnector($connector);
     $this->assertEquals(
@@ -141,8 +141,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlySetForObjectAndConnection() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -155,8 +155,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlyReadConnection() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -169,8 +169,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::readOnly
    */
   public function testReadOnlyNoContextExpectingTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -183,8 +183,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::readOnly
    */
   public function testReadOnlyNoContextExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -197,8 +197,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::readOnly
    */
   public function testReadOnlySetObjectContextExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('setDataModified');
@@ -213,8 +213,8 @@ class AccessTest extends \Papaya\TestCase {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 1)
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -230,8 +230,8 @@ class AccessTest extends \Papaya\TestCase {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 2)
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -248,8 +248,8 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::setDataModified
    */
   public function testSetDataModified() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('setDataModified');
@@ -304,7 +304,7 @@ class AccessTest extends \Papaya\TestCase {
 
   /**
    * @param object $owner
-   * @param \db_simple|object $connector
+   * @param \Papaya\Database\Connector|object $connector
    * @param \Papaya\Configuration|NULL $options
    * @return Access
    */

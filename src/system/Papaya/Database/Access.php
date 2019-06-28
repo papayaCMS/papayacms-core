@@ -102,7 +102,7 @@ namespace Papaya\Database {
     /**
      * Get database connection (implicit create)
      *
-     * @return \db_simple
+     * @return \Papaya\Database\Connector
      * @var \Papaya\Database\Manager $databaseManager
      *
      */
@@ -129,7 +129,7 @@ namespace Papaya\Database {
     /**
      * Set database connection
      *
-     * @param \db_simple $connector
+     * @param \Papaya\Database\Connector $connector
      * @todo define an interface for database connectors
      *
      */

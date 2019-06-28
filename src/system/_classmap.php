@@ -139,7 +139,7 @@ return array(
   'base_db' => '/sys_base_db.php',
   'base_object' => '/sys_base_object.php',
   'checkit' => '/sys_checkit.php',
-  'db_simple' => '/sys_db_simple.php',
+  'Papaya\Database\Connector' => '/sys_db_simple.php',
   'email' => '/sys_email.php',
   'base_phrases' => '/sys_phrases.php',
   'pidfile' => '/sys_pidfile.php',
