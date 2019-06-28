@@ -13,9 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Database\Schema\MySQLSchema;
-use Papaya\Database\Syntax\MySQLSyntax;
-
 /**
 * basic database connection and result class
 */
@@ -50,7 +47,7 @@ class dbcon_pgsql extends dbcon_base {
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
-  function isExtensionAvailable() {
+  public function isExtensionAvailable() {
     if (!extension_loaded('pgsql')) {
       throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "pgsql" not available.'
@@ -63,50 +60,54 @@ class dbcon_pgsql extends dbcon_base {
    * Establish connection to database
    *
    * @access public
+   * @return \Papaya\Database\Connection
+   *@throws Exception
    * @throws \Papaya\Database\Exception\ConnectionFailed
-   * @throws Exception
-   * @return resource $this->databaseConnection connection ID
    */
-  function connect() {
+  public function connect() {
     if (isset($this->_postgresql) && is_resource($this->_postgresql)) {
-      return TRUE;
-    } else {
-      $connectStr = 'host='.$this->getDSN()->host;
-      if ($this->getDSN()->port > 0) {
-        $connectStr .= ' port='.$this->getDSN()->port;
-      }
-      $connectStr .= ' user='.$this->getDSN()->username;
-      $connectStr .= ' password='.$this->getDSN()->password;
-      $connectStr .= ' dbname='.$this->getDSN()->database;
-      $connection = NULL;
-      try {
-        set_error_handler(
-          array($this, 'handleConnectionError'), E_ALL & ~E_STRICT
-        );
-        if (defined('PAPAYA_DB_CONNECT_PERSISTENT') && PAPAYA_DB_CONNECT_PERSISTENT) {
-          $connection = pg_pconnect($connectStr);
-        } else {
-          $connection = pg_connect($connectStr, PGSQL_CONNECT_FORCE_NEW);
-        }
-        restore_error_handler();
-      } catch (Exception $e) {
-        restore_error_handler();
-        throw $e;
-      }
-      if (isset($connection) && is_resource($connection)) {
-        if (pg_set_client_encoding($connection, 'UNICODE') !== 0) {
-          throw new \Papaya\Database\Exception\ConnectionFailed(
-            'Can not set client encoding for database connection.'
-          );
-        }
-        $this->_postgresql = $connection;
-        return TRUE;
-      }
-      return FALSE;
+      return $this;
     }
+    $connectStr = 'host='.$this->getDSN()->host;
+    if ($this->getDSN()->port > 0) {
+      $connectStr .= ' port='.$this->getDSN()->port;
+    }
+    $connectStr .= ' user='.$this->getDSN()->username;
+    $connectStr .= ' password='.$this->getDSN()->password;
+    $connectStr .= ' dbname='.$this->getDSN()->database;
+    $connection = NULL;
+    try {
+      set_error_handler(
+        array($this, 'handleConnectionError'), E_ALL & ~E_STRICT
+      );
+      if (defined('PAPAYA_DB_CONNECT_PERSISTENT') && PAPAYA_DB_CONNECT_PERSISTENT) {
+        $connection = pg_pconnect($connectStr);
+      } else {
+        $connection = pg_connect($connectStr, PGSQL_CONNECT_FORCE_NEW);
+      }
+      restore_error_handler();
+    } catch (Exception $e) {
+      restore_error_handler();
+      throw $e;
+    }
+    if (isset($connection) && is_resource($connection)) {
+      if (pg_set_client_encoding($connection, 'UNICODE') !== 0) {
+        throw new \Papaya\Database\Exception\ConnectionFailed(
+          'Can not set client encoding for database connection.'
+        );
+      }
+      $this->_postgresql = $connection;
+      return $this;
+    }
+    throw new \Papaya\Database\Exception\ConnectionFailed('Invalid connection resource.');
   }
 
-  public function handleConnectionError($code, $message) {
+  /**
+   * @param $code
+   * @param $message
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  private function handleConnectionError($code, $message) {
     throw new \Papaya\Database\Exception\ConnectionFailed(
       strip_tags(str_replace('&quot;', '"', $message)), $code
     );
@@ -125,18 +126,18 @@ class dbcon_pgsql extends dbcon_base {
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Statement|string $statement
+   * @param \Papaya\Database\Statement|string $statement
    * @param int $options
    * @return \dbresult_pgsql|int|\Papaya\Database\Result|void
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
    */
   public function execute($statement, $options = 0) {
-    if (!Papaya\Utility\Bitwise::inBitmask(self::KEEP_PREVIOUS_RESULT, $options)) {
+    if (!Papaya\Utility\Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
       $this->cleanup();
     }
     $this->connect();
-    if (!$statement instanceof \Papaya\Database\Interfaces\Statement) {
+    if (!$statement instanceof \Papaya\Database\Statement) {
       $statement = new \Papaya\Database\SQLStatement((string)$statement, []);
     }
     $dbmsResult = $this->process($statement);
@@ -145,7 +146,7 @@ class dbcon_pgsql extends dbcon_base {
     }
   }
 
-  private function process(\Papaya\Database\Interfaces\Statement $statement) {
+  private function process(\Papaya\Database\Statement $statement) {
     $sql = $statement->getSQLString();
     $parameters = $statement->getSQLParameters();
     $dbmsResult = FALSE;
@@ -172,90 +173,22 @@ class dbcon_pgsql extends dbcon_base {
   * @access public
   * @return string escaped value.
   */
-  function escapeString($value) {
+  public function escapeString($value) {
     $value = parent::escapeString($value);
     return pg_escape_string($this->_postgresql, $value);
   }
 
   /**
-   * Execute PostgreSQL-query
+   * Fetch the last inserted id
    *
-   * @param string $sql SQL-String with query
-   * @param integer $max maximum number of returned records
-   * @param integer $offset Offset
-   * @param boolean $freeLastResult free last result (if here is one)
-   * @param bool $enableCounter
-   * @return mixed FALSE or number of affected_rows or database result object
-   * @throws \Papaya\Database\Exception\QueryFailed
+   * @param string $table
+   * @param string $idField
+   * @return int|string|null
    * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws \Papaya\Database\Exception\QueryFailed
    */
-  public function &query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
-    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
-    $limitSQL = '';
-    if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      $limitSQL .= $this->syntax()->limit($max, $offset);
-    }
-    $this->lastSQLQuery = $sql.$limitSQL;
-    $result = $this->execute($sql.$limitSQL);
-    if ($result instanceof \Papaya\Database\Result) {
-      $this->lastResult = $result;
-      $this->lastResult->setLimit($max, $offset);
-      return $this->lastResult;
-    }
-    return $result;
-  }
-
-  /**
-  * Insert record into table
-  *
-  * @param string $table table
-  * @param string $idField primary key value
-  * @param array $values insert values
-  * @access public
-  * @return mixed FALSE or Id of new record
-  */
-  function insertRecord($table, $idField, $values = NULL) {
-    if (isset($idField)) {
-      $values[$idField] = NULL;
-    }
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $fieldString = '';
-      $valueString = '';
-      foreach ($values as $field => $value) {
-        if (is_bool($value)) {
-          $fieldString .= $this->escapeString($field).', ';
-          $valueString .= "'".($value ? '1' : '0')."', ";
-        } elseif ($value !== NULL) {
-          $fieldString .= $this->escapeString($field).', ';
-          $valueString .= "'".$this->escapeString($value)."', ";
-        }
-      }
-      $fieldString = substr($fieldString, 0, -2);
-      $valueString = substr($valueString, 0, -2);
-      $sql = 'INSERT INTO '.$this->escapeString($table).' ('.$fieldString.') VALUES ('.
-        $valueString.')';
-      if (isset($idField)) {
-        $sql .= ' RETURNING ' . $idField;
-      }
-      if ($result = $this->query($sql, NULL, NULL, FALSE)) {
-        if (isset($idField)) {
-          return $result->fetchField();
-        }
-        return $result;
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-  * Fetch the last inserted id
-  *
-  * @param string $table
-  * @param string $idField
-  * @return int|string|null
-  */
   public function lastInsertId($table, $idField) {
-    $sql = "SELECT CURRVAL('".$table."_".$idField."_seq')";
+    $sql = "SELECT CURRVAL('".$table.'_'.$idField."_seq')";
     if ($result = $this->execute($sql)) {
       return $result->fetchField();
     }
@@ -270,8 +203,8 @@ class dbcon_pgsql extends dbcon_base {
   * @access public
   * @return boolean
   */
-  function insertRecords($table, $values) {
-    $baseSQL = "COPY ".$this->escapeString($table)." ";
+  public function insert($table, array $values) {
+    $baseSQL = 'COPY '.$this->quoteIdentifier($table).' ';
     $lastFields = NULL;
     $specialChars = array("\t" => '\t', "\r" => '\r', "\n" => '\n');
     $this->lastSQLQuery = '';
@@ -281,7 +214,7 @@ class dbcon_pgsql extends dbcon_base {
           $fields = array();
           $valueData = array();
           foreach ($data as $key => $val) {
-            $fields[] = strtr($this->escapeString($key), $specialChars);
+            $fields[] = strtr($this->quoteIdentifier($key), $specialChars);
             if ($val === '') {
               $valueData[] = '';
             } else {
@@ -289,9 +222,9 @@ class dbcon_pgsql extends dbcon_base {
             }
           }
           if (!isset($lastFields)) {
-            $sql = $baseSQL."(".implode(",", $fields).
+            $sql = $baseSQL.'('.implode(',', $fields).
               ") FROM STDIN USING DELIMITERS '\t' WITH NULL AS '\\NULL' \n";
-            if (!$this->process(new \Papaya\Database\SQLStatement($sql))) {
+            if (!$this->process($sql)) {
               return FALSE;
             }
             $lastFields = $fields;
@@ -301,7 +234,7 @@ class dbcon_pgsql extends dbcon_base {
             }
             $sql = $baseSQL."(".implode(",", $fields).
               ") FROM STDIN USING DELIMITERS '\t' WITH NULL AS '\\NULL' \n";
-            if (!$this->process(new \Papaya\Database\SQLStatement($sql))) {
+            if (!$this->process($sql)) {
               return FALSE;
             }
             $lastFields = $fields;
@@ -328,56 +261,21 @@ class dbcon_pgsql extends dbcon_base {
   * @param string $table
   * @access public
   */
-  function updateAutoIncrementFields($table) {
-    $structure = $this->queryTableStructure($table);
+  private function updateAutoIncrementFields($table) {
+    $structure = $this->schema()->describeTable($table);
     $fields = $structure['fields'];
     if (isset($fields) && is_array($fields)) {
       foreach ($fields as $field) {
-        if ($field['autoinc'] == 'yes') {
+        if ($field['autoinc'] === 'yes') {
           $tableName = $this->escapeString($table);
           $fieldName = $this->escapeString($field['name']);
-          $sql = "SELECT SETVAL('".$tableName."_".$fieldName."_seq',"
-            ."(SELECT MAX(".$fieldName.") FROM ".$tableName."));".LF;
-          $this->query($sql);
+          $sql =
+            "SELECT SETVAL('".$tableName.'_'.$fieldName."_seq',".
+            '(SELECT MAX('.$fieldName.') FROM '.$tableName.'));';
+          $this->process($sql);
         }
       }
     }
-  }
-
-  /**
-  * Update records via filter
-  *
-  * @param string $table table name
-  * @param array $values update values
-  * @param string $filter Filter string without WHERE condition
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  * @see dbcon_base::getSQLCondition()
-  */
-  function updateRecord($table, $values, $filter) {
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $sql = FALSE;
-      foreach ($values as $col => $val) {
-        $fieldName = trim($col);
-        if ($val === NULL) {
-          $sql .= " ".$this->escapeString($fieldName)." = NULL, ";
-        } elseif (is_bool($val)) {
-          $sql .= " ".$this->escapeString($fieldName)." = '".($val ? '1' : '0')."', ";
-        } else {
-          $sql .= " ".$this->escapeString($fieldName)." = '".$this->escapeString($val)."', ";
-        }
-      }
-      if ($sql) {
-        $sql = "UPDATE $table SET ".substr($sql, 0, -2)." WHERE ".
-          $this->getSQLCondition($filter);
-        return $this->query($sql, NULL, NULL, FALSE);
-      } else {
-        $this->lastSQLQuery = 'NO DATA';
-      }
-    } else {
-      $this->lastSQLQuery = '';
-    }
-    return FALSE;
   }
 }
 
@@ -465,7 +363,7 @@ class dbresult_pgsql extends dbresult_base {
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     $result = $this->connection->execute(
-      $explainQuery, \Papaya\Database\Interfaces\Connection::KEEP_PREVIOUS_RESULT
+      $explainQuery, \Papaya\Database\Connection::DISABLE_RESULT_CLEANUP
     );
     if ($result) {
       $explain = array();

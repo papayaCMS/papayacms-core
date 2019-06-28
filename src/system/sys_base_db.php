@@ -104,19 +104,18 @@ class base_db extends base_object {
    * @return mixed
    */
   public function __call($functionName, $arguments) {
-    if (substr($functionName, 0, 8) == 'database') {
+    if (0 === strpos($functionName, 'database')) {
       $delegateFunction = strtolower($functionName[8]).substr($functionName, 9);
       $access = $this->getDatabaseAccess();
       return call_user_func_array(array($access, $delegateFunction), $arguments);
-    } else {
-      throw new BadMethodCallException(
-        sprintf(
-          'Invalid function call. Method %s::%s does not exist.',
-          get_class($this),
-          $functionName
-        )
-      );
     }
+    throw new BadMethodCallException(
+      sprintf(
+        'Invalid function call. Method %s::%s does not exist.',
+        get_class($this),
+        $functionName
+      )
+    );
   }
 
   /**

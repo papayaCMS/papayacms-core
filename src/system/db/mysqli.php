@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Statement as DatabaseStatement;
+use Papaya\Database\SQLStatement;
+
 /**
 * basic database connection and result class
 */
@@ -59,47 +62,46 @@ class dbcon_mysqli extends dbcon_base {
    * Establish connection to database
    *
    * @access public
-   * @throws \Papaya\Database\Exception\ConnectionFailed
-   * @return boolean
+   * @return \Papaya\Database\Connection
+   *@throws \Papaya\Database\Exception\ConnectionFailed
    */
-  function connect() {
+  public function connect() {
     if (isset($this->_mysqli) && is_object($this->_mysqli)) {
-      return TRUE;
-    } else {
-      if (isset($this->getDSN()->socket)) {
-        $server = 'localhost';
-        $port = NULL;
-        $socket = $this->getDSN()->socket;
-      } elseif ($this->getDSN()->port > 0) {
-        $server = $this->getDSN()->host;
-        $port = $this->getDSN()->port;
-        $socket = NULL;
-      } else {
-        $server = $this->getDSN()->host;
-        $port = NULL;
-        $socket = NULL;
-      }
-      $connection = @mysqli_connect(
-        $server,
-        $this->getDSN()->username,
-        $this->getDSN()->password,
-        $this->getDSN()->database,
-        $port,
-        $socket
-      );
-      if ($connection) {
-        $this->_mysqli = $connection;
-        if (defined('PAPAYA_DATABASE_COLLATION')) {
-          $this->process(
-            new \Papaya\Database\SQLStatement("SET NAMES 'utf8' COLLATE ?'", [PAPAYA_DATABASE_COLLATION])
-          );
-        } else {
-          $this->_mysqli->set_charset('utf8');
-        }
-        return TRUE;
-      }
-      throw new \Papaya\Database\Exception\ConnectionFailed(mysqli_connect_error(), mysqli_connect_errno());
+      return $this;
     }
+    if (isset($this->getDSN()->socket)) {
+      $server = 'localhost';
+      $port = NULL;
+      $socket = $this->getDSN()->socket;
+    } elseif ($this->getDSN()->port > 0) {
+      $server = $this->getDSN()->host;
+      $port = $this->getDSN()->port;
+      $socket = NULL;
+    } else {
+      $server = $this->getDSN()->host;
+      $port = NULL;
+      $socket = NULL;
+    }
+    $connection = @mysqli_connect(
+      $server,
+      $this->getDSN()->username,
+      $this->getDSN()->password,
+      $this->getDSN()->database,
+      $port,
+      $socket
+    );
+    if ($connection) {
+      $this->_mysqli = $connection;
+      if (defined('PAPAYA_DATABASE_COLLATION')) {
+        $this->process(
+          new SQLStatement("SET NAMES 'utf8' COLLATE ?'", [PAPAYA_DATABASE_COLLATION])
+        );
+      } else {
+        $this->_mysqli->set_charset('utf8');
+      }
+      return $this;
+    }
+    throw new \Papaya\Database\Exception\ConnectionFailed(mysqli_connect_error(), mysqli_connect_errno());
   }
 
   /**
@@ -116,35 +118,69 @@ class dbcon_mysqli extends dbcon_base {
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Statement|string $statement
+   * @param DatabaseStatement|string $statement
    * @param int $options
    * @return \Papaya\Database\Result|int
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
    */
   public function execute($statement, $options = 0) {
-    if (!Papaya\Utility\Bitwise::inBitmask(self::KEEP_PREVIOUS_RESULT, $options)) {
+    if (!Papaya\Utility\Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
       $this->cleanup();
     }
     $this->connect();
-    if (!$statement instanceof \Papaya\Database\Interfaces\Statement) {
-      $statement = new \Papaya\Database\SQLStatement((string)$statement, []);
+    if (!$statement instanceof DatabaseStatement) {
+      $statement = new SQLStatement((string)$statement, []);
+    }
+    $calculateFoundRows = \Papaya\Utility\Bitwise::inBitmask(self::REQUIRE_ABSOLUTE_COUNT, $options);
+    if (
+      $calculateFoundRows &&
+      ($rewrite = $this->rewriteStatementToCalculateFoundRows($statement))
+    ) {
+      $statement = $rewrite;
+    } else {
+      $calculateFoundRows = FALSE;
     }
     $dbmsResult = $this->process($statement);
     if ($dbmsResult instanceof mysqli_result) {
-      return new dbresult_mysqli($this, $dbmsResult, $statement);
+      $this->lastResult = $result = new dbresult_mysqli($this, $dbmsResult, $statement);
+      if ($calculateFoundRows) {
+        $counterResult = $this->process(new SQLStatement('SELECT FOUND_ROWS()'));
+        if ($counterResult) {
+          $result->setAbsCount((int)$counterResult->fetch_field());
+          $counterResult->free();
+        }
+      }
+      return $result;
     }
     return $dbmsResult;
   }
 
-  private function process(\Papaya\Database\Interfaces\Statement $statement) {
+  private function rewriteStatementToCalculateFoundRows(
+    DatabaseStatement $statement
+  ) {
+    $sql = $statement->getSQLString();
+    if (strpos(trim($sql), 'SELECT') === 0) {
+      return new SQLStatement(
+        'SELECT SQL_CALC_FOUND_ROWS '.substr(trim($sql), 6),
+        $statement->getSQLParameters()
+      );
+    }
+    return NULL;
+  }
+
+  /**
+   * @param DatabaseStatement $statement
+   * @return FALSE|int|\mysqli_result
+   * @throws \Papaya\Database\Exception\QueryFailed
+   */
+  private function process(DatabaseStatement $statement) {
     $sql = $statement->getSQLString();
     $parameters = $statement->getSQLParameters();
-    $dbmsResult = FALSE;
     if (empty($parameters)) {
       if ($dbmsResult = @$this->_mysqli->query($sql)) {
         if ($dbmsResult instanceof mysqli_result) {
-          $dbmsResult;
+          return $dbmsResult;
         }
         if ($dbmsResult) {
           return $this->_mysqli->affected_rows;
@@ -157,7 +193,7 @@ class dbcon_mysqli extends dbcon_base {
       );
       if (@$dbmsStatement->execute()) {
         if ($dbmsResult = $dbmsStatement->get_result()) {
-          $dbmsResult;
+          return $dbmsResult;
         }
         return $dbmsStatement->affected_rows;
       }
@@ -166,12 +202,12 @@ class dbcon_mysqli extends dbcon_base {
   }
 
   /**
-   * If a query failes, trow an database exception
+   * If a query fails, trow an database exception
    *
-   * @param \Papaya\Database\Interfaces\Statement $sql
+   * @param DatabaseStatement $sql
    * @return \Papaya\Database\Exception\QueryFailed
    */
-  private function _createQueryException(\Papaya\Database\Interfaces\Statement $sql) {
+  private function _createQueryException(DatabaseStatement $sql) {
     $errorCode = $this->_mysqli->errno;
     $errorMessage = $this->_mysqli->error;
     $severityMapping = array(
@@ -213,100 +249,6 @@ class dbcon_mysqli extends dbcon_base {
   }
 
   /**
-   * Execute MySQL-query
-   *
-   * @param string $sql SQL-String with query
-   * @param integer $max maximum number of returned records
-   * @param integer $offset Offset
-   * @param boolean $freeLastResult free last result (if here is one)
-   * @param boolean $enableCounter enable direct calculation of
-   *                               absolute record count for limited queries
-   * @return FALSE|int|\Papaya\Database\Result FALSE or number of affected_rows or database result object
-   * @throws \Papaya\Database\Exception\ConnectionFailed
-   * @throws \Papaya\Database\Exception\QueryFailed
-   * @access public
-   */
-  function query(
-    $sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE
-  ) {
-    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
-    $options = 0;
-    if (!$freeLastResult) {
-      $options |= self::KEEP_PREVIOUS_RESULT;
-    }
-    if ($enableCounter) {
-      $options |= self::REQUIRE_ABSOLUTE_COUNT;
-    }
-    $limitSQL = '';
-    $queryRowCount = FALSE;
-    if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      if ($enableCounter) {
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS '.substr(trim($sql), 6);
-        $queryRowCount = TRUE;
-      }
-      $limitSQL .= $this->syntax()->limit($max, $offset);
-    }
-    $this->lastSQLQuery = $sql.$limitSQL;
-    $result = $this->execute($sql.$limitSQL, $options);
-    if ($result instanceof \Papaya\Database\Result) {
-      $this->lastResult = $result;
-      $this->lastResult->setLimit($max, $offset);
-      if ($queryRowCount) {
-        $resCount = $this->execute('SELECT FOUND_ROWS()', self::KEEP_PREVIOUS_RESULT);
-        if ($resCount) {
-          $this->lastResult->setAbsCount((int)$resCount->fetchField());
-          $resCount->free();
-        }
-      }
-    }
-    return $result;
-  }
-
-  /**
-  * Insert record into table
-  *
-  * @param string $table table
-  * @param string $idField primary key value
-  * @param array $values insert values
-  * @access public
-  * @return mixed FALSE or Id of new record
-  */
-  function insertRecord($table, $idField, $values = NULL) {
-    if (isset($idField)) {
-      $values[$idField] = NULL;
-    }
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $fieldString = '';
-      $valueString = '';
-      foreach ($values as $field => $value) {
-        if (isset($idField) && $idField == $field) {
-          continue;
-        }
-        $fieldString .= $this->escapeString($field).', ';
-        if ($value === NULL) {
-          $valueString .= "NULL, ";
-        } elseif (is_bool($value)) {
-          $valueString .= "'".($value ? '1' : '0')."', ";
-        } else {
-          $valueString .= "'".$this->escapeString($value)."', ";
-        }
-      }
-      $fieldString = substr($fieldString, 0, -2);
-      $valueString = substr($valueString, 0, -2);
-      $sql = 'INSERT INTO '.$this->escapeString($table).' ('.$fieldString.') VALUES ('.
-        $valueString.')';
-      if ($this->query($sql, NULL, NULL, FALSE)) {
-        if (isset($idField)) {
-          return $this->lastInsertId($table, $idField);
-        } else {
-          return $this->_mysqli->affected_rows;
-        }
-      }
-    }
-    return FALSE;
-  }
-
-  /**
   * Fetch the last inserted id
   *
   * @param string $table
@@ -314,111 +256,10 @@ class dbcon_mysqli extends dbcon_base {
   * @return string|int|null
   */
   public function lastInsertId($table, $idField) {
-    if ($result = $this->execute('SELECT LAST_INSERT_ID()', self::KEEP_PREVIOUS_RESULT)) {
+    if ($result = $this->execute('SELECT LAST_INSERT_ID()', self::DISABLE_RESULT_CLEANUP)) {
       return $result->fetchField();
     }
     return NULL;
-  }
-
-  /**
-  * Insert records into table
-  *
-  * @param string $table
-  * @param array $values
-  * @access public
-  * @return boolean
-  */
-  function insertRecords($table, $values) {
-    $baseSQL = 'INSERT INTO '.$this->escapeString($table).' ';
-    $valueString = '';
-    $lastFields = NULL;
-    $maxQuerySize = 524288;
-    $this->lastSQLQuery = '';
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      foreach ($values as $data) {
-        if (is_array($data) && count($data) > 0) {
-          $fields = array();
-          $valueData = array();
-          foreach ($data as $key => $val) {
-            $fields[] = $this->escapeString($key);
-            $valueData[] = $this->escapeString($val);
-          }
-          if (!isset($lastFields)) {
-            $valueString = "('".implode("','", $valueData)."'), ";
-            $lastFields = $fields;
-          } elseif (strlen($valueString) > $maxQuerySize) {
-            if (trim($valueString) != '') {
-              $sql = $baseSQL."(".implode(",", $lastFields).") VALUES ".
-                substr($valueString, 0, -2);
-              if (FALSE === $this->query($sql)) {
-                return FALSE;
-              }
-            }
-            $valueString = "('".implode("','", $valueData)."'), ";
-            $lastFields = $fields;
-          } elseif (count(array_diff($fields, $lastFields)) == 0) {
-            $valueString .= "('".implode("','", $valueData)."'), ";
-          } else {
-            if (trim($valueString) != '') {
-              $sql = $baseSQL."(".implode(",", $lastFields).") VALUES ".
-                substr($valueString, 0, -2);
-              if (FALSE === $this->query($sql)) {
-                return FALSE;
-              }
-            }
-            $valueString = "('".implode("','", $valueData)."'), ";
-            $lastFields = $fields;
-          }
-        }
-      }
-      if (trim($valueString) != '') {
-        $sql = $baseSQL."(".implode(",", $lastFields).") VALUES ".
-          substr($valueString, 0, -2);
-        if (FALSE !== $this->query($sql)) {
-          return TRUE;
-        }
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-  * Update records via filter
-  *
-  * @param string $table table name
-  * @param array $values update values
-  * @param string $filter Filter string without WHERE condition
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  * @see dbcon_base::getSQLCondition()
-  */
-  function updateRecord($table, $values, $filter) {
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $sql = '';
-      foreach ($values as $col => $val) {
-        $fieldName = trim($col);
-        if (preg_match('/[^`]+/', $fieldName)) {
-          if ($val === NULL) {
-            $sql .= " ".$this->escapeString($fieldName)." = NULL, ";
-          } elseif (is_bool($val)) {
-            $sql .= " ".$this->escapeString($fieldName)." = '".($val ? '1' : '0')."', ";
-          } else {
-            $sql .= " ".$this->escapeString($fieldName)." = '".$this->escapeString($val)."', ";
-          }
-        }
-      }
-      if (!empty($sql)) {
-        $sql = "UPDATE ".$this->escapeString($table)." SET ".substr($sql, 0, -2).
-          " WHERE ".$this->getSQLCondition($filter);
-        $this->lastSQLQuery = $sql;
-        return $this->query($sql, NULL, NULL, FALSE);
-      } else {
-        $this->lastSQLQuery = 'NO VALID DATA';
-      }
-    } else {
-      $this->lastSQLQuery = 'NO DATA';
-    }
-    return FALSE;
   }
 }
 
@@ -508,7 +349,7 @@ class dbresult_mysqli extends dbresult_base {
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     $dbmsResult = $res = $this->connection->execute(
-      $explainQuery, \Papaya\Database\Interfaces\Connection::KEEP_LAST_QUERY
+      $explainQuery, \Papaya\Database\Connection::KEEP_LAST_QUERY
     );
     if ($dbmsResult && count($dbmsResult) > 0) {
       $explain = new \Papaya\Message\Context\Table('Explain');

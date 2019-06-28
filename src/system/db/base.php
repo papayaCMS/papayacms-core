@@ -42,7 +42,7 @@ if (!defined("DB_FETCHMODE_ASSOC")) {
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class dbcon_base extends Papaya\Database\Connection {
+abstract class dbcon_base extends Database\Connection\AbstractConnection {
 
   /**
   * @var object dbresult_base $lastResult last database result
@@ -64,46 +64,6 @@ abstract class dbcon_base extends Papaya\Database\Connection {
     '(^\s*(?:SELECT.*?)(\bFROM\b.*)(?:\bORDER\s+BY.*)$)si',
     '(^\s*(?:SELECT.*?)(\bFROM\b.*)$)si'
   );
-
-  /**
-  * Escape a string for database sql
-  *
-  * @param mixed $literal Value to escape
-  * @return string escaped value.
-  */
-  public function escapeString($literal) {
-    if (is_bool($literal)) {
-      return $literal ? 1 : 0;
-    }
-    if (isset($literal)) {
-      return (string)$literal;
-    }
-    return '';
-  }
-
-  /**
-  * Eascpae and quote a string for the database sql
-  *
-  * @param mixed $literal Value to escape
-  * @return string escaped value.
-  */
-  public function quoteString($literal) {
-    return "'".$this->escapeString($literal)."'";
-  }
-
-  /**
-   * @param string $name
-   * @return string
-   */
-  public function quoteIdentifier($name) {
-    $result = strtolower(trim($name));
-    if (!preg_match('(^[a-z\\d_ ]+$)D', $result)) {
-      throw new \InvalidArgumentException(
-        "Invalid identifier name: $result"
-      );
-    }
-    return '"'.$result.'"';
-  }
 
   /**
    * Database request
@@ -132,12 +92,6 @@ abstract class dbcon_base extends Papaya\Database\Connection {
     ) {
       $this->lastResult->free();
     }
-  }
-
-  public function registerFunction($name, callable $function) {
-    throw new \LogicException(
-      sprintf('Not implemented: %s::registerFunction()', static::class)
-    );
   }
 
   /**
@@ -289,62 +243,6 @@ abstract class dbcon_base extends Papaya\Database\Connection {
         return $escapedField.' = '.$quoted;
       }
     }
-  }
-
-  /**
-  * Load a single record via filter
-  *
-  * @param string $table table name
-  * @param array $fields field names, select all fields if empty
-  * @param string $filter
-  * @return array|FALSE
-  */
-  function loadRecord($table, array $fields, $filter) {
-    $sql = "SELECT ";
-    if (count($fields) > 0) {
-      foreach ($fields as $fieldName) {
-        $sql .= $this->escapeString(trim($fieldName)).', ';
-      }
-      $sql = substr($sql, 0, -2);
-    } else {
-      $sql .= '*';
-    }
-    $sql .= " FROM ".$this->escapeString($table);
-    $sql .= " WHERE ".$this->getSQLCondition($filter);
-    if ($res = $this->query($sql, 1)) {
-      if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        return $row;
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-  * Change database records
-  *
-  * @param string $table Table
-  * @param array $values values
-  * @param string $filter condition
-  * @access public
-  * @return dbresult_base|boolean|integer false or number of affected_rows or
-  *                                                database result object
-  */
-  function updateRecord($table, $values, $filter) {
-    $this->lastSQLQuery = '';
-    return FALSE;
-  }
-
-  /**
-   * Delete records by filter
-   *
-   * @param string $table table name
-   * @param string $filter Filter string without WHERE condition
-   * @access public
-   * @return mixed FALSE or number of affected_rows or database result object
-   */
-  public function deleteRecord($table, $filter) {
-    $sql = 'DELETE FROM '.$this->quoteIdentifier($table).' WHERE '.$this->getSQLCondition($filter);
-    return $this->execute($sql, self::KEEP_PREVIOUS_RESULT);
   }
 }
 
@@ -553,25 +451,6 @@ class dbresult_base implements \Papaya\Database\Result {
       return $this->seek($count);
     }
     return FALSE;
-  }
-
-  /**
-  * Set record limiter
-  *
-  * @param integer $max data record limit
-  * @param integer $offset start index data record limit
-  * @return int
-  */
-  public function setLimit($max = NULL, $offset = NULL) {
-    if ($max > 0) {
-      $this->hasLimit = TRUE;
-      $this->limitMax = (int)$max;
-      $this->limitOffset = isset($offset) ? (int)$offset : NULL;
-    } else {
-      $this->hasLimit = FALSE;
-      unset($this->limitMax,$this->limitOffset);
-    }
-    return 0;
   }
 
   /**

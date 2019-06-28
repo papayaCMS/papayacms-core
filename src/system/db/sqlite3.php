@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Statement;
+
 /**
  * basic database connection and result class
  */
@@ -27,21 +29,9 @@ require_once __DIR__.'/base.php';
 class dbcon_sqlite3 extends dbcon_base {
 
   /**
-   * Connect error string
-   * @var string $connectErrorString
-   */
-  var $connectErrorString = '';
-
-  /**
    * @var SQLite3|NULL
    */
   private $_sqlite3;
-
-  /**
-   * Callbacks
-   * @var array $callbacks
-   */
-  var $callbacks = array();
 
   public function __construct(\Papaya\Database\Source\Name $dsn) {
     parent::__construct(
@@ -69,44 +59,43 @@ class dbcon_sqlite3 extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws \Papaya\Database\Exception\ConnectionFailed
-   * @return SQLite3 $this->databaseConnection connection ID
+   * @return \Papaya\Database\Connection
+   *@throws \Papaya\Database\Exception\ConnectionFailed
    */
   public function connect() {
     if (isset($this->_sqlite3) && ($this->_sqlite3 instanceof SQLite3)) {
-      return $this->_sqlite3;
-    } else {
-      try {
-        $fileName = $this->getDSN()->filename;
-        if (\substr($fileName, 0, 1) === '.') {
-          $fileName = \Papaya\Utility\File\Path::cleanup(
-            \Papaya\Utility\File\Path::getDocumentRoot().'../'.$fileName, FALSE
-          );
-        }
-        $this->_sqlite3 = new SQLite3($fileName);
-        $this->_sqlite3->enableExceptions(TRUE);
-        $this->_sqlite3->busyTimeout(10000);
-        $this->_sqlite3->exec('PRAGMA journal_mode = WAL');
-        return $this->_sqlite3;
-      } catch (\Exception $e) {
-        throw new \Papaya\Database\Exception\ConnectionFailed($e->getMessage());
+      return $this;
+    }
+    try {
+      $fileName = $this->getDSN()->filename;
+      if (0 === strpos($fileName, '.')) {
+        $fileName = \Papaya\Utility\File\Path::cleanup(
+          \Papaya\Utility\File\Path::getDocumentRoot().'../'.$fileName, FALSE
+        );
       }
+      $this->_sqlite3 = new \SQLite3($fileName);
+      $this->_sqlite3->enableExceptions(TRUE);
+      $this->_sqlite3->busyTimeout(10000);
+      $this->_sqlite3->exec('PRAGMA journal_mode = WAL');
+      return $this;
+    } catch (\Exception $e) {
+      throw new \Papaya\Database\Exception\ConnectionFailed($e->getMessage());
     }
   }
 
   /**
-   * @param \Papaya\Database\Interfaces\Statement|string $statement
+   * @param \Papaya\Database\Statement|string $statement
    * @param int $options
    * @return \Papaya\Database\Result|int
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
    */
   public function execute($statement, $options = 0) {
-    if (!Papaya\Utility\Bitwise::inBitmask(self::KEEP_PREVIOUS_RESULT, $options)) {
+    if (!Papaya\Utility\Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
       $this->cleanup();
     }
     $this->connect();
-    if (!$statement instanceof \Papaya\Database\Interfaces\Statement) {
+    if (!$statement instanceof Statement) {
       $statement = new \Papaya\Database\SQLStatement((string)$statement, []);
     }
     $dbmsResult = $this->process($statement);
@@ -116,17 +105,31 @@ class dbcon_sqlite3 extends dbcon_base {
     return $dbmsResult;
   }
 
-  private function process(\Papaya\Database\Interfaces\Statement $statement) {
-    $sql = $statement->getSQLString();
-    $parameters = $statement->getSQLParameters();
+  /**
+   * @param \Papaya\Database\Statement|string $statement
+   * @return bool|int|\SQLite3Result
+   * @throws \Papaya\Database\Exception\QueryFailed
+   */
+  private function process($statement) {
+    if ($statement instanceof Statement) {
+      $sql = $statement->getSQLString();
+      $parameters = $statement->getSQLParameters();
+    } else {
+      $sql = (string)$statement;
+      $parameters = [];
+    }
     $dbmsResult = FALSE;
-    if (empty($parameters)) {
-      $dbmsResult = @$this->_sqlite3->query($sql);
-    } elseif ($dbmsStatement = @$this->_sqlite3->prepare($sql)) {
-      foreach ($parameters as $position => $value) {
-        $dbmsStatement->bindValue($position + 1, $value, SQLITE3_TEXT);
+    try {
+      if (empty($parameters)) {
+        $dbmsResult = @$this->_sqlite3->query($sql);
+      } elseif ($dbmsStatement = @$this->_sqlite3->prepare($sql)) {
+        foreach ($parameters as $position => $value) {
+          $dbmsStatement->bindValue($position + 1, $value, SQLITE3_TEXT);
+        }
+        $dbmsResult = @$dbmsStatement->execute();
       }
-      $dbmsResult = @$dbmsStatement->execute();
+    } catch (Exception $e) {
+      throw $this->_createQueryException($statement);
     }
     if ($dbmsResult instanceof SQLite3Result) {
       return $dbmsResult;
@@ -153,10 +156,10 @@ class dbcon_sqlite3 extends dbcon_base {
   /**
    * If a query fails, throw an database exception
    *
-   * @param \Papaya\Database\Interfaces\Statement $statement
+   * @param \Papaya\Database\Statement $statement
    * @return \Papaya\Database\Exception\QueryFailed
    */
-  private function _createQueryException(\Papaya\Database\Interfaces\Statement $statement) {
+  private function _createQueryException(Statement $statement) {
     $errorCode = $this->_sqlite3->lastErrorCode();
     $errorMessage = $this->_sqlite3->lastErrorMsg();
     $severityMapping = array(
@@ -189,82 +192,11 @@ class dbcon_sqlite3 extends dbcon_base {
    * @return string escaped value.
    */
   function escapeString($value) {
+    $this->connect();
     $value = parent::escapeString($value);
     return $this->_sqlite3->escapeString($value);
   }
 
-  /**
-   * Execute SQLite-query
-   *
-   * @param string $sql SQL-String with query
-   * @param integer $max maximum number of returned records
-   * @param integer $offset Offset
-   * @param boolean $freeLastResult free last result (if here is one)
-   * @param boolean $enableCounter free last result (if here is one)
-   * @access public
-   * @return mixed FALSE or number of affected_rows or database result object
-   * @throws \Papaya\Database\Exception\QueryFailed
-   * @throws \Papaya\Database\Exception\ConnectionFailed
-   */
-  function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = FALSE) {
-    parent::query($sql, $max, $offset, $freeLastResult, $enableCounter);
-    if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
-      $limitSQL = $this->syntax()->limit($max, $offset);
-    } else {
-      $limitSQL = '';
-    }
-    $this->lastSQLQuery = $sql.$limitSQL;
-    $result = $this->execute($sql.$limitSQL);
-    if ($result instanceof \Papaya\Database\Result) {
-      $this->lastResult = $result;
-      $this->lastResult->setLimit($max, $offset);
-      return $this->lastResult;
-    }
-    return $result;
-  }
-
-  /**
-   * Insert record into table
-   *
-   * @param string $table table
-   * @param string $idField primary key value
-   * @param array $values insert values
-   * @access public
-   * @return mixed FALSE or Id of new record
-   */
-  function insertRecord($table, $idField, $values = NULL) {
-    if (isset($idField)) {
-      $values[$idField] = NULL;
-    }
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $fieldString = '';
-      $valueString = '';
-      foreach ($values as $field => $value) {
-        if (is_bool($value)) {
-          $fieldString .= $this->escapeString($field).', ';
-          $valueString .= "'".($value ? '1' : '0')."', ";
-        } elseif ($value !== NULL) {
-          $fieldString .= $this->escapeString($field).', ';
-          $valueString .= "'".$this->escapeString($value)."', ";
-        } elseif ($field == $idField) {
-          $fieldString .= $this->escapeString($field).', ';
-          $valueString .= "NULL, ";
-        }
-      }
-      $fieldString = substr($fieldString, 0, -2);
-      $valueString = substr($valueString, 0, -2);
-      $sql = 'INSERT INTO '.$this->escapeString($table).
-        ' ('.$fieldString.') VALUES ('.$valueString.')';
-      if ($this->query($sql, NULL, NULL, FALSE)) {
-        if (isset($idField)) {
-          return $this->lastInsertId($table, $idField);
-        } else {
-          return $this->_sqlite3->changes();
-        }
-      }
-    }
-    return FALSE;
-  }
   /**
    * Fetch the last inserted id
    *
@@ -276,67 +208,12 @@ class dbcon_sqlite3 extends dbcon_base {
     return $this->_sqlite3->lastInsertRowID();
   }
 
-
   /**
-   * Insert records
-   *
-   * @param string $table
-   * @param array $values
-   * @access public
-   * @return boolean
+   * @param string $name
+   * @param callable $function
    */
-  function insertRecords($table, $values) {
-    $lastFields = NULL;
-    $this->lastSQLQuery = '';
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $this->query('BEGIN TRANSACTION;');
-      foreach ($values as $data) {
-        if (is_array($data) && count($data) > 0) {
-          if (!$this->insertRecord($table, NULL, $data)) {
-            return FALSE;
-          }
-        }
-      }
-      $this->query('END TRANSACTION;');
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-  /**
-   * Update records via filter
-   *
-   * @param string $table table name
-   * @param array $values update values
-   * @param string $filter Filter string without WHERE condition
-   * @access public
-   * @return mixed FALSE or number of affected_rows or database result object
-   * @see dbcon_base::getSQLCondition()
-   */
-  function updateRecord($table, $values, $filter) {
-    if (isset($values) && is_array($values) && count($values) > 0) {
-      $sql = FALSE;
-      foreach ($values as $col => $val) {
-        $fieldName = trim($col);
-        if ($val === NULL) {
-          $sql .= " ".$this->escapeString($fieldName)." = NULL, ";
-        } elseif (is_bool($val)) {
-          $sql .= " ".$this->escapeString($fieldName)." = '".($val ? '1' : '0')."', ";
-        } else {
-          $sql .= " ".$this->escapeString($fieldName)." = '".$this->escapeString($val)."', ";
-        }
-      }
-      if ($sql) {
-        $sql = "UPDATE $table SET ".substr($sql, 0, -2)." WHERE ".
-          $this->getSQLCondition($filter);
-        return $this->query($sql, NULL, NULL, FALSE);
-      } else {
-        $this->lastSQLQuery = 'NO DATA';
-      }
-    } else {
-      $this->lastSQLQuery = '';
-    }
-    return FALSE;
+  public function registerFunction($name, callable $function) {
+    $this->_sqlite3->createFunction($name, $function);
   }
 }
 
@@ -457,7 +334,7 @@ class dbresult_sqlite3 extends dbresult_base {
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     $result = $this->connection->execute(
-      $explainQuery, \Papaya\Database\Interfaces\Connection::KEEP_PREVIOUS_RESULT
+      $explainQuery, \Papaya\Database\Connection::DISABLE_RESULT_CLEANUP
     );
     if ($result && count($result) > 0) {
       $explain = new \Papaya\Message\Context\Table('Explain');

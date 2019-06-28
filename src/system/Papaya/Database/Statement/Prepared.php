@@ -15,6 +15,8 @@
 namespace Papaya\Database\Statement {
 
   use Papaya\Database;
+  use Papaya\Database\Connection;
+  use Papaya\Database\Statement;
 
   /**
    * A client side prepared statement. All parameters have to be named.
@@ -35,7 +37,7 @@ namespace Papaya\Database\Statement {
    * @package Papaya\Database\Statement
    */
   class Prepared
-    extends Database\ExecutableStatement {
+    extends ExecutableStatement {
 
     /**
      * @var string
@@ -52,8 +54,8 @@ namespace Papaya\Database\Statement {
      */
     private $_compiled;
 
-    public function __construct(Database\Access $databaseAccess, $sql) {
-      parent::__construct($databaseAccess);
+    public function __construct(Connection $databaseConnection, $sql) {
+      parent::__construct($databaseConnection);
       $this->_sql = $sql;
     }
 
@@ -69,7 +71,7 @@ namespace Papaya\Database\Statement {
      * @return array
      */
     public function getSQLParameters() {
-      if (!$this->_compiled instanceof Database\SQLStatement) {
+      if (!$this->_compiled instanceof Statement) {
         $this->_compiled = $this->compile(TRUE);
       }
       return $this->_compiled->getSQLParameters();
@@ -77,7 +79,7 @@ namespace Papaya\Database\Statement {
 
     /**
      * @param bool $allowPrepared
-     * @return \Papaya\Database\SQLStatement
+     * @return \Papaya\Database\Statement
      */
     private function compile($allowPrepared) {
       $quoteCharacters = ["'", '"', '`'];
@@ -227,7 +229,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $value,
         function($value) {
-          return $this->_databaseAccess->quoteString((string)$value);
+          return $this->getDatabaseConnection()->quoteString((string)$value);
         },
         TRUE
       );
@@ -244,7 +246,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $values,
         function($value) {
-          return $this->_databaseAccess->quoteString((string)$value);
+          return $this->getDatabaseConnection()->quoteString((string)$value);
         },
         TRUE
       );
@@ -334,7 +336,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         NULL,
         function() use ($limit, $offset) {
-          return $this->_databaseAccess->getSqlSource('LIMIT', [$limit, $offset]);
+          return $this->getDatabaseConnection()->syntax()->limit($limit, $offset);
         },
         FALSE
       );
@@ -352,8 +354,8 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $tableName,
         function($tableName) use ($usePrefix) {
-          return $this->_databaseAccess->quoteIdentifier(
-            $this->_databaseAccess->getTableName($tableName, $usePrefix)
+          return $this->getDatabaseConnection()->quoteIdentifier(
+            $this->getDatabaseConnection()->getTableName($tableName, $usePrefix)
           );
         },
         FALSE

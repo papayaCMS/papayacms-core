@@ -33,7 +33,7 @@ class db_simpleTest extends \Papaya\TestCase {
     $connection = new DbConnection_TestProxy($dsn);
 
     $db = new db_simple();
-    $db->databaseObjects = array(
+    $db->_databaseObjects = array(
       'read' => $connection,
       'write' => $connection,
     );
@@ -85,5 +85,22 @@ class DbConnection_TestProxy extends dbcon_base {
 
   public function disconnect() {
     return FALSE;
+  }
+
+  /**
+   * @param \Papaya\Database\Statement|string $statement
+   * @param int $options
+   * @return mixed
+   */
+  public function execute($statement, $options = 0) {
+    // TODO: Implement execute() method.
+  }
+
+  public function insertRecord($table, $identifierField, $values) {
+    // TODO: Implement insertRecord() method.
+  }
+
+  public function insertRecords($table, $values) {
+    // TODO: Implement insertRecords() method.
   }
 }

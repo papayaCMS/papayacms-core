@@ -13,139 +13,225 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Connection as DatabaseConnection;
+use Papaya\Database\Statement as DatabaseStatement;
+use Papaya\Utility\Bitwise;
+
 /**
-* DB - abstraction layer
-*
-* @package Papaya
-* @subpackage Database
-*/
+ * DB - abstraction layer
+ *
+ * @package Papaya
+ * @subpackage Database
+ */
 class db_simple extends base_object {
 
+  const MODE_READ = 'read';
+  const MODE_WRITE = 'write';
+
+  private static $_connectionClasses = [
+    'mysql' => dbcon_mysqli::class,
+    'mysqli' => dbcon_mysqli::class,
+    'pgsql' => dbcon_mysqli::class,
+    'sqlite' => dbcon_sqlite3::class,
+    'sqlite3' => dbcon_sqlite3::class
+  ];
+
   /**
-  * Id to keep track of requests for query log
-  * @var string $requestId
-  */
+   * Id to keep track of requests for query log
+   *
+   * @var string $requestId
+   */
   private static $requestId = '';
 
   /**
-  * Internal absolute query counter
-  * @var integer
-  */
+   * Internal absolute query counter
+   *
+   * @var integer
+   */
   private static $queryCounterClass = 0;
 
   /**
-  * counter for queries using this object
-  * @var integer $queryCounterObject
-  */
+   * counter for queries using this object
+   *
+   * @var integer $queryCounterObject
+   */
   private $queryCounterObject = 0;
 
   /**
-  * database URI
-  * @var array:string $databaseURIs
-  */
-  var $databaseURIs = array(
-    'read' => '',
-    'write' => ''
-  );
+   * database URI
+   *
+   * @var array:string $databaseURIs
+   */
+  var $databaseURIs = [
+    self::MODE_READ => '',
+    self::MODE_WRITE => ''
+  ];
 
   /**
-  * database configuration
-  * @var array:string $databaseConfiguration
-  */
-  var $databaseConfiguration = array(
-    'read' => NULL,
-    'write' => NULL
-  );
+   * database configuration
+   *
+   * @var \Papaya\Database\Source\Name[] $databaseConfiguration
+   */
+  var $databaseConfiguration = [
+    self::MODE_READ => NULL,
+    self::MODE_WRITE => NULL
+  ];
 
   /**
-  * database connection for selects
-  * @var array:dbcon_base $databaseObjects
-  */
-  var $databaseObjects = array(
-    'read' => NULL,
-    'write' => NULL
-  );
-
-
-  /**
-  * database
-  * @var string $dbsyntaxArr
-  */
-  var $dbsyntaxArr = array('mysql', 'mysqli', 'pgsql', 'sqlite');
+   * database connection for selects
+   *
+   * @var \Papaya\Database\Connection[] $databaseObjects
+   */
+  private $_databaseObjects = [
+    self::MODE_READ => NULL,
+    self::MODE_WRITE => NULL
+  ];
 
   /**
-  * time spent on queries using this object
-  * (Needs PAPAYA_DBG_DATABASE_EXPLAIN or PAPAYA_DBG_DATABASE_SLOWQUERIES activated.)
-  * @var float $querytimeSum
-  */
-  var $queryTimeSum = 0;
+   * time spent on queries using this object
+   * (Needs PAPAYA_DBG_DATABASE_EXPLAIN or PAPAYA_DBG_DATABASE_SLOWQUERIES activated.)
+   *
+   * @var float $querytimeSum
+   */
+  private $_queryTimeSum = 0;
 
   /**
-  * Debug the next n queries
-  * @var integer $debugCounter
-  */
-  var $debugCounter = 0;
+   * Debug the next n queries
+   *
+   * @var integer $debugCounter
+   */
+  private $debugCounter = 0;
 
   /**
-  * Enable Calculation of absolute records for the next n Queries.
-  * @var integer $enableAbsoluteCounter
-  */
-  var $enableAbsoluteCounter = 0;
+   * Enable Calculation of absolute records for the next n Queries.
+   *
+   * @var integer $_enableAbsoluteCounter
+   */
+  private $_enableAbsoluteCounter = 0;
 
   /**
-  *
-  * @var boolean $databaseDataModified
-  */
-  var $dataModified = FALSE;
-
-  /**
-  *
-  * @var boolean $databaseStatusMasterOnly
-  */
-  var $useMasterOnly = FALSE;
+   *
+   * @var boolean $databaseStatusMasterOnly
+   */
+  private $_useMasterOnly = FALSE;
 
   /**
    * @var bool
    */
   private $_dataModified = FALSE;
 
-
   /**
-  * connect to database
-  *
-  * @param object|\Papaya\Database\Access $object calling object
-  * @param boolean $readOnly use read connection
-  * @return dbcon_base
-  */
-  function connect($object, $readOnly = TRUE) {
-    $mode = ($readOnly) ? 'read' : 'write';
-    if (!(
-          isset($this->databaseObjects[$mode]) &&
-          is_object($this->databaseObjects[$mode]) &&
-          $this->getConnection($mode)->connect(NULL, $readOnly)
-        )) {
-      $this->createConnection($object, $readOnly);
+   * @param string $mode
+   * @return \Papaya\Database\Source\Name
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  private function getDSN($mode = self::MODE_READ) {
+    if (isset($this->databaseConfiguration[$mode])) {
+      return $this->databaseConfiguration[$mode];
     }
-    if (!(isset($this->databaseObjects[$mode]) && is_object($this->databaseObjects[$mode]))) {
-      unset($this->databaseObjects[$mode]);
-      return FALSE;
-    } elseif ($this->getConnection($mode)->isExtensionAvailable()) {
-      return $this->getConnection($mode)->connect(NULL, $readOnly);
-    } else {
-      unset($this->databaseObjects[$mode]);
-      return FALSE;
+    if ($mode !== self::MODE_READ) {
+      if (
+        isset($this->databaseURIs[$mode]) &&
+        $this->databaseURIs[$mode] !== 'PAPAYA_DB_URI_WRITE' &&
+        $this->databaseURIs[$mode] !== $this->databaseURIs[self::MODE_READ] &&
+        trim($this->databaseURIs[$mode]) !== ''
+      ) {
+        return $this->databaseConfiguration[$mode] = new \Papaya\Database\Source\Name(
+          $this->databaseURIs[$mode]
+        );
+      }
+      if (isset($this->databaseConfiguration[self::MODE_READ])) {
+        return $this->databaseConfiguration[$mode] = $this->databaseConfiguration[self::MODE_READ];
+      }
     }
+    return
+      $this->databaseConfiguration[$mode] =
+      $this->databaseConfiguration[self::MODE_READ] =
+        new \Papaya\Database\Source\Name($this->databaseURIs[self::MODE_READ]);
   }
 
   /**
-  * Close database connection
-  * @return void
-  */
-  function close() {
+   * Fetch connection for use
+   *
+   * @param string $mode
+   * @return \Papaya\Database\Connection
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  private function getConnection($mode = self::MODE_READ) {
+    if (isset($this->_databaseObjects[$mode])) {
+      return $this->_databaseObjects[$mode];
+    }
+    $configuration = $this->getDSN($mode);
+    if (
+      $mode !== self::MODE_READ &&
+      isset($this->_databaseObjects[self::MODE_READ]) &&
+      $configuration === $this->getDSN()
+    ) {
+      return $this->_databaseObjects[$mode] = $this->_databaseObjects[self::MODE_READ];
+    }
+    return isset($this->_databaseObjects[$mode])
+      ? $this->_databaseObjects[$mode] : $this->createConnection($configuration);
+  }
+
+  /**
+   * @param \Papaya\Database\Source\Name $dsn
+   * @return \Papaya\Database\Connection
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  private function createConnection($dsn) {
+    $className = isset(self::$_connectionClasses[$dsn->api])
+      ? self::$_connectionClasses[$dsn->api] : '';
+    if ($className) {
+      if (defined('PAPAYA_DBG_DEVMODE') && PAPAYA_DBG_DEVMODE) {
+        $found = class_exists($className);
+      } else {
+        $found = @class_exists($className);
+      }
+      if ($found) {
+        return new $className($dsn);
+      }
+      throw new \Papaya\Database\Exception\ConnectionFailed(
+        sprintf(
+          'Connection class "%s" could not be loaded.', $dsn->api
+        )
+      );
+    }
+    throw new \Papaya\Database\Exception\ConnectionFailed(
+      sprintf(
+        'No connection class for API "%s" defined.', $dsn->api
+      )
+    );
+  }
+
+
+  /**
+   * connect to database
+   *
+   * @param boolean $readOnly use read connection
+   * @return \Papaya\Database\Connection
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function connect($readOnly = TRUE) {
+    $mode = $readOnly ? self::MODE_READ : self::MODE_WRITE;
+    $connection = $this->getConnection($mode);
+    if ($connection->isExtensionAvailable() && $connection->connect()) {
+      return $connection;
+    }
+    throw new \Papaya\Database\Exception\ConnectionFailed(
+      sprintf('Could not connect to database.')
+    );
+  }
+
+  /**
+   * Close database connection
+   *
+   * @return void
+   */
+  public function disconnect() {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE)) {
-      if ($this->queryTimeSum > 0) {
-        $message = 'Database Query Count: '.(int)$this->queryCounterObject. ' in '.
-          \Papaya\Utility\Date::periodToString($this->queryTimeSum);
+      if ($this->_queryTimeSum > 0) {
+        $message = 'Database Query Count: '.(int)$this->queryCounterObject.' in '.
+          \Papaya\Utility\Date::periodToString($this->_queryTimeSum);
       } else {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject;
       }
@@ -157,170 +243,95 @@ class db_simple extends base_object {
         )
       );
     }
-    if ($connection = $this->getConnection('read')) {
-      $connection->disconnect();
-    }
-    if ($connection = $this->getConnection('write')) {
+    foreach ($this->_databaseObjects as $connection) {
       $connection->disconnect();
     }
   }
 
   /**
-   * establish connection
+   * Debug next query, set debug counter
    *
-   * @param object $object calling object
-   * @param bool $readOnly
-   * @throws \Papaya\Database\Exception\ConnectionFailed
-   * @return boolean Success
+   * @param integer $count optional, default value 1
+   * @access public
    */
-  function createConnection($object, $readOnly = TRUE) {
-    $mode = ($readOnly) ? 'read' : 'write';
-    if ((!$readOnly) &&
-        isset($this->databaseURIs['write']) &&
-        trim($this->databaseURIs['write']) != '' &&
-        $this->databaseURIs['write'] != 'PAPAYA_DB_URI_WRITE' &&
-        $this->databaseURIs['write'] != $this->databaseURIs['read']) {
-      $uriString = $this->databaseURIs['write'];
-    } elseif (!$readOnly &&
-              isset($this->databaseObjects['read']) &&
-              is_object($this->databaseObjects['read'])) {
-      $this->databaseObjects['write'] = $this->databaseObjects['read'];
-      $uriString = $this->databaseURIs['read'];
-    } else {
-      $uriString = $this->databaseURIs['read'];
-    }
-    $this->databaseConfiguration[$mode] = new \Papaya\Database\Source\Name($uriString);
-    if (isset($this->databaseObjects[$mode]) &&
-        is_object($this->databaseObjects[$mode])) {
-      if ($this->getConnection($mode)->isExtensionAvailable()) {
-        $this->getConnection($mode)->connect();
-        return TRUE;
-      }
-    } else {
-      $className = 'dbcon_'.$this->databaseConfiguration[$mode]->api;
-      if (defined('PAPAYA_DBG_DEVMODE') && PAPAYA_DBG_DEVMODE) {
-          $found = class_exists($className);
-      } else {
-        $found = @class_exists($className);
-      }
-      if ($found) {
-        $this->databaseObjects[$mode] = new $className($this->databaseConfiguration[$mode]);
-        $this->getConnection($mode)->isExtensionAvailable();
-        $this->getConnection($mode)->connect($object);
-      } else {
-        throw new \Papaya\Database\Exception\ConnectionFailed(
-          sprintf(
-            'Abstraction "%s" could not be loaded.',
-            $this->databaseConfiguration[$mode]->api
-          )
-        );
-      }
-    }
-    return FALSE;
-  }
-
-  /**
-  * Debug next query, set debug counter
-  *
-  * @param object $object calling object
-  * @param integer $count optional, default value 1
-  * @access public
-  */
-  function debugNextQuery($object, $count = 1) {
+  public function debugNextQuery($count = 1) {
     $this->debugCounter = $count;
   }
 
   /**
-  * Calculate the absolute record count for the next query (if limited).
-  *
-  * @param object $object calling object
-  * @access public
-  * @return void
-  */
-  function enableAbsoluteCount($object) {
-    $this->enableAbsoluteCounter = 1;
+   * Calculate the absolute record count for the next query (if limited).
+   *
+   * @access public
+   * @return void
+   */
+  public function enableAbsoluteCount() {
+    $this->_enableAbsoluteCounter = 1;
   }
 
   /**
-  * Escape value / string
-  *
-  * @param object $object calling object
-  * @param mixed $value value to escape
-  * @param boolean $readOnly use read connection
-  * @access public
-  * @return string
-  */
-  function escapeString($object, $value, $readOnly = TRUE) {
-    $this->connect($object, $readOnly);
-    $mode = ($readOnly) ? 'read' : 'write';
-    return $this->getConnection($mode)->escapeString($value);
+   * Escape value / string
+   *
+   * @param mixed $value value to escape
+   * @param boolean $readOnly use read connection
+   * @return string
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function escapeString($value, $readOnly = TRUE) {
+    if ($connection = $this->connect($readOnly)) {
+      return $connection->escapeString($value);
+    }
+    return '';
   }
 
   /**
-  * Escape and quote value / string
-  *
-  * @param object $object calling object
-  * @param mixed $value value to escape
-  * @param boolean $readOnly use read connection
-  * @access public
-  * @return string
-  */
-  function quoteString($object, $value, $readOnly = TRUE) {
-    $this->connect($object, $readOnly);
-    $mode = ($readOnly) ? 'read' : 'write';
-    return $this->getConnection($mode)->quoteString($value);
+   * Escape and quote value / string
+   *
+   * @param mixed $value value to escape
+   * @param boolean $readOnly use read connection
+   * @return string
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function quoteString($value, $readOnly = TRUE) {
+    if ($connection = $this->connect($readOnly)) {
+      return $connection->quoteString($value);
+    }
   }
 
-  /**
-  * Process a query
-  *
-  * @param object $object calling object
-  * @param string $sql
-  * @param integer $max limit data sets
-  * @param integer $offset limit data sets - Start
-  * @param boolean $readOnly optional, default TRUE
-  * @access public
-  * @return boolean|integer|dbresult_base on failure FALSE; on success a
-  *   database result object or number of affected rows or TRUE if the number
-  *   of affected rows is 0
-  */
-  function query($object, $sql, $max = NULL, $offset = NULL, $readOnly = TRUE) {
-    return $this->_executeQuery($object, $sql, $max, $offset, $readOnly);
-  }
 
   /**
-  * Process a query
-  *
-  * @param object $object calling object
-  * @param string $sql
-  * @param integer $max limit data sets
-  * @param integer $offset limit data sets - Start
-  * @param boolean $readOnly optional, default TRUE
-  * @access public
-  * @return boolean|integer|dbresult_base on failure FALSE; on success a
-  *   database result object or number of affected rows or TRUE if the number
-  *   of affected rows is 0
-  */
-  private function _executeQuery($object, $sql, $max = NULL, $offset = NULL, $readOnly = TRUE) {
+   * @param string|DatabaseStatement $statement
+   * @param int $options
+   * @return mixed
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function execute($statement, $options = DatabaseConnection::EMPTY_OPTIONS) {
     $error = NULL;
     //global query counter
     self::$queryCounterClass++;
     //object query counter
     $this->queryCounterObject++;
 
-    $options = $this->papaya()->options;
+    $settings = $this->papaya()->options;
 
     $measureTime = FALSE;
-    if ($this->debugCounter > 0 ||
-        $options->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE) ||
-        $options->get('PAPAYA_LOG_DATABASE_QUERY', 0) > 0 ||
-        $options->get('PAPAYA_QUERYLOG', 0) > 0) {
+    if (
+      $this->debugCounter > 0 ||
+      $settings->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE) ||
+      $settings->get('PAPAYA_LOG_DATABASE_QUERY', 0) > 0 ||
+      $settings->get('PAPAYA_QUERYLOG', 0) > 0
+    ) {
       $measureTime = TRUE;
     }
 
-    $mode = ($readOnly) ? 'read' : 'write';
-    $this->connect($object, $readOnly);
-    if ($readOnly && $options->get('PAPAYA_LOG_DATABASE_CLUSTER_VIOLATIONS', FALSE)) {
+    $readOnly = Bitwise::inBitmask(
+      DatabaseConnection::FORCE_WRITE_CONNECTION, $options
+    );
+    $mode = $readOnly ? self::MODE_READ : self::MODE_WRITE;
+    $this->connect($readOnly);
+
+    $sql = (string)$statement;
+
+    if ($readOnly && $settings->get('PAPAYA_LOG_DATABASE_CLUSTER_VIOLATIONS', FALSE)) {
       if (preg_match('~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql)) {
         $logMessage = new \Papaya\Message\Log(
           \Papaya\Message\Logable::GROUP_DATABASE,
@@ -334,46 +345,56 @@ class db_simple extends base_object {
         $this->papaya()->messages->dispatch($logMessage);
       }
     }
-    if ($this->enableAbsoluteCounter > 0) {
-      $enableAbsoluteCounter = TRUE;
-      $this->enableAbsoluteCounter--;
-    } else {
-      $enableAbsoluteCounter = FALSE;
+    if ($this->_enableAbsoluteCounter > 0) {
+      $options |= DatabaseConnection::REQUIRE_ABSOLUTE_COUNT;
+      $this->_enableAbsoluteCounter--;
     }
     $timeStart = microtime(TRUE);
-    $result = $this->getConnection($mode)->query(
-      $sql, $max, $offset, TRUE, $enableAbsoluteCounter
-    );
-    if ($measureTime) {
-      $this->_logQueryExecution(
-        $timeStart,
-        array(
-          'object' => $object,
-          'sql' => $sql,
-          'max' => $max,
-          'offset' => $offset,
-          'readOnly' => $readOnly,
-          'result' => $result
-        )
-      );
-    }
-    if (is_int($result) && $result == 0) {
-      return TRUE;
-    } else {
+    if ($connection = $this->connect($readOnly)) {
+      $result = $connection->execute($statement, $options);
+      if ($measureTime) {
+        $this->_logQueryExecution(
+          $timeStart,
+          [
+            'sql' => $sql,
+            'readOnly' => $readOnly,
+            'result' => $result
+          ]
+        );
+      }
+      if (is_int($result) && $result === 0) {
+        return TRUE;
+      }
       return $result;
     }
+    return FALSE;
   }
 
   /**
-  * Log query to message system and/or query log
-  *
-  * @param float $timeStart
-  * @param array $query
-  */
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function schema() {
+    $this->connect(FALSE)->schema();
+  }
+
+  /**
+   * @param bool $readOnly
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function syntax($readOnly = TRUE) {
+    $this->connect($readOnly)->syntax();
+  }
+
+  /**
+   * Log query to message system and/or query log
+   *
+   * @param float $timeStart
+   * @param array $query
+   */
   private function _logQueryExecution($timeStart, $query) {
     $timeStop = microtime(TRUE);
     $timeDelta = ($timeStop - $timeStart);
-    $this->queryTimeSum += $timeDelta;
+    $this->_queryTimeSum += $timeDelta;
     $dispatchLogMessage = FALSE;
     $dispatchLogMessageDetails = FALSE;
     $populateQueryLog = FALSE;
@@ -468,7 +489,7 @@ class db_simple extends base_object {
           $logMessage->context()->append(new \Papaya\Message\Context\Text($counter));
         }
         $logMessage->context()->append(
-          new \Papaya\Message\Context\Variable(array('sql' => $query['sql']), 3, 99999)
+          new \Papaya\Message\Context\Variable(['sql' => $query['sql']], 3, 99999)
         );
         if ($dispatchLogMessageDetails) {
           $logMessage->context()->append($backtrace);
@@ -480,19 +501,19 @@ class db_simple extends base_object {
       }
       if ($populateQueryLog) {
         if (empty(self::$requestId)) {
-          self::$requestId = md5(uniqid(rand()));
+          self::$requestId = md5(uniqid(mt_rand(), TRUE));
         }
-        $logData = array(
+        $logData = [
           'query_request' => self::$requestId,
           'query_timestamp' => time(),
           'query_class' => get_class($query['object']),
           'query_count' => self::$queryCounterClass,
-          'query_conn' => $query['readOnly'] ? 'read' : 'write',
+          'query_conn' => $query['readOnly'] ? self::MODE_READ : self::MODE_WRITE,
           'query_time' => $timeDelta * 1000,
           'query_content' => $query['sql'],
           'query_hash' => md5($query['sql']),
           'query_uri' => empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'],
-        );
+        ];
         if ($query['result'] instanceof \Papaya\Database\Result) {
           $logData['query_records'] = $query['result']->count();
           if (isset($query['max'])) {
@@ -507,9 +528,13 @@ class db_simple extends base_object {
           if (isset($explain) && $explain instanceof \Papaya\Message\Context\Interfaces\Text) {
             $logData['query_explain'] = $explain->asString();
           }
-        }
+        };
         try {
-          $this->insertRecord($this, PAPAYA_DB_TBL_LOG_QUERIES, NULL, $logData);
+          $this->insertRecord(
+            $this->getTableName(\Papaya\Content\Tables::LOG_DATABASE_QUERIES, TRUE),
+            NULL,
+            $logData
+          );
         } catch (\Papaya\Database\Exception $e) {
         }
       }
@@ -517,345 +542,71 @@ class db_simple extends base_object {
   }
 
   /**
-  * Escape values for current database connection, insert into statement and execute statement
-  *
-  * @param object $object calling object
-  * @param string $sql
-  * @param array|string $values
-  * @param integer $max limit data sets
-  * @param integer $offset limit data sets - Start
-  * @param boolean $readOnly use read connection
-  * @return integer Result Index
-  */
-  function queryFmt($object, $sql, $values, $max = NULL, $offset = NULL, $readOnly = TRUE) {
-    $this->connect($object, $readOnly);
-    return $this->_executeQuery(
-      $object, $this->_prepareQuery($object, $sql, $values, $readOnly), $max, $offset, $readOnly
-    );
-  }
-
-  /**
-   * Prepare a query by excaping each value and compiling all to a string
-   *
-   * @param object $object calling object
-   * @param string $sql
-   * @param array|string $values
-   * @param boolean $readOnly use read connection
-   * @return string
+   * @param $tableName
+   * @param $identifierField
+   * @param array $values
+   * @return bool|string
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
-  private function _prepareQuery($object, $sql, $values, $readOnly) {
-    $sqlParams = array();
-    if (isset($values) && is_array($values)) {
-      foreach ($values as $sqlParam) {
-        $sqlParams[] = $this->escapeString($object, $sqlParam, $readOnly);
+  public function insertRecord($tableName, $identifierField, array $values) {
+    if (isset($identifierField)) {
+      $values[$identifierField] = NULL;
+    }
+    if (isset($values) && is_array($values) && count($values) > 0) {
+      $fieldString = '';
+      $valueString = '';
+      foreach ($values as $field => $value) {
+        if (isset($identifierField) && $identifierField === $field) {
+          continue;
+        }
+        $fieldString .= $this->quoteIdentifier($field).', ';
+        if ($value === NULL) {
+          $valueString .= 'NULL, ';
+        } else {
+          if (is_bool($value)) {
+            $value = ($value ? '1' : '0');
+          }
+          $valueString .= $this->quoteString($value).", ";
+        }
       }
-      $sql = vsprintf($sql, $sqlParams);
-    } elseif (isset($values)) {
-      $sql = sprintf($sql, $this->escapeString($object, $values, $readOnly));
-    }
-    return $sql;
-  }
-
-  /**
-  * Execute sql query that changes data
-  *
-  * @param object $object calling object
-  * @param string $sql
-  * @return integer Result Index
-  */
-  function queryWrite($object, $sql) {
-    return $this->_executeQuery($object, $sql, NULL, NULL, FALSE);
-  }
-
-  /**
-  * Escape values for current database connection, insert into statement and execute statement
-  * that changes data
-  *
-  * @param object $object calling object
-  * @param string $sql
-  * @param array|string $values
-  * @return integer Result Index
-  */
-  function queryFmtWrite($object, $sql, $values) {
-    $this->connect($object, FALSE);
-    return $this->_executeQuery(
-      $object, $this->_prepareQuery($object, $sql, $values, FALSE), NULL, NULL, FALSE
-    );
-  }
-
-  /**
-  * create new record, return id, set default values
-  *
-  * @param object $object calling object
-  * @param string $table table
-  * @param string $idField fields with ID
-  * @param array $values default values
-  * @access public
-  * @return integer data sets number
-  */
-  function insertRecord($object, $table, $idField, $values = NULL) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->insertRecord($table, $idField, $values);
-  }
-
-  /**
-   * Fetch the last inserted id
-   *
-   * @param $object
-   * @param string $table
-   * @param string $idField
-   * @return int|float|string|boolean|null
-   */
-  function lastInsertId($object, $table, $idField) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->lastInsertId($table, $idField);
-  }
-
-  /**
-   * insert records
-   *
-   * @param object $object calling object
-   * @param string $table table
-   * @param array $values default values
-   * @throws InvalidArgumentException
-   * @access public
-   * @return boolean
-   */
-  function insertRecords($object, $table, array $values) {
-    if (empty($values)) {
-      throw new InvalidArgumentException('Argument $values array is empty, nothing to insert.');
-    }
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->insertRecords($table, $values);
-  }
-
-  /**
-  * load s single record
-  *
-  * @param object $object calling object
-  * @param string $table table
-  * @param array $fields field names
-  * @param array|string $filter condition
-  * @param mixed $value condition value if $filter is field name
-  * @param boolean $readOnly query is read only (does not change data)
-  * @access public
-  * @return integer number changed records
-  */
-  function loadRecord($object, $table, array $fields, $filter, $value = NULL, $readOnly = FALSE) {
-    $this->connect($object, FALSE);
-    $mode = ($readOnly) ? 'read' : 'write';
-    return $this->getConnection($mode)->loadRecord(
-      $table, $fields, $this->getConditionArray($filter, $value)
-    );
-  }
-
-  /**
-   * change data sets
-   *
-   * if the passed array with default values is empty, an exception is thrown.
-   * Otherwise, a connection to the database is build and the function
-   * updateRecord(...) in the dbcon file of the used database is called and returned.
-   *
-   * @param object $object calling object
-   * @param string $table table
-   * @param array $values default values
-   * @param array|string $filter condition
-   * @param mixed $value condition value if $filter is field name
-   * @throws InvalidArgumentException
-   * @access public
-   * @return integer number changed records
-   * @see dbcon_base::getSQLCondition()
-   */
-  function updateRecord($object, $table, array $values, $filter, $value = NULL) {
-    if (empty($values)) {
-      throw new InvalidArgumentException('Argument $values array is empty, nothing to update.');
-    }
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->updateRecord(
-      $table, $values, $this->getConditionArray($filter, $value)
-    );
-  }
-
-  /**
-  * delete data sets
-  *
-  * @param object $object calling object
-  * @param string $table table
-  * @param string|array $filter condition
-  * @param mixed $value condition value if $filter is field name
-  * @access public
-  * @return integer number deleted records
-  */
-  function deleteRecord($object, $table, $filter, $value = NULL) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->deleteRecord(
-      $table, $this->getConditionArray($filter, $value)
-    );
-  }
-
-  /**
-   * delete data sets
-   *
-   * @param object $object calling object
-   * @param string $table table
-   * @return int
-   */
-  function emptyTable($object, $table) {
-    return $this->deleteRecord($object, $table, NULL);
-  }
-
-  /**
-  * Get all table names
-  *
-  * @param object $object calling object
-  * @return array
-  * @deprecated
-  */
-  public function queryTableNames($object) {
-    $this->connect($object);
-    return $this->getConnection('read')->schema()->getTables();
-  }
-
-  /**
-  * Return table structure as arrays
-  *
-  * @param object $object calling object
-  * @param string $tableName table name
-  * @param string $tablePrefix Prefix
-  * @return array
-   * @deprecated
-  */
-  public function queryTableStructure($object, $tableName, $tablePrefix = '') {
-    $this->connect($object);
-    return $this->getConnection('read')->schema()->describeTable(
-      $tableName, $tablePrefix
-    );
-  }
-
-
-  /**
-  * Create given table
-  *
-  * @param object $object calling object
-  * @param string $tableData
-  * @param string $tablePrefix
-  * @access public
-  * @return boolean
-   * @deprecated
-  */
-  public function createTable($object, $tableData, $tablePrefix) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->createTable($tableData, $tablePrefix);
-  }
-
-  /**
-  * Add field
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param array $fieldData
-  * @return boolean
-   * @deprecated
-  */
-  public function addField($object, $table, $fieldData) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->addField($table, $fieldData);
-  }
-
-  /**
-  * Change field
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param array $fieldData
-  * @return boolean
-   * @deprecated
-  */
-  public function changeField($object, $table, $fieldData) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->changeField($table, $fieldData);
-  }
-
-  /**
-  * Delete field
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param string $field
-  * @return boolean
-   * @deprecated
-  */
-  public function dropField($object, $table, $field) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->dropField($table, $field);
-  }
-
-  /**
-  * Add index
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param array $index
-  * @access public
-  * @return boolean
-   * @deprecated
-  */
-  public function addIndex($object, $table, $index) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->addIndex($table, $index);
-  }
-
-  /**
-  * Change index
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param array $index
-  * @access public
-  * @return boolean
-   * @deprecated
-   *
-  */
-  public function changeIndex($object, $table, $index) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->changeIndex($table, $index);
-  }
-
-  /**
-   * DBMS spezific SQL source
-   *
-   * @param object $object calling object
-   * @param string $function sql function
-   * @param array $parameters
-   * @return mixed sql string or FALSE
-   * @deprecated
-   */
-  public function getSQLSource($object, $function, ...$parameters) {
-    $this->connect($object, FALSE);
-    $arguments = [];
-    for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
-      if (isset($parameters[$i + 1]) && !$parameters[$i + 1]) {
-        $arguments[] = new \Papaya\Database\Syntax\SQLSource($parameters[$i]);
-      } else {
-        $arguments[] = (string)$parameters[$i];
+      $sql = sprintf(
+        'INSERT INTO %s (%s) VALUES (%s)',
+        $this->quoteIdentifier($tableName),
+        substr($fieldString, 0, -2),
+        substr($valueString, 0, -2)
+      );
+      if ($this->execute($sql, \Papaya\Database\Connection::DISABLE_RESULT_CLEANUP)) {
+        if (isset($identifierField)) {
+          return $this->lastInsertId($tableName, $identifierField);
+        }
+        return TRUE;
       }
     }
-    $call = [$this->getConnection('write')->syntax(), $function];
-    $source = $call(...$arguments);
-    return $source ?: FALSE;
+    return FALSE;
+  }
+
+  private function getTableName($tableName, $usePrefix) {
+    if ($usePrefix && isset($this->papaya()->options)) {
+      $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
+      if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString.'_')) {
+        return $prefixString.'_'.$tableName;
+      }
+    }
+    return $tableName;
   }
 
   /**
-  * Convert different $filter arguments to an array
-  * @param string|array|NULL $filter
-  * @param mixed $value
-  * @return array|NULL
-  */
-  function getConditionArray($filter, $value = NULL) {
+   * Convert different $filter arguments to an array
+   *
+   * @param string|array|NULL $filter
+   * @param mixed $value
+   * @return array|NULL
+   */
+  private function getConditionArray($filter, $value = NULL) {
     if (empty($filter)) {
       return NULL;
     } elseif (is_string($filter)) {
-      return array($filter => $value);
+      return [$filter => $value];
     } else {
       return $filter;
     }
@@ -869,132 +620,99 @@ class db_simple extends base_object {
    * to the function getSQLCondition($filter).
    * If the SQL condition string can be created, it is returned
    *
-   * @param object $object calling object
-   * @param array $filter sql condition array
+   * @param array|string $filter sql condition array
    * @param mixed $value sql condition array
    * @param string $operator
    * @access public
    * @return mixed sql string or FALSE
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
-  function getSQLCondition($object, $filter, $value = NULL, $operator = '=') {
+  public function getSQLCondition($filter, $value = NULL, $operator = '=') {
     if (!empty($filter)) {
-      $this->connect($object, TRUE);
-      $filter = $this->getConditionArray($filter, $value);
-      if ($str = $this->getConnection('read')->getSQLCondition($filter, $operator)) {
-        return $str;
+      $this->connect();
+      if (
+        ($filterArray = $this->getConditionArray($filter, $value)) &&
+        ($condition = $this->getConnection()->getSQLCondition($filterArray, $operator))
+      ) {
+        return $condition;
       }
     }
     return FALSE;
   }
 
   /**
-  * Delete index
-  *
-  * @param object $object calling object
-  * @param string $table
-  * @param string $name
-  * @access public
-  * @return boolean
-  */
-  function dropIndex($object, $table, $name) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->dropIndex($table, $name);
-  }
-
-
-  /**
-  * Compare field definition in XML and database
-  *
-  * @param object $object calling object
-  * @param array $xmlField
-  * @param array $databaseField
-  * @return boolean
-   * @deprecated
-  */
-  public function compareFieldStructure($object, $xmlField, $databaseField) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->isFieldDifferent(
-      $xmlField, $databaseField
-    );
+   * Gets the current used database syntax.
+   *
+   * @param string $type either 'read' or 'write'
+   * @return string current used database syntax
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function getProtocol($type = self::MODE_WRITE) {
+    return $this->getDSN()->platform;
   }
 
   /**
-  * Compare key structure
-  *
-  * @param object $object calling object
-  * @param array $xmlKey
-  * @param array $databaseKey
-  * @return boolean
-   * @deprecated
-  */
-  public function compareKeyStructure($object, $xmlKey, $databaseKey) {
-    $this->connect($object, FALSE);
-    return $this->getConnection('write')->schema()->isIndexDifferent($xmlKey, $databaseKey);
-  }
-
-  /**
-  * Gets the current used database syntax.
-  *
-  * @param string $type either 'read' or 'write'
-  * @return string current used database syntax
-  */
-  function getProtocol($type = 'write') {
-    if ($type == 'write' && isset($this->databaseConfiguration[$type])) {
-      return $this->databaseConfiguration[$type]->platform;
-    }
-    return $this->databaseConfiguration['read']->platform;
-  }
-
-  /**
-  * set or read current master usage status
-  *
-  * @param boolean|NULL $forConnection optional, default value NULL
-  * @access public
-  * @return boolean use master connection only?
-  */
-  function masterOnly($forConnection = NULL) {
+   * set or read current master usage status
+   *
+   * @param boolean|NULL $forConnection optional, default value NULL
+   * @access public
+   * @return boolean use master connection only?
+   */
+  public function masterOnly($forConnection = NULL) {
     if (isset($forConnection)) {
-      $this->useMasterOnly = $forConnection;
+      $this->_useMasterOnly = $forConnection;
     }
-    return $this->useMasterOnly;
+    return $this->_useMasterOnly;
   }
 
   /**
-  * should the current read request go to the write connection?
-  *
-  * @param boolean $useable read connection usable
-  * @access public
-  * @return boolean
-  */
-  function readOnly($useable) {
-    if (!$useable) {
+   * should the current read request go to the write connection?
+   *
+   * @param boolean $usable read connection usable
+   * @access public
+   * @return boolean
+   */
+  public function readOnly($usable) {
+    if (!$usable) {
       return FALSE;
     }
     if ($this->masterOnly()) {
       return FALSE;
     }
-    if (defined('PAPAYA_DATABASE_CLUSTER_SWITCH') &&
-        PAPAYA_DATABASE_CLUSTER_SWITCH == 2) {
-      return !($this->_dataModified);
+    if (
+      defined('PAPAYA_DATABASE_CLUSTER_SWITCH') &&
+      (int)PAPAYA_DATABASE_CLUSTER_SWITCH === 2
+    ) {
+      return !$this->_dataModified;
     }
     return TRUE;
   }
 
   /**
-  * Set data modified status to TRUE
-  * @return void
-  */
-  function setDataModified() {
+   * Set data modified status to TRUE
+   *
+   * @return void
+   */
+  public function setDataModified() {
     $this->_dataModified = TRUE;
   }
 
   /**
-   * Fetch connection for use
-   *
-   * @param string $for
-   * @return dbcon_base
+   * @param $name
+   * @return string
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
-  private function getConnection($for = 'read') {
-    return isset($this->databaseObjects[$for]) ? $this->databaseObjects[$for] : NULL;
+  public function quoteIdentifier($name) {
+    return $this->connect()->quoteIdentifier($name);
+  }
+
+  /**
+   * @param $tableName
+   * @param $identifierField
+   * @return string
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  public function lastInsertId($tableName, $identifierField) {
+    return $this->connect()->lastInsertId($tableName, $identifierField);
   }
 }

@@ -2,7 +2,7 @@
 
 namespace Papaya\Database\Schema {
 
-  use Papaya\Database\Interfaces\Connection;
+  use Papaya\Database\Connection;
   use Papaya\Database\Schema;
 
   abstract class AbstractSchema implements Schema {

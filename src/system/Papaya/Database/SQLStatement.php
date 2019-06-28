@@ -2,7 +2,7 @@
 
 namespace Papaya\Database {
 
-  class SQLStatement implements Interfaces\Statement {
+  class SQLStatement implements \Papaya\Database\Statement {
 
     /**
      * @var string
@@ -14,7 +14,7 @@ namespace Papaya\Database {
      */
     private $_parameters;
 
-    public function __construct($sql, array $parameters) {
+    public function __construct($sql, array $parameters = []) {
       $this->_sql = (string)$sql;
       $this->_parameters = $parameters;
     }

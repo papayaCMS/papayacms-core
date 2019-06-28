@@ -1,6 +1,6 @@
 <?php
 
-namespace Papaya\Database\Interfaces {
+namespace Papaya\Database {
 
   interface Statement {
 

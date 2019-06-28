@@ -14,10 +14,10 @@
  */
 namespace Papaya\Database\Statement {
 
-  use Papaya\Database;
+  use Papaya\Database\Connection;
 
   class Formatted
-    extends Database\ExecutableStatement {
+    extends ExecutableStatement {
     /**
      * @var string
      */
@@ -31,12 +31,12 @@ namespace Papaya\Database\Statement {
     /**
      * Formatted constructor.
      *
-     * @param \Papaya\Database\Access $databaseAccess
+     * @param \Papaya\Database\Connection $databaseConnection
      * @param $sql
      * @param array $parameters
      */
-    public function __construct(Database\Access $databaseAccess, $sql, array $parameters = []) {
-      parent::__construct($databaseAccess);
+    public function __construct(Connection $databaseConnection, $sql, array $parameters = []) {
+      parent::__construct($databaseConnection);
       $this->_sql = $sql;
       $this->_parameters = $parameters;
     }
@@ -49,7 +49,7 @@ namespace Papaya\Database\Statement {
         $this->_sql,
         \array_map(
           function($value) {
-            return $this->_databaseAccess->escapeString($value);
+            return $this->getDatabaseConnection()->escapeString($value);
           },
           $this->_parameters
         )

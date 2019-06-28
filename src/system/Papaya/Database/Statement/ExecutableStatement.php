@@ -12,30 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Database {
+namespace Papaya\Database\Statement {
 
-  use Papaya\Database\Interfaces\Statement;
+  use Papaya\Database\Connection;
+  use Papaya\Database\Statement;
 
   abstract class ExecutableStatement implements Statement {
 
     /**
-     * @var \Papaya\Database\Access
+     * @var \Papaya\Database\Connection
      */
-    protected $_databaseAccess;
+    private $_databaseConnection;
 
-    public function __construct(Access $databaseAccess) {
-      $this->_databaseAccess = $databaseAccess;
+    public function __construct(Connection $databaseConnection) {
+      $this->_databaseConnection = $databaseConnection;
+    }
+
+    public function getDatabaseConnection() {
+      return $this->_databaseConnection;
     }
 
     /**
-     * @param bool $forceWriteConnection
+     * @param int $options
      * @return FALSE|\Papaya\Database\Result
      */
-    public function execute($forceWriteConnection = FALSE) {
-      if ($forceWriteConnection) {
-        return $this->_databaseAccess->queryWrite($forceWriteConnection);
-      }
-      return $this->_databaseAccess->query($forceWriteConnection);
+    public function execute($options = 0) {
+      return $this->_databaseConnection->execute($options);
     }
 
     public function __toString() {

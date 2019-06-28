@@ -455,7 +455,7 @@ class papaya_systemtest {
     $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
-      if ($database->connect($this, TRUE) && $database->connect($this, FALSE)) {
+      if ($database->connect() && $database->connect(FALSE)) {
         return TESTRESULT_OK;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
@@ -475,7 +475,7 @@ class papaya_systemtest {
       /** @var \Papaya\Application\CMS $application */
       $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
-      if ($database->connect($this, FALSE)) {
+      if ($database->connect(FALSE)) {
         $dbSyntax = $database->getProtocol();
         switch ($dbSyntax) {
         case 'mysql' :
@@ -489,8 +489,8 @@ class papaya_systemtest {
             'DROP' => FALSE,
             'ALTER' => FALSE
           );
-          if ($res = $database->query($this, 'SHOW GRANTS')) {
-            $dbName = strtolower($database->databaseConfiguration['write']->database);
+          if ($res = $database->execute('SHOW GRANTS')) {
+            $dbName = strtolower($database->getDSN('write')->database);
             $dbNameSlashed = strtr($dbName, array('_' => '\\_'));
             while ($row = $res->fetchRow()) {
               $sqlStr = strtolower($row[0]);

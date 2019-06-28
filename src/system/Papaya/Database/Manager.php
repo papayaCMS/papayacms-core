@@ -133,7 +133,7 @@ class Manager implements Application\Access {
   public function close() {
     /** @var \db_simple $connector */
     foreach ($this->_connectors as $connector) {
-      $connector->close();
+      $connector->disconnect();
     }
   }
 }

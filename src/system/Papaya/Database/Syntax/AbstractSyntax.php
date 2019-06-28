@@ -2,7 +2,7 @@
 
 namespace Papaya\Database\Syntax {
 
-  use Papaya\Database\Interfaces\Connection;
+  use Papaya\Database\Connection;
   use Papaya\Database\Syntax;
 
   abstract class AbstractSyntax implements Syntax {
