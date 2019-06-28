@@ -15,6 +15,9 @@
 
 namespace Papaya\Database\Statement {
 
+  use Papaya\Database\Connection;
+  use Papaya\Database\Syntax;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
@@ -23,15 +26,15 @@ namespace Papaya\Database\Statement {
   class PreparedTest extends \Papaya\TestCase {
 
     public function testGetSQLWithTableAndStringParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+      $connection = $this->mockPapaya()->databaseAccess();
+      $connection
         ->expects($this->once())
         ->method('quoteString')
         ->with('ab123')
         ->willReturn("'ab123'");
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM :a_table WHERE id = :id'
       );
       $statement
@@ -45,13 +48,13 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetPreparedSQLWithTableAndStringParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+      $connection = $this->mockPapaya()->databaseAccess();
+      $connection
         ->expects($this->never())
         ->method('quoteString');
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM :a_table WHERE id = :id'
       );
       $statement
@@ -59,17 +62,18 @@ namespace Papaya\Database\Statement {
         ->addString('id', 'ab123');
 
       $this->assertEquals(
-        [
-          'SELECT * FROM table_test WHERE id = ?',
-          ['ab123']
-        ],
-        $statement->getPreparedSQL()
+        'SELECT * FROM table_test WHERE id = ?',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        ['ab123'],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithTableAndStringListParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+      $connection = $this->mockPapaya()->databaseAccess();
+      $connection
         ->expects($this->exactly(2))
         ->method('quoteString')
         ->will(
@@ -82,7 +86,7 @@ namespace Papaya\Database\Statement {
         );
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM :a_table WHERE id IN :id'
       );
       $statement
@@ -95,14 +99,14 @@ namespace Papaya\Database\Statement {
       );
     }
 
-    public function testGetPreparedSQLWithTableAndStringListParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+    public function testGetSQLStringWithTableAndStringListParameter() {
+      $connection = $this->mockPapaya()->databaseAccess();
+      $connection
         ->expects($this->never())
         ->method('quoteString');
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM :a_table WHERE id IN :id'
       );
       $statement
@@ -110,19 +114,20 @@ namespace Papaya\Database\Statement {
         ->addStringList('id', ['ab123', 'ef456']);
 
       $this->assertEquals(
-        [
-          'SELECT * FROM table_test WHERE id IN (?, ?)',
-          ['ab123', 'ef456']
-        ],
-        $statement->getPreparedSQL()
+        'SELECT * FROM table_test WHERE id IN (?, ?)',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        ['ab123', 'ef456'],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithFloatParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE field > :number'
       );
       $statement->addFloat('number', 42.21, 4);
@@ -133,29 +138,30 @@ namespace Papaya\Database\Statement {
       );
     }
 
-    public function testGetPreparedSQLWithFloatParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+    public function testGetSQLStringWithFloatParameter() {
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE field > :number'
       );
       $statement->addFloat('number', 42.21, 4);
 
       $this->assertEquals(
-        [
-          'SELECT * FROM test WHERE field > ?',
-          [42.2100]
-        ],
-        $statement->getPreparedSQL()
+        'SELECT * FROM test WHERE field > ?',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        [42.2100],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithIntParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE field > :number'
       );
       $statement->addInt('number', 42);
@@ -166,62 +172,64 @@ namespace Papaya\Database\Statement {
       );
     }
 
-    public function testGetPreparedSQLWithIntParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+    public function testGetSQLStringWithIntParameter() {
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE field > :number'
       );
       $statement->addInt('number', 42);
 
       $this->assertEquals(
-        [
-          'SELECT * FROM test WHERE field > ?',
-          [42]
-        ],
-        $statement->getPreparedSQL()
+        'SELECT * FROM test WHERE field > ?',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        [42],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithIntListParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE id IN :IDs'
       );
       $statement->addIntList('IDs', [21, 42]);
 
       $this->assertEquals(
         'SELECT * FROM test WHERE id IN (21, 42)',
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
-    public function testGetPreparedSQLWithIntListParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+    public function testGetSQLStringWithIntListParameter() {
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE id IN :IDs'
       );
       $statement->addIntList('IDs', [21, 42]);
 
       $this->assertEquals(
-        [
-          'SELECT * FROM test WHERE id IN (?, ?)',
-          [21, 42]
-        ],
-        $statement->getPreparedSQL()
+        'SELECT * FROM test WHERE id IN (?, ?)',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        [21, 42],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithBoolParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM test WHERE field IS :bool'
       );
       $statement->addBool('bool', true);
@@ -233,10 +241,10 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithNULLParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'INSERT INTO test VALUES (:field1, :field2)'
       );
       $statement
@@ -245,15 +253,15 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         'INSERT INTO test VALUES (21, NULL)',
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
-    public function testGetPreparedSQLWithNULLParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+    public function testGetSQLStringWithNULLParameter() {
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'INSERT INTO test VALUES (:field1, :field2)'
       );
       $statement
@@ -261,24 +269,30 @@ namespace Papaya\Database\Statement {
         ->addNull('field2');
 
       $this->assertEquals(
-        [
-          'INSERT INTO test VALUES (?, NULL)',
-          [21]
-        ],
-        $statement->getPreparedSQL()
+        'INSERT INTO test VALUES (?, NULL)',
+        $statement->getSQLString()
+      );
+      $this->assertEquals(
+        [21],
+        $statement->getSQLParameters()
       );
     }
 
     public function testGetSQLWithLimitParameter() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+      $syntax = $this->createMock(Syntax::class);
+      $syntax
         ->expects($this->once())
-        ->method('getSqlSource')
-        ->with('LIMIT', [12, 23])
+        ->method('limit')
+        ->with(12, 23)
         ->willReturn(' LIMIT 23,12');
+      $connection = $this->createMock(Connection::class);
+      $connection
+        ->expects($this->once())
+        ->method('syntax')
+        ->willReturn($syntax);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         'SELECT * FROM tablename ORDER BY fieldname :limit'
       );
       $statement
@@ -286,64 +300,64 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         'SELECT * FROM tablename ORDER BY fieldname  LIMIT 23,12',
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
     public function testPlaceholdersInsideStringLiteralAreNotReplaced() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         "INSERT INTO test VALUES (:number, ':number')"
       );
       $statement->addInt('number', 21);
 
       $this->assertEquals(
         "INSERT INTO test VALUES (21, ':number')",
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
     public function testUnknownParameterThrowsException() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
-        $databaseAccess,
+        $connection,
         ':unknown'
       );
 
       $this->expectException(\LogicException::class);
       $this->expectExceptionMessage('Unknown parameter name: unknown');
-      $statement->getSQL();
+      $statement->getSQLString();
     }
 
     public function testNULLInListIsIgnored() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
-      $statement = new Prepared($databaseAccess, ':numbers');
+      $statement = new Prepared($connection, ':numbers');
       $statement->addIntList('numbers', [21, NULL, 42]);
 
       $this->assertEquals(
         '(21, 42)',
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
     public function testArrayInListThrowsException() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
-      $statement = new Prepared($databaseAccess, ':numbers');
+      $statement = new Prepared($connection, ':numbers');
       $statement->addIntList('numbers', [21, [42]]);
 
       $this->expectException(\UnexpectedValueException::class);
       $this->expectExceptionMessage('Parameter list values need to be scalars or string castable.');
-      $statement->getSQL();
+      $statement->getSQLString(FALSE);
     }
 
     public function testObjectInListIsCastToString() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
+      $connection = $this->createMock(Connection::class);
+      $connection
         ->expects($this->atLeastOnce())
         ->method('quoteString')
         ->will(
@@ -361,19 +375,19 @@ namespace Papaya\Database\Statement {
         ->method('__toString')
         ->willReturn('string_value');
 
-      $statement = new Prepared($databaseAccess, ':ids');
+      $statement = new Prepared($connection, ':ids');
       $statement->addStringList('ids', [21, $stringObject]);
 
       $this->assertEquals(
         "('21', 'string_value')",
-        $statement->getSQL()
+        (string)$statement
       );
     }
 
     public function testHasExpectingTrue() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
-      $statement = new Prepared($databaseAccess, '');
+      $statement = new Prepared($connection, '');
       $statement->addInt('number', 21);
 
       $this->assertTrue($statement->has('number'));
@@ -381,9 +395,9 @@ namespace Papaya\Database\Statement {
     }
 
     public function testHasAfterRemoveExpectingFalse() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $connection = $this->createMock(Connection::class);
 
-      $statement = new Prepared($databaseAccess, '');
+      $statement = new Prepared($connection, '');
       $statement->addInt('number', 21);
       $statement->remove('Number');
 
@@ -398,8 +412,8 @@ namespace Papaya\Database\Statement {
      *  ["foo bar"]
      */
     public function testInvalidParameterNameThrowsException($parameterName) {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $statement = new Prepared($databaseAccess, '');
+      $connection = $this->createMock(Connection::class);
+      $statement = new Prepared($connection, '');
 
       $this->expectException(\InvalidArgumentException::class);
       $this->expectExceptionMessage(
@@ -410,8 +424,8 @@ namespace Papaya\Database\Statement {
     }
 
     public function testDuplicateParameterNameThrowsException() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $statement = new Prepared($databaseAccess, '');
+      $connection = $this->createMock(Connection::class);
+      $statement = new Prepared($connection, '');
       $statement->addInt('field', 0);
 
       $this->expectException(\LogicException::class);
@@ -423,8 +437,8 @@ namespace Papaya\Database\Statement {
     }
 
     public function testToStringReturnsEmptyStringOnInternalError() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $statement = new Prepared($databaseAccess, ':trigger');
+      $connection = $this->createMock(Connection::class);
+      $statement = new Prepared($connection, ':trigger');
       $this->assertEmpty((string)$statement);
     }
   }

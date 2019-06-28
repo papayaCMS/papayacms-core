@@ -27,7 +27,7 @@ require_once __DIR__.'/base.php';
 * @package Papaya-Library
 * @subpackage Database
 */
-class dbcon_mysqli extends dbcon_base {
+class dbcon_mysqli extends \Papaya\Database\Connection\AbstractConnection {
 
   /**
   * @var \mysqli $_mysqli Connection-ID
@@ -49,7 +49,7 @@ class dbcon_mysqli extends dbcon_base {
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @return boolean
    */
-  function isExtensionAvailable() {
+  public function isExtensionAvailable() {
     if (!extension_loaded('mysqli')) {
       throw new \Papaya\Database\Exception\ConnectionFailed(
         'Extension "mysqli" not available.'
@@ -63,7 +63,8 @@ class dbcon_mysqli extends dbcon_base {
    *
    * @access public
    * @return \Papaya\Database\Connection
-   *@throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws \Papaya\Database\Exception\QueryFailed
    */
   public function connect() {
     if (isset($this->_mysqli) && is_object($this->_mysqli)) {
@@ -143,11 +144,14 @@ class dbcon_mysqli extends dbcon_base {
     }
     $dbmsResult = $this->process($statement);
     if ($dbmsResult instanceof mysqli_result) {
-      $this->lastResult = $result = new dbresult_mysqli($this, $dbmsResult, $statement);
+      $result = new dbresult_mysqli($this, $dbmsResult, $statement);
+      if (!Papaya\Utility\Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
+        $this->buffer($result);
+      }
       if ($calculateFoundRows) {
         $counterResult = $this->process(new SQLStatement('SELECT FOUND_ROWS()'));
         if ($counterResult) {
-          $result->setAbsCount((int)$counterResult->fetch_field());
+          $result->setAbsoluteCount((int)$counterResult->fetch_field());
           $counterResult->free();
         }
       }
@@ -242,19 +246,22 @@ class dbcon_mysqli extends dbcon_base {
 
   /**
    * @param string $name
+   * @param string $quoteChar
    * @return string
    */
-  public function quoteIdentifier($name) {
-    return '`'.substr(parent::quoteIdentifier($name), 1, -1).'`';
+  public function quoteIdentifier($name, $quoteChar = '`') {
+    return parent::quoteIdentifier($name, $quoteChar);
   }
 
   /**
-  * Fetch the last inserted id
-  *
-  * @param string $table
-  * @param string $idField
-  * @return string|int|null
-  */
+   * Fetch the last inserted id
+   *
+   * @param string $table
+   * @param string $idField
+   * @return string|int|null
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   * @throws \Papaya\Database\Exception\QueryFailed
+   */
   public function lastInsertId($table, $idField) {
     if ($result = $this->execute('SELECT LAST_INSERT_ID()', self::DISABLE_RESULT_CLEANUP)) {
       return $result->fetchField();

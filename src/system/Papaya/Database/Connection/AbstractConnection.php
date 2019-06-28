@@ -2,49 +2,58 @@
 
 namespace Papaya\Database\Connection {
 
-  use Papaya\Database\Interfaces;
-  use Papaya\Database\Schema;
-  use Papaya\Database\Source;
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\Result as DatabaseResult;
+  use Papaya\Database\Schema as DatabaseSchema;
+  use Papaya\Database\Source\Name as DataSourceName;
   use Papaya\Database\Statement\Prepared as PreparedStatement;
-  use Papaya\Database\Syntax;
+  use Papaya\Database\Syntax as DatabaseSyntax;
+  use Papaya\Database\Syntax\MassInsert;
 
-  abstract class AbstractConnection implements \Papaya\Database\Connection {
+  abstract class AbstractConnection implements DatabaseConnection {
 
     /**
-     * @var \Papaya\Database\Source\Name
+     * @var DataSourceName
      */
     private $_dsn;
     /**
-     * @var \Papaya\Database\Syntax
+     * @var DatabaseSyntax
      */
     private $_syntax;
     /**
-     * @var \Papaya\Database\Schema
+     * @var DatabaseSchema
      */
     private $_schema;
 
-    public function __construct(Source\Name $dsn, Syntax $syntax = NULL, Schema $schema = NULL) {
+    /**
+     * @var NULL|DatabaseResult Buffer for the current database result
+     */
+    private $_buffer;
+
+    public function __construct(
+      DataSourceName $dsn, DatabaseSyntax $syntax = NULL, DatabaseSchema $schema = NULL
+    ) {
       $this->_dsn = $dsn;
       $this->_syntax = $syntax;
       $this->_schema = $schema;
     }
 
     /**
-     * @return \Papaya\Database\Source\Name
+     * @return DataSourceName
      */
     public function getDSN() {
       return $this->_dsn;
     }
 
     /**
-     * @return \Papaya\Database\Schema
+     * @return DatabaseSchema
      */
     public function schema() {
       return $this->_schema;
     }
 
     /**
-     * @return \Papaya\Database\Syntax
+     * @return DatabaseSyntax
      */
     public function syntax() {
       return $this->_syntax;
@@ -78,28 +87,34 @@ namespace Papaya\Database\Connection {
 
     /**
      * @param string $name
+     * @param string $quoteChar
      * @return string
      */
-    public function quoteIdentifier($name) {
-      $result = strtolower(trim($name));
-      if (!preg_match('(^[a-z\\d_ ]+$)D', $result)) {
-        throw new \InvalidArgumentException(
-          "Invalid identifier name: $result"
-        );
-      }
-      return '"'.$result.'"';
+    public function quoteIdentifier($name, $quoteChar = '"') {
+      $quotedParts = array_map(
+        static function ($part) use ($name, $quoteChar) {
+          if (!preg_match('(^[a-z\\d_ ]+$)Di', $part)) {
+            throw new \InvalidArgumentException(
+              "Invalid identifier name: $name"
+            );
+          }
+          return $quoteChar.$part.$quoteChar;
+        },
+        explode('.', trim($name))
+      );
+      return implode('.', $quotedParts);
     }
 
     /**
-    * Insert records into table
-    *
-    * @param string $table
-    * @param array $values
-    * @access public
-    * @return boolean
-    */
+     * Insert records into table
+     *
+     * @param string $table
+     * @param array $values
+     * @access public
+     * @return boolean
+     */
     public function insert($table, array $values) {
-      $insert = new \Papaya\Database\Syntax\MassInsert($table, $values);
+      $insert = new MassInsert($this, $table, $values);
       return $insert();
     }
 
@@ -128,6 +143,22 @@ namespace Papaya\Database\Connection {
       throw new \LogicException(
         sprintf('Not implemented: %s::registerFunction()', static::class)
       );
+    }
+
+    protected function cleanup() {
+      if (
+        $this->_buffer instanceof DatabaseResult
+      ) {
+        $this->_buffer->free();
+        $this->_buffer = FALSE;
+      }
+    }
+
+    protected function buffer(DatabaseResult $buffer = NULL) {
+      if (NULL !== $buffer) {
+        $this->_buffer = $buffer;
+      }
+      return $this->_buffer;
     }
   }
 }

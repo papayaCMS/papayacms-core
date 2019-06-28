@@ -74,9 +74,23 @@ interface Result extends \IteratorAggregate {
    *
    * @param int $index
    *
-   * @return array
+   * @return bool
    */
   public function seek($index);
+
+  /**
+   * Seek internal pointer to the given row
+   *
+   * @return bool
+   */
+  public function seekFirst();
+
+  /**
+   * Seek internal pointer to the given row
+   *
+   * @return bool
+   */
+  public function seekLast();
 
   /**
    * return count of records in compiled result with limit
@@ -96,6 +110,11 @@ interface Result extends \IteratorAggregate {
    * Unset result data
    */
   public function free();
+
+  /**
+   * @return bool
+   */
+  public function isValid();
 
   /**
    * @return null|\Papaya\Message\Context\Data

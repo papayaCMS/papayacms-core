@@ -14,6 +14,7 @@
  */
 
 use Papaya\Database\Connection as DatabaseConnection;
+use Papaya\Database\Connection\SQLite3Connection;
 use Papaya\Database\Statement as DatabaseStatement;
 use Papaya\Utility\Bitwise;
 
@@ -32,8 +33,8 @@ class db_simple extends base_object {
     'mysql' => dbcon_mysqli::class,
     'mysqli' => dbcon_mysqli::class,
     'pgsql' => dbcon_mysqli::class,
-    'sqlite' => dbcon_sqlite3::class,
-    'sqlite3' => dbcon_sqlite3::class
+    'sqlite' => SQLite3Connection::class,
+    'sqlite3' => SQLite3Connection::class
   ];
 
   /**
@@ -435,15 +436,13 @@ class db_simple extends base_object {
     if ($dispatchLogMessage || $populateQueryLog) {
       if ($query['readOnly']) {
         $caption = sprintf(
-          'Query #%d on read connection from class "%s"',
-          self::$queryCounterClass,
-          get_class($query['object'])
+          'Query #%d on read connection',
+          self::$queryCounterClass
         );
       } else {
         $caption = sprintf(
-          'Query #%d on write connection from class "%s"',
-          self::$queryCounterClass,
-          get_class($query['object'])
+          'Query #%d on write connection',
+          self::$queryCounterClass
         );
       }
       $backtrace = NULL;
@@ -632,9 +631,9 @@ class db_simple extends base_object {
       $this->connect();
       if (
         ($filterArray = $this->getConditionArray($filter, $value)) &&
-        ($condition = $this->getConnection()->getSQLCondition($filterArray, $operator))
+        ($condition = new \Papaya\Database\Condition\SQLCondition($this->getConnection(), $filterArray, $operator))
       ) {
-        return $condition;
+        return (string)$condition;
       }
     }
     return FALSE;

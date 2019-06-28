@@ -94,4 +94,14 @@ namespace Papaya\Database {
       $name, callable $function
     );
   }
+
+  if (!defined('DB_FETCHMODE_DEFAULT')) {
+    define('DB_FETCHMODE_DEFAULT', Result::FETCH_BOTH);
+  }
+  if (!defined('DB_FETCHMODE_ORDERED')) {
+    define('DB_FETCHMODE_ORDERED', Result::FETCH_ORDERED);
+  }
+  if (!defined('DB_FETCHMODE_ASSOC')) {
+    define('DB_FETCHMODE_ASSOC', Result::FETCH_ASSOC);
+  }
 }

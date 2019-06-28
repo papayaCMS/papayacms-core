@@ -24,7 +24,7 @@ require_once __DIR__.'/base.php';
 * @package Papaya-Library
 * @subpackage Database
 */
-class dbcon_pgsql extends dbcon_base {
+class dbcon_pgsql extends \Papaya\Database\Connection\AbstractConnection {
 
   /**
   * @var resource $_postgresql Connection-ID
@@ -128,7 +128,7 @@ class dbcon_pgsql extends dbcon_base {
   /**
    * @param \Papaya\Database\Statement|string $statement
    * @param int $options
-   * @return \dbresult_pgsql|int|\Papaya\Database\Result|void
+   * @return \dbresult_pgsql|int|\Papaya\Database\Result
    * @throws \Papaya\Database\Exception\ConnectionFailed
    * @throws \Papaya\Database\Exception\QueryFailed
    */
@@ -142,10 +142,20 @@ class dbcon_pgsql extends dbcon_base {
     }
     $dbmsResult = $this->process($statement);
     if (is_resource($dbmsResult)) {
-      return new dbresult_pgsql($this, $dbmsResult, $statement);
+      $result = new dbresult_pgsql($this, $dbmsResult, $statement);
+      if (!Papaya\Utility\Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
+        $this->buffer($result);
+      }
+      return $result;
     }
+    return $dbmsResult;
   }
 
+  /**
+   * @param \Papaya\Database\Statement $statement
+   * @return bool|int|resource
+   * @throws \Papaya\Database\Exception\QueryFailed
+   */
   private function process(\Papaya\Database\Statement $statement) {
     $sql = $statement->getSQLString();
     $parameters = $statement->getSQLParameters();
@@ -162,7 +172,7 @@ class dbcon_pgsql extends dbcon_base {
       return pg_affected_rows($this->_postgresql);
     }
     $errorMessage = pg_last_error($this->_postgresql);
-    return new \Papaya\Database\Exception\QueryFailed(
+    throw new \Papaya\Database\Exception\QueryFailed(
       empty($errorMessage) ? 'Unknown PostgreSQL error.' : $errorMessage, 0, NULL, $statement
     );
   }

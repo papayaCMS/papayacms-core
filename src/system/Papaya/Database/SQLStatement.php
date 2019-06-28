@@ -19,11 +19,11 @@ namespace Papaya\Database {
       $this->_parameters = $parameters;
     }
 
-    public function getSQLString() {
+    public function getSQLString($allowPrepared = TRUE) {
       return $this->_sql;
     }
 
-    public function getSQLParameters() {
+    public function getSQLParameters($allowPrepared = TRUE) {
       return $this->_parameters;
     }
 

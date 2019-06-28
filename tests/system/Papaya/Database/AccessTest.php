@@ -25,9 +25,6 @@ class AccessTest extends \Papaya\TestCase {
   public function testConstructor() {
     $owner = new \stdClass();
     $access = new Access($owner, 'read', 'write');
-    $this->assertAttributeSame(
-      $owner, '_owner', $access
-    );
     $this->assertAttributeEquals(
       'read', '_uriRead', $access
     );
@@ -73,155 +70,6 @@ class AccessTest extends \Papaya\TestCase {
       $connector,
       $access->getDatabaseConnector()
     );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @dataProvider getDelegationMethodData
-   * @param string $functionName
-   * @param bool $isWriteFunction
-   * @param array $arguments
-   */
-  public function testDelegation($functionName, $isWriteFunction, array $arguments = array()) {
-    $owner = new \stdClass;
-    // set a random id for equal check
-    $owner->randomObjectId = mt_rand();
-    $connector = $this
-      ->getMockBuilder(\db_simple::class)
-      ->setMethods(array($functionName))
-      ->getMockForAbstractClass();
-    $delegationCallbackArguments = array_merge(array($owner), $arguments);
-    $connector
-      ->expects($this->once())
-      ->method($functionName)
-      ->withAnyParameters()
-      ->willReturnCallback(
-        function ($owner) use ($delegationCallbackArguments) {
-          foreach (func_get_args() as $index => $argument) {
-            $this->assertEquals(
-              $delegationCallbackArguments[$index],
-              $argument,
-              'Argument #'.$index.' is not the same.'
-            );
-          }
-          return TRUE;
-        }
-      );
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->assertTrue(
-      call_user_func_array(array($access, $functionName), $arguments)
-    );
-    $this->assertAttributeEquals(
-      $isWriteFunction,
-      '_dataModified',
-      $access
-    );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationWithUpperCaseFunctionName() {
-    $owner = new \stdClass;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    /** @noinspection CallableReferenceNameMismatchInspection */
-    $this->assertTrue(
-      $access->QUERYFMT('SELECT ... ', array())
-    );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @covers \Papaya\Database\Access::_handleDatabaseException
-   */
-  public function testDelegationWithDatabaseErrorExpectingMessage() {
-    $owner = new \stdClass;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
-    $access = new Access($owner, 'read', 'write');
-    $databaseManager = $this->createMock(Manager::class);
-    $databaseManager
-      ->expects($this->atLeastOnce())
-      ->method('getConnector')
-      ->with($this->equalTo('read'), $this->equalTo('write'))
-      ->will($this->returnValue($connector));
-    $messageManager = $this->createMock(\Papaya\Message\Manager::class);
-    $messageManager
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Log::class));
-    $application = $this->mockPapaya()->application(
-      array(
-        'Database' => $databaseManager,
-        'Messages' => $messageManager
-      )
-    );
-    $access->papaya($application);
-    $this->assertFalse($access->queryFmt('SELECT ... ', array()));
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @covers \Papaya\Database\Access::_handleDatabaseException
-   */
-  public function testDelegationWithDatabaseErrorExpectingMessageOnErrorHandler() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
-    $databaseManager = $this->createMock(Manager::class);
-    $databaseManager
-      ->expects($this->atLeastOnce())
-      ->method('getConnector')
-      ->with($this->equalTo('read'), $this->equalTo('write'))
-      ->will($this->returnValue($connector));
-    $application = $this->mockPapaya()->application(
-      array(
-        'Database' => $databaseManager
-      )
-    );
-    $access = new Access(NULL, 'read', 'write');
-    $access->errorHandler(function (Exception $databaseException) {
-    });
-    $access->papaya($application);
-    $this->assertFalse($access->queryFmt('SELECT ... ', array()));
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationInvalidConnector() {
-    $owner = new \stdClass();
-    $connector = new \stdClass();
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->expectException(\BadMethodCallException::class);
-    $access->query('SQL');
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationInvalidFunction() {
-    $owner = new \stdClass();
-    $access = new Access($owner, 'read', 'write');
-    $this->expectException(\BadMethodCallException::class);
-    /** @noinspection PhpUndefinedMethodInspection */
-    $access->invalidMethodName();
   }
 
   /**
@@ -487,28 +335,6 @@ class AccessTest extends \Papaya\TestCase {
   public function callbackThrowDatabaseError() {
     throw new Exception\QueryFailed(
       'Simulated Error', 23, NULL, 'SELECT simulation'
-    );
-  }
-
-  /************************************
-   * Data Provider
-   ************************************/
-
-  public static function getDelegationMethodData() {
-    //$functionName, $isWriteFunction, $arguments
-    return array(
-      'query' => array(
-        'query', FALSE, array('SQL', 20, 10, NULL)
-      ),
-      'queryFmt' => array(
-        'queryFmt', FALSE, array('SQL', array(), 20, 10, NULL),
-      ),
-      'queryFmtWrite' => array(
-        'queryFmtWrite', TRUE, array('SQL', array())
-      ),
-      'queryWrite' => array(
-        'queryWrite', TRUE, array('SQL'),
-      )
     );
   }
 }

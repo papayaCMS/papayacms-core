@@ -123,13 +123,13 @@ class ManagerTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Database\Manager::close
    */
-  public function testClose() {
+  public function testDisconnect() {
     $manager = new Manager();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
     $connector = $this->createMock(\db_simple::class);
     $connector
       ->expects($this->once())
-      ->method('close');
+      ->method('disconnect');
     $manager->setConnector($connector, 'READ');
     $manager->close();
   }

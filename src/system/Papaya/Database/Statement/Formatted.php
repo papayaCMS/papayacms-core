@@ -42,9 +42,10 @@ namespace Papaya\Database\Statement {
     }
 
     /**
+     * @param bool $allowPrepared
      * @return string
      */
-    public function getSQLString() {
+    public function getSQLString($allowPrepared = FALSE) {
       return \vsprintf(
         $this->_sql,
         \array_map(
@@ -57,9 +58,10 @@ namespace Papaya\Database\Statement {
     }
 
     /**
+     * @param bool $allowPrepared
      * @return array
      */
-    public function getSQLParameters() {
+    public function getSQLParameters($allowPrepared = FALSE) {
       return [];
     }
   }

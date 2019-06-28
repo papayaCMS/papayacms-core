@@ -41,7 +41,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function __toString() {
-      return $this->getSQLString();
+      return $this->getSQLString(FALSE);
     }
   }
 }

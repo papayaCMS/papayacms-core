@@ -32,18 +32,20 @@ namespace Papaya\Database\Statement {
     }
 
     /**
+     * @param bool $allowPrepared
      * @return string
      */
-    public function getSQLString() {
-      return $this->_original->getSQLString().$this->getDatabaseConnection()->syntax()->limit(
+    public function getSQLString($allowPrepared = TRUE) {
+      return $this->_original->getSQLString($allowPrepared).$this->getDatabaseConnection()->syntax()->limit(
         $this->_limit, $this->_offset
       );
     }
 
     /**
+     * @param bool $allowPrepared
      * @return array
      */
-    public function getSQLParameters() {
+    public function getSQLParameters($allowPrepared = TRUE) {
       return $this->_original->getSQLParameters();
     }
   }

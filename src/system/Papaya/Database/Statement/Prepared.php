@@ -52,29 +52,38 @@ namespace Papaya\Database\Statement {
     /**
      * @var NULL|array
      */
-    private $_compiled;
+    private $_compiled = [
+      'prepared' => NULL,
+      'replaced' => NULL
+    ];
 
     public function __construct(Connection $databaseConnection, $sql) {
       parent::__construct($databaseConnection);
       $this->_sql = $sql;
     }
 
-    /**
-     * @return string
-     */
-    public function getSQLString() {
-      $this->_compiled = $this->compile(TRUE);
-      return $this->_compiled->getSQLString();
+    public function __toString() {
+      try {
+        return $this->getSQLString(FALSE);
+      } catch (\Exception $exception) {
+      }
+      return '';
     }
 
     /**
+     * @param bool $allowPrepared
+     * @return string
+     */
+    public function getSQLString($allowPrepared = TRUE) {
+      return $this->compile($allowPrepared)->getSQLString($allowPrepared);
+    }
+
+    /**
+     * @param bool $allowPrepared
      * @return array
      */
-    public function getSQLParameters() {
-      if (!$this->_compiled instanceof Statement) {
-        $this->_compiled = $this->compile(TRUE);
-      }
-      return $this->_compiled->getSQLParameters();
+    public function getSQLParameters($allowPrepared = TRUE) {
+      return $this->compile($allowPrepared)->getSQLParameters($allowPrepared);
     }
 
     /**
@@ -82,6 +91,10 @@ namespace Papaya\Database\Statement {
      * @return \Papaya\Database\Statement
      */
     private function compile($allowPrepared) {
+      $mode = $allowPrepared ? 'prepared' : 'replaced';
+      if (isset($this->_compiled[$mode])) {
+        return $this->_compiled[$mode];
+      }
       $quoteCharacters = ["'", '"', '`'];
       $patterns = [];
       foreach ($quoteCharacters as $quoteCharacter) {
@@ -123,7 +136,7 @@ namespace Papaya\Database\Statement {
           $part
         );
       }
-      return new Database\SQLStatement($sql, $values);
+      return $this->_compiled[$mode] = new Database\SQLStatement($sql, $values);
     }
 
     /**
