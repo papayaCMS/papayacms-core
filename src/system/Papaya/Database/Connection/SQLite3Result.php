@@ -3,7 +3,9 @@
 namespace Papaya\Database\Connection {
 
   use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\SQLStatement;
   use Papaya\Database\Statement as DatabaseStatement;
+  use Papaya\Message\Context;
 
   /**
  * DB-Abstractionslayer - result object - SQLite
@@ -140,15 +142,20 @@ class SQLite3Result extends AbstractResult {
    * @return NULL|\Papaya\Message\Context\Data
    */
   public function getExplain() {
-    $explainQuery = 'EXPLAIN '.$this->query;
-    $result = $this->connection->execute(
-      $explainQuery, \Papaya\Database\Connection::DISABLE_RESULT_CLEANUP
+    $statement = $this->getStatement();
+    $explainQuery = new SQLStatement(
+      'EXPLAIN '.$statement->getSQLString(),
+      $statement->getSQLParameters()
     );
-    if ($result && count($result) > 0) {
-      $explain = new \Papaya\Message\Context\Table('Explain');
-      while ($row = $result->fetchRow(self::FETCH_ORDERED)) {
+    $dbmsResult = $this->getConnection()->execute(
+      $explainQuery, DatabaseConnection::DISABLE_RESULT_CLEANUP
+    );
+    if ($dbmsResult && count($dbmsResult) > 0) {
+      $explain = new Context\Table('Explain');
+      while ($row = $dbmsResult->fetchRow(self::FETCH_ORDERED)) {
         $explain->addRow($row);
       }
+      $dbmsResult->free();
       return $explain;
     }
     return NULL;

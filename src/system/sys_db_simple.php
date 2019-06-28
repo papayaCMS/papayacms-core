@@ -14,6 +14,8 @@
  */
 
 use Papaya\Database\Connection as DatabaseConnection;
+use Papaya\Database\Connection\MySQLiConnection;
+use Papaya\Database\Connection\PostgreSQLConnection;
 use Papaya\Database\Connection\SQLite3Connection;
 use Papaya\Database\Statement as DatabaseStatement;
 use Papaya\Utility\Bitwise;
@@ -30,9 +32,9 @@ class db_simple extends base_object {
   const MODE_WRITE = 'write';
 
   private static $_connectionClasses = [
-    'mysql' => dbcon_mysqli::class,
-    'mysqli' => dbcon_mysqli::class,
-    'pgsql' => dbcon_mysqli::class,
+    'mysql' => MySQLiConnection::class,
+    'mysqli' => MySQLiConnection::class,
+    'pgsql' => PostgreSQLConnection::class,
     'sqlite' => SQLite3Connection::class,
     'sqlite3' => SQLite3Connection::class
   ];
