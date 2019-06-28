@@ -80,12 +80,8 @@ class Manager implements Application\Access {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
     if (!isset($this->_connectors[$identifier])) {
-      $connector = new \Papaya\Database\Connector();
+      $connector = new \Papaya\Database\Connector($readUri, $writeUri);
       $connector->papaya($this->papaya());
-      $connector->databaseURIs = [
-        'read' => $readUri,
-        'write' => $writeUri
-      ];
       $this->_connectors[$identifier] = $connector;
     }
     return $this->_connectors[$identifier];
