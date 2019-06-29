@@ -43,7 +43,7 @@ namespace Papaya\Database\Statement {
 
       $this->assertEquals(
         "SELECT * FROM table_test WHERE id = 'ab123'",
-        (string)$statement
+        $statement->getSQLString(FALSE)
       );
     }
 

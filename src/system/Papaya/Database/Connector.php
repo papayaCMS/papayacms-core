@@ -144,6 +144,24 @@ namespace Papaya\Database {
 
     /**
      * @param string $mode
+     * @return NULL|string
+     */
+    public function getDatabaseURI($mode = self::MODE_READ) {
+      if (
+        isset($this->_databaseURIs[$mode]) &&
+        0 !== strpos($this->_databaseURIs[$mode],'PAPAYA_DB_URI') &&
+        trim($this->_databaseURIs[$mode]) !== ''
+      ) {
+        return (string)$this->_databaseURIs[$mode];
+      }
+      if ($mode !== self::MODE_READ) {
+        return $this->getDatabaseURI();
+      }
+      return NULL;
+    }
+
+    /**
+     * @param string $mode
      * @return DataSourceName
      * @throws ConnectionFailed
      */
@@ -151,13 +169,10 @@ namespace Papaya\Database {
       if (isset($this->_databaseConfiguration[$mode])) {
         return $this->_databaseConfiguration[$mode];
       }
+      $readURI = $this->getDatabaseURI();
       if ($mode !== self::MODE_READ) {
-        if (
-          isset($this->_databaseURIs[$mode]) &&
-          $this->_databaseURIs[$mode] !== 'PAPAYA_DB_URI_WRITE' &&
-          $this->_databaseURIs[$mode] !== $this->_databaseURIs[self::MODE_READ] &&
-          trim($this->_databaseURIs[$mode]) !== ''
-        ) {
+        $modeURI = $this->getDatabaseURI($mode);
+        if ($modeURI !== $readURI) {
           return $this->_databaseConfiguration[$mode] = new DataSourceName(
             $this->_databaseURIs[$mode]
           );
@@ -168,8 +183,7 @@ namespace Papaya\Database {
       }
       return
         $this->_databaseConfiguration[$mode] =
-        $this->_databaseConfiguration[self::MODE_READ] =
-          new DataSourceName($this->_databaseURIs[self::MODE_READ]);
+        $this->_databaseConfiguration[self::MODE_READ] = new DataSourceName($readURI);
     }
 
     /**
@@ -191,8 +205,7 @@ namespace Papaya\Database {
       ) {
         return $this->_databaseObjects[$mode] = $this->_databaseObjects[self::MODE_READ];
       }
-      return isset($this->_databaseObjects[$mode])
-        ? $this->_databaseObjects[$mode] : $this->createConnection($configuration);
+      return $this->_databaseObjects[$mode] = $this->createConnection($configuration);
     }
 
     /**
@@ -210,7 +223,19 @@ namespace Papaya\Database {
           $found = @class_exists($className);
         }
         if ($found) {
-          return new $className($dsn);
+          /** @var DatabaseConnection $connection */
+          $connection = new $className($dsn);
+          if (
+            $connection instanceof DatabaseConnection &&
+            $connection->isExtensionAvailable()
+          ) {
+            return $connection;
+          }
+          throw new ConnectionFailed(
+            sprintf(
+              'Connection class "%s" not supported.', $dsn->api
+            )
+          );
         }
         throw new ConnectionFailed(
           sprintf(
@@ -229,12 +254,11 @@ namespace Papaya\Database {
     /**
      * connect to database
      *
-     * @param boolean $readOnly use read connection
+     * @param string $mode
      * @return Connection
      * @throws ConnectionFailed
      */
-    public function connect($readOnly = TRUE) {
-      $mode = $readOnly ? self::MODE_READ : self::MODE_WRITE;
+    public function connect($mode = self::MODE_READ) {
       $connection = $this->getConnection($mode);
       if ($connection->isExtensionAvailable() && $connection->connect()) {
         return $connection;
@@ -257,12 +281,10 @@ namespace Papaya\Database {
         } else {
           $message = 'Database Query Count: '.$this->queryCounterObject;
         }
-        $this->papaya()->messages->dispatch(
-          new Message\Log(
-            Message\Logable::GROUP_DEBUG,
-            Message::SEVERITY_DEBUG,
-            $message
-          )
+        $this->papaya()->messages->log(
+          Message\Logable::GROUP_DEBUG,
+          Message::SEVERITY_DEBUG,
+          $message
         );
       }
       foreach ($this->_databaseObjects as $connection) {
@@ -274,7 +296,6 @@ namespace Papaya\Database {
      * Debug next query, set debug counter
      *
      * @param integer $count optional, default value 1
-     * @access public
      */
     public function debugNextQuery($count = 1) {
       $this->debugCounter = $count;
@@ -283,7 +304,6 @@ namespace Papaya\Database {
     /**
      * Calculate the absolute record count for the next query (if limited).
      *
-     * @access public
      * @return void
      */
     public function enableAbsoluteCount() {
@@ -294,12 +314,12 @@ namespace Papaya\Database {
      * Escape value / string
      *
      * @param mixed $value value to escape
-     * @param boolean $readOnly use read connection
+     * @param string $mode
      * @return string
      * @throws ConnectionFailed
      */
-    public function escapeString($value, $readOnly = TRUE) {
-      if ($connection = $this->connect($readOnly)) {
+    public function escapeString($value, $mode = self::MODE_READ) {
+      if ($connection = $this->connect($mode)) {
         return $connection->escapeString($value);
       }
       return '';
@@ -309,25 +329,38 @@ namespace Papaya\Database {
      * Escape and quote value / string
      *
      * @param mixed $value value to escape
-     * @param boolean $readOnly use read connection
+     * @param string $mode
      * @return string
      * @throws ConnectionFailed
      */
-    public function quoteString($value, $readOnly = TRUE) {
-      if ($connection = $this->connect($readOnly)) {
+    public function quoteString($value, $mode = self::MODE_READ) {
+      if ($connection = $this->connect($mode)) {
         return $connection->quoteString($value);
       }
       return '';
+    }
+
+    /**
+     * @param $name
+     * @param string $mode
+     * @return string
+     * @throws \Papaya\Database\Exception\ConnectionFailed
+     */
+    public function quoteIdentifier($name, $mode = self::MODE_READ) {
+      return $this->connect($mode)->quoteIdentifier($name);
     }
 
 
     /**
      * @param string|DatabaseStatement $statement
      * @param int $options
+     * @param string $mode
      * @return mixed
      * @throws ConnectionFailed
      */
-    public function execute($statement, $options = DatabaseConnection::EMPTY_OPTIONS) {
+    public function execute(
+      $statement, $options = DatabaseConnection::EMPTY_OPTIONS, $mode = self::MODE_READ
+    ) {
       $error = NULL;
       //global query counter
       self::$queryCounterClass++;
@@ -346,15 +379,15 @@ namespace Papaya\Database {
         $measureTime = TRUE;
       }
 
-      $readOnly = Bitwise::inBitmask(
-        DatabaseConnection::FORCE_WRITE_CONNECTION, $options
-      );
-      $this->connect($readOnly);
-
+      if (Bitwise::inBitmask(DatabaseConnection::USE_WRITE_CONNECTION, $options)) {
+        $mode = self::MODE_WRITE;
+      } else {
+        $mode = $this->getConnectionMode($mode);
+      }
       $sql = (string)$statement;
 
       if (
-        $readOnly &&
+        $mode === self::MODE_READ &&
         $settings->get('PAPAYA_LOG_DATABASE_CLUSTER_VIOLATIONS', FALSE) &&
         preg_match(
           '~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql
@@ -376,14 +409,14 @@ namespace Papaya\Database {
         $this->_enableAbsoluteCounter--;
       }
       $timeStart = microtime(TRUE);
-      if ($connection = $this->connect($readOnly)) {
+      if ($connection = $this->connect($mode)) {
         $result = $connection->execute($statement, $options);
         if ($measureTime) {
           $this->_logQueryExecution(
             $timeStart,
             [
               'sql' => $sql,
-              'readOnly' => $readOnly,
+              'mode' => $mode,
               'result' => $result
             ]
           );
@@ -397,18 +430,21 @@ namespace Papaya\Database {
     }
 
     /**
+     * @param string $mode
+     * @return \Papaya\Database\Schema
      * @throws ConnectionFailed
      */
-    public function schema() {
-      $this->connect(FALSE)->schema();
+    public function schema($mode = self::MODE_WRITE) {
+      return $this->connect($mode)->schema();
     }
 
     /**
-     * @param bool $readOnly
+     * @param string $mode
+     * @return \Papaya\Database\Syntax
      * @throws ConnectionFailed
      */
-    public function syntax($readOnly = TRUE) {
-      $this->connect($readOnly)->syntax();
+    public function syntax($mode = self::MODE_READ) {
+      return $this->connect($mode)->syntax();
     }
 
     /**
@@ -459,17 +495,11 @@ namespace Papaya\Database {
         }
       }
       if ($dispatchLogMessage || $populateQueryLog) {
-        if ($query['readOnly']) {
-          $caption = sprintf(
-            'Query #%d on read connection',
-            self::$queryCounterClass
-          );
-        } else {
-          $caption = sprintf(
-            'Query #%d on write connection',
-            self::$queryCounterClass
-          );
-        }
+        $caption = sprintf(
+          'Query #%d on %s connection',
+          self::$queryCounterClass,
+          $query['mode']
+        );
         $backtrace = NULL;
         $explain = NULL;
         $counter = NULL;
@@ -532,7 +562,7 @@ namespace Papaya\Database {
             'query_timestamp' => time(),
             'query_class' => get_class($query['object']),
             'query_count' => self::$queryCounterClass,
-            'query_conn' => $query['readOnly'] ? self::MODE_READ : self::MODE_WRITE,
+            'query_conn' => $query['mode'],
             'query_time' => $timeDelta * 1000,
             'query_content' => $query['sql'],
             'query_hash' => md5($query['sql']),
@@ -647,13 +677,13 @@ namespace Papaya\Database {
      * @param array|string $filter sql condition array
      * @param mixed $value sql condition array
      * @param string $operator
-     * @access public
+     * @param string $mode
      * @return mixed sql string or FALSE
-     * @throws ConnectionFailed
+     * @throws \Papaya\Database\Exception\ConnectionFailed
      */
-    public function getSQLCondition($filter, $value = NULL, $operator = '=') {
+    public function getSQLCondition($filter, $value = NULL, $operator = '=', $mode = self::MODE_READ) {
       if (!empty($filter)) {
-        $this->connect();
+        $this->connect($this->getConnectionMode($mode));
         if (
           ($filterArray = $this->getConditionArray($filter, $value)) &&
           ($condition = new Condition\SQLCondition($this->getConnection(), $filterArray, $operator))
@@ -679,7 +709,6 @@ namespace Papaya\Database {
      * set or read current master usage status
      *
      * @param boolean|NULL $forConnection optional, default value NULL
-     * @access public
      * @return boolean use master connection only?
      */
     public function masterOnly($forConnection = NULL) {
@@ -692,24 +721,22 @@ namespace Papaya\Database {
     /**
      * should the current read request go to the write connection?
      *
-     * @param boolean $usable read connection usable
-     * @access public
-     * @return boolean
+     * @param string $requestedMode
+     * @return string
      */
-    public function readOnly($usable) {
-      if (!$usable) {
-        return FALSE;
+    public function getConnectionMode($requestedMode = self::MODE_READ) {
+      if ($requestedMode === self::MODE_WRITE) {
+        return $requestedMode;
       }
       if ($this->masterOnly()) {
-        return FALSE;
+        return self::MODE_WRITE;
       }
       if (
-        defined('PAPAYA_DATABASE_CLUSTER_SWITCH') &&
-        (int)PAPAYA_DATABASE_CLUSTER_SWITCH === 2
+        $this->papaya()->options->get('PAPAYA_DATABASE_CLUSTER_SWITCH', 0) === 2
       ) {
-        return !$this->_dataModified;
+        return $this->_dataModified ? self::MODE_READ : self::MODE_WRITE;
       }
-      return TRUE;
+      return self::MODE_READ;
     }
 
     /**
@@ -719,25 +746,6 @@ namespace Papaya\Database {
      */
     public function setDataModified() {
       $this->_dataModified = TRUE;
-    }
-
-    /**
-     * @param $name
-     * @return string
-     * @throws ConnectionFailed
-     */
-    public function quoteIdentifier($name) {
-      return $this->connect()->quoteIdentifier($name);
-    }
-
-    /**
-     * @param $tableName
-     * @param $identifierField
-     * @return string
-     * @throws ConnectionFailed
-     */
-    public function lastInsertId($tableName, $identifierField) {
-      return $this->connect()->lastInsertId($tableName, $identifierField);
     }
   }
 }

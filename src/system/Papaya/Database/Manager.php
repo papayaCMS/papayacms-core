@@ -36,11 +36,14 @@ class Manager implements Application\Access {
   private $_connectors = [];
 
   /**
-   * get current configuration object
+   * get current configuration object, fetch from application object if needed
    *
    * @return \Papaya\Configuration
    */
   public function getConfiguration() {
+    if (!isset($this->_configuration)) {
+      $this->_configuration = $this->papaya()->options;
+    }
     return $this->_configuration;
   }
 
@@ -91,11 +94,10 @@ class Manager implements Application\Access {
    * Get connector for given URIs, existing connector will be overwritten
    *
    * @param \Papaya\Database\Connector $connector connector object
-   * @param string|null $readUri URI for read connection, use options if empty
-   * @param string|null $writeUri URI for write connection, use $readUri if empty
    */
-  public function setConnector($connector, $readUri = NULL, $writeUri = NULL) {
-    list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
+  public function setConnector($connector) {
+    $readUri = $connector->getDatabaseURI();
+    $writeUri = $connector->getDatabaseURI(Connector::MODE_WRITE);
     $identifier = $readUri."\n".$writeUri;
     $this->_connectors[$identifier] = $connector;
   }

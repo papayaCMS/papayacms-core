@@ -166,7 +166,7 @@ class AccessTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyNoContextExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
@@ -176,11 +176,11 @@ class AccessTest extends \Papaya\TestCase {
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertTrue($access->readOnly(TRUE));
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyNoContextExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
@@ -190,11 +190,11 @@ class AccessTest extends \Papaya\TestCase {
       ->method('masterOnly')
       ->will($this->returnValue(TRUE));
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertFalse($access->readOnly(TRUE));
+    $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlySetObjectContextExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
@@ -203,11 +203,11 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('setDataModified');
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertFalse($access->readOnly(FALSE));
+    $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode(Connector::MODE_WRITE));
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyGetObjectContextExpectingTrue() {
     $options = $this->mockPapaya()->options(
@@ -220,11 +220,11 @@ class AccessTest extends \Papaya\TestCase {
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
-    $this->assertTrue($access->readOnly(TRUE));
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyGetConnectionContextExpectingTrue() {
     $options = $this->mockPapaya()->options(
@@ -238,10 +238,10 @@ class AccessTest extends \Papaya\TestCase {
       ->will($this->returnValue(FALSE));
     $connector
       ->expects($this->once())
-      ->method('readOnly')
-      ->will($this->returnValue(TRUE));
+      ->method('getConnectionMode')
+      ->will($this->returnValue(Connector::MODE_READ));
     $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
-    $this->assertTrue($access->readOnly(TRUE));
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**

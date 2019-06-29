@@ -455,7 +455,7 @@ class papaya_systemtest {
     $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
-      if ($database->connect() && $database->connect(FALSE)) {
+      if ($database->connect() && $database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         return TESTRESULT_OK;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
@@ -475,7 +475,7 @@ class papaya_systemtest {
       /** @var \Papaya\Application\CMS $application */
       $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
-      if ($database->connect(FALSE)) {
+      if ($database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         $dbSyntax = $database->getProtocol();
         switch ($dbSyntax) {
         case 'mysql' :

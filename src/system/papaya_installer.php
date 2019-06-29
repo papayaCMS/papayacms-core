@@ -900,7 +900,7 @@ class papaya_installer extends base_db {
   function checkDatabase() {
     try {
       $database = $this->getDatabaseAccess()->getDatabaseConnector();
-      if ($database->connect(FALSE)) {
+      if ($database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         return TRUE;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {

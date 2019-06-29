@@ -1243,13 +1243,13 @@ class papaya_page extends base_object {
     /** @var \Papaya\Database\Connector $database */
     $database = $this->papaya()->getObject('Database')->getConnector();
     $allStatus = TRUE;
-    if (@$database->connect(TRUE)) {
+    if (@$database->connect()) {
       $status['DATABASE'] = TRUE;
     } else {
       $status['DATABASE'] = FALSE;
       $allStatus = FALSE;
     }
-    if (@$database->connect(FALSE)) {
+    if (@$database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
       $status['DATABASE_WRITE'] = TRUE;
     } else {
       $status['DATABASE_WRITE'] = FALSE;

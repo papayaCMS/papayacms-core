@@ -20,6 +20,7 @@ namespace Papaya\Database {
   use Papaya\Database\Statement\Limited as LimitedStatement;
   use Papaya\Database\Statement\Prepared as PreparedStatement;
   use Papaya\Message;
+  use Papaya\Database\Exception as DatabaseException;
 
   /**
    * Papaya Database Access
@@ -102,11 +103,10 @@ namespace Papaya\Database {
     /**
      * Get database connection (implicit create)
      *
-     * @return \Papaya\Database\Connector
-     * @var \Papaya\Database\Manager $databaseManager
-     *
+     * @param string|null $connectTo connect to specified (read or write) connection
+     * @return \Papaya\Database\Connector|NULL
      */
-    public function getDatabaseConnector() {
+    public function getDatabaseConnector($connectTo = NULL) {
       if (NULL !== $this->_connector) {
         return $this->_connector;
       }
@@ -117,13 +117,24 @@ namespace Papaya\Database {
       if (
       $this->_connector = $databaseManager->getConnector($this->_uriRead, $this->_uriWrite)
       ) {
+        if ($connectTo) {
+          try {
+            $this->_connector->connect($this->getConnectionMode());
+          } catch (DatabaseException $exception) {
+            $this->_handleDatabaseException($exception);
+          }
+          return NULL;
+        }
         return $this->_connector;
       }
-      throw new \BadMethodCallException(
-        \sprintf(
-          'Invalid function call. Can not fetch database connector.'
+      $this->_handleDatabaseException(
+        new DatabaseException\ConnectionFailed(
+          \sprintf(
+            'Database connector not available.'
+          )
         )
       );
+      return NULL;
     }
 
     /**
@@ -170,21 +181,6 @@ namespace Papaya\Database {
     }
 
     /**
-     * @param string $identifier
-     * @return string
-     */
-    public function quoteIdentifier($identifier) {
-      $connector = $this->getDatabaseConnector();
-      if (\method_exists($connector, 'quoteIdentifier')) {
-        return $connector->quoteIdentifier($identifier);
-      }
-      if (\preg_match('([a-zA-Z\\d_])', $identifier)) {
-        return $identifier;
-      }
-      return '_invalid_identifier_';
-    }
-
-    /**
      * Get table name mapper object
      *
      * @param ContentTables $tables
@@ -212,42 +208,46 @@ namespace Papaya\Database {
       if (NULL !== $forObject) {
         $this->_useMasterOnly = (bool)$forObject;
       }
-      if (NULL !== $forConnection) {
-        $this->getDatabaseConnector()->masterOnly($forConnection);
+      if (
+        (NULL !== $forConnection) &&
+        ($connector = $this->getDatabaseConnector())
+      ) {
+        $connector->masterOnly($forConnection);
       }
       if ($this->_useMasterOnly) {
         return TRUE;
       }
-      return $this->getDatabaseConnector()->masterOnly();
+      return ($connector = $this->getDatabaseConnector()) ? $connector->masterOnly() : FALSE;
     }
 
     /**
-     * should the current read request go to the write connection?
+     * Which connection (read or write) should be used
      *
-     * @param bool $usable read connection possible
-     *
-     * @return bool
+     * @param string $requestedMode
+     * @return string
      */
-    public function readOnly($usable) {
-      if (!$usable) {
+    public function getConnectionMode($requestedMode = Connector::MODE_READ) {
+      if ($requestedMode === Connector::MODE_WRITE) {
         $this->setDataModified();
-        return FALSE;
+        return Connector::MODE_WRITE;
       }
       if ($this->masterOnly()) {
-        return FALSE;
+        return Connector::MODE_WRITE;
       }
-      $switchOption = $this->papaya()
-        ->getObject('Options')
-        ->getOption('PAPAYA_DATABASE_CLUSTER_SWITCH', 0);
+      $switchOption = 0;
+      if ($options = $this->papaya()->options) {
+        $switchOption = $options->get('PAPAYA_DATABASE_CLUSTER_SWITCH', $switchOption);
+      }
       switch ($switchOption) {
       case 2 : //connection context
-        return $this->getDatabaseConnector()->readOnly($usable);
-        break;
+        if ($this->_dataModified) {
+          return Connector::MODE_READ;
+        }
+        return $this->getDatabaseConnector()->getConnectionMode();
       case 1 : //object context
-        return !$this->_dataModified;
-        break;
+        return $this->_dataModified ? Connector::MODE_WRITE : Connector::MODE_READ;
       }
-      return TRUE;
+      return Connector::MODE_READ;
     }
 
     /**
@@ -255,19 +255,32 @@ namespace Papaya\Database {
      */
     public function setDataModified() {
       $this->_dataModified = TRUE;
-      $this->getDatabaseConnector()->setDataModified();
+      if ($connector = $this->getDatabaseConnector()) {
+        $connector->setDataModified();
+      }
     }
 
     public function debugNextQuery($counter = 1) {
-      $this->getDatabaseConnector()->debugNextQuery($counter);
+      if ($connector = $this->getDatabaseConnector()) {
+        $connector->debugNextQuery($counter);
+      }
     }
 
     public function enableAbsoluteCount() {
-      $this->getDatabaseConnector()->enableAbsoluteCount();
+      if ($connector = $this->getDatabaseConnector()) {
+        $connector->enableAbsoluteCount();
+      }
     }
 
     public function getProtocol() {
-      return $this->getDatabaseConnector()->getProtocol();
+      try {
+        if ($connector = $this->getDatabaseConnector($mode = $this->getConnectionMode())) {
+          return $connector->getProtocol($mode);
+        }
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return '';
     }
 
     /**
@@ -305,9 +318,9 @@ namespace Papaya\Database {
         $errorHandler($exception);
       } elseif ($messages = $this->papaya()->messages) {
         $mapSeverity = [
-          Exception::SEVERITY_INFO => Message::SEVERITY_INFO,
-          Exception::SEVERITY_WARNING => Message::SEVERITY_WARNING,
-          Exception::SEVERITY_ERROR => Message::SEVERITY_ERROR,
+          DatabaseException::SEVERITY_INFO => Message::SEVERITY_INFO,
+          DatabaseException::SEVERITY_WARNING => Message::SEVERITY_WARNING,
+          DatabaseException::SEVERITY_ERROR => Message::SEVERITY_ERROR,
         ];
         $logMsg = new Message\Log(
           Message\Logable::GROUP_DATABASE,
@@ -329,54 +342,64 @@ namespace Papaya\Database {
      */
     public function execute($statement, $options = 0) {
       try {
-        return $this->getDatabaseConnector()->execute($statement, $options);
-      } catch (Exception $exception) {
+        if ($connector = $this->getDatabaseConnector($mode = $this->getConnectionMode())) {
+          return $connector->execute($statement, $options, $mode);
+        }
+      } catch (DatabaseException $exception) {
         $this->_handleDatabaseException($exception);
-        return FALSE;
       }
+      return FALSE;
     }
 
     /**
      * @return \Papaya\Database\Schema
+     * @throws \Papaya\Database\Exception\ConnectionFailed
      */
     public function schema() {
-      try {
-        return $this->getDatabaseConnector()->connect()->schema();
-      } catch (Exception $exception) {
-        $this->_handleDatabaseException($exception);
-        throw new \BadMethodCallException('Can not fetch syntax object');
+      $mode = $this->getConnectionMode(Connector::MODE_WRITE);
+      if ($connector = $this->getDatabaseConnector($mode)) {
+        return $connector->schema($mode);
       }
+      new DatabaseException\ConnectionFailed(
+        \sprintf(
+          'Database connector not available.'
+        )
+      );
     }
 
     /**
      * @return \Papaya\Database\Syntax
+     * @throws \Papaya\Database\Exception\ConnectionFailed
      */
     public function syntax() {
-      try {
-        return $this->getDatabaseConnector()->connect()->syntax();
-      } catch (Exception $exception) {
-        $this->_handleDatabaseException($exception);
-        throw new \BadMethodCallException('Can not fetch schema object');
+      $mode = $this->getConnectionMode(Connector::MODE_WRITE);
+      if ($connector = $this->getDatabaseConnector($mode)) {
+        return $connector->syntax($mode);
       }
+      new DatabaseException\ConnectionFailed(
+        \sprintf(
+          'Database connector not available.'
+        )
+      );
     }
 
     public function isExtensionAvailable() {
       throw new \BadMethodCallException('General class, does not depend on extension.');
     }
 
-    public function connect() {
-      try {
-        if ($this->getDatabaseConnector()->connect()) {
-          return $this;
-        }
-      } catch (Exception $exception) {
-        $this->_handleDatabaseException($exception);
-      }
-      return FALSE;
+    /**
+     * @param string $mode
+     * @return \Papaya\Database\Connection
+     */
+    public function connect($mode = Connector::MODE_READ) {
+      $this->getDatabaseConnector($this->getConnectionMode($mode));
+      return $this;
     }
 
     public function disconnect() {
-      $this->getDatabaseConnector()->disconnect();
+      if ($connector = $this->getDatabaseConnector()) {
+        $connector->disconnect();
+      }
     }
 
     /**
@@ -386,15 +409,13 @@ namespace Papaya\Database {
      */
     public function registerFunction($name, callable $function) {
       try {
-        return $this->getDatabaseConnector()->connect()->registerFunction(
-          $name, $function
-        );
-      } catch (Exception $exception) {
+        if ($connector = $this->getDatabaseConnector()) {
+          return $connector->connect()->registerFunction($name, $function);
+        }
+      } catch (DatabaseException $exception) {
         $this->_handleDatabaseException($exception);
-        throw new \BadMethodCallException(
-          'Can not register function, API class not available'
-        );
       }
+      return FALSE;
     }
 
     /**
@@ -403,11 +424,14 @@ namespace Papaya\Database {
      */
     public function escapeString($literal) {
       try {
-        return $this->getDatabaseConnector()->connect()->escapeString($literal);
-      } catch (Exception $exception) {
+        $mode = $this->getConnectionMode();
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->escapeString($literal, $mode);
+        }
+      } catch (DatabaseException $exception) {
         $this->_handleDatabaseException($exception);
-        return '';
       }
+      return '';
     }
 
     /**
@@ -416,68 +440,105 @@ namespace Papaya\Database {
      */
     public function quoteString($literal) {
       try {
-        return $this->getDatabaseConnector()->connect()->quoteString($literal);
-      } catch (Exception $exception) {
+        $mode = $this->getConnectionMode();
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->quoteString($literal, $mode);
+        }
+      } catch (DatabaseException $exception) {
         $this->_handleDatabaseException($exception);
-        return '';
       }
-    }
-
-    public function insert($tableName, array $values) {
-      try {
-        return $this->getDatabaseConnector()->connect(FALSE)->insert(
-          $tableName, $values
-        );
-      } catch (Exception $exception) {
-        $this->_handleDatabaseException($exception);
-        return FALSE;
-      }
-    }
-
-    public function lastInsertId($tableName, $idField) {
-      try {
-        return $this->getDatabaseConnector()->connect(FALSE)->lastInsertId(
-          $tableName, $idField
-        );
-      } catch (Exception $exception) {
-        $this->_handleDatabaseException($exception);
-        return FALSE;
-      }
+      return '';
     }
 
     /**
-     * @param $sql
+     * @param string $name
+     * @return string
+     */
+    public function quoteIdentifier($name) {
+      try {
+        $mode = $this->getConnectionMode();
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->quoteIdentifier($name, $mode);
+        }
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      if (\preg_match('((?:[a-zA-Z\\d_]\\.)?[a-zA-Z\\d_])', $name)) {
+        return $name;
+      }
+      return '_invalid_identifier_';
+    }
+
+    /**
+     * @param string $tableName
+     * @param array $values
+     * @return bool
+     */
+    public function insert($tableName, array $values) {
+      try {
+        $mode = $this->getConnectionMode(Connector::MODE_WRITE);
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->connect()->insert($tableName, $values);
+        }
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
+    }
+
+    /**
+     * @param string $tableName
+     * @param string $idField
+     * @return bool
+     */
+    public function lastInsertId($tableName, $idField) {
+      try {
+        $mode = $this->getConnectionMode(Connector::MODE_WRITE);
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->connect()->lastInsertId(
+            $tableName, $idField
+          );
+        }
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
+    }
+
+    /**
+     * @param string $sql
      * @param null $max
      * @param null $offset
      * @param bool $readOnly
      * @return bool|Result|int
+     * @deprecated
      */
     public function query($sql, $max = NULL, $offset = NULL, $readOnly = TRUE) {
       return $this->execute(
         new LimitedStatement(
           $this, $sql instanceof Statement ? $sql : new SQLStatement($sql), $max, $offset
         ),
-        $readOnly ? self::FORCE_WRITE_CONNECTION : self::EMPTY_OPTIONS
+        $readOnly ? self::USE_WRITE_CONNECTION : self::EMPTY_OPTIONS
       );
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @return bool|int
      * @deprecated
      */
     public function queryWrite($sql) {
       return $this->execute(
         $sql instanceof Statement ? $sql : new SQLStatement($sql),
-        self::FORCE_WRITE_CONNECTION
+        self::USE_WRITE_CONNECTION
       );
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @param array $values
-     * @param null $max
-     * @param null $offset
+     * @param null|int $max
+     * @param null|int $offset
      * @param bool $readOnly
      * @return bool|Result|int
      * @deprecated
@@ -485,12 +546,12 @@ namespace Papaya\Database {
     public function queryFmt($sql, array $values, $max = NULL, $offset = NULL, $readOnly = TRUE) {
       return $this->execute(
         new LimitedStatement($this, new FormattedStatement($this, $sql, $values), $max, $offset),
-        $readOnly ? self::FORCE_WRITE_CONNECTION : self::EMPTY_OPTIONS
+        $readOnly ? self::USE_WRITE_CONNECTION : self::EMPTY_OPTIONS
       );
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @param array $values
      * @return bool|int
      * @deprecated
@@ -498,7 +559,7 @@ namespace Papaya\Database {
     public function queryFmtWrite($sql, array $values) {
       return $this->execute(
         new FormattedStatement($this, $sql, $values),
-        self::FORCE_WRITE_CONNECTION
+        self::USE_WRITE_CONNECTION
       );
     }
 
@@ -509,7 +570,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function createTable(array $tableStructure, $tablePrefix = '') {
-      return $this->schema()->createTable($tableStructure, $tablePrefix);
+      try {
+        return $this->schema()->createTable($tableStructure, $tablePrefix);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -519,7 +585,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function addField($tableName, array $fieldStructure) {
-      return $this->schema()->addField($tableName, $fieldStructure);
+      try {
+        return $this->schema()->addField($tableName, $fieldStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -529,7 +600,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function addIndex($tableName, array $indexStructure) {
-      return $this->schema()->addIndex($tableName, $indexStructure);
+      try {
+        return $this->schema()->addIndex($tableName, $indexStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -539,7 +615,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function changeField($tableName, array $fieldStructure) {
-      return $this->schema()->changeField($tableName, $fieldStructure);
+      try {
+        return $this->schema()->changeField($tableName, $fieldStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -549,7 +630,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function changeIndex($tableName, array $indexStructure) {
-      return $this->schema()->changeIndex($tableName, $indexStructure);
+      try {
+        return $this->schema()->changeIndex($tableName, $indexStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -559,7 +645,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function compareFieldStructure(array $expectedStructure, array $currentStructure) {
-      return $this->schema()->isFieldDifferent($expectedStructure, $currentStructure);
+      try {
+        return $this->schema()->isFieldDifferent($expectedStructure, $currentStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -569,7 +660,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function compareKeyStructure(array $expectedStructure, array $currentStructure) {
-      return $this->schema()->isIndexDifferent($expectedStructure, $currentStructure);
+      try {
+        return $this->schema()->isIndexDifferent($expectedStructure, $currentStructure);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -579,7 +675,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function dropField($tableName, $fieldName) {
-      return $this->schema()->dropField($tableName, $fieldName);
+      try {
+        return $this->schema()->dropField($tableName, $fieldName);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -589,7 +690,12 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function dropIndex($tableName, $indexName) {
-      return $this->schema()->dropIndex($tableName, $indexName);
+      try {
+        return $this->schema()->dropIndex($tableName, $indexName);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return FALSE;
     }
 
     /**
@@ -597,16 +703,26 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function queryTableNames() {
-      return $this->schema()->getTables();
+      try {
+        return $this->schema()->getTables();
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return [];
     }
 
     /**
      * @param $tableName
-     * @return array
+     * @return array|NULL
      * @deprecated
      */
     public function queryTableStructure($tableName) {
-      return $this->schema()->describeTable($tableName);
+      try {
+        return $this->schema()->describeTable($tableName);
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return NULL;
     }
 
     /**
@@ -659,21 +775,24 @@ namespace Papaya\Database {
     }
 
     /**
-     * @param $tableName
-     * @param $identifierField
+     * @param string $tableName
+     * @param string|NULL $identifierField
      * @param array $values
      * @return bool|string
      * @deprecated
      */
     public function insertRecord($tableName, $identifierField, array $values) {
       try {
-        return $this->getDatabaseConnector()->insertRecord(
-          $tableName, $identifierField, $values
-        );
-      } catch (Exception $exception) {
+        $mode = $this->getConnectionMode(Connector::MODE_WRITE);
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->insertRecord(
+            $tableName, $identifierField, $values
+          );
+        }
+      } catch (DatabaseException $exception) {
         $this->_handleDatabaseException($exception);
-        return FALSE;
       }
+      return FALSE;
     }
 
     /**
@@ -681,8 +800,8 @@ namespace Papaya\Database {
      *
      * @param string $tableName Table
      * @param array $values values
-     * @param array|NULL $filter condition
-     * @param null $value
+     * @param array|NULL|string $filter condition
+     * @param mixed $value
      * @return \Papaya\Database\Result|boolean|integer
      * @deprecated
      */
@@ -707,7 +826,7 @@ namespace Papaya\Database {
             substr($sql, 0, -2),
             $this->getSQLCondition($filter, $value)
           );
-          return $this->execute($sql, self::FORCE_WRITE_CONNECTION);
+          return $this->execute($sql, self::USE_WRITE_CONNECTION);
         }
       }
       return FALSE;
@@ -726,39 +845,51 @@ namespace Papaya\Database {
         $this->quoteIdentifier($tableName),
         $this->getSQLCondition($this->getConditionArray($filter, $value))
       );
-      return $this->execute($sql, self::DISABLE_RESULT_CLEANUP);
+      return $this->execute($sql, self::DISABLE_RESULT_CLEANUP | self::USE_WRITE_CONNECTION);
     }
 
     /**
      * @param $function
      * @param array $parameters
-     * @return string
+     * @return string|NULL
      * @deprecated
      */
     public function getSQLSource($function, array $parameters) {
-      $arguments = [];
-      for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
-        if (isset($parameters[$i + 1]) && !$parameters[$i + 1]) {
-          $arguments[] = new \Papaya\Database\Syntax\SQLSource($parameters[$i]);
-        } else {
-          $arguments[] = (string)$parameters[$i];
+      try {
+        $arguments = [];
+        for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
+          if (isset($parameters[$i + 1]) && !$parameters[$i + 1]) {
+            $arguments[] = new \Papaya\Database\Syntax\SQLSource($parameters[$i]);
+          } else {
+            $arguments[] = (string)$parameters[$i];
+          }
         }
+        $call = [$this->syntax(), $function];
+        $source = $call(...$arguments);
+        return $source ?: NULL;
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
       }
-      $call = [$this->syntax(), $function];
-      $source = $call(...$arguments);
-      return $source ?: FALSE;
+      return NULL;
     }
 
     /**
      * @param array|string $filter
-     * @param null $value
+     * @param mixed $value
      * @param string $operator
      * @return string
-     * @throws \Papaya\Database\Exception\ConnectionFailed
      * @deprecated
      */
     public function getSqlCondition($filter, $value = NULL, $operator = '=') {
-      return $this->getDatabaseConnector()->getSqlCondition($filter, $value, $operator);
+      try {
+        $mode = $this->getConnectionMode();
+        if ($connector = $this->getDatabaseConnector($mode)) {
+          return $connector->getSqlCondition($filter, $value, $operator, $mode);
+        }
+      } catch (DatabaseException $exception) {
+        $this->_handleDatabaseException($exception);
+      }
+      return '(0 = 1)';
     }
 
     /**

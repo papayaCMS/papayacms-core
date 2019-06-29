@@ -20,7 +20,7 @@ namespace Papaya\Database {
     const EMPTY_OPTIONS = 0;
     const REQUIRE_ABSOLUTE_COUNT = 1;
     const DISABLE_RESULT_CLEANUP = 2;
-    const FORCE_WRITE_CONNECTION = 4;
+    const USE_WRITE_CONNECTION = 4;
 
     /**
      * @param string $sql

@@ -71,7 +71,7 @@ class SQLite3Connection extends AbstractConnection {
    * @throws ConnectionFailed
    */
   public function connect() {
-    if (isset($this->_sqlite3) && ($this->_sqlite3 instanceof SQLite3Extension)) {
+    if ($this->_sqlite3 instanceof SQLite3Extension) {
       return $this;
     }
     try {
@@ -102,7 +102,6 @@ class SQLite3Connection extends AbstractConnection {
     if (!Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
       $this->cleanup();
     }
-    $this->connect();
     if (!$statement instanceof Statement) {
       $statement = new SQLStatement((string)$statement, []);
     }

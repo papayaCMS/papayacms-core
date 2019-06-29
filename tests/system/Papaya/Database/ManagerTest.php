@@ -49,8 +49,8 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testSetConnector() {
     $manager = new Manager();
-    $connector = new \Papaya\Database\Connector();
-    $manager->setConnector($connector, 'READ', 'WRITE');
+    $connector = new Connector('READ', 'WRITE');
+    $manager->setConnector($connector);
     $this->assertAttributeSame(
       array("READ\nWRITE" => $connector),
       '_connectors',
@@ -64,8 +64,8 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testSetConnectorWithoutWriteUri() {
     $manager = new Manager();
-    $connector = new \Papaya\Database\Connector();
-    $manager->setConnector($connector, 'READ');
+    $connector = new Connector('READ');
+    $manager->setConnector($connector);
     $this->assertAttributeSame(
       array("READ\nREAD" => $connector),
       '_connectors',
@@ -77,9 +77,8 @@ class ManagerTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Manager::setConnector
    * @covers \Papaya\Database\Manager::_getConnectorUris
    */
-  public function testSetConnectorWithoutReadUri() {
+  public function testGetConnectorWithoutReadUri() {
     $manager = new Manager();
-    $connector = new \Papaya\Database\Connector();
     $manager->setConfiguration(
       $this->mockPapaya()->options(
         array(
@@ -88,7 +87,7 @@ class ManagerTest extends \Papaya\TestCase {
         )
       )
     );
-    $manager->setConnector($connector);
+    $connector = $manager->getConnector();
     $this->assertAttributeSame(
       array("read_default\nwrite_default" => $connector),
       '_connectors',
@@ -101,11 +100,12 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testGetConnector() {
     $manager = new Manager();
-    $connector = new \Papaya\Database\Connector();
-    $manager->setConnector($connector, 'READ');
+    $manager->papaya($this->mockPapaya()->application());
+    $connector = new Connector('');
+    $manager->setConnector($connector);
     $this->assertSame(
       $connector,
-      $manager->getConnector('READ')
+      $manager->getConnector()
     );
   }
 
@@ -115,7 +115,7 @@ class ManagerTest extends \Papaya\TestCase {
   public function testGetConnectorImplicitCreate() {
     $manager = new Manager();
     $this->assertInstanceOf(
-      \Papaya\Database\Connector::class,
+      Connector::class,
       $manager->getConnector('READ')
     );
   }
@@ -125,8 +125,8 @@ class ManagerTest extends \Papaya\TestCase {
    */
   public function testDisconnect() {
     $manager = new Manager();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
-    $connector = $this->createMock(\Papaya\Database\Connector::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Connector $connector */
+    $connector = $this->createMock(Connector::class);
     $connector
       ->expects($this->once())
       ->method('disconnect');
