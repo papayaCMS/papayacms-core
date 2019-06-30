@@ -53,7 +53,7 @@ class Like extends Element {
       $conditions = [];
       foreach ($fields as $field) {
         if (\count($inValues) > 0) {
-          $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
+          $conditions[] = $this->getDatabaseAccess()->getSQLCondition(
             [
               $this->mapFieldName($field) => $inValues
             ],
@@ -62,7 +62,7 @@ class Like extends Element {
           );
         }
         if (\count($likeValues) > 0) {
-          $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
+          $conditions[] = $this->getDatabaseAccess()->getSQLCondition(
             [
               $this->mapFieldName($field) => $likeValues
             ],

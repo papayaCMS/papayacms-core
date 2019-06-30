@@ -312,7 +312,7 @@ namespace Papaya\Database {
     }
 
     /**
-     * Close database connection
+     * Close database connection(s)
      *
      * @return void
      */

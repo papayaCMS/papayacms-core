@@ -81,13 +81,6 @@ namespace Papaya\Database {
     private $_errorHandler;
 
     /**
-     * Map lowercase versions of the delegate functions to the real ones
-     *
-     * @var array|NULL
-     */
-    private static $_functionMapping;
-
-    /**
      * The owner is used later to determine which object has uses the database access
      * (for example in logging).
      *
@@ -396,10 +389,21 @@ namespace Papaya\Database {
       return $this;
     }
 
+    /**
+     * Close database connection(s)
+     */
     public function disconnect() {
       if ($connector = $this->getDatabaseConnector()) {
         $connector->disconnect();
       }
+    }
+
+    /**
+     * Add close function alias for BC
+     * @deprecated
+     */
+    public function close() {
+      $this->disconnect();
     }
 
     /**
@@ -536,14 +540,19 @@ namespace Papaya\Database {
 
     /**
      * @param string $sql
-     * @param array $values
+     * @param array|string|NULL $values
      * @param null|int $max
      * @param null|int $offset
      * @param bool $readOnly
      * @return bool|Result|int
      * @deprecated
      */
-    public function queryFmt($sql, array $values, $max = NULL, $offset = NULL, $readOnly = TRUE) {
+    public function queryFmt($sql, $values, $max = NULL, $offset = NULL, $readOnly = TRUE) {
+      if (NULL === $values) {
+        $values = [];
+      } elseif (!is_array($values)) {
+        $values = [$values];
+      }
       return $this->execute(
         new LimitedStatement($this, new FormattedStatement($this, $sql, $values), $max, $offset),
         $readOnly ? self::USE_WRITE_CONNECTION : self::EMPTY_OPTIONS
@@ -552,15 +561,12 @@ namespace Papaya\Database {
 
     /**
      * @param string $sql
-     * @param array $values
+     * @param array|string|NULL $values
      * @return bool|int
      * @deprecated
      */
-    public function queryFmtWrite($sql, array $values) {
-      return $this->execute(
-        new FormattedStatement($this, $sql, $values),
-        self::USE_WRITE_CONNECTION
-      );
+    public function queryFmtWrite($sql, $values) {
+      return $this->queryFmt($sql, $values, NULL, NULL, FALSE);
     }
 
     /**
@@ -880,7 +886,7 @@ namespace Papaya\Database {
      * @return string
      * @deprecated
      */
-    public function getSqlCondition($filter, $value = NULL, $operator = '=') {
+    public function getSQLCondition($filter, $value = NULL, $operator = '=') {
       try {
         $mode = $this->getConnectionMode();
         if ($connector = $this->getDatabaseConnector($mode)) {

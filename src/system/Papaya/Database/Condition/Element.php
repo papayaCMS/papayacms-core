@@ -81,7 +81,7 @@ class Element {
       if (\is_array($this->_field)) {
         $conditions = [];
         foreach ($this->_field as $field) {
-          $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
+          $conditions[] = $this->getDatabaseAccess()->getSQLCondition(
             [
               $this->mapFieldName($field) => $this->_value
             ],
@@ -91,7 +91,7 @@ class Element {
         }
         return ' ('.\implode(' AND ', $conditions).') ';
       }
-      return $this->getDatabaseAccess()->getSqlCondition(
+      return $this->getDatabaseAccess()->getSQLCondition(
         [
           $this->mapFieldName($this->_field) => $this->_value
         ],

@@ -149,7 +149,7 @@ class Work extends Content\Page {
         ]
       );
       if (FALSE !== $deleted) {
-        $filter = \str_replace('%', '%%', $databaseAccess->getSqlCondition(['lng_id' => $languageIds]));
+        $filter = \str_replace('%', '%%', $databaseAccess->getSQLCondition(['lng_id' => $languageIds]));
         $now = \time();
         $sql = "INSERT INTO %s
                        (topic_id, lng_id, topic_title,
