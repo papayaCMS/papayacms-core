@@ -54,33 +54,30 @@ namespace Papaya\Database {
     /**
      * Id to keep track of requests for query log
      *
-     * @var string $requestId
+     * @var string $_requestId
      */
-    private static $requestId = '';
+    private static $_requestId = '';
 
     /**
      * Internal absolute query counter
      *
      * @var integer
      */
-    private static $queryCounterClass = 0;
+    private static $_queryCounterClass = 0;
 
     /**
      * counter for queries using this object
      *
-     * @var integer $queryCounterObject
+     * @var integer $_queryCounterObject
      */
-    private $queryCounterObject = 0;
+    private $_queryCounterObject = 0;
 
     /**
      * database URI
      *
-     * @var array:string $databaseURIs
+     * @var string[] $databaseURIs
      */
-    private $_databaseURIs = [
-      self::MODE_READ => '',
-      self::MODE_WRITE => ''
-    ];
+    private $_databaseURIs;
 
     /**
      * database configuration
@@ -135,11 +132,57 @@ namespace Papaya\Database {
      */
     private $_dataModified = FALSE;
 
+
+    /**
+     * @param string $readURI
+     * @param null|string $writeURI
+     */
     public function __construct($readURI, $writeURI = NULL) {
       $this->_databaseURIs = [
         self::MODE_READ => $readURI,
         self::MODE_WRITE => $writeURI
       ];
+    }
+
+    /**
+     * @param string $name
+     * @param string $class
+     */
+    public static function registerConnectionClass($name, $class) {
+      $name = strtolower($name);
+      if (isset(self::$_connectionClasses[$name])) {
+        throw new \InvalidArgumentException(
+          sprintf(
+            'Duplicate connection identifier "%s". Can not register "%s".',
+            $name,
+            $class
+          )
+        );
+      }
+      if (!class_exists($class)) {
+        throw new \InvalidArgumentException(
+          sprintf(
+            'Can not register connection identifier "%s". Class "%s" does not exists.',
+            $name,
+            $class
+          )
+        );
+      }
+      self::$_connectionClasses[$name] = $class;
+    }
+
+    public static function unregisterConnectionClass($name) {
+      $name = strtolower($name);
+      if (isset(self::$_connectionClasses[$name])) {
+        unset(self::$_connectionClasses[$name]);
+      } else {
+        throw new \InvalidArgumentException(
+          sprintf(
+            'Unknown connection identifier "%s".',
+            $name
+          )
+        );
+      }
     }
 
     /**
@@ -276,10 +319,10 @@ namespace Papaya\Database {
     public function disconnect() {
       if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE)) {
         if ($this->_queryTimeSum > 0) {
-          $message = 'Database Query Count: '.$this->queryCounterObject.' in '.
+          $message = 'Database Query Count: '.$this->_queryCounterObject.' in '.
             Utility\Date::periodToString($this->_queryTimeSum);
         } else {
-          $message = 'Database Query Count: '.$this->queryCounterObject;
+          $message = 'Database Query Count: '.$this->_queryCounterObject;
         }
         $this->papaya()->messages->log(
           Message\Logable::GROUP_DEBUG,
@@ -363,9 +406,9 @@ namespace Papaya\Database {
     ) {
       $error = NULL;
       //global query counter
-      self::$queryCounterClass++;
+      self::$_queryCounterClass++;
       //object query counter
-      $this->queryCounterObject++;
+      $this->_queryCounterObject++;
 
       $settings = $this->papaya()->options;
 
@@ -472,7 +515,7 @@ namespace Papaya\Database {
         case 2 : // all
           if (!empty($_GET['DEBUG_QUERIES'])) {
             $queryNumbers = explode(',', $_GET['DEBUG_QUERIES']);
-            if (in_array(self::$queryCounterClass, $queryNumbers, FALSE)) {
+            if (in_array(self::$_queryCounterClass, $queryNumbers, FALSE)) {
               $dispatchLogMessage = TRUE;
             }
           } else {
@@ -497,7 +540,7 @@ namespace Papaya\Database {
       if ($dispatchLogMessage || $populateQueryLog) {
         $caption = sprintf(
           'Query #%d on %s connection',
-          self::$queryCounterClass,
+          self::$_queryCounterClass,
           $query['mode']
         );
         $backtrace = NULL;
@@ -554,14 +597,14 @@ namespace Papaya\Database {
           $this->papaya()->messages->dispatch($logMessage);
         }
         if ($populateQueryLog) {
-          if (empty(self::$requestId)) {
-            self::$requestId = md5(uniqid(mt_rand(), TRUE));
+          if (empty(self::$_requestId)) {
+            self::$_requestId = md5(uniqid(mt_rand(), TRUE));
           }
           $logData = [
-            'query_request' => self::$requestId,
+            'query_request' => self::$_requestId,
             'query_timestamp' => time(),
             'query_class' => get_class($query['object']),
-            'query_count' => self::$queryCounterClass,
+            'query_count' => self::$_queryCounterClass,
             'query_conn' => $query['mode'],
             'query_time' => $timeDelta * 1000,
             'query_content' => $query['sql'],
