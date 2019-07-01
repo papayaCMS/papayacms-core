@@ -98,6 +98,10 @@ class base_db extends base_object {
     return FALSE;
   }
 
+  public function databaseGetTableName($tableName, $usePrefix = TRUE) {
+    return $this->getDatabaseAccess()->getTableName($tableName, $usePrefix);
+  }
+
   public function databaseQuery($sql, $limit = NULL, $offset = NULL, $readOnly = TRUE) {
     return $this->getDatabaseAccess()->query($sql, $limit, $offset, $readOnly);
   }
