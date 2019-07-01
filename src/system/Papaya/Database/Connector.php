@@ -682,6 +682,16 @@ namespace Papaya\Database {
       return FALSE;
     }
 
+    /**
+     * @param string $tableName
+     * @param string $identifierField
+     * @return string
+     * @throws \Papaya\Database\Exception\ConnectionFailed
+     */
+    public function lastInsertId($tableName, $identifierField) {
+      return $this->connect(self::MODE_WRITE)->lastInsertId($tableName, $identifierField);
+    }
+
     private function getTableName($tableName, $usePrefix) {
       if ($usePrefix && isset($this->papaya()->options)) {
         $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
