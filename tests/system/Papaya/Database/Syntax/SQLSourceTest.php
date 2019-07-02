@@ -16,23 +16,24 @@
 namespace Papaya\Database\Syntax {
 
   /**
-   * Wraps an SQL identifier into an object, that it can be recognizes while compiling the SQL string.
-   * The identifier string will be validated.
-   *
-   * @covers \Papaya\Database\Syntax\Identifier
+   * @covers \Papaya\Database\Syntax\SQLSource
    */
-  class Identifier extends SQLSource {
+  class SQLSourceTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @param string $name
+     * @param string $expected
+     * @param mixed $sqlString
+     * @testWith
+     *   ["foo", "foo"]
+     *   ["42", 42]
+     *   ["", null]
+     *   ["LOWER(foo)", "LOWER(foo)"]
      */
-    public function __construct($name) {
-      if (!preg_match('(^([a-z][a-z\\d_ ]*\\.)*[a-z][a-z\\d_ ]*$)Di', $name)) {
-        throw new \InvalidArgumentException(
-          "Invalid identifier name: $name"
-        );
-      }
-      parent::__construct($name);
+    public function testCreateAndCastToString($expected, $sqlString) {
+      $sqlSource = new SQLSource($sqlString);
+      $this->assertSame($expected, (string)$sqlSource);
     }
+
   }
+
 }
