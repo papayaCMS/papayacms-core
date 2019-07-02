@@ -7,6 +7,11 @@ namespace Papaya\Database {
   interface Syntax {
 
     /**
+     * @return string
+     */
+    public function getDialect();
+
+    /**
      * @param string $name
      * @return \Papaya\Database\Syntax\Identifier
      */

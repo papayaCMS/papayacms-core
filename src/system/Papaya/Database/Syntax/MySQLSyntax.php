@@ -5,6 +5,13 @@ namespace Papaya\Database\Syntax {
   class MySQLSyntax extends AbstractSyntax {
 
     /**
+     * @return string
+     */
+    public function getDialect() {
+      return 'mysql';
+    }
+
+    /**
      * @param string|Parameter ...$arguments
      * @return string
      */

@@ -7,6 +7,13 @@ namespace Papaya\Database\Syntax {
     private $_callbacks;
 
     /**
+     * @return string
+     */
+    public function getDialect() {
+      return 'sqlite';
+    }
+
+    /**
      * @param string|Parameter ...$arguments
      * @return string
      */

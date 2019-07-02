@@ -260,11 +260,8 @@ namespace Papaya\Database {
       $className = isset(self::$_connectionClasses[$dsn->api])
         ? self::$_connectionClasses[$dsn->api] : '';
       if ($className) {
-        if (defined('PAPAYA_DBG_DEVMODE') && PAPAYA_DBG_DEVMODE) {
-          $found = class_exists($className);
-        } else {
-          $found = @class_exists($className);
-        }
+        $found = defined('PAPAYA_DBG_DEVMODE') && PAPAYA_DBG_DEVMODE
+          ? class_exists($className) : @class_exists($className);
         if ($found) {
           /** @var DatabaseConnection $connection */
           $connection = new $className($dsn);
@@ -755,7 +752,7 @@ namespace Papaya\Database {
      * @throws ConnectionFailed
      */
     public function getProtocol($mode = self::MODE_WRITE) {
-      return $this->getDSN($mode)->platform;
+      return $this->syntax($mode)->getDialect();
     }
 
     /**

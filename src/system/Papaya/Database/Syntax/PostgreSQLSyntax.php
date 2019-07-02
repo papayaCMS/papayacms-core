@@ -5,6 +5,13 @@ namespace Papaya\Database\Syntax {
   class PostgreSQLSyntax extends AbstractSyntax {
 
     /**
+     * @return string
+     */
+    public function getDialect() {
+      return 'pgsql';
+    }
+
+    /**
      * @param string|Parameter ...$arguments
      * @return string
      */
