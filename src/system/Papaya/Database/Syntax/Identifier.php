@@ -18,8 +18,6 @@ namespace Papaya\Database\Syntax {
   /**
    * Wraps an SQL identifier into an object, that it can be recognizes while compiling the SQL string.
    * The identifier string will be validated.
-   *
-   * @covers \Papaya\Database\Syntax\Identifier
    */
   class Identifier extends SQLSource {
 

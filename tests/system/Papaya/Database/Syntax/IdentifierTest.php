@@ -15,7 +15,9 @@
 
 namespace Papaya\Database\Syntax {
 
-
+  /**
+   * @covers \Papaya\Database\Syntax\Identifier
+   */
   class IdentifierTest extends \PHPUnit_Framework_TestCase {
 
     /**
