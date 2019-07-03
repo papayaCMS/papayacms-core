@@ -20,7 +20,7 @@ namespace Papaya\Database\Syntax {
         ', ',
         array_map(
           function($argument) {
-            return $this->getParameter($argument);
+            return $this->compileParameter($argument);
           },
           $arguments
         )
@@ -33,7 +33,7 @@ namespace Papaya\Database\Syntax {
      * @return int
      */
     public function length($text) {
-      return 'LENGTH('.$this->getParameter($text).')';
+      return 'LENGTH('.$this->compileParameter($text).')';
     }
 
     /**
@@ -41,7 +41,7 @@ namespace Papaya\Database\Syntax {
      * @return string
      */
     public function like($text) {
-      return 'LIKE '.$this->getParameter($text);
+      return 'LIKE '.$this->compileParameter($text);
     }
 
     /**
@@ -53,9 +53,9 @@ namespace Papaya\Database\Syntax {
     public function locate($haystack, $needle, $offset = 0) {
       return sprintf(
         'LOCATE(%s, %s, %s)',
-        $this->getParameter($haystack),
-        $this->getParameter($needle),
-        $this->getParameter($offset)
+        $this->compileParameter($haystack),
+        $this->compileParameter($needle),
+        $this->compileParameter($offset)
       );
     }
 
@@ -64,7 +64,7 @@ namespace Papaya\Database\Syntax {
      * @return string
      */
     public function lower($text) {
-      return 'LOWER('.$this->getParameter($text).')';
+      return 'LOWER('.$this->compileParameter($text).')';
     }
 
     /**
@@ -100,9 +100,9 @@ namespace Papaya\Database\Syntax {
     public function substring($haystack, $offset = 0, $length = 0) {
       return sprintf(
         'SUBSTRING(%s, %s, %s)',
-        $this->getParameter($haystack),
-        $this->getParameter($offset),
-        $this->getParameter($length)
+        $this->compileParameter($haystack),
+        $this->compileParameter($offset),
+        $this->compileParameter($length)
       );
     }
 
@@ -111,7 +111,7 @@ namespace Papaya\Database\Syntax {
      * @return string
      */
     public function upper($text) {
-      return 'UPPER('.$this->getParameter($text).')';
+      return 'UPPER('.$this->compileParameter($text).')';
     }
   }
 }
