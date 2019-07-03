@@ -12,7 +12,7 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter ...$arguments
+     * @param string|SQLSource ...$arguments
      * @return string
      */
     public function concat(...$arguments) {
@@ -29,7 +29,7 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter $text
+     * @param string|SQLSource $text
      * @return int
      */
     public function length($text) {
@@ -37,7 +37,7 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter $text
+     * @param string|SQLSource $text
      * @return string
      */
     public function like($text) {
@@ -45,9 +45,9 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter haystack
-     * @param string|Parameter $needle
-     * @param int|Parameter $offset
+     * @param string|SQLSource haystack
+     * @param string|SQLSource $needle
+     * @param int|SQLSource $offset
      * @return string
      */
     public function locate($haystack, $needle, $offset = 0) {
@@ -60,7 +60,7 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter $text
+     * @param string|SQLSource $text
      * @return string
      */
     public function lower($text) {
@@ -92,17 +92,24 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
-     * @param string|Parameter $haystack
-     * @param int|Parameter $offset
-     * @param int|Parameter $length
+     * @param string|SQLSource $haystack
+     * @param int|SQLSource $offset
+     * @param int|SQLSource $length
      * @return string
      */
     public function substring($haystack, $offset = 0, $length = 0) {
+      if ($length instanceof SQLSource || $length > 0) {
+        return sprintf(
+          'SUBSTRING(%s, %s, %s)',
+          $this->compileParameter($haystack),
+          $this->compileParameter($offset),
+          $this->compileParameter($length)
+        );
+      }
       return sprintf(
-        'SUBSTRING(%s, %s, %s)',
+        'SUBSTRING(%s, %s)',
         $this->compileParameter($haystack),
-        $this->compileParameter($offset),
-        $this->compileParameter($length)
+        $this->compileParameter($offset)
       );
     }
 
