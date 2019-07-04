@@ -64,13 +64,19 @@ trait Aggregation {
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = new Database\Access(
-        $this->_databaseURIs['read'], $this->_databaseURIs['write']
-      );
-      if ($this instanceof Application\Access) {
-        $this->_databaseAccessObject->papaya($this->papaya());
-      }
+      $this->_databaseAccessObject = $this->createDatabaseAccess();
     }
     return $this->_databaseAccessObject;
+  }
+
+  /**
+   * @return \Papaya\Database\Access
+   */
+  private function createDatabaseAccess() {
+    $databaseAccess = new Database\Access($this->_databaseURIs['read'], $this->_databaseURIs['write']);
+    if ($this instanceof Application\Access) {
+      $databaseAccess->papaya($this->papaya());
+    }
+    return $databaseAccess;
   }
 }

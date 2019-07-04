@@ -18,14 +18,9 @@
  * @subpackage Database
  * @deprecated
  */
-class base_db extends base_object {
+class base_db extends base_object implements \Papaya\Database\Interfaces\Access {
 
-  /**
-   * Database access object
-   *
-   * @var \Papaya\Database\Access $_databaseAccessObject
-   */
-  private $_databaseAccessObject;
+  use \Papaya\Database\Interfaces\Access\Aggregation;
 
   /**
    * Database URI, default value ist the option PAPAYA_DB_URI
@@ -41,27 +36,16 @@ class base_db extends base_object {
   protected $databaseURIWrite;
 
   /**
-   * Set database access object
+   * Override database object create to accommodate old properties.
    *
-   * @param \Papaya\Database\Access $databaseAccessObject
+   * @return Papaya\Database\Access
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
-    $this->_databaseAccessObject = $databaseAccessObject;
-  }
-
-  /**
-   * Get database access object
-   *
-   * @return \Papaya\Database\Access
-   */
-  public function getDatabaseAccess() {
-    if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \Papaya\Database\Access(
-        $this->databaseURI, $this->databaseURIWrite
-      );
-      $this->_databaseAccessObject->papaya($this->papaya());
-    }
-    return $this->_databaseAccessObject;
+  private function createDatabaseAccess() {
+    $databaseAccess = new \Papaya\Database\Access(
+      $this->databaseURI, $this->databaseURIWrite
+    );
+    $databaseAccess->papaya($this->papaya());
+    return $databaseAccess;
   }
 
   /**
@@ -73,7 +57,7 @@ class base_db extends base_object {
    * @deprecated
    */
   public function escapeStr($value) {
-    return $this->databaseEscapeString($value);
+    return $this->getDatabaseAccess()->escapeString($value);
   }
 
   /**
