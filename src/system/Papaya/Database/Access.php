@@ -19,6 +19,7 @@ namespace Papaya\Database {
   use Papaya\Database\Statement\Formatted as FormattedStatement;
   use Papaya\Database\Statement\Limited as LimitedStatement;
   use Papaya\Database\Statement\Prepared as PreparedStatement;
+  use Papaya\Database\Syntax\SQLSource;
   use Papaya\Message;
   use Papaya\Database\Exception as DatabaseException;
 
@@ -79,10 +80,6 @@ namespace Papaya\Database {
      * @var null|callable
      */
     private $_errorHandler;
-    /**
-     * @var object
-     */
-    private $_owner;
 
     /**
      * The owner is used later to determine which object has uses the database access
@@ -94,6 +91,13 @@ namespace Papaya\Database {
     public function __construct($readUri = NULL, $writeUri = NULL) {
       $this->_uriRead = $readUri;
       $this->_uriWrite = $writeUri;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getDatabaseURIs() {
+      return [$this->_uriRead, $this->_uriWrite];
     }
 
     /**
@@ -234,11 +238,14 @@ namespace Papaya\Database {
         $switchOption = $options->get('PAPAYA_DATABASE_CLUSTER_SWITCH', $switchOption);
       }
       switch ($switchOption) {
-      case 2 : //connection context
+      /** @noinspection PhpMissingBreakStatementInspection */
+      case 2 : // connection context
         if ($this->_dataModified) {
-          return Connector::MODE_READ;
+          return Connector::MODE_WRITE;
         }
-        return $this->getDatabaseConnector()->getConnectionMode();
+        if ($connector = $this->getDatabaseConnector()) {
+          return $connector->getConnectionMode();
+        }
       case 1 : //object context
         return $this->_dataModified ? Connector::MODE_WRITE : Connector::MODE_READ;
       }
@@ -355,7 +362,7 @@ namespace Papaya\Database {
       if ($connector = $this->getDatabaseConnector($mode)) {
         return $connector->schema($mode);
       }
-      new DatabaseException\ConnectionFailed(
+      throw new DatabaseException\ConnectionFailed(
         \sprintf(
           'Database connector not available.'
         )
@@ -371,7 +378,7 @@ namespace Papaya\Database {
       if ($connector = $this->getDatabaseConnector($mode)) {
         return $connector->syntax($mode);
       }
-      new DatabaseException\ConnectionFailed(
+      throw new DatabaseException\ConnectionFailed(
         \sprintf(
           'Database connector not available.'
         )
@@ -868,7 +875,7 @@ namespace Papaya\Database {
         $arguments = [];
         for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
           if (isset($parameters[$i + 1]) && !$parameters[$i + 1]) {
-            $arguments[] = new \Papaya\Database\Syntax\SQLSource($parameters[$i]);
+            $arguments[] = new SQLSource($parameters[$i]);
           } else {
             $arguments[] = (string)$parameters[$i];
           }
