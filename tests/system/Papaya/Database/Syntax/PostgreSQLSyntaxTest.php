@@ -19,17 +19,17 @@ namespace Papaya\Database\Syntax {
 
 
   /**
-   * @covers \Papaya\Database\Syntax\MySQLSyntax
+   * @covers \Papaya\Database\Syntax\PostgreSQLSyntax
    */
-  class MySQLSyntaxTest extends \PHPUnit_Framework_TestCase {
+  class PostgreSQLSyntaxTest extends \PHPUnit_Framework_TestCase {
 
     public function testLength() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame("LENGTH('text')", $syntax->length('text'));
     }
 
     public function testLocate() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "LOCATE('haystack', 'needle', '0')",
         $syntax->locate('haystack', 'needle')
@@ -37,7 +37,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testLocateWithOffset() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "LOCATE('haystack', 'needle', '10')",
         $syntax->locate('haystack', 'needle', 10)
@@ -45,7 +45,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testConcat() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "CONCAT('one', 'two', 'three', 'four')",
         $syntax->concat('one', 'two', 'three', 'four')
@@ -53,7 +53,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testSubstring() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "SUBSTRING('Hello World!', '6')",
         $syntax->substring('Hello World!', 6)
@@ -61,7 +61,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testSubstringWithLengthArgument() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "SUBSTRING('Hello World!', '6', '2')",
         $syntax->substring('Hello World!', 6, 2)
@@ -69,23 +69,23 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testLike() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
-        "LIKE 'value'",
+        "LIKE 'value' ESCAPE '\\\\'",
         $syntax->like('value')
       );
     }
 
     public function testLikeWithIdentifier() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
-        'LIKE `field`',
+        'LIKE `field` ESCAPE \'\\\\\'',
         $syntax->like($syntax->identifier('field'))
       );
     }
 
     public function testLower() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'LOWER(`field`)',
         $syntax->lower($syntax->identifier('field'))
@@ -93,7 +93,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testUpper() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'UPPER(`field`)',
         $syntax->upper($syntax->identifier('field'))
@@ -101,7 +101,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testLimit() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         ' LIMIT 10',
         $syntax->limit(10)
@@ -109,7 +109,7 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testLimitWithLimitIsZero() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         '',
         $syntax->limit(0)
@@ -117,15 +117,15 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testLimitWithOffset() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
-        ' LIMIT 20,10',
+        ' OFFSET 20 LIMIT 10',
         $syntax->limit(10, 20)
       );
     }
 
     public function testRandom() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'RANDOM()',
         $syntax->random()
@@ -134,8 +134,8 @@ namespace Papaya\Database\Syntax {
     }
 
     public function testGetDialect() {
-      $syntax = new MySQLSyntax($this->createConnectionFixture());
-      $this->assertSame('mysql', $syntax->getDialect());
+      $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
+      $this->assertSame('pgsql', $syntax->getDialect());
     }
 
     /**

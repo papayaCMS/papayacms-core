@@ -98,11 +98,18 @@ namespace Papaya\Database\Syntax {
      * @return string
      */
     public function substring($haystack, $offset = 0, $length = 0) {
+      if ($length instanceof SQLSource || $length > 0) {
+        return sprintf(
+          'SUBSTRING(%s, %s, %s)',
+          $this->compileParameter($haystack),
+          $this->compileParameter($offset),
+          $this->compileParameter($length)
+        );
+      }
       return sprintf(
-        'SUBSTRING(%s, %s, %s)',
+        'SUBSTRING(%s, %s)',
         $this->compileParameter($haystack),
-        $this->compileParameter($offset),
-        $this->compileParameter($length)
+        $this->compileParameter($offset)
       );
     }
 
