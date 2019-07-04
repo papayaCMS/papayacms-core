@@ -24,7 +24,7 @@ class AccessTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $owner = new \stdClass();
-    $access = new Access($owner, 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertAttributeEquals(
       'read', '_uriRead', $access
     );
@@ -39,7 +39,7 @@ class AccessTest extends \Papaya\TestCase {
   public function testGetDatabaseConnector() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
     $connector = $this->createMock(\Papaya\Database\Connector::class);
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertEquals(
       $connector,
       $access->getDatabaseConnector()
@@ -50,7 +50,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getDatabaseConnector
    */
   public function testGetDatabaseConnectorWithoutManagerExistingExpectingNull() {
-    $access = new Access(new \stdClass, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->papaya($this->mockPapaya()->application());
     $this->assertNull(
       $access->getDatabaseConnector()
@@ -64,7 +64,7 @@ class AccessTest extends \Papaya\TestCase {
   public function testGetDatabaseConnectorAfterSetDatabaseConnector() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
     $connector = $this->createMock(\Papaya\Database\Connector::class);
-    $access = new Access(new \stdClass, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->setDatabaseConnector($connector);
     $this->assertEquals(
       $connector,
@@ -82,7 +82,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('get')
       ->with('table', TRUE)
       ->will($this->returnValue('papaya_table'));
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $access->tables($tables);
     $this->assertEquals('papaya_table', $access->getTableName('table'));
   }
@@ -97,7 +97,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('get')
       ->with('table', FALSE)
       ->will($this->returnValue('table'));
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $access->tables($tables);
     $this->assertEquals('table', $access->getTableName('table', FALSE));
   }
@@ -106,7 +106,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getTimestamp
    */
   public function testGetTimestamp() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $timestamp = $access->getTimestamp();
     $this->assertGreaterThan(0, $timestamp);
     $this->assertLessThanOrEqual(time(), $timestamp);
@@ -117,7 +117,7 @@ class AccessTest extends \Papaya\TestCase {
    */
   public function testTablesGetAfterSet() {
     $tables = $this->createMock(\Papaya\Content\Tables::class);
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertSame($tables, $access->tables($tables));
   }
 
@@ -125,7 +125,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::tables
    */
   public function testTablesImplicitCreate() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertInstanceOf(\Papaya\Content\Tables::class, $access->tables());
   }
 
@@ -133,7 +133,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlySetForObject() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertTrue($access->masterOnly(TRUE));
   }
 
@@ -147,7 +147,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('masterOnly')
       ->with($this->equalTo(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertTrue($access->masterOnly(TRUE, TRUE));
   }
 
@@ -161,7 +161,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertTrue($access->masterOnly());
   }
 
@@ -175,7 +175,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess( $connector);
     $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
@@ -189,7 +189,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode());
   }
 
@@ -202,7 +202,7 @@ class AccessTest extends \Papaya\TestCase {
     $connector
       ->expects($this->once())
       ->method('setDataModified');
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode(Connector::MODE_WRITE));
   }
 
@@ -219,7 +219,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
+    $access = $this->getFixtureDatabaseAccess($connector, $options);
     $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
@@ -240,7 +240,7 @@ class AccessTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('getConnectionMode')
       ->will($this->returnValue(Connector::MODE_READ));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
+    $access = $this->getFixtureDatabaseAccess($connector, $options);
     $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
@@ -253,7 +253,7 @@ class AccessTest extends \Papaya\TestCase {
     $connector
       ->expects($this->once())
       ->method('setDataModified');
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $access->setDataModified();
     $this->assertAttributeSame(
       TRUE, '_dataModified', $access
@@ -264,7 +264,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerGetAfterSet() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->errorHandler(array($this, 'callbackStubErrorHandler'));
     $this->assertEquals(array($this, 'callbackStubErrorHandler'), $access->errorHandler());
   }
@@ -273,7 +273,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerRemoveAfterSet() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->errorHandler(array($this, 'callbackStubErrorHandler'));
     $access->errorHandler(FALSE);
     $this->assertNull($access->errorHandler());
@@ -283,7 +283,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerSetExpectingException() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     try {
       $access->errorHandler('INVALID_METHOD_NAME');
     } catch (\InvalidArgumentException $e) {
@@ -308,8 +308,8 @@ class AccessTest extends \Papaya\TestCase {
    * @param \Papaya\Configuration|NULL $options
    * @return Access
    */
-  public function getFixtureDatabaseAccess($owner, $connector, $options = NULL) {
-    $access = new Access($owner, 'read', 'write');
+  public function getFixtureDatabaseAccess($connector, $options = NULL) {
+    $access = new Access('read', 'write');
     $databaseManager = $this->createMock(Manager::class);
     $databaseManager
       ->expects($this->atLeastOnce())

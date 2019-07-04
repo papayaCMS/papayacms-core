@@ -336,7 +336,7 @@ abstract class Unbuffered
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess($this);
+      $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess();
     }
     return $this->_databaseAccessObject;
   }

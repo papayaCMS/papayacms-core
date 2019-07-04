@@ -59,14 +59,13 @@ class Manager implements Application\Access {
   /**
    * Create an database access instance and return it.
    *
-   * @param object $owner
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
    *
    * @return Access
    */
-  public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
-    $result = new Access($owner, $readUri, $writeUri);
+  public function createDatabaseAccess($readUri = NULL, $writeUri = NULL) {
+    $result = new Access($readUri, $writeUri);
     $result->papaya($this->papaya());
     return $result;
   }

@@ -65,7 +65,7 @@ trait Aggregation {
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
       $this->_databaseAccessObject = new Database\Access(
-        $this, $this->_databaseURIs['read'], $this->_databaseURIs['write']
+        $this->_databaseURIs['read'], $this->_databaseURIs['write']
       );
       if ($this instanceof Application\Access) {
         $this->_databaseAccessObject->papaya($this->papaya());

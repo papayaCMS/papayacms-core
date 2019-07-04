@@ -141,7 +141,7 @@ class ManagerTest extends \Papaya\TestCase {
     $manager = new Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      Access::class, $databaseAccess = $manager->createDatabaseAccess(new \stdClass)
+      Access::class, $databaseAccess = $manager->createDatabaseAccess()
     );
     $this->assertSame(
       $papaya, $databaseAccess->papaya()
@@ -154,7 +154,7 @@ class ManagerTest extends \Papaya\TestCase {
   public function testCreateDatabaseAccessWithUris() {
     $manager = new Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
-    $databaseAccess = $manager->createDatabaseAccess(new \stdClass, 'READ_SAMPLE', 'WRITE_SAMPLE');
+    $databaseAccess = $manager->createDatabaseAccess('READ_SAMPLE', 'WRITE_SAMPLE');
     $this->assertAttributeEquals(
       'READ_SAMPLE', '_uriRead', $databaseAccess
     );

@@ -79,16 +79,19 @@ namespace Papaya\Database {
      * @var null|callable
      */
     private $_errorHandler;
+    /**
+     * @var object
+     */
+    private $_owner;
 
     /**
      * The owner is used later to determine which object has uses the database access
      * (for example in logging).
      *
-     * @param object $owner calling object
      * @param string|null $readUri
      * @param string|null $writeUri
      */
-    public function __construct($owner, $readUri = NULL, $writeUri = NULL) {
+    public function __construct($readUri = NULL, $writeUri = NULL) {
       $this->_uriRead = $readUri;
       $this->_uriWrite = $writeUri;
     }
@@ -134,10 +137,9 @@ namespace Papaya\Database {
      * Set database connection
      *
      * @param \Papaya\Database\Connector $connector
-     * @todo define an interface for database connectors
      *
      */
-    public function setDatabaseConnector($connector) {
+    public function setDatabaseConnector(Connector $connector) {
       $this->_connector = $connector;
     }
 
@@ -400,6 +402,7 @@ namespace Papaya\Database {
 
     /**
      * Add close function alias for BC
+     *
      * @deprecated
      */
     public function close() {

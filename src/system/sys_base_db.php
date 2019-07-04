@@ -57,7 +57,7 @@ class base_db extends base_object {
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
       $this->_databaseAccessObject = new \Papaya\Database\Access(
-        $this, $this->databaseURI, $this->databaseURIWrite
+        $this->databaseURI, $this->databaseURIWrite
       );
       $this->_databaseAccessObject->papaya($this->papaya());
     }

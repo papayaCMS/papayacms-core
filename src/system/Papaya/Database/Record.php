@@ -352,7 +352,7 @@ abstract class Record
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = new Access($this);
+      $this->_databaseAccessObject = new Access();
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;
