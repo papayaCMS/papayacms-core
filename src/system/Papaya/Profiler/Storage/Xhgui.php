@@ -28,8 +28,8 @@ use Papaya\Utility;
  * @subpackage Profiler
  */
 class Xhgui
-  implements Application\Access, Profiler\Storage, Database\Interfaces\Access {
-  use Database\Interfaces\Access\Aggregation;
+  implements Application\Access, Profiler\Storage, Database\Accessible {
+  use Database\Accessible\Aggregation;
 
   /**
    * @var string

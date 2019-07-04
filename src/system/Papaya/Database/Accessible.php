@@ -14,13 +14,16 @@
  */
 namespace Papaya\Database;
 
-/**
- * Papaya Database Object, superclass for classes with database access
- *
- * @package Papaya-Library
- * @subpackage Database
- */
-class BaseObject
-  implements \Papaya\Application\Access, \Papaya\Database\Accessible {
-  use Interfaces\Access\Delegation;
+use Papaya\Database;
+
+interface Accessible {
+  /**
+   * @return Database\Access
+   */
+  public function getDatabaseAccess();
+
+  /**
+   * @param Database\Access $access
+   */
+  public function setDatabaseAccess(Database\Access $access);
 }

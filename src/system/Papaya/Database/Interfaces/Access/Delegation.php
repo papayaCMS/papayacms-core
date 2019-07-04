@@ -14,6 +14,8 @@
  */
 namespace Papaya\Database\Interfaces\Access;
 
+use Papaya\Database\Accessible\Aggregation;
+
 /**
  * @method bool databaseAddField(string $table, array $fieldData)
  * @method bool databaseAddIndex(string $table, array $index)
@@ -46,6 +48,8 @@ namespace Papaya\Database\Interfaces\Access;
  * @method string databaseGetTableName($tableIdentifier, $usePrefix = TRUE)
  * @method int databaseGetTimestamp()
  * @method int|string|null databaseLastInsertId(string $table, string $idField)
+ *
+ * @deprecated
  */
 trait Delegation {
   use Aggregation;

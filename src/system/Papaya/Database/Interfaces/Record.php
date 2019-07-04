@@ -15,10 +15,11 @@
 namespace Papaya\Database\Interfaces;
 
 use Papaya\BaseObject\Interfaces\Properties;
+use Papaya\Database\Accessible;
 
 interface Record
   extends
-  Access,
+  Accessible,
   Properties,
   \ArrayAccess,
   \IteratorAggregate {

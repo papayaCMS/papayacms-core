@@ -18,9 +18,9 @@
  * @subpackage Database
  * @deprecated
  */
-class base_db extends base_object implements \Papaya\Database\Interfaces\Access {
+class base_db extends base_object implements \Papaya\Database\Accessible {
 
-  use \Papaya\Database\Interfaces\Access\Aggregation;
+  use \Papaya\Database\Accessible\Aggregation;
 
   /**
    * Database URI, default value ist the option PAPAYA_DB_URI

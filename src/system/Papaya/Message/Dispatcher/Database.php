@@ -14,7 +14,7 @@
  */
 namespace Papaya\Message\Dispatcher;
 
-use Papaya\Database\Interfaces\Access as DatabaseBaseAccess;
+use Papaya\Database\Accessible as DatabaseBaseAccess;
 use Papaya\Message;
 use Papaya\URL\Current as CurrentURL;
 

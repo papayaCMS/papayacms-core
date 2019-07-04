@@ -19,7 +19,7 @@ use Papaya\Database;
 use Papaya\Utility;
 
 abstract class Unbuffered
-  implements Application\Access, Database\Interfaces\Access, \IteratorAggregate, \Countable {
+  implements Application\Access, Database\Accessible, \IteratorAggregate, \Countable {
   use Application\Access\Aggregation;
 
   /**

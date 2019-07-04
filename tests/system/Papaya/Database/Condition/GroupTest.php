@@ -46,8 +46,8 @@ namespace Papaya\Database\Condition {
      */
     public function testConstructorWithInterfaceDatabaseAccess() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Access $parent */
-      $parent = $this->createMock(\Papaya\Database\Interfaces\Access::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Accessible $parent */
+      $parent = $this->createMock(\Papaya\Database\Accessible::class);
       $parent
         ->expects($this->once())
         ->method('getDatabaseAccess')

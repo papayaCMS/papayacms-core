@@ -15,14 +15,15 @@
 
 namespace Papaya\Database\Interfaces\Access {
 
-  use Papaya\Database\Interfaces\Access;
+  use Papaya\Database\Accessible;
   use Papaya\Database\Access as Accessor;
+  use Papaya\Database\Accessible\Aggregation;
   use Papaya\Test\TestCase;
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Database\Interfaces\Access\Aggregation
+   * @covers \Papaya\Database\Accessible\Aggregation
    */
   class AggregationTest extends TestCase {
 
@@ -65,7 +66,7 @@ namespace Papaya\Database\Interfaces\Access {
     }
   }
 
-  class Aggregation_TestProxy implements Access {
+  class Aggregation_TestProxy implements Accessible {
     use Aggregation;
 
     public function __construct($readURI, $writeURI = NULL) {
