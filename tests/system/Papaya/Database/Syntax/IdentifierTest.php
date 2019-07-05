@@ -15,10 +15,14 @@
 
 namespace Papaya\Database\Syntax {
 
+  use Papaya\Test\TestCase;
+
+  require_once __DIR__.'/../../../../bootstrap.php';
+
   /**
    * @covers \Papaya\Database\Syntax\Identifier
    */
-  class IdentifierTest extends \PHPUnit_Framework_TestCase {
+  class IdentifierTest extends TestCase {
 
     /**
      * @param string $name

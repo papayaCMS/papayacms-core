@@ -15,13 +15,15 @@
 
 namespace Papaya\Database\Syntax {
 
-  use Papaya\Database\Connection as DatabaseConnection;
+  require_once __DIR__.'/../../../../bootstrap.php';
 
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Test\TestCase;
 
   /**
    * @covers \Papaya\Database\Syntax\PostgreSQLSyntax
    */
-  class PostgreSQLSyntaxTest extends \PHPUnit_Framework_TestCase {
+  class PostgreSQLSyntaxTest extends TestCase {
 
     public function testLength() {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());

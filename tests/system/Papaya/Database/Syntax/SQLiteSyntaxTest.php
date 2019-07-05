@@ -15,13 +15,15 @@
 
 namespace Papaya\Database\Syntax {
 
-  use Papaya\Database\Connection as DatabaseConnection;
+  require_once __DIR__.'/../../../../bootstrap.php';
 
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Test\TestCase;
 
   /**
    * @covers \Papaya\Database\Syntax\SQLiteSyntax
    */
-  class SQLiteSyntaxTest extends \PHPUnit_Framework_TestCase {
+  class SQLiteSyntaxTest extends TestCase {
 
     public function testLength() {
       $syntax = new SQLiteSyntax($this->createConnectionFixture());

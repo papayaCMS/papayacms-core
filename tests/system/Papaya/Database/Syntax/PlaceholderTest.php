@@ -15,10 +15,14 @@
 
 namespace Papaya\Database\Syntax {
 
+  use Papaya\Test\TestCase;
+
+  require_once __DIR__.'/../../../../bootstrap.php';
+
   /**
    * @covers \Papaya\Database\Syntax\Placeholder
    */
-  class PlaceholderTest extends \PHPUnit_Framework_TestCase {
+  class PlaceholderTest extends TestCase {
     /**
      * @param string $expected
      * @param string $name

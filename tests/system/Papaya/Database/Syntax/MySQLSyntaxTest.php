@@ -15,13 +15,16 @@
 
 namespace Papaya\Database\Syntax {
 
+  require_once __DIR__.'/../../../../bootstrap.php';
+
   use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Test\TestCase;
 
 
   /**
    * @covers \Papaya\Database\Syntax\MySQLSyntax
    */
-  class MySQLSyntaxTest extends \PHPUnit_Framework_TestCase {
+  class MySQLSyntaxTest extends TestCase {
 
     public function testLength() {
       $syntax = new MySQLSyntax($this->createConnectionFixture());

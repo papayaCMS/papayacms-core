@@ -2,7 +2,11 @@
 
 namespace Papaya\Database {
 
-  class ConnectorTest extends \PHPUnit_Framework_TestCase {
+  use Papaya\Test\TestCase;
+
+  require_once __DIR__.'/../../../bootstrap.php';
+
+  class ConnectorTest extends TestCase {
 
     private $_registeredSample = FALSE;
 

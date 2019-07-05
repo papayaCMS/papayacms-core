@@ -15,10 +15,12 @@
 
 namespace Papaya\Database\Syntax {
 
+  require_once __DIR__.'/../../../../bootstrap.php';
+
   /**
    * @covers \Papaya\Database\Syntax\SQLSource
    */
-  class SQLSourceTest extends \PHPUnit_Framework_TestCase {
+  class SQLSourceTest extends TestCase {
 
     /**
      * @param string $expected
