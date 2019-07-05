@@ -28,6 +28,9 @@ namespace Papaya\BaseObject;
  */
 class Collection
   implements \Iterator, \ArrayAccess, \Countable {
+
+  const MODE_NUMERIC = 0;
+  const MODE_ASSOCIATIVE = 1;
   /**
    * List items
    *
@@ -43,21 +46,26 @@ class Collection
   private $_itemClass = \stdClass::class;
 
   /**
+   * @var int
+   */
+  private $_mode;
+
+  /**
    * Create object an set class/interface restriction
    *
    * @param string $itemClass
    */
-  public function __construct($itemClass = NULL) {
+  public function __construct($itemClass = NULL, $mode = self::MODE_NUMERIC) {
     if (NULL !== $itemClass) {
       $this->setItemClass($itemClass);
     }
+    $this->_mode = $mode;
   }
 
   /**
    * Set/Change the item class restriction, this will remove all items in teh internal list.
    *
    * @param string $itemClass
-   *
    * @throws \InvalidArgumentException
    */
   public function setItemClass($itemClass) {
@@ -77,7 +85,6 @@ class Collection
 
   /**
    * Get the class/interface name
-   *
    * @return string
    */
   public function getItemClass() {
@@ -91,7 +98,6 @@ class Collection
    * to add several items using a fluent interface.
    *
    * @param object $value
-   *
    * @return $this
    */
   public function add($value) {
@@ -126,6 +132,7 @@ class Collection
 
   /**
    * Countable interface: return count of items in list
+   * @return int
    */
   public function count() {
     return \count($this->_items);
@@ -141,9 +148,9 @@ class Collection
   }
 
   /**
-   * Iterator ínterface: return current key
+   * Iterator interface: return current key
    *
-   * @return int|null
+   * @return int|string|null
    */
   public function key() {
     return \key($this->_items);
@@ -175,22 +182,23 @@ class Collection
   /**
    * ArrayAccess interface: check for item specified by index
    *
-   * @param int $index
-   *
+   * @param int|string $index
    * @return bool
    */
   public function offsetExists($index) {
+    $index = $this->prepareKey($index);
     return isset($this->_items[$index]);
   }
 
   /**
    * ArrayAccess interface: get item specified by index
    *
-   * @param int $index
+   * @param int|string $index
    *
    * @return mixed
    */
   public function offsetGet($index) {
+    $index = $this->prepareKey($index);
     return $this->_items[$index];
   }
 
@@ -200,17 +208,18 @@ class Collection
    * Only items of the given class/interface are allowed. If the index is NULl the item is added to
    * the end of the list, if it is an existing key the item is replaced.
    *
-   * @param int $index
+   * @param int|string $index
    * @param mixed $value
    *
    * @throws \InvalidArgumentException
    */
   public function offsetSet($index, $value) {
     $value = $this->prepareItem($value);
+    $index = $this->prepareKey($index, $value);
     if ($value instanceof $this->_itemClass) {
       if (NULL === $index) {
         $this->_items[] = $value;
-      } elseif (isset($this->_items[$index])) {
+      } elseif ( $this->_mode === self::MODE_ASSOCIATIVE || isset($this->_items[$index])) {
         $this->_items[$index] = $value;
       } else {
         throw new \InvalidArgumentException(
@@ -234,9 +243,10 @@ class Collection
   /**
    * ArrayAccess interface: Remove the item specified by index
    *
-   * @param int $index
+   * @param int|string $index
    */
   public function offsetUnset($index) {
+    $index = $this->prepareKey($index);
     if (isset($this->_items[$index])) {
       unset($this->_items[$index]);
       $this->_items = \array_values($this->_items);
@@ -247,10 +257,20 @@ class Collection
    * Prepare item before adding it to the list. Overriding this method allows type conversions.
    *
    * @param mixed $value
-   *
    * @return mixed
    */
   protected function prepareItem($value) {
     return $value;
+  }
+
+  /**
+   * Prepare key before adding it to the list. Overriding this method allows type conversions.
+   *
+   * @param string|int|NULL $index
+   * @param mixed $value
+   * @return string
+   */
+  protected function prepareKey($index, $value = NULL) {
+    return $index;
   }
 }
