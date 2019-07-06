@@ -15,6 +15,8 @@
 
 namespace Papaya\Database\Syntax {
 
+  use Papaya\Test\TestCase;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
@@ -35,7 +37,5 @@ namespace Papaya\Database\Syntax {
       $sqlSource = new SQLSource($sqlString);
       $this->assertSame($expected, (string)$sqlSource);
     }
-
   }
-
 }
