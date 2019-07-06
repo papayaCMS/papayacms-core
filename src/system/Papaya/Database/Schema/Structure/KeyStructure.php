@@ -34,9 +34,9 @@ namespace Papaya\Database\Schema\Structure {
      */
     private $_isFullText;
 
-    public function __construct($name, $isUnique, $isFullText) {
+    public function __construct($name, $isUnique = FALSE, $isFullText = FALSE) {
       if (trim($name) === '') {
-        throw new \InvalidArgumentException('Key name can not be empty.');
+        throw new \UnexpectedValueException('Key name can not be empty.');
       }
       $this->_name = $name;
       $this->_isUnique = $isUnique && !$isFullText;
@@ -52,9 +52,7 @@ namespace Papaya\Database\Schema\Structure {
         $node->getAttribute('fulltext') === 'yes'
       );
       foreach ($xpath->evaluate('field', $node) as $fieldNode) {
-        $key->fields[] = new KeyFieldStructure(
-          trim($fieldNode->textContent), (int)$fieldNode->getAttribute('size')
-        );
+        $key->fields[] = KeyFieldStructure::createFromXML($fieldNode);
       }
       return $key;
     }

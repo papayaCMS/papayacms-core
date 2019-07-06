@@ -30,18 +30,18 @@ namespace Papaya\Database\Schema\Structure {
 
     use DeclaredProperties;
 
-    const TYPE_STRING = 'string';
+    const TYPE_STRING = 'text';
     const TYPE_INTEGER = 'integer';
     const TYPE_DECIMAL = 'decimal';
 
     /**
-     * size limit each field type [minimum, maximum, default] or TRUE
+     * size limit each field type [maximum, default] or TRUE
      *
      * @var array[]
      */
     private static $_TYPES = [
-      self::TYPE_STRING => [1, -1, 10000],
-      self::TYPE_INTEGER => [1, 8, 4],
+      self::TYPE_STRING => [-1, 10000],
+      self::TYPE_INTEGER => [8, 4],
       self::TYPE_DECIMAL => TRUE
     ];
 
@@ -49,7 +49,7 @@ namespace Papaya\Database\Schema\Structure {
      * @var array
      */
     private static $_TYPE_ALIASES = [
-      'text' => self::TYPE_STRING,
+      'string' => self::TYPE_STRING,
       'int' => self::TYPE_INTEGER,
       'float' => self::TYPE_DECIMAL
     ];
@@ -73,12 +73,19 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @param string $name
      * @param string $type
-     * @param int $size
+     * @param int|int[]|string $size
      */
-    public function __construct($name, $type, $size) {
+    public function __construct(
+      $name, $type, $size, $isAutoIncement = FALSE, $allowsNull = FALSE, $defaultValue = NULL
+    ) {
       $this->setName($name);
       $this->setType($type);
       $this->setSize($size);
+      $this->setIsAutoIncrement($isAutoIncement);
+      $this->setAllowsNull($allowsNull);
+      if (isset($defaultValue)) {
+        $this->setDefaultValue($defaultValue);
+      }
     }
 
     /**
@@ -90,17 +97,11 @@ namespace Papaya\Database\Schema\Structure {
         $node->getAttribute('name'),
         $node->getAttribute('type'),
         $node->getAttribute('size'),
-      );
-      $field->setDefaultValue(
-        $node->getAttribute('default')
-      );
-      $field->setAllowsNull(
-        $node->getAttribute('null') === 'yes' ||
-        $node->getAttribute('allows-null') === 'yes'
-      );
-      $field->setIsAutoIncrement(
         $node->getAttribute('autoinc') === 'yes' ||
-        $node->getAttribute('auto-increment') === 'yes'
+        $node->getAttribute('auto-increment') === 'yes',
+        $node->getAttribute('null') === 'yes' ||
+        $node->getAttribute('allows-null') === 'yes',
+        $node->getAttribute('default')
       );
       return $field;
     }
@@ -111,7 +112,7 @@ namespace Papaya\Database\Schema\Structure {
     private function setName($name) {
       $name = trim($name);
       if ($name === '') {
-        throw new \InvalidArgumentException('Field name can not be empty.');
+        throw new \UnexpectedValueException('Field name can not be empty.');
       }
       $this->_name = $name;
     }
@@ -124,7 +125,7 @@ namespace Papaya\Database\Schema\Structure {
         $type = self::$_TYPE_ALIASES[$type];
       }
       if (!isset(self::$_TYPES[$type])) {
-        throw new \UnexpectedValueException(sprintf('Invalid field type "%s"', $type));
+        throw new \UnexpectedValueException(sprintf('Invalid field type "%s".', $type));
       }
       $this->_type = $type;
       $this->setSize(0);
@@ -136,20 +137,18 @@ namespace Papaya\Database\Schema\Structure {
      */
     private function setSize($size) {
       if ($this->_type === self::TYPE_DECIMAL) {
-        list($before, $after) = is_array($size) ? $size : explode(',', (string)$size);
-        $before = ($before > 0) ? (int)$before : 1;
-        $after = (int)$after;
+        $parts = is_array($size) ? $size : explode(',', (string)$size);
+        $before = (isset($parts[0]) && $parts[0] > 0) ? (int)$parts[0] : 1;
+        $after = (isset($parts[1])) ? (int)$parts[1] : 0;
         if ($after > $before) {
           $before += $after;
         }
         $this->_size = [$before, $after];
       } else {
         $size = (int)$size;
-        list($minimum, $maximum, $default) = self::$_TYPES[$this->_type];
+        list($maximum, $default) = self::$_TYPES[$this->_type];
         if ($size === 0) {
           $this->_size = $default;
-        } elseif ($size < $minimum) {
-          $this->_size = $minimum;
         } elseif ($size > $maximum && $maximum >= 0) {
           $this->_size = $maximum;
         } else {
@@ -161,7 +160,7 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @param bool $isAutoIncrement
      */
-    public function setIsAutoIncrement($isAutoIncrement) {
+    private function setIsAutoIncrement($isAutoIncrement) {
       if ($isAutoIncrement && $this->_type !== self::TYPE_INTEGER) {
         throw new \UnexpectedValueException('Only integer fields can be auto increment.');
       }
@@ -173,17 +172,17 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @param bool $allowsNull
      */
-    public function setAllowsNull($allowsNull) {
+    private function setAllowsNull($allowsNull) {
       if ($allowsNull && $this->_isAutoIncrement) {
         throw new \UnexpectedValueException('Auto increment field can not be NULL.');
       }
-      $this->allowsNull = (bool)$allowsNull;
+      $this->_allowsNull = (bool)$allowsNull;
     }
 
     /**
      * @param string|int|float $value
      */
-    public function setDefaultValue($value) {
+    private function setDefaultValue($value) {
       switch ($this->_type) {
       case self::TYPE_INTEGER :
         $this->_defaultValue = (int)$value;
@@ -210,23 +209,6 @@ namespace Papaya\Database\Schema\Structure {
         'isAutoIncrement' => ['_isAutoIncrement', 'setIsAutoIncrement'],
         'defaultValue' => ['_defaultValue', 'setDefaultValue']
       ];
-    }
-
-    /**
-     * @param string $name
-     * @param null|FieldStructure $value
-     * @return string
-     */
-    protected function prepareKey($name, $value = NULL) {
-      if (isset($value) && $name === NULL) {
-        $name = $value->name;
-      }
-      if (trim($name) === '') {
-        throw new \InvalidArgumentException(
-          sprintf('Invalid field name: "%s"', $name)
-        );
-      }
-      return strtolower($name);
     }
   }
 }

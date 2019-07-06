@@ -12,33 +12,22 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Database\Schema\Structure {
 
-  use Papaya\BaseObject\Collection;
+  use Papaya\Test\TestCase;
+
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @property string $name
+   * @covers \Papaya\Database\Schema\Structure\KeyFieldsStructure
    */
-  class KeysStructure extends Collection {
+  class KeyFieldsStructureTest extends TestCase {
 
-    public function __construct() {
-      parent::__construct(KeyStructure::class, self::MODE_ASSOCIATIVE);
-    }
-
-    /**
-     * @param string $name
-     * @param null|KeyStructure $value
-     * @return string
-     */
-    protected function prepareKey($name, $value = NULL) {
-      if (isset($value) && $name === NULL) {
-        $name = $value->name;
-      }
-      if (strtoupper($name) === KeyStructure::PRIMARY) {
-        return KeyStructure::PRIMARY;
-      }
-      return strtolower($name);
+    public function testAddValidKey() {
+      $keyFields = new KeyFieldsStructure();
+      $keyFields[] = new KeyFieldStructure('test_field');
+      $this->assertTrue(isset($keyFields['test_field']));
     }
   }
 }
-

@@ -24,6 +24,18 @@ namespace Papaya\Database\Schema\Structure {
     public function __construct() {
       parent::__construct(FieldStructure::class, self::MODE_ASSOCIATIVE);
     }
+
+    /**
+     * @param string $name
+     * @param null|KeyStructure $value
+     * @return string
+     */
+    protected function prepareKey($name, $value = NULL) {
+      if (isset($value) && $name === NULL) {
+        $name = $value->name;
+      }
+      return strtolower($name);
+    }
   }
 }
 

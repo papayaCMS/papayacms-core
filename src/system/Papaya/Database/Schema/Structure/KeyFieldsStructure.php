@@ -34,11 +34,6 @@ namespace Papaya\Database\Schema\Structure {
       if (isset($value) && $name === NULL) {
         $name = $value->name;
       }
-      if (trim($name) === '') {
-        throw new \InvalidArgumentException(
-          sprintf('Invalid field name: "%s"', $name)
-        );
-      }
       return strtolower($name);
     }
   }

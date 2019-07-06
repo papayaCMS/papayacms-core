@@ -19,28 +19,40 @@ namespace Papaya\Database\Schema\Structure {
 
   /**
    * @property string $name
+   * @property int $size
    */
   class KeyFieldStructure implements Declared {
 
     use DeclaredProperties;
 
+    /**
+     * @var string
+     */
     private $_name;
+    /**
+     * @var int
+     */
     private $_size;
 
-    public function __construct($name, $size) {
+    /**
+     * @param string $name
+     * @param int $size
+     */
+    public function __construct($name, $size = 0) {
       if (trim($name) === '') {
-        throw new \InvalidArgumentException('Key name can not be empty.');
+        throw new \UnexpectedValueException('Field name can not be empty.');
       }
       $this->_name = $name;
+      $this->_size = (int)$size;
     }
 
+    /**
+     * @param \DOMElement $node
+     * @return self
+     */
     public static function createFromXML(\DOMElement $node) {
-      $xpath = new \DOMXpath($node instanceof \DOMDocument ? $node : $node->ownerDocument);
-      $key = new self($node->localName === 'primary-key' ? 'PRIMARY' : $node->getAttribute('name'));
-      foreach ($xpath->evaluate('field', $node) as $fieldNode) {
-
-      }
-      return $key;
+      $keyField = new self(trim($node->textContent), (int)$node->getAttribute('size'));
+      return $keyField;
     }
 
     /**
@@ -48,7 +60,8 @@ namespace Papaya\Database\Schema\Structure {
      */
     public static function getPropertyDeclaration() {
       return [
-        'name' => ['_name']
+        'name' => ['_name'],
+        'size' => ['_size']
       ];
     }
   }

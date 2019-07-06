@@ -12,33 +12,29 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Database\Schema\Structure {
 
-  use Papaya\BaseObject\Collection;
+  use Papaya\Test\TestCase;
+
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @property string $name
+   * @covers \Papaya\Database\Schema\Structure\KeysStructure
    */
-  class KeysStructure extends Collection {
+  class KeysStructureTest extends TestCase {
 
-    public function __construct() {
-      parent::__construct(KeyStructure::class, self::MODE_ASSOCIATIVE);
-    }
+   public function testAddValidKey() {
+      $keys = new KeysStructure();
+      $keys[] = new KeyStructure('test_key');
+      $this->assertTrue(isset($keys['test_key']));
+   }
 
-    /**
-     * @param string $name
-     * @param null|KeyStructure $value
-     * @return string
-     */
-    protected function prepareKey($name, $value = NULL) {
-      if (isset($value) && $name === NULL) {
-        $name = $value->name;
-      }
-      if (strtoupper($name) === KeyStructure::PRIMARY) {
-        return KeyStructure::PRIMARY;
-      }
-      return strtolower($name);
-    }
+   public function testAddValidPrimaryKey() {
+      $keys = new KeysStructure();
+      $keys[] = new KeyStructure(KeyStructure::PRIMARY);
+      $this->assertTrue(isset($keys[KeyStructure::PRIMARY]));
+   }
   }
-}
 
+}
