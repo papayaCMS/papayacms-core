@@ -16,12 +16,14 @@ namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\XML\Appendable;
+  use Papaya\XML\Element;
 
   /**
    * @property string $name
    * @property int $size
    */
-  class KeyFieldStructure implements Declared {
+  class KeyFieldStructure implements Declared, Appendable {
 
     use DeclaredProperties;
 
@@ -53,6 +55,18 @@ namespace Papaya\Database\Schema\Structure {
     public static function createFromXML(\DOMElement $node) {
       $keyField = new self(trim($node->textContent), (int)$node->getAttribute('size'));
       return $keyField;
+    }
+
+    /**
+     * @param \Papaya\XML\Element $parent
+     */
+    public function appendTo(Element $parent) {
+      $node = $parent->appendElement(
+        'field', $this->_name
+      );
+      if ($this->_size > 0) {
+        $node->setAttribute('default', (string)$this->_size);
+      }
     }
 
     /**

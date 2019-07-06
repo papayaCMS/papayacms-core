@@ -16,6 +16,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\Test\TestCase;
+  use Papaya\XML\Document;
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -28,6 +29,19 @@ namespace Papaya\Database\Schema\Structure {
       $keyFields = new KeyFieldsStructure();
       $keyFields[] = new KeyFieldStructure('test_field');
       $this->assertTrue(isset($keyFields['test_field']));
+    }
+
+    public function testAppendTo() {
+      $keyFields = new KeyFieldsStructure();
+      $keyFields[] = new KeyFieldStructure('one');
+      $document = new Document();
+      $document->appendElement('key', $keyFields);
+      $this->assertXmlStringEqualsXmlString(
+        '<key>
+              <field>one</field>
+            </key>',
+        $document->saveXML()
+      );
     }
   }
 }

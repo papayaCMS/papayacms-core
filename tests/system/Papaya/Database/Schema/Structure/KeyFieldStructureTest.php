@@ -55,6 +55,30 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertEquals($expectedField, $field);
     }
 
+    public function testAppendTo() {
+      $field = new KeyFieldStructure('test_field');
+      $document = new Document();
+      $document->appendElement('key', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<key>
+              <field>test_field</field>
+            </key>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithSize() {
+      $field = new KeyFieldStructure('test_field', 42);
+      $document = new Document();
+      $document->appendElement('key', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<key>
+              <field size="42">test_field</field>
+            </key>',
+        $document->saveXML()
+      );
+    }
+
     public static function provideXMLAndKeyFields() {
       return [
         'simple field' => [

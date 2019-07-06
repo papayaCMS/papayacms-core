@@ -29,7 +29,7 @@ namespace Papaya\Database\Schema\Structure {
       $xml = '<table name="test_table" prefix="yes">
           <fields>
             <field name="test_id" type="integer" size="4" autoinc="yes"/>
-            <field name="test_field" type="string" size="255" default="default_value" null="no"/>
+            <field name="test_field" type="string" size="255" default="default_value"/>
           </fields>
           <keys>
             <primary-key>
@@ -47,6 +47,29 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertTrue($structure->usePrefix);
       $this->assertCount(2, $structure->fields);
       $this->assertCount(2, $structure->keys);
+    }
+
+    public function testGetXMLCreatesLoadedXML() {
+      $xml = '<table name="test_table" prefix="yes">
+          <fields>
+            <field name="test_id" type="integer" size="4" auto-increment="yes"/>
+            <field name="test_field" type="text" size="255" default="default_value"/>
+          </fields>
+          <keys>
+            <primary-key>
+              <field>test_id</field>
+            </primary-key>
+            <key name="test_field">
+              <field>test_field</field>
+            </key>
+           </keys>
+        </table>';
+
+      $document = new Document();
+      $document->loadXML($xml);
+      $structure = TableStructure::createFromXML($document);
+
+      $this->assertXmlStringEqualsXmlString($xml, $structure->getXMLDocument()->saveXML());
     }
 
     public function testCreateFromXMLWithEmptyXMLExpectingException() {

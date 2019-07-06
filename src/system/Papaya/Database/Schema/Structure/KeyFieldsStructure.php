@@ -15,14 +15,25 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\Collection;
+  use Papaya\XML\Appendable;
+  use Papaya\XML\Element;
 
   /**
    * @property string $name
    */
-  class KeyFieldsStructure extends Collection {
+  class KeyFieldsStructure extends Collection implements Appendable {
 
     public function __construct() {
       parent::__construct(KeyFieldStructure::class, self::MODE_ASSOCIATIVE);
+    }
+
+    /**
+     * @param \Papaya\XML\Element $parent
+     */
+    public function appendTo(Element $parent) {
+      if (count($this) > 0) {
+        $parent->append(...iterator_to_array($this, FALSE));
+      }
     }
 
     /**

@@ -58,6 +58,60 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertEquals($expectedField, $field);
     }
 
+    public function testAppendTo() {
+      $key = new KeyStructure('test_key');
+      $key->fields[] = new KeyFieldStructure('test_field');
+      $document = new Document();
+      $document->appendElement('keys', $key);
+      $this->assertXmlStringEqualsXmlString(
+        '<keys>
+            <key name="test_key">
+              <field>test_field</field>
+            </key>
+          </keys>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithPrimaryKey() {
+      $key = new KeyStructure(KeyStructure::PRIMARY);
+      $key->fields[] = new KeyFieldStructure('id_field');
+      $document = new Document();
+      $document->appendElement('keys', $key);
+      $this->assertXmlStringEqualsXmlString(
+        '<keys>
+            <primary-key>
+              <field>id_field</field>
+            </primary-key>
+          </keys>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithUniqueKey() {
+      $key = new KeyStructure('foo', TRUE);
+      $document = new Document();
+      $document->appendElement('keys', $key);
+      $this->assertXmlStringEqualsXmlString(
+        '<keys>
+            <key name="foo" unique="yes"/>
+          </keys>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithFullTextKey() {
+      $key = new KeyStructure('foo', FALSE, TRUE);
+      $document = new Document();
+      $document->appendElement('keys', $key);
+      $this->assertXmlStringEqualsXmlString(
+        '<keys>
+            <key name="foo" fulltext="yes"/>
+          </keys>',
+        $document->saveXML()
+      );
+    }
+
     public static function provideXMLAndKeyFields() {
       return [
         'primary key' => [

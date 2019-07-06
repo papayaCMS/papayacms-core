@@ -17,6 +17,8 @@ namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\XML\Appendable;
+  use Papaya\XML\Element;
 
   /**
    * @property string $name
@@ -26,7 +28,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property bool $isAutoIncrement
    * @property string $defaultValue
    */
-  class FieldStructure implements Declared {
+  class FieldStructure implements Declared, Appendable {
 
     use DeclaredProperties;
 
@@ -104,6 +106,29 @@ namespace Papaya\Database\Schema\Structure {
         $node->getAttribute('default')
       );
       return $field;
+    }
+
+    /**
+     * @param \Papaya\XML\Element $parent
+     */
+    public function appendTo(Element $parent) {
+      $node = $parent->appendElement(
+        'field',
+        [
+          'name' => $this->_name,
+          'type' => $this->_type,
+          'size' => is_array($this->_size) ? implode(',', $this->_size) : $this->_size
+        ]
+      );
+      if ($this->_isAutoIncrement) {
+        $node->setAttribute('auto-increment', 'yes');
+      }
+      if ($this->_allowsNull) {
+        $node->setAttribute('allows-null', 'yes');
+      }
+      if (!empty($this->_defaultValue)) {
+        $node->setAttribute('default', (string)$this->_defaultValue);
+      }
     }
 
     /**

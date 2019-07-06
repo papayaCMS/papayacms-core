@@ -4,6 +4,8 @@ namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\XML\Appendable;
+  use Papaya\XML\Element;
 
   /**
    * @property string $name
@@ -11,7 +13,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property bool $isUnique
    * @property bool $isFullText
    */
-  class KeyStructure implements Declared {
+  class KeyStructure implements Declared, Appendable {
 
     const PRIMARY = 'PRIMARY';
 
@@ -55,6 +57,24 @@ namespace Papaya\Database\Schema\Structure {
         $key->fields[] = KeyFieldStructure::createFromXML($fieldNode);
       }
       return $key;
+    }
+
+    /**
+     * @param \Papaya\XML\Element $parent
+     */
+    public function appendTo(Element $parent) {
+      $node = $parent->appendElement(
+        $this->_name === self::PRIMARY ? 'primary-key' : 'key',
+        $this->_fields
+      );
+      if ($this->_name !== self::PRIMARY) {
+        $node->setAttribute('name', $this->_name);
+        if ($this->_isFullText) {
+          $node->setAttribute('fulltext', 'yes');
+        } elseif ($this->_isUnique) {
+          $node->setAttribute('unique', 'yes');
+        }
+      }
     }
 
     /**

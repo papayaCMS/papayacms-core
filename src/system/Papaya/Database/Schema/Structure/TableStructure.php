@@ -18,6 +18,7 @@ namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\XML\Document;
 
   /**
    * @property string $name
@@ -83,6 +84,23 @@ namespace Papaya\Database\Schema\Structure {
         $table->keys[] = KeyStructure::createFromXML($fieldNode);
       }
       return $table;
+    }
+
+    /**
+     * @return Document
+     */
+    public function getXMLDocument() {
+      $document = new Document();
+      $node = $document->appendElement(
+        'table',
+        [ 'name' => $this->_tableName],
+        $this->_fields,
+        $this->_keys
+      );
+      if ($this->_usePrefix) {
+        $node->setAttribute('prefix','yes');
+      }
+      return $document;
     }
 
     /**

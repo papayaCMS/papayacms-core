@@ -92,6 +92,54 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertSame(0, $field->defaultValue);
     }
 
+    public function testAppendTo() {
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42);
+      $document = new Document();
+      $document->appendElement('fields', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<fields>
+              <field name="test_field" size="42" type="text"/>
+            </fields>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithAutoIncrementField() {
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_INTEGER, 4, TRUE);
+      $document = new Document();
+      $document->appendElement('fields', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<fields>
+              <field name="test_field" size="4" type="integer" auto-increment="yes"/>
+            </fields>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithFieldAllowingNull() {
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42, FALSE, TRUE);
+      $document = new Document();
+      $document->appendElement('fields', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<fields>
+              <field name="test_field" size="42" type="text" allows-null="yes"/>
+            </fields>',
+        $document->saveXML()
+      );
+    }
+
+    public function testAppendToWithDefaultValue() {
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42, FALSe, FALSe, 'test');
+      $document = new Document();
+      $document->appendElement('fields', $field);
+      $this->assertXmlStringEqualsXmlString(
+        '<fields>
+              <field name="test_field" size="42" type="text" default="test"/>
+            </fields>',
+        $document->saveXML()
+      );
+    }
+
     public static function provideXMLAndFields() {
       return [
         'decimal field with fraction' => [

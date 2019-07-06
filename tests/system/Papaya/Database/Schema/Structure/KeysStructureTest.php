@@ -16,6 +16,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\Test\TestCase;
+  use Papaya\XML\Document;
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -24,17 +25,34 @@ namespace Papaya\Database\Schema\Structure {
    */
   class KeysStructureTest extends TestCase {
 
-   public function testAddValidKey() {
+    public function testAddValidKey() {
       $keys = new KeysStructure();
       $keys[] = new KeyStructure('test_key');
       $this->assertTrue(isset($keys['test_key']));
-   }
+    }
 
-   public function testAddValidPrimaryKey() {
+    public function testAddValidPrimaryKey() {
       $keys = new KeysStructure();
       $keys[] = new KeyStructure(KeyStructure::PRIMARY);
       $this->assertTrue(isset($keys[KeyStructure::PRIMARY]));
-   }
+    }
+
+    public function testAppendTo() {
+      $keys = new KeysStructure();
+      $keys[] = new KeyStructure(KeyStructure::PRIMARY);
+      $keys[] = new KeyStructure('test_key');
+      $document = new Document();
+      $document->appendElement('table', $keys);
+      $this->assertXmlStringEqualsXmlString(
+        '<table>
+            <keys>
+              <primary-key/>
+              <key name="test_key"/>
+            </keys>
+          </table>',
+        $document->saveXML()
+      );
+    }
   }
 
 }
