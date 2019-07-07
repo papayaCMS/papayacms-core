@@ -27,6 +27,18 @@ namespace Papaya\Database\Schema\Structure {
       parent::__construct(IndexStructure::class, self::MODE_ASSOCIATIVE);
     }
 
+    /**
+     * Return the primary index if available, NULL otherwise
+     *
+     * @return IndexStructure|NULL
+     */
+    public function getPrimary() {
+      return isset($this[IndexStructure::PRIMARY]) ? $this[IndexStructure::PRIMARY]  : NULL;
+    }
+
+    /**
+     * @param \Papaya\XML\Element $parent
+     */
     public function appendTo(Element $parent) {
       $parent->appendElement('keys', ...iterator_to_array($this, FALSE));
     }
@@ -38,9 +50,11 @@ namespace Papaya\Database\Schema\Structure {
      */
     protected function prepareKey($name, $value = NULL) {
       if (isset($value) && $name === NULL) {
+        if ($value->isPrimary()) {
+          return IndexStructure::PRIMARY;
+        }
         $name = $value->name;
-      }
-      if (strtoupper($name) === IndexStructure::PRIMARY) {
+      } elseif (strtoupper($name) === IndexStructure::PRIMARY) {
         return IndexStructure::PRIMARY;
       }
       return strtolower($name);
