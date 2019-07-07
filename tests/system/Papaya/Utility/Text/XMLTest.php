@@ -128,7 +128,6 @@ class XMLTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\XML::unserializeArray
-   * @covers \Papaya\Utility\Text\XML::decodeOldEntitiesToUtf8
    * @dataProvider provideOldEncodedEntities
    * @param array $expected
    * @param string $entities

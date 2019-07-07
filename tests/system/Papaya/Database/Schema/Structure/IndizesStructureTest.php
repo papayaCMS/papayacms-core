@@ -29,12 +29,14 @@ namespace Papaya\Database\Schema\Structure {
       $indizes = new IndizesStructure();
       $indizes[] = new IndexStructure('test_key');
       $this->assertTrue(isset($indizes['test_key']));
+      $this->assertNull($indizes->getPrimary());
     }
 
     public function testAddValidPrimaryKey() {
       $indizes = new IndizesStructure();
       $indizes[] = new IndexStructure(IndexStructure::PRIMARY);
       $this->assertTrue(isset($indizes[IndexStructure::PRIMARY]));
+      $this->assertInstanceOf(IndexStructure::class, $indizes->getPrimary());
     }
 
     public function testAppendTo() {

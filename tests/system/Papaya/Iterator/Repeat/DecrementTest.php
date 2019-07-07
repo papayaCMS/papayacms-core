@@ -20,7 +20,6 @@ class DecrementTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Repeat\Decrement::__construct
-   * @covers \Papaya\Iterator\Repeat\Decrement::decrement
    * @dataProvider provideLimits
    * @param array $expected
    * @param int $minimum
@@ -37,7 +36,6 @@ class DecrementTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Repeat\Decrement::__construct
-   * @covers \Papaya\Iterator\Repeat\Decrement::decrement
    */
   public function testIterationWithAssocMode() {
     $iterator = new Decrement(

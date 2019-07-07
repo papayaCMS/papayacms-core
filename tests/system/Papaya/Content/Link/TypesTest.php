@@ -134,7 +134,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Link\Types::mapPropertyToField
+   * @covers \Papaya\Content\Link\Types
    */
   public function testMapPropertyToFieldPassthru() {
     $linkTypes = new Types();
@@ -149,7 +149,7 @@ class TypesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Link\Types::mapPropertyToField
+   * @covers \Papaya\Content\Link\Types
    */
   public function testMapPropertyToFieldSerialize() {
     $linkTypes = new Types();
