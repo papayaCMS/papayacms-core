@@ -20,7 +20,6 @@ class CollectionTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Collection::getIterator
-   * @covers \Papaya\Theme\Collection::callbackGetName
    */
   public function testGetIterator() {
     $handler = $this->createMock(Handler::class);
