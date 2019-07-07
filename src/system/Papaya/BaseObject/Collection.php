@@ -54,6 +54,7 @@ class Collection
    * Create object an set class/interface restriction
    *
    * @param string $itemClass
+   * @param int $mode
    */
   public function __construct($itemClass = NULL, $mode = self::MODE_NUMERIC) {
     if (NULL !== $itemClass) {
@@ -63,14 +64,22 @@ class Collection
   }
 
   /**
+   * Clone items as well, not just the collection instance
+   */
+  public function __clone() {
+    foreach ($this->_items as $index => $item) {
+      $this->_items[$index] = clone $item;
+    }
+  }
+
+  /**
    * Set/Change the item class restriction, this will remove all items in teh internal list.
    *
    * @param string $itemClass
    * @throws \InvalidArgumentException
    */
   public function setItemClass($itemClass) {
-    if (\class_exists($itemClass) ||
-      \interface_exists($itemClass)) {
+    if (\class_exists($itemClass) || \interface_exists($itemClass)) {
       $this->_itemClass = $itemClass;
       $this->_items = [];
     } else {

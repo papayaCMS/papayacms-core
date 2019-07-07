@@ -46,6 +46,10 @@ namespace Papaya\Database\Schema\Structure {
       $this->_fields = new IndexFieldsStructure();
     }
 
+    public function __clone() {
+      $this->_fields = clone $this->_fields;
+    }
+
     /**
      * @return bool
      */

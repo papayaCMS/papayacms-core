@@ -60,6 +60,11 @@ namespace Papaya\Database\Schema\Structure {
       $this->_indizes = new IndizesStructure();
     }
 
+    public function __clone() {
+      $this->_fields = clone $this->_fields;
+      $this->_indizes = clone $this->_indizes;
+    }
+
     public static function createFromXML(\DOMNode $node) {
       $xpath = new \DOMXpath($node instanceof \DOMDocument ? $node : $node->ownerDocument);
       /** @var \DOMElement|NULL $tableNode */
