@@ -21,18 +21,18 @@ namespace Papaya\Database\Schema\Structure {
   require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Database\Schema\Structure\KeyFieldStructure
+   * @covers \Papaya\Database\Schema\Structure\IndexFieldStructure
    */
-  class KeyFieldStructureTest extends TestCase {
+  class IndexFieldStructureTest extends TestCase {
 
     public function testCreateFieldWithoutSize() {
-      $field = new KeyFieldStructure('field');
+      $field = new IndexFieldStructure('field');
       $this->assertSame('field', $field->name);
       $this->assertSame(0, $field->size);
     }
 
     public function testCreateFieldWithSize() {
-      $field = new KeyFieldStructure('field', 21);
+      $field = new IndexFieldStructure('field', 21);
       $this->assertSame('field', $field->name);
       $this->assertSame(21, $field->size);
     }
@@ -40,23 +40,23 @@ namespace Papaya\Database\Schema\Structure {
     public function testCreateFieldWithEmptyNameExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
       $this->expectExceptionMessage('Field name can not be empty.');
-      new KeyFieldStructure('');
+      new IndexFieldStructure('');
     }
 
     /**
-     * @param KeyFieldStructure $expectedField
+     * @param IndexFieldStructure $expectedField
      * @param $xml
      * @dataProvider provideXMLAndKeyFields
      */
     public function testCreateFromXML($expectedField, $xml) {
       $document = new Document();
       $document->loadXML($xml);
-      $field = KeyFieldStructure::createFromXML($document->documentElement);
+      $field = IndexFieldStructure::createFromXML($document->documentElement);
       $this->assertEquals($expectedField, $field);
     }
 
     public function testAppendTo() {
-      $field = new KeyFieldStructure('test_field');
+      $field = new IndexFieldStructure('test_field');
       $document = new Document();
       $document->appendElement('key', $field);
       $this->assertXmlStringEqualsXmlString(
@@ -68,7 +68,7 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithSize() {
-      $field = new KeyFieldStructure('test_field', 42);
+      $field = new IndexFieldStructure('test_field', 42);
       $document = new Document();
       $document->appendElement('key', $field);
       $this->assertXmlStringEqualsXmlString(
@@ -82,15 +82,15 @@ namespace Papaya\Database\Schema\Structure {
     public static function provideXMLAndKeyFields() {
       return [
         'simple field' => [
-          new KeyFieldStructure('foo'),
+          new IndexFieldStructure('foo'),
           '<field>foo</field>'
         ],
         'simple field, trim whitespace' => [
-          new KeyFieldStructure('foo'),
+          new IndexFieldStructure('foo'),
           '<field>  foo  </field>'
         ],
         'field, with size' => [
-          new KeyFieldStructure('foo', 42),
+          new IndexFieldStructure('foo', 42),
           '<field size="42">foo</field>'
         ],
       ];

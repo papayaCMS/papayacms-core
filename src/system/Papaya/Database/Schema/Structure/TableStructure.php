@@ -23,7 +23,7 @@ namespace Papaya\Database\Schema\Structure {
   /**
    * @property string $name
    * @property FieldsStructure $fields
-   * @property KeysStructure $keys
+   * @property IndizesStructure $indizes
    */
   class TableStructure implements Declared {
 
@@ -42,9 +42,9 @@ namespace Papaya\Database\Schema\Structure {
     private $_fields;
 
     /**
-     * @var KeysStructure
+     * @var IndizesStructure
      */
-    private $_keys;
+    private $_indizes;
 
     /**
      * @param string $name
@@ -57,7 +57,7 @@ namespace Papaya\Database\Schema\Structure {
       $this->_tableName = $name;
       $this->_usePrefix = (bool)$usePrefix;
       $this->_fields = new FieldsStructure();
-      $this->_keys = new KeysStructure();
+      $this->_indizes = new IndizesStructure();
     }
 
     public static function createFromXML(\DOMNode $node) {
@@ -78,10 +78,10 @@ namespace Papaya\Database\Schema\Structure {
         if ($index > 0) {
           throw new \UnexpectedValueException('Table has more then one primary key.');
         }
-        $table->keys[] = KeyStructure::createFromXML($fieldNode);
+        $table->indizes[] = IndexStructure::createFromXML($fieldNode);
       }
       foreach ($xpath->evaluate('//table/keys/key', $node) as $index => $fieldNode) {
-        $table->keys[] = KeyStructure::createFromXML($fieldNode);
+        $table->indizes[] = IndexStructure::createFromXML($fieldNode);
       }
       return $table;
     }
@@ -95,7 +95,7 @@ namespace Papaya\Database\Schema\Structure {
         'table',
         [ 'name' => $this->_tableName],
         $this->_fields,
-        $this->_keys
+        $this->_indizes
       );
       if ($this->_usePrefix) {
         $node->setAttribute('prefix','yes');
@@ -111,7 +111,7 @@ namespace Papaya\Database\Schema\Structure {
         'name' => ['_tableName'],
         'usePrefix' => ['_usePrefix'],
         'fields' => ['_fields'],
-        'keys' => ['_keys']
+        'indizes' => ['_indizes']
       ];
     }
   }

@@ -21,29 +21,27 @@ namespace Papaya\Database\Schema\Structure {
   /**
    * @property string $name
    */
-  class KeyFieldsStructure extends Collection implements Appendable {
+  class IndizesStructure extends Collection implements Appendable {
 
     public function __construct() {
-      parent::__construct(KeyFieldStructure::class, self::MODE_ASSOCIATIVE);
+      parent::__construct(IndexStructure::class, self::MODE_ASSOCIATIVE);
     }
 
-    /**
-     * @param \Papaya\XML\Element $parent
-     */
     public function appendTo(Element $parent) {
-      if (count($this) > 0) {
-        $parent->append(...iterator_to_array($this, FALSE));
-      }
+      $parent->appendElement('keys', ...iterator_to_array($this, FALSE));
     }
 
     /**
      * @param string $name
-     * @param null|KeyStructure $value
+     * @param null|IndexStructure $value
      * @return string
      */
     protected function prepareKey($name, $value = NULL) {
       if (isset($value) && $name === NULL) {
         $name = $value->name;
+      }
+      if (strtoupper($name) === IndexStructure::PRIMARY) {
+        return IndexStructure::PRIMARY;
       }
       return strtolower($name);
     }

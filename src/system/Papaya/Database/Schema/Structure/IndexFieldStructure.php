@@ -23,7 +23,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property string $name
    * @property int $size
    */
-  class KeyFieldStructure implements Declared, Appendable {
+  class IndexFieldStructure implements Declared, Appendable {
 
     use DeclaredProperties;
 
@@ -65,7 +65,7 @@ namespace Papaya\Database\Schema\Structure {
         'field', $this->_name
       );
       if ($this->_size > 0) {
-        $node->setAttribute('default', (string)$this->_size);
+        $node->setAttribute('size', (string)$this->_size);
       }
     }
 

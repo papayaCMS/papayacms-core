@@ -26,9 +26,9 @@ namespace Papaya\Database\Schema\Structure {
   class FieldStructureTest extends TestCase {
 
     public function testCreateStringField() {
-      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42);
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42);
       $this->assertSame('test_field', $field->name);
-      $this->assertSame(FieldStructure::TYPE_STRING, $field->type);
+      $this->assertSame(FieldStructure::TYPE_TEXT, $field->type);
       $this->assertSame(42, $field->size);
     }
 
@@ -61,7 +61,7 @@ namespace Papaya\Database\Schema\Structure {
     public function testCreateWithEmptyFieldNameExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
       $this->expectExceptionMessage('Field name can not be empty.');
-      new FieldStructure('', FieldStructure::TYPE_STRING, 1);
+      new FieldStructure('', FieldStructure::TYPE_TEXT, 1);
     }
 
     public function testCreateWithInvalidFieldTypeExpectingException() {
@@ -73,7 +73,7 @@ namespace Papaya\Database\Schema\Structure {
     public function testCreateWithAutoIncrementTextFieldExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
       $this->expectExceptionMessage('Only integer fields can be auto increment.');
-      new FieldStructure('foo', FieldStructure::TYPE_STRING, 1, TRUE);
+      new FieldStructure('foo', FieldStructure::TYPE_TEXT, 1, TRUE);
     }
 
     public function testCreateWithAutoIncrementAndAllowsNullExpectingException() {
@@ -93,7 +93,7 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendTo() {
-      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42);
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42);
       $document = new Document();
       $document->appendElement('fields', $field);
       $this->assertXmlStringEqualsXmlString(
@@ -117,7 +117,7 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithFieldAllowingNull() {
-      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42, FALSE, TRUE);
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42, FALSE, TRUE);
       $document = new Document();
       $document->appendElement('fields', $field);
       $this->assertXmlStringEqualsXmlString(
@@ -129,7 +129,7 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithDefaultValue() {
-      $field = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42, FALSe, FALSe, 'test');
+      $field = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42, FALSe, FALSe, 'test');
       $document = new Document();
       $document->appendElement('fields', $field);
       $this->assertXmlStringEqualsXmlString(
@@ -151,7 +151,7 @@ namespace Papaya\Database\Schema\Structure {
           '<field name="foo" type="float" size="21"/>'
         ],
         'text field' => [
-          new FieldStructure('foo', FieldStructure::TYPE_STRING, 42),
+          new FieldStructure('foo', FieldStructure::TYPE_TEXT, 42),
           '<field name="foo" type="text" size="42"/>'
         ],
         'auto increment field' => [
@@ -171,7 +171,7 @@ namespace Papaya\Database\Schema\Structure {
           '<field name="foo" type="int" size="4" null="yes"/>'
         ],
         'text field with default' => [
-          new FieldStructure('foo', FieldStructure::TYPE_STRING, 42, FALSE, FALSE, 'hello'),
+          new FieldStructure('foo', FieldStructure::TYPE_TEXT, 42, FALSE, FALSE, 'hello'),
           '<field name="foo" type="text" size="42" default="hello"/>'
         ],
         'integer field with to large size' => [

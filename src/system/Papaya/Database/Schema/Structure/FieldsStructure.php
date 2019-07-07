@@ -36,7 +36,7 @@ namespace Papaya\Database\Schema\Structure {
 
     /**
      * @param string $name
-     * @param null|KeyStructure $value
+     * @param null|IndexStructure $value
      * @return string
      */
     protected function prepareKey($name, $value = NULL) {

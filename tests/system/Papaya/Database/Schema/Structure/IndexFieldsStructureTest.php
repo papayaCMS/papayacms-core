@@ -21,19 +21,19 @@ namespace Papaya\Database\Schema\Structure {
   require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Database\Schema\Structure\KeyFieldsStructure
+   * @covers \Papaya\Database\Schema\Structure\IndexFieldsStructure
    */
-  class KeyFieldsStructureTest extends TestCase {
+  class IndexFieldsStructureTest extends TestCase {
 
     public function testAddValidKey() {
-      $keyFields = new KeyFieldsStructure();
-      $keyFields[] = new KeyFieldStructure('test_field');
+      $keyFields = new IndexFieldsStructure();
+      $keyFields[] = new IndexFieldStructure('test_field');
       $this->assertTrue(isset($keyFields['test_field']));
     }
 
     public function testAppendTo() {
-      $keyFields = new KeyFieldsStructure();
-      $keyFields[] = new KeyFieldStructure('one');
+      $keyFields = new IndexFieldsStructure();
+      $keyFields[] = new IndexFieldStructure('one');
       $document = new Document();
       $document->appendElement('key', $keyFields);
       $this->assertXmlStringEqualsXmlString(

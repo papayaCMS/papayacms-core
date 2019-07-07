@@ -21,48 +21,50 @@ namespace Papaya\Database\Schema\Structure {
   require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Database\Schema\Structure\KeyStructure
+   * @covers \Papaya\Database\Schema\Structure\IndexStructure
    */
-  class KeyStructureTest extends TestCase {
+  class IndexStructureTest extends TestCase {
 
     public function testCreateKey() {
-      $key = new KeyStructure('key_name');
-      $this->assertSame('key_name', $key->name);
+      $index = new IndexStructure('key_name');
+      $this->assertSame('key_name', $index->name);
+      $this->assertFalse($index->isPrimary());
     }
 
     public function testCreatePrimaryKey() {
-      $key = new KeyStructure(KeyStructure::PRIMARY);
-      $this->assertSame(KeyStructure::PRIMARY, $key->name);
+      $index = new IndexStructure(IndexStructure::PRIMARY);
+      $this->assertSame(IndexStructure::PRIMARY, $index->name);
+      $this->assertTrue($index->isPrimary());
     }
 
     public function testCreatePrimaryKeyWithOneField() {
-      $key = new KeyStructure(KeyStructure::PRIMARY);
-      $key->fields[] = new KeyFieldStructure('id_field');
-      $this->assertSame('id_field', $key->fields['id_field']->name);
+      $index = new IndexStructure(IndexStructure::PRIMARY);
+      $index->fields[] = new IndexFieldStructure('id_field');
+      $this->assertSame('id_field', $index->fields['id_field']->name);
     }
 
     public function testCreateKeyWithEmptyNameExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
       $this->expectExceptionMessage('Key name can not be empty.');
-      new KeyStructure('');
+      new IndexStructure('');
     }
     /**
-     * @param KeyStructure $expectedField
+     * @param IndexStructure $expectedField
      * @param $xml
      * @dataProvider provideXMLAndKeyFields
      */
     public function testCreateFromXML($expectedField, $xml) {
       $document = new Document();
       $document->loadXML($xml);
-      $field = KeyStructure::createFromXML($document->documentElement);
+      $field = IndexStructure::createFromXML($document->documentElement);
       $this->assertEquals($expectedField, $field);
     }
 
     public function testAppendTo() {
-      $key = new KeyStructure('test_key');
-      $key->fields[] = new KeyFieldStructure('test_field');
+      $index = new IndexStructure('test_key');
+      $index->fields[] = new IndexFieldStructure('test_field');
       $document = new Document();
-      $document->appendElement('keys', $key);
+      $document->appendElement('keys', $index);
       $this->assertXmlStringEqualsXmlString(
         '<keys>
             <key name="test_key">
@@ -74,10 +76,10 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithPrimaryKey() {
-      $key = new KeyStructure(KeyStructure::PRIMARY);
-      $key->fields[] = new KeyFieldStructure('id_field');
+      $index = new IndexStructure(IndexStructure::PRIMARY);
+      $index->fields[] = new IndexFieldStructure('id_field');
       $document = new Document();
-      $document->appendElement('keys', $key);
+      $document->appendElement('keys', $index);
       $this->assertXmlStringEqualsXmlString(
         '<keys>
             <primary-key>
@@ -89,9 +91,9 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithUniqueKey() {
-      $key = new KeyStructure('foo', TRUE);
+      $index = new IndexStructure('foo', TRUE);
       $document = new Document();
-      $document->appendElement('keys', $key);
+      $document->appendElement('keys', $index);
       $this->assertXmlStringEqualsXmlString(
         '<keys>
             <key name="foo" unique="yes"/>
@@ -101,9 +103,9 @@ namespace Papaya\Database\Schema\Structure {
     }
 
     public function testAppendToWithFullTextKey() {
-      $key = new KeyStructure('foo', FALSE, TRUE);
+      $index = new IndexStructure('foo', FALSE, TRUE);
       $document = new Document();
-      $document->appendElement('keys', $key);
+      $document->appendElement('keys', $index);
       $this->assertXmlStringEqualsXmlString(
         '<keys>
             <key name="foo" fulltext="yes"/>
@@ -115,16 +117,16 @@ namespace Papaya\Database\Schema\Structure {
     public static function provideXMLAndKeyFields() {
       return [
         'primary key' => [
-          new KeyStructure(KeyStructure::PRIMARY),
+          new IndexStructure(IndexStructure::PRIMARY),
           '<primary-key/>'
         ],
         'named key' => [
-          new KeyStructure('foo'),
+          new IndexStructure('foo'),
           '<key name="foo"/>'
         ],
         'primary key with field' => [
           self::createKeyWithFields(
-            KeyStructure::PRIMARY, [new KeyFieldStructure('id_field')]
+            IndexStructure::PRIMARY, [new IndexFieldStructure('id_field')]
           ),
           '<primary-key><field>id_field</field></primary-key>'
         ]
@@ -133,15 +135,15 @@ namespace Papaya\Database\Schema\Structure {
 
     /**
      * @param string $name
-     * @param KeyFieldStructure[] $fields
-     * @return KeyStructure
+     * @param IndexFieldStructure[] $fields
+     * @return IndexStructure
      */
     private static function createKeyWithFields($name, array $fields) {
-      $key = new KeyStructure(KeyStructure::PRIMARY);
+      $index = new IndexStructure(IndexStructure::PRIMARY);
       foreach ($fields as $field) {
-        $key->fields[] = $field;
+        $index->fields[] = $field;
       }
-      return $key;
+      return $index;
     }
   }
 }

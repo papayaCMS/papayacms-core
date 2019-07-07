@@ -32,7 +32,7 @@ namespace Papaya\Database\Schema\Structure {
 
     use DeclaredProperties;
 
-    const TYPE_STRING = 'text';
+    const TYPE_TEXT = 'text';
     const TYPE_INTEGER = 'integer';
     const TYPE_DECIMAL = 'decimal';
 
@@ -42,7 +42,7 @@ namespace Papaya\Database\Schema\Structure {
      * @var array[]
      */
     private static $_TYPES = [
-      self::TYPE_STRING => [-1, 10000],
+      self::TYPE_TEXT => [-1, 10000],
       self::TYPE_INTEGER => [8, 4],
       self::TYPE_DECIMAL => TRUE
     ];
@@ -51,7 +51,7 @@ namespace Papaya\Database\Schema\Structure {
      * @var array
      */
     private static $_TYPE_ALIASES = [
-      'string' => self::TYPE_STRING,
+      'string' => self::TYPE_TEXT,
       'int' => self::TYPE_INTEGER,
       'float' => self::TYPE_DECIMAL
     ];

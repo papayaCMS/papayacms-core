@@ -9,11 +9,11 @@ namespace Papaya\Database\Schema\Structure {
 
   /**
    * @property string $name
-   * @property KeyFieldsStructure $fields
+   * @property IndexFieldsStructure $fields
    * @property bool $isUnique
    * @property bool $isFullText
    */
-  class KeyStructure implements Declared, Appendable {
+  class IndexStructure implements Declared, Appendable {
 
     const PRIMARY = 'PRIMARY';
 
@@ -24,7 +24,7 @@ namespace Papaya\Database\Schema\Structure {
      */
     private $_name;
     /**
-     * @var KeyFieldsStructure
+     * @var IndexFieldsStructure
      */
     private $_fields;
     /**
@@ -43,7 +43,14 @@ namespace Papaya\Database\Schema\Structure {
       $this->_name = $name;
       $this->_isUnique = $isUnique && !$isFullText;
       $this->_isFullText = (bool)$isFullText;
-      $this->_fields = new KeyFieldsStructure();
+      $this->_fields = new IndexFieldsStructure();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrimary() {
+      return $this->_name === self::PRIMARY;
     }
 
     public static function createFromXML(\DOMElement $node) {
@@ -54,7 +61,7 @@ namespace Papaya\Database\Schema\Structure {
         $node->getAttribute('fulltext') === 'yes'
       );
       foreach ($xpath->evaluate('field', $node) as $fieldNode) {
-        $key->fields[] = KeyFieldStructure::createFromXML($fieldNode);
+        $key->fields[] = IndexFieldStructure::createFromXML($fieldNode);
       }
       return $key;
     }

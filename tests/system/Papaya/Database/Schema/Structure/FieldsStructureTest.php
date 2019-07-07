@@ -27,13 +27,13 @@ namespace Papaya\Database\Schema\Structure {
 
     public function testAddValidField() {
       $fields = new FieldsStructure();
-      $fields[] = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42);
+      $fields[] = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42);
       $this->assertTrue(isset($fields['test_field']));
     }
 
     public function testAppendTo() {
       $fields = new FieldsStructure();
-      $fields[] = new FieldStructure('test_field', FieldStructure::TYPE_STRING, 42);
+      $fields[] = new FieldStructure('test_field', FieldStructure::TYPE_TEXT, 42);
       $document = new Document();
       $document->appendElement('table', $fields);
       $this->assertXmlStringEqualsXmlString(

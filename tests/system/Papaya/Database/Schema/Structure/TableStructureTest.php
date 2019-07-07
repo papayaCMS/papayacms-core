@@ -46,7 +46,7 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertSame('test_table', $structure->name);
       $this->assertTrue($structure->usePrefix);
       $this->assertCount(2, $structure->fields);
-      $this->assertCount(2, $structure->keys);
+      $this->assertCount(2, $structure->indizes);
     }
 
     public function testGetXMLCreatesLoadedXML() {

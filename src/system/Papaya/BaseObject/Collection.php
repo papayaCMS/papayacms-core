@@ -157,6 +157,15 @@ class Collection
   }
 
   /**
+   * Iterator interface: return current key
+   *
+   * @return string[]|int[]
+   */
+  public function keys() {
+    return array_keys($this->_items);
+  }
+
+  /**
    * Iterator interface: move internal pointer to next item
    */
   public function next() {
@@ -168,6 +177,20 @@ class Collection
    */
   public function rewind() {
     \reset($this->_items);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function first() {
+    return \reset($this->_items);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function last() {
+    return \end($this->_items);
   }
 
   /**
