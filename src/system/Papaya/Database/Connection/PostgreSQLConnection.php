@@ -27,8 +27,6 @@ namespace Papaya\Database\Connection {
   use Papaya\Utility\Bitwise;
 
   /**
-   * DB-abstraction layer - connection object PostgreSQL
-   *
    * @package Papaya-Library
    * @subpackage Database
    */
@@ -49,9 +47,6 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Check that the pgsql extension is available
-     *
-     * @access public
      * @throws ConnectionFailed
      * @return boolean
      */
@@ -65,10 +60,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Establish connection to database
-     *
-     * @access public
-     * @return DatabaseConnection
+     * @return self
      * @throws Exception
      * @throws ConnectionFailed
      */
@@ -111,8 +103,8 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * @param $code
-     * @param $message
+     * @param int $code
+     * @param string $message
      * @throws ConnectionFailed
      */
     private function handleConnectionError($code, $message) {
@@ -121,11 +113,6 @@ namespace Papaya\Database\Connection {
       );
     }
 
-    /**
-     * close connection
-     *
-     * @access public
-     */
     public function disconnect() {
       if (
         isset($this->_postgresql) &&
@@ -138,7 +125,7 @@ namespace Papaya\Database\Connection {
     /**
      * @param DatabaseStatement|string $statement
      * @param int $options
-     * @return PostgreSQLResult|int|\Papaya\Database\Result
+     * @return PostgreSQLResult|int
      * @throws ConnectionFailed
      * @throws QueryFailed
      */
@@ -226,10 +213,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * String ecsaping for PostgreSQL use
-     *
      * @param mixed $value Value to escape
-     * @access public
      * @return string escaped value.
      */
     public function escapeString($value) {
@@ -255,11 +239,8 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Insert records
-     *
      * @param string $table
      * @param array $values
-     * @access public
      * @return boolean
      * @throws QueryFailed
      */
@@ -315,10 +296,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Update autoincrement fields
-     *
      * @param string $table
-     * @access public
      * @throws QueryFailed
      */
     private function updateAutoIncrementFields($table) {

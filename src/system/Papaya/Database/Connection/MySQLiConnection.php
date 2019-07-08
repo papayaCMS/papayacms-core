@@ -15,8 +15,6 @@
 
 namespace Papaya\Database\Connection {
 
-  use mysqli_result;
-  use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Exception as DatabaseException;
   use Papaya\Database\Exception\ConnectionFailed;
   use Papaya\Database\Exception\QueryFailed;
@@ -29,15 +27,13 @@ namespace Papaya\Database\Connection {
   use Papaya\Utility\Bitwise;
 
   /**
-   * DB-abstraction layer - connection object MySQL Improved
-   *
    * @package Papaya-Library
    * @subpackage Database
    */
   class MySQLiConnection extends AbstractConnection {
 
     /**
-     * @var \mysqli $_mysqli Connection-ID
+     * @var \mysqli $_mysqli
      */
     private $_mysqli;
 
@@ -50,9 +46,6 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Check that the mysqli extension is available
-     *
-     * @access public
      * @throws ConnectionFailed
      * @return boolean
      */
@@ -66,10 +59,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Establish connection to database
-     *
-     * @access public
-     * @return DatabaseConnection
+     * @return self
      * @throws ConnectionFailed
      * @throws QueryFailed
      */
@@ -112,11 +102,6 @@ namespace Papaya\Database\Connection {
       throw new ConnectionFailed(mysqli_connect_error(), mysqli_connect_errno());
     }
 
-    /**
-     * close connection
-     *
-     * @access public
-     */
     public function disconnect() {
       if (
         isset($this->_mysqli) &&
@@ -152,7 +137,7 @@ namespace Papaya\Database\Connection {
         $calculateFoundRows = FALSE;
       }
       $dbmsResult = $this->process($statement);
-      if ($dbmsResult instanceof mysqli_result) {
+      if ($dbmsResult instanceof \mysqli_result) {
         $result = new MySQLiResult($this, $statement, $dbmsResult);
         if (!Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
           $this->buffer($result);
@@ -169,6 +154,10 @@ namespace Papaya\Database\Connection {
       return $dbmsResult;
     }
 
+    /**
+     * @param DatabaseStatement $statement
+     * @return SQLStatement|null
+     */
     private function rewriteStatementToCalculateFoundRows(
       DatabaseStatement $statement
     ) {
@@ -197,7 +186,7 @@ namespace Papaya\Database\Connection {
       }
       if (empty($parameters)) {
         if ($dbmsResult = @$this->_mysqli->query($sql)) {
-          if ($dbmsResult instanceof mysqli_result) {
+          if ($dbmsResult instanceof \mysqli_result) {
             return $dbmsResult;
           }
           if ($dbmsResult) {
@@ -220,7 +209,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * If a query fails, trow an database exception
+     * If a query fails, create an database exception
      *
      * @param DatabaseStatement $sql
      * @return QueryFailed
@@ -247,11 +236,8 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * String escaping for MySQL use
-     *
-     * @param mixed $value Value to escape
-     * @access public
-     * @return string escaped value.
+     * @param mixed $value
+     * @return string
      */
     public function escapeString($value) {
       $value = parent::escapeString($value);
@@ -268,8 +254,6 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Fetch the last inserted id
-     *
      * @param string $table
      * @param string $idField
      * @return string|int|null

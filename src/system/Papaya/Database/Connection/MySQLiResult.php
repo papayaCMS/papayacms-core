@@ -5,10 +5,9 @@ namespace Papaya\Database\Connection {
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\SQLStatement;
   use Papaya\Database\Statement as DatabaseStatement;
+  use Papaya\Message\Context as MessageContext;
 
   /**
-   * database result for mysqli
-   *
    * @package Papaya-Library
    * @subpackage Database
    */
@@ -26,13 +25,6 @@ namespace Papaya\Database\Connection {
       $this->_mysqli = $dbmsResult;
     }
 
-    /**
-     * destructor
-     *
-     * Free memory, unset self and resultID
-     *
-     * @access public
-     */
     public function free() {
       if ($this->_mysqli instanceof \mysqli_result) {
         $this->_mysqli->free();
@@ -48,11 +40,8 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Fetch next row of result
-     *
-     * @param integer $mode line return modus
-     * @access public
-     * @return mixed FALSE or next line
+     * @param integer $mode
+     * @return array|NULL
      */
     public function fetchRow($mode = self::FETCH_ORDERED) {
       if ($this->isValid()) {
@@ -68,30 +57,24 @@ namespace Papaya\Database\Connection {
         }
         return $result;
       }
-      return FALSE;
+      return NULL;
     }
 
     /**
-     * Number rows affected by query
-     *
-     * @access public
-     * @return mixed number of rows or FALSE
+     * @return int
      */
     public function count() {
       if ($this->isValid()) {
         return $this->_mysqli->num_rows;
       }
-      return FALSE;
+      return 0;
     }
 
     /**
-     * Search index
-     *
      * Move record pointer to given index
      * next call of mysqli->fetch_row() returns wanted value
      *
-     * @param integer $index
-     * @access public
+     * @param int $index
      * @return boolean
      */
     public function seek($index) {
@@ -105,8 +88,7 @@ namespace Papaya\Database\Connection {
     /**
      * Compile database explain for SELECT query
      *
-     * @access public
-     * @return NULL|\Papaya\Message\Context\Data
+     * @return NULL|MessageContext\Data
      */
     public function getExplain() {
       $statement = $this->getStatement();
@@ -118,7 +100,7 @@ namespace Papaya\Database\Connection {
         $explainQuery, DatabaseConnection::DISABLE_RESULT_CLEANUP
       );
       if ($dbmsResult && count($dbmsResult) > 0) {
-        $explain = new \Papaya\Message\Context\Table('Explain');
+        $explain = new MessageContext\Table('Explain');
         $explain->setColumns(
           [
             'id' => 'Id',

@@ -1,15 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 namespace Papaya\Database\Connection {
 
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\SQLStatement;
   use Papaya\Database\Statement as DatabaseStatement;
-  use Papaya\Message\Context;
+  use Papaya\Message\Context as MessageContext;
 
   /**
-   * DB-Abstractionslayer - result object PostgreSQL
-   *
    * @package Papaya-Library
    * @subpackage Database
    */
@@ -27,17 +38,13 @@ namespace Papaya\Database\Connection {
       $this->_postgreSQL = $dbmsResult;
     }
 
+    /**
+     * @return bool
+     */
     public function isValid() {
       return isset($this->_postgreSQL) && is_resource($this->_postgreSQL);
     }
 
-    /**
-     * destructor
-     *
-     * Free memory, unset self and resultID
-     *
-     * @access public
-     */
     public function free() {
       if ($this->isValid()) {
         pg_free_result($this->_postgreSQL);
@@ -48,9 +55,8 @@ namespace Papaya\Database\Connection {
     /**
      * Fetch next row of result
      *
-     * @param integer $mode line return modus
-     * @access public
-     * @return mixed FALSE or next line
+     * @param integer $mode
+     * @return array|NULL
      */
     public function fetchRow($mode = self::FETCH_ORDERED) {
       if ($this->isValid()) {
@@ -66,30 +72,24 @@ namespace Papaya\Database\Connection {
         }
         return $result;
       }
-      return FALSE;
+      return NULL;
     }
 
     /**
-     * Number rows affected by query
-     *
-     * @access public
-     * @return mixed number of rows or FALSE
+     * @return int
      */
     public function count() {
       if ($this->isValid()) {
         return pg_num_rows($this->_postgreSQL);
       }
-      return FALSE;
+      return 0;
     }
 
     /**
-     * Search index
-     *
      * Move record pointer to given index
      * next call of pg_fetch_row() returns wanted value
      *
-     * @param $index
-     * @access public
+     * @param int $index
      * @return boolean
      */
     public function seek($index) {
@@ -103,7 +103,7 @@ namespace Papaya\Database\Connection {
     /**
      * Compile database explain for SELECT query
      *
-     * @return NULL|\Papaya\Message\Context\Data
+     * @return NULL|MessageContext\Data
      */
     public function getExplain() {
       $statement = $this->getStatement();
@@ -120,7 +120,7 @@ namespace Papaya\Database\Connection {
           $explain[] = $row[0];
         }
         if (!empty($explain)) {
-          return new Context\Items('Explain', $explain);
+          return new MessageContext\Items('Explain', $explain);
         }
       }
       return NULL;

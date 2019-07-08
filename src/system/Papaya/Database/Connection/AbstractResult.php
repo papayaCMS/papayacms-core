@@ -54,21 +54,15 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * data record as array
-     *
-     * @access public
-     * @return array data record
+     * @return array|NULL
      */
     public function fetchAssoc() {
       return $this->fetchRow(self::FETCH_ASSOC);
     }
 
     /**
-     * fetch data from field
-     *
      * @param mixed $fieldIndex Index/Name of field
-     * @access public
-     * @return string
+     * @return string|number|bool|NULL
      */
     public function fetchField($fieldIndex = 0) {
       if (is_int($fieldIndex)) {
@@ -83,20 +77,14 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-    * Move database record pointer to first record
-    *
-    * @access public
-    * @return boolean success ?
+    * @return boolean
     */
     public function seekFirst() {
       return $this->seek(0);
     }
 
     /**
-    * Move record pointer to last record
-    *
-    * @access public
-    * @return boolean success ?
+    * @return boolean
     */
     public function seekLast() {
       if (FALSE !== ($count = $this->count())) {
@@ -115,8 +103,7 @@ namespace Papaya\Database\Connection {
     /**
      * Acquire absolute number of database records
      *
-     * @return integer|FALSE
-     * @access public
+     * @return integer|NULL
      */
     public function absCount() {
       if ($this->_absoluteCount === -1) {
@@ -129,7 +116,7 @@ namespace Papaya\Database\Connection {
     /**
      * Rewrite query to get record count of a limited query and execute it.
      *
-     * @return integer | FALSE record count or failure
+     * @return integer|NULL record count or failure
      */
     private function queryRecordCount() {
       if (
@@ -141,7 +128,7 @@ namespace Papaya\Database\Connection {
         $dbmsResult->free();
         return $result;
       }
-      return FALSE;
+      return NULL;
     }
   }
 }

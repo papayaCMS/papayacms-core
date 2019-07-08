@@ -31,8 +31,6 @@ use SQLite3 as SQLite3Extension;
 use SQLite3Result as SQLiteExtensionResult;
 
 /**
- * DB-abstraction layer - SQLite
- *
  * @package Papaya-Library
  * @subpackage Database
  */
@@ -50,8 +48,6 @@ class SQLite3Connection extends AbstractConnection {
   }
 
   /**
-   * Check for sqlite database extension found
-   *
    * @return boolean
    * @throws ConnectionFailed
    */
@@ -65,8 +61,6 @@ class SQLite3Connection extends AbstractConnection {
   }
 
   /**
-   * Establish connection to database
-   *
    * @return self
    * @throws ConnectionFailed
    */
